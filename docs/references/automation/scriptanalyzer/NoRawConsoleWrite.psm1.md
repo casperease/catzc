@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-PWSH-ANNOUNCE#1
       - ADR-PWSH-FORMAT#6
-    links: []
 ---
 
 # automation/.scriptanalyzer/NoRawConsoleWrite.psm1

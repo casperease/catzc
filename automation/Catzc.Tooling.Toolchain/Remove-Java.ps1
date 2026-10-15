@@ -9,25 +9,26 @@ catzc:
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6
+  config:
+    synopsis: Removes a manually installed Java JDK and cleans up system PATH.
+    description: |-
+      Deletes the JDK installation folder and removes it (and its bin
+      subdirectory) from the system-level PATH. Requires Administrator.
+      Auto-detects the install directory from Get-Command if not specified.
+
+      This is for JDK installations (Oracle, AdoptOpenJDK, etc.) that
+      are not managed by winget/brew/apt. If Java is managed by the
+      tooling system, use Uninstall-Java instead.
+    parameters:
+      InstallDir: Path to the JDK installation folder. Auto-detected from PATH if omitted.
+      Force: Actually perform the removal. Without this, shows what would be removed.
+    examples:
+      - Remove-Java
+      - Remove-Java -Force
+      - Remove-Java -InstallDir 'C:\Program Files\Java\jdk-17' -Force
 ---
 #>
 
-<#
-.SYNOPSIS
-    Removes a manually installed Java JDK and cleans up system PATH.
-.DESCRIPTION
-    For JDKs that winget, brew and apt do not manage; a managed Java goes through Uninstall-Java instead.
-.PARAMETER InstallDir
-    Path to the JDK installation folder. Auto-detected from PATH if omitted.
-.PARAMETER Force
-    Actually perform the removal. Without this, shows what would be removed.
-.EXAMPLE
-    Remove-Java
-.EXAMPLE
-    Remove-Java -Force
-.EXAMPLE
-    Remove-Java -InstallDir 'C:\Program Files\Java\jdk-17' -Force
-#>
 function Remove-Java {
     [CmdletBinding()]
     param(
@@ -37,14 +38,14 @@ function Remove-Java {
 
     $config = Get-ToolConfig -Tool 'java'
 
-    # Removal never touches a managed install: only Uninstall-Java deletes what the tooling owns.
-    # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment2)
+    # Gate: managed by our tooling system → refuse, redirect to Uninstall-Java.
+    # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment4)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Java is managed by the tooling system. Use Uninstall-Java instead.'
     }
 
-    # Elevation is scoped to the placing mechanism, so unlike the Windows folder delete there is no admin assert here.
-    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment3)
+    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
+    # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment5)
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Java (native package / uv-Python pip / stray binary). Run with -Force to execute.'

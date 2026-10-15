@@ -6,7 +6,6 @@ catzc:
     body_sha: f757a2fcc06e
     adrs:
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # automation/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
@@ -28,6 +27,15 @@ a switch of run mode — is a new key, so the answer never outlives the roots it
 ## comment:2
 
 Above `if ($ExecutionContext.SessionState.PSVariable.GetValue('script:configOverlayA...`.
+
+```text
+strict-clean probe of the lazy cache entry
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:3
+
+Above `if...`.
 
 ```text
 strict-clean probe of the lazy cache entry

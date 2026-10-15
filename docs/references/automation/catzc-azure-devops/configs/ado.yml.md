@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/configs/ado.yml.md
     kind: comment-page
     body_sha: b8843ba8a09d
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/configs/ado.yml

@@ -6,28 +6,34 @@ catzc:
     kind: public-function
     module: Catzc.Base.Objects
     visibility: public
-    adrs: []
+  config:
+    synopsis: |-
+      Converts a typed object, PSCustomObject, or dictionary into a nested, mutable structure of ordered
+      dictionaries (default) or PSCustomObjects (-AsPSObject).
+    description: |-
+      The escape hatch from the native data-model classes back to a dictionary surface. It walks public
+      properties via PSObject.Properties — the same channel that exposes a C# class's get-only properties and
+      a PSCustomObject's note-properties — recursing through nested objects and arrays; scalars pass through.
+      The result is a fresh, mutable copy, so the source object is unchanged.
+
+      Use it at the seam where a frozen typed object must be spliced into a tree you are about to mutate, or
+      serialized (e.g. into a per-slot ParametersFile, or to YAML/JSON). Read-only navigation needs no
+      conversion — read the typed object's properties directly.
+
+      Keys are the object's property names (snake_case for the config-mirroring data-model types, so a
+      round-trip back to YAML stays byte-compatible with the original config).
+    parameters:
+      InputObject: The object to convert.
+      AsPSObject: Emit nested [PSCustomObject] instead of [ordered] dictionaries.
+      MaxDepth: Maximum recursion depth (default 10).
+    examples:
+      - |-
+        $env = Get-AzureEnvironment dev -Subscription shared_nonprod | ConvertTo-Dictionary
+        $env.subscription.customer = 'override'   # the dict is mutable; the typed object was not
+      - Get-BicepTemplate sample | ConvertTo-Dictionary -AsPSObject
 ---
 #>
 
-<#
-.SYNOPSIS
-    Converts a typed object, PSCustomObject, or dictionary into a nested, mutable structure of ordered
-    dictionaries (default) or PSCustomObjects (-AsPSObject).
-.DESCRIPTION
-    The result is a fresh mutable copy, so a frozen typed object can be changed without touching its source.
-.PARAMETER InputObject
-    The object to convert.
-.PARAMETER AsPSObject
-    Emit nested [PSCustomObject] instead of [ordered] dictionaries.
-.PARAMETER MaxDepth
-    Maximum recursion depth (default 10).
-.EXAMPLE
-    $env = Get-AzureEnvironment dev -Subscription shared_nonprod | ConvertTo-Dictionary
-    $env.subscription.customer = 'override'   # the dict is mutable; the typed object was not
-.EXAMPLE
-    Get-BicepTemplate sample | ConvertTo-Dictionary -AsPSObject
-#>
 function ConvertTo-Dictionary {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
@@ -59,8 +65,8 @@ function ConvertTo-Dictionary {
     }
 
     process {
-        # The dictionary is ConvertTo-YamlSafe's own output; only the PSCustomObject shape is added here.
-        # [comment:2](/docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md#comment2)
+        # ConvertTo-YamlSafe is the shared recursive reflector — it already turns any object (typed class,...
+        # [comment:3](/docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md#comment3)
         $dict = ConvertTo-YamlSafe -Value $InputObject -MaxDepth $MaxDepth
         if ($AsPSObject) {
             ConvertTo-PSObjectTree $dict

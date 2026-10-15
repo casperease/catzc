@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-writers/Write-Header.ps1.md
     kind: comment-page
     body_sha: bcb7b12de183
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Writers/Write-Header.ps1

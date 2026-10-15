@@ -6,7 +6,6 @@ catzc:
     body_sha: "75dc9b80a690"
     adrs:
       - ADR-REPO-LINK#5
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-AdrRuleSummaryLines.ps1

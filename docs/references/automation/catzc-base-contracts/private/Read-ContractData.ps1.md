@@ -6,7 +6,6 @@ catzc:
     body_sha: "73fa88557342"
     adrs:
       - ADR-REPO-CONTRACT#6
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/private/Read-ContractData.ps1
@@ -28,6 +27,15 @@ which a contract check reports as its finding
 ```
 
 ## comment:2
+
+Above `$PSCmdlet.WriteObject($data, $false)`.
+
+```text
+WriteObject without enumeration hands a top-level array over whole; Write-Output -NoEnumerate would wrap the
+document in a list, since its input binds from the remaining arguments.
+```
+
+## comment:3
 
 Above `$PSCmdlet.WriteObject($data, $false)`.
 

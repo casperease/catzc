@@ -9,8 +9,8 @@ catzc:
 
 Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A fixture ADR tree: an index beside two ADR files it lists (paths relative to the index folder),
-        # plus a third ADR the index does NOT list — so we can assert only listed ADRs contribute.
+        # A fixture ADR tree: an index beside two ADR files it lists (paths relative to the index folder), plus a...
+        # [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-CatsAdrRuleIds.Tests.ps1.md#comment1)
         $script:adrRoot = Join-Path $TestDrive 'adr'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'principles')) | Out-Null
         [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'automation')) | Out-Null

@@ -6,22 +6,26 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.KeyHandler
     visibility: public
-    adrs: []
+  config:
+    synopsis: Captures the current session's PSReadLine key bindings to configs/key-handler-bindings.yml.
+    description: |-
+      The Windows-side capture step: serializes the active Set-PSReadLineKeyHandler bindings (key + function
+      only — the pair Import-PSReadLineKeyHandlerSet consumes) as YAML so they can be replayed on Linux. Run it
+      in a Windows session whose editing experience is the one to replicate, then commit the regenerated config.
+      Writes canonically (UTF-8, LF, one trailing newline) through Write-FileIfChanged, so re-capturing an
+      unchanged session is a no-op.
+    parameters:
+      Path: |-
+        Target file. Defaults to the catzc source tree's
+        automation/Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml — the authored config that
+        Import-PSReadLineKeyHandlerSet reads back once loaded. The default needs a session running the source tree
+        (Assert-SourceTree), so a capture is never written into a built package.
+    examples:
+      - Save-PSReadLineKeyHandlerSet
+      - Save-PSReadLineKeyHandlerSet -Path ./key-handler-bindings.yml
 ---
 #>
 
-<#
-.SYNOPSIS
-    Captures the current session's PSReadLine key bindings to configs/key-handler-bindings.yml.
-.DESCRIPTION
-    Writes canonically through Write-FileIfChanged, so re-capturing an unchanged session leaves the file untouched.
-.PARAMETER Path
-    The default needs the source tree session, so a capture is never written into a built package.
-.EXAMPLE
-    Save-PSReadLineKeyHandlerSet
-.EXAMPLE
-    Save-PSReadLineKeyHandlerSet -Path ./key-handler-bindings.yml
-#>
 function Save-PSReadLineKeyHandlerSet {
     [CmdletBinding()]
     param(

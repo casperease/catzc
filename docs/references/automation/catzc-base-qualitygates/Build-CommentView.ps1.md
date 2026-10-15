@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-OUTDIR#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Build-CommentView.ps1

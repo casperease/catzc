@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/Get-ToolVersion.ps1.md
     kind: comment-page
     body_sha: "8fb6b90a307e"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Get-ToolVersion.ps1

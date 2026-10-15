@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# The config-driven reconcile: one Register-AdoBuildValidation per build-validation.yml entry, with
-# overrides and -DryRun passed through.
+# The config-driven reconcile: one Register-AdoBuildValidation per build-validation.yml entry, with overrides and...
+# [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/tests/Sync-AdoBuildValidations.Tests.ps1.md#comment1)
 Describe 'Sync-AdoBuildValidations' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'build-validation' } -MockWith {

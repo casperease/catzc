@@ -8,25 +8,27 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-TEST#30
+  config:
+    synopsis: Loads a build cold in a fresh pwsh and returns what that build-mode session observed.
+    description: |-
+      Loaded assemblies and $env: are process-global, so a build is observed in its own child pwsh
+      ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)): the child dot-sources
+      <BuildRoot>/Import-Catzc.ps1 -RepositoryRoot <RepositoryRoot>, observes the session once, and writes the
+      observation to a JSON file — never stdout, so the importer's console lines cannot mix into it. The
+      observation names the two roots and the run mode; per loaded Catzc module its base folder, exported and
+      defined function names, and instance count; the internal modules' bases; the types assembly and an
+      accelerator; every shipped config read through Get-Config; a few calls into the modules; and whether Pester's
+      InModuleScope enters a built module. Test-BuildArtifact judges it.
+    parameters:
+      BuildRoot: The build root (Catzc/<version>/).
+      RepositoryRoot: The working root the child passes to Import-Catzc.ps1.
+      ScopeModule: A built module to enter with InModuleScope (the build ships Pester under the full vendor policy).
+    outputs: '[pscustomobject] { ExitCode; Output; Observed } — Observed is $null when the child wrote no observation.'
+    examples:
+      - Invoke-BuildArtifactProbe -BuildRoot $build.BuildRoot -RepositoryRoot (Get-RepositoryRoot) -ScopeModule Catzc.Base.Config
 ---
 #>
 
-<#
-.SYNOPSIS
-    Loads a build cold in a fresh pwsh and returns what that build-mode session observed.
-.DESCRIPTION
-    The child writes its observation to a JSON file, never stdout, so the importer's console lines cannot mix into it.
-.PARAMETER BuildRoot
-    The build root (Catzc/<version>/).
-.PARAMETER RepositoryRoot
-    The working root the child passes to Import-Catzc.ps1.
-.PARAMETER ScopeModule
-    A built module to enter with InModuleScope (the build ships Pester under the full vendor policy).
-.OUTPUTS
-    [pscustomobject] { ExitCode; Output; Observed } — Observed is $null when the child wrote no observation.
-.EXAMPLE
-    Invoke-BuildArtifactProbe -BuildRoot $build.BuildRoot -RepositoryRoot (Get-RepositoryRoot) -ScopeModule Catzc.Base.Config
-#>
 function Invoke-BuildArtifactProbe {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

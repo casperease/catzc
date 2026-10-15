@@ -8,21 +8,26 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-ENGINE
+  config:
+    synopsis: Returns the full path of an execution engine's executable on this machine.
+    description: |-
+      Locates the engine's executable the way its model says (ExecutionEngine.Locate,
+      [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)):
+
+        ps-home  pwsh, beside the PowerShell that is running ($PSHOME), so a started engine is the same PowerShell as
+                 the caller, never another pwsh that comes first on PATH;
+        tool     the POSIX engines, through their tools.yml entries and the existence check (Resolve-ToolExecutable): Git
+                 Bash and the zsh installed into its tree on Windows, the system shell elsewhere, never the WSL launcher.
+
+      Throws, naming the engine and the remedy, when the executable is missing or a tool-located one misses its pin.
+    parameters:
+      Engine: The engine's name (pwsh, bash or zsh).
+    outputs: '[string] The executable''s full path.'
+    examples:
+      - '& (Resolve-EngineExecutable -Engine pwsh) @((Get-ExecutionEngine -Name pwsh).StartArguments($entry, ''Get-RepositoryRoot''))'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the full path of an execution engine's executable on this machine.
-.DESCRIPTION
-    The pwsh engine is the running PowerShell's own, never another pwsh that comes first on PATH.
-.PARAMETER Engine
-    The engine's name (pwsh, bash or zsh).
-.OUTPUTS
-    [string] The executable's full path.
-.EXAMPLE
-    & (Resolve-EngineExecutable -Engine pwsh) @((Get-ExecutionEngine -Name pwsh).StartArguments($entry, 'Get-RepositoryRoot'))
-#>
 function Resolve-EngineExecutable {
     [CmdletBinding()]
     [OutputType([string])]

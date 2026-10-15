@@ -6,7 +6,6 @@ catzc:
     body_sha: d86464a35df3
     adrs:
       - ADR-AUTO-PRELOG#5
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
@@ -32,6 +31,16 @@ or above the minimum.
 ```
 
 ## comment:2
+
+Above `$result = Invoke-AzCli 'bicep version' -PassThru -NoAssert -Silent`.
+
+```text
+-Silent: a plumbing probe whose output we capture via -PassThru and parse below, so the
+"Bicep CLI version X" line should not echo to the console on every build. See log ADR rule
+[ADR-AUTO-PRELOG#5](/docs/adr/automation/log-before-invoke.md#rule-adr-auto-prelog5).
+```
+
+## comment:3
 
 Above `$result = Invoke-AzCli 'bicep version' -PassThru -NoAssert -Silent`.
 

@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-NOPWD#6
 ---
 #>
 
-# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
-# ScriptBlockAst. Its scope is decided by the file path, so each case writes a fixture file into $TestDrive under
-# a fake automation/ layout and parses it from there. The engine-wiring proof lives once, for all custom rules, in
-# CustomRuleWiring.Tests.ps1.
+# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a...
+# [comment:1](/docs/references/automation/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md#comment1)
 Describe 'Measure-NoEnvRepositoryRoot' -Tag 'L0', 'logic', 'ADR-AUTO-NOPWD#6' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoEnvRepositoryRoot.psm1') -Force

@@ -4,12 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
+      - ADR-CONF-LOADING#4
 ---
 #>
 
-# Get-AdrRuleSet over a fixture AdrsConfig (Get-Config mocked): the flattening and effective codes are AdrsConfig
-# construction rules (its type test), so this pins only the projection and the -Domain filter. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-AdrRuleSet over a fixture AdrsConfig (Get-Config mocked): the flattening and effective codes are AdrsConfig...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md#comment1)
 Describe 'Get-AdrRuleSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
@@ -47,8 +50,8 @@ Describe 'Get-AdrRuleSet' -Tag 'L0', 'logic' {
     }
 }
 
-# Integrity: adrs.yml and the ADR rule files agree, through the quality gate Test-AdrRegistry
-# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+# Integrity: adrs.yml and the ADR rule files agree, through the quality gate Test-AdrRegistry.
+# [comment:2](/docs/references/automation/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md#comment2)
 Describe 'Get-AdrRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING#4' {
     It 'Test-AdrRegistry reports no issue: one ADR file per rule set, headed by its external code, none unregistered' {
         (Test-AdrRegistry -PassThru -OutputFolder (Join-Path $TestDrive 'adr-registry')).IssueCount | Should -Be 0

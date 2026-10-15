@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-DSGN-RUNMODE#2
       - ADR-REPO-FOLDERS#4
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-CatsModules.ps1
@@ -42,6 +41,16 @@ root from which it loaded fixture modules.
 ```
 
 ## comment:3
+
+Above `$loaded = foreach ($module in (Get-Module)) {`.
+
+```text
+Called from inside a module, Get-Module also lists that module's own nested .ps1 function files (one per
+function in source mode, the merged <Module>.ps1 in build mode). A module is its folder (folder = module),
+so keep only the entry named for its folder whose root file is not a nested .ps1.
+```
+
+## comment:4
 
 Above `$loaded = foreach ($module in (Get-Module)) {`.
 

@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Azure.Firewall/types/RuleType.cs
     kind: csharp-type
     module: Catzc.Azure.Firewall
-    adrs: []
 ---
 */
 

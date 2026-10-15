@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-provisioning/Uninstall-Postman.ps1.md
     kind: comment-page
     body_sha: "4cb4bc43d12f"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/Uninstall-Postman.ps1

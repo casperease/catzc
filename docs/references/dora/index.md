@@ -4,7 +4,6 @@ catzc:
     path: docs/references/dora/index.md
     kind: reference
     body_sha: "3cfd89b51712"
-    adrs: []
     links:
       - docs/adr/research/index.md
       - docs/references/dora/ai.md

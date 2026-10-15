@@ -6,7 +6,6 @@ catzc:
     body_sha: "1cea31bce2bb"
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/MapPlacement.cs

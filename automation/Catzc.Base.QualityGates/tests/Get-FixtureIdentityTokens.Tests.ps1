@@ -4,14 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-FixtureIdentityTokens over a fixture automation tree in $TestDrive (Get-RepositoryRoot mocked): the fixture
-# azure.yml / customer.yml are constructed as their registered C# config types, so the YAML below is a valid instance
-# of each. L1: it reads files and constructs the registered types. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the disjointness from the live
-# identities is the quality gate Test-ConfigIdentityHygiene.
+# Get-FixtureIdentityTokens over a fixture automation tree in $TestDrive (Get-RepositoryRoot mocked): the fixture...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-FixtureIdentityTokens.Tests.ps1.md#comment1)
 Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:config = Join-Path $TestDrive 'repo/automation/Catzc.Widget/tests/assets/config'

@@ -12,7 +12,6 @@ catzc:
       - ADR-PIPE-TEMPLATE#5
       - ADR-PIPE-TEMPLATE#6
       - ADR-PIPE-TEMPLATE#7
-    adrs: []
     links:
       - docs/adr/flow/pipeline-runner-pattern.md
       - docs/adr/principles/everything-as-code.md

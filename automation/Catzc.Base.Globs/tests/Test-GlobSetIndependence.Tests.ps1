@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
+      - ADR-FLOW-CD-GLOBS#10
 ---
 #>
 
-# Test-GlobSetIndependence is a quality gate
-# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over per-layer independence
-# ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)). The registry, the derived
-# module sets and the tracked-file universe are mocked with neutral fixtures (widget/gadget,
-# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the report goes to $TestDrive.
+# Test-GlobSetIndependence is a quality gate over per-layer independence.
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md#comment1)
 Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {
     BeforeAll {
         # A globset fixture: Name, Layer, and SelectOwnMembers over the tracked files by path prefix.

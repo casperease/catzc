@@ -9,7 +9,6 @@ catzc:
       - ADR-REPO-HELP#2
       - ADR-REPO-HELP#3
       - ADR-REPO-HELP#4
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Format-FunctionHelpText.ps1

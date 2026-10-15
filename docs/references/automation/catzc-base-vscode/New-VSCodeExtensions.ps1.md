@@ -6,7 +6,6 @@ catzc:
     body_sha: b19448500c10
     adrs:
       - ADR-REPO-FORMAT#8
-    links: []
 ---
 
 # automation/Catzc.Base.VSCode/New-VSCodeExtensions.ps1

@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AUTO-TYPES#9
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepParameter.cs

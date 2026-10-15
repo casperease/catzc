@@ -6,7 +6,6 @@ catzc:
     body_sha: f600c9574fd7
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1

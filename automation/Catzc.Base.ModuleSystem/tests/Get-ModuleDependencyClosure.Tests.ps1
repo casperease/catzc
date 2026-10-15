@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# Get-ModuleDependencyClosure is private (breadth-first over the declared dependency map). Tested via InModuleScope with
-# the map mocked to a small fixture graph, so the breadth-first/closure logic is exercised independent of the real graph.
+# Get-ModuleDependencyClosure is private (breadth-first over the declared dependency map).
+# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleDependencyClosure.Tests.ps1.md#comment1)
 Describe 'Get-ModuleDependencyClosure' -Tag 'L0', 'logic' {
     BeforeAll {
         # A -> B, C ; B -> C ; C -> (none) ; D -> (none)

@@ -6,30 +6,31 @@ catzc:
     kind: public-function
     module: Catzc.Base.Environment
     visibility: public
-    adrs: []
+  config:
+    synopsis: Adds a directory to PATH persistently and in the current session.
+    description: |-
+      Cross-platform PATH persistence:
+      - Windows: writes to the User-scope registry PATH.
+      - Linux/macOS: appends a marked block to the PowerShell profile.
+      - Always: updates $env:PATH for the current session.
+
+      Idempotent — skips if the path is already present.
+    parameters:
+      Path: The directory to add. Must exist.
+      Prepend: Place the path at the beginning instead of the end.
+      Label: |-
+        Identity marker for Unix profile blocks. Defaults to the leaf folder name.
+        Must match when calling Remove-PermanentPath.
+      Sync: |-
+        After adding, call Sync-SessionPath to merge any other new registry
+        entries into the current session (Windows only).
+    examples:
+      - Add-PermanentPath '/usr/local/go/bin'
+      - Add-PermanentPath $installDir -Prepend -Label 'Install-Dotnet'
+      - Add-PermanentPath $toolDir -Sync
 ---
 #>
 
-<#
-.SYNOPSIS
-    Adds a directory to PATH persistently and in the current session.
-.DESCRIPTION
-    Windows persists in the User registry PATH, Unix in a marked profile block; a path already present is skipped.
-.PARAMETER Path
-    The directory to add. Must exist.
-.PARAMETER Prepend
-    Place the path at the beginning instead of the end.
-.PARAMETER Label
-    Must equal the Label given to Remove-PermanentPath, or that call cannot find the block to remove.
-.PARAMETER Sync
-    Also brings in registry entries that other installers added, not only this path; it has no effect on Unix.
-.EXAMPLE
-    Add-PermanentPath '/usr/local/go/bin'
-.EXAMPLE
-    Add-PermanentPath $installDir -Prepend -Label 'Install-Dotnet'
-.EXAMPLE
-    Add-PermanentPath $toolDir -Sync
-#>
 function Add-PermanentPath {
     [CmdletBinding()]
     param(
@@ -71,8 +72,8 @@ function Add-PermanentPath {
         }
     }
 
-    # The registry goes through Get-/Set-EnvironmentPath so tests mock them and never touch the real machine PATH.
-    # [comment:4](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment4)
+    # --- Persistent PATH --- Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests...
+    # [comment:5](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment5)
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         $userEntries = if ($userPath) {

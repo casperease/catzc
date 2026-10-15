@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-OUTDIR#7
 ---
 #>
 

@@ -6,7 +6,6 @@ catzc:
     body_sha: "4b4043750136"
     adrs:
       - ADR-REPO-LINK#2
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/Update-AdrCitation.ps1
@@ -70,6 +69,15 @@ Return the changes without writing the file. See
 ```
 
 ## comment:4
+
+Above `$bytes = [System.IO.File]::ReadAllBytes($file)`.
+
+```text
+Decode strictly, so a file that is not UTF-8 fails here instead of being re-encoded; the byte order mark is
+kept aside and written back as it was.
+```
+
+## comment:5
 
 Above `$bytes = [System.IO.File]::ReadAllBytes($file)`.
 

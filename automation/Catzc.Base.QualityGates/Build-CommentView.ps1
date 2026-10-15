@@ -9,28 +9,32 @@ catzc:
     adrs:
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-OUTDIR#1
+  config:
+    synopsis: |-
+      Writes the annotated view: every file that carries comment residues, with each section of its comment page put
+      back where its residue stands.
+    description: |-
+      The inverse of Export-Comments. A file keeps one residue per long comment and the prose lives once, in the file's
+      comment page ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)); the view
+      is the generated, gitignored copy a reader or an agent opens to see a file with its comments inline. It is written
+      under comments.yml's `view` folder in out/
+      ([ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1)), at the file's own
+      repository path, so `out/annotated/<path>` is the annotated `<path>`. Only files with residues get a view; a
+      residue whose section the page lacks stays as written (Test-Comments reports it).
+
+      Idempotent: a view whose content is current is not rewritten (Write-FileIfChanged), so a second run is a fast
+      no-op. A source-tree tool: it throws in build mode (Assert-SourceTree).
+    parameters:
+      Path: 'Files or folders to build the view of. Default: every file in scope.'
+      RepositoryRoot: 'The repository root paths, pages and the view folder resolve against. Default: the loaded repository root.'
+      DryRun: Report which views would change without writing them.
+    outputs: '[string[]] the view files written (or, under -DryRun, that would be), repository-relative.'
+    examples:
+      - Build-CommentView
+      - Build-CommentView -Path automation/Catzc.Base.Files
 ---
 #>
 
-<#
-.SYNOPSIS
-    Writes the annotated view: every file that carries comment residues, with each section of its comment page put
-    back where its residue stands.
-.DESCRIPTION
-    The view is generated and gitignored: the comment page stays the one living copy, so never edit the view.
-.PARAMETER Path
-    Files or folders to build the view of. Default: every file in scope.
-.PARAMETER RepositoryRoot
-    The repository root paths, pages and the view folder resolve against. Default: the loaded repository root.
-.PARAMETER DryRun
-    Report which views would change without writing them.
-.OUTPUTS
-    [string[]] the view files written (or, under -DryRun, that would be), repository-relative.
-.EXAMPLE
-    Build-CommentView
-.EXAMPLE
-    Build-CommentView -Path automation/Catzc.Base.Files
-#>
 function Build-CommentView {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/internal/catzc-internal-testkit.md
     kind: reference
     body_sha: "38e1998cf760"
-    adrs: []
     links:
       - docs/adr/automation/test-automation.md
       - docs/adr/principles/one-living-version.md

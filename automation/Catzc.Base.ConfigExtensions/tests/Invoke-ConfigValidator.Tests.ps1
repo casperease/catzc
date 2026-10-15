@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Invoke-ConfigValidator over in-memory fixture modules whose private validators it must find and run in their
-# own scope. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Invoke-ConfigValidator over in-memory fixture modules whose private validators it must find and run in their own...
+# [comment:1](/docs/references/automation/catzc-base-configextensions/tests/Invoke-ConfigValidator.Tests.ps1.md#comment1)
 Describe 'Invoke-ConfigValidator' -Tag 'L0', 'logic' {
     BeforeAll {
         New-Module -Name TstWidget -ScriptBlock {

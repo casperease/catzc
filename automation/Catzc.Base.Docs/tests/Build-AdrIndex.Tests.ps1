@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Build-AdrIndex.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-README#7
 ---
 #>
 
@@ -15,8 +17,8 @@ Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'sourc
     }
 
     It 'the on-disk index is current — no drift from adrs.yml (Test-GeneratedFiles)' {
-        # The importer's janitor tail materialised [index](/docs/adr/index.md) before this run; the gate checks it
-        # without writing.
+        # The importer's janitor tail materialised before this run; the gate checks it without writing.
+        # [comment:1](/docs/references/automation/catzc-base-docs/tests/Build-AdrIndex.Tests.ps1.md#comment1)
         $result = Test-GeneratedFiles -Generator Build-AdrIndex -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

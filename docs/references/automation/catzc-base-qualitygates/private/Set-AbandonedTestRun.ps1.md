@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md
     kind: comment-page
     body_sha: "7655a4ccf034"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Set-AbandonedTestRun.ps1
@@ -30,6 +28,15 @@ Best-effort per run: an unreadable or unparseable run.json is skipped, never fai
 ```
 
 ## comment:2
+
+Above `$abandoned = [ordered]@{}`.
+
+```text
+ConvertFrom-Json turns an ISO timestamp into a local DateTime, which would be written back with the local
+offset; every run record stamps UTC, so a date goes back as the UTC round-trip string it was read from.
+```
+
+## comment:3
 
 Above `$abandoned = [ordered]@{}`.
 

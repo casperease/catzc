@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-python/Install-PySpark.ps1.md
     kind: comment-page
     body_sha: "852e5b17d61f"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Python/Install-PySpark.ps1

@@ -4,14 +4,19 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Links.Repository.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-LINK
+      - ADR-REPO-LINK#2
+      - ADR-REPO-LINK#3
+      - ADR-REPO-LINK#5
+      - ADR-REPO-LINK#6
+      - ADR-REPO-LINK#7
+      - ADR-REPO-LINK#8
 ---
 #>
 
-# The real repository keeps its links aligned and resolving
-# ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)). Integrity checks over the shipped tree, in two tiers: L1 is the
-# fast structural pass over the automation code's comments; L2 is the full pass over every git-tracked file — every markdown
-# target and #fragment — plus the formatter-stable check and the editor rule that makes code links clickable.
-# Rule-tag citations and analyzer mappings are validated elsewhere (Get-TestTagViolations, Get-AnalyzerAdrCoverage).
+# The real repository keeps its links aligned and resolving.
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Repository.Tests.ps1.md#comment1)
 Describe 'Repository code links (automation comments)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:result = Test-Links -Path (Join-Path (Get-RepositoryRoot) 'automation') -Kind Code -PassThru `

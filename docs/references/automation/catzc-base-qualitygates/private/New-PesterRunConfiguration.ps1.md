@@ -6,7 +6,6 @@ catzc:
     body_sha: ef3fb8cad343
     adrs:
       - ADR-AUTO-TEST#25
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/New-PesterRunConfiguration.ps1

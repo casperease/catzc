@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-CatsAdrRules.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-VOCAB#1
 ---
 #>
 

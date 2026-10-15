@@ -6,7 +6,6 @@ catzc:
     body_sha: "02638bb4542f"
     adrs:
       - ADR-AUTO-TEST#30
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestRunLocationEntry.ps1

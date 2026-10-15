@@ -185,7 +185,14 @@ function Invoke-Importer {
         $importSw.Start()
 
         Write-Verbose "Discovering modules in: $modulesRoot"
-        Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle
+        # An interactive dot-source is the only console host; a script, a test worker and a pipeline load the types at import.
+        $hostKind = if ($isConsoleSession -and -not (Test-IsRunningInPipeline)) {
+            'console'
+        }
+        else {
+            'headless'
+        }
+        Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle -HostKind $hostKind
         $importSw.Stop()
 
         # Import-AllModules evicted the other run mode; this proves it before a janitor touches the tree.
@@ -233,11 +240,13 @@ function Invoke-Importer {
         # Only a console session gets the load timer; scripts add a trap with Write-Exception after the importer.
         # [comment:23](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment23)
         if ($isConsoleSession) {
-            if (Get-Command Write-Message -ErrorAction Ignore) {
+            $writeMessage = Get-Command Write-Message -ErrorAction Ignore
+            if ($writeMessage) {
                 $totalSeconds = [math]::Round($sw.Elapsed.TotalSeconds, 1)
                 $importSeconds = [math]::Round($importSw.Elapsed.TotalSeconds, 1)
                 $frameSeconds = [math]::Round($sw.Elapsed.TotalSeconds - $importSw.Elapsed.TotalSeconds, 1)
-                Write-Message "Loaded in $totalSeconds seconds (module import ${importSeconds}s, session initializer/finalizer ${frameSeconds}s)"
+                # Run through its command info: a lookup by name is a first use and would load the pending types for a status line.
+                & $writeMessage "Loaded in $totalSeconds seconds (module import ${importSeconds}s, session initializer/finalizer ${frameSeconds}s)"
             }
         }
     }

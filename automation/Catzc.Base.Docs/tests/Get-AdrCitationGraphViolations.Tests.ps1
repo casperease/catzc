@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
 ---
 #>
 
-# Get-AdrCitationGraphViolations — a rule summary cites only its own domain or a domain its domain depends on, read as declared (not
-# transitively); prose outside the rule registry is not read. A fixture tree in $TestDrive and a fixture registry, widget <- gadget
-# <- gizmo; neutral fixture codes ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-AdrCitationGraphViolations — a rule summary cites only its own domain or a domain its domain depends on, read...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-AdrCitationGraphViolations.Tests.ps1.md#comment1)
 Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
     BeforeAll {
         $adrs = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

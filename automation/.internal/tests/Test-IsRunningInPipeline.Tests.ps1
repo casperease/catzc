@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# Test-IsRunningInPipeline lives in Catzc.Internal.Loader, which both run modes import first and keep loaded, so
-# no import is needed here. Each case sets the detection variables and restores them after.
+# Test-IsRunningInPipeline lives in Catzc.Internal.Loader, which both run modes import first and keep loaded, so no...
+# [comment:1](/docs/references/automation/internal/tests/Test-IsRunningInPipeline.Tests.ps1.md#comment1)
 Describe 'Test-IsRunningInPipeline' -Tag 'L0', 'logic' {
     It 'detects Azure DevOps via TF_BUILD' {
         $original = $env:TF_BUILD

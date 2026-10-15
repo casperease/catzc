@@ -11,8 +11,8 @@ catzc:
 param()
 
 Describe 'Write-TestAutomationHeader' -Tag 'L0', 'logic' {
-    # The writers' chokepoint returns early during a run ($global:__PesterRunning); lift it so the banner's
-    # information-stream output can be asserted (see console-output-matters).
+    # The writers' chokepoint returns early during a run ($global:__PesterRunning); lift it so the banner's...
+    # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationHeader.Tests.ps1.md#comment1)
     BeforeAll {
         $global:__PesterRunning = $false
 

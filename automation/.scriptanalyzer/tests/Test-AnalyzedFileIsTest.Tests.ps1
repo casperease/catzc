@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# Test-AnalyzedFileIsTest is the one test-file scope check the custom analyzer rules share: by file name when the
-# analyzer reads a file (the gate), by Pester structure when it reads an editor buffer with no file name (VS Code).
+# Test-AnalyzedFileIsTest is the one test-file scope check the custom analyzer rules share: by file name when the...
+# [comment:1](/docs/references/automation/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md#comment1)
 Describe 'Test-AnalyzedFileIsTest' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1')

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/types/ArtifactoryArtifactsTarget.cs.md
     kind: comment-page
     body_sha: "48d35f78a293"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ArtifactoryArtifactsTarget.cs

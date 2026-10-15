@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates.md
     kind: reference
     body_sha: "9a14fc93241c"
-    adrs: []
     links:
       - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
       - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png

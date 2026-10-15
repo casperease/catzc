@@ -6,7 +6,6 @@ catzc:
     body_sha: "2aa65ca3b1c6"
     adrs:
       - ADR-AZ-DATAMOD#4
-    links: []
 ---
 
 # automation/Catzc.Azure/Get-AzureSubscription.ps1
@@ -30,6 +29,16 @@ anything deployed there). See [ADR-AZ-DATAMOD#4](/docs/adr/azure/azure-data-mode
 ```
 
 ## comment:2
+
+Above `$customerToken = Get-AzureSubscriptionCustomer $found`.
+
+```text
+The subscription's `customer` field may name a customer by its key OR its 2-char shortcode; normalize
+to the canonical key so the resolved object is the same whichever form the config used. Empty when the
+subscription is not a customer subscription. See [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md).
+```
+
+## comment:3
 
 Above `$customerToken = Get-AzureSubscriptionCustomer $found`.
 

@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#19
 ---
 #>
 
 Describe 'Get-AzureCustomer' -Tag 'L0', 'logic' {
-    # Redirect the 'customer' config to the fixture catalogue (acme/ac, globex/gx). Read-only resolver, so
-    # the mock + cache reset run once
-    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
+    # Redirect the 'customer' config to the fixture catalogue (acme/ac, globex/gx).
+    # [comment:1](/docs/references/automation/catzc-azure/tests/Get-AzureCustomer.Tests.ps1.md#comment1)
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'customer' } -MockWith {
             @{ Name = 'customer'; Module = 'Catzc.Azure'

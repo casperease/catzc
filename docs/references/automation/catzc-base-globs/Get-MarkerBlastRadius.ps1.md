@@ -6,7 +6,6 @@ catzc:
     body_sha: e1df29d69fc9
     adrs:
       - ADR-FLOW-CD-GLOBS#1
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1
@@ -40,6 +39,15 @@ e.g. 'main' answers "what does my branch touch".
 ```
 
 ## comment:3
+
+Above `foreach ($set in @(Get-GlobSet) + @(Get-ModuleGlobSet)) {`.
+
+```text
+Declared sets first (registry order), then the derived module sets — the same one-answer-per-set
+shape either way.
+```
+
+## comment:4
 
 Above `foreach ($set in @(Get-GlobSet) + @(Get-ModuleGlobSet)) {`.
 

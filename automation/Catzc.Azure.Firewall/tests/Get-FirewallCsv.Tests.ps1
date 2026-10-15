@@ -13,9 +13,8 @@ Describe 'Get-FirewallCsv' -Tag 'L2', 'logic' {
         $script:assets = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Firewall/tests/assets'
         $script:subscriptionId = '50a0ed00-de00-50b0-0000-000000000000'
 
-        # A realistic blob listing. The dd-MM-yyyy names do NOT sort chronologically by string:
-        # 'ApplicationRules-30-01-2026-...' is lexically largest but is January (older than June),
-        # so a correct newest-by-filename-timestamp pick must return the June blobs.
+        # A realistic blob listing.
+        # [comment:1](/docs/references/automation/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md#comment1)
         $script:blobJson = @'
 [
   { "name": "ApplicationRules-30-01-2026-23-59.csv", "properties": { "lastModified": "2026-01-30T23:59:00+00:00" } },
@@ -29,8 +28,8 @@ Describe 'Get-FirewallCsv' -Tag 'L2', 'logic' {
 
         Mock Assert-AzCliConnected -ModuleName Catzc.Azure.Firewall {}
 
-        # Default happy-path az mock: list returns the JSON above; download copies the matching fixture
-        # to --file so the emitted Path points at a real CSV (nothing ever calls live ARM).
+        # Default happy-path az mock: list returns the JSON above; download copies the matching fixture to --file so...
+        # [comment:2](/docs/references/automation/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md#comment2)
         Mock Invoke-AzCli -ModuleName Catzc.Azure.Firewall {
             if ($Arguments -match 'blob list') {
                 return [pscustomobject]@{ Output = $blobJson; ExitCode = 0 }

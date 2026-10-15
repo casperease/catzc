@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-REPO-LINK#3
       - ADR-REPO-LINK#9
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs

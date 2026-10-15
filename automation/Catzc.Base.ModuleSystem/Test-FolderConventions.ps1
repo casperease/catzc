@@ -10,25 +10,34 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-REPO-FOLDERS
       - ADR-REPO-FOLDERS#4
+  config:
+    synopsis: 'Quality gate: every module folder under automation/ follows the folder and file conventions.'
+    description: |-
+      A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the module
+      folders of <RepositoryRoot>/automation (dot-prefixed folders are infrastructure, not modules). It scans the tree
+      once with [System.IO] and collects every issue
+      ([ADR-REPO-FOLDERS](/docs/adr/repository/conventional-folders.md)):
+
+        - every module subdirectory is a conventional folder: private, tests, assets, types, configs;
+        - no test file (*.Tests.ps1) sits at the module root or in private/ — tests belong in tests/;
+        - no public function (a module-root .ps1, named for its function) is exported by more than one module — the
+          last-loaded module would win silently;
+        - configs/ is flat and holds only kebab-case .yml files (dot-prefixed entries are tooling and are skipped);
+        - no module keeps internal config in assets/config/ (it belongs in configs/) or test fixtures in assets/test/
+          (they belong in tests/assets/).
+
+      The folder convention is the module system's own contract (folder = module, location = visibility), so the
+      gate lives with the module system rather than in .internal, which is the loader and not a module.
+    parameters:
+      OutputFolder: The report base folder. Defaults to out/test-folder-conventions/ (Write-QualityGateReport).
+      PassThru: Return the result ({ Subject; IssueCount; Issues; ReportPath; Modules }) instead of throwing on issues.
+    outputs: '[pscustomobject] With -PassThru only.'
+    examples:
+      - Test-FolderConventions
+      - (Test-FolderConventions -PassThru).Issues
 ---
 #>
 
-<#
-.SYNOPSIS
-    Quality gate: every module folder under automation/ follows the folder and file conventions.
-.DESCRIPTION
-    Lives with the module system, not in .internal: the folder convention is its contract, and .internal is no module.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to out/test-folder-conventions/ (Write-QualityGateReport).
-.PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; Modules }) instead of throwing on issues.
-.OUTPUTS
-    [pscustomobject] With -PassThru only.
-.EXAMPLE
-    Test-FolderConventions
-.EXAMPLE
-    (Test-FolderConventions -PassThru).Issues
-#>
 function Test-FolderConventions {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -60,8 +69,8 @@ function Test-FolderConventions {
             }
         }
 
-        # File names are kept for the duplicate-export check: one name exported by two modules is last-loaded-wins.
-        # [comment:2](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment2)
+        # Module-root.ps1: a test is misplaced; the rest are public functions whose file basename is the exported...
+        # [comment:4](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment4)
         foreach ($path in ([System.IO.Directory]::EnumerateFiles($moduleDirectory, '*.ps1') | Sort-Object)) {
             $name = [System.IO.Path]::GetFileName($path)
             if ($name -like '*.Tests.ps1') {
@@ -87,7 +96,7 @@ function Test-FolderConventions {
             foreach ($entry in ([System.IO.Directory]::EnumerateFileSystemEntries($configsDirectory) | Sort-Object)) {
                 $name = [System.IO.Path]::GetFileName($entry)
                 # Dot-prefixed entries are tooling (a schema sidecar, an editor dotfile), not module config.
-                # [comment:3](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment3)
+                # [comment:5](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment5)
                 if ($name -match '^\.') {
                     continue
                 }

@@ -9,21 +9,23 @@ catzc:
     adrs:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-ENUM#3
+  config:
+    synopsis: Returns every reason a consumer's local module cannot load.
+    description: |-
+      A local module is an overlay folder that names no bundled module, and it follows catzc's own module conventions
+      ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)): it never takes the reserved Catzc. prefix; it
+      carries no types/ (a bundle compiles no C#); it holds only function files at its root (public) and under
+      private/, and configs/, assets/ and tests/; every function file passes the shape check every function file
+      loaded away from its folder passes (Get-FunctionFileViolation); it has at least one function; and none of its
+      public functions takes the name of a command already loaded, which would silently replace a bundled one —
+      replacing a bundled function is an override, not a local module.
+    parameters:
+      Path: The local module's folder.
+      RelativePath: The folder as the messages show it.
+    outputs: '[string] One message per violation; nothing when the module can load.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns every reason a consumer's local module cannot load.
-.DESCRIPTION
-    A public function named like a loaded command would silently replace it; that is an override, not a local module.
-.PARAMETER Path
-    The local module's folder.
-.PARAMETER RelativePath
-    The folder as the messages show it.
-.OUTPUTS
-    [string] One message per violation; nothing when the module can load.
-#>
 function Get-LocalModuleViolation {
     [CmdletBinding()]
     [OutputType([string])]
@@ -42,8 +44,8 @@ function Get-LocalModuleViolation {
     }
 
     $functionFiles = [System.Collections.Generic.List[string]]::new()
-    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a
-    # violation anywhere in the module must show, so nothing is pruned.
+    # A named whole-tree walk: a violation anywhere in the module must show, so nothing is pruned.
+    # [comment:1](/docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md#comment1)
     $files = [string[]] @(Get-ChildPath $Path -File -Depth 64 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
     foreach ($file in $files) {

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/dora/metrics.md
     kind: reference
     body_sha: e7f94588d30b
-    adrs: []
     links:
       - docs/references/dora/capabilities.md#working-in-small-batches
       - docs/references/dora/core-model.md#reliability

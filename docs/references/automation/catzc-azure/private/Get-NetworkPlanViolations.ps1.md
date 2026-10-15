@@ -8,7 +8,6 @@ catzc:
       - ADR-AZ-NETWORK#2
       - ADR-AZ-NETWORK#4
       - ADR-AZ-NETWORK#5
-    links: []
 ---
 
 # automation/Catzc.Azure/private/Get-NetworkPlanViolations.ps1

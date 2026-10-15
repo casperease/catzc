@@ -6,7 +6,6 @@ catzc:
     body_sha: "83818b61713d"
     adrs:
       - ADR-REPO-LINK#7
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-RepositoryWebUrl.ps1

@@ -6,24 +6,21 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Node
     visibility: public
-    adrs: []
+  config:
+    synopsis: Installs Prettier (the prettier formatter engine's CLI) globally via npm.
+    description: |-
+      Prettier is the engine Format-Code runs for every file language languages.yml gives `formatter: prettier`
+      (Markdown, pipeline YAML). It is installed globally with npm at the version locked in tools.yml. Requires Node.js (npm). Idempotent — skips if already installed at the
+      locked version; -Force replaces a wrong version.
+    parameters:
+      Version: Prettier version to install. Defaults to the locked version in Get-ToolConfig.
+      Force: Replace an existing installation at the wrong version.
+    examples:
+      - Install-Prettier
+      - Install-Prettier -Force
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs Prettier (the prettier formatter engine's CLI) globally via npm.
-.DESCRIPTION
-    A wrong installed version is replaced only with -Force; the right one is left alone.
-.PARAMETER Version
-    Prettier version to install. Defaults to the locked version in Get-ToolConfig.
-.PARAMETER Force
-    Replace an existing installation at the wrong version.
-.EXAMPLE
-    Install-Prettier
-.EXAMPLE
-    Install-Prettier -Force
-#>
 function Install-Prettier {
     [CmdletBinding()]
     param(

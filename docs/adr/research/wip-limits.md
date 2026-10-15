@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-WIP#3
       - ADR-DORA-WIP#4
       - ADR-DORA-WIP#5
-    adrs: []
     links:
       - docs/adr/process/observe-work.md#rule-adr-proc-observewip1
       - docs/adr/process/pull-work.md#rule-adr-proc-pullwork4

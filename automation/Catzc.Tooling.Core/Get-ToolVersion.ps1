@@ -6,22 +6,24 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Core
     visibility: public
-    adrs: []
+  config:
+    synopsis: Runs a tool's version command and extracts the installed version string.
+    description: |-
+      Executes the version_command from tools.yml, matches against
+      version_pattern, and returns the captured version string.
+      Returns $null if the command fails or the pattern does not match.
+      Uses .Full (stdout + stderr merged) to catch tools like java that
+      write version info to stderr.
+    parameters:
+      Config: The tool configuration hashtable from Get-ToolConfig.
+    examples:
+      - |-
+        $config = Get-ToolConfig -Tool 'python'
+        $version = Get-ToolVersion -Config $config
+        # Returns '3.11.9' or $null
 ---
 #>
 
-<#
-.SYNOPSIS
-    Runs a tool's version command and extracts the installed version string.
-.DESCRIPTION
-    Reads stdout and stderr merged, since some tools such as java print their version to stderr; a miss returns null.
-.PARAMETER Config
-    The tool configuration hashtable from Get-ToolConfig.
-.EXAMPLE
-    $config = Get-ToolConfig -Tool 'python'
-    $version = Get-ToolVersion -Config $config
-    # Returns '3.11.9' or $null
-#>
 function Get-ToolVersion {
     [OutputType([string])]
     [CmdletBinding()]

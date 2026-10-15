@@ -7,7 +7,6 @@ catzc:
     defines:
       - ADR-REPO-EXAMPLE#1
       - ADR-REPO-EXAMPLE#2
-    adrs: []
     links:
       - docs/adr/azure/landing-zones.md
 ---

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md
     kind: comment-page
     body_sha: "84b20ebc3d21"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-FixtureIdentityTokens.ps1
@@ -42,6 +40,25 @@ only in the catzc source tree (tests never ship in a build), hence the guard.
 ```
 
 ## comment:3
+
+Above `foreach ($token in 'widget', 'gadget', 'faketool') {`.
+
+```text
+Neutral in-memory fixtures that never live in a config file — the globset and tool fixtures logic tests
+construct inline.
+```
+
+## comment:4
+
+Above `Assert-SourceTree`.
+
+```text
+Every fixture config tree (tests/assets/config/) — the identity-bearing azure.yml and customer.yml a
+logic test redirects Get-Config to. Enumerate all of them and union their identities. Test fixtures live
+only in the catzc source tree (tests never ship in a build), hence the guard.
+```
+
+## comment:5
 
 Above `foreach ($token in 'widget', 'gadget', 'faketool') {`.
 

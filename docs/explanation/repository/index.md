@@ -4,7 +4,6 @@ catzc:
     path: docs/explanation/repository/index.md
     kind: explanation
     body_sha: "029a80254290"
-    adrs: []
     links:
       - docs/adr/index.md#repository
       - docs/explanation/index.md

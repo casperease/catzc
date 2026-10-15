@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ChangeTestFile.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-ChangeTestFile over a fixture tree in $TestDrive. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-ChangeTestFile over a fixture tree in $TestDrive.
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-ChangeTestFile.Tests.ps1.md#comment1)
 Describe 'Get-ChangeTestFile' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md
     kind: comment-page
     body_sha: bf01a548ba66
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Set-CSharpFileScopedNamespace.ps1
@@ -31,6 +29,16 @@ Line endings are normalised to LF and a single trailing newline is preserved (re
 ```
 
 ## comment:2
+
+Above `for ($i = 0; $i -lt $lines.Count; $i++) {`.
+
+```text
+An existing namespace declaration: correct a file-scoped one in place (no-op when already right);
+leave a block-scoped one (file-scoped lines end with ';'; anything else is a block) untouched — not a
+shape we author, so Format-Types reports it rather than this helper double-declaring.
+```
+
+## comment:3
 
 Above `for ($i = 0; $i -lt $lines.Count; $i++) {`.
 

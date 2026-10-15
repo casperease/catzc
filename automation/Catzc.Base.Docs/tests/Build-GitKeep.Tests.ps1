@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
 ---
 #>
 
@@ -12,8 +14,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         Import-InternalModule TestKit
 
         # Redirect the repository root to a fixture tree (TestKit) so the walk and the writes bind inside it.
-        # One stale .gitkeep, one nested one, one deep inside out/ (must never be touched — the walk checks
-        # out/.gitkeep itself but does not descend), and one under a vendored module (not ours to manage).
+        # [comment:1](/docs/references/automation/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md#comment1)
         $script:fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Fixture' = @{} } -Files @{
             'contracts/.gitkeep'               = "stale`n"
             'pipelines/jobs/.gitkeep'          = ''
@@ -21,8 +22,8 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
             'out/deep/.gitkeep'                = "transient`n"
             'automation/.vendor/Fake/.gitkeep' = "vendored`n"
         }
-        # A fixture source through the asset seam, so the logic never reads the shipped assets/gitkeep
-        # (that is the integrity block's job below).
+        # A fixture source through the asset seam, so the logic never reads the shipped assets/gitkeep (that is the...
+        # [comment:2](/docs/references/automation/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md#comment2)
         $script:expected = "This widget folder is kept by a fixture .gitkeep.`n"
         $script:sourcePath = Join-Path $TestDrive 'gitkeep-fixture'
         [System.IO.File]::WriteAllText($script:sourcePath, $script:expected)
@@ -67,14 +68,13 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
     }
 }
 
-# Reads the SHIPPED assets/gitkeep through Build-GitKeep's real lookup (nothing mocked on the read) and writes
-# only into a fixture repository, so it runs in both the source run and the build run
-# ([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)).
+# Reads the SHIPPED assets/gitkeep through Build-GitKeep's real lookup (nothing mocked on the read) and writes only...
+# [comment:3](/docs/references/automation/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md#comment3)
 Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         Import-InternalModule TestKit
-        # -WorkingRootOnly: the .gitkeep files live in the fixture working root, but the asset under test is the one
-        # shipped in the loaded Catzc.Base.Docs, so the code root stays on the loaded modules
+        # -WorkingRootOnly: the.gitkeep files live in the fixture working root, but the asset under test is the one...
+        # [comment:4](/docs/references/automation/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md#comment4)
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ 'widgets/.gitkeep' = "stale`n" }
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
     }
@@ -93,8 +93,8 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
     }
 }
 
-# Reads only the repository's own .gitkeep files and readme.yml mappings — the same answer in both run modes,
-# so the build run skips it.
+# Reads only the repository's own.gitkeep files and readme.yml mappings — the same answer in both run modes, so the...
+# [comment:5](/docs/references/automation/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md#comment5)
 Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         # The real repository's .gitkeep set, discovered by the walk without writing (-DryRun).

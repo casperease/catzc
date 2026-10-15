@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/private/Resolve-AdoBuildValidationContext.ps1.md
     kind: comment-page
     body_sha: "4d3c27dea2bf"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/private/Resolve-AdoBuildValidationContext.ps1

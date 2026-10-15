@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-github/New-SyntheticHistory.ps1.md
     kind: comment-page
     body_sha: "0ad07c3dcbd9"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Github/New-SyntheticHistory.ps1

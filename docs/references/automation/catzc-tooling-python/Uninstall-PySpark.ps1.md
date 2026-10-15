@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-python/Uninstall-PySpark.ps1.md
     kind: comment-page
     body_sha: d5a31ffe10d4
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Python/Uninstall-PySpark.ps1

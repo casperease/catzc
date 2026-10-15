@@ -8,23 +8,28 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-CACHE#10
+  config:
+    synopsis: 'The fingerprint of a set of input files: one SHA-256 over a label and each file''s path and content hash.'
+    description: |-
+      A quality check's result cache keys each file on its own SHA-256 and this stamp of everything else that decides
+      the check's verdict ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)). A missing input
+      hashes as missing, so adding, editing or removing one changes the stamp, and every cached verdict of that check is
+      checked again. The files are fingerprinted in the given order under their repository-relative paths, so the stamp
+      is the same on every clone.
+
+      A PowerShell input (.ps1, .psm1, .psd1 — an analyzer rule, a settings file) is fingerprinted by its tokens without
+      its comments: a comment never decides a verdict, and comments in rule files change often (an ADR citation sweep
+      rewrites them), which would otherwise send every file back through the check. Every change to the code itself
+      still changes the stamp. A PowerShell file that does not parse, and every other input, is fingerprinted by its
+      bytes.
+    parameters:
+      Label: What the stamp is for (an engine or check name); two checks never share a stamp.
+      File: The input files, absolute paths.
+      RepositoryRoot: The root the paths are recorded relative to.
+    outputs: '[string] A hex SHA-256.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    The fingerprint of a set of input files: one SHA-256 over a label and each file's path and content hash.
-.DESCRIPTION
-    A missing input hashes as missing, so adding or removing an input changes the stamp and re-checks every file.
-.PARAMETER Label
-    What the stamp is for (an engine or check name); two checks never share a stamp.
-.PARAMETER File
-    The input files, absolute paths.
-.PARAMETER RepositoryRoot
-    The root the paths are recorded relative to.
-.OUTPUTS
-    [string] A hex SHA-256.
-#>
 function Get-ContentStamp {
     [CmdletBinding()]
     [OutputType([string])]
@@ -53,8 +58,8 @@ function Get-ContentStamp {
                 $parseErrors = $null
                 [void] [System.Management.Automation.Language.Parser]::ParseFile($path, [ref] $tokens, [ref] $parseErrors)
                 if (-not $parseErrors) {
-                    # Collapse line-end runs: ends separate statements, blank lines do not, so comments leave no trace.
-                    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md#comment2)
+                    # Comments go; a run of line ends (what a removed comment line leaves) counts as one, since a...
+                    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md#comment3)
                     $previousWasLineEnd = $true
                     $code = foreach ($token in $tokens) {
                         if ($token.Kind -eq [System.Management.Automation.Language.TokenKind]::Comment) {

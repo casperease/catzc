@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#6
 ---
 #>
 
-# Install-BicepStandalone (the Linux path of Install-Bicep) with its seams mocked
-# ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): the GitHub releases API
-# (Invoke-RestMethod), the verified download (Save-VerifiedDownload, which writes the file), and chmod
-# (Invoke-Executable). $env:HOME points into $TestDrive, so ~/.local/bin is a scratch folder.
+# Install-BicepStandalone (the Linux path of Install-Bicep) with its seams mocked: the GitHub releases API...
+# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-BicepStandalone.Tests.ps1.md#comment1)
 Describe 'Install-BicepStandalone' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:fakeHome = Join-Path $TestDrive "home-$([guid]::NewGuid().ToString('N'))"

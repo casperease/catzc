@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#41
 ---
 #>
 
-# Get-TestExcludeTag is private (the tier/category -> ExcludeTag logic shared by Test-Automation and
-# Test-InIsolation). Tested via InModuleScope.
+# Get-TestExcludeTag is private (the tier/category -> ExcludeTag logic shared by Test-Automation and Test-InIsolation).
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-TestExcludeTag.Tests.ps1.md#comment1)
 Describe 'Get-TestExcludeTag' -Tag 'L0', 'logic' {
     It 'a Logic L0/L1 run excludes the higher tiers and integrity' {
         InModuleScope Catzc.Base.QualityGates {

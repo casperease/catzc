@@ -6,7 +6,6 @@ catzc:
     body_sha: "82a85999900e"
     adrs:
       - ADR-AUTO-REMOVE#2
-    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
@@ -29,4 +28,14 @@ forward slashes:
 Reads the filesystem only and changes nothing, so the plan can be recorded before the copy starts and an
 interrupted copy is still covered by it
 ([ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)).
+```
+
+## comment:2
+
+Above `$sourceDirectories = [System.Collections.Generic.List[string]]::new()`.
+
+```text
+A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a copy
+plan must see every file, so no folder name is pruned and the depth is the
+config's ceiling. A real package tree reaches ten levels, and a shallower bound would silently drop files from the copy.
 ```

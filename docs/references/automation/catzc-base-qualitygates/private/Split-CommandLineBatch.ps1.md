@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Split-CommandLineBatch.ps1.md
     kind: comment-page
     body_sha: "02f4b30b368b"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Split-CommandLineBatch.ps1

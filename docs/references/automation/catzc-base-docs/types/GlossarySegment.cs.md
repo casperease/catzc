@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-docs/types/GlossarySegment.cs.md
     kind: comment-page
     body_sha: a1eefb9be75e
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/GlossarySegment.cs

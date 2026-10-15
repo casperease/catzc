@@ -6,7 +6,6 @@ catzc:
     body_sha: f406e99279d6
     adrs:
       - ADR-PRIN-CONFIG#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-FileKindFileMetaFact.ps1

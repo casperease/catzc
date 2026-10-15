@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Save-TestDurationHistory.ps1.md
     kind: comment-page
     body_sha: "7025dcf90e2a"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Save-TestDurationHistory.ps1

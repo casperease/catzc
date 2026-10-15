@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md
     kind: comment-page
     body_sha: d1813a2ef229
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/types/ConnectionState.cs

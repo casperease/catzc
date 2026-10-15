@@ -4,14 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/types/ContractSchema.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-CONTRACT#6
 ---
 #>
 
-# ContractSchema validates a parsed value against a bounded JSON Schema subset
-# ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)): type, required, properties,
-# additionalProperties (a boolean), enum, items (one schema) and const; the annotations $schema, $id, $comment, title,
-# description and examples are ignored. Every other keyword, and every unsupported form of a supported one, is a finding.
-# Each keyword has a passing and a failing value; schemas and values are JSON literals.
+# ContractSchema validates a parsed value against a bounded JSON Schema subset: type, required, properties,...
+# [comment:1](/docs/references/automation/catzc-base-contracts/tests/types/ContractSchema.Tests.ps1.md#comment1)
 Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     BeforeAll {
         function Get-SchemaFinding {

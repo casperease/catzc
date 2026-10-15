@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/getting-started/automation/vendor-a-module.md
     kind: how-to
     body_sha: adca12471052
-    adrs: []
     links:
       - docs/adr/azure/prefer-az-cli.md
       - docs/adr/pwsh/vendor-toolset-dependencies.md

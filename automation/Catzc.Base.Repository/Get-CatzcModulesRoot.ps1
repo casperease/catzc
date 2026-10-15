@@ -6,18 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Base.Repository
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the root of the catzc automation tree — the folder that holds the loaded modules.
+    description: |-
+      Returns $env:CatzcModulesRoot, the well-known anchor the importer sets to the automation/ directory holding
+      the running catzc modules. In the mono repo this is <RepositoryRoot>/automation; in an installed bundle it
+      is the bundle's own automation/, so config, type and vendor discovery follow the code wherever it is
+      installed instead of assuming it sits under the working RepositoryRoot.
+
+      Distinct from Get-RepositoryRoot: RepositoryRoot is the working root (where out/ goes, what repo-relative
+      paths and git resolve against); CatzcModulesRoot is where catzc's own code lives. The two coincide in the
+      mono repo and diverge only in an install. Falls back to <RepositoryRoot>/automation when the anchor is not
+      set — a module imported without the importer — so behaviour is unchanged when nothing set the anchor.
+    examples:
+      - Get-CatzcModulesRoot
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the root of the catzc automation tree — the folder that holds the loaded modules.
-.DESCRIPTION
-    Differs from the repository root only in an install, where the code lives in the bundle, not the working root.
-.EXAMPLE
-    Get-CatzcModulesRoot
-#>
 function Get-CatzcModulesRoot {
     param()
 

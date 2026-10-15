@@ -6,7 +6,6 @@ catzc:
     body_sha: b505186b6825
     adrs:
       - ADR-REPO-FORMAT#8
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Install-Bicep.ps1

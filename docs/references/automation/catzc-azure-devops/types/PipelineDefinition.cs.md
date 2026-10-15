@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/types/PipelineDefinition.cs.md
     kind: comment-page
     body_sha: "3ddc71e0a02a"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/types/PipelineDefinition.cs

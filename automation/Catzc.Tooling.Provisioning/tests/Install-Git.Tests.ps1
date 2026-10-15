@@ -8,10 +8,8 @@ catzc:
 #>
 
 Describe 'Install-Git' -Tag 'L0', 'logic' {
-    # Install-Git is mostly a live-download integration (GitHub API + verified download + self-extracting
-    # installer); per fail-fast-with-asserts that path earns its confidence from an L2/manual run, not from
-    # mocking every step. These L0 tests cover the hermetic, high-value decisions: the idempotent skip and
-    # the platform delegation. Every external boundary is mocked so nothing downloads, extracts, or launches.
+    # Install-Git is mostly a live-download integration (GitHub API + verified download + self-extracting installer);...
+    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Install-Git.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Invoke-RestMethod { } -ModuleName Catzc.Tooling.Provisioning
         Mock Save-VerifiedDownload { } -ModuleName Catzc.Tooling.Provisioning

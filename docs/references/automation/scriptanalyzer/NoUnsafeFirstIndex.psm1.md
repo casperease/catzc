@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-PWSH-ERROR#8
       - ADR-PWSH-FORMAT#6
-    links: []
 ---
 
 # automation/.scriptanalyzer/NoUnsafeFirstIndex.psm1

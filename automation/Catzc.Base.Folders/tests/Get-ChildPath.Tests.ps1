@@ -4,6 +4,10 @@ catzc:
   derived:
     path: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-FAILFAST
+      - ADR-PWSH-PARAM#4
 ---
 #>
 

@@ -6,7 +6,6 @@ catzc:
     body_sha: cfd70a4888e2
     adrs:
       - ADR-AZ-NAMING#4
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1

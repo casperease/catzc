@@ -9,20 +9,33 @@ catzc:
     adrs:
       - ADR-AUTO-REMOVE#6
       - ADR-AUTO-REMOVE#7
+  config:
+    synopsis: |-
+      Evicts an off-config Linux install of a tool so the managed (user-space) build can win — the Linux
+      counterpart to Remove-SystemInstallation (Windows).
+    description: |-
+      Given a tool's tools.yml config, removes an install that did NOT come from the tool's configured manager
+      — the shadow that would otherwise take precedence over the managed build — by the mechanism that placed
+      it ([ADR-AUTO-REMOVE#7](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove7)). In precedence order:
+
+        1. an apt-owned binary   -> sudo apt-get remove -y <owning package>   (the one step that needs root)
+        2. a uv-managed-Python package -> uv pip uninstall --system <name>    (user-space, uv-scoped)
+        3. a stray binary on PATH      -> delete the file                     (user-space)
+
+      The apt owner is resolved by 'dpkg -S <path>' (which package owns the resolved binary), so an apt
+      'azure-cli' is caught even though az_cli's configured manager is uv — detection does not rely on the
+      config naming an apt_package. Only the apt path asserts root; the uv-pip and stray-binary paths are
+      user-space ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
+
+      This is invoked from the Linux branch of a Remove-<Tool>, which owns the -Force dry-run guard and the
+      managed-install refusal (Test-ExpectedPackageManager) — so this core is only ever reached for an
+      off-config install, and just evicts it.
+    parameters:
+      Config: The tool's parsed tools.yml entry (from Get-ToolConfig).
+    outputs: '[bool] — $true when an off-config install was removed, $false when there was nothing to remove.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Evicts an off-config Linux install of a tool so the managed (user-space) build can win — the Linux
-    counterpart to Remove-SystemInstallation (Windows).
-.DESCRIPTION
-    Detection ignores the configured manager, so an apt azure-cli is caught though az_cli installs through uv.
-.PARAMETER Config
-    The tool's parsed tools.yml entry (from Get-ToolConfig).
-.OUTPUTS
-    [bool] — $true when an off-config install was removed, $false when there was nothing to remove.
-#>
 function Remove-LinuxToolInstall {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -38,8 +51,8 @@ function Remove-LinuxToolInstall {
 
     $source = (Get-Command $Config.command).Source
 
-    # The apt owner comes from dpkg, not from config, and removing it is the one step here that needs root.
-    # [comment:2](/docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md#comment2)
+    # 1.
+    # [comment:3](/docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md#comment3)
     if (Test-Command dpkg) {
         $owner = Invoke-Executable "dpkg -S $source" -PassThru -NoAssert -Silent
         if ($owner.ExitCode -eq 0 -and $owner.Output) {

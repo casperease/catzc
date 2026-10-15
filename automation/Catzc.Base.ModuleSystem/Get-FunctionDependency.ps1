@@ -15,25 +15,25 @@ catzc:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-PESTER#9
+  config:
+    synopsis: Compiles a list of function-to-function calls across all automation modules using AST.
+    description: |-
+      Parses every .ps1 file (excluding tests) under the automation root, builds a
+      definition map of all functions, then walks each function body for CommandAst
+      nodes and cross-references them against the map.
+
+      Reads the per-function source files, which exist only in the source tree, so it stops with a named error
+      in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
+    parameters:
+      AutomationRoot: Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
+      ParsedScripts: The call's shared parse of each script; the session cache of the result stays, this only spares a second parse of a file within one build.
+    examples:
+      - Get-FunctionDependency
+      - Get-FunctionDependency | Where-Object CrossModule
+      - Get-FunctionDependency | Get-ModuleDependency
 ---
 #>
 
-<#
-.SYNOPSIS
-    Compiles a list of function-to-function calls across all automation modules using AST.
-.DESCRIPTION
-    Reads per-function source files that exist only in the source tree, so build mode stops with a named error.
-.PARAMETER AutomationRoot
-    Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
-.PARAMETER ParsedScripts
-    The call's shared parse of each script; the session cache of the result stays, this only spares a second parse of a file within one build.
-.EXAMPLE
-    Get-FunctionDependency
-.EXAMPLE
-    Get-FunctionDependency | Where-Object CrossModule
-.EXAMPLE
-    Get-FunctionDependency | Get-ModuleDependency
-#>
 function Get-FunctionDependency {
     param(
         [string] $AutomationRoot = (Get-CatzcModulesRoot),
@@ -43,19 +43,19 @@ function Get-FunctionDependency {
 
     Assert-SourceTree
 
-    # Cached per root for the session: only a re-import resets it, so callers must treat the result as read-only.
-    # [comment:2](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment2)
+    # Filesystem-derived information — cached for the session, lazily on first use, keyed on the resolved automation...
+    # [comment:5](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment5)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {
-        # GetValue probes the entry because reading an unset script variable directly would throw under strict mode.
-        # [comment:3](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment3)
+        # strict-clean probe of the lazy cache entry
+        # [comment:6](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment6)
         $script:functionDependencyCache = @{}
     }
     if ($script:functionDependencyCache.ContainsKey($AutomationRoot)) {
         return $script:functionDependencyCache[$AutomationRoot]
     }
 
-    # Each file is parsed once, and that AST feeds both the definition map and the call walk.
-    # [comment:4](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment4)
+    # Enumerate + parse every source.ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/ call...
+    # [comment:7](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment7)
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}
 

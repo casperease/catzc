@@ -6,7 +6,6 @@ catzc:
     body_sha: b28d6eb72253
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs

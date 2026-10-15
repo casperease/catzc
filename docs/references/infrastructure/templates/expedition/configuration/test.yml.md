@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/templates/expedition/configuration/test.yml.md
     kind: comment-page
     body_sha: "8bd0ad74e0e3"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/templates/expedition/configuration/test.yml

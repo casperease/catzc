@@ -6,24 +6,21 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Node
     visibility: public
-    adrs: []
+  config:
+    synopsis: Installs cspell (the Code Spell Checker CLI) globally via npm.
+    description: |-
+      cspell is the spell-checker behind Test-Spelling. It is installed globally with npm at the version
+      locked in tools.yml. Requires Node.js (npm). Idempotent — skips if already installed at the locked
+      version; -Force replaces a wrong version.
+    parameters:
+      Version: cspell version to install. Defaults to the locked version in Get-ToolConfig.
+      Force: Replace an existing installation at the wrong version.
+    examples:
+      - Install-Cspell
+      - Install-Cspell -Force
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs cspell (the Code Spell Checker CLI) globally via npm.
-.DESCRIPTION
-    A wrong installed version is replaced only with -Force; the right one is left alone.
-.PARAMETER Version
-    cspell version to install. Defaults to the locked version in Get-ToolConfig.
-.PARAMETER Force
-    Replace an existing installation at the wrong version.
-.EXAMPLE
-    Install-Cspell
-.EXAMPLE
-    Install-Cspell -Force
-#>
 function Install-Cspell {
     [CmdletBinding()]
     param(

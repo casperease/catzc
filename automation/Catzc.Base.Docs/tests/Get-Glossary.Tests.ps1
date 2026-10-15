@@ -4,15 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-PWSH-PESTER#3
+      - ADR-REPO-VOCAB#2
 ---
 #>
 
-# Get-Glossary merges the glossary sources into GlossaryEntry records. Discovery is mocked at Get-GlossarySources
-# (its own tests cover the config seam and git), and the sources are built from the real GlossaryConfig type.
-# Get-Glossary caches per repository root, so every test resets the cache entry
-# ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)). Fixture terms
-# are
-# neutral (widget/gadget, [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-Glossary merges the glossary sources into GlossaryEntry records.
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md#comment1)
 Describe 'Get-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
         $concept = {
@@ -47,8 +47,8 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
     }
 
     AfterAll {
-        # The cache is keyed by the REAL repository root, so a fixture glossary left in it would be served to any later
-        # caller in this worker — e.g. the real-tree glossary check.
+        # The cache is keyed by the REAL repository root, so a fixture glossary left in it would be served to any...
+        # [comment:2](/docs/references/automation/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md#comment2)
         InModuleScope Catzc.Base.Docs { $script:glossaryCache = $null }
     }
 

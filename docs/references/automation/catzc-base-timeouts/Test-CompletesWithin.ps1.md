@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-timeouts/Test-CompletesWithin.ps1.md
     kind: comment-page
     body_sha: a10d3d8cc634
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Timeouts/Test-CompletesWithin.ps1

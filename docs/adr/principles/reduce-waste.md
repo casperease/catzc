@@ -8,8 +8,6 @@ catzc:
       - ADR-PRIN-NOWASTE#1
       - ADR-PRIN-NOWASTE#2
       - ADR-PRIN-NOWASTE#3
-    adrs: []
-    links: []
 ---
 
 # Principle: Reduce waste

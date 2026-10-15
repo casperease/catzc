@@ -4,7 +4,6 @@ catzc:
     path: docs/references/dora/core-model.md
     kind: reference
     body_sha: "523a0e9c4ca7"
-    adrs: []
     links:
       - docs/references/dora/capabilities.md
       - docs/references/dora/capabilities.md#code-maintainability

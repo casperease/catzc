@@ -6,18 +6,18 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Provisioning
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls Git installed by Install-Git.
+    description: |-
+      Windows: Removes LOCALAPPDATA\Git and cleans PATH.
+      macOS: brew uninstall git.
+      Linux: apt-get remove git (requires root).
+      Idempotent — skips if not installed.
+    examples:
+      - Uninstall-Git
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls Git installed by Install-Git.
-.DESCRIPTION
-    Safe to run when git is not installed; Linux removal needs root, Windows removal needs no admin.
-.EXAMPLE
-    Uninstall-Git
-#>
 function Uninstall-Git {
     [CmdletBinding()]
     param()

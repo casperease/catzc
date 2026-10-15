@@ -20,9 +20,8 @@ Describe 'Add-PermanentPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalPath = $env:PATH
 
-        # Keep the persistent (Windows User-registry) PATH entirely IN-MEMORY via the Get-EnvironmentPath/Set-EnvironmentPath
-        # seam, so NOTHING here mutates the real machine PATH or broadcasts WM_SETTINGCHANGE. Every Windows run
-        # of Add-PermanentPath hits this branch (not just the persistence context), so the mocks are global.
+        # Keep the persistent (Windows User-registry) PATH entirely IN-MEMORY via the...
+        # [comment:1](/docs/references/automation/catzc-base-environment/tests/Add-PermanentPath.Tests.ps1.md#comment1)
         $script:fakeUserPath = $null
         Mock Get-EnvironmentPath { $script:fakeUserPath } -ModuleName Catzc.Base.Environment
         Mock Set-EnvironmentPath { $script:fakeUserPath = $Value } -ModuleName Catzc.Base.Environment
@@ -79,8 +78,7 @@ Describe 'Add-PermanentPath' -Tag 'L0', 'logic' {
 
             It 'does not write the persistent PATH when the entry is already present' {
                 # Seed with the entry already there → Add must detect it and skip the registry write entirely.
-                # (Asserting on Set-EnvironmentPath invocation avoids relying on mock-to-mock state round-tripping,
-                # which hits a Pester $script: scope surprise — see docs/adr test-automation Gotchas.)
+                # [comment:2](/docs/references/automation/catzc-base-environment/tests/Add-PermanentPath.Tests.ps1.md#comment2)
                 $script:fakeUserPath = "C:\existing\tool;$tempDir"
 
                 Add-PermanentPath $tempDir

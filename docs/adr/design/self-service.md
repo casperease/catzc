@@ -10,7 +10,6 @@ catzc:
       - ADR-DSGN-SELFSERV#3
       - ADR-DSGN-SELFSERV#4
       - ADR-DSGN-SELFSERV#5
-    adrs: []
     links:
       - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5
       - docs/adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg6

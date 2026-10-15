@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-git/Test-RepositorySnapshot.ps1.md
     kind: comment-page
     body_sha: "6d7f89a53e0f"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Git/Test-RepositorySnapshot.ps1

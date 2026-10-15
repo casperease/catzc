@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-provisioning/types/ToolStatus.cs.md
     kind: comment-page
     body_sha: "4d33f8bd4099"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/types/ToolStatus.cs

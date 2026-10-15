@@ -6,7 +6,6 @@ catzc:
     body_sha: "47a615bb0231"
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/MapsPin.cs

@@ -6,23 +6,25 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Finds the parameter names that carry more than one type across the given function files.
+    description: |-
+      The logic behind Test-ParameterConsistency: parses each file, reads every function's declared parameters, and groups
+      them by name (case-insensitively). Two declarations agree when their element types agree — [string] and [string[]]
+      are one type at two cardinalities, and a type is resolved through .NET where it is loaded, so an accelerator and its
+      full name are one type ([bool] is [System.Boolean]); an untyped parameter and one typed [object] or [psobject]
+      accept anything, so they never conflict. A name whose typed declarations have
+      more than one element type is one conflict.
+    parameters:
+      Path: The .ps1 files to read (absolute paths).
+    outputs: |-
+      [pscustomobject] { Name; Types } per conflicting name, by name — Types one { Type; Functions } per element type, by
+      type, Functions the declaring functions sorted ordinally.
+    examples:
+      - Get-ParameterTypeConflict -Path (Get-ChildPath automation/Catzc.Widget -File -Filter '*.ps1' -Depth 1)
 ---
 #>
 
-<#
-.SYNOPSIS
-    Finds the parameter names that carry more than one type across the given function files.
-.DESCRIPTION
-    Untyped and object-typed parameters accept anything, so they never conflict; a scalar and its array are one type.
-.PARAMETER Path
-    The .ps1 files to read (absolute paths).
-.OUTPUTS
-    [pscustomobject] { Name; Types } per conflicting name, by name — Types one { Type; Functions } per element type, by
-    type, Functions the declaring functions sorted ordinally.
-.EXAMPLE
-    Get-ParameterTypeConflict -Path (Get-ChildPath automation/Catzc.Widget -File -Filter '*.ps1' -Depth 1)
-#>
 function Get-ParameterTypeConflict {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -48,8 +50,8 @@ function Get-ParameterTypeConflict {
                 if (-not $constraint) {
                     continue
                 }
-                # Resolving through .NET makes bool and System.Boolean one type; an unresolved type keeps its name.
-                # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md#comment2)
+                # Resolve through.NET where the type is loaded, so an accelerator and its full name are one type...
+                # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md#comment3)
                 $reflected = $constraint.TypeName.GetReflectionType()
                 if ($reflected -and $reflected.IsArray) {
                     $reflected = $reflected.GetElementType()

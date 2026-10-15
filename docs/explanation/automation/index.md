@@ -4,7 +4,6 @@ catzc:
     path: docs/explanation/automation/index.md
     kind: explanation
     body_sha: ef9adf853ade
-    adrs: []
     links:
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/platform-bundle.md

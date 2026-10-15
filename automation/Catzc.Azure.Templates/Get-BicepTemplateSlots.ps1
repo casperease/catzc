@@ -6,26 +6,32 @@ catzc:
     kind: public-function
     module: Catzc.Azure.Templates
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns a template's configured (non-base) slot discriminators as a flat string array.
+    description: |-
+      The single source of the slot list used by the -Slot ArgumentCompleter on every deploy/name
+      path. A template's slots come from its config files: `<env>.yml` is the base slot (empty
+      discriminator, NOT offered for completion) and `<env>-<slot>.yml` is the slot `<slot>`. This
+      returns the distinct non-empty discriminators, optionally filtered to one environment, so
+      `-Slot <TAB>` offers exactly the real special slots for the bound -Template (and -Environment).
+
+      Returns an empty array when -Template is omitted/unknown or the template has only base slots —
+      completers must degrade quietly, never throw.
+
+      Centralising it (like Get-BicepTemplateNames does for -Template) keeps the completer scriptblocks
+      one-liners and avoids the [ordered]-dict / comma-wrapped Get-BicepTemplates enumeration traps.
+    parameters:
+      Template: Template name (folder under infrastructure/templates/).
+      Environment: Optional filter — return only slots configured for this environment name.
+      Customer: |-
+        Customer filter — only the slots of this customer's configuration subfolder (omitted/empty = the
+        configuration-root, shared-platform slots).
+    examples:
+      - 'Get-BicepTemplateSlots sample-indexed            # -> 001, 002'
+      - 'Get-BicepTemplateSlots sample-indexed dev        # -> 001, 002 (only env ''dev'')'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns a template's configured (non-base) slot discriminators as a flat string array.
-.DESCRIPTION
-    The base slot has an empty discriminator and is never offered; completion lists only the special slots.
-.PARAMETER Template
-    Template name (folder under infrastructure/templates/).
-.PARAMETER Environment
-    Optional filter — return only slots configured for this environment name.
-.PARAMETER Customer
-    Omitted or empty means the configuration-root, shared-platform slots, not every customer's.
-.EXAMPLE
-    Get-BicepTemplateSlots sample-indexed            # -> 001, 002
-.EXAMPLE
-    Get-BicepTemplateSlots sample-indexed dev        # -> 001, 002 (only env 'dev')
-#>
 function Get-BicepTemplateSlots {
     [CmdletBinding()]
     [OutputType([string[]])]
@@ -51,8 +57,8 @@ function Get-BicepTemplateSlots {
         return @()
     }
 
-    # The Where-Object prop -EQ shortcut does not bind ordered-dict keys, so the script-block form is required.
-    # [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md#comment3)
+    # slots are [ordered] dicts -> use the script-block Where-Object/ForEach-Object form (the `Where-Object prop -EQ`...
+    # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md#comment4)
     $wantCustomer = [string]$Customer
     @($templateDescriptor.slots |
             Where-Object { -not [string]::IsNullOrEmpty($_.slot) } |

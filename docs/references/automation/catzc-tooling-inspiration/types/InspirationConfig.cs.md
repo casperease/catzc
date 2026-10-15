@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs

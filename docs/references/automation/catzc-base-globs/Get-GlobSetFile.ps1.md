@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-FLOW-CD-GLOBS#4
       - ADR-FLOW-CD-GLOBS#5
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/Get-GlobSetFile.ps1

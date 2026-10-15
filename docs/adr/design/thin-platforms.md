@@ -10,7 +10,6 @@ catzc:
       - ADR-DSGN-THINPLAT#3
       - ADR-DSGN-THINPLAT#4
       - ADR-DSGN-THINPLAT#5
-    adrs: []
     links:
       - "https://architectelevator.com"
       - "https://teamtopologies.com/key-concepts-content/what-is-a-thinnest-viable-platform-tvp"

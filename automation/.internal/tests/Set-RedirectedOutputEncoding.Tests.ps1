@@ -4,13 +4,15 @@ catzc:
   derived:
     path: automation/.internal/tests/Set-RedirectedOutputEncoding.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-ANNOUNCE#1
+      - ADR-PWSH-ANNOUNCE#6
 ---
 #>
 
 BeforeAll {
-    # An isolated sandbox = importer + the .internal shared modules + vendor, with no application modules, imported in a
-    # fresh child pwsh (the same shape as Import-AllModules.Tests.ps1). Capturing the child's output redirects its
-    # standard output, which is the case under test.
+    # An isolated sandbox = importer + the.internal shared modules + vendor, with no application modules, imported in...
+    # [comment:1](/docs/references/automation/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md#comment1)
     $script:sandbox = Join-Path ([System.IO.Path]::GetTempPath()) "redirected-encoding-$([guid]::NewGuid().ToString('N'))"
     $sandboxAuto = Join-Path $script:sandbox 'automation'
     [System.IO.Directory]::CreateDirectory($sandboxAuto) | Out-Null
@@ -18,9 +20,8 @@ BeforeAll {
     Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.internal') (Join-Path $sandboxAuto '.internal')
     Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.vendor') (Join-Path $sandboxAuto '.vendor')
 
-    # ONE cold import, with its verbose load record merged into the captured output. The child gets its own console
-    # (CreateNoWindow): assigning the output encoding sets the code page of the console a process is attached to, so a
-    # child sharing this worker's console would inherit whatever the worker's own import already set.
+    # ONE cold import, with its verbose load record merged into the captured output.
+    # [comment:2](/docs/references/automation/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md#comment2)
     $childScript = ". '$script:sandbox/importer.ps1' -Verbose 4>&1 6>`$null; " +
     "'codepage=' + [Console]::OutputEncoding.CodePage; 'redirected=' + [Console]::IsOutputRedirected"
     $startInfo = [System.Diagnostics.ProcessStartInfo]::new('pwsh')

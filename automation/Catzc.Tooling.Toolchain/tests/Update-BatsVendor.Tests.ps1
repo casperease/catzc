@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Update-BatsVendor with the download and tar mocked: the mocked tar lays out a fixture release in the staging folder,
-# and the vendored folder of a fixture repository in $TestDrive is rebuilt from it. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Update-BatsVendor with the download and tar mocked: the mocked tar lays out a fixture release in the staging...
+# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md#comment1)
 Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive "repo-$([guid]::NewGuid().ToString('N'))"

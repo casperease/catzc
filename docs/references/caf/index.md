@@ -4,7 +4,6 @@ catzc:
     path: docs/references/caf/index.md
     kind: reference
     body_sha: c74c37e86f75
-    adrs: []
     links:
       - docs/adr/azure/caf/
       - docs/adr/azure/caf/billing-and-tenant.md

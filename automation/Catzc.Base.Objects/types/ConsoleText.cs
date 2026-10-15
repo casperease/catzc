@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.Objects/types/ConsoleText.cs
     kind: csharp-type
     module: Catzc.Base.Objects
-    adrs: []
 ---
 */
 

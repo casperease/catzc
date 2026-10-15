@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/types/BicepArtifacts.cs.md
     kind: comment-page
     body_sha: "442985107c83"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepArtifacts.cs

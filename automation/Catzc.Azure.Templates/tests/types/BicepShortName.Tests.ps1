@@ -4,15 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AZ-NAMING#2
 ---
 #>
 
 # cspell:ignore deriv abcdef gadge gadgetry getry gadg
 Describe 'BicepShortName' -Tag 'L0', 'logic' {
-    # The C# type that owns short_name derivation + validation
-    # ([ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2)).
-    # Loaded by the Import-CSharpTypes pre-pass; referenced by FQN here. Neutral fixture template names
-    # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+    # The C# type that owns short_name derivation + validation.
+    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md#comment1)
 
     Context 'Derive (folder name -> short_name)' {
         It 'takes the first 5 [a-z0-9] characters' {

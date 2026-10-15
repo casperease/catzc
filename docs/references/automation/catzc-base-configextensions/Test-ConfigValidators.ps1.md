@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-DSGN-RUNMODE#2
-    links: []
 ---
 
 # automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1

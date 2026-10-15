@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/azure/dora-explains.md
     kind: adr
     body_sha: "018849f8c800"
-    defines: []
-    adrs: []
     links:
       - docs/adr/azure/az-session-verification.md
       - docs/adr/azure/azure-customer-model.md

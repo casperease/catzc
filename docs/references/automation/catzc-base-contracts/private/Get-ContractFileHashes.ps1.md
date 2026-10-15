@@ -6,7 +6,6 @@ catzc:
     body_sha: "3cfc07bb568b"
     adrs:
       - ADR-REPO-CONTRACT#5
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1
@@ -27,4 +26,13 @@ any depth, contract.yml included; only the record itself, .frozen directly in th
 Each hash is the SHA-256 of the file's bytes with every CRLF read as LF. Contract assets are text, and a checkout
 with core.autocrlf materialises them with CRLF while another checkout of the same commit has LF; reading line
 endings as LF gives every checkout of one commit the same hashes.
+```
+
+## comment:2
+
+Above `$files = [string[]] @(Get-ChildPath $Folder -File -Depth 64 -Exclude @()...`.
+
+```text
+A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a frozen
+contract is hashed in full, so no name is pruned and no depth drops a file.
 ```

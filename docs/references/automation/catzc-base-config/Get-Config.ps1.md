@@ -6,7 +6,6 @@ catzc:
     body_sha: "3036424d4c2a"
     adrs:
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # automation/Catzc.Base.Config/Get-Config.ps1
@@ -51,6 +50,25 @@ so an edited fragment is never served from a stale merge.
 ```
 
 ## comment:3
+
+Above `$script:configCache = @{}`.
+
+```text
+strict-clean probe of the lazy cache entry
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:4
+
+Above `$fragmentPath = $null`.
+
+```text
+A consumer overlay's fragment of this config (<overlay root>/<Module>/configs/<name>.yml), in build mode only
+([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)). The cache key carries the fragment's stamp,
+so an edited fragment is never served from a stale merge.
+```
+
+## comment:5
 
 Above `$script:configCache = @{}`.
 

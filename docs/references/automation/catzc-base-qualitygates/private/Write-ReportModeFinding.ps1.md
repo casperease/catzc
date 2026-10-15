@@ -6,7 +6,6 @@ catzc:
     body_sha: "690e5a46ca77"
     adrs:
       - ADR-PRIN-CONFIG#4
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-ReportModeFinding.ps1

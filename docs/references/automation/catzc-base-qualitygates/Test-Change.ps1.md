@@ -6,7 +6,6 @@ catzc:
     body_sha: "87fe9ee57721"
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-Change.ps1

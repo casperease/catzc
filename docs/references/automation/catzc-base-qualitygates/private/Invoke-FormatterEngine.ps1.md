@@ -6,7 +6,6 @@ catzc:
     body_sha: "2310494cf066"
     adrs:
       - ADR-PRIN-CONFIG#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-FormatterEngine.ps1

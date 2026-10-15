@@ -4,20 +4,19 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-DSGN-RUNMODE#3
 ---
 #>
 
-# Scope isolation ([ADR-DSGN-RUNMODE#3](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode3)): two catzc modules that
-# hold a $script: variable of the same name never see
-# each other's value — in either run mode. The probe variable name is the test's own and is removed afterwards; no
-# module code reads it. The modules are chosen generically (the first two loaded catzc modules by name), never by
-# a production identity.
+# Scope isolation: two catzc modules that hold a $script: variable of the same name never see each other's value — in...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md#comment1)
 Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
     BeforeAll {
         $script:probeName = 'catzcScopeIsolationProbe'
 
-        # Sets the probe in each module's script scope (widget, gadget, …), reads every module's variable and the
-        # global one back, then removes the probes. Self-contained so it also runs in a child pwsh.
+        # Sets the probe in each module's script scope (widget, gadget, …), reads every module's variable and the...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md#comment2)
         $script:probeBlock = {
             param([string] $ProbeName)
             $modules = @(Get-Module 'Catzc.*' | Where-Object { $_.Name -notlike 'Catzc.Internal.*' -and $_.Name -ne 'Catzc' } |
@@ -44,8 +43,8 @@ Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
         }
     }
 
-    # In-process, in whichever mode this session runs: the source run proves the source mode, the build run (where
-    # this file runs against the built modules) proves build mode.
+    # In-process, in whichever mode this session runs: the source run proves the source mode, the build run (where...
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md#comment3)
     Context 'in the loaded session' -Tag 'L1', 'logic' {
         It 'gives each module its own value for the same variable name, invisible to the session' {
             $result = & $script:probeBlock $script:probeName
@@ -57,9 +56,8 @@ Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
         }
     }
 
-    # A fresh build entered in a child pwsh. source-only: it builds from the source tree itself (Build-Modules needs
-    # the per-function files) and isolates the build in its own process, so the answer does not depend on the mode
-    # of the session running it. greedy: one build plus one importer-loading child pwsh.
+    # A fresh build entered in a child pwsh.
+    # [comment:4](/docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md#comment4)
     Context 'in a fresh build' -Tag 'L2', 'logic', 'greedy', 'source-only' {
         BeforeAll {
             $script:buildAvailable = [bool](Get-Command Build-Modules -ErrorAction Ignore)

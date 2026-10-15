@@ -10,7 +10,6 @@ catzc:
       - ADR-AUTO-UVPY#3
       - ADR-AUTO-UVPY#4
       - ADR-AUTO-UVPY#5
-    adrs: []
     links:
       - docs/adr/azure/prefer-az-cli.md
 ---

@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-ModuleCycles over a mocked call graph (Get-ModuleDependency). Neutral fixture module names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-ModuleCycles over a mocked call graph (Get-ModuleDependency).
+# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Test-ModuleCycles.Tests.ps1.md#comment1)
 Describe 'Test-ModuleCycles' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }

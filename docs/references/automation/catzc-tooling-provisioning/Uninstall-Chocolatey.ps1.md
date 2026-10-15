@@ -6,7 +6,6 @@ catzc:
     body_sha: d8a197e5f977
     adrs:
       - ADR-AUTO-TEST#33
-    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
@@ -34,6 +33,24 @@ the seam announces each removal, and does nothing in a scope where the variable 
 ```
 
 ## comment:3
+
+Above `foreach ($scope in 'Machine', 'User') {`.
+
+```text
+Remove Chocolatey from PATH — through the PATH seams, which announce the change
+([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33))
+```
+
+## comment:4
+
+Above `Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope Machine`.
+
+```text
+Remove environment variable
+the seam announces each removal, and does nothing in a scope where the variable is not set
+```
+
+## comment:5
 
 Above `foreach ($scope in 'Machine', 'User') {`.
 

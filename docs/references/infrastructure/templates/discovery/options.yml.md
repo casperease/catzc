@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/templates/discovery/options.yml.md
     kind: comment-page
     body_sha: "3860a5338d18"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/templates/discovery/options.yml

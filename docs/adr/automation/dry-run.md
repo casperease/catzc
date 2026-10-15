@@ -9,7 +9,6 @@ catzc:
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-DRYRUN#3
       - ADR-AUTO-DRYRUN#4
-    adrs: []
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/automation/idempotent-state-functions.md

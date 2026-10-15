@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md
     kind: comment-page
     body_sha: "5ba04fecab56"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/FunctionCall.cs

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
 ---
 #>
 
@@ -17,11 +19,8 @@ Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
     }
 }
 
-# L2: drives the real PSScriptAnalyzer across background-job shards (the whole point of the helper), over
-# throwaway fixtures. Integrity, because it reads two shipped assets with nothing mocked: the vendored
-# analyzer (<code root>/.vendor/PSScriptAnalyzer) and the one settings file (<code root>/.internal/assets) — the
-# real-asset test of [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3),
-# so it runs in both the source and the build run.
+# L2: drives the real PSScriptAnalyzer across background-job shards (the whole point of the helper), over throwaway...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1.md#comment1)
 Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         $script:settings = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
@@ -36,9 +35,8 @@ Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2', 'in
         }
     }
 
-    # One sharded run over a clean + a violating file proves everything the helper must do: the clean file
-    # yields nothing, the violating file yields its rule and path, and diagnostics are aggregated per file
-    # across the batch. Spawning the shards is the L2 cost, so pay it once rather than once per assertion.
+    # One sharded run over a clean + a violating file proves everything the helper must do: the clean file yields...
+    # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1.md#comment2)
     It 'shards the real analyzer across a batch: clean file yields none, violation file yields its rule + path' {
         $clean = Join-Path $TestDrive 'Get-Clean.ps1'
         Set-Content -Path $clean -Value "function Get-Clean {`n    `$value = 1`n    `$value`n}" -Encoding utf8

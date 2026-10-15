@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
     kind: asset-description
     body_sha: bb5d153b74ef
-    adrs: []
     links:
       - docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
       - docs/explanation/azure/config-path-is-a-coordinate.md

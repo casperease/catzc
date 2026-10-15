@@ -4,16 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Install-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
-        # A fixture build (neutral names,
-        # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). Its integrity guard is a
-        # boundary here (Assert-CatzcBundle
-        # has its own tests); the fixture's Import-Catzc.ps1 records how it was invoked, so dot-sourcing the
-        # generated root importer proves the wiring without loading a platform.
+        # A fixture build (neutral names, ).
+        # [comment:1](/docs/references/automation/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md#comment1)
         $script:source = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"
         [System.IO.Directory]::CreateDirectory((Join-Path $source 'Catzc.Base.Widget')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $source 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'), 'function Get-Widget { }')

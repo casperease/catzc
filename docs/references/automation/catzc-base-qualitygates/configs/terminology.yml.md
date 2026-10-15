@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-SPELL#5
       - ADR-AUTO-SPELL#8
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/terminology.yml

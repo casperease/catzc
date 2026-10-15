@@ -6,23 +6,29 @@ catzc:
     kind: private-function
     module: Catzc.Azure.DevOps
     visibility: private
-    adrs: []
+  config:
+    synopsis: Classifies a parsed YAML document as Pipeline, Template, or Unknown.
+    description: |-
+      Inspects the top-level keys of a parsed YAML dictionary and applies
+      heuristics to determine whether the file is an Azure DevOps pipeline,
+      a template (stages/jobs/steps/variables), or unknown.
+
+      Returns a PSCustomObject with Classification and TemplateType properties.
+      TemplateType is set for templates (Stages, Jobs, Steps, Variables) and
+      $null for non-templates.
+    parameters:
+      Yaml: |-
+        The parsed YAML object from ConvertFrom-Yaml. Accepts $null for files
+        that failed to parse — returns Unknown classification.
+    examples:
+      - |-
+        $yaml = Get-Content 'ci.yml' -Raw | ConvertFrom-Yaml -Ordered
+        $result = Resolve-AdoYamlClassification -Yaml $yaml
+        $result.Classification  # 'Pipeline'
+        $result.TemplateType    # $null
 ---
 #>
 
-<#
-.SYNOPSIS
-    Classifies a parsed YAML document as Pipeline, Template, or Unknown.
-.DESCRIPTION
-    TemplateType is null for a non-template, so a Pipeline or Unknown result never carries a sub-kind.
-.PARAMETER Yaml
-    A null from a file that failed to parse is accepted and classifies as Unknown.
-.EXAMPLE
-    $yaml = Get-Content 'ci.yml' -Raw | ConvertFrom-Yaml -Ordered
-    $result = Resolve-AdoYamlClassification -Yaml $yaml
-    $result.Classification  # 'Pipeline'
-    $result.TemplateType    # $null
-#>
 function Resolve-AdoYamlClassification {
     [OutputType([PSCustomObject])]
     param(

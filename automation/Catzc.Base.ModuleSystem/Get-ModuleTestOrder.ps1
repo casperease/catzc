@@ -6,35 +6,42 @@ catzc:
     kind: public-function
     module: Catzc.Base.ModuleSystem
     visibility: public
-    adrs: []
+  config:
+    synopsis: |-
+      Returns all automation module names in foundation-first order — a topological sort of the declared
+      dependency graph (configs/dependencies.yml), so a module is ordered after every module it may depend on.
+    description: |-
+      Builds the module -> dependencies map from the declared graph: each group's internal member -> member
+      layering, plus each module's allowed dependencies (a group target expands to all the group's members).
+      Then topologically sorts (Kahn's algorithm) with an ordinal-alphabetical tie-break for a stable order.
+
+      Every on-disk module (Get-AutomationModules) appears exactly once; a module with no declared dependencies
+      sorts among the roots. Throws on a cycle (which the DependenciesConfig type already prevents at load).
+
+      Test-Automation uses this to run module tests foundation-first, so a broken base module's failures
+      surface before the dependents that cascade from it.
+    examples:
+      - |-
+        Get-ModuleTestOrder
+        # -> Catzc.Base.Asserts, Catzc.Base.Environment, Catzc.Base.Objects, Catzc.Base.Repository, ...
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns all automation module names in foundation-first order — a topological sort of the declared
-    dependency graph (configs/dependencies.yml), so a module is ordered after every module it may depend on.
-.DESCRIPTION
-    Foundation-first, so a broken base module's failures surface before the dependents that cascade from it.
-.EXAMPLE
-    Get-ModuleTestOrder
-    # -> Catzc.Base.Asserts, Catzc.Base.Environment, Catzc.Base.Objects, Catzc.Base.Repository, ...
-#>
 function Get-ModuleTestOrder {
     [OutputType([string[]])]
     param()
 
-    # Sorted here, never trusted from the caller, so same-layer ties break alphabetically and deterministically.
-    # [comment:2](/docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md#comment2)
+    # Ordinal-sort the module set ourselves (not relying on the caller's order) so the topological sort's tie-break...
+    # [comment:5](/docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md#comment5)
     $modules = [string[]] @(Get-AutomationModules)
     [System.Array]::Sort($modules, [System.StringComparer]::Ordinal)
 
-    # Shared with Get-ModuleDependencyClosure, so test order and profile closures follow one declared graph.
-    # [comment:3](/docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md#comment3)
+    # module -> the set of modules it must run AFTER — the declared-graph edges (group-internal layering plus each...
+    # [comment:6](/docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md#comment6)
     $dependencyMap = Get-ModuleDependencyMap -Module $modules
 
-    # Seeding and relaxing in the ordinal-sorted order keeps same-layer modules alphabetical in the result.
-    # [comment:4](/docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md#comment4)
+    # Kahn's topological sort.
+    # [comment:7](/docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md#comment7)
     $inDegree = @{}
     foreach ($module in $modules) {
         $inDegree[$module] = $dependencyMap[$module].Count

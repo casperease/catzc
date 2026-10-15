@@ -9,19 +9,24 @@ catzc:
     adrs:
       - ADR-AUTO-ENTERP
       - ADR-AZ-CLI#1
+  config:
+    synopsis: Asserts the Bicep CLI is available to az and at or above the configured minimum (throws otherwise).
+    description: |-
+      The throwing companion to Test-AzCliBicep. Throws a remediation-bearing error when the Bicep CLI that
+      `az bicep build` needs is missing or below Get-AzureBicepMinVersion (azure.yml `bicep_min_version`),
+      distinguishing the two cases: not installed -> `az bicep install`; too old -> `az bicep upgrade`.
+      Asserting it before a build turns the silent "az bicep build exits 0 but writes no main.json" failure
+      into a clear, early error at the source. It first asserts the az CLI itself is installed at the
+      locked version (Assert-Tool 'az_cli'), then checks the Bicep CLI. Both share Get-AzCliBicepState.
+      See [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1) and
+      [ADR-AUTO-ENTERP](/docs/adr/automation/effective-in-enterprises.md).
+    parameters:
+      ErrorText: Custom error message. Defaults to one naming the specific cause and the matching az bicep fix.
+    examples:
+      - Assert-AzCliBicep
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts the Bicep CLI is available to az and at or above the configured minimum (throws otherwise).
-.DESCRIPTION
-    Fails early because a missing or stale Bicep makes az bicep build exit 0 yet write no main.json.
-.PARAMETER ErrorText
-    Custom error message. Defaults to one naming the specific cause and the matching az bicep fix.
-.EXAMPLE
-    Assert-AzCliBicep
-#>
 function Assert-AzCliBicep {
     param(
         [string] $ErrorText

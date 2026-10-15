@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates.md
     kind: reference
     body_sha: c62eb7ef9ecb
-    adrs: []
     links:
       - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
       - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png

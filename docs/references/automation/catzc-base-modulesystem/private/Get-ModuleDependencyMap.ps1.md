@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md
     kind: comment-page
     body_sha: "78c8833643d4"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyMap.ps1
@@ -39,6 +37,25 @@ persists on the shared variable and would coerce each scalar element back into a
 ```
 
 ## comment:3
+
+Above `foreach ($moduleName in $allowed.Keys) {`.
+
+```text
+2) Per-module allowed deps. A specific-module target is a direct edge. A GROUP target adds every member
+   of that group — EXCEPT when the module is itself a member of that group (see .DESCRIPTION).
+```
+
+## comment:4
+
+Above `$dependencyMap = @{}`.
+
+```text
+module -> the set of modules it depends on. The loop variable must NOT be named $module: it would
+collide (names are case-insensitive) with the [string[]] $Module parameter, whose type constraint
+persists on the shared variable and would coerce each scalar element back into a 1-element array.
+```
+
+## comment:5
 
 Above `foreach ($moduleName in $allowed.Keys) {`.
 

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md
     kind: comment-page
     body_sha: c616e633a245
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/types/YamlInventoryRecord.cs

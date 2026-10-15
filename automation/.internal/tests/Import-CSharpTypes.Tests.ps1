@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/tests/Import-CSharpTypes.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-PESTER#9
 ---
 #>
 
@@ -11,26 +13,16 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
 
-        # Fixtures live OUTSIDE TestDrive: Add-Type loads each compiled DLL into the process, so the file is
-        # locked for the process lifetime and can never be deleted in-session. TestDrive's mandatory teardown
-        # would fail on the lock; a self-managed temp dir lets us best-effort clean and leak only the DLL.
+        # Fixtures live OUTSIDE TestDrive: Add-Type loads each compiled DLL into the process, so the file is locked...
+        # [comment:1](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment1)
         $script:fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) "importcs-$([guid]::NewGuid().ToString('N'))"
 
-        # Per-run-unique module/type suffix. .NET types persist for the whole process, so a fixed name would
-        # be already-loaded on a second test run in the same session — the loader would then take its no-op
-        # branch and skip the compile. A fresh suffix per run keeps the "fresh type" precondition true.
+        # Per-run-unique module/type suffix..NET types persist for the whole process, so a fixed name would be...
+        # [comment:2](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment2)
         $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
 
-        # Writes a fixture MODULES ROOT: a fresh dir containing one subfolder per module in $Modules (keyed by
-        # module name), each with types/<name>.cs for each entry in its value hashtable (keyed by the BARE type
-        # name). Sources mirror shipped types: each declares its module's file-scoped namespace, which the loader
-        # requires — so New-FixtureRoot auto-prepends "namespace <module>;" UNLESS the case already supplies a
-        # namespace line (the negative tests ship a wrong/block-scoped one to exercise the gate). Returns the root
-        # to pass as -ModulesRoot. Import-CSharpTypes writes the combined assembly to <root>/.compiled/.
-        # [System.IO] rather than New-Item/Set-Content — ~0.1ms vs ~20ms/call
-        # ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)). WriteAllText writes the
-        # string verbatim (no trailing newline appended); the auto-prepend uses LF, so a fixture's line endings
-        # are exactly the source's bar that one leading line — the CRLF/LF-flip regression below relies on that.
+        # Writes a fixture MODULES ROOT: a fresh dir containing one subfolder per module in $Modules (keyed by module...
+        # [comment:3](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment3)
         function New-FixtureRoot {
             param([hashtable] $Modules)
             $root = Join-Path $script:fixtureRoot ([guid]::NewGuid().ToString('N'))
@@ -56,18 +48,18 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
     }
 
     BeforeEach {
-        # The loader announces a real build via Write-ImporterMessage. Mock it so compile tests stay quiet,
-        # and so the announce test can assert the call.
+        # The loader announces a real build via Write-ImporterMessage.
+        # [comment:4](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment4)
         Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Bootstrap
-        # Loads go through the per-user shadow copy (Import-TypesAssembly); keep the fixtures' copies out of the
-        # real %LOCALAPPDATA%\catzc\types. Under fixtureRoot, not TestDrive: a loaded copy stays locked too.
+        # Loads go through the per-user shadow copy (Import-TypesAssembly); keep the fixtures' copies out of the real...
+        # [comment:5](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment5)
         $shadowRoot = Join-Path $script:fixtureRoot 'shadow'
         Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Types
     }
 
     Context 'fixture' -Tag 'logic' {
-        # L1: the first Add-Type in the file pays Roslyn's cold-start (~0.5s) on top of the compile itself;
-        # the sibling compile tests run against a warm compiler and stay within the L0 budget.
+        # L1: the first Add-Type in the file pays Roslyn's cold-start (~0.5s) on top of the compile itself; the...
+        # [comment:6](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment6)
         It 'compiles fresh modules, loads their types, and caches ONE combined DLL' -Tag 'L1' {
             $namespace = "CatzcTestA$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Alpha = 'public class Alpha { }' } }
@@ -145,6 +137,54 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             [System.IO.File]::Exists($manifest) | Should -BeFalse
         }
 
+        It 'verifies but does not load the types for a console host, and the first Initialize-Types loads them' {
+            $namespace = "CatzcTestLazy$runId"
+            $root = New-FixtureRoot @{ $namespace = @{ Lambda = 'public class Lambda { }' } }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
+
+            ([System.Management.Automation.PSTypeName]"$namespace.Lambda").Type | Should -BeNullOrEmpty
+            @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.dll')).Count | Should -Be 1
+            $entry = $global:__CatzcDeferredTypes[[System.IO.Path]::GetFullPath($root)]
+            $entry.Loaded | Should -BeFalse
+            [System.IO.Path]::GetDirectoryName($entry.Path) | Should -Be (Join-Path $root '.compiled')
+
+            Initialize-Types | Out-Null
+            ([System.Management.Automation.PSTypeName]"$namespace.Lambda").Type | Should -Not -BeNullOrEmpty
+            $entry.Loaded | Should -BeTrue
+        }
+
+        It 'defers a console bundle load too, from the prebuilt DLL and manifest, without compiling' {
+            $namespace = "CatzcTestLazyBundle$runId"
+            $root = New-FixtureRoot @{ $namespace = @{ Mu = 'public class Mu { }' } }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
+            $dll = @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.dll'))[0]
+            $stamp = [System.IO.File]::GetLastWriteTimeUtc($dll)
+
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console -PrebuiltOnly }
+
+            [System.IO.File]::GetLastWriteTimeUtc($dll) | Should -Be $stamp
+            ([System.Management.Automation.PSTypeName]"$namespace.Mu").Type | Should -BeNullOrEmpty
+            $global:__CatzcDeferredTypes[[System.IO.Path]::GetFullPath($root)].Loaded | Should -BeFalse
+            Initialize-Types | Out-Null
+        }
+
+        It 'loads at import when the policy names an eager type, and refuses a name no module declares' {
+            $namespace = "CatzcTestEager$runId"
+            $root = New-FixtureRoot @{ $namespace = @{ Nu = 'public class Nu { }' } }
+            $eager = @{ Name = 'Nope.Missing' }
+            Mock Get-TypesLoadPolicy {
+                [pscustomobject]@{ Cell = 'console.windows.source'; Engine = 'pwsh'; Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @($eager.Name); ShadowCopy = $true }
+            }.GetNewClosure() -ModuleName Catzc.Internal.Bootstrap
+
+            { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console } } |
+                Should -Throw '*eager type*Nope.Missing*'
+            ([System.Management.Automation.PSTypeName]"$namespace.Nu").Type | Should -BeNullOrEmpty
+
+            $eager.Name = "$namespace.Nu"
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
+            ([System.Management.Automation.PSTypeName]"$namespace.Nu").Type | Should -Not -BeNullOrEmpty
+        }
+
         It 'is a no-op when the types are already loaded with unchanged sources' {
             $namespace = "CatzcTestDelta$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Delta = 'public class Delta { }' } }
@@ -154,9 +194,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'does not trip the changed-since-loaded guard on a pure CRLF/LF line-ending flip' {
-            # Regression: the combined hash is EOL-insensitive, so a checkout under git core.autocrlf (or an editor
-            # re-saving the file) that flips line endings must NOT be mistaken for a source change. Before the fix
-            # this threw '*changed since they were loaded*' even though the content was byte-identical bar EOLs.
+            # Regression: the combined hash is EOL-insensitive, so a checkout under git core.autocrlf (or an editor...
+            # [comment:7](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment7)
             $namespace = "CatzcTestEol$runId"
             # Source carries an explicit CRLF so the flip below is a real line-ending change to neutralize.
             $root = New-FixtureRoot @{ $namespace = @{ Eta = "public class Eta {`r`n}" } }
@@ -184,11 +223,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'a load from a different ModulesRoot does not poison another root''s changed-since-loaded guard' {
-            # Regression: the session guard is keyed by ModulesRoot. Loading root A, then a DIFFERENT root B
-            # (this is exactly what the test-fixture trees do vs the real automation tree), must NOT make a
-            # re-import of root A throw a bogus "types changed". Before the fix a single global was overwritten
-            # by the last root loaded, so the next real import after a test run threw on session-leaked
-            # fixture state. Each root must track its own hash/snapshot.
+            # Regression: the session guard is keyed by ModulesRoot.
+            # [comment:8](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment8)
             $namespaceA = "CatzcTestRootA$runId"
             $rootA = New-FixtureRoot @{ $namespaceA = @{ Apple = 'public class Apple { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
@@ -228,8 +264,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'on a devbox, a source changed after load warns (orange) and keeps the old types — no throw' {
-            # A loaded assembly cannot be swapped in-process, but a devbox degrades gracefully: warn and keep the
-            # already-loaded types this session. Clear BOTH pipeline env vars so this is the devbox path even in CI.
+            # A loaded assembly cannot be swapped in-process, but a devbox degrades gracefully: warn and keep the...
+            # [comment:9](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment9)
             $savedTfBuild = $env:TF_BUILD
             $savedGitHubActions = $env:GITHUB_ACTIONS
             $env:TF_BUILD = ''
@@ -294,8 +330,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
 
         It 'throws when a type file declares the WRONG namespace (not its module folder)' {
             $namespace = "CatzcTestNs$runId"
-            # The source must declare its module's file-scoped namespace; a different one is the mismatch the
-            # loader rejects (the same invariant Test-Formatting checks). The explicit namespace bypasses auto-prepend.
+            # The source must declare its module's file-scoped namespace; a different one is the mismatch the loader...
+            # [comment:10](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment10)
             $root = New-FixtureRoot @{ $namespace = @{ Widget = "namespace Other;`npublic class Widget { }" } }
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                 Should -Throw '*must declare*'
@@ -311,8 +347,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
 
         It 'throws when a type file declares NO namespace' {
             $namespace = "CatzcTestNoNs$runId"
-            # Bypass New-FixtureRoot's auto-prepend by writing the source directly, so the file genuinely lacks
-            # a namespace — the loader must reject it rather than silently produce a type in the global namespace.
+            # Bypass New-FixtureRoot's auto-prepend by writing the source directly, so the file genuinely lacks a...
+            # [comment:11](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment11)
             $root = Join-Path $script:fixtureRoot ([guid]::NewGuid().ToString('N'))
             $typesDirectory = Join-Path (Join-Path $root $namespace) 'types'
             [System.IO.Directory]::CreateDirectory($typesDirectory) | Out-Null
@@ -332,12 +368,11 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
     } # end Context 'fixture'
 
     Context 'cross-root types guard' -Tag 'logic' {
-        # The two run modes compile their DLLs from the same types/*.cs, so a root loading AFTER another root has
-        # put the same type names in the AppDomain compares per-file digests against that root's record: equal
-        # reuses, different (or a needed type missing) takes the stale-types contract and names both roots.
+        # The two run modes compile their DLLs from the same types/*.cs, so a root loading AFTER another root has put...
+        # [comment:12](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment12)
         BeforeAll {
-            # The loader's per-root session record (the session-global __CatzcTypes), read without a $global:
-            # reference: the record for <Root>, or $null when that root never recorded.
+            # The loader's per-root session record (the session-global __CatzcTypes), read without a $global:...
+            # [comment:13](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment13)
             function Get-TypeRecord {
                 param([string] $Root)
                 $records = Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly
@@ -421,11 +456,8 @@ Describe 'shipped C# types' -Tag 'L0', 'integrity' {
     }
 
     It 'every shipped C# type declares its module file-scoped namespace (Test-Formatting quality gate)' {
-        # The loader enforces this at import (it throws on a missing/mismatched namespace); this asserts the same
-        # invariant through Test-Formatting's Format-Types check, the authored quality gate, so a drift is a named
-        # failure, not a load-time throw. The namespace rule is what this test is about, so the gate's layout engine
-        # (dotnet format over every C# file, seconds of a real tool) stays out of it: the real engine's run over the
-        # repository is the L2 integrity test in Test-Formatting.Tests.ps1.
+        # The loader enforces this at import (it throws on a missing/mismatched namespace); this asserts the same...
+        # [comment:14](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment14)
         if (-not (Get-Command Test-Formatting -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'harness_test_formatting'; return
         }
@@ -435,23 +467,17 @@ Describe 'shipped C# types' -Tag 'L0', 'integrity' {
     }
 }
 
-# Mixed tiers: the git-status drift guard and the dotnet-build stamp check drive CLIs (L2 — process startup
-# well over the L0 limit), while the hash check is pure filesystem (L0). Tier is tagged per It.
+# Mixed tiers: the git-status drift guard and the dotnet-build stamp check drive CLIs (L2 — process startup well over...
+# [comment:15](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment15)
 Describe 'combined types assembly is committed and current' -Tag 'integrity' {
     BeforeAll {
-        # The current combined hash comes from the ONE shared implementation (Get-CombinedTypeHash, loaded by the
-        # importer that ran before this test file) — the same function the loader and the janitor call, so there is no
-        # separate PowerShell mirror to keep in step. The independent oracle that would catch a bug IN that
-        # function is the cross-language MSBuild stamp checked by the 'IDE project build stamps …' test below (a
-        # genuinely separate C# implementation of the same hash; see native-csharp-types).
+        # The current combined hash comes from the ONE shared implementation (Get-CombinedTypeHash, loaded by the...
+        # [comment:16](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment16)
         $script:currentHash = (Get-CombinedTypeHash (Join-Path $env:RepositoryRoot 'automation')).CombinedHash
     }
 
-    # Drift guard: the importer (which ran before this test file) rebuilds automation/.compiled/Catzc.Types.<hash>.dll
-    # from source whenever a types/*.cs changed, and every build copies that DLL. Test-BuildArtifact's types facet
-    # checks it is exactly one assembly named for the current sources' hash, with no pending git change (a
-    # forgotten commit of the prebuilt assembly stays red until it is committed). source-only: it reads the
-    # repository's own .compiled through the source tree.
+    # Drift guard: the importer (which ran before this test file) rebuilds...
+    # [comment:17](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment17)
     It 'is exactly one committed assembly whose hash matches the current sources (Test-BuildArtifact)' -Tag 'L2', 'source-only' {
         if (-not (Get-Command git -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
@@ -460,14 +486,11 @@ Describe 'combined types assembly is committed and current' -Tag 'integrity' {
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
-    # The IDE project (Catzc.Types.csproj) stamps its version from the committed .compiled DLL and FAILS its
-    # build when that DLL is stale or missing (see native-csharp-types ADR). Drive the real dotnet build and
-    # assert the deps.json project entry carries the CURRENT hash — so a drift between the committed assembly
-    # and the stamp, or a broken stamping target, is caught automatically here rather than only at IDE-build
-    # time. The stamping algorithm is a mirror of the loader's; this build proves it still agrees.
+    # The IDE project (Catzc.Types.csproj) stamps its version from the committed.compiled DLL and FAILS its build...
+    # [comment:18](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment18)
     It 'the IDE project build stamps its version to the current committed hash (dotnet build)' -Tag 'L2' {
-        # Test-Tool, not Get-Command: a machine can carry the dotnet host with no SDK, and `dotnet build` needs the
-        # SDK — Test-Tool probes the pinned version, which only an installed SDK answers (as Invoke-Dotnet's L2 does).
+        # Test-Tool, not Get-Command: a machine can carry the dotnet host with no SDK, and `dotnet build` needs the...
+        # [comment:19](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment19)
         if (-not (Test-Tool 'dotnet')) {
             Set-ItResult -Skipped -Because 'tool_dotnet_missing'; return
         }
@@ -485,9 +508,8 @@ Describe 'combined types assembly is committed and current' -Tag 'integrity' {
 }
 
 Describe 'Import-CSharpTypes — PSTypeAlias accelerators' -Tag 'L0', 'logic' {
-    # A [Catzc.Base.Objects.PSTypeAlias("Name")] on a type publishes a PowerShell type-accelerator at load, so
-    # [Name] resolves to it. This asserts the real registration on the shipped ModuleDependencyFormat (the
-    # importer ran, and so registered it, before Pester started).
+    # A [Catzc.Base.Objects.PSTypeAlias("Name")] on a type publishes a PowerShell type-accelerator at load, so [Name]...
+    # [comment:20](/docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md#comment20)
     It 'registers the [Catzc.Module.Depm] accelerator for the decorated enum' {
         [Catzc.Module.Depm].FullName | Should -Be 'Catzc.Base.ModuleSystem.ModuleDependencyFormat'
         [Catzc.Module.Depm]::Puml | Should -Be ([Catzc.Base.ModuleSystem.ModuleDependencyFormat]::Puml)

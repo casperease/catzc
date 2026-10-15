@@ -4,20 +4,19 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#19
+      - ADR-AUTO-TEST#4
 ---
 #>
 
 # cspell:ignore sampl deriv
 Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
-    # Read-only discovery tests: boundary mocks + config-cache reset run ONCE, not per test. Discovery
-    # (bicepTemplatesCache) already caches on the fixture root across tests, and no test mutates the fixture
-    # tree or config, so the warm caches are correct to share; a per-test configCache reset only forced a
-    # needless cold re-parse
-    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)). The cache-behavior tests below invalidate bicepTemplatesCache
-    # inside their own It, independent of this setup.
+    # Read-only discovery tests: boundary mocks + config-cache reset run ONCE, not per test.
+    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md#comment1)
     BeforeAll {
-        # Discover from the test fixtures, never the shipped infrastructure/templates — and resolve
-        # identity (env/customer validation) from the test config fixture, never the shipped azure.yml.
+        # Discover from the test fixtures, never the shipped infrastructure/templates — and resolve identity...
+        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md#comment2)
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
@@ -32,9 +31,8 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
     It 'discovers from the test fixtures (tests/assets/templates), not the shipped templates' {
         $sample = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample' } | Select-Object -First 1
         $sample.folder | Should -BeLike '*tests*assets*templates*sample*'
-        # Must NOT be the shipped repo-root infrastructure/templates tree. (Matched against the actual
-        # shipped root, not a '*infrastructure*templates*' substring — the module folder is now named
-        # Catzc.Azure.Templates, so the fixture path legitimately contains 'infrastructure' too.)
+        # Must NOT be the shipped repo-root infrastructure/templates tree.
+        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md#comment3)
         $shippedRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'
         $sample.folder | Should -Not -BeLike "$shippedRoot*"
     }

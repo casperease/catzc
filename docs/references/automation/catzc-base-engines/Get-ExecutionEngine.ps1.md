@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-engines/Get-ExecutionEngine.ps1.md
     kind: comment-page
     body_sha: b7c019f3b0b5
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1

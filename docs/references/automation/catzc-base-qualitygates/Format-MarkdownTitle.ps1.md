@@ -6,7 +6,6 @@ catzc:
     body_sha: "109bd3edbc67"
     adrs:
       - ADR-AUTO-DRYRUN#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1
@@ -32,6 +31,15 @@ tool: it throws in build mode (Assert-SourceTree).
 ```
 
 ## comment:2
+
+Above `function Format-MarkdownTitle {`.
+
+```text
+Uses -DryRun, not ShouldProcess/-WhatIf — see
+[ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2).
+```
+
+## comment:3
 
 Above `function Format-MarkdownTitle {`.
 

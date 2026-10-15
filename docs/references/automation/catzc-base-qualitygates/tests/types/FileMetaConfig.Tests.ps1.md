@@ -1,0 +1,25 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md
+    kind: test-asset
+    body_sha: "7656ff297d76"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-FILEMETA#2
+---
+
+# automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
+section (Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {`.
+
+```text
+FileMetaConfig maps file-meta.yml and is the one declaration of its defaults
+([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key behaves exactly like the default,
+and a malformed value fails at construction with the allowed set.
+```

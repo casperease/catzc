@@ -9,8 +9,8 @@ catzc:
 
 Describe 'Write-TestAutomationReport' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Rows are the plain per-test shape ConvertTo-TestAutomationRowSet produces — built directly here,
-        # since the report never sees a live Pester object.
+        # Rows are the plain per-test shape ConvertTo-TestAutomationRowSet produces — built directly here, since the...
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationReport.Tests.ps1.md#comment1)
         function New-Row {
             param($Path, $Result, $Ms, $Level, $File, $Line, $Message, $Stack, $Rules = '')
             [pscustomobject]@{

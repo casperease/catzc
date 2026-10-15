@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-repository/Get-CatzcOverlayRoot.ps1.md
     kind: comment-page
     body_sha: "5c848caffe5e"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Repository/Get-CatzcOverlayRoot.ps1

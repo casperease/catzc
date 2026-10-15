@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# The profiles.yml type: constructing it maps and validates the parsed YAML, so a malformed profile map never
-# loads through Get-Config -Config profiles.
+# The profiles.yml type: constructing it maps and validates the parsed YAML, so a malformed profile map never loads...
+# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/types/ProfilesConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Base.ModuleSystem.ProfilesConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

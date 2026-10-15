@@ -13,8 +13,8 @@ param()
 # L1: real named mutexes, held and abandoned from thread jobs — the snapshot itself is mocked.
 Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
     BeforeAll {
-        # A lock held by another thread: a mutex is re-entrant on its owning thread, so a held lock is only
-        # observable from a different thread. The thread job owns the named mutex until $release is set.
+        # A lock held by another thread: a mutex is re-entrant on its owning thread, so a held lock is only...
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Enter-TestRunLocation.Tests.ps1.md#comment1)
         $script:holdLock = {
             param([string] $Name)
             $acquired = [System.Threading.ManualResetEventSlim]::new($false)
@@ -52,15 +52,15 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         } -ModuleName Catzc.Base.QualityGates
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = '' } } -ModuleName Catzc.Base.QualityGates
         Mock Remove-RepositorySnapshot { } -ModuleName Catzc.Base.QualityGates
-        # The user's system-test lock is its own unit (Enter-SystemTestLock.Tests); here it is a seam, so no test
-        # takes the real per-user lock. By default another run holds it; the cases below override.
+        # The user's system-test lock is its own unit (Enter-SystemTestLock.Tests); here it is a seam, so no test...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Enter-TestRunLocation.Tests.ps1.md#comment2)
         Mock Enter-SystemTestLock {
             [pscustomobject]@{ Acquired = $false; Mutex = $null; LockPath = $null; Holder = [pscustomobject]@{ Description = 'Test-Automation (pid 4343)' } }
         } -ModuleName Catzc.Base.QualityGates
         $script:location = $null
         $script:holder = $null
-        # These tests run inside a harness worker, which carries the parent run's location marker; each test
-        # starts from a process that holds no location, and the worker case sets the marker itself.
+        # These tests run inside a harness worker, which carries the parent run's location marker; each test starts...
+        # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Enter-TestRunLocation.Tests.ps1.md#comment3)
         $script:savedLocationHeld = $env:CATZC_TEST_RUN_LOCATION_HELD
         $env:CATZC_TEST_RUN_LOCATION_HELD = $null
     }
@@ -189,8 +189,8 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
     }
 
     It 'takes over an abandoned lock and runs in place' {
-        # A child process acquires and exits without releasing -> abandoned. Not a thread job: Wait-Job returns
-        # when the job turns Completed, which can be before its thread has exited, and only the exit abandons.
+        # A child process acquires and exits without releasing -> abandoned.
+        # [comment:4](/docs/references/automation/catzc-base-qualitygates/tests/Enter-TestRunLocation.Tests.ps1.md#comment4)
         $name = & $script:mutexName $script:root
         $acquireAndExit = "[void][System.Threading.Mutex]::new(`$false, '$name').WaitOne()"
         $holder = Start-Process pwsh -ArgumentList '-NoProfile', '-NonInteractive', '-Command', $acquireAndExit -NoNewWindow -PassThru

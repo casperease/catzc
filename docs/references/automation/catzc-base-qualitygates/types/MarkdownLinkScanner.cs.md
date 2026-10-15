@@ -6,7 +6,6 @@ catzc:
     body_sha: "0470b07ea2fa"
     adrs:
       - ADR-REPO-LINK#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/MarkdownLinkScanner.cs

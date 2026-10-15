@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/modules/nsg.bicep.md
     kind: comment-page
     body_sha: "11a43e56100a"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/modules/nsg.bicep

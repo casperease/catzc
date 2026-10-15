@@ -6,7 +6,6 @@ catzc:
     body_sha: c647dc514fd6
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepParameterModel.cs

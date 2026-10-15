@@ -7,14 +7,13 @@ catzc:
 ---
 #>
 
-# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
-# ScriptBlockAst. The engine-wiring proof (PSScriptAnalyzer discovers and fires this rule via -CustomRulePath)
-# lives once, for all custom rules, in CustomRuleWiring.Tests.ps1.
+# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a...
+# [comment:1](/docs/references/automation/scriptanalyzer/tests/NoRawInformationStream.Tests.ps1.md#comment1)
 Describe 'Measure-NoRawInformationStream' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoRawInformationStream.psm1') -Force
-        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module
-        # once for the type — we never invoke the analyzer engine (that is the L2 wiring test below).
+        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module once...
+        # [comment:2](/docs/references/automation/scriptanalyzer/tests/NoRawInformationStream.Tests.ps1.md#comment2)
         if (-not (Get-Module PSScriptAnalyzer)) {
             Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
         }

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md
     kind: comment-page
     body_sha: "6a54cd9ee01a"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/guids.yml

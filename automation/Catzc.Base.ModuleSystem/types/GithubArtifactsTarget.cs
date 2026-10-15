@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/GithubArtifactsTarget.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
-    adrs: []
 ---
 */
 

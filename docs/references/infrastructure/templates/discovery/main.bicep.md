@@ -6,7 +6,6 @@ catzc:
     body_sha: d346c003a1a3
     adrs:
       - ADR-AZ-NETWORK#1
-    links: []
 ---
 
 # infrastructure/templates/discovery/main.bicep

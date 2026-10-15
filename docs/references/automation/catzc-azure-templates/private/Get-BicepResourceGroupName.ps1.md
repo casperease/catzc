@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/private/Get-BicepResourceGroupName.ps1.md
     kind: comment-page
     body_sha: ebe6c10983b2
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/private/Get-BicepResourceGroupName.ps1

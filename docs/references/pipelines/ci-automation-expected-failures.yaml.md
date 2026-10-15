@@ -4,8 +4,6 @@ catzc:
     path: docs/references/pipelines/ci-automation-expected-failures.yaml.md
     kind: comment-page
     body_sha: b62e57868b53
-    adrs: []
-    links: []
 ---
 
 # pipelines/ci-automation-expected-failures.yaml

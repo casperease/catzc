@@ -9,7 +9,6 @@ catzc:
       - ADR-PWSH-PARAM#4
       - ADR-REPO-LINK#5
       - ADR-REPO-LINK#8
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/links.yml

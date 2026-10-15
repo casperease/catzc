@@ -10,25 +10,40 @@ catzc:
       - ADR-AUTO-CONSOLE#10
       - ADR-AUTO-TEST#33
       - ADR-AUTO-TEST#41
+  config:
+    synopsis: Resolves the highest tier a test run executes, from the location it runs in.
+    description: |-
+      L3 holds the vertical system tests: they change or depend on state outside the repository — the cloud, the
+      user's environment, installed tools
+      ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)). A snapshot isolates a run from
+      the working folder,
+      never from that outside state, so only the run that owns the working folder (the in-place location) runs L3 —
+      and since that state belongs to the user, not to one checkout, only while it also holds the user's
+      system-test lock (Enter-SystemTestLock). Two concurrent runs — from one checkout or from two — never both
+      execute system tests against the same user's state, and nobody waits.
+
+      In place with the system-test lock, the requested level stands (both runs ask for 3 unless the caller bound
+      a lower -MaxLevel). Otherwise — in a snapshot, or in place while another run on this account holds the
+      system-test lock — a request that reaches L3 is capped at L2, and the cap is announced: the run says it
+      skips L3 and who holds the working folder or the lock, so a missing tier is never silent
+      ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
+      L4, the opt-in tier that tests the released system after final approval
+      ([ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)), runs only when asked for, and
+      where L3 runs: a run capped at L2 skips L4 too, and says so.
+    parameters:
+      Location: The location Enter-TestRunLocation returned.
+      Requested: |-
+        The highest tier the caller asks for. Default 3 (TestTiers.DefaultTop): every tier the location allows, L4
+        excluded; 4 includes L4.
+      MinLevel: |-
+        The lowest tier the caller asks for. A run that asks only for tiers its location skips (L3 in a snapshot, or
+        without the system-test lock) has nothing to run, so it throws, naming why.
+    outputs: '[int] the highest tier to run.'
+    examples:
+      - '$maxLevel = Resolve-TestRunMaxLevel -Location $location'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Resolves the highest tier a test run executes, from the location it runs in.
-.DESCRIPTION
-    L3 runs only in place with the user's system-test lock, since a snapshot cannot isolate state outside the repo.
-.PARAMETER Location
-    The location Enter-TestRunLocation returned.
-.PARAMETER Requested
-    Default 3 means every tier the location allows with L4 excluded; the location may cap it lower.
-.PARAMETER MinLevel
-    A run asking only for tiers its location skips has nothing to run, so it throws and names why.
-.OUTPUTS
-    [int] the highest tier to run.
-.EXAMPLE
-    $maxLevel = Resolve-TestRunMaxLevel -Location $location
-#>
 function Resolve-TestRunMaxLevel {
     [CmdletBinding()]
     [OutputType([int])]

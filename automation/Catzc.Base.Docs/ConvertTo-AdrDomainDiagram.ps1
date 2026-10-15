@@ -6,22 +6,27 @@ catzc:
     kind: public-function
     module: Catzc.Base.Docs
     visibility: public
-    adrs: []
+  config:
+    synopsis: Renders ADR domain dependency edges to PlantUML, Mermaid, or a Markdown table.
+    description: |-
+      Serializes the edges from Get-AdrDomainEdges to the format chosen by -As — the ADR-domain counterpart of
+      ConvertTo-ModuleDependencyDiagram, so the domain DAG (which the ASM/flow reasoning depends on) is drawn the
+      same way the module graph is:
+
+        - Puml     — a `@startuml … @enduml` graph (a dashed arrow per declared edge).
+        - Mermaid  — a `flowchart LR` graph for inline rendering in Markdown.
+        - Markdown — a `| From | To |` table.
+
+      Each domain's `role` (from Get-Config -Config adrs) annotates its node, so a reader sees which domains are
+      axioms / architecture / implementation / reference at a glance.
+    parameters:
+      Edge: The edges to render (pipeline), as Catzc.Base.Docs.AdrDomainEdge. Produced by Get-AdrDomainEdges.
+      As: 'Output format: Puml | Mermaid | Markdown. Defaults to Puml.'
+    examples:
+      - Get-AdrDomainEdges | ConvertTo-AdrDomainDiagram -As Mermaid
 ---
 #>
 
-<#
-.SYNOPSIS
-    Renders ADR domain dependency edges to PlantUML, Mermaid, or a Markdown table.
-.DESCRIPTION
-    The domain DAG is drawn like the module graph, with each domain's role shown on its node.
-.PARAMETER Edge
-    The edges to render (pipeline), as Catzc.Base.Docs.AdrDomainEdge. Produced by Get-AdrDomainEdges.
-.PARAMETER As
-    Output format: Puml | Mermaid | Markdown. Defaults to Puml.
-.EXAMPLE
-    Get-AdrDomainEdges | ConvertTo-AdrDomainDiagram -As Mermaid
-#>
 function ConvertTo-AdrDomainDiagram {
     [OutputType([string])]
     [CmdletBinding()]

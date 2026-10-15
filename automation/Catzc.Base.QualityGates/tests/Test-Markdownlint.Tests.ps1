@@ -4,6 +4,11 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#14
+      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#8
+      - ADR-REPO-PROTGLOB
 ---
 #>
 
@@ -113,16 +118,8 @@ Describe 'Test-Markdownlint (real markdownlint-cli2)' -Tag 'L2', 'logic' {
     }
 }
 
-# Integrity: the ACTUAL repository markdown is lint-clean. Unlike the logic test above (real markdownlint over
-# a fixture file), this binds to the real repo — Test-Markdownlint with no -Path scans its default content
-# scope ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). L2 because it drives the
-# markdownlint-cli2 CLI; self-skips when absent
-# ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9).
-# Behind a protected glob ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): a repeat local run over an
-# unchanged 'markdown-scope' globset (the
-# scan's inputs — in-scope markdown plus the markdownlint config) is skipped; in a pipeline the protection
-# is ignored and the scan always runs full. source-only: it reads the repository's markdown, which gives the same
-# answer in both run modes.
+# Integrity: the ACTUAL repository markdown is lint-clean.
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Markdownlint.Tests.ps1.md#comment1)
 Describe 'Repository markdown integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the real repository markdown is lint-clean (real markdownlint-cli2, default content scope)' {
         if (-not (Get-Command markdownlint-cli2 -ErrorAction Ignore)) {

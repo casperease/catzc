@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-LOOSETEAMS#3
       - ADR-DORA-LOOSETEAMS#4
       - ADR-DORA-LOOSETEAMS#5
-    adrs: []
     links:
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/open-closed-architecture.md

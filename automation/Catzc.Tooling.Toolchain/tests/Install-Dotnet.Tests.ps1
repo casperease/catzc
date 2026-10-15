@@ -4,14 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
 ---
 #>
 
-# Drives Install-Dotnet to the point where it resolves the vendored install script, then reads the REAL script
-# shipped in the loaded module (the lookup is not mocked), so it runs in both the source run and the build run
-# ([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)). The environment
-# boundaries are mocked so nothing is downloaded or installed, and the
-# script's presence check is the stop point: it records the resolved path and halts before the script runs.
+# Drives Install-Dotnet to the point where it resolves the vendored install script, then reads the REAL script...
+# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md#comment1)
 Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         $script:installDirectory = Join-Path $TestDrive 'dotnet-widget'
@@ -68,9 +67,8 @@ Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity', 'A
     }
 }
 
-# Hermetic logic (L1): the install script, the version probes, the PATH seam (Add-PermanentPath) and the persistent
-# variable seam (Set-PermanentEnvironmentVariable) are mocked or fixtures under $TestDrive — nothing is downloaded,
-# and the real user environment is never touched (its round trip is the seam's L3 test).
+# Hermetic logic (L1): the install script, the version probes, the PATH seam (Add-PermanentPath) and the persistent...
+# [comment:2](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md#comment2)
 Describe 'Install-Dotnet' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:savedDotnetRoot = $env:DOTNET_ROOT

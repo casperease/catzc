@@ -6,7 +6,6 @@ catzc:
     body_sha: f7a11c922f36
     adrs:
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-CatsAdrIndex.ps1
@@ -39,6 +38,15 @@ at a fixture index; the cache keys on the path, so a fixture path and the real p
 ```
 
 ## comment:3
+
+Above `$script:catsAdrIndexCache = @{}`.
+
+```text
+strict-clean probe of the lazy cache entry
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:4
 
 Above `$script:catsAdrIndexCache = @{}`.
 

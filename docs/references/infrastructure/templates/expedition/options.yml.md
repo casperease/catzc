@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/templates/expedition/options.yml.md
     kind: comment-page
     body_sha: "18f2660fa767"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/templates/expedition/options.yml

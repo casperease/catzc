@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-RootAnalyzerSettings over a fixture root settings file in $TestDrive with the registry entries mocked, so each
-# test pins one outcome. Neutral fixture values ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-RootAnalyzerSettings over a fixture root settings file in $TestDrive with the registry entries mocked, so each...
+# [comment:1](/docs/references/automation/catzc-base-rootconfig/tests/Test-RootAnalyzerSettings.Tests.ps1.md#comment1)
 Describe 'Test-RootAnalyzerSettings' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:settingsPath = Join-Path $TestDrive 'repo/PSScriptAnalyzerSettings.psd1'

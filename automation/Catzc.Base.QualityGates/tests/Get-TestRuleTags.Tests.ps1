@@ -4,13 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#27
 ---
 #>
 
 Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#27' {
     BeforeAll {
-        # A fake Pester test: own It-tags, an inner block, and an optional outer block (the same shape
-        # Get-TestBlockTag.Tests.ps1 uses). The test's .Block is the inner block.
+        # A fake Pester test: own It-tags, an inner block, and an optional outer block (the same shape...
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-TestRuleTags.Tests.ps1.md#comment1)
         function New-FakeTest {
             param([string[]] $OwnTags = @(), [string[]] $InnerTags = @(), [string[]] $OuterTags)
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

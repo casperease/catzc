@@ -6,25 +6,26 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Validates that all property keys in a parsed YAML object use snake_case.
+    description: |-
+      Recursively walks a parsed YAML structure and asserts that every property key
+      matches snake_case (lowercase letters, digits, underscores, starting with a letter).
+      List items and values are not checked.
+    parameters:
+      Yaml: The parsed YAML object (from ConvertFrom-Yaml -Ordered).
+      PropertyPath: |-
+        Optional root prefix for error messages. Useful when validating a subtree,
+        e.g. Assert-YmlNaming $config.customers 'customers' will report paths as
+        'customers.blue.details' instead of 'blue.details'.
+    examples:
+      - |-
+        $config = Get-Content config.yml -Raw | ConvertFrom-Yaml -Ordered
+        Assert-YmlNaming $config
+      - Assert-YmlNaming $config.customers 'customers'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Validates that all property keys in a parsed YAML object use snake_case.
-.DESCRIPTION
-    Only keys are checked: list items and values may be any case, so a value never fails the naming rule.
-.PARAMETER Yaml
-    The parsed YAML object (from ConvertFrom-Yaml -Ordered).
-.PARAMETER PropertyPath
-    For a subtree it makes errors report the full path, as customers.blue.details rather than blue.details.
-.EXAMPLE
-    $config = Get-Content config.yml -Raw | ConvertFrom-Yaml -Ordered
-    Assert-YmlNaming $config
-.EXAMPLE
-    Assert-YmlNaming $config.customers 'customers'
-#>
 function Assert-YmlNaming {
     [CmdletBinding()]
     param(

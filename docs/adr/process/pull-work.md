@@ -9,7 +9,6 @@ catzc:
       - ADR-PROC-PULLWORK#2
       - ADR-PROC-PULLWORK#3
       - ADR-PROC-PULLWORK#4
-    adrs: []
     links:
       - docs/adr/principles/reduce-waste.md
       - docs/adr/process/agile-values.md

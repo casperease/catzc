@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-REPO-VOCAB#2
       - ADR-REPO-VOCAB#5
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossaryPhrasingViolations.ps1
@@ -52,6 +51,15 @@ the same files under the same root, so one run reads each file's prose once. Def
 ```
 
 ## comment:3
+
+Above `[string[]]...`.
+
+```text
+The scan runs compiled (Catzc.Base.Docs.GlossaryScan): it reads each file's prose through GlossaryProse into the
+surface cache once, and matches every avoided phrasing over the files each glossary source's scope selects.
+```
+
+## comment:4
 
 Above `[string[]]...`.
 

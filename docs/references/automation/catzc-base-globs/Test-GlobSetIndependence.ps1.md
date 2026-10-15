@@ -9,7 +9,6 @@ catzc:
       - ADR-FLOW-CD-GLOBS#10
       - ADR-FLOW-CD-GLOBS#7
       - ADR-REPO-PROTGLOB#7
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
@@ -49,6 +48,26 @@ checked.
 ```
 
 ## comment:3
+
+Above `$own = @{}`.
+
+```text
+OWN members per set (compose ignored,
+[ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)), computed once as a set for
+O(1) intersection.
+```
+
+## comment:4
+
+Above `$exemptLayer = 'loose-fileset'`.
+
+```text
+loose-filesets are cross-cutting and overlap-exempt
+([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)/10); every other layer is
+checked.
+```
+
+## comment:5
 
 Above `$own = @{}`.
 

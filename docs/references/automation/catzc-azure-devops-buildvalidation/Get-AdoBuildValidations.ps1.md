@@ -6,7 +6,6 @@ catzc:
     body_sha: "69f3baf59aeb"
     adrs:
       - ADR-FLOW-CD-TYPE#4
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1

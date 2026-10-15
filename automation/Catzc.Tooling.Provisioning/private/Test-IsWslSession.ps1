@@ -6,18 +6,16 @@ catzc:
     kind: private-function
     module: Catzc.Tooling.Provisioning
     visibility: private
-    adrs: []
+  config:
+    synopsis: Tests whether the current session runs inside WSL (Windows Subsystem for Linux).
+    description: |-
+      A WSL distribution sets WSL_DISTRO_NAME, and a WSL kernel identifies itself in /proc/version
+      ("microsoft"). Either signal means the Linux session is backed by a Windows host, so
+      Windows-side tools are reachable under /mnt/c. Never true outside Linux.
+    outputs: '[bool]'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tests whether the current session runs inside WSL (Windows Subsystem for Linux).
-.DESCRIPTION
-    Either signal proves a Windows host behind the Linux session, so Windows-side tools are reachable under /mnt/c.
-.OUTPUTS
-    [bool]
-#>
 function Test-IsWslSession {
     [CmdletBinding()]
     [OutputType([bool])]

@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/tests/Test-RootConfigFiles.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-RootConfigFiles over fixture root files in $TestDrive: the registry entries, git's ignore check, and the index
-# are mocked, so each test pins one agreement rule. A hard link stands in for a materialised link (no privilege
-# needed). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-RootConfigFiles over fixture root files in $TestDrive: the registry entries, git's ignore check, and the index...
+# [comment:1](/docs/references/automation/catzc-base-rootconfig/tests/Test-RootConfigFiles.Tests.ps1.md#comment1)
 Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'repo'

@@ -4,12 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PRIN-CONFIG#4
+      - ADR-REPO-LINK#5
+      - ADR-REPO-LINK#8
 ---
 #>
 
-# LinksConfig maps links.yml and is the one declaration of its sensible defaults
-# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key
-# behaves exactly like the default, and a malformed value fails at construction with the allowed set.
+# LinksConfig maps links.yml and is the one declaration of its sensible defaults: an omitted key behaves exactly like...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/LinksConfig.Tests.ps1.md#comment1)
 Describe 'LinksConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT#6' {
         $config = [Catzc.Base.QualityGates.LinksConfig]::new(@{})

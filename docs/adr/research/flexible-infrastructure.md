@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-FLEXINFRA#3
       - ADR-DORA-FLEXINFRA#4
       - ADR-DORA-FLEXINFRA#5
-    adrs: []
     links:
       - docs/adr/azure/azure-data-model.md
       - docs/adr/design/self-service.md

@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-PATH#11
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Resolve-InspirationRoot over a TestDrive workspace with neutral names (widget/gadget,
-# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); Get-RepositoryRoot is the mocked
-# boundary. The {workspace} anchor resolves to the parent of the repository root
-# ([ADR-AUTO-PATH#11](/docs/adr/automation/path-representation.md#rule-adr-auto-path11)), the same from pwsh's and
-# Git Bash's view of that root, and the result is a normalized absolute path.
+# Resolve-InspirationRoot over a TestDrive workspace with neutral names (widget/gadget, ); Get-RepositoryRoot is the...
+# [comment:1](/docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md#comment1)
 Describe 'Resolve-InspirationRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:workspace = [IO.Path]::GetFullPath((Join-Path $TestDrive 'widgets'))

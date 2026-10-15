@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#35
 ---
 #>
 
-# The integrity invariant — the real repository's function dependency graph is satisfied — needs exactly one
-# scan of the real automation tree. The gate's uniform shape
-# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) is pure logic, so it is proven at
-# L0 against fixture roots rather than by a second full-tree scan.
+# The integrity invariant — the real repository's function dependency graph is satisfied — needs exactly one scan of...
+# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md#comment1)
 Describe 'Test-FunctionDependency' -Tag 'L1', 'integrity', 'source-only' {
     It 'the real repository dependency graph is satisfied' {
         $result = Test-FunctionDependency -PassThru -OutputFolder (Join-Path $TestDrive 'function-dependency')

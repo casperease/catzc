@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-files/Get-FileLockingProcess.ps1.md
     kind: comment-page
     body_sha: "1039fe8b0f63"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Files/Get-FileLockingProcess.ps1

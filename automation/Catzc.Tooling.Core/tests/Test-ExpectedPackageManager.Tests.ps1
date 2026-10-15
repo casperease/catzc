@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-REMOVE#3
+      - ADR-AUTO-TEST#3
 ---
 #>
 
@@ -41,8 +44,8 @@ Describe 'Test-ExpectedPackageManager — script-installed tools' -Tag 'L0', 'lo
 }
 
 Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
-    # Neutral fixture ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): an entry whose
-    # mechanism is an MSYS2 package, installed on Windows into the tree Get-ScriptInstallDir names.
+    # Neutral fixture: an entry whose mechanism is an MSYS2 package, installed on Windows into the tree...
+    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Test-ExpectedPackageManager.Tests.ps1.md#comment1)
     BeforeEach {
         $script:tree = Join-Path $TestDrive 'gadget'
         Mock Get-ScriptInstallDir { $script:tree } -ModuleName Catzc.Tooling.Core
@@ -93,8 +96,8 @@ Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic
 }
 
 Describe 'Test-ExpectedPackageManager — MSYS2-package tools that also declare an apt package' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
-    # Neutral fixture ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): the MSYS2
-    # package on Windows, the apt package on Linux, and nothing declared for macOS, so each platform takes one manager.
+    # Neutral fixture: the MSYS2 package on Windows, the apt package on Linux, and nothing declared for macOS, so...
+    # [comment:2](/docs/references/automation/catzc-tooling-core/tests/Test-ExpectedPackageManager.Tests.ps1.md#comment2)
     BeforeEach {
         $script:tree = Join-Path $TestDrive 'gadget'
         Mock Get-ScriptInstallDir { $script:tree } -ModuleName Catzc.Tooling.Core

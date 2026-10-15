@@ -4,7 +4,6 @@ catzc:
     path: docs/references/infrastructure/index.md
     kind: reference
     body_sha: "61c35cdfedaa"
-    adrs: []
     links:
       - docs/adr/azure/
       - docs/references/infrastructure/discovery.md

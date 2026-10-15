@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops-buildvalidation.md
     kind: reference
     body_sha: "786214e1e4e5"
-    adrs: []
     links:
       - docs/adr/automation/idempotent-state-functions.md
       - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3

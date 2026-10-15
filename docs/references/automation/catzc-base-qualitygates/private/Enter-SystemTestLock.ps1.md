@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#32
       - ADR-AUTO-TEST#33
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Enter-SystemTestLock.ps1

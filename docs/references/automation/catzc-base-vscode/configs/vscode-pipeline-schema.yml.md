@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md
     kind: comment-page
     body_sha: "2fbd56815ffc"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml

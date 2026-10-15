@@ -6,20 +6,17 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Core
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the install scope of a tool based on its binary location.
+    description: |-
+      Determines whether a tool is installed in user-space or machine-wide
+      by inspecting the binary path. Returns 'user', 'machine', or 'unknown'.
+    parameters:
+      Config: Tool configuration hashtable from Get-ToolConfig / tools.yml.
+      Location: Full path to the tool binary (from Get-Command .Source).
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the install scope of a tool based on its binary location.
-.DESCRIPTION
-    Only the path decides, never the privileges used to install; unknown means no platform branch matched.
-.PARAMETER Config
-    Tool configuration hashtable from Get-ToolConfig / tools.yml.
-.PARAMETER Location
-    Full path to the tool binary (from Get-Command .Source).
-#>
 function Get-InstallScope {
     [OutputType([string])]
     [CmdletBinding()]

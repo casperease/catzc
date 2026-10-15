@@ -4,12 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#8
+      - ADR-PRIN-CONFIG#1
 ---
 #>
 
-# Test-Formatting is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
-# each L0 case mocks the registry and Format-Code at the module boundary and reads the collected issues;
-# the report goes to $TestDrive. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-Formatting is a quality gate: each L0 case mocks the registry and Format-Code at the module boundary and reads...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Formatting.Tests.ps1.md#comment1)
 Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
@@ -75,11 +79,8 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     }
 }
 
-# Integrity: the real repository is formatted — every language languages.yml gives a formatter, and the C# type
-# namespaces (each source declares its module's file-scoped namespace, the invariant the type loader also enforces). L2
-# because it drives the real engines; it self-skips when one of their tools is absent
-# ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9). source-only: it reads the
-# repository's own files, which give the same answer in both run modes.
+# Integrity: the real repository is formatted — every language languages.yml gives a formatter, and the C# type...
+# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-Formatting.Tests.ps1.md#comment2)
 Describe 'Repository formatting integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'formatting leaves the repository unchanged (Test-Formatting)' {
         $go = Resolve-ToolExecutable -Tool go

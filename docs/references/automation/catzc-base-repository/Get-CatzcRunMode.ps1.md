@@ -6,7 +6,6 @@ catzc:
     body_sha: e54b450daaab
     adrs:
       - ADR-DSGN-RUNMODE#4
-    links: []
 ---
 
 # automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1

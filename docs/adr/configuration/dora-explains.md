@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/configuration/dora-explains.md
     kind: adr
     body_sha: da96fc3b252a
-    defines: []
-    adrs: []
     links:
       - docs/adr/configuration/config-value-addressing.md
       - docs/adr/configuration/markdown-config-contributions.md

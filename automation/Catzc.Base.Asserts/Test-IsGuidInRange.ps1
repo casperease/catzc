@@ -6,24 +6,21 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Tests whether a GUID lies inside an inclusive GUID range.
+    description: |-
+      Orders GUIDs by their 128 bits as written — the canonical lowercase hyphenated form, compared ordinally — which
+      is how a reader sees a range in config, whatever case or braces the inputs use. A non-GUID input, or a range
+      whose From is after its To, is a caller error and throws.
+    parameters:
+      ObjectGuid: The GUID to test.
+      From: The first GUID of the range (inclusive).
+      To: The last GUID of the range (inclusive).
+    examples:
+      - Test-IsGuidInRange $budget -From $exemption.range.from -To $exemption.range.to
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tests whether a GUID lies inside an inclusive GUID range.
-.DESCRIPTION
-    Order follows the canonical lowercase text compared ordinally, so the case or braces of an input never matter.
-.PARAMETER ObjectGuid
-    The GUID to test.
-.PARAMETER From
-    The first GUID of the range (inclusive).
-.PARAMETER To
-    The last GUID of the range (inclusive).
-.EXAMPLE
-    Test-IsGuidInRange $budget -From $exemption.range.from -To $exemption.range.to
-#>
 function Test-IsGuidInRange {
     [OutputType([bool])]
     [CmdletBinding()]

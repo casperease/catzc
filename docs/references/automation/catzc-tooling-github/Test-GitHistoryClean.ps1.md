@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md
     kind: comment-page
     body_sha: b5ad3e1c55b8
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Github/Test-GitHistoryClean.ps1

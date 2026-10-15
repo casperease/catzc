@@ -6,20 +6,18 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls the Bicep CLI that Install-Bicep installed.
+    description: |-
+      Windows and macOS delegate to Uninstall-Tool with the tools.yml `bicep` entry (winget, brew). On Linux it removes the
+      binary Install-Bicep placed in ~/.local/bin; a Bicep CLI elsewhere is not this module's to remove.
+    parameters:
+      Version: 'The version to uninstall (Windows and macOS). Default: whichever is installed.'
+    examples:
+      - Uninstall-Bicep
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls the Bicep CLI that Install-Bicep installed.
-.DESCRIPTION
-    On Linux only the binary Install-Bicep placed in ~/.local/bin is removed; a Bicep CLI elsewhere is left alone.
-.PARAMETER Version
-    The version to uninstall (Windows and macOS). Default: whichever is installed.
-.EXAMPLE
-    Uninstall-Bicep
-#>
 function Uninstall-Bicep {
     [CmdletBinding()]
     param(

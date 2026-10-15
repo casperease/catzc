@@ -6,18 +6,15 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls Terraform via the platform package manager.
+    parameters:
+      Version: Terraform version to uninstall. Defaults to the locked version in Get-ToolConfig.
+    examples:
+      - Uninstall-Terraform
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls Terraform via the platform package manager.
-.PARAMETER Version
-    Terraform version to uninstall. Defaults to the locked version in Get-ToolConfig.
-.EXAMPLE
-    Uninstall-Terraform
-#>
 function Uninstall-Terraform {
     [CmdletBinding()]
     param(

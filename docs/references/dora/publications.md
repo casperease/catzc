@@ -4,7 +4,6 @@ catzc:
     path: docs/references/dora/publications.md
     kind: reference
     body_sha: cf8d14cd3095
-    adrs: []
     links:
       - docs/references/dora/ai.md#ai-capabilities-model
       - "https://cloud.google.com/resources/content/dora-roi-of-ai-assisted-software-development"

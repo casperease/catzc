@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md
     kind: comment-page
     body_sha: "78fb1eab09ea"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Objects/types/ConsoleText.cs

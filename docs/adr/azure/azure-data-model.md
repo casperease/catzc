@@ -16,7 +16,6 @@ catzc:
       - ADR-AZ-DATAMOD#9
       - ADR-AZ-DATAMOD#10
       - ADR-AZ-DATAMOD#11
-    adrs: []
     links:
       - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
       - docs/adr/azure/azure-customer-model.md

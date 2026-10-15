@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md
     kind: comment-page
     body_sha: e080489d12ed
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestOptOutExclusion.ps1

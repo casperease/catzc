@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-CONFIG#4
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/SourceCheck.cs

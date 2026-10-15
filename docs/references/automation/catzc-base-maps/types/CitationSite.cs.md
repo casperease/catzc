@@ -6,7 +6,6 @@ catzc:
     body_sha: "01b9e003ec5a"
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/CitationSite.cs

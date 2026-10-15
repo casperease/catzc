@@ -4,13 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-PROTGLOB#6
 ---
 #>
 
 Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Unique sandbox per run; the seam mock returns ABSOLUTE fixture paths, which Resolve-RepoPath
-        # passes through unchanged — so only the file-universe seam needs mocking.
+        # Unique sandbox per run; the seam mock returns ABSOLUTE fixture paths, which Resolve-RepoPath passes through...
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-RepositoryGuids.Tests.ps1.md#comment1)
         $script:sandbox = Join-Path $TestDrive ([Guid]::NewGuid())
         [void][System.IO.Directory]::CreateDirectory($script:sandbox)
         $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
@@ -67,10 +70,8 @@ Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
     }
 }
 
-# source-only: it scans the repository's tracked files, which give the same answer in both run modes. The check is the
-# quality gate Test-ManagedGuids ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): the
-# scan against the registry, and the 'repository' globset covering everything the scan reads — so the protection
-# skip below is sound ([ADR-REPO-PROTGLOB#6](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6)).
+# source-only: it scans the repository's tracked files, which give the same answer in both run modes.
+# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Get-RepositoryGuids.Tests.ps1.md#comment2)
 Describe 'Repository guid integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'every guid in tracked text is registered, every registry entry is live, and the repository globset covers the scan' -Tag 'ADR-REPO-PROTGLOB#6' {
         if (Test-GlobSetProtection -Test 'guids' -Name 'repository') {

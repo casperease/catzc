@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/templates/expedition/configuration/apex/prod.yml.md
     kind: comment-page
     body_sha: "980ff1237dbc"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/templates/expedition/configuration/apex/prod.yml

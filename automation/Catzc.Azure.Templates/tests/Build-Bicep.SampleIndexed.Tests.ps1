@@ -4,14 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#19
+      - ADR-AUTO-TEST#4
 ---
 #>
 
 # cspell:ignore weutstsidxst
 Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
-    # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
-    # build output folder is wiped per test, since the build tests write into it
-    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)).
+    # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the build output...
+    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md#comment1)
     BeforeAll {
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-indexed'
 
@@ -26,9 +28,8 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
         Mock Assert-Tool { } -ModuleName Catzc.Azure.Templates
         # The Bicep CLI guard lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
         Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
-        # Devbox path: under CI the real Test-IsRunningInPipeline returns $true ($env:GITHUB_ACTIONS), and the
-        # deployment-name test then hits Get-BicepDeploymentName's pipeline branch, which requires ADO-only
-        # $env:BUILD_BUILDID and throws on GitHub Actions.
+        # Devbox path: under CI the real Test-IsRunningInPipeline returns $true ($env:GITHUB_ACTIONS), and the...
+        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md#comment2)
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
@@ -40,10 +41,8 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
-        # Warm the discovery + config caches once, so the first It doesn't pay the cold Get-BicepTemplate
-        # derive (template-tree enumeration + config load) inside its own timing
-        # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)). Every test
-        # here reads the same fixture template, and BeforeEach wipes only the build output, not the caches.
+        # Warm the discovery + config caches once, so the first It doesn't pay the cold Get-BicepTemplate derive...
+        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md#comment3)
         Get-BicepTemplate sample-indexed | Out-Null
     }
 
@@ -70,8 +69,8 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
     }
 
     It "a slot-less call selects the env's base slot, which this template does not have" {
-        # alpha with no -Slot resolves to config 'alpha', which this indexed-only template does not
-        # configure (it has alpha-001 / alpha-002).
+        # alpha with no -Slot resolves to config 'alpha', which this indexed-only template does not configure (it has...
+        # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md#comment4)
         { Get-BicepTemplateConfiguration sample-indexed alpha } | Should -Throw "*no config 'alpha.yml'*"
     }
 

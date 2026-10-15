@@ -6,7 +6,6 @@ catzc:
     body_sha: "01650c9e3e09"
     adrs:
       - ADR-PWSH-DRYRUN#1
-    links: []
 ---
 
 # out/diagrams/wave-9/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.verify.md

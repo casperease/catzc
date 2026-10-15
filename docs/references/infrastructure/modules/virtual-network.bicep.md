@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/modules/virtual-network.bicep.md
     kind: comment-page
     body_sha: be14d9600cee
-    adrs: []
-    links: []
 ---
 
 # infrastructure/modules/virtual-network.bicep

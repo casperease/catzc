@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md
     kind: comment-page
     body_sha: "25bcb58e6a7e"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
@@ -48,6 +46,38 @@ For sorted composites this gives two-level ordering: by group, then sorted withi
 ## comment:4
 
 Above `if ($cell -match '^[*_]|[*_]$|\s[*_]|[*_]\s|https?://|ftp://|[a-z0-9-]+\.[a-z...`.
+
+```text
+Wrap a cell in backticks when Markdown would mangle it:
+ - * or _ at a whitespace boundary (cell start/end count, since "| value |" pads with spaces)
+   -> emphasis. Intra-word _ (Allow_Web) is safe and stays clean.
+ - a URL scheme or a domain.tld shape -> markdownlint MD034 (bare URL) and auto-linking.
+   Covers FQDNs/wildcards/www; IPs, CIDRs, ports, tags, and categories don't match.
+A code span is exactly MD034's recommended fix for a bare URL.
+```
+
+## comment:5
+
+Above `$protocols = @()`.
+
+```text
+Pair protocols with ports as "protocols:ports" (e.g. TCP/UDP:53, 8053). App rules
+carry the port inside Protocols already and have no port field, so they pass through.
+```
+
+## comment:6
+
+Above `$values = foreach ($candidate in $column.Candidates) {`.
+
+```text
+Gather values per candidate, preserving candidate (group) order. A rule can populate
+more than one candidate (e.g. IP groups and addresses); the firewall unions them.
+For sorted composites this gives two-level ordering: by group, then sorted within group.
+```
+
+## comment:7
+
+Above `if ($cell -match...`.
 
 ```text
 Wrap a cell in backticks when Markdown would mangle it:

@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.md
     kind: asset-description
     body_sha: "326fb76ea4e5"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
       - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md

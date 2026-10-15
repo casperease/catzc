@@ -6,7 +6,6 @@ catzc:
     body_sha: "7ab7fa1bcd3a"
     adrs:
       - ADR-FLOW-CD-GLOBS#5
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/types/DurableHash.cs

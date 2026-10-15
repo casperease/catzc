@@ -10,29 +10,36 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
+  config:
+    synopsis: 'Quality gate: every long comment lives in its file''s comment page, and every residue and page section pair up.'
+    description: |-
+      A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the files in
+      scope (Get-CommentScope). A file carries one residue per long comment and the prose lives once, in the file's
+      comment page ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)); it lists
+      every issue:
+
+      - a comment long enough to move that is still in the file (run Export-Comments);
+      - a residue that links a page other than the file's own;
+      - a residue whose section the page does not hold, so its prose is lost from the view;
+      - a residue number the file uses twice;
+      - a page section no residue in the file links, so its prose belongs to nothing.
+
+      What the configured thresholds are is comments.yml's
+      ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)). The shape of the
+      insight line is Format-Comments' to fix, not this gate's. A source-tree tool: it throws in build mode
+      (Assert-SourceTree).
+    parameters:
+      Path: 'Files or folders to check. Default: every file in scope.'
+      RepositoryRoot: 'The repository root paths and pages resolve against. Default: the loaded repository root.'
+      OutputFolder: 'The report base folder. Default: the reports.yml folder for this gate.'
+      PassThru: Return the report object instead of throwing on issues.
+    outputs: '[pscustomobject] With -PassThru only.'
+    examples:
+      - Test-Comments
+      - Test-Comments -Path automation/Catzc.Base.Files -PassThru
 ---
 #>
 
-<#
-.SYNOPSIS
-    Quality gate: every long comment lives in its file's comment page, and every residue and page section pair up.
-.DESCRIPTION
-    The shape of the insight line is Format-Comments' to fix, not this gate's.
-.PARAMETER Path
-    Files or folders to check. Default: every file in scope.
-.PARAMETER RepositoryRoot
-    The repository root paths and pages resolve against. Default: the loaded repository root.
-.PARAMETER OutputFolder
-    The report base folder. Default: the reports.yml folder for this gate.
-.PARAMETER PassThru
-    Return the report object instead of throwing on issues.
-.OUTPUTS
-    [pscustomobject] With -PassThru only.
-.EXAMPLE
-    Test-Comments
-.EXAMPLE
-    Test-Comments -Path automation/Catzc.Base.Files -PassThru
-#>
 function Test-Comments {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

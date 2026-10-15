@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-USERFOCUS#3
       - ADR-DORA-USERFOCUS#4
       - ADR-DORA-USERFOCUS#5
-    adrs: []
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/automation/sensible-defaults.md

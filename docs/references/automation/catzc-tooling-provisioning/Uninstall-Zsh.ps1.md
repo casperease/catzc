@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-IDEM#2
       - ADR-AUTO-REMOVE#2
       - ADR-AUTO-REMOVE#6
-    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
@@ -39,6 +38,15 @@ skipped.
 ```
 
 ## comment:2
+
+Above `$directories = [System.Collections.Generic.List[string]]::new([string[]]...`.
+
+```text
+Children before parents: a child sorts after its parent, so the reverse ordinal order removes the deepest first. A
+folder that still holds anything (a file another tool put there) stays.
+```
+
+## comment:3
 
 Above `$directories = [System.Collections.Generic.List[string]]::new([string[]]...`.
 

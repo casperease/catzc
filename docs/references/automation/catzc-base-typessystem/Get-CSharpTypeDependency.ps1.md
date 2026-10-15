@@ -6,7 +6,6 @@ catzc:
     body_sha: "492f9dc9878f"
     adrs:
       - ADR-PWSH-PESTER#9
-    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
@@ -63,6 +62,36 @@ tokens are scanned. A heuristic, but reliable here: references are FQN with no '
 ## comment:4
 
 Above `$code = [regex]::Replace($code, '(?m)^\s*namespace\s+[A-Za-z_][A-Za-z0-9_.]*\...`.
+
+```text
+Drop the file's own file-scoped namespace declaration ("namespace <module>;"). It names THIS file's
+own module, never a cross-module reference, and its token would otherwise mis-map to a shorter
+known-module prefix: 'namespace Catzc.Azure.Templates;' has no 'Catzc.Azure.Templates.' continuation,
+so it would resolve to the parent module Catzc.Azure and fabricate a false Templates -> Azure edge.
+```
+
+## comment:5
+
+Above `foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs') |...`.
+
+```text
+[System.IO] (sorted) instead of Get-ChildItem/Get-Content — ~20ms-per-call cmdlet overhead the raw
+.NET enumeration + read avoid
+([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)).
+```
+
+## comment:6
+
+Above `$code = [System.IO.File]::ReadAllText($cs)`.
+
+```text
+Strip block comments, line comments, then double- and single-quoted literals, so only real code
+tokens are scanned. A heuristic, but reliable here: references are FQN with no 'using' aliasing.
+```
+
+## comment:7
+
+Above `$code = [regex]::Replace($code,...`.
 
 ```text
 Drop the file's own file-scoped namespace declaration ("namespace <module>;"). It names THIS file's

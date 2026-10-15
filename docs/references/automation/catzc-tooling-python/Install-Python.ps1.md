@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-python/Install-Python.ps1.md
     kind: comment-page
     body_sha: "339a4553363d"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Python/Install-Python.ps1
@@ -31,6 +29,17 @@ versions instantly:
 ```
 
 ## comment:2
+
+Above `$reinstall = if ($Force) {`.
+
+```text
+uv resolves the newest matching CPython, installs it, and (--default) writes the global python/python3
+shims into its bin dir. --default is still behind uv's preview flag, so opt in explicitly with
+--preview-features to keep it (and silence uv's experimental warning, which WarningPreference=Stop
+would otherwise turn into a halt). --reinstall replaces an existing build of the same version under -Force.
+```
+
+## comment:3
 
 Above `$reinstall = if ($Force) {`.
 

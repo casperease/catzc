@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/scriptanalyzer/CatzcRules.psm1.md
     kind: comment-page
     body_sha: fcfaf4a5a410
-    adrs: []
-    links: []
 ---
 
 # automation/.scriptanalyzer/CatzcRules.psm1

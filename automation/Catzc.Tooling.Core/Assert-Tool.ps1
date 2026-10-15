@@ -6,24 +6,27 @@ catzc:
     kind: assert-function
     module: Catzc.Tooling.Core
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a tool is installed and at the expected version.
+    description: |-
+      Checks that the tool's command is on PATH and that its version
+      matches the locked version in tools.yml (outside a CI pipeline an optional
+      devbox_version lever also passes — see Assert-ToolVersion). Does NOT check
+      DependsOn — those are install-time dependencies, not runtime requirements.
+      A tool whose entry declares candidate paths is located by the executable probe instead
+      (Resolve-ToolExecutable): its candidates for this platform and run environment, then PATH.
+    parameters:
+      Tool: The snake_case tool key as defined in tools.yml (e.g., 'python', 'az_cli').
+      SkipVersionCheck: |-
+        Only assert the tool is on PATH. Skip the version match.
+        Use for operations that need presence but not a specific version
+        (e.g., uninstalling).
+    examples:
+      - Assert-Tool 'python'
+      - Assert-Tool 'poetry'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a tool is installed and at the expected version.
-.DESCRIPTION
-    DependsOn is not checked: those are install-time needs, and a probed tool is found by its candidate paths first.
-.PARAMETER Tool
-    The snake_case tool key as defined in tools.yml (e.g., 'python', 'az_cli').
-.PARAMETER SkipVersionCheck
-    A wrong version still passes, so use it where presence is enough, such as before an uninstall.
-.EXAMPLE
-    Assert-Tool 'python'
-.EXAMPLE
-    Assert-Tool 'poetry'
-#>
 function Assert-Tool {
     [CmdletBinding()]
     param(
@@ -35,8 +38,8 @@ function Assert-Tool {
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
 
-    # Bare-name lookup is wrong here: on Windows the name bash can resolve to the WSL launcher, not the tool.
-    # [comment:3](/docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md#comment3)
+    # A tool with declared candidate paths is located by the probe, never by its bare name on PATH (for bash on...
+    # [comment:4](/docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md#comment4)
     if ($config.HasProbes()) {
         $probe = Resolve-ToolExecutable -Tool $Tool
         $remedy = if (Get-Command "Install-$command" -ErrorAction Ignore) {

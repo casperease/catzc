@@ -8,9 +8,8 @@ catzc:
 #>
 
 Describe 'Import-TypesAssembly' -Tag 'L1', 'logic' {
-    # L1: the fixture DLL is compiled once with Add-Type (Roslyn's cold start). The source DLL lives in TestDrive —
-    # it is never loaded, which is the property under test. The shadow folder lives OUTSIDE TestDrive: the loaded
-    # copy stays locked for the process lifetime on Windows, so TestDrive's teardown could not delete it.
+    # L1: the fixture DLL is compiled once with Add-Type (Roslyn's cold start).
+    # [comment:1](/docs/references/automation/internal/tests/Import-TypesAssembly.Tests.ps1.md#comment1)
     BeforeAll {
         $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
         $script:namespace = "CatzcShadowWidget$runId"

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/types/ModulePackage.cs.md
     kind: comment-page
     body_sha: "78764f7fbacf"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ModulePackage.cs

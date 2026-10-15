@@ -4,6 +4,11 @@ catzc:
   derived:
     path: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-OUTFMT#1
+      - ADR-REPO-OUTFMT#3
+      - ADR-REPO-OUTFMT#5
 ---
 #>
 

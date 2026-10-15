@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-PROTGLOB
+      - ADR-REPO-PROTGLOB#4
 ---
 #>
 
-# The protected-glob skip ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): session-memory skip of a
-# repeated green scan over an unchanged
-# globset; hash-before-scan via the pending-promote handshake; completely ignored in pipelines.
+# The protected-glob skip: session-memory skip of a repeated green scan over an unchanged globset; hash-before-scan...
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/Test-GlobSetProtection.Tests.ps1.md#comment1)
 Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {
     BeforeEach {
         Clear-GlobSetProtection

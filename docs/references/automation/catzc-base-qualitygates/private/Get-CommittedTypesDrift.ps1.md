@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-CommittedTypesDrift.ps1.md
     kind: comment-page
     body_sha: "6ae863aefb0b"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-CommittedTypesDrift.ps1

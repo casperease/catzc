@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-toolchain/private/Install-BicepStandalone.ps1.md
     kind: comment-page
     body_sha: be6702523c17
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/private/Install-BicepStandalone.ps1

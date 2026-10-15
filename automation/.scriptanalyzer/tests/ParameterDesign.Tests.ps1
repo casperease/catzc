@@ -4,12 +4,15 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/ParameterDesign.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-PARAM#2
+      - ADR-PWSH-PARAM#3
+      - ADR-PWSH-PARAM#4
 ---
 #>
 
-# The per-case assertions run the rule functions directly on a parsed AST (L0). Their scope is decided by the file path,
-# so each case writes a fixture file into $TestDrive under a fake automation/ layout. The engine-wiring proof lives once,
-# for all custom rules, in CustomRuleWiring.Tests.ps1.
+# The per-case assertions run the rule functions directly on a parsed AST (L0).
+# [comment:1](/docs/references/automation/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md#comment1)
 BeforeAll {
     Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/ParameterDesign.psm1') -Force
     if (-not (Get-Module PSScriptAnalyzer)) {

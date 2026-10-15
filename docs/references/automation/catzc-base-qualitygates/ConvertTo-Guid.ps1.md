@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/ConvertTo-Guid.ps1.md
     kind: comment-page
     body_sha: dd4f20ba1d37
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/ConvertTo-Guid.ps1

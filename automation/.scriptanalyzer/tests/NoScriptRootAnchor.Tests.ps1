@@ -4,19 +4,18 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
 ---
 #>
 
-# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
-# ScriptBlockAst. Its scope is decided by the file path, so each case writes a fixture file into $TestDrive under
-# a fake automation/ layout and parses it from there (ParseInput leaves Extent.File empty). The engine-wiring proof
-# (PSScriptAnalyzer discovers and fires this rule via -CustomRulePath) lives once, for all custom rules, in
-# CustomRuleWiring.Tests.ps1.
+# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a...
+# [comment:1](/docs/references/automation/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md#comment1)
 Describe 'Measure-NoScriptRootAnchor' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoScriptRootAnchor.psm1') -Force
-        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module
-        # once for the type — we never invoke the analyzer engine.
+        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module once...
+        # [comment:2](/docs/references/automation/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md#comment2)
         if (-not (Get-Module PSScriptAnalyzer)) {
             Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
         }

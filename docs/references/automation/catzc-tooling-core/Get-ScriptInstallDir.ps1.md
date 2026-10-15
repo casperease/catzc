@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/Get-ScriptInstallDir.ps1.md
     kind: comment-page
     body_sha: eb50dc8d01d1
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Get-ScriptInstallDir.ps1

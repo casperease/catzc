@@ -6,22 +6,23 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Lists a run's test files, path by path in the given order, each tests folder's files in ordinal order.
+    description: |-
+      The work-list behind Test-Automation's phases: every *.Tests.ps1 under each tests/ folder (recursing, so
+      tests/types/ is included), in the paths' foundation-first order (Get-TestAutomationTestPaths) and, within a
+      folder, ordinal-sorted so the list is the same on every machine. A Go or Python test folder
+      (Get-LanguageTestFolders) is one run file itself: the language bridge runs it as one unit
+      (ConvertTo-PesterRunTarget). Throws when the paths hold no test file — a run with nothing to run is a scoping
+      mistake, never a green.
+    parameters:
+      TestPath: The run's tests/ folders and language test folders, in run order.
+    outputs: '[string[]] absolute test-file paths, and language test folder paths.'
+    examples:
+      - '$testFiles = Get-TestAutomationTestFiles -TestPath $testPaths'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists a run's test files, path by path in the given order, each tests folder's files in ordinal order.
-.DESCRIPTION
-    Throws when no test file is found, since a run with nothing to run is a scoping mistake, never a green.
-.PARAMETER TestPath
-    The run's tests/ folders and language test folders, in run order.
-.OUTPUTS
-    [string[]] absolute test-file paths, and language test folder paths.
-.EXAMPLE
-    $testFiles = Get-TestAutomationTestFiles -TestPath $testPaths
-#>
 function Get-TestAutomationTestFiles {
     [CmdletBinding()]
     [OutputType([string[]])]

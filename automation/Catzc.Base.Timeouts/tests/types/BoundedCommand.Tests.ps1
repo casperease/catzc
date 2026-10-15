@@ -9,8 +9,8 @@ catzc:
 
 Describe 'BoundedCommand' -Tag 'L0', 'logic' {
     BeforeDiscovery {
-        # Every case, every engine, from the per-engine fixture table: a case that does not apply to an engine says why
-        # there ("n/a: <reason>"), so pwsh/bash/zsh parity reads side by side in one file.
+        # Every case, every engine, from the per-engine fixture table: a case that does not apply to an engine says...
+        # [comment:1](/docs/references/automation/catzc-base-timeouts/tests/types/BoundedCommand.Tests.ps1.md#comment1)
         $script:cases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/bounded-command.yml') -Applicable)
     }
 

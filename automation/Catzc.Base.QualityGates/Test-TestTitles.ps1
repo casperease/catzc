@@ -9,23 +9,29 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#25
       - ADR-AUTO-TEST#35
+  config:
+    synopsis: 'Quality gate: no test title carries an angle-bracket template token unless its block is data-driven.'
+    description: |-
+      A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the titles of
+      every It, Describe, and Context in the test files (except the vendored ones). Pester treats an angle-bracket word
+      in a title as its name template and expands it as a variable in the test's scope. With -ForEach or -TestCases data
+      that is the intended feature; without data the token is almost always prose (a placeholder path), which expands
+      to empty in a non-strict scope and THROWS in a strict one — and the tests run strict
+      ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)), so such a title fails its file at
+      name expansion, far from the cause. Each such title is an issue: rephrase it, or add -ForEach data.
+
+      The title is a block's first string argument (single- or double-quoted). A file that does not parse is another
+      gate's problem and is skipped. It parses the repository's test files, which exist only in the source tree
+      (Assert-SourceTree).
+    parameters:
+      OutputFolder: The report base folder. Defaults to out/test-test-titles/ (Write-QualityGateReport).
+      PassThru: Return the result ({ Subject; IssueCount; Issues; ReportPath; TestFiles }) instead of throwing on issues.
+    outputs: '[pscustomobject] With -PassThru only.'
+    examples:
+      - Test-TestTitles
 ---
 #>
 
-<#
-.SYNOPSIS
-    Quality gate: no test title carries an angle-bracket template token unless its block is data-driven.
-.DESCRIPTION
-    An angle-bracket word in a title throws under strict mode when no -ForEach data exists, far from the cause.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to out/test-test-titles/ (Write-QualityGateReport).
-.PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; TestFiles }) instead of throwing on issues.
-.OUTPUTS
-    [pscustomobject] With -PassThru only.
-.EXAMPLE
-    Test-TestTitles
-#>
 function Test-TestTitles {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

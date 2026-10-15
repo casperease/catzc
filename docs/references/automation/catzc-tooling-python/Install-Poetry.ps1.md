@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-python/Install-Poetry.ps1.md
     kind: comment-page
     body_sha: "349cc031c8d3"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Python/Install-Poetry.ps1

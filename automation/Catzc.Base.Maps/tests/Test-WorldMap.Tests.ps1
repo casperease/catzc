@@ -4,17 +4,18 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
+      - ADR-DSGN-TRACK#1
+      - ADR-DSGN-TRACK#13
+      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#6
 ---
 #>
 
-# Test-WorldMap reads the world map Get-WorldMap returns and reports its stack violations
-# ([ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3)), its undeclared root folders
-# ([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)) and the printed labels that name no glossary
-# term, through Write-QualityGateReport
-# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). The logic tests mock the map, the
-# glossary and the labels with widget/gadget fixtures
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the placement itself is pinned by
-# Get-WorldMap.Tests.ps1.
+# Test-WorldMap reads the world map Get-WorldMap returns and reports its stack violations, its undeclared root...
+# [comment:1](/docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md#comment1)
 Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
     BeforeAll {
         # Each row: path, track, file language, stack violation; every file is live.
@@ -124,8 +125,8 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
     }
 }
 
-# The repository's own world map, through the quality gate. It reads only the git index and the registries, so its
-# answer cannot differ between the run modes (source-only).
+# The repository's own world map, through the quality gate.
+# [comment:2](/docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md#comment2)
 Describe 'Test-WorldMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
     It 'Test-WorldMap passes over the repository' -Tag 'ADR-DSGN-TRACK#1', 'ADR-DSGN-TRACK#3', 'ADR-DSGN-TRACK#13', 'ADR-AUTO-TEST#35' {
         $result = Test-WorldMap -PassThru -OutputFolder (Join-Path $TestDrive 'world-map')

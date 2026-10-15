@@ -4,15 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 # The typed read of globs.yml: all sets in registry order, named lookup, throwing on an unknown name.
 Describe 'Get-GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names, so
-        # this logic test owns its inputs and editing the shipped globs.yml can never change its outcome
-        # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+        # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names, so this...
+        # [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md#comment1)
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**') }

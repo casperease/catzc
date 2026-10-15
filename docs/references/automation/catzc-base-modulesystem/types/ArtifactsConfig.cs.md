@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#24
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs

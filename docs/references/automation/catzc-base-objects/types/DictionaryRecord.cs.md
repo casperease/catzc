@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
     kind: comment-page
     body_sha: a0993515cac1
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Objects/types/DictionaryRecord.cs

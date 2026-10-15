@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestDiscovery.ps1.md
     kind: comment-page
     body_sha: f072c8aee8aa
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestDiscovery.ps1

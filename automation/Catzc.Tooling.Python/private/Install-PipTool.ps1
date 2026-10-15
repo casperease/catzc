@@ -8,21 +8,19 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-UVPY#2
+  config:
+    synopsis: Installs a Python-library tool into the uv-managed Python via `uv pip`.
+    description: |-
+      Private helper for Install-PySpark. Mirrors Install-Tool's contract but installs the package INTO the
+      uv-managed Python with `uv pip install --system` (so it stays importable, unlike an isolated `uv tool`).
+      Handles idempotency, -Force, and version verification. uv presence is asserted by Invoke-Pip.
+    parameters:
+      Tool: The snake_case tool key as defined in tools.yml (must declare pip_package).
+      Version: Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
+      Force: Uninstall a wrong version before installing the correct one.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs a Python-library tool into the uv-managed Python via `uv pip`.
-.DESCRIPTION
-    Unlike an isolated uv tool, the package lands in the shared managed Python, so it stays importable.
-.PARAMETER Tool
-    The snake_case tool key as defined in tools.yml (must declare pip_package).
-.PARAMETER Version
-    Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
-.PARAMETER Force
-    Uninstall a wrong version before installing the correct one.
-#>
 function Install-PipTool {
     [CmdletBinding()]
     param(
@@ -37,8 +35,8 @@ function Install-PipTool {
     Assert-NotNullOrWhitespace $config.pip_package -ErrorText "$Tool has no pip_package in tools.yml — cannot install via uv pip"
 
 
-    # All three flags are needed: pin the interpreter, allow a non-virtual install, and override uv's PEP-668 marker.
-    # [comment:2](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment2)
+    # Land the package in the toolchain's importable Python — uv's managed CPython — which needs three flags together...
+    # [comment:5](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment5)
     $pythonVersion = (Get-ToolConfig -Tool 'python').version
 
     # Idempotent: skip if already installed at the correct version.
@@ -63,14 +61,14 @@ function Install-PipTool {
         }
     }
 
-    # The package must be importable in the toolchain's own interpreter, not trapped in an isolated environment.
-    # [comment:3](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment3)
+    # Install into the uv-managed Python (pinned interpreter, `--system` for its non-virtual site-packages) so the...
+    # [comment:6](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment6)
     Invoke-Pip "install --python $pythonVersion --system --break-system-packages $($config.pip_package)==$Version.*"
 
     Sync-SessionPath
 
-    # A pip library may expose no PATH executable, so the version probe, not a command check, confirms the install.
-    # [comment:4](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment4)
+    # A pip-installed library may expose no PATH executable (PySpark's launcher lives inside the package), so confirm...
+    # [comment:7](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment7)
     $actualVersion = Get-ToolVersion -Config $config
 
     if (-not $actualVersion) {

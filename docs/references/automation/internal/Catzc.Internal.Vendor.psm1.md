@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-PWSH-ANNOUNCE#6
-    links: []
 ---
 
 # automation/.internal/Catzc.Internal.Vendor.psm1

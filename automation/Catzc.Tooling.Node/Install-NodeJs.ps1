@@ -6,24 +6,30 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Node
     visibility: public
-    adrs: []
+  config:
+    synopsis: Installs Node.js via the platform package manager.
+    description: |-
+      Installs Node.js (which includes npm) at the locked major version. Windows: winget
+      (OpenJS.NodeJS.LTS). macOS: Homebrew (node@<major>). Linux: the NodeSource apt
+      repository for the locked major (configured inline if not already present), because
+      the distro `nodejs` package lags the pin badly (Ubuntu jammy ships Node 12).
+      Idempotent — skips if already installed at the correct version.
+
+      NOT for CI pipelines. In Azure DevOps, use the native UseNode task
+      which activates pre-cached versions instantly:
+
+          - task: UseNode@1
+            inputs:
+              version: '22.x'
+    parameters:
+      Version: Node.js major version to install. Defaults to the locked version in Get-ToolConfig.
+      Force: Replace an existing installation at the wrong version.
+    examples:
+      - Install-NodeJs
+      - Install-NodeJs -Force
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs Node.js via the platform package manager.
-.DESCRIPTION
-    The package manager differs per platform, and CI is refused: the pipeline UseNode task is the way there.
-.PARAMETER Version
-    Node.js major version to install. Defaults to the locked version in Get-ToolConfig.
-.PARAMETER Force
-    Replace an existing installation at the wrong version.
-.EXAMPLE
-    Install-NodeJs
-.EXAMPLE
-    Install-NodeJs -Force
-#>
 function Install-NodeJs {
     [CmdletBinding()]
     param(
@@ -57,8 +63,8 @@ function Install-NodeJs {
         Assert-IsAdministrator -ErrorText 'Install-NodeJs on Linux requires root (apt-get). Run as root or install node_js manually.'
         Assert-Command apt-get
 
-        # The distro package lags the pin badly, and the repo URL embeds the major, so rewrite it when the pin moves.
-        # [comment:2](/docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md#comment2)
+        # The distro `nodejs` package trails the pinned major badly (Ubuntu jammy ships Node 12), so install from the...
+        # [comment:3](/docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md#comment3)
         $sourcePath = '/etc/apt/sources.list.d/nodesource.list'
         $gpgKeyPath = '/usr/share/keyrings/nodesource.gpg'
         $repoLine = "deb [signed-by=$gpgKeyPath] https://deb.nodesource.com/node_$Version.x nodistro main"

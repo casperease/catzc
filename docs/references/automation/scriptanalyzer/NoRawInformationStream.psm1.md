@@ -6,7 +6,6 @@ catzc:
     body_sha: "9c43fbc3a1c0"
     adrs:
       - ADR-PWSH-FORMAT#6
-    links: []
 ---
 
 # automation/.scriptanalyzer/NoRawInformationStream.psm1

@@ -6,7 +6,6 @@ catzc:
     body_sha: "2c9e2b362e54"
     adrs:
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/Test-GlobSetProtection.ps1
@@ -68,6 +67,24 @@ strict-clean probe of the lazy cache entries
 ```
 
 ## comment:6
+
+Above `$identity = if ($Hash) {`.
+
+```text
+NOTE: never name this local $hash — PowerShell variables are case-insensitive, so it would silently
+overwrite the $Hash parameter.
+```
+
+## comment:7
+
+Above `$script:protectedGlobSets = @{}`.
+
+```text
+strict-clean probe of the lazy cache entries
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:8
 
 Above `$identity = if ($Hash) {`.
 

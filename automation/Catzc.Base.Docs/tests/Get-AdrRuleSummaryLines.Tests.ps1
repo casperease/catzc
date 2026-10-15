@@ -4,11 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-AdrRuleSummaryLines.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-LINK#5
 ---
 #>
 
-# Get-AdrRuleSummaryLines — the normative lines of every `### Rule` entry in one ADR file, numbered, with the rule in its citation
-# form. Neutral fixture codes ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-AdrRuleSummaryLines — the normative lines of every `### Rule` entry in one ADR file, numbered, with the rule in...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-AdrRuleSummaryLines.Tests.ps1.md#comment1)
 Describe 'Get-AdrRuleSummaryLines' -Tag 'L0', 'logic' {
     BeforeAll {
         $path = Join-Path $TestDrive 'widget-one.md'

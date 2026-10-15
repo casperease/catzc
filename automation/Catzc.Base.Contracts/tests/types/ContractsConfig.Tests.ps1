@@ -4,12 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#8
 ---
 #>
 
-# ContractsConfig maps contracts.yml and is the one declaration of its sensible defaults
-# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key behaves exactly
-# like the default, a declared but unbuilt addressing mode is a valid value, and anything else fails at construction.
+# ContractsConfig maps contracts.yml and is the one declaration of its sensible defaults: an omitted key behaves...
+# [comment:1](/docs/references/automation/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md#comment1)
 Describe 'ContractsConfig' -Tag 'L0', 'logic' {
     It 'takes full-path for an omitted addressing' -Tag 'ADR-AUTO-DEFAULT#6' {
         [Catzc.Base.Contracts.ContractsConfig]::new(@{}).addressing | Should -Be 'full-path'

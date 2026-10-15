@@ -8,23 +8,22 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-FAILFAST
+  config:
+    synopsis: Reads one tab-separated ADR map (a code map or a rule map) into one hashtable per row, keyed by the header.
+    description: |-
+      The map's first line must be exactly the expected header, and every row must have one cell per header column;
+      anything else throws, naming the file and line, before a single reference is rewritten
+      ([ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)). Blank lines are skipped. The cells are
+      validated by [Catzc.Base.Docs.AdrCitationRewriter], which reads the rows.
+    parameters:
+      Path: The absolute path of the map file.
+      Header: The expected column names, in order.
+    outputs: '[hashtable[]] One hashtable per data row, column name to cell.'
+    examples:
+      - Import-AdrCitationMapFile -Path $codeMapPath -Header 'old_code', 'new_code', 'old_path', 'new_path', 'kind'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Reads one tab-separated ADR map (a code map or a rule map) into one hashtable per row, keyed by the header.
-.DESCRIPTION
-    A bad header or row throws with file and line before any reference is rewritten, so a map never half-applies.
-.PARAMETER Path
-    The absolute path of the map file.
-.PARAMETER Header
-    The expected column names, in order.
-.OUTPUTS
-    [hashtable[]] One hashtable per data row, column name to cell.
-.EXAMPLE
-    Import-AdrCitationMapFile -Path $codeMapPath -Header 'old_code', 'new_code', 'old_path', 'new_path', 'kind'
-#>
 function Import-AdrCitationMapFile {
     [CmdletBinding()]
     [OutputType([hashtable[]])]

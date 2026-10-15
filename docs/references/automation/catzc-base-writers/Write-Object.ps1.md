@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-writers/Write-Object.ps1.md
     kind: comment-page
     body_sha: d05ebe6233da
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Writers/Write-Object.ps1

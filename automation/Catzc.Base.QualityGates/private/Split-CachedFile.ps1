@@ -8,25 +8,22 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-CACHE#10
+  config:
+    synopsis: Splits a quality check's files into those its result cache already knows are clean and those to check.
+    description: |-
+      The read half of a result cache ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)): each
+      file inside the repository gets the key '<SHA-256 of its bytes>:<stamp>'; a file whose cache entry equals its key is
+      cached, every other file is pending. A file outside the repository, or one that does not exist, is always pending
+      and never keyed (it is never recorded). Update-ResultCache is the write half.
+    parameters:
+      File: The check's files.
+      Cache: The result cache (Get-ResultCache).
+      Stamp: The check's input stamp (Get-ContentStamp).
+      RepositoryRoot: The repository root.
+    outputs: '[pscustomobject] { Pending = string[] in the given order; CachedCount; Key = full path -> @(relative path, key) }.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Splits a quality check's files into those its result cache already knows are clean and those to check.
-.DESCRIPTION
-    A file outside the repository or missing is always pending and never keyed, so it is never recorded.
-.PARAMETER File
-    The check's files.
-.PARAMETER Cache
-    The result cache (Get-ResultCache).
-.PARAMETER Stamp
-    The check's input stamp (Get-ContentStamp).
-.PARAMETER RepositoryRoot
-    The repository root.
-.OUTPUTS
-    [pscustomobject] { Pending = string[] in the given order; CachedCount; Key = full path -> @(relative path, key) }.
-#>
 function Split-CachedFile {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

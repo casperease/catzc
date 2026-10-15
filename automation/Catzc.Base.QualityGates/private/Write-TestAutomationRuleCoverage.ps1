@@ -8,23 +8,30 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-NOPWD
+  config:
+    synopsis: Renders the ADR-rule enforcement coverage report (rule-coverage.md + rule-coverage.csv) from a run's rows.
+    description: |-
+      Builds the (ADR rule -> enforcers) map and writes it as a report artifact. An enforcer is one of two kinds,
+      both run in the same Test-Automation invocation: a 'pester-test' (a test tagged with the rule's citation,
+      read from each row's Rules column) or a 'pssa-rule' (a PSScriptAnalyzer rule mapped to the rule, from
+      Get-AnalyzerAdrCoverage). Counting the analyzer rules is what makes the "uncovered" list honest — a rule
+      like [ADR-AUTO-NOPWD](/docs/adr/automation/never-depend-on-pwd.md) reads as covered because its custom analyzer
+      fails the build on every run.
+
+      A pure function of its inputs (no config or ADR reads of its own), so the caller passes the rule universe
+      and the analyzer coverage in. Report-only: it never throws on an uncovered rule — many rules are enforced
+      structurally or by review, so absence of a mechanical enforcer is information, not a defect. The 'by test'
+      figures reflect the tests in THIS run's scope (a -Modules/-Level filter narrows the rows).
+    parameters:
+      Rows: |-
+        The aggregated per-test rows (ConvertTo-TestAutomationRowSet), each carrying ExpandedPath and the
+        ';'-joined Rules citations.
+      AnalyzerCoverage: The (AdrId, Enforcer, Kind='pssa-rule') rows from Get-AnalyzerAdrCoverage. AdrId is '#' citation form.
+      AllRuleIds: Every declared ADR rule id in '#' citation form (Get-CatsAdrRuleIds, ':'->'#') — the coverage universe.
+      OutputFolder: The run directory the two files are written into (created if missing).
 ---
 #>
 
-<#
-.SYNOPSIS
-    Renders the ADR-rule enforcement coverage report (rule-coverage.md + rule-coverage.csv) from a run's rows.
-.DESCRIPTION
-    Report-only: it never throws on an uncovered rule, since many rules are enforced by review, not a mechanism.
-.PARAMETER Rows
-    Rows cover only this run's scope, so a -Modules or -Level filter narrows the by-test figures.
-.PARAMETER AnalyzerCoverage
-    The (AdrId, Enforcer, Kind='pssa-rule') rows from Get-AnalyzerAdrCoverage. AdrId is '#' citation form.
-.PARAMETER AllRuleIds
-    Every declared ADR rule id in '#' citation form (Get-CatsAdrRuleIds, ':'->'#') — the coverage universe.
-.PARAMETER OutputFolder
-    The run directory the two files are written into (created if missing).
-#>
 function Write-TestAutomationRuleCoverage {
     [CmdletBinding()]
     param(
@@ -48,8 +55,8 @@ function Write-TestAutomationRuleCoverage {
         New-Item -ItemType Directory -Path $OutputFolder -Force | Out-Null
     }
 
-    # Sets, so a rule cited by many tests or an analyzer listed twice counts each enforcer once.
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md#comment3)
+    # Enforcers per rule id, split by kind.
+    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md#comment4)
     $testEnforcers = @{}
     $analyzerEnforcers = @{}
 

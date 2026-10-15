@@ -6,7 +6,6 @@ catzc:
     body_sha: "4169ef33e6b7"
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/Test-GeneratedReadmes.ps1

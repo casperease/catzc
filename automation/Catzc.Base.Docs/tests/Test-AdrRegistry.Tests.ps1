@@ -4,12 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
+      - ADR-PRIN-CONFIG#1
 ---
 #>
 
-# Test-AdrRegistry over a fixture docs/adr tree in $TestDrive, a fixture AdrsConfig, and a fixture AdrChecksConfig (Get-Config and
-# Resolve-RepoPath mocked), so each test pins one rule. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-AdrRegistry over a fixture docs/adr tree in $TestDrive, a fixture AdrsConfig, and a fixture AdrChecksConfig...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md#comment1)
 Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

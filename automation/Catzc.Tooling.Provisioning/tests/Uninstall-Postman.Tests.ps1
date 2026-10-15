@@ -8,8 +8,8 @@ catzc:
 #>
 
 Describe 'Uninstall-Postman' -Tag 'L0', 'logic' {
-    # All filesystem/CLI boundaries are mocked: nothing is removed for real and no process launches (the L0
-    # tripwire throws on a real Invoke-Executable). Platform branches self-skip off-platform.
+    # All filesystem/CLI boundaries are mocked: nothing is removed for real and no process launches (the L0 tripwire...
+    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Postman.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Remove-Item { } -ModuleName Catzc.Tooling.Provisioning
         Mock Assert-Command { } -ModuleName Catzc.Tooling.Provisioning

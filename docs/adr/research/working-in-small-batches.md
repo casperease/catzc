@@ -11,7 +11,6 @@ catzc:
       - ADR-DORA-SMALLBATCH#4
       - ADR-DORA-SMALLBATCH#5
       - ADR-DORA-SMALLBATCH#6
-    adrs: []
     links:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
       - docs/adr/process/pull-work.md

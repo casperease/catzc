@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# The read side: policy configurations filtered to build-validation policies of THIS repository,
-# optionally one branch, flattened to one row per policy.
+# The read side: policy configurations filtered to build-validation policies of THIS repository, optionally one...
+# [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/tests/Get-AdoBuildValidations.Tests.ps1.md#comment1)
 Describe 'Get-AdoBuildValidations' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'ado' } -MockWith {

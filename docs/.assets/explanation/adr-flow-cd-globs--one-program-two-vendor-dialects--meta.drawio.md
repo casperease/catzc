@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md
     kind: asset-description
     body_sha: b84d6ef800d8
-    adrs: []
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
       - docs/explanation/flow/one-program-two-vendor-dialects.md

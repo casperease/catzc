@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-config.md
     kind: reference
     body_sha: "900ad440bd3c"
-    adrs: []
     links:
       - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
       - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.png

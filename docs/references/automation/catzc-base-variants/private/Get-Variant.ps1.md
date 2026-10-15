@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-variants/private/Get-Variant.ps1.md
     kind: comment-page
     body_sha: ef0c31774530
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Variants/private/Get-Variant.ps1

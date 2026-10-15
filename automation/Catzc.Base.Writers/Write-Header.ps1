@@ -6,32 +6,43 @@ catzc:
     kind: public-function
     module: Catzc.Base.Writers
     visibility: public
-    adrs: []
+  config:
+    synopsis: Writes a header with optional message in a chosen style.
+    description: |-
+      Styles (with message / without message):
+
+        Curved (default):
+          ╭──────────────╮       ╭──────────────╮
+          │ Message      │
+          ╰──────────────╯
+
+        Stars:
+          ****************       ****************
+          * Message
+          ****************
+
+      -ForegroundColor takes either a [System.ConsoleColor] (or its string name) — one colour for the whole
+      header — or a [Catzc.Base.Writers.RainbowColor] profile, which renders the horizontal rule lines as a
+      per-character gradient while the titled line keeps the profile's base colour. The gradient is also
+      reachable as a bareword: 'rainbow' (anchored on the ring head, a full chromatic walk) or '<base>-rainbow'
+      (e.g. 'green-rainbow', the RainbowColor.ToString form). A profile passed to any plain [ConsoleColor] sink
+      side-grades to its base, so the same value works everywhere.
+    parameters:
+      Message: The text to display. If omitted, writes a single separator line.
+      Style: 'Visual style: Curved, Stars, or Heavy. Defaults to Curved.'
+      Width: Total width of the separator lines. Defaults to 78.
+      ForegroundColor: |-
+        Colour for the output: a [System.ConsoleColor] (or its name), a 'rainbow' / '<base>-rainbow' bareword, or a
+        [Catzc.Base.Writers.RainbowColor] profile — the last three give a gradient rule. No colour by default
+        (renders as terminal default).
+    examples:
+      - Write-Header 'Deployment starting'
+      - Write-Header 'Build' -Style Stars -ForegroundColor Yellow
+      - Write-Header 'PASSED' -ForegroundColor rainbow
+      - Write-Header 'PASSED' -ForegroundColor green-rainbow
 ---
 #>
 
-<#
-.SYNOPSIS
-    Writes a header with optional message in a chosen style.
-.DESCRIPTION
-    A rainbow colour gradients only the rule lines; the titled line keeps the profile's base colour.
-.PARAMETER Message
-    The text to display. If omitted, writes a single separator line.
-.PARAMETER Style
-    Visual style: Curved, Stars, or Heavy. Defaults to Curved.
-.PARAMETER Width
-    Total width of the separator lines. Defaults to 78.
-.PARAMETER ForegroundColor
-    Omit it and the output renders in the terminal default; a rainbow value gives a per-character gradient rule.
-.EXAMPLE
-    Write-Header 'Deployment starting'
-.EXAMPLE
-    Write-Header 'Build' -Style Stars -ForegroundColor Yellow
-.EXAMPLE
-    Write-Header 'PASSED' -ForegroundColor rainbow
-.EXAMPLE
-    Write-Header 'PASSED' -ForegroundColor green-rainbow
-#>
 function Write-Header {
     [CmdletBinding()]
     param(

@@ -6,24 +6,27 @@ catzc:
     kind: public-function
     module: Catzc.Base.Files
     visibility: public
-    adrs: []
+  config:
+    synopsis: Lists the processes that hold a file open (lock it).
+    description: |-
+      Asks the Windows Restart Manager which processes hold the file — the same API behind Explorer's "file in
+      use by …" dialog. It needs no admin rights and sees both an open handle and a loaded (mapped) DLL, so it
+      names the session holding a stale assembly. Each holder is enriched with its executable name, command
+      line and parent process (one CIM query for all holders); a process that exits between the two lookups
+      keeps only the Restart Manager's facts (id, app name, start time).
+
+      File locking is mandatory on Windows but advisory on Linux/macOS, where an open file blocks neither a
+      delete nor a rename — so there is no holder to report and this returns nothing there (matching
+      Test-FileIsLocked, which reports $false).
+    parameters:
+      Path: Path to the file whose holders to list.
+    outputs: '[Catzc.Base.Files.FileLockingProcess] per holding process; nothing when the file is not held.'
+    examples:
+      - Get-FileLockingProcess $dllPath
+      - 'Get-FileLockingProcess $dllPath | ForEach-Object { "$_" }   # "pwsh.exe (PID 10276, started 2026-10-13 14:10)"'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists the processes that hold a file open (lock it).
-.DESCRIPTION
-    Sees mapped DLLs as well as open handles, so it names the session holding a stale assembly; no admin needed.
-.PARAMETER Path
-    Path to the file whose holders to list.
-.OUTPUTS
-    [Catzc.Base.Files.FileLockingProcess] per holding process; nothing when the file is not held.
-.EXAMPLE
-    Get-FileLockingProcess $dllPath
-.EXAMPLE
-    Get-FileLockingProcess $dllPath | ForEach-Object { "$_" }   # "pwsh.exe (PID 10276, started 2026-10-13 14:10)"
-#>
 function Get-FileLockingProcess {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Files.FileLockingProcess])]

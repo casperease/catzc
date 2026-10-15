@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Azure/types/AzureSubscription.cs
     kind: csharp-type
     module: Catzc.Azure
-    adrs: []
 ---
 */
 

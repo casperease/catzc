@@ -6,7 +6,6 @@ catzc:
     body_sha: "2b2bcac454ea"
     adrs:
       - ADR-REPO-VOCAB#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/glossary.yml

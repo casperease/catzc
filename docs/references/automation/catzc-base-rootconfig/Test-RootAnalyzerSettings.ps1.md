@@ -6,7 +6,6 @@ catzc:
     body_sha: d4aee6dbdb15
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1

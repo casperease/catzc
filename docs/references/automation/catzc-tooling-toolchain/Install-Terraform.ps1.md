@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Terraform.ps1.md
     kind: comment-page
     body_sha: effde059a3f7
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Install-Terraform.ps1

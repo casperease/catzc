@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md
     kind: comment-page
     body_sha: "04c054303c69"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/private/Resolve-SessionToolHost.ps1
@@ -31,6 +29,15 @@ exactly as it was). Filesystem checks only — no process is started.
 ```
 
 ## comment:2
+
+Above `Get-Command $Config.command -CommandType Application -ErrorAction Ignore |...`.
+
+```text
+-First 1: the command may still resolve in more than one PATH dir — an array's .Source would break the
+[string] -Location binding downstream.
+```
+
+## comment:3
 
 Above `Get-Command $Config.command -CommandType Application -ErrorAction Ignore |...`.
 

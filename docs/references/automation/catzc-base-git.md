@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-git.md
     kind: reference
     body_sha: acb4f4fa1504
-    adrs: []
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test32
       - docs/adr/automation/tracked-files-from-the-index.md

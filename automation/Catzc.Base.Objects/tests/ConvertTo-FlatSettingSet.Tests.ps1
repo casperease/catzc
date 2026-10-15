@@ -7,9 +7,8 @@ catzc:
 ---
 #>
 
-# Real CLR types (PowerShell classes are genuine .NET types, parsed by PowerShell — no Roslyn compile) used to
-# prove the reflect-over-public-members path with a nested typed member. Avoids Add-Type, whose Roslyn compile
-# was the entire cost of this L0 file.
+# Real CLR types (PowerShell classes are genuine.NET types, parsed by PowerShell — no Roslyn compile) used to prove...
+# [comment:1](/docs/references/automation/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md#comment1)
 class CatzcFlatSettingSetDb {
     [string] $Host
     [int] $Port

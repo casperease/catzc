@@ -8,10 +8,8 @@ catzc:
 #>
 
 Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
-    # The fixture DLL name (BeforeEach) and the real-repo drift check both use the ONE shared hash
-    # (Get-CombinedTypeHash, loaded by the importer) — the same function the janitor under test calls, so there is
-    # no separate mirror to keep in step. The independent oracle for that function is the cross-language MSBuild
-    # stamp (see the Import-CSharpTypes test file's 'IDE project build stamps …' test).
+    # The fixture DLL name (BeforeEach) and the real-repo drift check both use the ONE shared hash...
+    # [comment:1](/docs/references/automation/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md#comment1)
 
     BeforeEach {
         # Default: source mode, not a pipeline, so the function actually runs (in the source and build runs).
@@ -22,8 +20,8 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
 
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 
-        # Build the fixture with [System.IO] rather than New-Item/Set-Content — the cmdlets carry ~20ms of
-        # per-call overhead on Windows, which dominated this per-test setup. CreateDirectory makes parents too.
+        # Build the fixture with [System.IO] rather than New-Item/Set-Content — the cmdlets carry ~20ms of per-call...
+        # [comment:2](/docs/references/automation/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md#comment2)
         foreach ($m in 'Mod.One', 'Mod.Two') {
             [System.IO.Directory]::CreateDirectory((Join-Path $root "$m/types")) | Out-Null
         }

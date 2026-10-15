@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-AIDATA#3
       - ADR-DORA-AIDATA#4
       - ADR-DORA-AIDATA#5
-    adrs: []
     links:
       - docs/adr/configuration/config-value-addressing.md
       - docs/adr/principles/everything-as-code.md

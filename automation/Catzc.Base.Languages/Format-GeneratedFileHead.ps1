@@ -8,37 +8,27 @@ catzc:
     visibility: public
     adrs:
       - ADR-REPO-FILEMETA#7
+  config:
+    synopsis: Returns the text of a generated file with the meta head that says which generator or source wrote it.
+    description: |-
+      The head is the one unified form of ADR-REPO-FILEMETA#7: kind generated-from-source, and the generator and the source when the file has
+      them. The carrier is named by id, or found from the file's language when no id is given.
+    parameters:
+      Text: The whole content the generator composed, without any head.
+      Path: The repository-relative path the content is written to. It names the file in the head and finds its language.
+      Carrier: 'The id of the file-carriers entry that says where the head goes. Default: the entry of the file language of Path.'
+      Generator: The command that composed the content, when one did.
+      Source: The repository-relative authored file or files the content comes from, when it has any.
+      Tracked: The file is tracked by git, so it gets the tracked kind of generated-head.yml instead of the plain generated kind.
+      Carriers: 'The carrier registry. Default: the shipped file-carriers.yml.'
+      Languages: 'The file-language registry. Default: the shipped languages.yml.'
+      Head: 'The head keys in writing order. Default: the shipped generated-head.yml.'
+    outputs: '[string] The text with the head written first.'
+    examples:
+      - Format-GeneratedFileHead -Text $content -Path .gitignore -Carrier dotfile -Generator New-GitIgnore
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the text of a generated file with the meta head that says which generator or source wrote it.
-.DESCRIPTION
-    A writer composes its content bare and this adds the one head, so no generator hand-words a banner.
-.PARAMETER Text
-    The whole content the generator composed, without any head.
-.PARAMETER Path
-    The repository-relative path the content is written to. It names the file in the head and finds its language.
-.PARAMETER Carrier
-    The id of the file-carriers entry that says where the head goes. Default: the entry of the file language of Path.
-.PARAMETER Generator
-    The command that composed the content, when one did.
-.PARAMETER Source
-    The repository-relative authored file or files the content comes from, when it has any.
-.PARAMETER Tracked
-    The file is tracked by git, so it gets the tracked kind of generated-head.yml instead of the plain generated kind.
-.PARAMETER Carriers
-    The carrier registry. Default: the shipped file-carriers.yml.
-.PARAMETER Languages
-    The file-language registry. Default: the shipped languages.yml.
-.PARAMETER Head
-    The head keys in writing order. Default: the shipped generated-head.yml.
-.OUTPUTS
-    [string] The text with the head written first.
-.EXAMPLE
-    Format-GeneratedFileHead -Text $content -Path .gitignore -Carrier dotfile -Generator New-GitIgnore
-#>
 function Format-GeneratedFileHead {
     [CmdletBinding()]
     [OutputType([string])]

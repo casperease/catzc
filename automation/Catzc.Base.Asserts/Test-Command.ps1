@@ -6,18 +6,15 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Tests whether a command exists in the current session.
+    parameters:
+      Command: The command name to check.
+    examples:
+      - Test-Command 'git'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tests whether a command exists in the current session.
-.PARAMETER Command
-    The command name to check.
-.EXAMPLE
-    Test-Command 'git'
-#>
 function Test-Command {
     [OutputType([bool])]
     [CmdletBinding()]

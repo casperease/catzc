@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
-    links: []
 ---
 
 # automation/Catzc.Azure/types/AzureSubscriptionRecord.cs

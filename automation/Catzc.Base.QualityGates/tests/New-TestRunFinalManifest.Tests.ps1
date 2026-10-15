@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/New-TestRunFinalManifest.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#32
 ---
 #>
 
-# New-TestRunFinalManifest over fixture inputs: the terminal run.json record, with and without a context, a worker
-# run, and an opt-out tag.
+# New-TestRunFinalManifest over fixture inputs: the terminal run.json record, with and without a context, a worker...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/New-TestRunFinalManifest.Tests.ps1.md#comment1)
 Describe 'New-TestRunFinalManifest' -Tag 'L0', 'logic' {
     It 'records the run, its context, and the opt-out exclusion' {
         InModuleScope Catzc.Base.QualityGates {
@@ -35,10 +37,8 @@ Describe 'New-TestRunFinalManifest' -Tag 'L0', 'logic' {
     }
 }
 
-# The run.json a reader sees for a run that collided with another
-# ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)): the terminal manifest built
-# from a snapshot worker run, written by Write-TestRunManifest, and read back as JSON — the shape a script that
-# watches concurrent runs reads, with no unit between them mocked.
+# The run.json a reader sees for a run that collided with another: the terminal manifest built from a snapshot worker...
+# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/New-TestRunFinalManifest.Tests.ps1.md#comment2)
 Describe 'New-TestRunFinalManifest — a snapshot run, written and read back' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:runDirectory = Join-Path $TestDrive 'run-widget'

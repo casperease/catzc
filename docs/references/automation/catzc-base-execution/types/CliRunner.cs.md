@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-execution/types/CliRunner.cs.md
     kind: comment-page
     body_sha: "74a77c995054"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Execution/types/CliRunner.cs

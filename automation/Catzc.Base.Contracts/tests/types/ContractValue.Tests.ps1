@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/types/ContractValue.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-CONTRACT#6
 ---
 #>
 
-# ContractValue reads a parsed JSON or YAML value as one of the JSON kinds and compares two values by JSON equality
-# ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)), whatever CLR type each parser chose.
+# ContractValue reads a parsed JSON or YAML value as one of the JSON kinds and compares two values by JSON equality,...
+# [comment:1](/docs/references/automation/catzc-base-contracts/tests/types/ContractValue.Tests.ps1.md#comment1)
 Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     It 'reads <Text> as <Kind>' -ForEach @(
         @{ Text = 'null'; Kind = 'null' }

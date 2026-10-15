@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-configextensions/Invoke-ConfigValidator.ps1.md
     kind: comment-page
     body_sha: "9a167d821909"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1

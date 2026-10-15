@@ -6,18 +6,14 @@ catzc:
     kind: public-function
     module: Catzc.Base.Repository
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the repository root path.
+    description: Returns the value of $env:RepositoryRoot set by importer.ps1.
+    examples:
+      - Get-RepositoryRoot
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the repository root path.
-.DESCRIPTION
-    Returns the value of $env:RepositoryRoot set by importer.ps1.
-.EXAMPLE
-    Get-RepositoryRoot
-#>
 function Get-RepositoryRoot {
     param()
 

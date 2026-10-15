@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/tooling.md
     kind: how-to
     body_sha: "714072254ede"
-    adrs: []
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---

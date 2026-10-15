@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-toolchain/Invoke-Go.ps1.md
     kind: comment-page
     body_sha: "20f6dd230c8c"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Invoke-Go.ps1

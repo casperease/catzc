@@ -6,7 +6,6 @@ catzc:
     body_sha: "8df1d2b7d77e"
     adrs:
       - ADR-AUTO-TEST#30
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-BuildArtifactProbe.ps1

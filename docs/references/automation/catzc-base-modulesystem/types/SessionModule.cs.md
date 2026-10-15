@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/types/SessionModule.cs.md
     kind: comment-page
     body_sha: b2415eb74a00
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/SessionModule.cs

@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
-    # The probed branch: a tool with candidate paths takes its location and version from the probe record
-    # (Test-Tool -PassThru) and never starts a version job on its bare name. The probe, the package-manager oracle,
-    # the scope and winget are mocked. Fixture tokens are neutral
-    # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+    # The probed branch: a tool with candidate paths takes its location and version from the probe record (Test-Tool...
+    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md#comment1)
     BeforeAll {
         $script:tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
                 widget = @{
@@ -19,8 +19,8 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
                     version_pattern = 'version (?<ver>[\d.]+)'; unix_probes = @('/opt/widget'); windows_probes = @('C:\widget.exe')
                 }
             })
-        # The MSYS2 package for Windows and an apt package for Linux, and nothing for macOS, so each platform takes
-        # exactly one manager: msys2 on Windows, apt on Linux, the system on macOS.
+        # The MSYS2 package for Windows and an apt package for Linux, and nothing for macOS, so each platform takes...
+        # [comment:2](/docs/references/automation/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md#comment2)
         $script:twoMechanismTools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
                 gadget = @{
                     version = '5'; command = 'gadget'; version_command = 'gadget --version'; version_pattern = 'gadget (?<ver>[\d.]+)'

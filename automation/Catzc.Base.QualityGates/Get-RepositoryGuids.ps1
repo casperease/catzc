@@ -6,21 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Base.QualityGates
     visibility: public
-    adrs: []
+  config:
+    synopsis: Scans every tracked text file for GUID literals and returns one record per occurrence.
+    description: |-
+      The repository-wide managed-GUID scanner. It reads the tracked-file universe (Get-GuidScanFiles) and
+      matches the canonical hyphenated GUID form only — deliberately never bare 32-hex, which would
+      false-positive on hashes (the durable SHAs are 64 hex and unhyphenated, so they never match). Paths
+      come back repo-relative (communication form); guids come back lowercase. The managed-guid quality
+      gate (Test-ManagedGuids) asserts every returned guid against the registry (configs/guids.yml), and every
+      registry entry against these results.
+    outputs: 'One ordered dictionary per occurrence: @{ file; line; guid }.'
+    examples:
+      - |-
+        Get-RepositoryGuids | Where-Object { -not (Test-ManagedGuid $_.guid) }
+        Lists every unregistered GUID occurrence in the repository.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Scans every tracked text file for GUID literals and returns one record per occurrence.
-.DESCRIPTION
-    Only hyphenated GUIDs match, never bare 32-hex, which would false-positive on hashes.
-.OUTPUTS
-    One ordered dictionary per occurrence: @{ file; line; guid }.
-.EXAMPLE
-    Get-RepositoryGuids | Where-Object { -not (Test-ManagedGuid $_.guid) }
-    Lists every unregistered GUID occurrence in the repository.
-#>
 function Get-RepositoryGuids {
     [CmdletBinding()]
     param()
@@ -37,8 +39,8 @@ function Get-RepositoryGuids {
             continue
         }
 
-        # One scan over the whole text is about 3x faster than per-line matching, whose managed transitions dominate.
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md#comment2)
+        # Read the whole file and match once, rather than regex-per-line: a single scan over the text is ~3x faster...
+        # [comment:3](/docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md#comment3)
         $text = [System.IO.File]::ReadAllText($fullPath)
         $lineNumber = 1
         $scanPos = 0

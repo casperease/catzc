@@ -14,7 +14,6 @@ catzc:
       - ADR-AUTO-OVERLAY#7
       - ADR-AUTO-OVERLAY#8
       - ADR-AUTO-OVERLAY#9
-    adrs: []
     links:
       - docs/adr/automation/internal-asset-dependencies.md
       - docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1

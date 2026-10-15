@@ -6,30 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
-    adrs: []
+  config:
+    synopsis: Runs go with the given arguments.
+    description: |-
+      Asserts that the installed Go matches the locked version in Get-ToolConfig, then runs the executable the check
+      located (Test-Tool -PassThru: the managed home first, then PATH), so the asserted Go is the one that runs.
+    parameters:
+      Arguments: Arguments to pass to go.
+      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
+      NoAssert: Skip exit code assertion.
+      Silent: Suppress the command log line.
+      DryRun: Return the command string without executing. Used for testing.
+    examples:
+      - Invoke-Go 'version'
+      - Invoke-Go 'env GOROOT' -PassThru
 ---
 #>
 
-<#
-.SYNOPSIS
-    Runs go with the given arguments.
-.DESCRIPTION
-    The run uses the executable the check located, managed home first, so the asserted Go is the one that runs.
-.PARAMETER Arguments
-    Arguments to pass to go.
-.PARAMETER PassThru
-    Return a CliResult object with Output, Errors, Full, and ExitCode.
-.PARAMETER NoAssert
-    Skip exit code assertion.
-.PARAMETER Silent
-    Suppress the command log line.
-.PARAMETER DryRun
-    Return the command string without executing. Used for testing.
-.EXAMPLE
-    Invoke-Go 'version'
-.EXAMPLE
-    Invoke-Go 'env GOROOT' -PassThru
-#>
 function Invoke-Go {
     [CmdletBinding()]
     param(

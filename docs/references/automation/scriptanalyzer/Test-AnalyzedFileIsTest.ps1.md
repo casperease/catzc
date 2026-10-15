@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/scriptanalyzer/Test-AnalyzedFileIsTest.ps1.md
     kind: comment-page
     body_sha: ef4333e6cb87
-    adrs: []
-    links: []
 ---
 
 # automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1

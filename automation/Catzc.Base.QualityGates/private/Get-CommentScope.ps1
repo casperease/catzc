@@ -8,21 +8,21 @@ catzc:
     visibility: private
     adrs:
       - ADR-PRIN-CONFIG#1
+  config:
+    synopsis: Lists the files whose long comments live in a comment page, each with its file language and page.
+    description: |-
+      The one scope Export-Comments, Build-CommentView, Format-Comments and Test-Comments share, so the converter, the
+      view and the gate can never disagree. It starts from the files Get-LinkScope lists (the tracked files, or the
+      given -Path, minus every file the content tools leave as written) and keeps a file when its file language is one
+      comments.yml names, comments.yml maps it to a page, and no comments.yml exclude glob matches it (tests and assets by
+      default) ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+    parameters:
+      RepositoryRoot: The repository root the paths are relative to.
+      Path: Optional files or folders to limit the scope to.
+    outputs: '[pscustomobject] { File, Extension, Language, Page } per file, in path order.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists the files whose long comments live in a comment page, each with its file language and page.
-.DESCRIPTION
-    One shared scope, so the converter, the view and the gate cannot disagree on which files hold comments.
-.PARAMETER RepositoryRoot
-    The repository root the paths are relative to.
-.PARAMETER Path
-    Optional files or folders to limit the scope to.
-.OUTPUTS
-    [pscustomobject] { File, Extension, Language, Page } per file, in path order.
-#>
 function Get-CommentScope {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

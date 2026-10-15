@@ -6,20 +6,16 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a PowerShell module is available.
+    parameters:
+      Module: The module name to look up via Get-Module -ListAvailable.
+      ErrorText: Optional message to throw instead of the default.
+    examples:
+      - Assert-PsModule 'Pester'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a PowerShell module is available.
-.PARAMETER Module
-    The module name to look up via Get-Module -ListAvailable.
-.PARAMETER ErrorText
-    Optional message to throw instead of the default.
-.EXAMPLE
-    Assert-PsModule 'Pester'
-#>
 function Assert-PsModule {
     [CmdletBinding()]
     param(

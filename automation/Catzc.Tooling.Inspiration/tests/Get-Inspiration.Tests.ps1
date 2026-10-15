@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-INSPIRE#1
 ---
 #>
 
-# Get-Inspiration over a fixture config (Get-Config mocked to the real InspirationConfig built from neutral widget/gadget
-# data, [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and a TestDrive workspace in
-# which widget and gadget exist and gizmo does not. An inspiration that is absent is reported, never thrown on
-# ([ADR-REPO-INSPIRE#1](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire1)).
+# Get-Inspiration over a fixture config (Get-Config mocked to the real InspirationConfig built from neutral...
+# [comment:1](/docs/references/automation/catzc-tooling-inspiration/tests/Get-Inspiration.Tests.ps1.md#comment1)
 Describe 'Get-Inspiration' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:workspace = [IO.Path]::GetFullPath((Join-Path $TestDrive 'workspace'))

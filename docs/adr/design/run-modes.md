@@ -12,7 +12,6 @@ catzc:
       - ADR-DSGN-RUNMODE#5
       - ADR-DSGN-RUNMODE#6
       - ADR-DSGN-RUNMODE#7
-    adrs: []
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/effective-in-enterprises.md

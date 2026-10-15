@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownScope.ps1.md
     kind: comment-page
     body_sha: dc5fadaac069
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-MarkdownScope.ps1
@@ -26,6 +24,15 @@ like every other file class.
 ```
 
 ## comment:2
+
+Above `$exemptPaths = Get-ContentExemptPath -RepositoryRoot $root -Path $markdown`.
+
+```text
+Every class comes from .gitattributes.
+Get-ContentExemptPath returns its paths as one array: assign it, so the set holds the paths, not the array.
+```
+
+## comment:3
 
 Above `$exemptPaths = Get-ContentExemptPath -RepositoryRoot $root -Path $markdown`.
 

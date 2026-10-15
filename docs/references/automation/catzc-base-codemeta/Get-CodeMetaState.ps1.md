@@ -6,7 +6,6 @@ catzc:
     body_sha: "777dc3bfc756"
     adrs:
       - ADR-REPO-CODEMETA#1
-    links: []
 ---
 
 # automation/Catzc.Base.CodeMeta/Get-CodeMetaState.ps1

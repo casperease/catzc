@@ -6,7 +6,6 @@ catzc:
     body_sha: cfdc5e7e030c
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Azure/types/AzureEnvironmentRecord.cs

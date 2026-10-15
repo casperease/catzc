@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-typessystem/private/Test-ConsoleReadyType.ps1.md
     kind: comment-page
     body_sha: "8f9dac776fd2"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/private/Test-ConsoleReadyType.ps1

@@ -4,12 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-CONF-LOADING#4
+      - ADR-PRIN-CONFIG#1
+      - ADR-REPO-COMMENTS#3
 ---
 #>
 
-# CommentsConfig maps comments.yml and is the one declaration of its sensible defaults
-# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key
-# behaves exactly like the default, and a malformed value fails at construction naming the key.
+# CommentsConfig maps comments.yml and is the one declaration of its sensible defaults: an omitted key behaves...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/CommentsConfig.Tests.ps1.md#comment1)
 Describe 'CommentsConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT#6' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})

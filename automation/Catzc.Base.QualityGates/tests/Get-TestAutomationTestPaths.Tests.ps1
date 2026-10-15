@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-TestAutomationTestPaths over a fixture automation tree in $TestDrive (Get-RepositoryRoot and
-# Get-ModuleTestOrder mocked): two modules with tests, one without, and one dot-prefixed infrastructure folder.
-# Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-TestAutomationTestPaths over a fixture automation tree in $TestDrive (Get-RepositoryRoot and...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-TestAutomationTestPaths.Tests.ps1.md#comment1)
 Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:automation = Join-Path $TestDrive 'repo/automation'

@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Export-Comments.ps1

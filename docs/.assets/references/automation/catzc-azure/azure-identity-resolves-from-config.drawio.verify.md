@@ -12,7 +12,6 @@ catzc:
       - ADR-AZ-NAMING#6
       - ADR-AZ-SESSION#5
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # out/diagrams/wave-9/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md

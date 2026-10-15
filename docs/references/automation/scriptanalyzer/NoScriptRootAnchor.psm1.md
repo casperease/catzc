@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-PWSH-FORMAT#6
-    links: []
 ---
 
 # automation/.scriptanalyzer/NoScriptRootAnchor.psm1

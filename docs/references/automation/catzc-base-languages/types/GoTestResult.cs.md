@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/types/GoTestResult.cs

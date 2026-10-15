@@ -6,7 +6,6 @@ catzc:
     body_sha: "069bf26c2cb6"
     adrs:
       - ADR-FLOW-CD-DETECT#1
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
@@ -44,6 +43,20 @@ env's base / index-0 slot.
 ```
 
 ## comment:3
+
+Above `if ($env:GITHUB_RUN_ID) {`.
+
+```text
+We already know we're in a pipeline (the one sanctioned detector said so); here we only read each
+platform's run-id / commit DATA vars — not the detection vars TF_BUILD / GITHUB_ACTIONS, which only
+Test-IsRunningInPipeline may read (rule
+[ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1) /
+Measure-NoRawPipelineDetection). GitHub Actions sets
+GITHUB_RUN_ID / GITHUB_SHA; Azure DevOps sets BUILD_BUILDID / BUILD_SOURCEVERSION. The commit is
+truncated to 7 chars.
+```
+
+## comment:4
 
 Above `if ($env:GITHUB_RUN_ID) {`.
 

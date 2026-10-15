@@ -10,8 +10,8 @@ catzc:
 Describe 'Build-BashTimeoutHook' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem {
-            # Stand in for `dotnet publish`: copy this host's own executable to where the real publish puts the
-            # program, so it carries the platform's real executable extension and resolves as an application.
+            # Stand in for `dotnet publish`: copy this host's own executable to where the real publish puts the...
+            # [comment:1](/docs/references/automation/catzc-base-typessystem/tests/Build-BashTimeoutHook.Tests.ps1.md#comment1)
             $null = New-Item -ItemType Directory -Force -Path $script:outputDirectory
             $hostExecutable = [Environment]::ProcessPath
             Copy-Item -LiteralPath $hostExecutable -Destination (Join-Path $script:outputDirectory ('Assert-BashTimeout' + [IO.Path]::GetExtension($hostExecutable)))

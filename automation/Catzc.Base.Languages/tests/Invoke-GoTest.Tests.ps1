@@ -4,15 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#6
 ---
 #>
 
 Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the seams ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): a
-        # fixture repository root in $TestDrive, a mocked tool probe
-        # (Resolve-ToolExecutable) that finds a managed go at a fixture path with a space in it, and a mocked go
-        # (Invoke-Executable) that answers with canned `go test -json` streams from tests/assets.
+        # Isolate through the seams: a fixture repository root in $TestDrive, a mocked tool probe...
+        # [comment:1](/docs/references/automation/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md#comment1)
         $script:root = Join-Path $TestDrive 'repo'
         $script:folder = Join-Path $script:root 'go/tests/catzc-widget'
         $null = New-Item -ItemType Directory -Path $script:folder -Force

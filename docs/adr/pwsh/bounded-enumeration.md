@@ -15,7 +15,6 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-PARAM#4
       - ADR-PWSH-PESTER#9
-    links: []
 ---
 
 # ADR: Bounded enumeration

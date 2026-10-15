@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-PWSH-ANNOUNCE#6
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/New-Importer.ps1
@@ -76,6 +75,56 @@ Fixed template around the generated param block. Single-quoted here-strings keep
 ```
 
 ## comment:6
+
+Above ``$content = $explanation + "`n" + $paramBlock + "`n`n" + $body + "`n"``.
+
+```text
+LF throughout, one trailing newline. The explanation/param/body join and the EOF newline match the committed
+importer.ps1 below its generated-file head byte-for-byte (the drift test compares EOL-insensitively).
+```
+
+## comment:7
+
+Above `$parseErrors = $null`.
+
+```text
+Read the overlay's parameter block from source (the overlay is not loaded post-import). Each parameter
+becomes one clean `[type] $Name` line; the overlay keeps its own per-parameter doc comments.
+```
+
+## comment:8
+
+Above `$suppression =...`.
+
+```text
+The shim sets $env:RepositoryRoot, but its announcement is delegated
+([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)):
+Invoke-Importer
+names it on its Roots line, the first point a writer is loaded.
+```
+
+## comment:9
+
+Above ``$paramBlock = "$suppression`n" + "[CmdletBinding()]`n" + "param(`n" +...``.
+
+```text
+[CmdletBinding()] makes the shim accept -Verbose (forwarded to Invoke-Importer by @PSBoundParameters), which
+shows the importer's own state-change record
+([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)).
+Dot-sourced, the preference stays inside
+the import and does not leak into the caller's session.
+```
+
+## comment:10
+
+Above `$explanation = @'`.
+
+```text
+Fixed template around the generated param block. Single-quoted here-strings keep $env:/$PSScriptRoot/
+@PSBoundParameters literal. The one living copy of the shim body lives here; importer.ps1 is generated.
+```
+
+## comment:11
 
 Above ``$content = $explanation + "`n" + $paramBlock + "`n`n" + $body + "`n"``.
 

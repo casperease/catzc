@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Get-AdoRepositoryName.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-PARAM#4
 ---
 #>
 

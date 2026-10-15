@@ -6,22 +6,19 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Files
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a file is free to open (not locked by another handle); throws otherwise.
+    description: |-
+      Throws when the file is locked. See Test-FileIsLocked for how lock state is determined and the
+      Windows-vs-Unix locking caveat.
+    parameters:
+      Path: Path to the file to assert is not locked.
+      ErrorText: Optional message to throw instead of the default.
+    examples:
+      - Assert-FileIsNotLocked $dllPath
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a file is free to open (not locked by another handle); throws otherwise.
-.DESCRIPTION
-    Locks are mandatory on Windows but advisory on Unix, where nothing counts as locked, so this never throws there.
-.PARAMETER Path
-    Path to the file to assert is not locked.
-.PARAMETER ErrorText
-    Optional message to throw instead of the default.
-.EXAMPLE
-    Assert-FileIsNotLocked $dllPath
-#>
 function Assert-FileIsNotLocked {
     [CmdletBinding()]
     param(

@@ -10,7 +10,6 @@ catzc:
       - ADR-AZ-SESSION#3
       - ADR-AZ-SESSION#4
       - ADR-AZ-SESSION#5
-    adrs: []
     links:
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod7
       - docs/adr/azure/prefer-az-cli.md

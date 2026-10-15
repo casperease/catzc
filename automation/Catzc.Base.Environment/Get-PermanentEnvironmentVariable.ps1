@@ -6,24 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Base.Environment
     visibility: public
-    adrs: []
+  config:
+    synopsis: Reads an environment variable from a persistent scope (the Windows registry for User/Machine).
+    description: |-
+      The single seam through which tooling READS a persistent environment variable other than PATH (PATH has its
+      own, Get-EnvironmentPath), so a logic test can Mock the registry boundary
+      (`Mock Get-PermanentEnvironmentVariable -ModuleName <module>`) instead of reading the real user environment.
+      User/Machine scopes are a Windows concept; callers guard Windows-only use with $IsWindows. The real
+      registry round trip is proven by the L3 system test in tests/Set-PermanentEnvironmentVariable.Tests.ps1.
+    parameters:
+      Name: The variable's name.
+      Scope: 'Which persistent scope to read: User (default) or Machine.'
+    outputs: '[string] the value, or $null when the variable is not set in that scope.'
+    examples:
+      - Get-PermanentEnvironmentVariable JAVA_HOME
 ---
 #>
 
-<#
-.SYNOPSIS
-    Reads an environment variable from a persistent scope (the Windows registry for User/Machine).
-.DESCRIPTION
-    The one read seam for persistent variables other than PATH, so tests mock it; the scopes are Windows only.
-.PARAMETER Name
-    The variable's name.
-.PARAMETER Scope
-    Which persistent scope to read: User (default) or Machine.
-.OUTPUTS
-    [string] the value, or $null when the variable is not set in that scope.
-.EXAMPLE
-    Get-PermanentEnvironmentVariable JAVA_HOME
-#>
 function Get-PermanentEnvironmentVariable {
     [CmdletBinding()]
     [OutputType([string])]

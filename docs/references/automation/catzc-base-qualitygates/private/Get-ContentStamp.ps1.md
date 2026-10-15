@@ -6,7 +6,6 @@ catzc:
     body_sha: "05a0beeccd40"
     adrs:
       - ADR-AUTO-CACHE#10
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ContentStamp.ps1
@@ -33,6 +32,15 @@ bytes.
 ```
 
 ## comment:2
+
+Above `$previousWasLineEnd = $true`.
+
+```text
+Comments go; a run of line ends (what a removed comment line leaves) counts as one, since a line
+end separates statements but a blank line does not.
+```
+
+## comment:3
 
 Above `$previousWasLineEnd = $true`.
 

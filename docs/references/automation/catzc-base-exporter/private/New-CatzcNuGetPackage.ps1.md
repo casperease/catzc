@@ -6,7 +6,6 @@ catzc:
     body_sha: c39be089655a
     adrs:
       - ADR-AUTO-BUNDLE#6
-    links: []
 ---
 
 # automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1

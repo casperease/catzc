@@ -6,7 +6,6 @@ catzc:
     body_sha: "86e086671781"
     adrs:
       - ADR-AUTO-PY#8
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1

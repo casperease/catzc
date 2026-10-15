@@ -9,26 +9,37 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-README#7
+  config:
+    synopsis: Lints the repository's Markdown with markdownlint-cli2 and writes a report under out/.
+    description: |-
+      Runs markdownlint-cli2 over the repository's in-scope Markdown, applying the single root rule set at
+      /.markdownlint.yml (auto-discovered by markdownlint-cli2). Excludes transient and out-of-scope trees
+      (out/, automation/.vendor/ and every other .vendor/ tree, node_modules/, docs/notes/) and the generated README copy-ins (**/README.md,
+      a derived artifact linted at its docs/ source instead) via negation globs — markdownlint-cli2 does not
+      apply .markdownlintignore to globs passed on the command line, so the exclusions are passed explicitly.
+      The root .markdownlintignore mirrors these for the editor extension's benefit.
+
+      A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): every
+      violation line ('<path>:<line>:<col> <rule id>/<rule name> …') is an issue, and the gate ends through
+      Write-QualityGateReport, which writes out/test-markdownlint/, prints every issue, and throws once listing them
+      all; -PassThru returns the result object instead. A tool error (exit > 1) throws before the report.
+
+      markdownlint-cli2 must be on PATH — install it once with Install-Markdownlint (or: npm install -g
+      markdownlint-cli2).
+    parameters:
+      Path: |-
+        Repository-relative paths or globs to lint (markdownlint-cli2 expands a glob). Defaults to the repository's
+        in-scope Markdown, with the out-of-scope trees excluded via '!'-negation globs.
+      OutputFolder: The report base folder. Defaults to <out>/test-markdownlint.
+      PassThru: Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, ExitCode }) instead of throwing.
+    examples:
+      - Test-Markdownlint
+      - |-
+        $result = Test-Markdownlint -PassThru
+        $result.IssueCount
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lints the repository's Markdown with markdownlint-cli2 and writes a report under out/.
-.DESCRIPTION
-    markdownlint-cli2 ignores .markdownlintignore for command-line globs, so the exclusions are passed explicitly.
-.PARAMETER Path
-    The default is the in-scope Markdown, with out-of-scope trees excluded by negation globs.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to <out>/test-markdownlint.
-.PARAMETER PassThru
-    Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, ExitCode }) instead of throwing.
-.EXAMPLE
-    Test-Markdownlint
-.EXAMPLE
-    $result = Test-Markdownlint -PassThru
-    $result.IssueCount
-#>
 function Test-Markdownlint {
     [CmdletBinding()]
     param(
@@ -40,14 +51,14 @@ function Test-Markdownlint {
             '!docs/notes'
             '!.unordered'
             '!**/node_modules'
-            # Skipped because the gitignored copy would double-report the docs/ source that is linted instead.
-            # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment3)
+            # Generated READMEs (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored copies whose...
+            # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment6)
             '!**/README.md'
-            # Derived from adrs.yml, so the source and the generator prose are linted, not the projection.
-            # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment4)
+            # is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source (adrs.yml + the...
+            # [comment:7](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment7)
             '!docs/adr/index.md'
-            # Derived from the glossary sources and emitted already formatted, so linting it adds nothing.
-            # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment5)
+            # is generated from the configs/glossary.yml sources (Build-Glossary) — likewise derived; the generator...
+            # [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment8)
             '!docs/adr/glossary.md'
         ),
 

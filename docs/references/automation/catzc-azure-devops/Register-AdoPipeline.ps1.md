@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/Register-AdoPipeline.ps1.md
     kind: comment-page
     body_sha: b1858f066e3c
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/Register-AdoPipeline.ps1

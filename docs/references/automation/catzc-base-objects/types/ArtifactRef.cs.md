@@ -6,7 +6,6 @@ catzc:
     body_sha: a398463ae54c
     adrs:
       - ADR-AUTO-PATH#10
-    links: []
 ---
 
 # automation/Catzc.Base.Objects/types/ArtifactRef.cs

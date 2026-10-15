@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
-    # The mapping from a tools.yml entry to the probe's plain inputs: the tools config is a fixture dictionary
-    # (Get-Config mocked) and Find-Executable is mocked whole, so the assertions bind to which inputs each platform
-    # and session actor hands it. Fixture tokens are neutral
-    # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+    # The mapping from a tools.yml entry to the probe's plain inputs: the tools config is a fixture dictionary...
+    # [comment:1](/docs/references/automation/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md#comment1)
     BeforeAll {
         $script:windows = [bool]$IsWindows
         $script:tools = @{

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-cli.md
     kind: reference
     body_sha: fe36ba59a54c
-    adrs: []
     links:
       - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
       - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png

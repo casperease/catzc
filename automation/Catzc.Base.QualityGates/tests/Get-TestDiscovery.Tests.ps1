@@ -24,8 +24,8 @@ Describe 'DiscoveryFixture' -Tag 'L0', 'logic' {
             Get-TestDiscovery -TestPath $Path
         }
 
-        # Both tests are discovered, none ran (the throwing bodies prove SkipRun held), and the block chain
-        # is live — the tag consumers (Get-TestTagViolations / Split-TestAutomationFiles) walk it from this object.
+        # Both tests are discovered, none ran (the throwing bodies prove SkipRun held), and the block chain is live —...
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-TestDiscovery.Tests.ps1.md#comment1)
         $discovery.Tests | Should -HaveCount 2
         @($discovery.Tests.Result) | Should -Be @('NotRun', 'NotRun')
         $discovery.Tests[0].Block.Tag | Should -Contain 'L0'

@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.Objects/types/PSTypeAliasAttribute.cs
     kind: csharp-type
     module: Catzc.Base.Objects
-    adrs: []
 ---
 */
 

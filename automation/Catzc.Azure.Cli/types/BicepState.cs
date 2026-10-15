@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Azure.Cli/types/BicepState.cs
     kind: csharp-type
     module: Catzc.Azure.Cli
-    adrs: []
 ---
 */
 

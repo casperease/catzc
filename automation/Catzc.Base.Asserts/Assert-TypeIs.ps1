@@ -6,20 +6,16 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that an object is a specific .NET type.
+    parameters:
+      Object: The object whose type to check.
+      TypeFullName: The expected full type name (e.g. 'System.String').
+    examples:
+      - Assert-TypeIs $value 'System.Int32'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that an object is a specific .NET type.
-.PARAMETER Object
-    The object whose type to check.
-.PARAMETER TypeFullName
-    The expected full type name (e.g. 'System.String').
-.EXAMPLE
-    Assert-TypeIs $value 'System.Int32'
-#>
 function Assert-TypeIs {
     [CmdletBinding()]
     param(

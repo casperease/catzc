@@ -8,25 +8,23 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-ENGINE#1
+  config:
+    synopsis: 'Loads a per-engine fixture table: one row per case and execution engine (ExecutionEngines), validated.'
+    description: |-
+      Reads a YAML engine case table and validates it through the EngineCaseTable type: every case fills every engine
+      column, or names why it does not apply ("n/a: <reason>"), so the parity of a behaviour across every engine is
+      explicit case by case. Returns one hashtable per case and engine, shaped for Pester's -ForEach
+      (Case, Engine, Fields, NotApplicable): Fields is the column's map, NotApplicable the reason when it does not apply.
+    parameters:
+      Path: 'The table file: absolute, or relative to the repository root (never to the current directory).'
+      Engine: Return only this engine's rows.
+      Applicable: Return only the rows that apply (skip the "n/a" cells).
+    outputs: '[hashtable] One per case and engine, in file order.'
+    examples:
+      - Get-EngineCaseTable automation/Catzc.Base.Timeouts/tests/assets/engine-cases/bounded-command.yml -Applicable
 ---
 #>
 
-<#
-.SYNOPSIS
-    Loads a per-engine fixture table: one row per case and execution engine (ExecutionEngines), validated.
-.DESCRIPTION
-    A case that skips an engine must say why ("n/a: reason"), so a missing engine cell can never hide a parity gap.
-.PARAMETER Path
-    The table file: absolute, or relative to the repository root (never to the current directory).
-.PARAMETER Engine
-    Return only this engine's rows.
-.PARAMETER Applicable
-    Return only the rows that apply (skip the "n/a" cells).
-.OUTPUTS
-    [hashtable] One per case and engine, in file order.
-.EXAMPLE
-    Get-EngineCaseTable automation/Catzc.Base.Timeouts/tests/assets/engine-cases/bounded-command.yml -Applicable
-#>
 function Get-EngineCaseTable {
     [CmdletBinding()]
     [OutputType([hashtable])]
@@ -38,8 +36,8 @@ function Get-EngineCaseTable {
         [switch] $Applicable
     )
 
-    # Validate the filter first: a mistyped engine name throws and lists the valid ones, not an empty result.
-    # [comment:2](/docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md#comment2)
+    # The engines are declared once: Get throws, naming them, for any other name.
+    # [comment:3](/docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md#comment3)
     if ($Engine) {
         $null = [Catzc.Base.Engines.ExecutionEngines]::Get($Engine)
     }

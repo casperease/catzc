@@ -6,22 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.KeyHandler
     visibility: public
-    adrs: []
+  config:
+    synopsis: Applies the captured Windows PSReadLine key bindings on Linux, filtered to Linux-supported functions.
+    description: |-
+      PSReadLine on Linux defaults to bash-style editing; this replicates the Windows editing experience by
+      applying the captured bindings (configs/key-handler-bindings.yml) through Set-PSReadLineKeyHandler,
+      skipping any function the Linux build does not support (configs/key-handler-supported.yml) so an
+      unsupported binding is dropped rather than throwing. Runs on Linux only — applying Windows bindings on a
+      Windows session would clobber its native handlers, so the real apply path asserts $IsLinux. Use -DryRun
+      to see the plan (which bindings apply, which are skipped) on any platform without changing the session.
+    parameters:
+      DryRun: Return the classified plan (one record per binding with Key, Function, Supported) and change nothing.
+    examples:
+      - Import-PSReadLineKeyHandlerSet
+      - Import-PSReadLineKeyHandlerSet -DryRun | Where-Object { -not $_.Supported }
 ---
 #>
 
-<#
-.SYNOPSIS
-    Applies the captured Windows PSReadLine key bindings on Linux, filtered to Linux-supported functions.
-.DESCRIPTION
-    Linux only: Windows bindings would clobber a Windows session's native handlers, so the apply asserts it.
-.PARAMETER DryRun
-    Return the classified plan (one record per binding with Key, Function, Supported) and change nothing.
-.EXAMPLE
-    Import-PSReadLineKeyHandlerSet
-.EXAMPLE
-    Import-PSReadLineKeyHandlerSet -DryRun | Where-Object { -not $_.Supported }
-#>
 function Import-PSReadLineKeyHandlerSet {
     [CmdletBinding()]
     param(

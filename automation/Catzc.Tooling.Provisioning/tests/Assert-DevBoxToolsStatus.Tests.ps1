@@ -8,8 +8,8 @@ catzc:
 #>
 
 Describe 'Assert-DevBoxToolsStatus' -Tag 'L0', 'logic' {
-    # Get-ToolsStatus is the only boundary — mock it to return fabricated ToolStatus rows and assert the
-    # pass/throw decision. The rows use deliberately non-production tool names.
+    # Get-ToolsStatus is the only boundary — mock it to return fabricated ToolStatus rows and assert the pass/throw...
+    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md#comment1)
     BeforeAll {
         $script:ok = [Catzc.Tooling.Provisioning.ToolStatus]::new('alpha', '1.x', '1.2', 'OK', '/bin/alpha', 'winget', 'user', 'None')
         $script:usable = [Catzc.Tooling.Provisioning.ToolStatus]::new('beta', '2.x', '2.0', 'Usable', '/bin/beta', 'other', 'user', 'Works, but not managed')

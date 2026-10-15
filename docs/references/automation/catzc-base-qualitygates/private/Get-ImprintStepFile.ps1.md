@@ -6,7 +6,6 @@ catzc:
     body_sha: "871bf5819d4d"
     adrs:
       - ADR-REPO-FORMAT#8
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ImprintStepFile.ps1

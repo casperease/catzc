@@ -8,27 +8,30 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-ENGINE#1
+  config:
+    synopsis: Lists every place one file restates the engine set instead of reading it from the model.
+    description: |-
+      The engine-set check of Test-SourceConventions
+      ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)): the execution engines are
+      declared once, in [Catzc.Base.Engines.ExecutionEngines], and every other list is read from it. The engine names
+      and their count come from the caller, read from that model, so nothing here names an engine.
+
+      In prose — a markdown file's text, and the comments (help included) of a code file (CommentLexer) — a phrase from
+      engine_set's count_phrases or name_phrases that miscounts the engines or names some but not all of them
+      (EngineSetCheck.FindProse). In code:
+        - PowerShell (from its syntax tree): a ValidateSet, an array literal, or a switch with no default whose string
+          values name two or more engines;
+        - C#: two or more engine names as string literals on one line (EngineSetCheck.FindCSharpLists).
+    parameters:
+      Path: The file's repository-relative, '/'-separated path, which leads each finding.
+      Text: The file's text.
+      Ast: The file's PowerShell syntax tree, when it is a PowerShell file (parsed once by the caller).
+      EngineName: The model's engine names ([Catzc.Base.Engines.ExecutionEngines]::Names).
+      Check: The engine-set check's settings (source-conventions.yml engine_set).
+    outputs: '[string[]] One ''<path>:<line>: <message>'' per finding, in line order.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists every place one file restates the engine set instead of reading it from the model.
-.DESCRIPTION
-    Engines are declared once in the model, so an engine count or literal engine list restated elsewhere is drift.
-.PARAMETER Path
-    The file's repository-relative, '/'-separated path, which leads each finding.
-.PARAMETER Text
-    The file's text.
-.PARAMETER Ast
-    The file's PowerShell syntax tree, when it is a PowerShell file (parsed once by the caller).
-.PARAMETER EngineName
-    The model's engine names ([Catzc.Base.Engines.ExecutionEngines]::Names).
-.PARAMETER Check
-    The engine-set check's settings (source-conventions.yml engine_set).
-.OUTPUTS
-    [string[]] One '<path>:<line>: <message>' per finding, in line order.
-#>
 function Get-EngineSetFinding {
     [CmdletBinding()]
     [OutputType([string[]])]

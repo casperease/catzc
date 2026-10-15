@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
     kind: asset-description
     body_sha: "88eb50a3a020"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
       - docs/explanation/azure/coordinate-rules-and-their-gates.md

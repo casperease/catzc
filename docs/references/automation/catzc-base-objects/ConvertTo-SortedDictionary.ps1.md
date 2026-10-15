@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-objects/ConvertTo-SortedDictionary.ps1.md
     kind: comment-page
     body_sha: ef8ff089e094
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1

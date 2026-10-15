@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRunContext.ps1.md
     kind: comment-page
     body_sha: "5a1a1a60b1f6"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestRunContext.ps1

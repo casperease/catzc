@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Wait-Mutex.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-PESTER#3
 ---
 #>
 
@@ -12,9 +14,8 @@ param()
 
 Describe 'Wait-Mutex' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The writer is the observable boundary
-        # ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)): assert which
-        # message shape each path emits.
+        # The writer is the observable boundary: assert which message shape each path emits.
+        # [comment:1](/docs/references/automation/catzc-base-execution/tests/Wait-Mutex.Tests.ps1.md#comment1)
         Mock Write-Message { } -ModuleName Catzc.Base.Execution
     }
 
@@ -65,8 +66,8 @@ Describe 'Wait-Mutex (contended)' -Tag 'L1', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.Execution
 
-        # Hold the mutex on another thread, signal once owned, release after a fixed hold — so the
-        # main thread's Wait-Mutex reliably crosses a tiny announce threshold before acquiring.
+        # Hold the mutex on another thread, signal once owned, release after a fixed hold — so the main thread's...
+        # [comment:2](/docs/references/automation/catzc-base-execution/tests/Wait-Mutex.Tests.ps1.md#comment2)
         $script:startContendedHold = {
             param([System.Threading.Mutex] $Mutex, [System.Threading.ManualResetEventSlim] $HeldSignal, [int] $HoldMilliseconds)
             Start-ThreadJob {

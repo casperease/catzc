@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-FLOW-CD-GLOBS#4
 ---
 #>
 
-# The single 'what is IN the package' source
-# ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)): `git ls-files` ∩
-# GlobSet.Matches, ordinal-sorted.
-# Tested through the module (private). The '_' args in the scriptblock take the set and mocked tree.
+# The single 'what is IN the package' source: `git ls-files` ∩ GlobSet.Matches, ordinal-sorted.
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md#comment1)
 Describe 'Get-GlobSetMember' -Tag 'L0', 'logic' {
     It 'returns tracked files the set matches, ordinal-sorted (case-sensitive)' {
         Mock Get-TrackedFile { @('src/b.cs', 'src/a.cs', 'other/x.cs', 'src/B.cs') } -ModuleName Catzc.Base.Globs

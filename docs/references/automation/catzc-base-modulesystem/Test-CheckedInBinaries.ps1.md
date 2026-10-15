@@ -6,7 +6,6 @@ catzc:
     body_sha: d63e99600733
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1

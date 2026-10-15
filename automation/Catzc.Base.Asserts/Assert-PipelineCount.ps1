@@ -6,28 +6,22 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts the number of objects in the pipeline.
+    description: |-
+      Counts pipeline objects and validates against -Equals, -Minimum, or -Maximum.
+      Objects are passed through. Fails early when the count exceeds -Equals or -Maximum.
+    parameters:
+      InputObject: Pipeline input (do not pass directly).
+      Equals: Exact expected count.
+      Minimum: Minimum acceptable count (inclusive).
+      Maximum: Maximum acceptable count (inclusive).
+    examples:
+      - Get-Process | Assert-PipelineCount -Minimum 1
+      - 1..3 | Assert-PipelineCount 3
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts the number of objects in the pipeline.
-.DESCRIPTION
-    It throws as soon as the count passes -Equals or -Maximum, while -Minimum can only be judged at the end.
-.PARAMETER InputObject
-    Pipeline input (do not pass directly).
-.PARAMETER Equals
-    Exact expected count.
-.PARAMETER Minimum
-    Minimum acceptable count (inclusive).
-.PARAMETER Maximum
-    Maximum acceptable count (inclusive).
-.EXAMPLE
-    Get-Process | Assert-PipelineCount -Minimum 1
-.EXAMPLE
-    1..3 | Assert-PipelineCount 3
-#>
 function Assert-PipelineCount {
     [CmdletBinding(DefaultParameterSetName = 'Equals')]
     param(

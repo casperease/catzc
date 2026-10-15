@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-LINK#3
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/Get-AdrCitationMap.ps1
@@ -34,6 +33,15 @@ map and the real one never collide.
 ```
 
 ## comment:2
+
+Above `$script:adrCitationMapCache = @{}`.
+
+```text
+strict-clean probe of the lazy cache entry
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:3
 
 Above `$script:adrCitationMapCache = @{}`.
 

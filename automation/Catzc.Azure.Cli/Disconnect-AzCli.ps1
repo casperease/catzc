@@ -6,26 +6,22 @@ catzc:
     kind: public-function
     module: Catzc.Azure.Cli
     visibility: public
-    adrs: []
+  config:
+    synopsis: Logs out of Azure CLI.
+    description: Skips if not currently logged in.
+    examples:
+      - Disconnect-AzCli
 ---
 #>
 
-<#
-.SYNOPSIS
-    Logs out of Azure CLI.
-.DESCRIPTION
-    Skips if not currently logged in.
-.EXAMPLE
-    Disconnect-AzCli
-#>
 function Disconnect-AzCli {
     [CmdletBinding()]
     param()
 
     Assert-Tool 'az_cli'
 
-    # A non-zero exit from az account show means not logged in, an expected state, so it must not throw.
-    # [comment:1](/docs/references/automation/catzc-azure-cli/Disconnect-AzCli.ps1.md#comment1)
+    # Idempotent: skip if not logged in -NoAssert: non-zero exit means "not logged in" — an expected state, not an error
+    # [comment:2](/docs/references/automation/catzc-azure-cli/Disconnect-AzCli.ps1.md#comment2)
     $result = Invoke-Executable 'az account show --output json' -PassThru -NoAssert -Silent
     if ($result.ExitCode -ne 0 -or -not $result.Output) {
         Write-Message 'Not logged in — nothing to do'

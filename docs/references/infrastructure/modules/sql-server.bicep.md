@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/modules/sql-server.bicep.md
     kind: comment-page
     body_sha: "495641efb43f"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/modules/sql-server.bicep

@@ -25,6 +25,7 @@ $script:runtimeInternalFiles = @(
     'Catzc.Internal.Types.psm1'
     'Catzc.Internal.Vendor.psm1'
     'assets/ErrorView.format.ps1xml'
+    'assets/types-load.yml'
 )
 
 # The build run executes the test files, so a full build must carry the TestKit and the analyzer settings.

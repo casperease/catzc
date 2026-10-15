@@ -6,7 +6,6 @@ catzc:
     body_sha: "033165f04d1d"
     adrs:
       - ADR-AUTO-TEST#31
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestOptOutExclusion.ps1
@@ -30,6 +29,15 @@ drops from the work-list so no worker loads the modules for an empty file.
 ```
 
 ## comment:2
+
+Above `foreach ($test in @($Discovery.Tests)) {`.
+
+```text
+Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never
+wrapped in @() — that would nest it and every count would read 1.
+```
+
+## comment:3
 
 Above `foreach ($test in @($Discovery.Tests)) {`.
 

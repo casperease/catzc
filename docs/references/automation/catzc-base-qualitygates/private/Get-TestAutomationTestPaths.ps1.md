@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md
     kind: comment-page
     body_sha: "613b30fc80f0"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1
@@ -40,6 +38,15 @@ never a named module, so it is included only in the unfiltered case. Empty (the 
 ```
 
 ## comment:3
+
+Above `foreach ($testFolder in @(Get-LanguageTestFolders)) {`.
+
+```text
+The language test folders (Go, then Python), each after its module's tests folder (Get-LanguageTestFolders
+throws on an unmatched folder).
+```
+
+## comment:4
 
 Above `foreach ($testFolder in @(Get-LanguageTestFolders)) {`.
 

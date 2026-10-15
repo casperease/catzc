@@ -6,7 +6,6 @@ catzc:
     body_sha: "1b5e066a0064"
     adrs:
       - ADR-AUTO-CONSOLE#7
-    links: []
 ---
 
 # automation/Catzc.Base.Writers/types/Ansi.cs

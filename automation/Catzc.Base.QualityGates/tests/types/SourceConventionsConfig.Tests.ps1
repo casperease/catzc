@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PRIN-CONFIG#4
 ---
 #>
 
-# SourceConventionsConfig maps source-conventions.yml: an omitted check takes every default of its type
-# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), and an unknown key fails at
-# construction.
+# SourceConventionsConfig maps source-conventions.yml: an omitted check takes every default of its type, and an...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/SourceConventionsConfig.Tests.ps1.md#comment1)
 Describe 'SourceConventionsConfig' -Tag 'L0' {
     Context 'logic (fixture configs)' -Tag 'logic' {
         It 'gives every check its defaults when the file is empty' -Tag 'ADR-AUTO-DEFAULT#6' {

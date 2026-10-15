@@ -3,14 +3,13 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md
     kind: comment-page
-    body_sha: "31c90905e199"
+    body_sha: "48783500490c"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-CODEMETA#5
       - ADR-REPO-OUTDIR#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/comments.yml

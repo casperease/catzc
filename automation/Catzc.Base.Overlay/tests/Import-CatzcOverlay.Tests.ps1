@@ -53,8 +53,8 @@ function Get-Widget {
 
     Context 'a local module' {
         BeforeEach {
-            # Config discovery and the content lookup reach the fixture overlay through their own seams; the config
-            # index is rebuilt so it scans the fixture.
+            # Config discovery and the content lookup reach the fixture overlay through their own seams; the config...
+            # [comment:1](/docs/references/automation/catzc-base-overlay/tests/Import-CatzcOverlay.Tests.ps1.md#comment1)
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlayRoot }
             Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Repository -MockWith { $overlayRoot }
             & (Get-Module Catzc.Base.Config) { $script:configIndex = $null; $script:configCache = $null }

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-exporter.md
     kind: reference
     body_sha: "2bc4f4d07db0"
-    adrs: []
     links:
       - docs/adr/automation/platform-bundle.md
       - docs/adr/design/run-modes.md

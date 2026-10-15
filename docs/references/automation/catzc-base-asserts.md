@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-asserts.md
     kind: reference
     body_sha: a5186cbe36ce
-    adrs: []
     links:
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/pwsh/error-handling.md

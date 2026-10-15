@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-CI#3
       - ADR-DORA-CI#4
       - ADR-DORA-CI#5
-    adrs: []
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test8
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

@@ -6,38 +6,25 @@ catzc:
     kind: public-function
     module: Catzc.Azure.Cli
     visibility: public
-    adrs: []
+  config:
+    synopsis: Logs in to Azure CLI.
+    description: Skips login if already authenticated. Use -Force to re-authenticate.
+    parameters:
+      ServicePrincipal: Login as a service principal. Requires Tenant, ClientId, and ClientSecret.
+      ManagedIdentity: Login using managed identity.
+      DeviceCode: Login using device code flow (for environments without a browser).
+      Tenant: Azure AD tenant ID. Required for service principal login.
+      ClientId: Service principal app/client ID. Required for service principal login.
+      ClientSecret: Service principal secret. Required for service principal login.
+      Force: Force re-authentication even if already logged in.
+    examples:
+      - Connect-AzCli
+      - Connect-AzCli -DeviceCode
+      - Connect-AzCli -ServicePrincipal -Tenant $t -ClientId $id -ClientSecret $secret
+      - Connect-AzCli -ManagedIdentity
 ---
 #>
 
-<#
-.SYNOPSIS
-    Logs in to Azure CLI.
-.DESCRIPTION
-    Skips login if already authenticated. Use -Force to re-authenticate.
-.PARAMETER ServicePrincipal
-    Login as a service principal. Requires Tenant, ClientId, and ClientSecret.
-.PARAMETER ManagedIdentity
-    Login using managed identity.
-.PARAMETER DeviceCode
-    Login using device code flow (for environments without a browser).
-.PARAMETER Tenant
-    Azure AD tenant ID. Required for service principal login.
-.PARAMETER ClientId
-    Service principal app/client ID. Required for service principal login.
-.PARAMETER ClientSecret
-    Service principal secret. Required for service principal login.
-.PARAMETER Force
-    Force re-authentication even if already logged in.
-.EXAMPLE
-    Connect-AzCli
-.EXAMPLE
-    Connect-AzCli -DeviceCode
-.EXAMPLE
-    Connect-AzCli -ServicePrincipal -Tenant $t -ClientId $id -ClientSecret $secret
-.EXAMPLE
-    Connect-AzCli -ManagedIdentity
-#>
 function Connect-AzCli {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The -ServicePrincipal/-ManagedIdentity/-DeviceCode switches are parameter-set discriminators consumed by PowerShell parameter binding (the body branches on $PSCmdlet.ParameterSetName), not referenced directly')]
     [CmdletBinding(DefaultParameterSetName = 'Interactive')]
@@ -59,8 +46,8 @@ function Connect-AzCli {
 
     Assert-Tool 'az_cli'
 
-    # A non-zero exit from az account show means not logged in, an expected state, so it must not throw.
-    # [comment:1](/docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md#comment1)
+    # Idempotent: skip if already logged in with the correct identity -NoAssert: non-zero exit means "not logged in"...
+    # [comment:3](/docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md#comment3)
     if (-not $Force) {
         $result = Invoke-Executable 'az account show --output json' -PassThru -NoAssert -Silent
         if ($result.ExitCode -eq 0 -and $result.Output) {
@@ -80,8 +67,8 @@ function Connect-AzCli {
         }
     }
 
-    # No post-login check: a failed az login throws in Invoke-Executable, so the success message is never reached.
-    # [comment:2](/docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md#comment2)
+    # No post-login assertion needed — Invoke-Executable throws on non-zero exit codes via Assert-LastExitCodeWasZero.
+    # [comment:4](/docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md#comment4)
     Write-Verbose "Authenticating via $($PSCmdlet.ParameterSetName)"
     switch ($PSCmdlet.ParameterSetName) {
         'ServicePrincipal' {

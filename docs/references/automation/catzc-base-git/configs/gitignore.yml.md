@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-git/configs/gitignore.yml.md
     kind: comment-page
     body_sha: "812c84827eb7"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Git/configs/gitignore.yml

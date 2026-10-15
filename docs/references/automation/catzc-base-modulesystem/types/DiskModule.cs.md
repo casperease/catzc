@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/types/DiskModule.cs.md
     kind: comment-page
     body_sha: "70ab2c414229"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/DiskModule.cs

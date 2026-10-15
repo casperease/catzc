@@ -8,23 +8,17 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-FILEMETA#3
+  config:
+    synopsis: 'The links meta kind''s fact: every link the file points at, in one spelling, sorted and without duplicates.'
+    description: A link into the file itself, to an anchor in it, or to its own comment page stays internal and is not listed.
+    parameters:
+      State: What Get-MarkdownMetaState read from the file.
+      Path: The file's repository-relative path.
+      Kind: The registry entry that subscribed this function.
+    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    The links meta kind's fact: every link the file points at, in one spelling, sorted and without duplicates.
-.DESCRIPTION
-    A link into the file itself, to an anchor in it, or to its own comment page stays internal and is not listed.
-.PARAMETER State
-    What Get-MarkdownMetaState read from the file.
-.PARAMETER Path
-    The file's repository-relative path.
-.PARAMETER Kind
-    The registry entry that subscribed this function.
-.OUTPUTS
-    [System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.
-#>
 function Get-LinksFileMetaFact {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

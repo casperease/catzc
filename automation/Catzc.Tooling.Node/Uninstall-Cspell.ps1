@@ -6,18 +6,14 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Node
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls cspell (the global npm package).
+    description: Idempotent — skips if cspell or npm is not present (nothing to uninstall).
+    examples:
+      - Uninstall-Cspell
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls cspell (the global npm package).
-.DESCRIPTION
-    Idempotent — skips if cspell or npm is not present (nothing to uninstall).
-.EXAMPLE
-    Uninstall-Cspell
-#>
 function Uninstall-Cspell {
     [CmdletBinding()]
     param()

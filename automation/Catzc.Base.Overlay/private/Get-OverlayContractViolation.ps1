@@ -8,23 +8,21 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-OVERLAY
+  config:
+    synopsis: Returns every way an override file breaks the contract of the function it replaces.
+    description: |-
+      The bundle's own code keeps calling a function the way it always has, so an override keeps the original's
+      contract ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)): it declares every parameter the
+      original declares, with the same type; it adds no mandatory parameter the original does not have as mandatory;
+      and it declares the same [OutputType]. Read from the override's syntax tree, against the loaded original.
+    parameters:
+      Original: The loaded function the override replaces.
+      Path: The override file.
+      RelativePath: The override file as the messages show it.
+    outputs: '[string] One message per break; nothing when the contract holds.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns every way an override file breaks the contract of the function it replaces.
-.DESCRIPTION
-    The bundle keeps calling the function as before, so an override may add optional parameters but no mandatory one.
-.PARAMETER Original
-    The loaded function the override replaces.
-.PARAMETER Path
-    The override file.
-.PARAMETER RelativePath
-    The override file as the messages show it.
-.OUTPUTS
-    [string] One message per break; nothing when the contract holds.
-#>
 function Get-OverlayContractViolation {
     [CmdletBinding()]
     [OutputType([string])]

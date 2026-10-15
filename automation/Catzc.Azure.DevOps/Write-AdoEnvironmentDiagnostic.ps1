@@ -6,18 +6,18 @@ catzc:
     kind: public-function
     module: Catzc.Azure.DevOps
     visibility: public
-    adrs: []
+  config:
+    synopsis: Displays whitelisted environment variables for pipeline diagnostics.
+    description: |-
+      Reads the whitelist from configs/pipeline-env.yml and displays
+      only those environment variables. Variables that are not set are shown
+      as empty. Designed for the top of every Invoke-AdoScript run so
+      operators see build context, paths, and agent info at a glance.
+    examples:
+      - Write-AdoEnvironmentDiagnostic
 ---
 #>
 
-<#
-.SYNOPSIS
-    Displays whitelisted environment variables for pipeline diagnostics.
-.DESCRIPTION
-    A whitelisted variable that is not set is shown empty, so operators see the gap, not a silent omission.
-.EXAMPLE
-    Write-AdoEnvironmentDiagnostic
-#>
 function Write-AdoEnvironmentDiagnostic {
     [CmdletBinding()]
     param()

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md
     kind: comment-page
     body_sha: "37d6060ab127"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Objects/types/PSTypeAliasAttribute.cs

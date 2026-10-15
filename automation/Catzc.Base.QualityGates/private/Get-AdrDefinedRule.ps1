@@ -8,19 +8,15 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-LINK#5
+  config:
+    synopsis: The rules a Markdown text defines in its own rule headings, spelled as citations.
+    description: A rule heading is `### Rule ADR-<CODE>:<n>`; the colon form is the rule's own heading and the result spells it `ADR-<CODE>#<n>`, in document order.
+    parameters:
+      Text: The Markdown body to read.
+    outputs: '[string[]] one `ADR-<CODE>#<n>` per defined rule, without duplicates.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    The rules a Markdown text defines in its own rule headings, spelled as citations.
-.DESCRIPTION
-    The colon form of a rule heading is spelled as the citation `ADR-<CODE>#<n>`, in document order.
-.PARAMETER Text
-    The Markdown body to read.
-.OUTPUTS
-    [string[]] one `ADR-<CODE>#<n>` per defined rule, without duplicates.
-#>
 function Get-AdrDefinedRule {
     [CmdletBinding()]
     [OutputType([string[]])]

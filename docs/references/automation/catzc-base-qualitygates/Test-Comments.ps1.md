@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-Comments.ps1

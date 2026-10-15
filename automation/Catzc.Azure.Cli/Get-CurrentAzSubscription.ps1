@@ -6,20 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Azure.Cli
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the Azure CLI's currently active subscription.
+    description: |-
+      Thin wrapper over `az account show` (via Invoke-AzCli) returning the active subscription as an object
+      (Id, Name, TenantId, State, IsDefault). This is a data read, so the underlying call is silenced.
+      Throws with remediation when there is no active context (e.g. not logged in).
+
+      Pairs with Set-CurrentAzSubscription for a save / switch / restore idiom:
+          $original = Get-CurrentAzSubscription
+          try     { Set-CurrentAzSubscription -SubscriptionId $target; do-stuff}
+          finally { Set-CurrentAzSubscription -SubscriptionId $original.Id }
+    examples:
+      - Get-CurrentAzSubscription
+      - (Get-CurrentAzSubscription).Id
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the Azure CLI's currently active subscription.
-.DESCRIPTION
-    The call is silenced because it is a data read, and it throws when no context is active.
-.EXAMPLE
-    Get-CurrentAzSubscription
-.EXAMPLE
-    (Get-CurrentAzSubscription).Id
-#>
 function Get-CurrentAzSubscription {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

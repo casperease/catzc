@@ -11,7 +11,6 @@ catzc:
       - ADR-AUTO-RETRY#4
       - ADR-AUTO-RETRY#5
       - ADR-AUTO-RETRY#6
-    adrs: []
     links:
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/automation/single-responsibility-functions.md

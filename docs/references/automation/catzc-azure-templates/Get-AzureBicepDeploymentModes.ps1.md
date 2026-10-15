@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/Get-AzureBicepDeploymentModes.ps1.md
     kind: comment-page
     body_sha: c499dc4ec9cb
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-AzureBicepDeploymentModes.ps1

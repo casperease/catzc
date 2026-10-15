@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-vscode/types/VscodeLaunchProfile.cs.md
     kind: comment-page
     body_sha: f0e0ec6fd2ac
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.VSCode/types/VscodeLaunchProfile.cs

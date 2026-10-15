@@ -8,23 +8,26 @@ catzc:
     visibility: public
     adrs:
       - ADR-AZ-SESSION
+  config:
+    synopsis: Resolves the az session's active subscription to its declared azure.yml identity.
+    description: |-
+      The reverse lookup that makes the session the deploy-target selector: reads the active subscription
+      (Get-CurrentAzSubscription — in a pipeline, exactly what the service connection logged into), finds
+      the azure.yml subscription with that GUID, and returns the declared identity. Read-only — it never
+      logs in or switches context (verify is not connect,
+      [ADR-AZ-SESSION](/docs/adr/azure/az-session-verification.md));
+      config defines correct, so a session pointed at a subscription azure.yml does not declare is an
+      error, not a fallback.
+    outputs: |-
+      An ordered dictionary: @{ name; id; customer; tenant } — `name` is the azure.yml subscription key,
+      `customer` the canonical customer key ('' for a non-customer subscription), `tenant` the resolved
+      tenant object.
+    examples:
+      - '(Get-AzCliSessionSubscription).name      # -> apex_nonprod  (whatever the session is set to)'
+      - '(Get-AzCliSessionSubscription).customer  # -> apex  ('''' for a non-customer subscription)'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Resolves the az session's active subscription to its declared azure.yml identity.
-.DESCRIPTION
-    A session on a subscription azure.yml does not declare is an error, never a fallback: config defines correct.
-.OUTPUTS
-    An ordered dictionary: @{ name; id; customer; tenant } — `name` is the azure.yml subscription key,
-    `customer` the canonical customer key ('' for a non-customer subscription), `tenant` the resolved
-    tenant object.
-.EXAMPLE
-    (Get-AzCliSessionSubscription).name      # -> apex_nonprod  (whatever the session is set to)
-.EXAMPLE
-    (Get-AzCliSessionSubscription).customer  # -> apex  ('' for a non-customer subscription)
-#>
 function Get-AzCliSessionSubscription {
     [CmdletBinding()]
     param()

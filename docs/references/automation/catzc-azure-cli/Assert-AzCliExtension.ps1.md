@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-cli/Assert-AzCliExtension.ps1.md
     kind: comment-page
     body_sha: bd98c79cee9d
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Assert-AzCliExtension.ps1

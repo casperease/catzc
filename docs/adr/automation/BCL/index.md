@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/automation/BCL/index.md
     kind: adr
     body_sha: "340ada650a79"
-    defines: []
-    adrs: []
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
 ---

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/infrastructure/overview.md
     kind: reference
     body_sha: "6b593dbc30b7"
-    adrs: []
     links:
       - docs/adr/azure/
       - docs/adr/azure/landing-zones.md

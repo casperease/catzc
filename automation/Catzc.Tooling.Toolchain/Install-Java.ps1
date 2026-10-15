@@ -8,23 +8,22 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-CONSOLE#11
+  config:
+    synopsis: Installs Microsoft OpenJDK via the platform package manager.
+    description: |-
+      After installation, sets JAVA_HOME for the current session and
+      persists it for future sessions (User registry on Windows, $PROFILE
+      on Unix). Modeled on Install-Dotnet / DOTNET_ROOT.
+      Idempotent — skips if already installed at the correct version.
+    parameters:
+      Version: Java version to install. Defaults to the locked version in Get-ToolConfig.
+      Force: Replace an existing installation at the wrong version.
+    examples:
+      - Install-Java
+      - Install-Java -Version '21'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs Microsoft OpenJDK via the platform package manager.
-.DESCRIPTION
-    Modeled on Install-Dotnet and DOTNET_ROOT: persistence is the user registry on Windows, the profile on Unix.
-.PARAMETER Version
-    Java version to install. Defaults to the locked version in Get-ToolConfig.
-.PARAMETER Force
-    Replace an existing installation at the wrong version.
-.EXAMPLE
-    Install-Java
-.EXAMPLE
-    Install-Java -Version '21'
-#>
 function Install-Java {
     [CmdletBinding()]
     param(
@@ -94,8 +93,8 @@ function Install-Java {
         return
     }
 
-    # Announced only when the value changes, so a repeat run prints nothing for the session.
-    # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md#comment2)
+    # Set for current session.
+    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md#comment3)
     if ($env:JAVA_HOME -ne $javaHome) {
         $env:JAVA_HOME = $javaHome
         Write-Message "Session: JAVA_HOME='$javaHome'"

@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-FILEMETA#6
-    links: []
 ---
 
 # automation/Catzc.Base.CodeMeta/types/CodeMetaHead.cs

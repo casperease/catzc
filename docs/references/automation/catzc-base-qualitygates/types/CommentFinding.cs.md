@@ -6,7 +6,6 @@ catzc:
     body_sha: bfe357e9b880
     adrs:
       - ADR-AUTO-TYPES#9
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentFinding.cs

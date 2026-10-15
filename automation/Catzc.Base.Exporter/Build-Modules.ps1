@@ -9,44 +9,56 @@ catzc:
     adrs:
       - ADR-AUTO-BUNDLE#1
       - ADR-AUTO-DRYRUN#2
+  config:
+    synopsis: Builds the selected modules into one installable, versioned Catzc module — build mode's code root.
+    description: |-
+      The public entry to the build ([ADR-AUTO-BUNDLE#1](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle1)).
+      It settles the build's inputs from configs/exporter.yml
+      (Get-Config -Config exporter), hands them to the engine (Invoke-ModuleBuild in Catzc.Internal.Builder), and
+      verifies what the engine wrote: against the bundle's footprint limits (max_files, max_bytes, when it states them;
+      a build that overrides the selection or vendor policy is an experiment, not the bundle, and is not measured),
+      then with Assert-CatzcBundle. A build is a build of one named bundle — exporter.yml
+      bundles.<name>, a release identity with its own profile, version line and vendor policy:
+
+        bundle        -Bundle, else exporter.yml default_bundle
+        modules       the bundle's profile; -Module and/or -ModuleProfile override it for an experiment or a test
+                      (combinable; the engine closure-expands the union over dependencies.yml)
+        version       Resolve-CatzcBuildVersion -Version -Bundle (auto: 6.6.666 on a devbox, the bundle's
+                      MAJOR.MINOR plus the commit count in a pipeline)
+        vendor policy -VendorPolicy, else the bundle's vendor_policy
+        destination   -Destination, else <Get-OutputRoot>/automation/built/<bundle>; the build lands in
+                      <Destination>/Catzc/<version>/, so two bundles never share a folder
+        package       exporter.yml module_guid + package.* -> the engine's PackageMetadata for Catzc.psd1
+
+      -DryRun returns the engine's plan and writes nothing (so there is nothing to verify). Returns the engine's
+      result (BuildRoot, Version, Modules, TypesHash, ContentHash, FileCount, Dirty, DryRun).
+    parameters:
+      Module: Module names to build (closure-expanded by the engine), in place of the bundle's profile.
+      Bundle: The bundle to build (an exporter.yml bundles key). Defaults to default_bundle.
+      ModuleProfile: |-
+        A profiles.yml key whose modules to build (combinable with -Module). Defaults to the bundle's profile when
+        -Module is not given.
+        The bundle's profile, unless -Module names the selection. Read only when the bundle exists; an unknown
+        bundle is rejected in the body with the list of bundles.
+      VendorPolicy: |-
+        The bundle's vendor policy.
+        runtime ships only powershell-yaml; full also ships Pester and PSScriptAnalyzer (needed by a build run, which runs the
+        tests against the build). Defaults to the bundle's vendor_policy.
+      Version: '''auto'' (default) or an explicit numeric MAJOR.MINOR.PATCH — see Resolve-CatzcBuildVersion.'
+      Destination: |-
+        The parent folder the Catzc/<version>/ build is written under. Defaults to
+        <Get-OutputRoot>/automation/built/<bundle>.
+      DryRun: Return the build plan without writing anything.
+      Silent: Suppress the local-version notice and the summary line.
+    examples:
+      - Build-Modules
+      - Build-Modules -Bundle azure
+      - Build-Modules Catzc.Base.Config -DryRun
 ---
 #>
 
-<#
-.SYNOPSIS
-    Builds the selected modules into one installable, versioned Catzc module — build mode's code root.
-.DESCRIPTION
-    A build that overrides the selection or vendor policy is an experiment, so the footprint limits skip it.
-.PARAMETER Module
-    Module names to build (closure-expanded by the engine), in place of the bundle's profile.
-.PARAMETER Bundle
-    The bundle to build (an exporter.yml bundles key). Defaults to default_bundle.
-.PARAMETER ModuleProfile
-    Defaults to the bundle's profile only when -Module is absent; give both to build their union.
-    [comment:2](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment2)
-    Empty when -Module names the selection, so the profile never widens an explicit module list.
-    [comment:6](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment6)
-.PARAMETER VendorPolicy
-    The bundle's vendor policy.
-    full exists for a build run that tests the build itself, so Pester and PSScriptAnalyzer must travel with it.
-    [comment:3](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment3)
-.PARAMETER Version
-    'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH — see Resolve-CatzcBuildVersion.
-.PARAMETER Destination
-    The default is per bundle, so two bundles built side by side never share a folder.
-.PARAMETER DryRun
-    Return the build plan without writing anything.
-.PARAMETER Silent
-    Suppress the local-version notice and the summary line.
-.EXAMPLE
-    Build-Modules
-.EXAMPLE
-    Build-Modules -Bundle azure
-.EXAMPLE
-    Build-Modules Catzc.Base.Config -DryRun
-#>
-# -WhatIf narrates to the host and returns no plan, so a test can neither capture nor assert on it.
-# [comment:5](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment5)
+# Uses -DryRun, not ShouldProcess/-WhatIf — see.
+# [comment:9](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment9)
 function Build-Modules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE#1)')]
     [CmdletBinding()]
@@ -109,15 +121,15 @@ function Build-Modules {
         $engineArguments.ModuleProfile = $ModuleProfile
     }
 
-    # Invoked by name, not by a static call, so the on-demand engine stays off the function-dependency graph.
-    # [comment:7](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment7)
+    # The engine is an.internal module, loaded on demand and not part of the post-import command set, so it is...
+    # [comment:10](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment10)
     Import-InternalModule Builder
     $engine = 'Invoke-ModuleBuild'
     $result = & $engine @engineArguments
 
     if (-not $DryRun) {
-        # A build with an overridden selection or vendor policy is not the declared bundle, so it goes unmeasured.
-        # [comment:8](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment8)
+        # The footprint limits describe the bundle as declared.
+        # [comment:11](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment11)
         $isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or $PSBoundParameters.ContainsKey('ModuleProfile') -or
             $PSBoundParameters.ContainsKey('VendorPolicy'))
         if ($isDeclaredBundle) {

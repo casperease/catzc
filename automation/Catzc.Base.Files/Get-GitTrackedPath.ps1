@@ -10,29 +10,33 @@ catzc:
       - ADR-AUTO-CACHE#9
       - ADR-AUTO-TRACKED
       - ADR-PWSH-CACHE#4
+  config:
+    synopsis: Returns the subset of the given repository paths that git tracks.
+    description: |-
+      The one place catzc answers `git ls-files -- <paths>`
+      ([ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)): every tracked file at or under the given paths, as a
+      repo-relative, '/'-separated path ('.' is the whole repository). A path git does not track (new, ignored,
+      or absent) contributes nothing, so "is this file under version control?" is a membership test on the
+      result. A tracked file deleted from the working tree is still listed — it is still in the index.
+
+      No git process runs: plain `git ls-files` is exactly the index's entry list, so the index file
+      (Get-GitIndexPath) is read in-process ([Catzc.Base.Git.GitIndex]). The parsed index is cached per index
+      path, keyed on the SHA-256 of its bytes — the key is recomputed from the file on every call, so a
+      `git add`/commit/checkout mid-session re-keys it and the answer always matches the index on disk.
+    parameters:
+      Path: The literal repository-relative, '/'-separated paths (files or folders) to look up; '.' for all.
+      ExecutableOnly: |-
+        Return only the tracked files stored executable (git mode 100755) — the bit bash needs to run a script
+        directly. Read from the same index, in the same order and form.
+    outputs: '[string]'
+    examples:
+      - Get-GitTrackedPath 'automation/Catzc.Base.Docs/configs/glossary.yml'
+      - Get-GitTrackedPath 'automation/Catzc.Base.Docs/configs', 'docs/adr'
+      - Get-GitTrackedPath '.'
+      - 'Get-GitTrackedPath ''automation'' -ExecutableOnly   # the tracked files under automation/ stored as 100755'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the subset of the given repository paths that git tracks.
-.DESCRIPTION
-    A tracked file deleted from the working tree is still listed, because it is still in the index.
-.PARAMETER Path
-    The literal repository-relative, '/'-separated paths (files or folders) to look up; '.' for all.
-.PARAMETER ExecutableOnly
-    Same index, order and form as without the switch, so the result is a plain subset of the full listing.
-.OUTPUTS
-    [string]
-.EXAMPLE
-    Get-GitTrackedPath 'automation/Catzc.Base.Docs/configs/glossary.yml'
-.EXAMPLE
-    Get-GitTrackedPath 'automation/Catzc.Base.Docs/configs', 'docs/adr'
-.EXAMPLE
-    Get-GitTrackedPath '.'
-.EXAMPLE
-    Get-GitTrackedPath 'automation' -ExecutableOnly   # the tracked files under automation/ stored as 100755
-#>
 function Get-GitTrackedPath {
     [CmdletBinding()]
     [OutputType([string])]
@@ -50,13 +54,13 @@ function Get-GitTrackedPath {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:gitIndexCache')) {
-        # Reading the unset cache variable directly would throw under strict mode, so probe the session state.
-        # [comment:3](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment3)
+        # strict-clean probe of the lazy cache entry
+        # [comment:5](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment5)
         $script:gitIndexCache = @{}
     }
 
-    # Keyed on content, not session: a commit or git add changes the index mid-session, so no stale listing is reused.
-    # [comment:4](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment4)
+    # The key is the index's content, not the session: the index changes mid-session (a commit, a `git add`), so a...
+    # [comment:6](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment6)
     $content = [System.IO.File]::ReadAllBytes($indexPath)
     $index = $script:gitIndexCache[$indexPath]
     if ($null -eq $index -or $index.ContentHash -ne [Catzc.Base.Git.GitIndex]::HashContent($content)) {

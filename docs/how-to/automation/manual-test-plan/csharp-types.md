@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/csharp-types.md
     kind: how-to
     body_sha: "6880bc8382a3"
-    adrs: []
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---

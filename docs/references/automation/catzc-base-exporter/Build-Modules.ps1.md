@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-BUNDLE#1
       - ADR-AUTO-DRYRUN#2
-    links: []
 ---
 
 # automation/Catzc.Base.Exporter/Build-Modules.ps1
@@ -98,6 +97,35 @@ helpers use) while still resolving through normal command lookup.
 ```
 
 ## comment:8
+
+Above `$isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or...`.
+
+```text
+The footprint limits describe the bundle as declared. A build whose selection or vendor policy is overridden
+(an experiment, or a test build that adds the test toolset) is not that bundle, so it is not measured
+against them.
+```
+
+## comment:9
+
+Above `function Build-Modules {`.
+
+```text
+Uses -DryRun, not ShouldProcess/-WhatIf — see
+[ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2).
+```
+
+## comment:10
+
+Above `Import-InternalModule Builder`.
+
+```text
+The engine is an .internal module, loaded on demand and not part of the post-import command set, so it is
+invoked by name — which keeps it off the static function-dependency graph (the pattern the bootstrap
+helpers use) while still resolving through normal command lookup.
+```
+
+## comment:11
 
 Above `$isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or...`.
 

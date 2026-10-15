@@ -4,13 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-PWSH-PESTER#4
+      - ADR-REPO-VOCAB#1
+      - ADR-REPO-VOCAB#5
 ---
 #>
 
-# Get-GlossaryRuleStatements is private, so it is exercised through the module (InModuleScope, per
-# [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4))
-# over a fixture ADR index and two ADRs in $TestDrive. Fixture rule codes are neutral (tst —
-# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-GlossaryRuleStatements is private, so it is exercised through the module (InModuleScope, per ) over a fixture...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-GlossaryRuleStatements.Tests.ps1.md#comment1)
 Describe 'Get-GlossaryRuleStatements' -Tag 'L0', 'logic' {
     BeforeAll {
         $adrRoot = Join-Path $TestDrive 'adr'

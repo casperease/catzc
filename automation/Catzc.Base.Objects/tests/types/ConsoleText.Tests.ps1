@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TYPES#9
 ---
 #>
 
-# ConsoleText — the shared console rendering behind every catzc type's ToString(), so an object held in pwsh reads
-# as one line in "$x", [string]$x and a table cell. Exercised through probe types compiled by Add-Type against the
-# loaded combined assembly. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# ConsoleText — the shared console rendering behind every catzc type's ToString, so an object held in pwsh reads as...
+# [comment:1](/docs/references/automation/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md#comment1)
 Describe 'ConsoleText' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'ConsoleTextWidgetProbe').Type) {

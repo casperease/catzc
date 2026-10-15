@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-PythonWorkspaceTool.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Invoke-PythonWorkspaceTool with uv mocked (Resolve-ToolExecutable, Invoke-Executable) over a fixture workspace in
-# $TestDrive. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Invoke-PythonWorkspaceTool with uv mocked (Resolve-ToolExecutable, Invoke-Executable) over a fixture workspace in...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-PythonWorkspaceTool.Tests.ps1.md#comment1)
 Describe 'Invoke-PythonWorkspaceTool' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'

@@ -14,7 +14,6 @@ catzc:
       - ADR-REPO-PROTGLOB#7
       - ADR-REPO-PROTGLOB#8
       - ADR-REPO-PROTGLOB#9
-    adrs: []
     links:
       - docs/adr/automation/caching.md
       - docs/adr/automation/test-automation.md

@@ -4,15 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-PWSH-PESTER#2
 ---
 #>
 
-# Logic tests for Get-BicepParameterViolations (with its per-entry and Key Vault reference checks): each violation kind
-# against a fixture main.json (tests/assets/parameter-model/main.json, widget/gadget parameters —
-# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and a rendered parameters file each
-# test writes, plus a clean case. No az: main.json is written as a current build, so the model is read without
-# building. Discovery binds to the fixture templates ('sample', configs alpha/beta) and the output to this file's
-# $TestDrive through the seams ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)).
+# Logic tests for Get-BicepParameterViolations (with its per-entry and Key Vault reference checks): each violation...
+# [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md#comment1)
 Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
@@ -36,8 +35,8 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         # The subscription id is built at runtime: a literal empty guid is denied in tracked text (Test-ManagedGuids).
         $script:vaultId = "/subscriptions/$([guid]::Empty)/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv"
 
-        # A parameters file that satisfies the fixture model: every required parameter, a Key Vault reference for the
-        # secure one. Each test starts from it and changes one thing.
+        # A parameters file that satisfies the fixture model: every required parameter, a Key Vault reference for the...
+        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md#comment2)
         function New-ConformingParameterSet {
             [ordered]@{
                 widgetName   = @{ value = 'widget-one' }

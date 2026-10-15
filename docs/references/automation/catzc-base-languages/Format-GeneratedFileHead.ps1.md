@@ -6,7 +6,6 @@ catzc:
     body_sha: a37ea939b460
     adrs:
       - ADR-REPO-FILEMETA#7
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1

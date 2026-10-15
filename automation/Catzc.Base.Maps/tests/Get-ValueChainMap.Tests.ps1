@@ -4,13 +4,17 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-THES-ONETRUTH#3
 ---
 #>
 
-# Get-ValueChainMap builds the value-chain map from the registry's closed sets and its ADRs
-# ([ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)). The logic tests mock the ADRs with
-# widget/gadget fixtures ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the axes are
-# the closed sets AdrsConfig declares, read from the type, never spelled out here.
+# Get-ValueChainMap builds the value-chain map from the registry's closed sets and its ADRs.
+# [comment:1](/docs/references/automation/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md#comment1)
 Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:stacks = @([Catzc.Base.Docs.AdrsConfig]::Stacks)
@@ -45,8 +49,8 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
     }
 }
 
-# The registry's own value-chain map. It reads only adrs.yml, so its answer cannot differ between the run modes
-# (source-only).
+# The registry's own value-chain map.
+# [comment:2](/docs/references/automation/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md#comment2)
 Describe 'Get-ValueChainMap — the real registry' -Tag 'L1', 'integrity', 'source-only' {
     It 'places every ADR of adrs.yml in at least one cell of its ADR domain''s row' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15' {
         $map = Get-ValueChainMap

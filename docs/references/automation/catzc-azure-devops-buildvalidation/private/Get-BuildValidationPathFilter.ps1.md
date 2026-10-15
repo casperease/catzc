@@ -6,7 +6,6 @@ catzc:
     body_sha: "6948db1d08f3"
     adrs:
       - ADR-FLOW-CD-TYPE#4
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1

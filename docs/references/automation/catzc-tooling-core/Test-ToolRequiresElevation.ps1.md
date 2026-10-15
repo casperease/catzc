@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/Test-ToolRequiresElevation.ps1.md
     kind: comment-page
     body_sha: ca9b828ae0e1
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Test-ToolRequiresElevation.ps1

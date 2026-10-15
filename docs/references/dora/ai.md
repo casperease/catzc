@@ -4,7 +4,6 @@ catzc:
     path: docs/references/dora/ai.md
     kind: reference
     body_sha: "4519db9d21f0"
-    adrs: []
     links:
       - docs/references/dora/capabilities.md#ai
       - docs/references/dora/capabilities.md#ai-accessible-internal-data

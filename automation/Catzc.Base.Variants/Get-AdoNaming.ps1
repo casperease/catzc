@@ -6,18 +6,21 @@ catzc:
     kind: public-function
     module: Catzc.Base.Variants
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the active Azure resource-name component order for this repo ('standard' or 'classic').
+    description: |-
+      The `ado_naming` repo-wide variant (configs/variants.yml), fixed for the importer session. It is the
+      order key Get-BicepResourceName passes to Get-AzureResourceName (a key of Get-AzureNameOrderSet).
+      Defaults to 'standard' when the variant is unset.
+
+      *** Changing this value re-spells EVERY resource name. Resource names are typed out in each template's
+      configuration/[<customer>/]<slot>.yml, so flipping the order means re-editing all of them —
+      build-time validation flags each that no longer matches. Deliberately not a flip-the-switch option. ***
+    examples:
+      - 'Get-AdoNaming   # -> ''standard'''
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the active Azure resource-name component order for this repo ('standard' or 'classic').
-.DESCRIPTION
-    Changing it re-spells every resource name, so all typed names in template configs need re-editing.
-.EXAMPLE
-    Get-AdoNaming   # -> 'standard'
-#>
 function Get-AdoNaming {
     [CmdletBinding()]
     [OutputType([string])]

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md
     kind: comment-page
     body_sha: "221209baf4db"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Files/Write-FileIfChanged.ps1
@@ -56,6 +54,16 @@ Report whether the file would change without writing it. See
 ```
 
 ## comment:4
+
+Above `[System.IO.File]::Delete($Path)`.
+
+```text
+Delete-then-write: an in-place write through a linked target would tunnel the composed content
+into the link's source of truth; deleting first severs any link, so the write is always a fresh,
+independent file.
+```
+
+## comment:5
 
 Above `[System.IO.File]::Delete($Path)`.
 

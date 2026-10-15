@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-languages/private/ConvertFrom-PytestJunit.ps1.md
     kind: comment-page
     body_sha: f12b9cecb8ab
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/private/ConvertFrom-PytestJunit.ps1

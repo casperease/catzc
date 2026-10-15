@@ -11,35 +11,36 @@ catzc:
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-CONTRACT#6
       - ADR-REPO-CONTRACT#7
+  config:
+    synopsis: Derives one contract asset's facts from its name and place, and returns them as a ContractAsset.
+    description: |-
+      Zero ceremony ([ADR-AUTO-ZERO](/docs/adr/automation/zero-ceremony-poka-yoke.md)): the asset declares nothing.
+      - Kind, from the file name (Get-ContractAssetKind,
+        [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)).
+      - Target: a presence or fragment constrains the real file at its own path under the module's target root; a
+        `<path>.schema.json` constrains the real file at `<path>` under that root, unless a sample payload of the same
+        `<name>` sits beside it (`<name>.sample.<ext>`), in which case it applies to that sample; a sample payload
+        constrains no file ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)).
+      - Direction, by convention ([ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)): an
+        asset that constrains a real repository file is DependedOn; a sample payload, and the schema that applies to it,
+        are Provided. An entry for `<module>/<path>` in -Override replaces the convention.
+    parameters:
+      Unit: The deployable-unit folder name.
+      Version: The unit's version folder name.
+      Module: The owning module folder name.
+      Path: The asset's path under its module folder, '/'-separated.
+      File: The asset's absolute path, read to tell an empty fragment and to find a sample beside a schema.
+      TargetRoot: |-
+        The module's target root, repository-relative; the empty path is the repository root. Default: ContractsConfig's
+        DefaultTargetRoot, the repository root.
+      Override: 'The version''s contract.yml direction overrides, keyed by `<module>/<path>`. Default: none.'
+    outputs: '[Catzc.Base.Contracts.ContractAsset]'
+    examples:
+      - Resolve-ContractAsset -Unit widget -Version 0.0.0 -Module Catzc.Widget -Path gadget.yml -File $file
+      - Resolve-ContractAsset -Unit widget -Version 0.0.0 -Module Catzc.Widget -Path gadget.yml -File $file -TargetRoot .widget
 ---
 #>
 
-<#
-.SYNOPSIS
-    Derives one contract asset's facts from its name and place, and returns them as a ContractAsset.
-.DESCRIPTION
-    A schema targets the sample payload of its name beside it, else the real file at its path under the target root.
-.PARAMETER Unit
-    The deployable-unit folder name.
-.PARAMETER Version
-    The unit's version folder name.
-.PARAMETER Module
-    The owning module folder name.
-.PARAMETER Path
-    The asset's path under its module folder, '/'-separated.
-.PARAMETER File
-    The asset's absolute path, read to tell an empty fragment and to find a sample beside a schema.
-.PARAMETER TargetRoot
-    The empty path is the repository root, the default for a module with no target_roots entry.
-.PARAMETER Override
-    The version's contract.yml direction overrides, keyed by `<module>/<path>`. Default: none.
-.OUTPUTS
-    [Catzc.Base.Contracts.ContractAsset]
-.EXAMPLE
-    Resolve-ContractAsset -Unit widget -Version 0.0.0 -Module Catzc.Widget -Path gadget.yml -File $file
-.EXAMPLE
-    Resolve-ContractAsset -Unit widget -Version 0.0.0 -Module Catzc.Widget -Path gadget.yml -File $file -TargetRoot .widget
-#>
 function Resolve-ContractAsset {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractAsset])]

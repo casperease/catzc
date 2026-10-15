@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md
     kind: comment-page
     body_sha: e6e573bf1bbb
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Assert-Tool.ps1
@@ -37,6 +35,15 @@ Use for operations that need presence but not a specific version
 ```
 
 ## comment:3
+
+Above `if ($config.HasProbes()) {`.
+
+```text
+A tool with declared candidate paths is located by the probe, never by its bare name on PATH (for bash on
+Windows that name can be the WSL launcher).
+```
+
+## comment:4
 
 Above `if ($config.HasProbes()) {`.
 

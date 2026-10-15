@@ -6,7 +6,6 @@ catzc:
     body_sha: ee76455745cd
     adrs:
       - ADR-AUTO-TYPES#9
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentBlock.cs

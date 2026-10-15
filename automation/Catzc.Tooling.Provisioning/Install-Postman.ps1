@@ -6,22 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Provisioning
     visibility: public
-    adrs: []
+  config:
+    synopsis: Installs the Postman desktop app (user-space, no admin required).
+    description: |-
+      Windows: Downloads the official installer from dl.pstmn.io and runs it
+      silently. Installs to LOCALAPPDATA\Postman (Squirrel/Electron default).
+      macOS: brew install --cask postman.
+      Linux: Downloads the tar.gz from dl.pstmn.io and extracts to
+      HOME/.local/Postman.
+      Idempotent — skips if already installed.
+    parameters:
+      Force: Remove an existing installation before reinstalling.
+    examples:
+      - Install-Postman
+      - Install-Postman -Force
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs the Postman desktop app (user-space, no admin required).
-.DESCRIPTION
-    Installs per user with no admin on Windows and Linux; an existing install makes it a no-op.
-.PARAMETER Force
-    Remove an existing installation before reinstalling.
-.EXAMPLE
-    Install-Postman
-.EXAMPLE
-    Install-Postman -Force
-#>
 function Install-Postman {
     [CmdletBinding()]
     param(
@@ -44,8 +45,8 @@ function Install-Postman {
 
         $setupPath = Join-Path ([IO.Path]::GetTempPath()) 'Postman-win64-setup.exe'
 
-        # Postman publishes no checksum, so this download is verified by TLS alone.
-        # [comment:2](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment2)
+        # Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download is...
+        # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment4)
         Write-Message 'Downloading Postman from dl.pstmn.io'
         Invoke-WebRequest -Uri 'https://dl.pstmn.io/download/latest/win64' -OutFile $setupPath -UseBasicParsing
         Assert-PathExist $setupPath
@@ -89,8 +90,8 @@ function Install-Postman {
 
         $tarPath = Join-Path ([IO.Path]::GetTempPath()) 'postman-linux-x64.tar.gz'
 
-        # Postman publishes no checksum, so this download is verified by TLS alone.
-        # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment3)
+        # Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download is...
+        # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment5)
         Write-Message 'Downloading Postman from dl.pstmn.io'
         Invoke-WebRequest -Uri 'https://dl.pstmn.io/download/latest/linux_64' -OutFile $tarPath -UseBasicParsing
         Assert-PathExist $tarPath

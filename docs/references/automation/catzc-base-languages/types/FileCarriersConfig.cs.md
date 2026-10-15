@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#1
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/types/FileCarriersConfig.cs

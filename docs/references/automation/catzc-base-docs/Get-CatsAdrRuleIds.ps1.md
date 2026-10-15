@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-NOPWD#1
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1
@@ -56,6 +55,24 @@ strict-clean probe of the lazy cache entry
 ```
 
 ## comment:4
+
+Above `$adrRoot = Split-Path $IndexPath -Parent`.
+
+```text
+Index rows carry ADR paths relative to the index's own folder (docs/adr/), so resolve against it rather
+than a hardcoded docs/adr — that keeps a fixture index beside fixture ADR files working the same way.
+```
+
+## comment:5
+
+Above `$script:catsAdrRuleIdsCache = @{}`.
+
+```text
+strict-clean probe of the lazy cache entry
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:6
 
 Above `$adrRoot = Split-Path $IndexPath -Parent`.
 

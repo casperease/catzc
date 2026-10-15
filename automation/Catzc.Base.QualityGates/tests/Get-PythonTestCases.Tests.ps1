@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-PythonTestCases.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-PythonTestCases over fixture test files in $TestDrive: the top-level test functions of every test_*.py file,
-# with the package pytest reports for them. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-PythonTestCases over fixture test files in $TestDrive: the top-level test functions of every test_*.py file,...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-PythonTestCases.Tests.ps1.md#comment1)
 Describe 'Get-PythonTestCases' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {

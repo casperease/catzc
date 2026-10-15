@@ -6,18 +6,17 @@ catzc:
     kind: assert-function
     module: Catzc.Tooling.Provisioning
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts all tools are available at the correct version.
+    description: |-
+      Calls Get-ToolsStatus and throws if any tool is Missing or WrongVersion.
+      Tools with status OK or Usable pass — the tool works regardless of how
+      it was installed. Chocolatey status is ignored.
+    examples:
+      - Assert-DevBoxToolsStatus
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts all tools are available at the correct version.
-.DESCRIPTION
-    Usable passes like OK and Chocolatey status is ignored: a tool counts if it works, however it was installed.
-.EXAMPLE
-    Assert-DevBoxToolsStatus
-#>
 function Assert-DevBoxToolsStatus {
     [CmdletBinding()]
     param()

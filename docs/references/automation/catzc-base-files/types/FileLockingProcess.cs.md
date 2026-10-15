@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md
     kind: comment-page
     body_sha: "8b6054e2687f"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Files/types/FileLockingProcess.cs

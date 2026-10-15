@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/Get-ModuleDependencyEdges.ps1.md
     kind: comment-page
     body_sha: dff810848432
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Get-ModuleDependencyEdges.ps1

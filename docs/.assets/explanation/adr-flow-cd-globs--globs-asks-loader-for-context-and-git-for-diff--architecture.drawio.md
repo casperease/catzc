@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
     kind: asset-description
     body_sha: "826b49ff232f"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
       - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md

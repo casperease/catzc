@@ -6,22 +6,20 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Variants
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts the repo's Azure resource-name order (the `ado_naming` variant) is the one named, else throws.
+    description: |-
+      The throwing companion to Test-AdoNaming. Pass exactly one of -Standard or -Classic; throws (naming the
+      actual order and where to change it) when the repo's order does not match. Guards a code path that only
+      holds under one naming convention.
+    parameters:
+      Standard: Require the 'standard' order.
+      Classic: Require the 'classic' order.
+    examples:
+      - Assert-AdoNaming -Standard
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts the repo's Azure resource-name order (the `ado_naming` variant) is the one named, else throws.
-.DESCRIPTION
-    Guards a path valid under one naming order only; the error names the actual order and the file to edit.
-.PARAMETER Standard
-    Require the 'standard' order.
-.PARAMETER Classic
-    Require the 'classic' order.
-.EXAMPLE
-    Assert-AdoNaming -Standard
-#>
 function Assert-AdoNaming {
     [CmdletBinding()]
     param(

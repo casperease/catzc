@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/modules/vm.bicep.md
     kind: comment-page
     body_sha: d05b845ae536
-    adrs: []
-    links: []
 ---
 
 # infrastructure/modules/vm.bicep

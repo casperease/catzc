@@ -4,7 +4,6 @@ catzc:
     path: docs/explanation/pipelines/index.md
     kind: explanation
     body_sha: "57680316fafd"
-    adrs: []
     links:
       - docs/adr/index.md#pipelines
       - docs/adr/pipelines/dual-authentication.md

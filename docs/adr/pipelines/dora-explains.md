@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/pipelines/dora-explains.md
     kind: adr
     body_sha: "25ebce541ef8"
-    defines: []
-    adrs: []
     links:
       - docs/adr/pipelines/custom-template-discipline.md
       - docs/adr/pipelines/dual-authentication.md

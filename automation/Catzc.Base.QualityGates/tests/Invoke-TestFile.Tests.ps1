@@ -4,6 +4,11 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#23
+      - ADR-AUTO-TEST#25
+      - ADR-AUTO-TEST#32
+      - ADR-AUTO-TEST#33
 ---
 #>
 
@@ -69,19 +74,13 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
 }
 
 # L2: drives a real child pwsh worker through the same generator + runner chain as the harness.
-# greedy: each It spawns a full importer-loading pwsh worker — stacked on the parallel pool that
-# oversubscribes the box (see the test-automation ADR's greedy tag).
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md#comment1)
 Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
 
-        # The strict contract ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)): the
-        # worker runs every test strict, and a test that genuinely
-        # needs non-strict semantics opts out locally, in its own It body. The fixture holds the same strict-hostile
-        # read (.Count on a scalar) twice — bare, and behind the opt-out — plus a plain passing test. The bare read
-        # fails, so the same spawn also proves a failing file reports Failed (exit 1) without throwing; how
-        # -FullNameFilter reaches the worker is proven at L0 (here and in New-TestAutomationShardScript.Tests.ps1),
-        # one spawn per distinct concern ([ADR-AUTO-TEST#23](/docs/adr/automation/test-automation.md#rule-adr-auto-test23)).
+        # The strict contract: the worker runs every test strict, and a test that genuinely needs non-strict...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md#comment2)
         $script:fixture = Join-Path $TestDrive 'StrictHostile.Tests.ps1'
         $fixtureContent = @'
 Describe 'StrictHostile' -Tag 'L0', 'logic' {
@@ -124,13 +123,8 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
         ([System.IO.File]::ReadAllText((Join-Path $run.RunDirectory 'run.json')) | ConvertFrom-Json).status | Should -Be 'failed'
     }
 
-    # The walking skeleton of the snapshot path
-    # ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)): a real snapshot, primed, a
-    # real worker
-    # loading it. -Isolated takes the path deterministically; when it is taken because another run holds the
-    # working folder is Enter-TestRunLocation's L1 concern.
-    # The fixture also carries an L3 block, so the same worker spawn proves a snapshot skips the vertical system
-    # tests (Resolve-TestRunMaxLevel, [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
+    # The walking skeleton of the snapshot path: a real snapshot, primed, a real worker loading it.
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md#comment3)
     It 'runs in a snapshot: the worker loads the snapshot, the report and the rows come home, the snapshot is removed' {
         Mock Write-Message -ModuleName Catzc.Base.Git { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

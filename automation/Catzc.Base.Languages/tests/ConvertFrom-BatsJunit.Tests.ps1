@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# ConvertFrom-BatsJunit over a canned bats JUnit report (tests/assets/bats-widget.xml, written in the shape bats 1.14
-# writes with --report-formatter junit). Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# ConvertFrom-BatsJunit over a canned bats JUnit report (tests/assets/bats-widget.xml, written in the shape bats 1.14...
+# [comment:1](/docs/references/automation/catzc-base-languages/tests/ConvertFrom-BatsJunit.Tests.ps1.md#comment1)
 Describe 'ConvertFrom-BatsJunit' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:report = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/bats-widget.xml')

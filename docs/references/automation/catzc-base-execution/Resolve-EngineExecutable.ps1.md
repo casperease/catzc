@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-execution/Resolve-EngineExecutable.ps1.md
     kind: comment-page
     body_sha: "09e80a6c472c"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Execution/Resolve-EngineExecutable.ps1

@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-PY#8
       - ADR-PRIN-CONFIG#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-RuffFormat.ps1

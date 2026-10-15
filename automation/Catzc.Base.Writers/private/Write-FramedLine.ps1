@@ -6,21 +6,22 @@ catzc:
     kind: private-function
     module: Catzc.Base.Writers
     visibility: private
-    adrs: []
+  config:
+    synopsis: |-
+      Emits an ordered set of header/footer lines through the writer chokepoint, applying a colour plan — a
+      solid colour, or a rainbow gradient on the rule (border) lines with the base colour on any titled line.
+    description: |-
+      The shared render step behind Write-Header and Write-Footer. Each segment is { Text; Rule }: a Rule line
+      is a horizontal border (╭──╮, ╰──╯, a star row) that takes the per-character gradient of a rainbow plan;
+      a non-Rule line (a titled message) takes the plan's base colour. A solid (non-rainbow) plan colours every
+      line the one colour, and no colour renders the text as-is — both the pre-rainbow behaviour. The whole set
+      is emitted as a single Write-InformationColored call, so it is one information record as before.
+    parameters:
+      Segment: 'Ordered line segments: @( @{ Text = ''...''; Rule = $true|$false }, ... ), in render order.'
+      Color: 'The colour plan from Resolve-WriterColor: { HasColor; IsRainbow; Rainbow; Base }.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Emits an ordered set of header/footer lines through the writer chokepoint, applying a colour plan — a
-    solid colour, or a rainbow gradient on the rule (border) lines with the base colour on any titled line.
-.DESCRIPTION
-    All lines go out as one Write-InformationColored call, so a header stays a single information record.
-.PARAMETER Segment
-    Ordered line segments: @( @{ Text = '...'; Rule = $true|$false }, ... ), in render order.
-.PARAMETER Color
-    The colour plan from Resolve-WriterColor: { HasColor; IsRainbow; Rainbow; Base }.
-#>
 function Write-FramedLine {
     [CmdletBinding()]
     param(
@@ -32,8 +33,8 @@ function Write-FramedLine {
     )
 
     if ($Color.IsRainbow) {
-        # The text is coloured here, so it reaches the chokepoint with no -ForegroundColor of its own.
-        # [comment:2](/docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md#comment2)
+        # A rule line takes the per-character gradient; a titled line takes the base colour (the profile side-grades...
+        # [comment:3](/docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md#comment3)
         $rendered = foreach ($s in $Segment) {
             if ($s.Rule) {
                 $Color.Rainbow.Wrap($s.Text)

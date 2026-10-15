@@ -6,7 +6,6 @@ catzc:
     body_sha: f8202da00bdc
     adrs:
       - ADR-AUTO-TYPES#9
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrCitationChangeKind.cs

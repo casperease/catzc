@@ -10,19 +10,28 @@ catzc:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-PATH#3
       - ADR-AUTO-PATH#6
+  config:
+    synopsis: Resolves an inspiration's stored root to its binding form, a normalized absolute path.
+    description: |-
+      An inspiration's root is stored in communication form
+      ([ADR-AUTO-PATH#6](/docs/adr/automation/path-representation.md#rule-adr-auto-path6)) and resolved only at the point
+      of use ([ADR-AUTO-PATH#3](/docs/adr/automation/path-representation.md#rule-adr-auto-path3)):
+
+        - '{workspace}/<folder>' resolves against the workspace, the parent folder of the repository root
+          ([ADR-AUTO-PATH#11](/docs/adr/automation/path-representation.md#rule-adr-auto-path11));
+        - any other path goes through Resolve-RepoPath, so a repository-relative root resolves against the repository
+          root and an absolute one passes through.
+
+      Both pwsh's and Git Bash's view of a path resolve the same: the repository root, or an absolute root, given as
+      '/c/projects/...' on Windows is read as 'C:/projects/...' (InspirationRoot.ToNative). The result is normalized
+      with [IO.Path]::GetFullPath, so it is in the platform's own form.
+    parameters:
+      Root: 'The stored root: ''{workspace}/<folder>'', a repository-relative path, or an absolute path in either shell''s view.'
+    examples:
+      - 'Resolve-InspirationRoot ''{workspace}/eac''   # -> C:\projects\eac when the repository root is C:\projects\catzc'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Resolves an inspiration's stored root to its binding form, a normalized absolute path.
-.DESCRIPTION
-    Both pwsh and Git Bash views resolve alike: on Windows '/c/projects' is read as 'C:/projects'.
-.PARAMETER Root
-    The stored root: '{workspace}/<folder>', a repository-relative path, or an absolute path in either shell's view.
-.EXAMPLE
-    Resolve-InspirationRoot '{workspace}/eac'   # -> C:\projects\eac when the repository root is C:\projects\catzc
-#>
 function Resolve-InspirationRoot {
     [CmdletBinding()]
     [OutputType([string])]

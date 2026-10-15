@@ -6,28 +6,30 @@ catzc:
     kind: public-function
     module: Catzc.Azure.DevOps
     visibility: public
-    adrs: []
+  config:
+    synopsis: Combines YAML file scanning with ADO pipeline registration data.
+    description: |-
+      Runs Get-AdoYamlFiles to classify files by heuristics, then
+      Get-AdoPipelineDefinitions to fetch registered pipelines from ADO.
+      Cross-references the two datasets to:
+
+      - Mark each file as registered or not.
+      - Resolve Unknown classifications: if a file is registered as a
+        pipeline in ADO, it is reclassified as Pipeline.
+      - Attach the ADO pipeline name and ID to registered files.
+    parameters:
+      Path: Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
+      Exclude: |-
+        Directory names to skip during scanning. Matched as exact names anywhere in the path.
+        Defaults to @('.git', 'node_modules', '.terraform').
+      Project: Azure DevOps project name. Defaults to the value in ado.yml.
+      Organization: Azure DevOps organization URL. Defaults to the value in ado.yml.
+    examples:
+      - Get-AdoYamlInventory -Path 'C:\repos\big-mono'
+      - Get-AdoYamlInventory -Path 'C:\repos\big-mono' | Where-Object { -not $_.IsRegistered -and $_.Classification -eq 'Pipeline' }
 ---
 #>
 
-<#
-.SYNOPSIS
-    Combines YAML file scanning with ADO pipeline registration data.
-.DESCRIPTION
-    A file that ADO has registered as a pipeline is promoted from Unknown to Pipeline.
-.PARAMETER Path
-    Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
-.PARAMETER Exclude
-    Names match exactly at any depth of the path, not as wildcards or partial paths.
-.PARAMETER Project
-    Azure DevOps project name. Defaults to the value in ado.yml.
-.PARAMETER Organization
-    Azure DevOps organization URL. Defaults to the value in ado.yml.
-.EXAMPLE
-    Get-AdoYamlInventory -Path 'C:\repos\big-mono'
-.EXAMPLE
-    Get-AdoYamlInventory -Path 'C:\repos\big-mono' | Where-Object { -not $_.IsRegistered -and $_.Classification -eq 'Pipeline' }
-#>
 function Get-AdoYamlInventory {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]
@@ -65,8 +67,8 @@ function Get-AdoYamlInventory {
         }
     }
 
-    # A scan of a subdirectory shifts the paths, so the prefix is detected from the data, not assumed.
-    # [comment:3](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment3)
+    # ADO YamlPaths are relative to the repo root, but RelativePaths are relative to the scan root.
+    # [comment:4](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment4)
     $pathPrefix = ''
     foreach ($file in $files) {
         foreach ($definition in $definitions) {

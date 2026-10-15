@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md
     kind: comment-page
     body_sha: "30c3b3fdb327"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyViolations.ps1
@@ -50,6 +48,24 @@ module and not a group member) is skipped by callers regardless of its (empty) A
 ```
 
 ## comment:3
+
+Above `$typeEdges = Get-CSharpTypeDependency`.
+
+```text
+Same allow-list, applied to cross-module C# type references (one combined types assembly, so the
+compiler permits them — see Get-CSharpTypeDependency).
+```
+
+## comment:4
+
+Above `$resolveAllowed = {`.
+
+```text
+Resolves a source module to { Constrained; Allowed }. A source with no constraint (not a declared
+module and not a group member) is skipped by callers regardless of its (empty) Allowed set.
+```
+
+## comment:5
 
 Above `$typeEdges = Get-CSharpTypeDependency`.
 

@@ -1,16 +1,25 @@
 <#
-.SYNOPSIS
-    Moves the comment-based help of a function file into the `config` part of its meta head and removes the help block.
-.DESCRIPTION
-    The text of each section is carried over as written, as a plain, quoted or block string, so no prose is rewritten (ADR-REPO-HELP#1).
-.PARAMETER Text
-    The text of one function file, with its comments in place.
-.PARAMETER Form
-    The head's comment syntax: a Catzc.Base.CodeMeta.HeadForm.
-.OUTPUTS
-    [pscustomobject] @{ Text; Problems } — the file text without the help block, and what only a person can settle. A file with no help
-    block, or with no head to hold the keys, comes back as it was.
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/private/ConvertTo-HelpHeadConfig.ps1
+    kind: private-function
+    module: Catzc.Base.QualityGates
+    visibility: private
+    adrs:
+      - ADR-REPO-HELP#1
+  config:
+    synopsis: Moves the comment-based help of a function file into the `config` part of its meta head and removes the help block.
+    description: The text of each section is carried over as written, as a plain, quoted or block string, so no prose is rewritten (ADR-REPO-HELP#1).
+    parameters:
+      Text: The text of one function file, with its comments in place.
+      Form: 'The head''s comment syntax: a Catzc.Base.CodeMeta.HeadForm.'
+    outputs: |-
+      [pscustomobject] @{ Text; Problems } — the file text without the help block, and what only a person can settle. A file with no help
+      block, or with no head to hold the keys, comes back as it was.
+---
 #>
+
 function ConvertTo-HelpHeadConfig {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -57,6 +66,10 @@ function ConvertTo-HelpHeadConfig {
         param($Section)
         $lines = [System.Collections.Generic.List[string]]::new()
         foreach ($line in $Section.Lines) {
+            # A citation line is in the head's derived adrs, and a page link is the head's relatives, so neither is text.
+            if ($line.Trim() -cmatch '^\[(ADR-[A-Z0-9-]+(#\d+)?|comment:\d+)\]\([^)]*\)$') {
+                continue
+            }
             $lines.Add($line.TrimEnd())
         }
         while ($lines.Count -gt 0 -and $lines[0].Length -eq 0) {
@@ -69,7 +82,12 @@ function ConvertTo-HelpHeadConfig {
         if ($null -eq $indent) {
             $indent = 0
         }
-        , [string[]] @($lines | ForEach-Object { if ($_.Length -ge $indent) { $_.Substring($indent) } else { $_ } })
+        , [string[]] @($lines | ForEach-Object { if ($_.Length -ge $indent) {
+                    $_.Substring($indent)
+                }
+                else {
+                    $_
+                } })
     }
 
     # One value as YAML lines: a single line plain or single-quoted, several lines a literal block.

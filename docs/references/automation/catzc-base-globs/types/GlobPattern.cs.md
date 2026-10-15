@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-FLOW-CD-GLOBS#2
       - ADR-FLOW-CD-GLOBS#3
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/types/GlobPattern.cs

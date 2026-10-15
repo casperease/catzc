@@ -9,23 +9,27 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-ROOTCFG
+  config:
+    synopsis: 'Quality gate: the root PSScriptAnalyzerSettings.psd1 parses as a settings hashtable through its link.'
+    description: |-
+      A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the consumer
+      contract of the root PSScriptAnalyzerSettings.psd1 ([ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)):
+      PSScriptAnalyzer requires a literal-hashtable settings file at the path it is given. The target is a copyAsLink
+      entry of rootconfig.yml, so content equality with its source holds by construction (Test-RootConfigFiles checks
+      the link); what remains is that a consumer opening the ROOT path can follow the link and parse a non-empty
+      settings hashtable. It collects an issue when the file is missing (re-run the importer, which materialises it on
+      every load), does not parse as a data file, or holds no settings.
+
+      When the entry is not opted in, the root file is not managed and the gate checks nothing (Checked = $false).
+    parameters:
+      OutputFolder: The report base folder. Defaults to out/test-root-analyzer-settings/ (Write-QualityGateReport).
+      PassThru: Return the result ({ Subject; IssueCount; Issues; ReportPath; Checked }) instead of throwing on issues.
+    outputs: '[pscustomobject] With -PassThru only.'
+    examples:
+      - Test-RootAnalyzerSettings
 ---
 #>
 
-<#
-.SYNOPSIS
-    Quality gate: the root PSScriptAnalyzerSettings.psd1 parses as a settings hashtable through its link.
-.DESCRIPTION
-    Content equality holds by construction via the link, so only parsing a non-empty hashtable at the root remains.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to out/test-root-analyzer-settings/ (Write-QualityGateReport).
-.PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; Checked }) instead of throwing on issues.
-.OUTPUTS
-    [pscustomobject] With -PassThru only.
-.EXAMPLE
-    Test-RootAnalyzerSettings
-#>
 function Test-RootAnalyzerSettings {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

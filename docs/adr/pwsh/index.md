@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/pwsh/index.md
     kind: adr
     body_sha: e7e62cc95be3
-    defines: []
-    adrs: []
     links:
       - docs/adr/automation/execution-engines.md
       - docs/adr/index.md

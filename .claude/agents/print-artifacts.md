@@ -12,7 +12,6 @@ catzc:
     path: ".claude/agents/print-artifacts.md"
     kind: claude-agent
     body_sha: a50534912aec
-    adrs: []
     links:
       - ".claude/CLAUDE.md#time-safeguard"
 ---

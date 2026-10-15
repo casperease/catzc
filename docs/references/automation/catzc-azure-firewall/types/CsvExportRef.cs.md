@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
     kind: comment-page
     body_sha: f5a6a88d35f4
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Firewall/types/CsvExportRef.cs

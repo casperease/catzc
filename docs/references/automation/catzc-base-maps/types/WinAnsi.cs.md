@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md
     kind: comment-page
     body_sha: "964863461021"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/WinAnsi.cs

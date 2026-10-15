@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#6
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/types/FileLanguage.cs

@@ -6,41 +6,45 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
-    adrs: []
+  config:
+    synopsis: |-
+      Copies a module profile into a tmp sandbox and runs its tests in isolation — a clean child pwsh (true
+      isolation) or the current session (fast) — so a subset of the toolset is verified deterministically.
+    description: |-
+      Front half (both modes): resolve the module set with Get-ModuleProfile (a named profile from
+      configs/profiles.yml, or an explicit -Modules seed → dependency closure + infrastructure), then
+      Copy-Automation it into a fresh sandbox (-EmptyDestination). Back half depends on -Isolation:
+
+        Process   (default, TRUE isolation) — run Pester in a child `pwsh -NoProfile`:
+                  `. <sandbox>/importer.ps1 -SkipJanitors` (the optimized initializer — janitors skipped, the
+                  committed .compiled reused) then Invoke-Pester over the sandbox's tests. A clean session, so
+                  Get-BaseModule -Kind residue inside it is empty by construction. Launched via Invoke-Executable.
+
+        InProcess (fast) — point $env:RepositoryRoot at the sandbox and Invoke-Pester the sandbox's test files in
+                  THIS session, using the already-loaded modules (no re-import, no process spin-up). The dev
+                  session's loaded code is what runs (residue), and $env:RepositoryRoot is restored afterwards.
+
+      Integrity tests bind to the whole real repo and are meaningless in a subset sandbox, so -Category defaults
+      to Logic (hermetic). Tiers default to L0+L1 (the unit tiers). Excluded tags are computed by Get-TestExcludeTag.
+    parameters:
+      ModuleProfile: 'A profile from configs/profiles.yml (minimal, base, azure, tooling, full). Default: minimal.'
+      Modules: An explicit seed list instead of a named profile — resolved through the same closure logic.
+      Isolation: Process (child pwsh, true isolation — default) or InProcess (current session, fast).
+      Category: Logic (default), Integrity, or Both. Integrity assumes the full real repo — use only with the full profile.
+      MaxLevel: Highest tier to run (0-4). Default 1 (L0+L1 — the hermetic unit tiers). Alias -Level.
+      MinLevel: Lowest tier to run (0-4). Default 0.
+      Destination: |-
+        Sandbox directory. Default: a fresh tmp dir (removed after, unless -KeepSandbox). A given -Destination is
+        never auto-removed.
+      KeepSandbox: Keep the sandbox (and its results.xml) after the run instead of deleting it.
+      PassThru: Return the run summary object instead of throwing on failure.
+    outputs: '[pscustomobject] with Isolation, Sandbox, Modules, Total, Failed, Success, ResultsPath (under -PassThru).'
+    examples:
+      - Test-InIsolation -ModuleProfile azure
+      - Test-InIsolation -Modules Catzc.Base.Config -Isolation InProcess -PassThru
 ---
 #>
 
-<#
-.SYNOPSIS
-    Copies a module profile into a tmp sandbox and runs its tests in isolation — a clean child pwsh (true
-    isolation) or the current session (fast) — so a subset of the toolset is verified deterministically.
-.DESCRIPTION
-    Integrity tests need the whole real repo, so a subset sandbox defaults to Logic and the L0 and L1 unit tiers.
-.PARAMETER ModuleProfile
-    A profile from configs/profiles.yml (minimal, base, azure, tooling, full). Default: minimal.
-.PARAMETER Modules
-    An explicit seed list instead of a named profile — resolved through the same closure logic.
-.PARAMETER Isolation
-    Process (child pwsh, true isolation — default) or InProcess (current session, fast).
-.PARAMETER Category
-    Logic (default), Integrity, or Both. Integrity assumes the full real repo — use only with the full profile.
-.PARAMETER MaxLevel
-    Highest tier to run (0-4). Default 1 (L0+L1 — the hermetic unit tiers). Alias -Level.
-.PARAMETER MinLevel
-    Lowest tier to run (0-4). Default 0.
-.PARAMETER Destination
-    A given Destination is never auto-removed; only the fresh temporary directory is, unless -KeepSandbox.
-.PARAMETER KeepSandbox
-    Keep the sandbox (and its results.xml) after the run instead of deleting it.
-.PARAMETER PassThru
-    Return the run summary object instead of throwing on failure.
-.OUTPUTS
-    [pscustomobject] with Isolation, Sandbox, Modules, Total, Failed, Success, ResultsPath (under -PassThru).
-.EXAMPLE
-    Test-InIsolation -ModuleProfile azure
-.EXAMPLE
-    Test-InIsolation -Modules Catzc.Base.Config -Isolation InProcess -PassThru
-#>
 function Test-InIsolation {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoEnvRepositoryRoot', '', Justification = 'The InProcess mode swaps $env:RepositoryRoot for the sandbox and restores it: the variable itself is the subject, so it saves the hand-off value, not the root through the accessor')]
     [CmdletBinding(DefaultParameterSetName = 'ModuleProfile')]
@@ -117,8 +121,8 @@ function Test-InIsolation {
             Write-Message "Test-InIsolation: no test folders in the '$(if ($ModuleProfile) { $ModuleProfile } else { 'custom' })' sandbox — nothing to run."
         }
         elseif ($Isolation -eq 'Process') {
-            # Going through Invoke-Executable keeps the child mockable and under the unit-test tripwire.
-            # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment3)
+            # Generate a runner and execute it in a clean child pwsh via Invoke-Executable (mockable; honours the...
+            # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment5)
             $pathLiteral = ($testPaths | ForEach-Object { "'$_'" }) -join ', '
             $tagLiteral = ($excludeTags | ForEach-Object { "'$_'" }) -join ', '
             $runner = Join-Path $sandbox '.isolation-run.ps1'
@@ -149,8 +153,8 @@ exit `$r.FailedCount
             }
         }
         else {
-            # The session's loaded modules run the tests: fast, but not a clean session; the root is restored after.
-            # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment4)
+            # InProcess: run the sandbox's tests in THIS session against the already-loaded modules, with the...
+            # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment6)
             $savedRoot = $env:RepositoryRoot
             try {
                 $env:RepositoryRoot = $sandbox

@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs
     kind: csharp-type
     module: Catzc.Azure.Templates
-    adrs: []
 ---
 */
 

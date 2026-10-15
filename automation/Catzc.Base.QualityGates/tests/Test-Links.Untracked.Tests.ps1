@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Links.Untracked.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-LINK#2
 ---
 #>
 
-# A markdown link must resolve on GitHub, which has only what git tracks
-# ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)). A fixture repository in $TestDrive stands
-# in for the loaded repository; its tracked set is mocked (neutral widget/gadget names,
-# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# A markdown link must resolve on GitHub, which has only what git tracks.
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Untracked.Tests.ps1.md#comment1)
 Describe 'Test-Links — untracked link targets' -Tag 'L0', 'logic', 'ADR-REPO-LINK#2' {
     BeforeAll {
         $script:writeFile = {

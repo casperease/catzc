@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-provisioning/Assert-DevBoxToolsStatus.ps1.md
     kind: comment-page
     body_sha: eada4841d0e3
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1

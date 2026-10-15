@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/repository/dora-explains.md
     kind: adr
     body_sha: "25f6f76e79b8"
-    defines: []
-    adrs: []
     links:
       - docs/adr/repository/agent-definitions.md
       - docs/adr/repository/api-contracts.md

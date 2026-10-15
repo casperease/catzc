@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md
     kind: comment-page
     body_sha: "8f37e0052e9b"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
@@ -34,6 +32,16 @@ target, and Build-RootConfig owns the write. See [ADR-REPO-ROOTCFG](/docs/adr/re
 ```
 
 ## comment:2
+
+Above `$rendered = [ordered]@{}`.
+
+```text
+Front the schema with its meta-schema declaration, then the authored body in registry order. The '$comment'
+provenance marker is the generated-file head, which Build-RootConfig writes (JSON has no comment syntax and
+the validator parses this file strictly).
+```
+
+## comment:3
 
 Above `$rendered = [ordered]@{}`.
 

@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#16
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-ManualTestPlan.ps1

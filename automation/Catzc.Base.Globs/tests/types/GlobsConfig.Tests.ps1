@@ -4,23 +4,27 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#37
+      - ADR-DSGN-TRACK#5
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#8
 ---
 #>
 
 # cspell:ignore dedupe
-# The globs.yml registry guard: strict shape (unknown keys rejected), every entry a valid GlobSet with a
-# layer declared ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)), and compose
-# resolving acyclically to declared sets
-# ([ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)).
+# The globs.yml registry guard: strict shape (unknown keys rejected), every entry a valid GlobSet with a layer...
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md#comment1)
 Describe 'GlobsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {
             param([hashtable] $globsets)
             [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $globsets })
         }
-        # Render a set's flattened scan program as '+ pattern' / '- pattern' lines
-        # ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)/8) — the
-        # ordered membership program, the durable behaviour the removed marker rendering used to show.
+        # Render a set's flattened scan program as '+ pattern' / '- pattern' lines (/8) — the ordered membership...
+        # [comment:2](/docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md#comment2)
         $script:program = {
             param($set)
             foreach ($rule in $set.ScanProgram()) {
@@ -37,8 +41,8 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
     Context 'a valid registry' {
         It 'constructs and exposes the sets with lookup' {
-            # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names
-            # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+            # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names.
+            # [comment:3](/docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md#comment3)
             $c = & $script:make @{
                 'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**', 'main.ps1') }
                 'gadget' = @{ description = 'the gadget unit'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('**/*.md') }

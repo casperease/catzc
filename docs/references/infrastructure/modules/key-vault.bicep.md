@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/modules/key-vault.bicep.md
     kind: comment-page
     body_sha: "5deebb21501a"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/modules/key-vault.bicep

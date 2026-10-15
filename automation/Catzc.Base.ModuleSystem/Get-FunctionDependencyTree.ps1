@@ -6,24 +6,24 @@ catzc:
     kind: public-function
     module: Catzc.Base.ModuleSystem
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the transitive closure of all functions that a given function depends on.
+    description: |-
+      Takes a function name and walks the call graph produced by Get-FunctionDependency
+      using breadth-first search. Returns every function reachable from the root, with
+      the depth at which it was first encountered and the caller that introduced it.
+
+      Accepts pipeline input from Get-FunctionDependency. If no pipeline input is
+      provided, calls Get-FunctionDependency automatically.
+    parameters:
+      Function: The name of the root function to trace dependencies from.
+      Dependency: Function dependency objects from Get-FunctionDependency. Accepts pipeline input.
+    examples:
+      - Get-FunctionDependencyTree -Function 'Install-Poetry'
+      - Get-FunctionDependency | Get-FunctionDependencyTree -Function 'Get-ModuleDependency'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the transitive closure of all functions that a given function depends on.
-.DESCRIPTION
-    Each function appears once, at the depth where breadth-first search first reached it, with the caller that did.
-.PARAMETER Function
-    The name of the root function to trace dependencies from.
-.PARAMETER Dependency
-    Function dependency objects from Get-FunctionDependency. Accepts pipeline input.
-.EXAMPLE
-    Get-FunctionDependencyTree -Function 'Install-Poetry'
-.EXAMPLE
-    Get-FunctionDependency | Get-FunctionDependencyTree -Function 'Get-ModuleDependency'
-#>
 function Get-FunctionDependencyTree {
     [CmdletBinding()]
     param(

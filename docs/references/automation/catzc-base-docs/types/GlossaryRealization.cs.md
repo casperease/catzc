@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-VOCAB#3
       - ADR-REPO-VOCAB#6
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryRealization.cs

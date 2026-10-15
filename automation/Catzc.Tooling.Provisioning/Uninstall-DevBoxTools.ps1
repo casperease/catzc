@@ -6,18 +6,20 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Provisioning
     visibility: public
-    adrs: []
+  config:
+    synopsis: Removes all tools installed by Install-DevBoxTools.
+    description: |-
+      Uninstalls tools in reverse dependency order (derived from depends_on
+      in tools.yml). Tools that depend on others are removed first so their
+      uninstallers can still use the dependency (e.g., az_cli is removed
+      before uv). OS-provided prerequisites (winget) are never uninstalled,
+      and Windows-only tools are skipped off Windows. Idempotent — skips
+      tools that are not installed.
+    examples:
+      - Uninstall-DevBoxTools
 ---
 #>
 
-<#
-.SYNOPSIS
-    Removes all tools installed by Install-DevBoxTools.
-.DESCRIPTION
-    Dependents go first so their uninstallers can still use the dependency; winget is never removed.
-.EXAMPLE
-    Uninstall-DevBoxTools
-#>
 function Uninstall-DevBoxTools {
     [CmdletBinding()]
     param()
@@ -26,8 +28,8 @@ function Uninstall-DevBoxTools {
     Uninstall-Postman
     Uninstall-Git
 
-    # The @() wrap matters: Reverse throws on null, and a one-tool result would unwrap to a scalar, not an array.
-    # [comment:2](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment2)
+    # Version-locked tools in reverse dependency order.
+    # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment5)
     $order = @(Get-ToolInstallOrder)
     [array]::Reverse($order)
 
@@ -44,15 +46,15 @@ function Uninstall-DevBoxTools {
             continue
         }
 
-        # Uninstalling needs the same elevation as installing, so a non-elevated run skips and reports these tools.
-        # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment3)
+        # Elevation-bound tools (admin_only machine-scope, or apt-get-routed Linux installs) need the same elevation...
+        # [comment:6](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment6)
         if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {
             Write-Message "Skipping $toolName — requires elevation on this platform to uninstall. Re-run elevated."
             continue
         }
 
-        # A raw key such as node_js never resolves to Uninstall-NodeJs, so the suffix is mapped; a missing one throws.
-        # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment4)
+        # Map the snake_case tools.yml key to its PascalCase command suffix, exactly as Install-DevBoxTools does...
+        # [comment:7](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment7)
         $uninstallCmd = "Uninstall-$(Get-ToolCommandSuffix -Tool $toolName)"
         if (-not (Get-Command $uninstallCmd -ErrorAction SilentlyContinue)) {
             throw "No $uninstallCmd function found for tool '$toolName' defined in tools.yml"

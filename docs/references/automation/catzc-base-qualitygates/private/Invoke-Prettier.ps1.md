@@ -6,7 +6,6 @@ catzc:
     body_sha: b7db04cbd3f1
     adrs:
       - ADR-PRIN-CONFIG#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-Prettier.ps1

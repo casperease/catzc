@@ -6,23 +6,22 @@ catzc:
     kind: public-function
     module: Catzc.Base.Objects
     visibility: public
-    adrs: []
+  config:
+    synopsis: |-
+      Recursively converts an object into a YAML-safe structure of ordered
+      dictionaries, arrays, and scalar values.
+    description: |-
+      Used by Write-Object to produce clean YAML output for nested objects.
+      Walks PSCustomObject, IDictionary, and IEnumerable types, converting
+      each level into ordered hashtables or arrays that ConvertTo-Yaml can
+      serialize without falling back to ToString().
+    parameters:
+      Value: The object to convert; null stays null.
+      MaxDepth: The depth at which a value stops being walked and is rendered as its string form. Default 10.
+      Depth: The depth reached so far; callers leave it at 0 and the recursion raises it.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Recursively converts an object into a YAML-safe structure of ordered
-    dictionaries, arrays, and scalar values.
-.DESCRIPTION
-    Every level becomes ordered dicts, arrays or scalars, so ConvertTo-Yaml never falls back to ToString.
-.PARAMETER Value
-    The object to convert; null stays null.
-.PARAMETER MaxDepth
-    The depth at which a value stops being walked and is rendered as its string form. Default 10.
-.PARAMETER Depth
-    The depth reached so far; callers leave it at 0 and the recursion raises it.
-#>
 function ConvertTo-YamlSafe {
     [CmdletBinding()]
     param(

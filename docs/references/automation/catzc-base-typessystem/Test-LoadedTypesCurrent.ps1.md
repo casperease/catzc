@@ -6,7 +6,6 @@ catzc:
     body_sha: c394e51995db
     adrs:
       - ADR-AUTO-TYPES#7
-    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/Test-LoadedTypesCurrent.ps1

@@ -11,7 +11,6 @@ catzc:
       - ADR-AZ-CUSTOMER#4
       - ADR-AZ-CUSTOMER#5
       - ADR-AZ-CUSTOMER#6
-    adrs: []
     links:
       - docs/adr/azure/azure-data-model.md
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod3

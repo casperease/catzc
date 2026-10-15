@@ -8,20 +8,34 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-OVERLAY
+  config:
+    synopsis: Applies the consumer overlay's function overrides to the loaded bundle, after checking the whole overlay.
+    description: |-
+      Runs at the end of a bundle load ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)). It checks
+      the overlay first (Assert-CatzcOverlay), so nothing applies unless all of it is valid. Then each override file
+      replaces its function inside the bundled module, in two steps:
+
+        1. the file is dot-sourced inside the module's own scope (`. $module { . $file }`), so the module's callers,
+           its script state and Mock -ModuleName reach the override (a call with & would open a child scope and
+           discard the definition);
+        2. a public override is published to the session's command table, where the import had put the original;
+           its script block stays bound to the module, so it keeps running in the module's scope, and every other
+           module, which resolves through the session, reaches the override too.
+
+      Then each local module loads, after the overrides so it calls the bundle as overridden: its private function
+      files, then its public ones (each ordinal — the order a built module's merge uses), are dot-sourced into one new
+      module of the folder's name, which exports the public ones. Nothing is written: the module is built in the
+      session, and its configs and assets are found in its overlay folder (Get-Config, Get-CatzcModuleRoot).
+
+      Config fragments and asset overrides need no step here: Get-Config and Get-CatzcModuleRoot read them on demand.
+    outputs: |-
+      [pscustomobject] The function overrides applied and the local modules loaded (Kind, Module, Target,
+      Visibility, File, RelativePath).
+    examples:
+      - Import-CatzcOverlay
 ---
 #>
 
-<#
-.SYNOPSIS
-    Applies the consumer overlay's function overrides to the loaded bundle, after checking the whole overlay.
-.DESCRIPTION
-    Overrides load before local modules, so a local module calls the bundle as overridden.
-.OUTPUTS
-    [pscustomobject] The function overrides applied and the local modules loaded (Kind, Module, Target,
-    Visibility, File, RelativePath).
-.EXAMPLE
-    Import-CatzcOverlay
-#>
 function Import-CatzcOverlay {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

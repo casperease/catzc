@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-variants.md
     kind: reference
     body_sha: f850a5c1b74e
-    adrs: []
     links:
       - docs/adr/automation/caching.md
       - docs/adr/azure/azure-naming-standard.md

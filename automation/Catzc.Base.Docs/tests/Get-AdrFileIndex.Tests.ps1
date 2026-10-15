@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-AdrFileIndex.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-AdrFileIndex — every docs/adr/**/*.md keyed by "<domain folder>/<slug>", and each rule set mapped to its one file. A fixture
-# tree in $TestDrive and a fixture registry; neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-AdrFileIndex — every docs/adr/**/*.md keyed by "<domain folder>/<slug>", and each rule set mapped to its one file.
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-AdrFileIndex.Tests.ps1.md#comment1)
 Describe 'Get-AdrFileIndex' -Tag 'L0', 'logic' {
     BeforeAll {
         $adrs = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

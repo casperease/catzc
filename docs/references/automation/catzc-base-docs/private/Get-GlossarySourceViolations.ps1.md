@@ -9,7 +9,6 @@ catzc:
       - ADR-REPO-VOCAB#3
       - ADR-REPO-VOCAB#4
       - ADR-REPO-VOCAB#5
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-python.md
     kind: reference
     body_sha: "91d4c2ecf7e8"
-    adrs: []
     links:
       - docs/adr/automation/controlling-systemwide-deps.md
       - docs/adr/automation/cross-platform.md

@@ -8,27 +8,47 @@ catzc:
     visibility: public
     adrs:
       - ADR-AZ-DATAMOD#9
+  config:
+    synopsis: |-
+      Validates a bicep template (or all templates) against its options.yml and the azure config,
+      collecting every problem and throwing one consolidated error. The explicit, author/CI-facing
+      counterpart to the fail-fast checks Get-BicepTemplates runs at discovery.
+    description: |-
+      Where Get-BicepTemplates enforces the rules at discovery and throws on the first violation (so a
+      bad template makes the whole module fail to load), Assert-BicepTemplate scans a template folder
+      directly and reports ALL of its problems at once — so it can describe a template that discovery
+      would reject. The two share the per-config rule (Get-BicepConfigClassViolations), so they never drift.
+
+      Checks (all collected, then thrown together):
+        - main.bicep exists; configuration/ exists with at least one (non-default) config.
+        - options.yml (optional) is schema-valid (Read-BicepTemplateOptions); short_name is resolved from the
+          folder name (or the options.yml override) via BicepShortName and — when validating all templates —
+          globally unique.
+        - Env-class classification: every config matches the template's env-class bit
+          (standard/subscription) — via Get-BicepConfigClassViolations. (Slot is per-config: a template
+          may mix slotted and non-slotted configs.)
+        - Identity references: each config filename resolves to a defined environment; a configuration
+          subfolder is always a defined customer key, and every config's (customer?, env) coordinate
+          resolves to exactly one subscription (Get-BicepSubscriptionConfigViolations).
+        - Parameter alignment: a config's ParametersFile.parameters may only set parameters that
+          main.bicep declares (params main.bicep declares but the config omits are fine — PrePost or
+          bicep defaults supply them).
+        - With -Build: Build-Bicep renders the parameters files and compiles main.bicep (needs az; opt-in,
+          slower, and writes the template's build output folder), then Get-BicepParameterViolations checks
+          every rendered parameters file against the compiled parameter model — types, @allowed values,
+          bounds, required parameters, and Key Vault references for secure parameters.
+    parameters:
+      Template: Template name to validate. Omit to validate every template under infrastructure/templates/.
+      Build: |-
+        Also build the template (requires az CLI) and check its rendered parameters files against the
+        compiled parameter model. Off by default.
+    examples:
+      - Assert-BicepTemplate my-template
+      - 'Assert-BicepTemplate            # validate every template'
+      - 'Assert-BicepTemplate my-template -Build   # also compile with az'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Validates a bicep template (or all templates) against its options.yml and the azure config,
-    collecting every problem and throwing one consolidated error. The explicit, author/CI-facing
-    counterpart to the fail-fast checks Get-BicepTemplates runs at discovery.
-.DESCRIPTION
-    Unlike discovery, which stops at the first violation, this reports all of a template's problems in one throw.
-.PARAMETER Template
-    Template name to validate. Omit to validate every template under infrastructure/templates/.
-.PARAMETER Build
-    Opt-in because it needs az and writes the template's build output folder; the default checks need neither.
-.EXAMPLE
-    Assert-BicepTemplate my-template
-.EXAMPLE
-    Assert-BicepTemplate            # validate every template
-.EXAMPLE
-    Assert-BicepTemplate my-template -Build   # also compile with az
-#>
 function Assert-BicepTemplate {
     [CmdletBinding()]
     param(
@@ -50,8 +70,8 @@ function Assert-BicepTemplate {
         $folders = @($targetFolder)
     }
     else {
-        # Plain .NET enumeration avoids the roughly 20 ms per-call overhead of Get-ChildItem.
-        # [comment:3](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment3)
+        # [System.IO.Directory] (sorted) instead of Get-ChildItem — see Get-BicepTemplates for the ~20ms-per-call...
+        # [comment:7](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment7)
         $folders = @([System.IO.Directory]::EnumerateDirectories($root) | Sort-Object)
     }
 
@@ -87,8 +107,8 @@ function Assert-BicepTemplate {
             'standard'
         }
 
-        # An explicit customer_deployment: true is only allowed when customers are enabled.
-        # [comment:4](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment4)
+        # Customer-class bit — defaults to the have_customers variant unless options.yml sets it; an explicit...
+        # [comment:8](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment8)
         $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
             [bool]$options.customer_deployment
         }
@@ -105,8 +125,8 @@ function Assert-BicepTemplate {
             [bool](Test-HaveCustomers)
         }
 
-        # A malformed override, or a folder that cannot derive a short_name, throws.
-        # [comment:5](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment5)
+        # short_name is derived from the folder name unless options.yml overrides it.
+        # [comment:9](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment9)
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
         }
@@ -204,8 +224,8 @@ function Assert-BicepTemplate {
                 $errors.Add("[$name] -Build requested but 'az' is not installed")
             }
             else {
-                # Both render and compile run, so the parameters files can be checked against the compiled model.
-                # [comment:6](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment6)
+                # The full build (render + compile) so the rendered parameters files can be checked against the...
+                # [comment:10](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment10)
                 $built = $false
                 try {
                     Build-Bicep $name | Out-Null

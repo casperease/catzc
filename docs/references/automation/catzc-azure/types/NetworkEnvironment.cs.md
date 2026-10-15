@@ -6,7 +6,6 @@ catzc:
     body_sha: "6aca3e1870b0"
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Azure/types/NetworkEnvironment.cs

@@ -6,7 +6,6 @@ catzc:
     body_sha: bed33c368d61
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Exporter/types/ExporterConfig.cs

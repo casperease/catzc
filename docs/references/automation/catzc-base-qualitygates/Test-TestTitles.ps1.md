@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#25
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-TestTitles.ps1

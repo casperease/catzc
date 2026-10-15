@@ -8,23 +8,23 @@ catzc:
     visibility: private
     adrs:
       - ADR-PRIN-CONFIG
+  config:
+    synopsis: Maps changed repository files to the quality gates that check them, by file language.
+    description: |-
+      The checks half of Test-Change's plan, read from configuration, not code
+      ([ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)): each changed file that exists is looked up in the
+      file-language registry (Get-FileLanguage -Path), and its language's `checks` list (languages.yml) names the gates.
+      Returns one entry per gate, in the order a gate first appears, each with the changed files it applies to. A file with
+      no file language, or whose language names no check, contributes nothing; a deleted file is skipped.
+    parameters:
+      Path: The changed repo-relative, '/'-separated paths.
+      RepositoryRoot: The repository root the paths are relative to.
+    outputs: '[pscustomobject] { Check; Path } — Path the changed files the gate applies to, in the order given.'
+    examples:
+      - Get-ChangeCheckPlan -Path 'docs/index.md' -RepositoryRoot (Get-RepositoryRoot)
 ---
 #>
 
-<#
-.SYNOPSIS
-    Maps changed repository files to the quality gates that check them, by file language.
-.DESCRIPTION
-    Gates come from each language's checks list in languages.yml, so a new check is a config edit, not code.
-.PARAMETER Path
-    The changed repo-relative, '/'-separated paths.
-.PARAMETER RepositoryRoot
-    The repository root the paths are relative to.
-.OUTPUTS
-    [pscustomobject] { Check; Path } — Path the changed files the gate applies to, in the order given.
-.EXAMPLE
-    Get-ChangeCheckPlan -Path 'docs/index.md' -RepositoryRoot (Get-RepositoryRoot)
-#>
 function Get-ChangeCheckPlan {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

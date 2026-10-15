@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-writers/Write-Exception.ps1.md
     kind: comment-page
     body_sha: "1d08bf3bf03c"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Writers/Write-Exception.ps1

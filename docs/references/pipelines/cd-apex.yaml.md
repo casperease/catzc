@@ -4,8 +4,6 @@ catzc:
     path: docs/references/pipelines/cd-apex.yaml.md
     kind: comment-page
     body_sha: "8354a8c8e73a"
-    adrs: []
-    links: []
 ---
 
 # pipelines/cd-apex.yaml

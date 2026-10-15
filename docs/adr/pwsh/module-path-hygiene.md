@@ -8,7 +8,6 @@ catzc:
       - ADR-PWSH-MODPATH#1
       - ADR-PWSH-MODPATH#2
       - ADR-PWSH-MODPATH#3
-    adrs: []
     links:
       - docs/adr/automation/effective-in-enterprises.md
       - docs/adr/pwsh/vendor-toolset-dependencies.md

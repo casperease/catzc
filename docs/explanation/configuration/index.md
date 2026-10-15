@@ -4,7 +4,6 @@ catzc:
     path: docs/explanation/configuration/index.md
     kind: explanation
     body_sha: "606fa1843e29"
-    adrs: []
     links:
       - docs/adr/configuration/module-config-loading.md
       - docs/adr/index.md#configuration

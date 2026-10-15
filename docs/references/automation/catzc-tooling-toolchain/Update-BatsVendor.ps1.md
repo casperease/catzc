@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-toolchain/Update-BatsVendor.ps1.md
     kind: comment-page
     body_sha: "011469838aa1"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Update-BatsVendor.ps1
@@ -28,6 +26,15 @@ are LF by .gitattributes, and their executable bits are set in git with git upda
 ```
 
 ## comment:2
+
+Above ``Invoke-Executable "tar -xzf `"$fileName`"" -WorkingDirectory $staging -Silent``.
+
+```text
+A relative name inside the staging folder, so no path carries a drive letter's colon (GNU tar reads one as a
+remote host).
+```
+
+## comment:3
 
 Above ``Invoke-Executable "tar -xzf `"$fileName`"" -WorkingDirectory $staging -Silent``.
 

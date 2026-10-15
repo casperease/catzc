@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-CACHE#8
       - ADR-AUTO-TYPES#13
       - ADR-REPO-VARIANT#6
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
@@ -97,6 +96,37 @@ the -1. Hold the .compiled commit back until it is tidy; any other changed gener
 ```
 
 ## comment:5
+
+Above `if ($changed -contains 'automation/.compiled' -and (Test-GitPathChanged...`.
+
+```text
+The build is named for the hash of the working-tree type sources. While any of them differs from HEAD — often
+another session's in-flight edit — committing it would leave HEAD carrying a build its own sources do not
+produce. Hold .compiled back until the sources are committed.
+```
+
+## comment:6
+
+Above `$changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })`.
+
+```text
+Which generated paths actually changed decides both the commit's pathspec and its message — the
+stamp commit stages and names exactly what this sync did, never a sibling path that was clean.
+```
+
+## comment:7
+
+Above `if ($changed -contains 'automation/.compiled') {`.
+
+```text
+.compiled must hold exactly the current build
+([ADR-AUTO-CACHE#8](/docs/adr/automation/caching.md#rule-adr-auto-cache8)). A superseded DLL that
+survived the
+janitor (a session still holds it) would otherwise be committed next to the new one — the +1 without
+the -1. Hold the .compiled commit back until it is tidy; any other changed generated path still commits.
+```
+
+## comment:8
 
 Above `if ($changed -contains 'automation/.compiled' -and (Test-GitPathChanged...`.
 

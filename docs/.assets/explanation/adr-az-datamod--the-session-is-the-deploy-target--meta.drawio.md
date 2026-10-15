@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.md
     kind: asset-description
     body_sha: "5b775529e09f"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png
       - docs/explanation/azure/the-session-is-the-deploy-target.md

@@ -4,14 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-IDEM#1
+      - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-COMMENTS#4
+      - ADR-REPO-OUTDIR#1
 ---
 #>
 
-# Build-CommentView writes the inverse of Export-Comments: the annotated copy of every file that carries residues,
-# under the view folder in out/ ([ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1)),
-# equal to the file before its comments moved
-# ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)). Tested in isolation on a
-# widget/gadget fixture repository in $TestDrive.
+# Build-CommentView writes the inverse of Export-Comments: the annotated copy of every file that carries residues,...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md#comment1)
 Describe 'Build-CommentView' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

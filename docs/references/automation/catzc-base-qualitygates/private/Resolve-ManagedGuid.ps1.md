@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Resolve-ManagedGuid.ps1.md
     kind: comment-page
     body_sha: fcd052cd9899
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Resolve-ManagedGuid.ps1

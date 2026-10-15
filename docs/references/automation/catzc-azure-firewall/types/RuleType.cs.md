@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-firewall/types/RuleType.cs.md
     kind: comment-page
     body_sha: "2abb14521a6b"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Firewall/types/RuleType.cs

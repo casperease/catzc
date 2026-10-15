@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/getting-started/automation/index.md
     kind: how-to
     body_sha: f1c4f850cec7
-    adrs: []
     links:
       - docs/adr/automation/caching.md
       - docs/adr/automation/zero-ceremony-poka-yoke.md

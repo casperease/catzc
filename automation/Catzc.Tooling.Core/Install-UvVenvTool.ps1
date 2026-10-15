@@ -6,22 +6,22 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Core
     visibility: public
-    adrs: []
+  config:
+    synopsis: Installs a CLI into a dedicated uv venv.
+    description: |-
+      For a CLI whose own launcher expects python.exe adjacent to it (azure-cli's az.bat), which an isolated
+      `uv tool` shim in ~/.local/bin breaks by placing the launcher next to uv's --default python instead. This
+      creates a dedicated venv (`uv venv`), installs the package into it (`uv pip install --python <venv>`), and
+      puts the venv's script directory on PATH — so the launcher sits beside the venv's own python and works.
+      Pre-release resolution (for packages that pin a beta dependency) is threaded through Invoke-Uv's
+      -Prerelease switch, which warns. Handles idempotency and -Force.
+    parameters:
+      Tool: The snake_case tool key (must declare uv_venv).
+      Version: Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
+      Force: Rebuild the venv from scratch even when the tool is already present.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs a CLI into a dedicated uv venv.
-.DESCRIPTION
-    A uv tool shim would put the launcher beside uv's default python, but az.bat needs its own python.exe next to it.
-.PARAMETER Tool
-    The snake_case tool key (must declare uv_venv).
-.PARAMETER Version
-    Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
-.PARAMETER Force
-    Rebuild the venv from scratch even when the tool is already present.
-#>
 function Install-UvVenvTool {
     [CmdletBinding()]
     param(
@@ -53,15 +53,15 @@ function Install-UvVenvTool {
         Join-Path $venvDir 'bin'
     }
 
-    # Seeding adds pip and setuptools, so packages that import pkg_resources, such as the azure-devops extension, load.
-    # [comment:2](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment2)
+    # --clear rebuilds the venv clean; --seed adds pip/setuptools/wheel so packages that expect `pkg_resources`...
+    # [comment:4](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment4)
     Invoke-Uv "venv `"$venvDir`" --python $pythonVersion --clear --seed"
     Invoke-Uv "pip install --python `"$venvDir`" $($config.uv_venv)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 
     Sync-SessionPath
 
-    # Append, never prepend: the venv holds its own python.exe, which would shadow the uv-managed python.
-    # [comment:3](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment3)
+    # APPEND the venv's script directory to PATH (the janitor keeps it there each load via session_path_hints).
+    # [comment:5](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment5)
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $scriptsDir) {
         $env:PATH = "$env:PATH$([System.IO.Path]::PathSeparator)$scriptsDir"
         Write-Message "Session PATH: appended '$scriptsDir'"

@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-NOPWD#1
       - ADR-CONF-LOADING#6
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
@@ -48,6 +47,24 @@ strict-clean
 ```
 
 ## comment:3
+
+Above `$isCommand = { param($node) $node -is...`.
+
+```text
+Test enforcers — the `-Tag` citations of Describe/Context/It, read by AST so a citation-shaped fixture
+string is never mistaken for a real tag.
+```
+
+## comment:4
+
+Above `$cached =...`.
+
+```text
+strict-clean
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:5
 
 Above `$isCommand = { param($node) $node -is...`.
 

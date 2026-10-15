@@ -4,17 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-FLOW-CD-GLOBS#10
 ---
 #>
 
-# Integrity: per-layer independence
-# ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)) holds in the REAL repository —
-# within every non-loose
-# layer, no two globsets (declared or derived) select a common file on their OWN contribution. The
-# 'loose-fileset' layer is exempt: its sets are cross-cutting check surfaces (a track's root concern, a scan
-# scope, the reserved umbrellas) and overlap by design. A module or deployable-unit that starts containing
-# part of a peer — a mis-scoped include, an umbrella mis-declared as a module — fails here, locally and in
-# CI. L2 because the tracked-file universe comes from the real git CLI.
+# Integrity: per-layer independence holds in the REAL repository — within every non-loose layer, no two globsets...
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md#comment1)
 Describe 'GlobSet independence' -Tag 'L2', 'integrity', 'source-only' {
     It 'every non-loose layer is pairwise-disjoint on OWN membership (ADR-FLOW-CD-GLOBS#10)' {
         $result = Test-GlobSetIndependence -PassThru -OutputFolder (Join-Path $TestDrive 'globset-independence')

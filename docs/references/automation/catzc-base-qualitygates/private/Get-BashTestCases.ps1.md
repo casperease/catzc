@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-BashTestCases.ps1.md
     kind: comment-page
     body_sha: "9ee2694afd6e"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-BashTestCases.ps1

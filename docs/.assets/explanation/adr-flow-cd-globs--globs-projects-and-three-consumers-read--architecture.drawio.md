@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.md
     kind: asset-description
     body_sha: "8e52d2fa68f4"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png
       - docs/explanation/flow/globs-projects-and-three-consumers-read.md

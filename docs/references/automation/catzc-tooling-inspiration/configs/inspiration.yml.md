@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-PATH#11
-    links: []
 ---
 
 # automation/Catzc.Tooling.Inspiration/configs/inspiration.yml

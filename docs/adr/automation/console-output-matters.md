@@ -16,7 +16,6 @@ catzc:
       - ADR-AUTO-CONSOLE#10
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-CONSOLE#12
-    adrs: []
     links:
       - docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types14
       - docs/adr/automation/log-before-invoke.md

@@ -9,7 +9,6 @@ catzc:
       - ADR-PWSH-VERBS#6
       - ADR-REPO-CONTRACT#4
       - ADR-REPO-CONTRACT#6
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/Get-ContractCheckResults.ps1

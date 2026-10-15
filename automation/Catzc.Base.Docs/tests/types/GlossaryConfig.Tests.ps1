@@ -4,14 +4,20 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-VOCAB#1
+      - ADR-REPO-VOCAB#2
+      - ADR-REPO-VOCAB#3
+      - ADR-REPO-VOCAB#4
+      - ADR-REPO-VOCAB#5
+      - ADR-REPO-VOCAB#6
+      - ADR-REPO-VOCAB#8
 ---
 #>
 
-# Validates the compiled GlossaryConfig type and the records it builds (GlossaryOptions, GlossaryConcept,
-# GlossaryRealization, GlossaryAvoid) directly — the constructor is the guard that stops a malformed glossary source
-# from ever producing an instance. Only the self-contained load-time rules live here; the cross-source and
-# cross-file checks belong to the glossary checks. Fixture terms are neutral (widget/gadget,
-# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Validates the compiled GlossaryConfig type and the records it builds (GlossaryOptions, GlossaryConcept,...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md#comment1)
 Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {

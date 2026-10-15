@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/private/Get-UvVenvDir.ps1.md
     kind: comment-page
     body_sha: "8beb894c5758"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/private/Get-UvVenvDir.ps1

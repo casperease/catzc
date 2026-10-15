@@ -4,13 +4,17 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AZ-DATAMOD#10
+      - ADR-AZ-DATAMOD#11
 ---
 #>
 
 Describe 'Resolve-BicepParameterAddresses' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Invoke the private function in the module's scope; the config reader is mocked at its boundary with neutral
-        # widget/gadget addresses ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+        # Invoke the private function in the module's scope; the config reader is mocked at its boundary with neutral...
+        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Resolve-BicepParameterAddresses.Tests.ps1.md#comment1)
         $script:resolve = {
             param([System.Collections.IDictionary] $parameters)
             & (Get-Module Catzc.Azure.Templates) {

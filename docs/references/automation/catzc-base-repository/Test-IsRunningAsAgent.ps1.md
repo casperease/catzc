@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-repository/Test-IsRunningAsAgent.ps1.md
     kind: comment-page
     body_sha: d385da52e75f
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Repository/Test-IsRunningAsAgent.ps1

@@ -8,19 +8,19 @@ catzc:
     visibility: private
     adrs:
       - ADR-PWSH-DRYRUN#1
+  config:
+    synopsis: Stops exactly the named processes that hold a .NET install open, then asserts the install is free.
+    description: |-
+      Stops each holder Get-DotnetInstallHolder named — by process id, nothing else — and waits for it to exit,
+      so its handles on the install are released. A process that already exited is skipped. Refuses to stop the
+      calling session itself. Throws when the install is still held afterwards (a process restarted, or a new
+      holder appeared).
+    parameters:
+      InstallDir: The .NET install directory.
+      Holder: The holders to stop, as Get-DotnetInstallHolder returned them.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Stops exactly the named processes that hold a .NET install open, then asserts the install is free.
-.DESCRIPTION
-    The calling session is never stopped, and it throws when the install is still held afterwards.
-.PARAMETER InstallDir
-    The .NET install directory.
-.PARAMETER Holder
-    The holders to stop, as Get-DotnetInstallHolder returned them.
-#>
 function Stop-DotnetInstallHolder {
     [CmdletBinding()]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Private step of Uninstall-Dotnet, whose -Force is the confirmation — see ADR-PWSH-DRYRUN#1')]

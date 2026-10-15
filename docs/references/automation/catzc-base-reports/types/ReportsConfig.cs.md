@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Reports/types/ReportsConfig.cs

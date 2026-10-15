@@ -6,7 +6,6 @@ catzc:
     body_sha: "26a1ff45e109"
     adrs:
       - ADR-REPO-OUTFMT#1
-    links: []
 ---
 
 # automation/Catzc.Base.Reports/types/OutputPattern.cs

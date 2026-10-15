@@ -6,7 +6,6 @@ catzc:
     body_sha: "0f212045c983"
     adrs:
       - ADR-PWSH-TYPES#1
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/SquarifiedTreemap.cs

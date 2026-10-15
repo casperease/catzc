@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# Validates the compiled DocPattern type directly — the constructor is the gate that stops a malformed
-# readme.yml patterns entry from ever producing an instance.
+# Validates the compiled DocPattern type directly — the constructor is the gate that stops a malformed readme.yml...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/DocPattern.Tests.ps1.md#comment1)
 Describe 'DocPattern' -Tag 'L0', 'logic' {
     It 'constructs and exposes glob + source' {
         $p = [Catzc.Base.Docs.DocPattern]::new(@{ glob = 'automation/*'; source = 'docs/references/automation/{kebab}.md' })

@@ -4,7 +4,6 @@ catzc:
     path: docs/index.md
     kind: index
     body_sha: b721d0354e1f
-    adrs: []
     links:
       - docs/adr/automation/avoid-deep-nesting.md
       - docs/adr/automation/caching.md

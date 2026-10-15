@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/.internal/tests/Test-FolderConventions.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#35
 ---
 #>
 
-# The folder and file conventions over the real tree, through their quality gate (Test-FolderConventions,
-# Catzc.Base.ModuleSystem — [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). The gate
-# scans the tree once and lists every offender; this block runs it at its tier and guards it against a silent no-op.
+# The folder and file conventions over the real tree, through their quality gate (Test-FolderConventions,...
+# [comment:1](/docs/references/automation/internal/tests/Test-FolderConventions.Tests.ps1.md#comment1)
 Describe 'Folder & file conventions' -Tag 'L0', 'integrity' {
     BeforeAll {
         $script:result = Test-FolderConventions -PassThru -OutputFolder (Join-Path $TestDrive 'folder-conventions')

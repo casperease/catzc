@@ -4,13 +4,19 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-CONTRACT#7
+      - ADR-REPO-CONTRACT#9
+      - ADR-REPO-FORMAT#5
+      - ADR-REPO-README#7
 ---
 #>
 
-# Build-ContractReference writes one page per unit, docs/references/contracts/<unit>.md, listing each version folder's
-# assets with their notes ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)), as a
-# committed generated page ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)).
-# Fixtures are a widget repository in TestDrive ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Build-ContractReference writes one page per unit, docs/references/contracts/<unit>.md, listing each version...
+# [comment:1](/docs/references/automation/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md#comment1)
 Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-File {
@@ -138,7 +144,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 }
 
 # The real contract reference against the real contracts/ tree: the committed pages are what the writer would write now.
-# Reads only the repository's files.
+# [comment:2](/docs/references/automation/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md#comment2)
 Describe 'Build-ContractReference — generated contract reference' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
     It 'every unit''s page is current — no drift from its assets' {
         $results = @(Build-ContractReference -DryRun -PassThru -Silent)

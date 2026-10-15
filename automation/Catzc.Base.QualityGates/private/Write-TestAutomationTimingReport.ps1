@@ -6,24 +6,21 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Renders the over-limit timing section of a Test-Automation run and returns whether it fails the run.
+    description: |-
+      Validates the run's rows against the per-level time limits (Get-TestTimingViolation owns the per-row
+      check) and, when any test is over, writes the framed report — red and run-failing under
+      -EnforceTimings, yellow and report-only otherwise (timings are machine-dependent, so enforcement is
+      the caller's opt-in). Silent when nothing is over.
+    parameters:
+      Rows: The run's aggregated per-test rows.
+      Limits: The per-level millisecond limits (level tag -> limit).
+      EnforceTimings: Turn the report into a run failure (the returned value).
+    outputs: '[bool] $true when violations exist AND -EnforceTimings was passed — the run''s timing verdict.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Renders the over-limit timing section of a Test-Automation run and returns whether it fails the run.
-.DESCRIPTION
-    Timings vary by machine, so over-limit tests only fail the run when the caller opts in with -EnforceTimings.
-.PARAMETER Rows
-    The run's aggregated per-test rows.
-.PARAMETER Limits
-    The per-level millisecond limits (level tag -> limit).
-.PARAMETER EnforceTimings
-    Turn the report into a run failure (the returned value).
-.OUTPUTS
-    [bool] $true when violations exist AND -EnforceTimings was passed — the run's timing verdict.
-#>
 function Write-TestAutomationTimingReport {
     [CmdletBinding()]
     [OutputType([bool])]

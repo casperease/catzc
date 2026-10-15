@@ -6,24 +6,27 @@ catzc:
     kind: public-function
     module: Catzc.Base.Files
     visibility: public
-    adrs: []
+  config:
+    synopsis: 'Returns the repository paths that differ from HEAD: what the working tree has changed.'
+    description: |-
+      The working-tree counterpart of Get-GitTrackedPath: every path at or under the given paths that git status
+      reports — staged or unstaged, modified, added, deleted, and untracked files that no .gitignore rule ignores — as a
+      repo-relative, '/'-separated path, sorted ordinally, each once. A rename counts as both of its paths (--no-renames),
+      like a committed range's changed files: a file moving into or out of a scope changes both. A deleted path is
+      listed too; a caller that reads files skips what no longer exists.
+
+      One read-only `git status --porcelain=v1 -z --untracked-files=all --no-renames` from the repository root (never
+      $PWD); -z keeps every path literal (no quoting, any character). Runs through Invoke-Executable -Silent, so a git
+      failure throws.
+    parameters:
+      Path: The repository-relative, '/'-separated paths (files or folders) to look under; '.' (the default) for all.
+    outputs: '[string]'
+    examples:
+      - Get-GitChangedPath
+      - Get-GitChangedPath 'automation/Catzc.Base.Files', 'docs'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the repository paths that differ from HEAD: what the working tree has changed.
-.DESCRIPTION
-    A rename counts as both paths and a deleted path is listed, so a caller that reads files must skip missing ones.
-.PARAMETER Path
-    The repository-relative, '/'-separated paths (files or folders) to look under; '.' (the default) for all.
-.OUTPUTS
-    [string]
-.EXAMPLE
-    Get-GitChangedPath
-.EXAMPLE
-    Get-GitChangedPath 'automation/Catzc.Base.Files', 'docs'
-#>
 function Get-GitChangedPath {
     [CmdletBinding()]
     [OutputType([string])]

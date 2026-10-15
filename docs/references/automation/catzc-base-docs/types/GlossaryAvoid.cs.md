@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-VOCAB#5
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryAvoid.cs

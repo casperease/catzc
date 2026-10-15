@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
     kind: comment-page
     body_sha: "54143d294af8"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1

@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
     kind: asset-description
     body_sha: "1f468b4b3f2b"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
       - docs/explanation/configuration/two-test-files-check-the-address-rules.md

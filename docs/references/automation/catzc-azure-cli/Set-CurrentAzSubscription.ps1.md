@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-cli/Set-CurrentAzSubscription.ps1.md
     kind: comment-page
     body_sha: d1accdf26d72
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Set-CurrentAzSubscription.ps1

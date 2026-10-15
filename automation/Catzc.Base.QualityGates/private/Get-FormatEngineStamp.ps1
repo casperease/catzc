@@ -8,23 +8,24 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-CACHE#10
+  config:
+    synopsis: The fingerprint of everything besides a file's own bytes that decides what a formatter engine writes.
+    description: |-
+      Format-Code's result cache keys a file on its SHA-256 and this stamp (Get-ContentStamp): the engine's name and each
+      settings entry languages.yml lists for the engine. An entry is a whole file, or `<file>#<key>` for one top-level key
+      of a YAML file; the tool registry is listed by the keys of the tools the engine runs, so that tool's new pin is a new
+      stamp and another tool's pin edit is not
+      ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)). A missing file or key hashes as
+      missing, so adding or removing an input changes the stamp. No input is known here that languages.yml does not
+      declare.
+    parameters:
+      Engine: The engine name, as languages.yml spells it.
+      Settings: 'The engine''s settings entries, repository-relative: a file, or `<file>#<key>` for one top-level key of a YAML file.'
+      RepositoryRoot: The repository root.
+    outputs: '[string] A hex SHA-256.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    The fingerprint of everything besides a file's own bytes that decides what a formatter engine writes.
-.DESCRIPTION
-    A `<file>#<key>` entry stamps one key's value, so another tool's pin edit leaves this engine's cache warm.
-.PARAMETER Engine
-    The engine name, as languages.yml spells it.
-.PARAMETER Settings
-    The engine's settings entries, repository-relative: a file, or `<file>#<key>` for one top-level key of a YAML file.
-.PARAMETER RepositoryRoot
-    The repository root.
-.OUTPUTS
-    [string] A hex SHA-256.
-#>
 function Get-FormatEngineStamp {
     [CmdletBinding()]
     [OutputType([string])]

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-git/types/GitIndex.cs.md
     kind: comment-page
     body_sha: "0133eb836114"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Git/types/GitIndex.cs

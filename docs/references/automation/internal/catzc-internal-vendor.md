@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/internal/catzc-internal-vendor.md
     kind: reference
     body_sha: af35dd6b1d66
-    adrs: []
     links:
       - docs/adr/principles/one-living-version.md
       - docs/adr/pwsh/use-ps1-not-psm1.md

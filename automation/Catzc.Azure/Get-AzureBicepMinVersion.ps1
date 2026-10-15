@@ -6,18 +6,17 @@ catzc:
     kind: public-function
     module: Catzc.Azure
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the minimum required Bicep CLI version from azure.yml.
+    description: |-
+      Reads the required `bicep_min_version` global from configs/azure.yml (validated as MAJOR.MINOR.PATCH
+      by the AzureConfig type on load) and returns it as a [version] for comparison. Assert-AzCliBicep /
+      Test-AzCliBicep use it to decide whether `az bicep build` may run.
+    examples:
+      - 'Get-AzureBicepMinVersion   # -> 0.30.0'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the minimum required Bicep CLI version from azure.yml.
-.DESCRIPTION
-    Returned as a version object, not text, so 0.9.0 correctly compares below 0.30.0.
-.EXAMPLE
-    Get-AzureBicepMinVersion   # -> 0.30.0
-#>
 function Get-AzureBicepMinVersion {
     [OutputType([version])]
     param()

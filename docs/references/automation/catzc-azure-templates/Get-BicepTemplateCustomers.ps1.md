@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/Get-BicepTemplateCustomers.ps1.md
     kind: comment-page
     body_sha: fce1c904a803
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepTemplateCustomers.ps1

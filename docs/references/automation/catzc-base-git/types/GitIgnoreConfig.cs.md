@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md
     kind: comment-page
     body_sha: b52f3850a453
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Git/types/GitIgnoreConfig.cs

@@ -6,7 +6,6 @@ catzc:
     body_sha: c3497bc3dff1
     adrs:
       - ADR-REPO-LINK#2
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Resolve-AdrLinkTarget.ps1

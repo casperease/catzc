@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-execution.md
     kind: reference
     body_sha: "2bdf7837d79e"
-    adrs: []
     links:
       - docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
       - docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png

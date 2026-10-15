@@ -6,7 +6,6 @@ catzc:
     body_sha: f752260e7164
     adrs:
       - ADR-AUTO-ASSETDEP#2
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
@@ -55,6 +54,16 @@ Expression; Reason }) instead of the inventory, and do not throw.
 ```
 
 ## comment:3
+
+Above `$helperName = 'Get-CatzcModuleRoot'`.
+
+```text
+The helper's own parameter metadata decides how each argument binds: which names (or unambiguous
+prefixes, or aliases) mean -ChildPath / -Module, and which other parameters take a value (common
+parameters such as -ErrorAction) so their value is never mistaken for the positional child path.
+```
+
+## comment:4
 
 Above `$helperName = 'Get-CatzcModuleRoot'`.
 

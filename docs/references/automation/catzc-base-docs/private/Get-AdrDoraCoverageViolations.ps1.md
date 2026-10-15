@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-docs/private/Get-AdrDoraCoverageViolations.ps1.md
     kind: comment-page
     body_sha: c02604046f10
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-AdrDoraCoverageViolations.ps1

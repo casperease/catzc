@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-PESTER#3
 ---
 #>
 
 Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
-    # The session read is a whole-function boundary mock
-    # ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)); config discovery
-    # redirects to
-    # the fixture identities, so nothing production is in play.
+    # The session read is a whole-function boundary mock; config discovery redirects to the fixture identities, so...
+    # [comment:1](/docs/references/automation/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md#comment1)
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Cli'

@@ -6,24 +6,20 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Merges a run's measured per-file durations into the test duration history.
+    description: |-
+      Files this run did not measure keep their entries, so a partial run (one module, one tier) forgets nothing. A faster run lowers
+      Each file the run measured replaces its entry; files the run did not run keep theirs, so a partial run (one
+      module, one tier) never forgets the rest. The file is written sorted by path, so it diffs cleanly, and written
+      only after the run's own results are safe, so a crash cannot corrupt it. See Get-TestDurationHistory.
+    parameters:
+      Path: The history file.
+      DurationMs: This run's measurements, repository-relative '/'-separated file path -> milliseconds.
+      Decay: The share of the stored duration a faster run keeps (0 up to, not including, 1); omitted reads duration_decay from test-policy.yml.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Merges a run's measured per-file durations into the test duration history.
-.DESCRIPTION
-    Files this run did not measure keep their entries, so a partial run (one module, one tier) forgets nothing. A faster run lowers
-    an entry only by the decay, so one warm-cache run does not hide a file that is slow when its cache is cold.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Save-TestDurationHistory.ps1.md#comment1)
-.PARAMETER Path
-    The history file.
-.PARAMETER DurationMs
-    This run's measurements, repository-relative '/'-separated file path -> milliseconds.
-.PARAMETER Decay
-    The share of the stored duration a faster run keeps (0 up to, not including, 1); omitted reads duration_decay from test-policy.yml.
-#>
 function Save-TestDurationHistory {
     [CmdletBinding()]
     param(

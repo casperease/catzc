@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# The vscode-settings.yml type: constructing it maps and validates the parsed YAML, so a malformed settings
-# registry never loads through Get-Config -Config vscode-settings.
+# The vscode-settings.yml type: constructing it maps and validates the parsed YAML, so a malformed settings registry...
+# [comment:1](/docs/references/automation/catzc-base-vscode/tests/types/VscodeSettingsConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {
     BeforeAll {
         function Get-ViolationMessage {

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-cli/Get-AzCliConnectionState.ps1.md
     kind: comment-page
     body_sha: "689497677d07"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Get-AzCliConnectionState.ps1

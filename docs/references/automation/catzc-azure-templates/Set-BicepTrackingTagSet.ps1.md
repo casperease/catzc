@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md
     kind: comment-page
     body_sha: "65acded35aea"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
@@ -56,6 +54,26 @@ State-changing function deliberately uses -DryRun, not ShouldProcess — see
 ```
 
 ## comment:4
+
+Above `$result = Invoke-AzCli $command -PassThru -NoAssert`.
+
+```text
+-NoAssert: take the result in hand so a failure throws WITH context (scope, command, az stderr)
+from here, rather than the generic exit-code assertion buried in Invoke-Executable. az's stderr is
+where the real cause shows up — a RequestDisallowedByPolicy / tag-policy collision, a dropped
+connection, an auth problem — so it must travel in the thrown error, not just the console stream.
+```
+
+## comment:5
+
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStat...`.
+
+```text
+State-changing function deliberately uses -DryRun, not ShouldProcess — see
+[ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+```
+
+## comment:6
 
 Above `$result = Invoke-AzCli $command -PassThru -NoAssert`.
 

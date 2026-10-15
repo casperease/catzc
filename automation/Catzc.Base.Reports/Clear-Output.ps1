@@ -9,27 +9,20 @@ catzc:
     adrs:
       - ADR-AUTO-DRYRUN#1
       - ADR-REPO-OUTDIR#7
+  config:
+    synopsis: 'Removes the output that output-formats.yml no longer keeps: old run stamps, stale session files, superseded builds.'
+    description: Each format's area sets how many stamps or files stay and how old they may grow; a file no format covers is reported, never removed.
+    parameters:
+      All: Remove everything under the output root but its .gitkeep and the plan files, which cannot be regenerated, whatever the formats keep.
+      DryRun: Report what would be removed without removing anything.
+      PassThru: Return { Removed; Uncovered; UnitCount; DryRun } instead of only the removed paths.
+    outputs: '[string[]] the output-root-relative paths removed (or, under -DryRun, that would be); with -PassThru, the result object.'
+    examples:
+      - Clear-Output -DryRun
+      - Clear-Output -All
 ---
 #>
 
-<#
-.SYNOPSIS
-    Removes the output that output-formats.yml no longer keeps: old run stamps, stale session files, superseded builds.
-.DESCRIPTION
-    Each format's area sets how many stamps or files stay and how old they may grow; a file no format covers is reported, never removed.
-.PARAMETER All
-    Remove everything under the output root but its .gitkeep and the plan files, which cannot be regenerated, whatever the formats keep.
-.PARAMETER DryRun
-    Report what would be removed without removing anything.
-.PARAMETER PassThru
-    Return { Removed; Uncovered; UnitCount; DryRun } instead of only the removed paths.
-.OUTPUTS
-    [string[]] the output-root-relative paths removed (or, under -DryRun, that would be); with -PassThru, the result object.
-.EXAMPLE
-    Clear-Output -DryRun
-.EXAMPLE
-    Clear-Output -All
-#>
 function Clear-Output {
     [CmdletBinding()]
     [OutputType([string[]])]

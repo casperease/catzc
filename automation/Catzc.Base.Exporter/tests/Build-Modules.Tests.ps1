@@ -9,8 +9,8 @@ catzc:
 
 Describe 'Build-Modules' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The engine (Catzc.Internal.Builder) is loaded on demand and is a mocked boundary here; a stub makes the
-        # command exist for Mock when the engine module is not loaded in this session.
+        # The engine (Catzc.Internal.Builder) is loaded on demand and is a mocked boundary here; a stub makes the...
+        # [comment:1](/docs/references/automation/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md#comment1)
         $script:stubbedEngine = $false
         if (-not (Get-Command Invoke-ModuleBuild -ErrorAction Ignore)) {
             $null = New-Item -Path Function:\global:Invoke-ModuleBuild -Value {

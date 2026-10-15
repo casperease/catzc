@@ -10,23 +10,25 @@ catzc:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-VENDOR
       - ADR-PWSH-VENDOR#7
+  config:
+    synopsis: Saves a PowerShell module into the automation/.vendor directory from the configured source.
+    description: |-
+      Downloads with Save-PSResource from the vendor source (configs/vendor.yml — PSGallery by default, or a
+      custom feed) into automation/.vendor/<Name>/<Version>/, then removes folders the toolset never loads
+      (legacy .NET Framework builds, PSScriptAnalyzer's compatibility_profiles). The only supported way to add a vendor module
+      ([ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md)); commit the result.
+      Must be run in a fresh session — a loaded module may lock its files. Writes into the source tree's
+      .vendor, so it stops with a named error in build mode (Assert-SourceTree,
+      [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
+    parameters:
+      Name: The module name to install from the vendor source.
+      RequiredVersion: An optional specific version to install. Installs the latest if omitted.
+    examples:
+      - Install-VendorModule 'Pester'
+      - Install-VendorModule 'Pester' -RequiredVersion '5.5.0'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Saves a PowerShell module into the automation/.vendor directory from the configured source.
-.DESCRIPTION
-    Run it in a fresh session: a loaded module locks its files, and build mode stops with a named error.
-.PARAMETER Name
-    The module name to install from the vendor source.
-.PARAMETER RequiredVersion
-    An optional specific version to install. Installs the latest if omitted.
-.EXAMPLE
-    Install-VendorModule 'Pester'
-.EXAMPLE
-    Install-VendorModule 'Pester' -RequiredVersion '5.5.0'
-#>
 function Install-VendorModule {
     [CmdletBinding()]
     param(
@@ -64,8 +66,8 @@ function Install-VendorModule {
     Write-Verbose "Downloading $Name from the vendor source$(if ($RequiredVersion) { " (v$RequiredVersion)" })"
     Save-PSResource @saveParams
 
-    # Drops legacy .NET Framework builds and the 280 MB compatibility_profiles, which no enabled rule reads.
-    # [comment:2](/docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md#comment2)
+    # Prune folders the toolset never loads: legacy.NET Framework builds (we only target PS 7+ /.NET 6+) and...
+    # [comment:3](/docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md#comment3)
     $moduleDir = Join-Path $vendorRoot $Name
     $prunedFolders = @('net20', 'net35', 'net40', 'net45', 'net451', 'net452',
         'net46', 'net461', 'net462', 'net47', 'net471', 'net472', 'net48', 'compatibility_profiles')

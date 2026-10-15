@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-BUNDLE#7
       - ADR-PWSH-VERBS#1
       - ADR-REPO-CONTRACT#5
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1
@@ -37,4 +36,13 @@ It writes files only: it never commits, and it does not check the assets. A rele
 step. Publish is the approved verb for making a resource available to others
 ([ADR-PWSH-VERBS#1](/docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs1)): the frozen
 folder is what a consumer pins.
+```
+
+## comment:2
+
+Above `$files = [string[]] @(Get-ChildPath $draft -File -Depth 64 -Exclude @()...`.
+
+```text
+A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
+freeze copies the whole draft, so no name is pruned and no depth drops a file.
 ```

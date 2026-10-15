@@ -6,7 +6,6 @@ catzc:
     body_sha: d364beacd699
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryEntry.cs

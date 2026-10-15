@@ -4,11 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-FormatScope.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-CONTRACT#5
 ---
 #>
 
-# Get-FormatScope with git mocked: the tracked files (Get-GitTrackedPath) and the .gitattributes classes
-# (Get-GitAttributeValue). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-FormatScope with git mocked: the tracked files (Get-GitTrackedPath) and the.gitattributes classes...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-FormatScope.Tests.ps1.md#comment1)
 Describe 'Get-FormatScope' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))

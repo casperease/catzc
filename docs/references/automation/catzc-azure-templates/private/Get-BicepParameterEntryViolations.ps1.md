@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md
     kind: comment-page
     body_sha: "6faf42a84cf8"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/private/Get-BicepParameterEntryViolations.ps1
@@ -34,6 +32,15 @@ A reference is resolved only at deploy time, so it is checked for its shape alon
 ```
 
 ## comment:2
+
+Above `if ($Parameter.IsSecure) {`.
+
+```text
+A secure parameter takes its value from a Key Vault at deploy time. A literal is a secret in the repository;
+say so without ever echoing it.
+```
+
+## comment:3
 
 Above `if ($Parameter.IsSecure) {`.
 

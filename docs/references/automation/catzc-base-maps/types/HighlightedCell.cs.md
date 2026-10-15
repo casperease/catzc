@@ -6,7 +6,6 @@ catzc:
     body_sha: d05e2d3dfb2e
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/HighlightedCell.cs

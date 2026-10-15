@@ -6,7 +6,6 @@ catzc:
     body_sha: "45f1dc541649"
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1

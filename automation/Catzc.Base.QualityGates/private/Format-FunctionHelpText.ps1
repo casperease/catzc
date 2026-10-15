@@ -11,19 +11,19 @@ catzc:
       - ADR-REPO-HELP#2
       - ADR-REPO-HELP#3
       - ADR-REPO-HELP#4
+  config:
+    synopsis: Writes the normal form of a function file's help block and reports what only a person can settle.
+    description: |-
+      Sections move and citations are ordered, but no prose is written: text a person authored is left as it is.
+      [ADR-REPO-HELP#1](/docs/adr/repository/function-help.md#rule-adr-repo-help1),
+      [ADR-REPO-HELP#2](/docs/adr/repository/function-help.md#rule-adr-repo-help2),
+      [ADR-REPO-HELP#3](/docs/adr/repository/function-help.md#rule-adr-repo-help3),
+    parameters:
+      Text: The text of one function file.
+    outputs: '[pscustomobject] @{ Text; Problems } — the file text in normal form, and the problems a person must settle.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Writes the normal form of a function file's help block and reports what only a person can settle.
-.DESCRIPTION
-    Sections move and citations are ordered, but no prose is written: text a person authored is left as it is.
-.PARAMETER Text
-    The text of one function file.
-.OUTPUTS
-    [pscustomobject] @{ Text; Problems } — the file text in normal form, and the problems a person must settle.
-#>
 function Format-FunctionHelpText {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

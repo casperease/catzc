@@ -4,12 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-THES-ONETRUTH#3
 ---
 #>
 
-# ValueChainMap places each ADR on its ADR domain's row in the column of each of its value-chain concerns
-# ([ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)), with widget/gadget fixtures
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# ValueChainMap places each ADR on its ADR domain's row in the column of each of its value-chain concerns, with...
+# [comment:1](/docs/references/automation/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md#comment1)
 Describe 'ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:adr = {

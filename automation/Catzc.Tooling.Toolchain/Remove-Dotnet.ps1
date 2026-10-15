@@ -11,23 +11,37 @@ catzc:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6
       - ADR-AUTO-REMOVE#7
+  config:
+    synopsis: Evicts an off-config .NET install — one the tooling's managed user-space install does not own.
+    description: |-
+      The destructive escape hatch beside Install-/Uninstall-Dotnet
+      ([ADR-AUTO-REMOVE](/docs/adr/automation/tool-removal-lifecycle.md)). It refuses the managed install —
+      Uninstall-Dotnet
+      owns that — and decides "managed" for the folder it is about to remove, not for whatever `dotnet` resolves to on
+      PATH: in a catzc session PATH always leads to the managed install, so asking about PATH would refuse every stray one.
+
+      Windows: the target folder defaults to the `dotnet` on PATH, or, when that is the managed install, the machine-wide
+      C:\Program Files\dotnet. A folder that Windows-registered products own (the .NET SDK / runtime installers, listed in
+      Apps & features) is not deleted by hand — that would orphan every entry — so the products are listed with the
+      command that removes each by its own installer, and nothing is touched. Installer bundles come first and alone: a
+      bundle holds the MSI products it installed, which go only with it, so the next run names whatever is left. Only an
+      unregistered folder is deleted, with
+      its machine PATH entry and DOTNET_ROOT (needs Administrator,
+      [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
+
+      Linux / macOS: evicts an off-config install by the mechanism that placed it (native package / uv-Python pip /
+      stray binary).
+    parameters:
+      InstallDir: |-
+        The .NET installation folder to evict (Windows). Default: the `dotnet` on PATH, or the machine-wide
+        C:\Program Files\dotnet when the one on PATH is the managed install.
+      Force: Actually perform the removal. Without this, shows what would be removed.
+    examples:
+      - Remove-Dotnet
+      - Remove-Dotnet -InstallDir 'C:\Program Files\dotnet' -Force
 ---
 #>
 
-<#
-.SYNOPSIS
-    Evicts an off-config .NET install — one the tooling's managed user-space install does not own.
-.DESCRIPTION
-    Managed is judged for the target folder, not PATH: in a catzc session PATH always leads to the managed install.
-.PARAMETER InstallDir
-    Defaults to the dotnet on PATH, or the machine-wide Program Files folder when PATH leads to the managed install.
-.PARAMETER Force
-    Actually perform the removal. Without this, shows what would be removed.
-.EXAMPLE
-    Remove-Dotnet
-.EXAMPLE
-    Remove-Dotnet -InstallDir 'C:\Program Files\dotnet' -Force
-#>
 function Remove-Dotnet {
     [CmdletBinding()]
     param(
@@ -39,8 +53,8 @@ function Remove-Dotnet {
 
     $config = Get-ToolConfig -Tool 'dotnet'
 
-    # The off-config install here is the one on PATH, so the managed check asks about PATH.
-    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment3)
+    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
+    # [comment:8](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment8)
     if ($IsLinux -or $IsMacOS) {
         if (Test-ExpectedPackageManager -Config $config) {
             throw 'Dotnet is managed by the tooling system. Use Uninstall-Dotnet instead.'
@@ -63,14 +77,14 @@ function Remove-Dotnet {
 
     $resolvedDir = [System.IO.Path]::GetFullPath($InstallDir).TrimEnd('\', '/')
 
-    # Judged for this folder, since PATH always leads to the managed install and would refuse every stray one.
-    # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment4)
+    # Gate: the managed install is Uninstall-Dotnet's, judged for this folder.
+    # [comment:9](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment9)
     if (Test-ExpectedPackageManager -Config $config -Path $resolvedDir) {
         throw "'$resolvedDir' is the managed .NET install. Use Uninstall-Dotnet instead."
     }
 
-    # Checked before the folder itself, so registrations whose files are already gone are still reported.
-    # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment5)
+    # A folder registered products own is removed by their mechanism, never by deleting it — checked before the...
+    # [comment:10](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment10)
     $machineFolders = @('C:\Program Files\dotnet', 'C:\Program Files (x86)\dotnet')
     # Assigned in the branch: an `if` expression would turn an empty @() into $null.
     [object[]] $products = @()
@@ -78,8 +92,8 @@ function Remove-Dotnet {
         $products = @(Get-RegisteredInstallProduct '^Microsoft (ASP\.NET Core|\.NET|Windows Desktop Runtime)\b|^Microsoft\.NET\.')
     }
     if ($products.Count -gt 0) {
-        # Uninstalling a bundle's MSI product directly reports success but removes nothing, so only bundles are named.
-        # [comment:6](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment6)
+        # A bundle holds the MSI products it installed as their dependent: uninstalling one of those directly reports...
+        # [comment:11](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment11)
         [object[]] $bundles = @($products | Where-Object Kind -EQ 'Bundle')
         $toRemove = $bundles.Count -gt 0 ? $bundles : $products
         Write-Message ("'$resolvedDir' is owned by $($products.Count) Windows-registered .NET product(s); deleting it by hand would " +
@@ -105,8 +119,8 @@ function Remove-Dotnet {
         return
     }
 
-    # Asserted after the preview and registered-product exits, so a dry run never needs an elevated shell.
-    # [comment:7](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment7)
+    # Deleting the folder and the machine PATH entry needs Administrator — asserted for this step only.
+    # [comment:12](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment12)
     Assert-IsAdministrator
     Write-Message "Removing: $resolvedDir"
     $pathChanged = Remove-SystemInstallation -InstallDir $resolvedDir -EnvironmentVariables 'DOTNET_ROOT'

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-execution/Find-Executable.ps1.md
     kind: comment-page
     body_sha: f9f44be3cdfb
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Execution/Find-Executable.ps1

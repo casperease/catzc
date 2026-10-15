@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md
     kind: comment-page
     body_sha: "74ab3eb16473"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs

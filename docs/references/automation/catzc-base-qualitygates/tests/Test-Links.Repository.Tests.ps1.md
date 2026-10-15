@@ -1,0 +1,24 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Repository.Tests.ps1.md
+    kind: test-asset
+    body_sha: "482a47dfdf8a"
+---
+
+# automation/Catzc.Base.QualityGates/tests/Test-Links.Repository.Tests.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
+section (Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `Describe 'Repository code links (automation comments)' -Tag 'L1',...`.
+
+```text
+The real repository keeps its links aligned and resolving
+([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)). Integrity checks over the shipped tree, in two tiers: L1 is the
+fast structural pass over the automation code's comments; L2 is the full pass over every git-tracked file — every markdown
+target and #fragment — plus the formatter-stable check and the editor rule that makes code links clickable.
+Rule-tag citations and analyzer mappings are validated elsewhere (Get-TestTagViolations, Get-AnalyzerAdrCoverage).
+```

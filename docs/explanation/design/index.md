@@ -4,7 +4,6 @@ catzc:
     path: docs/explanation/design/index.md
     kind: explanation
     body_sha: "8baab60578b3"
-    adrs: []
     links:
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/module-aspects.md

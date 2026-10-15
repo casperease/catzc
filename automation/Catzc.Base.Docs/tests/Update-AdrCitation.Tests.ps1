@@ -4,15 +4,17 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DRYRUN#2
+      - ADR-AUTO-IDEM#1
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-LINK#2
+      - ADR-REPO-LINK#3
 ---
 #>
 
-# Update-AdrCitation rewrites one file's ADR references through a code map and a rule map. Every test writes its own
-# file into one shared fixture repository in $TestDrive: an ADR index of neutral widget/gizmo codes
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and the two fixture maps under
-# tests/assets/update-adr-citation/. In them one ADR moves whole to another code and folder, one moves folder and keeps
-# its code, a folder maps to a new one, one rule moves to a new ADR, and one rule collapses into a kept rule whose path
-# only the index names.
+# Update-AdrCitation rewrites one file's ADR references through a code map and a rule map.
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md#comment1)
 Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

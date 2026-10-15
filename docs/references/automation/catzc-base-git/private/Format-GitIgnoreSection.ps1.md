@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-git/private/Format-GitIgnoreSection.ps1.md
     kind: comment-page
     body_sha: f1296676727b
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Git/private/Format-GitIgnoreSection.ps1

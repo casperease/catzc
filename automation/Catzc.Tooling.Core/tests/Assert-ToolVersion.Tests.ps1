@@ -4,15 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 # cspell:ignore lockedtool
 Describe 'Assert-ToolVersion' -Tag 'L0', 'logic' {
-    # Hermetic: every collaborator is mocked in the module scope, so the assertion binds to the version-check
-    # LOGIC (pipeline lock vs devbox lever), never to the shipped tools.yml values or the installed toolchain.
-    # Fixture tools ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): faketool carries a
-    # devbox_version lever, lockedtool has none.
+    # Hermetic: every collaborator is mocked in the module scope, so the assertion binds to the version-check LOGIC...
+    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md#comment1)
     BeforeEach {
         # The per-session pass cache would short-circuit repeated tool checks — clear it between cases.
         & (Get-Module Catzc.Tooling.Core) { $script:toolVersionCache = @{} }

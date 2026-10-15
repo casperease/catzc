@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# The artifacts.yml type: constructing it maps and validates the parsed YAML, so a malformed publish-target map
-# never loads through Get-Config -Config artifacts.
+# The artifacts.yml type: constructing it maps and validates the parsed YAML, so a malformed publish-target map never...
+# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/types/ArtifactsConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Base.ModuleSystem.ArtifactsConfig' -Tag 'L0' {
     BeforeAll {
         $script:valid = {

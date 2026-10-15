@@ -6,26 +6,26 @@ catzc:
     kind: public-function
     module: Catzc.Base.Timeouts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the exemption that covers a budget GUID in this run environment, or nothing.
+    description: |-
+      Looks the budget up in timeout-exemptions.yml for the run environment (Get-RunEnvironment) and shell. An
+      exemption raises the budget's limit to its scope's ceiling while the work is tuned; it never removes the limit.
+      The result is the normalized entry: kind (single | range), from, to, environments, shells, reason.
+    parameters:
+      Budget: The budget's immutable GUID — registered in the managed-GUID registry and passed by the call site.
+      Shell: |-
+        The shell the work runs in, one of the execution engines (pwsh, bash or zsh); pwsh is the default. Any other name
+        throws, naming the shells.
+      EnvironmentAssertIs: |-
+        Pins the expected run environment (Pipeline or Devbox); a different one throws. The guard verifies, it never
+        selects.
+    outputs: '[hashtable] The covering exemption; nothing when the budget is not exempt here.'
+    examples:
+      - Get-TimeoutExemption $budget
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the exemption that covers a budget GUID in this run environment, or nothing.
-.DESCRIPTION
-    An exemption raises the budget's limit to its scope's ceiling while the work is tuned; it never removes the limit.
-.PARAMETER Budget
-    The budget's immutable GUID — registered in the managed-GUID registry and passed by the call site.
-.PARAMETER Shell
-    A name that is no execution engine throws and lists the valid shells, so a typo never reads as not exempt.
-.PARAMETER EnvironmentAssertIs
-    The guard only verifies the environment found at run time; it never selects which environment is looked up.
-.OUTPUTS
-    [hashtable] The covering exemption; nothing when the budget is not exempt here.
-.EXAMPLE
-    Get-TimeoutExemption $budget
-#>
 function Get-TimeoutExemption {
     [CmdletBinding()]
     [OutputType([hashtable])]

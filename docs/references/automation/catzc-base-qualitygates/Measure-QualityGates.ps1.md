@@ -6,7 +6,6 @@ catzc:
     body_sha: "065d6cb3217f"
     adrs:
       - ADR-AUTO-CONSOLE#10
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Measure-QualityGates.ps1
@@ -30,6 +29,15 @@ through one entry rule (Measure-CatzcRules) and are timed as that one row.
 ```
 
 ## comment:2
+
+Above `Write-Message 'Loading PSScriptAnalyzer (first use this session)...'`.
+
+```text
+First use this session pays the vendored-module import (several seconds) — announce it
+([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
+```
+
+## comment:3
 
 Above `Write-Message 'Loading PSScriptAnalyzer (first use this session)...'`.
 

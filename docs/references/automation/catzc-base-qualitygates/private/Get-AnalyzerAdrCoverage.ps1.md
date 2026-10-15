@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-AnalyzerAdrCoverage.ps1.md
     kind: comment-page
     body_sha: cb8c8f9e9897
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-AnalyzerAdrCoverage.ps1

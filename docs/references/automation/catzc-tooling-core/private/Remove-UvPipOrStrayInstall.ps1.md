@@ -6,7 +6,6 @@ catzc:
     body_sha: "87b2bec6020f"
     adrs:
       - ADR-AUTO-REMOVE#6
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1
@@ -36,6 +35,15 @@ it in.
 ```
 
 ## comment:3
+
+Above `if ([System.IO.File]::Exists($Source)) {`.
+
+```text
+Stray binary no manager owns — delete just the resolved file (a root-owned path fails the delete loudly
+rather than being force-removed silently).
+```
+
+## comment:4
 
 Above `if ([System.IO.File]::Exists($Source)) {`.
 

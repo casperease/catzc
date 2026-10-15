@@ -6,7 +6,6 @@ catzc:
     body_sha: "47a4211809fd"
     adrs:
       - ADR-PWSH-PESTER#9
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
@@ -33,6 +32,17 @@ of `<prefix>`. The globs expand over the catzc source tree, so it runs in source
 ```
 
 ## comment:2
+
+Above `foreach ($dir in ([System.IO.Directory]::EnumerateDirectories($prefixPath) |...`.
+
+```text
+[System.IO] (sorted) rather than Get-ChildItem — the cmdlet carries ~20ms of per-call provider
+overhead the raw .NET enumeration avoids
+([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)). '*' excludes dot-prefixed
+infrastructure folders.
+```
+
+## comment:3
 
 Above `foreach ($dir in ([System.IO.Directory]::EnumerateDirectories($prefixPath) |...`.
 

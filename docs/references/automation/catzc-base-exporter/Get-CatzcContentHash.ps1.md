@@ -6,7 +6,6 @@ catzc:
     body_sha: "990d6d7cf67b"
     adrs:
       - ADR-FLOW-CD-GLOBS#5
-    links: []
 ---
 
 # automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
@@ -36,4 +35,13 @@ Section `.PARAMETER Exclude` of the comment-based help.
 ```text
 Path-relative, forward-slashed file paths to omit from the hash — e.g. a build.json sidecar that itself
 carries the hash, so it cannot be part of the content it identifies.
+```
+
+## comment:3
+
+Above `$files = Get-ChildPath $rootFull -File -Depth 64 -Exclude @() -PruneVendor...`.
+
+```text
+A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the hash
+covers every file, so nothing is pruned and no depth drops one.
 ```

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md
     kind: comment-page
     body_sha: "06bddf378df8"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Get-ModuleTestOrder.ps1
@@ -48,6 +46,33 @@ each module's allowed deps, groups expanded to members). Shared with Get-ModuleD
 ```
 
 ## comment:4
+
+Above `$inDegree = @{}`.
+
+```text
+Kahn's topological sort. $modules is ordinal-sorted, so seeding/relaxing in that order keeps the
+result deterministic and alphabetical among otherwise-equal (same-layer) modules.
+```
+
+## comment:5
+
+Above `$modules = [string[]] @(Get-AutomationModules)`.
+
+```text
+Ordinal-sort the module set ourselves (not relying on the caller's order) so the topological sort's
+tie-break among same-layer modules is deterministic and alphabetical.
+```
+
+## comment:6
+
+Above `$dependencyMap = Get-ModuleDependencyMap -Module $modules`.
+
+```text
+module -> the set of modules it must run AFTER — the declared-graph edges (group-internal layering plus
+each module's allowed deps, groups expanded to members). Shared with Get-ModuleDependencyClosure.
+```
+
+## comment:7
 
 Above `$inDegree = @{}`.
 

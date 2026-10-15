@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md
     kind: comment-page
     body_sha: "1768aec2c2ec"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/Invoke-BashTest.ps1
@@ -57,6 +55,15 @@ build run's engine does not carry the tools.yml entry. Default: located here by 
 ```
 
 ## comment:4
+
+Above `if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and -not @($results |...`.
+
+```text
+bats exits 1 when a test failed; a non-zero exit with no failing test, or no test at all, means it failed around
+the tests (a .bats file that does not parse, a failing setup_file).
+```
+
+## comment:5
 
 Above `if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and -not @($results |...`.
 

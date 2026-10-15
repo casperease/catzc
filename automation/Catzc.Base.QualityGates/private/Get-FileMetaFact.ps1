@@ -8,23 +8,20 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-FILEMETA#4
+  config:
+    synopsis: Collects the derived facts of one Markdown file from every imprint kind whose globs match it.
+    description: |-
+      Each kind's processor is the function the registry names, found in this module's scope; a kind with no such function fails the
+      run and names the function it expected. A processor must return exactly the keys its kind declares, so a kind can never write a
+      key another kind owns. The facts come back in registry order, which is the order they are written.
+    parameters:
+      State: What Get-MarkdownMetaState read from the file.
+      Path: The file's repository-relative path.
+      Config: The meta-kind registry.
+    outputs: '[System.Collections.Specialized.OrderedDictionary] key to value, in registry order.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Collects the derived facts of one Markdown file from every imprint kind whose globs match it.
-.DESCRIPTION
-    A processor must return exactly its kind's keys, so a kind can never write a key another kind owns.
-.PARAMETER State
-    What Get-MarkdownMetaState read from the file.
-.PARAMETER Path
-    The file's repository-relative path.
-.PARAMETER Config
-    The meta-kind registry.
-.OUTPUTS
-    [System.Collections.Specialized.OrderedDictionary] key to value, in registry order.
-#>
 function Get-FileMetaFact {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

@@ -6,7 +6,6 @@ catzc:
     body_sha: e1c4ce1c9a39
     adrs:
       - ADR-PRIN-CONFIG#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-CommentScope.ps1

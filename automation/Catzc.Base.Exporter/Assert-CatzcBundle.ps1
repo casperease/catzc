@@ -9,20 +9,37 @@ catzc:
     adrs:
       - ADR-AUTO-BUNDLE#5
       - ADR-PWSH-ENUM#3
+  config:
+    synopsis: |-
+      Verifies a Catzc build (or an install of one) is complete and unchanged since it was built; throws with every
+      violation.
+    description: |-
+      The build's integrity guard ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)).
+      Given a build root — out/automation/built/<bundle>/Catzc/<version>/,
+      or an installed copy — it asserts:
+        - layout: build.json, Catzc.psd1, Catzc.psm1, Import-Catzc.ps1 and the .internal loader are present, and the
+          folder is named for build.json's version (a valid Catzc/<version>/ module folder);
+        - no tests/ surface anywhere outside .vendor/ (vendored modules are copied verbatim, by rule);
+        - types: exactly one .compiled/Catzc.Types.<hash>.dll, named for build.json typesHash. Every build ships the
+          full type set: the selected modules' sources under <Module>/types/, every other module's under
+          .compiled/types/<Module>/. build.json typeSources lists them all (build-relative paths); each must exist,
+          no shipped source may be missing from the list, and the sources in the list must hash (Get-CombinedTypeHash,
+          the one implementation) to typesHash — "the DLL was built from these sources" is proven by hash;
+        - modules: the module folders are exactly build.json's modules; each has its <Module>.psd1 and merged
+          <Module>.functions.ps1, the manifest's NestedModules is exactly that one file (a nested <Module>.ps1 would
+          load a second module named <Module>, which Get-Module, Mock -ModuleName and InModuleScope reject), and
+          every FunctionsToExport name resolves to a top-level function in the merged file (AST);
+        - content: Get-CatzcContentHash over the tree (build.json excluded — it carries the hash) equals build.json
+          contentHash, so nothing drifted after the build.
+      Collects every violation and throws once. Build-Modules runs it on its own output; Install-Catzc runs it on
+      the build before touching a destination.
+    parameters:
+      Path: The build root to verify (the Catzc/<version>/ folder).
+    examples:
+      - Assert-CatzcBundle -Path (Join-Path (Get-OutputRoot) 'automation/built/full/Catzc/6.6.666')
 ---
 #>
 
-<#
-.SYNOPSIS
-    Verifies a Catzc build (or an install of one) is complete and unchanged since it was built; throws with every
-    violation.
-.DESCRIPTION
-    The content hash proves nothing drifted after the build, and the types hash proves the DLL matches its sources.
-.PARAMETER Path
-    The build root to verify (the Catzc/<version>/ folder).
-.EXAMPLE
-    Assert-CatzcBundle -Path (Join-Path (Get-OutputRoot) 'automation/built/full/Catzc/6.6.666')
-#>
 function Assert-CatzcBundle {
     [CmdletBinding()]
     param(
@@ -34,7 +51,7 @@ function Assert-CatzcBundle {
     $root = [System.IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
     $violations = [System.Collections.Generic.List[string]]::new()
 
-    foreach ($required in @('Catzc.psd1', 'Catzc.psm1', 'Import-Catzc.ps1', '.internal/Catzc.Internal.Loader.psm1')) {
+    foreach ($required in @('Catzc.psd1', 'Catzc.psm1', 'Import-Catzc.ps1', '.internal/Catzc.Internal.Loader.psm1', '.internal/assets/types-load.yml')) {
         if (-not [System.IO.File]::Exists([System.IO.Path]::Combine($root, $required))) {
             $violations.Add("missing $required")
         }
@@ -55,8 +72,7 @@ function Assert-CatzcBundle {
     }
 
     # Every file once, build-relative and forward-slashed: the tests/ scan and the shipped type sources read it.
-    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the bundle
-    # is verified in full, vendored modules included, so nothing is pruned.
+    # [comment:3](/docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md#comment3)
     $files = foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
     }
@@ -101,8 +117,8 @@ function Assert-CatzcBundle {
                 }
             }
 
-            # Staged in Get-CombinedTypeHash's own layout, so the hash never rests on a second copy of its recipe.
-            # [comment:2](/docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md#comment2)
+            # Stage the sources build.json records in the one layout Get-CombinedTypeHash reads...
+            # [comment:4](/docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md#comment4)
             $staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "catzc-types-$([System.Guid]::NewGuid().ToString('N'))")
             try {
                 $sourcesComplete = $true

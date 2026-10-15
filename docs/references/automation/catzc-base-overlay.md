@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-overlay.md
     kind: reference
     body_sha: a4a0355391e6
-    adrs: []
     links:
       - docs/adr/automation/consumer-overlay.md
       - docs/adr/automation/platform-bundle.md

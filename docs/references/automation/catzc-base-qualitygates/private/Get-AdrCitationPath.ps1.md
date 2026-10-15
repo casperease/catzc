@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-AdrCitationPath.ps1.md
     kind: comment-page
     body_sha: b6fe9fe6ea72
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-AdrCitationPath.ps1

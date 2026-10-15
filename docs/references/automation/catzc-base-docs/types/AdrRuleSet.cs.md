@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#15
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrRuleSet.cs

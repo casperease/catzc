@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md
     kind: comment-page
     body_sha: "2f787f7d9b2e"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ParameterTypeConflict.ps1
@@ -27,6 +25,15 @@ more than one element type is one conflict.
 ```
 
 ## comment:2
+
+Above `$reflected = $constraint.TypeName.GetReflectionType()`.
+
+```text
+Resolve through .NET where the type is loaded, so an accelerator and its full name are one type
+([bool] is [System.Boolean]); a type that does not resolve keeps its written name.
+```
+
+## comment:3
 
 Above `$reflected = $constraint.TypeName.GetReflectionType()`.
 

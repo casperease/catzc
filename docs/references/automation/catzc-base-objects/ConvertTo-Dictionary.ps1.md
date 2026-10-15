@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md
     kind: comment-page
     body_sha: "8b7cf7961802"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Objects/ConvertTo-Dictionary.ps1
@@ -32,6 +30,16 @@ round-trip back to YAML stays byte-compatible with the original config).
 ```
 
 ## comment:2
+
+Above `$dict = ConvertTo-YamlSafe -Value $InputObject -MaxDepth $MaxDepth`.
+
+```text
+ConvertTo-YamlSafe is the shared recursive reflector — it already turns any object (typed class,
+PSCustomObject, dictionary, array) into nested ordered dicts / arrays / scalars via
+PSObject.Properties. We reuse it for the dictionary form, then optionally re-shape to PSCustomObjects.
+```
+
+## comment:3
 
 Above `$dict = ConvertTo-YamlSafe -Value $InputObject -MaxDepth $MaxDepth`.
 

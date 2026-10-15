@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#41
       - ADR-AUTO-TEST#8
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-node/Install-Cspell.ps1.md
     kind: comment-page
     body_sha: ad53066f731c
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Node/Install-Cspell.ps1

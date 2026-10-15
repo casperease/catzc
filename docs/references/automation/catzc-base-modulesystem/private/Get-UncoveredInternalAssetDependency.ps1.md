@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-TEST#13
       - ADR-PWSH-PESTER#5
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1

@@ -21,9 +21,8 @@ Describe 'Assert-GitHubPurgeReady' -Tag 'L1', 'logic' {
         Mock -ModuleName Catzc.Tooling.Github Write-Message {}
         Mock -ModuleName Catzc.Tooling.Github Test-Path { $true }
 
-        # A mock body runs in the module's session state, so it cannot reference a test-scope
-        # helper — each result object is inlined. Catch-all first: an unmocked command is a
-        # test-setup bug, not a real launch.
+        # A mock body runs in the module's session state, so it cannot reference a test-scope helper — each result...
+        # [comment:1](/docs/references/automation/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md#comment1)
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { throw "unexpected command: $Command" }
 
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = ''; Errors = '' } } -ParameterFilter { $Command -eq 'gh auth status' }

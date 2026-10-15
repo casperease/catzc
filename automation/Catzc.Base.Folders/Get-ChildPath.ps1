@@ -6,36 +6,30 @@ catzc:
     kind: public-function
     module: Catzc.Base.Folders
     visibility: public
-    adrs: []
+  config:
+    synopsis: Lists the files and folders below a folder, to a bounded depth, without loading the tree.
+    description: |-
+      The one way to enumerate children and deeper. It walks lazily in .NET, stops at the depth, never follows a link, and prunes
+      the named folders while it walks, so a pruned folder is never entered. The result is full paths in ordinal order.
+    parameters:
+      Path: The folder to list below. It must exist.
+      Depth: 'How many levels to list: 1 is the direct children only. The default is the folder-walk config''s depth.'
+      Filter: |-
+        Simple wildcard patterns matched against each name; an entry is listed when any pattern matches. A folder that does not match is
+        still entered.
+      Directory: List folders only. With -File, or with neither, both are listed.
+      File: List files only. With -Directory, or with neither, both are listed.
+      Exclude: Folder names to prune. The default is the folder-walk config's exclude list.
+      PruneVendor: |-
+        Whether the .vendor folder is pruned as well. The default is the folder-walk config's prune_vendor_in_searches, also readable as
+        global.folder-walk.prune_vendor_in_searches.
+    outputs: '[string[]] Full paths of the matching entries.'
+    examples:
+      - Get-ChildPath $modulePath -File -Filter '*.ps1'
+      - Get-ChildPath $automationRoot -Depth 3 -File -Filter '*.yml' -PruneVendor $true
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists the files and folders below a folder, to a bounded depth, without loading the tree.
-.DESCRIPTION
-    The one way to enumerate children and deeper.
-.PARAMETER Path
-    The folder to list below. It must exist.
-.PARAMETER Depth
-    How many levels to list: 1 is the direct children only. The default is the folder-walk config's depth.
-.PARAMETER Filter
-    Simple wildcard patterns matched against each name; an entry is listed when any pattern matches.
-.PARAMETER Directory
-    List folders only. With -File, or with neither, both are listed.
-.PARAMETER File
-    List files only. With -Directory, or with neither, both are listed.
-.PARAMETER Exclude
-    Folder names to prune. The default is the folder-walk config's exclude list.
-.PARAMETER PruneVendor
-    Whether the vendor folder is pruned as well.
-.OUTPUTS
-    [string[]] Full paths of the matching entries.
-.EXAMPLE
-    Get-ChildPath $modulePath -File -Filter '*.ps1'
-.EXAMPLE
-    Get-ChildPath $automationRoot -Depth 3 -File -Filter '*.yml' -PruneVendor $true
-#>
 function Get-ChildPath {
     [CmdletBinding()]
     [OutputType([string[]])]

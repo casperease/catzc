@@ -9,28 +9,41 @@ catzc:
     adrs:
       - ADR-AUTO-CACHE
       - ADR-AUTO-CONSOLE
+  config:
+    synopsis: Ask the catzc docs — a deterministic browser over the ADRs, modules, and approved verbs.
+    description: |-
+      "Ask cats": surfaces what the catzc system can do from what the repository already knows, offline and
+      deterministically (no network, no LLM). With no argument it prints the overview of what you can ask; an
+      area narrows it:
+
+        Show-Cats adr [query]     the ADR codes and titles; with a query, the matching ADRs and their rules
+        Show-Cats module [name]   the modules; with a name substring, the public functions they export
+        Show-Cats verbs           the approved verbs in use across the tree
+
+      Output is presentation only (the information stream,
+      [ADR-AUTO-CONSOLE](/docs/adr/automation/console-output-matters.md));
+      the function returns nothing. Live bicep templates are out of scope here — use Get-BicepTemplates. The ADR
+      reads are memoized for the session by the private getters
+      ([ADR-AUTO-CACHE](/docs/adr/automation/caching.md)); the module and
+      verb areas read the loaded modules' exports, so they answer the same in source mode and build mode.
+    parameters:
+      Area: 'What to ask about: adr, module, or verbs. Omitted (the default) prints the overview.'
+      Query: |-
+        Narrows the area: an ADR code/title substring for 'adr', a module-name substring for 'module'. Ignored by
+        'verbs' and the overview.
+    examples:
+      - |-
+        Show-Cats
+        Prints the overview of what you can ask.
+      - |-
+        Show-Cats adr naming
+        Summarizes the ADRs whose code or title contains 'naming', with each rule's one-line summary.
+      - |-
+        Show-Cats module azure
+        Lists the public functions of every module whose name contains 'azure'.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Ask the catzc docs — a deterministic browser over the ADRs, modules, and approved verbs.
-.DESCRIPTION
-    Output is presentation only on the information stream; the function returns nothing for a caller to use.
-.PARAMETER Area
-    What to ask about: adr, module, or verbs. Omitted (the default) prints the overview.
-.PARAMETER Query
-    Ignored by verbs and the overview, which have nothing to narrow.
-.EXAMPLE
-    Show-Cats
-    Prints the overview of what you can ask.
-.EXAMPLE
-    Show-Cats adr naming
-    Summarizes the ADRs whose code or title contains 'naming', with each rule's one-line summary.
-.EXAMPLE
-    Show-Cats module azure
-    Lists the public functions of every module whose name contains 'azure'.
-#>
 function Show-Cats {
     [CmdletBinding()]
     [OutputType([void])]
@@ -56,8 +69,8 @@ function Show-Cats {
             break
         }
         'adr' {
-            # Not wrapped in @(): the getter's array is comma-wrapped, and @() would nest it one level too deep.
-            # [comment:3](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment3)
+            # Plain assignment (not @(...)): the getter returns a comma-wrapped array ( exemplar), which assignment...
+            # [comment:5](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment5)
             $entries = Get-CatsAdrIndex
             if ($Query) {
                 $matched = @($entries | Where-Object { $_.Code -like "*$Query*" -or $_.Title -like "*$Query*" })
@@ -79,8 +92,8 @@ function Show-Cats {
                         }
                         Write-Message "  $($rule.Id)  $summary" -NoHeader
 
-                        # Enforcers are keyed by the hash form of the id, so the registry colon is swapped first.
-                        # [comment:4](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment4)
+                        # Show what mechanically enforces this rule (tests + analyzer rules), if anything — the...
+                        # [comment:6](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment6)
                         $entryEnforcers = $enforcers[($rule.Id -replace ':', '#')]
                         if ($entryEnforcers) {
                             $parts = @()

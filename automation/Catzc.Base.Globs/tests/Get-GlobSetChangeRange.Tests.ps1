@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-FLOW-CD-DETECT
 ---
 #>
 
-# The reference-commit resolver ([ADR-FLOW-CD-DETECT](/docs/adr/flow/pipeline-detection.md)): the diff range per
-# execution context — local working tree,
-# post-commit first-parent (squash-proof), or the PR merge-base — with a fail-open null.
+# The reference-commit resolver: the diff range per execution context — local working tree, post-commit first-parent...
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md#comment1)
 Describe 'Get-GlobSetChangeRange' -Tag 'L0', 'logic' {
     BeforeEach {
         # A clean, deterministic env regardless of where the tests run (a real pipeline sets some of these).

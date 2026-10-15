@@ -11,7 +11,6 @@ catzc:
       - ADR-DSGN-TRACK#6
       - ADR-PWSH-CACHE#4
       - ADR-THES-ONETRUTH#3
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/Get-WorldMap.ps1
@@ -56,6 +55,15 @@ PowerShell ([ADR-THES-ONETRUTH#3](/docs/adr/thesis/one-source-of-truth.md#rule-a
 ```
 
 ## comment:3
+
+Above `$script:worldMapTextCache = @{}`.
+
+```text
+strict-clean probe of the lazy cache entry
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:4
 
 Above `$script:worldMapTextCache = @{}`.
 

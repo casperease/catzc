@@ -6,7 +6,6 @@ catzc:
     body_sha: "98b2d84d73e2"
     adrs:
       - ADR-PWSH-FORMAT#6
-    links: []
 ---
 
 # automation/.scriptanalyzer/NoForEachObjectControlFlow.psm1

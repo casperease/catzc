@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/root-config-and-editor.md
     kind: how-to
     body_sha: "134788ad7604"
-    adrs: []
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---

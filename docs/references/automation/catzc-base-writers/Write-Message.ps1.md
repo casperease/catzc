@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#7
       - ADR-AUTO-CONSOLE#8
-    links: []
 ---
 
 # automation/Catzc.Base.Writers/Write-Message.ps1
@@ -93,6 +92,39 @@ Parameter sets make it exclusive with -ForegroundColor, so at most one of these 
 ```
 
 ## comment:7
+
+Above `$plan = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound`.
+
+```text
+A status line is one solid line, not a rule, so a rainbow input side-grades to its base colour: the
+shared resolver flattens a ConsoleColor, its name, a 'rainbow'/'<base>-rainbow' bareword, or a
+RainbowColor profile to one ConsoleColor. Passing a rainbow to Write-Message therefore just works.
+```
+
+## comment:8
+
+Above `if ($PSBoundParameters.ContainsKey('Verbose')) {`.
+
+```text
+A verbose message (an explicitly-bound -Verbose) routes to the verbose stream instead of the always-on
+information stream; its visibility follows the -Verbose value the caller passed (an explicit -Verbose
+sets this call's $VerbosePreference, which Write-Verbose honours, so -Verbose:$false stays silent).
+Requiring an EXPLICIT -Verbose keeps ordinary messages on the info stream even when the session's
+$VerbosePreference is Continue. -ForegroundColor does not apply to the verbose stream.
+```
+
+## comment:9
+
+Above `if ($Warning) {`.
+
+```text
+-Warning is sugar for yellow
+([ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)) on the
+information stream, NOT the terminating Write-Warning stream.
+Parameter sets make it exclusive with -ForegroundColor, so at most one of these branches carries a colour.
+```
+
+## comment:10
 
 Above `$plan = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound`.
 

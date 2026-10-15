@@ -8,9 +8,8 @@ catzc:
 #>
 
 Describe 'Initialize-GitClone' -Tag 'L0', 'logic' {
-    # Every git invocation goes through Invoke-Executable, so one mock covers the whole external
-    # boundary: rev-parse proves the work tree, `--get` probes report current values, and the
-    # `git config --local <key>` writes are the side effects the tests count.
+    # Every git invocation goes through Invoke-Executable, so one mock covers the whole external boundary: rev-parse...
+    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Initialize-GitClone.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Assert-Command { } -ModuleName Catzc.Tooling.Provisioning
         Mock Test-IsWslSession { $false } -ModuleName Catzc.Tooling.Provisioning

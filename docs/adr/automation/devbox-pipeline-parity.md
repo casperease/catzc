@@ -9,7 +9,6 @@ catzc:
       - ADR-AUTO-PARITY#2
       - ADR-AUTO-PARITY#3
       - ADR-AUTO-PARITY#4
-    adrs: []
     links:
       - docs/adr/automation/test-automation.md
       - docs/adr/flow/durable-sha-globs.md

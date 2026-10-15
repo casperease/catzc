@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-FAILFAST#3
       - ADR-AUTO-TYPES#7
-    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependencyTree.ps1.md
     kind: comment-page
     body_sha: b8b635c34878
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Get-FunctionDependencyTree.ps1

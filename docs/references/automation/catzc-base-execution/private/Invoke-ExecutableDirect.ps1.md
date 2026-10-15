@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md
     kind: comment-page
     body_sha: "7d71e5fce32b"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Execution/private/Invoke-ExecutableDirect.ps1
@@ -38,6 +36,17 @@ capture output.
 ```
 
 ## comment:3
+
+Above `Push-Location $WorkingDirectory`.
+
+```text
+Run directly — output flows straight to the console handle.
+No pipes, no interception. Spinners, progress bars, \r overwrites all work.
+Output WILL leak to the pipeline — callers must suppress if needed.
+Child scope prevents $ErrorActionPreference = 'Continue' from leaking.
+```
+
+## comment:4
 
 Above `Push-Location $WorkingDirectory`.
 

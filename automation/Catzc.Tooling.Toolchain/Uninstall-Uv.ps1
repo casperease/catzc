@@ -6,20 +6,18 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls uv.
+    description: |-
+      Removes the managed install via the platform package manager: winget (Windows) or brew (macOS).
+      Delegates to Uninstall-Tool. Idempotent — skips if not installed.
+    parameters:
+      Version: uv version to uninstall. Defaults to the locked version in Get-ToolConfig.
+    examples:
+      - Uninstall-Uv
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls uv.
-.DESCRIPTION
-    Idempotent through Uninstall-Tool, which skips when uv is not installed instead of failing.
-.PARAMETER Version
-    uv version to uninstall. Defaults to the locked version in Get-ToolConfig.
-.EXAMPLE
-    Uninstall-Uv
-#>
 function Uninstall-Uv {
     [CmdletBinding()]
     param(

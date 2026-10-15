@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-languages/private/ConvertFrom-BatsJunit.ps1.md
     kind: comment-page
     body_sha: "0944a4368f15"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/private/ConvertFrom-BatsJunit.ps1

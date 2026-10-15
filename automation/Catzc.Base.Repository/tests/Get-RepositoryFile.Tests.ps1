@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/tests/Get-RepositoryFile.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-RepositoryFile over a $TestDrive root (Get-RepositoryRoot mocked): path normalization against the root, never
-# $PWD. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-RepositoryFile over a $TestDrive root (Get-RepositoryRoot mocked): path normalization against the root, never...
+# [comment:1](/docs/references/automation/catzc-base-repository/tests/Get-RepositoryFile.Tests.ps1.md#comment1)
 Describe 'Get-RepositoryFile' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { Join-Path $TestDrive 'repo' }

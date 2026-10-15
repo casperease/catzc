@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-RuffFormat.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#6
 ---
 #>
 
-# The ruff engine with its seams mocked ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)):
-# ruff run from the Python workspace (Invoke-PythonWorkspaceTool) and the python.yml root. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# The ruff engine with its seams mocked: ruff run from the Python workspace (Invoke-PythonWorkspaceTool) and the...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-RuffFormat.Tests.ps1.md#comment1)
 Describe 'Invoke-RuffFormat' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'

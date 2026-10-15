@@ -6,20 +6,16 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a value is $null.
+    parameters:
+      Value: The value to test. Must be exactly $null.
+      ErrorText: Custom error message. Defaults to file and line info.
+    examples:
+      - Assert-Null $result
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a value is $null.
-.PARAMETER Value
-    The value to test. Must be exactly $null.
-.PARAMETER ErrorText
-    Custom error message. Defaults to file and line info.
-.EXAMPLE
-    Assert-Null $result
-#>
 function Assert-Null {
     [CmdletBinding()]
     param(

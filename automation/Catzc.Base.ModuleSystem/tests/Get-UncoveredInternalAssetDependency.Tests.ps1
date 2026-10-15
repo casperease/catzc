@@ -4,16 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-ASSETDEP
+      - ADR-AUTO-ASSETDEP#3
+      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# The coverage quality gate's engine
-# ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)) over a TestKit
-# fixture tree: which functions with an internal
-# asset dependency lack a test that cites
-# [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3) and is not
-# source-only. The fixture test files are
-# parsed, never run. Neutral names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# The coverage quality gate's engine over a TestKit fixture tree: which functions with an internal asset dependency...
+# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1.md#comment1)
 Describe 'Get-UncoveredInternalAssetDependency' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

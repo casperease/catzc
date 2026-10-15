@@ -6,7 +6,6 @@ catzc:
     body_sha: "7ed4aa61465c"
     adrs:
       - ADR-REPO-FILEMETA#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/FileMetaDirection.cs

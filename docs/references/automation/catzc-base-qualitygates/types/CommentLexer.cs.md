@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-REPO-LINK#1
       - ADR-REPO-LINK#6
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentLexer.cs

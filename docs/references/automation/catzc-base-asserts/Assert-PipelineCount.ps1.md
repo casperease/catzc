@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-asserts/Assert-PipelineCount.ps1.md
     kind: comment-page
     body_sha: f6563297252f
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Asserts/Assert-PipelineCount.ps1

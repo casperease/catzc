@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-vscode.md
     kind: reference
     body_sha: eff1880109ad
-    adrs: []
     links:
       - docs/adr/repository/generated-root-configs.md
       - docs/references/automation/catzc-base-git.md

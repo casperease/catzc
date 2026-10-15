@@ -8,27 +8,29 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-TEST#31
+  config:
+    synopsis: Lists the tests a test run's opt-out tag removes from a run, so the exclusion is visible, never silent.
+    description: |-
+      The build run (Test-CatzcBuild) excludes every test tagged 'source-only'
+      ([ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)) and must count
+      and list each one it leaves out. This walks the run's discovery and returns, for every test in the run's
+      files that resolves to the tag along its block chain (Get-TestBlockTag — own It-tags, then each ancestor),
+      one row — but only when the run would otherwise have executed it: a test whose tier or category is already
+      excluded by the run's level/category filter is out of scope either way, so it is neither listed nor counted.
+      It also returns the files left with nothing to run (every in-scope test carries the tag), which the caller
+      drops from the work-list so no worker loads the modules for an empty file.
+    parameters:
+      Discovery: The run's discovery-only Pester result (Get-TestDiscovery).
+      Tag: The opt-out tag(s) — 'source-only' for the build run.
+      ExcludeTag: The run's tier/category exclude tags (Get-TestExcludeTag); tests resolving to one of them are out of scope.
+      TestFiles: The run's test files; tests outside them are ignored.
+    outputs: |-
+      [pscustomobject] with Tests (rows of File, ExpandedPath, Level, Category, in discovery order),
+      FullyExcludedFiles (files whose every in-scope test carries the tag), and RemainingFiles (-TestFiles without
+      them, order kept).
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists the tests a test run's opt-out tag removes from a run, so the exclusion is visible, never silent.
-.DESCRIPTION
-    A test already out by the tier or category filter is neither listed nor counted, so only real opt-outs show.
-.PARAMETER Discovery
-    The run's discovery-only Pester result (Get-TestDiscovery).
-.PARAMETER Tag
-    The opt-out tag(s) — 'source-only' for the build run.
-.PARAMETER ExcludeTag
-    The run's tier/category exclude tags (Get-TestExcludeTag); tests resolving to one of them are out of scope.
-.PARAMETER TestFiles
-    The run's test files; tests outside them are ignored.
-.OUTPUTS
-    [pscustomobject] with Tests (rows of File, ExpandedPath, Level, Category, in discovery order),
-    FullyExcludedFiles (files whose every in-scope test carries the tag), and RemainingFiles (-TestFiles without
-    them, order kept).
-#>
 function Get-TestOptOutExclusion {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -52,8 +54,8 @@ function Get-TestOptOutExclusion {
     $excludedByFile = [ordered]@{}
     $runnableFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
-    # Never wrap the Get-TestBlockTag result in @(): that nests its single array object and every count reads 1.
-    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md#comment2)
+    # Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never wrapped...
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md#comment3)
     foreach ($test in @($Discovery.Tests)) {
         # The test's run file: its test file, or the Go test folder of a Go bridge test.
         $file = Get-TestRunFile -Test $test

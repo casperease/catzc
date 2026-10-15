@@ -6,7 +6,6 @@ catzc:
     body_sha: d309524a2945
     adrs:
       - ADR-AUTO-CONSOLE#11
-    links: []
 ---
 
 # automation/Catzc.Base.Environment/Sync-SessionPath.ps1
@@ -43,6 +42,25 @@ Add any registry entries not yet in the session
 ```
 
 ## comment:3
+
+Above `$added = @($newPaths)`.
+
+```text
+Rewrite the session PATH only when an entry arrives or leaves, and say which
+([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)) — on a
+clean devbox nothing changes, so the import stays quiet.
+```
+
+## comment:4
+
+Above `$seen = [System.Collections.Generic.HashSet[string]]::new(`.
+
+```text
+Add any registry entries not yet in the session
+@() so an empty $kept yields an empty array, not $null (HashSet's ctor rejects a null collection).
+```
+
+## comment:5
 
 Above `$added = @($newPaths)`.
 

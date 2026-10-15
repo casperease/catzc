@@ -12,8 +12,6 @@ catzc:
       - ADR-PIPE-AUTH#5
       - ADR-PIPE-AUTH#6
       - ADR-PIPE-AUTH#7
-    adrs: []
-    links: []
 ---
 
 # ADR: Dual authentication — pipeline system token vs. local Az token

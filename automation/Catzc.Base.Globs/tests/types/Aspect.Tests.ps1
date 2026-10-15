@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-DSGN-ASPECT
 ---
 #>
 
-# Aspects ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): the ordered first-match partition of a unit's tracked
-# files. Compile encodes each
-# aspect as a leaf scan program (own patterns as include, earlier aspects' patterns as exclude); the last
-# aspect ('**') becomes the non-live catch-all remainder. Validate re-checks disjoint + exhaustive.
+# Aspects: the ordered first-match partition of a unit's tracked files.
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/types/Aspect.Tests.ps1.md#comment1)
 Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:convention = {

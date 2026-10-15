@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-AISTANCE#3
       - ADR-DORA-AISTANCE#4
       - ADR-DORA-AISTANCE#5
-    adrs: []
     links:
       - docs/references/dora/ai.md#ai-capabilities-model
       - docs/references/dora/ai.md#individual-effectiveness

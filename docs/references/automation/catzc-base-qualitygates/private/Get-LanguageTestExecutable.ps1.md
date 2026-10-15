@@ -9,7 +9,6 @@ catzc:
       - ADR-AUTO-ENGINE#4
       - ADR-AUTO-GO#7
       - ADR-AUTO-PY#7
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LanguageTestExecutable.ps1
@@ -43,6 +42,17 @@ tool_<engine>_missing.
 ```
 
 ## comment:2
+
+Above `$pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name`.
+
+```text
+The engines other than the running pwsh, which every language's tests also run under
+([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1): the model's engines, never
+a restated list): each located once here, since a build run's worker cannot locate it (its tools.yml entry is
+not in the build).
+```
+
+## comment:3
 
 Above `$pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name`.
 

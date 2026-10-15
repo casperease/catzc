@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-APPROVAL#3
       - ADR-DORA-APPROVAL#4
       - ADR-DORA-APPROVAL#5
-    adrs: []
     links:
       - docs/adr/design/self-service.md
       - docs/adr/design/server-remote-integration.md

@@ -9,22 +9,23 @@ catzc:
     adrs:
       - ADR-AUTO-GO
       - ADR-PRIN-CONFIG#2
+  config:
+    synopsis: |-
+      The gofmt formatter engine: formats the given Go files with the managed go's gofmt and returns the files it
+      changed.
+    description: |-
+      One Format-Code engine adapter ([ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)).
+      gofmt is the gofmt beside the managed go at the tools.yml pin
+      ([ADR-AUTO-GO](/docs/adr/automation/go/go-test-artifacts.md)), never whichever gofmt is first on PATH; a missing or
+      off-pin go throws, naming Install-Go. `gofmt -l` names the files that differ; without -DryRun, `gofmt -w`
+      rewrites exactly those. go.mod and go.work are not Go files: New-GoWorkspace and go itself write them.
+    parameters:
+      File: Absolute paths of the .go files to format.
+      DryRun: List the files gofmt would change without writing them.
+    outputs: '[string[]] Absolute paths of the files changed (or, under -DryRun, that would change).'
 ---
 #>
 
-<#
-.SYNOPSIS
-    The gofmt formatter engine: formats the given Go files with the managed go's gofmt and returns the files it
-    changed.
-.DESCRIPTION
-    The gofmt is the one beside the managed go at the pin, never the first on PATH; an off-pin go throws.
-.PARAMETER File
-    Absolute paths of the .go files to format.
-.PARAMETER DryRun
-    List the files gofmt would change without writing them.
-.OUTPUTS
-    [string[]] Absolute paths of the files changed (or, under -DryRun, that would change).
-#>
 function Invoke-Gofmt {
     [CmdletBinding()]
     [OutputType([string[]])]

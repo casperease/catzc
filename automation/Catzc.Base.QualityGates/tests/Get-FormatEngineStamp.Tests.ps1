@@ -4,11 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-CACHE#10
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-FormatEngineStamp over fixture files in $TestDrive. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-FormatEngineStamp over fixture files in $TestDrive.
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-FormatEngineStamp.Tests.ps1.md#comment1)
 Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'stamp-repo'))

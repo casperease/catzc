@@ -10,7 +10,6 @@ catzc:
       - ADR-PROC-LEAN#3
       - ADR-PROC-LEAN#4
       - ADR-PROC-LEAN#5
-    adrs: []
     links:
       - docs/adr/automation/caching.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

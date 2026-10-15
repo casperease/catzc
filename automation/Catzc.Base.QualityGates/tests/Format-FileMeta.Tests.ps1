@@ -4,6 +4,10 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-FILEMETA#3
+      - ADR-REPO-FORMAT#9
 ---
 #>
 
@@ -48,7 +52,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
     It 'keeps the authored config part and the other front matter keys' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
         $text = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) -replace 'body_sha: "?[0-9a-f]{12}"?', 'body_sha: HASH'
-        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  derived:`n    kind: gadget`n    body_sha: HASH`n    adrs: []`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
+        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  derived:`n    kind: gadget`n    body_sha: HASH`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
     }
 
     It 'changes nothing on a second run' {

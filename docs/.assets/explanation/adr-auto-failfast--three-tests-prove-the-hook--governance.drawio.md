@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.md
     kind: asset-description
     body_sha: "0842b420d8eb"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png
       - docs/explanation/automation/three-tests-prove-the-hook.md

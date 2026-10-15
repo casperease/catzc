@@ -4,16 +4,18 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#19
+      - ADR-AUTO-TEST#4
 ---
 #>
 
 Describe 'Get-AzureSubscription' -Tag 'L0', 'logic' {
-    # Read-only resolver tests: the config mock + cache reset run ONCE, not per test — the mocked config is
-    # identical every test and no test mutates it, so the cache stays warm
-    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)).
+    # Read-only resolver tests: the config mock + cache reset run ONCE, not per test — the mocked config is identical...
+    # [comment:1](/docs/references/automation/catzc-azure/tests/Get-AzureSubscription.Tests.ps1.md#comment1)
     BeforeAll {
-        # Redirect the config-assets root to the test fixture so this logic test owns its identity
-        # inputs and never depends on the shipped azure.yml.
+        # Redirect the config-assets root to the test fixture so this logic test owns its identity inputs and never...
+        # [comment:2](/docs/references/automation/catzc-azure/tests/Get-AzureSubscription.Tests.ps1.md#comment2)
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure/tests/assets/config/$Config.yml"

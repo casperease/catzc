@@ -6,7 +6,6 @@ catzc:
     body_sha: "600c7ffc8192"
     defines:
       - ADR-AUTO-ENTERP#4
-    adrs: []
     links:
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm8

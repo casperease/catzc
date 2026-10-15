@@ -6,29 +6,54 @@ catzc:
     kind: public-function
     module: Catzc.Azure.Firewall
     visibility: public
-    adrs: []
+  config:
+    synopsis: Enumerates the IP Groups across one or more (subscription, resource group) targets into a single YAML.
+    description: |-
+      Takes (subscription, resource group) targets from the pipeline and aggregates them into one YAML
+      document with two root nodes: 'sources', declaring each source once (keyed by resource group name,
+      holding its subscription), and 'ipgs', mapping each IP Group name to its source (the resource group
+      name) and its sorted address prefixes (CIDRs, single IPs, or ranges). Declaring each source once keeps
+      the shared subscription/RG off every entry, and a single document can hold many sources.
+
+      Targets are taken from the pipeline by property name, so a set spanning multiple subscriptions can be
+      piped in at once and collected into one file:
+
+          @(
+              [pscustomobject]@{ SubscriptionId = $subA; ResourceGroupName = 'rg-fw-a' }
+              [pscustomobject]@{ SubscriptionId = $subB; ResourceGroupName = 'rg-fw-b' }
+          ) | Get-FirewallIpgsYaml
+
+      Each subscription is targeted explicitly with --subscription; the active CLI subscription is never
+      switched, so this composes across subscriptions without Invoke-InSubscription. The begin block asserts
+      once that the ip-group extension is installed (Assert-AzCliExtension); per-target failures (including a
+      missing session) and empty resource groups throw with remediation. This is a management-plane read, so
+      the identity needs Reader on each resource group.
+
+      Source names are resource group names, so they must be unique across the targets piped in one run; two
+      targets sharing a resource group name (in different subscriptions) collide and throw, as do two IP
+      Groups sharing a name across sources. Groups and sources are emitted sorted by name; addresses are
+      sorted numerically by their first IP, falling back to a lexical sort for anything that doesn't parse.
+
+      The file opens with a comment header (counts, retrieval time in UTC); being YAML comments they're
+      ignored by parsers. The single combined file's path is emitted.
+    parameters:
+      SubscriptionId: |-
+        A target subscription GUID. Passed explicitly to az, never switched. Bound from the pipeline by
+        property name.
+      ResourceGroupName: |-
+        A target resource group whose IP Groups are enumerated; also used as the source name. Bound from the
+        pipeline by property name.
+      YamlPath: Output YAML path for the combined document. Defaults to <repo-root>/out/yaml/ipgs.yaml.
+    examples:
+      - Get-FirewallIpgsYaml -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000 -ResourceGroupName rg-firewall
+      - |-
+        @(
+            [pscustomobject]@{ SubscriptionId = $subA; ResourceGroupName = 'rg-fw-a' }
+            [pscustomobject]@{ SubscriptionId = $subB; ResourceGroupName = 'rg-fw-b' }
+        ) | Get-FirewallIpgsYaml -YamlPath .\docs\ipgs.yaml
 ---
 #>
 
-<#
-.SYNOPSIS
-    Enumerates the IP Groups across one or more (subscription, resource group) targets into a single YAML.
-.DESCRIPTION
-    Each source is declared once, so the shared subscription and group stay off every IP Group entry.
-.PARAMETER SubscriptionId
-    Passed to az explicitly on every call, so the active CLI subscription is never switched.
-.PARAMETER ResourceGroupName
-    Doubles as the source key, so two targets with the same group name in one run collide and throw.
-.PARAMETER YamlPath
-    Output YAML path for the combined document. Defaults to <repo-root>/out/yaml/ipgs.yaml.
-.EXAMPLE
-    Get-FirewallIpgsYaml -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000 -ResourceGroupName rg-firewall
-.EXAMPLE
-    @(
-        [pscustomobject]@{ SubscriptionId = $subA; ResourceGroupName = 'rg-fw-a' }
-        [pscustomobject]@{ SubscriptionId = $subB; ResourceGroupName = 'rg-fw-b' }
-    ) | Get-FirewallIpgsYaml -YamlPath .\docs\ipgs.yaml
-#>
 function Get-FirewallIpgsYaml {
     [CmdletBinding()]
     [OutputType([string])]
@@ -44,12 +69,12 @@ function Get-FirewallIpgsYaml {
     )
 
     begin {
-        # No connection assert: each target names its own subscription, so a missing session fails on the first call.
-        # [comment:4](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment4)
+        # Assert once that the ip-group extension is present (fail fast with remediation instead of an exit-2 / hang).
+        # [comment:8](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment8)
         Assert-AzCliExtension 'ip-group'
 
-        # Each byte is padded to three digits so a string sort orders numerically; unparseable falls back to lexical.
-        # [comment:5](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment5)
+        # Numeric sort key from an address's first IP (handles CIDR a.b.c.d/p, range a-b, or a single IP); pad each...
+        # [comment:9](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment9)
         $addressSortKey = {
             param([string]$Address)
             $first = ($Address -split '[-/]')[0].Trim()
@@ -84,8 +109,8 @@ function Get-FirewallIpgsYaml {
             throw "No IP Groups found in resource group '$ResourceGroupName' (subscription $SubscriptionId). Wrong RG or missing access?"
         }
 
-        # Same group name under two subscriptions would collide on the source key, so throw rather than overwrite.
-        # [comment:6](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment6)
+        # Register this target's source once (keyed by RG name).
+        # [comment:10](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment10)
         if ($allSources.Contains($ResourceGroupName)) {
             if ($allSources[$ResourceGroupName].subscriptionId -ne $SubscriptionId) {
                 throw "Source name collision: resource group '$ResourceGroupName' appears in two subscriptions ($($allSources[$ResourceGroupName].subscriptionId) and $SubscriptionId). Source names (resource group names) must be unique across targets."
@@ -96,8 +121,8 @@ function Get-FirewallIpgsYaml {
         }
 
         foreach ($g in $groups) {
-            # Names are unique per source, not across sources, so one source's group must not overwrite another's.
-            # [comment:7](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment7)
+            # IP Group names are unique within a source but not necessarily across sources — guard the shared 'ipgs'...
+            # [comment:11](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment11)
             if ($allIpgs.Contains($g.name)) {
                 throw "IP Group name collision: '$($g.name)' exists under more than one source ('$($allIpgs[$g.name].source)' and '$ResourceGroupName'). IP Group names must be unique across targets."
             }

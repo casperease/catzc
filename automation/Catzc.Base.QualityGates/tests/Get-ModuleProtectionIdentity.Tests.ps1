@@ -4,18 +4,17 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-PROTGLOB#8
 ---
 #>
 
-# The composite protection identity
-# ([ADR-REPO-PROTGLOB#8](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob8)): own set + declared
-# dependency closure + infra scopes
-# + the runner; widened to the repository-wide set for integrity tests, unconstrained modules, and the infra
-# test units. Memoized per run.
+# The composite protection identity: own set + declared dependency closure + infra scopes + the runner; widened to...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md#comment1)
 Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
     BeforeEach {
-        # a small declared graph: Base group {Alpha <- Beta}; Gamma declared against the Base group;
-        # 'Catzc.Unknown' appears nowhere (unconstrained).
+        # a small declared graph: Base group {Alpha <- Beta}; Gamma declared against the Base group; 'Catzc.Unknown'...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md#comment2)
         $script:dependencies = [Catzc.Base.ModuleSystem.DependenciesConfig]::new([ordered]@{
                 groups  = [ordered]@{
                     Base = [ordered]@{
@@ -40,8 +39,8 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
             [Catzc.Base.Globs.GlobSet]::new($Name.ToLowerInvariant().Replace('.', '-'), 'd', 'module', @('x/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.QualityGates
         Mock Get-GlobSetHash {
-            # StrictMode-safe: read the bound auto-variable without referencing an unset $Name/$GlobSet
-            # (the -Name path and the -GlobSet path each set only one of them).
+            # StrictMode-safe: read the bound auto-variable without referencing an unset $Name/$GlobSet (the -Name...
+            # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md#comment3)
             $byName = Get-Variable -Name Name -ValueOnly -ErrorAction Ignore
             $setName = if ($byName) {
                 $byName

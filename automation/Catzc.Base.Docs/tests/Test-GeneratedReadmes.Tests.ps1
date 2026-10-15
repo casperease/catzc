@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-README
 ---
 #>
 
-# Test-GeneratedReadmes over fixture READMEs in $TestDrive: the mappings, git's ignore check, and the index are mocked,
-# and the repository root is redirected to the fixture, so each test pins one rule. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-GeneratedReadmes over fixture READMEs in $TestDrive: the mappings, git's ignore check, and the index are...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md#comment1)
 Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
@@ -89,21 +91,15 @@ Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
     }
 }
 
-# The quality gate over the real repository. readme.yml (expanded by Get-ReadmeMappings) is the registry of folders whose
-# README.md is generated from a docs/ source — a derived artifact, never authored in place — so each must be
-# gitignored, out of git, and current with its source. Hand-authored READMEs are exactly the folders NOT in
-# readme.yml; they are individually un-ignored in .gitignore and are out of scope here. See
-# [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
-#
-# Reads only the repository's files and git index (through the source-tree-only Get-ReadmeMappings) — the same
-# answer in both run modes, so the build run skips it.
+# The quality gate over the real repository.
+# [comment:2](/docs/references/automation/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md#comment2)
 Describe 'Generated READMEs are gitignored, untracked, and current' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:skip = $null
 
-        # L2: drives the real git CLI. Self-skip when git is absent or we are not inside a work tree
-        # (e.g. running from an exported tarball), per the test-automation tiering ADR.
+        # L2: drives the real git CLI.
+        # [comment:3](/docs/references/automation/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md#comment3)
         if (-not (Get-Command git -ErrorAction Ignore)) {
             $script:skip = 'tool_git_missing'
         }

@@ -9,8 +9,6 @@ catzc:
       - ADR-PWSH-FOREACH#2
       - ADR-PWSH-FOREACH#3
       - ADR-PWSH-FOREACH#4
-    adrs: []
-    links: []
 ---
 
 # ADR: Prefer foreach over ForEach-Object

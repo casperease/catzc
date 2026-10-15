@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-asserts/Assert-PipelineEmpty.ps1.md
     kind: comment-page
     body_sha: b85a15f2dba2
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Asserts/Assert-PipelineEmpty.ps1

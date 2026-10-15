@@ -4,16 +4,19 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-REMOVE#4
+      - ADR-AUTO-REMOVE#5
+      - ADR-PWSH-ENV#4
 ---
 #>
 
-# Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the tool manager
-# (Uninstall-Tool, Remove-Java) and the persistent user environment (Set-PermanentEnvironmentVariable). The real
-# registry round trip is the seam's own L3 system test (Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1).
+# Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the tool manager...
+# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md#comment1)
 Describe 'Uninstall-Java' -Tag 'L1', 'logic' {
     BeforeAll {
-        # The managed body clears the session JAVA_HOME — restore it so the test leaves the process as it found it
-        # ([ADR-PWSH-ENV#4](/docs/adr/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env4)).
+        # The managed body clears the session JAVA_HOME — restore it so the test leaves the process as it found it.
+        # [comment:2](/docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md#comment2)
         $script:savedProcessJavaHome = $env:JAVA_HOME
     }
     AfterAll {

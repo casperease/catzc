@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops.md
     kind: reference
     body_sha: "05d82b8083b5"
-    adrs: []
     links:
       - docs/adr/pipelines/dual-authentication.md
       - docs/adr/pipelines/pipeline-naming-and-placement.md

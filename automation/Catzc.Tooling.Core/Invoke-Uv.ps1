@@ -6,32 +6,28 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Core
     visibility: public
-    adrs: []
+  config:
+    synopsis: Runs uv with the given arguments.
+    description: |-
+      Asserts that uv is installed at the locked version before executing. uv is the standard Python handler —
+      it provisions Python (`uv python`) and runs Python-based CLIs in isolated environments (`uv tool`,
+      `uv pip`, `uv run`).
+    parameters:
+      Arguments: Arguments to pass to uv.
+      Prerelease: |-
+        Append `--prerelease=allow`, permitting pre-release/dev dependency versions in the resolution. This is a
+        deliberate, surfaced choice — it emits a warning — because it pulls dev-marked packages into an otherwise
+        version-locked install (e.g. the Azure CLI pins beta azure-* dependencies). Never enable it silently.
+      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
+      NoAssert: Skip exit code assertion.
+      Silent: Suppress the command log line.
+      DryRun: Return the command string without executing. Used for testing.
+    examples:
+      - Invoke-Uv 'tool install azure-cli'
+      - Invoke-Uv 'pip install azure-cli' -Prerelease
 ---
 #>
 
-<#
-.SYNOPSIS
-    Runs uv with the given arguments.
-.DESCRIPTION
-    The uv version lock is checked on every call, except a dry run, which needs no uv on the machine.
-.PARAMETER Arguments
-    Arguments to pass to uv.
-.PARAMETER Prerelease
-    Opt in only: it pulls dev-marked packages into a version-locked install, so it always emits a message.
-.PARAMETER PassThru
-    Return a CliResult object with Output, Errors, Full, and ExitCode.
-.PARAMETER NoAssert
-    Skip exit code assertion.
-.PARAMETER Silent
-    Suppress the command log line.
-.PARAMETER DryRun
-    Return the command string without executing. Used for testing.
-.EXAMPLE
-    Invoke-Uv 'tool install azure-cli'
-.EXAMPLE
-    Invoke-Uv 'pip install azure-cli' -Prerelease
-#>
 function Invoke-Uv {
     [CmdletBinding()]
     param(
@@ -51,8 +47,8 @@ function Invoke-Uv {
     }
 
     if ($Prerelease) {
-        # A message, not a warning: warnings stop this toolchain, and this opt-in relaxation is expected behaviour.
-        # [comment:3](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment3)
+        # Pre-release resolution is a deliberate, config-driven relaxation of the version lock — surface it so it is...
+        # [comment:4](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment4)
         Write-Message "uv: allowing pre-release/dev package versions (--prerelease=allow) for: uv $Arguments"
         $Arguments = "$Arguments --prerelease=allow"
     }

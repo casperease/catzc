@@ -6,7 +6,6 @@ catzc:
     body_sha: d7f5a9c53da7
     adrs:
       - ADR-AUTO-XPLAT#6
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestAutomationVerdict.ps1
@@ -29,6 +28,16 @@ lives once and the orchestrator stays a single, readable responsibility.
 ```
 
 ## comment:2
+
+Above `$seconds = [math]::Round($DurationSeconds,...`.
+
+```text
+Invariant so the duration reads the same on any devbox culture
+([ADR-AUTO-XPLAT#6](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat6)) — a da-DK box would
+otherwise render '42,3s' and diverge from CI's '42.3s'.
+```
+
+## comment:3
 
 Above `$seconds = [math]::Round($DurationSeconds,...`.
 

@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-COMMENTS#5
 ---
 #>
 
-# Test-Comments is the gate that every long comment lives in its file's comment page and every residue and section
-# pair up ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)), tested in
-# isolation on a widget/gadget fixture repository in $TestDrive; each case breaks the pairing one way.
+# Test-Comments is the gate that every long comment lives in its file's comment page and every residue and section...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md#comment1)
 Describe 'Test-Comments' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

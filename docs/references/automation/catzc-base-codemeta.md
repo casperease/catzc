@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-codemeta.md
     kind: reference
     body_sha: "09a881a934b4"
-    adrs: []
     links:
       - docs/adr/repository/code-file-meta.md
       - docs/references/automation/catzc-base-config.md

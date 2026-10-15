@@ -6,22 +6,20 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Tests whether a value is not null, empty, or whitespace.
+    parameters:
+      Value: The value to test.
+    examples:
+      - |-
+        Test-NotNullOrWhitespace 'hello'
+        # True
+      - |-
+        Test-NotNullOrWhitespace '  '
+        # False
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tests whether a value is not null, empty, or whitespace.
-.PARAMETER Value
-    The value to test.
-.EXAMPLE
-    Test-NotNullOrWhitespace 'hello'
-    # True
-.EXAMPLE
-    Test-NotNullOrWhitespace '  '
-    # False
-#>
 function Test-NotNullOrWhitespace {
     [OutputType([bool])]
     [CmdletBinding()]

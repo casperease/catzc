@@ -4,7 +4,6 @@ catzc:
     path: docs/references/cspell.md
     kind: reference
     body_sha: "8d46afba173c"
-    adrs: []
     links:
       - automation/Catzc.Base.QualityGates/configs/terminology.yml
       - docs/adr/automation/spell-out-names.md

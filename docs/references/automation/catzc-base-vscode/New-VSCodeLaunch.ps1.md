@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-vscode/New-VSCodeLaunch.ps1.md
     kind: comment-page
     body_sha: "4ed0cb1fa0bf"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.VSCode/New-VSCodeLaunch.ps1

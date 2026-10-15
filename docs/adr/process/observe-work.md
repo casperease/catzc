@@ -9,7 +9,6 @@ catzc:
       - ADR-PROC-OBSERVEWIP#2
       - ADR-PROC-OBSERVEWIP#3
       - ADR-PROC-OBSERVEWIP#4
-    adrs: []
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/design/commit-lifecycle.md

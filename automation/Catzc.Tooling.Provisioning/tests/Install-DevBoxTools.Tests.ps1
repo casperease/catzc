@@ -8,12 +8,11 @@ catzc:
 #>
 
 Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
-    # Pure orchestration over mocked seams. With an empty install order the version-locked loop is a no-op,
-    # so the test focuses on the fixed sequence (de-choco, status, additional installers) and the two
-    # decision points that are pure logic: the "usable but unmanaged" report and the missing-installer guard.
+    # Pure orchestration over mocked seams.
+    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Install-DevBoxTools.Tests.ps1.md#comment1)
     BeforeAll {
-        # Get-ToolConfig returns the typed record, so the mocks do too: every flag the entry omits reads as its
-        # default, exactly as in production.
+        # Get-ToolConfig returns the typed record, so the mocks do too: every flag the entry omits reads as its...
+        # [comment:2](/docs/references/automation/catzc-tooling-provisioning/tests/Install-DevBoxTools.Tests.ps1.md#comment2)
         function New-TestToolConfig {
             param([hashtable] $Keys)
             $entry = @{ version = '1.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)' }

@@ -6,18 +6,14 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Node
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls Prettier (the global npm package).
+    description: Idempotent — skips if Prettier or npm is not present (nothing to uninstall).
+    examples:
+      - Uninstall-Prettier
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls Prettier (the global npm package).
-.DESCRIPTION
-    Idempotent — skips if Prettier or npm is not present (nothing to uninstall).
-.EXAMPLE
-    Uninstall-Prettier
-#>
 function Uninstall-Prettier {
     [CmdletBinding()]
     param()

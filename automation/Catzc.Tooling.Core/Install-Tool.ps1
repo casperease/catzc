@@ -8,21 +8,20 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-UVPY
+  config:
+    synopsis: Installs a tool using the platform package manager.
+    description: |-
+      Uses winget on Windows, brew on macOS, and apt-get on Linux.
+      Idempotent — skips if already installed at the correct version.
+      If the wrong version is found, -Force uninstalls and reinstalls.
+      Without -Force, throws with instructions.
+    parameters:
+      Tool: The snake_case tool key as defined in tools.yml.
+      Version: Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
+      Force: Automatically uninstall the wrong version before installing the correct one.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs a tool using the platform package manager.
-.DESCRIPTION
-    A wrong installed version throws unless -Force, which uninstalls first; a correct one is a no-op.
-.PARAMETER Tool
-    The snake_case tool key as defined in tools.yml.
-.PARAMETER Version
-    Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
-.PARAMETER Force
-    Automatically uninstall the wrong version before installing the correct one.
-#>
 function Install-Tool {
     [CmdletBinding()]
     param(
@@ -35,8 +34,8 @@ function Install-Tool {
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
 
-    # Fail before -Force reaches Uninstall-Tool, so the error names the Install command the caller wanted.
-    # [comment:2](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment2)
+    # npm-managed tools (cspell, prettier, markdownlint) are installed with npm, not a platform package manager, so...
+    # [comment:6](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment6)
     if ($config.npm_package) {
         throw "$Tool is an npm-managed tool. Install-Tool manages winget/brew/apt packages only — use Install-$command (npm) instead."
     }
@@ -71,8 +70,8 @@ function Install-Tool {
         Assert-Command winget
         $packageId = $config.winget_id -f $Version
 
-        # winget can take a Store stub or stale alias for an existing install and skip it, so always force.
-        # [comment:3](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment3)
+        # --force: winget may see a Store stub or stale alias and report "already installed" even though no real...
+        # [comment:7](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment7)
         if ($config.winget_scope -eq 'user') {
             Invoke-Executable "winget install --id $packageId --scope user --accept-source-agreements --accept-package-agreements --silent --force"
         }
@@ -89,8 +88,8 @@ function Install-Tool {
     }
     elseif ($IsLinux) {
         Assert-NotNullOrWhitespace $config.apt_package -ErrorText "$Tool has no AptPackage — use Install-$command directly"
-        # Only apt-get tools reach this root check; the uv-based CLIs install in user space and never come here.
-        # [comment:4](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment4)
+        # Linux package installation via apt-get requires root.
+        # [comment:8](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment8)
         Assert-IsAdministrator -ErrorText "Install-$command on Linux requires root (apt-get). Run as root or install $Tool manually."
         Assert-Command apt-get
         $package = $config.apt_package -f $Version
@@ -103,8 +102,8 @@ function Install-Tool {
 
     Sync-SessionPath
 
-    # Without Developer Mode winget makes no Links symlink, so the command sits off PATH and is recovered by search.
-    # [comment:5](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment5)
+    # winget portable packages resolve through a symlink in WinGet\Links that must be on PATH; creating that symlink...
+    # [comment:9](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment9)
     if ($IsWindows -and -not (Get-Command $config.command -CommandType Application -ErrorAction Ignore)) {
         $pkgRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
         if (Test-Path $pkgRoot) {

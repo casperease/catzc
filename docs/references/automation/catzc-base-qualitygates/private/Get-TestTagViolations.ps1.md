@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md
     kind: comment-page
     body_sha: "13d28439855f"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestTagViolations.ps1
@@ -46,6 +44,26 @@ citation never reads the shipped ADR tree — keeping these logic tests hermetic
 ```
 
 ## comment:3
+
+Above `$candidates =...`.
+
+```text
+Provenance axis (optional): collect every candidate citation — any tag carrying the reserved 'ADR-'
+marker — across the block chain (own It-tags + ancestor blocks, root excluded), then classify each.
+A malformed candidate never needs the rule-id set; a well-formed one triggers its lazy resolution.
+```
+
+## comment:4
+
+Above `$validRuleIds = $null`.
+
+```text
+The authoritative rule-id set, resolved once on the first well-formed citation and reused across tests
+(Get-CatsAdrRuleIds is itself session-cached). Left $null until then so a run whose tests carry no
+citation never reads the shipped ADR tree — keeping these logic tests hermetic. Registry (':') form.
+```
+
+## comment:5
 
 Above `$candidates =...`.
 

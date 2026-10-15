@@ -8,8 +8,6 @@ catzc:
       - ADR-PRIN-REDUCEVAR#1
       - ADR-PRIN-REDUCEVAR#2
       - ADR-PRIN-REDUCEVAR#3
-    adrs: []
-    links: []
 ---
 
 # Principle: Reduce variability

@@ -7,21 +7,18 @@ catzc:
 ---
 #>
 
-# This file is covered by Test-ScriptAnalyzer like all authored PowerShell (Get-AutomationSourceFiles). Its
-# fixtures deliberately embed raw ##vso[task.*] strings so the rule can prove it flags them, which the rule
-# itself would then report against this file — suppress it here for the whole file rather than mangle the
-# fixtures.
+# This file is covered by Test-ScriptAnalyzer like all authored PowerShell (Get-AutomationSourceFiles).
+# [comment:1](/docs/references/automation/scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1.md#comment1)
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand', '', Justification = 'Test fixtures intentionally contain raw ##vso[task.*] strings to prove the rule flags them.')]
 param()
 
-# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
-# ScriptBlockAst. The engine-wiring proof (PSScriptAnalyzer discovers and fires this rule via -CustomRulePath)
-# lives once, for all custom rules, in CustomRuleWiring.Tests.ps1.
+# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a...
+# [comment:2](/docs/references/automation/scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1.md#comment2)
 Describe 'Measure-NoRawVsoCommand' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoRawVsoCommand.psm1') -Force
-        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module
-        # once for the type — we never invoke the analyzer engine (that is the L2 wiring test below).
+        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module once...
+        # [comment:3](/docs/references/automation/scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1.md#comment3)
         if (-not (Get-Module PSScriptAnalyzer)) {
             Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
         }

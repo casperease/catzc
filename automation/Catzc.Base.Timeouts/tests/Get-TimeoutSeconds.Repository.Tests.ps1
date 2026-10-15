@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-ASSERT#1
 ---
 #>
 
-# A function bounds its own long-running work through Get-TimeoutSeconds -Command and its [TimeLimit] decoration, never
-# a number literal as the parameter default
-# ([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)). Reads the shipped .ps1
-# files by AST, so it runs in the source and the build run alike.
+# A function bounds its own long-running work through Get-TimeoutSeconds -Command and its [TimeLimit] decoration,...
+# [comment:1](/docs/references/automation/catzc-base-timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1.md#comment1)
 Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1', 'integrity', 'ADR-PWSH-ASSERT#1' {
     It 'no function defaults a TimeoutSeconds parameter to a number literal above zero' {
         $root = Get-CatzcModulesRoot

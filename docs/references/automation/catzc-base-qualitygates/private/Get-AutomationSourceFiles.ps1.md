@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md
     kind: comment-page
     body_sha: ff465103bda4
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-AutomationSourceFiles.ps1

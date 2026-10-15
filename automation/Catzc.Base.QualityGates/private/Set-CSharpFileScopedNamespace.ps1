@@ -6,22 +6,26 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Returns the C# source with a file-scoped `namespace <Namespace>;` line present and correct.
+    description: |-
+      The string engine behind Format-Types. Pure (text in, text out), so it is unit-tested directly.
+
+        - When the source already declares a file-scoped namespace, its name is corrected to <Namespace>
+          (a no-op when it already matches).
+        - When it declares none, `namespace <Namespace>;` is inserted after the leading comment/using block —
+          before the first type or attribute — padded by a blank line on each side.
+        - A block-scoped `namespace X { … }` (not a shape this repo authors) is left untouched, so the helper
+          never double-declares; Format-Types reports it and Test-Formatting turns it into an issue.
+
+      Line endings are normalised to LF and a single trailing newline is preserved (repo convention).
+    parameters:
+      Content: The C# source text.
+      Namespace: The module namespace the file must declare (its <Module> folder).
+    outputs: '[string] The source with the namespace line in place.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the C# source with a file-scoped `namespace <Namespace>;` line present and correct.
-.DESCRIPTION
-    A block-scoped namespace is left alone, so the helper never double-declares; Format-Types reports it.
-.PARAMETER Content
-    The C# source text.
-.PARAMETER Namespace
-    The module namespace the file must declare (its <Module> folder).
-.OUTPUTS
-    [string] The source with the namespace line in place.
-#>
 function Set-CSharpFileScopedNamespace {
     [CmdletBinding()]
     [OutputType([string])]
@@ -54,8 +58,8 @@ function Set-CSharpFileScopedNamespace {
         $joined
     }
 
-    # A block-scoped namespace is left untouched: the repo never authors one, so Format-Types reports it instead.
-    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md#comment2)
+    # An existing namespace declaration: correct a file-scoped one in place (no-op when already right); leave a...
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md#comment3)
     for ($i = 0; $i -lt $lines.Count; $i++) {
         if ($lines[$i] -match '^\s*namespace\s+\S') {
             if (($lines[$i] -match '^\s*namespace\s+(\S+?)\s*;\s*$') -and ($Matches[1] -ne $Namespace)) {

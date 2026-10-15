@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-cli/types/SubscriptionContext.cs.md
     kind: comment-page
     body_sha: f6044ce64c83
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/types/SubscriptionContext.cs

@@ -1,0 +1,24 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-DevBoxTools.Tests.ps1.md
+    kind: test-asset
+    body_sha: "5e10c20f37ed"
+---
+
+# automation/Catzc.Tooling.Provisioning/tests/Uninstall-DevBoxTools.Tests.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
+section (Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `BeforeEach {`.
+
+```text
+Pure orchestration: assert it delegates to the per-tool uninstallers. Get-ToolInstallOrder is mocked to a
+small, realistic order — a single-word key (python) and a multi-word key (node_js) — and the real per-tool
+uninstallers are mocked so the dynamic-dispatch loop is exercised without touching the machine. The
+multi-word case is the regression guard: the key must be mapped through Get-ToolCommandSuffix to its
+PascalCase command suffix (node_js -> Uninstall-NodeJs), or it silently never dispatches.
+```

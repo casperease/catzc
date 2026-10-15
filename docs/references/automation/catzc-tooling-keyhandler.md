@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-keyhandler.md
     kind: reference
     body_sha: "0ac4c274fd5e"
-    adrs: []
     links:
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/automation/dry-run.md

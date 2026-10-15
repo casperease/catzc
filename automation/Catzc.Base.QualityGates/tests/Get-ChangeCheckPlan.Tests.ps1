@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-ChangeCheckPlan over fixture files, with the file-language registry mocked to fixture languages. Neutral fixture
-# names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-ChangeCheckPlan over fixture files, with the file-language registry mocked to fixture languages.
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-ChangeCheckPlan.Tests.ps1.md#comment1)
 Describe 'Get-ChangeCheckPlan' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

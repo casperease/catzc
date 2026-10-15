@@ -6,18 +6,16 @@ catzc:
     kind: private-function
     module: Catzc.Base.Vendor
     visibility: private
-    adrs: []
+  config:
+    synopsis: Enumerates the vendored modules on disk under automation/.vendor.
+    description: |-
+      One record per vendored module folder (automation/.vendor/<Name>/<Version>/), reading its name, the
+      committed version, and its folder path. The single reader behind Remove-VendorModules' target list and its
+      availability validation. Returns an empty array when the vendor folder is absent.
+    outputs: '[pscustomobject] with Name, Version, and Path (the module folder to remove).'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Enumerates the vendored modules on disk under automation/.vendor.
-.DESCRIPTION
-    Returns an empty array when the vendor folder is absent, so a caller can loop without a null check.
-.OUTPUTS
-    [pscustomobject] with Name, Version, and Path (the module folder to remove).
-#>
 function Get-VendoredModule {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

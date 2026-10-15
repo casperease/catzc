@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-REPO-CONTRACT#3
       - ADR-REPO-CONTRACT#4
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/private/Get-ContractBindingAssets.ps1

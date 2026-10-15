@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/Get-InstallScope.ps1.md
     kind: comment-page
     body_sha: ef645e3d4e71
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Get-InstallScope.ps1

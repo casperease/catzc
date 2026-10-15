@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#5
 ---
 #>
 
-# The member list: tracked universe ∩ globset membership, ordinally sorted
-# ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4),
-# [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)).
+# The member list: tracked universe ∩ globset membership, ordinally sorted.
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md#comment1)
 Describe 'Get-GlobSetFile' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{

@@ -4,20 +4,22 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
+      - ADR-AUTO-NOPWD#1
+      - ADR-AUTO-TEST#35
 ---
 #>
 
 Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A real file so the -Path collection (Resolve-Path) resolves; the analysis helper is mocked, so the
-        # file's contents are irrelevant.
+        # A real file so the -Path collection (Resolve-Path) resolves; the analysis helper is mocked, so the file's...
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment1)
         $script:targetFile = Join-Path $TestDrive 'subject.ps1'
         Set-Content -Path $script:targetFile -Value 'function Get-Thing { }' -Encoding utf8
 
-        # Mock the analysis boundary — the sharded background-job runner — never run the real (slow) analyzer
-        # in a unit test. (Start-Job processes cannot see Pester mocks, so the seam is the helper, not the
-        # cmdlet inside it; the helper has its own L2 real-analyzer coverage below.) Mocked once for the block:
-        # each case sets $script:diagnostics for the mock to return.
+        # Mock the analysis boundary — the sharded background-job runner — never run the real (slow) analyzer in a...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment2)
         Mock Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates { $script:diagnostics }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
@@ -94,20 +96,11 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     }
 }
 
-# The real-asset test of
-# [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3): the gate runs over
-# throwaway files with nothing mocked, so it reads
-# the shipped settings file (<code root>/.internal/assets/PSScriptAnalyzerSettings.psd1) and the vendored
-# analyzer (<code root>/.vendor) — integrity, and not source-only, so it runs in the source and the build run.
-# The repo-wide "all module code is analyzer-clean" check is the sharded L2 'PSScriptAnalyzer' test in
-# automation/.internal/tests — not duplicated here.
-# greedy: the real analyzer fans out Start-Job pwsh processes of its own — stacked on the parallel pool
-# that oversubscribes the box (see the test-automation ADR's greedy tag).
+# The real-asset test of: the gate runs over throwaway files with nothing mocked, so it reads the shipped settings...
+# [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment3)
 Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP#3' {
-    # One real-analyzer run over a clean + a violating file proves the boundary end-to-end: the real analyzer
-    # flags the aliased cmdlet with the repo rule set and reports the clean file as issue-free. The throw path
-    # (IssueCount > 0 without -PassThru) is pure Test-ScriptAnalyzer logic, covered by the mocked L0 block above;
-    # here -PassThru surfaces the real counts without re-spawning the analyzer shards a second time.
+    # One real-analyzer run over a clean + a violating file proves the boundary end-to-end: the real analyzer flags...
+    # [comment:4](/docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment4)
     It 'flags a real aliased-cmdlet violation and passes the clean fixture (real PSScriptAnalyzer, repo rule set)' {
         $clean = Join-Path $TestDrive 'Get-Thing.ps1'
         Set-Content -Path $clean -Value "function Get-Thing {`n    `$value = 1`n    `$value`n}" -Encoding utf8

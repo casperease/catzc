@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md
     kind: asset-description
     body_sha: "49750c4eef2b"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png
       - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md

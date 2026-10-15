@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.Files/types/RestartManager.cs
     kind: csharp-type
     module: Catzc.Base.Files
-    adrs: []
 ---
 */
 

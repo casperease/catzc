@@ -8,23 +8,19 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-CODEMETA#2
+  config:
+    synopsis: 'The visibility meta kind''s fact: whether a module''s function file is public or private, from its folder.'
+    description: |-
+      A file in the module's private folder is private, and any other file of the module is public. The modules root and the folder name
+      are the kind's `root` and `private_folder` settings, `automation` and `private` unless the registry says otherwise.
+    parameters:
+      State: What the file's carrier reader returned.
+      Path: The file's repository-relative path.
+      Kind: The registry entry that subscribed this function.
+    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    The visibility meta kind's fact: whether a module's function file is public or private, from its folder.
-.DESCRIPTION
-    A file in the module's private folder is private, and any other file of the module is public.
-.PARAMETER State
-    What the file's carrier reader returned.
-.PARAMETER Path
-    The file's repository-relative path.
-.PARAMETER Kind
-    The registry entry that subscribed this function.
-.OUTPUTS
-    [System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.
-#>
 function Get-VisibilityFileMetaFact {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Every meta-kind processor is called with the same State, Path and Kind; this kind needs no state')]
     [CmdletBinding()]

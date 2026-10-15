@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#19
+      - ADR-PWSH-PESTER#3
 ---
 #>
 
@@ -21,9 +24,8 @@ Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Azure.Templates
 
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
-        # The deploy target is the az session's subscription
-        # ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3) whole-boundary
-        # mock).
+        # The deploy target is the az session's subscription ( whole-boundary mock).
+        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md#comment1)
         Mock Get-AzCliSessionSubscription {
             [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
                 tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
@@ -39,8 +41,8 @@ Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
             }
         }
 
-        # Warm the path-keyed session caches once, not per test
-        # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
+        # Warm the path-keyed session caches once, not per test.
+        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md#comment2)
         Get-Config -Config azure | Out-Null
         Get-Config -Config network | Out-Null
         Get-BicepTemplates | Out-Null
@@ -85,8 +87,8 @@ Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tempArtifacts = Join-Path ([IO.Path]::GetTempPath()) ('catzc-subdeploy-' + [Guid]::NewGuid())
 
-        # Devbox path: without this the real Test-IsRunningInPipeline returns $true under CI
-        # ($env:GITHUB_ACTIONS) and Deploy-Bicep throws "requires -SubscriptionIdAssertIs in a pipeline".
+        # Devbox path: without this the real Test-IsRunningInPipeline returns $true under CI ($env:GITHUB_ACTIONS)...
+        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md#comment3)
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
@@ -129,8 +131,8 @@ Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
             }
         } -ModuleName Catzc.Azure.Templates
 
-        # Warm the path-keyed session caches once, not per test
-        # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
+        # Warm the path-keyed session caches once, not per test.
+        # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md#comment4)
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
     }
@@ -181,8 +183,8 @@ Describe 'Get-BicepTrackTagNameSet (sample-subscription)' -Tag 'L0', 'logic' {
             }
         }
 
-        # Warm the path-keyed session caches once, not per test
-        # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
+        # Warm the path-keyed session caches once, not per test.
+        # [comment:5](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md#comment5)
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
     }

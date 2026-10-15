@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/Get-ModuleDependency.ps1.md
     kind: comment-page
     body_sha: "8764ab137d10"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Get-ModuleDependency.ps1

@@ -8,9 +8,8 @@ catzc:
 #>
 
 Describe 'Initialize-Types' -Tag 'L1', 'logic' {
-    # L1: each case loads a fixture DLL, so the file is locked for the process lifetime. Fixtures live OUTSIDE TestDrive, in a
-    # self-managed temp dir cleaned best-effort. The pending record and the lookup hook are session state: saved, replaced by
-    # a fresh record per case, and restored after.
+    # L1: each case loads a fixture DLL, so the file is locked for the process lifetime.
+    # [comment:1](/docs/references/automation/internal/tests/Initialize-Types.Tests.ps1.md#comment1)
     BeforeAll {
         $script:fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) "inittypes-$([guid]::NewGuid().ToString('N'))"
         [System.IO.Directory]::CreateDirectory($script:fixtureRoot) | Out-Null

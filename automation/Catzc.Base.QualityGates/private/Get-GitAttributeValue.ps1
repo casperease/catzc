@@ -6,24 +6,22 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Reads the given .gitattributes attributes for many repository paths at once.
+    description: |-
+      The one place the scopes of the quality gates ask git which file classes .gitattributes declares (vendored,
+      generated, fixture, own title), so every scope reads the same classes the same way. Runs `git check-attr` in
+      batches that keep each command line short; a path need not be tracked. Only attributes git reports as set,
+      unset, or a value are returned — `unspecified` is left out. A root that is not a git work tree has no
+      .gitattributes, so nothing is returned for it.
+    parameters:
+      RepositoryRoot: The repository root the paths are relative to.
+      Path: Repository-relative, '/'-separated paths.
+      Attribute: The attribute names to read.
+    outputs: '[hashtable] path -> @{ <attribute> = ''set'' | ''unset'' | <value> }, for the paths with any attribute specified.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Reads the given .gitattributes attributes for many repository paths at once.
-.DESCRIPTION
-    Every scope reads the gitattributes classes through here, so they all read the same classes the same way.
-.PARAMETER RepositoryRoot
-    The repository root the paths are relative to.
-.PARAMETER Path
-    Repository-relative, '/'-separated paths.
-.PARAMETER Attribute
-    The attribute names to read.
-.OUTPUTS
-    [hashtable] path -> @{ <attribute> = 'set' | 'unset' | <value> }, for the paths with any attribute specified.
-#>
 function Get-GitAttributeValue {
     [CmdletBinding()]
     [OutputType([hashtable])]

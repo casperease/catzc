@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-inspiration.md
     kind: reference
     body_sha: e2cb090c3f31
-    adrs: []
     links:
       - docs/adr/automation/path-representation.md
       - docs/adr/automation/sensible-defaults.md

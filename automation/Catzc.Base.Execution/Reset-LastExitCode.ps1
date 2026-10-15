@@ -6,16 +6,13 @@ catzc:
     kind: public-function
     module: Catzc.Base.Execution
     visibility: public
-    adrs: []
+  config:
+    synopsis: Removes the global $LASTEXITCODE variable.
+    examples:
+      - Reset-LastExitCode
 ---
 #>
 
-<#
-.SYNOPSIS
-    Removes the global $LASTEXITCODE variable.
-.EXAMPLE
-    Reset-LastExitCode
-#>
 function Reset-LastExitCode {
     param()
 

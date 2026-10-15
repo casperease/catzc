@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-MONITOR#3
       - ADR-DORA-MONITOR#4
       - ADR-DORA-MONITOR#5
-    adrs: []
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/process/observe-work.md

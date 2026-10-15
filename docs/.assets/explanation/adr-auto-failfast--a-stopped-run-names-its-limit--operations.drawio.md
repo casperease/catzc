@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.md
     kind: asset-description
     body_sha: "94cd0541af62"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
       - docs/explanation/automation/a-stopped-run-names-its-limit.md

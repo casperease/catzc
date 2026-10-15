@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/templates/expedition/main.bicep.md
     kind: comment-page
     body_sha: "0227d1cda920"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/templates/expedition/main.bicep

@@ -6,20 +6,16 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls ShellCheck installed by Install-Shellcheck.
+    description: Delegates to Uninstall-Tool, which removes the winget or brew package the tools.yml `shellcheck` entry names.
+    parameters:
+      Version: 'The installed version to remove. Default: whatever is installed.'
+    examples:
+      - Uninstall-Shellcheck
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls ShellCheck installed by Install-Shellcheck.
-.DESCRIPTION
-    Delegates to Uninstall-Tool, which removes the winget or brew package the tools.yml `shellcheck` entry names.
-.PARAMETER Version
-    The installed version to remove. Default: whatever is installed.
-.EXAMPLE
-    Uninstall-Shellcheck
-#>
 function Uninstall-Shellcheck {
     [CmdletBinding()]
     param(

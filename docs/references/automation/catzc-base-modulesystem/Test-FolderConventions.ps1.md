@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-FOLDERS#4
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
@@ -47,6 +46,24 @@ name (one function per file), tracked for the cross-module duplicate-export chec
 ```
 
 ## comment:3
+
+Above `if ($name -match '^\.') {`.
+
+```text
+Dot-prefixed entries are tooling (a schema sidecar, an editor dotfile), not module config
+([ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4)).
+```
+
+## comment:4
+
+Above `foreach ($path in ([System.IO.Directory]::EnumerateFiles($moduleDirectory,...`.
+
+```text
+Module-root .ps1: a test is misplaced; the rest are public functions whose file basename is the exported
+name (one function per file), tracked for the cross-module duplicate-export check.
+```
+
+## comment:5
 
 Above `if ($name -match '^\.') {`.
 

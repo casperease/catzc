@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.md
     kind: asset-description
     body_sha: "5f9c5d88d4fb"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.png
       - docs/explanation/automation/one-out-string-two-places.md

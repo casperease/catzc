@@ -6,32 +6,30 @@ catzc:
     kind: public-function
     module: Catzc.Base.Writers
     visibility: public
-    adrs: []
+  config:
+    synopsis: Pretty-prints any object to the console with type info and smart formatting.
+    description: |-
+      Renders objects differently based on their type:
+      - Simple values (string, number, bool): displayed directly
+      - Hashtables and ordered dictionaries: key = value pairs
+      - Collections/arrays: listed as items, or YAML if elements are complex
+      - PSCustomObject and other complex types: YAML
+      First line always shows the type name and size where relevant.
+
+      Suppressed during Pester test runs (like Write-Message) to keep test output clean.
+    parameters:
+      Object: The object to display. Accepts pipeline input.
+      Name: Optional label displayed above the output.
+      NoHeader: Suppress the type info line and name label. Only the rendered value is shown.
+      Depth: Maximum recursion depth for nested objects. Defaults to 10.
+      ForegroundColor: Color for the output. Defaults to DarkGray.
+    examples:
+      - Get-Process | Select-Object Name, Id, CPU -First 3 | Write-Object
+      - '$config | Write-Object -Name ''App config'''
+      - '@{ a = 1; b = 2 } | Write-Object'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Pretty-prints any object to the console with type info and smart formatting.
-.DESCRIPTION
-    Like Write-Message it stays silent during Pester runs, so a test must lift the flag to assert its output.
-.PARAMETER Object
-    The object to display. Accepts pipeline input.
-.PARAMETER Name
-    Optional label displayed above the output.
-.PARAMETER NoHeader
-    Suppress the type info line and name label. Only the rendered value is shown.
-.PARAMETER Depth
-    Maximum recursion depth for nested objects. Defaults to 10.
-.PARAMETER ForegroundColor
-    Color for the output. Defaults to DarkGray.
-.EXAMPLE
-    Get-Process | Select-Object Name, Id, CPU -First 3 | Write-Object
-.EXAMPLE
-    $config | Write-Object -Name 'App config'
-.EXAMPLE
-    @{ a = 1; b = 2 } | Write-Object
-#>
 function Write-Object {
     [CmdletBinding()]
     param(

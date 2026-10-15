@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# ConvertFrom-PytestJunit over a canned pytest JUnit report in tests/assets: one result per top-level test function,
-# parametrised cases folded in. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# ConvertFrom-PytestJunit over a canned pytest JUnit report in tests/assets: one result per top-level test function,...
+# [comment:1](/docs/references/automation/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md#comment1)
 Describe 'ConvertFrom-PytestJunit' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:report = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/pytest-widget.xml')

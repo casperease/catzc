@@ -34,12 +34,13 @@ of the `param` block, `.INPUTS`, `.OUTPUTS`, `.EXAMPLE`, `.NOTES`. The text of e
 
 ### Rule ADR-REPO-HELP:2
 
-The ADR citations of a function sit in one place: the tail of `.DESCRIPTION`, one line per citation, sorted by code and then by rule number,
-without duplicates, each spelled as a code link ([ADR-REPO-LINK#3](markdown-links.md#rule-adr-repo-link3)). A citation is never in
-`.SYNOPSIS`, which the list view of `Get-Help` shows, and never between the closing `#>` and `function`. The docs link of a moved comment
-([ADR-REPO-LINK#9](markdown-links.md#rule-adr-repo-link9)) stays on its own line after the citations of its section.
+The ADR citations of a function live in one place: its meta head, whose `adrs` list the file and its comment page derive
+([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). The help block carries none: a parenthesised citation leaves `.SYNOPSIS`,
+which the list view of `Get-Help` shows, and a line made of citations leaves `.DESCRIPTION`. The docs link of a moved comment
+([ADR-REPO-LINK#9](markdown-links.md#rule-adr-repo-link9)) stays on its own line at the tail of the description. A citation in a sentence of
+the synopsis is reported, never rewritten.
 
-- [Citations sit at the tail of the description](#citations-sit-at-the-tail-of-the-description)
+- [Citations live in the head](#citations-live-in-the-head)
 
 ### Rule ADR-REPO-HELP:3
 

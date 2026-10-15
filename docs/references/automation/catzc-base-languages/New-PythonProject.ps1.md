@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md
     kind: comment-page
     body_sha: "8a5c9e6bd840"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/New-PythonProject.ps1
@@ -39,6 +37,15 @@ names for the workspace targets, and Build-RootConfig owns the write; the entry'
 ```
 
 ## comment:2
+
+Above `$pythonVersion = "$(Get-ConfigValue -Address 'global.tools.python.version')"`.
+
+```text
+The one Python version: the python tool's tools.yml pin, read by address (reading config is global access,
+[ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)).
+```
+
+## comment:3
 
 Above `$pythonVersion = "$(Get-ConfigValue -Address 'global.tools.python.version')"`.
 

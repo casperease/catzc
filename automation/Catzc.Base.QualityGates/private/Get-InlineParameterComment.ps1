@@ -8,24 +8,19 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-HELP#3
+  config:
+    synopsis: Lists the comment lines written directly above each parameter of a function, with the text range they occupy.
+    description: 'A trailing comment after code is not one: only a comment alone on its line, in an unbroken run that ends on the line above the parameter.'
+    parameters:
+      Text: The file text, with LF line endings.
+      ParamBlock: The parsed param block of the function.
+      Token: The tokens of the same parse.
+    outputs: |-
+      [pscustomobject[]] @{ Name; Text; Start; End } per parameter that has such a run: the comment text joined on single spaces, and the
+      offsets of the lines to remove, newline included.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists the comment lines written directly above each parameter of a function, with the text range they occupy.
-.DESCRIPTION
-    A trailing comment after code is not one: only a comment alone on its line, in an unbroken run that ends on the...
-.PARAMETER Text
-    The file text, with LF line endings.
-.PARAMETER ParamBlock
-    The parsed param block of the function.
-.PARAMETER Token
-    The tokens of the same parse.
-.OUTPUTS
-    [pscustomobject[]] @{ Name; Text; Start; End } per parameter that has such a run: the comment text joined on single spaces, and the
-    offsets of the lines to remove, newline included.
-#>
 function Get-InlineParameterComment {
     [CmdletBinding()]
     [OutputType([pscustomobject[]])]

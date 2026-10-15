@@ -4,12 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#10
+      - ADR-AUTO-TEST#38
 ---
 #>
 
 Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
     # Use where.exe/which as the test command — real executables on all platforms.
-    # 'echo' is a shell builtin on Windows (no echo.exe) and breaks Stream mode.
+    # [comment:1](/docs/references/automation/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md#comment1)
     BeforeAll {
         $script:simpleCmd = if ($IsWindows) {
             'where.exe where'
@@ -318,8 +321,8 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         }
 
         It 'fails fast, naming the cause, when a process the command started keeps its output open after it exits' -Tag 'L2' {
-            # L2: the child exits at once, but the grandchild it starts inherits the output pipe and holds it for 20 s
-            # (as a dotnet build server does). The run must not wait out the grandchild.
+            # L2: the child exits at once, but the grandchild it starts inherits the output pipe and holds it for 20...
+            # [comment:2](/docs/references/automation/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md#comment2)
             $leaver = 'pwsh -NoProfile -NonInteractive -Command "Start-Process -NoNewWindow -FilePath pwsh -ArgumentList ''-NoProfile'',''-Command'',''Start-Sleep -Seconds 20''; exit 0"'
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
             $err = { Invoke-Executable $leaver -TimeoutSeconds 60 -Silent -PassThru } | Should -Throw -PassThru
@@ -378,8 +381,8 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
             New-Item -ItemType Directory -Path $tempDirectory | Out-Null
             try {
                 $result = Invoke-Executable $cwdCmd -WorkingDirectory $tempDirectory -PassThru -Silent
-                # macOS resolves /var, /tmp → /private/var, /private/tmp, so the child's reported cwd carries a
-                # /private prefix that [IO.Path]::GetTempPath() does not. Normalize both sides.
+                # macOS resolves /var, /tmp → /private/var, /private/tmp, so the child's reported cwd carries a...
+                # [comment:3](/docs/references/automation/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md#comment3)
                 ($result.Output.Trim() -replace '^/private', '') | Should -Be ($tempDirectory -replace '^/private', '')
             }
             finally {
@@ -421,7 +424,7 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
     Context 'CliRunner parser — quoted arguments' {
         It 'quoted argument with spaces is passed as single argument' {
             # where.exe /? outputs help — proves the argument arrived intact.
-            # More importantly: a space-containing quoted arg must not be split.
+            # [comment:4](/docs/references/automation/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md#comment4)
             $command = if ($IsWindows) {
                 'cmd /c echo "hello world"'
             }

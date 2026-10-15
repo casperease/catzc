@@ -4,13 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#27
 ---
 #>
 
 Describe 'Select-RuleTaggedFiles' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#27' {
     BeforeAll {
-        # Fake discovery tests keyed by file, each with a block-chain the resolver walks. Built here (plain
-        # data) and passed into module scope.
+        # Fake discovery tests keyed by file, each with a block-chain the resolver walks.
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Select-RuleTaggedFiles.Tests.ps1.md#comment1)
         function New-FakeTest {
             param([string] $File, [string[]] $Tags)
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/pipelines/Invoke-AdoScript.ps1.md
     kind: comment-page
     body_sha: "84b8256e57a4"
-    adrs: []
-    links: []
 ---
 
 # pipelines/Invoke-AdoScript.ps1

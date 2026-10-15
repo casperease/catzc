@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-repository/Get-OutputRoot.ps1.md
     kind: comment-page
     body_sha: cc3b10578efe
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Repository/Get-OutputRoot.ps1

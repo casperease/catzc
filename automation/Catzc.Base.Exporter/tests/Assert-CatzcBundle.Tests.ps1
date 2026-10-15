@@ -4,17 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A hand-made, well-formed build of two neutral modules
-        # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): widget is selected (its type
-        # source
-        # ships under Catzc.Base.Widget/types/), gadget's type source rides along under .compiled/types/ (every build
-        # ships the full type set). typesHash comes from the one implementation, over the same two sources.
+        # A hand-made, well-formed build of two neutral modules: widget is selected (its type source ships under...
+        # [comment:1](/docs/references/automation/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md#comment1)
         $script:newFixtureBuild = {
             $root = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"
             $write = {
@@ -27,6 +26,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             & $write 'Catzc.psm1' '. $PSScriptRoot/Import-Catzc.ps1'
             & $write 'Import-Catzc.ps1' '# initializer'
             & $write '.internal/Catzc.Internal.Loader.psm1' '# loader'
+            & $write '.internal/assets/types-load.yml' 'cells: {}'
             & $write '.vendor/powershell-yaml/0.4.12/Tests/yaml.Tests.ps1' '# vendored verbatim, allowed'
             & $write 'Catzc.Base.Widget/Catzc.Base.Widget.psd1' "@{ NestedModules = @('Catzc.Base.Widget.functions.ps1'); FunctionsToExport = @('Get-Widget') }"
             & $write 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1' "# source: automation/Catzc.Base.Widget/private/Get-WidgetPart.ps1`nfunction Get-WidgetPart { 'part' }`n# source: automation/Catzc.Base.Widget/Get-Widget.ps1`nfunction Get-Widget { Get-WidgetPart }`n"
@@ -56,8 +56,8 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Root = $root; TypesHash = $typesHash; Build = $build }
         }
 
-        # Rewrites build.json after a fixture mutation, keeping the content hash current so only the mutated
-        # property is under test.
+        # Rewrites build.json after a fixture mutation, keeping the content hash current so only the mutated property...
+        # [comment:2](/docs/references/automation/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md#comment2)
         $script:resealBuild = {
             param($fixture)
             $buildFile = Join-Path $fixture.Root 'build.json'
@@ -85,6 +85,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
         @{ File = 'Catzc.psm1' }
         @{ File = 'Import-Catzc.ps1' }
         @{ File = '.internal/Catzc.Internal.Loader.psm1' }
+        @{ File = '.internal/assets/types-load.yml' }
     ) {
         [System.IO.File]::Delete((Join-Path $fixture.Root $File))
         & $script:resealBuild $fixture

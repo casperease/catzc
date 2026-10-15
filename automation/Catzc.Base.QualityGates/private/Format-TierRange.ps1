@@ -6,22 +6,17 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: 'Formats a tier range the way a test run names it: ''L2'' for one tier, ''L0-L2'' for a range.'
+    parameters:
+      MinLevel: The lowest tier.
+      MaxLevel: The highest tier.
+    outputs: '[string]'
+    examples:
+      - Format-TierRange -MinLevel 0 -MaxLevel 2
 ---
 #>
 
-<#
-.SYNOPSIS
-    Formats a tier range the way a test run names it: 'L2' for one tier, 'L0-L2' for a range.
-.PARAMETER MinLevel
-    The lowest tier.
-.PARAMETER MaxLevel
-    The highest tier.
-.OUTPUTS
-    [string]
-.EXAMPLE
-    Format-TierRange -MinLevel 0 -MaxLevel 2
-#>
 function Format-TierRange {
     [OutputType([string])]
     param(

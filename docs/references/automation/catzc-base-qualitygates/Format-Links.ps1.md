@@ -6,7 +6,6 @@ catzc:
     body_sha: "3c033f444927"
     adrs:
       - ADR-REPO-LINK#8
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Format-Links.ps1

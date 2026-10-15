@@ -4,13 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-UVPY#2
 ---
 #>
 
 Describe 'Install-PipTool' -Tag 'L1', 'logic' {
     BeforeEach {
-        # Neutral fixture tool ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) — a
-        # pip_package library, like PySpark but not a live identity.
+        # Neutral fixture tool — a pip_package library, like PySpark but not a live identity.
+        # [comment:1](/docs/references/automation/catzc-tooling-python/tests/Install-PipTool.Tests.ps1.md#comment1)
         Mock Get-ToolConfig { [pscustomobject]@{ command = 'widget'; pip_package = 'widgetlib'; version = '4.1'; version_command = 'widget --version' } } -ParameterFilter { $Tool -eq 'widget' } -ModuleName Catzc.Tooling.Python
         Mock Get-ToolConfig { [pscustomobject]@{ version = '3.13' } } -ParameterFilter { $Tool -eq 'python' } -ModuleName Catzc.Tooling.Python
         Mock Get-ToolCommandSuffix { 'Widget' } -ModuleName Catzc.Tooling.Python

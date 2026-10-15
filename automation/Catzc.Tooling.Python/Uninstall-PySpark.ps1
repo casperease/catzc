@@ -6,18 +6,16 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Python
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls PySpark from the uv-managed Python via `uv pip`.
+    description: |-
+      Idempotent — skips if PySpark is not installed or if Python is
+      not available (nothing to uninstall).
+    examples:
+      - Uninstall-PySpark
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls PySpark from the uv-managed Python via `uv pip`.
-.DESCRIPTION
-    A missing Python counts as nothing to uninstall, not as an error, so a repeat run is safe.
-.EXAMPLE
-    Uninstall-PySpark
-#>
 function Uninstall-PySpark {
     [CmdletBinding()]
     param()

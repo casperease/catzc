@@ -9,8 +9,8 @@ catzc:
 
 Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A minimal version-2 index of stage-0 regular files — the reader's own shapes are pinned in
-        # Catzc.Base.Git/tests/types/GitIndex.Tests.ps1; here only the seam, the pathspec, and the content-keyed cache matter.
+        # A minimal version-2 index of stage-0 regular files — the reader's own shapes are pinned in...
+        # [comment:1](/docs/references/automation/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md#comment1)
         function Set-GitIndexFile {
             param([string[]] $Path)
             $bytes = [System.Collections.Generic.List[byte]]::new()
@@ -82,8 +82,8 @@ Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
     }
 }
 
-# The reader against the real thing: on this repository's own index, the in-process answer is byte-for-byte
-# what `git ls-files` prints (unmerged paths, which git repeats per stage, counted once).
+# The reader against the real thing: on this repository's own index, the in-process answer is byte-for-byte what `git...
+# [comment:2](/docs/references/automation/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md#comment2)
 Describe 'Get-GitTrackedPath (real git)' -Tag 'L2', 'integrity', 'source-only' {
     It 'equals git ls-files for the whole repository and for a pathspec' {
         $git = @((Invoke-Executable 'git -c core.quotepath=off ls-files' -PassThru -Silent).Output -split "`r?`n" |

@@ -6,7 +6,6 @@ catzc:
     body_sha: "367fe216f621"
     adrs:
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # automation/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
@@ -31,6 +30,15 @@ config several modules opt into by shipping it. Mock this to redirect a config t
 ```
 
 ## comment:2
+
+Above `$script:configIndex = @{}`.
+
+```text
+strict-clean probe of the lazy cache entry
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:3
 
 Above `$script:configIndex = @{}`.
 

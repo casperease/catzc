@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Assert-Tool' -Tag 'L0', 'logic' {
-    # The probed branch: a tool with candidate paths is asserted from the probe record, never by its bare name on
-    # PATH. The probe is mocked whole. Fixture tokens are neutral
-    # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+    # The probed branch: a tool with candidate paths is asserted from the probe record, never by its bare name on PATH.
+    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Assert-Tool.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Get-ToolConfig {
             [Catzc.Base.Execution.ToolConfig]::new(@{ version = '5'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; unix_probes = @('/opt/widget'); windows_probes = @('C:\widget.exe') })

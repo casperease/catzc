@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md
     kind: comment-page
     body_sha: "64223a461dc5"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/PesterRunner.cs

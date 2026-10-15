@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-folders.md
     kind: reference
     body_sha: a2fc2bb2cdea
-    adrs: []
     links:
       - docs/references/automation/catzc-base-files.md
       - docs/references/automation/catzc-base-git.md

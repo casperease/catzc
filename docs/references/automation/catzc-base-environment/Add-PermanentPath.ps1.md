@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md
     kind: comment-page
     body_sha: cb0b8e6492fc
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Environment/Add-PermanentPath.ps1
@@ -45,6 +43,16 @@ entries into the current session (Windows only).
 ```
 
 ## comment:4
+
+Above `if ($IsWindows) {`.
+
+```text
+--- Persistent PATH ---
+Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests Mock them instead
+of touching the real machine PATH. See their help.
+```
+
+## comment:5
 
 Above `if ($IsWindows) {`.
 

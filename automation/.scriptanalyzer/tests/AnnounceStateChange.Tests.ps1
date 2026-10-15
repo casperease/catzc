@@ -4,17 +4,19 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#33
+      - ADR-PWSH-ANNOUNCE#8
 ---
 #>
 
-# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
-# ScriptBlockAst. The engine-wiring proof (PSScriptAnalyzer discovers and fires this rule via -CustomRulePath)
-# lives once, for all custom rules, in CustomRuleWiring.Tests.ps1.
+# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a...
+# [comment:1](/docs/references/automation/scriptanalyzer/tests/AnnounceStateChange.Tests.ps1.md#comment1)
 Describe 'Measure-AnnounceStateChange' -Tag 'L0', 'logic', 'ADR-PWSH-ANNOUNCE#8' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/AnnounceStateChange.psm1') -Force
-        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module
-        # once for the type — we never invoke the analyzer engine (that is the L2 wiring test).
+        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module once...
+        # [comment:2](/docs/references/automation/scriptanalyzer/tests/AnnounceStateChange.Tests.ps1.md#comment2)
         if (-not (Get-Module PSScriptAnalyzer)) {
             Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
         }
@@ -148,8 +150,8 @@ function Invoke-Widget {
         }
 
         It 'skips a test file analyzed as an editor buffer, which has no file name' {
-            # VS Code's PowerShell extension analyzes the open buffer as a script definition: no file name, so the
-            # Pester structure (a Describe call) is what marks it as a test file.
+            # VS Code's PowerShell extension analyzes the open buffer as a script definition: no file name, so the...
+            # [comment:3](/docs/references/automation/scriptanalyzer/tests/AnnounceStateChange.Tests.ps1.md#comment3)
             $code = "BeforeAll { Import-Module 'C:\widget' -Force }`nDescribe 'Widget' { It 'works' { } }"
             Test-StateChange $code | Should -BeNullOrEmpty
         }

@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
-    adrs: []
 ---
 */
 

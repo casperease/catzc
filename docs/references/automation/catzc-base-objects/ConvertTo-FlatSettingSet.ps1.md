@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-objects/ConvertTo-FlatSettingSet.ps1.md
     kind: comment-page
     body_sha: ea74072c2a74
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Objects/ConvertTo-FlatSettingSet.ps1

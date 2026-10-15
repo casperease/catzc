@@ -4,6 +4,11 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST
+      - ADR-AUTO-TEST#1
+      - ADR-AUTO-TEST#13
+      - ADR-AUTO-TEST#27
 ---
 #>
 
@@ -108,13 +113,12 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
 
     Context 'the optional ADR provenance axis' -Tag 'ADR-AUTO-TEST#27' {
         BeforeAll {
-            # A fixture rule-id set (registry ':' form) so the validation is hermetic — it never reads the
-            # shipped ADR tree. Mocking the whole boundary function is the seam
-            # ([ADR-AUTO-TEST](/docs/adr/automation/test-automation.md)).
+            # A fixture rule-id set (registry ':' form) so the validation is hermetic — it never reads the shipped...
+            # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-TestTagViolations.Tests.ps1.md#comment1)
             Mock Get-CatsAdrRuleIds { @('ADR-WIDGET-GADGET:3', 'ADR-WIDGET-SPROCKET:1') } -ModuleName Catzc.Base.QualityGates
 
-            # The fake discovery is plain data, so it is built here (Pester scope) and passed INTO InModuleScope
-            # via -Parameters — a function defined here is not visible in the module's session state.
+            # The fake discovery is plain data, so it is built here (Pester scope) and passed INTO InModuleScope via...
+            # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Get-TestTagViolations.Tests.ps1.md#comment2)
             function New-Discovery {
                 param([string] $Name, [string[]] $Tags)
                 $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

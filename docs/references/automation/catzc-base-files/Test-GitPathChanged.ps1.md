@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-files/Test-GitPathChanged.ps1.md
     kind: comment-page
     body_sha: b01917946f54
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Files/Test-GitPathChanged.ps1

@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.md
     kind: asset-description
     body_sha: "8b763afa2d5b"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
       - docs/explanation/design/get-aspect-names-the-remainder.md

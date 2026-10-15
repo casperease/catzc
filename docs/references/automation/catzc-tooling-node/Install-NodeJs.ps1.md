@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md
     kind: comment-page
     body_sha: d26741199045
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Node/Install-NodeJs.ps1
@@ -33,6 +31,16 @@ which activates pre-cached versions instantly:
 ```
 
 ## comment:2
+
+Above `$sourcePath = '/etc/apt/sources.list.d/nodesource.list'`.
+
+```text
+The distro `nodejs` package trails the pinned major badly (Ubuntu jammy ships Node 12), so install
+from the NodeSource apt repository for the locked major — mirroring the HashiCorp repo setup in
+Install-Terraform. The repo URL embeds the major, so re-write the source when the pin changes.
+```
+
+## comment:3
 
 Above `$sourcePath = '/etc/apt/sources.list.d/nodesource.list'`.
 

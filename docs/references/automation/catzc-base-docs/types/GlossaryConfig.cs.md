@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AZ-CUSTOMER#3
       - ADR-REPO-VOCAB#3
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryConfig.cs

@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/getting-started/automation/add-an-infrastructure-template.md
     kind: how-to
     body_sha: "7fb02af5197f"
-    adrs: []
     links:
       - docs/adr/azure/azure-data-model.md
       - docs/adr/azure/azure-naming-standard.md

@@ -6,7 +6,6 @@ catzc:
     body_sha: "9a5fb898f78d"
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Variants/types/VariantAspect.cs

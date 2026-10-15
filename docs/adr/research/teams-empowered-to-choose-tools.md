@@ -9,7 +9,6 @@ catzc:
       - ADR-DORA-TOOLCHOICE#2
       - ADR-DORA-TOOLCHOICE#3
       - ADR-DORA-TOOLCHOICE#4
-    adrs: []
     links:
       - docs/adr/automation/controlling-systemwide-deps.md
       - docs/adr/design/thin-platforms.md

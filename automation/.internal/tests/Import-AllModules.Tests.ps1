@@ -4,36 +4,34 @@ catzc:
   derived:
     path: automation/.internal/tests/Import-AllModules.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-CONSOLE#11
+      - ADR-AUTO-TEST#26
 ---
 #>
 
 BeforeAll {
-    # Build an isolated sandbox = importer + the .internal shared modules (loader, bootstrap, …) + vendor, with
-    # NO application modules. Each test populates it and runs the importer in a fresh child pwsh process (a cold,
-    # fully-isolated re-derive of module state from the current files). The importer is a pure function of the
-    # filesystem, so we only need ONE import per distinct tree shape — each test below captures everything it
-    # needs from a single import, then asserts the facets in separate It blocks.
+    # Build an isolated sandbox = importer + the.internal shared modules (loader, bootstrap, …) + vendor, with NO...
+    # [comment:1](/docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md#comment1)
     $sandbox = Join-Path ([System.IO.Path]::GetTempPath()) "bootstrap-test-$([guid]::NewGuid().ToString('N'))"
     $sandboxAuto = Join-Path $sandbox 'automation'
     New-Item -Path $sandboxAuto -ItemType Directory -Force | Out-Null
 
     Copy-Item -Path (Join-Path $env:RepositoryRoot 'importer.ps1') -Destination $sandbox
-    # Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: .vendor (Pester + powershell-yaml, ~88
-    # files) copies in ~190ms vs ~1.25s with the cmdlet.
+    # Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse:.vendor (Pester + powershell-yaml, ~88 files)...
+    # [comment:2](/docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md#comment2)
     Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.internal') (Join-Path $sandboxAuto '.internal')
     Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.vendor') (Join-Path $sandboxAuto '.vendor')
 
     # Expression (run inside the child) that lists the loaded application modules and their exported functions.
-    # Bootstrap and the vendored modules are filtered out; $_ is escaped so it evaluates in the child.
+    # [comment:3](/docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md#comment3)
     $script:moduleListExpr =
     "@(Get-Module | Where-Object { `$_.Path -like '$sandboxAuto*' -and `$_.Name -ne 'Bootstrap' -and `$_.Path -notlike '*/.vendor/*' -and `$_.Path -notlike '*\.vendor\*' -and `$_.Path -notlike '*/.internal/*' -and `$_.Path -notlike '*\.internal\*' } | " +
     "ForEach-Object { [pscustomobject]@{ Name = `$_.Name; Exported = @(`$_.ExportedFunctions.Keys | Sort-Object) } })"
 
     function Invoke-Sandbox {
-        # ONE cold import in a child pwsh; $Capture is evaluated AFTER the import and returned as parsed JSON. The
-        # import's announcements are information records
-        # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)), so
-        # 6>$null keeps them out of the JSON.
+        # ONE cold import in a child pwsh; $Capture is evaluated AFTER the import and returned as parsed JSON.
+        # [comment:4](/docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md#comment4)
         param([Parameter(Mandatory)][string]$Capture)
         $script = ". '$sandbox/importer.ps1' 6>`$null`n$Capture | ConvertTo-Json -Depth 6 -Compress"
         $raw = pwsh -NoProfile -Command $script 2>&1
@@ -89,9 +87,8 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
     }
 
     Context 'a populated tree' {
-        # One import of a rich tree covers discovery, public export, the public/private boundary, a private
-        # being callable from a public function, multiple independent modules, and the collision guard NOT
-        # falsely-giving-positives on a private name shared across modules (the import simply succeeds).
+        # One import of a rich tree covers discovery, public export, the public/private boundary, a private being...
+        # [comment:5](/docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md#comment5)
         BeforeAll {
             Add-SandboxFunction -Module 'Acme' -Function 'Get-Acme' -Body '"v1"'
             Add-SandboxFunction -Module 'Acme' -Function 'Get-AcmeVersion' -Body '"1.0"'
@@ -136,8 +133,8 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
         }
 
         It 'allows the same private name in different modules (no false collision)' {
-            # The import above succeeded with PrivA and PrivB each defining a private Get-Shared; both modules
-            # loaded and neither exports it — proving the collision guard ignores module-scoped privates.
+            # The import above succeeded with PrivA and PrivB each defining a private Get-Shared; both modules loaded...
+            # [comment:6](/docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md#comment6)
             ($modules | Where-Object { $_.Name -eq 'PrivA' }).Exported | Should -Contain 'Get-PrivAThing'
             ($modules | Where-Object { $_.Name -eq 'PrivB' }).Exported | Should -Contain 'Get-PrivBThing'
             ($modules | Where-Object { $_.Name -eq 'PrivA' }).Exported | Should -Not -Contain 'Get-Shared'
@@ -145,8 +142,8 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
     }
 
     Context 're-derives state from the filesystem (add / change / delete)' {
-        # Mutate the populated tree every way an author can, then re-import: one cold import must reflect a
-        # changed body, an added function, a deleted function, and a deleted module.
+        # Mutate the populated tree every way an author can, then re-import: one cold import must reflect a changed...
+        # [comment:7](/docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md#comment7)
         BeforeAll {
             Add-SandboxFunction -Module 'Acme' -Function 'Get-Acme' -Body '"v2"'            # change a body
             Add-SandboxFunction -Module 'Acme' -Function 'Get-AcmeExtra' -Body '"extra"'    # add a function
@@ -210,13 +207,12 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
     }
 }
 
-# Greedy: one child pwsh dot-sources three importers in sequence (process-global module state), so it consumes the
-# machine beyond its own process and carries an L2-scale budget
-# ([ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)).
+# Greedy: one child pwsh dot-sources three importers in sequence (process-global module state), so it consumes the...
+# [comment:8](/docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md#comment8)
 Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
-        # Two complete sandbox roots (importer + .internal + .vendor) — stand-ins for a source tree and a build.
-        # Each holds a module only it ships and a same-named module that reports which root it came from.
+        # Two complete sandbox roots (importer +.internal +.vendor) — stand-ins for a source tree and a build.
+        # [comment:9](/docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md#comment9)
         function New-EvictionRoot {
             param([string] $Label, [string] $OnlyModule, [string] $OnlyFunction, [string] $OnlyBody)
             $root = Join-Path ([System.IO.Path]::GetTempPath()) "eviction-$Label-$([guid]::NewGuid().ToString('N'))"

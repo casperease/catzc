@@ -10,7 +10,6 @@ catzc:
       - ADR-DSGN-TRACK#13
       - ADR-DSGN-TRACK#3
       - ADR-DSGN-TRACK#6
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/Test-WorldMap.ps1

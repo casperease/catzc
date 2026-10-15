@@ -8,21 +8,20 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-CONTRACT#7
+  config:
+    synopsis: Reads a version folder's contract.yml, the direction overrides of its assets.
+    description: |-
+      The per-version manifest of [ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7) sits at
+      contracts/<unit>/<version>/contract.yml. Most version folders carry none, so an absent file is an empty manifest.
+      The ContractManifest type validates what it reads and throws on a malformed file.
+    parameters:
+      Folder: The version folder's absolute path.
+    outputs: '[Catzc.Base.Contracts.ContractManifest]'
+    examples:
+      - (Read-ContractManifest -Folder $versionFolder).direction
 ---
 #>
 
-<#
-.SYNOPSIS
-    Reads a version folder's contract.yml, the direction overrides of its assets.
-.DESCRIPTION
-    An absent contract.yml is an empty manifest, since most version folders carry none; a malformed one throws.
-.PARAMETER Folder
-    The version folder's absolute path.
-.OUTPUTS
-    [Catzc.Base.Contracts.ContractManifest]
-.EXAMPLE
-    (Read-ContractManifest -Folder $versionFolder).direction
-#>
 function Read-ContractManifest {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractManifest])]

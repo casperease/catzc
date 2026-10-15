@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/getting-started/automation/go/index.md
     kind: how-to
     body_sha: "03642fb25d9b"
-    adrs: []
     links:
       - docs/adr/automation/go/go-test-artifacts.md
 ---

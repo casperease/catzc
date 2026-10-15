@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md
     kind: asset-description
     body_sha: "66e15f5bbc4d"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.png
       - docs/explanation/automation/two-forms-never-a-third.md

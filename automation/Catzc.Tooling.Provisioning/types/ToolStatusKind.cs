@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Tooling.Provisioning/types/ToolStatusKind.cs
     kind: csharp-type
     module: Catzc.Tooling.Provisioning
-    adrs: []
 ---
 */
 

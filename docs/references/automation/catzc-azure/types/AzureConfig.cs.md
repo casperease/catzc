@@ -12,7 +12,6 @@ catzc:
       - ADR-AZ-DATAMOD#7
       - ADR-AZ-DATAMOD#8
       - ADR-AZ-NAMING#6
-    links: []
 ---
 
 # automation/Catzc.Azure/types/AzureConfig.cs

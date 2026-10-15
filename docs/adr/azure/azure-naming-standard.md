@@ -13,7 +13,6 @@ catzc:
       - ADR-AZ-NAMING#6
       - ADR-AZ-NAMING#7
       - ADR-AZ-NAMING#8
-    adrs: []
     links:
       - docs/.assets/azure/azure-name-assembly.drawio.png
       - docs/adr/azure/azure-data-model.md

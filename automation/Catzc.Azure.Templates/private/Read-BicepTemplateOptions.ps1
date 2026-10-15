@@ -6,21 +6,40 @@ catzc:
     kind: private-function
     module: Catzc.Azure.Templates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Reads a template's optional `options.yml` and returns the validated deployment overrides.
+    description: |-
+      Each template folder under `infrastructure/templates/<name>/` MAY carry an `options.yml` beside
+      `main.bicep` declaring how the template deploys:
+
+          short_name: smpl                  # 2-5 lowercase alnum — OVERRIDES the folder-derived Azure id segment
+          deployment_mode: Incremental      # Incremental | Complete | DoNotRun
+          deployment_target: Subscription   # ResourceGroup | Subscription
+          environment_kind: subscription    # standard | subscription
+          customer_deployment: true         # bool — is this a customer template? (defaults to the have_customers variant)
+
+      Every key is OPTIONAL — the file itself is optional (Read-BicepTemplateOptions just validates what is
+      present). `short_name` here is a pure OVERRIDE: with no options.yml (or no `short_name` key) the template's
+      short_name is DERIVED from its folder name by `Get-BicepTemplates` ([BicepShortName]::Resolve) and checked
+      for global uniqueness. An absent file (or an absent key) leaves the caller's default in place;
+      `Get-BicepTemplates` overlays the returned keys onto each template's descriptor, replacing the hardcoded
+      `Incremental` / `ResourceGroup` defaults.
+
+      The schema is STRICT: any key other than the allowed set (`short_name` / `deployment_mode` /
+      `deployment_target` / `environment_kind` / `customer_deployment`), or any value outside the matching
+      enum / format / type, throws — so a typo fails fast at discovery time rather than silently doing nothing.
+
+      Returns an ordered dictionary containing ONLY the keys present in the file (empty when the
+      file is absent or carries no recognised keys).
+    parameters:
+      TemplateFolder: Absolute path to the template folder (the one containing `main.bicep`).
+    examples:
+      - |-
+        Read-BicepTemplateOptions 'C:\repo\infrastructure\templates\sample-subscription'
+        # -> [ordered]@{ deployment_target = 'Subscription' }
 ---
 #>
 
-<#
-.SYNOPSIS
-    Reads a template's optional `options.yml` and returns the validated deployment overrides.
-.DESCRIPTION
-    The schema is strict, so a typo in options.yml fails fast at discovery instead of silently doing nothing.
-.PARAMETER TemplateFolder
-    Absolute path to the template folder (the one containing `main.bicep`).
-.EXAMPLE
-    Read-BicepTemplateOptions 'C:\repo\infrastructure\templates\sample-subscription'
-    # -> [ordered]@{ deployment_target = 'Subscription' }
-#>
 function Read-BicepTemplateOptions {
     [CmdletBinding()]
     param(

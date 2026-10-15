@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md
     kind: comment-page
     body_sha: "92f6ae95f526"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/Install-Postman.ps1
@@ -36,6 +34,24 @@ is TLS-only — no checksum verification. See ADR controlling-systemwide-deps (l
 ```
 
 ## comment:3
+
+Above `Write-Message 'Downloading Postman from dl.pstmn.io'`.
+
+```text
+Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download
+is TLS-only — no checksum verification. See ADR controlling-systemwide-deps (latest base-tool allowlist).
+```
+
+## comment:4
+
+Above `Write-Message 'Downloading Postman from dl.pstmn.io'`.
+
+```text
+Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download
+is TLS-only — no checksum verification. See ADR controlling-systemwide-deps (latest base-tool allowlist).
+```
+
+## comment:5
 
 Above `Write-Message 'Downloading Postman from dl.pstmn.io'`.
 

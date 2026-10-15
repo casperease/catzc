@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-DEPLOY#3
       - ADR-DORA-DEPLOY#4
       - ADR-DORA-DEPLOY#5
-    adrs: []
     links:
       - docs/adr/automation/idempotent-state-functions.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

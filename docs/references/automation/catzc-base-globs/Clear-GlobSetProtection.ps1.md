@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-globs/Clear-GlobSetProtection.ps1.md
     kind: comment-page
     body_sha: d13836b9c618
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/Clear-GlobSetProtection.ps1

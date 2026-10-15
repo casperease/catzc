@@ -6,22 +6,17 @@ catzc:
     kind: public-function
     module: Catzc.Azure.Cli
     visibility: public
-    adrs: []
+  config:
+    synopsis: Sets the active Azure CLI subscription.
+    description: Skips if the requested subscription is already active.
+    parameters:
+      Subscription: Subscription name or ID.
+    examples:
+      - Set-AzCliSubscription 'my-subscription'
+      - Set-AzCliSubscription '50a0ed00-de00-50b0-0000-000000000000'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Sets the active Azure CLI subscription.
-.DESCRIPTION
-    Skips if the requested subscription is already active.
-.PARAMETER Subscription
-    Subscription name or ID.
-.EXAMPLE
-    Set-AzCliSubscription 'my-subscription'
-.EXAMPLE
-    Set-AzCliSubscription '50a0ed00-de00-50b0-0000-000000000000'
-#>
 function Set-AzCliSubscription {
     [CmdletBinding()]
     param(
@@ -31,8 +26,8 @@ function Set-AzCliSubscription {
 
     Assert-Tool 'az_cli'
 
-    # A non-zero exit from az account show means not logged in, so it must not throw but fall through to the set.
-    # [comment:1](/docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md#comment1)
+    # Idempotent: skip if already on the requested subscription -NoAssert: non-zero exit means "not logged in" —...
+    # [comment:2](/docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md#comment2)
     $result = Invoke-Executable 'az account show --output json' -PassThru -NoAssert -Silent
     if ($result.ExitCode -eq 0 -and $result.Output) {
         $account = $result.Output | ConvertFrom-Json

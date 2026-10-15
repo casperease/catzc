@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-timeouts/Assert-CompletesWithin.ps1.md
     kind: comment-page
     body_sha: "276cbc7d7352"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1

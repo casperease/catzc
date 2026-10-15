@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/process/dora-explains.md
     kind: adr
     body_sha: "084c203254f8"
-    defines: []
-    adrs: []
     links:
       - docs/adr/process/agile-principles.md
       - docs/adr/process/agile-values.md

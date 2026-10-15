@@ -6,7 +6,6 @@ catzc:
     body_sha: "7e9c2c7f565b"
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/FilesConfig.cs

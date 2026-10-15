@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-FILEMETA#2
       - ADR-REPO-FILEMETA#4
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/FileMetaKind.cs

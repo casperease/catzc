@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.md
     kind: asset-description
     body_sha: "90ce96d04619"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
       - docs/explanation/automation/two-crossers-and-three-anchors.md

@@ -12,25 +12,33 @@ catzc:
       - ADR-AUTO-REMOVE#4
       - ADR-AUTO-REMOVE#5
       - ADR-AUTO-REMOVE#6
+  config:
+    synopsis: Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.
+    description: |-
+      Removes an Azure CLI installed OUTSIDE the tooling system — the destructive `Remove-` verb of the tool
+      lifecycle ([ADR-AUTO-REMOVE](/docs/adr/automation/tool-removal-lifecycle.md)). Refuses a managed install and
+      redirects to Uninstall-AzCli
+      ([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)). Per platform:
+
+        - Windows: delete the MSI install folder and strip it from the machine PATH (needs Administrator).
+        - Linux: evict via the mechanism that placed it — apt package / uv-Python pip / stray binary
+          (Remove-LinuxToolInstall); elevation is scoped to the mechanism
+          ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
+
+      -Force confirms the destructive action; without it the plan is reported and nothing changes
+      ([ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
+      Usually reached through the escalation `Uninstall-AzCli -Remove -Force`
+      ([ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
+    parameters:
+      InstallDir: Path to the Azure CLI installation folder. Auto-detected from PATH if omitted.
+      Force: Actually perform the removal. Without this, shows what would be removed.
+    examples:
+      - Remove-AzCli
+      - Remove-AzCli -Force
+      - Remove-AzCli -InstallDir 'C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2' -Force
 ---
 #>
 
-<#
-.SYNOPSIS
-    Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.
-.DESCRIPTION
-    Without -Force the plan is only reported and nothing changes; it is usually reached through Uninstall-AzCli -Remove.
-.PARAMETER InstallDir
-    Path to the Azure CLI installation folder. Auto-detected from PATH if omitted.
-.PARAMETER Force
-    Actually perform the removal. Without this, shows what would be removed.
-.EXAMPLE
-    Remove-AzCli
-.EXAMPLE
-    Remove-AzCli -Force
-.EXAMPLE
-    Remove-AzCli -InstallDir 'C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2' -Force
-#>
 function Remove-AzCli {
     [CmdletBinding()]
     param(
@@ -40,14 +48,14 @@ function Remove-AzCli {
 
     $config = Get-ToolConfig -Tool 'az_cli'
 
-    # Removal never touches a managed install: only Uninstall-AzCli deletes what the tooling owns.
-    # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment2)
+    # Gate: managed by our tooling system → refuse, redirect to Uninstall-AzCli.
+    # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment4)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Azure CLI is managed by the tooling system. Use Uninstall-AzCli instead.'
     }
 
-    # Elevation is scoped to the placing mechanism, so unlike the Windows folder delete there is no admin assert here.
-    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment3)
+    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
+    # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment5)
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Azure CLI (native package / uv-Python pip / stray binary). Run with -Force to execute.'

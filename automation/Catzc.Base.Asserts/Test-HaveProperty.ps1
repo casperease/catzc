@@ -6,22 +6,20 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Tests whether an object has a specific property, or a nested chain of properties.
+    parameters:
+      Object: The object to inspect.
+      PropertyName: |-
+        The property name to look for. Dotted paths (e.g. 'parent.child.value')
+        walk each level in turn; a missing or null-valued intermediate short-circuits to $false
+        rather than throwing.
+    examples:
+      - Test-HaveProperty $object 'Name'
+      - Test-HaveProperty $config 'parent.child.etc.value'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tests whether an object has a specific property, or a nested chain of properties.
-.PARAMETER Object
-    The object to inspect.
-.PARAMETER PropertyName
-    A missing or null-valued level in a dotted path returns false at once instead of throwing.
-.EXAMPLE
-    Test-HaveProperty $object 'Name'
-.EXAMPLE
-    Test-HaveProperty $config 'parent.child.etc.value'
-#>
 function Test-HaveProperty {
     [OutputType([bool])]
     [CmdletBinding()]

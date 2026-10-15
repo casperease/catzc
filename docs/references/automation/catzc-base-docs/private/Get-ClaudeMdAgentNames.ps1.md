@@ -6,7 +6,6 @@ catzc:
     body_sha: ec01aecfe80f
     adrs:
       - ADR-REPO-AGENTS#3
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-ClaudeMdAgentNames.ps1

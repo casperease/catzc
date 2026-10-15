@@ -9,25 +9,31 @@ catzc:
     adrs:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#35
+  config:
+    synopsis: 'Quality gate: the rule summaries of the configured ADR domains carry no engine-specific syntax.'
+    description: |-
+      A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the rule summaries (the
+      `### Rule <code>:<n>` entries, Get-AdrRuleSummaryLines) of every rule set in the domains listed under engine_neutrality.domains in
+      adr-checks.yml. The engine-agnostic rules hold for every execution engine
+      ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)), so their summaries state a rule, never one
+      engine's syntax: each token under engine_neutrality.tokens is a regular expression for such syntax, and every match is a finding,
+      reported with its file and line. Naming a catzc command is allowed, so the tokens list engine built-ins only.
+
+      A domain in that list that adrs.yml does not declare is a finding too. A rule set with no file, or several, is Test-AdrRegistry's
+      finding and is skipped.
+
+      The check's mode is engine_neutrality.mode (Catzc.Base.Docs.AdrChecksConfig): in gate mode the gate throws once listing every
+      finding; in report mode it prints the findings and their count, writes the same report, and never throws.
+    parameters:
+      OutputFolder: The report base folder. Defaults to out/test-adr-engine-neutrality/ (Write-QualityGateReport).
+      PassThru: Return the result ({ Subject; IssueCount; Issues; ReportPath; Mode; Domains; RuleSets; Lines }) instead of throwing on issues.
+    outputs: '[pscustomobject] With -PassThru only.'
+    examples:
+      - Test-AdrEngineNeutrality
+      - (Test-AdrEngineNeutrality -PassThru).Issues
 ---
 #>
 
-<#
-.SYNOPSIS
-    Quality gate: the rule summaries of the configured ADR domains carry no engine-specific syntax.
-.DESCRIPTION
-    Tokens list engine built-ins only, since naming a catzc command in a rule summary is allowed.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to out/test-adr-engine-neutrality/ (Write-QualityGateReport).
-.PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; Mode; Domains; RuleSets; Lines }) instead of throwing on issues.
-.OUTPUTS
-    [pscustomobject] With -PassThru only.
-.EXAMPLE
-    Test-AdrEngineNeutrality
-.EXAMPLE
-    (Test-AdrEngineNeutrality -PassThru).Issues
-#>
 function Test-AdrEngineNeutrality {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

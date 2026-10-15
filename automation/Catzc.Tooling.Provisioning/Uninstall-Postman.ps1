@@ -6,18 +6,18 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Provisioning
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls the Postman desktop app.
+    description: |-
+      Windows: Removes LOCALAPPDATA\Postman directory.
+      macOS: brew uninstall --cask postman.
+      Linux: Removes HOME/.local/Postman directory.
+      Idempotent — skips if not installed.
+    examples:
+      - Uninstall-Postman
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls the Postman desktop app.
-.DESCRIPTION
-    Safe to run when Postman is not installed; it removes only the per-user directory, never a system path.
-.EXAMPLE
-    Uninstall-Postman
-#>
 function Uninstall-Postman {
     [CmdletBinding()]
     param()

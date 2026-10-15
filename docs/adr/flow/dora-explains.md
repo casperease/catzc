@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/flow/dora-explains.md
     kind: adr
     body_sha: "19287435b367"
-    defines: []
-    adrs: []
     links:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
       - docs/adr/flow/durable-sha-globs.md

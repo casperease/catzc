@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-DBCHANGE#3
       - ADR-DORA-DBCHANGE#4
       - ADR-DORA-DBCHANGE#5
-    adrs: []
     links:
       - docs/adr/principles/everything-as-code.md
       - docs/adr/principles/one-living-version.md

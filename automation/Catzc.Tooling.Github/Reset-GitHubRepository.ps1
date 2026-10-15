@@ -6,43 +6,58 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Github
     visibility: public
-    adrs: []
+  config:
+    synopsis: |-
+      Hard-purges a GitHub repository — deletes it, recreates it (optionally under a
+      new name), pushes the local history, and verifies the result is token-free.
+    description: |-
+      A normal force-push leaves the old commits unreachable but still stored, so a
+      fetch of a known old SHA keeps resolving until GitHub garbage-collects (days,
+      or a support ticket). Deleting the repository destroys its object store, so
+      the old commit hashes stop resolving the instant the repo is gone. This is
+      the only way to erase a secret together with its remote objects.
+
+      Safe by default: it runs the full preflight and, unless armed, changes
+      nothing and returns a plan. Arm the destructive path by passing -ConfirmRepo
+      equal to -Repo (and not -DryRun). On any failure after deletion, it throws
+      with the exact recovery commands — the local clone and the backup bundle are
+      always intact.
+
+      Pushing a whole history takes longer than an ordinary call, so the function
+      declares its own time limit ([TimeLimit]; tune it under `commands` in
+      timeouts.yml) and bounds the push and the remote read with it.
+    parameters:
+      Repo: The GitHub repository to delete, as owner/name.
+      NewName: |-
+        The owner/name to recreate under. Defaults to -Repo (recreate in place). Pass
+        a different value to delete-and-rename in one step.
+      Branch: The local branch to push as the new default. Defaults to main.
+      Token: |-
+        The token that must be absent from the pushed history. When set, the
+        pushed branch is scanned locally, and the new remote must hold only that
+        branch's commit — the commit names its whole history, so this proves what
+        the server stored without a mirror clone. A hit or a foreign ref aborts
+        with a "do not make public" warning.
+      BackupBundle: |-
+        A verified `git bundle create --all` backup. The purge refuses to run without
+        one (checked by Assert-GitHubPurgeReady).
+      RepositoryPath: The local clone to push from. Defaults to the repository root.
+      Visibility: 'Visibility of the recreated repo: ''private'' (default) or ''public''.'
+      AllowForks: Proceed even if the repo has forks (they defeat the purge). Off by default.
+      ConfirmRepo: |-
+        Must equal -Repo to arm the destructive path. Any other value (or absence)
+        keeps the run a dry run.
+      DryRun: Force a dry run even when -ConfirmRepo matches.
+    examples:
+      - |-
+        Reset-GitHubRepository -Repo 'me/project' -BackupBundle $bundle
+        # Dry run: preflight only, nothing changes.
+      - |-
+        Reset-GitHubRepository -Repo 'me/old' -NewName 'me/new' -Token 'old-name' -BackupBundle $bundle -ConfirmRepo 'me/old'
+        # Armed: delete me/old, create me/new, push, verify token-free.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Hard-purges a GitHub repository — deletes it, recreates it (optionally under a
-    new name), pushes the local history, and verifies the result is token-free.
-.DESCRIPTION
-    Deleting the repo is the only way to erase old commits remotely: a force-push leaves them fetchable by SHA.
-.PARAMETER Repo
-    The GitHub repository to delete, as owner/name.
-.PARAMETER NewName
-    Defaults to -Repo, which recreates in place; a different value deletes and renames in one step.
-.PARAMETER Branch
-    The local branch to push as the new default. Defaults to main.
-.PARAMETER Token
-    A hit or a foreign ref on the new remote aborts with a do-not-make-public warning.
-.PARAMETER BackupBundle
-    The purge refuses to run without a bundle that verifies, as Assert-GitHubPurgeReady checks.
-.PARAMETER RepositoryPath
-    The local clone to push from. Defaults to the repository root.
-.PARAMETER Visibility
-    Visibility of the recreated repo: 'private' (default) or 'public'.
-.PARAMETER AllowForks
-    Proceed even if the repo has forks (they defeat the purge). Off by default.
-.PARAMETER ConfirmRepo
-    Any other value, or none, keeps the run a dry run, so a typo can never delete a repo.
-.PARAMETER DryRun
-    Force a dry run even when -ConfirmRepo matches.
-.EXAMPLE
-    Reset-GitHubRepository -Repo 'me/project' -BackupBundle $bundle
-    # Dry run: preflight only, nothing changes.
-.EXAMPLE
-    Reset-GitHubRepository -Repo 'me/old' -NewName 'me/new' -Token 'old-name' -BackupBundle $bundle -ConfirmRepo 'me/old'
-    # Armed: delete me/old, create me/new, push, verify token-free.
-#>
 function Reset-GitHubRepository {
     [CmdletBinding()]
     [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]

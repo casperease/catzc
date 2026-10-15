@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core.md
     kind: reference
     body_sha: "15269ce699bd"
-    adrs: []
     links:
       - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
       - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png

@@ -6,28 +6,34 @@ catzc:
     kind: public-function
     module: Catzc.Base.Writers
     visibility: public
-    adrs: []
+  config:
+    synopsis: Writes a closing footer line in a chosen style.
+    description: |-
+      Pairs with Write-Header to visually close a section.
+      Renders a single closing line matching the header style:
+        Curved:  ╰──────────────╯
+        Stars:   ****************
+        Heavy:   ╚══════════════╝
+
+      -ForegroundColor takes either a [System.ConsoleColor] (or its string name), a 'rainbow' / '<base>-rainbow'
+      bareword, or a [Catzc.Base.Writers.RainbowColor] profile — the last three render the closing rule as a
+      per-character gradient.
+    parameters:
+      Style: 'Visual style: Curved, Stars, or Heavy. Defaults to Curved.'
+      Width: Total width of the line. Defaults to 78.
+      ForegroundColor: |-
+        Colour for the output: a [System.ConsoleColor] (or its name), a 'rainbow' / '<base>-rainbow' bareword, or a
+        [Catzc.Base.Writers.RainbowColor] profile — the last three give a gradient rule. No colour by default
+        (renders as terminal default).
+    examples:
+      - |-
+        Write-Header 'Deploying'
+        Deploy-App
+        Write-Footer
+      - Write-Footer -ForegroundColor rainbow
 ---
 #>
 
-<#
-.SYNOPSIS
-    Writes a closing footer line in a chosen style.
-.DESCRIPTION
-    Use the Style of the Write-Header it closes so the glyphs match; a rainbow colour draws a gradient rule.
-.PARAMETER Style
-    Visual style: Curved, Stars, or Heavy. Defaults to Curved.
-.PARAMETER Width
-    Total width of the line. Defaults to 78.
-.PARAMETER ForegroundColor
-    Omit it and the rule renders in the terminal default; a rainbow value gives a per-character gradient.
-.EXAMPLE
-    Write-Header 'Deploying'
-    Deploy-App
-    Write-Footer
-.EXAMPLE
-    Write-Footer -ForegroundColor rainbow
-#>
 function Write-Footer {
     [CmdletBinding()]
     param(

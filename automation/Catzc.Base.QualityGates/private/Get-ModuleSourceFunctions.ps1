@@ -6,24 +6,21 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Lists a source module's public and private function names, from its files.
+    description: |-
+      A module is its folder: <Module>/*.ps1 are its public functions and <Module>/private/*.ps1 its private ones,
+      one function per file named for the file. This reads the names from the file names, so a build can be
+      compared with the source folder it was built from (Test-BuildArtifact's parity facet).
+    parameters:
+      AutomationRoot: The automation folder of the source tree.
+      Name: The module folder name.
+    outputs: '[pscustomobject] { Public = [string[]]; Private = [string[]] }, each ordinally sorted.'
+    examples:
+      - Get-ModuleSourceFunctions -AutomationRoot (Join-Path (Get-RepositoryRoot) 'automation') -Name Catzc.Base.Config
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists a source module's public and private function names, from its files.
-.DESCRIPTION
-    Names come from file names, so a build can be compared with the source folder it was built from.
-.PARAMETER AutomationRoot
-    The automation folder of the source tree.
-.PARAMETER Name
-    The module folder name.
-.OUTPUTS
-    [pscustomobject] { Public = [string[]]; Private = [string[]] }, each ordinally sorted.
-.EXAMPLE
-    Get-ModuleSourceFunctions -AutomationRoot (Join-Path (Get-RepositoryRoot) 'automation') -Name Catzc.Base.Config
-#>
 function Get-ModuleSourceFunctions {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

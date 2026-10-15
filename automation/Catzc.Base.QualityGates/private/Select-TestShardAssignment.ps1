@@ -6,27 +6,24 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: |-
+      Assigns a run's parallel test files to worker shards by their measured duration, longest first, so the shards
+      finish together.
+    description: |-
+      A phase lasts as long as its slowest shard, so the files are dealt longest first, each to the shard with the least
+      work so far (longest-processing-time first). A file's work is its duration from the last run that ran it
+      (Get-TestDurationHistory); a file without one counts as the median of the known durations, or 1 s when nothing is
+      known yet, so a first run is a fair even split. Ties keep the files' given order, so the result is deterministic.
+    parameters:
+      File: The parallel test files, absolute paths.
+      WorkerCount: How many shards to fill.
+      DurationMs: The known durations, repository-relative '/'-separated file path -> milliseconds.
+      RepositoryRoot: The root the history's paths are relative to.
+    outputs: '[string[]] One array of files per shard, in shard order; a shard with no file is an empty array.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Assigns a run's parallel test files to worker shards by their measured duration, longest first, so the shards
-    finish together.
-.DESCRIPTION
-    A file with no recorded duration counts as the median, so a first run is a fair even split; ties keep their order.
-.PARAMETER File
-    The parallel test files, absolute paths.
-.PARAMETER WorkerCount
-    How many shards to fill.
-.PARAMETER DurationMs
-    The known durations, repository-relative '/'-separated file path -> milliseconds.
-.PARAMETER RepositoryRoot
-    The root the history's paths are relative to.
-.OUTPUTS
-    [string[]] One array of files per shard, in shard order; a shard with no file is an empty array.
-#>
 function Select-TestShardAssignment {
     [CmdletBinding()]
     [OutputType([string[]])]

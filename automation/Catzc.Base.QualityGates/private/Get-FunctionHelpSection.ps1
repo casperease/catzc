@@ -8,19 +8,15 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-HELP#1
+  config:
+    synopsis: Splits the text of a comment-based help block into its preamble and its sections.
+    description: Lines are kept exactly as written, so rendering the sections back in their order reproduces the block.
+    parameters:
+      HelpText: The block comment, from its opening to its closing delimiter, with LF line endings.
+    outputs: '[pscustomobject] @{ Preamble; Section } — the lines before the first keyword, and each section as @{ Name; Arg; Lines }.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Splits the text of a comment-based help block into its preamble and its sections.
-.DESCRIPTION
-    Lines are kept exactly as written, so rendering the sections back in their order reproduces the block.
-.PARAMETER HelpText
-    The block comment, from its opening to its closing delimiter, with LF line endings.
-.OUTPUTS
-    [pscustomobject] @{ Preamble; Section } — the lines before the first keyword, and each section as @{ Name; Arg; Lines }.
-#>
 function Get-FunctionHelpSection {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

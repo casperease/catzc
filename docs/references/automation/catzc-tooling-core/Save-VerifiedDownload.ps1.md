@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/Save-VerifiedDownload.ps1.md
     kind: comment-page
     body_sha: "7fc7c634e099"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Save-VerifiedDownload.ps1

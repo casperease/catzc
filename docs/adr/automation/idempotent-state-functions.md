@@ -10,7 +10,6 @@ catzc:
       - ADR-AUTO-IDEM#3
       - ADR-AUTO-IDEM#4
       - ADR-AUTO-IDEM#5
-    adrs: []
     links:
       - docs/adr/pwsh/idempotent-state-mechanics.md
 ---

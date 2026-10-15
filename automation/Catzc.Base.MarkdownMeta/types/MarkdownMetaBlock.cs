@@ -38,20 +38,28 @@ public static class MarkdownMetaBlock
     public static IReadOnlyList<string> Render(IDictionary derived, IReadOnlyList<string> config)
     {
         var lines = new List<string>();
-        int facts = derived == null ? 0 : derived.Count;
+        // A fact with no value is the default, so the key is left out and its absence reads as the empty value.
+        var present = new List<DictionaryEntry>();
+        if (derived != null)
+        {
+            foreach (DictionaryEntry fact in derived)
+            {
+                if (!IsEmpty(fact.Value)) { present.Add(fact); }
+            }
+        }
+        int facts = present.Count;
         if (facts == 0 && (config == null || config.Count == 0)) { return lines; }
         lines.Add(MarkdownDocument.MetaKey + ":");
         if (facts > 0)
         {
             lines.Add("  " + DerivedKey + ":");
-            foreach (DictionaryEntry fact in derived)
+            foreach (DictionaryEntry fact in present)
             {
                 string key = Key(fact.Key as string);
                 if (fact.Value is IEnumerable items && !(fact.Value is string))
                 {
                     var list = new List<string>();
                     foreach (object item in items) { list.Add(Scalar(item)); }
-                    if (list.Count == 0) { lines.Add("    " + key + ": []"); continue; }
                     lines.Add("    " + key + ":");
                     foreach (string item in list) { lines.Add("      - " + item); }
                 }
@@ -67,6 +75,15 @@ public static class MarkdownMetaBlock
             lines.AddRange(config);
         }
         return lines;
+    }
+
+    // Nothing, an empty string or an empty list: the value a key has when it is absent.
+    static bool IsEmpty(object value)
+    {
+        if (value == null) { return true; }
+        if (value is string text) { return text.Length == 0; }
+        if (value is IEnumerable items) { return !items.GetEnumerator().MoveNext(); }
+        return false;
     }
 
     // The authored lines under `config:` of an existing block, as written; empty when the block has no config part.

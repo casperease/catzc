@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-VOCAB#2
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/Get-Glossary.ps1
@@ -37,6 +36,15 @@ an edited glossary. Callers treat it as read-only (the same array is returned on
 ```
 
 ## comment:2
+
+Above `$script:glossaryCache = @{}`.
+
+```text
+strict-clean probe of the lazy cache entry
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:3
 
 Above `$script:glossaryCache = @{}`.
 

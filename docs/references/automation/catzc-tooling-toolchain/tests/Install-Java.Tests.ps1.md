@@ -1,0 +1,23 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md
+    kind: test-asset
+    body_sha: "1b7bf8c7583c"
+---
+
+# automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
+section (Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `Describe 'Install-Java' -Tag 'L1', 'logic' {`.
+
+```text
+Hermetic logic (L1): the tool manager (Install-Tool), the installed-version probe, command resolution and the
+persistent user environment (Set-PermanentEnvironmentVariable) are mocked; the JDK layout is a fixture under
+$TestDrive. The real registry round trip is the seam's own L3 system test
+(Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1).
+```

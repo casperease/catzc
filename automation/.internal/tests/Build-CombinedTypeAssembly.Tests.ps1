@@ -42,9 +42,8 @@ Describe 'Get-CombinedTypeHash module selection' -Tag 'L0', 'logic' {
 }
 
 Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
-    # L1: the first Add-Type pays Roslyn's cold start. The assembly is written with -OutputAssembly and never
-    # loaded, so the DLL is not locked and lives in TestDrive. A per-run namespace keeps the "not loaded" assertion
-    # true on a second run in the same session.
+    # L1: the first Add-Type pays Roslyn's cold start.
+    # [comment:1](/docs/references/automation/internal/tests/Build-CombinedTypeAssembly.Tests.ps1.md#comment1)
     BeforeAll {
         $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
         $script:widget = "CatzcBuildWidget$runId"
@@ -132,8 +131,8 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
     }
 
     It 'compiles the sources as they were hashed when a source is saved while the compiler runs' {
-        # Another session saving a .cs mid-compile: the live file turns into code that does not compile the moment the
-        # compiler starts. A compile of the frozen copy neither sees it nor names its DLL for bytes it did not compile.
+        # Another session saving a.cs mid-compile: the live file turns into code that does not compile the moment the...
+        # [comment:2](/docs/references/automation/internal/tests/Build-CombinedTypeAssembly.Tests.ps1.md#comment2)
         $raceRoot = Join-Path $TestDrive 'race'
         $raceTypes = Join-Path $raceRoot "$widget/types"
         [System.IO.Directory]::CreateDirectory($raceTypes) | Out-Null

@@ -1,0 +1,27 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md
+    kind: test-asset
+    body_sha: bc681ac68e66
+    adrs:
+      - ADR-AUTO-TEST#3
+---
+
+# automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
+
+<!-- cspell:ignore lockedtool -->
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
+section (Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `BeforeEach {`.
+
+```text
+Hermetic: every collaborator is mocked in the module scope, so the assertion binds to the version-check
+LOGIC (pipeline lock vs devbox lever), never to the shipped tools.yml values or the installed toolchain.
+Fixture tools ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): faketool carries a
+devbox_version lever, lockedtool has none.
+```

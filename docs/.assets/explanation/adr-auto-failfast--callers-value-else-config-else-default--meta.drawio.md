@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.md
     kind: asset-description
     body_sha: "1be7d8fdbd51"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
       - docs/explanation/automation/callers-value-else-config-else-default.md

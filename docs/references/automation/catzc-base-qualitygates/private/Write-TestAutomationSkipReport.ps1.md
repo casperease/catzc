@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationSkipReport.ps1.md
     kind: comment-page
     body_sha: "2c9f0ed5ad10"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestAutomationSkipReport.ps1
@@ -56,6 +54,24 @@ Skipped — actively skipped during the run, each with the reason from Set-ItRes
 ```
 
 ## comment:4
+
+Above `if ($notRun.Count -gt 0) {`.
+
+```text
+Not run — excluded by this run's tier/category scope, never executed. Grouped by tier+category with
+counts so the breakdown shows exactly what a wider -Level/-Category would add, without 90+ lines.
+```
+
+## comment:5
+
+Above `if ($skipped.Count -gt 0) {`.
+
+```text
+Skipped — actively skipped during the run, each with the reason from Set-ItResult -Because (an `It
+-Skip` carries none). Listed individually: a self-skip naming the missing tool is the whole value.
+```
+
+## comment:6
 
 Above `if ($notRun.Count -gt 0) {`.
 

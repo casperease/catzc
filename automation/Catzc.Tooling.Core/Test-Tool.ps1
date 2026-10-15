@@ -6,28 +6,33 @@ catzc:
     kind: gate-function
     module: Catzc.Tooling.Core
     visibility: public
-    adrs: []
+  config:
+    synopsis: Tests whether a tool is installed at the expected version.
+    description: |-
+      Returns $true if the tool's command exists, its version command produces parseable output, AND the installed
+      version matches the locked version in tools.yml. Returns $false for missing tools, Windows Store stubs, broken
+      installations, and version mismatches.
+
+      A tool whose entry declares candidate paths (windows_probes, unix_probes and their pipeline lists, or
+      probe_excludes) is located by the executable probe (Resolve-ToolExecutable, in Catzc.Base.Execution): the
+      candidates for this platform and run environment first, then PATH, with no process start; its version runs once
+      per executable per session. Any other tool is checked by its command name on PATH.
+    parameters:
+      Tool: The snake_case tool key as defined in tools.yml.
+      SkipVersionCheck: |-
+        Only test the tool is on PATH and functional. Skip the version match.
+        Use for operations that need presence but not a specific version
+        (e.g., uninstalling).
+      PassThru: |-
+        Return the probe record (Catzc.Base.Execution.ExecutableProbe: Name, Found, Path, Method, Version, Required,
+        VersionOk, ProbeMs, VersionMs, Actor) instead of a boolean, for any tool. Write-ToolProbeReport renders it.
+    examples:
+      - Test-Tool 'python'
+      - Test-Tool 'python' -SkipVersionCheck
+      - Test-Tool 'bash' -PassThru | Write-ToolProbeReport
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tests whether a tool is installed at the expected version.
-.DESCRIPTION
-    A tool with declared candidate paths is found by the executable probe, which starts no process; others by PATH name.
-.PARAMETER Tool
-    The snake_case tool key as defined in tools.yml.
-.PARAMETER SkipVersionCheck
-    A parseable version is still needed, so a Store stub fails, but a version that is not the locked one passes.
-.PARAMETER PassThru
-    The record works for any tool, probed or not, and carries the timings and actor that Write-ToolProbeReport shows.
-.EXAMPLE
-    Test-Tool 'python'
-.EXAMPLE
-    Test-Tool 'python' -SkipVersionCheck
-.EXAMPLE
-    Test-Tool 'bash' -PassThru | Write-ToolProbeReport
-#>
 function Test-Tool {
     [OutputType([bool], [Catzc.Base.Execution.ExecutableProbe])]
     [CmdletBinding()]
@@ -64,8 +69,8 @@ function Test-Tool {
         if ($installed.StartsWith($config.version)) {
             return $true
         }
-        # Mirrors Assert-ToolVersion, so a levered off-pin tool also passes the quality gates, not only asserts.
-        # [comment:4](/docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md#comment4)
+        # Devbox lever (mirrors Assert-ToolVersion): outside a CI pipeline, also accept an installed version matching...
+        # [comment:5](/docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md#comment5)
         if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {
             return $installed.StartsWith($config.devbox_version)
         }

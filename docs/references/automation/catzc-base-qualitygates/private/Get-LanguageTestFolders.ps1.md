@@ -9,7 +9,6 @@ catzc:
       - ADR-AUTO-GO#2
       - ADR-AUTO-PY#2
       - ADR-DSGN-TRACK#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1
@@ -46,6 +45,15 @@ otherwise never run.
 ```
 
 ## comment:2
+
+Above `$modulesByKebab = @{}`.
+
+```text
+The catzc modules of the source tree, by kebab name: the folders under <repository>/automation/, read from the
+repository (never the code root), so a build run maps a test folder the same way a source run does.
+```
+
+## comment:3
 
 Above `$modulesByKebab = @{}`.
 

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-files/Test-FileIsLocked.ps1.md
     kind: comment-page
     body_sha: "49fdc4774f0c"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Files/Test-FileIsLocked.ps1

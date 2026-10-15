@@ -9,7 +9,6 @@ catzc:
       - ADR-PROC-VALUES#2
       - ADR-PROC-VALUES#3
       - ADR-PROC-VALUES#4
-    adrs: []
     links:
       - docs/adr/principles/reduce-waste.md
       - docs/adr/process/agile-principles.md

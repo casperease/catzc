@@ -11,7 +11,6 @@ catzc:
       - ADR-PIPE-VAR#4
       - ADR-PIPE-VAR#5
       - ADR-PIPE-VAR#6
-    adrs: []
     links:
       - docs/adr/flow/pipeline-detection.md
 ---

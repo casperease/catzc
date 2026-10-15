@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure/configs/customer.yml.md
     kind: comment-page
     body_sha: "41877f8bdbbe"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure/configs/customer.yml

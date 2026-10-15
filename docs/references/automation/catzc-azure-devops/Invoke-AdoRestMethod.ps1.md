@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/Invoke-AdoRestMethod.ps1.md
     kind: comment-page
     body_sha: "0d27b387b06d"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1

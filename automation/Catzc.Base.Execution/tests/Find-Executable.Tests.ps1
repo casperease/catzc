@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-PWSH-PESTER#3
 ---
 #>
 
-# Hermetic logic (L1): the candidate executables are fixture files under $TestDrive, reached through a fixture
-# environment variable so the %VAR% expansion is exercised; the session actor, the PATH lookup and the version run
-# (Get-ExecutableVersion, the probe's only process start) are mocked. Fixture tokens are neutral
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Hermetic logic (L1): the candidate executables are fixture files under $TestDrive, reached through a fixture...
+# [comment:1](/docs/references/automation/catzc-base-execution/tests/Find-Executable.Tests.ps1.md#comment1)
 Describe 'Find-Executable' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'executables'
@@ -48,8 +49,8 @@ Describe 'Find-Executable' -Tag 'L1', 'logic' {
         $env:CATZC_WIDGET_ROOT = $script:savedWidgetRoot
     }
     BeforeEach {
-        # Every test here exercises the version cache entry, so each starts cold
-        # ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)).
+        # Every test here exercises the version cache entry, so each starts cold.
+        # [comment:2](/docs/references/automation/catzc-base-execution/tests/Find-Executable.Tests.ps1.md#comment2)
         InModuleScope Catzc.Base.Execution { $script:executableVersionCache = $null }
         Mock Get-SessionActor { 'Person' } -ModuleName Catzc.Base.Execution
         Mock Get-ExecutableVersion { '5.2.37' } -ModuleName Catzc.Base.Execution

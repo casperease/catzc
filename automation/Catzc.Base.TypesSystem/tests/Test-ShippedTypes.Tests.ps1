@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-ShippedTypes over a fixture code root in $TestDrive: one file named for a type the session has (System.String
-# under a 'System' module folder), one named for a type that never loaded. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-ShippedTypes over a fixture code root in $TestDrive: one file named for a type the session has (System.String...
+# [comment:1](/docs/references/automation/catzc-base-typessystem/tests/Test-ShippedTypes.Tests.ps1.md#comment1)
 Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'automation'

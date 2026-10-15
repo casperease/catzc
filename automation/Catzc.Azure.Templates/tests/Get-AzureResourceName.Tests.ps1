@@ -76,9 +76,8 @@ Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
     }
 
     Context 'the render matrix — 4 patterns x 2 orders (env alpha / shortcode al, base slot)' {
-        # The pattern selects the env-segment (long → name, restricted → shortcode) and the separator
-        # (hyphen for long/kv, none for storage/vm); the order arranges the segments. Base slot, so the
-        # slot segment is dropped.
+        # The pattern selects the env-segment (long → name, restricted → shortcode) and the separator (hyphen for...
+        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-AzureResourceName.Tests.ps1.md#comment1)
         BeforeAll {
             $script:parts = @{ Env = 'alpha'; Shortcode = 'al'; RegionCode = 'weu'; Org = 'tst'; ShortName = 'smpl' }
         }

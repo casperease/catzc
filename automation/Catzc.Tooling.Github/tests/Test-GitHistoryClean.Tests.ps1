@@ -9,8 +9,8 @@ catzc:
 
 Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
     BeforeAll {
-        # A throwaway git repo whose history plants the token on all three surfaces:
-        # a blob (file content), a path (file name), and a commit message.
+        # A throwaway git repo whose history plants the token on all three surfaces: a blob (file content), a path...
+        # [comment:1](/docs/references/automation/catzc-tooling-github/tests/Test-GitHistoryClean.Tests.ps1.md#comment1)
         $script:repo = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-ghtest-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
         New-Item -ItemType Directory -Path $script:repo -Force | Out-Null
         $repo = $script:repo

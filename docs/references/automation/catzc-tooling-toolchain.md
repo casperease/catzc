@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-toolchain.md
     kind: reference
     body_sha: "89494fa95a45"
-    adrs: []
     links:
       - docs/adr/automation/bash/bash-test-artifacts.md
       - docs/adr/automation/cross-platform.md

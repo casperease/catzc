@@ -8,19 +8,21 @@ catzc:
     visibility: private
     adrs:
       - ADR-AZ-DATAMOD#2
+  config:
+    synopsis: Parses a config / resource-group identity name into its (environment, slot) parts.
+    description: |-
+      The inverse of Get-BicepConfigName. A config-name is `<environment>[-<slot>]`; env names contain
+      no hyphen, so splitting on the FIRST `-` cleanly separates them: the part before is the
+      environment (must be defined in azure.yml), the remainder is the optional slot (1-3 lowercase
+      alphanumeric, empty for the base slot). Used at discovery to map config filenames back to envs.
+      See [ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2).
+    parameters:
+      ConfigName: The config-name (a config filename without extension), e.g. `dev` or `dev-001`.
+    examples:
+      - 'Resolve-BicepConfigName dev-001   # -> @{ environment = ''dev''; slot = ''001'' }'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Parses a config / resource-group identity name into its (environment, slot) parts.
-.DESCRIPTION
-    Env names contain no hyphen, so splitting on the first hyphen cleanly separates the env from the slot.
-.PARAMETER ConfigName
-    The config-name (a config filename without extension), e.g. `dev` or `dev-001`.
-.EXAMPLE
-    Resolve-BicepConfigName dev-001   # -> @{ environment = 'dev'; slot = '001' }
-#>
 function Resolve-BicepConfigName {
     [CmdletBinding()]
     param(

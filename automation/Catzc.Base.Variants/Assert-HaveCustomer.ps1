@@ -6,20 +6,18 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Variants
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts one named customer is enabled for the repo, else throws (singular cover over Assert-HaveCustomers).
+    description: |-
+      The single-customer form of Assert-HaveCustomers. A thin cover: Assert-HaveCustomers -Name $Name. Throws
+      when the named customer is not enabled by the `have_customers` variant.
+    parameters:
+      Name: The customer name to require.
+    examples:
+      - Assert-HaveCustomer acme
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts one named customer is enabled for the repo, else throws (singular cover over Assert-HaveCustomers).
-.DESCRIPTION
-    Throws unless the have_customers variant is 'all' or lists the name; a thin cover with no logic of its own.
-.PARAMETER Name
-    The customer name to require.
-.EXAMPLE
-    Assert-HaveCustomer acme
-#>
 function Assert-HaveCustomer {
     [CmdletBinding()]
     param(

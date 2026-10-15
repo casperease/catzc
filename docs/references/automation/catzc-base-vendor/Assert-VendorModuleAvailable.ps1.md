@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-vendor/Assert-VendorModuleAvailable.ps1.md
     kind: comment-page
     body_sha: "5f4859ecba5c"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Vendor/Assert-VendorModuleAvailable.ps1

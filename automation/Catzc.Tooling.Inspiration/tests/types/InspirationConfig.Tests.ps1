@@ -4,13 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-PATH#6
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-INSPIRE#5
 ---
 #>
 
-# InspirationConfig and its InspirationEntry over neutral fixtures (widget/gadget,
-# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): the mapping, the one declared default
-# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), and every load-time rejection,
-# including the communication-form root ([ADR-AUTO-PATH#6](/docs/adr/automation/path-representation.md#rule-adr-auto-path6)).
+# InspirationConfig and its InspirationEntry over neutral fixtures (widget/gadget, ): the mapping, the one declared...
+# [comment:1](/docs/references/automation/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-REPO-INSPIRE#5' {
     BeforeAll {
         function New-Entry {

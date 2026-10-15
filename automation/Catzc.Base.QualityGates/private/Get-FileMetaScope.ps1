@@ -6,26 +6,20 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Lists the tracked files that carry a meta block, each with the carrier entry that says where it goes.
+    description: |-
+      A file is in scope when its class has a front-matter or comment-head carrier, the class does not leave it out, an imprint kind's
+      globs match it, and `.gitattributes` does not exempt it or opt it out.
+    parameters:
+      RepositoryRoot: The repository root the returned paths are relative to.
+      Path: Optional files or folders (absolute or relative to the current location) to limit the scope to.
+      Config: The meta-kind registry.
+      Resolver: 'The carrier resolver. Default: built from the shipped file-carriers and languages registries.'
+    outputs: '[pscustomobject] @{ Path; Carrier } per file, Path repository-relative and ''/''-separated, in git''s order.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists the tracked files that carry a meta block, each with the carrier entry that says where it goes.
-.DESCRIPTION
-    Exempt files, opt-outs, a class's own excludes and a path no imprint kind names all stay out.
-.PARAMETER RepositoryRoot
-    The repository root the returned paths are relative to.
-.PARAMETER Path
-    Optional files or folders (absolute or relative to the current location) to limit the scope to.
-.PARAMETER Config
-    The meta-kind registry.
-.PARAMETER Resolver
-    The carrier resolver. Default: built from the shipped file-carriers and languages registries.
-.OUTPUTS
-    [pscustomobject] @{ Path; Carrier } per file, Path repository-relative and '/'-separated, in git's order.
-#>
 function Get-FileMetaScope {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

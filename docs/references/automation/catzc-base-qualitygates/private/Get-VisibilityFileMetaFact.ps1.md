@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-VisibilityFileMetaFact.ps1.md
     kind: comment-page
     body_sha: "2037b4eda535"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-VisibilityFileMetaFact.ps1

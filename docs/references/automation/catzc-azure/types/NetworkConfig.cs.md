@@ -9,7 +9,6 @@ catzc:
       - ADR-AZ-NETWORK#2
       - ADR-AZ-NETWORK#5
       - ADR-AZ-NETWORK#6
-    links: []
 ---
 
 # automation/Catzc.Azure/types/NetworkConfig.cs

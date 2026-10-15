@@ -4,7 +4,6 @@ catzc:
     path: docs/references/pipelines/template-folders.md
     kind: reference
     body_sha: "6cd17e0faa5f"
-    adrs: []
     links:
       - docs/adr/pipelines/custom-template-discipline.md
       - docs/adr/pipelines/pipeline-naming-and-placement.md

@@ -6,7 +6,6 @@ catzc:
     body_sha: a2830ca67906
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs

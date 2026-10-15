@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestFolders.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-LanguageTestFolders over a fixture repository in $TestDrive (Get-RepositoryRoot and the go config mocked): catzc
-# modules under automation/, Go test folders under the go/ root, Python test folders under python/ and Bash test folders
-# under bash/. Neutral
-# fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-LanguageTestFolders over a fixture repository in $TestDrive (Get-RepositoryRoot and the go config mocked):...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-LanguageTestFolders.Tests.ps1.md#comment1)
 Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {
@@ -27,8 +27,8 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
         New-FixtureFile $script:repo 'go/tests/catzc-gadget-parts/nested/parts_test.go'
         New-FixtureFile $script:repo 'python/tests/catzc-widget/test_widget.py' -Text 'def test_widget(): pass'
         New-FixtureFile $script:repo 'bash/tests/catzc-gadget-parts/parts.bats' -Text '@test "parts" { true; }'
-        # Not test folders: dot-prefixed folders, a folder left with only generated files, a Python folder with no
-        # test_*.py file, and a Bash folder with no .bats file.
+        # Not test folders: dot-prefixed folders, a folder left with only generated files, a Python folder with no...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Get-LanguageTestFolders.Tests.ps1.md#comment2)
         New-FixtureFile $script:repo 'go/tests/.cache/cache_test.go'
         New-FixtureFile $script:repo 'go/tests/catzc-gizmo/go.mod' -Text 'module catzc/go/tests/catzc-gizmo'
         New-FixtureFile $script:repo 'python/tests/.venv/test_cache.py' -Text ''

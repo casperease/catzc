@@ -6,7 +6,6 @@ catzc:
     body_sha: "5a3143ae1390"
     adrs:
       - ADR-PWSH-TYPES#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/GzipText.cs

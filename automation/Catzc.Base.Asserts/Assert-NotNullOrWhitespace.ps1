@@ -6,20 +6,16 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a value is not null, empty, or whitespace.
+    parameters:
+      Value: The value to test. Evaluated via [string]::IsNullOrWhiteSpace().
+      ErrorText: Custom error message. Defaults to file and line info.
+    examples:
+      - Assert-NotNullOrWhitespace $name
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a value is not null, empty, or whitespace.
-.PARAMETER Value
-    The value to test. Evaluated via [string]::IsNullOrWhiteSpace().
-.PARAMETER ErrorText
-    Custom error message. Defaults to file and line info.
-.EXAMPLE
-    Assert-NotNullOrWhitespace $name
-#>
 function Assert-NotNullOrWhitespace {
     [CmdletBinding()]
     param(

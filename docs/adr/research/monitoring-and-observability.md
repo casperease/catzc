@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-OBSERV#3
       - ADR-DORA-OBSERV#4
       - ADR-DORA-OBSERV#5
-    adrs: []
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/automation/log-before-invoke.md

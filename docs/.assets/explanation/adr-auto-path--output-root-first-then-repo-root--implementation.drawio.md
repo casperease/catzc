@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
     kind: asset-description
     body_sha: "629338942465"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
       - docs/explanation/automation/output-root-first-then-repo-root.md

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/BCL/types-system.md
     kind: reference
     body_sha: a2a9963d9de6
-    adrs: []
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/caching.md#rule-adr-auto-cache8

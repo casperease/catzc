@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
 ---
 #>
 
-# Test-CheckedInBinaries over fixture files in $TestDrive with the git CLI mocked: `ls-files --eol` and
-# `check-attr binary` answer from each test's listing, so each test pins one storage rule. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-CheckedInBinaries over fixture files in $TestDrive with the git CLI mocked: `ls-files --eol` and `check-attr...
+# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Test-CheckedInBinaries.Tests.ps1.md#comment1)
 Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'repo'
@@ -97,15 +99,15 @@ Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
     }
 }
 
-# The real repository through the quality gate (Test-CheckedInBinaries —
-# [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+# The real repository through the quality gate (Test-CheckedInBinaries — ).
+# [comment:2](/docs/references/automation/catzc-base-modulesystem/tests/Test-CheckedInBinaries.Tests.ps1.md#comment2)
 Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:skip = $null
 
-        # L2: drives the real git CLI. Self-skip when git is absent or we are not inside a work tree
-        # (e.g. running from an exported tarball), per the test-automation tiering ADR.
+        # L2: drives the real git CLI.
+        # [comment:3](/docs/references/automation/catzc-base-modulesystem/tests/Test-CheckedInBinaries.Tests.ps1.md#comment3)
         if (-not (Get-Command git -ErrorAction Ignore)) {
             $script:skip = 'tool_git_missing'
         }

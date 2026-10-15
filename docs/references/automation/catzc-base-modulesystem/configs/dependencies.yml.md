@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md
     kind: comment-page
     body_sha: "39e5c5fd29ac"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/configs/dependencies.yml

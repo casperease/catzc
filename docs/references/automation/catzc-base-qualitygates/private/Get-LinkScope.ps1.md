@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md
     kind: comment-page
     body_sha: ac39ac529abe
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LinkScope.ps1
@@ -26,6 +24,15 @@ source.
 ```
 
 ## comment:2
+
+Above `$isDiskRoot = {`.
+
+```text
+Never enumerate a whole drive: neither the repository root nor a -Path may be a disk root (C:\, /, a UNC
+share root). A relative -Path resolves against the current location, so '.' run from C:\ would be all of C:.
+```
+
+## comment:3
 
 Above `$isDiskRoot = {`.
 

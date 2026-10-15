@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-config/types/ConfigsConfig.cs.md
     kind: comment-page
     body_sha: bf51f6820110
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Config/types/ConfigsConfig.cs

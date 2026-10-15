@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-PWSH-TYPES#1
       - ADR-REPO-CONTRACT#6
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractSchema.cs

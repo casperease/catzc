@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-python/private/Uninstall-PipTool.ps1.md
     kind: comment-page
     body_sha: bd42c877b8d4
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Python/private/Uninstall-PipTool.ps1

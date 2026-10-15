@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md
     kind: asset-description
     body_sha: "2d21112dd130"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
       - docs/explanation/azure/a-bad-coordinate-stops-discovery.md

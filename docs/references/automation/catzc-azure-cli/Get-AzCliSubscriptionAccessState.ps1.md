@@ -6,7 +6,6 @@ catzc:
     body_sha: b1b33866f568
     adrs:
       - ADR-AZ-CLI#1
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1
@@ -54,6 +53,24 @@ reach it via `--subscription`, whether or not it is the active subscription.
 ```
 
 ## comment:3
+
+Above `$session = Invoke-AzCli 'account show -o none' -PassThru -NoAssert -Silent`.
+
+```text
+The probe failed. Distinguish "not logged in" from "logged in but cannot reach this subscription"
+with a local read (only on the error path) so the error names the right fix.
+```
+
+## comment:4
+
+Above `$probe = Invoke-AzCli "account list-locations --subscription $SubscriptionId...`.
+
+```text
+A REAL, read-only ARM call scoped to the subscription. Exit zero proves the current login can
+reach it via `--subscription`, whether or not it is the active subscription.
+```
+
+## comment:5
 
 Above `$session = Invoke-AzCli 'account show -o none' -PassThru -NoAssert -Silent`.
 

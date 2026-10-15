@@ -6,7 +6,6 @@ catzc:
     body_sha: fe3511802c2f
     adrs:
       - ADR-AUTO-DEPM#4
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs

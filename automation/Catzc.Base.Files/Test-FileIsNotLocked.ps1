@@ -6,20 +6,16 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Files
     visibility: public
-    adrs: []
+  config:
+    synopsis: Tests whether a file is free to open (not locked by another handle).
+    description: The inverse of Test-FileIsLocked. See its notes on Windows (mandatory) vs Linux/macOS (advisory) locking.
+    parameters:
+      Path: Path to the file to test.
+    examples:
+      - Test-FileIsNotLocked $dllPath
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tests whether a file is free to open (not locked by another handle).
-.DESCRIPTION
-    The inverse of Test-FileIsLocked. See its notes on Windows (mandatory) vs Linux/macOS (advisory) locking.
-.PARAMETER Path
-    Path to the file to test.
-.EXAMPLE
-    Test-FileIsNotLocked $dllPath
-#>
 function Test-FileIsNotLocked {
     [CmdletBinding()]
     [OutputType([bool])]

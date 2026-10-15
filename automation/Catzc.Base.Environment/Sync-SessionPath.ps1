@@ -8,17 +8,26 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-CONSOLE#11
+  config:
+    synopsis: Rebuilds the session PATH from the registry on Windows. No-op on Unix.
+    description: |-
+      Reads Machine and User PATH from the Windows registry and rebuilds
+      $env:PATH. Registry entries form the base; session-only entries
+      (e.g. from Add-PermanentPath or a tool's install script) are kept
+      only if their directory still exists on disk.
+
+      This handles both directions:
+      - New entries added to the registry by an installer appear in the session.
+      - Entries removed from the registry by an uninstaller disappear from
+        the session (even if the directory still exists on disk).
+
+      On Linux/macOS this function is a no-op — package managers update PATH
+      through profile scripts that take effect on next shell launch.
+    examples:
+      - Sync-SessionPath
 ---
 #>
 
-<#
-.SYNOPSIS
-    Rebuilds the session PATH from the registry on Windows. No-op on Unix.
-.DESCRIPTION
-    Registry entries win: a session-only entry survives only while its directory exists, so uninstalled tools drop out.
-.EXAMPLE
-    Sync-SessionPath
-#>
 function Sync-SessionPath {
     param()
 
@@ -50,8 +59,8 @@ function Sync-SessionPath {
         }
     }
 
-    # The @() wrap keeps an empty $kept an array, because the HashSet constructor rejects a null collection.
-    # [comment:2](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment2)
+    # Add any registry entries not yet in the session @ so an empty $kept yields an empty array, not $null (HashSet's...
+    # [comment:4](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment4)
     $seen = [System.Collections.Generic.HashSet[string]]::new(
         [string[]]@($kept | ForEach-Object { $_.TrimEnd('\', '/') }),
         [System.StringComparer]::OrdinalIgnoreCase
@@ -62,8 +71,8 @@ function Sync-SessionPath {
         }
     }
 
-    # Rewriting only on a real change keeps the import quiet on a clean devbox, where nothing arrives or leaves.
-    # [comment:3](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment3)
+    # Rewrite the session PATH only when an entry arrives or leaves, and say which — on a clean devbox nothing...
+    # [comment:5](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment5)
     $added = @($newPaths)
     $dropped = @($currentPaths | Where-Object { $_ -notin @($kept) })
     if ($added.Count -or $dropped.Count) {

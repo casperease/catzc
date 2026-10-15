@@ -4,13 +4,21 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-FAILFAST
+      - ADR-AUTO-TEST#19
+      - ADR-AUTO-TEST#20
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-VOCAB#1
+      - ADR-REPO-VOCAB#2
+      - ADR-REPO-VOCAB#3
+      - ADR-REPO-VOCAB#5
+      - ADR-REPO-VOCAB#6
 ---
 #>
 
-# Test-Glossary orchestrates the six checks; here every check and the glossary readers are mocked, so the tests pin
-# the order, the report, the PassThru shape, and the single aggregate throw
-# ([ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)). The checks
-# themselves are covered by their own L0 files; the real-tree run is the L2 integrity block at the end of this file.
+# Test-Glossary orchestrates the six checks; here every check and the glossary readers are mocked, so the tests pin...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md#comment1)
 Describe 'Test-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
         # Two real entries: the mocked checks keep their typed -Entry parameter, so the glossary must bind to it.
@@ -85,13 +93,8 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
     }
 }
 
-# The real glossary sources against the real ADRs, tests, and tracked files. G1 and G4 reach git (the tracked-file
-# listing), so this is L2; the answer is the same in both run modes, so the build run skips it. Test-Glossary runs
-# once over the real sources and every It reads its part of that one result
-# ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19),
-# [ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)): it prefixes each check's issues
-# with the check's code (pinned at L0 above), so each check's It reads its own issues from that run rather than
-# running the check a second time.
+# The real glossary sources against the real ADRs, tests, and tracked files.
+# [comment:2](/docs/references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md#comment2)
 Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:sources = @(InModuleScope Catzc.Base.Docs { Get-GlossarySources })

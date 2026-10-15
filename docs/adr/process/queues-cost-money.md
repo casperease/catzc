@@ -10,7 +10,6 @@ catzc:
       - ADR-PROC-QUEUECOST#3
       - ADR-PROC-QUEUECOST#4
       - ADR-PROC-QUEUECOST#5
-    adrs: []
     links:
       - docs/adr/automation/caching.md
       - docs/adr/automation/devbox-pipeline-parity.md

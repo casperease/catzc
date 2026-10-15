@@ -9,8 +9,8 @@ catzc:
 
 Describe 'ConvertFrom-GoTestJson' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Canned `go test -json` streams (tests/assets), recorded from a widget package (pass, fail, skip, and a
-        # table test with subtests) and a gadget package that does not compile.
+        # Canned `go test -json` streams (tests/assets), recorded from a widget package (pass, fail, skip, and a...
+        # [comment:1](/docs/references/automation/catzc-base-languages/tests/ConvertFrom-GoTestJson.Tests.ps1.md#comment1)
         $script:widgetStream = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/go-test-widget.jsonl')
         $script:buildFailedStream = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/go-test-gadget-build-failed.jsonl')
         $script:convert = {

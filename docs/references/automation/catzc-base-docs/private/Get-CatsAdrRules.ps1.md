@@ -6,7 +6,6 @@ catzc:
     body_sha: "3e9e29a570ed"
     adrs:
       - ADR-REPO-VOCAB#1
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-CatsAdrRules.ps1

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-objects.md
     kind: reference
     body_sha: c375cfa7034b
-    adrs: []
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/references/automation/catzc-base-asserts.md

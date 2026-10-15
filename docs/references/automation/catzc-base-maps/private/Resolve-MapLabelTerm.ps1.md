@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-DSGN-TRACK#13
       - ADR-DSGN-TRACK#16
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1

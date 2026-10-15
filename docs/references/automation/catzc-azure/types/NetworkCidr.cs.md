@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure/types/NetworkCidr.cs.md
     kind: comment-page
     body_sha: fc2e097b7341
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure/types/NetworkCidr.cs

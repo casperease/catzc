@@ -4,13 +4,20 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#30
+      - ADR-AUTO-TEST#31
+      - ADR-AUTO-TEST#33
+      - ADR-AUTO-TEST#34
+      - ADR-AUTO-TEST#36
+      - ADR-AUTO-TEST#37
 ---
 #>
 
 Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A fixture tests/ folder with two files: widget mixes a source-only test with a runnable one; gadget is
-        # source-only throughout. Discovery is faked over them (the Pester test shape Get-TestBlockTag walks).
+        # A fixture tests/ folder with two files: widget mixes a source-only test with a runnable one; gadget is...
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestRun.Tests.ps1.md#comment1)
         $script:testsDir = Join-Path $TestDrive 'widget/tests'
         [void][System.IO.Directory]::CreateDirectory($script:testsDir)
         $script:widgetFile = Join-Path $script:testsDir 'Get-Widget.Tests.ps1'

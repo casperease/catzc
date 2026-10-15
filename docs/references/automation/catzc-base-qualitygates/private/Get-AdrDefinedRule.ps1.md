@@ -6,7 +6,6 @@ catzc:
     body_sha: d2081ff38dc9
     adrs:
       - ADR-REPO-LINK#5
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-AdrDefinedRule.ps1

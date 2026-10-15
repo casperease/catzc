@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-BUNDLE#7
       - ADR-PWSH-ERROR#2
-    links: []
 ---
 
 # automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1

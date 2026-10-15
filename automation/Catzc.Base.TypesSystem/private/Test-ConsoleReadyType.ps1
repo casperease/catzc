@@ -6,22 +6,23 @@ catzc:
     kind: private-function
     module: Catzc.Base.TypesSystem
     visibility: private
-    adrs: []
+  config:
+    synopsis: Whether a shipped C# type renders as one readable line in pwsh, rather than as its full name.
+    description: |-
+      PowerShell's "$x" and [string]$x call the type's own .NET ToString() and ignore an ETS ToString, so a type
+      reads well in pwsh only when it overrides ToString() — normally by delegating to
+      Catzc.Base.Objects.ConsoleText (`public override string ToString() => this.ToConsoleString();`), which every
+      DictionaryRecord inherits. A type that is never held as a value needs no override and passes: an enum (it
+      renders its name), an interface, a delegate, an abstract or static class, an Attribute, and an Exception (it
+      renders its message).
+    parameters:
+      Type: The loaded type to check.
+    outputs: '[bool] True when the type is console-ready or exempt.'
+    examples:
+      - Test-ConsoleReadyType -Type ([Catzc.Base.Objects.ArtifactRef])
 ---
 #>
 
-<#
-.SYNOPSIS
-    Whether a shipped C# type renders as one readable line in pwsh, rather than as its full name.
-.DESCRIPTION
-    Only a real ToString() override counts, because pwsh string conversion ignores an ETS ToString.
-.PARAMETER Type
-    The loaded type to check.
-.OUTPUTS
-    [bool] True when the type is console-ready or exempt.
-.EXAMPLE
-    Test-ConsoleReadyType -Type ([Catzc.Base.Objects.ArtifactRef])
-#>
 function Test-ConsoleReadyType {
     [CmdletBinding()]
     [OutputType([bool])]

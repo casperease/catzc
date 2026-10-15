@@ -6,7 +6,6 @@ catzc:
     body_sha: "8bf510e3fc7b"
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Exporter/types/ExporterBundle.cs

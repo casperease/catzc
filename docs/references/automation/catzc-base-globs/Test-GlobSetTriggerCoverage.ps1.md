@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#1
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1

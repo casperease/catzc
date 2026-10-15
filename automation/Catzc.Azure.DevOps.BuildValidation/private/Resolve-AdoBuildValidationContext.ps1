@@ -6,24 +6,23 @@ catzc:
     kind: private-function
     module: Catzc.Azure.DevOps.BuildValidation
     visibility: private
-    adrs: []
+  config:
+    synopsis: Resolves the ADO coordinates every build-validation call needs — org, project, repository id, API base.
+    description: |-
+      Defaults organization/project from ado.yml and the repository name from Get-AdoRepositoryName (the same
+      default as Register-AdoPipeline and the public build-validation functions), resolves the
+      repository to its GUID via the Git repositories API, and returns one context object the public
+      functions share — including the well-known Build policy type id, so the constant lives in exactly one
+      place.
+    parameters:
+      Project: Azure DevOps project name. Defaults to the value in ado.yml.
+      Organization: Azure DevOps organization URL. Defaults to the value in ado.yml.
+      RepositoryName: Name of the Azure Repos Git repository. Defaults to this checkout's repository (Get-AdoRepositoryName).
+    examples:
+      - '$context = Resolve-AdoBuildValidationContext'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Resolves the ADO coordinates every build-validation call needs — org, project, repository id, API base.
-.DESCRIPTION
-    The well-known Build policy type id is held only here, so every public function reads one constant.
-.PARAMETER Project
-    Azure DevOps project name. Defaults to the value in ado.yml.
-.PARAMETER Organization
-    Azure DevOps organization URL. Defaults to the value in ado.yml.
-.PARAMETER RepositoryName
-    Name of the Azure Repos Git repository. Defaults to this checkout's repository (Get-AdoRepositoryName).
-.EXAMPLE
-    $context = Resolve-AdoBuildValidationContext
-#>
 function Resolve-AdoBuildValidationContext {
     [CmdletBinding()]
     [OutputType([hashtable])]

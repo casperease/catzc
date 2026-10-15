@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-GO#3
       - ADR-AUTO-PY#3
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/private/Get-EngineContract.ps1
@@ -54,6 +53,15 @@ Resolve-EngineExecutable.
 ```
 
 ## comment:3
+
+Above `$entry = if ($model.Name -eq [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {`.
+
+```text
+The entry the engine itself loads: pwsh the PowerShell entry; any other engine its own importer in the repository,
+forward-slashed so a POSIX shell on Windows reads the path.
+```
+
+## comment:4
 
 Above `$entry = if ($model.Name -eq [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {`.
 

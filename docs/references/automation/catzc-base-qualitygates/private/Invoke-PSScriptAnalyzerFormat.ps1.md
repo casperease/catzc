@@ -9,7 +9,6 @@ catzc:
       - ADR-AUTO-CONSOLE#10
       - ADR-PRIN-CONFIG#2
       - ADR-REPO-FORMAT#3
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat.ps1
@@ -53,4 +52,23 @@ Above `$shardCount = [Math]::Min([Math]::Max(1,...`.
 A cold pass spends about 40 ms a file resolving command names it has not seen, so a large batch is sharded
 across a few processes (the analyzer's initialization is not thread-safe, as in Get-ScriptAnalyzerDiagnostics);
 a small batch, the usual warm-cache one, stays in this session.
+```
+
+## comment:4
+
+Above `$shardCount = [Math]::Min([Math]::Max(1,...`.
+
+```text
+A cold pass spends about 40 ms a file resolving command names it has not seen, so a large batch is sharded
+across a few processes (the analyzer's initialization is not thread-safe, as in Get-ScriptAnalyzerDiagnostics);
+a small batch, the usual warm-cache one, stays in this session.
+```
+
+## comment:5
+
+Above `Write-Message 'Loading PSScriptAnalyzer (first use this session)...'`.
+
+```text
+First use this session pays the vendored-module import (several seconds) — announce it
+([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
 ```

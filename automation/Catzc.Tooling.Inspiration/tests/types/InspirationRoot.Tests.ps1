@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-PATH#11
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# InspirationRoot over neutral fixture paths (widget/gadget,
-# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): the {workspace} anchor resolves to
-# the parent of the repository root ([ADR-AUTO-PATH#11](/docs/adr/automation/path-representation.md#rule-adr-auto-path11)),
-# identically from pwsh's and Git Bash's view of that root. The platform is a parameter, so every branch runs on
-# every OS.
+# InspirationRoot over neutral fixture paths (widget/gadget, ): the {workspace} anchor resolves to the parent of the...
+# [comment:1](/docs/references/automation/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md#comment1)
 Describe 'Catzc.Tooling.Inspiration.InspirationRoot' -Tag 'L0', 'logic' {
     Context 'ToNative' {
         It 'maps a Git Bash drive path to a drive path on Windows' {

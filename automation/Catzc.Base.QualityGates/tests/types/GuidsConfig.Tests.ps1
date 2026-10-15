@@ -9,8 +9,8 @@ catzc:
 
 Describe 'Catzc.Base.QualityGates.GuidsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The all-zeros GUID is itself denied (it must not appear as a tracked literal), so build it at
-        # runtime — the same discipline Test-ManagedGuids enforces on every other file.
+        # The all-zeros GUID is itself denied (it must not appear as a tracked literal), so build it at runtime — the...
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/GuidsConfig.Tests.ps1.md#comment1)
         $script:zeroGuid = "$([guid]::Empty)"
 
         function New-GuidsConfig {

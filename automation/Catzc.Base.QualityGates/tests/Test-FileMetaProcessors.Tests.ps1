@@ -4,11 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-FileMetaProcessors.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-FILEMETA#4
 ---
 #>
 
 # Test-FileMetaProcessors over in-memory registries and fixture processor functions defined in the module scope.
-# Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-FileMetaProcessors.Tests.ps1.md#comment1)
 Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     BeforeAll {
         InModuleScope Catzc.Base.QualityGates {

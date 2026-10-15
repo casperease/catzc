@@ -8,25 +8,22 @@ catzc:
     visibility: public
     adrs:
       - ADR-REPO-CODEMETA#1
+  config:
+    synopsis: Reads what a code text says about its own meta head, without changing it.
+    description: |-
+      Pure: it takes the text and the head's comment syntax, reads no file and no config.
+    parameters:
+      Text: The whole code file as text.
+      Form: 'The head''s comment syntax: a Catzc.Base.CodeMeta.HeadForm.'
+    outputs: |-
+      [pscustomobject] @{ HasHead; Sections; DerivedKeys; DerivedLists; ConfigLines; Before; Rest; NewLine } — Sections are the keys directly
+      under `catzc`, DerivedKeys the keys under `derived`, DerivedLists each derived list key with its items, and ConfigLines the authored
+      lines under `config`, as written.
+    examples:
+      - Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')) | Select-Object -ExpandProperty DerivedKeys
 ---
 #>
 
-<#
-.SYNOPSIS
-    Reads what a code text says about its own meta head, without changing it.
-.DESCRIPTION
-    Pure: it takes the text and the head's comment syntax, reads no file and no config.
-.PARAMETER Text
-    The whole code file as text.
-.PARAMETER Form
-    The head's comment syntax: a Catzc.Base.CodeMeta.HeadForm.
-.OUTPUTS
-    [pscustomobject] @{ HasHead; Sections; DerivedKeys; DerivedLists; ConfigLines; Before; Rest; NewLine } — Sections are the keys directly
-    under `catzc`, DerivedKeys the keys under `derived`, DerivedLists each derived list key with its items, and ConfigLines the authored
-    lines under `config`, as written.
-.EXAMPLE
-    Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')) | Select-Object -ExpandProperty DerivedKeys
-#>
 function Get-CodeMetaState {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

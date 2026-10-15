@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/adr-registry.md
     kind: how-to
     body_sha: "9130e4758ce4"
-    adrs: []
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---

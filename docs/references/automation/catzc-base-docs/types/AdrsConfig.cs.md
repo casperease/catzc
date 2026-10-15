@@ -11,7 +11,6 @@ catzc:
       - ADR-CONF-LOADING#4
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrsConfig.cs

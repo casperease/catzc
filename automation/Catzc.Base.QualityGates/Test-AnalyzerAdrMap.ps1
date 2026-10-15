@@ -9,23 +9,31 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-FORMAT#7
+  config:
+    synopsis: 'Quality gate: analyzer-adr-map.yml cites only real ADR rules and maps every custom analyzer rule.'
+    description: |-
+      A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the shipped
+      analyzer map (configs/analyzer-adr-map.yml), the source of the 'pssa-rule' enforcer kind in the rule-coverage
+      report ([ADR-PWSH-FORMAT#7](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format7)). The config load checks
+      only its shape, so it stays hermetic; this gate cross-checks it against the repository and collects an issue for:
+
+        - every rule id an analyzer cites that is not a real ADR rule (Get-CatsAdrRuleIds, in '#' citation form);
+        - every custom analyzer check — a Measure-* function in automation/.scriptanalyzer/*.psm1, except the entry
+          rule CatzcRules.psm1, which only dispatches — the map does not list, so a new custom rule cannot ship
+          unmapped.
+
+      It reads the ADR tree and the .scriptanalyzer rule files, which exist only in the source tree (Assert-SourceTree).
+    parameters:
+      OutputFolder: The report base folder. Defaults to out/test-analyzer-adr-map/ (Write-QualityGateReport).
+      PassThru: |-
+        Return the result ({ Subject; IssueCount; Issues; ReportPath; Analyzers; CustomRules }) instead of throwing on
+        issues.
+    outputs: '[pscustomobject] With -PassThru only.'
+    examples:
+      - Test-AnalyzerAdrMap
 ---
 #>
 
-<#
-.SYNOPSIS
-    Quality gate: analyzer-adr-map.yml cites only real ADR rules and maps every custom analyzer rule.
-.DESCRIPTION
-    The config load checks only shape to stay hermetic; this gate cross-checks the map against the repository.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to out/test-analyzer-adr-map/ (Write-QualityGateReport).
-.PARAMETER PassThru
-    Without it the gate throws on issues, so the result object is how a caller reads them instead.
-.OUTPUTS
-    [pscustomobject] With -PassThru only.
-.EXAMPLE
-    Test-AnalyzerAdrMap
-#>
 function Test-AnalyzerAdrMap {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -37,8 +45,8 @@ function Test-AnalyzerAdrMap {
 
     Assert-SourceTree
     $map = Get-Config -Config analyzer-adr-map
-    # Plain assignment keeps the comma-wrapped getter result intact; wrapping it in @() would nest it.
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md#comment3)
+    # The rule ids in '#' citation form, so they compare to the map.
+    # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md#comment4)
     $ruleIds = Get-CatsAdrRuleIds
     [string[]] $citations = $ruleIds -replace ':', '#'
     $validIds = [System.Collections.Generic.HashSet[string]]::new($citations, [System.StringComparer]::Ordinal)

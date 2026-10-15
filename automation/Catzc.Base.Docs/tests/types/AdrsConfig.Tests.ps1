@@ -4,15 +4,18 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TYPES#9
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-REPO-LANG
 ---
 #>
 
 Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
-        # Neutral fixtures ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)): invented
-        # domains/codes, never real ADR vocabulary. Defined in
-        # BeforeAll so the helper is in scope for the run phase and visible to every It (a Describe-body function is
-        # only in discovery scope).
+        # Neutral fixtures: invented domains/codes, never real ADR vocabulary.
+        # [comment:1](/docs/references/automation/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md#comment1)
         function New-ValidRaw {
             [ordered]@{
                 domains = [ordered]@{

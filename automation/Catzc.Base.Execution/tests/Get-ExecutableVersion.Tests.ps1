@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Get-ExecutableVersion' -Tag 'L0', 'logic' {
-    # The probe's only process start, with Invoke-Executable mocked: the located path is run (quoted), never a
-    # bare name, and the version is the pattern's named group. Fixture tokens are neutral
-    # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+    # The probe's only process start, with Invoke-Executable mocked: the located path is run (quoted), never a bare...
+    # [comment:1](/docs/references/automation/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Invoke-Executable { [Catzc.Base.Execution.CliResult]::new('widget version 5.2.37', '', 0) } -ModuleName Catzc.Base.Execution
     }

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-docs/private/Get-AdrCitationGraphViolations.ps1.md
     kind: comment-page
     body_sha: "81694d4c7532"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-AdrCitationGraphViolations.ps1

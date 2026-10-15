@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-TEST#13
       - ADR-AUTO-TEST#26
       - ADR-REPO-PROTGLOB#9
-    links: []
 ---
 
 # out/diagrams/dark-sample/test-automation-one-run-pipeline.drawio.verify.md

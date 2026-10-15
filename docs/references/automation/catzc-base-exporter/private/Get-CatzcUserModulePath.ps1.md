@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-exporter/private/Get-CatzcUserModulePath.ps1.md
     kind: comment-page
     body_sha: "9cc7c7027472"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Exporter/private/Get-CatzcUserModulePath.ps1

@@ -6,22 +6,21 @@ catzc:
     kind: public-function
     module: Catzc.Base.Repository
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the path to the output directory for the current execution context.
+    description: |-
+      In an Azure DevOps pipeline, returns $env:BUILD_ARTIFACTSTAGINGDIRECTORY.
+      Locally on DevBox, returns {RepositoryRoot}/out.
+
+      With -EnsureExists, creates the directory if it does not exist.
+    parameters:
+      EnsureExists: Create the output directory if it does not exist.
+    examples:
+      - '$outDir = Get-OutputRoot'
+      - '$outDir = Get-OutputRoot -EnsureExists'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the path to the output directory for the current execution context.
-.DESCRIPTION
-    The root is context-dependent: the pipeline staging directory outside the repo, or {RepositoryRoot}/out on a devbox.
-.PARAMETER EnsureExists
-    Create the output directory if it does not exist.
-.EXAMPLE
-    $outDir = Get-OutputRoot
-.EXAMPLE
-    $outDir = Get-OutputRoot -EnsureExists
-#>
 function Get-OutputRoot {
     [OutputType([string])]
     param(

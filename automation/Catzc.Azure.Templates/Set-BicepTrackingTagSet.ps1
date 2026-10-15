@@ -9,28 +9,41 @@ catzc:
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-PWSH-DRYRUN#1
+  config:
+    synopsis: Writes the deployment-provenance tags (commit, buildId, branch) on the target scope.
+    description: |-
+      Called by Deploy-Bicep after a successful deploy. Resolves the scope:
+      - ResourceGroup target  → `/subscriptions/<id>/resourceGroups/<rg>`
+      - Subscription target   → `/subscriptions/<id>`
+
+      Tag *values* come from:
+      - Pipeline:  $env:BUILD_SOURCEVERSION / $env:BUILD_BUILDID / $env:BUILD_SOURCEBRANCH
+      - Devbox:    Get-GitCurrentCommit / 'CLI_NO_BUILD' / Get-GitCurrentBranch
+
+      Tag *names* are template-aware (see Get-BicepTrackTagNameSet).
+
+      Runs `az tag update --operation Merge` so unrelated tags on the scope are preserved. On a non-zero
+      exit it throws a self-contained error that names the target scope, the exact az command, the exit
+      code, and az's captured stderr/stdout — so a failure here (e.g. a tag-governing Azure Policy
+      colliding with the tags API, or a dropped connection) is diagnosable from the thrown error itself,
+      not only from the live console stream.
+      The target scope's subscription is the az session's (Get-AzCliSessionSubscription) — the same
+      session-determined target Deploy-Bicep just deployed into, so the tags land where the deploy did.
+    parameters:
+      Environment: The environment the template was deployed to, as azure.yml names it.
+      Template: The Bicep template that was deployed, by name.
+      Slot: |-
+        Optional special-slot discriminator (1-3 lowercase alphanumeric chars). Selects the same slot (and
+        therefore the same RG) that was deployed; omitted -> the env's base / index-0 slot.
+      DryRun: Preview only — log the tag command that would run and make no change.
+    examples:
+      - Set-BicepTrackingTagSet -Environment dev -Template sample
 ---
 #>
 
-<#
-.SYNOPSIS
-    Writes the deployment-provenance tags (commit, buildId, branch) on the target scope.
-.DESCRIPTION
-    The tags land in the az session's subscription, the same target Deploy-Bicep just deployed into.
-.PARAMETER Environment
-    The environment the template was deployed to, as azure.yml names it.
-.PARAMETER Template
-    The Bicep template that was deployed, by name.
-.PARAMETER Slot
-    Selects the same slot, and so the same resource group, that was deployed; omitted is the base slot.
-.PARAMETER DryRun
-    Preview only — log the tag command that would run and make no change.
-.EXAMPLE
-    Set-BicepTrackingTagSet -Environment dev -Template sample
-#>
 function Set-BicepTrackingTagSet {
-    # -DryRun replaces ShouldProcess here, so the analyzer rule for state-changing functions is suppressed.
-    # [comment:3](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment3)
+    # State-changing function deliberately uses -DryRun, not ShouldProcess — see.
+    # [comment:5](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment5)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -105,8 +118,8 @@ function Set-BicepTrackingTagSet {
         return
     }
 
-    # -NoAssert lets a failed tag call throw with scope, command and az stderr, where a policy collision shows up.
-    # [comment:4](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment4)
+    # -NoAssert: take the result in hand so a failure throws WITH context (scope, command, az stderr) from here,...
+    # [comment:6](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment6)
     $result = Invoke-AzCli $command -PassThru -NoAssert
     if ($result.ExitCode -ne 0) {
         $detail = @(

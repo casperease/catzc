@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/templates/discovery/configuration/apex/nsub.yml.md
     kind: comment-page
     body_sha: acddcfce81e7
-    adrs: []
-    links: []
 ---
 
 # infrastructure/templates/discovery/configuration/apex/nsub.yml

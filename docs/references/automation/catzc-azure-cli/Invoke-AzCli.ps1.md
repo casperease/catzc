@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md
     kind: comment-page
     body_sha: "827be16c0c62"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Invoke-AzCli.ps1
@@ -29,6 +27,17 @@ That failure surfaces through the usual exit-code assertion as a throw.
 ```
 
 ## comment:2
+
+Above `$dynamicInstallVar = 'AZURE_EXTENSION_USE_DYNAMIC_INSTALL'`.
+
+```text
+Disable az dynamic extension install for this call: a command needing an uninstalled extension
+then exits non-zero instead of blocking on an invisible "(Y/n)" prompt, which Invoke-Executable's
+exit-code assertion turns into a throw. Scoped to the process and restored afterwards; skipped on
+a dry run, which never launches az. $null restores an unset variable to unset (not empty).
+```
+
+## comment:3
 
 Above `$dynamicInstallVar = 'AZURE_EXTENSION_USE_DYNAMIC_INSTALL'`.
 

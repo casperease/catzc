@@ -10,38 +10,62 @@ catzc:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-TEST#25
       - ADR-AUTO-TEST#30
+  config:
+    synopsis: Generates one parallel worker's runner script and returns its shard descriptor.
+    description: |-
+      Writes <RunDirectory>/shard-<N>.ps1 — the script a PesterRunner worker executes as `pwsh -NoProfile
+      -File` (modeled on Test-InIsolation's generated runner). The worker dot-sources the repository importer
+      (-SkipJanitors), starts watching the process that launched it (WorkerParentWatch — the worker kills itself
+      when that parent is gone, so a run whose parent died never leaves workers behind), then sets strict mode
+      for its own scope, whichever entry script loaded the modules: the
+      test scopes chain to that scope, so every test body runs strict
+      ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)) — the module code under
+      test is strict through its own module scope. It then imports vendored Pester — resolved inside the worker,
+      after the import, from the worker's own code root (Get-CatzcModulesRoot/.vendor/Pester), so Pester always
+      comes from the tree the worker loaded
+      ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)) — builds its
+      run configuration through the ONE shared builder
+      (New-PesterRunConfiguration, reached via module scope — the same builder Invoke-TestFile uses, so the
+      worker and manual paths cannot drift), runs the shard's test files with the run's exclude tags, writes
+      Pester's NUnit results to results-shard-<N>.xml, reduces its live result to rows (ConvertTo-
+      TestAutomationRowSet — tier/category resolution needs the live .Block chain, so it must happen inside the
+      worker) into rows-shard-<N>.json, writes each test file's whole Pester duration (set-up included) into
+      files-shard-<N>.json — the measurement the next run schedules by (Select-TestShardAssignment) — with the
+      file's own Result and ErrorMessage (the error of a file that failed while Pester discovered or set it up,
+      which no test row can carry; empty when the file loaded), and
+      exits 0 (green) or 1 (the run did not pass — failed tests, or a
+      container/discovery error that fails the run with zero failed tests). Any other exit code — or a missing
+      rows sidecar — means the worker itself crashed, which the parent surfaces loudly.
+    parameters:
+      ShardIndex: The shard's zero-based index — names the script, results, and rows files.
+      TestPath: The shard's test files (absolute *.Tests.ps1 paths).
+      RunDirectory: The run directory the script and its artifacts are written into (must exist).
+      ExcludeTag: Tags excluded from the worker's run (from Get-TestExcludeTag). Empty means no tag filter.
+      IncludeTag: Tags a test must carry to run (the -Rule provenance filter). Empty means no include filter.
+      Verbosity: Pester output verbosity inside the worker (the run's -Output value).
+      FullNameFilter: |-
+        Filter the worker's run to tests whose full name contains this text — the manual single-check path
+        (Invoke-TestFile). Empty means no name filter (the harness never sets one).
+      EntryScript: |-
+        The run seam ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)): the script the
+        worker dot-sources to load the modules. Empty (the
+        default) is the source run's `<repo>/importer.ps1 -SkipJanitors`; the build run passes the build's
+        `Import-Catzc.ps1`. Everything after the load — Pester from the code root, the shared configuration
+        builder, the row sidecar — is identical for both runs, except that the configuration hands the entry script
+        to the Go bridge, so the Go tests start the same engine the worker loaded.
+      EntryParameter: |-
+        Named arguments for -EntryScript, rendered into the dot-source line as `-Name 'value'` (a $true value
+        renders as a bare switch). Ignored without -EntryScript. The build run passes
+        @{ RepositoryRoot = <repo> } so out/ and repo-relative paths keep resolving in the repository.
+      LanguageExecutable: |-
+        The managed tool per test language and the executable per engine other than pwsh the run's source session
+        located (Get-LanguageTestExecutable: @{ go = <path>; python = <uv path>; <engine> = <path> }), rendered into the
+        worker as a hashtable literal and handed through the configuration to the language bridge; an empty entry means
+        there is none. The worker never locates a tool: a build's engine has no tools.yml entry.
+    outputs: '[pscustomobject] with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath, FilesPath.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Generates one parallel worker's runner script and returns its shard descriptor.
-.DESCRIPTION
-    The worker sets strict mode itself, as test scopes chain to it; exit 1 is a failed run, any other code a crash.
-.PARAMETER ShardIndex
-    The shard's zero-based index — names the script, results, and rows files.
-.PARAMETER TestPath
-    The shard's test files (absolute *.Tests.ps1 paths).
-.PARAMETER RunDirectory
-    The run directory the script and its artifacts are written into (must exist).
-.PARAMETER ExcludeTag
-    Tags excluded from the worker's run (from Get-TestExcludeTag). Empty means no tag filter.
-.PARAMETER IncludeTag
-    Tags a test must carry to run (the -Rule provenance filter). Empty means no include filter.
-.PARAMETER Verbosity
-    Pester output verbosity inside the worker (the run's -Output value).
-.PARAMETER FullNameFilter
-    The harness never sets this; only the manual single-check path (Invoke-TestFile) filters by name.
-    [comment:5](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment5)
-.PARAMETER EntryScript
-    Empty loads the source importer; a build run passes its Import-Catzc.ps1, which the Go tests then reuse.
-.PARAMETER EntryParameter
-    Ignored without -EntryScript; the build run passes RepositoryRoot so out/ paths still resolve in the repo.
-.PARAMETER LanguageExecutable
-    The worker never locates a tool, because a build's engine has no tools.yml entry; an empty entry means none.
-.OUTPUTS
-    [pscustomobject] with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath, FilesPath.
-#>
 function New-TestAutomationShardScript {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -75,8 +99,8 @@ function New-TestAutomationShardScript {
 
     $repositoryRoot = Get-RepositoryRoot
 
-    # Source and build runs differ only in this entry line; everything after the load is identical.
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment6)
+    # The one seam between the two runs: which entry script loads the modules.
+    # [comment:10](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment10)
     $entryLine = if ($EntryScript) {
         $entryArguments = foreach ($name in ($EntryParameter.Keys | Sort-Object)) {
             $value = $EntryParameter[$name]
@@ -104,18 +128,18 @@ function New-TestAutomationShardScript {
     $includeTagLiteral = ($IncludeTag | ForEach-Object { "'$_'" }) -join ', '
     # Single-quote literal: double any embedded quote (a FullNameFilter is prose — titles carry apostrophes).
     $filterLiteral = "$FullNameFilter" -replace "'", "''"
-    # Passing the entry script on lets the Go and Python tests start the same engine the worker loaded.
-    # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment7)
+    # The build run's entry also reaches the language bridge, so the Go and Python tests start the build...
+    # [comment:11](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment11)
     $entryLiteral = "$EntryScript" -replace "'", "''"
-    # Sorted by language so the generated literal is stable; a build's engine cannot locate these tools itself.
-    # [comment:8](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment8)
+    # The tools this source session located reach the language bridge the same way, as a hashtable literal in...
+    # [comment:12](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment12)
     $languageEntries = foreach ($language in ($LanguageExecutable.Keys | Sort-Object)) {
         "'$language' = '$("$($LanguageExecutable[$language])" -replace "'", "''")'"
     }
     $languageLiteral = '@{ ' + ($languageEntries -join '; ') + ' }'
 
-    # Strict mode stays inline: it is scope-dynamic, and test scopes chain to the process top scope.
-    # [comment:9](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment9)
+    # The Pester configuration itself comes from the ONE shared builder (New-PesterRunConfiguration) so this worker...
+    # [comment:13](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment13)
     $content = @"
 `$ErrorActionPreference = 'Stop'
 $entryLine

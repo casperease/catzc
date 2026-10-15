@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/types/FormatResult.cs.md
     kind: comment-page
     body_sha: e6766f4cf984
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/FormatResult.cs

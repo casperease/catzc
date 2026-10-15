@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/ConvertTo-PesterRunTarget.ps1.md
     kind: comment-page
     body_sha: d205d6ba8a58
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/ConvertTo-PesterRunTarget.ps1

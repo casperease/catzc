@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-github/Publish-CleanHistory.ps1.md
     kind: comment-page
     body_sha: "83e8b2100296"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Github/Publish-CleanHistory.ps1

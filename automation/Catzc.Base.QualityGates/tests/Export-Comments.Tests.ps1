@@ -4,15 +4,19 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DRYRUN#1
+      - ADR-AUTO-IDEM#1
+      - ADR-PRIN-CONFIG#1
+      - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-COMMENTS#1
+      - ADR-REPO-COMMENTS#3
 ---
 #>
 
 # cspell:ignore ngadget  -- the escape-sequence artifact in the "`ngadget" fixture strings
-# Export-Comments moves a file's long comments into its comment page, one-way and losslessly
-# ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)), tested in isolation:
-# every test builds its own fixture repository in $TestDrive with widget/gadget files and exports only that tree
-# (-RepositoryRoot, -Path). The page location comes from the shipped comments.yml
-# ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+# Export-Comments moves a file's long comments into its comment page, one-way and losslessly, tested in isolation:...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md#comment1)
 Describe 'Export-Comments' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

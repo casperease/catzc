@@ -6,22 +6,17 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Timeouts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Tests whether a budget GUID is exempt from its normal time limit in this run environment.
+    description: The boolean form of Get-TimeoutExemption, which defines the lookup.
+    parameters:
+      Budget: The budget's immutable GUID.
+      Shell: The shell the work runs in, one of the execution engines (pwsh, bash or zsh); pwsh is the default.
+    examples:
+      - if (Test-IsTimeoutExempt $budget) { Write-Message 'running exempt while tuned' }
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tests whether a budget GUID is exempt from its normal time limit in this run environment.
-.DESCRIPTION
-    The boolean form of Get-TimeoutExemption, which defines the lookup.
-.PARAMETER Budget
-    The budget's immutable GUID.
-.PARAMETER Shell
-    The shell the work runs in, one of the execution engines (pwsh, bash or zsh); pwsh is the default.
-.EXAMPLE
-    if (Test-IsTimeoutExempt $budget) { Write-Message 'running exempt while tuned' }
-#>
 function Test-IsTimeoutExempt {
     [CmdletBinding()]
     [OutputType([bool])]

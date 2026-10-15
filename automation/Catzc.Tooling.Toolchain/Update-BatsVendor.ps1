@@ -8,17 +8,21 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-BASH
+  config:
+    synopsis: Refreshes the vendored bats-core test runner from the release bash.yml pins.
+    description: |-
+      The Bash tests run on the bats-core runner checked in at <bashRoot>/.vendor/bats-core/
+      ([ADR-AUTO-BASH](/docs/adr/automation/bash/bash-test-artifacts.md)), so a test run needs no install and no network.
+      This rebuilds that copy from the pin in bash.yml (bats_version, bats_sha256): it downloads the release's source
+      archive from GitHub, verifies its SHA-256 (Save-VerifiedDownload), extracts it with tar inside a staging folder by
+      relative name, and replaces the vendored folder with the runner's files only — bin/, libexec/, lib/ and
+      LICENSE.md. To move to a new release, change both pins in bash.yml, run this, and commit the result; the files
+      are LF by .gitattributes, and their executable bits are set in git with git update-index --chmod=+x.
+    examples:
+      - Update-BatsVendor
 ---
 #>
 
-<#
-.SYNOPSIS
-    Refreshes the vendored bats-core test runner from the release bash.yml pins.
-.DESCRIPTION
-    The runner is checked in so a test run needs no install or network; this rebuilds it from the bash.yml pins.
-.EXAMPLE
-    Update-BatsVendor
-#>
 function Update-BatsVendor {
     [CmdletBinding()]
     param()
@@ -37,8 +41,8 @@ function Update-BatsVendor {
         $fileName = "v$($config.bats_version).tar.gz"
         $uri = "https://github.com/bats-core/bats-core/archive/refs/tags/$fileName"
         $null = Save-VerifiedDownload -Uri $uri -OutFile (Join-Path $staging $fileName) -Sha256 $config.bats_sha256
-        # GNU tar reads a drive letter's colon as a remote host, hence the relative name inside the staging folder.
-        # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Update-BatsVendor.ps1.md#comment2)
+        # A relative name inside the staging folder, so no path carries a drive letter's colon (GNU tar reads one as...
+        # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Update-BatsVendor.ps1.md#comment3)
         Invoke-Executable "tar -xzf `"$fileName`"" -WorkingDirectory $staging -Silent
         $extracted = Join-Path $staging "bats-core-$($config.bats_version)"
         Assert-PathExist (Join-Path $extracted 'bin/bats') -PathType Leaf

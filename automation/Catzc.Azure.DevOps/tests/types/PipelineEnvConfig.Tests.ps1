@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# The pipeline-env.yml type: constructing it maps and validates the parsed YAML, so a malformed whitelist never
-# loads through Get-Config -Config pipeline-env.
+# The pipeline-env.yml type: constructing it maps and validates the parsed YAML, so a malformed whitelist never loads...
+# [comment:1](/docs/references/automation/catzc-azure-devops/tests/types/PipelineEnvConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Azure.DevOps.PipelineEnvConfig' -Tag 'L0' {
     BeforeAll {
         function Get-ViolationMessage {

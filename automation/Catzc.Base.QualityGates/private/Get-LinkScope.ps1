@@ -6,22 +6,21 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Lists the repository-relative files the link engine reads.
+    description: |-
+      With no -Path, every git-tracked file (Get-GitTrackedPath) — the repository as committed, not whatever lies
+      untracked in the working folder. With -Path, the given files and the files under the given folders, from the
+      filesystem. Either way a file the content tools leave as written (Get-ContentExemptPath: vendored, generated,
+      fixture, or contract asset) is never aligned. No list of its own: a new class is declared in the .gitattributes
+      source.
+    parameters:
+      RepositoryRoot: The repository root the returned paths are relative to.
+      Path: Optional files or folders (absolute or relative to the current location) to limit the scope to.
+    outputs: '[string[]] repository-relative, ''/''-separated paths.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists the repository-relative files the link engine reads.
-.DESCRIPTION
-    Without -Path only git-tracked files count, so untracked files are never aligned; exempt classes: .gitattributes.
-.PARAMETER RepositoryRoot
-    The repository root the returned paths are relative to.
-.PARAMETER Path
-    Optional files or folders (absolute or relative to the current location) to limit the scope to.
-.OUTPUTS
-    [string[]] repository-relative, '/'-separated paths.
-#>
 function Get-LinkScope {
     [CmdletBinding()]
     [OutputType([string[]])]
@@ -32,8 +31,8 @@ function Get-LinkScope {
         [string[]] $Path
     )
 
-    # A relative -Path resolves against the current location, so a dot run from a drive root would scan the whole drive.
-    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md#comment2)
+    # Never enumerate a whole drive: neither the repository root nor a -Path may be a disk root (C:\, /, a UNC share...
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md#comment3)
     $isDiskRoot = {
         param([string] $FullPath)
         $FullPath.TrimEnd('\', '/') -eq ([System.IO.Path]::GetPathRoot($FullPath)).TrimEnd('\', '/')

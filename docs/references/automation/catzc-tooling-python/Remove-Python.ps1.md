@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-python/Remove-Python.ps1.md
     kind: comment-page
     body_sha: "6a906d11f3b1"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Python/Remove-Python.ps1

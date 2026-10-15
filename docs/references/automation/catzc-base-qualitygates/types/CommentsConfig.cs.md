@@ -10,7 +10,6 @@ catzc:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-OUTDIR#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentsConfig.cs

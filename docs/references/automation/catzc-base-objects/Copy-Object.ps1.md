@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-objects/Copy-Object.ps1.md
     kind: comment-page
     body_sha: d842c3c74be1
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Objects/Copy-Object.ps1

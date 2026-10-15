@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-FEEDBACK#3
       - ADR-DORA-FEEDBACK#4
       - ADR-DORA-FEEDBACK#5
-    adrs: []
     links:
       - docs/adr/design/thin-platforms.md
       - docs/adr/process/agile-values.md#rule-adr-proc-values3

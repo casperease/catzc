@@ -6,24 +6,28 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
-    adrs: []
+  config:
+    synopsis: Installs the Go toolchain from the official go.dev archive into a user-space home.
+    description: |-
+      Resolves the newest stable release of the locked version from the go.dev release feed (Get-GoRelease),
+      downloads its archive for this platform and verifies it against the SHA-256 the feed publishes
+      (Save-VerifiedDownload), and extracts it into the script-install home (Get-ScriptInstallDir: Windows
+      %LOCALAPPDATA%\go, Unix ~/.go). No package manager and no admin on any platform, so Windows, Linux and macOS
+      take the same path. The home's bin folder is put on the session and persistent PATH.
+
+      Idempotent — converges to the desired state on every run: when the home already holds the locked version the
+      download is skipped, but PATH is still converged, so a lost PATH entry is repaired by re-running. A Go at the
+      locked version found elsewhere (a pipeline's hosted tool cache, activated by the native Go task) satisfies the
+      contract and is left untouched.
+    parameters:
+      Version: Go version to install. Defaults to the locked version in Get-ToolConfig.
+      Force: Replace an installation in the managed home at the wrong version.
+    examples:
+      - Install-Go
+      - Install-Go -Version '1.27' -Force
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs the Go toolchain from the official go.dev archive into a user-space home.
-.DESCRIPTION
-    A Go at the locked version found elsewhere, such as a pipeline tool cache, satisfies the contract and is left alone.
-.PARAMETER Version
-    Go version to install. Defaults to the locked version in Get-ToolConfig.
-.PARAMETER Force
-    Replace an installation in the managed home at the wrong version.
-.EXAMPLE
-    Install-Go
-.EXAMPLE
-    Install-Go -Version '1.27' -Force
-#>
 function Install-Go {
     [CmdletBinding()]
     param(
@@ -56,8 +60,8 @@ function Install-Go {
         }
     }
     else {
-        # A wrong version elsewhere does not block the install, because the managed home goes first on PATH.
-        # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment2)
+        # Nothing in the managed home: a Go at the right version elsewhere satisfies the contract and is not ours to...
+        # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment5)
         $probe = Test-Tool 'go' -PassThru
         if ($probe.Version -and $probe.Version.StartsWith($Version)) {
             Write-Message "Go $Version is already installed at '$($probe.Path)'"
@@ -72,8 +76,8 @@ function Install-Go {
             Assert-Command tar -ErrorText 'Install-Go extracts the Go archive with tar, which is not on PATH.'
         }
 
-        # Staging beside the home, on the same volume, means a failed download never leaves a half-written home.
-        # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment3)
+        # Download and extract beside the home (same volume), then swap the extracted go/ folder in, so a failed...
+        # [comment:6](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment6)
         $staging = "$installDir.staging"
         if (Test-Path -LiteralPath $staging) {
             Remove-Item -LiteralPath $staging -Recurse -Force
@@ -83,8 +87,8 @@ function Install-Go {
         Save-VerifiedDownload -Uri "https://go.dev/dl/$($release.filename)" -OutFile $archive -Sha256 $release.sha256 | Out-Null
 
         Write-Message "Extracting $($release.version) to '$installDir'"
-        # Zip is extracted in-process because Git's GNU tar, often first on PATH, reads no zip and takes C: for a host.
-        # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment4)
+        # The Windows archive is a.zip, extracted in-process: the tar first on PATH there is often Git's GNU tar,...
+        # [comment:7](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment7)
         if ($isZip) {
             [System.IO.Compression.ZipFile]::ExtractToDirectory($archive, $staging)
         }

@@ -8,25 +8,26 @@ catzc:
     visibility: private
     adrs:
       - ADR-PWSH-ONEFUNC
+  config:
+    synopsis: Maps changed repository paths to the test files that cover them.
+    description: |-
+      The tests half of Test-Change's plan, by convention alone (one function per file,
+      [ADR-PWSH-ONEFUNC](/docs/adr/pwsh/one-function-per-file.md)): a changed test file is itself; a changed function file
+      automation/<Module>/[private/]<Name>.ps1 is covered by automation/<Module>/tests/<Name>.Tests.ps1; a changed C# type
+      automation/<Module>/types/<Type>.cs by automation/<Module>/tests/types/<Type>.Tests.ps1. Only test files that exist
+      are returned, as repo-relative, '/'-separated paths, sorted ordinally, each once; a change no convention covers
+      contributes nothing. With -Module, a change anywhere under automation/<Module>/ (dot folders excepted) brings in
+      every test file under that module's tests/ instead.
+    parameters:
+      Path: The changed repo-relative, '/'-separated paths.
+      RepositoryRoot: The repository root the paths are relative to.
+      Module: Widen to every test file of each module a change touches.
+    outputs: '[string]'
+    examples:
+      - Get-ChangeTestFile -Path 'automation/Catzc.Base.Files/Get-GitChangedPath.ps1' -RepositoryRoot (Get-RepositoryRoot)
 ---
 #>
 
-<#
-.SYNOPSIS
-    Maps changed repository paths to the test files that cover them.
-.DESCRIPTION
-    Naming convention only: a change with no existing test file beside its convention adds nothing, never a guess.
-.PARAMETER Path
-    The changed repo-relative, '/'-separated paths.
-.PARAMETER RepositoryRoot
-    The repository root the paths are relative to.
-.PARAMETER Module
-    Widen to every test file of each module a change touches.
-.OUTPUTS
-    [string]
-.EXAMPLE
-    Get-ChangeTestFile -Path 'automation/Catzc.Base.Files/Get-GitChangedPath.ps1' -RepositoryRoot (Get-RepositoryRoot)
-#>
 function Get-ChangeTestFile {
     [CmdletBinding()]
     [OutputType([string])]

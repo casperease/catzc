@@ -8,19 +8,20 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-LINK#7
+  config:
+    synopsis: Returns this repository's GitHub web URL (https://github.com/<owner>/<repo>), or $null when it has none.
+    description: |-
+      Reads the origin remote from <root>/.git/config — no git process — and normalizes an https or ssh GitHub
+      remote to its web URL. Test-Links uses it to recognise an absolute URL into this repository, which belongs
+      only under .github/ ([ADR-REPO-LINK#7](/docs/adr/repository/markdown-links.md#rule-adr-repo-link7)). A root with no
+      .git/config (a test fixture, an exported build) or a
+      non-GitHub remote yields $null, and that check is skipped.
+    parameters:
+      RepositoryRoot: The repository root.
+    outputs: '[string] or $null.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns this repository's GitHub web URL (https://github.com/<owner>/<repo>), or $null when it has none.
-.DESCRIPTION
-    A root without .git/config or with a non-GitHub remote yields null, and the absolute-URL link check is skipped.
-.PARAMETER RepositoryRoot
-    The repository root.
-.OUTPUTS
-    [string] or $null.
-#>
 function Get-RepositoryWebUrl {
     [CmdletBinding()]
     [OutputType([string])]

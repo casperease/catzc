@@ -4,13 +4,19 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-AGENTS#1
+      - ADR-REPO-AGENTS#2
+      - ADR-REPO-AGENTS#3
+      - ADR-REPO-AGENTS#4
+      - ADR-REPO-AGENTS#5
 ---
 #>
 
-# Test-AgentDefinitions over a fixture .claude/ tree in $TestDrive and a fixture AgentsConfig (Get-Config,
-# Resolve-RepoPath, and Get-CatsAdrRuleIds mocked), so each test pins one rule. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the real-tree run is the
-# integrity block at the end of this file.
+# Test-AgentDefinitions over a fixture.claude/ tree in $TestDrive and a fixture AgentsConfig (Get-Config,...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md#comment1)
 Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:out = Join-Path $TestDrive 'out'
@@ -118,8 +124,8 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
     }
 }
 
-# The real tree: every agent file, the shipped agents.yml, the real rule ids and commands, and .claude/CLAUDE.md.
-# It reads .claude/, which only the source tree carries, so the build run skips it.
+# The real tree: every agent file, the shipped agents.yml, the real rule ids and commands, and.claude/CLAUDE.md.
+# [comment:2](/docs/references/automation/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md#comment2)
 Describe 'Test-AgentDefinitions — real agent definitions' -Tag 'L1', 'integrity', 'source-only' {
     It 'Test-AgentDefinitions passes over the real tree' -Tag 'ADR-AUTO-TEST#35', 'ADR-REPO-AGENTS#5' {
         $result = Test-AgentDefinitions -PassThru -OutputFolder (Join-Path $TestDrive 'agents')

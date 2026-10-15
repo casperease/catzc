@@ -4,26 +4,22 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-CACHE#6
+      - ADR-AUTO-TEST#19
+      - ADR-REPO-OUTDIR#3
 ---
 #>
 
 # cspell:ignore toolong gmweutstsmplst alweutstsmplst
-# These are L0 'logic' tests (mocked config/discovery, no real az/cspell) — they are NOT L2 and should not
-# be: nothing here launches an external tool. They were merely SLOW for an L0 tier, because the original
-# BeforeEach gave EVERY test a fresh root ([Guid] dir). Discovery keys its session cache on the root, so a
-# new root per test was a guaranteed cache miss — a full 8-template re-discovery every test, triggered at
-# parameter binding ([ValidateScript] on -Template runs Get-BicepTemplateNames) before the body ever runs.
-# That cold discovery costs ~1s here because Pester's Mock interception of Get-BicepTemplatesRoot inflates it
-# ~6x (165ms unmocked -> ~1s mocked). Both contexts now share ONE copy + ONE discovery (BeforeAll), keeping
-# the cache warm:
-#   - 'validation and read-only' tests never mutate the tree.
-#   - 'writes' tests each target a DISTINCT config path, so the shared tree never causes interference.
+# These are L0 'logic' tests (mocked config/discovery, no real az/cspell) — they are NOT L2 and should not be:...
+# [comment:1](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment1)
 Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixtureTemplates = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
 
-        # The tool/config boundary is mocked once for the whole block — Get-BicepTemplatesRoot reads the
-        # current $script:templatesRoot at call time, so each context just repoints that variable.
+        # The tool/config boundary is mocked once for the whole block — Get-BicepTemplatesRoot reads the current...
+        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment2)
         Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName Catzc.Azure.Templates
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
@@ -35,21 +31,13 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     Context 'validation and read-only' {
         # None of these write to the tree, so one copy + one discovery is shared across all of them.
         BeforeAll {
-            # FRESH, UNIQUE root under $TestDrive (Pester auto-cleans it): a unique dir is never re-deleted
-            # mid-run, so it can't race a concurrent file scanner (on-access AV / the search indexer) holding
-            # a just-copied file open and intermittently throwing "used by another process". Scratch lives in
-            # temp, not out/
-            # ([ADR-REPO-OUTDIR#3](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir3)).
-            # Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: ~15x faster per tree here.
+            # FRESH, UNIQUE root under $TestDrive (Pester auto-cleans it): a unique dir is never re-deleted mid-run,...
+            # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment3)
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
 
-            # Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here in
-            # BeforeAll — not on the first test. The -Template [ValidateScript] runs Get-BicepTemplateNames
-            # (-> Get-BicepTemplates) at parameter binding, so an unwarmed cache makes the first It pay a
-            # full cold discovery (~6x inflated under Mock interception); warming here keeps that off the L0
-            # gate. These tests never mutate the tree, so the cache stays valid for all of them
-            # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
+            # Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here in BeforeAll...
+            # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment4)
             InModuleScope Catzc.Base.Config { $script:configCache = $null }
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
             Get-BicepTemplates | Out-Null
@@ -86,21 +74,14 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     }
 
     Context 'writes' {
-        # Each test writes to a DISTINCT path (sample/gamma, sample/delta, sample/alpha,
-        # sample-customer/acme/alpha), so a single shared writable copy never causes interference and the
-        # order of the tests does not matter. One copy + ONE discovery (BeforeAll) keeps the discovery
-        # cache warm — a fresh per-test root would defeat the cache and pay a full cold re-discovery every
-        # test (discovery is filesystem-bound — see Get-BicepTemplates). See the read-only BeforeAll for
-        # the unique-dir / AV-race rationale.
+        # Each test writes to a DISTINCT path (sample/gamma, sample/delta, sample/alpha, sample-customer/acme/alpha),...
+        # [comment:5](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment5)
         BeforeAll {
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
 
-            # Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here so the
-            # first It in this context does not pay the cold parameter-binding discovery (see the read-only
-            # context's BeforeAll). Writes target distinct config paths and never invalidate the templates
-            # cache (session-scoped, [ADR-AUTO-CACHE#6](/docs/adr/automation/caching.md#rule-adr-auto-cache6)), so one
-            # warm-up serves every test.
+            # Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here so the first...
+            # [comment:6](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment6)
             InModuleScope Catzc.Base.Config { $script:configCache = $null }
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
             Get-BicepTemplates | Out-Null

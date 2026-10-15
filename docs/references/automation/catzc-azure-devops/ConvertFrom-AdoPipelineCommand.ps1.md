@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/ConvertFrom-AdoPipelineCommand.ps1.md
     kind: comment-page
     body_sha: d7ffe2f3dbc3
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/ConvertFrom-AdoPipelineCommand.ps1

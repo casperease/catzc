@@ -8,21 +8,24 @@ catzc:
     visibility: public
     adrs:
       - ADR-PWSH-ENUM#3
+  config:
+    synopsis: Recursively copies the contents of a directory into a destination directory.
+    description: |-
+      A fast replacement for `Copy-Item -Recurse`, built on [System.IO]. The PowerShell file
+      cmdlets carry heavy per-item provider overhead on Windows (~15x slower per file/dir here),
+      which dominates when copying a tree of many small files; the raw .NET APIs avoid it.
+
+      Mirrors the tree under -Path into -Destination — the equivalent of
+      `Copy-Item (Join-Path $Path '*') $Destination -Recurse`. The destination is created if it
+      does not exist, files are overwritten, and empty subdirectories are preserved.
+    parameters:
+      Path: The source directory whose contents are copied. Must exist.
+      Destination: The target directory the contents are copied into (created if missing).
+    examples:
+      - Copy-Directory $fixtureTemplates $sandbox
 ---
 #>
 
-<#
-.SYNOPSIS
-    Recursively copies the contents of a directory into a destination directory.
-.DESCRIPTION
-    The PowerShell file cmdlets cost about 15x more per item on Windows, which dominates a tree of many small files.
-.PARAMETER Path
-    The source directory whose contents are copied. Must exist.
-.PARAMETER Destination
-    The target directory the contents are copied into (created if missing).
-.EXAMPLE
-    Copy-Directory $fixtureTemplates $sandbox
-#>
 function Copy-Directory {
     [CmdletBinding()]
     param(
@@ -40,10 +43,8 @@ function Copy-Directory {
 
     [System.IO.Directory]::CreateDirectory($target) | Out-Null
 
-    # Substring past the source prefix rebases a path; String.Replace would rewrite any later copy of that prefix too.
-    # [comment:2](/docs/references/automation/catzc-base-files/Copy-Directory.ps1.md#comment2)
-    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a copy
-    # takes everything, so no name is pruned and no depth drops a file.
+    # Recreate the directory structure first (so empty directories survive), then copy the files.
+    # [comment:3](/docs/references/automation/catzc-base-files/Copy-Directory.ps1.md#comment3)
     foreach ($dir in Get-ChildPath $source -Directory -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.Directory]::CreateDirectory($target + $dir.Substring($sourceLen)) | Out-Null
     }

@@ -6,7 +6,6 @@ catzc:
     body_sha: "56feace05904"
     adrs:
       - ADR-PRIN-CONFIG#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-ImprintStep.ps1
@@ -24,6 +23,15 @@ A language is never named here: which language runs which step is configuration,
 ```
 
 ## comment:2
+
+Above `switch -CaseSensitive ($Step) {`.
+
+```text
+Each case first returns for an empty list, so a run with no files still proves the step has its adapter, and an empty list
+never reaches a command whose default is the whole repository.
+```
+
+## comment:3
 
 Above `switch -CaseSensitive ($Step) {`.
 

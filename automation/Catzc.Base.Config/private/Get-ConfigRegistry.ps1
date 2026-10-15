@@ -9,21 +9,24 @@ catzc:
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-PWSH-CACHE#4
+  config:
+    synopsis: Returns the config registry (this module's configs/configs.yml), keyed by config name.
+    description: |-
+      The registry Get-Config reads: maps each shipped config name to its C# config type (`type:`). An
+      unregistered config loads raw. Loaded directly here (not via Get-Config, to avoid
+      circularity), validated by the C# type Catzc.Base.Config.ConfigsConfig (which the registry registers for
+      its own 'configs' config), and cached for the session. The file is located through Get-CatzcModuleRoot, so
+      the shipped registry resolves inside the loaded module in both run modes
+      ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)).
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the config registry (this module's configs/configs.yml), keyed by config name.
-.DESCRIPTION
-    Loaded directly, not through Get-Config, to avoid circularity: Get-Config itself needs this registry.
-#>
 function Get-ConfigRegistry {
     [OutputType([System.Collections.IDictionary])]
     param()
 
-    # Probe through session state, not the bare variable, so strict mode does not throw before the first load.
-    # [comment:2](/docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md#comment2)
+    # strict-clean
+    # [comment:3](/docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md#comment3)
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:configRegistryCache')
     if ($null -ne $cached) {
         return $cached

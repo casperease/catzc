@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-python/Invoke-PySpark.ps1.md
     kind: comment-page
     body_sha: "1214b2a11a1f"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Python/Invoke-PySpark.ps1

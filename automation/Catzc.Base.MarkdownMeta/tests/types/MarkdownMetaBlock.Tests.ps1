@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-FILEMETA#3
 ---
 #>
 
@@ -23,9 +25,10 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         )
     }
 
-    It 'renders an empty list in flow form' {
-        $facts = [ordered]@{ adrs = [string[]] @() }
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($facts, [string[]] @()) | Should -Contain '    adrs: []'
+    It 'leaves out a fact with no value, so its absence reads as the empty value' {
+        $facts = [ordered]@{ kind = 'gadget'; adrs = [string[]] @(); links = $null; title = '' }
+        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($facts, [string[]] @()) | Should -Be @('catzc:', '  derived:', '    kind: gadget')
+        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ adrs = [string[]] @() }, [string[]] @()).Count | Should -Be 0
     }
 
     It 'quotes a string that YAML would read as something else' -ForEach @(

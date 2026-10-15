@@ -7,9 +7,8 @@ catzc:
 ---
 #>
 
-# Neutral, non-reserved path segments only. 'out' is deliberately avoided here: it is the reserved output
-# anchor (Get-OutputRoot — {root}/out locally, the external staging dir in a pipeline), a different anchor
-# from repo-root-relative, so it does not belong in a test of generic repo-relative normalization.
+# Neutral, non-reserved path segments only.
+# [comment:1](/docs/references/automation/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md#comment1)
 Describe 'RepoRelativePath' -Tag 'L0', 'logic' {
     It 'strips a leading ./ from a relative path' {
         [Catzc.Base.Objects.RepoRelativePath]::new('./automation/mod/file.ps1').Relative | Should -Be 'automation/mod/file.ps1'

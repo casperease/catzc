@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-asserts/Assert-LastExitCodeWasZero.ps1.md
     kind: comment-page
     body_sha: "0a3361ce34ae"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Asserts/Assert-LastExitCodeWasZero.ps1

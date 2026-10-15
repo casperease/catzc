@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-LEADERSHIP#3
       - ADR-DORA-LEADERSHIP#4
       - ADR-DORA-LEADERSHIP#5
-    adrs: []
     links:
       - docs/adr/process/holding-the-line.md
       - docs/adr/process/inspect-and-adapt.md

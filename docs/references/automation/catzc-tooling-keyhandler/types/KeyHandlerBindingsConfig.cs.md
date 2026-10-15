@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md
     kind: comment-page
     body_sha: "8da8c45e43eb"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs

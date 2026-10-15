@@ -6,18 +6,21 @@ catzc:
     kind: public-function
     module: Catzc.Base.Variants
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the repo's enabled-customer set from the `have_customers` variant.
+    description: |-
+      Normalizes the tri-state `have_customers` variant (configs/variants.yml) to one of:
+        @()      — no customers enabled (variant is false, or an empty list): only non-customer templates
+        'all'    — every customer defined in customer.yml is enabled (variant is true or the string 'all')
+        @(names) — only these named customers are enabled (variant is a list)
+      This is the single interpreter of the tri-state; Test-/Assert-HaveCustomers read it. It reports which
+      customers are enabled *by policy* — whether a listed name is a defined customer is a customer.yml
+      (Azure-layer) concern, cross-checked by an integrity test, not here.
+    examples:
+      - 'Get-EnabledCustomers   # -> @()  (default: customers disabled)'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the repo's enabled-customer set from the `have_customers` variant.
-.DESCRIPTION
-    The one interpreter of the tri-state: false or empty gives @(), true or 'all' gives 'all', a list gives names.
-.EXAMPLE
-    Get-EnabledCustomers   # -> @()  (default: customers disabled)
-#>
 function Get-EnabledCustomers {
     [CmdletBinding()]
     param()
@@ -31,8 +34,8 @@ function Get-EnabledCustomers {
         return @()
     }
 
-    # Get-Variant unrolls a one-item list to a scalar, so normalize to an array before spotting the 'all' sentinel.
-    # [comment:2](/docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md#comment2)
+    # Anything non-bool is 'all' or a name list.
+    # [comment:3](/docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md#comment3)
     $names = @($value | Where-Object { -not [string]::IsNullOrEmpty("$_") } | ForEach-Object { "$_" })
     if ($names.Count -eq 0) {
         return @()

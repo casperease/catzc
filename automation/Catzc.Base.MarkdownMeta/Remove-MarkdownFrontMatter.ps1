@@ -6,22 +6,20 @@ catzc:
     kind: public-function
     module: Catzc.Base.MarkdownMeta
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns a Markdown text without its YAML front matter.
+    description: |-
+      For a copy that carries the content but not the file's meta: a generated README, which a reader opens with its title first. The
+      blank line that separates written front matter from the body goes with it. A text with no front matter comes back unchanged.
+      Pure: it reads no file and no config.
+    parameters:
+      Text: The whole Markdown file as text.
+    outputs: '[string] the text from its first body line on.'
+    examples:
+      - Remove-MarkdownFrontMatter -Text $text
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns a Markdown text without its YAML front matter.
-.DESCRIPTION
-    A generated README copies the content but not the source's meta block, so a reader opens it at its title.
-.PARAMETER Text
-    The whole Markdown file as text.
-.OUTPUTS
-    [string] the text from its first body line on.
-.EXAMPLE
-    Remove-MarkdownFrontMatter -Text $text
-#>
 function Remove-MarkdownFrontMatter {
     [CmdletBinding()]
     [OutputType([string])]

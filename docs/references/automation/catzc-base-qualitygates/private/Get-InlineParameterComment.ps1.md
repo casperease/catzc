@@ -6,7 +6,6 @@ catzc:
     body_sha: "8790b4ecbcbf"
     adrs:
       - ADR-REPO-HELP#3
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-InlineParameterComment.ps1

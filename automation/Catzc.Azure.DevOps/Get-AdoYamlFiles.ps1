@@ -8,23 +8,26 @@ catzc:
     visibility: public
     adrs:
       - ADR-PWSH-PESTER#9
+  config:
+    synopsis: Scans a directory recursively for YAML files and classifies each as Pipeline, Template, or Unknown.
+    description: |-
+      Finds all .yml and .yaml files under the specified path, parses each with
+      ConvertFrom-Yaml, and uses top-level key heuristics to classify the file
+      as an Azure DevOps pipeline, a template (with subtype), or unknown.
+
+      Files that fail YAML parsing are included in the output with ParseError set
+      and Classification set to Unknown.
+    parameters:
+      Path: Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
+      Exclude: |-
+        Directory names to skip during scanning. Matched as exact names anywhere in the path.
+        Defaults to @('.git', 'node_modules', '.terraform').
+    examples:
+      - Get-AdoYamlFiles -Path 'C:\repos\big-mono'
+      - Get-AdoYamlFiles -Path 'C:\repos\big-mono' -Exclude @('.git', 'node_modules', 'vendor')
 ---
 #>
 
-<#
-.SYNOPSIS
-    Scans a directory recursively for YAML files and classifies each as Pipeline, Template, or Unknown.
-.DESCRIPTION
-    A file that fails YAML parsing stays in the output as Unknown with ParseError set, never dropped.
-.PARAMETER Path
-    Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
-.PARAMETER Exclude
-    Names match exactly at any depth of the path, not as wildcards or partial paths.
-.EXAMPLE
-    Get-AdoYamlFiles -Path 'C:\repos\big-mono'
-.EXAMPLE
-    Get-AdoYamlFiles -Path 'C:\repos\big-mono' -Exclude @('.git', 'node_modules', 'vendor')
-#>
 function Get-AdoYamlFiles {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]
@@ -47,8 +50,8 @@ function Get-AdoYamlFiles {
 
     Write-Message "Scanning for YAML files in: $scanRoot"
 
-    # Prune excluded directories while walking, as Get-ChildItem -Recurse enumerated them all before filtering.
-    # [comment:3](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment3)
+    # Recurse with [System.IO], PRUNING excluded directories during the walk rather than enumerating the whole tree...
+    # [comment:5](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment5)
     $excludeSet = [System.Collections.Generic.HashSet[string]]::new(
         [string[]]$Exclude, [System.StringComparer]::OrdinalIgnoreCase)
     $ret = [System.Collections.Generic.List[string]]::new()
@@ -89,8 +92,8 @@ function Get-AdoYamlFiles {
                 $parseError = 'File is empty'
             }
             else {
-                # Neutralized so top-level keys parse; each placeholder is unique to avoid duplicate-key errors.
-                # [comment:4](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment4)
+                # ADO template expressions (${{ if }}, ${{ each }}, ${{ parameters.x }}) are not valid YAML.
+                # [comment:6](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment6)
                 $counter = @{ i = 0 }
                 $sanitized = [regex]::Replace($content, '\$\{\{.+?\}\}', { $counter.i++; "__ado_expr_$($counter.i)__" })
                 $yaml = $sanitized | ConvertFrom-Yaml -Ordered

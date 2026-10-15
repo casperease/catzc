@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#33
 ---
 #>
 
-# Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the install directory
-# delete (Remove-Item), the Machine PATH (Get-/Set-EnvironmentPath) and the Machine variables
-# (Set-PermanentEnvironmentVariable). The seams' real registry round trips are their own L3 system tests.
+# Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the install directory...
+# [comment:1](/docs/references/automation/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md#comment1)
 Describe 'Remove-SystemInstallation' -Tag 'L1', 'logic', 'ADR-AUTO-TEST#33' {
     BeforeAll {
         $script:installDir = if ($IsWindows) {

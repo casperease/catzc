@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#41
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/test-policy.yml

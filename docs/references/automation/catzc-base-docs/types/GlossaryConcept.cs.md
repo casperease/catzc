@@ -13,7 +13,6 @@ catzc:
       - ADR-REPO-VOCAB#4
       - ADR-REPO-VOCAB#5
       - ADR-REPO-VOCAB#8
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryConcept.cs

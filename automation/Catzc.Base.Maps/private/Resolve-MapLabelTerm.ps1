@@ -9,23 +9,25 @@ catzc:
     adrs:
       - ADR-DSGN-TRACK#13
       - ADR-DSGN-TRACK#16
+  config:
+    synopsis: Returns the glossary term a printed map label names, or nothing when it names none.
+    description: |-
+      A label names the concept it prints in its head: the text before its first ':', trimmed ('World map' in
+      'World map: repository tree'), or the whole label when it has no ':'. The head resolves when, compared without
+      case, it is a term of -Term or that term's plural (the term followed by 's' or 'es': 'Root files' names the term
+      'root file'). Every label the world map or the value-chain map prints names a defined term in its head
+      ([ADR-DSGN-TRACK#13](/docs/adr/design/tracks.md#rule-adr-dsgn-track13),
+      [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)), so Test-WorldMap and Test-ValueChainMap
+      report a label this returns nothing for.
+    parameters:
+      Label: The printed label.
+      Term: The glossary terms (Get-Glossary), lower-case as the glossary declares them.
+    outputs: '[string] The term the label names; nothing when it names none.'
+    examples:
+      - Resolve-MapLabelTerm -Label 'Root files' -Term (Get-Glossary | ForEach-Object { $_.Concept.term })
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the glossary term a printed map label names, or nothing when it names none.
-.DESCRIPTION
-    A plural head resolves too, so the label Root files names the singular glossary term root file.
-.PARAMETER Label
-    The printed label.
-.PARAMETER Term
-    The glossary terms (Get-Glossary), lower-case as the glossary declares them.
-.OUTPUTS
-    [string] The term the label names; nothing when it names none.
-.EXAMPLE
-    Resolve-MapLabelTerm -Label 'Root files' -Term (Get-Glossary | ForEach-Object { $_.Concept.term })
-#>
 function Resolve-MapLabelTerm {
     [CmdletBinding()]
     [OutputType([string])]

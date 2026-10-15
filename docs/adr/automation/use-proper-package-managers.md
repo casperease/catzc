@@ -11,7 +11,6 @@ catzc:
       - ADR-AUTO-PKGMGR#4
       - ADR-AUTO-PKGMGR#5
       - ADR-AUTO-PKGMGR#6
-    adrs: []
     links:
       - docs/adr/automation/controlling-systemwide-deps.md
       - "https://docs.chocolatey.org/en-us/information/security/"

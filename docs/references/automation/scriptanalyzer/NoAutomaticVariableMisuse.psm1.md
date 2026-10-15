@@ -6,7 +6,6 @@ catzc:
     body_sha: "32dbdb63cf5b"
     adrs:
       - ADR-PWSH-FORMAT#6
-    links: []
 ---
 
 # automation/.scriptanalyzer/NoAutomaticVariableMisuse.psm1

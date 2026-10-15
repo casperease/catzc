@@ -10,29 +10,40 @@ catzc:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
       - ADR-REPO-LANG
+  config:
+    synopsis: |-
+      Quality gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or
+      ADO project) as a code string literal — the tag-aware, comment-blind enforcer of the test/live zone
+      separation.
+    description: |-
+      The forbidden set is DERIVED from the shipped config (Get-LiveIdentityTokens), so it is always current —
+      add a customer to customer.yml and it is immediately banned from logic tests. Each test file is classified
+      by its Pester tags from the AST (Get-LogicTestIdentityFinding): a pure-logic file is scanned for
+      live-identity string literals; an integrity or *.Integrity.Tests.ps1 file is skipped; a file mixing both
+      is reported as needing a split.
+
+      This is itself an INTEGRITY check (it reads the shipped config and the whole test tree), so it is tagged
+      `integrity` where a Pester test wraps it. A quality gate
+      ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through
+      Write-QualityGateReport, which writes out/test-logic-test-identity/, prints every finding as
+      '<file>:<line>: <message>', and throws once listing them all; -PassThru returns the result instead.
+
+      Stage 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable
+      units, ADO project); environment names (dev/test/preprod/prod) are a later, position-aware stage.
+    parameters:
+      Path: |-
+        Test files to check. Defaults to every *.Tests.ps1 under automation/ (excluding vendored modules) — the
+        catzc source tree, so the default needs the source mode (Assert-SourceTree); an explicit -Path works in
+        either.
+      OutputFolder: The report base folder. Defaults to <out>/test-logic-test-identity.
+      PassThru: Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
+    outputs: None (throws on findings), or the result object with -PassThru.
+    examples:
+      - Test-LogicTestIdentity
+      - '$r = Test-LogicTestIdentity -PassThru; $r.Issues'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Quality gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or
-    ADO project) as a code string literal — the tag-aware, comment-blind enforcer of the test/live zone
-    separation.
-.DESCRIPTION
-    Adding a customer to customer.yml bans it from logic tests at once: the forbidden set is derived, not listed.
-.PARAMETER Path
-    The default needs the source tree (Assert-SourceTree); an explicit list works in either mode.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to <out>/test-logic-test-identity.
-.PARAMETER PassThru
-    Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
-.OUTPUTS
-    None (throws on findings), or the result object with -PassThru.
-.EXAMPLE
-    Test-LogicTestIdentity
-.EXAMPLE
-    $r = Test-LogicTestIdentity -PassThru; $r.Issues
-#>
 function Test-LogicTestIdentity {
     [CmdletBinding()]
     param(
@@ -58,8 +69,8 @@ function Test-LogicTestIdentity {
             Sort-Object
     }
 
-    # Text-scan first: the AST parse is the whole cost and about 95% of files hold no live token, so skip those.
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md#comment3)
+    # Parse only files that COULD carry a finding — a provable SUPERSET, so no leak is ever skipped.
+    # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md#comment4)
     $exactTokens = @($live.Values | Where-Object { $_.MatchMode -eq 'exact' } | ForEach-Object { $_.Token })
     $tokenRegex = if ($exactTokens.Count) {
         [regex]::new('\b(' + (($exactTokens | ForEach-Object { [regex]::Escape($_) }) -join '|') + ')\b',

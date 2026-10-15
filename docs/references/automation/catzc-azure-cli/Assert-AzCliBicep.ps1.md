@@ -6,7 +6,6 @@ catzc:
     body_sha: ce46b5163f8b
     adrs:
       - ADR-AZ-CLI#1
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Assert-AzCliBicep.ps1

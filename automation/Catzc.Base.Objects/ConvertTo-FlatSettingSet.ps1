@@ -6,31 +6,35 @@ catzc:
     kind: public-function
     module: Catzc.Base.Objects
     visibility: public
-    adrs: []
+  config:
+    synopsis: Flattens a nested object into an ordered dictionary of dot-notation key/value pairs.
+    description: |-
+      Recursively walks a PSCustomObject (e.g. parsed JSON/YAML configuration)
+      and returns an OrderedDictionary where each key is the full dot-separated
+      path to a leaf property and each value is the leaf value.
+
+      Non-leaf nodes (objects, dictionaries, arrays) are expanded, not included.
+      Null values are stored as empty strings.
+
+      Supports pipeline input for batch processing.
+    parameters:
+      InputObject: One or more objects to flatten.
+      MaxDepth: Maximum recursion depth. Defaults to 10.
+    examples:
+      - |-
+        $config = Get-Content config.json | ConvertFrom-Json
+        $flat = $config | ConvertTo-FlatSettingSet
+        $flat.Keys | ForEach-Object { "$_ = $($flat[$_])" }
+        # app.name = myapp
+        # app.settings.timeout = 30
+      - |-
+        $flat = ConvertTo-FlatSettingSet $config
+        foreach ($key in $flat.Keys) {
+            Assert-False ($flat[$key] -eq 'UNDEFINED') "Key '$key' is not defined"
+        }
 ---
 #>
 
-<#
-.SYNOPSIS
-    Flattens a nested object into an ordered dictionary of dot-notation key/value pairs.
-.DESCRIPTION
-    Only leaves become entries, keyed by their full dot path, and a null leaf is stored as an empty string.
-.PARAMETER InputObject
-    One or more objects to flatten.
-.PARAMETER MaxDepth
-    Maximum recursion depth. Defaults to 10.
-.EXAMPLE
-    $config = Get-Content config.json | ConvertFrom-Json
-    $flat = $config | ConvertTo-FlatSettingSet
-    $flat.Keys | ForEach-Object { "$_ = $($flat[$_])" }
-    # app.name = myapp
-    # app.settings.timeout = 30
-.EXAMPLE
-    $flat = ConvertTo-FlatSettingSet $config
-    foreach ($key in $flat.Keys) {
-        Assert-False ($flat[$key] -eq 'UNDEFINED') "Key '$key' is not defined"
-    }
-#>
 function ConvertTo-FlatSettingSet {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

@@ -6,7 +6,6 @@ catzc:
     body_sha: c0906cc637e1
     adrs:
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
@@ -39,6 +38,24 @@ strict-clean probe of the lazy cache entry
 ```
 
 ## comment:3
+
+Above `$accepted = [System.Collections.Generic.List[string]]::new()`.
+
+```text
+Accepted prefixes: always the locked version; on a devbox (non-pipeline) also the optional devbox_version
+lever from tools.yml. A pipeline enforces the locked version alone.
+```
+
+## comment:4
+
+Above `$script:toolVersionCache = @{}`.
+
+```text
+strict-clean probe of the lazy cache entry
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:5
 
 Above `$accepted = [System.Collections.Generic.List[string]]::new()`.
 

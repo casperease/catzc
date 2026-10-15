@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md
     kind: asset-description
     body_sha: d07547ca561f
-    adrs: []
     links:
       - docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
       - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md

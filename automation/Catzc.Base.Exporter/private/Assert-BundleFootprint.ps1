@@ -9,21 +9,21 @@ catzc:
     adrs:
       - ADR-AUTO-BUNDLE
       - ADR-PWSH-ENUM#3
+  config:
+    synopsis: Throws when a build holds more files or bytes than its bundle's footprint limits allow.
+    description: |-
+      A bundle is a small engine carried to other environments, so how big it is is a checked property, not a hope
+      ([ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md)). The limits are the bundle's own max_files and
+      max_bytes in exporter.yml (ExporterBundle); a limit the bundle does not state is not checked. Every exceeded
+      limit is reported in one throw, with the build's top-level folders by size, so the message says where the
+      weight is.
+    parameters:
+      Path: The build root (the Catzc/<version>/ folder).
+      Bundle: The bundle's exporter.yml entry (an ExporterBundle).
+    outputs: '[pscustomobject] Files, Bytes — the measured footprint, also when no limit is stated.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Throws when a build holds more files or bytes than its bundle's footprint limits allow.
-.DESCRIPTION
-    A limit the bundle does not state is not checked; every exceeded limit is reported in one throw.
-.PARAMETER Path
-    The build root (the Catzc/<version>/ folder).
-.PARAMETER Bundle
-    The bundle's exporter.yml entry (an ExporterBundle).
-.OUTPUTS
-    [pscustomobject] Files, Bytes — the measured footprint, also when no limit is stated.
-#>
 function Assert-BundleFootprint {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -39,8 +39,8 @@ function Assert-BundleFootprint {
     $files = 0
     $bytes = [long] 0
     $byFolder = @{}
-    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
-    # footprint counts every shipped byte, so nothing is pruned.
+    # A named whole-tree walk: the footprint counts every shipped byte, so nothing is pruned.
+    # [comment:2](/docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md#comment2)
     foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
         $length = [System.IO.FileInfo]::new($file).Length
         $files++

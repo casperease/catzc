@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ContentExemptPath.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-CONTRACT#6
 ---
 #>
 

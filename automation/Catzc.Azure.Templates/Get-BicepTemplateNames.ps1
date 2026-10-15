@@ -6,18 +6,18 @@ catzc:
     kind: public-function
     module: Catzc.Azure.Templates
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the names of all discovered bicep templates as a flat string array.
+    description: |-
+      The single source of the template-name list used by the ArgumentCompleter / ValidateScript
+      blocks on every -Template parameter. Centralising it removes the repeated
+      `Get-BicepTemplates | ForEach-Object { $_.name }` and the member-enumeration trap that the
+      comma-wrapped Get-BicepTemplates return invites (see Get-BicepTemplate for the same caution).
+    examples:
+      - 'Get-BicepTemplateNames   # -> sample, sample-indexed, sample-subscription, sample-with-prepost'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the names of all discovered bicep templates as a flat string array.
-.DESCRIPTION
-    Centralised so completers avoid the member-enumeration trap of the comma-wrapped Get-BicepTemplates return.
-.EXAMPLE
-    Get-BicepTemplateNames   # -> sample, sample-indexed, sample-subscription, sample-with-prepost
-#>
 function Get-BicepTemplateNames {
     [OutputType([string[]])]
     param()

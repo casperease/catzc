@@ -29,7 +29,7 @@ kinds:
         - { class: assert-function, files: ["automation/Catzc.*/Assert-*.ps1"] }
         - { class: format-function, files: ["automation/Catzc.*/Format-*.ps1"] }
         - { class: fact-function, files: ["automation/Catzc.*/private/Get-*FileMetaFact.ps1"] }
-        - { class: public-function, files: ["automation/Catzc.*/*.ps1"] }
+        - { class: automation-function, files: ["automation/Catzc.*/*.ps1"] }
         - { class: private-function, files: ["automation/Catzc.*/private/*.ps1"] }
         - { class: analyzer-rule, files: ["automation/.scriptanalyzer/**"] }
         - { class: internal-module, files: ["automation/.internal/*.psm1"] }

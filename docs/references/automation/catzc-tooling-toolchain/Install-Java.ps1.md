@@ -6,7 +6,6 @@ catzc:
     body_sha: "87f1d030ef73"
     adrs:
       - ADR-AUTO-CONSOLE#11
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Install-Java.ps1
@@ -26,6 +25,15 @@ Idempotent — skips if already installed at the correct version.
 ```
 
 ## comment:2
+
+Above `if ($env:JAVA_HOME -ne $javaHome) {`.
+
+```text
+Set for current session. Each change is announced where it happens, and only when it changes something
+([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)).
+```
+
+## comment:3
 
 Above `if ($env:JAVA_HOME -ne $javaHome) {`.
 

@@ -11,31 +11,40 @@ catzc:
       - ADR-REPO-LINK
       - ADR-REPO-LINK#5
       - ADR-X
+  config:
+    synopsis: 'The link quality gate: fails on any off-form, dangling, or dead link or citation.'
+    description: |-
+      Runs the same engine as Format-Links, read-only, and reports every violation: a code link not yet in canonical
+      repository-rooted form, a markdown link that is rooted or climbs above the repository root, a rule citation
+      spelled `ADR-X:n` in prose, a comment, or a code string literal, a link target or #fragment that does not exist,
+      an unknown citation code or rule, an absolute URL into this repository outside .github/, and a docs path in a
+      PowerShell string that names no file. A fixable violation is fixed by running Format-Links, and its issue says so;
+      the rest need a person. Informational findings (a comment line that stays over its limit) are counted but never
+      fail the gate.
+
+      The string-citation check (`ADR-X:n` in a string literal,
+      [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)) takes its mode and exempt globs
+      from links.yml's string_citations: in gate mode its findings are issues; in report mode they are printed as its
+      work list and counted (ReportedCount), and never fail the gate.
+
+      A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
+      through Write-QualityGateReport, which writes out/test-links/, prints every issue, and throws once listing them
+      all. Each issue reads '<file>:<line>:<column> [<type>] <message>'. It needs the source tree: it throws in build mode.
+    parameters:
+      Path: 'Files or folders to check. Default: every git-tracked file.'
+      Kind: 'Which link kinds to check: Code, Markdown, or Both (default).'
+      RepositoryRoot: 'The repository root links resolve against. Default: the loaded repository root.'
+      OutputFolder: The report base folder. Defaults to <out>/test-links.
+      PassThru: |-
+        Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, FixableCount, InformationCount,
+        ReportedCount, Reported }) instead of throwing.
+    outputs: Throws on any violation; with -PassThru, returns the result object.
+    examples:
+      - Test-Links
+      - (Test-Links -Kind Code -PassThru).Issues
 ---
 #>
 
-<#
-.SYNOPSIS
-    The link quality gate: fails on any off-form, dangling, or dead link or citation.
-.DESCRIPTION
-    Read-only twin of Format-Links: each issue says whether Format-Links can fix it or a person must.
-.PARAMETER Path
-    Files or folders to check. Default: every git-tracked file.
-.PARAMETER Kind
-    Which link kinds to check: Code, Markdown, or Both (default).
-.PARAMETER RepositoryRoot
-    The repository root links resolve against. Default: the loaded repository root.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to <out>/test-links.
-.PARAMETER PassThru
-    Report-mode string citations show up in Reported and never fail the gate.
-.OUTPUTS
-    Throws on any violation; with -PassThru, returns the result object.
-.EXAMPLE
-    Test-Links
-.EXAMPLE
-    (Test-Links -Kind Code -PassThru).Issues
-#>
 function Test-Links {
     [CmdletBinding()]
     param(

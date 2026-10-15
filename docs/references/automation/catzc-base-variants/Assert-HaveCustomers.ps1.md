@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-variants/Assert-HaveCustomers.ps1.md
     kind: comment-page
     body_sha: "3930161372de"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Variants/Assert-HaveCustomers.ps1

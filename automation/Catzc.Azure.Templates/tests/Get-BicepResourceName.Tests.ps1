@@ -4,16 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#19
+      - ADR-AUTO-TEST#4
 ---
 #>
 
 # cspell:ignore alweutstsmplst alweutstsmplacst
 Describe 'Get-BicepResourceName' -Tag 'L0', 'logic' {
     # Read-only resolver tests: the boundary mocks and the config-cache reset are set up ONCE, not per test.
-    # The mocked config is the same fixture every test and no test mutates it, so Get-Config keys its cache on
-    # the fixture path and the first call derives it cold (~80ms) while the rest hit the warm cache — a
-    # per-test reset would force that cold re-derive on every test
-    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)).
+    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepResourceName.Tests.ps1.md#comment1)
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'

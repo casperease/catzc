@@ -4,8 +4,6 @@ catzc:
     path: docs/how-to/getting-started/automation/powershell/index.md
     kind: how-to
     body_sha: "99844aa323bc"
-    adrs: []
-    links: []
 ---
 
 # PowerShell how-to guides

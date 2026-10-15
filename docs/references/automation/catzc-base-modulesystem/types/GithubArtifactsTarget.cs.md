@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/types/GithubArtifactsTarget.cs.md
     kind: comment-page
     body_sha: aa6069a49869
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/GithubArtifactsTarget.cs

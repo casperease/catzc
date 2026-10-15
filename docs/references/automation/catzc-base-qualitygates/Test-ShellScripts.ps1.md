@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-BASH#6
       - ADR-AUTO-ENGINE#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-ShellScripts.ps1
@@ -73,6 +72,34 @@ means findings, anything above it means ShellCheck itself failed.
 ```
 
 ## comment:5
+
+Above `if ($zshScripts.Count -gt 0) {`.
+
+```text
+ShellCheck does not read zsh, so a *.zsh file takes zsh's own syntax check: -n parses without running (NO_EXEC), -f
+skips the startup files. zsh checks one script per call; exit 1 means a parse error, anything above it means zsh
+could not check the file.
+```
+
+## comment:6
+
+Above `$shebang = $bytes.Length -ge 2 -and $bytes[0] -eq 35 -and $bytes[1] -eq 33`.
+
+```text
+A script with a shebang is meant to run directly, which on Unix needs the executable bit in git; a sourced file
+(importer.sh, a shellcheck directive instead of a shebang) does not.
+```
+
+## comment:7
+
+Above ``$check = Invoke-Executable "`"$($shellcheck.Path)`" --format=gcc...``.
+
+```text
+--format=gcc prints one '<file>:<line>:<column>: <severity>: <message> [SC<code>]' line per finding; exit 1
+means findings, anything above it means ShellCheck itself failed.
+```
+
+## comment:8
 
 Above `if ($zshScripts.Count -gt 0) {`.
 

@@ -8,23 +8,22 @@ catzc:
     visibility: private
     adrs:
       - ADR-AZ-DATAMOD#2
+  config:
+    synopsis: Builds a config / resource-group identity name from an (environment, slot) pair.
+    description: |-
+      The config-name is `<environment>` for the base / index-0 slot, or `<environment>-<slot>` for a
+      special slot. It names the config file (`<config>.yml`), the build artifact
+      (`parameters.<config>.json`), and is 1:1 with the resource group. The inverse (parse) is
+      Resolve-BicepConfigName. See [ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2).
+    parameters:
+      Environment: Environment name (a key in azure.yml's environments map).
+      Slot: Optional special-slot discriminator (1-3 lowercase alphanumeric). Omitted ⇒ the base slot.
+    examples:
+      - 'Get-BicepConfigName dev          # -> ''dev'''
+      - 'Get-BicepConfigName dev -Slot 001   # -> ''dev-001'''
 ---
 #>
 
-<#
-.SYNOPSIS
-    Builds a config / resource-group identity name from an (environment, slot) pair.
-.DESCRIPTION
-    The name is 1:1 with the resource group and also names the config file and the build parameters artifact.
-.PARAMETER Environment
-    Environment name (a key in azure.yml's environments map).
-.PARAMETER Slot
-    Optional special-slot discriminator (1-3 lowercase alphanumeric). Omitted ⇒ the base slot.
-.EXAMPLE
-    Get-BicepConfigName dev          # -> 'dev'
-.EXAMPLE
-    Get-BicepConfigName dev -Slot 001   # -> 'dev-001'
-#>
 function Get-BicepConfigName {
     [CmdletBinding()]
     param(

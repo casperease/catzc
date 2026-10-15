@@ -8,7 +8,6 @@ catzc:
       - ADR-REPO-CONTRACT#10
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-FOLDERS#4
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1
@@ -30,4 +29,13 @@ folder. Only the outermost dot-prefixed folder of a branch is a finding, since m
 dot-prefixed file name is not a finding: a released folder's .frozen record and an asset that pins a dotfile by its
 own name are files, and a target root relocates a folder but never renames a file. Findings come in ordinal path
 order; a missing contracts/ gives none.
+```
+
+## comment:2
+
+Above `$folders = [string[]] @(Get-ChildPath $contractsRoot -Directory -Depth 64...`.
+
+```text
+A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): this gate
+looks for stray folders, so no name is pruned and no depth hides one.
 ```

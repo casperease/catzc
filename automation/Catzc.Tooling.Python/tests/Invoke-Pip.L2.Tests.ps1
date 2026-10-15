@@ -7,9 +7,8 @@ catzc:
 ---
 #>
 
-# The chain is Invoke-Pip → Invoke-Uv → uv pip <args>: uv is the tool that must exist, and it needs a
-# discoverable interpreter. There is no `uv pip --version` — `uv pip` is a subcommand group — so the
-# end-to-end contract is carried by a real subcommand.
+# The chain is Invoke-Pip → Invoke-Uv → uv pip <args>: uv is the tool that must exist, and it needs a discoverable...
+# [comment:1](/docs/references/automation/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md#comment1)
 Describe 'Invoke-Pip' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:uvAvailable = Test-Tool 'uv'

@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.Execution/types/CliRunner.cs
     kind: csharp-type
     module: Catzc.Base.Execution
-    adrs: []
 ---
 */
 

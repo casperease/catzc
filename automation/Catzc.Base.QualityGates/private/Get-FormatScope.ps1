@@ -11,22 +11,29 @@ catzc:
       - ADR-PRIN-CONFIG#4
       - ADR-REPO-CONTRACT#5
       - ADR-REPO-CONTRACT#6
+  config:
+    synopsis: |-
+      The files Format-Code formats: the repository's tracked files, or the given paths, minus vendored code and contract
+      assets.
+    description: |-
+      One scope for every formatter engine ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)):
+      without -Path, every file git tracks (Get-GitTrackedPath); with -Path, each given file as it is (tracked or not,
+      inside the repository or not — a build output manifest is formatted the same way), and each given folder's
+      tracked files. Fixture files are formatted like any other file. Third-party code that .gitattributes marks
+      `linguist-vendored` is never formatted: it stays as its publisher shipped it. Nor is a contract asset, which
+      .gitattributes marks `catzc-contract`: its bytes are what a contract check compares
+      ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)), and a released contract
+      version stays byte-frozen ([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)), so
+      a formatter upgrade must never rewrite one. Both classes are declared once, in the .gitattributes source
+      ([ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)). A tracked file deleted
+      from the working tree is left out.
+    parameters:
+      RepositoryRoot: The repository root.
+      Path: 'Files or folders to narrow the scope to. Omitted: every tracked file.'
+    outputs: '[string[]] Absolute paths.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    The files Format-Code formats: the repository's tracked files, or the given paths, minus vendored code and contract
-    assets.
-.DESCRIPTION
-    Vendored code and contract assets stay out, so a formatter upgrade can never rewrite their frozen bytes.
-.PARAMETER RepositoryRoot
-    The repository root.
-.PARAMETER Path
-    Files or folders to narrow the scope to. Omitted: every tracked file.
-.OUTPUTS
-    [string[]] Absolute paths.
-#>
 function Get-FormatScope {
     [CmdletBinding()]
     [OutputType([string[]])]

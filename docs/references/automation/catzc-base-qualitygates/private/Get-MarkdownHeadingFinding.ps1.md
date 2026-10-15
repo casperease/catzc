@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md
     kind: comment-page
     body_sha: ababb772c7ec
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
@@ -41,6 +39,15 @@ code span.
 ```
 
 ## comment:3
+
+Above `$head = $Matches['head']`.
+
+```text
+Capture before the next -match overwrites $Matches
+([ADR-PWSH-AUTOVAR](/docs/adr/pwsh/automatic-variable-pitfalls.md)).
+```
+
+## comment:4
 
 Above `$head = $Matches['head']`.
 

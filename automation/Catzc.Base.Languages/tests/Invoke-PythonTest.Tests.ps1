@@ -4,15 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#6
 ---
 #>
 
 Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the seams ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): a
-        # fixture repository root in $TestDrive, a mocked tool probe (Resolve-ToolExecutable) that finds a managed uv
-        # at a fixture path with a space in it, and a mocked uv (Invoke-Executable) whose pytest writes a canned JUnit
-        # report from tests/assets to the path the command names.
+        # Isolate through the seams: a fixture repository root in $TestDrive, a mocked tool probe...
+        # [comment:1](/docs/references/automation/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md#comment1)
         $script:root = Join-Path $TestDrive 'repo'
         $script:pythonRoot = Join-Path $script:root 'python'
         $script:folder = Join-Path $script:pythonRoot 'tests/catzc-widget'

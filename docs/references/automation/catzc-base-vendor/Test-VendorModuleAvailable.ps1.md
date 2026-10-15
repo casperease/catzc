@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-vendor/Test-VendorModuleAvailable.ps1.md
     kind: comment-page
     body_sha: "7aeb232c0c5f"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Vendor/Test-VendorModuleAvailable.ps1

@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# ConvertTo-AdrDomainDiagram — a pure renderer, fed fixture edges and a fixture AdrsConfig for the node roles
-# (Get-Config mocked). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# ConvertTo-AdrDomainDiagram — a pure renderer, fed fixture edges and a fixture AdrsConfig for the node roles...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1.md#comment1)
 Describe 'ConvertTo-AdrDomainDiagram' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

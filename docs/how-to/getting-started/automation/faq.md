@@ -4,8 +4,6 @@ catzc:
     path: docs/how-to/getting-started/automation/faq.md
     kind: how-to
     body_sha: abc05ae566cd
-    adrs: []
-    links: []
 ---
 
 # FAQ

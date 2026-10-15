@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-github/private/Assert-RemoteMatchesBranch.ps1.md
     kind: comment-page
     body_sha: "1d05d98a2ad9"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Github/private/Assert-RemoteMatchesBranch.ps1

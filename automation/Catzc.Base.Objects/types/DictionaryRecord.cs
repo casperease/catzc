@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.Objects/types/DictionaryRecord.cs
     kind: csharp-type
     module: Catzc.Base.Objects
-    adrs: []
 ---
 */
 

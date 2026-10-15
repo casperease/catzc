@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.Repository/types/SyntaxSearch.cs
     kind: csharp-type
     module: Catzc.Base.Repository
-    adrs: []
 ---
 */
 

@@ -10,21 +10,30 @@ catzc:
       - ADR-CONF-LOADING#1
       - ADR-REPO-VOCAB#2
       - ADR-REPO-VOCAB#3
+  config:
+    synopsis: Lists every glossary source — each opting-in module's configs/glossary.yml — with its validated config.
+    description: |-
+      A module opts into the controlled vocabulary by shipping configs/glossary.yml
+      ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)), so the
+      sources are discovered, not declared: Get-Config -Config glossary -ListOwners lists every owner, and each
+      source is read through Get-Config -Config glossary -Module <owner>, so the GlossaryConfig type validates its
+      shape on load ([ADR-CONF-LOADING#1](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading1)/2). One
+      git query then records whether each source file is tracked: a
+      source lives in the repository
+      ([ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)), and
+      Get-GlossarySourceViolations reports one that is not.
+
+      Reads the source tree's configs and git, so it runs in source mode only (Assert-SourceTree). Private helper
+      for Get-Glossary and the glossary checks; not exported.
+    outputs: |-
+      [pscustomobject] One { Owner; Path; Config; Tracked } per source, sorted by owner (ordinal): Path is
+      repo-relative, Config the source's Catzc.Base.Docs.GlossaryConfig, Tracked whether git tracks Path.
+      Nothing when no module ships a glossary.
+    examples:
+      - Get-GlossarySources | Format-Table Owner, Path, Tracked
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists every glossary source — each opting-in module's configs/glossary.yml — with its validated config.
-.DESCRIPTION
-    Sources are discovered, not declared: a module opts in by shipping the file, and this runs in source mode only.
-.OUTPUTS
-    [pscustomobject] One { Owner; Path; Config; Tracked } per source, sorted by owner (ordinal): Path is
-    repo-relative, Config the source's Catzc.Base.Docs.GlossaryConfig, Tracked whether git tracks Path.
-    Nothing when no module ships a glossary.
-.EXAMPLE
-    Get-GlossarySources | Format-Table Owner, Path, Tracked
-#>
 function Get-GlossarySources {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

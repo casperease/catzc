@@ -9,7 +9,6 @@ catzc:
       - ADR-PROC-KAIZEN#2
       - ADR-PROC-KAIZEN#3
       - ADR-PROC-KAIZEN#4
-    adrs: []
     links:
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/automation/test-automation.md

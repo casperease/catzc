@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md
     kind: comment-page
     body_sha: "338d1e58cb6f"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ModuleDependencyEdge.cs

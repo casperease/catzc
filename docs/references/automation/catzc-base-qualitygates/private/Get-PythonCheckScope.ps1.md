@@ -6,7 +6,6 @@ catzc:
     body_sha: c7c71d7c95cc
     adrs:
       - ADR-AUTO-PY#8
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-PythonCheckScope.ps1

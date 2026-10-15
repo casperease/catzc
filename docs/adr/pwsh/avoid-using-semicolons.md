@@ -9,8 +9,6 @@ catzc:
       - ADR-PWSH-NOSEMI#2
       - ADR-PWSH-NOSEMI#3
       - ADR-PWSH-NOSEMI#4
-    adrs: []
-    links: []
 ---
 
 # ADR: Avoid using semicolons

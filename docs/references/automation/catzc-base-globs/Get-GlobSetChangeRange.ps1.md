@@ -6,7 +6,6 @@ catzc:
     body_sha: "929076b503a6"
     adrs:
       - ADR-REPO-PROTGLOB#5
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1

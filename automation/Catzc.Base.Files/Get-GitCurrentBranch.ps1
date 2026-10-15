@@ -6,18 +6,16 @@ catzc:
     kind: public-function
     module: Catzc.Base.Files
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the current git branch name (or 'HEAD' when detached).
+    description: |-
+      The branch HEAD is on in the checkout at Get-RepositoryRoot, read from its HEAD file in-process
+      ([Catzc.Base.Git.GitRefs]) — what `git rev-parse --abbrev-ref HEAD` answers, without starting git.
+    examples:
+      - Get-GitCurrentBranch
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the current git branch name (or 'HEAD' when detached).
-.DESCRIPTION
-    Reads the HEAD file directly, so no git process starts; a detached HEAD yields the name HEAD.
-.EXAMPLE
-    Get-GitCurrentBranch
-#>
 function Get-GitCurrentBranch {
     param()
     [Catzc.Base.Git.GitRefs]::CurrentBranch([Catzc.Base.Git.GitRefs]::GitDirectory((Get-RepositoryRoot)))

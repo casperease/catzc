@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-toolchain/Invoke-Dotnet.ps1.md
     kind: comment-page
     body_sha: d621be7c84da
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Invoke-Dotnet.ps1

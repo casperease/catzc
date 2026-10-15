@@ -7,9 +7,8 @@ catzc:
 ---
 #>
 
-# Install-Shellcheck and Uninstall-Shellcheck with the generic engine mocked: on Windows and macOS both delegate to the
-# tools.yml `shellcheck` entry (winget user scope, brew). The Linux apt path needs root and a Linux host, so it is not
-# exercised here.
+# Install-Shellcheck and Uninstall-Shellcheck with the generic engine mocked: on Windows and macOS both delegate to...
+# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md#comment1)
 Describe 'Install-Shellcheck' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Install-Tool -ModuleName Catzc.Tooling.Toolchain { }

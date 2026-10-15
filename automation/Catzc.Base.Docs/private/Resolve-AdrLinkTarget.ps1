@@ -8,23 +8,23 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-LINK#2
+  config:
+    synopsis: Resolves a markdown link's target, written in a file under docs/adr/, to its path under docs/adr/.
+    description: |-
+      A markdown link is relative to its own file ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)). This
+      drops the target's #fragment, resolves the rest against the linking file's folder, and returns the result relative to docs/adr/
+      ('/'-separated). It returns nothing for a link that names no file under docs/adr/: an in-page anchor, an absolute URL, a
+      repository-rooted path, or a relative path that leaves docs/adr/.
+
+      Private helper for the citation-graph and DORA-coverage checks of Test-AdrRegistry; not exported.
+    parameters:
+      AdrRoot: The absolute docs/adr/ folder.
+      From: The linking file's path under docs/adr/ ('/'-separated).
+      Target: The link's target, as written between the parentheses.
+    outputs: '[string] The target''s path under docs/adr/, or nothing.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Resolves a markdown link's target, written in a file under docs/adr/, to its path under docs/adr/.
-.DESCRIPTION
-    Nothing comes back for anchors, URLs, rooted paths or paths that leave docs/adr/, so callers skip those links.
-.PARAMETER AdrRoot
-    The absolute docs/adr/ folder.
-.PARAMETER From
-    The linking file's path under docs/adr/ ('/'-separated).
-.PARAMETER Target
-    The link's target, as written between the parentheses.
-.OUTPUTS
-    [string] The target's path under docs/adr/, or nothing.
-#>
 function Resolve-AdrLinkTarget {
     [OutputType([string])]
     [CmdletBinding()]

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-cli/types/BicepState.cs.md
     kind: comment-page
     body_sha: "3577f59cfb9d"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Cli/types/BicepState.cs

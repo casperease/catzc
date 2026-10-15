@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-toolchain/private/Get-GoRelease.ps1.md
     kind: comment-page
     body_sha: "2bb6d63125c5"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/private/Get-GoRelease.ps1

@@ -10,7 +10,6 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-PESTER#5
       - ADR-PWSH-PESTER#9
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-SourceConventions.ps1
@@ -69,6 +68,15 @@ NeutralCodes list each check's findings whatever its mode.
 ```
 
 ## comment:3
+
+Above `$typesTestDirectory = Join-Path $testsDirectory 'types'`.
+
+```text
+tests/types/ holds the native-type tests, named for their type (which has no verb) — so each must name a
+real types/*.cs of the module, and the folder cannot collect misplaced or misnamed tests.
+```
+
+## comment:4
 
 Above `$typesTestDirectory = Join-Path $testsDirectory 'types'`.
 

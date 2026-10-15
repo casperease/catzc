@@ -13,8 +13,8 @@ Describe 'Get-FunctionDependency' -Tag 'L0', 'integrity', 'source-only' {
     }
 
     It 'CrossModule is true when CallerModule != TargetModule' {
-        # One Should over the violating set — a Should per edge costs ~0.5ms × ~1000 cross-module edges,
-        # which alone breaches the L0 time limit.
+        # One Should over the violating set — a Should per edge costs ~0.5ms × ~1000 cross-module edges, which alone...
+        # [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Get-FunctionDependency.Tests.ps1.md#comment1)
         $violations = foreach ($dependency in $dependencies) {
             if ($dependency.CrossModule -and $dependency.CallerModule -eq $dependency.TargetModule) {
                 $dependency

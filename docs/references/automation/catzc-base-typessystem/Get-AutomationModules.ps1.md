@@ -6,7 +6,6 @@ catzc:
     body_sha: e887d8e5c3b8
     adrs:
       - ADR-PWSH-PESTER#9
-    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/Get-AutomationModules.ps1
@@ -44,6 +43,17 @@ fixture tree to isolate a logic test from the real module set.
 ```
 
 ## comment:3
+
+Above `$names = [System.Collections.Generic.List[string]]::new()`.
+
+```text
+[System.IO] (sorted ordinally) instead of Get-ChildItem -Directory — the cmdlet carries ~20ms of
+per-call provider overhead the raw .NET enumeration avoids
+([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)); the ordinal sort is
+culture-independent (cross-platform).
+```
+
+## comment:4
 
 Above `$names = [System.Collections.Generic.List[string]]::new()`.
 

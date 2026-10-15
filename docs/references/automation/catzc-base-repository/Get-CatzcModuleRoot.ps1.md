@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-ASSETDEP#2
-    links: []
 ---
 
 # automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1

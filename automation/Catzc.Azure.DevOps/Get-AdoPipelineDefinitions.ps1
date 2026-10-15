@@ -6,26 +6,25 @@ catzc:
     kind: public-function
     module: Catzc.Azure.DevOps
     visibility: public
-    adrs: []
+  config:
+    synopsis: Lists all registered pipeline definitions from Azure DevOps.
+    description: |-
+      Queries the ADO Build Definitions REST API and returns a flattened
+      list of pipeline definitions with their YAML paths, repository names,
+      and ADO folder placement.
+
+      YamlPath is normalized (leading '/' stripped) to match the RelativePath
+      output of Get-AdoYamlFiles for easy cross-referencing.
+    parameters:
+      Project: Azure DevOps project name. Defaults to the value in ado.yml.
+      Organization: Azure DevOps organization URL. Defaults to the value in ado.yml.
+    examples:
+      - Get-AdoPipelineDefinitions
+      - Get-AdoPipelineDefinitions -Organization 'https://dev.azure.com/myorg' -Project 'myproject'
+      - Get-AdoPipelineDefinitions | Where-Object RepositoryName -eq 'big-mono'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists all registered pipeline definitions from Azure DevOps.
-.DESCRIPTION
-    YamlPath drops its leading slash so it matches the RelativePath that Get-AdoYamlFiles returns.
-.PARAMETER Project
-    Azure DevOps project name. Defaults to the value in ado.yml.
-.PARAMETER Organization
-    Azure DevOps organization URL. Defaults to the value in ado.yml.
-.EXAMPLE
-    Get-AdoPipelineDefinitions
-.EXAMPLE
-    Get-AdoPipelineDefinitions -Organization 'https://dev.azure.com/myorg' -Project 'myproject'
-.EXAMPLE
-    Get-AdoPipelineDefinitions | Where-Object RepositoryName -eq 'big-mono'
-#>
 function Get-AdoPipelineDefinitions {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]
@@ -48,8 +47,8 @@ function Get-AdoPipelineDefinitions {
 
     $count = ($definitions | Measure-Object).Count
 
-    # Older ADO Server versions ignore includeAllProperties, so a missing yamlFilename triggers per-definition fetches.
-    # [comment:2](/docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md#comment2)
+    # includeAllProperties should return process.yamlFilename inline.
+    # [comment:3](/docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md#comment3)
     $hasProcessDetails = $definitions | Where-Object { $_.process.yamlFilename } | Select-Object -First 1
     if (-not $hasProcessDetails -and $count -gt 0) {
         Write-Message "Found $count pipeline definitions, fetching details individually"

@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#41
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/TestPolicyConfig.cs

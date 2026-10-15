@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-DSGN-RUNMODE#4
 ---
 #>
 

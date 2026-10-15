@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.md
     kind: asset-description
     body_sha: "5855147b5863"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
       - docs/explanation/automation/decide-returns-null-or-a-reason.md

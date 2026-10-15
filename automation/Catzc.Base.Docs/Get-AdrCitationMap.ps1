@@ -11,21 +11,28 @@ catzc:
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-ERROR
       - ADR-REPO-LINK#3
+  config:
+    synopsis: 'Builds the ADR citation map: every citation code to its ADR''s path and declared rule numbers.'
+    description: |-
+      Reads the rule-citation registry in `<root>/docs/adr/index.md` (Get-CatsAdrIndex) and each listed ADR's
+      `### Rule <CODE>:<n>` headings (Get-CatsAdrRules), and returns one immutable
+      [Catzc.Base.Docs.AdrCitationMap]: code -> repository-relative ADR path and rule numbers, the reverse
+      path -> code map, and a unique-slug -> path map over every markdown file under docs/adr/ (so a stale path
+      to a moved ADR resolves by its file name). The link engine derives every code link's destination from it
+      ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)).
+
+      A pure function of the files on disk, memoized per resolved repository root for the session (re-run the
+      importer to refresh — see
+      [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)); a test passes a fixture root, so the fixture
+      map and the real one never collide.
+    parameters:
+      RepositoryRoot: The repository root whose [index](/docs/adr/index.md) is read. Defaults to the loaded repository root.
+    outputs: '[Catzc.Base.Docs.AdrCitationMap]'
+    examples:
+      - '(Get-AdrCitationMap).Destination(''ADR-PWSH-ERROR'', 3)   # /docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error3'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Builds the ADR citation map: every citation code to its ADR's path and declared rule numbers.
-.DESCRIPTION
-    The map is memoized per root for the session, so a changed ADR file shows only after the importer reruns.
-.PARAMETER RepositoryRoot
-    The repository root whose [index](/docs/adr/index.md) is read. Defaults to the loaded repository root.
-.OUTPUTS
-    [Catzc.Base.Docs.AdrCitationMap]
-.EXAMPLE
-    (Get-AdrCitationMap).Destination('ADR-PWSH-ERROR', 3)   # /docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error3
-#>
 function Get-AdrCitationMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Docs.AdrCitationMap])]
@@ -35,8 +42,8 @@ function Get-AdrCitationMap {
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:adrCitationMapCache')) {
-        # GetValue gives null for an unset script variable, where a plain read would throw under strict mode.
-        # [comment:2](/docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md#comment2)
+        # strict-clean probe of the lazy cache entry
+        # [comment:3](/docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md#comment3)
         $script:adrCitationMapCache = @{}
     }
     if ($script:adrCitationMapCache.ContainsKey($root)) {

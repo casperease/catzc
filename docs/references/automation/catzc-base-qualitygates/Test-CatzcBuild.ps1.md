@@ -9,7 +9,6 @@ catzc:
       - ADR-AUTO-TEST#31
       - ADR-AUTO-TEST#33
       - ADR-DSGN-RUNMODE#6
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
@@ -74,6 +73,17 @@ Build — the Build-Modules result).
 ```
 
 ## comment:5
+
+Above `$harnessModule = $MyInvocation.MyCommand.Module.Name`.
+
+```text
+The harness's own module rides in every build: workers reach its configuration builder and row reducer
+through its module scope. Its tests still run only when the selection includes it.
+The build names the resolved modules explicitly (closure-expanded again, so the harness's dependencies
+come along).
+```
+
+## comment:6
 
 Above `$harnessModule = $MyInvocation.MyCommand.Module.Name`.
 

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestTimingViolation.ps1.md
     kind: comment-page
     body_sha: "518802341120"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestTimingViolation.ps1

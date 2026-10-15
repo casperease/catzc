@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-variants/Test-GitWorkspace.ps1.md
     kind: comment-page
     body_sha: "5a1c187754b3"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Variants/Test-GitWorkspace.ps1

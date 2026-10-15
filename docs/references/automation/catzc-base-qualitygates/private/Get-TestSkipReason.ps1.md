@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md
     kind: comment-page
     body_sha: "3abad0db54c4"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestSkipReason.ps1
@@ -26,6 +24,15 @@ previous failure at …") is returned verbatim. Feeds Write-TestAutomationSkipRe
 ```
 
 ## comment:2
+
+Above `if ($message -match 'because\s+(.+?)\s*$') {`.
+
+```text
+Set-ItResult renders "is skipped, because <reason>" — pull out the reason. Capture $Matches
+immediately (it is clobbered by the next -match; see automatic-variable-pitfalls).
+```
+
+## comment:3
 
 Above `if ($message -match 'because\s+(.+?)\s*$') {`.
 

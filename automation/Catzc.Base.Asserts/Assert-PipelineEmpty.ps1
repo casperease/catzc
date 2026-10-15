@@ -6,20 +6,18 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that the pipeline contains no objects.
+    description: |-
+      Throws on the first object received. Must be used as a pipeline consumer;
+      passing -InputObject directly is an error.
+    parameters:
+      InputObject: Pipeline input (do not pass directly).
+    examples:
+      - Get-ChildPath $logFolder -File -Filter '*.log' | Assert-PipelineEmpty
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that the pipeline contains no objects.
-.DESCRIPTION
-    Only a pipeline consumer works here: passing -InputObject directly is an error, not an empty check.
-.PARAMETER InputObject
-    Pipeline input (do not pass directly).
-.EXAMPLE
-    Get-ChildPath $logFolder -File -Filter '*.log' | Assert-PipelineEmpty
-#>
 function Assert-PipelineEmpty {
     [CmdletBinding()]
     param(

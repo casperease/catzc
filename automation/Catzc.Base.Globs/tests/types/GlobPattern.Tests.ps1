@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-FLOW-CD-GLOBS#2
+      - ADR-FLOW-CD-GLOBS#3
 ---
 #>
 
-# The dialect's truth table ([ADR-FLOW-CD-GLOBS#2](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2)) and the
-# constructor guard
-# ([ADR-FLOW-CD-GLOBS#3](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs3)): per-segment PowerShell
-# wildcards, '**' as the only cross-segment operator (zero or more whole segments), case-sensitive; a
-# malformed pattern never produces an instance.
+# The dialect's truth table and the constructor guard: per-segment PowerShell wildcards, '**' as the only...
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md#comment1)
 Describe 'GlobPattern' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:match = {

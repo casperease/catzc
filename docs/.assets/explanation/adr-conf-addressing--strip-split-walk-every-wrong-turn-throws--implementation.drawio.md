@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.md
     kind: asset-description
     body_sha: "7add060779b0"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png
       - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md

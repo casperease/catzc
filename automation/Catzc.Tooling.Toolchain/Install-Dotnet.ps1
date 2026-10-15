@@ -10,23 +10,36 @@ catzc:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-IDEM#1
+  config:
+    synopsis: Installs the .NET SDK via official Microsoft install scripts (user-space).
+    description: |-
+      Uses the vendored dotnet-install scripts shipped in this module's assets/scripts/ (resolved
+      through Get-CatzcModuleRoot, so the same in source and build mode) instead of package managers.
+      Install directory resolved by Get-ScriptInstallDir (LOCALAPPDATA on
+      Windows, HOME on Unix — overridable in tools.yml).
+      No admin required. Persists DOTNET_ROOT and PATH for future sessions.
+      Idempotent — converges to the desired state on every run: when our
+      install dir already holds the locked version the download is skipped,
+      but the environment (session + persistent PATH, DOTNET_ROOT) is still
+      converged, so a machine whose PATH persistence was lost is repaired by
+      re-running. Only a right-version dotnet from elsewhere on PATH (a
+      system-wide install we do not manage) is a true no-op.
+
+      NOT for CI pipelines. In Azure DevOps, use the native UseDotNet task
+      which activates pre-cached versions instantly:
+
+          - task: UseDotNet@2
+            inputs:
+              version: '10.x'
+    parameters:
+      Version: '.NET SDK version to install. Defaults to the locked version in Get-ToolConfig.'
+      Force: Replace an existing installation at the wrong version.
+    examples:
+      - Install-Dotnet
+      - Install-Dotnet -Version '10.0'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs the .NET SDK via official Microsoft install scripts (user-space).
-.DESCRIPTION
-    A right-version install in our dir still converges PATH and DOTNET_ROOT, so re-running repairs lost persistence.
-.PARAMETER Version
-    .NET SDK version to install. Defaults to the locked version in Get-ToolConfig.
-.PARAMETER Force
-    Replace an existing installation at the wrong version.
-.EXAMPLE
-    Install-Dotnet
-.EXAMPLE
-    Install-Dotnet -Version '10.0'
-#>
 function Install-Dotnet {
     [CmdletBinding()]
     param(
@@ -49,8 +62,8 @@ function Install-Dotnet {
         Join-Path $installDir 'dotnet'
     }
 
-    # Our own dir wins the check; a right-version hit skips the download only, never the environment convergence below.
-    # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment2)
+    # Decide whether to run the install script.
+    # [comment:6](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment6)
     $needsInstall = $true
     if (Test-Path $ourBinary) {
         # Check the specific binary (not PATH) — can't use Get-ToolVersion here
@@ -74,8 +87,8 @@ function Install-Dotnet {
         }
     }
     elseif (Test-Command $config.command) {
-        # A wrong version elsewhere does not block us: we install side-by-side and prepend our dir to PATH.
-        # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment3)
+        # Nothing in our install dir, but a dotnet is on PATH.
+        # [comment:7](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment7)
         $installed = Get-ToolVersion -Config $config
         if ($installed -and $installed.StartsWith($Version)) {
             Write-Message "Dotnet $Version is already installed"
@@ -84,8 +97,8 @@ function Install-Dotnet {
     }
 
     if ($needsInstall) {
-        # The script comes from the module's assets via Get-CatzcModuleRoot, so both run modes resolve alike.
-        # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment4)
+        # Resolve the vendored install script shipped in this module's assets/
+        # [comment:8](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment8)
         if ($IsWindows) {
             $scriptPath = Get-CatzcModuleRoot 'assets/scripts/dotnet-install.ps1'
             Assert-PathExist $scriptPath
@@ -100,8 +113,8 @@ function Install-Dotnet {
         }
     }
 
-    # This PATH is what non-repo processes, such as an editor's language server, resolve dotnet through.
-    # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment5)
+    # Converge the environment on every run that owns the install — session + persistent, both idempotent.
+    # [comment:9](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment9)
     if ($env:DOTNET_ROOT -ne $installDir) {
         $env:DOTNET_ROOT = $installDir
         Write-Message "Session: DOTNET_ROOT='$installDir'"

@@ -6,7 +6,6 @@ catzc:
     body_sha: b2e453e72ed2
     adrs:
       - ADR-REPO-VOCAB#2
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/configs/glossary.yml

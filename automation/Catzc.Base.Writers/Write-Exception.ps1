@@ -6,24 +6,20 @@ catzc:
     kind: public-function
     module: Catzc.Base.Writers
     visibility: public
-    adrs: []
+  config:
+    synopsis: Displays exception details for use in catch blocks.
+    description: |-
+      Prints exception type, message, script stack trace, and any inner exceptions.
+      Falls back to $global:Error if no ErrorRecord is provided.
+    parameters:
+      ErrorRecord: The ErrorRecord to display. If omitted, uses $global:Error.
+      GlobalErrorIndex: Index into $global:Error when no ErrorRecord is given. Defaults to 0 (most recent).
+    examples:
+      - try { Get-Item C:\no } catch { Write-Exception $_ }
+      - Write-Exception -GlobalErrorIndex 2
 ---
 #>
 
-<#
-.SYNOPSIS
-    Displays exception details for use in catch blocks.
-.DESCRIPTION
-    With no ErrorRecord given it falls back to the last global error, so a bare call in a catch block works.
-.PARAMETER ErrorRecord
-    The ErrorRecord to display. If omitted, uses $global:Error.
-.PARAMETER GlobalErrorIndex
-    Index into $global:Error when no ErrorRecord is given. Defaults to 0 (most recent).
-.EXAMPLE
-    try { Get-Item C:\no } catch { Write-Exception $_ }
-.EXAMPLE
-    Write-Exception -GlobalErrorIndex 2
-#>
 function Write-Exception {
     [CmdletBinding()]
     param(

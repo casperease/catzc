@@ -8,11 +8,11 @@ catzc:
 #>
 
 Describe 'Test-Tool' -Tag 'L0', 'logic' {
-    # Hermetic: every collaborator mocked in module scope, so the assertion binds to the version-check LOGIC
-    # (pin vs devbox lever vs pipeline), never to the shipped tools.yml or the installed toolchain.
+    # Hermetic: every collaborator mocked in module scope, so the assertion binds to the version-check LOGIC (pin vs...
+    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Test-Tool.Tests.ps1.md#comment1)
     BeforeAll {
-        # Get-ToolConfig returns the typed record, so the mocks do too: every key the entry omits reads as its
-        # default, exactly as in production.
+        # Get-ToolConfig returns the typed record, so the mocks do too: every key the entry omits reads as its...
+        # [comment:2](/docs/references/automation/catzc-tooling-core/tests/Test-Tool.Tests.ps1.md#comment2)
         function New-TestToolConfig {
             param([string] $Command, [string] $Version, [string] $DevboxVersion)
             $entry = @{ version = $Version; command = $Command; version_command = "$Command --version"; version_pattern = '(?<ver>.+)' }

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md
     kind: comment-page
     body_sha: e6ec85f98074
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Get-RepositoryGuids.ps1
@@ -27,6 +25,17 @@ registry entry against these results.
 ```
 
 ## comment:2
+
+Above `$text = [System.IO.File]::ReadAllText($fullPath)`.
+
+```text
+Read the whole file and match once, rather than regex-per-line: a single scan over the text is
+~3x faster than N per-line Matches calls (the per-line managed/native transitions dominated).
+Line numbers are recovered from each match's offset — matches arrive in ascending index order, so
+one forward cursor counts the newlines between consecutive matches, touching each char at most once.
+```
+
+## comment:3
 
 Above `$text = [System.IO.File]::ReadAllText($fullPath)`.
 

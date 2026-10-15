@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-CACHE#8
+      - ADR-AUTO-TYPES#13
 ---
 #>
 
@@ -144,8 +147,8 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     }
 
     It 'commits the generated path even while other tracked or staged work is in flight' {
-        # The commit is pathspec-limited inside Invoke-GitCommit, so a dirty (or staged) tree never holds
-        # the stamp commit back and never leaks into it.
+        # The commit is pathspec-limited inside Invoke-GitCommit, so a dirty (or staged) tree never holds the stamp...
+        # [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Sync-GeneratedFile.Tests.ps1.md#comment1)
         Sync-GeneratedFile | Should -Not -BeNullOrEmpty
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
             ($Path -join ',') -eq 'automation/.compiled'

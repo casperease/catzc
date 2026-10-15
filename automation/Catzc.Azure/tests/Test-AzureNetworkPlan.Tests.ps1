@@ -4,13 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AZ-NETWORK#2
+      - ADR-AZ-NETWORK#4
+      - ADR-AZ-NETWORK#5
 ---
 #>
 
-# Test-AzureNetworkPlan and its join (Get-NetworkPlanViolations) over typed fixture configs with Greek environment
-# names and neutral subscription names (core_lower, a hub; widget_lower, a spoke for customer widget), not the shipped
-# ones, so editing azure.yml can never change the logic outcome
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-AzureNetworkPlan and its join (Get-NetworkPlanViolations) over typed fixture configs with Greek environment...
+# [comment:1](/docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md#comment1)
 Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
     BeforeAll {
         $environment = { param($code) [ordered]@{ shortcode = $code; region = 'westeurope'; region_code = 'weu' } }
@@ -53,8 +56,8 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
             }
             [ordered]@{ kind = 'spoke'; vnet_address_space = "10.$Octet.0.0/16"; subnets = $subnets }
         }
-        # The plan for the fixture: environment entries by name, plus the subscription block (the in-sync one when
-        # none is given).
+        # The plan for the fixture: environment entries by name, plus the subscription block (the in-sync one when...
+        # [comment:2](/docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md#comment2)
         $script:plan = {
             param([string[]] $Names, [System.Collections.IDictionary] $Subscriptions)
             $map = [ordered]@{}

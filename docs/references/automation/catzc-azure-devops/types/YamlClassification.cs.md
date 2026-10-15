@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/types/YamlClassification.cs.md
     kind: comment-page
     body_sha: cd26a884090d
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/types/YamlClassification.cs

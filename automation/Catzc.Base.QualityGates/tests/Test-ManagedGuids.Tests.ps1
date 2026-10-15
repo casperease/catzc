@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-ManagedGuids.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-ManagedGuids over a mocked scan, registry, and 'repository' globset, so each test pins one rule. Neutral
-# fixture names and test-shaped guids ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-ManagedGuids over a mocked scan, registry, and 'repository' globset, so each test pins one rule.
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-ManagedGuids.Tests.ps1.md#comment1)
 Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {
     BeforeAll {
         # Built at runtime, so the real guid scan never reads these fixture values as unregistered guids.

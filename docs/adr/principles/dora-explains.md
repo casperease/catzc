@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/principles/dora-explains.md
     kind: adr
     body_sha: d8b8633941e4
-    defines: []
-    adrs: []
     links:
       - docs/adr/principles/configure-not-program.md
       - docs/adr/principles/everything-as-code.md

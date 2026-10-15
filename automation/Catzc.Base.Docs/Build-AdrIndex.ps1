@@ -17,30 +17,40 @@ catzc:
       - ADR-REPO-LINK#5
       - ADR-REPO-LINK#9
       - ADR-REPO-README
+  config:
+    synopsis: |-
+      Generates [index](/docs/adr/index.md) — the ADR code -> rule-citation registry — from adrs.yml, the single source
+      of truth for the ADR domain structure.
+    description: |-
+      index.md is a derived projection of automation/Catzc.Base.Docs/configs/adrs.yml: authored preamble and
+      authoring-convention prose wrapped around one code-registry table per domain (in declared order). Every
+      ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format Get-CatsAdrIndex parses and the citation
+      grammar Show-Cats presents. Each link path is resolved to the real docs/adr/<domain>/**/<slug>.md file.
+
+      The index is committed — so GitHub has it, and every ADR citation's link resolves there — marked
+      linguist-generated so its diff collapses, and reproduced on every import (before Build-Readme, which generates
+      the docs/adr README from it), so adrs.yml is the ONLY place the registry is edited — a hand-edit to index.md is overwritten
+      on the next load. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md) for the generated-file pattern.
+
+      Idempotent and fast: the write goes through Write-FileIfChanged (canonical output, EOL-insensitive compare,
+      write only on drift), so a clean tree costs one file read.
+    parameters:
+      DryRun: |-
+        Report whether index.md would change without writing it. See
+        [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+      Silent: The wrote / would-write status line is verbose-level — -Silent suppresses it (used by the importer tail).
+      PassThru: Return a result object ({ Path; Changed; DryRun }) instead of the repo-relative path.
+    outputs: '[string] The repo-relative path of the generated index (with -PassThru, the result object instead).'
+    examples:
+      - |-
+        Build-AdrIndex
+        Regenerates docs/adr/index.md from adrs.yml.
+      - |-
+        Build-AdrIndex -DryRun -PassThru
+        Reports whether the on-disk index is stale without writing it.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Generates [index](/docs/adr/index.md) — the ADR code -> rule-citation registry — from adrs.yml, the single source
-    of truth for the ADR domain structure.
-.DESCRIPTION
-    index.md is projected from adrs.yml alone, so a hand-edit to it is overwritten on the next import.
-.PARAMETER DryRun
-    The index is still rendered in full, so a dry run also throws on an ADR with no file.
-.PARAMETER Silent
-    The wrote / would-write status line is verbose-level — -Silent suppresses it (used by the importer tail).
-.PARAMETER PassThru
-    Return a result object ({ Path; Changed; DryRun }) instead of the repo-relative path.
-.OUTPUTS
-    [string] The repo-relative path of the generated index (with -PassThru, the result object instead).
-.EXAMPLE
-    Build-AdrIndex
-    Regenerates docs/adr/index.md from adrs.yml.
-.EXAMPLE
-    Build-AdrIndex -DryRun -PassThru
-    Reports whether the on-disk index is stale without writing it.
-#>
 function Build-AdrIndex {
     [CmdletBinding()]
     [OutputType([string])]
@@ -144,8 +154,8 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   `dora-explains.md`.
 '@
 
-    # Reflow here so the generated page already equals the formatter's fill and never shows drift afterwards.
-    # [comment:3](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment3)
+    # The authored prose above is wrapped for reading here, not for the page: reflow every paragraph and list item...
+    # [comment:6](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment6)
     $reflow = {
         param([string] $Markdown)
         $out = [System.Collections.Generic.List[string]]::new()
@@ -194,8 +204,8 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
     $adrDocsRoot = Resolve-RepoPath 'docs/adr'
     Assert-PathExist $adrDocsRoot
 
-    # Keyed by domain folder plus slug, so a ruleset in a subfolder resolves; index.md and READMEs are no ADRs.
-    # [comment:4](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment4)
+    # Map "<domainFolder>/<slug>" -> the ADR file path relative to docs/adr (forward-slashed), so a ruleset in a...
+    # [comment:7](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment7)
     $pathBySlugKey = @{}
     # An ADR sits at most three levels below docs/adr (domain, subfolder, file); the fourth level is headroom.
     foreach ($file in Get-ChildPath $adrDocsRoot -File -Filter '*.md' -Depth 4) {
@@ -208,8 +218,8 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
         $pathBySlugKey["$topFolder/$slug"] = $relative
     }
 
-    # Row shape is fixed because Get-CatsAdrIndex parses it back; a changed shape breaks that reader.
-    # [comment:5](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment5)
+    # One aligned code-registry table per domain, in declared order.
+    # [comment:8](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment8)
     $sections = foreach ($domain in $adrs.Domains) {
         $rows = foreach ($ruleSet in $domain.RuleSets) {
             $key = "$($domain.Name)/$($ruleSet.Slug)"

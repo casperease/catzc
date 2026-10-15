@@ -6,18 +6,16 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Core
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls a uv-managed tool.
+    description: |-
+      Removes a CLI installed via Install-UvTool (`uv tool uninstall <uv_tool>`). Idempotent — skips if the
+      tool is not installed.
+    parameters:
+      Tool: The snake_case tool key as defined in tools.yml (must declare uv_tool).
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls a uv-managed tool.
-.DESCRIPTION
-    A tool that is not installed is a no-op, not an error, and uv is only reached when something is to remove.
-.PARAMETER Tool
-    The snake_case tool key as defined in tools.yml (must declare uv_tool).
-#>
 function Uninstall-UvTool {
     [CmdletBinding()]
     param(

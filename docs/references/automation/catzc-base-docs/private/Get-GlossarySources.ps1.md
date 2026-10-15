@@ -8,7 +8,6 @@ catzc:
       - ADR-CONF-LOADING#1
       - ADR-REPO-VOCAB#2
       - ADR-REPO-VOCAB#3
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossarySources.ps1

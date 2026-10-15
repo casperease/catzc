@@ -6,7 +6,6 @@ catzc:
     body_sha: "9bab23e76776"
     adrs:
       - ADR-REPO-VOCAB#1
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossaryDefinitionViolations.ps1

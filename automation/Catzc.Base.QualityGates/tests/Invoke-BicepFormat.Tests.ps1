@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-BicepFormat.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#6
 ---
 #>
 
-# The bicep engine with the tool boundary mocked ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)):
-# the probe finds a managed Bicep CLI, and the mock writes the --outfile copy the engine compares. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# The bicep engine with the tool boundary mocked: the probe finds a managed Bicep CLI, and the mock writes the...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-BicepFormat.Tests.ps1.md#comment1)
 Describe 'Invoke-BicepFormat' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:widget = Join-Path $TestDrive 'widget.bicep'
@@ -20,8 +22,8 @@ Describe 'Invoke-BicepFormat' -Tag 'L0', 'logic' {
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'bicep' } {
             [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\tools\bicep.exe'; Version = '0.48.1'; Required = '0.48' }
         }
-        # The fake formatter collapses runs of spaces in every file the --pattern names, in place, as `bicep format
-        # --pattern` does.
+        # The fake formatter collapses runs of spaces in every file the --pattern names, in place, as `bicep format...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-BicepFormat.Tests.ps1.md#comment2)
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {
             if ($Command -match 'format --pattern "([^"]+)"') {
                 foreach ($copy in [System.IO.Directory]::GetFiles([System.IO.Path]::GetDirectoryName($Matches[1]), '*.bicep')) {

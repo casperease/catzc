@@ -6,7 +6,6 @@ catzc:
     body_sha: "3bb8e299b3e5"
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1

@@ -8,23 +8,24 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-PARITY
+  config:
+    synopsis: 'Returns where this session runs: Pipeline or Devbox.'
+    description: |-
+      The environment axis of devbox/pipeline parity
+      ([ADR-AUTO-PARITY](/docs/adr/automation/devbox-pipeline-parity.md)), read off the one seam,
+      Test-IsRunningInPipeline. It answers where the run happens; who drives it (a person or an agent) is
+      Get-SessionActor's question. Environment-dependent settings, such as the time-safeguard limits, key on this.
+    parameters:
+      EnvironmentAssertIs: |-
+        Pins the expected environment: the detected one is still returned, and a different one throws. The guard
+        verifies, it never selects.
+    outputs: '[string] ''Pipeline'' or ''Devbox''.'
+    examples:
+      - Get-RunEnvironment
+      - '$null = Get-RunEnvironment -EnvironmentAssertIs Devbox'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns where this session runs: Pipeline or Devbox.
-.DESCRIPTION
-    Answers where the run happens, not who drives it: that is Get-SessionActor, so an agent in a pipeline is Pipeline.
-.PARAMETER EnvironmentAssertIs
-    The guard only verifies the detected environment and never selects one, so a mismatch throws.
-.OUTPUTS
-    [string] 'Pipeline' or 'Devbox'.
-.EXAMPLE
-    Get-RunEnvironment
-.EXAMPLE
-    $null = Get-RunEnvironment -EnvironmentAssertIs Devbox
-#>
 function Get-RunEnvironment {
     [CmdletBinding()]
     [OutputType([string])]

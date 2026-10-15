@@ -6,7 +6,6 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
 ---
 #>
 

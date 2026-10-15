@@ -9,8 +9,6 @@ catzc:
       - ADR-FLOW-CD-RUNNER#2
       - ADR-FLOW-CD-RUNNER#3
       - ADR-FLOW-CD-RUNNER#4
-    adrs: []
-    links: []
 ---
 
 # ADR: Pipeline runner pattern — how pipelines invoke automation

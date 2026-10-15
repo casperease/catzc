@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/getting-started/automation/debug-in-vscode.md
     kind: how-to
     body_sha: a210ea69b439
-    adrs: []
     links:
       - docs/adr/automation/effective-in-enterprises.md
       - docs/adr/pwsh/module-path-hygiene.md

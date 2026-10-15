@@ -1,0 +1,41 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
+    kind: test-asset
+    body_sha: "62ad15562dbf"
+    adrs:
+      - ADR-FLOW-CD-GLOBS#4
+---
+
+# automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
+section (Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {`.
+
+```text
+The matching universe ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)): tracked
+files as `git ls-files` defines them, repo-relative — answered by Get-GitTrackedPath for the whole repository.
+```
+
+## comment:2
+
+Above `Describe 'Get-TrackedFile (real index)' -Tag 'L1', 'integrity', 'source-only' {`.
+
+```text
+The real universe: this repository's own tracked files come back repo-relative with forward slashes,
+including this test file — read in-process from the real index, so no git process runs.
+```
+
+## comment:3
+
+Above `$files = @(InModuleScope Catzc.Base.Globs { Get-TrackedFile })`.
+
+```text
+@()-wrap both counts: under the importer's strict mode, .Count on a scalar (or an empty pipeline
+result) throws instead of adapting.
+```

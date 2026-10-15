@@ -1,0 +1,25 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-Gofmt.Tests.ps1.md
+    kind: test-asset
+    body_sha: "19d81a7d1640"
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#6
+---
+
+# automation/Catzc.Base.QualityGates/tests/Invoke-Gofmt.Tests.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
+section (Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `Describe 'Invoke-Gofmt' -Tag 'L0', 'logic' {`.
+
+```text
+The gofmt engine with its seams mocked ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)):
+the tool probe (Resolve-ToolExecutable) finding a managed go beside a fixture gofmt in $TestDrive, and gofmt itself
+(Invoke-Executable). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+```

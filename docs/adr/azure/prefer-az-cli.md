@@ -11,8 +11,6 @@ catzc:
       - ADR-AZ-CLI#4
       - ADR-AZ-CLI#5
       - ADR-AZ-CLI#6
-    adrs: []
-    links: []
 ---
 
 # ADR: Prefer Az CLI over Az PowerShell modules

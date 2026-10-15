@@ -4,7 +4,6 @@ catzc:
     path: docs/references/infrastructure/expedition.md
     kind: reference
     body_sha: "562382a9cb1f"
-    adrs: []
     links:
       - docs/adr/azure/azure-data-model.md
       - docs/references/infrastructure/discovery.md

@@ -10,8 +10,8 @@ catzc:
 Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
-        # A tiny registry spanning all three categories, with a duplicate and mixed case in the product
-        # category, to prove per-category grouping plus lower-casing + de-duplication.
+        # A tiny registry spanning all three categories, with a duplicate and mixed case in the product category, to...
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Build-TerminologyDictionary.Tests.ps1.md#comment1)
         Mock Get-Config -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{
                 categories = @('product', 'abbreviation', 'fixture')
@@ -51,8 +51,8 @@ Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
     }
 }
 
-# source-only: it compares the repository's generated .cspell/ dictionaries with the registry, which gives the
-# same answer in both run modes.
+# source-only: it compares the repository's generated.cspell/ dictionaries with the registry, which gives the same...
+# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Build-TerminologyDictionary.Tests.ps1.md#comment2)
 Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity', 'source-only' {
     It 'every generated dictionary is current (no drift from the registry)' {
         # The importer regenerates the gitignored dictionaries; the gate names each drifted one.

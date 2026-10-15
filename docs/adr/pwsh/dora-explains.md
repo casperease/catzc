@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/pwsh/dora-explains.md
     kind: adr
     body_sha: abe8285c6e7a
-    defines: []
-    adrs: []
     links:
       - docs/adr/pwsh/announce-state-changes.md
       - docs/adr/pwsh/assert-idioms.md

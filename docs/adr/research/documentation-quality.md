@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-DOCS#3
       - ADR-DORA-DOCS#4
       - ADR-DORA-DOCS#5
-    adrs: []
     links:
       - docs/adr/repository/documentation-examples.md
       - docs/adr/repository/generated-readmes.md

@@ -8,23 +8,17 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-FILEMETA#3
+  config:
+    synopsis: Writes the files an engine run found drifted, and names the findings no tool can repair.
+    description: The one writer behind Format-FileMeta and the file-meta imprint step, so the two cannot disagree. Files are UTF-8 without a BOM.
+    parameters:
+      Result: What Invoke-FileMetaEngine returned.
+      RepositoryRoot: The repository root the result's paths are relative to.
+      DryRun: Report what would change without writing any file.
+    outputs: '[pscustomobject] @{ Fixed; Unowned } — Fixed holds the engine''s file entries that changed, Unowned the findings left for a person.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Writes the files an engine run found drifted, and names the findings no tool can repair.
-.DESCRIPTION
-    The one writer behind Format-FileMeta and the file-meta imprint step, so the two cannot disagree.
-.PARAMETER Result
-    What Invoke-FileMetaEngine returned.
-.PARAMETER RepositoryRoot
-    The repository root the result's paths are relative to.
-.PARAMETER DryRun
-    Report what would change without writing any file.
-.OUTPUTS
-    [pscustomobject] @{ Fixed; Unowned } — Fixed holds the engine's file entries that changed, Unowned the findings left for a person.
-#>
 function Save-FileMetaResult {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -12,7 +12,6 @@ catzc:
       - ADR-PWSH-AUTOVAR#5
       - ADR-PWSH-AUTOVAR#6
       - ADR-PWSH-AUTOVAR#7
-    adrs: []
     links:
       - docs/adr/pwsh/error-handling.md
       - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error1

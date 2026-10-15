@@ -7,7 +7,6 @@ catzc:
     defines:
       - ADR-PWSH-USEPS#1
       - ADR-PWSH-USEPS#2
-    adrs: []
     links:
       - docs/adr/design/run-modes.md
       - docs/adr/pwsh/dynamic-module-manifests.md#regenerated-manifests

@@ -6,7 +6,6 @@ catzc:
     body_sha: "42edbcd54910"
     adrs:
       - ADR-AUTO-TYPES#9
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrDomainEdge.cs

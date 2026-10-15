@@ -6,24 +6,18 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a GUID lies inside an inclusive GUID range.
+    description: The throwing form of Test-IsGuidInRange, which defines the ordering.
+    parameters:
+      ObjectGuid: The GUID to check.
+      From: The first GUID of the range (inclusive).
+      To: The last GUID of the range (inclusive).
+    examples:
+      - Assert-IsGuidInRange $budget -From $exemption.range.from -To $exemption.range.to
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a GUID lies inside an inclusive GUID range.
-.DESCRIPTION
-    The throwing form of Test-IsGuidInRange, which defines the ordering.
-.PARAMETER ObjectGuid
-    The GUID to check.
-.PARAMETER From
-    The first GUID of the range (inclusive).
-.PARAMETER To
-    The last GUID of the range (inclusive).
-.EXAMPLE
-    Assert-IsGuidInRange $budget -From $exemption.range.from -To $exemption.range.to
-#>
 function Assert-IsGuidInRange {
     [CmdletBinding()]
     param(

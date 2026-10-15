@@ -9,25 +9,35 @@ catzc:
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-PROTGLOB
+  config:
+    synopsis: 'True when a scan may be skipped: this test already ran green against this globset''s current identity.'
+    description: |-
+      The query half of the protected-glob skip
+      ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): a heavy read-only scan is a pure function of
+      its globset's durable SHA, so a repeat run against an unchanged set proves nothing. The protection map
+      is session memory only — keyed <test>|<globset>, holding the durable SHA of the last green run — and in
+      a pipeline it is never consulted: this returns $false unconditionally, so CI always scans full.
+
+      A $false answer also records the just-computed hash as PENDING for that key; Protect-GlobSet promotes
+      it after the scan passes. The hash is therefore always the one computed BEFORE the scan — an edit that
+      lands mid-scan makes the recorded identity stale and forces the next run to scan again.
+    parameters:
+      Test: |-
+        The scan's name — the caller's identity in the protection key (e.g. 'spelling', 'markdown', or a
+        Test-Automation run key).
+      Name: |-
+        The scope's name in the protection key: a declared globset (whose hash is computed here) or, with -Hash,
+        any identifier the caller keys by (e.g. a module name whose composite identity the caller computed).
+      Hash: |-
+        A precomputed durable identity to compare instead of hashing a declared globset — the path composite
+        identities (per-module protection) take. The pending-promote handshake is unchanged: this value is what
+        Protect-GlobSet later promotes.
+    examples:
+      - if (Test-GlobSetProtection -Test 'markdown' -Name 'markdown-scope') { return }
+      - Test-GlobSetProtection -Test 'test-automation|L0-L2|Both' -Name 'Catzc.Base.Globs' -Hash $composite
 ---
 #>
 
-<#
-.SYNOPSIS
-    True when a scan may be skipped: this test already ran green against this globset's current identity.
-.DESCRIPTION
-    A false answer records the hash computed now as pending, so a mid-scan edit makes the next run scan again.
-.PARAMETER Test
-    Part of the protection key, so each scan keeps its own record per scope and skips independently of the others.
-.PARAMETER Name
-    Without -Hash it must be a declared globset, since the hash is computed from it here.
-.PARAMETER Hash
-    This value is what Protect-GlobSet later promotes, so the pending handshake is the same as for a computed hash.
-.EXAMPLE
-    if (Test-GlobSetProtection -Test 'markdown' -Name 'markdown-scope') { return }
-.EXAMPLE
-    Test-GlobSetProtection -Test 'test-automation|L0-L2|Both' -Name 'Catzc.Base.Globs' -Hash $composite
-#>
 function Test-GlobSetProtection {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -47,15 +57,15 @@ function Test-GlobSetProtection {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:protectedGlobSets')) {
-        # Probe through the session state: reading an unset script variable directly would throw under strict mode.
-        # [comment:5](/docs/references/automation/catzc-base-globs/Test-GlobSetProtection.ps1.md#comment5)
+        # strict-clean probe of the lazy cache entries
+        # [comment:7](/docs/references/automation/catzc-base-globs/Test-GlobSetProtection.ps1.md#comment7)
         $script:protectedGlobSets = @{}
         $script:pendingGlobProtections = @{}
     }
 
     $key = "$Test|$Name"
-    # NOTE: never name this local $hash — variable names are case-insensitive, so it would clobber $Hash.
-    # [comment:6](/docs/references/automation/catzc-base-globs/Test-GlobSetProtection.ps1.md#comment6)
+    # NOTE: never name this local $hash — PowerShell variables are case-insensitive, so it would silently overwrite...
+    # [comment:8](/docs/references/automation/catzc-base-globs/Test-GlobSetProtection.ps1.md#comment8)
     $identity = if ($Hash) {
         $Hash
     }

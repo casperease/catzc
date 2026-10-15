@@ -8,25 +8,27 @@ catzc:
     visibility: private
     adrs:
       - ADR-AZ-DATAMOD#8
+  config:
+    synopsis: |-
+      Returns the env-class violations for a single resolved config — the shared rule used by both
+      Get-BicepTemplates (fail-fast at discovery) and Assert-BicepTemplate (collect-all), so the two
+      never drift.
+    description: |-
+      Checks one config against the template's env-class bit and returns a (possibly empty) array of
+      human-readable violation strings:
+        - env-class bit: subscription ⇒ the config env must be a per_subscription env (nsub/psub);
+                         standard ⇒ it must be a standard env.
+      The slot is a per-config dimension, not a template-level bit — a template may freely mix slotted
+      (<env>-<slot>.yml) and non-slotted (<env>.yml) configs — so there is no slot rule here.
+      Empty result means the config conforms.
+    parameters:
+      Environment: The config's resolved environment name.
+      EnvironmentKind: The template's env-class bit ('standard' or 'subscription').
+      AzureConfig: The loaded azure config (Get-Config -Config azure) — used to read the env's per_subscription flag.
+      Location: A human-readable label for the config (e.g. 'configuration/apex/dev.yml') used in messages.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the env-class violations for a single resolved config — the shared rule used by both
-    Get-BicepTemplates (fail-fast at discovery) and Assert-BicepTemplate (collect-all), so the two
-    never drift.
-.DESCRIPTION
-    The slot is per-config, not a template bit, so a template may mix slotted and non-slotted configs.
-.PARAMETER Environment
-    The config's resolved environment name.
-.PARAMETER EnvironmentKind
-    The template's env-class bit ('standard' or 'subscription').
-.PARAMETER AzureConfig
-    The loaded azure config (Get-Config -Config azure) — used to read the env's per_subscription flag.
-.PARAMETER Location
-    A human-readable label for the config (e.g. 'configuration/apex/dev.yml') used in messages.
-#>
 function Get-BicepConfigClassViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

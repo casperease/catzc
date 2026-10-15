@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
     kind: comment-page
     body_sha: "17d8550115a7"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
@@ -48,6 +46,18 @@ number of top-level entries that would be deleted; nothing is touched. See
 ```
 
 ## comment:4
+
+Above `$removed = 0`.
+
+```text
+Delete via .NET, NOT Remove-Item: across tens of thousands of temp entries Remove-Item's
+per-item cmdlet overhead dominates (minutes vs seconds). Top-level entries only — Directory.Delete
+recurses each subtree. A file or directory held open by a running process throws and is skipped.
+In dry-run, count every top-level entry as a would-remove and delete nothing (a lock can only be
+observed by attempting the delete, so dry-run reports the intent, not the lock outcome).
+```
+
+## comment:5
 
 Above `$removed = 0`.
 

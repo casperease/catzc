@@ -4,6 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-PIPE-NAME
+      - ADR-PIPE-NAME#1
+      - ADR-PIPE-NAME#2
+      - ADR-PIPE-NAME#3
+      - ADR-PIPE-NAME#4
+      - ADR-PIPE-NAME#6
+      - ADR-PWSH-PESTER#2
 ---
 #>
 
@@ -32,8 +41,8 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         $script:records = @()
         $script:refs = @()
 
-        # Isolate through the classifier + reference-scan seams
-        # ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)).
+        # Isolate through the classifier + reference-scan seams.
+        # [comment:1](/docs/references/automation/catzc-azure-devops/tests/Test-Pipelines.Tests.ps1.md#comment1)
         Mock Get-AdoYamlFiles -ModuleName Catzc.Azure.DevOps { $script:records }
         Mock Get-PipelineTemplateReference -ModuleName Catzc.Azure.DevOps { $script:refs }
         Mock Assert-PathExist -ModuleName Catzc.Azure.DevOps { }

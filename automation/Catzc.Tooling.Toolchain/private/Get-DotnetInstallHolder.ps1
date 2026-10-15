@@ -6,20 +6,19 @@ catzc:
     kind: private-function
     module: Catzc.Tooling.Toolchain
     visibility: private
-    adrs: []
+  config:
+    synopsis: Lists the processes that hold a .NET install open.
+    description: |-
+      Every running .NET host — the dotnet muxer, an apphost such as VBCSCompiler.exe, an MSBuild node, an
+      editor's language server — loads the install's host resolver, host/fxr/<version>/hostfxr. The holders of
+      those files are therefore the processes that would make a delete of the install fail part-way. Each holder
+      is listed once. Locking is advisory off Windows, so there it lists nothing (Get-FileLockingProcess).
+    parameters:
+      InstallDir: The .NET install directory.
+    outputs: '[Catzc.Base.Files.FileLockingProcess] per holding process.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Lists the processes that hold a .NET install open.
-.DESCRIPTION
-    Holders of the hostfxr file are the ones that would fail a delete part-way; off Windows locking is advisory.
-.PARAMETER InstallDir
-    The .NET install directory.
-.OUTPUTS
-    [Catzc.Base.Files.FileLockingProcess] per holding process.
-#>
 function Get-DotnetInstallHolder {
     [CmdletBinding()]
     param(

@@ -6,7 +6,6 @@ catzc:
     body_sha: d22321669760
     adrs:
       - ADR-REPO-LINK#5
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1

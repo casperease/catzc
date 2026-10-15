@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-provisioning.md
     kind: reference
     body_sha: a090a16238c9
-    adrs: []
     links:
       - docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
       - docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png

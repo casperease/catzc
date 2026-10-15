@@ -10,23 +10,26 @@ catzc:
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#4
       - ADR-AUTO-REMOVE#5
+  config:
+    synopsis: Uninstalls the Azure CLI.
+    description: |-
+      Removes az's dedicated uv venv via Uninstall-UvVenvTool — the managed uninstall (idempotent, skips if not
+      installed). For an Azure CLI installed OUTSIDE the tooling system (a lingering machine-scope MSI, an apt
+      'azure-cli', a pip install), escalate with -Remove -Force: the managed uninstall runs best-effort and then
+      falls through to Remove-AzCli, which destructively evicts whatever the configured manager did not own
+      ([ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
+    parameters:
+      Remove: |-
+        After the managed uninstall, escalate to Remove-AzCli to evict an off-config install the managed path
+        cannot touch. Pair with -Force to actually remove; -Remove alone reports the plan
+        ([ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
+      Force: Confirm the destructive Remove-AzCli step of the escalation. Ignored without -Remove.
+    examples:
+      - Uninstall-AzCli
+      - Uninstall-AzCli -Remove -Force
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls the Azure CLI.
-.DESCRIPTION
-    A foreign install, such as a machine MSI, an apt package or a pip install, needs -Remove -Force to be evicted.
-.PARAMETER Remove
-    Alone it only reports the plan; pair it with -Force so Remove-AzCli actually evicts the off-config install.
-.PARAMETER Force
-    Confirm the destructive Remove-AzCli step of the escalation. Ignored without -Remove.
-.EXAMPLE
-    Uninstall-AzCli
-.EXAMPLE
-    Uninstall-AzCli -Remove -Force
-#>
 function Uninstall-AzCli {
     [CmdletBinding()]
     param(
@@ -34,8 +37,8 @@ function Uninstall-AzCli {
         [switch] $Force
     )
 
-    # A failure is swallowed only under -Remove, where a foreign install the manager cannot touch is expected.
-    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md#comment3)
+    # Managed uninstall best-effort.
+    # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md#comment4)
     try {
         Uninstall-UvVenvTool -Tool 'az_cli'
     }

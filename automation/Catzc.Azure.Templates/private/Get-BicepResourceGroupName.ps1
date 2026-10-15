@@ -6,31 +6,27 @@ catzc:
     kind: private-function
     module: Catzc.Azure.Templates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Derives a template slot's resource-group name from the Azure naming standard.
+    description: |-
+      Convenience over Get-BicepResourceName for the resource-group type — the single source of the RG
+      name for both Get-BicepDeploymentContext (the deploy target) and Set-BicepTrackingTagSet (the tag
+      scope), so the two never drift. The resource-group name is derived from the naming standard, never
+      hand-typed in config (one config file ⟷ one resource group).
+    parameters:
+      Template: Template name.
+      Environment: Environment shortname.
+      Slot: Optional special-slot discriminator; omitted selects the env's base / index-0 slot.
+      Customer: Optional customer; renders into the RG name and is required to disambiguate a per-customer RG.
+    examples:
+      - 'Get-BicepResourceGroupName -Template sample -Environment dev          # -> dev-weu-zct-smpl-rg'
+      - 'Get-BicepResourceGroupName -Template sample -Environment dev -Customer apex   # -> dev-weu-zct-smpl-apex-rg'
+      - |-
+        Get-BicepResourceGroupName -Template sample-indexed -Environment dev -Slot 001
+        # -> dev-001-weu-zct-sidx-rg
 ---
 #>
 
-<#
-.SYNOPSIS
-    Derives a template slot's resource-group name from the Azure naming standard.
-.DESCRIPTION
-    The name is derived from the naming standard, never hand-typed in config, so deploy and tag scope agree.
-.PARAMETER Template
-    Template name.
-.PARAMETER Environment
-    Environment shortname.
-.PARAMETER Slot
-    Optional special-slot discriminator; omitted selects the env's base / index-0 slot.
-.PARAMETER Customer
-    Optional customer; renders into the RG name and is required to disambiguate a per-customer RG.
-.EXAMPLE
-    Get-BicepResourceGroupName -Template sample -Environment dev          # -> dev-weu-zct-smpl-rg
-.EXAMPLE
-    Get-BicepResourceGroupName -Template sample -Environment dev -Customer apex   # -> dev-weu-zct-smpl-apex-rg
-.EXAMPLE
-    Get-BicepResourceGroupName -Template sample-indexed -Environment dev -Slot 001
-    # -> dev-001-weu-zct-sidx-rg
-#>
 function Get-BicepResourceGroupName {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]

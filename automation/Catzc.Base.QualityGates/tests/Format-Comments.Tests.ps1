@@ -4,15 +4,17 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Format-Comments.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DRYRUN#1
+      - ADR-AUTO-IDEM#1
+      - ADR-PRIN-CONFIG#1
+      - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-COMMENTS#5
 ---
 #>
 
-# Format-Comments puts every comment residue into its one-liner shape in place
-# ([ADR-REPO-COMMENTS#5](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5),
-# [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)), tested in isolation:
-# every test builds its own fixture repository in $TestDrive with widget/gadget files and formats only that tree
-# (-RepositoryRoot, -Path). The residue rules come from the shipped comments.yml
-# ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+# Format-Comments puts every comment residue into its one-liner shape in place, tested in isolation: every test...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Format-Comments.Tests.ps1.md#comment1)
 Describe 'Format-Comments' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

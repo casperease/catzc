@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-AGENTS#2
 ---
 #>
 
-# Validates the compiled AgentsConfig type directly — the constructor stops a malformed agents.yml from ever
-# producing an instance. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Validates the compiled AgentsConfig type directly — the constructor stops a malformed agents.yml from ever...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md#comment1)
 Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#2' {
     BeforeAll {
         $script:widget = [ordered]@{ name = 'widget'; supported_by = @('ADR-WI-ONE#1'); checks = @('Test-Widget') }

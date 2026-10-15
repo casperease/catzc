@@ -9,23 +9,28 @@ catzc:
     adrs:
       - ADR-AZ-CUSTOMER
       - ADR-AZ-DATAMOD#4
+  config:
+    synopsis: Returns the resolved Azure subscription identity (id + tenant [+ customer]) for a named subscription.
+    description: |-
+      Reads configs/azure.yml via Get-Config and looks up the subscription by name (a key in
+      `subscriptions`) — the by-name identity lookup the resolved configuration coordinates and the session
+      reverse lookup (Get-AzCliSessionSubscription) build on; there is no (environment, group, customer)
+      join here. The matching tenant is looked up by name and embedded. A
+      subscription MAY carry a `customer`, named by its key OR its 2-char shortcode (a customer in
+      customer.yml); it is resolved to the canonical key and included (and renders into the resource names of
+      anything deployed there). See [ADR-AZ-DATAMOD#4](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod4) and
+      [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md).
+    parameters:
+      Subscription: Subscription name — a key in azure.yml's `subscriptions`.
+    examples:
+      - |-
+        $sub = Get-AzureSubscription shared_nonprod
+        $sub.id
+        $sub.tenant.id
+      - '(Get-AzureSubscription apex_nonprod).customer   # -> apex'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the resolved Azure subscription identity (id + tenant [+ customer]) for a named subscription.
-.DESCRIPTION
-    Lookup is by name alone: no environment, group or customer join happens here, so callers build on it.
-.PARAMETER Subscription
-    Subscription name — a key in azure.yml's `subscriptions`.
-.EXAMPLE
-    $sub = Get-AzureSubscription shared_nonprod
-    $sub.id
-    $sub.tenant.id
-.EXAMPLE
-    (Get-AzureSubscription apex_nonprod).customer   # -> apex
-#>
 function Get-AzureSubscription {
     [CmdletBinding()]
     param(
@@ -41,8 +46,8 @@ function Get-AzureSubscription {
     Assert-True ($azure.tenants.ContainsKey($found.tenant)) -ErrorText "Subscription '$Subscription' references unknown tenant '$($found.tenant)'"
 
     $tenant = [Catzc.Azure.Tenant]::new($found.tenant, $azure.tenants[$found.tenant].id)
-    # Normalized to the canonical key, so the resolved object is identical whichever form the config used.
-    # [comment:2](/docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md#comment2)
+    # The subscription's `customer` field may name a customer by its key OR its 2-char shortcode; normalize to the...
+    # [comment:3](/docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md#comment3)
     $customerToken = Get-AzureSubscriptionCustomer $found
     $customer = if ([string]::IsNullOrEmpty($customerToken)) {
         ''

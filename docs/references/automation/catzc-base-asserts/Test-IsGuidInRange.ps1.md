@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-asserts/Test-IsGuidInRange.ps1.md
     kind: comment-page
     body_sha: "7a520a937e35"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Asserts/Test-IsGuidInRange.ps1

@@ -8,23 +8,24 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-CONTRACT#6
+  config:
+    synopsis: Reads and parses a JSON or YAML file for a contract check, throwing a finding-ready message when it cannot.
+    description: |-
+      Parses by the format Get-ContractDataFormat names: Json with ConvertFrom-Json -AsHashtable, Yaml with the vendored
+      ConvertFrom-Yaml -Ordered, the first document only. The result is the value model ContractValue reads (objects as
+      dictionaries, arrays as lists, scalars as CLR values, an empty document as null), and an array is returned whole,
+      never enumerated. A file of any other format, and a file that does not parse, throw a message naming the file,
+      which a contract check reports as its finding
+      ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)).
+    parameters:
+      RepositoryRoot: The repository root the path is relative to.
+      Path: The file, repository-relative and '/'-separated.
+    outputs: '[object] The parsed document.'
+    examples:
+      - '$gadget = Read-ContractData -RepositoryRoot $root -Path ''.widget/gadget.yml'''
 ---
 #>
 
-<#
-.SYNOPSIS
-    Reads and parses a JSON or YAML file for a contract check, throwing a finding-ready message when it cannot.
-.DESCRIPTION
-    An array is returned whole, never enumerated; a file of another format, or one that does not parse, throws its name.
-.PARAMETER RepositoryRoot
-    The repository root the path is relative to.
-.PARAMETER Path
-    The file, repository-relative and '/'-separated.
-.OUTPUTS
-    [object] The parsed document.
-.EXAMPLE
-    $gadget = Read-ContractData -RepositoryRoot $root -Path '.widget/gadget.yml'
-#>
 function Read-ContractData {
     [CmdletBinding()]
     [OutputType([object])]
@@ -52,7 +53,7 @@ function Read-ContractData {
     catch {
         throw "'$Path' does not parse as ${format}: $($_.Exception.Message)"
     }
-    # WriteObject, not Write-Output -NoEnumerate: that would wrap the whole document in a list.
-    # [comment:2](/docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md#comment2)
+    # WriteObject without enumeration hands a top-level array over whole; Write-Output -NoEnumerate would wrap the...
+    # [comment:3](/docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md#comment3)
     $PSCmdlet.WriteObject($data, $false)
 }

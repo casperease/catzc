@@ -7,9 +7,8 @@ catzc:
 ---
 #>
 
-# L2: drives real git against a throwaway repository that holds every working-tree state a snapshot must
-# reproduce — staged, unstaged, staged-then-edited, untracked, deleted, ignored — plus LF bytes under
-# core.autocrlf=true (a checkout would rewrite them as CRLF; the snapshot must not).
+# L2: drives real git against a throwaway repository that holds every working-tree state a snapshot must reproduce —...
+# [comment:1](/docs/references/automation/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md#comment1)
 Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.Git

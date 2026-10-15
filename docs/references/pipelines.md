@@ -4,7 +4,6 @@ catzc:
     path: docs/references/pipelines.md
     kind: reference
     body_sha: "377b5cfd38e4"
-    adrs: []
     links:
       - docs/adr/azure/landing-zones.md
       - docs/adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger

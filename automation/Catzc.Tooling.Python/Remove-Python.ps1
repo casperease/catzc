@@ -6,26 +6,25 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Python
     visibility: public
-    adrs: []
+  config:
+    synopsis: Removes a manually installed Python and cleans up system PATH.
+    description: |-
+      Deletes the Python installation folder and removes it (and its Scripts
+      subdirectory) from the system-level PATH. Requires Administrator.
+      Auto-detects the install directory from Get-Command if not specified.
+
+      This is for Python installations that do not appear in Apps & Features
+      or winget. If Python is managed by winget, use Uninstall-Python instead.
+    parameters:
+      InstallDir: Path to the Python installation folder. Auto-detected from PATH if omitted.
+      Force: Actually perform the removal. Without this, shows what would be removed.
+    examples:
+      - Remove-Python
+      - Remove-Python -Force
+      - Remove-Python -InstallDir 'C:\Python312' -Force
 ---
 #>
 
-<#
-.SYNOPSIS
-    Removes a manually installed Python and cleans up system PATH.
-.DESCRIPTION
-    Only for Pythons absent from Apps and Features and winget; a tooling-managed one is refused, use Uninstall-Python.
-.PARAMETER InstallDir
-    Path to the Python installation folder. Auto-detected from PATH if omitted.
-.PARAMETER Force
-    Actually perform the removal. Without this, shows what would be removed.
-.EXAMPLE
-    Remove-Python
-.EXAMPLE
-    Remove-Python -Force
-.EXAMPLE
-    Remove-Python -InstallDir 'C:\Python312' -Force
-#>
 function Remove-Python {
     [CmdletBinding()]
     param(

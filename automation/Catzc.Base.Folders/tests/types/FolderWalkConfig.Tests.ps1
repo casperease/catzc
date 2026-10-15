@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
 ---
 #>
 
-# FolderWalkConfig maps folder-walk.yml and is the one declaration of its sensible defaults
-# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key behaves exactly like the
-# default, and a malformed value fails at construction with every violation named.
+# FolderWalkConfig maps folder-walk.yml and is the one declaration of its sensible defaults: an omitted key behaves...
+# [comment:1](/docs/references/automation/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md#comment1)
 Describe 'FolderWalkConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT#6' {
         $config = [Catzc.Base.Folders.FolderWalkConfig]::new(@{})

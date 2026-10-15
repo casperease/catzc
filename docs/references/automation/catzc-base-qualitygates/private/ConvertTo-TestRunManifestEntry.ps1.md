@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/ConvertTo-TestRunManifestEntry.ps1.md
     kind: comment-page
     body_sha: "26bc716e7a03"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/ConvertTo-TestRunManifestEntry.ps1

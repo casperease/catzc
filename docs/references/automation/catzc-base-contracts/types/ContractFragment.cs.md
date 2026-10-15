@@ -6,7 +6,6 @@ catzc:
     body_sha: a55cc8dc5f85
     adrs:
       - ADR-REPO-CONTRACT#6
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractFragment.cs

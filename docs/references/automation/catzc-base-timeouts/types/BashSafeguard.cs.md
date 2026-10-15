@@ -6,7 +6,6 @@ catzc:
     body_sha: "603892a40fe7"
     adrs:
       - ADR-AUTO-FAILFAST#7
-    links: []
 ---
 
 # automation/Catzc.Base.Timeouts/types/BashSafeguard.cs

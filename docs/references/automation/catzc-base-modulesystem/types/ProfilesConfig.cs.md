@@ -6,7 +6,6 @@ catzc:
     body_sha: "2741cc263f90"
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ProfilesConfig.cs

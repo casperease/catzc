@@ -6,7 +6,6 @@ catzc:
     body_sha: d6f82119d979
     adrs:
       - ADR-REPO-README#6
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/configs/readme.yml

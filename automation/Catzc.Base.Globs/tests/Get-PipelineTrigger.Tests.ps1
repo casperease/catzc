@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-FLOW-CD-GLOBS#1
 ---
 #>
 
-# Get-PipelineTrigger: read a pipeline/workflow YAML's actual trigger path filters
-# ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)) — the
-# on-disk side the drift quality gate compares against the computed projection.
+# Get-PipelineTrigger: read a pipeline/workflow YAML's actual trigger path filters — the on-disk side the drift...
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md#comment1)
 Describe 'Get-PipelineTrigger' -Tag 'L0', 'logic' {
     It 'extracts ADO trigger and pr include/exclude path filters' {
         $script:yaml = @'

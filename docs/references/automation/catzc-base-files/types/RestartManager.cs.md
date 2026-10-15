@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-files/types/RestartManager.cs.md
     kind: comment-page
     body_sha: "7a90c4191a33"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Files/types/RestartManager.cs

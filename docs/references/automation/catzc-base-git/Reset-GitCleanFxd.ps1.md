@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-OUTDIR#10
-    links: []
 ---
 
 # automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1
@@ -47,6 +46,24 @@ Uses -DryRun, not ShouldProcess/-WhatIf — see
 ```
 
 ## comment:3
+
+Above `$listing = Invoke-Executable 'git clean -xdn' -PassThru -Silent`.
+
+```text
+git's own dry run is the source of the candidates: exactly what `git clean -fxd` would remove, no
+re-implementation of ignore semantics.
+```
+
+## comment:4
+
+Above `function Reset-GitCleanFxd {`.
+
+```text
+Uses -DryRun, not ShouldProcess/-WhatIf — see
+[ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2).
+```
+
+## comment:5
 
 Above `$listing = Invoke-Executable 'git clean -xdn' -PassThru -Silent`.
 

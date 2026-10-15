@@ -6,7 +6,6 @@ catzc:
     body_sha: aa57d63fbba2
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/types/GoWorkspaceFile.cs

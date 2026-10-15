@@ -9,7 +9,6 @@ catzc:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-COMMENTS#1
       - ADR-REPO-COMMENTS#5
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentFormatter.cs

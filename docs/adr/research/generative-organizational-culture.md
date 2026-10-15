@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-CULTURE#3
       - ADR-DORA-CULTURE#4
       - ADR-DORA-CULTURE#5
-    adrs: []
     links:
       - docs/adr/process/build-quality-in.md
       - docs/adr/process/holding-the-line.md

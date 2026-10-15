@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-PWSH-FORMAT#6
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1
@@ -65,6 +64,42 @@ bare literal anywhere outside an integrity block.
 ```
 
 ## comment:5
+
+Above `$identityParameters = 'Environment', 'Env', 'Shortcode'`.
+
+```text
+Position pass — an ambiguous identity (an environment name or shortcode, like 'test'/'dev') is flagged
+ONLY when bound to an identity parameter (-Environment / -Env / -Shortcode), never as a prose literal.
+```
+
+## comment:6
+
+Above `$isCommandNode = {`.
+
+```text
+Predicates bound to locals (never inlined in a .FindAll(...) call) —
+[ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6).
+```
+
+## comment:7
+
+Above `$hasLogic = $false`.
+
+```text
+Walk the Pester block commands once: note whether the file carries a `logic` tag anywhere, and collect
+the script-block offset range of every `integrity`-tagged block (its literals are carved out of the scan).
+```
+
+## comment:8
+
+Above `$literals = $ast.FindAll($isStringLiteral, $true)`.
+
+```text
+Exact pass — a distinctive identity (customer / subscription / org / template / project) flagged as a
+bare literal anywhere outside an integrity block.
+```
+
+## comment:9
 
 Above `$identityParameters = 'Environment', 'Env', 'Shortcode'`.
 

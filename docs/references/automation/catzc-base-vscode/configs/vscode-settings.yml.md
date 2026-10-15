@@ -10,7 +10,6 @@ catzc:
       - ADR-REPO-FORMAT#8
       - ADR-REPO-LINK#2
       - ADR-REPO-LINK#3
-    links: []
 ---
 
 # automation/Catzc.Base.VSCode/configs/vscode-settings.yml

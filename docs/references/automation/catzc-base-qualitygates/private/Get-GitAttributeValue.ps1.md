@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-GitAttributeValue.ps1.md
     kind: comment-page
     body_sha: bcac126f1473
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-GitAttributeValue.ps1

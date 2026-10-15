@@ -8,30 +8,36 @@ catzc:
     visibility: public
     adrs:
       - ADR-AZ-DATAMOD
+  config:
+    synopsis: Loads a template's per-slot config and returns the ordered dictionary.
+    description: |-
+      Returns the parsed yml as an ordered dictionary — typically just a `ParametersFile` (the
+      template's ARM parameters, written statically). No merge with global config happens here;
+      PrePost's Invoke-BicepPrepareParameterSet is the merge seam. The resource-group name is not
+      read from this file — it is derived by Get-BicepResourceGroupName.
+
+      The config address is literal ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)): a configuration-root file
+      `configuration/<env>[-<slot>].yml` (the shared-platform deployment), or a customer's file
+      `configuration/<customer>/<env>[-<slot>].yml` when -Customer is given. No resolution machinery —
+      the coordinate IS the file.
+    parameters:
+      Template: Template name (folder under infrastructure/templates/).
+      Environment: Environment shortname. Must be configured for the template.
+      Slot: |-
+        Optional special-slot discriminator — 1-3 lowercase alphanumeric chars (`001`, `blu`, …). Selects
+        `<env>-<slot>.yml`; omitted selects the env's base slot `<env>.yml`. The selected config must exist.
+      Customer: |-
+        Optional customer key (a configuration subfolder). Selects the config under
+        `configuration/<customer>/`; omitted selects the configuration-root (shared-platform) config.
+    examples:
+      - '$configuration = Get-BicepTemplateConfiguration sample dev'
+      - '$configuration = Get-BicepTemplateConfiguration sample dev -Customer apex'
+      - |-
+        $configuration = Get-BicepTemplateConfiguration indexed-template prod -Slot 001
+        $configuration.ParametersFile.parameters.storageAccountName.value
 ---
 #>
 
-<#
-.SYNOPSIS
-    Loads a template's per-slot config and returns the ordered dictionary.
-.DESCRIPTION
-    No merge with global config happens here; the PrePost prepare hook is the merge seam.
-.PARAMETER Template
-    Template name (folder under infrastructure/templates/).
-.PARAMETER Environment
-    Environment shortname. Must be configured for the template.
-.PARAMETER Slot
-    Omitted selects the env's base slot file; the selected config must exist or the call throws.
-.PARAMETER Customer
-    Omitted selects the shared-platform config at the configuration root, never a customer's.
-.EXAMPLE
-    $configuration = Get-BicepTemplateConfiguration sample dev
-.EXAMPLE
-    $configuration = Get-BicepTemplateConfiguration sample dev -Customer apex
-.EXAMPLE
-    $configuration = Get-BicepTemplateConfiguration indexed-template prod -Slot 001
-    $configuration.ParametersFile.parameters.storageAccountName.value
-#>
 function Get-BicepTemplateConfiguration {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -64,8 +70,8 @@ function Get-BicepTemplateConfiguration {
         throw "Invalid -Slot '$Slot' — must be 1-3 lowercase alphanumeric chars (e.g. 001)."
     }
 
-    # The coordinate is the file address, so no resolution machinery sits between a slot and its file.
-    # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment4)
+    # One config file per (customer?, env, slot): the coordinate is the file address — root for the shared platform,...
+    # [comment:5](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment5)
     $configName = Get-BicepConfigName $Environment $Slot
     $folder = if ([string]::IsNullOrEmpty($Customer)) {
         $templateDescriptor.configuration_folder

@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-PLATFORM#3
       - ADR-DORA-PLATFORM#4
       - ADR-DORA-PLATFORM#5
-    adrs: []
     links:
       - docs/adr/design/self-service.md
       - docs/adr/design/thin-platforms.md

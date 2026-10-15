@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-PATH#5
       - ADR-REPO-INSPIRE#1
-    links: []
 ---
 
 # automation/Catzc.Tooling.Inspiration/types/Inspiration.cs

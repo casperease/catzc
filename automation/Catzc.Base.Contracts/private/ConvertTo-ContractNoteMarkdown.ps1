@@ -9,23 +9,26 @@ catzc:
     adrs:
       - ADR-REPO-LINK#2
       - ADR-REPO-LINK#3
+  config:
+    synopsis: Turns a contract asset's note into the markdown text of its list item on a generated page.
+    description: |-
+      A note is written as a comment (Get-ContractAssetNote), where an ADR citation is a repository-rooted code link
+      ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)). On the generated page it is markdown,
+      so each part is rewritten to its markdown form:
+      - a link whose destination starts with '/' becomes relative to the page's folder, its #fragment kept
+        ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2));
+      - a bare https:// or http:// address becomes an autolink, <address>, so it renders as a link and is not a bare URL;
+      - a '<' that opens no autolink is escaped, so it is never read as inline HTML.
+      Code spans keep their text; every other link and autolink is left as written.
+    parameters:
+      Note: The note, one line.
+      PageFolder: The repository-relative folder of the page the note is written to, '/'-separated.
+    outputs: '[string] The note as markdown.'
+    examples:
+      - ConvertTo-ContractNoteMarkdown -Note $note -PageFolder 'docs/references/contracts'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Turns a contract asset's note into the markdown text of its list item on a generated page.
-.DESCRIPTION
-    A note is a comment where a citation is a repository-rooted link, so on a page each link becomes page-relative.
-.PARAMETER Note
-    The note, one line.
-.PARAMETER PageFolder
-    The repository-relative folder of the page the note is written to, '/'-separated.
-.OUTPUTS
-    [string] The note as markdown.
-.EXAMPLE
-    ConvertTo-ContractNoteMarkdown -Note $note -PageFolder 'docs/references/contracts'
-#>
 function ConvertTo-ContractNoteMarkdown {
     [CmdletBinding()]
     [OutputType([string])]

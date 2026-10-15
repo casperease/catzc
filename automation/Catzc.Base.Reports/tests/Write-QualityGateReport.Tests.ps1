@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
 ---
 #>
 
-# Write-QualityGateReport is every quality gate's output. The settings come from the real ReportsConfig type over a
-# mocked reports config, and the report goes to $TestDrive, so each test pins one part of the uniform shape
-# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). Neutral fixture subjects
-# (widget/gadget, [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Write-QualityGateReport is every quality gate's output.
+# [comment:1](/docs/references/automation/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md#comment1)
 Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.Reports -ParameterFilter { $Config -eq 'reports' } -MockWith {

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
     kind: comment-page
     body_sha: ba211f8a5ae9
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
@@ -23,4 +21,13 @@ A bundle is a small engine carried to other environments, so how big it is is a 
 max_bytes in exporter.yml (ExporterBundle); a limit the bundle does not state is not checked. Every exceeded
 limit is reported in one throw, with the build's top-level folders by size, so the message says where the
 weight is.
+```
+
+## comment:2
+
+Above `foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @()...`.
+
+```text
+A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
+footprint counts every shipped byte, so nothing is pruned.
 ```

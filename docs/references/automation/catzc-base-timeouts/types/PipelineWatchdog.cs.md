@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
     kind: comment-page
     body_sha: "3e0b880639d1"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md
     kind: comment-page
     body_sha: d857c2ce460a
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
@@ -41,6 +39,15 @@ Defaults to the Azure DevOps resource ID (499b84ac-1321-427f-aa17-267ca6975798).
 ```
 
 ## comment:3
+
+Above `Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant`.
+
+```text
+Prove the az session is in the Entra directory that backs the org before minting a token.
+(tenant is a required, validated key — the AdoConfig type guarantees it on load.)
+```
+
+## comment:4
 
 Above `Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant`.
 

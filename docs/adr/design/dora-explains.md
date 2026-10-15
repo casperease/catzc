@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/design/dora-explains.md
     kind: adr
     body_sha: af0afde9a632
-    defines: []
-    adrs: []
     links:
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/module-aspects.md

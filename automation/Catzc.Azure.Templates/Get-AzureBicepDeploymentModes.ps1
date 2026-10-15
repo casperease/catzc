@@ -6,18 +6,17 @@ catzc:
     kind: public-function
     module: Catzc.Azure.Templates
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the supported bicep deployment modes.
+    description: |-
+      'Incremental' (default) — additive update; existing resources outside the template are preserved.
+      'Complete'              — destructive sync; resources in the target scope but not in the template are deleted.
+      'DoNotRun'              — pseudo-mode meaning the template is intentionally skipped (gate-checked by callers).
+    examples:
+      - Get-AzureBicepDeploymentModes
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the supported bicep deployment modes.
-.DESCRIPTION
-    Complete deletes resources in the target scope that the template omits; Incremental never does.
-.EXAMPLE
-    Get-AzureBicepDeploymentModes
-#>
 function Get-AzureBicepDeploymentModes {
     param()
     @('Incremental', 'Complete', 'DoNotRun')

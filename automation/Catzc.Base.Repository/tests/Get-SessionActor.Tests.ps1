@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/tests/Get-SessionActor.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TYPES#13
 ---
 #>
 

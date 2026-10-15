@@ -8,26 +8,23 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-FILEMETA#5
+  config:
+    synopsis: Computes the meta block of every in-scope file — the one place Format-FileMeta and Test-FileMeta share.
+    description: |-
+      Each file's `derived` part is rebuilt from the imprint kinds of the registry, and its authored `config` part is kept as written.
+      A file whose block holds a key no kind owns is reported as Unowned and left unchanged, since writing it would drop the author's key
+      ([ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)).
+    parameters:
+      RepositoryRoot: The repository root paths are relative to.
+      Path: Optional files or folders to limit the scope to.
+      Config: 'The meta-kind registry. Default: the shipped one.'
+      Entry: The files to check, each { Path; Carrier }, instead of the scope git and the registries give.
+    outputs: |-
+      [pscustomobject] @{ FileCount; Files } — Files holds every file with a finding: @{ Path; Findings; Fixed }, each
+      finding @{ Path; Line; Kind; Actual; Expected }.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Computes the meta block of every in-scope file — the one place Format-FileMeta and Test-FileMeta share.
-.DESCRIPTION
-    An unowned key is reported and the file left alone, since writing would drop the author's key.
-.PARAMETER RepositoryRoot
-    The repository root paths are relative to.
-.PARAMETER Path
-    Optional files or folders to limit the scope to.
-.PARAMETER Config
-    The meta-kind registry. Default: the shipped one.
-.PARAMETER Entry
-    The files to check, each { Path; Carrier }, instead of the scope git and the registries give.
-.OUTPUTS
-    [pscustomobject] @{ FileCount; Files } — Files holds every file with a finding: @{ Path; Findings; Fixed }, each
-    finding @{ Path; Line; Kind; Actual; Expected }.
-#>
 function Invoke-FileMetaEngine {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

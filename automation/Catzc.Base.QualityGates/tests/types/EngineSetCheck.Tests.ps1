@@ -4,13 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-ENGINE#1
+      - ADR-AUTO-TEST#3
+      - ADR-PRIN-CONFIG#4
 ---
 #>
 
-# EngineSetCheck maps the engine-set check's settings and matches its phrases against the engine names it is given —
-# widget, gadget and sprocket stand in for the model's engines
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) — so no engine name or count is a
-# literal of the check ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)).
+# EngineSetCheck maps the engine-set check's settings and matches its phrases against the engine names it is given —...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/EngineSetCheck.Tests.ps1.md#comment1)
 Describe 'EngineSetCheck' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:names = [string[]] @('widget', 'gadget', 'sprocket')

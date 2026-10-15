@@ -6,24 +6,28 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Python
     visibility: public
-    adrs: []
+  config:
+    synopsis: Provisions Python via uv.
+    description: |-
+      Installs a uv-managed CPython (`uv python install <version> --default`) — user-space, cross-platform, with
+      a global python/python3 shim in uv's bin (~/.local/bin). Requires uv. Idempotent — skips if the correct
+      version is already on PATH.
+
+      NOT for CI pipelines. In Azure DevOps, use the native UsePythonVersion task which activates pre-cached
+      versions instantly:
+
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '3.11'
+    parameters:
+      Version: Python version to install. Defaults to the locked version in Get-ToolConfig.
+      Force: Reinstall even when a build is already present (uv --reinstall).
+    examples:
+      - Install-Python
+      - Install-Python -Version '3.12'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Provisions Python via uv.
-.DESCRIPTION
-    Developer workstations only: in CI pipelines the native UsePythonVersion task activates cached versions instead.
-.PARAMETER Version
-    Python version to install. Defaults to the locked version in Get-ToolConfig.
-.PARAMETER Force
-    Reinstall even when a build is already present (uv --reinstall).
-.EXAMPLE
-    Install-Python
-.EXAMPLE
-    Install-Python -Version '3.12'
-#>
 function Install-Python {
     [CmdletBinding()]
     param(
@@ -47,8 +51,8 @@ function Install-Python {
         }
     }
 
-    # --default is still a uv preview feature: without the opt-in flag uv warns, and WarningPreference=Stop would halt.
-    # [comment:2](/docs/references/automation/catzc-tooling-python/Install-Python.ps1.md#comment2)
+    # uv resolves the newest matching CPython, installs it, and (--default) writes the global python/python3 shims...
+    # [comment:3](/docs/references/automation/catzc-tooling-python/Install-Python.ps1.md#comment3)
     $reinstall = if ($Force) {
         ' --reinstall'
     }

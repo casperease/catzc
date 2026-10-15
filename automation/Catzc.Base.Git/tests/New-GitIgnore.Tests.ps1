@@ -4,15 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-PESTER#2
 ---
 #>
 
 Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the config seam
-        # ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)): a small
-        # fixture registry with one static section (a
-        # noted and a bare pattern) and one injected section.
+        # Isolate through the config seam: a small fixture registry with one static section (a noted and a bare...
+        # [comment:1](/docs/references/automation/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md#comment1)
         Mock Get-Config -ModuleName Catzc.Base.Git {
             [pscustomobject]@{
                 sections = @(

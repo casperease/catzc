@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-VISUAL#3
       - ADR-DORA-VISUAL#4
       - ADR-DORA-VISUAL#5
-    adrs: []
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/design/visual-design.md

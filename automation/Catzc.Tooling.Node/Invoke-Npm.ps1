@@ -6,30 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Node
     visibility: public
-    adrs: []
+  config:
+    synopsis: Runs npm with the given arguments.
+    description: |-
+      Asserts that the installed npm version matches the locked version
+      in Get-ToolConfig before executing the command.
+    parameters:
+      Arguments: Arguments to pass to npm.
+      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
+      NoAssert: Skip exit code assertion.
+      Silent: Suppress the command log line.
+      DryRun: Return the command string without executing.
+    examples:
+      - Invoke-Npm 'install'
+      - Invoke-Npm 'run build' -PassThru
 ---
 #>
 
-<#
-.SYNOPSIS
-    Runs npm with the given arguments.
-.DESCRIPTION
-    The version check runs before every call except a dry run, so an npm at the wrong version never executes.
-.PARAMETER Arguments
-    Arguments to pass to npm.
-.PARAMETER PassThru
-    Return a CliResult object with Output, Errors, Full, and ExitCode.
-.PARAMETER NoAssert
-    Skip exit code assertion.
-.PARAMETER Silent
-    Suppress the command log line.
-.PARAMETER DryRun
-    Return the command string without executing.
-.EXAMPLE
-    Invoke-Npm 'install'
-.EXAMPLE
-    Invoke-Npm 'run build' -PassThru
-#>
 function Invoke-Npm {
     [CmdletBinding()]
     param(

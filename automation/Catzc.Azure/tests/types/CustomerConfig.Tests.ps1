@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AZ-CUSTOMER#2
 ---
 #>
 

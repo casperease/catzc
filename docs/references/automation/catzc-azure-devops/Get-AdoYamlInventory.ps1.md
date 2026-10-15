@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md
     kind: comment-page
     body_sha: d4edacbd3f06
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/Get-AdoYamlInventory.ps1
@@ -38,6 +36,18 @@ Defaults to @('.git', 'node_modules', '.terraform').
 ```
 
 ## comment:3
+
+Above `$pathPrefix = ''`.
+
+```text
+ADO YamlPaths are relative to the repo root, but RelativePaths are
+relative to the scan root. When scanning a subdirectory (e.g.,
+-Path ..\infra\azure-pipelines), there is a prefix mismatch.
+Detect it from the data: find a local file whose RelativePath is a
+suffix of an ADO YamlPath and extract the prefix.
+```
+
+## comment:4
 
 Above `$pathPrefix = ''`.
 

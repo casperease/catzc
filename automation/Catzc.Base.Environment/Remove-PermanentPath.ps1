@@ -8,25 +8,29 @@ catzc:
     visibility: public
     adrs:
       - ADR-PWSH-DRYRUN#1
+  config:
+    synopsis: Removes a directory from PATH persistently and in the current session.
+    description: |-
+      Cross-platform PATH removal:
+      - Windows: removes from the User-scope registry PATH.
+      - Linux/macOS: removes the marked block from the PowerShell profile.
+      - Always: removes from $env:PATH for the current session.
+
+      Idempotent — no error if the path is not present.
+    parameters:
+      Path: The directory to remove.
+      Label: |-
+        Identity marker for Unix profile blocks. Must match the label used
+        when Add-PermanentPath was called. Defaults to the leaf folder name.
+      Sync: |-
+        After removing, call Sync-SessionPath to refresh the session PATH
+        from the registry (Windows only).
+    examples:
+      - Remove-PermanentPath '/usr/local/go/bin'
+      - Remove-PermanentPath $installDir -Label 'Install-Dotnet'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Removes a directory from PATH persistently and in the current session.
-.DESCRIPTION
-    Removes from the User registry PATH on Windows and the marked profile block on Unix; an absent path is no error.
-.PARAMETER Path
-    The directory to remove.
-.PARAMETER Label
-    Must equal the Label Add-PermanentPath was given, or no block matches and nothing is removed.
-.PARAMETER Sync
-    Rebuilds the session PATH from the registry, so entries other tools changed are picked up too; Windows only.
-.EXAMPLE
-    Remove-PermanentPath '/usr/local/go/bin'
-.EXAMPLE
-    Remove-PermanentPath $installDir -Label 'Install-Dotnet'
-#>
 function Remove-PermanentPath {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Does not use ShouldProcess by design — see ADR-PWSH-DRYRUN#1')]
     [CmdletBinding()]
@@ -60,8 +64,8 @@ function Remove-PermanentPath {
         Write-Message "Session PATH: removed '$Path'"
     }
 
-    # The registry goes through Get-/Set-EnvironmentPath so tests mock them and never touch the real machine PATH.
-    # [comment:4](/docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md#comment4)
+    # --- Persistent PATH --- Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests...
+    # [comment:5](/docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md#comment5)
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         if ($userPath) {

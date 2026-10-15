@@ -11,26 +11,35 @@ catzc:
       - ADR-FLOW-CD-GLOBS#10
       - ADR-FLOW-CD-GLOBS#7
       - ADR-REPO-PROTGLOB#7
+  config:
+    synopsis: |-
+      Quality gate: checks per-layer independence — no two same-layer
+      globsets select a common file on their OWN contribution.
+    description: |-
+      Within a layer, no two globsets may match a common file on their OWN membership (GlobSet.OwnMatches —
+      the set's own include/exclude program, compose IGNORED). Two that do "contain parts of each other" and
+      are not independent. The check is per layer, never across layers: a deployable-unit deliberately
+      contains the base it composes, so cross-layer overlap is expected and correct. The 'loose-fileset' layer
+      is EXEMPT — its sets are cross-cutting check surfaces (a track's root concern, a scan scope, the
+      reserved umbrellas) and overlap by design
+      ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)).
+
+      Evaluates the declared registry (Get-GlobSet) AND the derived module sets (Get-ModuleGlobSet,
+      [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)) against the tracked-file
+      universe, collects one issue per violating pair ('<layer>: <A> <-> <B> share N file(s), e.g. ...'), and ends
+      with Write-QualityGateReport ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
+      the report lands in out/test-globset-independence/, and the gate throws once listing every pair (or returns
+      the result with -PassThru).
+    parameters:
+      OutputFolder: The report base folder. Defaults to Write-QualityGateReport's (out/test-globset-independence).
+      PassThru: Return the gate result { Subject; IssueCount; Issues; ReportPath; GlobSets; Files } instead of throwing.
+    outputs: '[pscustomobject] With -PassThru only.'
+    examples:
+      - Test-GlobSetIndependence
+      - (Test-GlobSetIndependence -PassThru).Issues
 ---
 #>
 
-<#
-.SYNOPSIS
-    Quality gate: checks per-layer independence — no two same-layer
-    globsets select a common file on their OWN contribution.
-.DESCRIPTION
-    Layers are checked one by one, never across: a unit contains the base it composes, so that overlap is expected.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to Write-QualityGateReport's (out/test-globset-independence).
-.PARAMETER PassThru
-    Return the gate result { Subject; IssueCount; Issues; ReportPath; GlobSets; Files } instead of throwing.
-.OUTPUTS
-    [pscustomobject] With -PassThru only.
-.EXAMPLE
-    Test-GlobSetIndependence
-.EXAMPLE
-    (Test-GlobSetIndependence -PassThru).Issues
-#>
 function Test-GlobSetIndependence {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -40,15 +49,15 @@ function Test-GlobSetIndependence {
         [switch] $PassThru
     )
 
-    # Loose-filesets cut across other boundaries and overlap by design, so only they are exempt.
-    # [comment:2](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment2)
+    # loose-filesets are cross-cutting and overlap-exempt (/10); every other layer is checked.
+    # [comment:4](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment4)
     $exemptLayer = 'loose-fileset'
 
     $sets = @(Get-GlobSet) + @(Get-ModuleGlobSet)
     $tracked = [string[]] @(Get-TrackedFile)
 
-    # Compose is ignored here: a set that selects its base's files is a deliberate overlap, not a peer one.
-    # [comment:3](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment3)
+    # OWN members per set (compose ignored, ), computed once as a set for O(1) intersection.
+    # [comment:5](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment5)
     $own = @{}
     foreach ($set in $sets) {
         $own[$set.Name] = [System.Collections.Generic.HashSet[string]]::new(

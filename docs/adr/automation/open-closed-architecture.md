@@ -9,7 +9,6 @@ catzc:
       - ADR-AUTO-EXTEND#3
       - ADR-AUTO-EXTEND#4
       - ADR-AUTO-EXTEND#5
-    adrs: []
     links:
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/design/tracks.md

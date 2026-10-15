@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-PWSH-PESTER#2
       - ADR-REPO-OUTDIR#2
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/Get-WorldMapOutputRoot.ps1

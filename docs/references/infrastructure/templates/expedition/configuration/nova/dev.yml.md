@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/templates/expedition/configuration/nova/dev.yml.md
     kind: comment-page
     body_sha: "94290169c2cf"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/templates/expedition/configuration/nova/dev.yml

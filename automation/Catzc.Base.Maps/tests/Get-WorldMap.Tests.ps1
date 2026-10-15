@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-DSGN-TRACK#3
 ---
 #>
 
@@ -80,8 +82,8 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
     }
 }
 
-# The real repository: every tracked file of the git index gets a cell, and no live file breaks its track's
-# tech-stack ([ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3)).
+# The real repository: every tracked file of the git index gets a cell, and no live file breaks its track's tech-stack.
+# [comment:1](/docs/references/automation/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md#comment1)
 Describe 'Get-WorldMap — the real repository' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:map = Get-WorldMap

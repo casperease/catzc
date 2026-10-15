@@ -11,9 +11,8 @@ catzc:
 param()
 
 Describe 'Write-InformationColored' -Tag 'L0', 'logic' {
-    # Write-InformationColored is a PRIVATE writer (the module's information-stream chokepoint), so it is
-    # reached through InModuleScope rather than as an exported command.
-    # The chokepoint guard returns early during a run ($global:__PesterRunning); lift it so output can be asserted.
+    # Write-InformationColored is a PRIVATE writer (the module's information-stream chokepoint), so it is reached...
+    # [comment:1](/docs/references/automation/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md#comment1)
     BeforeAll { $global:__PesterRunning = $false }
     AfterAll { $global:__PesterRunning = $true }
 

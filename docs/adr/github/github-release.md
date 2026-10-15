@@ -10,7 +10,6 @@ catzc:
       - ADR-GH-RELEASE#3
       - ADR-GH-RELEASE#4
       - ADR-GH-RELEASE#5
-    adrs: []
     links:
       - docs/adr/automation/platform-bundle.md
       - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7

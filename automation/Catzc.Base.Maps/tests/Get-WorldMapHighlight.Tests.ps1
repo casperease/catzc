@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-DSGN-TRACK#12
+      - ADR-FLOW-CD
 ---
 #>
 

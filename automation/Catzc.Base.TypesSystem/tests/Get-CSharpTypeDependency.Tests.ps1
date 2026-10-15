@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-PESTER#9
 ---
 #>
 
@@ -12,9 +14,8 @@ Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 
-        # Writes <root>/<module>/types/<type>.cs for each entry. Module names double as namespaces.
-        # [System.IO] rather than New-Item/Set-Content — ~0.1ms vs ~20ms/call
-        # ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)).
+        # Writes <root>/<module>/types/<type>.cs for each entry.
+        # [comment:1](/docs/references/automation/catzc-base-typessystem/tests/Get-CSharpTypeDependency.Tests.ps1.md#comment1)
         function New-TypeModule {
             param([string] $Module, [hashtable] $Files)
             $td = Join-Path $root "$Module/types"

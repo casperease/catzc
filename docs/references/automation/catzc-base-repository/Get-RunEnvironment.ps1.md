@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-repository/Get-RunEnvironment.ps1.md
     kind: comment-page
     body_sha: abafd0ab39f1
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Repository/Get-RunEnvironment.ps1

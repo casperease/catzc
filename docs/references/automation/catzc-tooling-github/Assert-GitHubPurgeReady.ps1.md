@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-github/Assert-GitHubPurgeReady.ps1.md
     kind: comment-page
     body_sha: "49c29f7ead61"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Github/Assert-GitHubPurgeReady.ps1

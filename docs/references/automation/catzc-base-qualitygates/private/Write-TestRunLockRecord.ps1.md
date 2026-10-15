@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestRunLockRecord.ps1.md
     kind: comment-page
     body_sha: "2618a444c682"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestRunLockRecord.ps1

@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-ASSETDEP#4
       - ADR-AUTO-BUNDLE#5
       - ADR-PWSH-MANIFEST#5
-    links: []
 ---
 
 # automation/.internal/Catzc.Internal.Builder.psm1

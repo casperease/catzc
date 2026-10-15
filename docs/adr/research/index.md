@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/research/index.md
     kind: adr
     body_sha: "4479ff9ca781"
-    defines: []
-    adrs: []
     links:
       - docs/adr/index.md
       - docs/adr/research/ai-accessible-internal-data.md

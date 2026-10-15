@@ -4,11 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-ClaudeMdAgentNames.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-AGENTS#3
 ---
 #>
 
-# Get-ClaudeMdAgentNames over fixture CLAUDE.md files in $TestDrive. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-ClaudeMdAgentNames over fixture CLAUDE.md files in $TestDrive.
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-ClaudeMdAgentNames.Tests.ps1.md#comment1)
 Describe 'Get-ClaudeMdAgentNames' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#3' {
     BeforeAll {
         function Write-ClaudeMdFixture {

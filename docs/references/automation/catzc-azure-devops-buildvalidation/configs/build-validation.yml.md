@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AZ-CUSTOMER#3
       - ADR-FLOW-CD-TYPE#4
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml

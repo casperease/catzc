@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-asserts/Assert-YmlNaming.ps1.md
     kind: comment-page
     body_sha: f9a2d866b867
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Asserts/Assert-YmlNaming.ps1

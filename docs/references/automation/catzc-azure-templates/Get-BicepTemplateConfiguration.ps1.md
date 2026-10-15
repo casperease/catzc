@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
     kind: comment-page
     body_sha: cc30d213f793
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
@@ -48,6 +46,15 @@ Optional customer key (a configuration subfolder). Selects the config under
 ```
 
 ## comment:4
+
+Above `$configName = Get-BicepConfigName $Environment $Slot`.
+
+```text
+One config file per (customer?, env, slot): the coordinate is the file address — root for the
+shared platform, configuration/<customer>/ for a customer deployment.
+```
+
+## comment:5
 
 Above `$configName = Get-BicepConfigName $Environment $Slot`.
 

@@ -6,16 +6,13 @@ catzc:
     kind: public-function
     module: Catzc.Base.Writers
     visibility: public
-    adrs: []
+  config:
+    synopsis: Writes the current call stack in red for debugging.
+    examples:
+      - Write-CallStack
 ---
 #>
 
-<#
-.SYNOPSIS
-    Writes the current call stack in red for debugging.
-.EXAMPLE
-    Write-CallStack
-#>
 function Write-CallStack {
     [CmdletBinding()]
     param()

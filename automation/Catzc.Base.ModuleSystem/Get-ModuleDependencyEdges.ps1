@@ -6,22 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Base.ModuleSystem
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the module dependency graph as typed ModuleDependencyEdge objects.
+    description: |-
+      By default returns the ACTUAL cross-module call edges derived from the code (via Get-ModuleDependency)
+      — each carrying its call count and the calling functions. With -Declared, returns the ALLOWED edges
+      from configs/dependencies.yml instead: each module's permitted dependencies (a target may be a GROUP
+      name), plus each group's internal member->member layering.
+
+      Pipe the result to ConvertTo-ModuleDependencyDiagram to render JSON / YAML / Markdown / PlantUML.
+    parameters:
+      Declared: Return the declared (allowed) graph from dependencies.yml instead of the actual code-derived graph.
+    examples:
+      - Get-ModuleDependencyEdges
+      - Get-ModuleDependencyEdges -Declared | ConvertTo-ModuleDependencyDiagram -As Puml
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the module dependency graph as typed ModuleDependencyEdge objects.
-.DESCRIPTION
-    A declared edge's target may be a group name, not only a module, so one edge can allow several modules.
-.PARAMETER Declared
-    Return the declared (allowed) graph from dependencies.yml instead of the actual code-derived graph.
-.EXAMPLE
-    Get-ModuleDependencyEdges
-.EXAMPLE
-    Get-ModuleDependencyEdges -Declared | ConvertTo-ModuleDependencyDiagram -As Puml
-#>
 function Get-ModuleDependencyEdges {
     [OutputType([Catzc.Base.ModuleSystem.ModuleDependencyEdge[]])]
     param(

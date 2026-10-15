@@ -81,8 +81,8 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
 
     Context 'background calls' {
         BeforeDiscovery {
-            # The command grammar's cases live in the per-engine fixture table, one source for BoundedCommand and this
-            # hook; here each bash case checks the denial the hook words for its verdict.
+            # The command grammar's cases live in the per-engine fixture table, one source for BoundedCommand and...
+            # [comment:1](/docs/references/automation/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md#comment1)
             $script:bashCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/bounded-command.yml') -Engine bash -Applicable)
         }
 

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/Test-ManagedGuid.ps1.md
     kind: comment-page
     body_sha: "0d8b92275242"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-ManagedGuid.ps1

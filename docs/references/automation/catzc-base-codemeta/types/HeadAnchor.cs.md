@@ -6,7 +6,6 @@ catzc:
     body_sha: c54057bf260a
     adrs:
       - ADR-REPO-CODEMETA#1
-    links: []
 ---
 
 # automation/Catzc.Base.CodeMeta/types/HeadAnchor.cs

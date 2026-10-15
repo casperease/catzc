@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-REPO-CONTRACT#6
       - ADR-REPO-ROOTCFG#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1

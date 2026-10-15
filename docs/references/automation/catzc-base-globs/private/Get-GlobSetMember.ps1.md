@@ -6,7 +6,6 @@ catzc:
     body_sha: "3ef796704255"
     adrs:
       - ADR-FLOW-CD-GLOBS#4
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1

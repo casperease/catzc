@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-node/Install-Prettier.ps1.md
     kind: comment-page
     body_sha: "225547ed15a9"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Node/Install-Prettier.ps1

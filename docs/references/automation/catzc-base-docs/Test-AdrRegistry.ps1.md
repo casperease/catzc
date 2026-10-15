@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PRIN-CONFIG#1
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/Test-AdrRegistry.ps1
@@ -64,6 +63,15 @@ DoraCoverage list each check's findings in either mode.
 ```
 
 ## comment:4
+
+Above `$configured = @(`.
+
+```text
+The configured checks: one mode setting each, the same handling for both
+([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+```
+
+## comment:5
 
 Above `$configured = @(`.
 

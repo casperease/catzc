@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-BodyShaFileMetaFact.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-FILEMETA#3
 ---
 #>
 

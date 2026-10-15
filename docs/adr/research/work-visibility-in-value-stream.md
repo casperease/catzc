@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-WORKVIS#3
       - ADR-DORA-WORKVIS#4
       - ADR-DORA-WORKVIS#5
-    adrs: []
     links:
       - docs/adr/design/visual-design.md
       - docs/adr/process/observe-work.md

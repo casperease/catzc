@@ -6,7 +6,6 @@ catzc:
     body_sha: "263e205f881c"
     adrs:
       - ADR-AZ-NAMING#8
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepResourceName.ps1
@@ -68,6 +67,36 @@ slot are separate segments. We pass both forms + the slot and let it choose.
 ```
 
 ## comment:5
+
+Above `$resolvedCustomer = Get-AzureCustomer $Customer`.
+
+```text
+Resolve the customer (given by key OR 2-char shortcode) to its canonical key + shortcode from
+customer.yml: the readable key renders in generous patterns, the 2-char shortcode in the
+restricted ones (the namer picks per type). Get-AzureCustomer throws on an unknown token.
+```
+
+## comment:6
+
+Above `$envEntry = $azure.environments[$Environment]`.
+
+```text
+Naming needs only the environment's IDENTITY (shortcode/region_code), never a subscription — so it
+reads azure.yml directly and is independent of subscription group/customer. The subscription group
+is a resolution axis only and is never a name component
+([ADR-AZ-NAMING#8](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming8)).
+```
+
+## comment:7
+
+Above `$nameArgs = @{`.
+
+```text
+The namer picks the env form by pattern (name for generous, shortcode for restricted); env and
+slot are separate segments. We pass both forms + the slot and let it choose.
+```
+
+## comment:8
 
 Above `$resolvedCustomer = Get-AzureCustomer $Customer`.
 

@@ -9,26 +9,32 @@ catzc:
     adrs:
       - ADR-FLOW-CD-GLOBS#1
       - ADR-REPO-PROTGLOB
+  config:
+    synopsis: Answers "which areas-of-control do these changes touch?" — one row per matched globset.
+    description: |-
+      The blast-radius query (the third marker role,
+      [ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)): maps changed files onto every
+      globset
+      whose effective membership matches at least one of them — the declared registry (tracks,
+      deployable-units, scopes; compose-aware) AND the derived module sets
+      ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)), so the answer
+      covers both "which pipelines/units this fires" (Pipeline) and "which tests verify it" (the derived
+      module rows name the modules for Test-Automation -Modules; a declared row's VerifyModules/VerifyLevel
+      carry its configured verify scope — its test suite, run by name with Test-Automation -Suite).
+    parameters:
+      ChangedFile: The changed files, repo-relative and '/'-separated (backslashes are normalized).
+      Ref: |-
+        A git ref to diff the working tree against (`git diff --name-only <ref>`) instead of naming files —
+        e.g. 'main' answers "what does my branch touch".
+    outputs: |-
+      [pscustomobject] per matched set: Name, Layer, Pipeline, VerifyModules, VerifyLevel — declared sets
+      first (registry order), then the derived module sets, each set at most once.
+    examples:
+      - Get-MarkerBlastRadius -ChangedFile 'infrastructure/modules/vnet.bicep'
+      - Get-MarkerBlastRadius -Ref main
 ---
 #>
 
-<#
-.SYNOPSIS
-    Answers "which areas-of-control do these changes touch?" — one row per matched globset.
-.DESCRIPTION
-    Derived module rows name the modules to test; a declared row carries its configured verify scope instead.
-.PARAMETER ChangedFile
-    The changed files, repo-relative and '/'-separated (backslashes are normalized).
-.PARAMETER Ref
-    The ref is diffed against the working tree, so uncommitted edits count: main answers what my branch touches.
-.OUTPUTS
-    [pscustomobject] per matched set: Name, Layer, Pipeline, VerifyModules, VerifyLevel — declared sets
-    first (registry order), then the derived module sets, each set at most once.
-.EXAMPLE
-    Get-MarkerBlastRadius -ChangedFile 'infrastructure/modules/vnet.bicep'
-.EXAMPLE
-    Get-MarkerBlastRadius -Ref main
-#>
 function Get-MarkerBlastRadius {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -49,8 +55,8 @@ function Get-MarkerBlastRadius {
         return
     }
 
-    # Declared sets come first so a caller reads registry order, and a module row looks the same as a declared row.
-    # [comment:3](/docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md#comment3)
+    # Declared sets first (registry order), then the derived module sets — the same one-answer-per-set shape either way.
+    # [comment:4](/docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md#comment4)
     foreach ($set in @(Get-GlobSet) + @(Get-ModuleGlobSet)) {
         foreach ($file in $files) {
             if ($set.Matches($file)) {

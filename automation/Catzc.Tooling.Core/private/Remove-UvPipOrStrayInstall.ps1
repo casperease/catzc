@@ -8,22 +8,25 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-REMOVE#6
+  config:
+    synopsis: |-
+      Shared tail of the Unix off-config removers: evict a uv-managed-Python pip package, else delete a stray
+      on-PATH binary. Both steps are user-space.
+    description: |-
+      Called by Remove-LinuxToolInstall and Remove-MacToolInstall after each has tried its native package
+      manager (apt on Linux, brew on macOS). Neither step here needs elevation
+      ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)): the pip removal is
+      the uv-scoped 'uv pip uninstall --system' (never a foreign system pip), and the stray delete removes only
+      the resolved binary. Private to Catzc.Tooling.Core.
+    parameters:
+      Config: The tool's parsed tools.yml entry (from Get-ToolConfig).
+      Source: |-
+        The resolved path of the tool's on-PATH binary (from Get-Command) — the caller resolves it once and passes
+        it in.
+    outputs: '[bool] — $true when an off-config install was removed, $false when there was nothing to remove.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Shared tail of the Unix off-config removers: evict a uv-managed-Python pip package, else delete a stray
-    on-PATH binary. Both steps are user-space.
-.DESCRIPTION
-    Neither step needs elevation: the pip removal is uv-scoped, and the delete touches only the resolved binary.
-.PARAMETER Config
-    The tool's parsed tools.yml entry (from Get-ToolConfig).
-.PARAMETER Source
-    Passed in, never looked up again, so the file deleted is exactly the one the caller judged.
-.OUTPUTS
-    [bool] — $true when an off-config install was removed, $false when there was nothing to remove.
-#>
 function Remove-UvPipOrStrayInstall {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -50,8 +53,8 @@ function Remove-UvPipOrStrayInstall {
         }
     }
 
-    # A root-owned path fails the delete loudly, never a silent forced removal; only the resolved file goes.
-    # [comment:3](/docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md#comment3)
+    # Stray binary no manager owns — delete just the resolved file (a root-owned path fails the delete loudly rather...
+    # [comment:4](/docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md#comment4)
     if ([System.IO.File]::Exists($Source)) {
         Write-Message "Removing stray '$($Config.command)' at '$Source'"
         [System.IO.File]::Delete($Source)

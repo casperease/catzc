@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-ENVVAR#1
       - ADR-AUTO-PY#6
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/Invoke-PythonTest.ps1
@@ -111,6 +110,44 @@ commands only, then restored. UV_PYTHON_DOWNLOADS=never keeps uv on the managed 
 ```
 
 ## comment:8
+
+Above `if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and @($results |...`.
+
+```text
+pytest exits 1 when a test failed; any other non-zero exit, or 1 with no failing test, means it failed around
+the tests (a usage or collection error, or no tests collected: exit 5).
+```
+
+## comment:9
+
+Above `$pythonRelative = (Get-Config -Config python).ResolveRoot($root)`.
+
+```text
+The Python root from python.yml (PythonConfig.ResolveRoot: the declared root, else python/ when present, else
+.python/): the uv workspace root.
+```
+
+## comment:10
+
+Above `$uvPath = if ($UvExecutable) {`.
+
+```text
+The managed uv, by its path: the caller's, already located and checked, or located here from its tools.yml entry
+(Resolve-ToolExecutable); never a bare uv off PATH.
+```
+
+## comment:11
+
+Above `$environment = Get-EngineContract -Engine $Engine -EngineExecutable...`.
+
+```text
+How the tests start the engine (Get-EngineContract) is an external contract with the test processes
+([ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1)): set for these
+commands only, then restored. UV_PYTHON_DOWNLOADS=never keeps uv on the managed interpreter at the pin
+([ADR-AUTO-PY#6](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py6)).
+```
+
+## comment:12
 
 Above `if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and @($results |...`.
 

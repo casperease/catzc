@@ -4,7 +4,6 @@ catzc:
     path: docs/references/out.md
     kind: reference
     body_sha: f36f8985dc86
-    adrs: []
     links:
       - docs/adr/automation/path-representation.md
       - docs/adr/repository/dedicated-output-directory.md

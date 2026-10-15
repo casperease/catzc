@@ -4,8 +4,6 @@ catzc:
     path: docs/adr/github/dora-explains.md
     kind: adr
     body_sha: e0aa789e446d
-    defines: []
-    adrs: []
     links:
       - docs/adr/github/github-release.md
       - docs/references/dora/capabilities.md#continuous-delivery

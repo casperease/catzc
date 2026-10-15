@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-writers.md
     kind: reference
     body_sha: "1484afabb639"
-    adrs: []
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/references/automation/catzc-base-asserts.md

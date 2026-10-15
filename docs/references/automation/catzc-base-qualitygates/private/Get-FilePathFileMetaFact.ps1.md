@@ -6,7 +6,6 @@ catzc:
     body_sha: "82f63ed2a0e8"
     adrs:
       - ADR-REPO-FORMAT#6
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-FilePathFileMetaFact.ps1

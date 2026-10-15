@@ -4,13 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-ENGINE#1
+      - ADR-AUTO-TEST#3
+      - ADR-PRIN-CONFIG#4
 ---
 #>
 
-# Test-SourceConventions over fixture trees in $TestDrive: the repository root is mocked, so each test writes the
-# source and test files it needs and pins one convention. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): widget, gadget and sprocket stand
-# in for the engines, and ADR-WIDGET-GADGET for a code the ADR registry declares.
+# Test-SourceConventions over fixture trees in $TestDrive: the repository root is mocked, so each test writes the...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-SourceConventions.Tests.ps1.md#comment1)
 Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {
@@ -19,16 +21,16 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
             [System.IO.File]::WriteAllText($full, $Content)
         }
-        # Sets the source-conventions config for the next run: both checks in the given mode, the engine-set check
-        # with one name phrase and the given exempt globs.
+        # Sets the source-conventions config for the next run: both checks in the given mode, the engine-set check...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-SourceConventions.Tests.ps1.md#comment2)
         $script:useMode = {
             param([string] $Mode, [System.Collections.IDictionary] $Exempt = [ordered]@{})
             $engineSet = [ordered]@{ mode = $Mode; exempt = $Exempt; name_phrases = @('\b{name}(?: and {name})+\b') }
             $config = [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{ engine_set = $engineSet; neutral_codes = [ordered]@{ mode = $Mode } })
             Mock Get-Config -ParameterFilter { $Config -eq 'source-conventions' } -ModuleName Catzc.Base.QualityGates -MockWith { $config }.GetNewClosure()
         }
-        # Writes the files both source checks find: a ValidateSet of engines, a partial engine set in prose, and a real
-        # code in an L0 test's fixture data.
+        # Writes the files both source checks find: a ValidateSet of engines, a partial engine set in prose, and a...
+        # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Test-SourceConventions.Tests.ps1.md#comment3)
         $script:writeCheckFixtures = {
             New-FixtureFile 'Widget/Set-Widget.ps1' "function Set-Widget { param([ValidateSet('widget', 'gadget')] [string] `$Engine) }"
             New-FixtureFile 'Widget/README.md' "Runs under widget and gadget.`n"

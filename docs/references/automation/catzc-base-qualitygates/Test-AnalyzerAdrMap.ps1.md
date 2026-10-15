@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-FORMAT#7
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
@@ -43,6 +42,15 @@ issues.
 ```
 
 ## comment:3
+
+Above `$ruleIds = Get-CatsAdrRuleIds`.
+
+```text
+The rule ids in '#' citation form, so they compare to the map. Plain assignment receives the comma-wrapped
+getter result intact — @() would nest it.
+```
+
+## comment:4
 
 Above `$ruleIds = Get-CatsAdrRuleIds`.
 

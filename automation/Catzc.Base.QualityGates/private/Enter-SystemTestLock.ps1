@@ -9,30 +9,38 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#32
       - ADR-AUTO-TEST#33
+  config:
+    synopsis: Tries, without waiting, to take the user's system-test lock — the right to run L3 on this account.
+    description: |-
+      L3 holds the vertical system tests, which change state outside the repository: the user's PATH and other
+      persistent environment variables, the registry, installed tools
+      ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)). That state belongs to the
+      user, not to a checkout, so the working folder's lock (one per checkout) cannot guard it: two clones — or a clone
+      and an installed build — each own their own working folder and would run L3 against the same user state at
+      once. This lock is keyed on the user instead: a named [System.Threading.Mutex], machine-wide through the
+      Global\ namespace, tried with a zero timeout. A run never waits for it
+      ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)): taken, the run may
+      run L3; held, it skips L3 and names the holder.
+
+      Taken (or abandoned — the previous holder died mid-run), the holder writes its lock record
+      (Write-TestRunLockRecord) to a per-user file, so a run from any checkout can say who holds the lock. The
+      caller releases the lock through Exit-TestRunLocation.
+    parameters:
+      EntryPoint: The entry point taking the lock — written to the lock record.
+      RunDirectory: The run's report folder — written to the lock record.
+      RepositoryRoot: The run's working folder — written to the lock record, so the holder's checkout can be named.
+      Name: 'The mutex name. Defaults to the current user''s: Global\catzc-system-tests-<hash of domain\user>.'
+      LockPath: |-
+        The lock record. Defaults to the per-user catzc folder (%LOCALAPPDATA%\catzc\test-runs on Windows,
+        ~/.local/share/catzc/test-runs on Unix).
+    outputs: |-
+      [pscustomobject] Acquired ([bool]), Mutex (owned, or $null), LockPath (the record this run wrote, or $null),
+      and Holder (Get-TestRunLockHolder's description of who holds it, or $null).
+    examples:
+      - '$lock = Enter-SystemTestLock -EntryPoint ''Test-Automation'' -RunDirectory $runDir -RepositoryRoot $root'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tries, without waiting, to take the user's system-test lock — the right to run L3 on this account.
-.DESCRIPTION
-    L3 changes per-user state, so a per-checkout lock cannot guard it: this lock is keyed on the user.
-.PARAMETER EntryPoint
-    The entry point taking the lock — written to the lock record.
-.PARAMETER RunDirectory
-    The run's report folder — written to the lock record.
-.PARAMETER RepositoryRoot
-    The run's working folder — written to the lock record, so the holder's checkout can be named.
-.PARAMETER Name
-    The mutex name. Defaults to the current user's: Global\catzc-system-tests-<hash of domain\user>.
-.PARAMETER LockPath
-    Defaults to the per-user catzc folder, so a run from any checkout finds the same record.
-.OUTPUTS
-    [pscustomobject] Acquired ([bool]), Mutex (owned, or $null), LockPath (the record this run wrote, or $null),
-    and Holder (Get-TestRunLockHolder's description of who holds it, or $null).
-.EXAMPLE
-    $lock = Enter-SystemTestLock -EntryPoint 'Test-Automation' -RunDirectory $runDir -RepositoryRoot $root
-#>
 function Enter-SystemTestLock {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

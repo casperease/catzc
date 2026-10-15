@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyClosure.ps1.md
     kind: comment-page
     body_sha: "74c73797ce72"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyClosure.ps1

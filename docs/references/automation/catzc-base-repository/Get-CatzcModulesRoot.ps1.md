@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-repository/Get-CatzcModulesRoot.ps1.md
     kind: comment-page
     body_sha: "27f4427c6410"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Repository/Get-CatzcModulesRoot.ps1

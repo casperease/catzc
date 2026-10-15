@@ -7,10 +7,8 @@ catzc:
 ---
 #>
 
-# Hermetic logic (L1): the tool manager (Install-Tool), the installed-version probe, command resolution and the
-# persistent user environment (Set-PermanentEnvironmentVariable) are mocked; the JDK layout is a fixture under
-# $TestDrive. The real registry round trip is the seam's own L3 system test
-# (Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1).
+# Hermetic logic (L1): the tool manager (Install-Tool), the installed-version probe, command resolution and the...
+# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md#comment1)
 Describe 'Install-Java' -Tag 'L1', 'logic' {
     BeforeAll {
         # The managed body sets the session JAVA_HOME — restore it so the test leaves the process as it found it.

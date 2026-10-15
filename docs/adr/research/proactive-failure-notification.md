@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-FAILALERT#3
       - ADR-DORA-FAILALERT#4
       - ADR-DORA-FAILALERT#5
-    adrs: []
     links:
       - docs/adr/automation/console-output-matters.md#rule-adr-auto-console7
       - docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry5

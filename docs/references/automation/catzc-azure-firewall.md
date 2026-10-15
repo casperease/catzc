@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-firewall.md
     kind: reference
     body_sha: b2174730a4a1
-    adrs: []
     links:
       - docs/adr/principles/everything-as-code.md
 ---

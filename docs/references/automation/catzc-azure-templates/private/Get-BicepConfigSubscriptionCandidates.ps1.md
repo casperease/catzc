@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
     kind: comment-page
     body_sha: "7645727ebcd6"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
@@ -29,6 +27,15 @@ discovery for the resolved name) so the rule cannot drift between them.
 ```
 
 ## comment:2
+
+Above `if ($token -ceq $Customer -or (Get-AzureCustomer $token).key -ceq $Customer) {`.
+
+```text
+Customer config: match the raw token first (the common, by-key binding), and only resolve a
+non-matching token through the catalogue (the by-shortcode binding) — keeps the read lazy.
+```
+
+## comment:3
 
 Above `if ($token -ceq $Customer -or (Get-AzureCustomer $token).key -ceq $Customer) {`.
 

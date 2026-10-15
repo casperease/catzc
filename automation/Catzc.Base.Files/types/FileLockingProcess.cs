@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.Files/types/FileLockingProcess.cs
     kind: csharp-type
     module: Catzc.Base.Files
-    adrs: []
 ---
 */
 

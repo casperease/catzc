@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ModuleNameFileMetaFact.ps1.md
     kind: comment-page
     body_sha: "0fa04f2a05ba"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ModuleNameFileMetaFact.ps1

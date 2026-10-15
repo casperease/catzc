@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-docs/Build-Readme.ps1.md
     kind: comment-page
     body_sha: "503265793292"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/Build-Readme.ps1
@@ -65,6 +63,15 @@ The per-README status lines are verbose-level — shown only when this function 
 ```
 
 ## comment:5
+
+Above `$changed = Write-FileIfChanged -Path $readmePath -Content (Get-ReadmeContent...`.
+
+```text
+Delete-then-write on a change (Write-FileIfChanged): a README that is still a filesystem link to its
+source is severed, never written through.
+```
+
+## comment:6
 
 Above `$changed = Write-FileIfChanged -Path $readmePath -Content (Get-ReadmeContent...`.
 

@@ -8,27 +8,22 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-LINK#5
+  config:
+    synopsis: 'The adr-codes meta kind''s fact: the ADR citations the file and its comment page make, sorted and without duplicates.'
+    description: |-
+      A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is
+      listed under `defines`, never here, and a code the ADR index does not register is no citation. A file the kind's `domain_files`
+      setting names also lists a bare `ADR-<CODE>`. A file the `held_files` setting names keeps every code its head already holds, so the
+      A citation is `ADR-<CODE>#<n>` ([ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)); the colon form
+      belongs to a rule's own heading and is no citation. The order is ordinal, so a rerun never moves a code.
+    parameters:
+      State: What Get-MarkdownMetaState read from the file.
+      Path: The file's repository-relative path.
+      Kind: The registry entry that subscribed this function.
+    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    The adr-codes meta kind's fact: the ADR citations the file and its comment page make, sorted and without duplicates.
-.DESCRIPTION
-    A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is
-    listed under `defines`, never here, and a code the ADR index does not register is no citation. A file the kind's `domain_files`
-    setting names also lists a bare `ADR-<CODE>`. A file the `held_files` setting names keeps every code its head already holds, so the
-    head is where its citations live.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md#comment1)
-.PARAMETER State
-    What Get-MarkdownMetaState read from the file.
-.PARAMETER Path
-    The file's repository-relative path.
-.PARAMETER Kind
-    The registry entry that subscribed this function.
-.OUTPUTS
-    [System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.
-#>
 function Get-AdrCodesFileMetaFact {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

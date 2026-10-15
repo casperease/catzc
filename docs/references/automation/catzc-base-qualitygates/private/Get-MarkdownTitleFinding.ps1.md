@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md
     kind: comment-page
     body_sha: "0c75a7c854f1"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-MarkdownTitleFinding.ps1
@@ -29,6 +27,15 @@ Kind but PathTitle.
 ```
 
 ## comment:2
+
+Above `$lines.RemoveRange($titleIndex, $subtitleIndex - $titleIndex + 1)`.
+
+```text
+The H1 takes the subtitle's text without its backticks; the subtitle and the blank lines around it go.
+A blank line is put back when a body line followed the subtitle directly, so the heading and what follows stay apart.
+```
+
+## comment:3
 
 Above `$lines.RemoveRange($titleIndex, $subtitleIndex - $titleIndex + 1)`.
 

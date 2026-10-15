@@ -6,16 +6,14 @@ catzc:
     kind: private-function
     module: Catzc.Base.Exporter
     visibility: private
-    adrs: []
+  config:
+    synopsis: Returns the current user's PowerShell 7 module folder — where Install-Catzc -Scope CurrentUser places Catzc.
+    description: |-
+      The same folder PowerShell itself puts first on a user's PSModulePath: <Documents>/PowerShell/Modules on
+      Windows, <LocalApplicationData>/powershell/Modules (~/.local/share/powershell/Modules) elsewhere.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the current user's PowerShell 7 module folder — where Install-Catzc -Scope CurrentUser places Catzc.
-.DESCRIPTION
-    It matches the first user entry of PSModulePath, so Import-Module Catzc finds the install from any shell.
-#>
 function Get-CatzcUserModulePath {
     [CmdletBinding()]
     [OutputType([string])]

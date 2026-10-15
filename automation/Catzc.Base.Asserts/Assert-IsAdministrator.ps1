@@ -6,18 +6,15 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Throws if the current session is not running as Administrator.
+    parameters:
+      ErrorText: Custom error message.
+    examples:
+      - Assert-IsAdministrator
 ---
 #>
 
-<#
-.SYNOPSIS
-    Throws if the current session is not running as Administrator.
-.PARAMETER ErrorText
-    Custom error message.
-.EXAMPLE
-    Assert-IsAdministrator
-#>
 function Assert-IsAdministrator {
     param(
         [string] $ErrorText = 'This operation requires Administrator privileges'

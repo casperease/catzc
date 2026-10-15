@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-Bicep.ps1.md
     kind: comment-page
     body_sha: c36acd6846a9
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Uninstall-Bicep.ps1

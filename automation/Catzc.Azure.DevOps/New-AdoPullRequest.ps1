@@ -8,33 +8,32 @@ catzc:
     visibility: public
     adrs:
       - ADR-FLOW-CD-TYPE
+  config:
+    synopsis: Creates an Azure DevOps pull request via the Git REST API.
+    description: |-
+      The "land via PR" half of an INPUT pipeline (see [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md)): once an
+      INPUT step has committed a config change to a branch, this opens a PR so the change goes through the
+      normal PR gate before the CD pipeline deploys it.
+
+      Resolves the repository by name, normalizes branch names to refs/heads/<branch>, and POSTs the PR.
+      Authentication is the dual-auth pattern via Invoke-AdoRestMethod / Get-AdoAuthorizationHeader
+      (pipeline SYSTEM_ACCESSTOKEN, PAT, or az login).
+    parameters:
+      Title: PR title.
+      SourceBranch: |-
+        The branch with the change (e.g. 'input/discovery-dev-1234'). Accepts a bare branch name or
+        a full 'refs/heads/...' ref.
+      TargetBranch: The branch to merge into. Defaults to 'main'. Bare name or full ref.
+      Description: Optional PR description.
+      RepositoryName: Azure Repos Git repository name. Defaults to this checkout's repository (Get-AdoRepositoryName).
+      Project: Azure DevOps project. Defaults to ado.yml.
+      Organization: Azure DevOps organization URL. Defaults to ado.yml.
+    examples:
+      - 'New-AdoPullRequest -Title ''input: discovery/dev'' -SourceBranch ''input/discovery-dev-1234'''
+      - 'New-AdoPullRequest ''input: apex prod'' ''input/apex-prod-99'' -TargetBranch main -Description ''From ITSM #4821'''
 ---
 #>
 
-<#
-.SYNOPSIS
-    Creates an Azure DevOps pull request via the Git REST API.
-.DESCRIPTION
-    The PR gate runs before the CD pipeline deploys, so a config change from an INPUT step never lands unreviewed.
-.PARAMETER Title
-    PR title.
-.PARAMETER SourceBranch
-    A bare name gets refs/heads/ prepended; a name that starts with refs/ is already taken as a full ref.
-.PARAMETER TargetBranch
-    The branch to merge into. Defaults to 'main'. Bare name or full ref.
-.PARAMETER Description
-    Optional PR description.
-.PARAMETER RepositoryName
-    Azure Repos Git repository name. Defaults to this checkout's repository (Get-AdoRepositoryName).
-.PARAMETER Project
-    Azure DevOps project. Defaults to ado.yml.
-.PARAMETER Organization
-    Azure DevOps organization URL. Defaults to ado.yml.
-.EXAMPLE
-    New-AdoPullRequest -Title 'input: discovery/dev' -SourceBranch 'input/discovery-dev-1234'
-.EXAMPLE
-    New-AdoPullRequest 'input: apex prod' 'input/apex-prod-99' -TargetBranch main -Description 'From ITSM #4821'
-#>
 function New-AdoPullRequest {
     [CmdletBinding()]
     param(
@@ -92,8 +91,8 @@ function New-AdoPullRequest {
     }
 
     $pr = Invoke-AdoRestMethod -Uri "$apiBase/git/repositories/$($repo.id)/pullrequests?api-version=7.1" -Method Post -Body $body
-    # A response without an id means the create did not take effect, so fail here, not downstream.
-    # [comment:3](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment3)
+    # Postcondition: confirm the PR actually came back created.
+    # [comment:4](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment4)
     Assert-NotNull $pr.pullRequestId -ErrorText "Pull request creation returned no pullRequestId for '$Title' ($sourceRef -> $targetRef) — the PR was not created."
     Write-Message "Created PR #$($pr.pullRequestId): $Title ($sourceRef -> $targetRef)"
     $pr

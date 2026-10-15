@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
     kind: test-asset
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Shared fixture of the overlay tests: a bundled module Catzc.Base.Widget (a dynamic module in the session, so its
-# functions and their contracts are real), a code root that ships it, and a consumer overlay root — all neutral
-# names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). Dot-source it in BeforeAll;
-# call Remove-OverlayFixture in AfterAll.
+# Shared fixture of the overlay tests: a bundled module Catzc.Base.Widget (a dynamic module in the session, so its...
+# [comment:1](/docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md#comment1)
 
 $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 $script:modulesRoot = Join-Path $fixtureRoot 'bundle'

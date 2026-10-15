@@ -6,7 +6,6 @@ catzc:
     body_sha: ee8acc1a45e6
     adrs:
       - ADR-FLOW-CD-TYPE#4
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
@@ -55,6 +54,17 @@ filter) without touching the server.
 ```
 
 ## comment:4
+
+Above `$pathFilters = Get-BuildValidationPathFilter -GlobSet $set`.
+
+```text
+The server-side pre-commit trigger filters on the globset's native path projection
+(Get-BuildValidationPathFilter -> Get-GlobSetTrigger,
+[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)) — the same globs the pipeline
+triggers on — never a committed marker.
+```
+
+## comment:5
 
 Above `$pathFilters = Get-BuildValidationPathFilter -GlobSet $set`.
 

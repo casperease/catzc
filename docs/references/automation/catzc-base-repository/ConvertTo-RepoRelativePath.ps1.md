@@ -6,7 +6,6 @@ catzc:
     body_sha: f39e1ceb6d86
     adrs:
       - ADR-AUTO-PATH#5
-    links: []
 ---
 
 # automation/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
@@ -37,6 +36,15 @@ root.
 ```
 
 ## comment:2
+
+Above `$outputRoot = [IO.Path]::GetFullPath((Get-OutputRoot))`.
+
+```text
+1. Prefer the reserved output anchor — an output artifact stays portable as 'out/...' even when the
+   output root sits outside the repo (a pipeline's staging area), where no repo-relative form exists.
+```
+
+## comment:3
 
 Above `$outputRoot = [IO.Path]::GetFullPath((Get-OutputRoot))`.
 

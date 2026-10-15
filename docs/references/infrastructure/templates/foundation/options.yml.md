@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/templates/foundation/options.yml.md
     kind: comment-page
     body_sha: "34a747daa829"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/templates/foundation/options.yml

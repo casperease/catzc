@@ -9,19 +9,22 @@ catzc:
     adrs:
       - ADR-FLOW-CD-GLOBS#4
       - ADR-FLOW-CD-GLOBS#5
+  config:
+    synopsis: Returns the tracked files a globset matches — the deployable unit's actual members.
+    description: |-
+      Intersects the matching universe (`git ls-files`,
+      [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)) with the named globset's
+      membership
+      (include minus exclude), ordinally sorted — the exact file list the durable SHA is computed over
+      ([ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)). A member may be missing on
+      disk (an unstaged deletion); it is still a member here.
+    parameters:
+      Name: The globset whose members to list.
+    examples:
+      - Get-GlobSetFile -Name automation
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the tracked files a globset matches — the deployable unit's actual members.
-.DESCRIPTION
-    A member deleted on disk but still tracked stays listed, so the durable SHA sees the deletion.
-.PARAMETER Name
-    The globset whose members to list.
-.EXAMPLE
-    Get-GlobSetFile -Name automation
-#>
 function Get-GlobSetFile {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -6,28 +6,26 @@ catzc:
     kind: public-function
     module: Catzc.Base.Writers
     visibility: public
-    adrs: []
+  config:
+    synopsis: Writes all bound parameters of the calling function to the console.
+    description: |-
+      Pass $MyInvocation as the first argument at the top of a function to display
+      all parameters that were actually bound. Sensitive parameters can be masked
+      by listing their names in -HiddenKeys.
+    parameters:
+      Invocation: The $MyInvocation from the calling function.
+      HiddenKeys: Parameter names whose values should be masked as 'Hidden'.
+      ForegroundColor: Color for the output. Defaults to Green.
+    examples:
+      - |-
+        function Deploy-App {
+            param($Environment, $Token)
+            Write-CmdletParameterSet $MyInvocation -HiddenKeys 'Token'
+            # ...
+        }
 ---
 #>
 
-<#
-.SYNOPSIS
-    Writes all bound parameters of the calling function to the console.
-.DESCRIPTION
-    Only parameters the caller actually bound are listed, and -HiddenKeys masks the sensitive ones.
-.PARAMETER Invocation
-    The $MyInvocation from the calling function.
-.PARAMETER HiddenKeys
-    Parameter names whose values should be masked as 'Hidden'.
-.PARAMETER ForegroundColor
-    Color for the output. Defaults to Green.
-.EXAMPLE
-    function Deploy-App {
-        param($Environment, $Token)
-        Write-CmdletParameterSet $MyInvocation -HiddenKeys 'Token'
-        # ...
-    }
-#>
 function Write-CmdletParameterSet {
     [CmdletBinding()]
     param(

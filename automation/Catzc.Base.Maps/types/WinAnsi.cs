@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.Maps/types/WinAnsi.cs
     kind: csharp-type
     module: Catzc.Base.Maps
-    adrs: []
 ---
 */
 

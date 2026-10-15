@@ -6,7 +6,6 @@ catzc:
     body_sha: a247b89010dd
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-MarkdownTitle.ps1

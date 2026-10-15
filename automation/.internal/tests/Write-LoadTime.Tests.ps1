@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/tests/Write-LoadTime.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-CACHE#4
 ---
 #>
 

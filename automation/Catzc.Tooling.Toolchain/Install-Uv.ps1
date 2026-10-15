@@ -6,20 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
-    adrs: []
+  config:
+    synopsis: Installs or upgrades uv, Astral's Python handler.
+    description: |-
+      uv is user-space on every platform. A fresh machine bootstraps it via winget on Windows and brew on macOS
+      (both hash-verified, user-scope, no admin), and from Astral's standalone GitHub release on Linux
+      (Install-UvStandalone — verified download into ~/.local/bin; there is no uv apt package). An
+      already-present uv is upgraded through its install source: Linux re-runs the standalone install
+      (Install-UvStandalone — the extracted tarball carries no `uv self update` receipt), macOS re-runs brew and
+      a winget-managed uv re-runs winget (both via Install-Tool); only a Windows uv installed by Astral's own
+      script (receipt-backed) upgrades with `uv self update`. Idempotent — skips if the correct version is already
+      on PATH.
+    parameters:
+      Version: uv version to install. Defaults to the locked version in Get-ToolConfig.
+      Force: Upgrade even when a build is already present.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs or upgrades uv, Astral's Python handler.
-.DESCRIPTION
-    Only a uv installed by Astral's own script can self-update; every other source upgrades through its installer.
-.PARAMETER Version
-    uv version to install. Defaults to the locked version in Get-ToolConfig.
-.PARAMETER Force
-    Upgrade even when a build is already present.
-#>
 function Install-Uv {
     [CmdletBinding()]
     param(
@@ -29,8 +32,8 @@ function Install-Uv {
 
     $config = Get-ToolConfig -Tool 'uv'
 
-    # Linux takes Astral's standalone release into ~/.local/bin, because there is no uv apt package.
-    # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment2)
+    # Fresh machine: bootstrap per platform — winget on Windows and brew on macOS (both via Install-Tool); Astral's...
+    # [comment:6](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment6)
     if (-not (Test-Command 'uv')) {
         if ($IsLinux) {
             Install-UvStandalone -Version $Version
@@ -47,11 +50,11 @@ function Install-Uv {
         return
     }
 
-    # A blanket self update is refused on the Linux tarball, winget and brew installs, which carry no update receipt.
-    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment3)
+    # Upgrade through the configured install source, not a blanket `uv self update`.
+    # [comment:7](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment7)
     if ($IsLinux) {
-        # The re-download also replaces an off-config uv, such as a leftover pip install, that sits in the tool bin.
-        # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment4)
+        # Re-download the pinned, verified standalone build over ~/.local/bin — this also replaces an off-config uv...
+        # [comment:8](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment8)
         Install-UvStandalone -Version $Version
         return
     }
@@ -62,8 +65,8 @@ function Install-Uv {
         return
     }
 
-    # A uv outside the winget package root came from Astral's script, so it has a receipt and updates in place.
-    # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment5)
+    # Windows: a winget-managed uv upgrades through winget; a uv installed by Astral's own script (on PATH outside...
+    # [comment:9](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment9)
     $wingetRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
     if ((Get-Command uv).Source.StartsWith($wingetRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
         Install-Tool -Tool 'uv' -Version $Version -Force:$Force

@@ -6,7 +6,6 @@ catzc:
     body_sha: b4398381f5f9
     adrs:
       - ADR-PWSH-TYPES#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/SentenceGuid.cs

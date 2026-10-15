@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Get-ToolConfig' -Tag 'L0' {
-    # Discovery-time: populates -ForEach data before tests run. tools.yml is located through its registered owner
-    # (Catzc.Base.Execution owns it; this module reads it).
+    # Discovery-time: populates -ForEach data before tests run.
+    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Get-ToolConfig.Tests.ps1.md#comment1)
     $script:configPath = (Get-Config -Config tools -ListOwners).Path
     $script:allTools = Get-Content $configPath -Raw | ConvertFrom-Yaml
     $script:toolEntries = foreach ($key in $script:allTools.Keys) {
@@ -86,10 +88,8 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
         }
 
         It 'caches across calls' {
-            # Hermetic fixture tool through the Get-Config seam, so the cache test never depends on the
-            # shipped tools.yml ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). The
-            # mock returns a STABLE typed ToolsConfig (Get-ToolConfig inherits its
-            # same-reference caching from Get-Config's cached read), so both calls see one ToolConfig.
+            # Hermetic fixture tool through the Get-Config seam, so the cache test never depends on the shipped...
+            # [comment:2](/docs/references/automation/catzc-tooling-core/tests/Get-ToolConfig.Tests.ps1.md#comment2)
             $script:toolsFixture = [Catzc.Base.Execution.ToolsConfig]::new(@{ faketool = @{
                         version         = '1.0'
                         command         = 'faketool'

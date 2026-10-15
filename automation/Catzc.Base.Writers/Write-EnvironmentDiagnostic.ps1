@@ -6,16 +6,13 @@ catzc:
     kind: public-function
     module: Catzc.Base.Writers
     visibility: public
-    adrs: []
+  config:
+    synopsis: Displays all environment variables sorted by name.
+    examples:
+      - Write-EnvironmentDiagnostic
 ---
 #>
 
-<#
-.SYNOPSIS
-    Displays all environment variables sorted by name.
-.EXAMPLE
-    Write-EnvironmentDiagnostic
-#>
 function Write-EnvironmentDiagnostic {
     [CmdletBinding()]
     param()

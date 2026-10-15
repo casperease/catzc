@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-REPO-CONTRACT#1
       - ADR-REPO-CONTRACT#7
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractDirection.cs

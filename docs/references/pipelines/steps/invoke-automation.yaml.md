@@ -4,8 +4,6 @@ catzc:
     path: docs/references/pipelines/steps/invoke-automation.yaml.md
     kind: comment-page
     body_sha: "6b45b2665386"
-    adrs: []
-    links: []
 ---
 
 # pipelines/steps/invoke-automation.yaml

@@ -6,24 +6,26 @@ catzc:
     kind: public-function
     module: Catzc.Base.Objects
     visibility: public
-    adrs: []
+  config:
+    synopsis: Deep clones a PowerShell object.
+    description: |-
+      Recursively copies hashtables, ordered dictionaries, PSCustomObjects,
+      arrays, and lists. Value types and strings are returned as-is (immutable
+      or copied by value). Unknown reference types are returned by reference.
+
+      PSCustomObject cloning only copies NoteProperties. Use -AcceptWarnings
+      to suppress the warning about this limitation.
+
+      Does not use BinaryFormatter or any serialization-based approach.
+    parameters:
+      InputObject: The object to deep clone.
+      AcceptWarnings: Suppresses warnings about PSCustomObject cloning limitations.
+    examples:
+      - '$clone = Copy-Object $original'
+      - '$clone = Copy-Object $original -AcceptWarnings'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Deep clones a PowerShell object.
-.DESCRIPTION
-    A PSCustomObject copy keeps only note properties, and an unknown reference type is shared, not cloned.
-.PARAMETER InputObject
-    The object to deep clone.
-.PARAMETER AcceptWarnings
-    Suppresses warnings about PSCustomObject cloning limitations.
-.EXAMPLE
-    $clone = Copy-Object $original
-.EXAMPLE
-    $clone = Copy-Object $original -AcceptWarnings
-#>
 function Copy-Object {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = '$AcceptWarnings is consumed inside the nested Clone function (it gates the note-properties verbose message), which this rule does not trace across the nested-function boundary')]
     [CmdletBinding()]

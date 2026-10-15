@@ -6,7 +6,6 @@ catzc:
     body_sha: "9652570d923d"
     adrs:
       - ADR-AUTO-TEST#3
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-NeutralCodeFinding.ps1

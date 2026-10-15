@@ -9,7 +9,6 @@ catzc:
       - ADR-DSGN-TRACK#7
       - ADR-DSGN-TRACK#8
       - ADR-REPO-OUTDIR#2
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/Export-WorldMapPdf.ps1

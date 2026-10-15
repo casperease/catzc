@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-COMMENTS#3
       - ADR-REPO-FILEMETA#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/file-meta.yml

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md
     kind: comment-page
     body_sha: acb56156680a
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
@@ -40,6 +38,15 @@ The project builds the source tree's types/*.cs, so it stops with a named error 
 ## comment:2
 
 Above ``$result = Invoke-Executable "dotnet build `"$project`" --configuration ...``.
+
+```text
+The stamp task's "stamped version …" line and any analyzer diagnostics stream through. A non-zero exit
+(a stale committed DLL, an analyzer error) throws via Invoke-Executable.
+```
+
+## comment:3
+
+Above ``$result = Invoke-Executable "dotnet build `"$project`" --configuration...``.
 
 ```text
 The stamp task's "stamped version …" line and any analyzer diagnostics stream through. A non-zero exit

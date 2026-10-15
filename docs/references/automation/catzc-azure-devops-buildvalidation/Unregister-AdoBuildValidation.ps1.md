@@ -6,7 +6,6 @@ catzc:
     body_sha: "00df666feb77"
     adrs:
       - ADR-AUTO-IDEM#2
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1

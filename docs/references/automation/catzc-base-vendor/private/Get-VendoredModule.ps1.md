@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-vendor/private/Get-VendoredModule.ps1.md
     kind: comment-page
     body_sha: "89ad38c687aa"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Vendor/private/Get-VendoredModule.ps1

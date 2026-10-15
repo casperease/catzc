@@ -16,7 +16,6 @@ catzc:
     path: ".claude/agents/write-drawio-files.md"
     kind: claude-agent
     body_sha: dc56e6631c20
-    adrs: []
     links:
       - ".claude/CLAUDE.md#time-safeguard"
       - ".claude/drawio/STYLE.md"

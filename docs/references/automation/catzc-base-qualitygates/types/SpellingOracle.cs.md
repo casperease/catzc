@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-SPELL#2
       - ADR-AUTO-SPELL#6
       - ADR-AUTO-TYPES#9
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/SpellingOracle.cs

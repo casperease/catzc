@@ -6,32 +6,30 @@ catzc:
     kind: public-function
     module: Catzc.Azure.Cli
     visibility: public
-    adrs: []
+  config:
+    synopsis: Runs az with the given arguments.
+    description: |-
+      Asserts that the installed Azure CLI version matches the locked version
+      in Get-ToolConfig before executing the command.
+
+      Dynamic extension install is disabled for the duration of the call
+      (AZURE_EXTENSION_USE_DYNAMIC_INSTALL=no), so a command that requires an
+      uninstalled extension fails with a non-zero exit code instead of blocking
+      on an interactive "(Y/n)" install prompt that captured stdin would hide.
+      That failure surfaces through the usual exit-code assertion as a throw.
+    parameters:
+      Arguments: Arguments to pass to az.
+      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
+      NoAssert: Skip exit code assertion.
+      Silent: Suppress the command log line.
+      DryRun: Return the command string without executing. Used for testing.
+    examples:
+      - Invoke-AzCli 'account show'
+      - Invoke-AzCli 'group list' -PassThru
+      - Invoke-AzCli 'version' -DryRun
 ---
 #>
 
-<#
-.SYNOPSIS
-    Runs az with the given arguments.
-.DESCRIPTION
-    A command needing an uninstalled extension fails with an exit code instead of hanging on a hidden install prompt.
-.PARAMETER Arguments
-    Arguments to pass to az.
-.PARAMETER PassThru
-    Return a CliResult object with Output, Errors, Full, and ExitCode.
-.PARAMETER NoAssert
-    Skip exit code assertion.
-.PARAMETER Silent
-    Suppress the command log line.
-.PARAMETER DryRun
-    Return the command string without executing. Used for testing.
-.EXAMPLE
-    Invoke-AzCli 'account show'
-.EXAMPLE
-    Invoke-AzCli 'group list' -PassThru
-.EXAMPLE
-    Invoke-AzCli 'version' -DryRun
-#>
 function Invoke-AzCli {
     [CmdletBinding()]
     param(
@@ -49,8 +47,8 @@ function Invoke-AzCli {
         Assert-Tool 'az_cli'
     }
 
-    # Process-scoped and restored after the call, so the caller's own setting survives, even an unset one.
-    # [comment:2](/docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md#comment2)
+    # Disable az dynamic extension install for this call: a command needing an uninstalled extension then exits...
+    # [comment:3](/docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md#comment3)
     $dynamicInstallVar = 'AZURE_EXTENSION_USE_DYNAMIC_INSTALL'
     $priorDynamicInstall = [Environment]::GetEnvironmentVariable($dynamicInstallVar, 'Process')
     if (-not $DryRun) {

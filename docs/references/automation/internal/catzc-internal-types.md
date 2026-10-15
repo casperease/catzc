@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/internal/catzc-internal-types.md
     kind: reference
     body_sha: "81f4203494e3"
-    adrs: []
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/caching.md

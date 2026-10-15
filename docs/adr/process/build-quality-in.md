@@ -9,7 +9,6 @@ catzc:
       - ADR-PROC-BUILTIN#2
       - ADR-PROC-BUILTIN#3
       - ADR-PROC-BUILTIN#4
-    adrs: []
     links:
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/automation/fail-fast-with-asserts.md

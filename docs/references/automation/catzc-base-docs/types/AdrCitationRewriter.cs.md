@@ -6,7 +6,6 @@ catzc:
     body_sha: "13921c7abd10"
     adrs:
       - ADR-REPO-LINK#2
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrCitationRewriter.cs

@@ -8,8 +8,7 @@ catzc:
 #>
 
 # Data-driven coverage for Get-AzureResourceName, sourced from tests/assets/Get-AzureResourceName.Content.yml.
-# Each case is an input splat + an expected name (or an expected error). `input` is read via
-# $case.input (NOT bound as a -ForEach variable) because $input is a PowerShell automatic variable.
+# [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-AzureResourceName.Content.Tests.ps1.md#comment1)
 
 Describe 'Get-AzureResourceName (tests/assets/Get-AzureResourceName.Content.yml)' -Tag 'L0', 'logic' {
     BeforeDiscovery {

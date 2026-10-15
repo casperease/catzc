@@ -8,23 +8,24 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-CONTRACT#5
+  config:
+    synopsis: Checks that one released contract version folder still holds exactly what its release froze.
+    description: |-
+      A released version folder is immutable
+      ([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)). Publish-ContractRelease
+      freezes it with a .frozen record, one line per file, '<sha256>  <path>', after '#' comment lines; this compares the
+      record with the folder's files as Get-ContractFileHashes hashes them now, and returns one finding per defect:
+      a missing record, a malformed or repeated record line, and every file changed, added or removed since the freeze.
+      No finding means the folder is intact. The draft, 0.0.0, is never frozen, so it is never given here.
+    parameters:
+      Folder: The released version folder's absolute path.
+      Name: The folder in communication form, contracts/<unit>/<version>, used in every finding.
+    outputs: '[string[]] The findings; none when the folder is intact.'
+    examples:
+      - Get-ContractFreezeFindings -Folder $versionFolder -Name contracts/widget/1.0.0
 ---
 #>
 
-<#
-.SYNOPSIS
-    Checks that one released contract version folder still holds exactly what its release froze.
-.DESCRIPTION
-    The draft 0.0.0 is never frozen, so it is never given here; no finding means the folder is intact.
-.PARAMETER Folder
-    The released version folder's absolute path.
-.PARAMETER Name
-    The folder in communication form, contracts/<unit>/<version>, used in every finding.
-.OUTPUTS
-    [string[]] The findings; none when the folder is intact.
-.EXAMPLE
-    Get-ContractFreezeFindings -Folder $versionFolder -Name contracts/widget/1.0.0
-#>
 function Get-ContractFreezeFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

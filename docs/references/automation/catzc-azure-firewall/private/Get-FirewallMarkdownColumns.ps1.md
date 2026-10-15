@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md
     kind: comment-page
     body_sha: ad28242bf674
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
@@ -28,6 +26,15 @@ than silently dropping the column from the output.
 ```
 
 ## comment:2
+
+Above `if ($Present.Count -gt 0) {`.
+
+```text
+Trim candidates to fields the CSV actually has. A requested column with none left is a schema
+mismatch — fail rather than silently drop it from the output.
+```
+
+## comment:3
 
 Above `if ($Present.Count -gt 0) {`.
 

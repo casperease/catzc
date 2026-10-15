@@ -8,25 +8,35 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-DRYRUN
+  config:
+    synopsis: Deletes the contents of the user's temp folder(s).
+    description: |-
+      Removes every top-level entry from each temp folder, best-effort: a file or directory still in use by
+      a running process is locked, so it is skipped (never an error). A bloated temp folder (tens of
+      thousands of leftover entries) slows NTFS file/directory creation noticeably — new dirs cost more as
+      the directory index and 8.3 short-name generation churn — so periodic clearing keeps temp-heavy work
+      (builds, test sandboxes) fast.
+
+      Idempotent and safe to re-run. The temp folders themselves are kept; only their contents are removed.
+      Returns a summary object (Removed / Skipped / Folders).
+    parameters:
+      Path: |-
+        The temp folder(s) to clear. Defaults to the current user's temp location(s) (`$env:TEMP`, `$env:TMP`,
+        and `[IO.Path]::GetTempPath()`, de-duplicated). Pass an explicit path to target a specific folder.
+      DryRun: |-
+        Report what would be removed without deleting anything. The returned summary's Removed count is the
+        number of top-level entries that would be deleted; nothing is touched. See
+        [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    examples:
+      - |-
+        Clear-TempFolders
+        Clears the current user's temp folder(s).
+      - |-
+        Clear-TempFolders -DryRun
+        Reports what would be removed (in the returned summary's Removed count) without deleting anything.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Deletes the contents of the user's temp folder(s).
-.DESCRIPTION
-    Safe to re-run: entries locked by a running process are skipped, never an error, and the folders themselves stay.
-.PARAMETER Path
-    Defaults to the de-duplicated user temp locations; pass a path to target one specific folder instead.
-.PARAMETER DryRun
-    Removed counts every top-level entry as deleted, since a lock shows only on a real delete attempt.
-.EXAMPLE
-    Clear-TempFolders
-    Clears the current user's temp folder(s).
-.EXAMPLE
-    Clear-TempFolders -DryRun
-    Reports what would be removed (in the returned summary's Removed count) without deleting anything.
-#>
 function Clear-TempFolders {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -49,8 +59,8 @@ function Clear-TempFolders {
             continue
         }
 
-        # .NET, not Remove-Item: its per-item cmdlet overhead over tens of thousands of entries costs minutes.
-        # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment4)
+        # Delete via.NET, NOT Remove-Item: across tens of thousands of temp entries Remove-Item's per-item cmdlet...
+        # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment5)
         $removed = 0
         $skipped = 0
         foreach ($file in [System.IO.Directory]::GetFiles($folder)) {

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-reports.md
     kind: reference
     body_sha: ec85aa816323
-    adrs: []
     links:
       - docs/adr/automation/test-automation.md
 ---

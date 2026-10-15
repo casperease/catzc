@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-BASH#6
       - ADR-AUTO-DEPS#4
-    links: []
 ---
 
 # out/diagrams/wave-9/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md

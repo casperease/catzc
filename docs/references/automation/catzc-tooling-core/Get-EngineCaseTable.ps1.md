@@ -6,7 +6,6 @@ catzc:
     body_sha: "28320ff03398"
     adrs:
       - ADR-AUTO-ENGINE#1
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
@@ -26,6 +25,16 @@ explicit case by case. Returns one hashtable per case and engine, shaped for Pes
 ```
 
 ## comment:2
+
+Above `if ($Engine) {`.
+
+```text
+The engines are declared once
+([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)): Get throws, naming them,
+for any other name.
+```
+
+## comment:3
 
 Above `if ($Engine) {`.
 

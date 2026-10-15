@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-asserts/Assert-HaveProperty.ps1.md
     kind: comment-page
     body_sha: "81af8fc5a0e2"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Asserts/Assert-HaveProperty.ps1

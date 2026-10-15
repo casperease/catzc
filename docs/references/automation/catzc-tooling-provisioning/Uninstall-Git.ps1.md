@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-provisioning/Uninstall-Git.ps1.md
     kind: comment-page
     body_sha: a6c28bb36cd9
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/Uninstall-Git.ps1

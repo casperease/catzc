@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.Languages/types/GeneratedHeadConfig.cs
     kind: csharp-type
     module: Catzc.Base.Languages
-    adrs: []
 ---
 */
 

@@ -4,7 +4,6 @@ catzc:
     path: docs/explanation/azure/index.md
     kind: explanation
     body_sha: ee060595c823
-    adrs: []
     links:
       - docs/adr/azure/azure-naming-standard.md
       - docs/adr/index.md#azure

@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#8
       - ADR-PWSH-ANNOUNCE#1
-    links: []
 ---
 
 # automation/Catzc.Base.Writers/private/Write-InformationColored.ps1
@@ -62,6 +61,25 @@ Read through Get-Variable: the flag is unset outside a test run, and strict mode
 ```
 
 ## comment:3
+
+Above `$ansi = [Catzc.Base.Writers.Ansi]::Code($ForegroundColor)`.
+
+```text
+The ConsoleColor -> ANSI SGR map lives once, in the Ansi type (shared with the rainbow writer),
+so this chokepoint and RainbowColor can never disagree on a colour's code. Empty = no escape.
+```
+
+## comment:4
+
+Above `if (Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly...`.
+
+```text
+Suppress during Pester runs (flag set by Test-Automation). The single chokepoint for all writers,
+so nothing routed through here can leak into test output. See .DESCRIPTION for why a flag, not a stream.
+Read through Get-Variable: the flag is unset outside a test run, and strict mode rejects an unset variable.
+```
+
+## comment:5
 
 Above `$ansi = [Catzc.Base.Writers.Ansi]::Code($ForegroundColor)`.
 

@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-CONSOLE#10
       - ADR-AUTO-CONSOLE#8
       - ADR-PWSH-ANNOUNCE#1
-    links: []
 ---
 
 # automation/Catzc.Base.Execution/Wait-Mutex.ps1
@@ -64,6 +63,15 @@ wait indefinitely.
 ```
 
 ## comment:4
+
+Above `$waitSeconds = if ($announced) {`.
+
+```text
+Wait in observation-sized slices: up to the announce threshold first, then one dot interval
+per slice — a failed slice is exactly one console event (the announcement, or a dot).
+```
+
+## comment:5
 
 Above `$waitSeconds = if ($announced) {`.
 

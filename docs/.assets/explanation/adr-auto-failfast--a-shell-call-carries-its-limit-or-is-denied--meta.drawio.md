@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.md
     kind: asset-description
     body_sha: "470f32559943"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png
       - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md

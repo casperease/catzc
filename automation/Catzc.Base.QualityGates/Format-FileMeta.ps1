@@ -10,34 +10,28 @@ catzc:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-FILEMETA#3
       - ADR-REPO-FORMAT#9
+  config:
+    synopsis: Imprints the derived facts into the meta block of every in-scope Markdown file.
+    description: |-
+      The output is byte-identical on every run, so a second run changes no file. The authored `config` part is kept as written, and a
+      file whose block holds a key no meta kind owns is reported and left unchanged.
+    parameters:
+      Path: 'Files or folders to format. Default: every in-scope file.'
+      RepositoryRoot: 'The repository root paths are relative to. Default: the loaded repository root.'
+      DryRun: Report what would change without writing any file.
+      PassThru: Return a result object ({ ChangedCount; ChangedFiles; FileCount; DryRun }) instead of only the changed paths.
+    outputs: |-
+      [string[]] the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result
+      object.
+    examples:
+      - Format-FileMeta
+      - Format-FileMeta -DryRun -PassThru
+      - Format-FileMeta -Path docs/references
 ---
 #>
 
-<#
-.SYNOPSIS
-    Imprints the derived facts into the meta block of every in-scope Markdown file.
-.DESCRIPTION
-    The output is byte-identical on every run, so a second run changes no file.
-.PARAMETER Path
-    Files or folders to format. Default: every in-scope file.
-.PARAMETER RepositoryRoot
-    The repository root paths are relative to. Default: the loaded repository root.
-.PARAMETER DryRun
-    Report what would change without writing any file.
-.PARAMETER PassThru
-    Return a result object ({ ChangedCount; ChangedFiles; FileCount; DryRun }) instead of only the changed paths.
-.OUTPUTS
-    [string[]] the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result
-    object.
-.EXAMPLE
-    Format-FileMeta
-.EXAMPLE
-    Format-FileMeta -DryRun -PassThru
-.EXAMPLE
-    Format-FileMeta -Path docs/references
-#>
 # The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md#comment2)
+# [comment:3](/docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md#comment3)
 function Format-FileMeta {
     [CmdletBinding()]
     [OutputType([string[]])]

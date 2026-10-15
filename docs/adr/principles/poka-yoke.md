@@ -10,8 +10,6 @@ catzc:
       - ADR-PRIN-POKAYOKE#3
       - ADR-PRIN-POKAYOKE#4
       - ADR-PRIN-POKAYOKE#5
-    adrs: []
-    links: []
 ---
 
 # Principle: Poka-yoke — make mistakes impossible

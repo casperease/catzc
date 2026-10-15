@@ -13,7 +13,6 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-CONF-LOADING#4
-    links: []
 ---
 
 # Principle: Configure, don't program — one mechanism per kind, one config entry per instance

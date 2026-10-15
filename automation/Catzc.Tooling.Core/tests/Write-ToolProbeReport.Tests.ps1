@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Write-ToolProbeReport' -Tag 'L0', 'logic' {
-    # The report renders the records it is given as one plain table through Write-Message -NoHeader. Fixture
-    # tokens are neutral ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+    # The report renders the records it is given as one plain table through Write-Message -NoHeader.
+    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Write-ToolProbeReport.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Write-Message { } -ModuleName Catzc.Tooling.Core
         $script:found = [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget/bin/widget', 'probe', '5.2.37', '5', $true, 4, 150, 'Agent')

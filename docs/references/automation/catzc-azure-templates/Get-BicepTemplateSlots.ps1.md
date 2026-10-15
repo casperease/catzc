@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md
     kind: comment-page
     body_sha: e4ecec470ff4
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepTemplateSlots.ps1
@@ -41,6 +39,16 @@ configuration-root, shared-platform slots).
 ```
 
 ## comment:3
+
+Above `$wantCustomer = [string]$Customer`.
+
+```text
+slots are [ordered] dicts -> use the script-block Where-Object/ForEach-Object form (the
+`Where-Object prop -EQ` shortcut does not bind ordered-dict keys). Filter by customer — the
+configuration axis; empty/unbound = the configuration-root (shared-platform) slots.
+```
+
+## comment:4
 
 Above `$wantCustomer = [string]$Customer`.
 

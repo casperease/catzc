@@ -19,7 +19,6 @@ catzc:
       - ADR-AUTO-FAILFAST#7
       - ADR-PRIN-NOWASTE#1
       - ADR-PROC-KAIZEN#2
-    links: []
 ---
 
 # session-cost-audit

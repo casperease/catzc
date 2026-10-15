@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-CONFIG#4
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrDoraCheck.cs

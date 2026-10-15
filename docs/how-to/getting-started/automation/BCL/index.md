@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/getting-started/automation/BCL/index.md
     kind: how-to
     body_sha: f355f6d21e52
-    adrs: []
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md

@@ -4,13 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#19
+      - ADR-AUTO-TEST#4
 ---
 #>
 
 Describe 'Get-BicepResourceGroupName' -Tag 'L0', 'logic' {
-    # Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked
-    # config is identical every test and no test mutates it, so the cache stays warm
-    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)).
+    # Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked config is...
+    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepResourceGroupName.Tests.ps1.md#comment1)
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'

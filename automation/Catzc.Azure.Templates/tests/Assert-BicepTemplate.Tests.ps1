@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#19
+      - ADR-REPO-OUTDIR#3
 ---
 #>
 
@@ -12,11 +15,8 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixtureTemplates = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
 
-        # Reset the caches ONCE (not per test): the mocked config is the SAME fixture azure.yml for every
-        # test, so clearing $configCache in BeforeEach only forced a needless cold re-parse (~65ms/test).
-        # Cleared once here drops any real-config entry a prior test file may have left; the fixture config
-        # then stays warm across this block. (Assert-BicepTemplate never calls Get-BicepTemplates, but we
-        # drop any stale template-cache entry too, for good measure.)
+        # Reset the caches ONCE (not per test): the mocked config is the SAME fixture azure.yml for every test, so...
+        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md#comment1)
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
         InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
 
@@ -28,9 +28,8 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
     }
 
     Context 'valid templates (read-only)' {
-        # These never mutate the tree, so they validate the COMMITTED fixtures directly — no per-test
-        # Copy-Directory (~41ms each, [ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
-        # Assert-BicepTemplate only reads; it cannot corrupt them.
+        # These never mutate the tree, so they validate the COMMITTED fixtures directly — no per-test Copy-Directory...
+        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md#comment2)
         BeforeAll {
             Mock Get-BicepTemplatesRoot { $script:fixtureTemplates } -ModuleName Catzc.Azure.Templates
         }
@@ -54,15 +53,8 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
 
     Context 'violations (each corrupts the tree)' {
         BeforeEach {
-            # Validate against a writable COPY of the fixtures so a test can introduce a deliberate violation
-            # without touching the committed fixtures. Each of these tests corrupts 'sample' (or adds a broken
-            # template) differently and expects a specific throw, so they collide — a FRESH, UNIQUE root per
-            # test under $TestDrive (Pester auto-cleans it) is required. A unique dir is also never re-deleted
-            # mid-run, so it cannot race a concurrent file scanner (on-access AV / search indexer) holding the
-            # just-copied PrePost.psm1 open and intermittently throwing "used by another process". Scratch
-            # lives in temp, not out/
-            # ([ADR-REPO-OUTDIR#3](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir3)).
-            # Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: ~15x faster per tree here.
+            # Validate against a writable COPY of the fixtures so a test can introduce a deliberate violation without...
+            # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md#comment3)
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
 
@@ -71,7 +63,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
 
         It 'accepts a template that MIXES slotted and non-slotted configs (slot is per-config)' {
             # Add a slotted config beside sample's existing non-slotted ones — no longer a violation.
-            # beta resolves to core_lower, so beta-001 is a valid slotted root config.
+            # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md#comment4)
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/beta-001.yml'), "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate sample } | Should -Not -Throw
         }
@@ -83,8 +75,8 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         }
 
         It 'reports a config whose coordinate resolves to no subscription' {
-            # globex is a defined customer with NO subscription in the fixture azure.yml, so a
-            # configuration/globex/ config can never resolve to a subscription id.
+            # globex is a defined customer with NO subscription in the fixture azure.yml, so a configuration/globex/...
+            # [comment:5](/docs/references/automation/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md#comment5)
             [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'sample/configuration/globex')) | Out-Null
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/globex/alpha.yml'), "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate sample } | Should -Throw '*cannot be resolved*'
@@ -109,8 +101,8 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         }
 
         It 'collects multiple violations into one consolidated error' {
-            # One config trips two rules at once: a per-subscription env on a standard template (env-class)
-            # AND a parameter main.bicep does not declare.
+            # One config trips two rules at once: a per-subscription env on a standard template (env-class) AND a...
+            # [comment:6](/docs/references/automation/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md#comment6)
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/nsub.yml'), "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
             $err = $null
             try {
@@ -125,9 +117,8 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
     }
 
     Context '-Build (the parameter model check)' {
-        # The build and the parameter check are each covered on their own (Build-Bicep.*.Tests.ps1,
-        # Get-BicepParameterViolations.Tests.ps1); here both are mocked at the boundary, so this proves only the
-        # wiring: -Build builds, then reports every parameter violation in the consolidated error.
+        # The build and the parameter check are each covered on their own (Build-Bicep.*.Tests.ps1,...
+        # [comment:7](/docs/references/automation/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md#comment7)
         BeforeAll {
             Mock Get-BicepTemplatesRoot { $script:fixtureTemplates } -ModuleName Catzc.Azure.Templates
             Mock Get-Command { [pscustomobject]@{ Name = 'az' } } -ModuleName Catzc.Azure.Templates -ParameterFilter { $Name -eq 'az' }

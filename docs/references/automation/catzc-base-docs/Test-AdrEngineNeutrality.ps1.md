@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1

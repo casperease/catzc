@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/Get-AzureNamePatternSet.ps1.md
     kind: comment-page
     body_sha: b8100467e6c4
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-AzureNamePatternSet.ps1

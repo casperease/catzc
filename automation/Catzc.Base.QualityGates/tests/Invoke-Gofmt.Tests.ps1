@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-Gofmt.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#6
 ---
 #>
 
-# The gofmt engine with its seams mocked ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)):
-# the tool probe (Resolve-ToolExecutable) finding a managed go beside a fixture gofmt in $TestDrive, and gofmt itself
-# (Invoke-Executable). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# The gofmt engine with its seams mocked: the tool probe (Resolve-ToolExecutable) finding a managed go beside a...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-Gofmt.Tests.ps1.md#comment1)
 Describe 'Invoke-Gofmt' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:bin = Join-Path $TestDrive 'managed go/bin'

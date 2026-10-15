@@ -6,7 +6,6 @@ catzc:
     body_sha: "6f6827f4cb31"
     adrs:
       - ADR-AUTO-PY#8
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-PythonLint.ps1
@@ -32,6 +31,15 @@ source tree (Assert-SourceTree).
 ```
 
 ## comment:2
+
+Above `$check = Invoke-PythonWorkspaceTool -Tool 'ruff check --output-format...`.
+
+```text
+--output-format concise prints one '<file>:<line>:<column>: <code> <message>' line per finding; exit 1 means
+findings, anything above it means ruff itself failed.
+```
+
+## comment:3
 
 Above `$check = Invoke-PythonWorkspaceTool -Tool 'ruff check --output-format...`.
 

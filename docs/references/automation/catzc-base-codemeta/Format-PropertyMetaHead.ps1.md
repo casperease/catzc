@@ -6,7 +6,6 @@ catzc:
     body_sha: c970746ce88b
     adrs:
       - ADR-REPO-FILEMETA#8
-    links: []
 ---
 
 # automation/Catzc.Base.CodeMeta/Format-PropertyMetaHead.ps1

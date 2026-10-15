@@ -6,17 +6,15 @@ catzc:
     kind: public-function
     module: Catzc.Base.Execution
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the current $LASTEXITCODE value, or warns if none exists.
+    examples:
+      - |-
+        Get-LastExitCode
+        # Returns the exit code from the last native command
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the current $LASTEXITCODE value, or warns if none exists.
-.EXAMPLE
-    Get-LastExitCode
-    # Returns the exit code from the last native command
-#>
 function Get-LastExitCode {
     param()
 

@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/types/ContractManifest.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-CONTRACT#7
 ---
 #>
 
-# ContractManifest maps a version folder's contract.yml, the direction overrides of single assets
-# ([ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)).
+# ContractManifest maps a version folder's contract.yml, the direction overrides of single assets.
+# [comment:1](/docs/references/automation/catzc-base-contracts/tests/types/ContractManifest.Tests.ps1.md#comment1)
 Describe 'ContractManifest' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#7' {
     It 'is empty for an absent or empty file' {
         [Catzc.Base.Contracts.ContractManifest]::new($null).direction.Count | Should -Be 0

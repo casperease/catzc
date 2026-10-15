@@ -10,7 +10,6 @@ catzc:
       - ADR-FLOW-CD-DETECT#3
       - ADR-FLOW-CD-DETECT#4
       - ADR-FLOW-CD-DETECT#5
-    adrs: []
     links:
       - docs/adr/pipelines/dual-authentication.md
       - docs/adr/pipelines/pipeline-variables.md

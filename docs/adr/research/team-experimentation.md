@@ -9,7 +9,6 @@ catzc:
       - ADR-DORA-EXPERIMENT#2
       - ADR-DORA-EXPERIMENT#3
       - ADR-DORA-EXPERIMENT#4
-    adrs: []
     links:
       - docs/adr/design/self-service.md
       - docs/adr/design/thin-platforms.md

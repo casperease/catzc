@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-FolderConventions over fixture module trees in $TestDrive: the repository root is mocked, so each test builds
-# the folders it needs and pins one convention. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-FolderConventions over fixture module trees in $TestDrive: the repository root is mocked, so each test builds...
+# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Test-FolderConventions.Tests.ps1.md#comment1)
 Describe 'Test-FolderConventions' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {

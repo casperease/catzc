@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.md
     kind: asset-description
     body_sha: "51d044bb6625"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png
       - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md

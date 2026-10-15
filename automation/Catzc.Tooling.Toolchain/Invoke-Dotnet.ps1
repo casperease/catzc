@@ -6,30 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
-    adrs: []
+  config:
+    synopsis: Runs dotnet with the given arguments.
+    description: |-
+      Asserts that the installed .NET SDK version matches the locked version
+      in Get-ToolConfig before executing the command.
+    parameters:
+      Arguments: Arguments to pass to dotnet.
+      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
+      NoAssert: Skip exit code assertion.
+      Silent: Suppress the command log line.
+      DryRun: Return the command string without executing. Used for testing.
+    examples:
+      - Invoke-Dotnet 'build'
+      - Invoke-Dotnet '--version' -DryRun
 ---
 #>
 
-<#
-.SYNOPSIS
-    Runs dotnet with the given arguments.
-.DESCRIPTION
-    A drifted SDK fails the assertion before the command starts, so nothing runs on a version other than the lock.
-.PARAMETER Arguments
-    Arguments to pass to dotnet.
-.PARAMETER PassThru
-    Return a CliResult object with Output, Errors, Full, and ExitCode.
-.PARAMETER NoAssert
-    Skip exit code assertion.
-.PARAMETER Silent
-    Suppress the command log line.
-.PARAMETER DryRun
-    Return the command string without executing. Used for testing.
-.EXAMPLE
-    Invoke-Dotnet 'build'
-.EXAMPLE
-    Invoke-Dotnet '--version' -DryRun
-#>
 function Invoke-Dotnet {
     [CmdletBinding()]
     param(

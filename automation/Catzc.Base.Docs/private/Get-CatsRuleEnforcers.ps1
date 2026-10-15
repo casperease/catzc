@@ -10,18 +10,30 @@ catzc:
       - ADR-AUTO-NOPWD#1
       - ADR-CONF-LOADING#6
       - ADR-PWSH-CACHE#4
+  config:
+    synopsis: |-
+      Maps each ADR rule citation to what mechanically enforces it — analyzer rules and tagged tests — for
+      Show-Cats.
+    description: |-
+      Returns a hashtable keyed by rule citation in the '#' form (e.g. 'ADR-AUTO-NOPWD#1'), each value an object with
+      two sorted sets: Analyzers (the PSScriptAnalyzer rules mapped to it in analyzer-adr-map.yml) and Tests (the
+      repo-relative test files that cite it). Both sources run inside Test-Automation, so together they are what
+      the rule-coverage report counts — this is the interactive, offline view of the same fact.
+
+      The test citations are read by PARSING each test file's AST and taking only the `-Tag` arguments of
+      Describe/Context/It — never a text scan, which would false-match a citation-shaped string in a fixture or
+      an assertion. The analyzer map is read through Get-Config (a global config read; owned by the QualityGates
+      module but reachable from anywhere —
+      [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6) — so no module
+      dependency on it is taken). A pure
+      function of the files on disk, memoized for the session (re-run the importer to refresh). It reads the
+      source tree's tests, so it runs in source mode only (Assert-SourceTree).
+
+      Private helper for Show-Cats; not exported.
+    outputs: '[hashtable] citation (''#'' form) -> [pscustomobject]{ Analyzers; Tests } (both sorted sets, possibly empty).'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Maps each ADR rule citation to what mechanically enforces it — analyzer rules and tagged tests — for
-    Show-Cats.
-.DESCRIPTION
-    Tags are read by parsing the AST, never by text scan, so a citation-shaped fixture string is not counted.
-.OUTPUTS
-    [hashtable] citation ('#' form) -> [pscustomobject]{ Analyzers; Tests } (both sorted sets, possibly empty).
-#>
 function Get-CatsRuleEnforcers {
     [OutputType([hashtable])]
     [CmdletBinding()]
@@ -30,8 +42,8 @@ function Get-CatsRuleEnforcers {
     # The test citations are read from the source tree's *.Tests.ps1 files, which a built package does not ship.
     Assert-SourceTree
 
-    # Strict-clean probe: a plain read of the not-yet-created cache variable would throw under strict mode.
-    # [comment:2](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment2)
+    # strict-clean
+    # [comment:4](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment4)
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')
     if ($null -ne $cached) {
         return $cached
@@ -57,8 +69,8 @@ function Get-CatsRuleEnforcers {
         }
     }
 
-    # Read by AST so a citation-shaped fixture string is never mistaken for a real Tag.
-    # [comment:3](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment3)
+    # Test enforcers — the `-Tag` citations of Describe/Context/It, read by AST so a citation-shaped fixture string...
+    # [comment:5](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment5)
     $isCommand = { param($node) $node -is [System.Management.Automation.Language.CommandAst] }
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
     $automationRoot = Resolve-RepoPath 'automation'

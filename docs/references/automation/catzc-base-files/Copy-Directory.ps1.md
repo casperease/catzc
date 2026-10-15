@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-files/Copy-Directory.ps1.md
     kind: comment-page
     body_sha: "56b5c4842b73"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Files/Copy-Directory.ps1
@@ -35,4 +33,16 @@ Above `foreach ($dir in [System.IO.Directory]::EnumerateDirectories($source, '*'
 Recreate the directory structure first (so empty directories survive), then copy the files.
 Each enumerated path starts with $source, so substring-after-prefix rebases it under $target
 (safer than String.Replace, which would rewrite any other occurrence of the prefix).
+```
+
+## comment:3
+
+Above `foreach ($dir in Get-ChildPath $source -Directory -Depth 64 -Exclude @()...`.
+
+```text
+Recreate the directory structure first (so empty directories survive), then copy the files.
+Each enumerated path starts with $source, so substring-after-prefix rebases it under $target
+(safer than String.Replace, which would rewrite any other occurrence of the prefix).
+A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a copy
+takes everything, so no name is pruned and no depth drops a file.
 ```

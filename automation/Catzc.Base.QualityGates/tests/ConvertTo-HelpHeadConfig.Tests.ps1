@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/ConvertTo-HelpHeadConfig.Tests.ps1
+    kind: pester-test
+    adrs:
+      - ADR-REPO-HELP#1
+---
+#>
+
 Describe 'ConvertTo-HelpHeadConfig' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
     BeforeAll {
         $script:form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('<#', '#>')

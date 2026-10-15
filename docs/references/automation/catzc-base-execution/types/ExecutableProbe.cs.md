@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
     kind: comment-page
     body_sha: bfd29fc5caf8
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Execution/types/ExecutableProbe.cs

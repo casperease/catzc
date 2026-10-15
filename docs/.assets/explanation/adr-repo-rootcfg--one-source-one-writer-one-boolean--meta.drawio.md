@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.md
     kind: asset-description
     body_sha: "190a3297513d"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
       - docs/explanation/repository/one-source-one-writer-one-boolean.md

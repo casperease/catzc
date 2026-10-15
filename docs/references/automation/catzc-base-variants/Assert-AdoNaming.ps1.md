@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-variants/Assert-AdoNaming.ps1.md
     kind: comment-page
     body_sha: d23b5b8b7b33
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Variants/Assert-AdoNaming.ps1

@@ -8,8 +8,8 @@ catzc:
 #>
 
 Describe 'Get-GoRelease' -Tag 'L0', 'logic' {
-    # The go.dev release feed is mocked with a fixture shaped like the real one (version, stable, files[] with
-    # filename/os/arch/kind/sha256).
+    # The go.dev release feed is mocked with a fixture shaped like the real one (version, stable, files[] with...
+    # [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Get-GoRelease.Tests.ps1.md#comment1)
     BeforeAll {
         # Get-GoRelease is private: reach it in the module's scope.
         function Invoke-GetGoRelease {

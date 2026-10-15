@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md
     kind: asset-description
     body_sha: "802bc5ecd360"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
       - docs/explanation/automation/types-check-forms-review-checks-crossers.md

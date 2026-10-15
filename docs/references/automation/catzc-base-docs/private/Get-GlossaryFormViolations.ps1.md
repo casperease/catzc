@@ -6,7 +6,6 @@ catzc:
     body_sha: b805c29bc5a1
     adrs:
       - ADR-REPO-VOCAB#8
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossaryFormViolations.ps1
@@ -49,6 +48,15 @@ table.
 ```
 
 ## comment:3
+
+Above `[string[]]...`.
+
+```text
+The scan runs compiled (Catzc.Base.Docs.GlossaryScan): it reads each file's prose through GlossaryProse into the
+surface cache once, and matches every concept with forms over the files each glossary source's scope selects.
+```
+
+## comment:4
 
 Above `[string[]]...`.
 

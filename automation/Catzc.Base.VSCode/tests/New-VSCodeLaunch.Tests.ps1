@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-PESTER#2
 ---
 #>
 
 Describe 'New-VSCodeLaunch' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the config seam
-        # ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)): a small
-        # fixture registry.
+        # Isolate through the config seam: a small fixture registry.
+        # [comment:1](/docs/references/automation/catzc-base-vscode/tests/New-VSCodeLaunch.Tests.ps1.md#comment1)
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeLaunchConfig]::new([ordered]@{
                     version        = '0.2.0'

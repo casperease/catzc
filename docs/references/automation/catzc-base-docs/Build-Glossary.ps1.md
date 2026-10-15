@@ -6,7 +6,6 @@ catzc:
     body_sha: "577725e06423"
     adrs:
       - ADR-REPO-README#7
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/Build-Glossary.ps1

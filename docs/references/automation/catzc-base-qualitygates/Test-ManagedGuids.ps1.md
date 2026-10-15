@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-PROTGLOB#6
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-ManagedGuids.ps1

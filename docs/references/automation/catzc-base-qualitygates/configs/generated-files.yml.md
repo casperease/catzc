@@ -6,7 +6,6 @@ catzc:
     body_sha: d75bf1bf9c20
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/generated-files.yml

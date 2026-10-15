@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-SECURITY#3
       - ADR-DORA-SECURITY#4
       - ADR-DORA-SECURITY#5
-    adrs: []
     links:
       - docs/adr/automation/use-proper-package-managers.md
       - docs/adr/azure/az-session-verification.md

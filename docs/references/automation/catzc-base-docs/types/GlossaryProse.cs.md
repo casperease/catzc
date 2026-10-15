@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-REPO-FORMAT#6
       - ADR-REPO-VOCAB#5
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryProse.cs

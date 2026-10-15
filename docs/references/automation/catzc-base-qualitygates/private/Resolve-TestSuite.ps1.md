@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#37
       - ADR-FLOW-CD-GLOBS#7
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1

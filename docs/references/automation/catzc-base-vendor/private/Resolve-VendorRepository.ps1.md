@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-vendor/private/Resolve-VendorRepository.ps1.md
     kind: comment-page
     body_sha: "7de676490634"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1

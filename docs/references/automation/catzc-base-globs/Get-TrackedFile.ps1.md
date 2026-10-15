@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TRACKED#1
       - ADR-FLOW-CD-GLOBS#4
-    links: []
 ---
 
 # automation/Catzc.Base.Globs/Get-TrackedFile.ps1

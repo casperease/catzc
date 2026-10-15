@@ -6,7 +6,6 @@ catzc:
     body_sha: "302a044ce009"
     adrs:
       - ADR-AZ-LZ#7
-    links: []
 ---
 
 # pipelines/extends/cd-customer.yaml

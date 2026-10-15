@@ -4,15 +4,21 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-IDEM#1
+      - ADR-PRIN-CONFIG#1
+      - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-CODEMETA#5
+      - ADR-REPO-COMMENTS#1
+      - ADR-REPO-COMMENTS#2
+      - ADR-REPO-COMMENTS#3
+      - ADR-REPO-LINK#9
 ---
 #>
 
 # cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt nwidget  -- escape-sequence artifacts in the "`n…" fixture strings, and the
-# deliberate misspelling a kept cspell directive covers
-# CommentEngine moves a file's long comments to its comment page and back, losslessly
-# ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)): what moves is decided by
-# comments.yml ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)). Each case
-# runs the engine over a short widget/gadget snippet; the proofs are the round trip and the idempotent second run.
+# deliberate misspelling a kept cspell directive covers CommentEngine moves a file's long comments to its comment...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/CommentEngine.Tests.ps1.md#comment1)
 Describe 'CommentEngine' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})

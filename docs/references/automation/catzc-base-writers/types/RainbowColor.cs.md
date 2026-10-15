@@ -6,7 +6,6 @@ catzc:
     body_sha: "56f2cdf1d95d"
     adrs:
       - ADR-AUTO-CONSOLE#7
-    links: []
 ---
 
 # automation/Catzc.Base.Writers/types/RainbowColor.cs

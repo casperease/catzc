@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md
     kind: comment-page
     body_sha: "6cde7d01226d"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Test-TestInRunScope.ps1
@@ -25,6 +23,15 @@ so both agree on which tests a run would execute.
 ```
 
 ## comment:2
+
+Above `$level = Get-TestBlockTag -Test $Test -Valid...`.
+
+```text
+Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never
+wrapped in @() — that would nest it and every count would read 1.
+```
+
+## comment:3
 
 Above `$level = Get-TestBlockTag -Test $Test -Valid...`.
 

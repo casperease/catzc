@@ -6,7 +6,6 @@ catzc:
     body_sha: "8b368bcf9622"
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1

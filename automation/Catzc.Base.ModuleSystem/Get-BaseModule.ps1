@@ -9,22 +9,39 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-RUNMODE
+  config:
+    synopsis: Returns the automation modules as typed BaseModule objects, by kind — the native model type.
+    description: |-
+      The typed view of the module system. Two facets, six kinds:
+
+        on-disk (folders under the loaded code root, Get-CatzcModulesRoot, returned as DiskModule with the
+        folder's source-layout path, automation/<Name>, and the named packages it owns from configs/files.yml):
+          'named'    a non-dot module folder (Catzc.*)
+          'hidden'   a dot-prefixed folder (.internal, .vendor, .compiled, .scriptanalyzer)
+
+        in-session (every module loaded in the session, mapped by HOW IT CAME INTO PLAY — its ModuleBase
+        location — returned as SessionModule with ModuleBase + Version):
+          'imported' our automation module   — ModuleBase under the code root (not .vendor)
+          'vendored' our vendored third-party — ModuleBase under the code root's .vendor/
+          'builtin'  shipped with PowerShell  — ModuleBase under $PSHOME
+          'residue'  genuinely foreign        — anything else (user profile, PowerShell Gallery, manual import)
+
+      Both facets classify against the code root, not <RepositoryRoot>/automation, so the answer is correct in
+      both run modes
+      ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)): in build mode the loaded modules live in the built package.
+
+      Default returns the on-disk kinds (named + hidden). Copy-Automation and the module completers act on those;
+      the session kinds map what is loaded and where it came from (diagnostics, collision reporting).
+    parameters:
+      Kind: 'One or more of named, hidden, imported, vendored, builtin, residue. Default: named, hidden.'
+    examples:
+      - 'Get-BaseModule                                              # on-disk modules (named + hidden), with packages'
+      - |-
+        Get-BaseModule -Kind imported, vendored, builtin, residue |
+            Group-Object Kind                                      # map every loaded module by how it came into play
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the automation modules as typed BaseModule objects, by kind — the native model type.
-.DESCRIPTION
-    Classifies against the code root, not the repository root, so build mode (the built package) answers right.
-.PARAMETER Kind
-    One or more of named, hidden, imported, vendored, builtin, residue. Default: named, hidden.
-.EXAMPLE
-    Get-BaseModule                                              # on-disk modules (named + hidden), with packages
-.EXAMPLE
-    Get-BaseModule -Kind imported, vendored, builtin, residue |
-        Group-Object Kind                                      # map every loaded module by how it came into play
-#>
 function Get-BaseModule {
     [CmdletBinding()]
     [OutputType([Catzc.Base.ModuleSystem.BaseModule[]])]

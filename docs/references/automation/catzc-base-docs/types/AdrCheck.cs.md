@@ -6,7 +6,6 @@ catzc:
     body_sha: "0f8a46d89d05"
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrCheck.cs

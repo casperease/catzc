@@ -8,10 +8,8 @@ catzc:
 #>
 
 Describe 'Resolve-SessionToolHint' -Tag 'L0', 'logic' {
-    # Fixture uses a .cmd shim + PATHEXT resolution — a Windows shape. The Unix path is analogous.
-    # Set-ItResult is legal only per-test, so the non-Windows skip lives in BeforeEach, not BeforeAll —
-    # calling it in BeforeAll throws and fails the whole Describe off-Windows. Capture origPath first so
-    # AfterEach restores PATH even on the skipped path.
+    # Fixture uses a.cmd shim + PATHEXT resolution — a Windows shape.
+    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Resolve-SessionToolHint.Tests.ps1.md#comment1)
     BeforeEach {
         $script:origPath = $env:PATH
         if (-not $IsWindows) {

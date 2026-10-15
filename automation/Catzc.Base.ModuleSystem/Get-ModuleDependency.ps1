@@ -6,22 +6,19 @@ catzc:
     kind: public-function
     module: Catzc.Base.ModuleSystem
     visibility: public
-    adrs: []
+  config:
+    synopsis: Compiles a module-level dependency edge map from function-level dependencies.
+    description: |-
+      Takes the output of Get-FunctionDependency and collapses it into unique
+      module-to-module edges with call counts and the functions involved.
+    parameters:
+      Dependency: Function dependency objects from Get-FunctionDependency. Accepts pipeline input.
+    examples:
+      - Get-FunctionDependency | Get-ModuleDependency
+      - Get-FunctionDependency | Get-ModuleDependency | Where-Object { $_.From -eq 'Catzc.Tooling.Core' }
 ---
 #>
 
-<#
-.SYNOPSIS
-    Compiles a module-level dependency edge map from function-level dependencies.
-.DESCRIPTION
-    Calls within one module never appear: only calls crossing a module boundary count toward an edge.
-.PARAMETER Dependency
-    Function dependency objects from Get-FunctionDependency. Accepts pipeline input.
-.EXAMPLE
-    Get-FunctionDependency | Get-ModuleDependency
-.EXAMPLE
-    Get-FunctionDependency | Get-ModuleDependency | Where-Object { $_.From -eq 'Catzc.Tooling.Core' }
-#>
 function Get-ModuleDependency {
     [CmdletBinding()]
     param(

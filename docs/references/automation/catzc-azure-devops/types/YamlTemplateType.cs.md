@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/types/YamlTemplateType.cs.md
     kind: comment-page
     body_sha: a0391bf123da
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/types/YamlTemplateType.cs

@@ -6,22 +6,17 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Python
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls the uv-provisioned Python.
+    description: Removes the uv-managed CPython (`uv python uninstall <version>`). Idempotent — skips if not installed.
+    parameters:
+      Version: Python version to uninstall. Defaults to the locked version in Get-ToolConfig.
+    examples:
+      - Uninstall-Python
+      - Uninstall-Python -Version '3.12'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls the uv-provisioned Python.
-.DESCRIPTION
-    Removes the uv-managed CPython (`uv python uninstall <version>`). Idempotent — skips if not installed.
-.PARAMETER Version
-    Python version to uninstall. Defaults to the locked version in Get-ToolConfig.
-.EXAMPLE
-    Uninstall-Python
-.EXAMPLE
-    Uninstall-Python -Version '3.12'
-#>
 function Uninstall-Python {
     [CmdletBinding()]
     param(

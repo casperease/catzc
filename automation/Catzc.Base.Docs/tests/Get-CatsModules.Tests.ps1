@@ -4,15 +4,18 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
+      - ADR-PWSH-PESTER#4
 ---
 #>
 
-# Get-CatsModules is private, so it is exercised through the module (& (Get-Module …), per
-# [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
+# Get-CatsModules is private, so it is exercised through the module (& (Get-Module …), per ).
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md#comment1)
 Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Fixture modules loaded from a fixture code root: two catzc-shaped modules, one dot-prefixed
-        # infrastructure module, and one module loaded from outside the root.
+        # Fixture modules loaded from a fixture code root: two catzc-shaped modules, one dot-prefixed infrastructure...
+        # [comment:2](/docs/references/automation/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md#comment2)
         $script:modulesRoot = Join-Path $TestDrive 'modules'
         $outsideRoot = Join-Path $TestDrive 'elsewhere'
         $fixtures = @(
@@ -55,9 +58,8 @@ Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     }
 }
 
-# Reads the REAL loaded session (nothing mocked), so it runs in both the source run and the build run and
-# proves Show-Cats lists the modules of whichever tree is loaded
-# ([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)).
+# Reads the REAL loaded session (nothing mocked), so it runs in both the source run and the build run and proves...
+# [comment:3](/docs/references/automation/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md#comment3)
 Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         $script:modules = & (Get-Module Catzc.Base.Docs) { Get-CatsModules }

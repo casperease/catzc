@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-PARAM#4
-    links: []
 ---
 
 # automation/Catzc.Base.Reports/Write-QualityGateReport.ps1
@@ -35,6 +34,16 @@ issues it collected; it never writes its own report.
 ```
 
 ## comment:2
+
+Above `if (-not $OutputFolder) {`.
+
+```text
+A body fill-in on purpose: every gate forwards its own -OutputFolder here, empty when its caller gave none, and
+an explicit empty argument would override a declared default
+([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
+```
+
+## comment:3
 
 Above `if (-not $OutputFolder) {`.
 

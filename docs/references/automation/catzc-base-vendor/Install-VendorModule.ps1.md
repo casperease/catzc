@@ -6,7 +6,6 @@ catzc:
     body_sha: f3201ea9cdee
     adrs:
       - ADR-PWSH-VENDOR#7
-    links: []
 ---
 
 # automation/Catzc.Base.Vendor/Install-VendorModule.ps1
@@ -29,6 +28,17 @@ Must be run in a fresh session — a loaded module may lock its files. Writes in
 ```
 
 ## comment:2
+
+Above `$moduleDir = Join-Path $vendorRoot $Name`.
+
+```text
+Prune folders the toolset never loads: legacy .NET Framework builds (we only target PS 7+ / .NET 6+) and
+PSScriptAnalyzer's ~280 MB compatibility_profiles, read only by the PSUseCompatible* rules that
+PSScriptAnalyzerSettings.psd1 keeps off
+([ADR-PWSH-VENDOR#7](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor7)).
+```
+
+## comment:3
 
 Above `$moduleDir = Join-Path $vendorRoot $Name`.
 

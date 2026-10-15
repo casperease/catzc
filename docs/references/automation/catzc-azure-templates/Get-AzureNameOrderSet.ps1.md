@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/Get-AzureNameOrderSet.ps1.md
     kind: comment-page
     body_sha: ac4c9379614e
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-AzureNameOrderSet.ps1

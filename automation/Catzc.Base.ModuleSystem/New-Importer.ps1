@@ -10,27 +10,32 @@ catzc:
       - ADR-AUTO-CONSOLE#11
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-ANNOUNCE#6
+  config:
+    synopsis: (Re)generates a repository's importer.ps1 shim from the Invoke-Importer overlay.
+    description: |-
+      importer.ps1 is a thin, generated entry point: it carries the importer's public parameter form and
+      delegates the whole load sequence to Invoke-Importer (automation/.internal/Catzc.Internal.Importer.psm1),
+      the single living copy. This reads the overlay's parameter block straight from that module's source (an AST
+      parse — the overlay is not loaded post-import) and renders the shim around a fixed template, so the shim's
+      parameters can never drift from the overlay's. A drift test asserts the committed importer.ps1 equals this
+      output.
+
+      Scaffolds into ANY repository root that already carries the .internal overlay — the loader path in the shim
+      is repository-root-relative, so nothing absolute is baked in.
+
+      Writes the source tree's entry point from the source overlay, so it stops with a named error in build mode
+      (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
+    parameters:
+      RepositoryRoot: The repository root to generate importer.ps1 into (and whose overlay is read). Defaults to this repository.
+      Force: Overwrite an existing importer.ps1. Without it, an existing importer.ps1 is left untouched (throws).
+      DryRun: Return the generated shim content as a string without writing anything.
+    outputs: '[string] The generated content (-DryRun), otherwise the written importer.ps1 path.'
+    examples:
+      - New-Importer -Force
+      - New-Importer -RepositoryRoot ./some/other/repo
 ---
 #>
 
-<#
-.SYNOPSIS
-    (Re)generates a repository's importer.ps1 shim from the Invoke-Importer overlay.
-.DESCRIPTION
-    Parameters are read from the overlay's source, so the shim cannot drift; a test checks the committed copy.
-.PARAMETER RepositoryRoot
-    The repository root to generate importer.ps1 into (and whose overlay is read). Defaults to this repository.
-.PARAMETER Force
-    Overwrite an existing importer.ps1. Without it, an existing importer.ps1 is left untouched (throws).
-.PARAMETER DryRun
-    Return the generated shim content as a string without writing anything.
-.OUTPUTS
-    [string] The generated content (-DryRun), otherwise the written importer.ps1 path.
-.EXAMPLE
-    New-Importer -Force
-.EXAMPLE
-    New-Importer -RepositoryRoot ./some/other/repo
-#>
 function New-Importer {
     [CmdletBinding()]
     [OutputType([string])]
@@ -49,8 +54,8 @@ function New-Importer {
         throw "New-Importer: overlay not found at '$overlayPath' — the repository must carry the .internal toolset first."
     }
 
-    # Parsed from source because the overlay module is no longer loaded once the import has finished.
-    # [comment:2](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment2)
+    # Read the overlay's parameter block from source (the overlay is not loaded post-import).
+    # [comment:7](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment7)
     $parseErrors = $null
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($overlayPath, [ref] $null, [ref] $parseErrors)
     if ($parseErrors) {
@@ -76,16 +81,16 @@ function New-Importer {
         }
         "    [$typeText] `$$($parameter.Name.VariablePath.UserPath)"
     }
-    # The shim announces nothing itself: Invoke-Importer names RepositoryRoot on its Roots line, once a writer loads.
-    # [comment:3](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment3)
+    # The shim sets $env:RepositoryRoot, but its announcement is delegated: Invoke-Importer names it on its Roots...
+    # [comment:8](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment8)
     $suppression = "[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', " +
     "Justification = 'Invoke-Importer announces RepositoryRoot on its Roots line, the first point a writer is loaded')]"
-    # CmdletBinding lets -Verbose reach Invoke-Importer without the preference leaking into the caller's session.
-    # [comment:4](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment4)
+    # [CmdletBinding] makes the shim accept -Verbose (forwarded to Invoke-Importer by @PSBoundParameters), which...
+    # [comment:9](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment9)
     $paramBlock = "$suppression`n" + "[CmdletBinding()]`n" + "param(`n" + ($paramLines -join ",`n") + "`n)"
 
-    # Single-quoted here-strings keep $env: and @PSBoundParameters literal; this is the shim body's one copy.
-    # [comment:5](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment5)
+    # Fixed template around the generated param block.
+    # [comment:10](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment10)
     $explanation = @'
 # This shim carries only the importer's outer parameter form and delegates the whole load sequence to
 # Invoke-Importer in automation/.internal/Catzc.Internal.Importer.psm1 (the single living copy). It is
@@ -111,8 +116,8 @@ finally {
 }
 '@
 
-    # Must match the committed importer.ps1 below its head byte for byte, because the drift test compares it with...
-    # [comment:6](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment6)
+    # LF throughout, one trailing newline.
+    # [comment:11](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment11)
     $content = $explanation + "`n" + $paramBlock + "`n`n" + $body + "`n"
 
     if ($DryRun) {

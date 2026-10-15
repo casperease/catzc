@@ -6,18 +6,14 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Core
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls a CLI installed into a dedicated uv venv.
+    description: Removes the tool's dedicated venv (see Install-UvVenvTool). Idempotent — skips if the venv is absent.
+    parameters:
+      Tool: The snake_case tool key (must declare uv_venv).
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls a CLI installed into a dedicated uv venv.
-.DESCRIPTION
-    Removes the tool's dedicated venv (see Install-UvVenvTool). Idempotent — skips if the venv is absent.
-.PARAMETER Tool
-    The snake_case tool key (must declare uv_venv).
-#>
 function Uninstall-UvVenvTool {
     [CmdletBinding()]
     param(

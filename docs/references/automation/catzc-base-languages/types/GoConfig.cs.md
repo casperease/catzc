@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FOLDERS#4
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/types/GoConfig.cs

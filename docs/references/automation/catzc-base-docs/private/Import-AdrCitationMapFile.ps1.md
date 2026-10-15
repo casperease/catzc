@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
     kind: comment-page
     body_sha: "934a6388e39e"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1

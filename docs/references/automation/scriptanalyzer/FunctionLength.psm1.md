@@ -6,7 +6,6 @@ catzc:
     body_sha: "33b12dbd62f9"
     adrs:
       - ADR-PWSH-FORMAT#6
-    links: []
 ---
 
 # automation/.scriptanalyzer/FunctionLength.psm1

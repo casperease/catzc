@@ -6,7 +6,6 @@ catzc:
     body_sha: eb3a3b74e052
     adrs:
       - ADR-AUTO-ENGINE#1
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-EngineSetFinding.ps1

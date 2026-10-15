@@ -20,9 +20,8 @@ Describe 'Remove-PermanentPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalPath = $env:PATH
 
-        # Keep the persistent (Windows User-registry) PATH entirely IN-MEMORY via the Get-EnvironmentPath/Set-EnvironmentPath
-        # seam, so NOTHING here mutates the real machine PATH or broadcasts WM_SETTINGCHANGE. Every Windows run
-        # of Remove-PermanentPath hits this branch (not just the persistence context), so the mocks are global.
+        # Keep the persistent (Windows User-registry) PATH entirely IN-MEMORY via the...
+        # [comment:1](/docs/references/automation/catzc-base-environment/tests/Remove-PermanentPath.Tests.ps1.md#comment1)
         $script:fakeUserPath = $null
         Mock Get-EnvironmentPath { $script:fakeUserPath } -ModuleName Catzc.Base.Environment
         Mock Set-EnvironmentPath { $script:fakeUserPath = $Value } -ModuleName Catzc.Base.Environment

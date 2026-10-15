@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
 ---
 #>
 
-# Test-GitHubWorkflowTriggerGlob is a quality gate
-# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35), drift detection): a workflow's
-# actual paths vs the globset's ordered projection (GitHub paths are last-match-wins). Neutral fixtures (widget,
-# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the report goes to $TestDrive.
+# Test-GitHubWorkflowTriggerGlob is a quality gate (, drift detection): a workflow's actual paths vs the globset's...
+# [comment:1](/docs/references/automation/catzc-base-globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1.md#comment1)
 Describe 'Test-GitHubWorkflowTriggerGlob' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot { 'X:/repo' } -ModuleName Catzc.Base.Globs

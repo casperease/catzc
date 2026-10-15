@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md
     kind: comment-page
     body_sha: "0b9f7ad1dd71"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.RootConfig/configs/rootconfig.yml

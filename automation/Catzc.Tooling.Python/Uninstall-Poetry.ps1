@@ -6,18 +6,16 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Python
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls Poetry.
+    description: |-
+      Removes the uv-managed install (`uv tool uninstall poetry`) via Uninstall-UvTool. Idempotent — skips if
+      Poetry is not installed.
+    examples:
+      - Uninstall-Poetry
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls Poetry.
-.DESCRIPTION
-    Skips quietly when Poetry is not installed, so a repeat run is safe.
-.EXAMPLE
-    Uninstall-Poetry
-#>
 function Uninstall-Poetry {
     [CmdletBinding()]
     param()

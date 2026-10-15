@@ -4,12 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-FILEMETA#2
+      - ADR-REPO-FILEMETA#4
 ---
 #>
 
-# FileMetaConfig maps file-meta.yml and is the one declaration of its defaults
-# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key behaves exactly like the default,
-# and a malformed value fails at construction with the allowed set.
+# FileMetaConfig maps file-meta.yml and is the one declaration of its defaults: an omitted key behaves exactly like...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md#comment1)
 Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
     It 'takes the declared defaults for every omitted key of a kind' -Tag 'ADR-AUTO-DEFAULT#6' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = $null } })

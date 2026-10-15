@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure/types/Tenant.cs.md
     kind: comment-page
     body_sha: a62e246cee2c
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure/types/Tenant.cs

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
+      - ADR-AUTO-TEST#25
 ---
 #>
 
@@ -48,17 +51,16 @@ Describe 'New-TestAutomationShardScript' {
         }
 
         It 'builds its configuration through the one shared builder, strict on' {
-            # The worker and Invoke-TestFile must share New-PesterRunConfiguration (one living copy of the
-            # invocation config) and the worker sets strict mode before Pester, so tests run strict
-            # ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)).
+            # The worker and Invoke-TestFile must share New-PesterRunConfiguration (one living copy of the invocation...
+            # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md#comment1)
             $script:content | Should -Match 'New-PesterRunConfiguration'
             $script:content | Should -Match ([regex]::Escape('Set-StrictMode -Version Latest'))
             $script:content | Should -Not -Match ([regex]::Escape('Set-StrictMode -Off'))
         }
 
         It 'watches its parent once the modules are loaded, before Pester runs' {
-            # The watch type comes from the loaded types, so the watch starts after the entry line; it must start
-            # before Pester so an orphaned worker never runs a test file unobserved.
+            # The watch type comes from the loaded types, so the watch starts after the entry line; it must start...
+            # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md#comment2)
             $entry = $script:content.IndexOf("importer.ps1' -SkipJanitors")
             $watch = $script:content.IndexOf('[Catzc.Base.QualityGates.WorkerParentWatch]::Start(')
             $pester = $script:content.IndexOf('Invoke-Pester')
@@ -156,21 +158,17 @@ Describe 'New-TestAutomationShardScript' {
         }
     }
 
-    # greedy: spawns a full importer-loading pwsh worker — stacked on the parallel pool that
-    # oversubscribes the box (see the test-automation ADR's greedy tag).
-    # integrity + [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3):
-    # the real worker imports the shipped, vendored Pester from its code root,
-    # nothing mocked — the real-asset test, not source-only, so it runs in the source and the build run.
+    # greedy: spawns a full importer-loading pwsh worker — stacked on the parallel pool that oversubscribes the box...
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md#comment3)
     Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP#3' {
         It 'runs a generated shard end to end: results.xml, rows sidecar, and a green exit code' {
-            # The walking skeleton for the whole worker chain: generator → PesterRunner → importer →
-            # Pester → row sidecar. One real worker; the per-case behaviour lives in the L0 tests above
-            # and in ConvertTo-TestAutomationRowSet's own test file.
+            # The walking skeleton for the whole worker chain: generator → PesterRunner → importer → Pester → row...
+            # [comment:4](/docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md#comment4)
             $runDirectory = Join-Path $TestDrive 'live-run'
             [void][System.IO.Directory]::CreateDirectory($runDirectory)
 
-            # A fixture test file exercising all row kinds: a pass, a self-skip, and a tag-excluded test — plus a
-            # pass proving the worker's Pester is the vendored copy under the worker's own code root.
+            # A fixture test file exercising all row kinds: a pass, a self-skip, and a tag-excluded test — plus a...
+            # [comment:5](/docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md#comment5)
             $fixture = Join-Path $TestDrive 'ShardFixture.Tests.ps1'
             $fixtureContent = @'
 Describe 'ShardFixture' -Tag 'L0', 'logic' {

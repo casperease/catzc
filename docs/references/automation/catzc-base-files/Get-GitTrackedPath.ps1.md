@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-CACHE#9
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # automation/Catzc.Base.Files/Get-GitTrackedPath.ps1
@@ -51,6 +50,25 @@ strict-clean probe of the lazy cache entry
 ```
 
 ## comment:4
+
+Above `$content = [System.IO.File]::ReadAllBytes($indexPath)`.
+
+```text
+The key is the index's content, not the session: the index changes mid-session (a commit, a `git add`),
+so a cached listing is reused only while the bytes on disk are identical
+([ADR-AUTO-CACHE#9](/docs/adr/automation/caching.md#rule-adr-auto-cache9)).
+```
+
+## comment:5
+
+Above `$script:gitIndexCache = @{}`.
+
+```text
+strict-clean probe of the lazy cache entry
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:6
 
 Above `$content = [System.IO.File]::ReadAllBytes($indexPath)`.
 

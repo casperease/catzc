@@ -6,18 +6,16 @@ catzc:
     kind: public-function
     module: Catzc.Azure.Templates
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the supported bicep deployment target scopes.
+    description: |-
+      'ResourceGroup' — deploys into a named resource group (the common case).
+      'Subscription'  — deploys at the subscription scope (for cross-RG resources).
+    examples:
+      - Get-AzureBicepDeploymentTargets
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the supported bicep deployment target scopes.
-.DESCRIPTION
-    Pick Subscription only for resources that span resource groups; ResourceGroup is the common case.
-.EXAMPLE
-    Get-AzureBicepDeploymentTargets
-#>
 function Get-AzureBicepDeploymentTargets {
     param()
     @('ResourceGroup', 'Subscription')

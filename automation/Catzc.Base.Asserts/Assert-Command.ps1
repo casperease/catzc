@@ -6,20 +6,16 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a command exists on the system.
+    parameters:
+      Command: The command name to look up via Get-Command.
+      ErrorText: Custom error message. Defaults to '<Command> is not installed'.
+    examples:
+      - Assert-Command 'git'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a command exists on the system.
-.PARAMETER Command
-    The command name to look up via Get-Command.
-.PARAMETER ErrorText
-    Custom error message. Defaults to '<Command> is not installed'.
-.EXAMPLE
-    Assert-Command 'git'
-#>
 function Assert-Command {
     [CmdletBinding()]
     param(

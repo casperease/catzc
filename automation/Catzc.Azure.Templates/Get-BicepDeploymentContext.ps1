@@ -8,31 +8,49 @@ catzc:
     visibility: public
     adrs:
       - ADR-AZ-DATAMOD
+  config:
+    synopsis: Composes the immutable deployment-context object Deploy-Bicep operates on.
+    description: |-
+      Resolves everything Deploy-Bicep needs into ONE immutable object with exactly three concerns —
+      the deployment PLAN, the build ARTIFACTS, and the target IDENTITY:
+
+        deployment   — the plan: { template, name, mode, target, resource_group? }
+        artifacts    — the built files: { did_local_build, folder, template_file, parameters_file, prepost_module? }
+        environment  — the target identity: the resolved Get-AzureEnvironment (env + serving subscription)
+
+      Build-folder resolution:
+      - Pipeline: $ArtifactsFolder is required and is used as-is.
+      - Devbox + no -DoNotRebuild: Build-Bicep is invoked here, then its output is used.
+      - Devbox + -DoNotRebuild: the template's standard output_folder is used; the function
+        throws if it does not exist.
+
+      DoNotRun handling: when the template's deployment_mode is 'DoNotRun', this function
+      returns $null (signal to skip) unless -OverrideDoNotRunAndRun is set.
+
+      Subscription-target templates leave `deployment.resource_group` unset and assert that
+      `configuration/<slot>.yml` does NOT carry a `ResourceGroup` key.
+      The target SUBSCRIPTION is the az session's (in a pipeline: the service connection's), resolved
+      against azure.yml by Get-AzCliSessionSubscription; the slot addressed is (session customer?, env,
+      slot). The optional -SubscriptionIdAssertIs guard pins the target explicitly. See
+      [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
+    parameters:
+      Environment: Environment shortname (must be in azure.yml and in the template's environment list).
+      Template: Template name (folder under infrastructure/templates/).
+      Slot: |-
+        Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`). Selects the slot
+        (config file + parameters artifact + resource group). Omitted -> the env's base / index-0 slot.
+      SubscriptionIdAssertIs: |-
+        Optional guard — the subscription GUID the az session is expected to target. Throws when the
+        session's subscription differs (in a pipeline that means a mis-wired service connection). Never a
+        selector: the session always determines the target.
+      ArtifactsFolder: Required on a build agent. Points at the downloaded build output.
+      DoNotRebuild: Devbox-only. Reuse an existing build in the template's output_folder instead of rebuilding.
+      OverrideDoNotRunAndRun: Devbox-only. Bypass the DoNotRun guard (returns context instead of $null).
+    examples:
+      - '$context = Get-BicepDeploymentContext -Environment dev -Template sample'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Composes the immutable deployment-context object Deploy-Bicep operates on.
-.DESCRIPTION
-    A DoNotRun template returns null, the signal to skip, unless -OverrideDoNotRunAndRun is set.
-.PARAMETER Environment
-    Environment shortname (must be in azure.yml and in the template's environment list).
-.PARAMETER Template
-    Template name (folder under infrastructure/templates/).
-.PARAMETER Slot
-    Omitted selects the environment's base slot, the index-0 one.
-.PARAMETER SubscriptionIdAssertIs
-    A mismatch in a pipeline means a mis-wired service connection; this is a guard, never a selector.
-.PARAMETER ArtifactsFolder
-    Required on a build agent. Points at the downloaded build output.
-.PARAMETER DoNotRebuild
-    Devbox-only. Reuse an existing build in the template's output_folder instead of rebuilding.
-.PARAMETER OverrideDoNotRunAndRun
-    Devbox-only. Bypass the DoNotRun guard (returns context instead of $null).
-.EXAMPLE
-    $context = Get-BicepDeploymentContext -Environment dev -Template sample
-#>
 function Get-BicepDeploymentContext {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -87,8 +105,8 @@ function Get-BicepDeploymentContext {
         return $null
     }
 
-    # A guard mismatch is a mis-wired service connection, not a retarget, so it throws.
-    # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment4)
+    # The deploy target is the az session's subscription (in a pipeline: exactly what the service connection logged...
+    # [comment:7](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment7)
     $sessionSubscription = Get-AzCliSessionSubscription
     if (-not [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
         Assert-IsGuid $SubscriptionIdAssertIs
@@ -99,8 +117,8 @@ function Get-BicepDeploymentContext {
     $subscription = $sessionSubscription.name
     $customer = $sessionSubscription.customer
 
-    # The session subscription must also serve the env, which Get-AzureEnvironment asserts.
-    # [comment:5](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment5)
+    # The slot addressed is (session customer?, env, slot) — it must exist as a config, and the session subscription...
+    # [comment:8](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment8)
     $wantSlot = [string]$Slot
     $slotMatch = @($templateDescriptor.slots | Where-Object { $_.environment -eq $Environment -and $_.slot -eq $wantSlot -and $_.customer -eq $customer })
     if ($slotMatch.Count -eq 0) {
@@ -161,8 +179,8 @@ function Get-BicepDeploymentContext {
         $templateDescriptor.deployment_target,
         $resourceGroup)   # $null for Subscription-target — the plan exposes resource_group = $null
 
-    # Paths are verified absolute but stored repo-relative; a pipeline's external artifact area stays absolute.
-    # [comment:6](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment6)
+    # Verify the artifacts as absolute paths above (this process touches the filesystem directly), but STORE them...
+    # [comment:9](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment9)
     $prepostArtifact = $null
     if ($null -ne $templateDescriptor.prepost_module) {
         $prepostInBuild = Join-Path $buildFolder (Split-Path $templateDescriptor.prepost_module -Leaf)

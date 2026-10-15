@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md
     kind: comment-page
     body_sha: c67842edd0b3
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestAutomationRuleCoverage.ps1
@@ -41,6 +39,15 @@ The aggregated per-test rows (ConvertTo-TestAutomationRowSet), each carrying Exp
 ```
 
 ## comment:3
+
+Above `$testEnforcers = @{}`.
+
+```text
+Enforcers per rule id, split by kind. Sets so a rule cited by many tests, or an analyzer listed twice,
+counts each enforcer once.
+```
+
+## comment:4
 
 Above `$testEnforcers = @{}`.
 

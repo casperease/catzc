@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-REPO-PROTGLOB#4
       - ADR-REPO-PROTGLOB#9
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Protect-TestedModule.ps1

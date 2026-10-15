@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md
     kind: comment-page
     body_sha: bf4a01a7829e
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Invoke-Uv.ps1
@@ -34,6 +32,16 @@ version-locked install (e.g. the Azure CLI pins beta azure-* dependencies). Neve
 ```
 
 ## comment:3
+
+Above `Write-Message "uv: allowing pre-release/dev package versions...`.
+
+```text
+Pre-release resolution is a deliberate, config-driven relaxation of the version lock — surface it so it
+is never silent. A message, not a warning: the toolchain runs with WarningPreference=Stop, and this is
+expected (opt-in) behaviour, not an anomaly to halt on.
+```
+
+## comment:4
 
 Above `Write-Message "uv: allowing pre-release/dev package versions...`.
 

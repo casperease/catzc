@@ -9,9 +9,8 @@ catzc:
 
 Describe 'Invoke-AzCli' -Tag 'L2', 'logic' {
     It 'returns version as JSON with accessible properties' {
-        # Gate on presence, not the locked version: this thread proves Invoke-AzCli shells out to a working
-        # `az` — it does not assert tools.yml's version lock, so a functional-but-off-version az must still run
-        # (matching the Build-Bicep L2 skeleton). The skip key is the constrained `tool_az_missing` grammar.
+        # Gate on presence, not the locked version: this thread proves Invoke-AzCli shells out to a working `az` — it...
+        # [comment:1](/docs/references/automation/catzc-azure-cli/tests/Invoke-AzCli.L2.Tests.ps1.md#comment1)
         if (-not (Get-Command az -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_az_missing'; return
         }

@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-MAINTAIN#3
       - ADR-DORA-MAINTAIN#4
       - ADR-DORA-MAINTAIN#5
-    adrs: []
     links:
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/use-proper-package-managers.md

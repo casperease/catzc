@@ -4,13 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-OUTDIR#10
 ---
 #>
 
 Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
     BeforeEach {
-        # A fixture registry: one gitignored managed target (belongs in the whitelist), one committed
-        # managed target (importer.ps1-shaped — must NOT be whitelisted), one not opted in.
+        # A fixture registry: one gitignored managed target (belongs in the whitelist), one committed managed target...
+        # [comment:1](/docs/references/automation/catzc-base-git/tests/Get-AutoControlledGlobs.Tests.ps1.md#comment1)
         Mock Get-Config {
             [pscustomobject]@{
                 files = @(
@@ -61,7 +63,7 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         & $isControlled 'docs/adr/repository/new-draft.md' | Should -BeFalse
         & $isControlled 'out/report-widget.md' | Should -BeTrue
         # the authored plan files are working notes, not output
-        # ([ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10))
+        # [comment:2](/docs/references/automation/catzc-base-git/tests/Get-AutoControlledGlobs.Tests.ps1.md#comment2)
         & $isControlled 'out/plan-widget.md' | Should -BeFalse
         & $isControlled 'automation/Catzc.Base.Git/New-Draft.ps1' | Should -BeFalse
         & $isControlled 'automation/.compiled/Catzc.Types.abc123.dll' | Should -BeFalse

@@ -4,17 +4,21 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#1
+      - ADR-AUTO-TEST#3
+      - ADR-AZ-CUSTOMER
+      - ADR-AZ-DATAMOD
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#8
 ---
 #>
 
 # cspell:ignore toolong
 Describe 'AzureConfig' -Tag 'L0' {
     BeforeAll {
-        # Fixture identity — deliberately-distinct tokens (org tst, tenant fixtenant, Greek envs, core_*
-        # subscriptions) so this logic test owns its inputs and editing the shipped azure.yml can never
-        # change its outcome ([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1),
-        # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). The AzureConfig type
-        # validates the passed dict standalone, so the fixture needs no shipped config.
+        # Fixture identity — deliberately-distinct tokens (org tst, tenant fixtenant, Greek envs, core_*...
+        # [comment:1](/docs/references/automation/catzc-azure/tests/types/AzureConfig.Tests.ps1.md#comment1)
         $script:baseConfig = [ordered]@{
             org               = 'tst'
             bicep_min_version = '0.30.0'
@@ -50,12 +54,8 @@ Describe 'AzureConfig' -Tag 'L0' {
             }
         }
 
-        # The load-time type groups customer subscriptions by their RAW customer token (it must not read
-        # customer.yml — see [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)); this is the NORMALIZED
-        # counterpart: with shortcode
-        # bindings resolved to canonical keys, every shipped customer still serves each env exactly once,
-        # and so does the non-customer (shared) set — the uniqueness every configuration file resolution
-        # rests on ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)).
+        # The load-time type groups customer subscriptions by their RAW customer token (it must not read customer.yml...
+        # [comment:2](/docs/references/automation/catzc-azure/tests/types/AzureConfig.Tests.ps1.md#comment2)
         It 'every shipped customer — and the non-customer set — serves each environment through exactly one subscription' {
             $azure = Get-Config -Config azure
             $servedBy = @{}
@@ -225,10 +225,8 @@ Describe 'AzureConfig' -Tag 'L0' {
             { & $script:make $bad } | Should -Throw '*Duplicate environment shortcode*'
         }
 
-        # A subscription's `customer` field is a cross-asset reference into customer.yml (by key or
-        # shortcode); it is NOT validated at azure-load time (that is enforced by the integrity test above
-        # and at runtime by Get-AzureCustomer). So a customer token in a fixture azure config does not need
-        # customer.yml here — the type carries it raw.
+        # A subscription's `customer` field is a cross-asset reference into customer.yml (by key or shortcode); it is...
+        # [comment:3](/docs/references/automation/catzc-azure/tests/types/AzureConfig.Tests.ps1.md#comment3)
         It 'ignores a subscription customer field (not validated at load)' {
             $ok = Copy-Object $baseConfig
             $ok.subscriptions.core_lower.customer = 'acme'

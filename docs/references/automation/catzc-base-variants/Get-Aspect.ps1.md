@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-variants/Get-Aspect.ps1.md
     kind: comment-page
     body_sha: b33c0514ae91
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Variants/Get-Aspect.ps1

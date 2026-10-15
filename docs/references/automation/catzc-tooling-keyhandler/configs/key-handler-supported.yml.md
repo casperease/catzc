@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md
     kind: comment-page
     body_sha: eec256f06f25
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.KeyHandler/configs/key-handler-supported.yml

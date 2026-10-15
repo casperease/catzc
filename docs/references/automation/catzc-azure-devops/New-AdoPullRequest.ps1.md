@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md
     kind: comment-page
     body_sha: ccf9492cbf7e
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
@@ -37,6 +35,15 @@ a full 'refs/heads/...' ref.
 ```
 
 ## comment:3
+
+Above `Assert-NotNull $pr.pullRequestId -ErrorText "Pull request creation returned...`.
+
+```text
+Postcondition: confirm the PR actually came back created. A non-throwing response with no id means the
+create did not take effect — fail fast here rather than return a phantom result downstream.
+```
+
+## comment:4
 
 Above `Assert-NotNull $pr.pullRequestId -ErrorText "Pull request creation returned...`.
 

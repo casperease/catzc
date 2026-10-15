@@ -9,17 +9,21 @@ catzc:
     adrs:
       - ADR-AUTO-PKGMGR
       - ADR-AUTO-UVPY
+  config:
+    synopsis: Bootstraps uv on Linux from Astral's standalone GitHub release — user-space, hash-verified, no root.
+    description: |-
+      Linux has no uv apt package, so the fresh-machine bootstrap is Astral's standalone release: resolve the
+      newest astral-sh/uv release matching the locked version prefix, download the platform tarball verified
+      against the release asset's published SHA-256 (Save-VerifiedDownload — the Install-Git discipline, see
+      [ADR-AUTO-PKGMGR](/docs/adr/automation/use-proper-package-managers.md)), and extract uv and uvx into the uv tool-bin
+      (~/.local/bin,
+      [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)). Entirely user-space: no package manager, no
+      elevation. The standalone build is also the one `uv self update` serves, so later upgrades stay in place.
+    parameters:
+      Version: The locked uv version prefix from tools.yml (e.g. '0.11').
 ---
 #>
 
-<#
-.SYNOPSIS
-    Bootstraps uv on Linux from Astral's standalone GitHub release — user-space, hash-verified, no root.
-.DESCRIPTION
-    The standalone build is also the one uv self update serves, so later upgrades stay in place.
-.PARAMETER Version
-    The locked uv version prefix from tools.yml (e.g. '0.11').
-#>
 function Install-UvStandalone {
     [CmdletBinding()]
     param(
@@ -47,8 +51,8 @@ function Install-UvStandalone {
     $asset = $release.assets | Where-Object { $_.name -eq $assetName } | Select-Object -First 1
     Assert-NotNull $asset -ErrorText "astral-sh/uv release $($release.tag_name) has no asset '$assetName'."
 
-    # A missing digest hard-fails rather than running an unverified binary, the same discipline as Install-Git.
-    # [comment:2](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment2)
+    # The GitHub release asset carries its published SHA-256 ('digest'); hard-fail rather than run an unverified...
+    # [comment:4](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment4)
     $digest = if ($asset.PSObject.Properties['digest']) {
         $asset.digest
     }
@@ -67,8 +71,8 @@ function Install-UvStandalone {
         $binDirectory = Join-Path $env:HOME '.local/bin'
         [System.IO.Directory]::CreateDirectory($binDirectory) | Out-Null
         foreach ($binary in 'uv', 'uvx') {
-            # Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the assert reports it
-            # The archive holds the binaries one folder down; the third level is headroom.
+            # Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the...
+            # [comment:5](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment5)
             $found = Get-ChildPath $extractDirectory -File -Filter $binary -Depth 3 |
                 Select-Object -First 1
             Assert-NotNullOrWhitespace $found -ErrorText "'$binary' was not found in the extracted uv archive."
@@ -82,8 +86,8 @@ function Install-UvStandalone {
         Remove-Item $extractDirectory -Recurse -Force -ErrorAction Ignore
     }
 
-    # The tool bin is normally on the persistent PATH already; this only makes it resolve in this session.
-    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment3)
+    # The uv tool-bin is normally on the persistent PATH already; make it resolve in this session.
+    # [comment:6](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment6)
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $binDirectory) {
         $env:PATH = "$binDirectory$([System.IO.Path]::PathSeparator)$env:PATH"
     }

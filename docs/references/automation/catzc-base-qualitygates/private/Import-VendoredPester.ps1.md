@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#11
       - ADR-PWSH-VENDOR#5
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Import-VendoredPester.ps1

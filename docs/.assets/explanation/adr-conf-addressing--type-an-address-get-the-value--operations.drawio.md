@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
     kind: asset-description
     body_sha: a3f8ef2c85f5
-    adrs: []
     links:
       - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
       - docs/explanation/configuration/type-an-address-get-the-value.md

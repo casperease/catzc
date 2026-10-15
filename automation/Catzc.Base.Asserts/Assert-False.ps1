@@ -6,22 +6,17 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a value is boolean $false.
+    parameters:
+      Value: The value to test. Must be exactly [bool] $false.
+      ErrorText: Custom error message. Defaults to file and line info.
+    examples:
+      - Assert-False $result
+      - Assert-False ($x -eq 1) -ErrorText 'x should not equal 1'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a value is boolean $false.
-.PARAMETER Value
-    The value to test. Must be exactly [bool] $false.
-.PARAMETER ErrorText
-    Custom error message. Defaults to file and line info.
-.EXAMPLE
-    Assert-False $result
-.EXAMPLE
-    Assert-False ($x -eq 1) -ErrorText 'x should not equal 1'
-#>
 function Assert-False {
     [CmdletBinding()]
     param(

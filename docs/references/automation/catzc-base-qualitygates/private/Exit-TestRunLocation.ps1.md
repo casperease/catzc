@@ -6,7 +6,6 @@ catzc:
     body_sha: f0a9c7a82957
     adrs:
       - ADR-AUTO-CACHE#10
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Exit-TestRunLocation.ps1
@@ -27,6 +26,17 @@ which case its path is announced. A worker's lock-free in-place location release
 ```
 
 ## comment:2
+
+Above `$snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'`.
+
+```text
+Hand the snapshot's result caches home before it goes: the checks this run made in the snapshot are as
+valid for the working folder as for the snapshot, since each entry is keyed on a file's content and the
+check's inputs ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)). Save-ResultCache
+merges them with what the working folder's cache holds.
+```
+
+## comment:3
 
 Above `$snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'`.
 

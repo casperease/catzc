@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-python/Invoke-Poetry.ps1.md
     kind: comment-page
     body_sha: "9fe2682f178c"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Python/Invoke-Poetry.ps1

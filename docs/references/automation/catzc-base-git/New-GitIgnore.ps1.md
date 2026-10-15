@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md
     kind: comment-page
     body_sha: "636a69381902"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Git/New-GitIgnore.ps1
@@ -43,6 +41,16 @@ renders the section titled but empty.
 ```
 
 ## comment:3
+
+Above `$patterns = if ($section.inject) {`.
+
+```text
+Resolve the section's patterns: static from the registry, or injected by the caller. An inject
+provider the caller did not supply is a wiring defect — fail loudly, never render a silently
+incomplete .gitignore.
+```
+
+## comment:4
 
 Above `$patterns = if ($section.inject) {`.
 

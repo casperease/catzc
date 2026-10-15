@@ -6,7 +6,6 @@ catzc:
     body_sha: d4e0df49bf41
     adrs:
       - ADR-REPO-FILEMETA#3
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1

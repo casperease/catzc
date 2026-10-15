@@ -12,31 +12,56 @@ catzc:
       - ADR-AUTO-SPELL#5
       - ADR-AUTO-SPELL#6
       - ADR-REPO-OUTDIR#8
+  config:
+    synopsis: |-
+      Generates the per-category spell-checker dictionaries from the terminology registry — the writer half of
+      Test-Terminology.
+    description: |-
+      Reads the approved-vocabulary registry (configs/terminology.yml, via Get-Config -Config terminology)
+      and writes one plain cspell word list per category
+      ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)) to the repository
+      root's .cspell/<category>.txt
+      — one file per category defined in the registry (see .cspell/README.md) — the lists cspell.yml references
+      as separate dictionaries. Each carries the generated-file head as a comment (cspell treats
+      '#' lines as comments) naming its generator and source. Each list is lower-cased, de-duplicated, and ordinal-sorted, so the
+      output is deterministic — the same registry always produces byte-identical bytes. The category set is the
+      registry's own `categories` map, and every category's file is always emitted, so the generated file set —
+      and cspell.yml — stay stable.
+
+      terminology.yml is the single source of truth; these lists are generated, never hand-edited. Like the
+      .psd1 manifests they are gitignored and regenerated at the importer tail (see importer.ps1), so cspell
+      resolves them at fixed paths without a committed second copy of the vocabulary
+      ([ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)).
+
+      See [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
+      ([ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
+      [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)) and
+      [ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8).
+    parameters:
+      DryRun: |-
+        Report whether any generated list would change without writing the files. The returned content is the
+        same in either mode; -DryRun simply skips the write. See
+        [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+      Silent: |-
+        The per-category status lines are verbose-level — shown only when this function is run with -Verbose.
+        -Silent suppresses them entirely, even under -Verbose (used by the importer tail so a session with
+        -Verbose on does not chatter during import).
+      PassThru: |-
+        Return one result object per category ({ Category, Path, WordCount, Changed, DryRun }) instead of the
+        path strings.
+    outputs: |-
+      [string[]] The paths to the generated dictionaries (with -PassThru, one result object per category
+      instead).
+    examples:
+      - |-
+        Build-TerminologyDictionary
+        Regenerates the per-category dictionaries from the registry.
+      - |-
+        Build-TerminologyDictionary -DryRun -PassThru
+        Reports whether any checked-in list is stale without writing it.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Generates the per-category spell-checker dictionaries from the terminology registry — the writer half of
-    Test-Terminology.
-.DESCRIPTION
-    The lists are gitignored and regenerated at import, so the registry stays the only copy of the vocabulary.
-.PARAMETER DryRun
-    The returned content is the same in either mode; -DryRun only skips the write.
-.PARAMETER Silent
-    Wins over -Verbose, so the importer tail stays quiet even in a session that has -Verbose on.
-.PARAMETER PassThru
-    Changed tells which lists differ from disk, which makes this the way to read a -DryRun outcome.
-.OUTPUTS
-    [string[]] The paths to the generated dictionaries (with -PassThru, one result object per category
-    instead).
-.EXAMPLE
-    Build-TerminologyDictionary
-    Regenerates the per-category dictionaries from the registry.
-.EXAMPLE
-    Build-TerminologyDictionary -DryRun -PassThru
-    Reports whether any checked-in list is stale without writing it.
-#>
 function Build-TerminologyDictionary {
     [CmdletBinding()]
     [OutputType([string[]])]
@@ -50,23 +75,23 @@ function Build-TerminologyDictionary {
 
     $config = Get-Config -Config terminology
 
-    # Every category always gets its file, even with no terms, so the generated file set and cspell.yml stay stable.
-    # [comment:5](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment5)
+    # One dictionary per category: each category's terms generate their own cspell word list, so cspell.yml can...
+    # [comment:10](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment10)
     $categories = @($config.categories)
 
     # The per-file status lines are verbose-level detail — shown only when this function is run with -Verbose.
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
-    # The folder is gitignored, so a fresh clone lacks it and WriteAllText would not create it: self-heal first.
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment6)
+    # The generated dictionaries live at the repository root's.cspell/<category>.txt (see.cspell/README.md).
+    # [comment:11](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment11)
     $cspellDir = Join-Path (Get-RepositoryRoot) '.cspell'
     if (-not $DryRun) {
         [void][System.IO.Directory]::CreateDirectory($cspellDir)
     }
 
     $ret = foreach ($category in $categories) {
-        # An abbreviation's expansion is a real word cspell knows, so only the terms themselves are registered.
-        # [comment:7](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment7)
+        # The accepted tokens are the terms themselves (an abbreviation's expansion is a real word cspell already...
+        # [comment:12](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment12)
         $words = [string[]] @(
             $config.terms |
                 Where-Object { $_.category -eq $category } |
@@ -75,8 +100,8 @@ function Build-TerminologyDictionary {
         )
         [System.Array]::Sort($words, [System.StringComparer]::Ordinal)
 
-        # The head is part of the content, so the drift comparison covers it as well.
-        # [comment:8](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment8)
+        # A generated-file head (cspell treats '#' lines as comments) names the generator and the single source —...
+        # [comment:13](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment13)
         $text = if ($words.Count -gt 0) {
             ($words -join "`n") + "`n"
         }
@@ -85,8 +110,8 @@ function Build-TerminologyDictionary {
         }
         $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Carrier word-list -Generator Build-TerminologyDictionary -Source 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
 
-        # The path is fixed because cspell.yml references it, so there is no committed second copy.
-        # [comment:9](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment9)
+        # Gitignored, generated artifact at the repository root's.cspell/, at the fixed path cspell.yml references.
+        # [comment:14](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment14)
         $dictPath = Join-Path $cspellDir "$category.txt"
 
         $existing = if (Test-Path $dictPath) {

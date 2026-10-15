@@ -9,7 +9,6 @@ catzc:
       - ADR-DORA-VCS#2
       - ADR-DORA-VCS#3
       - ADR-DORA-VCS#4
-    adrs: []
     links:
       - docs/adr/design/server-remote-integration.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

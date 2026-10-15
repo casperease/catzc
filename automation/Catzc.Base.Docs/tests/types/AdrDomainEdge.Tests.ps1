@@ -4,11 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/AdrDomainEdge.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TYPES#9
 ---
 #>
 
 # AdrDomainEdge — one From/To edge of the ADR domain graph; the constructor holds both ends non-empty and distinct.
-# Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/AdrDomainEdge.Tests.ps1.md#comment1)
 Describe 'AdrDomainEdge' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     It 'carries its From and To domains' {
         $edge = [Catzc.Base.Docs.AdrDomainEdge]::new('widget', 'gadget')

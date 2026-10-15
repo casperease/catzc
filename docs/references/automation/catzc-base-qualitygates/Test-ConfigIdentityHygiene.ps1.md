@@ -6,7 +6,6 @@ catzc:
     body_sha: "502cbc97a77e"
     adrs:
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1

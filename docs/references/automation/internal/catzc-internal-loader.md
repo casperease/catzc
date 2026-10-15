@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/internal/catzc-internal-loader.md
     kind: reference
     body_sha: d748a59e3c95
-    adrs: []
     links:
       - docs/adr/automation/caching.md
       - docs/adr/flow/pipeline-detection.md

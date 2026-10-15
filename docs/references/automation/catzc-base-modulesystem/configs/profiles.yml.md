@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/configs/profiles.yml.md
     kind: comment-page
     body_sha: "5ad8d23a7ed7"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/configs/profiles.yml

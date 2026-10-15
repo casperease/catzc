@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-engines/types/ExecutionEngines.cs.md
     kind: comment-page
     body_sha: "215866436a3b"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Engines/types/ExecutionEngines.cs

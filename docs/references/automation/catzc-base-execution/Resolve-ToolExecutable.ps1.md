@@ -6,7 +6,6 @@ catzc:
     body_sha: "41eec330f921"
     adrs:
       - ADR-CONF-LOADING#6
-    links: []
 ---
 
 # automation/Catzc.Base.Execution/Resolve-ToolExecutable.ps1

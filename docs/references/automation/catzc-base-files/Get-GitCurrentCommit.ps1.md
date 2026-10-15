@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-files/Get-GitCurrentCommit.ps1.md
     kind: comment-page
     body_sha: "64758e10e6b3"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Files/Get-GitCurrentCommit.ps1

@@ -6,27 +6,26 @@ catzc:
     kind: private-function
     module: Catzc.Tooling.Github
     visibility: private
-    adrs: []
+  config:
+    synopsis: |-
+      Asserts that a freshly pushed remote holds exactly the local branch — every ref it advertises points at the
+      branch's commit.
+    description: |-
+      The post-push verification behind Publish-CleanHistory and Reset-GitHubRepository. Git names every commit by
+      the hash of its content and history, so a remote ref at the same commit as the local branch carries the same
+      history, object for object. Comparing the advertised refs (`git ls-remote`, a few hundred bytes) against the
+      local commit therefore proves what the server stored without downloading it, and the token scan runs on the
+      local branch instead of a mirror clone. A ref at any other commit is history the local scan never covered, so
+      it fails the check.
+    parameters:
+      Url: The remote to read, as a clone URL.
+      Branch: The local branch that was pushed.
+      RepositoryPath: The local clone the branch lives in.
+      TimeoutSeconds: How long the network read may run; the caller passes its own limit.
+    outputs: '[string] The commit every remote ref points at.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a freshly pushed remote holds exactly the local branch — every ref it advertises points at the
-    branch's commit.
-.DESCRIPTION
-    A ref at the local commit holds the same history, so a ref listing proves the remote without a mirror clone.
-.PARAMETER Url
-    The remote to read, as a clone URL.
-.PARAMETER Branch
-    The local branch that was pushed.
-.PARAMETER RepositoryPath
-    The local clone the branch lives in.
-.PARAMETER TimeoutSeconds
-    How long the network read may run; the caller passes its own limit.
-.OUTPUTS
-    [string] The commit every remote ref points at.
-#>
 function Assert-RemoteMatchesBranch {
     [OutputType([string])]
     param(

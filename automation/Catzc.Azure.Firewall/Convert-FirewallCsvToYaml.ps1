@@ -8,38 +8,41 @@ catzc:
     visibility: public
     adrs:
       - ADR-PWSH-PARAM#4
+  config:
+    synopsis: Renders an Azure Firewall rule-export CSV (application or network) as YAML.
+    description: |-
+      Reads the CSV and writes each row as a YAML mapping, splitting the multi-value fields into arrays
+      (forced to a list even for a single value, and to an empty list when blank). All other fields are
+      emitted as-is. Field set is schema-agnostic: a name in -MultiValueFields that the CSV doesn't have is
+      simply never encountered, so the same defaults serve both the application and network exports.
+
+      The file opens with a comment header (source filename, CSV generation time, conversion time, all UTC).
+      Being YAML comments they're ignored by parsers, so the parsed document is still a plain list of rules.
+
+      Two parameter sets:
+        Path   : -CsvPath + -YamlPath.
+        Object : -InputObject (a Get-FirewallCsv result, pipeline-bindable) + optional -OutputFolder. CsvPath
+                 comes from the object and the file is written as <original-name>.yaml.
+    parameters:
+      CsvPath: Path to the source CSV (Path set).
+      YamlPath: Output YAML path (Path set).
+      SourceName: The filename of the source, recorded in the header comment. Defaults to the CSV's own filename.
+      GeneratedAt: CSV generation time in UTC, recorded in the header comment. When omitted, that line is dropped.
+      InputObject: A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
+      OutputFolder: |-
+        Where the .yaml goes in Object mode; the file is named <original-name>.yaml.
+        Destination directory in Object mode; the file is named <original-name>.yaml. Defaults to the yaml folder
+        under the output root (Get-OutputRoot: <repo>/out locally, the artifact staging directory in a pipeline).
+      MultiValueFields: Fields split into YAML arrays on -SplitPattern.
+      SplitPattern: Regex splitting multi-value fields. Default comma/semicolon with surrounding whitespace.
+    examples:
+      - Convert-FirewallCsvToYaml -CsvPath .\application.csv -YamlPath .\out\application.yaml
+      - |-
+        Get-FirewallCsv -SubscriptionId $sub -StorageAccountName stfwexports -ContainerName rule-exports |
+            Convert-FirewallCsvToYaml -OutputFolder .\out\yaml
 ---
 #>
 
-<#
-.SYNOPSIS
-    Renders an Azure Firewall rule-export CSV (application or network) as YAML.
-.DESCRIPTION
-    A multi-value field is always a list, even for one value or none, so consumers never branch on scalar versus list.
-.PARAMETER CsvPath
-    Path to the source CSV (Path set).
-.PARAMETER YamlPath
-    Output YAML path (Path set).
-.PARAMETER SourceName
-    The filename of the source, recorded in the header comment. Defaults to the CSV's own filename.
-.PARAMETER GeneratedAt
-    CSV generation time in UTC, recorded in the header comment. When omitted, that line is dropped.
-.PARAMETER InputObject
-    A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
-.PARAMETER OutputFolder
-    Where the .yaml goes in Object mode; the file is named <original-name>.yaml.
-    Unset, the file lands under the output root, which is out locally and the staging directory in a pipeline.
-    [comment:2](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment2)
-.PARAMETER MultiValueFields
-    Fields split into YAML arrays on -SplitPattern.
-.PARAMETER SplitPattern
-    Regex splitting multi-value fields. Default comma/semicolon with surrounding whitespace.
-.EXAMPLE
-    Convert-FirewallCsvToYaml -CsvPath .\application.csv -YamlPath .\out\application.yaml
-.EXAMPLE
-    Get-FirewallCsv -SubscriptionId $sub -StorageAccountName stfwexports -ContainerName rule-exports |
-        Convert-FirewallCsvToYaml -OutputFolder .\out\yaml
-#>
 function Convert-FirewallCsvToYaml {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'In Object mode -SourceName derives from the piped input, bound after defaults are evaluated (ADR-PWSH-PARAM#4)')]
     [CmdletBinding(DefaultParameterSetName = 'Path')]
@@ -89,14 +92,14 @@ function Convert-FirewallCsvToYaml {
             $YamlPath = Join-Path $OutputFolder $yamlName
         }
 
-        # Filled in the body, not as a default: in Object mode the value arrives from the pipeline after defaults run.
-        # [comment:3](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment3)
+        # A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are...
+        # [comment:6](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment6)
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }
 
-        # The piped Object path is not validated by the parameter, so a wrong path fails here, named, not in Import-Csv.
-        # [comment:4](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment4)
+        # In Object mode CsvPath comes from the piped object (the Path set is ValidateScript'd); assert it exists...
+        # [comment:7](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment7)
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rules = Import-Csv -Path $CsvPath | ForEach-Object {
@@ -122,8 +125,8 @@ function Convert-FirewallCsvToYaml {
 
         $yaml = ConvertTo-Yaml -Data $rules
 
-        # A comment header, not a data key, so parsers ignore it and the parsed shape stays a plain list of rules.
-        # [comment:5](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment5)
+        # Provenance as a YAML comment header — visible to readers, ignored by parsers, so the parsed shape stays a...
+        # [comment:8](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment8)
         $header = [System.Collections.Generic.List[string]]::new()
         $header.Add("# Source: $SourceName")
         if ($null -ne $GeneratedAt) {

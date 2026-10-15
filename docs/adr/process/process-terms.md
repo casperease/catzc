@@ -10,7 +10,6 @@ catzc:
       - ADR-PROC-LEANTERMS#3
       - ADR-PROC-LEANTERMS#4
       - ADR-PROC-LEANTERMS#5
-    adrs: []
     links:
       - docs/adr/automation/caching.md
       - docs/adr/automation/zero-ceremony-poka-yoke.md

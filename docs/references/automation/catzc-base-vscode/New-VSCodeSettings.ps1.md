@@ -6,7 +6,6 @@ catzc:
     body_sha: "28d2d8dc7eec"
     adrs:
       - ADR-REPO-FORMAT#8
-    links: []
 ---
 
 # automation/Catzc.Base.VSCode/New-VSCodeSettings.ps1
@@ -79,6 +78,24 @@ stable.
 ```
 
 ## comment:6
+
+Above `foreach ($id in ($LanguageFormatter.Keys | Sort-Object)) {`.
+
+```text
+Each language's editor formatter, merged into its [<id>] block (authored keys in the block win); sorted, so the
+render is stable.
+```
+
+## comment:7
+
+Above `foreach ($key in ($MachineSetting.Keys | Sort-Object)) {`.
+
+```text
+Machine-resolved settings complete the authored ones, which win on a shared key; sorted, so the render is
+stable.
+```
+
+## comment:8
 
 Above `foreach ($id in ($LanguageFormatter.Keys | Sort-Object)) {`.
 

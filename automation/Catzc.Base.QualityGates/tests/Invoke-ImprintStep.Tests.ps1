@@ -4,11 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-FORMAT#8
 ---
 #>
 
-# Invoke-ImprintStep with its seams mocked: the registries (Get-Config) and the C# namespace command (Format-Types), over fixture files
-# in $TestDrive. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Invoke-ImprintStep with its seams mocked: the registries (Get-Config) and the C# namespace command (Format-Types),...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-ImprintStep.Tests.ps1.md#comment1)
 Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-adapter-repo'))

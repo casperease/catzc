@@ -6,7 +6,6 @@ catzc:
     body_sha: "9ba5e9ab045c"
     adrs:
       - ADR-AUTO-TYPES#9
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1
@@ -53,4 +52,23 @@ Section `.PARAMETER ModuleProfile` of the comment-based help.
 ```text
 A named module profile from configs/profiles.yml (minimal, azure, …), resolved to its dependency closure +
 infrastructure via Get-ModuleProfile. Alternative to -ModuleNames.
+```
+
+## comment:3
+
+Above `if ([System.IO.Directory]::Exists($destinationRoot) -and...`.
+
+```text
+An emptiness probe stops at the first entry of any kind, hidden and pruned names included
+([ADR-PWSH-ENUM#1](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum1)).
+```
+
+## comment:4
+
+Above `foreach ($file in Get-ChildPath $item.Source -File -Depth 64 -Exclude @()...`.
+
+```text
+A named whole-tree walk
+([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): every file the
+copy would write is checked for a conflict.
 ```

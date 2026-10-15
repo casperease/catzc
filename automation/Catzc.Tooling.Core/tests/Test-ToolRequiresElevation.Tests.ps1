@@ -9,8 +9,8 @@ catzc:
 
 Describe 'Test-ToolRequiresElevation' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The production input is the typed record Get-ToolConfig returns, so the tests build one: a flag the record
-        # does not map would be absent here exactly as in production.
+        # The production input is the typed record Get-ToolConfig returns, so the tests build one: a flag the record...
+        # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md#comment1)
         function New-TestToolConfig {
             param([hashtable] $Flags)
             $entry = @{ version = '1.0'; command = 'faketool'; version_command = 'faketool --version'; version_pattern = '(?<ver>.+)' }

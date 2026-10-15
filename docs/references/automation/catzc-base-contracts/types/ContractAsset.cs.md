@@ -11,7 +11,6 @@ catzc:
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-CONTRACT#6
       - ADR-REPO-CONTRACT#7
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractAsset.cs

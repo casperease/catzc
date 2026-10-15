@@ -6,22 +6,20 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Whether a discovered test is inside a test run's tier and category scope.
+    description: |-
+      A test is in scope when neither its tier nor its category — each resolved along its block chain (Get-TestBlockTag,
+      nearest contributing block wins) — is one of the run's exclude tags (Get-TestExcludeTag). The one scope check
+      behind the work-list's scope filter (Select-InScopeTestFiles) and the opt-out exclusion (Get-TestOptOutExclusion),
+      so both agree on which tests a run would execute.
+    parameters:
+      Test: A test from the run's discovery-only Pester result (Get-TestDiscovery).
+      ExcludeTag: The run's tier/category exclude tags.
+    outputs: '[bool]'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Whether a discovered test is inside a test run's tier and category scope.
-.DESCRIPTION
-    The one scope check behind the work-list filter and the opt-out exclusion, so both agree on what a run executes.
-.PARAMETER Test
-    A test from the run's discovery-only Pester result (Get-TestDiscovery).
-.PARAMETER ExcludeTag
-    The run's tier/category exclude tags.
-.OUTPUTS
-    [bool]
-#>
 function Test-TestInRunScope {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -33,8 +31,8 @@ function Test-TestInRunScope {
         [string[]] $ExcludeTag = @()
     )
 
-    # Never wrap this result in @(): that would nest the single array object it returns, and every count would read 1.
-    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md#comment2)
+    # Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never wrapped...
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md#comment3)
     $level = Get-TestBlockTag -Test $Test -Valid ([Catzc.Base.Timeouts.TestTiers]::Names)
     $category = Get-TestBlockTag -Test $Test -Valid 'logic', 'integrity'
     @(@($level) + @($category) | Where-Object { $_ -in $ExcludeTag }).Count -eq 0

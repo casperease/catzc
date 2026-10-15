@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#9
 ---
 #>
 
-# Uninstall-Zsh on a fixture Git tree in $TestDrive with the layout mocked, so nothing outside $TestDrive changes
-# ([ADR-AUTO-TEST#9](/docs/adr/automation/test-automation.md#rule-adr-auto-test9)). Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Uninstall-Zsh on a fixture Git tree in $TestDrive with the layout mocked, so nothing outside $TestDrive changes.
+# [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md#comment1)
 Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:gitHome = Join-Path $TestDrive 'git'
@@ -95,8 +97,8 @@ Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {
         }
     }
 
-    # The shared apt uninstaller is mocked: it reads the package name from the entry's apt_package and owns the
-    # presence check and the root assert, so nothing is removed and no process starts.
+    # The shared apt uninstaller is mocked: it reads the package name from the entry's apt_package and owns the...
+    # [comment:2](/docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md#comment2)
     Context 'on Linux' {
         BeforeEach {
             Mock Uninstall-Tool -ModuleName Catzc.Tooling.Provisioning { }

@@ -11,7 +11,6 @@ catzc:
       - ADR-REPO-CONTRACT#6
       - ADR-REPO-CONTRACT#7
       - ADR-REPO-CONTRACT#8
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/Get-Contract.ps1

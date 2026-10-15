@@ -4,14 +4,17 @@ catzc:
   derived:
     path: automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-OVERLAY
+      - ADR-AUTO-TEST#14
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Get-Config' -Tag 'L0' {
     Context 'discovery + raw default' -Tag 'integrity' {
-        # Reads the shipped tools.yml — guards that a real config is discovered in its owning module and loads
-        # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). The raw default itself
-        # is pinned hermetically below, on a fixture config with no registry entry.
+        # Reads the shipped tools.yml — guards that a real config is discovered in its owning module and loads.
+        # [comment:1](/docs/references/automation/catzc-base-config/tests/Get-Config.Tests.ps1.md#comment1)
         It 'discovers and loads a shipped config from its owning module' {
             $configuration = Get-Config -Config tools                       # registry type: Catzc.Base.Execution.ToolsConfig
             $configuration.Keys | Should -Contain 'python'
@@ -19,12 +22,8 @@ Describe 'Get-Config' -Tag 'L0' {
     }
 
     Context 'caching, errors, and name binding' -Tag 'logic' {
-        # Function behaviour, independent of which configs are shipped: memoization, the not-found error
-        # path, and parameter-binding validation
-        # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). The caching test owns a
-        # fixture config
-        # through the Resolve-ConfigEntry seam, so it never reads a shipped config
-        # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+        # Function behaviour, independent of which configs are shipped: memoization, the not-found error path, and...
+        # [comment:2](/docs/references/automation/catzc-base-config/tests/Get-Config.Tests.ps1.md#comment2)
         It 'returns the same cached object reference on repeat calls' {
             $dir = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             New-Item -ItemType Directory -Path $dir | Out-Null
@@ -59,8 +58,8 @@ Describe 'Get-Config' -Tag 'L0' {
     }
 
     Context 'a consumer overlay fragment' -Tag 'logic' {
-        # A bundled config and a consumer overlay, both fixtures, through the Resolve-ConfigEntry, overlay-root and
-        # registry seams ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)).
+        # A bundled config and a consumer overlay, both fixtures, through the Resolve-ConfigEntry, overlay-root and...
+        # [comment:3](/docs/references/automation/catzc-base-config/tests/Get-Config.Tests.ps1.md#comment3)
         BeforeEach {
             $script:bundled = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             $script:overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
@@ -193,8 +192,8 @@ namespace CatzcGetConfigTest {
     }
 
     Context 'registry self-validation (Catzc.Base.Config.ConfigsConfig)' -Tag 'logic' {
-        # Validator logic on inline (synthetic) registries — independent of any shipped configs.yml
-        # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)).
+        # Validator logic on inline (synthetic) registries — independent of any shipped configs.yml.
+        # [comment:4](/docs/references/automation/catzc-base-config/tests/Get-Config.Tests.ps1.md#comment4)
         It 'accepts a valid registry (one type per entry)' {
             { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ a = @{ type = 'Foo' }; b = @{ type = 'Bar' } } }) } |
                 Should -Not -Throw

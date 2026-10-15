@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-REMOVE#4
+      - ADR-AUTO-REMOVE#5
 ---
 #>
 

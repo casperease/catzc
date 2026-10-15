@@ -4,13 +4,18 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-DSGN-TRACK#12
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-THES-ONETRUTH#3
 ---
 #>
 
-# ValueChainHighlight lights the value-chain map cells an ADR, or one of its rules, sits in
-# ([ADR-DSGN-TRACK#12](/docs/adr/design/tracks.md#rule-adr-dsgn-track12),
-# [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)), with widget/gadget fixtures
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# ValueChainHighlight lights the value-chain map cells an ADR, or one of its rules, sits in, with widget/gadget...
+# [comment:1](/docs/references/automation/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md#comment1)
 Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {

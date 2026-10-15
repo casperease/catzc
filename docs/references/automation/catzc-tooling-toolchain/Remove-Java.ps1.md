@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Remove-Java.ps1
@@ -39,6 +38,26 @@ Gate: managed by our tooling system → refuse, redirect to Uninstall-Java
 ```
 
 ## comment:3
+
+Above `if ($IsLinux -or $IsMacOS) {`.
+
+```text
+Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
+/ stray binary); elevation is scoped to the mechanism
+([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)), so no admin assert
+here.
+```
+
+## comment:4
+
+Above `if (Test-ExpectedPackageManager -Config $config) {`.
+
+```text
+Gate: managed by our tooling system → refuse, redirect to Uninstall-Java
+([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
+```
+
+## comment:5
 
 Above `if ($IsLinux -or $IsMacOS) {`.
 

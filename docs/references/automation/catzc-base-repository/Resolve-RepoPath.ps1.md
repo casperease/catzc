@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-repository/Resolve-RepoPath.ps1.md
     kind: comment-page
     body_sha: e990fa10b972
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Repository/Resolve-RepoPath.ps1

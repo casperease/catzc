@@ -6,30 +6,24 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Python
     visibility: public
-    adrs: []
+  config:
+    synopsis: Runs pyspark with the given arguments.
+    description: |-
+      Asserts that the installed PySpark version matches the locked version
+      in Get-ToolConfig before executing the command. Also asserts Java
+      is available (DependsOn in tools.yml).
+    parameters:
+      Arguments: Arguments to pass to pyspark.
+      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
+      NoAssert: Skip exit code assertion.
+      Silent: Suppress the command log line.
+      DryRun: Return the command string without executing. Used for testing.
+    examples:
+      - Invoke-PySpark '--version'
+      - Invoke-PySpark '--version' -DryRun
 ---
 #>
 
-<#
-.SYNOPSIS
-    Runs pyspark with the given arguments.
-.DESCRIPTION
-    The Java check comes from DependsOn in tools.yml, not from this function; a dry run skips both asserts.
-.PARAMETER Arguments
-    Arguments to pass to pyspark.
-.PARAMETER PassThru
-    Return a CliResult object with Output, Errors, Full, and ExitCode.
-.PARAMETER NoAssert
-    Skip exit code assertion.
-.PARAMETER Silent
-    Suppress the command log line.
-.PARAMETER DryRun
-    Return the command string without executing. Used for testing.
-.EXAMPLE
-    Invoke-PySpark '--version'
-.EXAMPLE
-    Invoke-PySpark '--version' -DryRun
-#>
 function Invoke-PySpark {
     [CmdletBinding()]
     param(

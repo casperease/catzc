@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md
     kind: comment-page
     body_sha: f4342ccff482
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.Templates/private/Get-BicepConfigClassViolations.ps1

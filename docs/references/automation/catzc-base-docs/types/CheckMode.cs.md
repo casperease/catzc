@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#35
       - ADR-PRIN-CONFIG#4
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/CheckMode.cs

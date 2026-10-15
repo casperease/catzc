@@ -6,18 +6,14 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Node
     visibility: public
-    adrs: []
+  config:
+    synopsis: Uninstalls markdownlint-cli2 (the global npm package).
+    description: Idempotent — skips if markdownlint-cli2 or npm is not present (nothing to uninstall).
+    examples:
+      - Uninstall-Markdownlint
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls markdownlint-cli2 (the global npm package).
-.DESCRIPTION
-    Idempotent — skips if markdownlint-cli2 or npm is not present (nothing to uninstall).
-.EXAMPLE
-    Uninstall-Markdownlint
-#>
 function Uninstall-Markdownlint {
     [CmdletBinding()]
     param()

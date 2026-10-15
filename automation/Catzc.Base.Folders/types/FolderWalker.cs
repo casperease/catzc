@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.Folders/types/FolderWalker.cs
     kind: csharp-type
     module: Catzc.Base.Folders
-    adrs: []
 ---
 */
 

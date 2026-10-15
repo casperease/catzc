@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/modules/policy-assignment.bicep.md
     kind: comment-page
     body_sha: "4cd6ccc298f4"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/modules/policy-assignment.bicep

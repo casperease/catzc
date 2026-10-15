@@ -6,7 +6,6 @@ catzc:
     body_sha: "40d0fcc275a2"
     adrs:
       - ADR-AUTO-BUNDLE#5
-    links: []
 ---
 
 # automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
@@ -41,6 +40,25 @@ the build before touching a destination.
 ```
 
 ## comment:2
+
+Above `$staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),...`.
+
+```text
+Stage the sources build.json records in the one layout Get-CombinedTypeHash reads (<Module>/types/<File>.cs), so the
+hash comes from the one implementation rather than a second copy of its recipe.
+```
+
+## comment:3
+
+Above `$files = foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @()...`.
+
+```text
+Every file once, build-relative and forward-slashed: the tests/ scan and the shipped type sources read it.
+A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the bundle
+is verified in full, vendored modules included, so nothing is pruned.
+```
+
+## comment:4
 
 Above `$staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),...`.
 

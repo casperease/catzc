@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-FORMAT#6
-    links: []
 ---
 
 # automation/.scriptanalyzer/NoBareCacheEntryRead.psm1

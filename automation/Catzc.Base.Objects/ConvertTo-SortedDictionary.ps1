@@ -6,18 +6,17 @@ catzc:
     kind: public-function
     module: Catzc.Base.Objects
     visibility: public
-    adrs: []
+  config:
+    synopsis: Recursively converts dictionaries to ordered form for stable output.
+    description: |-
+      OrderedDictionaries keep their original key order.
+      Plain Hashtables get their keys sorted alphabetically.
+      Nested dictionaries are processed recursively.
+    parameters:
+      Dictionary: The dictionary to process.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Recursively converts dictionaries to ordered form for stable output.
-.DESCRIPTION
-    Only a plain hashtable is sorted; an ordered dictionary keeps its key order, which is the order its author chose.
-.PARAMETER Dictionary
-    The dictionary to process.
-#>
 function ConvertTo-SortedDictionary {
     [CmdletBinding()]
     param(

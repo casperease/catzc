@@ -4,6 +4,11 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Format-FunctionHelpText.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-HELP#1
+      - ADR-REPO-HELP#2
+      - ADR-REPO-HELP#3
+      - ADR-REPO-HELP#4
 ---
 #>
 
@@ -19,8 +24,7 @@ Describe 'Format-FunctionHelpText' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1', 'ADR-R
     Turns a widget into a gadget.
 .DESCRIPTION
     The gadget keeps the widget's colour.
-    [ADR-WIDGET-COG#1](/docs/adr/widget/cog.md#rule-adr-widget-cog1),
-    [ADR-WIDGET-GADGET#2](/docs/adr/widget/gadget.md#rule-adr-widget-gadget2)
+    [comment:1](/docs/references/widget.md#comment1)
 .PARAMETER Widget
     The widget to turn.
 .OUTPUTS
@@ -57,7 +61,7 @@ function ConvertTo-Gadget {
         (& $script:run $text).Text | Should -BeExactly $script:conforming
     }
 
-    It 'moves a parenthesised synopsis citation to the sorted, de-duplicated tail of the description' {
+    It 'takes the citations out of the synopsis and the description and leaves the docs link last' {
         $text = @'
 <#
 .SYNOPSIS
@@ -80,8 +84,6 @@ function ConvertTo-Gadget {
     Turns a widget into a gadget.
 .DESCRIPTION
     The gadget keeps the widget's colour.
-    [ADR-WIDGET-COG#1](/docs/adr/widget/cog.md#rule-adr-widget-cog1),
-    [ADR-WIDGET-GADGET#2](/docs/adr/widget/gadget.md#rule-adr-widget-gadget2)
     [comment:1](/docs/references/widget.md#comment1)
 #>
 function ConvertTo-Gadget {
@@ -89,6 +91,24 @@ function ConvertTo-Gadget {
 }
 '@
         $result.Problems | Should -BeNullOrEmpty
+    }
+
+    It 'reports a synopsis citation outside parentheses and leaves the sentence alone' {
+        $text = @'
+<#
+.SYNOPSIS
+    Turns a widget into a gadget per ADR-WIDGET-GADGET#2.
+.DESCRIPTION
+    The gadget keeps the widget's colour.
+#>
+function ConvertTo-Gadget {
+    param()
+}
+'@
+        $result = & $script:run $text
+        $result.Text | Should -BeExactly $text
+        $result.Problems | Should -HaveCount 1
+        $result.Problems[0] | Should -BeLike 'the synopsis cites an ADR outside parentheses*'
     }
 
     It 'drops an inline comment equal to its section and turns one with no section into the section' {

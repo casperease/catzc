@@ -6,7 +6,6 @@ catzc:
     body_sha: "2d25d860d6d6"
     adrs:
       - ADR-DSGN-TRACK#6
-    links: []
 ---
 
 # automation/Catzc.Base.Languages/Get-FileLanguage.ps1

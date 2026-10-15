@@ -9,22 +9,29 @@ catzc:
     adrs:
       - ADR-AZ-DATAMOD
       - ADR-PWSH-PESTER#9
+  config:
+    synopsis: |-
+      Builds the lower-cased text corpus the terminology orphan check searches — one bulk read, not a grep
+      per term.
+    description: |-
+      Concatenates the lower-cased text of the authored tree so orphan detection can confirm each registry term
+      is genuinely referenced. The net is deliberately WIDER than Test-Spelling's lint scope: on top of the
+      spell-scanned extensions it also scans the authored config files with no extension (.gitignore, .gitattributes,
+      .markdownlintignore, .prettierignore), because a term can be justified solely by a usage there — e.g. a
+      *.stackdump ignore pattern in .gitignore that the editor's cspell flags but Test-Spelling never scans.
+      Narrowing the orphan net to the lint scope manufactures false orphans, so it searches the whole tree.
+
+      Excludes the registry and its generated dictionaries — where every term trivially appears — so a hit in the
+      corpus means the term is referenced elsewhere. Returned as one string; the caller tests membership with a
+      case-insensitive substring check (ordinal, on already-lower-cased text), deliberately lenient: a term
+      embedded in a larger identifier still counts as referenced.
+    parameters:
+      Root: The repository root to scan under.
+      Exclude: Full paths to omit from the corpus (the registry file and the generated dictionaries).
+    outputs: '[string] The concatenated, lower-cased corpus.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Builds the lower-cased text corpus the terminology orphan check searches — one bulk read, not a grep
-    per term.
-.DESCRIPTION
-    The net is wider than Test-Spelling's scope, since narrowing it would manufacture false orphans.
-.PARAMETER Root
-    The repository root to scan under.
-.PARAMETER Exclude
-    Full paths to omit from the corpus (the registry file and the generated dictionaries).
-.OUTPUTS
-    [string] The concatenated, lower-cased corpus.
-#>
 function Get-TerminologyCorpus {
     [CmdletBinding()]
     [OutputType([string])]
@@ -39,8 +46,8 @@ function Get-TerminologyCorpus {
         [string[]] @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.bicep'),
         [System.StringComparer]::OrdinalIgnoreCase)
 
-    # No-extension config files are included by name, or a term used only there would read as a false orphan.
-    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment2)
+    # Authored config files with no extension carry approved vocabulary too — a *.stackdump ignore pattern...
+    # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment5)
     $names = [System.Collections.Generic.HashSet[string]]::new(
         [string[]] @('.gitignore', '.gitattributes', '.markdownlintignore', '.prettierignore'),
         [System.StringComparer]::OrdinalIgnoreCase)
@@ -58,8 +65,8 @@ function Get-TerminologyCorpus {
         '[\\/]\.unordered[\\/]'
     ) -join '|'
 
-    # Anchored at the root, so a nested authored configuration folder stays in the corpus instead of being swallowed.
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment3)
+    # The customer/machine-derived config tree (root configuration/, ) and the Bicep template configuration scaffold...
+    # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment6)
     $configurationRegex = @(
         '^[\\/]configuration[\\/]'
         '^[\\/]infrastructure[\\/]templates[\\/].+[\\/]configuration[\\/]'
@@ -71,11 +78,11 @@ function Get-TerminologyCorpus {
         [void] $excludeSet.Add(($resolved ?? $e))
     }
 
-    # Raw System.IO enumeration avoids per-file object wrapping, which makes a whole-tree scan markedly faster.
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment4)
+    # Enumerate with [System.IO] rather than Get-ChildItem — no per-file PSObject wrapping, so a whole-tree scan is...
+    # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment7)
     $ret = [System.Text.StringBuilder]::new()
-    # Tracked files reach nine levels below the root, so ten leaves one level of headroom. The corpus is searched for words,
-    # never read in order, so the walker's file order does not matter.
+    # Tracked files reach nine levels below the root, so ten leaves one level of headroom.
+    # [comment:8](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment8)
     foreach ($path in Get-ChildPath $Root -File -Depth 10) {
         if (-not $exts.Contains([System.IO.Path]::GetExtension($path)) -and
             -not $names.Contains([System.IO.Path]::GetFileName($path))) {

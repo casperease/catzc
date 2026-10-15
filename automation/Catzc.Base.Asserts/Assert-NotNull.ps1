@@ -6,22 +6,17 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a value is not $null.
+    parameters:
+      Value: The value to test. Must not be $null.
+      ErrorText: Custom error message. Defaults to file and line info.
+    examples:
+      - Assert-NotNull $result
+      - Assert-NotNull $release -ErrorText 'GitHub API returned null'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a value is not $null.
-.PARAMETER Value
-    The value to test. Must not be $null.
-.PARAMETER ErrorText
-    Custom error message. Defaults to file and line info.
-.EXAMPLE
-    Assert-NotNull $result
-.EXAMPLE
-    Assert-NotNull $release -ErrorText 'GitHub API returned null'
-#>
 function Assert-NotNull {
     [CmdletBinding()]
     param(

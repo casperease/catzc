@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Select-TestShardAssignment.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Longest-first scheduling of the parallel test files over the worker shards. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Longest-first scheduling of the parallel test files over the worker shards.
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Select-TestShardAssignment.Tests.ps1.md#comment1)
 Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))
@@ -33,8 +35,8 @@ Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {
         }
         $shards = & $script:assign $files 2 $durations
         $shards | Should -HaveCount 2
-        # widget 9 s on one shard, sprocket 5 + gizmo 4 on the other (9 s each); the two 1 s files then go one to each,
-        # the first to the lower-numbered shard on the tie: 10 s and 10 s.
+        # widget 9 s on one shard, sprocket 5 + gizmo 4 on the other (9 s each); the two 1 s files then go one to...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Select-TestShardAssignment.Tests.ps1.md#comment2)
         $shards[0] | Should -Be @((& $script:path 'widget'), (& $script:path 'gadget'))
         $shards[1] | Should -Be @((& $script:path 'sprocket'), (& $script:path 'gizmo'), (& $script:path 'cog'))
     }

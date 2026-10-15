@@ -6,16 +6,13 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns true if the current session is running as Administrator (Windows) or root (Linux/macOS).
+    examples:
+      - Test-IsAdministrator
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns true if the current session is running as Administrator (Windows) or root (Linux/macOS).
-.EXAMPLE
-    Test-IsAdministrator
-#>
 function Test-IsAdministrator {
     [OutputType([bool])]
     param()

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-FILEMETA#3
 ---
 #>
 

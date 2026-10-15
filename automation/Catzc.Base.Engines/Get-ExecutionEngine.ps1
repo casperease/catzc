@@ -8,23 +8,24 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-ENGINE
+  config:
+    synopsis: Returns the repository's execution engines, or one by name.
+    description: |-
+      The repository's own code runs under exactly three execution engines, pwsh, bash and zsh, declared once in the
+      ExecutionEngines model ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)): each names how its
+      executable is located, which scripts it runs, how it starts non-interactively, how it loads an entry script and
+      runs a command (StartArguments), its strict mode, its time safeguard, the line endings and executable bit its
+      scripts need, and its importer entry. A caller reads what differs between the engines here instead of restating
+      it.
+    parameters:
+      Name: The engine's name (pwsh, bash or zsh). Omit for every engine, pwsh first.
+    outputs: '[Catzc.Base.Engines.ExecutionEngine]'
+    examples:
+      - (Get-ExecutionEngine -Name bash).StartArguments('importer.sh', 'get-widget')
+      - Get-ExecutionEngine | Select-Object Name, ImporterEntry, StrictMode
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the repository's execution engines, or one by name.
-.DESCRIPTION
-    Read what differs between the engines here, not in a caller: flags, quoting and file rules are declared once.
-.PARAMETER Name
-    The engine's name (pwsh, bash or zsh). Omit for every engine, pwsh first.
-.OUTPUTS
-    [Catzc.Base.Engines.ExecutionEngine]
-.EXAMPLE
-    (Get-ExecutionEngine -Name bash).StartArguments('importer.sh', 'get-widget')
-.EXAMPLE
-    Get-ExecutionEngine | Select-Object Name, ImporterEntry, StrictMode
-#>
 function Get-ExecutionEngine {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Engines.ExecutionEngine])]

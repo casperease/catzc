@@ -11,35 +11,44 @@ catzc:
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-ENGINE#2
       - ADR-PWSH-ENUM#3
+  config:
+    synopsis: Installs a Catzc build — two-part beside a working root, or into the current user's module path.
+    description: |-
+      Places a build (Build-Modules' Catzc/<version>/ folder) where it is consumed
+      ([ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6)):
+
+        -Root <dir>            the two-part install. The build is copied to <dir>/.vendor/Catzc/<version>/, and a
+                               root importer.ps1 is written at <dir> that dot-sources the installed Import-Catzc.ps1
+                               with -RepositoryRoot set to <dir> — so <dir> is the working root (out/ and
+                               repo-relative paths resolve there) and the installed build is the code root.
+                               Dot-source <dir>/importer.ps1 to load the platform.
+        -Scope CurrentUser     the build is copied to <user module path>/Catzc/<version>/, after which
+                               Import-Module Catzc loads it from any shell.
+
+      The build is verified first (Assert-CatzcBundle), before the destination is touched. The version is the
+      build's own (build.json). Idempotent: when the target already holds the same content hash the copy is
+      skipped (and a -Root install only refreshes its importer.ps1); -Force copies anyway. On Linux and macOS a copy
+      makes every shipped shell script with a shebang executable again, since the copy drops the bit bash needs.
+    parameters:
+      Root: The destination working root for a two-part install. Not the mono repo.
+      Scope: CurrentUser — install into the user's PowerShell module path instead of beside a working root.
+      Bundle: |-
+        Whose devbox build to install when -Source is not given (an exporter.yml bundles key). Defaults to
+        default_bundle.
+      Source: |-
+        The build to install (default: the bundle's devbox build,
+        <Get-OutputRoot>/automation/built/<bundle>/Catzc/<direct_install_version>).
+      Force: Copy the build even when the target already holds the same content hash.
+      DryRun: Report the plan without copying or writing.
+      Silent: Suppress the summary line.
+    examples:
+      - Install-Catzc -Root C:\work\project
+      - Install-Catzc -Scope CurrentUser
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs a Catzc build — two-part beside a working root, or into the current user's module path.
-.DESCRIPTION
-    The build is verified before the destination is touched, and an unchanged content hash skips the copy.
-.PARAMETER Root
-    The destination working root for a two-part install. Not the mono repo.
-.PARAMETER Scope
-    CurrentUser — install into the user's PowerShell module path instead of beside a working root.
-.PARAMETER Bundle
-    Ignored when -Source names a build directly; otherwise it picks which devbox build is installed.
-.PARAMETER Source
-    The default is a devbox build, which sits under the placeholder version, never a pipeline version.
-.PARAMETER Force
-    Copy the build even when the target already holds the same content hash.
-.PARAMETER DryRun
-    Report the plan without copying or writing.
-.PARAMETER Silent
-    Suppress the summary line.
-.EXAMPLE
-    Install-Catzc -Root C:\work\project
-.EXAMPLE
-    Install-Catzc -Scope CurrentUser
-#>
-# -WhatIf narrates to the host and returns no plan, so a test can neither capture nor assert on it.
-# [comment:4](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment4)
+# Uses -DryRun, not ShouldProcess/-WhatIf — see.
+# [comment:6](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment6)
 function Install-Catzc {
     [CmdletBinding(DefaultParameterSetName = 'Root')]
     [OutputType([pscustomobject])]
@@ -87,15 +96,14 @@ function Install-Catzc {
                 [System.IO.Directory]::Delete($moduleTarget, $true)
             }
             Copy-Directory -Path $Source -Destination $moduleTarget
-            # Unix only: the copy drops the executable bit, so shebang scripts of bash-like engines are re-marked.
-            # [comment:5](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment5)
+            # A copy drops the executable bit, which an engine whose scripts need it (bash) requires on Unix: every...
+            # [comment:7](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment7)
             if (-not $IsWindows) {
                 $execute = [System.IO.UnixFileMode]::UserExecute -bor [System.IO.UnixFileMode]::GroupExecute -bor [System.IO.UnixFileMode]::OtherExecute
                 foreach ($engine in @([Catzc.Base.Engines.ExecutionEngines]::All | Where-Object RequiresExecutableBit)) {
                     foreach ($extension in $engine.ScriptExtensions) {
-                        # A named whole-tree walk
-                        # ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): every shebang
-                        # script of the installed module is re-marked.
+                        # A named whole-tree walk: every shebang script of the installed module is re-marked.
+                        # [comment:8](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment8)
                         foreach ($script in Get-ChildPath $moduleTarget -File -Filter "*$extension" -Depth 64 -Exclude @() -PruneVendor $false) {
                             if ([System.IO.File]::ReadLines($script) | Select-Object -First 1 | Where-Object { $_.StartsWith('#!') }) {
                                 [System.IO.File]::SetUnixFileMode($script, [System.IO.File]::GetUnixFileMode($script) -bor $execute)

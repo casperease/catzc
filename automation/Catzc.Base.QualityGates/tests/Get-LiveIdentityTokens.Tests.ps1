@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-LiveIdentityTokens.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
@@ -13,11 +15,8 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        # Fixture configs through the Get-Config seam — the derivation must reflect exactly what the shipped
-        # config declares, never a hand-kept list. The 'live' identities here are the fixture identities the
-        # mocked config declares; the derivation logic is identical against the real config
-        # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
-        # Two declaring modules (identity-tokens.yml), each naming only configs it owns.
+        # Fixture configs through the Get-Config seam — the derivation must reflect exactly what the shipped config...
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-LiveIdentityTokens.Tests.ps1.md#comment1)
         $script:declarations = @{
             'Catzc.Base.Widget' = @(
                 @{ config = 'customer'; path = 'customers'; take = 'keys'; kind = 'customer-key'; suggest = 'a fixture customer (acme / globex)' }

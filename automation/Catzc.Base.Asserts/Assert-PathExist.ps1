@@ -6,24 +6,18 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a filesystem path exists.
+    parameters:
+      Path: The path to test.
+      PathType: 'The kind of path to require: Any (default), Container, or Leaf.'
+      ErrorText: Optional message to throw instead of the default.
+    examples:
+      - Assert-PathExist './config.json'
+      - Assert-PathExist './src' -PathType Container
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a filesystem path exists.
-.PARAMETER Path
-    The path to test.
-.PARAMETER PathType
-    The kind of path to require: Any (default), Container, or Leaf.
-.PARAMETER ErrorText
-    Optional message to throw instead of the default.
-.EXAMPLE
-    Assert-PathExist './config.json'
-.EXAMPLE
-    Assert-PathExist './src' -PathType Container
-#>
 function Assert-PathExist {
     [CmdletBinding()]
     param(
@@ -37,8 +31,8 @@ function Assert-PathExist {
     )
 
     if (-not (Test-Path -Path $Path -PathType $PathType)) {
-        # Null coalescing never applies the default: a string parameter turns null into empty, and it tests null only.
-        # [comment:1](/docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md#comment1)
+        # Not $ErrorText ??...: a [string] param coerces $null to '', and ?? only coalesces $null, so the default...
+        # [comment:2](/docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md#comment2)
         $message = if ($ErrorText) {
             $ErrorText
         }

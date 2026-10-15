@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md
     kind: asset-description
     body_sha: "9bf82ab7df6b"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
       - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md

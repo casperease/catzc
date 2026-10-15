@@ -6,30 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
-    adrs: []
+  config:
+    synopsis: Runs terraform with the given arguments.
+    description: |-
+      Asserts that the installed Terraform version matches the locked version
+      in Get-ToolConfig before executing the command.
+    parameters:
+      Arguments: Arguments to pass to terraform.
+      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
+      NoAssert: Skip exit code assertion.
+      Silent: Suppress the command log line.
+      DryRun: Return the command string without executing. Used for testing.
+    examples:
+      - Invoke-Terraform 'plan'
+      - Invoke-Terraform 'plan' -DryRun
 ---
 #>
 
-<#
-.SYNOPSIS
-    Runs terraform with the given arguments.
-.DESCRIPTION
-    A drifted Terraform fails the assertion before the command starts, so no plan or apply runs on another version.
-.PARAMETER Arguments
-    Arguments to pass to terraform.
-.PARAMETER PassThru
-    Return a CliResult object with Output, Errors, Full, and ExitCode.
-.PARAMETER NoAssert
-    Skip exit code assertion.
-.PARAMETER Silent
-    Suppress the command log line.
-.PARAMETER DryRun
-    Return the command string without executing. Used for testing.
-.EXAMPLE
-    Invoke-Terraform 'plan'
-.EXAMPLE
-    Invoke-Terraform 'plan' -DryRun
-#>
 function Invoke-Terraform {
     [CmdletBinding()]
     param(

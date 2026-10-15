@@ -8,21 +8,22 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-ENGINE
+  config:
+    synopsis: Installs ShellCheck, the analyzer for the repository's shell scripts, at the tools.yml pin.
+    description: |-
+      ShellCheck is the analyzer the Test-ShellScripts quality gate runs over every tracked *.sh file
+      ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)). Windows and macOS delegate to Install-Tool: winget
+      koalaman.shellcheck as a user-scope portable (no admin), or brew. Linux installs the distribution's shellcheck package
+      with apt-get, which needs root. Idempotent: a ShellCheck already at the pinned version is left alone; another version
+      throws unless -Force.
+    parameters:
+      Version: 'The version prefix to install. Default: the tools.yml pin.'
+      Force: Replace an installed ShellCheck at another version.
+    examples:
+      - Install-Shellcheck
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs ShellCheck, the analyzer for the repository's shell scripts, at the tools.yml pin.
-.DESCRIPTION
-    Linux uses apt-get and so needs root, while Windows and macOS stay user-scope through winget or brew.
-.PARAMETER Version
-    The version prefix to install. Default: the tools.yml pin.
-.PARAMETER Force
-    Replace an installed ShellCheck at another version.
-.EXAMPLE
-    Install-Shellcheck
-#>
 function Install-Shellcheck {
     [CmdletBinding()]
     param(

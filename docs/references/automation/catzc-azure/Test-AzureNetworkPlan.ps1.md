@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-AZ-NETWORK#2
       - ADR-AZ-NETWORK#5
-    links: []
 ---
 
 # automation/Catzc.Azure/Test-AzureNetworkPlan.ps1

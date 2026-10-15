@@ -6,20 +6,19 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Derives the run.json entries that come from a worker run.
+    description: |-
+      The part of a run's terminal manifest (Write-TestRunManifest) that only the worker run knows: each shard's
+      exit code, the wall-clock duration, and where the run executed — `location` plus, for a snapshot, its
+      provenance (Get-TestRunLocationSummary). A run that crashed before its workers returned has no worker run;
+      it records no exit codes, a zero duration, and no location.
+    parameters:
+      WorkerRun: Invoke-TestAutomationWorkers' result, or $null.
+    outputs: '[System.Collections.Specialized.OrderedDictionary] the entries to merge into run.json.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Derives the run.json entries that come from a worker run.
-.DESCRIPTION
-    A run that crashed before its workers returned has no worker run, so it gets empty exit codes and a zero duration.
-.PARAMETER WorkerRun
-    Invoke-TestAutomationWorkers' result, or $null.
-.OUTPUTS
-    [System.Collections.Specialized.OrderedDictionary] the entries to merge into run.json.
-#>
 function ConvertTo-TestRunManifestEntry {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

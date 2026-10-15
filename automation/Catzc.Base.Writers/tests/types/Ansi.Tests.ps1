@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/types/Ansi.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-CONSOLE#7
 ---
 #>
 
-# The single ConsoleColor -> ANSI SGR map
-# ([ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)): the escape
-# codes Write-InformationColored and
-# RainbowColor both resolve through, asserted in one place so the two can never disagree.
+# The single ConsoleColor -> ANSI SGR map: the escape codes Write-InformationColored and RainbowColor both resolve...
+# [comment:1](/docs/references/automation/catzc-base-writers/tests/types/Ansi.Tests.ps1.md#comment1)
 Describe 'Ansi' -Tag 'L0', 'logic' {
     It 'maps <color> to its SGR foreground escape' -ForEach @(
         @{ color = 'Red'; code = "`e[91m" }

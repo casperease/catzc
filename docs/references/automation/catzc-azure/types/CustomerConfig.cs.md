@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#2
       - ADR-AZ-CUSTOMER#3
-    links: []
 ---
 
 # automation/Catzc.Azure/types/CustomerConfig.cs

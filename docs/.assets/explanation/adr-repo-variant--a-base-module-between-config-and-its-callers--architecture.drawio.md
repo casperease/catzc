@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.md
     kind: asset-description
     body_sha: "1daecfe11995"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
       - docs/explanation/repository/a-base-module-between-config-and-its-callers.md

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-python/Invoke-Pip.ps1.md
     kind: comment-page
     body_sha: "4dffa850ecdd"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Python/Invoke-Pip.ps1

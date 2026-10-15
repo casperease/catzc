@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-node/Install-Markdownlint.ps1.md
     kind: comment-page
     body_sha: "1a2e0f11169f"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Node/Install-Markdownlint.ps1

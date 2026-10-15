@@ -6,21 +6,31 @@ catzc:
     kind: public-function
     module: Catzc.Azure.DevOps
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns an Authorization header for Azure DevOps REST API calls.
+    description: |-
+      The sources of authentication, in priority order. Each is proven to target the configured org/tenant
+      (ado.yml) before a header is returned — a credential alone never establishes "the right thing".
+      1. Pipeline: $env:SYSTEM_ACCESSTOKEN — Bearer token, after asserting $env:SYSTEM_COLLECTIONURI
+         matches ado.yml organization (the agent token is scoped to the org the pipeline runs in).
+      2. PAT: $env:AZURE_DEVOPS_PAT — Basic auth. A PAT carries no ambient org signal; it is used only
+         against ado.yml organization (every API URL is built from it), so it is bound to the configured
+         org by construction.
+      3. az CLI: asserts the session is in ado.yml's `tenant` (Assert-AzCliConnected), then runs
+         az account get-access-token for the ADO resource — Bearer token.
+
+      Returns a hashtable suitable for splatting into Invoke-RestMethod -Headers.
+    parameters:
+      ResourceUrl: |-
+        The Azure AD resource URL for az CLI token requests.
+        Defaults to the Azure DevOps resource ID (499b84ac-1321-427f-aa17-267ca6975798).
+    examples:
+      - |-
+        $headers = Get-AdoAuthorizationHeader
+        Invoke-RestMethod -Uri $url -Headers $headers
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns an Authorization header for Azure DevOps REST API calls.
-.DESCRIPTION
-    Every source is proven to target the configured org or tenant, so a credential alone is never trusted.
-.PARAMETER ResourceUrl
-    Only the az CLI path reads it; the pipeline token and the PAT never use a resource URL.
-.EXAMPLE
-    $headers = Get-AdoAuthorizationHeader
-    Invoke-RestMethod -Uri $url -Headers $headers
-#>
 function Get-AdoAuthorizationHeader {
     [CmdletBinding()]
     [OutputType([hashtable])]
@@ -43,8 +53,8 @@ function Get-AdoAuthorizationHeader {
         return @{ 'Authorization' = "Basic $base64" }
     }
 
-    # Mint no token until the az session is proven to sit in the Entra directory that backs the org.
-    # [comment:3](/docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md#comment3)
+    # Prove the az session is in the Entra directory that backs the org before minting a token.
+    # [comment:4](/docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md#comment4)
     Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant
 
     $result = Invoke-Executable "az account get-access-token --resource $ResourceUrl --query accessToken -o tsv" -PassThru -NoAssert -Silent

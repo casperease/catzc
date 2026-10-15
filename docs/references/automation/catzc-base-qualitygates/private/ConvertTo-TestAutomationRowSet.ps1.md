@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/ConvertTo-TestAutomationRowSet.ps1.md
     kind: comment-page
     body_sha: ab6818d404de
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/ConvertTo-TestAutomationRowSet.ps1

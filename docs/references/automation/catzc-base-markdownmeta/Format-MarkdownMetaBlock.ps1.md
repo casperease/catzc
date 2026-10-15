@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-markdownmeta/Format-MarkdownMetaBlock.ps1.md
     kind: comment-page
     body_sha: "4fce42414409"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1

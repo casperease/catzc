@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md
     kind: comment-page
     body_sha: "4bd8f9b12821"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/Get-AdoPipelineDefinitions.ps1
@@ -27,6 +25,15 @@ output of Get-AdoYamlFiles for easy cross-referencing.
 ```
 
 ## comment:2
+
+Above `$hasProcessDetails = $definitions | Where-Object { $_.process.yamlFilename }...`.
+
+```text
+includeAllProperties should return process.yamlFilename inline.
+Older ADO Server versions may ignore this — fall back to per-definition fetches.
+```
+
+## comment:3
 
 Above `$hasProcessDetails = $definitions | Where-Object { $_.process.yamlFilename }...`.
 

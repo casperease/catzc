@@ -11,7 +11,6 @@ catzc:
       - ADR-DORA-JOBSAT#4
       - ADR-DORA-JOBSAT#5
       - ADR-DORA-JOBSAT#6
-    adrs: []
     links:
       - docs/adr/automation/effective-in-enterprises.md
       - docs/adr/automation/zero-ceremony-poka-yoke.md

@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-AGENTS#2
-    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AgentEntry.cs

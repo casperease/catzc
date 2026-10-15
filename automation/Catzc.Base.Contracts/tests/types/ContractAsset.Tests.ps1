@@ -4,11 +4,16 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-PATH#1
+      - ADR-AUTO-PATH#2
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#6
 ---
 #>
 
-# ContractAsset holds every derived fact of one contract asset, with its paths in communication form
-# ([ADR-AUTO-PATH#2](/docs/adr/automation/path-representation.md#rule-adr-auto-path2)).
+# ContractAsset holds every derived fact of one contract asset, with its paths in communication form.
+# [comment:1](/docs/references/automation/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md#comment1)
 Describe 'ContractAsset' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fragment = [Catzc.Base.Contracts.ContractAssetKind]::Fragment

@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-ERROR#8
 ---
 #>
 
-# The per-case assertions run the rule function directly on a parsed AST (L0). The engine-wiring proof lives once,
-# for all custom rules, in CustomRuleWiring.Tests.ps1.
+# The per-case assertions run the rule function directly on a parsed AST (L0).
+# [comment:1](/docs/references/automation/scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1.md#comment1)
 Describe 'Measure-NoUnsafeFirstIndex' -Tag 'L0', 'logic', 'ADR-PWSH-ERROR#8' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoUnsafeFirstIndex.psm1') -Force

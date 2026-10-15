@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-PESTER#4
 ---
 #>
 
 Describe 'Get-PipelineTemplateReference' -Tag 'L0', 'logic' {
-    # Get-PipelineTemplateReference is private, so it is exercised through the module
-    # ([ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
+    # Get-PipelineTemplateReference is private, so it is exercised through the module.
+    # [comment:1](/docs/references/automation/catzc-azure-devops/tests/Get-PipelineTemplateReference.Tests.ps1.md#comment1)
     BeforeAll {
         function New-Yaml {
             param([string] $Content)

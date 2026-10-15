@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-CONF-LOADING#4
       - ADR-REPO-FILEMETA#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/FileMetaConfig.cs

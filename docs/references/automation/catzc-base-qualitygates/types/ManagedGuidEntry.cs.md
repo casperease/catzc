@@ -6,7 +6,6 @@ catzc:
     body_sha: "7b5ff75704ce"
     adrs:
       - ADR-AUTO-TYPES#8
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/ManagedGuidEntry.cs

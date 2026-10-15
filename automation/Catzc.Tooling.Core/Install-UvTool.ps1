@@ -6,22 +6,20 @@ catzc:
     kind: public-function
     module: Catzc.Tooling.Core
     visibility: public
-    adrs: []
+  config:
+    synopsis: Installs a CLI as an isolated uv tool.
+    description: |-
+      Mirrors Install-Tool's contract but installs via `uv tool install <uv_tool>==<version>.*` — each tool gets
+      its own isolated environment with uv's managed Python (user-space, no admin, no shared-env pollution).
+      Used for az_cli, poetry, and other Python-based CLIs. Handles idempotency, -Force, and version verify.
+      uv is the install mechanism, so it must be present (Invoke-Uv asserts it).
+    parameters:
+      Tool: The snake_case tool key as defined in tools.yml (must declare uv_tool).
+      Version: Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
+      Force: Uninstall a wrong version before installing the correct one.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Installs a CLI as an isolated uv tool.
-.DESCRIPTION
-    Each tool gets its own isolated uv environment in user space, so installs never pollute a shared one.
-.PARAMETER Tool
-    The snake_case tool key as defined in tools.yml (must declare uv_tool).
-.PARAMETER Version
-    Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
-.PARAMETER Force
-    Uninstall a wrong version before installing the correct one.
-#>
 function Install-UvTool {
     [CmdletBinding()]
     param(
@@ -58,8 +56,8 @@ function Install-UvTool {
         }
     }
 
-    # Pre-release resolution, for packages that pin a beta dependency, goes through Invoke-Uv, which warns.
-    # [comment:2](/docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md#comment2)
+    # uv resolves the package's own compatible Python and installs it in an isolated env.
+    # [comment:3](/docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md#comment3)
     Invoke-Uv "tool install $($config.uv_tool)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 
     Sync-SessionPath

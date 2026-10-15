@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Select-TestShardAssignment.ps1.md
     kind: comment-page
     body_sha: "80c52a667c8e"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Select-TestShardAssignment.ps1

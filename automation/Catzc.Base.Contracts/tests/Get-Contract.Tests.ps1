@@ -4,13 +4,21 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#1
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-PATH#2
+      - ADR-REPO-CONTRACT
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#5
+      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-CONTRACT#7
+      - ADR-REPO-CONTRACT#8
 ---
 #>
 
-# Get-Contract lists contracts/<unit>/<version>/<module>/<path> and derives every fact from the asset's name and place
-# ([ADR-REPO-CONTRACT](/docs/adr/repository/api-contracts.md)): the target under the module's target root (#2), the kind
-# from the suffix (#6), the direction from the convention and the version's contract.yml (#7), and the addressing mode
-# from the config (#8). Fixtures are a widget repository in TestDrive.
+# Get-Contract lists contracts/<unit>/<version>/<module>/<path> and derives every fact from the asset's name and...
+# [comment:1](/docs/references/automation/catzc-base-contracts/tests/Get-Contract.Tests.ps1.md#comment1)
 Describe 'Get-Contract' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-Asset {

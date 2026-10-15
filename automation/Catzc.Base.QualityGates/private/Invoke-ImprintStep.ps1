@@ -9,26 +9,20 @@ catzc:
     adrs:
       - ADR-PRIN-CONFIG#2
       - ADR-REPO-FORMAT#8
+  config:
+    synopsis: Runs one imprint step over the given files and returns what it changed and what it cannot repair.
+    description: 'A language is never named here: which language runs which step is configuration, not code.'
+    parameters:
+      Step: The step name, as languages.yml spells it.
+      File: Absolute paths of the files to imprint.
+      RepositoryRoot: The repository root.
+      DryRun: List the files the step would change without writing them.
+    outputs: |-
+      [pscustomobject] @{ Changed; Unfixable } — absolute paths changed (or, under -DryRun, that would change), and a map of absolute path
+      to the problem for the files a person must repair.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Runs one imprint step over the given files and returns what it changed and what it cannot repair.
-.DESCRIPTION
-    A language is never named here: which language runs which step is configuration, not code.
-.PARAMETER Step
-    The step name, as languages.yml spells it.
-.PARAMETER File
-    Absolute paths of the files to imprint.
-.PARAMETER RepositoryRoot
-    The repository root.
-.PARAMETER DryRun
-    List the files the step would change without writing them.
-.OUTPUTS
-    [pscustomobject] @{ Changed; Unfixable } — absolute paths changed (or, under -DryRun, that would change), and a map of absolute path
-    to the problem for the files a person must repair.
-#>
 function Invoke-ImprintStep {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -51,7 +45,7 @@ function Invoke-ImprintStep {
     $absolute = { param([string] $Relative) [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $Relative)) }
 
     # Each case first returns for an empty list, so a run with no files still proves the step has its adapter, and an...
-    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md#comment2)
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md#comment3)
     switch -CaseSensitive ($Step) {
         'file-meta' {
             if ($File.Count -eq 0) {

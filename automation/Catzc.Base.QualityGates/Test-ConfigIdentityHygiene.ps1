@@ -9,24 +9,39 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-LANG
+  config:
+    synopsis: |-
+      Quality gate: no shipped config may carry a TEST-fixture identity in its data — the reverse of
+      Test-LogicTestIdentity, closing the other half of the language-zone separation.
+    description: |-
+      A shipped `configs/*.yml` or `infrastructure/**` file is the live zone: it names real identities.
+      A fixture identity (acme/globex, tst, alpha, core_lower, widget, …) appearing in one is a leak — a test
+      fixture committed as production data. The forbidden set is DERIVED from the fixture configs
+      (Get-FixtureIdentityTokens), so it is always current.
+
+      The scan parses each config with the YAML reader and inspects the parsed KEYS and scalar VALUES — never the
+      raw text — so it is comment-blind by construction: a config comment illustrating `[acme, globex]` is not
+      data and is not flagged, while a real `have_customers: [acme]` value is. The terminology registry (which
+      DEFINES the fixture tokens) is excluded.
+
+      It also checks that the two identity sets are disjoint: a fixture token that is also a live identity
+      (Get-LiveIdentityTokens, derived from the shipped config) is an issue, whatever -Path names.
+
+      A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
+      through Write-QualityGateReport, which writes out/test-config-identity-hygiene/, prints every finding, and
+      throws once listing them all; -PassThru returns the result instead. It reads the shipped config, so a Pester
+      test wrapping it is `integrity`. It needs the source tree: the fixture identities live in the repository's
+      tests/, so the source-tree guard (Assert-SourceTree) throws in build mode.
+    parameters:
+      Path: |-
+        Config files to check. Defaults to every module `configs/*.yml` (except the terminology registry) and every
+        `infrastructure/**` yml.
+      OutputFolder: The report base folder. Defaults to <out>/test-config-identity-hygiene.
+      PassThru: Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount; LiveTokens }) instead of throwing.
+    outputs: None (throws on findings), or the result object with -PassThru.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Quality gate: no shipped config may carry a TEST-fixture identity in its data — the reverse of
-    Test-LogicTestIdentity, closing the other half of the language-zone separation.
-.DESCRIPTION
-    The forbidden set is derived from the fixture configs, and the scan reads parsed keys and values, never raw text.
-.PARAMETER Path
-    The terminology registry is skipped by default, since it defines the fixture tokens it would be flagged for.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to <out>/test-config-identity-hygiene.
-.PARAMETER PassThru
-    Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount; LiveTokens }) instead of throwing.
-.OUTPUTS
-    None (throws on findings), or the result object with -PassThru.
-#>
 function Test-ConfigIdentityHygiene {
     [CmdletBinding()]
     param(

@@ -6,7 +6,6 @@ catzc:
     body_sha: cbc967bebd36
     adrs:
       - ADR-PRIN-CONFIG#2
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-BicepFormat.ps1

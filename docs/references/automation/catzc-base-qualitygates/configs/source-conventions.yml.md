@@ -9,7 +9,6 @@ catzc:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-ENGINE#6
       - ADR-AUTO-TEST#3
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/source-conventions.yml

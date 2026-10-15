@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-AdrDefinedRule.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-LINK#5
 ---
 #>
 
@@ -33,7 +35,8 @@ Describe 'Get-AdrDefinedRule' -Tag 'L0', 'logic', 'ADR-REPO-LINK#5' {
     }
 
     It 'takes a citation in prose, a registry heading and a deeper heading for no definition' {
-        $text = "## Rules: ADR-WIDGET`n`nSee ADR-WIDGET#1 and ADR-WIDGET:2.`n`n#### Rule ADR-WIDGET:3`n"
+        # The colon forms are built from two strings: a literal one would be respelled to the hash form by the string-citation alignment.
+        $text = "## Rules: ADR-WIDGET`n`nSee ADR-WIDGET#1 and ADR-WIDGET" + ":2.`n`n#### Rule ADR-WIDGET" + ":3`n"
         (Get-Defined $text).Count | Should -Be 0
     }
 

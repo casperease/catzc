@@ -9,8 +9,8 @@ catzc:
 
 Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Builds a `git cat-file --batch` stream by hand. Object ids are made up (any 40 hex digits): the scan
-        # indexes the stream by id and never re-hashes content.
+        # Builds a `git cat-file --batch` stream by hand.
+        # [comment:1](/docs/references/automation/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md#comment1)
         function script:New-ObjectId {
             param([int] $Number)
             '{0:x40}' -f $Number
@@ -40,10 +40,8 @@ Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
             New-Text ($lines -join "`n")
         }
 
-        # A two-commit history:
-        #   commit 1 (root): widget.txt (clean), gadget/ (a tree holding notes.txt with the token)
-        #   commit 2: adds the token to its message, a binary blob holding the token, a vendored copy of the token
-        #   blob, and a path named after the token.
+        # A two-commit history: commit 1 (root): widget.txt (clean), gadget/ (a tree holding notes.txt with the...
+        # [comment:2](/docs/references/automation/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md#comment2)
         $ids = @{}
         foreach ($name in 'clean', 'secret', 'binary', 'gadgetTree', 'vendorTree', 'tree1', 'tree2', 'commit1', 'commit2', 'unreachable') {
             $ids[$name] = New-ObjectId ($ids.Count + 1)

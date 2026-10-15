@@ -6,20 +6,17 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Maps every ADR citation code to its ADR's repository-relative path.
+    description: |-
+      A flat view of the citation map (Get-AdrCitationMap) for the Markdown heading normal form, which writes a moved
+      citation as a link to its ADR.
+    parameters:
+      RepositoryRoot: The repository root whose ADR index is read.
+    outputs: '[hashtable] citation code -> repository-relative ADR path.'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Maps every ADR citation code to its ADR's repository-relative path.
-.DESCRIPTION
-    The heading normal form needs a plain code-to-path lookup to write a moved citation as a link to its ADR.
-.PARAMETER RepositoryRoot
-    The repository root whose ADR index is read.
-.OUTPUTS
-    [hashtable] citation code -> repository-relative ADR path.
-#>
 function Get-AdrCitationPath {
     [CmdletBinding()]
     [OutputType([hashtable])]

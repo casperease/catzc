@@ -6,7 +6,6 @@ catzc:
     body_sha: "78f4aeecb496"
     adrs:
       - ADR-AUTO-DEFAULT#6
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/GeneratedWriter.cs

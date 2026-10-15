@@ -11,13 +11,13 @@ catzc:
 param()
 
 Describe 'Write-TestAutomationSkipReport' -Tag 'L0', 'logic' {
-    # The writers' chokepoint returns early during a run ($global:__PesterRunning); lift it so the report's
-    # information-stream output can be asserted (see console-output-matters / Write-InformationColored).
+    # The writers' chokepoint returns early during a run ($global:__PesterRunning); lift it so the report's...
+    # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationSkipReport.Tests.ps1.md#comment1)
     BeforeAll {
         $global:__PesterRunning = $false
 
-        # Rows are the plain per-test shape ConvertTo-TestAutomationRowSet produces — the report never sees
-        # a live Pester object. SkipReason is pre-resolved by the reducer in the process that ran the test.
+        # Rows are the plain per-test shape ConvertTo-TestAutomationRowSet produces — the report never sees a live...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationSkipReport.Tests.ps1.md#comment2)
         function New-Row {
             param($Path, $Result, $Tier, $Category, $SkipReason = '')
             [pscustomobject]@{

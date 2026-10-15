@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Azure/types/Tenant.cs
     kind: csharp-type
     module: Catzc.Azure
-    adrs: []
 ---
 */
 

@@ -6,7 +6,6 @@ catzc:
     body_sha: "266f219456a7"
     adrs:
       - ADR-AUTO-DEFAULT#6
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LinkLineLimit.ps1

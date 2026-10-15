@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-OVERLAY
 ---
 #>
 

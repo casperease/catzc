@@ -6,18 +6,15 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
-    adrs: []
+  config:
+    synopsis: Asserts that a string is a valid GUID.
+    parameters:
+      ObjectGuid: The string to validate as a GUID.
+    examples:
+      - Assert-IsGuid 'a55e0700-a000-601d-0000-000000000000'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Asserts that a string is a valid GUID.
-.PARAMETER ObjectGuid
-    The string to validate as a GUID.
-.EXAMPLE
-    Assert-IsGuid 'a55e0700-a000-601d-0000-000000000000'
-#>
 function Assert-IsGuid {
     [CmdletBinding()]
     param(

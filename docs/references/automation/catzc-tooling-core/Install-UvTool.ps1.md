@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md
     kind: comment-page
     body_sha: "3c071c44adb7"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Install-UvTool.ps1
@@ -25,6 +23,15 @@ uv is the install mechanism, so it must be present (Invoke-Uv asserts it).
 ```
 
 ## comment:2
+
+Above `Invoke-Uv "tool install $($config.uv_tool)==$Version.*"...`.
+
+```text
+uv resolves the package's own compatible Python and installs it in an isolated env. Pre-release resolution
+(for packages that pin a beta dependency) is threaded through Invoke-Uv's -Prerelease switch, which warns.
+```
+
+## comment:3
 
 Above `Invoke-Uv "tool install $($config.uv_tool)==$Version.*"...`.
 

@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-TRACKED#1
       - ADR-FLOW-CD-GLOBS#4
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
@@ -31,6 +30,15 @@ fixture paths, which Resolve-RepoPath passes through unchanged). Throws in build
 ```
 
 ## comment:2
+
+Above `Assert-SourceTree`.
+
+```text
+The universe and its exclusions (automation/.vendor, automation/.compiled, the registry) are the catzc
+source repository's layout, so the scan is meaningful only over the source tree.
+```
+
+## comment:3
 
 Above `Assert-SourceTree`.
 

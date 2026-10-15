@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# Validates the compiled DocMapping type directly — the constructor is the gate that stops a malformed
-# readme.yml mapping entry from ever producing an instance.
+# Validates the compiled DocMapping type directly — the constructor is the gate that stops a malformed readme.yml...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/DocMapping.Tests.ps1.md#comment1)
 Describe 'DocMapping' -Tag 'L0', 'logic' {
     It 'constructs and exposes folder + source' {
         $m = [Catzc.Base.Docs.DocMapping]::new(@{ folder = 'automation/Catzc.Fixture'; source = 'docs/readme/foo.md' })

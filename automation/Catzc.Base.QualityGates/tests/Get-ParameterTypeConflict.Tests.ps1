@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ParameterTypeConflict.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-ParameterTypeConflict over fixture function files in $TestDrive. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-ParameterTypeConflict over fixture function files in $TestDrive.
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-ParameterTypeConflict.Tests.ps1.md#comment1)
 Describe 'Get-ParameterTypeConflict' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:write = {

@@ -4,14 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#39
 ---
 #>
 
-# Vertical system test (L3): the persistent-environment seam against the REAL user environment — state outside the
-# repository that every process and every concurrent run on the machine shares, so it runs only in the
-# working folder itself, never in a snapshot location. It is the one test that proves the registry round trip; every caller's logic is covered at
-# L1 by mocking Get-/Set-PermanentEnvironmentVariable. It owns a scratch variable no tool uses, named per run so two
-# overlapping runs on the machine never share it, and removes it whatever happens.
+# Vertical system test (L3): the persistent-environment seam against the REAL user environment — state outside the...
+# [comment:1](/docs/references/automation/catzc-base-environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1.md#comment1)
 Describe 'Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable (real user environment)' -Tag 'L3', 'logic', 'ADR-AUTO-TEST#39' {
     BeforeAll {
         $script:name = 'CATZC_L3_WIDGET_' + [guid]::NewGuid().ToString('N')

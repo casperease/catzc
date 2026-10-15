@@ -4,12 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TEST#3
+      - ADR-PRIN-ONELIVE#1
 ---
 #>
 
-# CheckModes — the one parser of a check's mode setting, shared by every check config: an omitted mode is the default declared
-# once on CheckMode, and an unknown one gets the one error text. Neutral fixture values
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# CheckModes — the one parser of a check's mode setting, shared by every check config: an omitted mode is the default...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md#comment1)
 Describe 'CheckModes' -Tag 'L0', 'logic', 'ADR-PRIN-ONELIVE#1' {
     It 'returns the default, gate, with no error when the mode is omitted' -Tag 'ADR-AUTO-DEFAULT#6' {
         foreach ($raw in @($null, [ordered]@{}, [ordered]@{ mode = $null })) {

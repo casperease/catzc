@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-REMOVE#6
       - ADR-AUTO-REMOVE#7
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
@@ -39,6 +38,15 @@ install, and just evicts it.
 ```
 
 ## comment:2
+
+Above `if (Test-Command brew) {`.
+
+```text
+1. Homebrew-owned shadow — a binary under the brew prefix, symlinked into the Cellar. The symlink target
+   carries the formula name (.../Cellar/<formula>/<version>/bin/<cmd>); brew uninstall is user-space.
+```
+
+## comment:3
 
 Above `if (Test-Command brew) {`.
 

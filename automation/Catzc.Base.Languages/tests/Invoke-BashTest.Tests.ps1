@@ -4,15 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#6
 ---
 #>
 
 Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the seams ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): a
-        # fixture repository root in $TestDrive with a stub vendored runner and its importer.sh, a mocked engine probe
-        # (Resolve-EngineExecutable), and a mocked bash (Invoke-Executable) whose bats writes a canned JUnit report from
-        # tests/assets into the output folder the command names.
+        # Isolate through the seams: a fixture repository root in $TestDrive with a stub vendored runner and its...
+        # [comment:1](/docs/references/automation/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md#comment1)
         $script:root = Join-Path $TestDrive 'repo'
         $script:bashRoot = Join-Path $script:root 'bash'
         $null = New-Item -ItemType Directory -Path (Join-Path $script:bashRoot 'tests/catzc-widget') -Force

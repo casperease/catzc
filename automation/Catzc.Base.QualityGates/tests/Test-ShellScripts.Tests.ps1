@@ -4,13 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#8
 ---
 #>
 
-# Test-ShellScripts is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
-# the L0 cases run over a fixture repository in $TestDrive with the index, the tool probe, and ShellCheck mocked, and
-# read the collected issues; the report goes to $TestDrive. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-ShellScripts is a quality gate: the L0 cases run over a fixture repository in $TestDrive with the index, the...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-ShellScripts.Tests.ps1.md#comment1)
 Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'
@@ -167,9 +169,8 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
     }
 }
 
-# Integrity: every shell script the repository holds is LF and passes the pinned ShellCheck. L2 because it drives the
-# ShellCheck CLI; self-skips without it ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)).
-# source-only: it reads the repository's own files.
+# Integrity: every shell script the repository holds is LF and passes the pinned ShellCheck.
+# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-ShellScripts.Tests.ps1.md#comment2)
 Describe 'Repository shell script integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'every shell script is LF and passes ShellCheck (Test-ShellScripts)' {
         $shellcheck = Resolve-ToolExecutable -Tool shellcheck

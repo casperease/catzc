@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-DSGN-TRACK#2
       - ADR-DSGN-TRACK#6
-    links: []
 ---
 
 # automation/Catzc.Base.Variants/configs/variants.yml

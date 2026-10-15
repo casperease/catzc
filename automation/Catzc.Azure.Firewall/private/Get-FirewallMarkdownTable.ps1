@@ -6,32 +6,27 @@ catzc:
     kind: private-function
     module: Catzc.Azure.Firewall
     visibility: private
-    adrs: []
+  config:
+    synopsis: Renders the Markdown rule table (header + rows) for Convert-FirewallCsvToMarkdown.
+    description: |-
+      Builds the '| … |' table from already-sorted rows and the column descriptors from
+      Get-FirewallMarkdownColumns: a header row, the separator row, then one row per rule. Each cell gathers
+      its column's candidate CSV fields — multi-value fields are split on -SplitPattern and IP-group resource
+      IDs trimmed to their simple name (unless -DoNotCutIpgNames), sorted within a kind for 'list' columns and
+      paired as protocol:port for the 'protoport' column. A cell Markdown would mangle (emphasis at a
+      whitespace boundary, or a bare URL/FQDN) is wrapped in a code span. Returns the table block as a string.
+    parameters:
+      Rows: The rule rows, already sorted into evaluation order; each a CSV record (PSObject).
+      Columns: The ordered column descriptors from Get-FirewallMarkdownColumns (Name, Candidates, Sort, Render).
+      MultiValueFields: CSV fields split into multiple values on -SplitPattern.
+      IpGroupColumns: Fields whose values are IP-group resource IDs, trimmed to the simple name (unless -DoNotCutIpgNames).
+      SplitPattern: Regex splitting multi-value fields. Default comma/semicolon with surrounding whitespace.
+      CellListSeparator: Separator joining multiple values within a cell. Default ', '.
+      DoNotCutIpgNames: Keep full IP-group resource IDs instead of trimming to the simple name.
+    outputs: '[string] The Markdown table block (header, separator, and one line per row).'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Renders the Markdown rule table (header + rows) for Convert-FirewallCsvToMarkdown.
-.DESCRIPTION
-    Rows are not sorted here: the caller sorts them, and only the values within a cell are ordered.
-.PARAMETER Rows
-    The rule rows, already sorted into evaluation order; each a CSV record (PSObject).
-.PARAMETER Columns
-    The ordered column descriptors from Get-FirewallMarkdownColumns (Name, Candidates, Sort, Render).
-.PARAMETER MultiValueFields
-    CSV fields split into multiple values on -SplitPattern.
-.PARAMETER IpGroupColumns
-    Fields whose values are IP-group resource IDs, trimmed to the simple name (unless -DoNotCutIpgNames).
-.PARAMETER SplitPattern
-    Regex splitting multi-value fields. Default comma/semicolon with surrounding whitespace.
-.PARAMETER CellListSeparator
-    Separator joining multiple values within a cell. Default ', '.
-.PARAMETER DoNotCutIpgNames
-    Keep full IP-group resource IDs instead of trimming to the simple name.
-.OUTPUTS
-    [string] The Markdown table block (header, separator, and one line per row).
-#>
 function Get-FirewallMarkdownTable {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'MultiValueFields/IpGroupColumns/SplitPattern/DoNotCutIpgNames are consumed inside the $renderField scriptblock, which this rule does not trace')]
     [CmdletBinding()]
@@ -91,8 +86,8 @@ function Get-FirewallMarkdownTable {
     foreach ($row in $Rows) {
         $cells = foreach ($column in $Columns) {
             $cell = if ($column.Render -eq 'protoport') {
-                # Application rules hold the port in Protocols and have no port field, so they pass through.
-                # [comment:2](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment2)
+                # Pair protocols with ports as "protocols:ports" (e.g.
+                # [comment:5](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment5)
                 $protocols = @()
                 $ports = @()
                 foreach ($candidate in $column.Candidates) {
@@ -119,8 +114,8 @@ function Get-FirewallMarkdownTable {
                 }
             }
             else {
-                # A rule can fill several candidates, which the firewall unions: order is by group, then within it.
-                # [comment:3](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment3)
+                # Gather values per candidate, preserving candidate (group) order.
+                # [comment:6](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment6)
                 $values = foreach ($candidate in $column.Candidates) {
                     $raw = [string]$row.$candidate
                     if (-not [string]::IsNullOrWhiteSpace($raw)) {
@@ -134,8 +129,8 @@ function Get-FirewallMarkdownTable {
                 @($values) -join $CellListSeparator
             }
 
-            # The pattern spots emphasis marks at a space edge and URL or domain shapes, which MD034 flags as bare URLs.
-            # [comment:4](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment4)
+            # Wrap a cell in backticks when Markdown would mangle it: - * or _ at a whitespace boundary (cell...
+            # [comment:7](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment7)
             if ($cell -match '^[*_]|[*_]$|\s[*_]|[*_]\s|https?://|ftp://|[a-z0-9-]+\.[a-z]{2,}') {
                 '`' + $cell + '`'
             }

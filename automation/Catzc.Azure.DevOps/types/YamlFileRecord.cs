@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/YamlFileRecord.cs
     kind: csharp-type
     module: Catzc.Azure.DevOps
-    adrs: []
 ---
 */
 

@@ -4,12 +4,22 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
+      - ADR-AUTO-CACHE
+      - ADR-AUTO-CACHE#10
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#8
+      - ADR-PRIN-CONFIG#1
+      - ADR-PRIN-CONFIG#2
+      - ADR-PRIN-CONFIG#4
+      - ADR-REPO-FORMAT#8
 ---
 #>
 
-# Format-Code with its seams mocked ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): the
-# file-language registry (Get-Config languages, a fixture LanguagesConfig), the scope (Get-FormatScope) and the engines
-# (Invoke-FormatterEngine). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Format-Code with its seams mocked: the file-language registry (Get-Config languages, a fixture LanguagesConfig),...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md#comment1)
 Describe 'Format-Code' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
@@ -92,8 +102,8 @@ Describe 'Format-Code' -Tag 'L0', 'logic' {
     }
 }
 
-# One engine run per engine, and the content-keyed result cache, over real fixture files in $TestDrive with the engine
-# mocked ([ADR-AUTO-CACHE](/docs/adr/automation/caching.md)).
+# One engine run per engine, and the content-keyed result cache, over real fixture files in $TestDrive with the...
+# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md#comment2)
 Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'cache-repo'))
@@ -176,8 +186,8 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
     }
 }
 
-# The imprint steps after the engines: a global step over every language in scope, a language's own over its files only, the merge
-# into each language's result, and the cache that never records a file a person must still repair.
+# The imprint steps after the engines: a global step over every language in scope, a language's own over its files...
+# [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md#comment3)
 Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-repo'))
@@ -276,8 +286,8 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
     }
 }
 
-# Integrity: every engine the registry may name has its adapter, and the shipped languages.yml names only those engines
-# ([ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)).
+# Integrity: every engine the registry may name has its adapter, and the shipped languages.yml names only those engines.
+# [comment:4](/docs/references/automation/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md#comment4)
 Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
     It 'has an adapter for every declared engine: <_>' -ForEach @([Catzc.Base.Languages.LanguagesConfig]::FormatterEngines) {
         $engine = $_
@@ -335,10 +345,8 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
     }
 }
 
-# The real-asset test of [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3):
-# the psscriptanalyzer engine imports the vendored PSScriptAnalyzer (<code root>/.vendor) and formats with the shipped
-# settings file (<code root>/.internal/assets), nothing mocked but the console — integrity, and not source-only, so it
-# runs in the source and the build run. An explicit -Path over a throwaway file keeps it off the source tree.
+# The real-asset test of: the psscriptanalyzer engine imports the vendored PSScriptAnalyzer (<code root>/.vendor) and...
+# [comment:5](/docs/references/automation/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md#comment5)
 Describe 'Format-Code (real vendored analyzer and settings)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
@@ -382,8 +390,8 @@ Describe 'Format-Code (real vendored analyzer and settings)' -Tag 'L2', 'integri
     }
 }
 
-# The prettier engine over throwaway files, nothing mocked but the console; self-skips when prettier is absent
-# ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)).
+# The prettier engine over throwaway files, nothing mocked but the console; self-skips when prettier is absent.
+# [comment:6](/docs/references/automation/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md#comment6)
 Describe 'Format-Code (real prettier)' -Tag 'L2', 'logic' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

@@ -12,7 +12,6 @@ catzc:
       - ADR-REPO-CONTRACT#4
       - ADR-REPO-CONTRACT#5
       - ADR-REPO-CONTRACT#6
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/Test-Contracts.ps1

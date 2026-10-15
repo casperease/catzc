@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLocationSummary.ps1.md
     kind: comment-page
     body_sha: "202abce5c3be"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestRunLocationSummary.ps1

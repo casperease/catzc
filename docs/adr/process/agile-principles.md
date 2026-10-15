@@ -17,7 +17,6 @@ catzc:
       - ADR-PRIN-PROCESS#10
       - ADR-PRIN-PROCESS#11
       - ADR-PRIN-PROCESS#12
-    adrs: []
     links:
       - docs/adr/principles/reduce-waste.md
       - docs/adr/process/agile-values.md

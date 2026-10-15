@@ -7,10 +7,8 @@ catzc:
 ---
 #>
 
-# Hermetic logic (L1): the release feed (Get-GoRelease), the verified download, the version and tar runs
-# (Invoke-Executable), the persistent PATH seam and the final check (Test-Tool) are mocked; the managed home is a
-# fixture folder under $TestDrive. The mocked download writes a real fixture .zip (extracted in-process), and the
-# mocked tar writes the .tar.gz archive's go/ tree into the staging folder.
+# Hermetic logic (L1): the release feed (Get-GoRelease), the verified download, the version and tar runs...
+# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Go.Tests.ps1.md#comment1)
 Describe 'Install-Go' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:goHome = Join-Path $TestDrive 'go-home'

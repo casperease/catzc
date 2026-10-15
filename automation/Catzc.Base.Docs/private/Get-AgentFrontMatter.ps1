@@ -8,21 +8,24 @@ catzc:
     visibility: private
     adrs:
       - ADR-REPO-AGENTS#1
+  config:
+    synopsis: Parses the YAML front matter of one sub-agent definition file.
+    description: |-
+      Reads the block between the opening `---` line (the file's first line) and the next `---` line of a
+      .claude/agents/<name>.md file and parses it as YAML
+      ([ADR-REPO-AGENTS#1](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents1)). It throws when the file
+      has no front-matter block, when the block is not valid YAML, or when the block is not a mapping, so the caller
+      (Test-AgentDefinitions) records one issue per unreadable file.
+
+      Private helper for Test-AgentDefinitions; not exported.
+    parameters:
+      Path: Absolute path to the agent definition file.
+    outputs: '[System.Collections.IDictionary] The front-matter keys and values, in file order.'
+    examples:
+      - Get-AgentFrontMatter -Path (Resolve-RepoPath '.claude/agents/catzc-worker.md')
 ---
 #>
 
-<#
-.SYNOPSIS
-    Parses the YAML front matter of one sub-agent definition file.
-.DESCRIPTION
-    Every unreadable shape throws, so the caller records exactly one issue per broken agent file.
-.PARAMETER Path
-    Absolute path to the agent definition file.
-.OUTPUTS
-    [System.Collections.IDictionary] The front-matter keys and values, in file order.
-.EXAMPLE
-    Get-AgentFrontMatter -Path (Resolve-RepoPath '.claude/agents/catzc-worker.md')
-#>
 function Get-AgentFrontMatter {
     [CmdletBinding()]
     [OutputType([System.Collections.IDictionary])]

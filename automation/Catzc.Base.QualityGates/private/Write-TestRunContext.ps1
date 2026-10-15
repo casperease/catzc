@@ -6,20 +6,26 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: 'Prints a test run''s context block under its banner: one line per fact.'
+    description: |-
+      Renders Get-TestRunContext's record so a reader sees, before any test output, what the run is and where it
+      runs — the entry point and code root, the location and why, the tiers asked for and running (and why they
+      differ), who is running it, which local tools are present, and what is selected:
+
+          entry point  Test-Automation · source run · code root C:\repo\automation
+          location     snapshot (working folder held by Test-Automation, pid 4242)
+          tiers        asked L0-L3 · running L0-L2 — L3 skipped: snapshot location
+          actor        Person
+          tools        git yes · az no · dotnet yes
+          selection    suite infrastructure; modules: Catzc.Azure.Templates
+    parameters:
+      Context: The record Get-TestRunContext returned.
+    examples:
+      - Write-TestRunContext -Context $context
 ---
 #>
 
-<#
-.SYNOPSIS
-    Prints a test run's context block under its banner: one line per fact.
-.DESCRIPTION
-    The block comes before any test output, so a reader knows where the run runs and why tiers were skipped.
-.PARAMETER Context
-    The record Get-TestRunContext returned.
-.EXAMPLE
-    Write-TestRunContext -Context $context
-#>
 function Write-TestRunContext {
     [CmdletBinding()]
     param(

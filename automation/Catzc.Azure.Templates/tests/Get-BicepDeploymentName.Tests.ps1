@@ -38,9 +38,8 @@ Describe 'Get-BicepDeploymentName' -Tag 'L0', 'logic' {
         }
     }
 
-    # Get-BicepDeploymentName picks the platform by which run-id DATA var is present (GITHUB_RUN_ID → GitHub
-    # Actions, else Azure DevOps). Each case sets its own vars and clears the other's run-id — important
-    # because these tests themselves run on a GitHub Actions runner where $env:GITHUB_RUN_ID is already set.
+    # Get-BicepDeploymentName picks the platform by which run-id DATA var is present (GITHUB_RUN_ID → GitHub Actions,...
+    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentName.Tests.ps1.md#comment1)
     Context 'pipeline (Azure DevOps)' {
         BeforeEach {
             Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Azure.Templates

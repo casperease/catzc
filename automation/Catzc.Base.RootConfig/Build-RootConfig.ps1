@@ -10,35 +10,62 @@ catzc:
       - ADR-AUTO-DRYRUN
       - ADR-DSGN-RUNMODE
       - ADR-REPO-ROOTCFG
+  config:
+    synopsis: |-
+      Materialises every opted-in managed root file from its in-repo source of truth — the writer behind the
+      "root configs are managed" contract.
+    description: |-
+      Reads the root-config registry (configs/rootconfig.yml, via Get-Config -Config rootconfig), filters it to
+      the opted-in entries (Get-RootConfigTargets), and reproduces each target from its single source of truth:
+      a `source` entry copies the authored file out under the generated-from-source head, a
+      `generator` entry renders the content through Invoke-RootConfigGenerator (e.g. New-Importer for
+      importer.ps1) and gets the same head, and a `copyAsLink` source entry skips content entirely — the target is materialised as a
+      filesystem link to the source (Set-FileLink), so the root file IS the source. Whether the target is
+      gitignored (committed false) or tracked (committed true) changes nothing here — content is produced the
+      same way; `committed` only governs git membership, asserted by the integrity test.
+
+      A generator renders either one file (the entry's target) or, for a wildcard target such as
+      go/tests/*/go.mod, one { Target; Content } record per file (Get-RootConfigRenderedFile): each file is
+      written on its own and reported in its own result row, under its own path.
+
+      Idempotent and fast by construction, so the importer runs it on every load (see importer.ps1): the write
+      goes through Write-FileIfChanged (canonical UTF-8/LF output, EOL-insensitive compare, write-on-change), so
+      a clean tree is a true no-op. See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+
+      The managed root files are materialised from the source tree, so in build mode
+      ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)) this is a
+      no-op that reports why and returns nothing — a skip, not a throw, because the importer's janitor tail calls
+      it on every load and a janitor never breaks the load.
+    parameters:
+      Target: |-
+        Materialise only this repo-relative path: the entry whose target equals it (e.g.
+        'PSScriptAnalyzerSettings.psd1', or a wildcard entry's own pattern for all its files), or the one file of a
+        wildcard entry it matches (e.g. 'go/tests/widget/go.mod'). Throws when it selects no opted-in entry, or no file
+        of the wildcard entry it matches. Default: every opted-in entry.
+      DryRun: |-
+        Report what would change without writing any file. The composed content is the same either way; -DryRun
+        only skips the write. See [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+      Silent: |-
+        The per-file status lines are verbose-level — shown only when this function is run with -Verbose. -Silent
+        suppresses them entirely, even under -Verbose (used by the importer tail so a session with -Verbose on
+        does not chatter during import).
+      PassThru: |-
+        Return one result object per managed file ({ Target, Source, Generator, Committed, Path, Changed, DryRun })
+        instead of the paths. A wildcard entry reports one object per rendered file, each with that file's Target.
+    outputs: '[string[]] The paths to the managed files (with -PassThru, one result object per file instead).'
+    examples:
+      - |-
+        Build-RootConfig
+        Reproduces every opted-in managed root file from its source of truth.
+      - |-
+        Build-RootConfig -DryRun -PassThru
+        Reports which managed root files are stale without writing them.
+      - |-
+        Build-RootConfig 'PSScriptAnalyzerSettings.psd1'
+        Reproduces only that managed file.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Materialises every opted-in managed root file from its in-repo source of truth — the writer behind the
-    "root configs are managed" contract.
-.DESCRIPTION
-    In build mode this skips instead of throwing, because the importer calls it on every load and must not fail.
-.PARAMETER Target
-    A wildcard entry is selected by its own pattern, or one of its files by a path the pattern matches.
-.PARAMETER DryRun
-    The composed content is the same either way; -DryRun only skips the write.
-.PARAMETER Silent
-    -Silent beats -Verbose, so the importer tail does not chatter during import in a verbose session.
-.PARAMETER PassThru
-    A wildcard entry reports one object per rendered file, each carrying that file's own Target.
-.OUTPUTS
-    [string[]] The paths to the managed files (with -PassThru, one result object per file instead).
-.EXAMPLE
-    Build-RootConfig
-    Reproduces every opted-in managed root file from its source of truth.
-.EXAMPLE
-    Build-RootConfig -DryRun -PassThru
-    Reports which managed root files are stale without writing them.
-.EXAMPLE
-    Build-RootConfig 'PSScriptAnalyzerSettings.psd1'
-    Reproduces only that managed file.
-#>
 function Build-RootConfig {
     [CmdletBinding()]
     [OutputType([string[]])]
@@ -80,8 +107,8 @@ function Build-RootConfig {
 
     $ret = foreach ($entry in $entries) {
         if ($entry.copyAsLink) {
-            # A link entry skips composition: the target IS the source, so there is no content to compare or write.
-            # [comment:6](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment6)
+            # A link entry skips content composition entirely: the target IS the source, verified or (re)created as a...
+            # [comment:10](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment10)
             $sourcePath = Resolve-RepoPath $entry.source
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $null; From = "$($entry.source) (link)" })
         }
@@ -96,8 +123,8 @@ function Build-RootConfig {
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
         }
         else {
-            # A generator owns its whole content below the head and returns one file or one per wildcard match.
-            # [comment:7](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment7)
+            # A generator's rendered output (which owns its whole content below the head): one file, or one record...
+            # [comment:11](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment11)
             foreach ($listed in $entry.sources) {
                 Assert-PathExist (Resolve-RepoPath $listed)
             }
@@ -122,16 +149,16 @@ function Build-RootConfig {
                 $changed = Set-FileLink -Path $targetPath -Target $sourcePath -DryRun:$DryRun
             }
             else {
-                # A link target is stale despite equal bytes: the compare reads through the link and calls it current.
-                # [comment:8](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment8)
+                # A target that is currently a LINK is stale regardless of content equality: a comment:none entry...
+                # [comment:12](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment12)
                 $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
                 $targetIsLink = [bool] ($item -and $item.LinkType)
                 if ($targetIsLink -and -not $DryRun) {
                     [System.IO.File]::Delete($targetPath)
                 }
 
-                # Writing only on change keeps a clean tree a true no-op, so the importer can run this on every load.
-                # [comment:9](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment9)
+                # Canonicalise, EOL-insensitively compare, and write-on-change via the one shared primitive...
+                # [comment:13](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment13)
                 $changed = Write-FileIfChanged -Path $targetPath -Content $file.Content -DryRun:$DryRun
                 if ($targetIsLink) {
                     $changed = $true

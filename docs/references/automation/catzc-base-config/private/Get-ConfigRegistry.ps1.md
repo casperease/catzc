@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-PWSH-CACHE#4
-    links: []
 ---
 
 # automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
@@ -31,6 +30,15 @@ the shipped registry resolves inside the loaded module in both run modes
 ## comment:2
 
 Above `$cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:configRe...`.
+
+```text
+strict-clean
+([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+```
+
+## comment:3
+
+Above `$cached =...`.
 
 ```text
 strict-clean

@@ -4,8 +4,6 @@ catzc:
     path: docs/references/pipelines/cd-nova.yaml.md
     kind: comment-page
     body_sha: "6e63e338fd9a"
-    adrs: []
-    links: []
 ---
 
 # pipelines/cd-nova.yaml

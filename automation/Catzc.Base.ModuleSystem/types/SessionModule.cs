@@ -5,7 +5,6 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/SessionModule.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
-    adrs: []
 ---
 */
 

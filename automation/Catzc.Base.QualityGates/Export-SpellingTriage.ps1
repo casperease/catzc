@@ -11,33 +11,50 @@ catzc:
       - ADR-AUTO-SPELL#5
       - ADR-AUTO-SPELL#6
       - ADR-AUTO-SPELL#7
+  config:
+    synopsis: |-
+      Collects the spell-checker's flagged tokens into a triage queue for classification — the on-ramp to the
+      terminology registry, never an automatic acceptance.
+    description: |-
+      Runs the same cspell scan as Test-Spelling with --words-only, collecting every token the gate flags, and
+      writes them as UNCATEGORIZED STUBS to a triage queue under out/ (terminology-triage.yml). Nothing here is
+      accepted vocabulary: a flagged token joins the dictionary only when a human moves it into the terminology
+      registry (configs/terminology.yml) with a real meaning and category, or spells the token out in the code
+      ([ADR-AUTO-SPELL#7](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7)). The queue is a to-do
+      list, not a dictionary — cspell
+      never reads it, so a token sitting in the queue is still flagged until promoted. It changes no repository file,
+      so it is an export, not a formatter. The accepted-word list is generated from the registry
+      (Build-TerminologyDictionary) and is never appended to by a tool
+      ([ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)).
+
+      Tokens already in the registry are skipped (cspell accepts them, so they are not flagged in the first
+      place); only genuinely new, unaccepted tokens reach the queue.
+
+      cspell must be on PATH — install it once with Install-Cspell (or: npm install -g cspell).
+    parameters:
+      Path: |-
+        Repository-relative paths or globs to scan (cspell expands a glob). Defaults to the repository's known text file
+        types — the same scope Test-Spelling checks. cspell still applies the ignorePaths from cspell.yml.
+      Exclude: |-
+        Globs to skip, passed to cspell as --exclude. Defaults to the authored/generated trees that are out of
+        scope to spell-check, matching Test-Spelling so the tokens queued are exactly the tokens the gate flags.
+        Mirror Test-Spelling's content-scope exclusions, so the tokens queued are exactly the tokens the
+        gate flags. Third-party noise lives in cspell.yml ignorePaths, not here.
+      DryRun: |-
+        Report which tokens would be queued without writing the triage file. The returned list is the same in
+        either mode; -DryRun simply skips the write. See
+        [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    outputs: '[string[]] The flagged tokens queued for triage (or, under -DryRun, that would be queued), ordinal-sorted.'
+    examples:
+      - |-
+        Export-SpellingTriage
+        Writes every currently-flagged token to the triage queue for classification.
+      - |-
+        Export-SpellingTriage -DryRun
+        Returns which tokens would be queued without writing the file.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Collects the spell-checker's flagged tokens into a triage queue for classification — the on-ramp to the
-    terminology registry, never an automatic acceptance.
-.DESCRIPTION
-    The queue is a to-do list: cspell never reads it, so a token stays flagged until a human promotes it.
-.PARAMETER Path
-    The default scope equals Test-Spelling's, though cspell still applies the ignorePaths from cspell.yml.
-.PARAMETER Exclude
-    The defaults match Test-Spelling, so the tokens queued are exactly the tokens the gate flags.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment3)
-    Third-party noise belongs in the cspell.yml ignorePaths, not in this list.
-    [comment:5](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment5)
-.PARAMETER DryRun
-    The returned list is the same in either mode; -DryRun only skips the write.
-.OUTPUTS
-    [string[]] The flagged tokens queued for triage (or, under -DryRun, that would be queued), ordinal-sorted.
-.EXAMPLE
-    Export-SpellingTriage
-    Writes every currently-flagged token to the triage queue for classification.
-.EXAMPLE
-    Export-SpellingTriage -DryRun
-    Returns which tokens would be queued without writing the file.
-#>
 function Export-SpellingTriage {
     [CmdletBinding()]
     [OutputType([string[]])]
@@ -83,15 +100,15 @@ function Export-SpellingTriage {
     $excludeArgs = foreach ($e in $Exclude) {
         "--exclude '$e'"
     }
-    # --no-summary keeps the trailing issue-count line out of the stream, which is parsed as bare tokens.
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment6)
+    # --words-only prints just the flagged tokens (one per line); --unique de-duplicates; --no-summary keeps the...
+    # [comment:9](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment9)
     $command = (
         "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
         "--config '$configPath' --words-only --unique --no-summary --no-progress --no-color"
     )
 
-    # Exit 1 means tokens were flagged, which is the expected case; only an exit above 1 is a tool error.
-    # [comment:7](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment7)
+    # -Silent: capture cspell's output instead of streaming it.
+    # [comment:10](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment10)
     $result = Invoke-Executable $command -PassThru -NoAssert -Silent
     if ($result.ExitCode -gt 1) {
         throw "cspell failed (exit $($result.ExitCode)): $($result.Full)"
@@ -132,8 +149,8 @@ function Export-SpellingTriage {
     }
 
     if (-not $DryRun) {
-        # The blank meaning is deliberate: a pasted stub fails Test-Terminology until a human classifies it.
-        # [comment:8](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment8)
+        # Emit paste-ready stubs.
+        # [comment:11](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment11)
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add('# Terminology triage queue — spell-checker-flagged tokens awaiting classification.')
         $lines.Add('#')

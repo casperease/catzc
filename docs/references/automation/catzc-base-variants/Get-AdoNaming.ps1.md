@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-variants/Get-AdoNaming.ps1.md
     kind: comment-page
     body_sha: "6874c9804b5a"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Variants/Get-AdoNaming.ps1

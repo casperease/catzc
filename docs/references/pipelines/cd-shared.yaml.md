@@ -6,7 +6,6 @@ catzc:
     body_sha: d944d39fa28b
     adrs:
       - ADR-AZ-LZ#7
-    links: []
 ---
 
 # pipelines/cd-shared.yaml

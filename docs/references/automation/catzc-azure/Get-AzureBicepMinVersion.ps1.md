@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure/Get-AzureBicepMinVersion.ps1.md
     kind: comment-page
     body_sha: e80a6c5e453f
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure/Get-AzureBicepMinVersion.ps1

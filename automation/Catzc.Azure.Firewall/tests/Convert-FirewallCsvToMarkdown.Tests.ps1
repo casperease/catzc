@@ -14,8 +14,8 @@ Describe 'Convert-FirewallCsvToMarkdown' -Tag 'L2', 'logic' {
         $script:netCsv = Join-Path $assets 'network.csv'
         Mock Write-Message -ModuleName Catzc.Azure.Firewall {}
 
-        # The fixtures use rcg-baseline / rcg-app / rcg-shared; the function's default GroupPriority only
-        # knows rcg-old/rcg-new. Supply priorities so the evaluation-order sort is meaningful.
+        # The fixtures use rcg-baseline / rcg-app / rcg-shared; the function's default GroupPriority only knows...
+        # [comment:1](/docs/references/automation/catzc-azure-firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1.md#comment1)
         $script:groupPriority = @{ 'rcg-baseline' = 100; 'rcg-app' = 200; 'rcg-shared' = 300 }
 
         # Pull the rule-name column out of a rendered table, in row order, for ordering assertions.
@@ -44,8 +44,8 @@ Describe 'Convert-FirewallCsvToMarkdown' -Tag 'L2', 'logic' {
         }
 
         It 'sorts by group priority, then collection priority, then name' {
-            # rcg-baseline(100): Allow_DNS(200), Allow_NTP(210) | rcg-app(200): starts at Allow_OnPrem_SQL(300)
-            # | rcg-shared(300): Allow_Ping_Mgmt(400) ... Deny_All_Network(3100) last.
+            # rcg-baseline(100): Allow_DNS(200), Allow_NTP(210) | rcg-app(200): starts at Allow_OnPrem_SQL(300) |...
+            # [comment:2](/docs/references/automation/catzc-azure-firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1.md#comment2)
             $order[0] | Should -Be 'Allow_DNS'
             $order.IndexOf('Allow_DNS')        | Should -BeLessThan $order.IndexOf('Allow_NTP')
             $order.IndexOf('Allow_NTP')        | Should -BeLessThan $order.IndexOf('Allow_OnPrem_SQL')

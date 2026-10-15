@@ -8,7 +8,6 @@ catzc:
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-CONTRACT#5
       - ADR-REPO-CONTRACT#7
-    links: []
 ---
 
 # automation/Catzc.Base.Contracts/private/Get-ContractVersionAsset.ps1
@@ -32,4 +31,13 @@ names no asset overrides nothing; both throw, naming the file or the entry. Each
 module's target root, which ContractsConfig.ResolveTargetRoot picks from -TargetRoot
 ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)). Assets come in ordinal
 order of module, then path.
+```
+
+## comment:2
+
+Above `$files = [string[]] @(Get-ChildPath $moduleFolder -File -Depth 64 -Exclude...`.
+
+```text
+A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): every
+asset of the version is listed, so no name is pruned and no depth drops one.
 ```

@@ -6,22 +6,23 @@ catzc:
     kind: public-function
     module: Catzc.Base.Environment
     visibility: public
-    adrs: []
+  config:
+    synopsis: Reads the PATH environment variable at the scope given (the Windows registry for User/Machine).
+    description: |-
+      The single seam through which the PATH helpers (Add-/Remove-PermanentPath, Sync-SessionPath, the tooling
+      uninstallers) READ the persistent PATH, so tests can Mock the registry boundary
+      (`Mock Get-EnvironmentPath -ModuleName <module>`) instead of reading the real machine. Paired with
+      Set-EnvironmentPath for writes. User/Machine scopes are a Windows concept; callers guard Windows-only use
+      with $IsWindows. This is the deliberately thin, un-mockable I/O boundary, so it has no unit test of its
+      own.
+    parameters:
+      Scope: 'Which environment scope to read: User (default), Machine, or Process.'
+    examples:
+      - 'Get-EnvironmentPath                 # User-scope PATH'
+      - Get-EnvironmentPath -Scope Machine
 ---
 #>
 
-<#
-.SYNOPSIS
-    Reads the PATH environment variable at the scope given (the Windows registry for User/Machine).
-.DESCRIPTION
-    The one read seam for the persistent PATH, kept thin so tests mock it; User and Machine exist on Windows only.
-.PARAMETER Scope
-    Which environment scope to read: User (default), Machine, or Process.
-.EXAMPLE
-    Get-EnvironmentPath                 # User-scope PATH
-.EXAMPLE
-    Get-EnvironmentPath -Scope Machine
-#>
 function Get-EnvironmentPath {
     [OutputType([string])]
     param(

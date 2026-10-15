@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md
     kind: comment-page
     body_sha: "2be360de1ee4"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Azure/types/AzureEnvironment.cs

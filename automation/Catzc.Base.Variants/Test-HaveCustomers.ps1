@@ -6,22 +6,24 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Variants
     visibility: public
-    adrs: []
+  config:
+    synopsis: Tests whether the repo has customer deployments enabled — for all customers, or for specific names.
+    description: |-
+      A predicate over the `have_customers` repo-wide variant (see Get-EnabledCustomers). With no -Name it
+      answers "is the repo customer-enabled at all" (the variant is 'all' or a non-empty list). With -Name it
+      answers "are all the named customers enabled" (the variant is 'all', or each name is in the list). A
+      guard callable anywhere above the Config layer; use Assert-HaveCustomers to fail instead of branch.
+
+      Enabled here means enabled by repo policy (the variant). Whether a name is a *defined* customer is a
+      customer.yml (Azure-layer) concern.
+    parameters:
+      Name: Zero or more customer names to test for enablement. Omit to test the repo-wide capability.
+    examples:
+      - 'if (Test-HaveCustomers) { ... }              # any customers enabled?'
+      - 'Test-HaveCustomers -Name acme, globex        # are both enabled?'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tests whether the repo has customer deployments enabled — for all customers, or for specific names.
-.DESCRIPTION
-    Enabled means by repo policy only; whether a name is a defined customer is left to customer.yml.
-.PARAMETER Name
-    Zero or more customer names to test for enablement. Omit to test the repo-wide capability.
-.EXAMPLE
-    if (Test-HaveCustomers) { ... }              # any customers enabled?
-.EXAMPLE
-    Test-HaveCustomers -Name acme, globex        # are both enabled?
-#>
 function Test-HaveCustomers {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -48,8 +50,8 @@ function Test-HaveCustomers {
     if ($isAll) {
         return $true
     }
-    # Both name sets are lowercase-validated, so case-insensitive -notin is equivalent to a case-sensitive match.
-    # [comment:2](/docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md#comment2)
+    # Enabled names and the query names are both lowercase-validated, so plain (case-insensitive) membership is...
+    # [comment:3](/docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md#comment3)
     foreach ($customer in $Name) {
         if ("$customer" -notin $enabledList) {
             return $false

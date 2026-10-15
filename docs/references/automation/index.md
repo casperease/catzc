@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/index.md
     kind: reference
     body_sha: e08fa0b56b3f
-    adrs: []
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/open-closed-architecture.md

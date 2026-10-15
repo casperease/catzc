@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md
     kind: comment-page
     body_sha: "7ae4d3a0fea6"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Writers/private/Write-FramedLine.ps1
@@ -26,6 +24,16 @@ is emitted as a single Write-InformationColored call, so it is one information r
 ```
 
 ## comment:2
+
+Above `$rendered = foreach ($s in $Segment) {`.
+
+```text
+A rule line takes the per-character gradient; a titled line takes the base colour (the profile
+side-grades to Base). The text is pre-coloured here, so it passes through the chokepoint with no
+-ForegroundColor of its own.
+```
+
+## comment:3
 
 Above `$rendered = foreach ($s in $Segment) {`.
 

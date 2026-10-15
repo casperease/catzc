@@ -10,31 +10,48 @@ catzc:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-NOPWD#1
       - ADR-AUTO-TEST#35
+  config:
+    synopsis: Analyzes the automation PowerShell with PSScriptAnalyzer and writes a report under out/.
+    description: |-
+      Runs PSScriptAnalyzer over the same automation file set the analyzer test covers (module root *.ps1,
+      private/, tests/, and the .internal/.scriptanalyzer infrastructure folders), applying the single rule set at
+      .internal/assets/PSScriptAnalyzerSettings.psd1 under the loaded code root (Get-CatzcModulesRoot) — so the
+      result matches what the editor and CI see.
+
+      This is the interactive, report-style sibling of the L2 'PSScriptAnalyzer' Pester test
+      (automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1): both shard the analysis across background
+      processes (see Get-ScriptAnalyzerDiagnostics) so a full-tree run finishes in ~15-30s with live progress
+      rather than ~90s of silence. It is also the verify counterpart to Format-Code -Language powershell — Format-Code
+      FIXES the auto-fixable formatting, Test-ScriptAnalyzer only reports and never rewrites files.
+
+      A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): every
+      diagnostic ('<path>:<line>:<col> <severity> <rule> <message>', repository-relative) is an issue, and the gate
+      ends through Write-QualityGateReport, which writes out/test-script-analyzer/, prints every issue, and throws
+      once listing them all; -PassThru returns the result object instead.
+
+      PSScriptAnalyzer is vendored under the code root's .vendor/ — no install step is needed.
+    parameters:
+      Path: |-
+        One or more files or directories to analyze — absolute, or repository-root-relative (never resolved against
+        $PWD). Defaults to the canonical checked set (Get-AutomationSourceFiles):
+        module root *.ps1, private/, tests/, the .internal and .scriptanalyzer infrastructure folders (bootstrap,
+        TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config. The
+        default set is the catzc source tree, so it needs the source mode; an explicit -Path works in either run
+        mode.
+      OutputFolder: The report base folder. Defaults to <out>/test-script-analyzer.
+      NoCache: Analyze every file, ignoring the result cache (which is still refreshed).
+      PassThru: Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount }) instead of throwing.
+    examples:
+      - Test-ScriptAnalyzer
+      - |-
+        $result = Test-ScriptAnalyzer -PassThru
+        $result.IssueCount
+      - |-
+        Test-ScriptAnalyzer -Path automation/Catzc.Base.QualityGates
+        Analyze just one module.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Analyzes the automation PowerShell with PSScriptAnalyzer and writes a report under out/.
-.DESCRIPTION
-    Uses the rule set from the loaded code root, so a local run matches what the editor and CI see.
-.PARAMETER Path
-    The default is the catzc source tree, so it needs the source mode; an explicit -Path works in either run mode.
-.PARAMETER OutputFolder
-    The report base folder. Defaults to <out>/test-script-analyzer.
-.PARAMETER NoCache
-    Analyze every file, ignoring the result cache (which is still refreshed).
-.PARAMETER PassThru
-    Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount }) instead of throwing.
-.EXAMPLE
-    Test-ScriptAnalyzer
-.EXAMPLE
-    $result = Test-ScriptAnalyzer -PassThru
-    $result.IssueCount
-.EXAMPLE
-    Test-ScriptAnalyzer -Path automation/Catzc.Base.QualityGates
-    Analyze just one module.
-#>
 function Test-ScriptAnalyzer {
     [CmdletBinding()]
     [Alias('Test-Pssa')]
@@ -49,18 +66,18 @@ function Test-ScriptAnalyzer {
     )
 
     $root = Get-RepositoryRoot
-    # The settings ship inside the code tree, so they resolve from the code root, not the repository root.
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment3)
+    # The one settings file ships inside the code tree, so it resolves from the code root.
+    # [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment8)
     $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
     Assert-PathExist $settingsPath
 
-    # Same coverage as the L2 analyzer test: module root, private, tests and the infrastructure folders.
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment4)
+    # Resolve the file set — same coverage as the L2 analyzer test (module root *.ps1 non-test, private/, tests/...
+    # [comment:9](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment9)
     $files = [System.Collections.Generic.List[string]]::new()
     if ($Path) {
         foreach ($item in $Path) {
-            # Resolving against the current directory would make results depend on where the caller stood.
-            # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment5)
+            # A relative path is repository-relative, never $PWD-relative.
+            # [comment:10](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment10)
             $full = if ([System.IO.Path]::IsPathRooted($item)) {
                 $item
             }
@@ -80,15 +97,15 @@ function Test-ScriptAnalyzer {
         }
     }
     else {
-        # Shared with the L2 analyzer test so the two cannot drift; generated manifests are excluded.
-        # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment6)
+        # The canonical checked set — shared with the L2 analyzer test so they cannot drift.
+        # [comment:11](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment11)
         foreach ($f in (Get-AutomationSourceFiles)) {
             $files.Add($f)
         }
     }
 
-    # Sharding turns about 90 seconds of silence, which reads as a hang, into a short run with live progress.
-    # [comment:7](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment7)
+    # Analyze, sharded across background processes with live progress (Get-ScriptAnalyzerDiagnostics) — a serial pass...
+    # [comment:12](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment12)
     Write-Message "Analyzing $($files.Count) PowerShell file(s) with PSScriptAnalyzer..."
     $diagnostics = @(Get-ScriptAnalyzerDiagnostics -Path $files -SettingsPath $settingsPath -NoCache:$NoCache)
 

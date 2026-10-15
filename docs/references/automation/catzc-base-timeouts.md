@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-timeouts.md
     kind: reference
     body_sha: c9314955e75e
-    adrs: []
     links:
       - docs/references/automation/catzc-base-config.md
       - docs/references/automation/catzc-base-execution.md

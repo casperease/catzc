@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/ConvertTo-PesterRunTarget.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# ConvertTo-PesterRunTarget over a fixture repository in $TestDrive (Get-RepositoryRoot and Get-LanguageTestFolders
-# mocked): language test folders become language bridge containers, everything else stays a Pester path. Neutral
-# fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# ConvertTo-PesterRunTarget over a fixture repository in $TestDrive (Get-RepositoryRoot and Get-LanguageTestFolders...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md#comment1)
 Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'

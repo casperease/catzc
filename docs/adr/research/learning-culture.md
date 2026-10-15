@@ -10,7 +10,6 @@ catzc:
       - ADR-DORA-LEARNING#3
       - ADR-DORA-LEARNING#4
       - ADR-DORA-LEARNING#5
-    adrs: []
     links:
       - docs/adr/principles/reduce-waste.md
       - docs/adr/process/holding-the-line.md

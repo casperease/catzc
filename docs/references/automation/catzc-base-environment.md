@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-environment.md
     kind: reference
     body_sha: "4d573737a7ac"
-    adrs: []
     links:
       - docs/adr/automation/effective-in-enterprises.md
       - docs/adr/automation/environment-variables.md

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-vendor.md
     kind: reference
     body_sha: "6d37b6c9b1f7"
-    adrs: []
     links:
       - docs/adr/pwsh/vendor-toolset-dependencies.md
       - docs/references/automation/catzc-base-config.md

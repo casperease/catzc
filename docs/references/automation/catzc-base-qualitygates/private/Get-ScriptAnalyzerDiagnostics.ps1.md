@@ -12,7 +12,6 @@ catzc:
       - ADR-PWSH-ANNOUNCE#1
       - ADR-PWSH-PWD#2
       - ADR-PWSH-PWD#3
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerDiagnostics.ps1
@@ -121,6 +120,85 @@ fires when it is needed.
 ```
 
 ## comment:8
+
+Above `if ($job.State -ne 'Completed') {`.
+
+```text
+A silently-failed shard would drop its files' diagnostics and let violations pass unnoticed —
+fail loudly instead.
+```
+
+## comment:9
+
+Above `$root = Get-RepositoryRoot`.
+
+```text
+The vendored analyzer ships inside the code tree, so it resolves from the code root
+([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)).
+The shards still run from the repository root: the settings' CustomRulePath entries are relative to it.
+```
+
+## comment:10
+
+Above `$fullRoot = [System.IO.Path]::GetFullPath($root)`.
+
+```text
+The result cache ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)): a file the analyzer
+last found clean, whose bytes and analyzer inputs (Get-ScriptAnalyzerInputs) are unchanged since, is not analyzed
+again — it has no diagnostics by construction. Only files with no diagnostics are ever recorded.
+```
+
+## comment:11
+
+Above `$shardCount = [Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 10))`.
+
+```text
+Shard count tracks CPU but is capped so we don't spawn more process setup than the work can amortize,
+and never exceeds the file count.
+```
+
+## comment:12
+
+Above `$savedProgress = $ProgressPreference`.
+
+```text
+Invoke-ScriptAnalyzer draws its own Write-Progress bar; this repo bans progress bars (ADR
+console-output-matters, rule
+[ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)) and
+reports shard progress with dots instead. Suppress the
+external bar for the duration of the call and restore the preference in finally.
+```
+
+## comment:13
+
+Above `$err = $null`.
+
+```text
+Capture non-terminating analyzer errors (-ErrorAction SilentlyContinue + -ErrorVariable) and
+surface any as a shard failure, rather than letting a shard silently drop its files' diagnostics.
+This used to special-case an intermittent NullReferenceException and tell the user to re-run; that
+flake was root-caused to the built-in PSReservedCmdletChar rule dereferencing PSScriptAnalyzer's
+thread-unsafe helper runspace under concurrent load, and eliminated by excluding that rule in
+PSScriptAnalyzerSettings.psd1. So there is no transient case to tolerate — any error is real and
+fails loudly (ADR diagnostics-over-retry; we never retry,
+[ADR-AUTO-RETRY#1](/docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry1)).
+```
+
+## comment:14
+
+Above `$dotted = $false`.
+
+```text
+Print a dot per interval while shards run, rather than a progress bar (ADR console-output-matters,
+rule [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)). The
+dots go through the writer chokepoint
+([ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)), so a
+Pester run
+silences them with everything else. $dotted tracks whether any dot was written so the closing newline only
+fires when it is needed.
+```
+
+## comment:15
 
 Above `if ($job.State -ne 'Completed') {`.
 

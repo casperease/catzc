@@ -11,31 +11,41 @@ catzc:
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-COMMENTS#1
       - ADR-REPO-COMMENTS#5
+  config:
+    synopsis: Puts every comment residue of the repository's code and config files into its one-liner shape, in place.
+    description: |-
+      A file keeps one residue per long comment — an insight line, then a line with the comment's ADR citations and the
+      docs link `[comment:N](/<page>#commentN)` — and the prose lives once, in the file's comment page
+      ([ADR-REPO-COMMENTS#1](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1),
+      [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)). This is the shape
+      check of the residue ([ADR-REPO-COMMENTS#5](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5)):
+      one insight line within the file's line limit (.editorconfig max_line_length, with links.yml overrides), with no
+      link or citation in it, that does not start with one of comments.yml's obvious phrases
+      ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+
+      What is mechanical is fixed: a residue without an insight line gets the first sentence of its own section as a
+      provisional one, a link in the insight goes and a citation moves to the docs-link line, and an overlong insight
+      is cut at a word to its first sentence. What needs a person is left as written and listed as unfixable: an
+      obvious insight, words on the docs-link line, a residue whose page holds no section, and a comment that still
+      outgrows a line (run Export-Comments). Test-Comments reports them. Aligning the link itself stays Format-Links'.
+      The formatter is compiled C# (Catzc.Base.QualityGates.CommentFormatter) over the comment engine's public surface;
+      files are written as UTF-8 without a BOM, each line keeping its own ending. A source-tree tool: it throws in
+      build mode (Assert-SourceTree).
+    parameters:
+      Path: 'Files or folders to format. Default: every file in scope (Get-CommentScope).'
+      RepositoryRoot: 'The repository root paths and pages resolve against. Default: the loaded repository root.'
+      DryRun: Report what would change without writing any file.
+      PassThru: |-
+        Return a result object ({ ChangedCount, ChangedFiles, Fixed, Unfixable, DryRun, ElapsedMs }) instead of only the
+        changed paths.
+    outputs: '[string[]] the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result object.'
+    examples:
+      - Format-Comments
+      - Format-Comments -DryRun -PassThru
+      - Format-Comments -Path automation/Catzc.Base.Files
 ---
 #>
 
-<#
-.SYNOPSIS
-    Puts every comment residue of the repository's code and config files into its one-liner shape, in place.
-.DESCRIPTION
-    Fixes only the mechanical cases; an obvious insight or a residue without a page section is listed unfixable.
-.PARAMETER Path
-    Files or folders to format. Default: every file in scope (Get-CommentScope).
-.PARAMETER RepositoryRoot
-    The repository root paths and pages resolve against. Default: the loaded repository root.
-.PARAMETER DryRun
-    Report what would change without writing any file.
-.PARAMETER PassThru
-    Read Unfixable here: the changed paths alone hide the residues that still need a person.
-.OUTPUTS
-    [string[]] the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result object.
-.EXAMPLE
-    Format-Comments
-.EXAMPLE
-    Format-Comments -DryRun -PassThru
-.EXAMPLE
-    Format-Comments -Path automation/Catzc.Base.Files
-#>
 function Format-Comments {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -6,26 +6,22 @@ catzc:
     kind: private-function
     module: Catzc.Base.Objects
     visibility: private
-    adrs: []
+  config:
+    synopsis: Recursively flattens a nested object into dot-notation key/value pairs.
+    description: |-
+      Walks PSCustomObject, IDictionary, and array structures, building
+      dot-separated paths for each leaf value and adding them to the
+      supplied OrderedDictionary.  Arrays use [index] notation.
+      Used internally by ConvertTo-FlatSettingSet.
+    parameters:
+      Value: The object, or the nested value, to flatten.
+      Target: The ordered dictionary that receives the dot-notation key/value pairs.
+      Prefix: The key path so far, extended with each property name or [index] on the way down.
+      MaxDepth: The depth at which flattening stops. Default 10.
+      Depth: The depth reached so far; callers leave it at 0 and the recursion raises it.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Recursively flattens a nested object into dot-notation key/value pairs.
-.DESCRIPTION
-    Array items are keyed with an [index] suffix, not a dot, so a path tells a list item from a property.
-.PARAMETER Value
-    The object, or the nested value, to flatten.
-.PARAMETER Target
-    The ordered dictionary that receives the dot-notation key/value pairs.
-.PARAMETER Prefix
-    The key path so far, extended with each property name or [index] on the way down.
-.PARAMETER MaxDepth
-    The depth at which flattening stops. Default 10.
-.PARAMETER Depth
-    The depth reached so far; callers leave it at 0 and the recursion raises it.
-#>
 function Expand-ObjectProperties {
     [CmdletBinding()]
     param(
@@ -54,8 +50,8 @@ function Expand-ObjectProperties {
         return
     }
 
-    # Dictionary and array come first: a PSObject-wrapped dictionary also matches PSCustomObject.
-    # [comment:2](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment2)
+    # IDictionary and array are checked before PSCustomObject: a top-level value arrives here wrapped in a PSObject...
+    # [comment:4](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment4)
     if ($Value -is [System.Collections.IDictionary]) {
         foreach ($key in $Value.Keys) {
             $path = if ($Prefix) {
@@ -97,8 +93,8 @@ function Expand-ObjectProperties {
         return
     }
 
-    # A typed model flattens like a dictionary here; strings and value types fall through to leaf.
-    # [comment:3](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment3)
+    # Complex CLR object (e.g.
+    # [comment:5](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment5)
     if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and $Value -isnot [System.Collections.IEnumerable]) {
         $properties = @($Value.PSObject.Properties | Where-Object { $_.MemberType -in @('Property', 'NoteProperty') })
         if ($properties) {

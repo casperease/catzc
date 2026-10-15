@@ -7,8 +7,8 @@ catzc:
 ---
 #>
 
-# The files.yml type (module -> packages, for Copy-Automation): constructing it maps and validates the parsed
-# YAML, so a malformed module->packages manifest never loads through Get-Config -Config files.
+# The files.yml type (module -> packages, for Copy-Automation): constructing it maps and validates the parsed YAML,...
+# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/types/FilesConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Base.ModuleSystem.FilesConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

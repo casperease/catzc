@@ -11,7 +11,6 @@ catzc:
       - ADR-AUTO-ONEJOB#4
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-ONEJOB#6
-    adrs: []
     links:
       - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error9
 ---

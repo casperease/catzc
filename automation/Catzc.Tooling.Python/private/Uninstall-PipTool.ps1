@@ -6,18 +6,17 @@ catzc:
     kind: private-function
     module: Catzc.Tooling.Python
     visibility: private
-    adrs: []
+  config:
+    synopsis: Uninstalls a Python-library tool from the uv-managed Python via `uv pip`.
+    description: |-
+      Private helper for Uninstall-PySpark. Mirrors Uninstall-Tool's contract but removes the package from the
+      uv-managed Python with `uv pip uninstall --system`. Idempotent — skips if the tool or Python is not
+      installed.
+    parameters:
+      Tool: The snake_case tool key as defined in tools.yml.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Uninstalls a Python-library tool from the uv-managed Python via `uv pip`.
-.DESCRIPTION
-    A missing tool or a missing Python both mean nothing to remove, so reruns end quietly.
-.PARAMETER Tool
-    The snake_case tool key as defined in tools.yml.
-#>
 function Uninstall-PipTool {
     [CmdletBinding()]
     param(

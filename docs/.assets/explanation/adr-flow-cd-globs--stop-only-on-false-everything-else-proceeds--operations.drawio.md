@@ -4,7 +4,6 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md
     kind: asset-description
     body_sha: "0c50ac04051e"
-    adrs: []
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
       - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md

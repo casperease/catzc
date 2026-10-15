@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-PATH#3
       - ADR-AUTO-PATH#6
-    links: []
 ---
 
 # automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs

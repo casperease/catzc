@@ -13,8 +13,8 @@ Describe 'Get-ModuleDependency' -Tag 'integrity', 'source-only' {
     }
 
     It 'CallCount is greater than zero for all edges' -Tag 'L0' {
-        # One Should over the violating set — a Should per edge pays Pester's per-assertion cost
-        # times the whole discovered graph.
+        # One Should over the violating set — a Should per edge pays Pester's per-assertion cost times the whole...
+        # [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleDependency.Tests.ps1.md#comment1)
         $violations = @($edges | Where-Object { $_.CallCount -le 0 })
         $violations | Should -BeNullOrEmpty
     }

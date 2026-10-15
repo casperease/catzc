@@ -11,36 +11,47 @@ catzc:
       - ADR-AZ-DATAMOD
       - ADR-FLOW-CD-TYPE
       - ADR-PWSH-DRYRUN#1
+  config:
+    synopsis: |-
+      Writes (or merges) a template's per-slot ParametersFile into its config file. The write half of
+      the INPUT pipeline: it turns user input into a version-controlled change, never a runtime cloud
+      mutation.
+    description: |-
+      Resolves the config file for a (template[, customer], environment[, slot]) coordinate —
+      `infrastructure/templates/<template>/configuration/[<customer>/]<env>[-<slot>].yml` — and sets the
+      given parameters under `ParametersFile.parameters`. Each entry is written ARM-style as
+      `{ <name>: { value: <value> } }`.
+
+      Idempotent (Set-): an existing config is loaded and the named parameters are overlaid (other
+      parameters and keys are preserved); a missing config is created (the customer subdir too).
+      Running it twice with the same input leaves the same file. The config file need not exist yet — that
+      is how a slot / resource group is added (the next discovery picks it up).
+
+      This function does NOT deploy, render, or call Azure. It only edits a file. Deployment of the change
+      is the CD pipeline's job, against version control.
+    parameters:
+      Template: Template name (folder under infrastructure/templates/).
+      Environment: |-
+        Environment name — must be a defined environment in azure.yml (it may be one the template does not
+        yet have a config for; that is the point of creating the slot).
+      Parameters: Hashtable of ARM parameter name -> value. Each becomes `parameters.<name>.value = <value>`.
+      Slot: Optional special-slot discriminator (1-3 lowercase alphanumeric). Omitted ⇒ the base / index-0 slot.
+      Customer: |-
+        Optional customer key (customer.yml) — the config subfolder to write under
+        (`configuration/<customer>/`). Omitted writes the configuration-root (shared-platform) config. The
+        coordinate must resolve to exactly one subscription (the same rule discovery enforces).
+      DryRun: |-
+        Preview only — returns the planned path and content without writing. See
+        [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    examples:
+      - Set-BicepTemplateConfiguration discovery dev -Parameters @{ sqlAdminLogin = 'admin' }
+      - Set-BicepTemplateConfiguration discovery dev -Customer apex -Parameters @{ sqlAdminLogin = 'admin' } -DryRun
 ---
 #>
 
-<#
-.SYNOPSIS
-    Writes (or merges) a template's per-slot ParametersFile into its config file. The write half of
-    the INPUT pipeline: it turns user input into a version-controlled change, never a runtime cloud
-    mutation.
-.DESCRIPTION
-    Idempotent: existing parameters and keys are preserved, a missing config is created, and nothing is deployed.
-.PARAMETER Template
-    Template name (folder under infrastructure/templates/).
-.PARAMETER Environment
-    The template may have no config for it yet; creating that config is how a slot is added.
-.PARAMETER Parameters
-    Hashtable of ARM parameter name -> value. Each becomes `parameters.<name>.value = <value>`.
-.PARAMETER Slot
-    Optional special-slot discriminator (1-3 lowercase alphanumeric). Omitted ⇒ the base / index-0 slot.
-.PARAMETER Customer
-    Omitted writes the configuration-root config; the coordinate must resolve to exactly one subscription.
-.PARAMETER DryRun
-    Nothing is written, so the preview shows exactly the path and content a real run would use.
-.EXAMPLE
-    Set-BicepTemplateConfiguration discovery dev -Parameters @{ sqlAdminLogin = 'admin' }
-.EXAMPLE
-    Set-BicepTemplateConfiguration discovery dev -Customer apex -Parameters @{ sqlAdminLogin = 'admin' } -DryRun
-#>
 function Set-BicepTemplateConfiguration {
-    # -DryRun replaces ShouldProcess here, so the analyzer rule for state-changing functions is suppressed.
-    # [comment:5](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment5)
+    # State-changing function deliberately uses -DryRun, not ShouldProcess — see.
+    # [comment:7](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment7)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -80,8 +91,8 @@ function Set-BicepTemplateConfiguration {
         throw "Invalid -Slot '$Slot' — must be 1-3 lowercase alphanumeric chars (e.g. 001)."
     }
 
-    # The same rule discovery enforces, so a config written here never fails the next discovery.
-    # [comment:6](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment6)
+    # The coordinate must conform to the conventional tree (the same cross-layer rule discovery enforces): the...
+    # [comment:8](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment8)
     $loc = if ([string]::IsNullOrEmpty($Customer)) {
         "configuration/$Environment.yml"
     }

@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#4
       - ADR-AUTO-REMOVE#5
-    links: []
 ---
 
 # automation/Catzc.Tooling.Node/Uninstall-NodeJs.ps1
@@ -39,6 +38,17 @@ cannot touch. Pair with -Force to actually remove; -Remove alone reports the pla
 ```
 
 ## comment:3
+
+Above `try {`.
+
+```text
+Managed uninstall best-effort; with -Remove a failure (a foreign install) is logged and the escalation
+proceeds, without -Remove it propagates
+([ADR-AUTO-ONEJOB#5](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5),
+[ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
+```
+
+## comment:4
 
 Above `try {`.
 

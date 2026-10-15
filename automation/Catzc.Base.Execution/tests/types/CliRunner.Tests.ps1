@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'CliRunner.ExecutableName' -Tag 'L0', 'logic' {
-    # The name a command's time limit is looked up by (Get-TimeoutSeconds -Executable), so a wrong parse gives the
-    # command another executable's limit. Fixture tokens are neutral
-    # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+    # The name a command's time limit is looked up by (Get-TimeoutSeconds -Executable), so a wrong parse gives the...
+    # [comment:1](/docs/references/automation/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md#comment1)
 
     It 'reads the first token of <commandLine> as <expected>' -ForEach @(
         @{ commandLine = 'widget'; expected = 'widget' }

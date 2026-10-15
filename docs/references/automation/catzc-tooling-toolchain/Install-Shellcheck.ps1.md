@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Shellcheck.ps1.md
     kind: comment-page
     body_sha: "3bbe8bb7decd"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Install-Shellcheck.ps1

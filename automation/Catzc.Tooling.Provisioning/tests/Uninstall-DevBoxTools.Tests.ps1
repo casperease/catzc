@@ -8,11 +8,8 @@ catzc:
 #>
 
 Describe 'Uninstall-DevBoxTools' -Tag 'L0', 'logic' {
-    # Pure orchestration: assert it delegates to the per-tool uninstallers. Get-ToolInstallOrder is mocked to a
-    # small, realistic order — a single-word key (python) and a multi-word key (node_js) — and the real per-tool
-    # uninstallers are mocked so the dynamic-dispatch loop is exercised without touching the machine. The
-    # multi-word case is the regression guard: the key must be mapped through Get-ToolCommandSuffix to its
-    # PascalCase command suffix (node_js -> Uninstall-NodeJs), or it silently never dispatches.
+    # Pure orchestration: assert it delegates to the per-tool uninstallers.
+    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-DevBoxTools.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Uninstall-Postman { } -ModuleName Catzc.Tooling.Provisioning
         Mock Uninstall-Git { } -ModuleName Catzc.Tooling.Provisioning

@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/SourceCheck.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PRIN-CONFIG#4
 ---
 #>
 
-# SourceCheck maps the settings every source check shares — its mode and exempt globs — and is the one declaration of
-# their sensible defaults ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)); an
-# exempt file is a declared entry with its reason
-# ([ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)).
+# SourceCheck maps the settings every source check shares — its mode and exempt globs — and is the one declaration of...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/SourceCheck.Tests.ps1.md#comment1)
 Describe 'SourceCheck' -Tag 'L0', 'logic' {
     It 'takes gate mode and no exemptions when nothing is given' -Tag 'ADR-AUTO-DEFAULT#6' {
         $check = [Catzc.Base.QualityGates.SourceCheck]::new('widget_check', $null)

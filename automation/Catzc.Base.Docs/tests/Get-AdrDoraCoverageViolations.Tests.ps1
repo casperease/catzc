@@ -4,12 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#35
+      - ADR-PRIN-CONFIG#4
 ---
 #>
 
-# Get-AdrDoraCoverageViolations — every rule set outside the domains its config exempts has exactly one section linking its ADR in its domain's
-# DORA file. A fixture tree in $TestDrive and a fixture registry; neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-AdrDoraCoverageViolations — every rule set outside the domains its config exempts has exactly one section...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1.md#comment1)
 Describe 'Get-AdrDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
     BeforeAll {
         $script:adrs = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#35
 ---
 #>
 

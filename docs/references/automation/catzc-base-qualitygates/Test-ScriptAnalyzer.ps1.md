@@ -8,7 +8,6 @@ catzc:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-NOPWD#1
       - ADR-AUTO-TEST#35
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1
@@ -90,6 +89,51 @@ drift. Includes the root importer.ps1 and authored .psd1 config; excludes genera
 ```
 
 ## comment:7
+
+Above `Write-Message "Analyzing $($files.Count) PowerShell file(s) with...`.
+
+```text
+Analyze, sharded across background processes with live progress (Get-ScriptAnalyzerDiagnostics) — a
+serial pass is ~90s of silence and reads as a hang. The upfront message confirms work has started.
+```
+
+## comment:8
+
+Above `$settingsPath = Join-Path (Get-CatzcModulesRoot)...`.
+
+```text
+The one settings file ships inside the code tree, so it resolves from the code root
+([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)).
+```
+
+## comment:9
+
+Above `$files = [System.Collections.Generic.List[string]]::new()`.
+
+```text
+Resolve the file set — same coverage as the L2 analyzer test (module root
+*.ps1 non-test, private/, tests/ *.Tests.ps1, and the .internal/.scriptanalyzer infrastructure folders).
+```
+
+## comment:10
+
+Above `$full = if ([System.IO.Path]::IsPathRooted($item)) {`.
+
+```text
+A relative path is repository-relative, never $PWD-relative
+([ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1)).
+```
+
+## comment:11
+
+Above `foreach ($f in (Get-AutomationSourceFiles)) {`.
+
+```text
+The canonical checked set — shared with the L2 analyzer test so they cannot
+drift. Includes the root importer.ps1 and authored .psd1 config; excludes generated manifests.
+```
+
+## comment:12
 
 Above `Write-Message "Analyzing $($files.Count) PowerShell file(s) with...`.
 

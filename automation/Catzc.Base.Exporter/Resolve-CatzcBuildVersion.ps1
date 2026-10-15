@@ -9,28 +9,40 @@ catzc:
     adrs:
       - ADR-AUTO-BUNDLE#7
       - ADR-PWSH-ERROR#2
+  config:
+    synopsis: |-
+      Resolves the version a Catzc build carries — the devbox placeholder, a calculated pipeline version, or an
+      explicit MAJOR.MINOR.PATCH.
+    description: |-
+      The one place a build version is decided
+      ([ADR-AUTO-BUNDLE#7](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7)); every value comes from
+      configs/exporter.yml
+      (Get-Config -Config exporter):
+
+        -Version auto, on a devbox    the fixed direct_install_version placeholder (6.6.666), announced by a yellow
+                                      Write-Message notice — never Write-Warning, which terminates under the catzc
+                                      session's preferences
+                                      ([ADR-PWSH-ERROR#2](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error2)). A rebuild overwrites it in place.
+        -Version auto, in a pipeline  <the bundle's MAJOR.MINOR (exporter.yml bundles.<name>.version)>.<first-parent
+                                      commit count of HEAD>, so the same commit always gets the same version and
+                                      versions rise along main. Each bundle has its own MAJOR.MINOR line. Needs the full
+                                      history; a shallow clone throws instead of miscounting.
+        -Version <x.y.z>              honoured as given once asserted numeric MAJOR.MINOR.PATCH (a valid module
+                                      version); a pipeline build naming the placeholder throws — it never leaves a
+                                      devbox.
+    parameters:
+      Version: '''auto'' (default) or an explicit numeric MAJOR.MINOR.PATCH.'
+      Bundle: |-
+        The bundle whose version line a pipeline build follows (an exporter.yml bundles key). Defaults to
+        default_bundle.
+      Silent: Suppress the local-build notice.
+    examples:
+      - 'Resolve-CatzcBuildVersion                  # devbox -> 6.6.666 (with the notice); pipeline -> e.g. 0.1.427'
+      - 'Resolve-CatzcBuildVersion -Bundle azure    # pipeline -> azure''s MAJOR.MINOR plus the commit count'
+      - 'Resolve-CatzcBuildVersion -Version 1.2.3   # -> 1.2.3'
 ---
 #>
 
-<#
-.SYNOPSIS
-    Resolves the version a Catzc build carries — the devbox placeholder, a calculated pipeline version, or an
-    explicit MAJOR.MINOR.PATCH.
-.DESCRIPTION
-    A pipeline version derives from the commit count, so one commit always yields one version.
-.PARAMETER Version
-    'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH.
-.PARAMETER Bundle
-    Only a pipeline build reads it; a devbox build takes the placeholder version whatever the bundle.
-.PARAMETER Silent
-    Suppress the local-build notice.
-.EXAMPLE
-    Resolve-CatzcBuildVersion                  # devbox -> 6.6.666 (with the notice); pipeline -> e.g. 0.1.427
-.EXAMPLE
-    Resolve-CatzcBuildVersion -Bundle azure    # pipeline -> azure's MAJOR.MINOR plus the commit count
-.EXAMPLE
-    Resolve-CatzcBuildVersion -Version 1.2.3   # -> 1.2.3
-#>
 function Resolve-CatzcBuildVersion {
     [CmdletBinding()]
     [OutputType([string])]

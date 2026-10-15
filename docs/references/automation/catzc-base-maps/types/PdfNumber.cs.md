@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md
     kind: comment-page
     body_sha: "969a373c714a"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/PdfNumber.cs

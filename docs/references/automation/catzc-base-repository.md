@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-repository.md
     kind: reference
     body_sha: aa36a4ef1cbb
-    adrs: []
     links:
       - docs/adr/automation/never-depend-on-pwd.md
       - docs/adr/flow/pipeline-detection.md

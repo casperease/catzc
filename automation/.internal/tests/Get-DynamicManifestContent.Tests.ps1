@@ -140,8 +140,8 @@ Describe 'New-DynamicManifest' -Tag 'L0', 'logic' {
 }
 
 Describe 'New-DynamicManifest explicit lists load a merged module' -Tag 'L1', 'logic' {
-    # A merged module — every function in one <Module>.ps1 — loads through its explicit manifest with only the
-    # listed publics exported and the private still callable from them (shared module scope).
+    # A merged module — every function in one <Module>.ps1 — loads through its explicit manifest with only the listed...
+    # [comment:1](/docs/references/automation/internal/tests/Get-DynamicManifestContent.Tests.ps1.md#comment1)
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
         $script:moduleName = 'GadgetMerged' + [guid]::NewGuid().ToString('N').Substring(0, 8)
@@ -169,9 +169,8 @@ Describe 'New-DynamicManifest explicit lists load a merged module' -Tag 'L1', 'l
 }
 
 Describe 'New-DynamicManifest derived manifests load through the shared loader' -Tag 'L1', 'logic' {
-    # A source module: a modules root holding the real shared loader under .internal/assets and one module folder of
-    # function files. Its derived manifest loads every file into one module: publics exported, the private callable
-    # from them but not exported, and each function still reporting its own source file and line.
+    # A source module: a modules root holding the real shared loader under.internal/assets and one module folder of...
+    # [comment:2](/docs/references/automation/internal/tests/Get-DynamicManifestContent.Tests.ps1.md#comment2)
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
         $script:modulesRoot = Join-Path $TestDrive 'automation'
@@ -241,9 +240,8 @@ Describe 'Get-DynamicManifestContent is formatter-stable' -Tag 'L2', 'integrity'
     }
 
     It 'Invoke-Formatter leaves every built manifest byte-for-byte unchanged (Test-BuildArtifact)' {
-        # The published manifest is a versioned immutable artifact, so its canonical form must equal what the
-        # repo formatter would produce — otherwise a later touch would re-format and churn the gold bytes. Every
-        # <Module>.psd1 in a build comes from Get-DynamicManifestContent (New-DynamicManifest).
+        # The published manifest is a versioned immutable artifact, so its canonical form must equal what the repo...
+        # [comment:3](/docs/references/automation/internal/tests/Get-DynamicManifestContent.Tests.ps1.md#comment3)
         $result = Test-BuildArtifact -Facet Manifest -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')
         $result.Modules | Should -BeGreaterThan 0
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")

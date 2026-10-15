@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-ManualTestPlan.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-ManualTestPlan over a fixture repository in $TestDrive: the repository root is mocked, and each test writes the
-# test files and the plan rows it needs. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Test-ManualTestPlan over a fixture repository in $TestDrive: the repository root is mocked, and each test writes...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-ManualTestPlan.Tests.ps1.md#comment1)
 Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
     BeforeAll {
         function Set-FixtureFile {

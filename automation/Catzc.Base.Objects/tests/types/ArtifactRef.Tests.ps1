@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-PATH#10
 ---
 #>
 

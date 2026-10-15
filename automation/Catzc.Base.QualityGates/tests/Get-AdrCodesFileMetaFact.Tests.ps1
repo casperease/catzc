@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-CODEMETA#2
+      - ADR-REPO-FILEMETA#3
 ---
 #>
 
@@ -52,7 +55,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     }
 
     It 'drops a code the index does not register and a rule its ADR does not declare' {
-        $codes = Get-Codes "See ADR-NOSUCH#1, ADR-GADGET#99 and ADR-GADGET#4.`n"
+        $codes = Get-Codes "See ADR-UNLISTED#1, ADR-GADGET#99 and ADR-GADGET#4.`n"
         $codes | Should -Be @('ADR-GADGET#4')
     }
 
@@ -89,7 +92,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         }
 
         It 'drops a bare code that is neither registered nor the prefix of a registered code' {
-            (Get-CodeCodes "// ADR-NOSUCH, ADR-WIDGET and ADR-WIDGET-PART`n") | Should -Be @('ADR-WIDGET', 'ADR-WIDGET-PART')
+            (Get-CodeCodes "// ADR-UNLISTED, ADR-WIDGET and ADR-WIDGET-PART`n") | Should -Be @('ADR-WIDGET', 'ADR-WIDGET-PART')
         }
 
         It 'ignores the colon form of a rule heading' {

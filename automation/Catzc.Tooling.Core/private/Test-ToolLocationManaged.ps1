@@ -6,20 +6,25 @@ catzc:
     kind: private-function
     module: Catzc.Tooling.Core
     visibility: private
-    adrs: []
+  config:
+    synopsis: 'Fast, subprocess-free check: does a resolved tool location belong to the installer layer?'
+    description: |-
+      The session janitor (Sync-SessionTools) uses this to flag tools running from outside the directories the
+      toolchain installs into. It is a cheap PREFIX check by design — no `winget list`, no version probe — so it
+      is safe to run for every tool on every import. It is advisory, not authoritative: Get-ToolsStatus (which
+      shells out to the package manager) stays the precise classifier. On Windows the user-scope roots it trusts
+      are both winget layouts (%LOCALAPPDATA%\Microsoft\WinGet\Packages for portable packages and
+      %LOCALAPPDATA%\Programs for installer packages such as OpenJDK) plus uv's standalone bin
+      (%USERPROFILE%\.local\bin). An MSYS2-package tool (msys2_url) is owned on Windows inside the tree it installs into
+      (Get-ScriptInstallDir over its windows_install_dir), and wherever the system puts it elsewhere. Machine-scope / Program Files installs, and npm/pip tools whose global bin sits
+      outside the platform root, read as unmanaged here — an acceptable false "foreign" for an advisory message,
+      never a gate.
+    parameters:
+      Config: The tool's ToolConfig (from Get-ToolConfig).
+      Location: The resolved on-disk path of the tool's command — (Get-Command <command>).Source.
 ---
 #>
 
-<#
-.SYNOPSIS
-    Fast, subprocess-free check: does a resolved tool location belong to the installer layer?
-.DESCRIPTION
-    Advisory only: a false foreign flag is acceptable, as Get-ToolsStatus stays the precise, process-backed classifier.
-.PARAMETER Config
-    The tool's ToolConfig (from Get-ToolConfig).
-.PARAMETER Location
-    The resolved on-disk path of the tool's command — (Get-Command <command>).Source.
-#>
 function Test-ToolLocationManaged {
     [OutputType([bool])]
     [CmdletBinding()]
@@ -44,8 +49,8 @@ function Test-ToolLocationManaged {
         return $loc.StartsWith($dir, [System.StringComparison]::OrdinalIgnoreCase)
     }
 
-    # Off Windows the OS owns an MSYS2 tool wherever it sits; on Windows it must be inside its own install tree.
-    # [comment:2](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment2)
+    # MSYS2-package tools (zsh) live, on Windows, in the tree they install into (windows_install_dir, the Git for...
+    # [comment:6](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment6)
     if ($Config.msys2_url) {
         if (-not $IsWindows) {
             return $true
@@ -66,11 +71,11 @@ function Test-ToolLocationManaged {
         return $loc.StartsWith($venvRoot.TrimEnd('\', '/'), [System.StringComparison]::OrdinalIgnoreCase)
     }
 
-    # uv shims land in its bin, but a managed python can also resolve straight into uv's data directory.
-    # [comment:3](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment3)
+    # uv-managed tools (az_cli, poetry) and uv-provisioned python install their shims to uv's bin (~/.local/bin...
+    # [comment:7](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment7)
     if ($Config.uv_tool -or $Config.uv_python) {
-        # The data directory is Roaming AppData uv on Windows and share/uv on Unix, apart from the shim bin.
-        # [comment:4](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment4)
+        # uv's shims go to ~/.local/bin; its managed pythons/tool-envs live in the data dir — %APPDATA%\uv (Roaming)...
+        # [comment:8](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment8)
         $uvRoots = if ($IsWindows) {
             @((Join-Path $env:USERPROFILE '.local\bin'), (Join-Path $env:APPDATA 'uv'))
         }
@@ -85,8 +90,8 @@ function Test-ToolLocationManaged {
         return $false
     }
 
-    # Winget has two user layouts, and both roots must count, or a winget-managed JDK reads as foreign.
-    # [comment:5](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment5)
+    # Otherwise: owned iff the binary sits under the platform package manager's user-scope install root.
+    # [comment:9](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment9)
     $roots = if ($IsWindows) {
         @(
             (Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'),

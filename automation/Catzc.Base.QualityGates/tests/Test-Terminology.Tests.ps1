@@ -4,6 +4,10 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-SPELL#5
+      - ADR-AUTO-SPELL#6
+      - ADR-AUTO-SPELL#8
 ---
 #>
 
@@ -15,8 +19,8 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
         # The source-tree guard is its own unit; here the fixture stands in for the source tree in either run mode.
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
 
-        # Default happy path: config loads, dictionary is current, every term is referenced. Both mocks return the
-        # production shapes — the typed registry record and Build-TerminologyDictionary's per-category rows.
+        # Default happy path: config loads, dictionary is current, every term is referenced.
+        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Terminology.Tests.ps1.md#comment1)
         Mock Get-Config -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.QualityGates.TerminologyConfig]::new([ordered]@{
                     categories = [ordered]@{ widget = [ordered]@{ description = 'widget vocabulary' } }

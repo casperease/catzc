@@ -4,14 +4,18 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-PWSH-PESTER#4
+      - ADR-REPO-VOCAB#1
+      - ADR-REPO-VOCAB#3
+      - ADR-REPO-VOCAB#4
+      - ADR-REPO-VOCAB#5
 ---
 #>
 
-# Get-GlossarySourceViolations is private, so it is exercised through the module (InModuleScope, per
-# [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)). The sources are built
-# in memory from the real GlossaryConfig type and passed in, and adrs.yml
-# is mocked to two fixture ADR domains, so each test breaks exactly one cross-source fact. Fixture terms are neutral
-# (widget/gadget, [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-GlossarySourceViolations is private, so it is exercised through the module (InModuleScope, per ).
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md#comment1)
 Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } -MockWith {

@@ -11,9 +11,8 @@ catzc:
 param()
 
 Describe 'Set-AdoPipelineVariable' -Tag 'L0', 'logic' {
-    # The ##vso line goes through the writer chokepoint, which a test run silences; lift the guard so the tests can
-    # capture it (every call below captures with 6>&1, so nothing reaches a real pipeline log).
-    # The guard exists only under Test-Automation, so it is read strict-clean and, when it was absent, removed again.
+    # The ##vso line goes through the writer chokepoint, which a test run silences; lift the guard so the tests can...
+    # [comment:1](/docs/references/automation/catzc-azure-devops/tests/Set-AdoPipelineVariable.Tests.ps1.md#comment1)
     BeforeAll {
         $script:guard = Get-Variable -Name '__PesterRunning' -Scope Global -ErrorAction Ignore
         $script:savedGuard = if ($script:guard) {

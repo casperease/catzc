@@ -6,20 +6,22 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: Resolves the tags of one axis for a Pester test — nearest contributing block wins.
+    description: |-
+      Returns the matching tags from the FIRST level that carries any tag of the axis: the test's own It-tags,
+      else the innermost ancestor block (root excluded). This is the innermost-override model Pester itself uses
+      for tag filtering — an inner block's tag wins over an outer default, and outer blocks are ignored once a
+      nearer one contributes. Normally one tag; two means a single block carries two tags of the same axis
+      (ambiguous), which callers treat as a tagging violation. Always returns an array (empty when nothing
+      matches). Shared by Get-TestLevelTag (tier) and Get-TestCategoryTag (category) so the resolution logic has
+      one home.
+    parameters:
+      Test: A Pester test object (an item of $result.Tests). Its .Tag and .Block chain carry the tags.
+      Valid: The axis's valid tags in canonical casing (e.g. 'L0','L1','L2','L3' or 'logic','integrity').
 ---
 #>
 
-<#
-.SYNOPSIS
-    Resolves the tags of one axis for a Pester test — nearest contributing block wins.
-.DESCRIPTION
-    Two returned tags mean one block carries two tags of the axis, which callers treat as a tagging violation.
-.PARAMETER Test
-    A Pester test object (an item of $result.Tests). Its .Tag and .Block chain carry the tags.
-.PARAMETER Valid
-    The axis's valid tags in canonical casing (e.g. 'L0','L1','L2','L3' or 'logic','integrity').
-#>
 function Get-TestBlockTag {
     [CmdletBinding()]
     [OutputType([string[]])]
@@ -40,8 +42,8 @@ function Get-TestBlockTag {
         $block = $block.Parent
     }
 
-    # The -eq match ignores case, so the canonical casing from Valid is returned, not the casing written on the test.
-    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestBlockTag.ps1.md#comment2)
+    # The nearest level carrying any tag of this axis wins; return its canonical matches ('-eq' is case-insensitive).
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TestBlockTag.ps1.md#comment3)
     foreach ($levelTags in $levels) {
         $ret = @(
             foreach ($tag in $levelTags) {

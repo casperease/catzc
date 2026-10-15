@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-FLOW-CD-DETECT#1
       - ADR-PWSH-FORMAT#6
-    links: []
 ---
 
 # automation/.scriptanalyzer/NoRawPipelineDetection.psm1

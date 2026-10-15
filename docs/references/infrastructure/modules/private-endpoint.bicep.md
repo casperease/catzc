@@ -4,8 +4,6 @@ catzc:
     path: docs/references/infrastructure/modules/private-endpoint.bicep.md
     kind: comment-page
     body_sha: "6cad842c51ba"
-    adrs: []
-    links: []
 ---
 
 # infrastructure/modules/private-endpoint.bicep

@@ -4,7 +4,6 @@ catzc:
     path: docs/how-to/automation/manual-test-plan.md
     kind: how-to
     body_sha: "63acd364cda0"
-    adrs: []
     links:
       - docs/how-to/automation/manual-test-plan/adr-registry.md
       - docs/how-to/automation/manual-test-plan/azure.md

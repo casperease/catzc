@@ -7,7 +7,6 @@ catzc:
     adrs:
       - ADR-AUTO-REMOVE#6
       - ADR-AUTO-REMOVE#7
-    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
@@ -39,6 +38,15 @@ off-config install, and just evicts it.
 ```
 
 ## comment:2
+
+Above `if (Test-Command dpkg) {`.
+
+```text
+1. apt-owned shadow — dpkg -S names the package that owns the resolved binary, robust across the config's
+   own manager (an apt 'azure-cli' owns /usr/bin/az even though az_cli is a uv tool). apt needs root.
+```
+
+## comment:3
 
 Above `if (Test-Command dpkg) {`.
 

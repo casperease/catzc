@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-LinkEngine.ps1.md
     kind: comment-page
     body_sha: "9f1bc2e6642d"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-LinkEngine.ps1

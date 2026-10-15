@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-configextensions/private/Get-ConfigValidatorName.ps1.md
     kind: comment-page
     body_sha: c94b81936dd5
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1

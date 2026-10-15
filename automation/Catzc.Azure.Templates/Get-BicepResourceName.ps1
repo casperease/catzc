@@ -8,33 +8,42 @@ catzc:
     visibility: public
     adrs:
       - ADR-AZ-NAMING#8
+  config:
+    synopsis: Generates an Azure resource name for a template's slot from the naming standard.
+    description: |-
+      The templating-layer name generator. It resolves the name components from the template and
+      environment, then assembles the name for the requested resource type via Get-AzureResourceName:
+        - env         — the environment NAME (generous types) and its 2-char shortcode (restricted)
+        - slot        — the optional special-slot discriminator (`-Slot`)
+        - region_code — the environment's azure.yml region_code
+        - org         — azure.yml top-level org
+        - short_name  — the template's options.yml short_name
+        - order       — the active naming order (Get-AdoNaming; the ado_naming repo-wide variant)
+
+      The caller supplies only what is genuinely per-call: the resource Type and optional Customer /
+      Role. Two intended uses for the same generator:
+        validation — compare a name configured in a template's ParametersFile against the generated
+                     one to catch drift.
+        generation — produce the name to inject into the built parameter files (the PrePost seam).
+    parameters:
+      Template: Template name.
+      Environment: Environment shortname.
+      Type: Resource-type abbreviation — a key of Get-AzureResourceTypeSet (`rg`, `st`, `kv`, ...).
+      Slot: Optional special-slot discriminator; omitted selects the env's base / index-0 slot.
+      Customer: |-
+        Optional customer, named by its key OR its 2-char shortcode (customer.yml). Its readable key renders in
+        generous names and its 2-char shortcode in restricted ones — both resolved here (Get-AzureCustomer) and
+        passed to the namer.
+      Role: Optional 2-3 char sibling discriminator among same-type resources (per resource).
+    examples:
+      - 'Get-BicepResourceName -Template sample -Environment dev -Type st   # -> deweuzctsmplst'
+      - |-
+        Get-BicepResourceName -Template sample-indexed -Environment dev -Slot 001 -Type rg
+        # -> dev-001-weu-zct-sidx-rg
 ---
 #>
 
 # cspell:ignore deweuzctsmplst
-<#
-.SYNOPSIS
-    Generates an Azure resource name for a template's slot from the naming standard.
-.DESCRIPTION
-    Serves two uses: validating a configured name against the generated one, and generating one to inject.
-.PARAMETER Template
-    Template name.
-.PARAMETER Environment
-    Environment shortname.
-.PARAMETER Type
-    Resource-type abbreviation — a key of Get-AzureResourceTypeSet (`rg`, `st`, `kv`, ...).
-.PARAMETER Slot
-    Optional special-slot discriminator; omitted selects the env's base / index-0 slot.
-.PARAMETER Customer
-    The readable key renders in generous names and the 2-char shortcode in restricted ones, both resolved here.
-.PARAMETER Role
-    Optional 2-3 char sibling discriminator among same-type resources (per resource).
-.EXAMPLE
-    Get-BicepResourceName -Template sample -Environment dev -Type st   # -> deweuzctsmplst
-.EXAMPLE
-    Get-BicepResourceName -Template sample-indexed -Environment dev -Slot 001 -Type rg
-    # -> dev-001-weu-zct-sidx-rg
-#>
 function Get-BicepResourceName {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -69,12 +78,12 @@ function Get-BicepResourceName {
 
     $templateDescriptor = Get-BicepTemplate $Template
     $azure = Get-Config -Config azure
-    # The subscription group is a resolution axis only, never a name component, so azure.yml is read directly.
-    # [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment3)
+    # Naming needs only the environment's IDENTITY (shortcode/region_code), never a subscription — so it reads...
+    # [comment:6](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment6)
     $envEntry = $azure.environments[$Environment]
 
-    # Both env forms and the slot are passed so the namer chooses per type; env and slot stay separate segments.
-    # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment4)
+    # The namer picks the env form by pattern (name for generous, shortcode for restricted); env and slot are...
+    # [comment:7](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment7)
     $nameArgs = @{
         Env        = $Environment
         Shortcode  = $envEntry.shortcode
@@ -88,8 +97,8 @@ function Get-BicepResourceName {
         $nameArgs['Slot'] = $Slot
     }
     if (-not [string]::IsNullOrEmpty($Customer)) {
-        # Get-AzureCustomer throws on an unknown token, so a mistyped customer fails here, not in the name.
-        # [comment:5](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment5)
+        # Resolve the customer (given by key OR 2-char shortcode) to its canonical key + shortcode from customer.yml:...
+        # [comment:8](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment8)
         $resolvedCustomer = Get-AzureCustomer $Customer
         $nameArgs['Customer'] = $resolvedCustomer.key
         $nameArgs['CustomerShortcode'] = $resolvedCustomer.shortcode

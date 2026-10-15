@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-NeutralCodeFinding over fixture test files: ADR-WIDGET-GADGET stands in for a code the ADR registry declares,
-# and ADR-WIDGET-SPROCKET for a neutral one
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Get-NeutralCodeFinding over fixture test files: stands in for a code the ADR registry declares, and for a neutral one.
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-NeutralCodeFinding.Tests.ps1.md#comment1)
 Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:find = {

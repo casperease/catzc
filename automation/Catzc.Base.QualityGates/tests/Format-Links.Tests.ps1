@@ -4,14 +4,23 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-PWSH-PARAM#4
+      - ADR-REPO-CODEMETA#2
+      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-LINK#1
+      - ADR-REPO-LINK#2
+      - ADR-REPO-LINK#3
+      - ADR-REPO-LINK#5
+      - ADR-REPO-LINK#6
+      - ADR-REPO-LINK#7
+      - ADR-REPO-LINK#8
 ---
 #>
 
-# Format-Links is the link aligner and the repository-wide migration
-# ([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)), tested in isolation: every test
-# builds its own fixture repository in $TestDrive — a two-ADR index with neutral widget/gadget codes
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)),
-# an .editorconfig, and the source files under test — and aligns only that tree (-RepositoryRoot, -Path).
+# Format-Links is the link aligner and the repository-wide migration, tested in isolation: every test builds its own...
+# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Format-Links.Tests.ps1.md#comment1)
 Describe 'Format-Links' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

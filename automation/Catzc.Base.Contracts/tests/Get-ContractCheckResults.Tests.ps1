@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-CONTRACT#4
+      - ADR-REPO-CONTRACT#6
 ---
 #>
 
-# Get-ContractCheckResults checks each contract asset against the real tree by its kind
-# ([ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4),
-# [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)) and returns one result per asset; a
-# failed check is a result, never an exception. Every kind has a passing and a failing case. Fixtures are a widget
-# repository in TestDrive, its assets under contracts/widget/0.0.0/Catzc.Widget/.
+# Get-ContractCheckResults checks each contract asset against the real tree by its kind and returns one result per...
+# [comment:1](/docs/references/automation/catzc-base-contracts/tests/Get-ContractCheckResults.Tests.ps1.md#comment1)
 Describe 'Get-ContractCheckResults' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-File {

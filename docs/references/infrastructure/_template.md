@@ -4,7 +4,6 @@ catzc:
     path: docs/references/infrastructure/_template.md
     kind: reference
     body_sha: bb19393e975b
-    adrs: []
     links:
       - docs/references/infrastructure/modules.md
 ---

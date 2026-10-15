@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/New-TestRunFinalManifest.ps1.md
     kind: comment-page
     body_sha: "4e2672175c02"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/New-TestRunFinalManifest.ps1

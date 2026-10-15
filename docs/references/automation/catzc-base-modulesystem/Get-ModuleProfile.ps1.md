@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem/Get-ModuleProfile.ps1.md
     kind: comment-page
     body_sha: "10321e27ef3a"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Get-ModuleProfile.ps1

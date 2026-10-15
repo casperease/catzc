@@ -12,8 +12,8 @@ BeforeAll {
     Import-InternalModule TestKit
     Import-InternalModule Builder
 
-    # A neutral fixture source tree: two selectable modules (widget, gadget), one that is never selected (gizmo,
-    # which also carries every merge-precondition violation), and stand-ins for the infrastructure the build ships.
+    # A neutral fixture source tree: two selectable modules (widget, gadget), one that is never selected (gizmo,...
+    # [comment:1](/docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md#comment1)
     $script:helpText = "<#`r`n.SYNOPSIS`r`n    Returns the widget.`r`n#>`r`nfunction Get-Widget {`r`n    Get-WidgetCore`r`n}`r`n`r`n"
     $script:fake = New-FakeRepositoryRoot -Modules @{
         'Catzc.Base.Widget' = @{
@@ -32,8 +32,8 @@ BeforeAll {
             Public = 'Get-Gadget'
             Files  = @{
                 'types/Lever.cs'       = "namespace Catzc.Base.Gadget;`npublic class Lever { }`n"
-                # Reaches into widget twice: a call and a config read — what the closure check follows. The
-                # owner-scoped read (-ListOwners) reads only the owners present, so it is not a third gap.
+                # Reaches into widget twice: a call and a config read — what the closure check follows.
+                # [comment:2](/docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md#comment2)
                 'Get-GadgetWidget.ps1' = "function Get-GadgetWidget {`n    Get-Widget`n    Get-Config -Config widget`n    Get-Config -Config widget -ListOwners`n}`n"
             }
         }
@@ -58,6 +58,7 @@ BeforeAll {
         'automation/.internal/Catzc.Internal.TestKit.psm1'               = '# testkit (ships under full only)'
         'automation/.internal/tests/Get-Loader.Tests.ps1'                = '# test (never ships)'
         'automation/.internal/assets/ErrorView.format.ps1xml'            = '<Configuration />'
+        'automation/.internal/assets/types-load.yml'                     = 'cells: {}'
         'automation/.internal/assets/PSScriptAnalyzerSettings.psd1'      = '@{ }'
         'automation/.internal/assets/Import-Catzc.ps1'                   = "# initializer`r`n"
         'automation/.vendor/powershell-yaml/0.4.12/powershell-yaml.psd1' = '@{ }'
@@ -78,9 +79,8 @@ BeforeAll {
     [System.IO.File]::WriteAllBytes((Join-Path $compiled "Catzc.Types.$fullHash.dll"), [byte[]] @(77, 90, 1, 2, 3))
     [System.IO.File]::WriteAllText((Join-Path $compiled "Catzc.Types.$fullHash.json"), "{`"hash`":`"$fullHash`"}`n")
 
-    # The build ships what git tracks, so the fixture is a committed repository. core.autocrlf=true is a Windows
-    # checkout: the CRLF fixture files (the help text, the initializer) are stored LF, as git stores them in the
-    # real repository, and the checkout keeps them CRLF on disk.
+    # The build ships what git tracks, so the fixture is a committed repository.
+    # [comment:3](/docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md#comment3)
     foreach ($gitCommand in @(
             'git init -q'
             'git config core.autocrlf true'
@@ -106,8 +106,8 @@ BeforeAll {
         PackageMetadata = $metadata
     }
 
-    # Boundaries: the source-tree guard (the fixture root is not the session's code root), the profile/closure
-    # resolver and the asset inventory (both read the real configs/tree), and git.
+    # Boundaries: the source-tree guard (the fixture root is not the session's code root), the profile/closure...
+    # [comment:4](/docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md#comment4)
     Mock Assert-SourceTree { } -ModuleName Catzc.Internal.Builder
     Mock Get-GitCurrentCommit { 'f00df00df00df00df00df00df00df00df00df00d' } -ModuleName Catzc.Internal.Builder
     Mock Get-ModuleProfile -ModuleName Catzc.Internal.Builder -RemoveParameterValidation Name {
@@ -182,6 +182,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
                 '.internal/Catzc.Internal.Types.psm1'
                 '.internal/Catzc.Internal.Vendor.psm1'
                 '.internal/assets/ErrorView.format.ps1xml'
+                '.internal/assets/types-load.yml'
                 '.vendor/powershell-yaml/0.4.12/powershell-yaml.psd1'
                 '.vendor/powershell-yaml/0.4.12/Signed.ps1'
                 'Catzc.Base.Gadget/Catzc.Base.Gadget.functions.ps1'

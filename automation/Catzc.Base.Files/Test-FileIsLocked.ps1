@@ -6,20 +6,23 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Files
     visibility: public
-    adrs: []
+  config:
+    synopsis: Tests whether a file is held open by another handle (locked).
+    description: |-
+      Tries to open the file for reading with no sharing. If another handle is open (e.g. a loaded assembly
+      DLL), the open fails with an IOException and the file is reported locked; if the open succeeds it is
+      closed immediately and the file is reported not locked.
+
+      File locking is mandatory on Windows but advisory on Linux/macOS, where a file held open elsewhere may
+      still open — so this reports $false there. Callers that must not stall on a locked file (e.g. cache
+      cleanup) should still prefer a guarded delete; this predicate is for asserting and reporting state.
+    parameters:
+      Path: Path to the file to test.
+    examples:
+      - Test-FileIsLocked $dllPath
 ---
 #>
 
-<#
-.SYNOPSIS
-    Tests whether a file is held open by another handle (locked).
-.DESCRIPTION
-    Advisory on Unix, so it reports false there; use it to assert state, not as a guard before a delete.
-.PARAMETER Path
-    Path to the file to test.
-.EXAMPLE
-    Test-FileIsLocked $dllPath
-#>
 function Test-FileIsLocked {
     [CmdletBinding()]
     [OutputType([bool])]

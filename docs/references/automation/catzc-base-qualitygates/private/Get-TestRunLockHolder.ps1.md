@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md
     kind: comment-page
     body_sha: "185d60b4a166"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestRunLockHolder.ps1
@@ -28,6 +26,15 @@ A mutex carries no owner data, so the run that holds the test-run lock writes a 
 ```
 
 ## comment:2
+
+Above `$toInstant = {`.
+
+```text
+ConvertFrom-Json turns ISO timestamps into [datetime] (kind kept from the 'Z'/offset suffix); a string
+cast would drop sub-second precision and the zone, so both shapes are read as instants here.
+```
+
+## comment:3
 
 Above `$toInstant = {`.
 

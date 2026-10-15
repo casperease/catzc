@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/dedicated-output-directory.md
     kind: adr
-    body_sha: "74388027e701"
+    body_sha: "516222c7fb6c"
     defines:
       - ADR-REPO-OUTDIR#1
       - ADR-REPO-OUTDIR#2
@@ -16,6 +16,7 @@ catzc:
       - ADR-REPO-OUTDIR#9
       - ADR-REPO-OUTDIR#10
       - ADR-REPO-OUTDIR#11
+      - ADR-REPO-OUTDIR#12
     adrs:
       - ADR-AUTO-SPELL#5
     links:

@@ -4,12 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Resolve-AdrLinkTarget.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-LINK#2
 ---
 #>
 
-# Resolve-AdrLinkTarget — a markdown link in a file under docs/adr/, resolved relative to its file
-# ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)) to its path under docs/adr/. Pure path logic: the
-# fixture root need not exist. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# Resolve-AdrLinkTarget — a markdown link in a file under docs/adr/, resolved relative to its file to its path under...
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md#comment1)
 Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK#2' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'adr'

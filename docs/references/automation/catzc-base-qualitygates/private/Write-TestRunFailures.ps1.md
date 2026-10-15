@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestRunFailures.ps1.md
     kind: comment-page
     body_sha: d299d155eac7
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestRunFailures.ps1

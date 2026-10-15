@@ -4,8 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-environment/private/Set-ProcessEnvironmentVariable.ps1.md
     kind: comment-page
     body_sha: "2af716414cbe"
-    adrs: []
-    links: []
 ---
 
 # automation/Catzc.Tooling.Environment/private/Set-ProcessEnvironmentVariable.ps1

@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-azure.md
     kind: reference
     body_sha: d8b3dc66ab75
-    adrs: []
     links:
       - docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
       - docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png

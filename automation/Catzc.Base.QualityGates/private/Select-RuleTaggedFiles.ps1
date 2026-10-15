@@ -6,24 +6,22 @@ catzc:
     kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
-    adrs: []
+  config:
+    synopsis: The subset of test files that carry a test citing one of the given ADR rules — the -Rule work-list filter.
+    description: |-
+      Test-Automation's `-Rule` provenance filter narrows the run to the files that actually enforce a rule.
+      Given the discovery pass (all tests, any tier) and the wanted citations, this returns the files in
+      which at least one test resolves one of those citations (Get-TestRuleTags, the same union used for
+      coverage). The worker additionally filters within a file by include tag, so a file mixing matched and
+      other tests runs only the matched ones; this just keeps whole non-matching files off the work-list.
+    parameters:
+      TestFile: The candidate test files (absolute *.Tests.ps1 paths), in run order.
+      Discovery: The discovery-only Pester run object whose tests carry the citation tags.
+      Rule: The wanted citations in 'ADR-<CODE>#<n>' form. A file is kept when one of its tests cites any of them.
+    outputs: '[string[]] the kept files, preserving the input order (empty when none match).'
 ---
 #>
 
-<#
-.SYNOPSIS
-    The subset of test files that carry a test citing one of the given ADR rules — the -Rule work-list filter.
-.DESCRIPTION
-    Keeps whole files off the work-list; a file mixing matched and other tests is still filtered per test by the worker.
-.PARAMETER TestFile
-    The candidate test files (absolute *.Tests.ps1 paths), in run order.
-.PARAMETER Discovery
-    The discovery-only Pester run object whose tests carry the citation tags.
-.PARAMETER Rule
-    The wanted citations in 'ADR-<CODE>#<n>' form. A file is kept when one of its tests cites any of them.
-.OUTPUTS
-    [string[]] the kept files, preserving the input order (empty when none match).
-#>
 function Select-RuleTaggedFiles {
     [CmdletBinding()]
     [OutputType([string[]])]

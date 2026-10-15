@@ -6,7 +6,6 @@ catzc:
     body_sha: "748acdcbb126"
     adrs:
       - ADR-REPO-VOCAB#2
-    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/configs/glossary.yml

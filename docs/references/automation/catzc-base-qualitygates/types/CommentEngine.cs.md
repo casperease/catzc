@@ -8,7 +8,6 @@ catzc:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-FORMAT#5
-    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentEngine.cs

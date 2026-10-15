@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/file-meta.md
     kind: adr
-    body_sha: "934431f639a2"
+    body_sha: f1e628efae88
     defines:
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FILEMETA#2
@@ -124,8 +124,8 @@ without one is a visible finding, or an `exclude` entry of its carrier with the 
 ### Rule ADR-REPO-FILEMETA:9
 
 The derived part of a Markdown file says what the file defines and what it points at, and the two never mix. An ADR lists under `defines`
-the rules its own headings declare, each spelled as a citation, `ADR-<CODE>#<n>`, and its `adrs` lists only the rules it cites from
-elsewhere, so a rule's own text is never a citation of itself. Every Markdown file lists under `links` each link that leaves it, whatever
+the rules its own headings declare, each spelled as a citation, `ADR-<CODE>#<n>`, and its `adrs` lists only the registered rules it cites
+from elsewhere, so a rule's own text is never a citation of itself and a placeholder named in prose is none either. Every Markdown file lists under `links` each link that leaves it, whatever
 its form (relative, repository-rooted, absolute URL, image, reference definition or autolink), spelled once as a repository-relative path
 with its anchor or as the absolute URL, sorted and without duplicates. A link that stays inside the file, an anchor in it, the file itself
 or its own comment page, is internal and is not listed.
@@ -163,8 +163,6 @@ catzc:
     path: .claude/agents/example-agent.md
     kind: claude-agent
     body_sha: "3fa91c0d2b7e"
-    adrs: []
-    links: []
   config:
     agents:
       example-agent:
@@ -172,7 +170,8 @@ catzc:
 ---
 ```
 
-`name` belongs to the agent tooling and is untouched. A tool that reads front matter keeps working, because the reserved key is one extra
+A fact with no value, an empty list or an empty string, is the default of its key and is left out, so an absent key reads as the empty
+value. `name` belongs to the agent tooling and is untouched. A tool that reads front matter keeps working, because the reserved key is one extra
 top-level key it does not know. The two parts never mix: `derived` is imprinted and rewritten, `config` is authored and kept. The code
 carrier, the form of a head in a C# or PowerShell file, is in [code-file-meta](code-file-meta.md). Which carrier each file class has, or why
 it has none, is one registry, `file-carriers.yml`, so a gap in the coverage is a visible entry.

@@ -6,18 +6,16 @@ catzc:
     kind: public-function
     module: Catzc.Base.Files
     visibility: public
-    adrs: []
+  config:
+    synopsis: Returns the current git commit hash (full 40-char SHA).
+    description: |-
+      The commit HEAD names in the checkout at Get-RepositoryRoot, read from its ref files in-process
+      ([Catzc.Base.Git.GitRefs]) — what `git rev-parse HEAD` answers, without starting git.
+    examples:
+      - Get-GitCurrentCommit
 ---
 #>
 
-<#
-.SYNOPSIS
-    Returns the current git commit hash (full 40-char SHA).
-.DESCRIPTION
-    Resolves HEAD from the ref files in-process, so no git process starts.
-.EXAMPLE
-    Get-GitCurrentCommit
-#>
 function Get-GitCurrentCommit {
     param()
     [Catzc.Base.Git.GitRefs]::ResolveCommit([Catzc.Base.Git.GitRefs]::GitDirectory((Get-RepositoryRoot)), 'HEAD')

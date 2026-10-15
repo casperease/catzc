@@ -4,7 +4,6 @@ catzc:
     path: docs/references/automation/catzc-tooling-node.md
     kind: reference
     body_sha: "7e3f927bebba"
-    adrs: []
     links:
       - docs/adr/automation/controlling-systemwide-deps.md
       - docs/adr/automation/cross-platform.md

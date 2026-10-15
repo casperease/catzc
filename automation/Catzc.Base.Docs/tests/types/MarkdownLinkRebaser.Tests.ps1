@@ -4,11 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/MarkdownLinkRebaser.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-REPO-README#6
 ---
 #>
 
-# A generated README copies an article into another folder; its relative links are rebased so they resolve there
-# ([ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)).
+# A generated README copies an article into another folder; its relative links are rebased so they resolve there.
+# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/MarkdownLinkRebaser.Tests.ps1.md#comment1)
 Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README#6' {
     BeforeAll {
         # The article lives in docs/references/widget/ and is copied into the widget/ folder at the root.
