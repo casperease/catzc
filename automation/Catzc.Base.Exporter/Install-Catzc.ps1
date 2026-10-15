@@ -95,7 +95,8 @@ function Install-Catzc {
                 $execute = [System.IO.UnixFileMode]::UserExecute -bor [System.IO.UnixFileMode]::GroupExecute -bor [System.IO.UnixFileMode]::OtherExecute
                 foreach ($engine in @([Catzc.Base.Engines.ExecutionEngines]::All | Where-Object RequiresExecutableBit)) {
                     foreach ($extension in $engine.ScriptExtensions) {
-                        foreach ($script in [System.IO.Directory]::EnumerateFiles($moduleTarget, "*$extension", [System.IO.SearchOption]::AllDirectories)) {
+                        # A named whole-tree walk (ADR-PWSH-ENUM#3): every shebang script of the installed module is re-marked.
+                        foreach ($script in Get-ChildPath $moduleTarget -File -Filter "*$extension" -Depth 64 -Exclude @() -PruneVendor $false) {
                             if ([System.IO.File]::ReadLines($script) | Select-Object -First 1 | Where-Object { $_.StartsWith('#!') }) {
                                 [System.IO.File]::SetUnixFileMode($script, [System.IO.File]::GetUnixFileMode($script) -bor $execute)
                             }

@@ -55,7 +55,8 @@ function Assert-CatzcBundle {
     }
 
     # Every file once, build-relative and forward-slashed: the tests/ scan and the shipped type sources read it.
-    $files = foreach ($file in [System.IO.Directory]::EnumerateFiles($root, '*', [System.IO.SearchOption]::AllDirectories)) {
+    # A named whole-tree walk (ADR-PWSH-ENUM#3): the bundle is verified in full, vendored modules included, so nothing is pruned.
+    $files = foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
     }
     $files = @($files)

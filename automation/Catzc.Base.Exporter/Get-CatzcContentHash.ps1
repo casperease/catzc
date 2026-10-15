@@ -38,7 +38,8 @@ function Get-CatzcContentHash {
     Assert-PathExist $Path -PathType Container
 
     $rootFull = [System.IO.Path]::GetFullPath($Path)
-    $files = [System.IO.Directory]::EnumerateFiles($rootFull, '*', [System.IO.SearchOption]::AllDirectories)
+    # A named whole-tree walk (ADR-PWSH-ENUM#3): the hash covers every file, so nothing is pruned and no depth drops one.
+    $files = Get-ChildPath $rootFull -File -Depth 64 -Exclude @() -PruneVendor $false
 
     $relativePaths = [System.Collections.Generic.List[string]]::new()
     foreach ($file in $files) {

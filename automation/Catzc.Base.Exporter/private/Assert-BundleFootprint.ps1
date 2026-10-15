@@ -39,7 +39,8 @@ function Assert-BundleFootprint {
     $files = 0
     $bytes = [long] 0
     $byFolder = @{}
-    foreach ($file in [System.IO.Directory]::EnumerateFiles($root, '*', [System.IO.SearchOption]::AllDirectories)) {
+    # A named whole-tree walk (ADR-PWSH-ENUM#3): the footprint counts every shipped byte, so nothing is pruned.
+    foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
         $length = [System.IO.FileInfo]::new($file).Length
         $files++
         $bytes += $length
