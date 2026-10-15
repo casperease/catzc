@@ -32,6 +32,7 @@ names on a glyph `#DDE2E9`, quiet text `#949FAE`), so a dark-mode and a light-mo
 | page      | `#1E2430`             | the canvas and every rendered output's base layer                      |
 | band      | `#262E3B` / `#3A4555` | band fill / border; band label `#B0BAC7`                               |
 | panel     | `#222A36` / `#3A4555` | legend and outer panels                                                |
+| sidebar   | `#2A2622` / `#3E372F` | the minimap column's backing: a soft brown layer above the page, below it all |
 | ink       | `#CDD3DC`             | text; title and on-glyph names `#DDE2E9`                               |
 | quiet ink | `#949FAE`             | legend text and notes                                                  |
 | line      | `#AAB4C3`             | flow edges and their arrowheads, chip rims, the ADR-only dash          |
@@ -397,6 +398,10 @@ minimap, lit cell, touched cell, lit tile, lens badge**. Write it after reading 
 <One sentence on its position, then the entries left to right as a table: swatch → phrase.>
 
 ## Sidebar
+
+The sidebar stands on its own backing, the `sidebar` token: one flat rectangle (`sidebar-bg`, no shadow) from 12 px left of the
+minimaps to the page edge, lowest in the z-order, so the column reads as a region apart from the bands. `join.py` draws it and the
+slide template carries it; the three minimaps, the lens badge, the ADR chips and the map key sit on it.
 
 <The grid minimap's lit and touched cells by name (track × file language), the tree minimap's lit tiles by group label, the value-chain
 minimap's lit cells (value-chain stack × value-chain concern), the lens badge, the map key; the facts come from the slide's sister `.md`

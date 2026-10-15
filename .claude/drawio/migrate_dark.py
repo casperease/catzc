@@ -7,7 +7,8 @@ The colour map is the light glyph sheet (docs/.assets/explanation/glyphs.drawio.
 (.claude/drawio/glyphs.xml) and the dark-theme tokens of STYLE.md (Canvas). Every fill, stroke, font and label-background colour of every
 cell style is mapped by its light value and its cell's shape; the page background and shadow follow STYLE.md; an edge or a neutral glyph
 without a font colour gets the ink. Embedded images (the minimaps) are left as they are. The script asserts that the migrated XML parses
-with unique cell ids, that the written PNG is valid and its embedded model round-trips, and that no light token is left; a colour it has no
+with unique cell ids, that the written PNG is valid, that its embedded model round-trips and that re-rendering that model reproduces the raster pixel for
+pixel, and that no light token is left; a colour it has no
 mapping for is reported as `unmapped`, never guessed.
 """
 import html
@@ -101,6 +102,8 @@ def run(src, dst):
     back = Image.open(dst); back.verify()            # the PNG is valid
     back = Image.open(dst)
     assert k.decode(back.text["mxfile"]) == model, "embedded model does not round-trip"
+    proof = k.render(ET.fromstring(k.decode(back.text["mxfile"]))).convert("RGB")   # the raster is a function of the XML
+    assert proof.size == back.size and proof.tobytes() == back.convert("RGB").tobytes(), "raster is not the render of the embedded model"
     raw = open(dst, "rb").read(); assert raw[:8] == b"\x89PNG\r\n\x1a\n" and raw[-8:] == b"IEND\xaeB`\x82"
     light = re.findall(r'(?:fill|stroke|font)Color=(#(?:37474F|666666|FFFFFF|FAFAFA|F6F8FA|CFD8DC|455A64))\b', model, re.I)
     return back.size, len(ids), sorted(set(light))

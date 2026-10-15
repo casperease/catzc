@@ -40,6 +40,10 @@ MAPKEY_Y = 626
 # key's swatches show, so a swatch matches the cell it explains.
 INK, BORDER, PAGE, PANEL = "#CDD3DC", "#3A4555", "#1E2430", "#222A36"
 MAP_PAGE, MAP_IDLE, MAP_BORDER = "#1C2A24", "#243229", "#3B4D43"
+# The sidebar backing (STYLE.md, "sidebar" token): a soft dark brown layer above the page and below everything in the
+# sidebar, so the minimap column reads as one region of its own.
+SIDEBAR_FILL, SIDEBAR_RIM = "#2A2622", "#3E372F"
+SIDEBAR_PAD = 12
 TEXT = f"text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor={INK};"
 
 
@@ -98,6 +102,18 @@ def lay_out_sidebar(model, palette, concerns):
     """The sidebar of a slide model: the minimap image cells (minimap-stack renamed minimap-grid, minimap-chain added
     as a copy of it when missing), every sidebar cell at its SIDEBAR slot, and a fresh map key below them."""
     model = model.replace('id="minimap-stack"', 'id="minimap-grid"')
+    # The backing layer: dropped and re-added right after the root cells, so it sits lowest in the z-order.
+    model = re.sub(r'\s*<mxCell id="sidebar-bg"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.DOTALL)
+    page_w = int(re.search(r'pageWidth="(\d+)"', model).group(1))
+    page_h = int(re.search(r'pageHeight="(\d+)"', model).group(1))
+    root = re.search(r'<mxCell id="1" parent="0"\s*/>', model)
+    if not root:
+        raise SystemExit("the slide has no root cell id=1")
+    backing = cell(
+        "sidebar-bg", "", f"rounded=1;arcSize=2;html=1;fillColor={SIDEBAR_FILL};strokeColor={SIDEBAR_RIM};shadow=0;",
+        4, page_h - 8, x=X - SIDEBAR_PAD, width=page_w - (X - SIDEBAR_PAD) - 4,
+    )
+    model = model[: root.end()] + "\n    " + backing + model[root.end() :]
     if 'id="minimap-chain"' not in model:
         grid = re.search(r'<mxCell id="minimap-grid".*?</mxCell>', model, re.DOTALL)
         tree = re.search(r'<mxCell id="minimap-tree".*?</mxCell>', model, re.DOTALL)

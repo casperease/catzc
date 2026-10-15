@@ -73,7 +73,9 @@ glyph styles in [`glyphs.xml`](../drawio/glyphs.xml).
 3. **Render.** `timeout 120 uv run -q --with pillow python .claude/drawio/drawio_png.py out/drawio/<stem>.xml <the .drawio.png>` in the
    background. The script embeds the model, draws the raster, and asserts the round trip. For a dark migration run
    `migrate_dark.py <png> <png>` instead; it maps the colours, renders, and runs the same assertions.
-4. **Verify.** Decode the written file: the intended tokens are present, no stale token remains, the XML parses, the PNG verifies. Then
+4. **Verify.** Decode the written file: the intended tokens are present, no stale token remains, the XML parses, the PNG verifies, and
+   rendering the decoded model again reproduces the file's raster pixel for pixel (the proof that the picture is a function of the
+   XML; `migrate_dark.py` asserts it, and for a plain re-render compare `render()` of the decoded model with the file). Then
    `Read` the PNG and look: the changed text is legible on the dark page, the glyphs and the three minimaps are where they were.
 5. **Report.** Per file: the exact label or style deltas, the assertions that ran, what the image shows, and any `unmapped` colour or
    anything the brief did not cover. A sister `.drawio.md` or cover article that now contradicts the slide is reported, never edited.

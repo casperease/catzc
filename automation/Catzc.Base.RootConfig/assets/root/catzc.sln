@@ -1,32 +1,56 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # MANAGED ROOT FILE — single source of truth:
-#   automation/Catzc.Base.RootConfig/assets/root/catzc.sln
-# Linked to the repo root by Build-RootConfig on every import — the root file IS this file. The note lives in
-# this comment block — not a leading header — because MSBuild's solution parser requires the Format Version
-# line at the top, and the format's own '#' comments only start after it.
-#
-# IDE-ONLY solution. It exists solely so VS Code's C# Dev Kit auto-loads Catzc.Types.csproj (Dev Kit loads a
-# classic .sln but not a .slnx) and stops nagging "No solution file". Kept at the repo root so Dev Kit finds
-# it at the workspace root; it references the project by relative path (the project lives under
-# automation/.internal/assets). The runtime never touches it — the native C# type sources are compiled at
-# import time by Add-Type, not MSBuild. See ADR native-csharp-types.
-# Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catzc.Types", "automation\.internal\assets\Catzc.Types.csproj", "{CA72C000-700E-5000-0000-EC7000000000}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".claude", ".claude", "{0AE7C77C-1A1D-D779-8C60-7AB6E4421D01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hooks", "hooks", "{2FF0601E-AB3F-0985-D866-6D1F048125DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assert-BashTimeout", ".claude\hooks\Assert-BashTimeout\Assert-BashTimeout.csproj", "{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CA72C000-700E-5000-0000-EC7000000000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA72C000-700E-5000-0000-EC7000000000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA72C000-700E-5000-0000-EC7000000000}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CA72C000-700E-5000-0000-EC7000000000}.Debug|x64.Build.0 = Debug|Any CPU
+		{CA72C000-700E-5000-0000-EC7000000000}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CA72C000-700E-5000-0000-EC7000000000}.Debug|x86.Build.0 = Debug|Any CPU
 		{CA72C000-700E-5000-0000-EC7000000000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA72C000-700E-5000-0000-EC7000000000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA72C000-700E-5000-0000-EC7000000000}.Release|x64.ActiveCfg = Release|Any CPU
+		{CA72C000-700E-5000-0000-EC7000000000}.Release|x64.Build.0 = Release|Any CPU
+		{CA72C000-700E-5000-0000-EC7000000000}.Release|x86.ActiveCfg = Release|Any CPU
+		{CA72C000-700E-5000-0000-EC7000000000}.Release|x86.Build.0 = Release|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Debug|x64.Build.0 = Debug|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Debug|x86.Build.0 = Debug|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Release|x64.ActiveCfg = Release|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Release|x64.Build.0 = Release|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Release|x86.ActiveCfg = Release|Any CPU
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2FF0601E-AB3F-0985-D866-6D1F048125DB} = {0AE7C77C-1A1D-D779-8C60-7AB6E4421D01}
+		{1ECBB115-B9C2-42C9-8312-9106C7C1B5B9} = {2FF0601E-AB3F-0985-D866-6D1F048125DB}
 	EndGlobalSection
 EndGlobal
