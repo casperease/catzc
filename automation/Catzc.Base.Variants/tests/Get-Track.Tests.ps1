@@ -65,3 +65,10 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
         }
     }
 }
+
+Describe 'Get-Track — the real repository' -Tag 'L1', 'integrity', 'source-only', 'ADR-DSGN-TRACK#17' {
+    It 'declares the unordered track as the shelf nothing defaults to' {
+        (Get-Track -Name '.unordered').class | Should -Be 'unordered'
+        (Get-Track -Path '.unordered/15-10-2026/plan-widget.md').name | Should -Be '.unordered'
+    }
+}

@@ -13,7 +13,7 @@ public sealed class VariantTrack
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // The closed set of track classes ([ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)).
-    public static readonly string[] Classes = { "core", "adapter", "external-port", "verification" };
+    public static readonly string[] Classes = { "core", "adapter", "external-port", "verification", "unordered" };
 
     // The track's name: its key in the `tracks` map (e.g. automation).
     public string name { get; }

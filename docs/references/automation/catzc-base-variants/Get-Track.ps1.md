@@ -11,7 +11,7 @@ Section `.DESCRIPTION` of the comment-based help.
 
 ```text
 The `tracks` repo-wide variant (configs/variants.yml, [ADR-DSGN-TRACK](/docs/adr/design/tracks.md)) declares each
-track: its root folder, its class (core, adapter, external-port or verification,
+track: its root folder, its class (core, adapter, external-port, verification or unordered,
 [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)) and the file languages of its tech-stack
 ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)). Each result is a VariantTrack, in declared
 order; the shape is validated by the VariantsConfig type.

@@ -76,7 +76,7 @@ Above `tracks:`.
 ```text
 Tracks ([ADR-DSGN-TRACK](/docs/adr/design/tracks.md)) — the repository's root concerns, the one declaration of what a
 track is. Each entry names its root folder (one segment; every root folder git tracks a file under is a track, except
-out/), its class (core | adapter | external-port | verification,
+out/), its class (core | adapter | external-port | verification | unordered,
 [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)) and the file languages its
 tech-stack is declared as (names from Catzc.Base.Languages' languages.yml,
 [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6); default: none). Read
