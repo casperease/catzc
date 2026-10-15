@@ -2,11 +2,10 @@
 .SYNOPSIS
     Removes the build-validation branch policy tied to a globset. Idempotent — a no-op when none exists.
 .DESCRIPTION
-    Finds the build-validation policy whose path filter is the globset's native projection
-    (Get-GlobSetTrigger, [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) — the tie between policy and globset)
-    on the guarded branch and deletes
-    it. When no such policy exists the function reports and returns without error
-    ([ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2)).
+    Finds the build-validation policy whose path filter is the globset's native projection (Get-GlobSetTrigger, — the...
+    [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
+    [ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2)
+    [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md#comment1)
 .PARAMETER GlobSet
     The declared globset whose policy to remove (a name in globs.yml).
 .PARAMETER Branch

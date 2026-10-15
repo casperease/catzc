@@ -2,11 +2,8 @@
 .SYNOPSIS
     Reads an environment variable from a persistent scope (the Windows registry for User/Machine).
 .DESCRIPTION
-    The single seam through which tooling READS a persistent environment variable other than PATH (PATH has its
-    own, Get-EnvironmentPath), so a logic test can Mock the registry boundary
-    (`Mock Get-PermanentEnvironmentVariable -ModuleName <module>`) instead of reading the real user environment.
-    User/Machine scopes are a Windows concept; callers guard Windows-only use with $IsWindows. The real
-    registry round trip is proven by the L3 system test in tests/Set-PermanentEnvironmentVariable.Tests.ps1.
+    The single seam through which tooling READS a persistent environment variable other than PATH (PATH has its own,...
+    [comment:1](/docs/references/automation/catzc-base-environment/Get-PermanentEnvironmentVariable.ps1.md#comment1)
 .PARAMETER Name
     The variable's name.
 .PARAMETER Scope

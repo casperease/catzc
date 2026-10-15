@@ -2,22 +2,18 @@
 .SYNOPSIS
     Adds a directory to PATH persistently and in the current session.
 .DESCRIPTION
-    Cross-platform PATH persistence:
-    - Windows: writes to the User-scope registry PATH.
-    - Linux/macOS: appends a marked block to the PowerShell profile.
-    - Always: updates $env:PATH for the current session.
-
-    Idempotent — skips if the path is already present.
+    Cross-platform PATH persistence: - Windows: writes to the User-scope registry PATH.
+    [comment:1](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment1)
 .PARAMETER Path
     The directory to add. Must exist.
 .PARAMETER Prepend
     Place the path at the beginning instead of the end.
 .PARAMETER Label
-    Identity marker for Unix profile blocks. Defaults to the leaf folder name.
-    Must match when calling Remove-PermanentPath.
+    Identity marker for Unix profile blocks.
+    [comment:2](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment2)
 .PARAMETER Sync
-    After adding, call Sync-SessionPath to merge any other new registry
-    entries into the current session (Windows only).
+    After adding, call Sync-SessionPath to merge any other new registry entries into the current session (Windows only).
+    [comment:3](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment3)
 .EXAMPLE
     Add-PermanentPath '/usr/local/go/bin'
 .EXAMPLE
@@ -66,9 +62,8 @@ function Add-PermanentPath {
         }
     }
 
-    # --- Persistent PATH ---
-    # Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests Mock them instead
-    # of touching the real machine PATH. See their help.
+    # --- Persistent PATH --- Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests...
+    # [comment:4](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment4)
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         $userEntries = if ($userPath) {

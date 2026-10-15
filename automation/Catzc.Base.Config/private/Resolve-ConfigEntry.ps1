@@ -2,15 +2,9 @@
 .SYNOPSIS
     Resolves a config name to its owning module and file path (the discovery seam).
 .DESCRIPTION
-    Scans <module>/configs/*.yml under the loaded code root (Get-CatzcModulesRoot — the source tree's
-    automation/ or a built package) once (cached) into a name -> entries index, and resolves a
-    requested name to a single @{ Name; Module; Path }. -Module disambiguates a name present in more than one
-    module. In build mode the scan also covers a consumer overlay's local modules — the folders under
-    .catzc/automation/ that name no bundled module ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md))
-    — so a local module's configs are found like any module's. Throws when the name is unknown or ambiguous. -All instead returns every entry of the name, one
-    per owning module sorted by module name (ordinal), and nothing when no module has it — the listing for a
-    config several modules opt into by shipping it. Mock this to redirect a config to a fixture in logic tests
-    (see ADR test-automation).
+    Scans <module>/configs/*.yml under the loaded code root (Get-CatzcModulesRoot — the source tree's automation/ or...
+    [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
+    [comment:1](/docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md#comment1)
 .PARAMETER Config
     The config name (without the .yml extension).
 .PARAMETER Module
@@ -34,7 +28,8 @@ function Resolve-ConfigEntry {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configIndex')) {
         # strict-clean probe of the lazy cache entry
-        # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
+        # [comment:2](/docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md#comment2)
         $script:configIndex = @{}
         $automationRoot = Get-CatzcModulesRoot
         $moduleDirs = [System.Collections.Generic.List[string]]::new([string[]] @([System.IO.Directory]::EnumerateDirectories($automationRoot)))

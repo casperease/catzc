@@ -2,18 +2,8 @@
 .SYNOPSIS
     Rebuilds the session PATH from the registry on Windows. No-op on Unix.
 .DESCRIPTION
-    Reads Machine and User PATH from the Windows registry and rebuilds
-    $env:PATH. Registry entries form the base; session-only entries
-    (e.g. from Add-PermanentPath or a tool's install script) are kept
-    only if their directory still exists on disk.
-
-    This handles both directions:
-    - New entries added to the registry by an installer appear in the session.
-    - Entries removed from the registry by an uninstaller disappear from
-      the session (even if the directory still exists on disk).
-
-    On Linux/macOS this function is a no-op — package managers update PATH
-    through profile scripts that take effect on next shell launch.
+    Reads Machine and User PATH from the Windows registry and rebuilds $env:PATH.
+    [comment:1](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment1)
 .EXAMPLE
     Sync-SessionPath
 #>
@@ -48,8 +38,8 @@ function Sync-SessionPath {
         }
     }
 
-    # Add any registry entries not yet in the session
-    # @() so an empty $kept yields an empty array, not $null (HashSet's ctor rejects a null collection).
+    # Add any registry entries not yet in the session @ so an empty $kept yields an empty array, not $null (HashSet's...
+    # [comment:2](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment2)
     $seen = [System.Collections.Generic.HashSet[string]]::new(
         [string[]]@($kept | ForEach-Object { $_.TrimEnd('\', '/') }),
         [System.StringComparer]::OrdinalIgnoreCase
@@ -60,9 +50,9 @@ function Sync-SessionPath {
         }
     }
 
-    # Rewrite the session PATH only when an entry arrives or leaves, and say which
-    # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)) — on a
-    # clean devbox nothing changes, so the import stays quiet.
+    # Rewrite the session PATH only when an entry arrives or leaves, and say which — on a clean devbox nothing...
+    # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
+    # [comment:3](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment3)
     $added = @($newPaths)
     $dropped = @($currentPaths | Where-Object { $_ -notin @($kept) })
     if ($added.Count -or $dropped.Count) {

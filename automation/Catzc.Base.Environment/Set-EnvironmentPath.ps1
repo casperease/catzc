@@ -2,17 +2,9 @@
 .SYNOPSIS
     Writes the PATH environment variable at the scope given (the Windows registry for User/Machine).
 .DESCRIPTION
-    The single seam through which the PATH helpers (Add-/Remove-PermanentPath, the tooling uninstallers)
-    WRITE the persistent PATH, so tests can Mock the registry boundary
-    (`Mock Set-EnvironmentPath -ModuleName <module>`) instead of mutating the real machine PATH (which also
-    broadcasts WM_SETTINGCHANGE). User/Machine scopes are a Windows concept; callers guard Windows-only use
-    with $IsWindows. This is the deliberately thin, un-mockable I/O boundary, so it has no unit test of its
-    own.
-
-    Because every persistent PATH write passes through here, this is also where it is announced
-    ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)): one line
-    names the scope and the entries added and removed. Writing the value the
-    scope already holds is a no-op, so it neither writes nor announces.
+    The single seam through which the PATH helpers (Add-/Remove-PermanentPath, the tooling uninstallers) WRITE the...
+    [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
+    [comment:1](/docs/references/automation/catzc-base-environment/Set-EnvironmentPath.ps1.md#comment1)
 .PARAMETER Value
     The full PATH string to persist.
 .PARAMETER Scope

@@ -2,20 +2,16 @@
 .SYNOPSIS
     Removes a directory from PATH persistently and in the current session.
 .DESCRIPTION
-    Cross-platform PATH removal:
-    - Windows: removes from the User-scope registry PATH.
-    - Linux/macOS: removes the marked block from the PowerShell profile.
-    - Always: removes from $env:PATH for the current session.
-
-    Idempotent — no error if the path is not present.
+    Cross-platform PATH removal: - Windows: removes from the User-scope registry PATH.
+    [comment:1](/docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md#comment1)
 .PARAMETER Path
     The directory to remove.
 .PARAMETER Label
-    Identity marker for Unix profile blocks. Must match the label used
-    when Add-PermanentPath was called. Defaults to the leaf folder name.
+    Identity marker for Unix profile blocks.
+    [comment:2](/docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md#comment2)
 .PARAMETER Sync
-    After removing, call Sync-SessionPath to refresh the session PATH
-    from the registry (Windows only).
+    After removing, call Sync-SessionPath to refresh the session PATH from the registry (Windows only).
+    [comment:3](/docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md#comment3)
 .EXAMPLE
     Remove-PermanentPath '/usr/local/go/bin'
 .EXAMPLE
@@ -54,9 +50,8 @@ function Remove-PermanentPath {
         Write-Message "Session PATH: removed '$Path'"
     }
 
-    # --- Persistent PATH ---
-    # Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests Mock them instead
-    # of touching the real machine PATH. See their help.
+    # --- Persistent PATH --- Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests...
+    # [comment:4](/docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md#comment4)
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         if ($userPath) {

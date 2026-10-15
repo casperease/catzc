@@ -2,11 +2,8 @@
 .SYNOPSIS
     Resolves the ADO coordinates every build-validation call needs — org, project, repository id, API base.
 .DESCRIPTION
-    Defaults organization/project from ado.yml and the repository name from Get-AdoRepositoryName (the same
-    default as Register-AdoPipeline and the public build-validation functions), resolves the
-    repository to its GUID via the Git repositories API, and returns one context object the public
-    functions share — including the well-known Build policy type id, so the constant lives in exactly one
-    place.
+    Defaults organization/project from ado.yml and the repository name from Get-AdoRepositoryName (the same default...
+    [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/private/Resolve-AdoBuildValidationContext.ps1.md#comment1)
 .PARAMETER Project
     Azure DevOps project name. Defaults to the value in ado.yml.
 .PARAMETER Organization

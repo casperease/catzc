@@ -2,10 +2,8 @@
 .SYNOPSIS
     Registers every build-validation branch policy declared in build-validation.yml. Idempotent.
 .DESCRIPTION
-    The config-driven reconcile: for each entry under 'validations' in build-validation.yml, runs
-    Register-AdoBuildValidation — creating missing policies, updating drifted ones, and leaving current
-    ones alone — and emits each result. This is the everything-as-code path for the server-side policies:
-    the local config is the source of truth, and this function converges the ADO project to it.
+    The config-driven reconcile: for each entry under 'validations' in build-validation.yml, runs...
+    [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/Sync-AdoBuildValidations.ps1.md#comment1)
 .PARAMETER Branch
     Override the branch for every policy. Defaults from build-validation.yml 'branch'.
 .PARAMETER Project
