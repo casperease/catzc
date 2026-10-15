@@ -1,4 +1,4 @@
-// One of the repository's execution engines — the shells its own code runs under.
+// No public constructor, so the three instances in ExecutionEngines are the only engines and no caller invents a fourth.
 // [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment1)
@@ -11,7 +11,7 @@ namespace Catzc.Base.Engines;
 
 public sealed class ExecutionEngine
 {
-    // How the engine's executable is found: beside the running PowerShell ($PSHOME), or through its tools.yml entry (the existence...
+    // A tools.yml entry brings the existence check of Resolve-ToolExecutable; the ps-home engine is the running host.
     // [comment:2](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment2)
     public const string LocateByPsHome = "ps-home";
     public const string LocateByTool = "tool";
@@ -43,7 +43,7 @@ public sealed class ExecutionEngine
     // The statement that turns the engine's strict mode on.
     public string StrictMode { get; }
 
-    // How a call is bounded in time in this engine.
+    // The mechanism differs per engine: a pwsh function, the timeout command prefix in bash and zsh.
     // [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
     // [comment:3](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment3)
     public string TimeSafeguard { get; }
@@ -57,7 +57,7 @@ public sealed class ExecutionEngine
     // The repository-root script that loads the engine's entry points into a session (importer.ps1, importer.sh).
     public string ImporterEntry { get; }
 
-    // What goes before a catzc command in this engine: nothing in pwsh, where the commands are native; "cats " in bash and zsh, the...
+    // Command text is identical in every engine; only this prefix differs, since bash and zsh reach pwsh through cats.
     // [comment:4](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment4)
     public string CommandPrefix { get; }
 
@@ -92,7 +92,7 @@ public sealed class ExecutionEngine
         return windows ? Command + ".exe" : Command;
     }
 
-    // The text as one literal string in the engine's own quoting: single quotes, with an embedded single quote written the engine's way...
+    // An embedded single quote is written differently per engine ('' in pwsh, '\'' in bash and zsh), so never hand-quote.
     // [comment:5](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment5)
     public string Quote(string text)
     {
@@ -107,7 +107,7 @@ public sealed class ExecutionEngine
         return string.Format(CultureInfo.InvariantCulture, sourceFormat, Quote(entry));
     }
 
-    // The arguments (after the executable) that start the engine non-interactively, load the entry script, and run the catzc command:...
+    // The command is catzc command text, the same in every engine: the argument order is fixed, only the prefix varies.
     // [comment:6](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment6)
     public string[] StartArguments(string entry, string command)
     {

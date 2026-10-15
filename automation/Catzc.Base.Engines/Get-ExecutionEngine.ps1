@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the repository's execution engines, or one by name.
 .DESCRIPTION
-    The repository's own code runs under exactly three execution engines, pwsh, bash and zsh, declared once in the...
+    Read what differs between the engines here, not in a caller: flags, quoting and file rules are declared once.
     [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
     [comment:1](/docs/references/automation/catzc-base-engines/Get-ExecutionEngine.ps1.md#comment1)
 .PARAMETER Name

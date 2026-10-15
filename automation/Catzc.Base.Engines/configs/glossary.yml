@@ -1,4 +1,4 @@
-# glossary.yml — the Catzc.Base.Engines glossary source: the vocabulary of the execution engine model this module owns.
+# Test-Glossary checks this file, so each concept below is the module's controlled vocabulary for the engine model.
 # [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
 # [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)
 # [comment:1](/docs/references/automation/catzc-base-engines/configs/glossary.yml.md#comment1)

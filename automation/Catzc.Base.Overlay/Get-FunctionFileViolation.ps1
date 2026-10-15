@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns every reason a .ps1 file is not one function, named for the file, that can be loaded anywhere.
 .DESCRIPTION
-    The one check of a function file's shape, read from its syntax tree, shared by the two places that load a...
+    A file loaded away from its folder must never read PSScriptRoot, which then names another folder.
     [ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5),
     [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md),
     [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)

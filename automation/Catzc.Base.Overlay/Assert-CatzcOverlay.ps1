@@ -2,7 +2,7 @@
 .SYNOPSIS
     Checks the consumer overlay against its rules and throws once, listing every violation.
 .DESCRIPTION
-    The overlay is the only place a consumer changes what a built bundle does, so it is checked as a whole before any...
+    The whole overlay is checked before any of it applies, and a consumer's CI can run this alone to fail early.
     [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
     [comment:1](/docs/references/automation/catzc-base-overlay/Assert-CatzcOverlay.ps1.md#comment1)
 .PARAMETER Entry

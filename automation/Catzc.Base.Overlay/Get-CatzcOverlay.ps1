@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists everything in the consumer overlay, each entry classified by where it sits.
 .DESCRIPTION
-    Under.catzc/automation/ a file's location is its meaning: it sits at the path of what it changes in the bundle's...
+    Only classifies: nothing is loaded or checked here, and no overlay (source mode) returns nothing.
     [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
     [comment:1](/docs/references/automation/catzc-base-overlay/Get-CatzcOverlay.ps1.md#comment1)
 .OUTPUTS

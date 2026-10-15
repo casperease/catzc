@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns every reason a consumer's local module cannot load.
 .DESCRIPTION
-    A local module is an overlay folder that names no bundled module, and it follows catzc's own module conventions:...
+    A public function named like a loaded command would silently replace it, and that is an override, not a local module.
     [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
     [comment:1](/docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md#comment1)
 .PARAMETER Path

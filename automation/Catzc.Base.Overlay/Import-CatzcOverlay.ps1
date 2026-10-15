@@ -2,7 +2,7 @@
 .SYNOPSIS
     Applies the consumer overlay's function overrides to the loaded bundle, after checking the whole overlay.
 .DESCRIPTION
-    Runs at the end of a bundle load.
+    Overrides load before local modules, so a local module calls the bundle as overridden.
     [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
     [comment:1](/docs/references/automation/catzc-base-overlay/Import-CatzcOverlay.ps1.md#comment1)
 .OUTPUTS
