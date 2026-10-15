@@ -1,4 +1,16 @@
 Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
+    BeforeAll {
+        # The seams every case below shares, mocked once; a case that differs re-mocks its own.
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
+        Mock Enter-TestRunLocation -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Mode = 'in-place' } }
+        Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-TestRunLocationEntry -ModuleName Catzc.Base.QualityGates { @{} }
+        Mock Get-LanguageTestExecutable -ModuleName Catzc.Base.QualityGates { @{} }
+        Mock Convert-TestRunLocationPath -ModuleName Catzc.Base.QualityGates { $Path }
+        # The shard script is the last stop before a real worker spawns: stop there.
+        Mock New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates { throw 'stop before spawning' }
+    }
+
     It 'throws on a missing test file before spawning anything' {
         { Invoke-TestFile (Join-Path $TestDrive 'nope.Tests.ps1') } | Should -Throw
     }
@@ -6,15 +18,7 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
     It 'hands -FullNameFilter to the worker''s shard script' {
         $testFile = Join-Path $TestDrive 'widget.Tests.ps1'
         [System.IO.File]::WriteAllText($testFile, '')
-        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
-        Mock Enter-TestRunLocation -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Mode = 'in-place' } }
-        Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
-        Mock Get-TestRunLocationEntry -ModuleName Catzc.Base.QualityGates { @{} }
-        Mock Get-LanguageTestExecutable -ModuleName Catzc.Base.QualityGates { @{} }
         Mock Resolve-TestRunMaxLevel -ModuleName Catzc.Base.QualityGates { 3 }
-        Mock Convert-TestRunLocationPath -ModuleName Catzc.Base.QualityGates { $Path }
-        # The shard script is the last stop before a real worker spawns: stop there.
-        Mock New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates { throw 'stop before spawning' }
 
         { Invoke-TestFile $testFile -FullNameFilter 'widget''s gadget' } | Should -Throw '*stop before spawning*'
 
@@ -30,13 +34,7 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
     ) {
         $testFile = Join-Path $TestDrive 'gadget.Tests.ps1'
         [System.IO.File]::WriteAllText($testFile, '')
-        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
         Mock Enter-TestRunLocation -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Mode = 'in-place'; SystemTests = $true } }
-        Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
-        Mock Get-TestRunLocationEntry -ModuleName Catzc.Base.QualityGates { @{} }
-        Mock Get-LanguageTestExecutable -ModuleName Catzc.Base.QualityGates { @{} }
-        Mock Convert-TestRunLocationPath -ModuleName Catzc.Base.QualityGates { $Path }
-        Mock New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates { throw 'stop before spawning' }
 
         { Invoke-TestFile $testFile -MaxLevel $maxLevel } | Should -Throw '*stop before spawning*'
 
@@ -51,13 +49,7 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($testFile, '')
         $outputRoot = Join-Path $TestDrive 'crashed-run'
         Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $outputRoot }
-        Mock Enter-TestRunLocation -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Mode = 'in-place' } }
-        Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
-        Mock Get-TestRunLocationEntry -ModuleName Catzc.Base.QualityGates { @{} }
-        Mock Get-LanguageTestExecutable -ModuleName Catzc.Base.QualityGates { @{} }
         Mock Resolve-TestRunMaxLevel -ModuleName Catzc.Base.QualityGates { 3 }
-        Mock Convert-TestRunLocationPath -ModuleName Catzc.Base.QualityGates { $Path }
-        Mock New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates { throw 'stop before spawning' }
 
         { Invoke-TestFile $testFile } | Should -Throw '*stop before spawning*'
 

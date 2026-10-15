@@ -26,6 +26,8 @@ function Get-CSharpTypeDependency {
 
     $dotted = [regex] '[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)+'
     $edges = [ordered]@{}   # "From|To" -> List[string] of reference descriptions
+    $targetOf = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::Ordinal)
+    $target = $null
 
     foreach ($module in $modules) {
         $typesDir = Join-Path $AutomationRoot "$module/types"
@@ -52,11 +54,15 @@ function Get-CSharpTypeDependency {
             $seen = [System.Collections.Generic.HashSet[string]]::new()
             foreach ($match in $dotted.Matches($code)) {
                 $token = $match.Value
-                $target = $null
-                foreach ($candidate in $byLength) {
-                    if ($token.StartsWith("$candidate.", [System.StringComparison]::Ordinal)) {
-                        $target = $candidate; break
+                # A token maps to its module once; the same BCL and cross-module names recur across every file.
+                if (-not $targetOf.TryGetValue($token, [ref] $target)) {
+                    $target = $null
+                    foreach ($candidate in $byLength) {
+                        if ($token.StartsWith("$candidate.", [System.StringComparison]::Ordinal)) {
+                            $target = $candidate; break
+                        }
                     }
+                    $targetOf[$token] = $target
                 }
                 if (-not $target -or $target -eq $module) {
                     continue

@@ -45,16 +45,20 @@ function Format-Types {
         }
     }
     else {
-        $automationRoot = Join-Path $root 'automation'
-        Get-ChildItem -Path $automationRoot -Directory |
-            Where-Object { $_.Name -notmatch '^\.' } |
-            ForEach-Object {
-                $typesPath = Join-Path $_.FullName 'types'
-                if (Test-Path $typesPath) {
-                    Get-ChildItem -Path $typesPath -Filter '*.cs' -File |
-                        ForEach-Object { $files.Add($_.FullName) }
-                    }
+        # [System.IO] enumeration: each cmdlet call on this path adds about 20ms.
+        # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
+        $automationRoot = [System.IO.Path]::GetFullPath((Join-Path $root 'automation'))
+        foreach ($moduleDirectory in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {
+            if ([System.IO.Path]::GetFileName($moduleDirectory).StartsWith('.', [System.StringComparison]::Ordinal)) {
+                continue
+            }
+            $typesPath = Join-Path $moduleDirectory 'types'
+            if ([System.IO.Directory]::Exists($typesPath)) {
+                foreach ($typeFile in [System.IO.Directory]::EnumerateFiles($typesPath, '*.cs')) {
+                    $files.Add($typeFile)
                 }
+            }
+        }
     }
 
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
@@ -62,7 +66,7 @@ function Format-Types {
     $blockScopedFiles = [System.Collections.Generic.List[string]]::new()
     foreach ($file in $files) {
         # Module = the folder that contains this file's types/ folder: <Module>/types/<file>.cs.
-        $module = Split-Path -Path (Split-Path -Path (Split-Path -Path $file -Parent) -Parent) -Leaf
+        $module = [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($file)))
 
         $original = [System.IO.File]::ReadAllText($file)
         # A block-scoped namespace is no authored shape and not a one-line fix, so it is reported for a hand edit.

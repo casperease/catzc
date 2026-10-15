@@ -24,10 +24,12 @@ function Set-CSharpFileScopedNamespace {
     )
 
     $hadTrailingNewline = $Content.EndsWith("`n")
-    $lines = [System.Collections.Generic.List[string]]::new()
-    foreach ($line in ($Content -split "`n")) {
-        $lines.Add(($line -replace "`r$", ''))
+    # Each line loses one trailing CR: every CRLF becomes LF, and a CR ending the whole text goes too.
+    $normalized = $Content.Replace("`r`n", "`n")
+    if ($normalized.EndsWith("`r")) {
+        $normalized = $normalized.Substring(0, $normalized.Length - 1)
     }
+    $lines = [System.Collections.Generic.List[string]]::new([string[]] $normalized.Split("`n"))
     if ($hadTrailingNewline -and $lines.Count -gt 0 -and $lines[$lines.Count - 1] -eq '') {
         $lines.RemoveAt($lines.Count - 1)
     }

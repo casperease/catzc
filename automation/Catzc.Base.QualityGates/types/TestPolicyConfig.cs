@@ -21,20 +21,37 @@ public sealed class TestPolicyConfig
     // The mode of an environment the config does not list.
     public const string DefaultMutation = "read-only";
 
+    // How many greedy files run side by side: 1 runs them one after another, 2 in pairs, 3 in triplets. The groups themselves run serially.
+    public const int DefaultGreedyGroupSize = 2;
+    public const int MaxGreedyGroupSize = 64;
+
     public IReadOnlyDictionary<string, string> l4_mutation { get; }
+
+    public int greedy_group_size { get; }
 
     public TestPolicyConfig(IDictionary raw)
     {
         var mutation = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        int groupSize = DefaultGreedyGroupSize;
         if (raw != null)
         {
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                if (name != "l4_mutation")
+                if (name != "l4_mutation" && name != "greedy_group_size")
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "test-policy config: unknown key '{0}' (allowed: l4_mutation)", name));
+                        "test-policy config: unknown key '{0}' (allowed: l4_mutation, greedy_group_size)", name));
+                }
+            }
+
+            if (raw.Contains("greedy_group_size") && raw["greedy_group_size"] != null)
+            {
+                if (!int.TryParse(Convert.ToString(raw["greedy_group_size"], CultureInfo.InvariantCulture), NumberStyles.Integer,
+                        CultureInfo.InvariantCulture, out groupSize) || groupSize < 1 || groupSize > MaxGreedyGroupSize)
+                {
+                    throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                        "test-policy config: greedy_group_size must be a whole number from 1 to {0}", MaxGreedyGroupSize));
                 }
             }
 
@@ -58,6 +75,7 @@ public sealed class TestPolicyConfig
             }
         }
         l4_mutation = mutation;
+        greedy_group_size = groupSize;
     }
 
     // The mode an environment allows L4 tests: its entry, or read-only.

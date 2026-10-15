@@ -62,6 +62,10 @@ function Get-MarkdownHeadingFinding {
     $fence = $null
     for ($index = $start; $index -lt $lines.Count; $index++) {
         $line = $lines[$index]
+        # Both patterns open with up to three spaces and then a backtick, tilde or hash; most lines are skipped here.
+        if ($line.Length -eq 0 -or ($line[0] -ne ' ' -and $line[0] -ne '`' -and $line[0] -ne '~' -and $line[0] -ne '#')) {
+            continue
+        }
         if ($line -match '^ {0,3}(`{3,}|~{3,})') {
             $marker = $Matches[1]
             if ($null -eq $fence) {

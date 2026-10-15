@@ -4,18 +4,19 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         # file's contents are irrelevant.
         $script:targetFile = Join-Path $TestDrive 'subject.ps1'
         Set-Content -Path $script:targetFile -Value 'function Get-Thing { }' -Encoding utf8
+
+        # Mock the analysis boundary — the sharded background-job runner — never run the real (slow) analyzer
+        # in a unit test. (Start-Job processes cannot see Pester mocks, so the seam is the helper, not the
+        # cmdlet inside it; the helper has its own L2 real-analyzer coverage below.) Mocked once for the block:
+        # each case sets $script:diagnostics for the mock to return.
+        Mock Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates { $script:diagnostics }
+        Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
     BeforeEach {
         $script:diagnostics = @()
         $script:reportBase = Join-Path $TestDrive 'reports'
-
-        # Mock the analysis boundary — the sharded background-job runner — never run the real (slow) analyzer
-        # in a unit test. (Start-Job processes cannot see Pester mocks, so the seam is the helper, not the
-        # cmdlet inside it; the helper has its own L2 real-analyzer coverage below.)
-        Mock Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates { $script:diagnostics }
-        Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
-        Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
     It 'resolves a relative -Path against the repository root, never the working directory' -Tag 'ADR-AUTO-NOPWD#1' {

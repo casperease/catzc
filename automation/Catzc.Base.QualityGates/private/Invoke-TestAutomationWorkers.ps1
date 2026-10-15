@@ -10,6 +10,9 @@
 .PARAMETER GreedyFiles
     Greedy files overlap each other but never the parallel phase, which is why each gets a single-file shard.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment2)
+.PARAMETER GreedyGroupSize
+    How many greedy files run side by side; the groups themselves run one after another. 0 reads greedy_group_size from test-policy.yml,
+    whose default is 2 (pairs); 1 runs the greedy files strictly serially.
 .PARAMETER SerialFiles
     The serial-tagged test files for the final one-worker phase (may be empty).
 .PARAMETER Location
@@ -73,6 +76,9 @@ function Invoke-TestAutomationWorkers {
         [ValidateRange(0, 64)]
         [int] $Workers = 0,
 
+        [ValidateRange(0, 64)]
+        [int] $GreedyGroupSize = 0,
+
         # The entry point's own limit, passed down by Invoke-TestRun; no default here.
         [Parameter(Mandatory)]
         [ValidateRange(60, 86400)]
@@ -91,7 +97,7 @@ function Invoke-TestAutomationWorkers {
     $greedyShards = [System.Collections.Generic.List[object]]::new()
     $serialShard = $null
     $shardFileCounts = @{}
-    $greedyPhaseOffsetMs = 0
+    $greedyOffsetMs = @{}
     $serialPhaseOffsetMs = 0
 
     # Per-machine durations deal the shards longest first so they finish together, and order the greedy files too.
@@ -159,6 +165,15 @@ function Invoke-TestAutomationWorkers {
     }
     # Greedy files have L2-scale limits, so they overlap each other after the parallel phase, not starving it.
     # [comment:8](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment8)
+    $greedyGroupSize = if ($GreedyGroupSize -gt 0) {
+        $GreedyGroupSize
+    }
+    elseif ($GreedyFiles.Count -gt 0) {
+        (Get-Config -Config test-policy).greedy_group_size
+    }
+    else {
+        1
+    }
     $nextShardIndex = $workerCount
     foreach ($greedyFile in $GreedyFiles) {
         $shard = New-TestAutomationShardScript -ShardIndex $nextShardIndex -TestPath @($greedyFile) @shardArguments
@@ -185,7 +200,7 @@ function Invoke-TestAutomationWorkers {
     # Silence here would read as a hang: each worker pays its own importer and Pester load before its first line.
     # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
     # [comment:10](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment10)
-    Write-Message "Running $($ParallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($greedyShards.Count) { ", then $($GreedyFiles.Count) greedy file(s) pooled" })$(if ($serialShard) { ", then $($SerialFiles.Count) serial-tagged file(s)" })..." -NoHeader
+    Write-Message "Running $($ParallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($greedyShards.Count) { ", then $($GreedyFiles.Count) greedy file(s) in groups of $greedyGroupSize" })$(if ($serialShard) { ", then $($SerialFiles.Count) serial-tagged file(s)" })..." -NoHeader
 
     $stopwatch.Start()
     if ($shards.Count -gt 0) {
@@ -199,13 +214,20 @@ function Invoke-TestAutomationWorkers {
     # Phase offsets put every phase's workers on one wall-clock timeline; their own start offsets are per run.
     # [comment:11](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment11)
     if ($greedyShards.Count -gt 0) {
-        Write-Message "Greedy phase: $($greedyShards.Count) file(s), one per worker..." -NoHeader
-        $greedyPhaseOffsetMs = $stopwatch.ElapsedMilliseconds
-        $greedyRunner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-            [string[]] @($greedyShards.ScriptPath), [string[]] @($greedyShards.Label), $workerCount,
-            $WorkerEnvironment, $TimeoutSeconds, $false)
-        $workerResults.AddRange($greedyRunner.Results)
-        $allShards.AddRange($greedyShards)
+        $groupCount = [Math]::Ceiling($greedyShards.Count / $greedyGroupSize)
+        Write-Message "Greedy phase: $($greedyShards.Count) file(s) in $groupCount group(s) of up to $greedyGroupSize, one group after another..." -NoHeader
+        for ($groupStart = 0; $groupStart -lt $greedyShards.Count; $groupStart += $greedyGroupSize) {
+            $group = @($greedyShards.GetRange($groupStart, [Math]::Min($greedyGroupSize, $greedyShards.Count - $groupStart)))
+            $groupOffsetMs = $stopwatch.ElapsedMilliseconds
+            foreach ($member in $group) {
+                $greedyOffsetMs[$member.Label] = $groupOffsetMs
+            }
+            $greedyRunner = [Catzc.Base.QualityGates.PesterRunner]::Run(
+                [string[]] @($group.ScriptPath), [string[]] @($group.Label), $group.Count,
+                $WorkerEnvironment, $TimeoutSeconds, $false)
+            $workerResults.AddRange($greedyRunner.Results)
+            $allShards.AddRange($group)
+        }
     }
 
     # The serial phase runs last, alone — its files mutate state no other worker may see changing underneath it.
@@ -260,7 +282,7 @@ function Invoke-TestAutomationWorkers {
             $serialPhaseOffsetMs
         }
         elseif ($isGreedy) {
-            $greedyPhaseOffsetMs
+            $greedyOffsetMs[$shard.Label]
         }
         else {
             0
