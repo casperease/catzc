@@ -2,14 +2,8 @@
 .SYNOPSIS
     Flattens a nested object into an ordered dictionary of dot-notation key/value pairs.
 .DESCRIPTION
-    Recursively walks a PSCustomObject (e.g. parsed JSON/YAML configuration)
-    and returns an OrderedDictionary where each key is the full dot-separated
-    path to a leaf property and each value is the leaf value.
-
-    Non-leaf nodes (objects, dictionaries, arrays) are expanded, not included.
-    Null values are stored as empty strings.
-
-    Supports pipeline input for batch processing.
+    Recursively walks a PSCustomObject (e.g.
+    [comment:1](/docs/references/automation/catzc-base-objects/ConvertTo-FlatSettingSet.ps1.md#comment1)
 .PARAMETER InputObject
     One or more objects to flatten.
 .PARAMETER MaxDepth

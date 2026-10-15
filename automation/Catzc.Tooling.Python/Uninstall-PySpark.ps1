@@ -2,8 +2,8 @@
 .SYNOPSIS
     Uninstalls PySpark from the uv-managed Python via `uv pip`.
 .DESCRIPTION
-    Idempotent — skips if PySpark is not installed or if Python is
-    not available (nothing to uninstall).
+    Idempotent — skips if PySpark is not installed or if Python is not available (nothing to uninstall).
+    [comment:1](/docs/references/automation/catzc-tooling-python/Uninstall-PySpark.ps1.md#comment1)
 .EXAMPLE
     Uninstall-PySpark
 #>

@@ -2,14 +2,8 @@
 .SYNOPSIS
     Pretty-prints any object to the console with type info and smart formatting.
 .DESCRIPTION
-    Renders objects differently based on their type:
-    - Simple values (string, number, bool): displayed directly
-    - Hashtables and ordered dictionaries: key = value pairs
-    - Collections/arrays: listed as items, or YAML if elements are complex
-    - PSCustomObject and other complex types: YAML
-    First line always shows the type name and size where relevant.
-
-    Suppressed during Pester test runs (like Write-Message) to keep test output clean.
+    Renders objects differently based on their type: - Simple values (string, number, bool): displayed directly -...
+    [comment:1](/docs/references/automation/catzc-base-writers/Write-Object.ps1.md#comment1)
 .PARAMETER Object
     The object to display. Accepts pipeline input.
 .PARAMETER Name

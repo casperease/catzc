@@ -2,24 +2,8 @@
 .SYNOPSIS
     Writes a header with optional message in a chosen style.
 .DESCRIPTION
-    Styles (with message / without message):
-
-      Curved (default):
-        ╭──────────────╮       ╭──────────────╮
-        │ Message      │
-        ╰──────────────╯
-
-      Stars:
-        ****************       ****************
-        * Message
-        ****************
-
-    -ForegroundColor takes either a [System.ConsoleColor] (or its string name) — one colour for the whole
-    header — or a [Catzc.Base.Writers.RainbowColor] profile, which renders the horizontal rule lines as a
-    per-character gradient while the titled line keeps the profile's base colour. The gradient is also
-    reachable as a bareword: 'rainbow' (anchored on the ring head, a full chromatic walk) or '<base>-rainbow'
-    (e.g. 'green-rainbow', the RainbowColor.ToString form). A profile passed to any plain [ConsoleColor] sink
-    side-grades to its base, so the same value works everywhere.
+    Styles (with message / without message): Curved (default): ╭──────────────╮ ╭──────────────╮ │ Message │...
+    [comment:1](/docs/references/automation/catzc-base-writers/Write-Header.ps1.md#comment1)
 .PARAMETER Message
     The text to display. If omitted, writes a single separator line.
 .PARAMETER Style
@@ -27,9 +11,8 @@
 .PARAMETER Width
     Total width of the separator lines. Defaults to 78.
 .PARAMETER ForegroundColor
-    Colour for the output: a [System.ConsoleColor] (or its name), a 'rainbow' / '<base>-rainbow' bareword, or a
-    [Catzc.Base.Writers.RainbowColor] profile — the last three give a gradient rule. No colour by default
-    (renders as terminal default).
+    Colour for the output: a [System.ConsoleColor] (or its name), a 'rainbow' / '<base>-rainbow' bareword, or a...
+    [comment:2](/docs/references/automation/catzc-base-writers/Write-Header.ps1.md#comment2)
 .EXAMPLE
     Write-Header 'Deployment starting'
 .EXAMPLE

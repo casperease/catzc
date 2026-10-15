@@ -3,19 +3,8 @@
     Normalises a writer's -ForegroundColor argument into a colour plan — a plain ConsoleColor or a rainbow
     profile — shared by Write-Header and Write-Footer.
 .DESCRIPTION
-    A header/footer accepts either a [System.ConsoleColor] (or its string name, e.g. 'Cyan') or a
-    [Catzc.Base.Writers.RainbowColor] profile on -ForegroundColor. This resolves the argument once:
-
-      - unbound            -> no colour (render as terminal default)
-      - a RainbowColor     -> the gradient plan; its rule lines take the per-character walk, its text uses
-                              the base colour (the profile side-grades to Base)
-      - a ConsoleColor     -> a single colour for every line (the pre-rainbow behaviour)
-      - a rainbow string   -> 'rainbow' or '<base>-rainbow' (the RainbowColor.ToString form) parses to a
-                              gradient plan, so a bareword -ForegroundColor rainbow works with no cast
-      - any other string   -> parsed to a ConsoleColor (a bareword binds as a string against the [object]
-                              parameter, so 'Cyan' still works)
-
-    Returns a hashtable { HasColor; IsRainbow; Rainbow; Base }.
+    A header/footer accepts either a [System.ConsoleColor] (or its string name, e.g.
+    [comment:1](/docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md#comment1)
 .PARAMETER ForegroundColor
     The raw argument (a ConsoleColor, its string name, or a RainbowColor). Ignored when -Bound is not set.
 .PARAMETER Bound
@@ -36,8 +25,8 @@ function Resolve-WriterColor {
     if ($ForegroundColor -is [Catzc.Base.Writers.RainbowColor]) {
         return @{ HasColor = $true; IsRainbow = $true; Rainbow = $ForegroundColor; Base = $ForegroundColor.Base }
     }
-    # A 'rainbow' / '<base>-rainbow' bareword resolves to a gradient profile (the ToString round-trip); any
-    # other string falls through to the plain ConsoleColor cast below.
+    # A 'rainbow' / '<base>-rainbow' bareword resolves to a gradient profile (the ToString round-trip); any other...
+    # [comment:2](/docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md#comment2)
     if ($ForegroundColor -is [string]) {
         $found = [Catzc.Base.Writers.RainbowColor]::FromString($ForegroundColor)
         if ($found) {

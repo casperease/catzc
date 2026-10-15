@@ -4,9 +4,7 @@
     dictionaries, arrays, and scalar values.
 .DESCRIPTION
     Used by Write-Object to produce clean YAML output for nested objects.
-    Walks PSCustomObject, IDictionary, and IEnumerable types, converting
-    each level into ordered hashtables or arrays that ConvertTo-Yaml can
-    serialize without falling back to ToString().
+    [comment:1](/docs/references/automation/catzc-base-objects/ConvertTo-YamlSafe.ps1.md#comment1)
 #>
 function ConvertTo-YamlSafe {
     [CmdletBinding()]

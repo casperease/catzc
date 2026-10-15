@@ -152,6 +152,13 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.yml', $result.PageText) | Should -BeExactly $yaml
     }
 
+    It 'cuts a long annotated code line at a word, never inside one' -Tag 'ADR-REPO-COMMENTS#2' {
+        $long = '$widgets = Get-Gadget -Name widget -Filter gadget -Recurse -Depth 3 -ErrorAction Ignore -Force'
+        $source = "# A long widget note`n# on two lines.`n$long`n"
+        $blocks = [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($source, '.ps1', 'powershell', $config)
+        $blocks[0].NextCodeLine | Should -BeExactly '$widgets = Get-Gadget -Name widget -Filter gadget -Recurse -Depth 3...'
+    }
+
     It 'names the annotated code line in a code span that survives the backticks inside it' -Tag 'ADR-REPO-COMMENTS#2' {
         [Catzc.Base.QualityGates.CommentBlock]::CodeSpan('$widget = 1') | Should -BeExactly '`$widget = 1`'
         [Catzc.Base.QualityGates.CommentBlock]::CodeSpan('Get-Gadget "`"$name`""') | Should -BeExactly '``Get-Gadget "`"$name`""``'

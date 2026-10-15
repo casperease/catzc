@@ -2,8 +2,8 @@
 .SYNOPSIS
     Runs python with the given arguments.
 .DESCRIPTION
-    Asserts that the installed Python version matches the locked version
-    in Get-ToolConfig before executing the command.
+    Asserts that the installed Python version matches the locked version in Get-ToolConfig before executing the command.
+    [comment:1](/docs/references/automation/catzc-tooling-python/Invoke-Python.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to python.
 .PARAMETER PassThru

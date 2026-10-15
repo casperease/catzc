@@ -2,9 +2,8 @@
 .SYNOPSIS
     Runs pyspark with the given arguments.
 .DESCRIPTION
-    Asserts that the installed PySpark version matches the locked version
-    in Get-ToolConfig before executing the command. Also asserts Java
-    is available (DependsOn in tools.yml).
+    Asserts that the installed PySpark version matches the locked version in Get-ToolConfig before executing the...
+    [comment:1](/docs/references/automation/catzc-tooling-python/Invoke-PySpark.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to pyspark.
 .PARAMETER PassThru

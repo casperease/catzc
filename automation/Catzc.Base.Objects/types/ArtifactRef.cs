@@ -1,19 +1,6 @@
-// An immutable, dual-form descriptor for a published-artifact file — one build stage produces it and writes
-// it into an artifact folder; a later deploy stage (a different agent/machine) downloads that folder and
-// consumes it. The stable identity across the boundary is ARTIFACT-RELATIVE (e.g. 'main.json'), NOT
-// out/-anchored: ADO publishes out/template/<name> as artifact '<name>' and strips the out/template/ prefix,
-// so the producer's output root does not survive the rename. The anchor that DOES survive is the artifact
-// root itself (the producer's output_folder, the consumer's $(Pipeline.Workspace)/<name>). See
-// [ADR-AUTO-PATH#10](/docs/adr/automation/path-representation.md#rule-adr-auto-path10) and out/plan-consolidated-remnants.md (the
-// serialized-artifact plan).
-//
-// `relative` is the artifact-internal, forward-slash path (portable identity); `absolute` is resolved in the
-// producing context (audit/reference only — meaningless at the other end). The consumer re-resolves
-// `relative` against ITS OWN artifact root (ResolveAt) and verifies existence (ExistsAt) before binding —
-// the "check at the other end" lives on this type, not in every consumer.
-//
-// Materialize(rawPath, artifactRoot) is the controlled factory (converts once, produces both forms); the
-// (relative, absolute) constructor rehydrates an instance from deserialized manifest JSON.
+// An immutable, dual-form descriptor for a published-artifact file — one build stage produces it and writes it into an artifact folder;...
+// [ADR-AUTO-PATH#10](/docs/adr/automation/path-representation.md#rule-adr-auto-path10)
+// [comment:1](/docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md#comment1)
 
 using System;
 using System.IO;
@@ -42,9 +29,8 @@ public sealed class ArtifactRef
         this.absolute = absolute;
     }
 
-    // The controlled factory: take a raw path (absolute, or relative to the artifact root) and the artifact
-    // root, and materialize both forms. The file must live under the artifact root — anything else is a bug,
-    // so it throws rather than degrade.
+    // The controlled factory: take a raw path (absolute, or relative to the artifact root) and the artifact root, and materialize both...
+    // [comment:2](/docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md#comment2)
     public static ArtifactRef Materialize(string rawPath, string artifactRoot)
     {
         if (string.IsNullOrWhiteSpace(rawPath)) { throw new ArgumentException("rawPath is required"); }
@@ -61,8 +47,8 @@ public sealed class ArtifactRef
         return new ArtifactRef(fromRoot, full);
     }
 
-    // Re-resolve to an absolute path under the GIVEN (consumer's) artifact root. This is how the other end
-    // binds the artifact in its own downloaded location.
+    // Re-resolve to an absolute path under the GIVEN (consumer's) artifact root.
+    // [comment:3](/docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md#comment3)
     public string ResolveAt(string artifactRoot)
     {
         if (string.IsNullOrWhiteSpace(artifactRoot)) { throw new ArgumentException("artifactRoot is required"); }

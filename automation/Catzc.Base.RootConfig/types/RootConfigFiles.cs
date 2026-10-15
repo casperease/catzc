@@ -1,9 +1,6 @@
-// The root-config registry (configs/rootconfig.yml) and its validity rules: a required 'files' list of
-// managed root-file entries, each validated by RootConfigFile, with unique targets. Constructing an instance
-// validates the registry (collecting every malformed entry into one error) and exposes the parsed entries to
-// the generator (Build-RootConfig). Registered as the `rootconfig` config's type override in
-// Catzc.Base.Config/configs/configs.yml. See [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md) and
-// [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+// The root-config registry (configs/rootconfig.yml) and its validity rules: a required 'files' list of managed root-file entries, each...
+// [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md), [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
+// [comment:1](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md#comment1)
 
 using System;
 using System.Collections;

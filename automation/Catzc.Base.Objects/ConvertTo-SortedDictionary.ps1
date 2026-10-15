@@ -3,8 +3,7 @@
     Recursively converts dictionaries to ordered form for stable output.
 .DESCRIPTION
     OrderedDictionaries keep their original key order.
-    Plain Hashtables get their keys sorted alphabetically.
-    Nested dictionaries are processed recursively.
+    [comment:1](/docs/references/automation/catzc-base-objects/ConvertTo-SortedDictionary.ps1.md#comment1)
 .PARAMETER Dictionary
     The dictionary to process.
 #>

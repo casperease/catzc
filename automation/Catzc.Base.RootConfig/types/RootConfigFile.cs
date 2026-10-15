@@ -1,20 +1,6 @@
-// One managed root-file entry from configs/rootconfig.yml — a repository-root `target` fully managed by the
-// source-of-truth automation. Exactly one of `source` (an authored file copied out) or `generator` (a function
-// that renders the content, e.g. New-Importer) supplies the content. `optIn` (default false) activates the
-// entry; `committed` (default false) keeps the managed target tracked in git instead of gitignored (for files
-// git or the bootstrap reads before the importer runs). `comment` ('hash' or 'none', default 'none') picks the
-// generated-file header style and is meaningful only for `source` entries — a generator owns its whole output,
-// header included. `copyAsLink` (default false) materialises the target as a filesystem link to the source
-// instead of a generated copy: it requires `source`, requires committed false, and forbids a declared
-// `comment` (a link carries no generated content). A `target` holding a wildcard (`*`, `?`, `[`, e.g.
-// go/tests/*/go.mod) names a set of files and is allowed only on a `generator` entry: the generator returns one
-// { Target; Content } record per file, and each record's path must match the pattern. Paths are
-// repository-root-relative, '/'-separated communication-form values (see
-// [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)). Mirrors a rootconfig.yml files entry (snake_case
-// keys).
-//
-// Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
-// over its own properties and its constructor uses the base's extraction helpers.
+// One managed root-file entry from configs/rootconfig.yml — a repository-root `target` fully managed by the source-of-truth automation.
+// [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)
+// [comment:1](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -25,15 +11,15 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly char[] WildcardCharacters = { '*', '?', '[' };
 
-    // Repository-root-relative path of the managed file (e.g. ".editorconfig"), or a wildcard pattern over the
-    // files a generator renders (e.g. "go/tests/*/go.mod"). Required.
+    // Repository-root-relative path of the managed file (e.g.
+    // [comment:2](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment2)
     public string target { get; }
 
     // Authored source file copied out to the target (repo-relative). Exactly one of source/generator.
     public string source { get; }
 
-    // Name of the function that renders the target's full content (e.g. "New-Importer"). Exactly one of
-    // source/generator.
+    // Name of the function that renders the target's full content (e.g.
+    // [comment:3](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment3)
     public string generator { get; }
 
     // Generated-file header style for source copy-ins: "hash" (# ... block) or "none". Default "none".
@@ -42,12 +28,12 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
     // Is this file managed at all? Opt-out is the default: false leaves the target hand-authored and committed.
     public bool optIn { get; }
 
-    // Keep the managed target tracked in git (true) instead of gitignored (false, the default). For files
-    // needed before the importer runs (importer.ps1, the git files).
+    // Keep the managed target tracked in git (true) instead of gitignored (false, the default).
+    // [comment:4](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment4)
     public bool committed { get; }
 
     // Materialise the target as a filesystem link to the source (Set-FileLink) instead of a generated copy.
-    // Requires source, requires committed false, forbids a declared comment.
+    // [comment:5](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment5)
     public bool copyAsLink { get; }
 
     public RootConfigFile(IDictionary d)

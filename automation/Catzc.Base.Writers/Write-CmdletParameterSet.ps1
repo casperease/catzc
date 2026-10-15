@@ -2,9 +2,8 @@
 .SYNOPSIS
     Writes all bound parameters of the calling function to the console.
 .DESCRIPTION
-    Pass $MyInvocation as the first argument at the top of a function to display
-    all parameters that were actually bound. Sensitive parameters can be masked
-    by listing their names in -HiddenKeys.
+    Pass $MyInvocation as the first argument at the top of a function to display all parameters that were actually...
+    [comment:1](/docs/references/automation/catzc-base-writers/Write-CmdletParameterSet.ps1.md#comment1)
 .PARAMETER Invocation
     The $MyInvocation from the calling function.
 .PARAMETER HiddenKeys

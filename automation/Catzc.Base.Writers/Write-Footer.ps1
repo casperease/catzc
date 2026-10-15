@@ -3,22 +3,14 @@
     Writes a closing footer line in a chosen style.
 .DESCRIPTION
     Pairs with Write-Header to visually close a section.
-    Renders a single closing line matching the header style:
-      Curved:  ╰──────────────╯
-      Stars:   ****************
-      Heavy:   ╚══════════════╝
-
-    -ForegroundColor takes either a [System.ConsoleColor] (or its string name), a 'rainbow' / '<base>-rainbow'
-    bareword, or a [Catzc.Base.Writers.RainbowColor] profile — the last three render the closing rule as a
-    per-character gradient.
+    [comment:1](/docs/references/automation/catzc-base-writers/Write-Footer.ps1.md#comment1)
 .PARAMETER Style
     Visual style: Curved, Stars, or Heavy. Defaults to Curved.
 .PARAMETER Width
     Total width of the line. Defaults to 78.
 .PARAMETER ForegroundColor
-    Colour for the output: a [System.ConsoleColor] (or its name), a 'rainbow' / '<base>-rainbow' bareword, or a
-    [Catzc.Base.Writers.RainbowColor] profile — the last three give a gradient rule. No colour by default
-    (renders as terminal default).
+    Colour for the output: a [System.ConsoleColor] (or its name), a 'rainbow' / '<base>-rainbow' bareword, or a...
+    [comment:2](/docs/references/automation/catzc-base-writers/Write-Footer.ps1.md#comment2)
 .EXAMPLE
     Write-Header 'Deploying'
     Deploy-App

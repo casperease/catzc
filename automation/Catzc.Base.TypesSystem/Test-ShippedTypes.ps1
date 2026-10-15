@@ -2,13 +2,9 @@
 .SYNOPSIS
     Quality gate: every shipped C# type resolves in the session as <module>.<basename>.
 .DESCRIPTION
-    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the shipped
-    C# types: each <module>/types/<Name>.cs under the loaded code root (Get-CatzcModulesRoot — the source tree or a built
-    package) declares the type <module>.<Name>, so after import that full name must resolve. A file that compiles to a
-    differently named type, or a module whose types never loaded, is an issue. So is a concrete class that still
-    renders as its full name in pwsh ("$x", [string]$x): it must override ToString(), normally by delegating to
-    Catzc.Base.Objects.ConsoleText (Test-ConsoleReadyType). The formatting of the files (file-scoped namespaces) is
-    Test-Formatting's.
+    A quality gate over the shipped C# types: each <module>/types/<Name>.cs under the loaded code root...
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [comment:1](/docs/references/automation/catzc-base-typessystem/Test-ShippedTypes.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-shipped-types/ (Write-QualityGateReport).
 .PARAMETER PassThru

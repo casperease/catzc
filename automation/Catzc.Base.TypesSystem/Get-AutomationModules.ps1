@@ -2,22 +2,12 @@
 .SYNOPSIS
     Returns the names of all automation modules (the non-dot directories under the loaded code root).
 .DESCRIPTION
-    Enumerates the code root (Get-CatzcModulesRoot) and returns each module folder name — the same set
-    Import-AllModules discovers and imports. The code root is <RepositoryRoot>/automation in source mode and the
-    built package in build mode
-    ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)); both hold one folder per module under the same name, so the
-    list describes the loaded modules in either mode. A non-dot directory is a module; dot-prefixed folders (.internal, .vendor,
-    .scriptanalyzer, .compiled) are infrastructure and are excluded (see conventional-folders).
-
-    This is the platform's single source of the automation-module name list: the module- and
-    function-dependency analysis validates its declarations against it, the cross-module C# type scan maps
-    references against it, and the `-Modules` ArgumentCompleter / ValidateScript on Test-Automation derive
-    their values from it — so the list is always the filesystem, never hand-maintained.
-
-    Names are returned sorted ordinally (culture-independent — see cross-platform).
+    Enumerates the code root (Get-CatzcModulesRoot) and returns each module folder name — the same set...
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
+    [comment:1](/docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md#comment1)
 .PARAMETER AutomationRoot
-    Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot); pass a
-    fixture tree to isolate a logic test from the real module set.
+    Path to the automation directory.
+    [comment:2](/docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md#comment2)
 .EXAMPLE
     Get-AutomationModules
 .EXAMPLE
@@ -31,10 +21,9 @@ function Get-AutomationModules {
 
     Assert-PathExist $AutomationRoot -PathType Container
 
-    # [System.IO] (sorted ordinally) instead of Get-ChildItem -Directory — the cmdlet carries ~20ms of
-    # per-call provider overhead the raw .NET enumeration avoids
-    # ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)); the ordinal sort is
-    # culture-independent (cross-platform).
+    # [System.IO] (sorted ordinally) instead of Get-ChildItem -Directory — the cmdlet carries ~20ms of per-call...
+    # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
+    # [comment:3](/docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md#comment3)
     $names = [System.Collections.Generic.List[string]]::new()
     foreach ($dir in [System.IO.Directory]::EnumerateDirectories($AutomationRoot)) {
         $name = [System.IO.Path]::GetFileName($dir)

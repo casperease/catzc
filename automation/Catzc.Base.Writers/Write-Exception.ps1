@@ -3,7 +3,7 @@
     Displays exception details for use in catch blocks.
 .DESCRIPTION
     Prints exception type, message, script stack trace, and any inner exceptions.
-    Falls back to $global:Error if no ErrorRecord is provided.
+    [comment:1](/docs/references/automation/catzc-base-writers/Write-Exception.ps1.md#comment1)
 .PARAMETER ErrorRecord
     The ErrorRecord to display. If omitted, uses $global:Error.
 .PARAMETER GlobalErrorIndex

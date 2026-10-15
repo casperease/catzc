@@ -2,10 +2,8 @@
 .SYNOPSIS
     Recursively flattens a nested object into dot-notation key/value pairs.
 .DESCRIPTION
-    Walks PSCustomObject, IDictionary, and array structures, building
-    dot-separated paths for each leaf value and adding them to the
-    supplied OrderedDictionary.  Arrays use [index] notation.
-    Used internally by ConvertTo-FlatSettingSet.
+    Walks PSCustomObject, IDictionary, and array structures, building dot-separated paths for each leaf value and...
+    [comment:1](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment1)
 #>
 function Expand-ObjectProperties {
     [CmdletBinding()]
@@ -35,11 +33,8 @@ function Expand-ObjectProperties {
         return
     }
 
-    # IDictionary and array are checked before PSCustomObject: a top-level value arrives here wrapped in a
-    # PSObject (ConvertTo-FlatSettingSet binds [PSObject[]]), and a PSObject-wrapped dictionary matches
-    # -is [PSCustomObject]. Routing it there would reflect the dictionary's own CLR members (Count, Keys,
-    # SyncRoot, ...) instead of its entries. Matching the more specific shapes first keeps a dictionary a
-    # dictionary and an array an array, wrapped or not.
+    # IDictionary and array are checked before PSCustomObject: a top-level value arrives here wrapped in a PSObject...
+    # [comment:2](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment2)
     if ($Value -is [System.Collections.IDictionary]) {
         foreach ($key in $Value.Keys) {
             $path = if ($Prefix) {
@@ -81,9 +76,8 @@ function Expand-ObjectProperties {
         return
     }
 
-    # Complex CLR object (e.g. a typed/validated config model): reflect over its public
-    # members so a typed config subtree flattens the same way a dictionary or PSCustomObject
-    # does. Strings and value types (numbers, bool, DateTime, Guid, enums) fall through to leaf.
+    # Complex CLR object (e.g.
+    # [comment:3](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment3)
     if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and $Value -isnot [System.Collections.IEnumerable]) {
         $properties = @($Value.PSObject.Properties | Where-Object { $_.MemberType -in @('Property', 'NoteProperty') })
         if ($properties) {

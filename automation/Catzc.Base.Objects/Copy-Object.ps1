@@ -2,14 +2,8 @@
 .SYNOPSIS
     Deep clones a PowerShell object.
 .DESCRIPTION
-    Recursively copies hashtables, ordered dictionaries, PSCustomObjects,
-    arrays, and lists. Value types and strings are returned as-is (immutable
-    or copied by value). Unknown reference types are returned by reference.
-
-    PSCustomObject cloning only copies NoteProperties. Use -AcceptWarnings
-    to suppress the warning about this limitation.
-
-    Does not use BinaryFormatter or any serialization-based approach.
+    Recursively copies hashtables, ordered dictionaries, PSCustomObjects, arrays, and lists.
+    [comment:1](/docs/references/automation/catzc-base-objects/Copy-Object.ps1.md#comment1)
 .PARAMETER InputObject
     The object to deep clone.
 .PARAMETER AcceptWarnings

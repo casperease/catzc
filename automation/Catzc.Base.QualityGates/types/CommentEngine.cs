@@ -466,7 +466,11 @@ public static class CommentEngine
                 {
                     continue;
                 }
-                return trimmed.Length > ContextLength ? trimmed.Substring(0, ContextLength - Ellipsis.Length).TrimEnd() + Ellipsis : trimmed;
+                if (trimmed.Length <= ContextLength) { return trimmed; }
+                // Cut at the last space that fits, so no word is broken (a half word reads as a misspelling).
+                int cut = trimmed.LastIndexOf(' ', ContextLength - Ellipsis.Length);
+                if (cut <= 0) { cut = ContextLength - Ellipsis.Length; }
+                return trimmed.Substring(0, cut).TrimEnd() + Ellipsis;
             }
             return null;
         }

@@ -1,12 +1,5 @@
-# Prettier configuration — the markdown formatter for this repo (esbenp.prettier-vscode is the
-# [markdown] formatter in .vscode/settings.json; Format-Code runs the same engine).
-#
-# proseWrap: always makes the formatter OWN line length — it wraps prose at printWidth so Markdown
-# satisfies markdownlint MD013 (line-length 140). printWidth is pinned to 140 to match
-# .markdownlint.yml MD013 and .editorconfig [*.md] max_line_length. Keep these three in sync.
-#
-# .yml (not .yaml) per pipeline-naming [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6) — config
-# data our tooling reads, not an executable
-# ADO pipeline. Prettier auto-discovers .prettierrc.yml.
+# Prettier configuration — the markdown formatter for this repo (esbenp.prettier-vscode is the [markdown] formatter...
+# [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)
+# [comment:1](/docs/references/automation/catzc-base-rootconfig/assets/root/.prettierrc.yml.md#comment1)
 printWidth: 140
 proseWrap: always
