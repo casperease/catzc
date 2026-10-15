@@ -2,7 +2,8 @@
 
 `automation/Catzc.Base.VSCode/configs/vscode-extensions.yml`
 
-<!-- cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp tomoki redhat Anson Levett iliazeus gopls -->
+<!-- cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp -->
+<!-- cspell:ignore tomoki redhat Anson Levett iliazeus gopls -->
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.
