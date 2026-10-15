@@ -113,6 +113,7 @@ groups:
         Catzc.Base.Reports,
         Catzc.Base.RootConfig,
         Catzc.Base.Languages,
+        Catzc.Base.MarkdownMeta,
       ]
     Catzc.Base.Exporter:
       [

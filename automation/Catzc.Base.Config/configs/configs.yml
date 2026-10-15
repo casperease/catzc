@@ -11,6 +11,8 @@ configs:
     type: Catzc.Base.QualityGates.LinksConfig
   comments:
     type: Catzc.Base.QualityGates.CommentsConfig
+  markdown-meta:
+    type: Catzc.Base.QualityGates.MarkdownMetaConfig
   test-policy:
     type: Catzc.Base.QualityGates.TestPolicyConfig
   parameter-consistency:

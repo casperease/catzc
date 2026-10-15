@@ -1,0 +1,26 @@
+# The meta-kind registry: each entry is one kind of derived fact imprinted into a Markdown file's meta block.
+# Every key of an entry is optional; the defaults are declared once on MarkdownMetaKind.
+# [ADR-REPO-MDMETA#2](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta2),
+# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+kinds:
+  # The class of the file, the first class whose globs match its path, or other.
+  document-kind:
+    keys: [kind]
+    settings:
+      classes:
+        - { class: agent, files: [".claude/agents/**"] }
+        - { class: skill, files: [".claude/skills/**"] }
+        - { class: adr, files: ["docs/adr/**"] }
+        - { class: reference, files: ["docs/references/**"] }
+        - { class: how-to, files: ["docs/how-to/**"] }
+        - { class: explanation, files: ["docs/explanation/**"] }
+        - { class: asset-description, files: ["docs/.assets/**"] }
+        - { class: readme, files: ["**/README.md"] }
+
+  # The hash of the body below the front matter, so it changes exactly when the file does.
+  body-sha:
+    keys: [body_sha]
+
+  # The ADR codes the body cites, sorted and without duplicates.
+  adr-codes:
+    keys: [adrs]
