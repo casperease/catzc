@@ -5,9 +5,7 @@ catzc:
     kind: adr
     body_sha: "6c7182f0738c"
     defines:
-      - ADR-PRIN-REDUCEVAR#1
-      - ADR-PRIN-REDUCEVAR#2
-      - ADR-PRIN-REDUCEVAR#3
+      - ADR-PRIN-REDUCEVAR#{1-3}
 ---
 
 # Principle: Reduce variability

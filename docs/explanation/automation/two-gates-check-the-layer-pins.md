@@ -5,12 +5,7 @@ catzc:
     kind: explanation
     body_sha: "969c7f84aaa7"
     adrs:
-      - ADR-AUTO-DEPM#1
-      - ADR-AUTO-DEPM#2
-      - ADR-AUTO-DEPM#3
-      - ADR-AUTO-DEPM#4
-      - ADR-AUTO-DEPM#5
-      - ADR-AUTO-DEPM#6
+      - ADR-AUTO-DEPM#{1-6}
       - ADR-AUTO-TEST#35
     links:
       - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md

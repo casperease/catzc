@@ -5,13 +5,7 @@ catzc:
     kind: adr
     body_sha: "5dccdb8ff1e9"
     defines:
-      - ADR-PIPE-NAME#1
-      - ADR-PIPE-NAME#2
-      - ADR-PIPE-NAME#3
-      - ADR-PIPE-NAME#4
-      - ADR-PIPE-NAME#5
-      - ADR-PIPE-NAME#6
-      - ADR-PIPE-NAME#7
+      - ADR-PIPE-NAME#{1-7}
     adrs:
       - ADR-AUTO-TEST#35
     links:

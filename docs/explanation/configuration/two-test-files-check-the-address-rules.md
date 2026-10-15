@@ -6,11 +6,7 @@ catzc:
     body_sha: "054d69e70ec2"
     adrs:
       - ADR-AUTO-ENVVAR#7
-      - ADR-CONF-ADDRESSING#1
-      - ADR-CONF-ADDRESSING#2
-      - ADR-CONF-ADDRESSING#3
-      - ADR-CONF-ADDRESSING#4
-      - ADR-CONF-ADDRESSING#5
+      - ADR-CONF-ADDRESSING#*
     links:
       - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
       - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png

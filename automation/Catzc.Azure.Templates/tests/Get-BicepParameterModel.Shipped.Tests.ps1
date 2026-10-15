@@ -7,11 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md
     adrs:
-      - ADR-AUTO-TEST#17
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#37
-      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#{8,17,19,26,37}
       - ADR-AZ-DATAMOD#9
       - ADR-PWSH-PESTER#2
 ---

@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: db59804939f1
     adrs:
-      - ADR-FLOW-CD-RUNNER#1
-      - ADR-FLOW-CD-RUNNER#2
-      - ADR-FLOW-CD-RUNNER#3
+      - ADR-FLOW-CD-RUNNER#{1-3}
     links:
       - docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md
       - docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png

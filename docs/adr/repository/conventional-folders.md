@@ -5,20 +5,9 @@ catzc:
     kind: adr
     body_sha: "4830a266e06c"
     defines:
-      - ADR-REPO-FOLDERS#1
-      - ADR-REPO-FOLDERS#2
-      - ADR-REPO-FOLDERS#3
-      - ADR-REPO-FOLDERS#4
-      - ADR-REPO-FOLDERS#5
-      - ADR-REPO-FOLDERS#6
-      - ADR-REPO-FOLDERS#7
-      - ADR-REPO-FOLDERS#8
-      - ADR-REPO-FOLDERS#9
-      - ADR-REPO-FOLDERS#10
-      - ADR-REPO-FOLDERS#11
+      - ADR-REPO-FOLDERS#{1-11}
     adrs:
-      - ADR-REPO-CONTRACT#10
-      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#{2,10}
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/bash/bash-test-artifacts.md

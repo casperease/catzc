@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: ebf496b9bb58
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.chain.md
       - docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png

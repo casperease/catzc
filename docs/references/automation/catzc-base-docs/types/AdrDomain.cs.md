@@ -6,8 +6,7 @@ catzc:
     body_sha: "0a0e9b77f768"
     adrs:
       - ADR-AUTO-TYPES#9
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#{14,15}
 ---
 
 # automation/Catzc.Base.Docs/types/AdrDomain.cs

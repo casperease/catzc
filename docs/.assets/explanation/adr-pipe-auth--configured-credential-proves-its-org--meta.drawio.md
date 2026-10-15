@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: "136cc22ac14c"
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.chain.md
       - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png

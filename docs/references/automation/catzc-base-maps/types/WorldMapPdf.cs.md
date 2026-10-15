@@ -5,9 +5,7 @@ catzc:
     kind: comment-page
     body_sha: d6159c1acf1b
     adrs:
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#7
-      - ADR-DSGN-TRACK#8
+      - ADR-DSGN-TRACK#{3,7,8}
 ---
 
 # automation/Catzc.Base.Maps/types/WorldMapPdf.cs

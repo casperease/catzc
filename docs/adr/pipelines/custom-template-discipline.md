@@ -5,13 +5,7 @@ catzc:
     kind: adr
     body_sha: "215f3b3c5d76"
     defines:
-      - ADR-PIPE-TEMPLATE#1
-      - ADR-PIPE-TEMPLATE#2
-      - ADR-PIPE-TEMPLATE#3
-      - ADR-PIPE-TEMPLATE#4
-      - ADR-PIPE-TEMPLATE#5
-      - ADR-PIPE-TEMPLATE#6
-      - ADR-PIPE-TEMPLATE#7
+      - ADR-PIPE-TEMPLATE#{1-7}
     links:
       - docs/adr/flow/pipeline-runner-pattern.md
       - docs/adr/principles/everything-as-code.md

@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "6e7af59d401e"
     adrs:
-      - ADR-PIPE-AUTH#1
-      - ADR-PIPE-AUTH#2
-      - ADR-PIPE-AUTH#5
+      - ADR-PIPE-AUTH#{1,2,5}
     links:
       - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md
       - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png

@@ -5,12 +5,8 @@ catzc:
     kind: explanation
     body_sha: "53dfed796091"
     adrs:
-      - ADR-AZ-CLI#1
-      - ADR-AZ-CLI#2
-      - ADR-AZ-CLI#3
-      - ADR-DSGN-THINPLAT#1
-      - ADR-DSGN-THINPLAT#2
-      - ADR-DSGN-THINPLAT#3
+      - ADR-AZ-CLI#{1-3}
+      - ADR-DSGN-THINPLAT#{1-3}
     links:
       - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
       - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png

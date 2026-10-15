@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: "64e2072921aa"
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.md
       - docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png

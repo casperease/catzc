@@ -9,10 +9,8 @@ catzc:
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Get-FormatScope.Tests.ps1
     adrs:
-      - ADR-PRIN-CONFIG#1
-      - ADR-PRIN-CONFIG#4
-      - ADR-REPO-CONTRACT#5
-      - ADR-REPO-CONTRACT#6
+      - ADR-PRIN-CONFIG#{1,4}
+      - ADR-REPO-CONTRACT#{5,6}
   config:
     synopsis: |-
       The files Format-Code formats: the repository's tracked files, or the given paths, minus vendored code and contract

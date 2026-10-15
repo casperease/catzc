@@ -15,8 +15,7 @@ catzc:
       - ADR-AUTO-PY#2
       - ADR-DSGN-ASPECT
       - ADR-DSGN-RUNMODE
-      - ADR-FLOW-CD-GLOBS#10
-      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-PROTGLOB
       - ADR-REPO-PROTGLOB#7
   config:

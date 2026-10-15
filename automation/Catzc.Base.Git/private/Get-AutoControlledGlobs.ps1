@@ -11,8 +11,7 @@ catzc:
       test: automation/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
     adrs:
       - ADR-CONF-LOADING#6
-      - ADR-REPO-OUTDIR#10
-      - ADR-REPO-OUTDIR#8
+      - ADR-REPO-OUTDIR#{8,10}
   config:
     synopsis: Computes, in memory, the whitelist of paths the automation itself generates and owns.
     description: |-

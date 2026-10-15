@@ -12,7 +12,9 @@ catzc:
       - ADR-REPO-FILEMETA#3
   config:
     synopsis: 'The adr-defines meta kind''s fact: the rules an ADR defines itself, spelled as citations.'
-    description: The rules come from the file's own rule headings, so the list is what the file declares and not what it cites.
+    description: |-
+      The rules come from the file's own rule headings, so the list is what the file declares and not what it cites. They are written in
+      the minimal form, `ADR-<CODE>#{1,3-5}` (Catzc.Base.Docs.AdrCodeForm), without globs.
     parameters:
       State: What Get-MarkdownMetaState read from the file.
       Path: The file's repository-relative path.
@@ -36,5 +38,6 @@ function Get-AdrDefinesFileMetaFact {
         [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
-    [ordered]@{ $Kind.keys[0] = [string[]] @(Get-AdrDefinedRule -Text $State.Body) }
+    # No registry: the file is the one place its own rules are declared, so a glob over the registry would say nothing the headings do not.
+    [ordered]@{ $Kind.keys[0] = [string[]] @([Catzc.Base.Docs.AdrCodeForm]::Minimize([string[]] @(Get-AdrDefinedRule -Text $State.Body))) }
 }

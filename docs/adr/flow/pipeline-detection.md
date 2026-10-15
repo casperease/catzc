@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "0934c24a5d75"
     defines:
-      - ADR-FLOW-CD-DETECT#1
-      - ADR-FLOW-CD-DETECT#2
-      - ADR-FLOW-CD-DETECT#3
-      - ADR-FLOW-CD-DETECT#4
-      - ADR-FLOW-CD-DETECT#5
+      - ADR-FLOW-CD-DETECT#{1-5}
     links:
       - docs/adr/pipelines/dual-authentication.md
       - docs/adr/pipelines/pipeline-variables.md

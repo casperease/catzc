@@ -5,19 +5,10 @@ catzc:
     kind: adr
     body_sha: "215b77f1e4d2"
     defines:
-      - ADR-PWSH-PWD#1
-      - ADR-PWSH-PWD#2
-      - ADR-PWSH-PWD#3
-      - ADR-PWSH-PWD#4
-      - ADR-PWSH-PWD#5
-      - ADR-PWSH-PWD#6
-      - ADR-PWSH-PWD#7
+      - ADR-PWSH-PWD#{1-7}
     adrs:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-ASSETDEP#2
-      - ADR-AUTO-NOPWD#1
-      - ADR-AUTO-NOPWD#4
-      - ADR-AUTO-NOPWD#6
+      - ADR-AUTO-ASSETDEP#{1,2}
+      - ADR-AUTO-NOPWD#*
     links:
       - docs/adr/automation/environment-variables.md
       - docs/adr/automation/internal-asset-dependencies.md

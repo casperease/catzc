@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: be83854e0e86
     adrs:
-      - ADR-AUTO-DEPM#2
-      - ADR-AUTO-DEPM#3
-      - ADR-AUTO-DEPM#4
+      - ADR-AUTO-DEPM#{2-4}
     links:
       - docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
       - docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png

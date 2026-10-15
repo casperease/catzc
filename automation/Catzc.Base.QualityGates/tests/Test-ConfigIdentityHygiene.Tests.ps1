@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/tests/Test-ConfigIdentityHygiene.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
       - ADR-REPO-LANG
 ---
 #>

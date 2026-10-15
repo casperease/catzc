@@ -8,15 +8,10 @@ catzc:
       page: docs/references/automation/catzc-base-contracts/tests/Get-Contract.Tests.ps1.md
       source: automation/Catzc.Base.Contracts/Get-Contract.ps1
     adrs:
-      - ADR-AUTO-DEFAULT#1
-      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-DEFAULT#{1,6}
       - ADR-AUTO-PATH#2
       - ADR-REPO-CONTRACT
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#5
-      - ADR-REPO-CONTRACT#6
-      - ADR-REPO-CONTRACT#7
-      - ADR-REPO-CONTRACT#8
+      - ADR-REPO-CONTRACT#{2,5-8}
 ---
 #>
 

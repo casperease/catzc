@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: bbaf0b40bf29
     adrs:
-      - ADR-FLOW-CD-GLOBS#10
-      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-LINK#5
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.md

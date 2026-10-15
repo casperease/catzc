@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: e4018128b6cc
     adrs:
-      - ADR-REPO-OUTDIR#10
-      - ADR-REPO-OUTDIR#8
+      - ADR-REPO-OUTDIR#{8,10}
 ---
 
 # automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1

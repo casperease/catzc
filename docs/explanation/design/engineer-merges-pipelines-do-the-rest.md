@@ -6,8 +6,7 @@ catzc:
     body_sha: d4592a9826a0
     adrs:
       - ADR-AUTO-PARITY#2
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#8
+      - ADR-DSGN-LIFE#{1,8}
       - ADR-FLOW-CD#8
     links:
       - docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.md

@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: a9f5e8f8eb54
     adrs:
-      - ADR-AUTO-DEPM#1
-      - ADR-AUTO-DEPM#3
-      - ADR-AUTO-DEPM#4
+      - ADR-AUTO-DEPM#{1,3,4}
     links:
       - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.md
       - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png

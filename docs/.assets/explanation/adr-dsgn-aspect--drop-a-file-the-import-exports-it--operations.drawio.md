@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: "1aa9128178d2"
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.chain.md
       - docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png

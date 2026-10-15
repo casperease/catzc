@@ -8,9 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
       source: automation/Catzc.Base.Languages/Get-FileLanguage.ps1
     adrs:
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#6
+      - ADR-DSGN-TRACK#{1,3,6}
 ---
 #>
 

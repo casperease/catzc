@@ -5,22 +5,10 @@ catzc:
     kind: adr
     body_sha: ff679b35f782
     defines:
-      - ADR-AZ-CAFGOV#1
-      - ADR-AZ-CAFGOV#2
-      - ADR-AZ-CAFGOV#3
-      - ADR-AZ-CAFGOV#4
-      - ADR-AZ-CAFGOV#5
-      - ADR-AZ-CAFGOV#6
-      - ADR-AZ-CAFGOV#7
-      - ADR-AZ-CAFGOV#8
-      - ADR-AZ-CAFGOV#9
-      - ADR-AZ-CAFGOV#10
+      - ADR-AZ-CAFGOV#{1-10}
     adrs:
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
+      - ADR-AZ-DATAMOD#{9,11}
+      - ADR-AZ-LZ#{1,3,4}
       - ADR-AZ-WAFCO#3
     links:
       - docs/adr/automation/managed-guids.md

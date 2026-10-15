@@ -10,8 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md
       test: automation/Catzc.Base.Execution/tests/Wait-Mutex.Tests.ps1
     adrs:
-      - ADR-AUTO-CONSOLE#10
-      - ADR-AUTO-CONSOLE#8
+      - ADR-AUTO-CONSOLE#{8,10}
       - ADR-PWSH-ANNOUNCE#1
   config:
     synopsis: Awaits a mutex reliably, announcing itself only when the wait is actually noticeable.

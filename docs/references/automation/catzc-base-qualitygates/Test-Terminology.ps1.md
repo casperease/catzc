@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: cd1bd54bdc93
     adrs:
-      - ADR-AUTO-SPELL#5
-      - ADR-AUTO-SPELL#8
+      - ADR-AUTO-SPELL#{5,8}
 ---
 
 # automation/Catzc.Base.QualityGates/Test-Terminology.ps1

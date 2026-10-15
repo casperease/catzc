@@ -8,10 +8,8 @@ catzc:
       page: docs/references/automation/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md
       source: automation/Catzc.Azure/types/NetworkConfig.cs
     adrs:
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TEST#3
-      - ADR-AZ-NETWORK#5
-      - ADR-AZ-NETWORK#6
+      - ADR-AUTO-TEST#{1,3}
+      - ADR-AZ-NETWORK#{5,6}
 ---
 #>
 

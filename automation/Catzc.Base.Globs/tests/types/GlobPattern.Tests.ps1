@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md
       source: automation/Catzc.Base.Globs/types/GlobPattern.cs
     adrs:
-      - ADR-FLOW-CD-GLOBS#2
-      - ADR-FLOW-CD-GLOBS#3
+      - ADR-FLOW-CD-GLOBS#{2,3}
 ---
 #>
 

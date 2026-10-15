@@ -7,8 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-CACHE#6
       - ADR-PWSH-CACHE#1
-      - ADR-REPO-VARIANT#1
-      - ADR-REPO-VARIANT#2
+      - ADR-REPO-VARIANT#{1,2}
     links:
       - docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md
       - docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png

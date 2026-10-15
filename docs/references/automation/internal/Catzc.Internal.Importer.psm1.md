@@ -7,8 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-DSGN-RUNMODE#5
-      - ADR-PWSH-ANNOUNCE#6
-      - ADR-PWSH-ANNOUNCE#9
+      - ADR-PWSH-ANNOUNCE#{6,9}
 ---
 
 # automation/.internal/Catzc.Internal.Importer.psm1

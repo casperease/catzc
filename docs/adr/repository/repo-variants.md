@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: aacdd93c1006
     defines:
-      - ADR-REPO-VARIANT#1
-      - ADR-REPO-VARIANT#2
-      - ADR-REPO-VARIANT#3
-      - ADR-REPO-VARIANT#4
-      - ADR-REPO-VARIANT#5
-      - ADR-REPO-VARIANT#6
+      - ADR-REPO-VARIANT#{1-6}
     adrs:
       - ADR-AUTO-CACHE#6
       - ADR-CONF-LOADING#1

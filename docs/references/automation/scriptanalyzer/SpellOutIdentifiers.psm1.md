@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: c0dfe28e1797
     adrs:
-      - ADR-AUTO-SPELL#4
-      - ADR-AUTO-SPELL#6
+      - ADR-AUTO-SPELL#{4,6}
       - ADR-PWSH-FORMAT#6
 ---
 

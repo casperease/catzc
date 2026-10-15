@@ -5,17 +5,10 @@ catzc:
     kind: adr
     body_sha: d790814a2975
     defines:
-      - ADR-THES-ONETRUTH#1
-      - ADR-THES-ONETRUTH#2
-      - ADR-THES-ONETRUTH#3
-      - ADR-THES-ONETRUTH#4
-      - ADR-THES-ONETRUTH#5
-      - ADR-THES-ONETRUTH#6
+      - ADR-THES-ONETRUTH#{1-6}
     adrs:
       - ADR-FLOW-CD#14
-      - ADR-PRIN-EAC#1
-      - ADR-PRIN-EAC#2
-      - ADR-PRIN-EAC#3
+      - ADR-PRIN-EAC#*
     links:
       - docs/adr/automation/platform-bundle.md
       - docs/adr/design/tracks.md

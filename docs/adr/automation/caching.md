@@ -5,19 +5,10 @@ catzc:
     kind: adr
     body_sha: a9b615c0027f
     defines:
-      - ADR-AUTO-CACHE#1
-      - ADR-AUTO-CACHE#2
-      - ADR-AUTO-CACHE#4
-      - ADR-AUTO-CACHE#5
-      - ADR-AUTO-CACHE#6
-      - ADR-AUTO-CACHE#7
-      - ADR-AUTO-CACHE#8
-      - ADR-AUTO-CACHE#9
-      - ADR-AUTO-CACHE#10
+      - ADR-AUTO-CACHE#{1,2,4-10}
     adrs:
       - ADR-AUTO-TEST#10
-      - ADR-PWSH-CACHE#1
-      - ADR-PWSH-CACHE#5
+      - ADR-PWSH-CACHE#{1,5}
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/effective-in-enterprises.md

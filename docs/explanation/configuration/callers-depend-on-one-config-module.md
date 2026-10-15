@@ -5,11 +5,7 @@ catzc:
     kind: explanation
     body_sha: "68a60ba45051"
     adrs:
-      - ADR-CONF-LOADING#1
-      - ADR-CONF-LOADING#2
-      - ADR-CONF-LOADING#3
-      - ADR-CONF-LOADING#4
-      - ADR-CONF-LOADING#6
+      - ADR-CONF-LOADING#{1-4,6}
     links:
       - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md
       - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png

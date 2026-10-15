@@ -5,15 +5,7 @@ catzc:
     kind: explanation
     body_sha: b0cbf15d555a
     adrs:
-      - ADR-AUTO-PATH#1
-      - ADR-AUTO-PATH#10
-      - ADR-AUTO-PATH#11
-      - ADR-AUTO-PATH#2
-      - ADR-AUTO-PATH#3
-      - ADR-AUTO-PATH#4
-      - ADR-AUTO-PATH#6
-      - ADR-AUTO-PATH#7
-      - ADR-AUTO-PATH#9
+      - ADR-AUTO-PATH#{1-4,6,7,9-11}
     links:
       - docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md
       - docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png

@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "8ebc8a912f72"
     adrs:
-      - ADR-REPO-ROOTCFG#2
-      - ADR-REPO-ROOTCFG#4
-      - ADR-REPO-ROOTCFG#7
+      - ADR-REPO-ROOTCFG#{2,4,7}
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.md
       - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png

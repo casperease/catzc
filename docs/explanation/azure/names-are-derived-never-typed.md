@@ -5,11 +5,7 @@ catzc:
     kind: explanation
     body_sha: "0665f1c4e736"
     adrs:
-      - ADR-AZ-NAMING#1
-      - ADR-AZ-NAMING#5
-      - ADR-AZ-NAMING#6
-      - ADR-AZ-NAMING#7
-      - ADR-AZ-NAMING#8
+      - ADR-AZ-NAMING#{1,5-8}
     links:
       - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md
       - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.png

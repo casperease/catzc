@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
-      - ADR-PWSH-PESTER#3
-      - ADR-PWSH-PESTER#4
+      - ADR-PWSH-PESTER#{3,4}
 ---
 #>
 

@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: f9bb86787adb
     defines:
-      - ADR-DORA-USERFOCUS#1
-      - ADR-DORA-USERFOCUS#2
-      - ADR-DORA-USERFOCUS#3
-      - ADR-DORA-USERFOCUS#4
-      - ADR-DORA-USERFOCUS#5
+      - ADR-DORA-USERFOCUS#{1-5}
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/automation/sensible-defaults.md

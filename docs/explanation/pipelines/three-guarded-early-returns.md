@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "5990b16fd351"
     adrs:
-      - ADR-PIPE-AUTH#1
-      - ADR-PIPE-AUTH#2
-      - ADR-PIPE-AUTH#3
-      - ADR-PIPE-AUTH#5
+      - ADR-PIPE-AUTH#{1-3,5}
     links:
       - docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.md
       - docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png

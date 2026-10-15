@@ -8,8 +8,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md
     adrs:
-      - ADR-AUTO-TYPES#8
-      - ADR-AUTO-TYPES#9
+      - ADR-AUTO-TYPES#{8,9}
 ---
 */
 

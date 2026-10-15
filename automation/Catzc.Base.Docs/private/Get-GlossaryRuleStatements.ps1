@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1
     adrs:
-      - ADR-REPO-VOCAB#1
-      - ADR-REPO-VOCAB#5
+      - ADR-REPO-VOCAB#{1,5}
   config:
     synopsis: Maps every indexed ADR rule id to the text of its normative summary that can define a term.
     description: |-

@@ -6,9 +6,7 @@ catzc:
     body_sha: "56529d40fa55"
     adrs:
       - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
-      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#{3,6,8}
       - ADR-PRIN-CONFIG#2
       - ADR-REPO-FORMAT#8
 ---

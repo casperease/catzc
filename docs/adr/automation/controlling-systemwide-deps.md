@@ -5,14 +5,7 @@ catzc:
     kind: adr
     body_sha: f306aec32d72
     defines:
-      - ADR-AUTO-DEPS#1
-      - ADR-AUTO-DEPS#2
-      - ADR-AUTO-DEPS#3
-      - ADR-AUTO-DEPS#4
-      - ADR-AUTO-DEPS#5
-      - ADR-AUTO-DEPS#6
-      - ADR-AUTO-DEPS#7
-      - ADR-AUTO-DEPS#8
+      - ADR-AUTO-DEPS#{1-8}
     adrs:
       - ADR-AUTO-PARITY#1
     links:

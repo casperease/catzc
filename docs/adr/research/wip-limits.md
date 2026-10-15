@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "1e022637106f"
     defines:
-      - ADR-DORA-WIP#1
-      - ADR-DORA-WIP#2
-      - ADR-DORA-WIP#3
-      - ADR-DORA-WIP#4
-      - ADR-DORA-WIP#5
+      - ADR-DORA-WIP#{1-5}
     links:
       - docs/adr/process/observe-work.md#rule-adr-proc-observewip1
       - docs/adr/process/pull-work.md#rule-adr-proc-pullwork4

@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: aee9df2ea8f2
     defines:
-      - ADR-FLOW-CD-RUNNER#1
-      - ADR-FLOW-CD-RUNNER#2
-      - ADR-FLOW-CD-RUNNER#3
-      - ADR-FLOW-CD-RUNNER#4
+      - ADR-FLOW-CD-RUNNER#{1-4}
 ---
 
 # ADR: Pipeline runner pattern — how pipelines invoke automation

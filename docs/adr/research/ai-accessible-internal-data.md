@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: a087c76d9705
     defines:
-      - ADR-DORA-AIDATA#1
-      - ADR-DORA-AIDATA#2
-      - ADR-DORA-AIDATA#3
-      - ADR-DORA-AIDATA#4
-      - ADR-DORA-AIDATA#5
+      - ADR-DORA-AIDATA#{1-5}
     links:
       - docs/adr/configuration/config-value-addressing.md
       - docs/adr/principles/everything-as-code.md

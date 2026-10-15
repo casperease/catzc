@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.Config/Get-ConfigValue.ps1
     adrs:
       - ADR-AUTO-TEST#14
-      - ADR-CONF-ADDRESSING#4
-      - ADR-CONF-ADDRESSING#5
+      - ADR-CONF-ADDRESSING#{4,5}
       - ADR-CONF-LOADING#1
 ---
 #>

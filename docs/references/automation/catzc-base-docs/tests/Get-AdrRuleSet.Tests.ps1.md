@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "433a23513767"
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
 ---
 
 # automation/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1

@@ -7,8 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/TestTitle-TemplateTokens.Tests.ps1.md
     adrs:
-      - ADR-AUTO-TEST#25
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{25,35}
 ---
 #>
 

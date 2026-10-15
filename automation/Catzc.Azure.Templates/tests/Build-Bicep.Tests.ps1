@@ -8,9 +8,7 @@ catzc:
       page: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md
       source: automation/Catzc.Azure.Templates/Build-Bicep.ps1
     adrs:
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#4
+      - ADR-AUTO-TEST#{4,19,26}
 ---
 #>
 

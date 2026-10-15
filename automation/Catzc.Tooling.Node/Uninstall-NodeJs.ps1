@@ -11,8 +11,7 @@ catzc:
       test: automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
     adrs:
       - ADR-AUTO-ONEJOB#5
-      - ADR-AUTO-REMOVE#4
-      - ADR-AUTO-REMOVE#5
+      - ADR-AUTO-REMOVE#{4,5}
   config:
     synopsis: Uninstalls Node.js via the platform package manager.
     description: |-

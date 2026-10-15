@@ -9,8 +9,7 @@ catzc:
     adrs:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-DEFAULT#6
-      - ADR-PRIN-CONFIG#2
-      - ADR-PRIN-CONFIG#4
+      - ADR-PRIN-CONFIG#{2,4}
       - ADR-REPO-FORMAT#8
 ---
 #>

@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: "2fcdad285504"
     adrs:
-      - ADR-AUTO-BUNDLE#3
-      - ADR-AUTO-BUNDLE#8
+      - ADR-AUTO-BUNDLE#{3,8}
       - ADR-DSGN-RUNMODE#5
     links:
       - docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.md

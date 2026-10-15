@@ -7,8 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md
     adrs:
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#20
+      - ADR-AUTO-TEST#{19,20}
 ---
 #>
 

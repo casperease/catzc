@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "870806179829"
     adrs:
-      - ADR-DSGN-TRACK#12
-      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#{12,16}
       - ADR-THES-ONETRUTH#3
 ---
 

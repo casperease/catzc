@@ -5,17 +5,7 @@ catzc:
     kind: adr
     body_sha: "62bbc25cbfea"
     defines:
-      - ADR-AZ-DATAMOD#1
-      - ADR-AZ-DATAMOD#2
-      - ADR-AZ-DATAMOD#3
-      - ADR-AZ-DATAMOD#4
-      - ADR-AZ-DATAMOD#5
-      - ADR-AZ-DATAMOD#6
-      - ADR-AZ-DATAMOD#7
-      - ADR-AZ-DATAMOD#8
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-DATAMOD#10
-      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#{1-11}
     links:
       - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
       - docs/adr/azure/azure-customer-model.md

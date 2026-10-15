@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: "46adf90a375a"
     adrs:
-      - ADR-DSGN-TRACK#4
-      - ADR-DSGN-TRACK#5
+      - ADR-DSGN-TRACK#{4,5}
     links:
       - docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md
       - docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png

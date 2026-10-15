@@ -8,9 +8,7 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-ZERO
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#6
-      - ADR-REPO-CONTRACT#7
+      - ADR-REPO-CONTRACT#{2,6,7}
   config:
     synopsis: Derives one contract asset's facts from its name and place, and returns them as a ContractAsset.
     description: |-

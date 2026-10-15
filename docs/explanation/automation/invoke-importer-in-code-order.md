@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "3580a530afb4"
     adrs:
-      - ADR-AUTO-BUNDLE#2
-      - ADR-AUTO-BUNDLE#3
-      - ADR-AUTO-BUNDLE#8
+      - ADR-AUTO-BUNDLE#{2,3,8}
     links:
       - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md
       - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png

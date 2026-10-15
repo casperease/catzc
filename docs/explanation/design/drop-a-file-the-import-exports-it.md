@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: "652ba7de9c73"
     adrs:
-      - ADR-DSGN-ASPECT#1
-      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-ASPECT#{1,2}
       - ADR-REPO-FOLDERS#10
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md

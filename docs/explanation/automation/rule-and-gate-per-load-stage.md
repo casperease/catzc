@@ -5,17 +5,13 @@ catzc:
     kind: explanation
     body_sha: a8f85abfe3b2
     adrs:
-      - ADR-AUTO-BUNDLE#2
-      - ADR-AUTO-BUNDLE#3
-      - ADR-AUTO-BUNDLE#8
+      - ADR-AUTO-BUNDLE#{2,3,8}
       - ADR-AUTO-TYPES#13
-      - ADR-DSGN-RUNMODE#1
-      - ADR-DSGN-RUNMODE#5
+      - ADR-DSGN-RUNMODE#{1,5}
       - ADR-PRIN-ONELIVE#1
       - ADR-PWSH-ERROR#1
       - ADR-PWSH-TYPES#2
-      - ADR-REPO-ROOTCFG#1
-      - ADR-REPO-ROOTCFG#4
+      - ADR-REPO-ROOTCFG#{1,4}
     links:
       - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
       - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png

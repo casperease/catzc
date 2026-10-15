@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: c84eb71f0891
     adrs:
-      - ADR-FLOW-CD-GLOBS#10
-      - ADR-FLOW-CD-GLOBS#7
-      - ADR-FLOW-CD-GLOBS#8
+      - ADR-FLOW-CD-GLOBS#{7,8,10}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.md
       - docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png

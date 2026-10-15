@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: "13b42c260a6c"
     adrs:
-      - ADR-DSGN-ASPECT#1
-      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-ASPECT#{1,2}
       - ADR-PWSH-MANIFEST#3
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md

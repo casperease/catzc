@@ -5,30 +5,10 @@ catzc:
     kind: adr
     body_sha: b885ae6df735
     defines:
-      - ADR-AZ-WAFCO#1
-      - ADR-AZ-WAFCO#2
-      - ADR-AZ-WAFCO#3
-      - ADR-AZ-WAFCO#4
-      - ADR-AZ-WAFCO#5
-      - ADR-AZ-WAFCO#6
-      - ADR-AZ-WAFCO#7
-      - ADR-AZ-WAFCO#8
-      - ADR-AZ-WAFCO#9
-      - ADR-AZ-WAFCO#10
-      - ADR-AZ-WAFCO#11
-      - ADR-AZ-WAFCO#12
-      - ADR-AZ-WAFCO#13
-      - ADR-AZ-WAFCO#14
+      - ADR-AZ-WAFCO#{1-14}
     adrs:
-      - ADR-AZ-DATAMOD#10
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#2
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#2
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#5
+      - ADR-AZ-DATAMOD#{2,9-11}
+      - ADR-AZ-LZ#{1-5}
       - ADR-AZ-NAMING#1
     links:
       - docs/adr/azure/azure-data-model.md

@@ -11,10 +11,8 @@ catzc:
       test: automation/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
-      - ADR-PWSH-PESTER#5
-      - ADR-PWSH-PESTER#9
+      - ADR-AUTO-TEST#{3,35}
+      - ADR-PWSH-PESTER#{5,9}
   config:
     synopsis: 'Quality gate: every source and test file under automation/ follows the naming and one-function conventions.'
     description: |-

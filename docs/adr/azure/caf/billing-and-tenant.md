@@ -5,85 +5,14 @@ catzc:
     kind: adr
     body_sha: "43969d556544"
     defines:
-      - ADR-AZ-CAFBILL#1
-      - ADR-AZ-CAFBILL#2
-      - ADR-AZ-CAFBILL#3
-      - ADR-AZ-CAFBILL#4
-      - ADR-AZ-CAFBILL#5
-      - ADR-AZ-CAFBILL#6
-      - ADR-AZ-CAFBILL#7
-      - ADR-AZ-CAFBILL#8
-      - ADR-AZ-CAFBILL#9
-      - ADR-AZ-CAFBILL#10
-      - ADR-AZ-CAFBILL#11
-      - ADR-AZ-CAFBILL#12
-      - ADR-AZ-CAFBILL#13
-      - ADR-AZ-CAFBILL#14
-      - ADR-AZ-CAFBILL#15
-      - ADR-AZ-CAFBILL#16
-      - ADR-AZ-CAFBILL#17
-      - ADR-AZ-CAFBILL#18
-      - ADR-AZ-CAFBILL#19
-      - ADR-AZ-CAFBILL#20
-      - ADR-AZ-CAFBILL#21
-      - ADR-AZ-CAFBILL#22
-      - ADR-AZ-CAFBILL#23
-      - ADR-AZ-CAFBILL#24
-      - ADR-AZ-CAFBILL#25
-      - ADR-AZ-CAFBILL#26
-      - ADR-AZ-CAFBILL#27
-      - ADR-AZ-CAFBILL#28
-      - ADR-AZ-CAFBILL#29
-      - ADR-AZ-CAFBILL#30
-      - ADR-AZ-CAFBILL#31
-      - ADR-AZ-CAFBILL#32
-      - ADR-AZ-CAFBILL#33
-      - ADR-AZ-CAFBILL#34
-      - ADR-AZ-CAFBILL#35
-      - ADR-AZ-CAFBILL#36
-      - ADR-AZ-CAFBILL#37
-      - ADR-AZ-CAFBILL#38
-      - ADR-AZ-CAFBILL#39
-      - ADR-AZ-CAFBILL#40
-      - ADR-AZ-CAFBILL#41
-      - ADR-AZ-CAFBILL#42
-      - ADR-AZ-CAFBILL#43
-      - ADR-AZ-CAFBILL#44
-      - ADR-AZ-CAFBILL#45
-      - ADR-AZ-CAFBILL#46
-      - ADR-AZ-CAFBILL#47
-      - ADR-AZ-CAFBILL#48
-      - ADR-AZ-CAFBILL#49
-      - ADR-AZ-CAFBILL#50
-      - ADR-AZ-CAFBILL#51
-      - ADR-AZ-CAFBILL#52
-      - ADR-AZ-CAFBILL#53
-      - ADR-AZ-CAFBILL#54
-      - ADR-AZ-CAFBILL#55
-      - ADR-AZ-CAFBILL#56
-      - ADR-AZ-CAFBILL#57
-      - ADR-AZ-CAFBILL#58
-      - ADR-AZ-CAFBILL#59
-      - ADR-AZ-CAFBILL#60
-      - ADR-AZ-CAFBILL#61
+      - ADR-AZ-CAFBILL#{1-61}
     adrs:
-      - ADR-AZ-CAFGOV#10
-      - ADR-AZ-CAFGOV#9
-      - ADR-AZ-CAFRESORG#19
-      - ADR-AZ-CAFRESORG#5
+      - ADR-AZ-CAFGOV#{9,10}
+      - ADR-AZ-CAFRESORG#{5,19}
       - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-DATAMOD#1
-      - ADR-AZ-DATAMOD#3
-      - ADR-AZ-DATAMOD#7
-      - ADR-AZ-DATAMOD#8
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#2
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#6
-      - ADR-AZ-SESSION#4
-      - ADR-AZ-SESSION#5
+      - ADR-AZ-DATAMOD#{1,3,7-9}
+      - ADR-AZ-LZ#{1-4,6}
+      - ADR-AZ-SESSION#{4,5}
       - ADR-AZ-WAFSE#5
     links:
       - docs/adr/automation/managed-guids.md

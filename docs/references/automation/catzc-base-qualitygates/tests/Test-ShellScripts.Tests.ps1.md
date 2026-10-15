@@ -5,9 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "250d5008a32d"
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
-      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#{3,8,35}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1

@@ -7,9 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md
     adrs:
-      - ADR-PWSH-PARAM#2
-      - ADR-PWSH-PARAM#3
-      - ADR-PWSH-PARAM#4
+      - ADR-PWSH-PARAM#{2-4}
 ---
 #>
 

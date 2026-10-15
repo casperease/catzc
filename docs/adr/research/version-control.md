@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "018c90c9fb6e"
     defines:
-      - ADR-DORA-VCS#1
-      - ADR-DORA-VCS#2
-      - ADR-DORA-VCS#3
-      - ADR-DORA-VCS#4
+      - ADR-DORA-VCS#{1-4}
     links:
       - docs/adr/design/server-remote-integration.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

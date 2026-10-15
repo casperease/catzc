@@ -6,8 +6,7 @@ catzc:
     body_sha: de5f24266b08
     adrs:
       - ADR-AZ-CUSTOMER#6
-      - ADR-AZ-DATAMOD#3
-      - ADR-AZ-DATAMOD#8
+      - ADR-AZ-DATAMOD#{3,8}
     links:
       - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md
       - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png

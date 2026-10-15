@@ -5,12 +5,7 @@ catzc:
     kind: explanation
     body_sha: "3af8354b998e"
     adrs:
-      - ADR-FLOW-CD#11
-      - ADR-FLOW-CD#3
-      - ADR-FLOW-CD#4
-      - ADR-FLOW-CD#5
-      - ADR-FLOW-CD#7
-      - ADR-FLOW-CD#9
+      - ADR-FLOW-CD#{3-5,7,9,11}
     links:
       - docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.md
       - docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png

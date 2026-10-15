@@ -5,18 +5,7 @@ catzc:
     kind: adr
     body_sha: d11206484097
     defines:
-      - ADR-PRIN-PROCESS#1
-      - ADR-PRIN-PROCESS#2
-      - ADR-PRIN-PROCESS#3
-      - ADR-PRIN-PROCESS#4
-      - ADR-PRIN-PROCESS#5
-      - ADR-PRIN-PROCESS#6
-      - ADR-PRIN-PROCESS#7
-      - ADR-PRIN-PROCESS#8
-      - ADR-PRIN-PROCESS#9
-      - ADR-PRIN-PROCESS#10
-      - ADR-PRIN-PROCESS#11
-      - ADR-PRIN-PROCESS#12
+      - ADR-PRIN-PROCESS#{1-12}
     links:
       - docs/adr/principles/reduce-waste.md
       - docs/adr/process/agile-values.md

@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "951692dadb53"
     adrs:
-      - ADR-DSGN-LIFE#6
-      - ADR-DSGN-LIFE#7
-      - ADR-DSGN-LIFE#8
+      - ADR-DSGN-LIFE#{6-8}
     links:
       - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md
       - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png

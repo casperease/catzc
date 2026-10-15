@@ -10,8 +10,7 @@ catzc:
       test: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-INSPIRE#1
-      - ADR-REPO-INSPIRE#2
+      - ADR-REPO-INSPIRE#{1,2}
   config:
     synopsis: Lists the inspirations catzc reads for ideas, and whether each is available on this machine.
     description: |-

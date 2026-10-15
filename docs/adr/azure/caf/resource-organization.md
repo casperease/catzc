@@ -5,61 +5,12 @@ catzc:
     kind: adr
     body_sha: e19e260878a6
     defines:
-      - ADR-AZ-CAFRESORG#1
-      - ADR-AZ-CAFRESORG#2
-      - ADR-AZ-CAFRESORG#3
-      - ADR-AZ-CAFRESORG#4
-      - ADR-AZ-CAFRESORG#5
-      - ADR-AZ-CAFRESORG#6
-      - ADR-AZ-CAFRESORG#7
-      - ADR-AZ-CAFRESORG#8
-      - ADR-AZ-CAFRESORG#9
-      - ADR-AZ-CAFRESORG#10
-      - ADR-AZ-CAFRESORG#11
-      - ADR-AZ-CAFRESORG#12
-      - ADR-AZ-CAFRESORG#13
-      - ADR-AZ-CAFRESORG#14
-      - ADR-AZ-CAFRESORG#15
-      - ADR-AZ-CAFRESORG#16
-      - ADR-AZ-CAFRESORG#17
-      - ADR-AZ-CAFRESORG#18
-      - ADR-AZ-CAFRESORG#19
-      - ADR-AZ-CAFRESORG#20
-      - ADR-AZ-CAFRESORG#21
-      - ADR-AZ-CAFRESORG#22
-      - ADR-AZ-CAFRESORG#23
-      - ADR-AZ-CAFRESORG#24
-      - ADR-AZ-CAFRESORG#25
-      - ADR-AZ-CAFRESORG#26
-      - ADR-AZ-CAFRESORG#27
-      - ADR-AZ-CAFRESORG#28
-      - ADR-AZ-CAFRESORG#29
-      - ADR-AZ-CAFRESORG#30
-      - ADR-AZ-CAFRESORG#31
-      - ADR-AZ-CAFRESORG#32
-      - ADR-AZ-CAFRESORG#33
-      - ADR-AZ-CAFRESORG#34
-      - ADR-AZ-CAFRESORG#35
+      - ADR-AZ-CAFRESORG#{1-35}
     adrs:
-      - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-CUSTOMER#4
-      - ADR-AZ-DATAMOD#1
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#2
-      - ADR-AZ-DATAMOD#3
-      - ADR-AZ-DATAMOD#8
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#2
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#5
-      - ADR-AZ-LZ#6
-      - ADR-AZ-LZ#7
-      - ADR-AZ-NETWORK#1
-      - ADR-AZ-NETWORK#3
-      - ADR-AZ-NETWORK#5
-      - ADR-AZ-NETWORK#6
+      - ADR-AZ-CUSTOMER#{2,4}
+      - ADR-AZ-DATAMOD#{1-3,8,9,11}
+      - ADR-AZ-LZ#*
+      - ADR-AZ-NETWORK#{1,3,5,6}
       - ADR-AZ-WAFRE#10
       - ADR-DSGN-SELFSERV#1
     links:

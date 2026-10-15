@@ -5,12 +5,8 @@ catzc:
     kind: explanation
     body_sha: dfa7b99511ce
     adrs:
-      - ADR-DSGN-LIFE#5
-      - ADR-DSGN-LIFE#6
-      - ADR-DSGN-LIFE#7
-      - ADR-DSGN-LIFE#8
-      - ADR-FLOW-CD#3
-      - ADR-FLOW-CD#4
+      - ADR-DSGN-LIFE#{5-8}
+      - ADR-FLOW-CD#{3,4}
     links:
       - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md
       - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png

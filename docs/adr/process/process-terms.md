@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "85f093b7747b"
     defines:
-      - ADR-PROC-LEANTERMS#1
-      - ADR-PROC-LEANTERMS#2
-      - ADR-PROC-LEANTERMS#3
-      - ADR-PROC-LEANTERMS#4
-      - ADR-PROC-LEANTERMS#5
+      - ADR-PROC-LEANTERMS#{1-5}
     links:
       - docs/adr/automation/caching.md
       - docs/adr/automation/zero-ceremony-poka-yoke.md

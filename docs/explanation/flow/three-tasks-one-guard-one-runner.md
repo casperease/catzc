@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: ce8375725233
     adrs:
-      - ADR-FLOW-CD-RUNNER#1
-      - ADR-FLOW-CD-RUNNER#2
-      - ADR-FLOW-CD-RUNNER#3
+      - ADR-FLOW-CD-RUNNER#{1-3}
     links:
       - docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md
       - docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png

@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Test-ManualTestPlan.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#16
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{16,35}
   config:
     synopsis: 'Quality gate: the manual test plan lists every integrity check, once.'
     description: |-

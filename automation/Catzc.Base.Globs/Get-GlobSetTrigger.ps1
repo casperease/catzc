@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
     adrs:
-      - ADR-FLOW-CD-GLOBS#1
-      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#{1,4}
   config:
     synopsis: Projects a globset's scan program into vendor-native pipeline path filters — the no-start trigger.
     description: |-

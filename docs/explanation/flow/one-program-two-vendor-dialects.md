@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: db61cae23740
     adrs:
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#6
-      - ADR-FLOW-CD-GLOBS#8
+      - ADR-FLOW-CD-GLOBS#{4,6,8}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md
       - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png

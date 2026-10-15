@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: "01018e7b150d"
     adrs:
-      - ADR-FLOW-CD-RUNNER#1
-      - ADR-FLOW-CD-RUNNER#4
+      - ADR-FLOW-CD-RUNNER#{1,4}
     links:
       - docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md
       - docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png

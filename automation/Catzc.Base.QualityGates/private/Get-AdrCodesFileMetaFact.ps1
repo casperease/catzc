@@ -9,6 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
     adrs:
+      - ADR-PRIN-*
       - ADR-REPO-LINK#5
   config:
     synopsis: 'The adr-codes meta kind''s fact: the ADR citations the file and its comment page make, sorted and without duplicates.'
@@ -60,6 +61,9 @@ function Get-AdrCodesFileMetaFact {
     }
     $fileClass = $registry.ClassOf($Path)
     $withDomain = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('domain_classes'), $fileClass)
+    $map = Get-AdrCitationMap -RepositoryRoot $repositoryRoot
+    # Body text cites a rule as ADR-<CODE>#<n> only: a wildcard there (ADR-PRIN-*) is a mention of a family, never a citation. The group
+    # and glob forms are the head's own notation, read back below from the held list.
     $pattern = if ($withDomain) {
         '(?<![\w-])ADR-[A-Z]+(?:-[A-Z]+)*(?:#\d+|(?![\w#-]|:\d))'
     }
@@ -76,7 +80,6 @@ function Get-AdrCodesFileMetaFact {
         }
     }
     # Only a code the ADR index registers is a citation: a fixture code or a placeholder named in prose is not.
-    $map = Get-AdrCitationMap -RepositoryRoot $repositoryRoot
     foreach ($code in @($codes)) {
         $isRule = $code -match '^(?<adr>.+)#(?<rule>\d+)$'
         $registered = if ($isRule) {
@@ -91,9 +94,16 @@ function Get-AdrCodesFileMetaFact {
     }
     $held = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('held_classes'), $fileClass)
     if ($held -and $State.PSObject.Properties['DerivedLists'] -and $State.DerivedLists.Contains($Kind.keys[0])) {
-        foreach ($code in $State.DerivedLists[$Kind.keys[0]]) {
-            [void] $codes.Add($code)
+        foreach ($token in $State.DerivedLists[$Kind.keys[0]]) {
+            try {
+                foreach ($code in [Catzc.Base.Docs.AdrCodeForm]::Expand($token, $map)) {
+                    [void] $codes.Add($code)
+                }
+            }
+            catch [System.FormatException] {
+                continue
+            }
         }
     }
-    [ordered]@{ $Kind.keys[0] = [string[]] @($codes) }
+    [ordered]@{ $Kind.keys[0] = [string[]] @([Catzc.Base.Docs.AdrCodeForm]::Minimize([string[]] @($codes), $map)) }
 }

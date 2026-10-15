@@ -5,17 +5,10 @@ catzc:
     kind: adr
     body_sha: "5991ca784914"
     defines:
-      - ADR-AUTO-XPLAT#3
-      - ADR-AUTO-XPLAT#6
-      - ADR-AUTO-XPLAT#7
-      - ADR-AUTO-XPLAT#9
+      - ADR-AUTO-XPLAT#{3,6,7,9}
     adrs:
       - ADR-AUTO-PARITY#1
-      - ADR-PWSH-XPLAT#2
-      - ADR-PWSH-XPLAT#4
-      - ADR-PWSH-XPLAT#6
-      - ADR-PWSH-XPLAT#7
-      - ADR-PWSH-XPLAT#8
+      - ADR-PWSH-XPLAT#{2,4,6-8}
     links:
       - docs/adr/automation/controlling-systemwide-deps.md
       - docs/adr/automation/devbox-pipeline-parity.md#rule-adr-auto-parity1

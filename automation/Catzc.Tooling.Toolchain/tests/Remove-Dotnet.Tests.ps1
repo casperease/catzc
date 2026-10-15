@@ -7,8 +7,7 @@ catzc:
     relatives:
       source: automation/Catzc.Tooling.Toolchain/Remove-Dotnet.ps1
     adrs:
-      - ADR-AUTO-REMOVE#3
-      - ADR-AUTO-REMOVE#7
+      - ADR-AUTO-REMOVE#{3,7}
 ---
 #>
 

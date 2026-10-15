@@ -6,9 +6,7 @@ catzc:
     body_sha: "0ddf1598fb36"
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-AZ-NETWORK#2
-      - ADR-AZ-NETWORK#5
-      - ADR-AZ-NETWORK#6
+      - ADR-AZ-NETWORK#{2,5,6}
 ---
 
 # automation/Catzc.Azure/types/NetworkConfig.cs

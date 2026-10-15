@@ -5,15 +5,7 @@ catzc:
     kind: adr
     body_sha: ff4554a3466b
     defines:
-      - ADR-AUTO-OVERLAY#1
-      - ADR-AUTO-OVERLAY#2
-      - ADR-AUTO-OVERLAY#3
-      - ADR-AUTO-OVERLAY#4
-      - ADR-AUTO-OVERLAY#5
-      - ADR-AUTO-OVERLAY#6
-      - ADR-AUTO-OVERLAY#7
-      - ADR-AUTO-OVERLAY#8
-      - ADR-AUTO-OVERLAY#9
+      - ADR-AUTO-OVERLAY#{1-9}
     links:
       - docs/adr/automation/internal-asset-dependencies.md
       - docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1

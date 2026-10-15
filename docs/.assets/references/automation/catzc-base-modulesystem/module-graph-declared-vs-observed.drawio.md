@@ -7,8 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-CACHE#2
       - ADR-AUTO-DEPM#4
-      - ADR-AUTO-TEST#35
-      - ADR-AUTO-TEST#4
+      - ADR-AUTO-TEST#{4,35}
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-PESTER#9
     links:

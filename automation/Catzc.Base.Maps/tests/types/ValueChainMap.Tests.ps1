@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.Maps/types/ValueChainMap.cs
     adrs:
       - ADR-AUTO-TEST#3
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#{15,16}
       - ADR-THES-ONETRUTH#3
 ---
 #>

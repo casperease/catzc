@@ -6,14 +6,9 @@ catzc:
     body_sha: "72ee88959e72"
     adrs:
       - ADR-AUTO-ASSETDEP#4
-      - ADR-AUTO-BUNDLE#1
-      - ADR-AUTO-BUNDLE#5
-      - ADR-AUTO-BUNDLE#6
-      - ADR-AUTO-BUNDLE#7
-      - ADR-AUTO-TEST#30
-      - ADR-AUTO-TEST#31
-      - ADR-DSGN-RUNMODE#1
-      - ADR-DSGN-RUNMODE#7
+      - ADR-AUTO-BUNDLE#{1,5-7}
+      - ADR-AUTO-TEST#{30,31}
+      - ADR-DSGN-RUNMODE#{1,7}
       - ADR-PWSH-MANIFEST#5
     links:
       - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.md

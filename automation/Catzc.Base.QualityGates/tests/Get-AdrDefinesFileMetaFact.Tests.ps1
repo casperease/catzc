@@ -28,7 +28,18 @@ Describe 'Get-AdrDefinesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' 
     It 'lists the rules the file defines under the kind''s key' {
         $fact = Get-Defines "# ADR: Widget`n`n## Rules: ADR-WIDGET`n`n### Rule ADR-WIDGET:1`n`n### Rule ADR-WIDGET:2`n"
         @($fact.Keys) | Should -Be @('defines')
-        @($fact['defines']) | Should -Be @('ADR-WIDGET#1', 'ADR-WIDGET#2')
+        @($fact['defines']) | Should -Be @('ADR-WIDGET#{1,2}')
+    }
+
+    It 'writes the defined rules in the minimal form, a run as a range and never as a glob' {
+        $rules = (1..4 + 9 | ForEach-Object { "### Rule ADR-WIDGET:$_`n" }) -join "`n"
+        $fact = Get-Defines "# ADR: Widget`n`n## Rules: ADR-WIDGET`n`n$rules"
+        @($fact['defines']) | Should -Be @('ADR-WIDGET#{1-4,9}')
+    }
+
+    It 'keeps a single defined rule plain' {
+        $fact = Get-Defines "# ADR: Widget`n`n### Rule ADR-WIDGET:7`n"
+        @($fact['defines']) | Should -Be @('ADR-WIDGET#7')
     }
 
     It 'lists no rule for a file that defines none, however many it cites' {

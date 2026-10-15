@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-tooling-keyhandler/tests/Select-SupportedKeyHandler.Tests.ps1.md
       source: automation/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
     adrs:
-      - ADR-AUTO-TEST#22
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#{3,22}
 ---
 #>
 

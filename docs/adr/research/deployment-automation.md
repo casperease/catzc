@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "179a9dc40c85"
     defines:
-      - ADR-DORA-DEPLOY#1
-      - ADR-DORA-DEPLOY#2
-      - ADR-DORA-DEPLOY#3
-      - ADR-DORA-DEPLOY#4
-      - ADR-DORA-DEPLOY#5
+      - ADR-DORA-DEPLOY#{1-5}
     links:
       - docs/adr/automation/idempotent-state-functions.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

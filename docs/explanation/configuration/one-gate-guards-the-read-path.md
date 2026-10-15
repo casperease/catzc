@@ -6,17 +6,8 @@ catzc:
     body_sha: cd955d1c421d
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-CONF-ADDRESSING#1
-      - ADR-CONF-ADDRESSING#2
-      - ADR-CONF-ADDRESSING#3
-      - ADR-CONF-ADDRESSING#4
-      - ADR-CONF-ADDRESSING#5
-      - ADR-CONF-LOADING#1
-      - ADR-CONF-LOADING#2
-      - ADR-CONF-LOADING#3
-      - ADR-CONF-LOADING#4
-      - ADR-CONF-LOADING#5
-      - ADR-CONF-LOADING#6
+      - ADR-CONF-ADDRESSING#*
+      - ADR-CONF-LOADING#*
     links:
       - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.md
       - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png

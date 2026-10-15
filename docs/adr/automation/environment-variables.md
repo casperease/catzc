@@ -5,13 +5,7 @@ catzc:
     kind: adr
     body_sha: "1858e9dff417"
     defines:
-      - ADR-AUTO-ENVVAR#1
-      - ADR-AUTO-ENVVAR#2
-      - ADR-AUTO-ENVVAR#3
-      - ADR-AUTO-ENVVAR#4
-      - ADR-AUTO-ENVVAR#5
-      - ADR-AUTO-ENVVAR#6
-      - ADR-AUTO-ENVVAR#7
+      - ADR-AUTO-ENVVAR#{1-7}
     adrs:
       - ADR-FLOW-CD-DETECT#1
     links:

@@ -5,21 +5,11 @@ catzc:
     kind: adr
     body_sha: d289b074815d
     defines:
-      - ADR-PWSH-ERROR#1
-      - ADR-PWSH-ERROR#2
-      - ADR-PWSH-ERROR#3
-      - ADR-PWSH-ERROR#5
-      - ADR-PWSH-ERROR#7
-      - ADR-PWSH-ERROR#8
-      - ADR-PWSH-ERROR#9
-      - ADR-PWSH-ERROR#10
-      - ADR-PWSH-ERROR#11
+      - ADR-PWSH-ERROR#{1-3,5,7-11}
     adrs:
       - ADR-AUTO-FAILFAST#4
       - ADR-AUTO-ONEJOB#6
-      - ADR-AUTO-RETRY#1
-      - ADR-AUTO-RETRY#5
-      - ADR-AUTO-RETRY#6
+      - ADR-AUTO-RETRY#{1,5,6}
     links:
       - docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast4
       - docs/adr/automation/retry-as-last-resort.md

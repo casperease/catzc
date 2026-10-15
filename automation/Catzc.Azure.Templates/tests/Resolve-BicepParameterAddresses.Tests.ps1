@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
     adrs:
       - ADR-AUTO-TEST#3
-      - ADR-AZ-DATAMOD#10
-      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#{10,11}
 ---
 #>
 

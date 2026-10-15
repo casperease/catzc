@@ -5,14 +5,7 @@ catzc:
     kind: adr
     body_sha: "73a0cb2d870c"
     defines:
-      - ADR-AZ-NAMING#1
-      - ADR-AZ-NAMING#2
-      - ADR-AZ-NAMING#3
-      - ADR-AZ-NAMING#4
-      - ADR-AZ-NAMING#5
-      - ADR-AZ-NAMING#6
-      - ADR-AZ-NAMING#7
-      - ADR-AZ-NAMING#8
+      - ADR-AZ-NAMING#{1-8}
     links:
       - docs/.assets/azure/azure-name-assembly.drawio.png
       - docs/adr/azure/azure-data-model.md

@@ -6,19 +6,9 @@ catzc:
     body_sha: "086277112b92"
     adrs:
       - ADR-AUTO-TEST#24
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#2
-      - ADR-DSGN-LIFE#3
-      - ADR-DSGN-LIFE#4
-      - ADR-DSGN-LIFE#5
-      - ADR-DSGN-LIFE#6
-      - ADR-DSGN-LIFE#8
-      - ADR-DSGN-LIFE#9
+      - ADR-DSGN-LIFE#{1-6,8,9}
       - ADR-DSGN-VISUAL#4
-      - ADR-FLOW-CD#12
-      - ADR-FLOW-CD#5
-      - ADR-FLOW-CD#8
-      - ADR-FLOW-CD#9
+      - ADR-FLOW-CD#{5,8,9,12}
     links:
       - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md
       - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png

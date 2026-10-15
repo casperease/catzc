@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: "4ce846b18cf7"
     adrs:
-      - ADR-AUTO-PATH#3
-      - ADR-AUTO-PATH#9
+      - ADR-AUTO-PATH#{3,9}
     links:
       - docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.md
       - docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.png

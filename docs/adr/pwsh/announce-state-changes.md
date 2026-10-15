@@ -5,24 +5,10 @@ catzc:
     kind: adr
     body_sha: "7e0fe1021a9b"
     defines:
-      - ADR-PWSH-ANNOUNCE#1
-      - ADR-PWSH-ANNOUNCE#4
-      - ADR-PWSH-ANNOUNCE#5
-      - ADR-PWSH-ANNOUNCE#6
-      - ADR-PWSH-ANNOUNCE#7
-      - ADR-PWSH-ANNOUNCE#8
-      - ADR-PWSH-ANNOUNCE#9
-      - ADR-PWSH-ANNOUNCE#10
-      - ADR-PWSH-ANNOUNCE#11
+      - ADR-PWSH-ANNOUNCE#{1,4-11}
     adrs:
-      - ADR-AUTO-CONSOLE#11
-      - ADR-AUTO-CONSOLE#12
-      - ADR-AUTO-CONSOLE#4
-      - ADR-AUTO-CONSOLE#5
-      - ADR-AUTO-CONSOLE#8
-      - ADR-AUTO-PRELOG#2
-      - ADR-AUTO-PRELOG#4
-      - ADR-AUTO-PRELOG#5
+      - ADR-AUTO-CONSOLE#{4,5,8,11,12}
+      - ADR-AUTO-PRELOG#{2,4,5}
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/automation/log-before-invoke.md

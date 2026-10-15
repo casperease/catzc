@@ -11,9 +11,7 @@ catzc:
     adrs:
       - ADR-AUTO-ONEJOB
       - ADR-AUTO-TEST#35
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#{14-16}
   config:
     synopsis: |-
       Quality gate: every ADR sits in a cell of the value-chain map, and every label the value-chain map prints is a

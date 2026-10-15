@@ -7,8 +7,7 @@ catzc:
     module: Catzc.Base.QualityGates
     visibility: private
     adrs:
-      - ADR-REPO-PROTGLOB#4
-      - ADR-REPO-PROTGLOB#9
+      - ADR-REPO-PROTGLOB#{4,9}
   config:
     synopsis: Promotes protection for every candidate unit that came back green from a Test-Automation run.
     description: |-

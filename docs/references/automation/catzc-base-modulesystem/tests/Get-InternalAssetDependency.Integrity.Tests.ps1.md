@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "9dc42bd53fcf"
     adrs:
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-ASSETDEP#{3,4}
       - ADR-AUTO-TEST#35
 ---
 

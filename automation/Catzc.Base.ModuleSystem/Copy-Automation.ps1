@@ -14,8 +14,7 @@ catzc:
       - ADR-AUTO-TYPES#9
       - ADR-CONF-LOADING
       - ADR-DSGN-RUNMODE
-      - ADR-PWSH-ENUM#1
-      - ADR-PWSH-ENUM#3
+      - ADR-PWSH-ENUM#{1,3}
   config:
     synopsis: |-
       Copies a deterministic subset of this repository's automation toolset into a destination, rooted like the

@@ -8,9 +8,7 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#6
-      - ADR-PRIN-CONFIG#1
-      - ADR-PRIN-CONFIG#2
-      - ADR-PRIN-CONFIG#4
+      - ADR-PRIN-CONFIG#{1,2,4}
       - ADR-REPO-FORMAT#8
 ---
 

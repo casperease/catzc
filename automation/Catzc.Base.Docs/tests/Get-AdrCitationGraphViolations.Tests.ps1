@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-docs/tests/Get-AdrCitationGraphViolations.Tests.ps1.md
       source: automation/Catzc.Base.Docs/private/Get-AdrCitationGraphViolations.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
 ---
 #>
 

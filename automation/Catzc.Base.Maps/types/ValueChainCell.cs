@@ -9,10 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-maps/types/ValueChainCell.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#10
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#{10,14-16}
 ---
 */
 

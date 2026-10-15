@@ -6,9 +6,7 @@ catzc:
     body_sha: "10d1dec8df33"
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-REPO-OUTFMT#1
-      - ADR-REPO-OUTFMT#3
-      - ADR-REPO-OUTFMT#5
+      - ADR-REPO-OUTFMT#{1,3,5}
 ---
 
 # automation/Catzc.Base.Reports/types/OutputFormat.cs

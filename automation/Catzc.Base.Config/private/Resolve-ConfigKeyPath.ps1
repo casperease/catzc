@@ -7,9 +7,7 @@ catzc:
     module: Catzc.Base.Config
     visibility: private
     adrs:
-      - ADR-CONF-ADDRESSING#2
-      - ADR-CONF-ADDRESSING#4
-      - ADR-CONF-ADDRESSING#5
+      - ADR-CONF-ADDRESSING#{2,4,5}
   config:
     synopsis: Walks a key path into an already-loaded config node and returns the addressed node.
     description: |-

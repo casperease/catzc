@@ -5,13 +5,7 @@ catzc:
     kind: adr
     body_sha: "64ab2812bb25"
     defines:
-      - ADR-AUTO-FAILFAST#1
-      - ADR-AUTO-FAILFAST#2
-      - ADR-AUTO-FAILFAST#3
-      - ADR-AUTO-FAILFAST#4
-      - ADR-AUTO-FAILFAST#5
-      - ADR-AUTO-FAILFAST#6
-      - ADR-AUTO-FAILFAST#7
+      - ADR-AUTO-FAILFAST#{1-7}
     adrs:
       - ADR-AUTO-ENGINE#1
     links:

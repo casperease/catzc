@@ -7,8 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md
     adrs:
-      - ADR-AUTO-TYPES#12
-      - ADR-AUTO-TYPES#15
+      - ADR-AUTO-TYPES#{12,15}
 ---
 #>
 

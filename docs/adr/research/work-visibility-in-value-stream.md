@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "9bffc5515fba"
     defines:
-      - ADR-DORA-WORKVIS#1
-      - ADR-DORA-WORKVIS#2
-      - ADR-DORA-WORKVIS#3
-      - ADR-DORA-WORKVIS#4
-      - ADR-DORA-WORKVIS#5
+      - ADR-DORA-WORKVIS#{1-5}
     links:
       - docs/adr/design/visual-design.md
       - docs/adr/process/observe-work.md

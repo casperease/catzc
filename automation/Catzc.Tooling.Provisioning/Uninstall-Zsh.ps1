@@ -11,8 +11,7 @@ catzc:
       test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
     adrs:
       - ADR-AUTO-IDEM#2
-      - ADR-AUTO-REMOVE#2
-      - ADR-AUTO-REMOVE#6
+      - ADR-AUTO-REMOVE#{2,6}
   config:
     synopsis: 'Uninstalls the zsh Install-Zsh placed: in Git Bash''s tree on Windows, the apt-get package on Linux.'
     description: |-

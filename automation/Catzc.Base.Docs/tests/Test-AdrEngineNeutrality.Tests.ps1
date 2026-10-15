@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
     adrs:
       - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
       - ADR-PRIN-CONFIG#1
 ---
 #>

@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "12a627caf7e2"
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1

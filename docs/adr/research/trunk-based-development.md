@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "1b8bb45ab915"
     defines:
-      - ADR-DORA-TRUNK#1
-      - ADR-DORA-TRUNK#2
-      - ADR-DORA-TRUNK#3
-      - ADR-DORA-TRUNK#4
-      - ADR-DORA-TRUNK#5
+      - ADR-DORA-TRUNK#{1-5}
     adrs:
       - ADR-DSGN-LIFE#6
       - ADR-FLOW-CD#2

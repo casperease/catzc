@@ -5,26 +5,10 @@ catzc:
     kind: adr
     body_sha: "9af99e4e5cbf"
     defines:
-      - ADR-DSGN-VISUAL#1
-      - ADR-DSGN-VISUAL#2
-      - ADR-DSGN-VISUAL#3
-      - ADR-DSGN-VISUAL#4
-      - ADR-DSGN-VISUAL#5
-      - ADR-DSGN-VISUAL#6
-      - ADR-DSGN-VISUAL#7
-      - ADR-DSGN-VISUAL#8
-      - ADR-DSGN-VISUAL#9
-      - ADR-DSGN-VISUAL#10
-      - ADR-DSGN-VISUAL#11
-      - ADR-DSGN-VISUAL#12
-      - ADR-DSGN-VISUAL#13
-      - ADR-DSGN-VISUAL#14
+      - ADR-DSGN-VISUAL#{1-14}
     adrs:
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#5
-      - ADR-FLOW-CD#10
-      - ADR-FLOW-CD#11
-      - ADR-FLOW-CD#9
+      - ADR-DSGN-LIFE#{1,5}
+      - ADR-FLOW-CD#{9-11}
     links:
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

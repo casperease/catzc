@@ -5,14 +5,9 @@ catzc:
     kind: adr
     body_sha: "3c30ae3e63b3"
     defines:
-      - ADR-REPO-HELP#1
-      - ADR-REPO-HELP#2
-      - ADR-REPO-HELP#3
-      - ADR-REPO-HELP#4
-      - ADR-REPO-HELP#5
+      - ADR-REPO-HELP#{1-5}
     adrs:
-      - ADR-REPO-CODEMETA#1
-      - ADR-REPO-CODEMETA#2
+      - ADR-REPO-CODEMETA#{1,2}
       - ADR-REPO-FORMAT#8
     links:
       - docs/adr/repository/code-file-meta.md

@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Test-TestTitles.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#25
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{25,35}
   config:
     synopsis: 'Quality gate: no test title carries an angle-bracket template token unless its block is data-driven.'
     description: |-

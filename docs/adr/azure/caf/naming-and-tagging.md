@@ -5,45 +5,11 @@ catzc:
     kind: adr
     body_sha: "87723a9fb3e1"
     defines:
-      - ADR-AZ-CAFNAME#1
-      - ADR-AZ-CAFNAME#2
-      - ADR-AZ-CAFNAME#3
-      - ADR-AZ-CAFNAME#4
-      - ADR-AZ-CAFNAME#5
-      - ADR-AZ-CAFNAME#6
-      - ADR-AZ-CAFNAME#7
-      - ADR-AZ-CAFNAME#8
-      - ADR-AZ-CAFNAME#9
-      - ADR-AZ-CAFNAME#10
-      - ADR-AZ-CAFNAME#11
-      - ADR-AZ-CAFNAME#12
-      - ADR-AZ-CAFNAME#13
-      - ADR-AZ-CAFNAME#14
-      - ADR-AZ-CAFNAME#15
-      - ADR-AZ-CAFNAME#16
-      - ADR-AZ-CAFNAME#17
-      - ADR-AZ-CAFNAME#18
-      - ADR-AZ-CAFNAME#19
-      - ADR-AZ-CAFNAME#20
-      - ADR-AZ-CAFNAME#21
-      - ADR-AZ-CAFNAME#22
+      - ADR-AZ-CAFNAME#{1-22}
     adrs:
-      - ADR-AZ-DATAMOD#10
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#5
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#6
-      - ADR-AZ-NAMING#1
-      - ADR-AZ-NAMING#2
-      - ADR-AZ-NAMING#3
-      - ADR-AZ-NAMING#4
-      - ADR-AZ-NAMING#5
-      - ADR-AZ-NAMING#6
-      - ADR-AZ-NAMING#7
-      - ADR-AZ-NAMING#8
+      - ADR-AZ-DATAMOD#{5,9-11}
+      - ADR-AZ-LZ#{1,3,4,6}
+      - ADR-AZ-NAMING#*
       - ADR-AZ-WAFCO#3
       - ADR-AZ-WAFSE#3
       - ADR-REPO-VARIANT#4

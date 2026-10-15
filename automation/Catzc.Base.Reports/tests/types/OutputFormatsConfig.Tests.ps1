@@ -8,9 +8,7 @@ catzc:
       source: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-OUTFMT#1
-      - ADR-REPO-OUTFMT#3
-      - ADR-REPO-OUTFMT#5
+      - ADR-REPO-OUTFMT#{1,3,5}
 ---
 #>
 

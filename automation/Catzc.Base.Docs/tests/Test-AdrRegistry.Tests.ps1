@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md
       source: automation/Catzc.Base.Docs/Test-AdrRegistry.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
       - ADR-PRIN-CONFIG#1
 ---
 #>

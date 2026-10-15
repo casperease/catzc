@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: a5d8d9ba4f36
     adrs:
-      - ADR-PIPE-AUTH#1
-      - ADR-PIPE-AUTH#2
-      - ADR-PIPE-AUTH#4
-      - ADR-PIPE-AUTH#6
+      - ADR-PIPE-AUTH#{1,2,4,6}
     links:
       - docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.md
       - docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png

@@ -5,10 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "21cbd7522c30"
     adrs:
-      - ADR-AUTO-CACHE#2
-      - ADR-AUTO-CACHE#4
-      - ADR-AUTO-CACHE#5
-      - ADR-AUTO-CACHE#6
+      - ADR-AUTO-CACHE#{2,4-6}
       - ADR-AUTO-TEST#4
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-PESTER#9

@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "8030049afc9c"
     defines:
-      - ADR-DORA-OBSERV#1
-      - ADR-DORA-OBSERV#2
-      - ADR-DORA-OBSERV#3
-      - ADR-DORA-OBSERV#4
-      - ADR-DORA-OBSERV#5
+      - ADR-DORA-OBSERV#{1-5}
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/automation/log-before-invoke.md

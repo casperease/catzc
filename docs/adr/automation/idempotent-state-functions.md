@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "5f53c1942c70"
     defines:
-      - ADR-AUTO-IDEM#1
-      - ADR-AUTO-IDEM#2
-      - ADR-AUTO-IDEM#3
-      - ADR-AUTO-IDEM#4
-      - ADR-AUTO-IDEM#5
+      - ADR-AUTO-IDEM#{1-5}
     links:
       - docs/adr/pwsh/idempotent-state-mechanics.md
 ---

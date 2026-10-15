@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "30924884b291"
     adrs:
-      - ADR-AUTO-DEPM#1
-      - ADR-AUTO-DEPM#3
-      - ADR-AUTO-DEPM#4
-      - ADR-AUTO-DEPM#5
+      - ADR-AUTO-DEPM#{1,3-5}
     links:
       - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
       - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png

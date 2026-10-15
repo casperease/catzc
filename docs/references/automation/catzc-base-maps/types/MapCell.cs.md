@@ -6,9 +6,7 @@ catzc:
     body_sha: cad79f0bad20
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#6
+      - ADR-DSGN-TRACK#{1,3,6}
 ---
 
 # automation/Catzc.Base.Maps/types/MapCell.cs

@@ -8,12 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Repository.Tests.ps1.md
     adrs:
       - ADR-REPO-LINK
-      - ADR-REPO-LINK#2
-      - ADR-REPO-LINK#3
-      - ADR-REPO-LINK#5
-      - ADR-REPO-LINK#6
-      - ADR-REPO-LINK#7
-      - ADR-REPO-LINK#8
+      - ADR-REPO-LINK#{2,3,5-8}
 ---
 #>
 

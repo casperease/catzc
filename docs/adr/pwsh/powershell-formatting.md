@@ -5,18 +5,9 @@ catzc:
     kind: adr
     body_sha: "95065966d656"
     defines:
-      - ADR-PWSH-FORMAT#1
-      - ADR-PWSH-FORMAT#2
-      - ADR-PWSH-FORMAT#3
-      - ADR-PWSH-FORMAT#4
-      - ADR-PWSH-FORMAT#5
-      - ADR-PWSH-FORMAT#6
-      - ADR-PWSH-FORMAT#7
-      - ADR-PWSH-FORMAT#8
-      - ADR-PWSH-FORMAT#9
+      - ADR-PWSH-FORMAT#{1-9}
     adrs:
-      - ADR-AUTO-NONEST#3
-      - ADR-AUTO-NONEST#5
+      - ADR-AUTO-NONEST#{3,5}
     links:
       - docs/adr/automation/avoid-deep-nesting.md
       - docs/adr/automation/avoid-deep-nesting.md#rule-adr-auto-nonest3

@@ -6,8 +6,7 @@ catzc:
     body_sha: ea64b39cbb52
     adrs:
       - ADR-AUTO-PARITY#3
-      - ADR-DSGN-THINPLAT#2
-      - ADR-DSGN-THINPLAT#3
+      - ADR-DSGN-THINPLAT#{2,3}
     links:
       - docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.md
       - docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png

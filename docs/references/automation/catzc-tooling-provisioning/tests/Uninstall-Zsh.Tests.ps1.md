@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "84ddb654f66c"
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#9
+      - ADR-AUTO-TEST#{3,9}
 ---
 
 # automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1

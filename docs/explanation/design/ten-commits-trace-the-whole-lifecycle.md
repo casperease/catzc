@@ -5,15 +5,8 @@ catzc:
     kind: explanation
     body_sha: "923959505b90"
     adrs:
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#10
-      - ADR-DSGN-LIFE#2
-      - ADR-DSGN-LIFE#5
-      - ADR-DSGN-LIFE#6
-      - ADR-DSGN-LIFE#7
-      - ADR-DSGN-LIFE#8
-      - ADR-DSGN-VISUAL#12
-      - ADR-DSGN-VISUAL#13
+      - ADR-DSGN-LIFE#{1,2,5-8,10}
+      - ADR-DSGN-VISUAL#{12,13}
       - ADR-FLOW-CD#9
     links:
       - docs/.assets/commits-quality/10-commits-story.drawio.png

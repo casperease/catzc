@@ -11,8 +11,7 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-CONF-LOADING#4
-      - ADR-REPO-AGENTS#2
-      - ADR-REPO-AGENTS#4
+      - ADR-REPO-AGENTS#{2,4}
 ---
 */
 

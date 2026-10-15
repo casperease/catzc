@@ -5,15 +5,7 @@ catzc:
     kind: adr
     body_sha: b9035752a1df
     defines:
-      - ADR-REPO-PROTGLOB#1
-      - ADR-REPO-PROTGLOB#2
-      - ADR-REPO-PROTGLOB#3
-      - ADR-REPO-PROTGLOB#4
-      - ADR-REPO-PROTGLOB#5
-      - ADR-REPO-PROTGLOB#6
-      - ADR-REPO-PROTGLOB#7
-      - ADR-REPO-PROTGLOB#8
-      - ADR-REPO-PROTGLOB#9
+      - ADR-REPO-PROTGLOB#{1-9}
     links:
       - docs/adr/automation/caching.md
       - docs/adr/automation/test-automation.md

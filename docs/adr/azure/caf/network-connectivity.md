@@ -5,88 +5,13 @@ catzc:
     kind: adr
     body_sha: "1bb977ab38e6"
     defines:
-      - ADR-AZ-CAFNETCON#1
-      - ADR-AZ-CAFNETCON#2
-      - ADR-AZ-CAFNETCON#3
-      - ADR-AZ-CAFNETCON#4
-      - ADR-AZ-CAFNETCON#5
-      - ADR-AZ-CAFNETCON#6
-      - ADR-AZ-CAFNETCON#7
-      - ADR-AZ-CAFNETCON#8
-      - ADR-AZ-CAFNETCON#9
-      - ADR-AZ-CAFNETCON#10
-      - ADR-AZ-CAFNETCON#11
-      - ADR-AZ-CAFNETCON#12
-      - ADR-AZ-CAFNETCON#13
-      - ADR-AZ-CAFNETCON#14
-      - ADR-AZ-CAFNETCON#15
-      - ADR-AZ-CAFNETCON#16
-      - ADR-AZ-CAFNETCON#17
-      - ADR-AZ-CAFNETCON#18
-      - ADR-AZ-CAFNETCON#19
-      - ADR-AZ-CAFNETCON#20
-      - ADR-AZ-CAFNETCON#21
-      - ADR-AZ-CAFNETCON#22
-      - ADR-AZ-CAFNETCON#23
-      - ADR-AZ-CAFNETCON#24
-      - ADR-AZ-CAFNETCON#25
-      - ADR-AZ-CAFNETCON#26
-      - ADR-AZ-CAFNETCON#27
-      - ADR-AZ-CAFNETCON#28
-      - ADR-AZ-CAFNETCON#29
-      - ADR-AZ-CAFNETCON#30
-      - ADR-AZ-CAFNETCON#31
-      - ADR-AZ-CAFNETCON#32
-      - ADR-AZ-CAFNETCON#33
-      - ADR-AZ-CAFNETCON#34
-      - ADR-AZ-CAFNETCON#35
-      - ADR-AZ-CAFNETCON#36
-      - ADR-AZ-CAFNETCON#37
-      - ADR-AZ-CAFNETCON#38
-      - ADR-AZ-CAFNETCON#39
-      - ADR-AZ-CAFNETCON#40
-      - ADR-AZ-CAFNETCON#41
-      - ADR-AZ-CAFNETCON#42
-      - ADR-AZ-CAFNETCON#43
-      - ADR-AZ-CAFNETCON#44
-      - ADR-AZ-CAFNETCON#45
-      - ADR-AZ-CAFNETCON#46
-      - ADR-AZ-CAFNETCON#47
-      - ADR-AZ-CAFNETCON#48
-      - ADR-AZ-CAFNETCON#49
-      - ADR-AZ-CAFNETCON#50
-      - ADR-AZ-CAFNETCON#51
-      - ADR-AZ-CAFNETCON#52
-      - ADR-AZ-CAFNETCON#53
-      - ADR-AZ-CAFNETCON#54
-      - ADR-AZ-CAFNETCON#55
-      - ADR-AZ-CAFNETCON#56
-      - ADR-AZ-CAFNETCON#57
-      - ADR-AZ-CAFNETCON#58
-      - ADR-AZ-CAFNETCON#59
-      - ADR-AZ-CAFNETCON#60
-      - ADR-AZ-CAFNETCON#61
-      - ADR-AZ-CAFNETCON#62
+      - ADR-AZ-CAFNETCON#{1-62}
     adrs:
-      - ADR-AZ-CAFSEC#41
-      - ADR-AZ-CAFSEC#42
+      - ADR-AZ-CAFSEC#{41,42}
       - ADR-AZ-DATAMOD#11
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#2
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#5
-      - ADR-AZ-LZ#6
-      - ADR-AZ-NETWORK#1
-      - ADR-AZ-NETWORK#5
-      - ADR-AZ-NETWORK#6
-      - ADR-AZ-WAFSE#10
-      - ADR-AZ-WAFSE#4
-      - ADR-AZ-WAFSE#5
-      - ADR-AZ-WAFSE#6
-      - ADR-AZ-WAFSE#7
-      - ADR-AZ-WAFSE#8
-      - ADR-AZ-WAFSE#9
+      - ADR-AZ-LZ#{1-6}
+      - ADR-AZ-NETWORK#{1,5,6}
+      - ADR-AZ-WAFSE#{4-10}
     links:
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
       - docs/adr/azure/azure-network-model.md#rule-adr-az-network1

@@ -8,13 +8,8 @@ catzc:
       page: docs/references/automation/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md
       source: automation/Catzc.Base.Docs/Test-AgentDefinitions.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-AGENTS#1
-      - ADR-REPO-AGENTS#2
-      - ADR-REPO-AGENTS#3
-      - ADR-REPO-AGENTS#4
-      - ADR-REPO-AGENTS#5
+      - ADR-AUTO-TEST#{3,35}
+      - ADR-REPO-AGENTS#*
 ---
 #>
 

@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: f550b3cdccd3
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
 ---
 
 # automation/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1

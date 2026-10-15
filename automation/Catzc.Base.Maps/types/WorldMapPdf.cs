@@ -9,9 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md
       test: automation/Catzc.Base.Maps/tests/types/WorldMapPdf.Tests.ps1
     adrs:
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#7
-      - ADR-DSGN-TRACK#8
+      - ADR-DSGN-TRACK#{3,7,8}
 ---
 */
 

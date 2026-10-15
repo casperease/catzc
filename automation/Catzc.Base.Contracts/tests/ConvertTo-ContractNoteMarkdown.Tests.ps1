@@ -9,9 +9,7 @@ catzc:
       source: automation/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
     adrs:
       - ADR-AUTO-TEST#3
-      - ADR-REPO-LINK#2
-      - ADR-REPO-LINK#3
-      - ADR-REPO-LINK#7
+      - ADR-REPO-LINK#{2,3,7}
 ---
 #>
 

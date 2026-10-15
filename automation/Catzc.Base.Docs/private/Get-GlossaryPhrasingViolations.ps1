@@ -10,8 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md
       test: automation/Catzc.Base.Docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1
     adrs:
-      - ADR-REPO-VOCAB#2
-      - ADR-REPO-VOCAB#5
+      - ADR-REPO-VOCAB#{2,5}
   config:
     synopsis: Lists the uses of avoided phrasings within each glossary source's scope (check G4) — one message per use.
     description: |-

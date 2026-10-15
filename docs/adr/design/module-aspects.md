@@ -5,15 +5,9 @@ catzc:
     kind: adr
     body_sha: ce9d5dbe10f2
     defines:
-      - ADR-DSGN-ASPECT#1
-      - ADR-DSGN-ASPECT#2
-      - ADR-DSGN-ASPECT#3
-      - ADR-DSGN-ASPECT#4
-      - ADR-DSGN-ASPECT#5
+      - ADR-DSGN-ASPECT#{1-5}
     adrs:
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#5
-      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#{4,5,7}
     links:
       - docs/adr/automation/platform-bundle.md
       - docs/adr/automation/test-automation.md

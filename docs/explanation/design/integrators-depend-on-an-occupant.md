@@ -5,13 +5,9 @@ catzc:
     kind: explanation
     body_sha: e9b85c942879
     adrs:
-      - ADR-DSGN-LIFE#5
-      - ADR-DSGN-LIFE#6
-      - ADR-DSGN-LIFE#7
-      - ADR-DSGN-LIFE#8
+      - ADR-DSGN-LIFE#{5-8}
       - ADR-DSGN-VISUAL#13
-      - ADR-FLOW-CD#11
-      - ADR-FLOW-CD#9
+      - ADR-FLOW-CD#{9,11}
     links:
       - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md
       - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png

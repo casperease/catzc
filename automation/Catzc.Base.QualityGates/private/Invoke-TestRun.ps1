@@ -10,10 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
       test: automation/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#30
-      - ADR-AUTO-TEST#31
-      - ADR-AUTO-TEST#44
+      - ADR-AUTO-TEST#{26,30,31,44}
       - ADR-PWSH-ANNOUNCE#6
       - ADR-PWSH-PARAM#4
       - ADR-REPO-PROTGLOB#9

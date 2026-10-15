@@ -5,10 +5,8 @@ catzc:
     kind: comment-page
     body_sha: "061339f69a14"
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-CONTRACT#4
-      - ADR-REPO-CONTRACT#5
+      - ADR-AUTO-TEST#{3,35}
+      - ADR-REPO-CONTRACT#{4,5}
 ---
 
 # automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1

@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "8e80877a76e6"
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#9
+      - ADR-AUTO-TEST#{3,9}
 ---
 
 # automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1

@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: b38164b72e0d
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#{3,6}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Invoke-DotnetFormat.Tests.ps1

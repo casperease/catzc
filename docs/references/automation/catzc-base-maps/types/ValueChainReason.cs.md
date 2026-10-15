@@ -6,8 +6,7 @@ catzc:
     body_sha: "13bc199269bc"
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#{14,15}
 ---
 
 # automation/Catzc.Base.Maps/types/ValueChainReason.cs

@@ -6,9 +6,7 @@ catzc:
     body_sha: "5b750addd2a4"
     adrs:
       - ADR-AUTO-ENVVAR#7
-      - ADR-CONF-ADDRESSING#1
-      - ADR-CONF-ADDRESSING#3
-      - ADR-CONF-ADDRESSING#4
+      - ADR-CONF-ADDRESSING#{1,3,4}
     links:
       - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
       - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png

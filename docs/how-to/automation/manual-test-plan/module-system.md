@@ -5,8 +5,7 @@ catzc:
     kind: how-to
     body_sha: e7725350ff34
     adrs:
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-ASSETDEP#{3,4}
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---

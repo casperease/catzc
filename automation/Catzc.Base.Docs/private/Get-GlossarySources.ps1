@@ -10,8 +10,7 @@ catzc:
       test: automation/Catzc.Base.Docs/tests/Get-GlossarySources.Tests.ps1
     adrs:
       - ADR-CONF-LOADING#1
-      - ADR-REPO-VOCAB#2
-      - ADR-REPO-VOCAB#3
+      - ADR-REPO-VOCAB#{2,3}
   config:
     synopsis: Lists every glossary source — each opting-in module's configs/glossary.yml — with its validated config.
     description: |-

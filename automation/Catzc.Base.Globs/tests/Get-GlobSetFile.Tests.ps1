@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md
       source: automation/Catzc.Base.Globs/Get-GlobSetFile.ps1
     adrs:
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#5
+      - ADR-FLOW-CD-GLOBS#{4,5}
 ---
 #>
 

@@ -7,9 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-PARAM#4
-      - ADR-REPO-CONTRACT#10
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#8
+      - ADR-REPO-CONTRACT#{2,8,10}
 ---
 
 # automation/Catzc.Base.Contracts/configs/contracts.yml

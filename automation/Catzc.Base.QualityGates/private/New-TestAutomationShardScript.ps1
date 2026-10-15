@@ -11,8 +11,7 @@ catzc:
       test: automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-TEST#25
-      - ADR-AUTO-TEST#30
+      - ADR-AUTO-TEST#{25,30}
   config:
     synopsis: Generates one parallel worker's runner script and returns its shard descriptor.
     description: |-

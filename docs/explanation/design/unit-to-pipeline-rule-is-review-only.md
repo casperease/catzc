@@ -5,16 +5,9 @@ catzc:
     kind: explanation
     body_sha: c709a49d0a69
     adrs:
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#2
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#4
-      - ADR-DSGN-TRACK#5
-      - ADR-DSGN-TRACK#6
-      - ADR-FLOW-CD-GLOBS#7
-      - ADR-FLOW-CD-GLOBS#8
-      - ADR-REPO-FOLDERS#1
-      - ADR-REPO-FOLDERS#3
+      - ADR-DSGN-TRACK#{1-6}
+      - ADR-FLOW-CD-GLOBS#{7,8}
+      - ADR-REPO-FOLDERS#{1,3}
     links:
       - docs/.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.md
       - docs/.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png

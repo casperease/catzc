@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "43ca183e1145"
     adrs:
-      - ADR-AUTO-SPELL#5
-      - ADR-AUTO-SPELL#8
+      - ADR-AUTO-SPELL#{5,8}
 ---
 
 # automation/Catzc.Base.QualityGates/configs/terminology.yml

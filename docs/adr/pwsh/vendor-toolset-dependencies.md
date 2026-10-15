@@ -5,13 +5,7 @@ catzc:
     kind: adr
     body_sha: "6eefb77c0042"
     defines:
-      - ADR-PWSH-VENDOR#1
-      - ADR-PWSH-VENDOR#3
-      - ADR-PWSH-VENDOR#4
-      - ADR-PWSH-VENDOR#5
-      - ADR-PWSH-VENDOR#6
-      - ADR-PWSH-VENDOR#7
-      - ADR-PWSH-VENDOR#8
+      - ADR-PWSH-VENDOR#{1,3-8}
     adrs:
       - ADR-AUTO-DEPM#8
     links:

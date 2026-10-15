@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.Contracts/types/ContractsConfig.cs
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#8
+      - ADR-REPO-CONTRACT#{2,8}
 ---
 #>
 

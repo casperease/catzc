@@ -9,6 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md
     adrs:
       - ADR-AUTO
+      - ADR-PRIN-*
       - ADR-PWSH-ERROR
       - ADR-REPO-LINK#3
 ---
@@ -98,6 +99,15 @@ public sealed class AdrCitationMap
     }
 
     public bool HasCode(string code) => code != null && pathByCode.ContainsKey(code);
+
+    // The rule numbers the code's ADR declares, ascending; empty for an unknown code.
+    public IReadOnlyList<int> RulesOf(string code)
+    {
+        if (code == null || !rulesByCode.TryGetValue(code, out HashSet<int> rules)) { return new int[0]; }
+        var sorted = new List<int>(rules);
+        sorted.Sort();
+        return sorted;
+    }
 
     // A domain code (ADR-AUTO) — a prefix of registered codes, not an ADR of its own.
     public bool IsDomainCode(string code) => code != null && domainCodes.Contains(code);

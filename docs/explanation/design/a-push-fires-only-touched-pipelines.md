@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: bdee370f2672
     adrs:
-      - ADR-DSGN-TRACK#4
-      - ADR-DSGN-TRACK#5
+      - ADR-DSGN-TRACK#{4,5}
     links:
       - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md
       - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png

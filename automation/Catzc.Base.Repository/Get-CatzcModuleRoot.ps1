@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Repository/tests/Get-CatzcModuleRoot.Tests.ps1
     adrs:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-ASSETDEP#2
+      - ADR-AUTO-ASSETDEP#{1,2}
       - ADR-AUTO-OVERLAY
       - ADR-DSGN-RUNMODE
   config:

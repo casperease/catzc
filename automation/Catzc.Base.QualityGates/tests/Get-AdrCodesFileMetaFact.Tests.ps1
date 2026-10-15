@@ -37,9 +37,26 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         }
     }
 
-    It 'lists each cited rule once, sorted by ordinal order' {
+    It 'lists each cited rule once, in the minimal form, ordered by code and then numerically' {
         $codes = Get-Codes "# docs/widget.md`n`nSee ADR-WIDGET-PART#3 and ADR-GADGET#12, then ADR-WIDGET-PART#3 again, and ADR-GADGET#2.`n"
-        $codes | Should -Be @('ADR-GADGET#12', 'ADR-GADGET#2', 'ADR-WIDGET-PART#3')
+        $codes | Should -Be @('ADR-GADGET#{2,12}', 'ADR-WIDGET-PART#3')
+    }
+
+    It 'folds a run of rules into a range' {
+        $codes = Get-Codes "ADR-GADGET#4, ADR-GADGET#5, ADR-GADGET#6, ADR-GADGET#9.`n"
+        $codes | Should -Be @('ADR-GADGET#{4-6,9}')
+    }
+
+    It 'writes every rule of a code as #*, and every rule under a prefix as the prefix glob' {
+        $all = (1..30 | ForEach-Object { "ADR-GADGET#$_" }) -join ' '
+        (Get-Codes "$all`n") | Should -Be @('ADR-GADGET#*')
+        $both = $all + ' ' + ((1..30 | ForEach-Object { "ADR-WIDGET-PART#$_" }) -join ' ')
+        (Get-Codes "$both`n") | Should -Be @('ADR-GADGET#*', 'ADR-WIDGET-PART#*')
+    }
+
+    It 'reads a wildcard or a group in body text as a mention, never a citation' {
+        $codes = Get-Codes "The ADR-GADGET#* rules, the ADR-WIDGET-* family, and ADR-GADGET#{2,3}.`n"
+        $codes.Count | Should -Be 0
     }
 
     It 'ignores the colon form a rule heading uses and a code with no rule number' {
@@ -134,6 +151,21 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         It 'keeps every code the head holds and adds the codes the text cites, sorted without duplicates' -Tag 'ADR-REPO-CODEMETA#2' {
             $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n      - ADR-GADGET#4`n---`n*/`n`n// ADR-GADGET#4 and ADR-WIDGET#2`nclass Widget {}`n"
             (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#4', 'ADR-HEAD#1', 'ADR-WIDGET#2')
+        }
+
+        It 'reads a group, #*, and a prefix glob the head holds, and writes each back in the minimal form' -Tag 'ADR-REPO-CODEMETA#2' {
+            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET#{2,4-6}`n      - ADR-WIDGET-*`n---`n*/`n`nclass Widget {}`n"
+            (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#{2,4-6}', 'ADR-WIDGET-PART#*')
+        }
+
+        It 'merges a head group with the rules the text cites into one range' -Tag 'ADR-REPO-CODEMETA#2' {
+            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET#{2-3}`n---`n*/`n`n// ADR-GADGET#4`nclass Widget {}`n"
+            (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#{2-4}')
+        }
+
+        It 'drops a head token that is malformed or a glob over nothing, keeping the rest' -Tag 'ADR-REPO-CODEMETA#2' {
+            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET#{5-3}`n      - ADR-NOPE-*`n      - ADR-GADGET#7`n---`n*/`n`nclass Widget {}`n"
+            (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#7')
         }
 
         It 'derives from the text alone for a file the setting does not name' -Tag 'ADR-REPO-CODEMETA#2' {

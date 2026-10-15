@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: "94f06d40fd5a"
     defines:
-      - ADR-AUTO-GUIDS#1
-      - ADR-AUTO-GUIDS#2
-      - ADR-AUTO-GUIDS#3
-      - ADR-AUTO-GUIDS#4
-      - ADR-AUTO-GUIDS#5
-      - ADR-AUTO-GUIDS#6
+      - ADR-AUTO-GUIDS#{1-6}
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#4

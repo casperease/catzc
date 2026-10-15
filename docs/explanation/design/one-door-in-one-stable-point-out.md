@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: bb7ec869f6ce
     adrs:
-      - ADR-DSGN-REMOTE#1
-      - ADR-DSGN-REMOTE#2
-      - ADR-DSGN-REMOTE#3
-      - ADR-DSGN-REMOTE#4
+      - ADR-DSGN-REMOTE#*
     links:
       - docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.md
       - docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png

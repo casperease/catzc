@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
     adrs:
-      - ADR-REPO-LINK#2
-      - ADR-REPO-LINK#3
+      - ADR-REPO-LINK#{2,3}
   config:
     synopsis: Turns a contract asset's note into the markdown text of its list item on a generated page.
     description: |-

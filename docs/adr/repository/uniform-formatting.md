@@ -5,24 +5,13 @@ catzc:
     kind: adr
     body_sha: "67d57c0ab117"
     defines:
-      - ADR-REPO-FORMAT#1
-      - ADR-REPO-FORMAT#2
-      - ADR-REPO-FORMAT#3
-      - ADR-REPO-FORMAT#4
-      - ADR-REPO-FORMAT#5
-      - ADR-REPO-FORMAT#6
-      - ADR-REPO-FORMAT#7
-      - ADR-REPO-FORMAT#8
-      - ADR-REPO-FORMAT#9
+      - ADR-REPO-FORMAT#{1-9}
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-CODEMETA#4
       - ADR-REPO-COMMENTS#5
-      - ADR-REPO-CONTRACT#5
-      - ADR-REPO-CONTRACT#6
-      - ADR-REPO-FILEMETA#1
-      - ADR-REPO-FILEMETA#3
-      - ADR-REPO-FILEMETA#5
+      - ADR-REPO-CONTRACT#{5,6}
+      - ADR-REPO-FILEMETA#{1,3,5}
     links:
       - docs/adr/pipelines/pipeline-naming-and-placement.md
       - docs/adr/principles/configure-not-program.md

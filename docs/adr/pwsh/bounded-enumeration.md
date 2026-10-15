@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: b0131730897a
     defines:
-      - ADR-PWSH-ENUM#1
-      - ADR-PWSH-ENUM#2
-      - ADR-PWSH-ENUM#3
-      - ADR-PWSH-ENUM#4
-      - ADR-PWSH-ENUM#5
-      - ADR-PWSH-ENUM#6
+      - ADR-PWSH-ENUM#{1-6}
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TRACKED#1

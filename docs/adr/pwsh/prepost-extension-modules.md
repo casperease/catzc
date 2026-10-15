@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: ddae042c3b46
     defines:
-      - ADR-PWSH-PREPOST#2
-      - ADR-PWSH-PREPOST#3
-      - ADR-PWSH-PREPOST#4
-      - ADR-PWSH-PREPOST#5
-      - ADR-PWSH-PREPOST#6
+      - ADR-PWSH-PREPOST#{2-6}
     adrs:
       - ADR-PWSH-USEPS#2
     links:

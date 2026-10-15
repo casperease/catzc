@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "21766fca03aa"
     adrs:
-      - ADR-AUTO-TEST#13
-      - ADR-AUTO-TEST#41
+      - ADR-AUTO-TEST#{13,41}
 ---
 
 # automation/Catzc.Base.Timeouts/types/TestTiers.cs

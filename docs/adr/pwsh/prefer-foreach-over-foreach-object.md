@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "36f1bd3f320b"
     defines:
-      - ADR-PWSH-FOREACH#1
-      - ADR-PWSH-FOREACH#2
-      - ADR-PWSH-FOREACH#3
-      - ADR-PWSH-FOREACH#4
+      - ADR-PWSH-FOREACH#{1-4}
 ---
 
 # ADR: Prefer foreach over ForEach-Object

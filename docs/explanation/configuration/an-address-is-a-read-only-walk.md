@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "54bd6341713f"
     adrs:
-      - ADR-CONF-ADDRESSING#1
-      - ADR-CONF-ADDRESSING#4
-      - ADR-CONF-ADDRESSING#5
+      - ADR-CONF-ADDRESSING#{1,4,5}
     links:
       - docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.md
       - docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png

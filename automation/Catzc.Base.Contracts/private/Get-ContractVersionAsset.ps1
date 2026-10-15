@@ -10,9 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-contracts/private/Get-ContractVersionAsset.ps1.md
     adrs:
       - ADR-PWSH-ENUM#3
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#5
-      - ADR-REPO-CONTRACT#7
+      - ADR-REPO-CONTRACT#{2,5,7}
   config:
     synopsis: Lists every contract asset of one unit version folder, with its contract.yml overrides applied.
     description: |-

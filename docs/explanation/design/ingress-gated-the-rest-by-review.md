@@ -6,10 +6,7 @@ catzc:
     body_sha: "38ff1b133ab0"
     adrs:
       - ADR-DSGN-LIFE#6
-      - ADR-DSGN-REMOTE#1
-      - ADR-DSGN-REMOTE#2
-      - ADR-DSGN-REMOTE#3
-      - ADR-DSGN-REMOTE#4
+      - ADR-DSGN-REMOTE#*
       - ADR-REPO-VARIANT#6
     links:
       - docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md

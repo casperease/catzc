@@ -5,11 +5,7 @@ catzc:
     kind: explanation
     body_sha: "439b2b02352f"
     adrs:
-      - ADR-REPO-ROOTCFG#2
-      - ADR-REPO-ROOTCFG#4
-      - ADR-REPO-ROOTCFG#5
-      - ADR-REPO-ROOTCFG#7
-      - ADR-REPO-ROOTCFG#8
+      - ADR-REPO-ROOTCFG#{2,4,5,7,8}
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md
       - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png

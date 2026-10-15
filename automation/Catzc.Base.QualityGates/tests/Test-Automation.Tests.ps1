@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.QualityGates/Test-Automation.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-TEST#35
-      - ADR-AUTO-TEST#43
+      - ADR-AUTO-TEST#{35,43}
       - ADR-PWSH-PESTER#5
 ---
 #>

@@ -5,16 +5,10 @@ catzc:
     kind: adr
     body_sha: da8f190cff2b
     defines:
-      - ADR-REPO-COMMENTS#1
-      - ADR-REPO-COMMENTS#2
-      - ADR-REPO-COMMENTS#3
-      - ADR-REPO-COMMENTS#4
-      - ADR-REPO-COMMENTS#5
+      - ADR-REPO-COMMENTS#{1-5}
     adrs:
-      - ADR-REPO-CODEMETA#1
-      - ADR-REPO-CODEMETA#2
-      - ADR-REPO-FILEMETA#1
-      - ADR-REPO-FILEMETA#10
+      - ADR-REPO-CODEMETA#{1,2}
+      - ADR-REPO-FILEMETA#{1,10}
       - ADR-REPO-FORMAT#8
     links:
       - docs/adr/principles/configure-not-program.md

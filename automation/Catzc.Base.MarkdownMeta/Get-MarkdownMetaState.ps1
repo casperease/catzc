@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.MarkdownMeta/tests/Get-MarkdownMetaState.Tests.ps1
     adrs:
-      - ADR-REPO-FILEMETA#1
-      - ADR-REPO-FILEMETA#3
+      - ADR-REPO-FILEMETA#{1,3}
   config:
     synopsis: Reads what a Markdown text says about its own meta block, without changing it.
     description: |-

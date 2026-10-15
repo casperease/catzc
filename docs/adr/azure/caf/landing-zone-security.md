@@ -5,75 +5,14 @@ catzc:
     kind: adr
     body_sha: acf70e0b97e3
     defines:
-      - ADR-AZ-CAFSEC#1
-      - ADR-AZ-CAFSEC#2
-      - ADR-AZ-CAFSEC#3
-      - ADR-AZ-CAFSEC#4
-      - ADR-AZ-CAFSEC#5
-      - ADR-AZ-CAFSEC#6
-      - ADR-AZ-CAFSEC#7
-      - ADR-AZ-CAFSEC#8
-      - ADR-AZ-CAFSEC#9
-      - ADR-AZ-CAFSEC#10
-      - ADR-AZ-CAFSEC#11
-      - ADR-AZ-CAFSEC#12
-      - ADR-AZ-CAFSEC#13
-      - ADR-AZ-CAFSEC#14
-      - ADR-AZ-CAFSEC#15
-      - ADR-AZ-CAFSEC#16
-      - ADR-AZ-CAFSEC#17
-      - ADR-AZ-CAFSEC#18
-      - ADR-AZ-CAFSEC#19
-      - ADR-AZ-CAFSEC#20
-      - ADR-AZ-CAFSEC#21
-      - ADR-AZ-CAFSEC#22
-      - ADR-AZ-CAFSEC#23
-      - ADR-AZ-CAFSEC#24
-      - ADR-AZ-CAFSEC#25
-      - ADR-AZ-CAFSEC#26
-      - ADR-AZ-CAFSEC#27
-      - ADR-AZ-CAFSEC#28
-      - ADR-AZ-CAFSEC#29
-      - ADR-AZ-CAFSEC#30
-      - ADR-AZ-CAFSEC#31
-      - ADR-AZ-CAFSEC#32
-      - ADR-AZ-CAFSEC#33
-      - ADR-AZ-CAFSEC#34
-      - ADR-AZ-CAFSEC#35
-      - ADR-AZ-CAFSEC#36
-      - ADR-AZ-CAFSEC#37
-      - ADR-AZ-CAFSEC#38
-      - ADR-AZ-CAFSEC#39
-      - ADR-AZ-CAFSEC#40
-      - ADR-AZ-CAFSEC#41
-      - ADR-AZ-CAFSEC#42
-      - ADR-AZ-CAFSEC#43
-      - ADR-AZ-CAFSEC#44
-      - ADR-AZ-CAFSEC#45
+      - ADR-AZ-CAFSEC#{1-45}
     adrs:
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#2
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#6
-      - ADR-AZ-NETWORK#1
-      - ADR-AZ-NETWORK#3
-      - ADR-AZ-NETWORK#6
+      - ADR-AZ-DATAMOD#{2,9,11}
+      - ADR-AZ-LZ#{1,3,4,6}
+      - ADR-AZ-NETWORK#{1,3,6}
       - ADR-AZ-WAFOE#7
-      - ADR-AZ-WAFRE#1
-      - ADR-AZ-WAFRE#5
-      - ADR-AZ-WAFSE#1
-      - ADR-AZ-WAFSE#10
-      - ADR-AZ-WAFSE#12
-      - ADR-AZ-WAFSE#3
-      - ADR-AZ-WAFSE#4
-      - ADR-AZ-WAFSE#5
-      - ADR-AZ-WAFSE#6
-      - ADR-AZ-WAFSE#7
-      - ADR-AZ-WAFSE#8
-      - ADR-AZ-WAFSE#9
+      - ADR-AZ-WAFRE#{1,5}
+      - ADR-AZ-WAFSE#{1,3-10,12}
     links:
       - docs/adr/azure/az-session-verification.md
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11

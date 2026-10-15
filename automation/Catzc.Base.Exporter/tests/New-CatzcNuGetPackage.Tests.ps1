@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md
       source: automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
     adrs:
-      - ADR-AUTO-TEST#20
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#{3,20}
 ---
 #>
 

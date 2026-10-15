@@ -5,18 +5,7 @@ catzc:
     kind: adr
     body_sha: a55d51dfadd7
     defines:
-      - ADR-AUTO-TYPES#1
-      - ADR-AUTO-TYPES#2
-      - ADR-AUTO-TYPES#3
-      - ADR-AUTO-TYPES#4
-      - ADR-AUTO-TYPES#7
-      - ADR-AUTO-TYPES#8
-      - ADR-AUTO-TYPES#9
-      - ADR-AUTO-TYPES#11
-      - ADR-AUTO-TYPES#12
-      - ADR-AUTO-TYPES#13
-      - ADR-AUTO-TYPES#14
-      - ADR-AUTO-TYPES#15
+      - ADR-AUTO-TYPES#{1-4,7-9,11-15}
     adrs:
       - ADR-AUTO-CACHE#8
     links:

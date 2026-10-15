@@ -5,9 +5,7 @@ catzc:
     kind: adr
     body_sha: "791634cbbe6b"
     defines:
-      - ADR-PRIN-EAC#1
-      - ADR-PRIN-EAC#2
-      - ADR-PRIN-EAC#3
+      - ADR-PRIN-EAC#{1-3}
     adrs:
       - ADR-THES-ONETRUTH#2
     links:

@@ -5,25 +5,9 @@ catzc:
     kind: adr
     body_sha: f06f5693d22e
     defines:
-      - ADR-PWSH-ENV#1
-      - ADR-PWSH-ENV#2
-      - ADR-PWSH-ENV#3
-      - ADR-PWSH-ENV#4
-      - ADR-PWSH-ENV#5
-      - ADR-PWSH-ENV#6
-      - ADR-PWSH-ENV#7
-      - ADR-PWSH-ENV#8
-      - ADR-PWSH-ENV#9
-      - ADR-PWSH-ENV#10
-      - ADR-PWSH-ENV#11
+      - ADR-PWSH-ENV#{1-11}
     adrs:
-      - ADR-AUTO-ENVVAR#1
-      - ADR-AUTO-ENVVAR#2
-      - ADR-AUTO-ENVVAR#3
-      - ADR-AUTO-ENVVAR#4
-      - ADR-AUTO-ENVVAR#5
-      - ADR-AUTO-ENVVAR#6
-      - ADR-AUTO-ENVVAR#7
+      - ADR-AUTO-ENVVAR#*
       - ADR-AUTO-NOPWD#6
       - ADR-FLOW-CD-DETECT#1
     links:

@@ -10,8 +10,7 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK
-      - ADR-DSGN-TRACK#2
-      - ADR-DSGN-TRACK#6
+      - ADR-DSGN-TRACK#{2,6}
 ---
 */
 

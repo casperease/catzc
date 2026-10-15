@@ -5,14 +5,8 @@ catzc:
     kind: explanation
     body_sha: "3cd7f3cab990"
     adrs:
-      - ADR-DSGN-LIFE#2
-      - ADR-DSGN-LIFE#5
-      - ADR-DSGN-LIFE#6
-      - ADR-DSGN-LIFE#7
-      - ADR-DSGN-LIFE#8
-      - ADR-FLOW-CD#11
-      - ADR-FLOW-CD#5
-      - ADR-FLOW-CD#9
+      - ADR-DSGN-LIFE#{2,5-8}
+      - ADR-FLOW-CD#{5,9,11}
     links:
       - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.md
       - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png

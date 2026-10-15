@@ -8,12 +8,8 @@ catzc:
       page: docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
       source: automation/Catzc.Base.Maps/Test-WorldMap.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#13
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#6
+      - ADR-AUTO-TEST#{3,35}
+      - ADR-DSGN-TRACK#{1,3,6,13}
 ---
 #>
 

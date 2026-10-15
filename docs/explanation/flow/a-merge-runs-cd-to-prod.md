@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "1c55ad0ec400"
     adrs:
-      - ADR-FLOW-CD#5
-      - ADR-FLOW-CD#6
-      - ADR-FLOW-CD#9
+      - ADR-FLOW-CD#{5,6,9}
     links:
       - docs/.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.md
       - docs/.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png

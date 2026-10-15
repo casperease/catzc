@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: "539e1e9a45a2"
     defines:
-      - ADR-PIPE-VAR#1
-      - ADR-PIPE-VAR#2
-      - ADR-PIPE-VAR#3
-      - ADR-PIPE-VAR#4
-      - ADR-PIPE-VAR#5
-      - ADR-PIPE-VAR#6
+      - ADR-PIPE-VAR#{1-6}
     links:
       - docs/adr/flow/pipeline-detection.md
 ---

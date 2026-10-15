@@ -5,8 +5,7 @@ catzc:
     kind: adr
     body_sha: "2524bd0104f1"
     defines:
-      - ADR-REPO-EXAMPLE#1
-      - ADR-REPO-EXAMPLE#2
+      - ADR-REPO-EXAMPLE#{1,2}
     links:
       - docs/adr/azure/landing-zones.md
 ---

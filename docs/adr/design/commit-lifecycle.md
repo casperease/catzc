@@ -5,22 +5,10 @@ catzc:
     kind: adr
     body_sha: c0b1c05d5104
     defines:
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#2
-      - ADR-DSGN-LIFE#3
-      - ADR-DSGN-LIFE#4
-      - ADR-DSGN-LIFE#5
-      - ADR-DSGN-LIFE#6
-      - ADR-DSGN-LIFE#7
-      - ADR-DSGN-LIFE#8
-      - ADR-DSGN-LIFE#9
-      - ADR-DSGN-LIFE#10
+      - ADR-DSGN-LIFE#{1-10}
     adrs:
-      - ADR-DSGN-VISUAL#12
-      - ADR-DSGN-VISUAL#13
-      - ADR-FLOW-CD#10
-      - ADR-FLOW-CD#14
-      - ADR-FLOW-CD#9
+      - ADR-DSGN-VISUAL#{12,13}
+      - ADR-FLOW-CD#{9,10,14}
     links:
       - docs/.assets/commits-quality/commit-lifecycle-states.drawio.png
       - docs/.assets/commits-quality/sync-point.drawio.png

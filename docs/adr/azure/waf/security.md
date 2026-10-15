@@ -5,36 +5,14 @@ catzc:
     kind: adr
     body_sha: "945a8dd38e53"
     defines:
-      - ADR-AZ-WAFSE#1
-      - ADR-AZ-WAFSE#2
-      - ADR-AZ-WAFSE#3
-      - ADR-AZ-WAFSE#4
-      - ADR-AZ-WAFSE#5
-      - ADR-AZ-WAFSE#6
-      - ADR-AZ-WAFSE#7
-      - ADR-AZ-WAFSE#8
-      - ADR-AZ-WAFSE#9
-      - ADR-AZ-WAFSE#10
-      - ADR-AZ-WAFSE#11
-      - ADR-AZ-WAFSE#12
+      - ADR-AZ-WAFSE#{1-12}
     adrs:
       - ADR-AUTO-ENVVAR#7
-      - ADR-AUTO-GUIDS#1
-      - ADR-AUTO-GUIDS#4
+      - ADR-AUTO-GUIDS#{1,4}
       - ADR-AUTO-TEST#3
-      - ADR-AZ-DATAMOD#10
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#2
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#2
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#5
-      - ADR-AZ-LZ#6
-      - ADR-AZ-NETWORK#1
-      - ADR-AZ-NETWORK#5
-      - ADR-AZ-NETWORK#6
+      - ADR-AZ-DATAMOD#{2,9-11}
+      - ADR-AZ-LZ#{1-6}
+      - ADR-AZ-NETWORK#{1,5,6}
       - ADR-CONF-ADDRESSING#3
       - ADR-DORA-SECURITY#3
     links:

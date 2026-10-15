@@ -5,16 +5,11 @@ catzc:
     kind: explanation
     body_sha: "5591a605f706"
     adrs:
-      - ADR-DSGN-ASPECT#2
-      - ADR-DSGN-ASPECT#4
-      - ADR-DSGN-ASPECT#5
+      - ADR-DSGN-ASPECT#{2,4,5}
       - ADR-FLOW-CD-GLOBS#9
-      - ADR-PWSH-MANIFEST#2
-      - ADR-PWSH-MANIFEST#3
-      - ADR-PWSH-MANIFEST#4
+      - ADR-PWSH-MANIFEST#{2-4}
       - ADR-PWSH-ONEFUNC#1
-      - ADR-REPO-FOLDERS#10
-      - ADR-REPO-FOLDERS#6
+      - ADR-REPO-FOLDERS#{6,10}
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md
       - docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png

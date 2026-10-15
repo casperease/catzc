@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "96d4a2de82c7"
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#{14,15}
 ---
 
 # automation/Catzc.Base.Docs/configs/adrs.yml

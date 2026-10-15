@@ -57,8 +57,19 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         @{ Text = "two`nlines"; Expected = '"two\nlines"' }
         @{ Text = 'widget'; Expected = 'widget' }
         @{ Text = 'docs/adr/widget.md'; Expected = 'docs/adr/widget.md' }
+        @{ Text = 'ADR-WIDGET-GADGET#{1,3-5}'; Expected = 'ADR-WIDGET-GADGET#{1,3-5}' }
+        @{ Text = 'ADR-WIDGET-GADGET#*'; Expected = 'ADR-WIDGET-GADGET#*' }
+        @{ Text = 'ADR-WIDGET-*'; Expected = 'ADR-WIDGET-*' }
+        @{ Text = 'ADR-WIDGET-GADGET#{}'; Expected = '"ADR-WIDGET-GADGET#{}"' }
+        @{ Text = 'ADR-WIDGET-GADGET#{1, 2}'; Expected = '"ADR-WIDGET-GADGET#{1, 2}"' }
+        @{ Text = 'widget#{1,2}'; Expected = '"widget#{1,2}"' }
     ) {
         [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Scalar($Text) | Should -BeExactly $Expected
+    }
+
+    It 'reads a grouped ADR token back from a rendered list' {
+        $lines = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ adrs = [string[]] @('ADR-WIDGET-GADGET#{1,3-5}', 'ADR-WIDGET-*') }, [string[]] @())
+        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($lines, 'adrs') | Should -Be @('ADR-WIDGET-GADGET#{1,3-5}', 'ADR-WIDGET-*')
     }
 
     It 'keeps the authored config lines exactly as written' {

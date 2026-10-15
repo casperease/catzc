@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: e23143f089ca
     adrs:
-      - ADR-REPO-CONTRACT#4
-      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-CONTRACT#{4,6}
 ---
 
 # automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1

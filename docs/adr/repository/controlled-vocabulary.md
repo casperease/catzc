@@ -5,14 +5,7 @@ catzc:
     kind: adr
     body_sha: e303a0153364
     defines:
-      - ADR-REPO-VOCAB#1
-      - ADR-REPO-VOCAB#2
-      - ADR-REPO-VOCAB#3
-      - ADR-REPO-VOCAB#4
-      - ADR-REPO-VOCAB#5
-      - ADR-REPO-VOCAB#6
-      - ADR-REPO-VOCAB#7
-      - ADR-REPO-VOCAB#8
+      - ADR-REPO-VOCAB#{1-8}
     adrs:
       - ADR-AUTO-TEST#9
     links:

@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: de8d7a0b63f5
     adrs:
-      - ADR-AUTO-DEPM#3
-      - ADR-AUTO-DEPM#4
-      - ADR-AUTO-DEPM#5
+      - ADR-AUTO-DEPM#{3-5}
     links:
       - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md
       - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png

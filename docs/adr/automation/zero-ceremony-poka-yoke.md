@@ -5,9 +5,7 @@ catzc:
     kind: adr
     body_sha: "203576ad0251"
     defines:
-      - ADR-AUTO-ZERO#1
-      - ADR-AUTO-ZERO#2
-      - ADR-AUTO-ZERO#3
+      - ADR-AUTO-ZERO#{1-3}
     adrs:
       - ADR-AUTO-EXTEND#4
       - ADR-PWSH-MANIFEST#9

@@ -11,12 +11,8 @@ catzc:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-CACHE
       - ADR-AUTO-CACHE#10
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
-      - ADR-AUTO-TEST#8
-      - ADR-PRIN-CONFIG#1
-      - ADR-PRIN-CONFIG#2
-      - ADR-PRIN-CONFIG#4
+      - ADR-AUTO-TEST#{3,6,8}
+      - ADR-PRIN-CONFIG#{1,2,4}
       - ADR-REPO-FORMAT#8
 ---
 #>

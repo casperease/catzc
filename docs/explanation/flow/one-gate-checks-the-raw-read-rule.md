@@ -6,11 +6,7 @@ catzc:
     body_sha: "214e0998f9bf"
     adrs:
       - ADR-AUTO-PARITY#3
-      - ADR-FLOW-CD-DETECT#1
-      - ADR-FLOW-CD-DETECT#2
-      - ADR-FLOW-CD-DETECT#3
-      - ADR-FLOW-CD-DETECT#4
-      - ADR-FLOW-CD-DETECT#5
+      - ADR-FLOW-CD-DETECT#*
     links:
       - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.md
       - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png

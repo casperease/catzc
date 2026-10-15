@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: acff02a4ee86
     adrs:
-      - ADR-FLOW-CD-GLOBS#1
-      - ADR-FLOW-CD-GLOBS#5
-      - ADR-FLOW-CD-GLOBS#6
-      - ADR-FLOW-CD-GLOBS#9
+      - ADR-FLOW-CD-GLOBS#{1,5,6,9}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md
       - docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png

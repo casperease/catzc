@@ -6,8 +6,7 @@ catzc:
     body_sha: "0c1d71f47fcd"
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#10
-      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-PROTGLOB#7
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md

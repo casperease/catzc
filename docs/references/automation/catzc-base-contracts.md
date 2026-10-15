@@ -5,9 +5,7 @@ catzc:
     kind: reference
     body_sha: "8b2e6e43bc08"
     adrs:
-      - ADR-REPO-CONTRACT#3
-      - ADR-REPO-CONTRACT#5
-      - ADR-REPO-CONTRACT#9
+      - ADR-REPO-CONTRACT#{3,5,9}
     links:
       - docs/adr/repository/api-contracts.md
       - docs/adr/repository/api-contracts.md#rule-adr-repo-contract3

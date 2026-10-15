@@ -6,8 +6,7 @@ catzc:
     body_sha: "076ae86c8b69"
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#7
-      - ADR-DSGN-TRACK#8
+      - ADR-DSGN-TRACK#{7,8}
 ---
 
 # automation/Catzc.Base.Maps/types/WorldMapGridLayout.cs

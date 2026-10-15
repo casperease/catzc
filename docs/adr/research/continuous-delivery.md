@@ -5,16 +5,9 @@ catzc:
     kind: adr
     body_sha: f32418cd25eb
     defines:
-      - ADR-DORA-CD#1
-      - ADR-DORA-CD#2
-      - ADR-DORA-CD#3
-      - ADR-DORA-CD#4
-      - ADR-DORA-CD#5
+      - ADR-DORA-CD#{1-5}
     adrs:
-      - ADR-FLOW-CD-TYPE#10
-      - ADR-FLOW-CD-TYPE#3
-      - ADR-FLOW-CD-TYPE#4
-      - ADR-FLOW-CD-TYPE#8
+      - ADR-FLOW-CD-TYPE#{3,4,8,10}
     links:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
       - docs/adr/flow/pipeline-types.md

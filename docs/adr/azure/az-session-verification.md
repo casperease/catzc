@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: b86a677eda72
     defines:
-      - ADR-AZ-SESSION#1
-      - ADR-AZ-SESSION#2
-      - ADR-AZ-SESSION#3
-      - ADR-AZ-SESSION#4
-      - ADR-AZ-SESSION#5
+      - ADR-AZ-SESSION#{1-5}
     links:
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod7
       - docs/adr/azure/prefer-az-cli.md

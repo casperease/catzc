@@ -5,17 +5,10 @@ catzc:
     kind: adr
     body_sha: b8e8750cdd85
     defines:
-      - ADR-PWSH-ENGINE#1
-      - ADR-PWSH-ENGINE#2
-      - ADR-PWSH-ENGINE#3
-      - ADR-PWSH-ENGINE#4
-      - ADR-PWSH-ENGINE#5
-      - ADR-PWSH-ENGINE#6
+      - ADR-PWSH-ENGINE#{1-6}
     adrs:
-      - ADR-AUTO-BUNDLE#3
-      - ADR-AUTO-BUNDLE#8
-      - ADR-PWSH-ERROR#1
-      - ADR-PWSH-ERROR#2
+      - ADR-AUTO-BUNDLE#{3,8}
+      - ADR-PWSH-ERROR#{1,2}
     links:
       - docs/adr/automation/console-output-matters.md#rule-adr-auto-console11
       - docs/adr/automation/cross-platform.md

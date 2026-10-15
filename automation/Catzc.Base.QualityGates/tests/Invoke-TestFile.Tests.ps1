@@ -8,10 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/Invoke-TestFile.ps1
     adrs:
-      - ADR-AUTO-TEST#23
-      - ADR-AUTO-TEST#25
-      - ADR-AUTO-TEST#32
-      - ADR-AUTO-TEST#33
+      - ADR-AUTO-TEST#{23,25,32,33}
 ---
 #>
 

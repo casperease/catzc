@@ -5,13 +5,7 @@ catzc:
     kind: adr
     body_sha: "06c7a83a306a"
     defines:
-      - ADR-PWSH-VERBS#1
-      - ADR-PWSH-VERBS#2
-      - ADR-PWSH-VERBS#3
-      - ADR-PWSH-VERBS#4
-      - ADR-PWSH-VERBS#5
-      - ADR-PWSH-VERBS#6
-      - ADR-PWSH-VERBS#7
+      - ADR-PWSH-VERBS#{1-7}
     adrs:
       - ADR-AUTO-TEST#35
     links:

@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: c7fbe67c5617
     defines:
-      - ADR-GH-RELEASE#1
-      - ADR-GH-RELEASE#2
-      - ADR-GH-RELEASE#3
-      - ADR-GH-RELEASE#4
-      - ADR-GH-RELEASE#5
+      - ADR-GH-RELEASE#{1-5}
     links:
       - docs/adr/automation/platform-bundle.md
       - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7

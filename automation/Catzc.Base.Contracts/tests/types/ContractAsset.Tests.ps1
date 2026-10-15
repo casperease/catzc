@@ -8,10 +8,8 @@ catzc:
       page: docs/references/automation/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md
       source: automation/Catzc.Base.Contracts/types/ContractAsset.cs
     adrs:
-      - ADR-AUTO-PATH#1
-      - ADR-AUTO-PATH#2
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#6
+      - ADR-AUTO-PATH#{1,2}
+      - ADR-REPO-CONTRACT#{2,6}
 ---
 #>
 

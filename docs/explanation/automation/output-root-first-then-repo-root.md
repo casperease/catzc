@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "9387b36c0e27"
     adrs:
-      - ADR-AUTO-PATH#10
-      - ADR-AUTO-PATH#4
-      - ADR-AUTO-PATH#5
-      - ADR-AUTO-PATH#9
+      - ADR-AUTO-PATH#{4,5,9,10}
     links:
       - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
       - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png

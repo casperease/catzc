@@ -7,9 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md
     adrs:
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TEST#16
-      - ADR-AUTO-TEST#17
+      - ADR-AUTO-TEST#{1,16,17}
       - ADR-AZ-NAMING#2
 ---
 #>

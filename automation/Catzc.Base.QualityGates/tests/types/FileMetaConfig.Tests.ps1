@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.QualityGates/types/FileMetaConfig.cs
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-FILEMETA#2
-      - ADR-REPO-FILEMETA#4
+      - ADR-REPO-FILEMETA#{2,4}
 ---
 #>
 

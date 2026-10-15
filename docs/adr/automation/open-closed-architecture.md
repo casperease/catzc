@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "311142b2a5ab"
     defines:
-      - ADR-AUTO-EXTEND#1
-      - ADR-AUTO-EXTEND#3
-      - ADR-AUTO-EXTEND#4
-      - ADR-AUTO-EXTEND#5
+      - ADR-AUTO-EXTEND#{1,3-5}
     links:
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/design/tracks.md

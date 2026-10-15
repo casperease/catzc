@@ -5,28 +5,14 @@ catzc:
     kind: adr
     body_sha: b891f6ab0cc2
     defines:
-      - ADR-AZ-CAFPRIN#1
-      - ADR-AZ-CAFPRIN#2
-      - ADR-AZ-CAFPRIN#3
-      - ADR-AZ-CAFPRIN#4
-      - ADR-AZ-CAFPRIN#5
+      - ADR-AZ-CAFPRIN#{1-5}
     adrs:
       - ADR-AZ-CLI#1
       - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-DATAMOD#1
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#2
-      - ADR-AZ-DATAMOD#3
-      - ADR-AZ-DATAMOD#8
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#5
-      - ADR-AZ-LZ#6
+      - ADR-AZ-DATAMOD#{1-3,8,9,11}
+      - ADR-AZ-LZ#{1,3-6}
       - ADR-AZ-NETWORK#5
-      - ADR-DSGN-SELFSERV#1
-      - ADR-DSGN-SELFSERV#2
+      - ADR-DSGN-SELFSERV#{1,2}
       - ADR-DSGN-THINPLAT#2
     links:
       - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer2

@@ -8,8 +8,7 @@ catzc:
       - ADR-AUTO-GO#6
       - ADR-AUTO-PY#4
       - ADR-REPO-FORMAT#8
-      - ADR-REPO-LINK#2
-      - ADR-REPO-LINK#3
+      - ADR-REPO-LINK#{2,3}
 ---
 
 # automation/Catzc.Base.VSCode/configs/vscode-settings.yml

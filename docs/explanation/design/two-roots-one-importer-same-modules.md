@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "4d9cd07a82cf"
     adrs:
-      - ADR-DSGN-RUNMODE#1
-      - ADR-DSGN-RUNMODE#2
-      - ADR-DSGN-RUNMODE#3
-      - ADR-DSGN-RUNMODE#7
+      - ADR-DSGN-RUNMODE#{1-3,7}
     links:
       - docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md
       - docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png

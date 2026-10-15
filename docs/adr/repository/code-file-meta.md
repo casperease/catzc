@@ -5,18 +5,10 @@ catzc:
     kind: adr
     body_sha: e76581c7d6df
     defines:
-      - ADR-REPO-CODEMETA#1
-      - ADR-REPO-CODEMETA#2
-      - ADR-REPO-CODEMETA#3
-      - ADR-REPO-CODEMETA#4
-      - ADR-REPO-CODEMETA#5
+      - ADR-REPO-CODEMETA#{1-5}
     adrs:
       - ADR-REPO-COMMENTS#3
-      - ADR-REPO-FILEMETA#1
-      - ADR-REPO-FILEMETA#2
-      - ADR-REPO-FILEMETA#3
-      - ADR-REPO-FILEMETA#5
-      - ADR-REPO-FILEMETA#7
+      - ADR-REPO-FILEMETA#{1-3,5,7}
       - ADR-REPO-FORMAT#8
     links:
       - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3

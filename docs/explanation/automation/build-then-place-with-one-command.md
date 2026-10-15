@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "996f53ad2447"
     adrs:
-      - ADR-AUTO-BUNDLE#5
-      - ADR-AUTO-BUNDLE#6
-      - ADR-AUTO-BUNDLE#7
+      - ADR-AUTO-BUNDLE#{5-7}
     links:
       - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
       - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png

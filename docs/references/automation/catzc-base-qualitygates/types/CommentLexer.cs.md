@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "43bd9672b6fc"
     adrs:
-      - ADR-REPO-LINK#1
-      - ADR-REPO-LINK#6
+      - ADR-REPO-LINK#{1,6}
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentLexer.cs

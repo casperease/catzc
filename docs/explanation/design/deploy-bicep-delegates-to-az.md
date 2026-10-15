@@ -6,8 +6,7 @@ catzc:
     body_sha: df7b0bc977d6
     adrs:
       - ADR-AZ-CLI#1
-      - ADR-DSGN-THINPLAT#2
-      - ADR-DSGN-THINPLAT#3
+      - ADR-DSGN-THINPLAT#{2,3}
     links:
       - docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.md
       - docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png

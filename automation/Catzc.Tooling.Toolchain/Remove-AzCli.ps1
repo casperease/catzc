@@ -11,10 +11,7 @@ catzc:
       test: automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
     adrs:
       - ADR-AUTO-REMOVE
-      - ADR-AUTO-REMOVE#3
-      - ADR-AUTO-REMOVE#4
-      - ADR-AUTO-REMOVE#5
-      - ADR-AUTO-REMOVE#6
+      - ADR-AUTO-REMOVE#{3-6}
   config:
     synopsis: Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.
     description: |-

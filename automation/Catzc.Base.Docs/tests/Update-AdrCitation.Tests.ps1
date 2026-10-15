@@ -11,8 +11,7 @@ catzc:
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-IDEM#1
       - ADR-AUTO-TEST#3
-      - ADR-REPO-LINK#2
-      - ADR-REPO-LINK#3
+      - ADR-REPO-LINK#{2,3}
 ---
 #>
 

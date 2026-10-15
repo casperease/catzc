@@ -10,8 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md
       test: automation/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
       - ADR-REPO-LANG
   config:
     synopsis: |-

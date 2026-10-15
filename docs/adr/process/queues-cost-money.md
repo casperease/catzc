@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "620d1efbab2c"
     defines:
-      - ADR-PROC-QUEUECOST#1
-      - ADR-PROC-QUEUECOST#2
-      - ADR-PROC-QUEUECOST#3
-      - ADR-PROC-QUEUECOST#4
-      - ADR-PROC-QUEUECOST#5
+      - ADR-PROC-QUEUECOST#{1-5}
     links:
       - docs/adr/automation/caching.md
       - docs/adr/automation/devbox-pipeline-parity.md

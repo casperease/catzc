@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: c392cf3de1a3
     adrs:
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#2
-      - ADR-DSGN-TRACK#4
-      - ADR-DSGN-TRACK#5
+      - ADR-DSGN-TRACK#{1,2,4,5}
     links:
       - docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md
       - docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png

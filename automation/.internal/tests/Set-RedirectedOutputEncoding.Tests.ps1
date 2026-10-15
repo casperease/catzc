@@ -7,8 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md
     adrs:
-      - ADR-PWSH-ANNOUNCE#1
-      - ADR-PWSH-ANNOUNCE#6
+      - ADR-PWSH-ANNOUNCE#{1,6}
 ---
 #>
 

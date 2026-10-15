@@ -8,9 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md
     adrs:
       - ADR-AUTO-ENGINE#4
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#8
-      - ADR-AUTO-TEST#9
+      - ADR-AUTO-TEST#{8,9,26}
 ---
 #>
 

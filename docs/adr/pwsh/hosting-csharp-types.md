@@ -5,21 +5,9 @@ catzc:
     kind: adr
     body_sha: "6fcb534e32be"
     defines:
-      - ADR-PWSH-TYPES#1
-      - ADR-PWSH-TYPES#2
-      - ADR-PWSH-TYPES#3
-      - ADR-PWSH-TYPES#4
-      - ADR-PWSH-TYPES#5
-      - ADR-PWSH-TYPES#6
-      - ADR-PWSH-TYPES#7
+      - ADR-PWSH-TYPES#{1-7}
     adrs:
-      - ADR-AUTO-TYPES#14
-      - ADR-AUTO-TYPES#15
-      - ADR-AUTO-TYPES#2
-      - ADR-AUTO-TYPES#3
-      - ADR-AUTO-TYPES#4
-      - ADR-AUTO-TYPES#7
-      - ADR-AUTO-TYPES#9
+      - ADR-AUTO-TYPES#{2-4,7,9,14,15}
       - ADR-FLOW-CD-DETECT#1
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

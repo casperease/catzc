@@ -8,9 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/tests/Test-Terminology.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/Test-Terminology.ps1
     adrs:
-      - ADR-AUTO-SPELL#5
-      - ADR-AUTO-SPELL#6
-      - ADR-AUTO-SPELL#8
+      - ADR-AUTO-SPELL#{5,6,8}
 ---
 #>
 

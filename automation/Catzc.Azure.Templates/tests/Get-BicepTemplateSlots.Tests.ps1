@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md
       source: automation/Catzc.Azure.Templates/Get-BicepTemplateSlots.ps1
     adrs:
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#4
+      - ADR-AUTO-TEST#{4,19}
 ---
 #>
 

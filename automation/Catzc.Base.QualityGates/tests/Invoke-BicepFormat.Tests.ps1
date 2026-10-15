@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/tests/Invoke-BicepFormat.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/private/Invoke-BicepFormat.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#{3,6}
 ---
 #>
 

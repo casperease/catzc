@@ -5,11 +5,9 @@ catzc:
     kind: how-to
     body_sha: "7f55509dde8a"
     adrs:
-      - ADR-CONF-LOADING#4
-      - ADR-CONF-LOADING#5
+      - ADR-CONF-LOADING#{4,5}
       - ADR-REPO-CONTRACT#8
-      - ADR-REPO-FILEMETA#1
-      - ADR-REPO-FILEMETA#5
+      - ADR-REPO-FILEMETA#{1,5}
       - ADR-REPO-FORMAT#8
     links:
       - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4

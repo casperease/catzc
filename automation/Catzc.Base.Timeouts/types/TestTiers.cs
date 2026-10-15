@@ -9,8 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
       test: automation/Catzc.Base.Timeouts/tests/types/TestTiers.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#13
-      - ADR-AUTO-TEST#41
+      - ADR-AUTO-TEST#{13,41}
 ---
 */
 

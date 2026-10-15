@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
       source: automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
       - ADR-FLOW-CD-GLOBS#10
 ---
 #>

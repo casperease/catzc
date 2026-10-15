@@ -8,8 +8,7 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-REPO-FORMAT#6
-      - ADR-REPO-FORMAT#7
+      - ADR-REPO-FORMAT#{6,7}
   config:
     synopsis: |-
       The Markdown title and heading quality gate: fails on any in-scope file whose H1 is not a title

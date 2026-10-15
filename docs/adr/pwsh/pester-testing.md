@@ -5,48 +5,12 @@ catzc:
     kind: adr
     body_sha: "97dde284954c"
     defines:
-      - ADR-PWSH-PESTER#1
-      - ADR-PWSH-PESTER#2
-      - ADR-PWSH-PESTER#3
-      - ADR-PWSH-PESTER#4
-      - ADR-PWSH-PESTER#5
-      - ADR-PWSH-PESTER#6
-      - ADR-PWSH-PESTER#7
-      - ADR-PWSH-PESTER#8
-      - ADR-PWSH-PESTER#9
-      - ADR-PWSH-PESTER#10
-      - ADR-PWSH-PESTER#11
-      - ADR-PWSH-PESTER#12
-      - ADR-PWSH-PESTER#13
-      - ADR-PWSH-PESTER#14
-      - ADR-PWSH-PESTER#15
-      - ADR-PWSH-PESTER#16
-      - ADR-PWSH-PESTER#17
-      - ADR-PWSH-PESTER#18
-      - ADR-PWSH-PESTER#19
-      - ADR-PWSH-PESTER#20
+      - ADR-PWSH-PESTER#{1-20}
     adrs:
       - ADR-AUTO-BASH#5
       - ADR-AUTO-GO#7
       - ADR-AUTO-PY#7
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TEST#13
-      - ADR-AUTO-TEST#15
-      - ADR-AUTO-TEST#16
-      - ADR-AUTO-TEST#17
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#20
-      - ADR-AUTO-TEST#21
-      - ADR-AUTO-TEST#25
-      - ADR-AUTO-TEST#27
-      - ADR-AUTO-TEST#28
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#30
-      - ADR-AUTO-TEST#4
-      - ADR-AUTO-TEST#40
-      - ADR-AUTO-TEST#42
-      - ADR-AUTO-TEST#43
-      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#{1,3,4,8,13,15-17,19-21,25,27,28,30,40,42,43}
       - ADR-PWSH-FORMAT#7
     links:
       - docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry2

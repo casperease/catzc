@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "9449ba4f8a11"
     adrs:
-      - ADR-CONF-LOADING#1
-      - ADR-CONF-LOADING#2
-      - ADR-CONF-LOADING#3
-      - ADR-CONF-LOADING#4
+      - ADR-CONF-LOADING#{1-4}
     links:
       - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.md
       - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png

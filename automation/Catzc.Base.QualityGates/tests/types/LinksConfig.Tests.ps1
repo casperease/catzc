@@ -10,8 +10,7 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#4
-      - ADR-REPO-LINK#5
-      - ADR-REPO-LINK#8
+      - ADR-REPO-LINK#{5,8}
 ---
 #>
 

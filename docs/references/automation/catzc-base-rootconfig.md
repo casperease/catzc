@@ -6,8 +6,7 @@ catzc:
     body_sha: "810b6c72d9b8"
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-REPO-ROOTCFG#6
-      - ADR-REPO-ROOTCFG#7
+      - ADR-REPO-ROOTCFG#{6,7}
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test35
       - docs/adr/repository/generated-root-configs.md

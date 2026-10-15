@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.Execution/types/ToolsConfig.cs
     adrs:
       - ADR-AUTO-DEPS#4
-      - ADR-AUTO-TEST#14
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#{3,14}
 ---
 #>
 

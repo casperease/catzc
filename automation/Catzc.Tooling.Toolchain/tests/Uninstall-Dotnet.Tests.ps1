@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Dotnet.Tests.ps1.md
       source: automation/Catzc.Tooling.Toolchain/Uninstall-Dotnet.ps1
     adrs:
-      - ADR-AUTO-REMOVE#4
-      - ADR-AUTO-REMOVE#5
+      - ADR-AUTO-REMOVE#{4,5}
 ---
 #>
 

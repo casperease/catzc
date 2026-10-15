@@ -8,10 +8,8 @@ catzc:
       page: docs/references/automation/catzc-tooling-core/tests/Get-ToolInstallOrder.Tests.ps1.md
       source: automation/Catzc.Tooling.Core/Get-ToolInstallOrder.ps1
     adrs:
-      - ADR-AUTO-TEST#17
-      - ADR-AUTO-TEST#3
-      - ADR-PWSH-PESTER#2
-      - ADR-PWSH-PESTER#3
+      - ADR-AUTO-TEST#{3,17}
+      - ADR-PWSH-PESTER#{2,3}
 ---
 #>
 

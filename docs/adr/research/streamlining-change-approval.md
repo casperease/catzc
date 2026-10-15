@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: ab4ed1a741a8
     defines:
-      - ADR-DORA-APPROVAL#1
-      - ADR-DORA-APPROVAL#2
-      - ADR-DORA-APPROVAL#3
-      - ADR-DORA-APPROVAL#4
-      - ADR-DORA-APPROVAL#5
+      - ADR-DORA-APPROVAL#{1-5}
     links:
       - docs/adr/design/self-service.md
       - docs/adr/design/server-remote-integration.md

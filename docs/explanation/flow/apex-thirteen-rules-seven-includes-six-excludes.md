@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: b7e23c06a752
     adrs:
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#6
-      - ADR-FLOW-CD-GLOBS#8
+      - ADR-FLOW-CD-GLOBS#{4,6,8}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md
       - docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png

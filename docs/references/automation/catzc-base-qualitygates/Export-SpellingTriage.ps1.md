@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: e6fad7eb5a6c
     adrs:
-      - ADR-AUTO-SPELL#6
-      - ADR-AUTO-SPELL#7
+      - ADR-AUTO-SPELL#{6,7}
 ---
 
 # automation/Catzc.Base.QualityGates/Export-SpellingTriage.ps1

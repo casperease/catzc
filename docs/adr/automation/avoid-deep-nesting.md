@@ -5,14 +5,9 @@ catzc:
     kind: adr
     body_sha: "35cf86a64cd4"
     defines:
-      - ADR-AUTO-NONEST#1
-      - ADR-AUTO-NONEST#2
-      - ADR-AUTO-NONEST#3
-      - ADR-AUTO-NONEST#4
-      - ADR-AUTO-NONEST#5
+      - ADR-AUTO-NONEST#{1-5}
     adrs:
-      - ADR-PWSH-FORMAT#8
-      - ADR-PWSH-FORMAT#9
+      - ADR-PWSH-FORMAT#{8,9}
     links:
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/pwsh/powershell-formatting.md

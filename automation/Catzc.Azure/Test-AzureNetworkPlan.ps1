@@ -10,8 +10,7 @@ catzc:
       test: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-AZ-NETWORK#2
-      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#{2,5}
   config:
     synopsis: 'Quality gate: the network plan (network.yml) and the azure config''s environments and subscriptions are in sync.'
     description: |-

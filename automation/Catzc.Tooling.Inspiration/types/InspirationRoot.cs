@@ -9,9 +9,7 @@ catzc:
       page: docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md
       test: automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
     adrs:
-      - ADR-AUTO-PATH#11
-      - ADR-AUTO-PATH#3
-      - ADR-AUTO-PATH#6
+      - ADR-AUTO-PATH#{3,6,11}
 ---
 */
 

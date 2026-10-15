@@ -5,13 +5,9 @@ catzc:
     kind: adr
     body_sha: "58af15b8aa6f"
     defines:
-      - ADR-PWSH-CACHE#1
-      - ADR-PWSH-CACHE#2
-      - ADR-PWSH-CACHE#4
-      - ADR-PWSH-CACHE#5
+      - ADR-PWSH-CACHE#{1,2,4,5}
     adrs:
-      - ADR-AUTO-CACHE#6
-      - ADR-AUTO-CACHE#8
+      - ADR-AUTO-CACHE#{6,8}
       - ADR-PWSH-PESTER#3
     links:
       - docs/adr/automation/caching.md

@@ -9,8 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-docs/types/GlossaryOptions.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-REPO-VOCAB#2
-      - ADR-REPO-VOCAB#3
+      - ADR-REPO-VOCAB#{2,3}
 ---
 */
 

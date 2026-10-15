@@ -5,17 +5,7 @@ catzc:
     kind: adr
     body_sha: c24894c6fcd5
     defines:
-      - ADR-AUTO-PATH#1
-      - ADR-AUTO-PATH#2
-      - ADR-AUTO-PATH#3
-      - ADR-AUTO-PATH#4
-      - ADR-AUTO-PATH#5
-      - ADR-AUTO-PATH#6
-      - ADR-AUTO-PATH#7
-      - ADR-AUTO-PATH#8
-      - ADR-AUTO-PATH#9
-      - ADR-AUTO-PATH#10
-      - ADR-AUTO-PATH#11
+      - ADR-AUTO-PATH#{1-11}
     adrs:
       - ADR-PWSH-XPLAT#10
     links:

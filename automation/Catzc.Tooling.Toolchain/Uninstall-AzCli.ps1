@@ -11,8 +11,7 @@ catzc:
       test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
     adrs:
       - ADR-AUTO-ONEJOB#5
-      - ADR-AUTO-REMOVE#4
-      - ADR-AUTO-REMOVE#5
+      - ADR-AUTO-REMOVE#{4,5}
   config:
     synopsis: Uninstalls the Azure CLI.
     description: |-

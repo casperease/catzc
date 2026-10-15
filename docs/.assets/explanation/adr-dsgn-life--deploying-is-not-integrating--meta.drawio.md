@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: "001a6fa44750"
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md
       - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png

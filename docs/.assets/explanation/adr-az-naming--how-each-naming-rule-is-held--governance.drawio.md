@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: "558b77e45d42"
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md
       - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png

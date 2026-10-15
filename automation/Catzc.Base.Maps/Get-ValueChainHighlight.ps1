@@ -10,9 +10,7 @@ catzc:
       test: automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
     adrs:
       - ADR-AUTO-TEST
-      - ADR-DSGN-TRACK#12
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#{3,12,16}
       - ADR-FLOW-CD
       - ADR-THES-ONETRUTH#3
   config:

@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: b1f6ecea8d5e
     defines:
-      - ADR-PRIN-POKAYOKE#1
-      - ADR-PRIN-POKAYOKE#2
-      - ADR-PRIN-POKAYOKE#3
-      - ADR-PRIN-POKAYOKE#4
-      - ADR-PRIN-POKAYOKE#5
+      - ADR-PRIN-POKAYOKE#{1-5}
 ---
 
 # Principle: Poka-yoke — make mistakes impossible

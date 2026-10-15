@@ -8,13 +8,8 @@ catzc:
       page: docs/references/automation/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
       source: automation/Catzc.Base.Contracts/Test-Contracts.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-CONTRACT#10
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#3
-      - ADR-REPO-CONTRACT#4
-      - ADR-REPO-CONTRACT#5
+      - ADR-AUTO-TEST#{3,35}
+      - ADR-REPO-CONTRACT#{2-5,10}
 ---
 #>
 

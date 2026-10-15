@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "8bb9e4fa8e48"
     adrs:
-      - ADR-DSGN-ASPECT#2
-      - ADR-DSGN-ASPECT#3
-      - ADR-DSGN-ASPECT#5
+      - ADR-DSGN-ASPECT#{2,3,5}
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md
       - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png

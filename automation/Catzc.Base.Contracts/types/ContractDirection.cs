@@ -8,8 +8,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-base-contracts/types/ContractDirection.cs.md
     adrs:
-      - ADR-REPO-CONTRACT#1
-      - ADR-REPO-CONTRACT#7
+      - ADR-REPO-CONTRACT#{1,7}
 ---
 */
 

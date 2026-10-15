@@ -15,8 +15,7 @@ catzc:
       - ADR-AUTO-CONSOLE#8
       - ADR-AUTO-RETRY#1
       - ADR-PWSH-ANNOUNCE#1
-      - ADR-PWSH-PWD#2
-      - ADR-PWSH-PWD#3
+      - ADR-PWSH-PWD#{2,3}
   config:
     synopsis: Runs PSScriptAnalyzer over a file list, sharded across background processes, returning diagnostics.
     description: |-

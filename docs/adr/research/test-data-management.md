@@ -5,15 +5,9 @@ catzc:
     kind: adr
     body_sha: fca065d02994
     defines:
-      - ADR-DORA-TESTDATA#1
-      - ADR-DORA-TESTDATA#2
-      - ADR-DORA-TESTDATA#3
-      - ADR-DORA-TESTDATA#4
-      - ADR-DORA-TESTDATA#5
+      - ADR-DORA-TESTDATA#{1-5}
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
-      - ADR-AUTO-TEST#9
+      - ADR-AUTO-TEST#{3,6,9}
     links:
       - docs/adr/automation/test-automation.md
       - docs/adr/automation/test-automation.md#rule-adr-auto-test3

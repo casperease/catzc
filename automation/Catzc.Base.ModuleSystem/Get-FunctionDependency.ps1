@@ -10,10 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
       test: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1
     adrs:
-      - ADR-AUTO-CACHE#2
-      - ADR-AUTO-CACHE#4
-      - ADR-AUTO-CACHE#5
-      - ADR-AUTO-CACHE#6
+      - ADR-AUTO-CACHE#{2,4-6}
       - ADR-AUTO-TEST#4
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-CACHE#4

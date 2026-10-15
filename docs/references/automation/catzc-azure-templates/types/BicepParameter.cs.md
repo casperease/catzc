@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "7e09d8bdc468"
     adrs:
-      - ADR-AUTO-TYPES#8
-      - ADR-AUTO-TYPES#9
+      - ADR-AUTO-TYPES#{8,9}
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepParameter.cs

@@ -5,9 +5,7 @@ catzc:
     kind: comment-page
     body_sha: dd3bde32dec4
     adrs:
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{1,3,35}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1

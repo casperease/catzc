@@ -6,10 +6,7 @@ catzc:
     body_sha: "37f8531166d7"
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#1
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#6
-      - ADR-FLOW-CD-GLOBS#8
+      - ADR-FLOW-CD-GLOBS#{1,4,6,8}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.md
       - docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png

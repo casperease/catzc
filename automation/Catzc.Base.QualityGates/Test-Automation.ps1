@@ -10,12 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md
       test: automation/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#30
-      - ADR-AUTO-TEST#32
-      - ADR-AUTO-TEST#33
-      - ADR-AUTO-TEST#37
-      - ADR-AUTO-TEST#41
+      - ADR-AUTO-TEST#{26,30,32,33,37,41}
       - ADR-FLOW-CD-GLOBS#7
       - ADR-PWSH-ASSERT#1
       - ADR-PWSH-ERROR#3

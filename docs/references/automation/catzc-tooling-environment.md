@@ -5,8 +5,7 @@ catzc:
     kind: reference
     body_sha: f7b6347487cd
     adrs:
-      - ADR-AUTO-ENVVAR#1
-      - ADR-AUTO-ENVVAR#7
+      - ADR-AUTO-ENVVAR#{1,7}
     links:
       - docs/adr/automation/cross-platform.md
       - docs/adr/automation/environment-variables.md

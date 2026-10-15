@@ -5,16 +5,7 @@ catzc:
     kind: adr
     body_sha: cdee2333ea01
     defines:
-      - ADR-REPO-CONTRACT#1
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#3
-      - ADR-REPO-CONTRACT#4
-      - ADR-REPO-CONTRACT#5
-      - ADR-REPO-CONTRACT#6
-      - ADR-REPO-CONTRACT#7
-      - ADR-REPO-CONTRACT#8
-      - ADR-REPO-CONTRACT#9
-      - ADR-REPO-CONTRACT#10
+      - ADR-REPO-CONTRACT#{1-10}
     adrs:
       - ADR-AUTO-BUNDLE#7
       - ADR-AUTO-DEFAULT#6

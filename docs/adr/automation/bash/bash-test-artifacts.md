@@ -5,20 +5,12 @@ catzc:
     kind: adr
     body_sha: "21cff11877fd"
     defines:
-      - ADR-AUTO-BASH#1
-      - ADR-AUTO-BASH#2
-      - ADR-AUTO-BASH#3
-      - ADR-AUTO-BASH#4
-      - ADR-AUTO-BASH#5
-      - ADR-AUTO-BASH#6
+      - ADR-AUTO-BASH#{1-6}
     adrs:
-      - ADR-AUTO-ENGINE#4
-      - ADR-AUTO-ENGINE#6
+      - ADR-AUTO-ENGINE#{4,6}
       - ADR-AUTO-GO#7
       - ADR-AUTO-PY#7
-      - ADR-AUTO-TEST#42
-      - ADR-AUTO-TEST#8
-      - ADR-AUTO-TEST#9
+      - ADR-AUTO-TEST#{8,9,42}
     links:
       - docs/adr/automation/execution-engines.md
       - docs/adr/automation/execution-engines.md#rule-adr-auto-engine3

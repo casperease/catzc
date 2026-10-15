@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: c603138d451b
     adrs:
-      - ADR-DSGN-RUNMODE#1
-      - ADR-DSGN-RUNMODE#2
-      - ADR-DSGN-RUNMODE#4
-      - ADR-DSGN-RUNMODE#5
+      - ADR-DSGN-RUNMODE#{1,2,4,5}
     links:
       - docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.md
       - docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png

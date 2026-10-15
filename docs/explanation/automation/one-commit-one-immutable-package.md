@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "3f52daff5480"
     adrs:
-      - ADR-AUTO-BUNDLE#1
-      - ADR-AUTO-BUNDLE#5
-      - ADR-AUTO-BUNDLE#6
+      - ADR-AUTO-BUNDLE#{1,5,6}
       - ADR-DSGN-RUNMODE#7
     links:
       - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md

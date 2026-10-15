@@ -17,12 +17,7 @@ catzc:
     body_sha: "9665e0853812"
     adrs:
       - ADR-AUTO-FAILFAST#7
-      - ADR-AUTO-TEST#13
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#20
-      - ADR-AUTO-TEST#21
-      - ADR-AUTO-TEST#22
-      - ADR-AUTO-TEST#23
+      - ADR-AUTO-TEST#{13,19-23}
       - ADR-PRIN-NOWASTE#1
       - ADR-PWSH-PESTER#9
     links:

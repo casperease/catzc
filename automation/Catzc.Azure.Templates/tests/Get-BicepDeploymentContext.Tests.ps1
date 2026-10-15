@@ -8,11 +8,8 @@ catzc:
       page: docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md
       source: automation/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
     adrs:
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#4
-      - ADR-PWSH-PESTER#3
-      - ADR-PWSH-PESTER#9
+      - ADR-AUTO-TEST#{4,19,26}
+      - ADR-PWSH-PESTER#{3,9}
 ---
 #>
 

@@ -5,20 +5,10 @@ catzc:
     kind: adr
     body_sha: ddae9ec7174a
     defines:
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#2
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#5
-      - ADR-AZ-LZ#6
-      - ADR-AZ-LZ#7
+      - ADR-AZ-LZ#{1-7}
     adrs:
-      - ADR-AZ-DATAMOD#10
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-NETWORK#1
-      - ADR-AZ-NETWORK#5
-      - ADR-AZ-NETWORK#6
+      - ADR-AZ-DATAMOD#{9-11}
+      - ADR-AZ-NETWORK#{1,5,6}
     links:
       - docs/adr/azure/azure-data-model.md
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10

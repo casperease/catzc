@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "9a514dbf85a3"
     adrs:
-      - ADR-AZ-NAMING#1
-      - ADR-AZ-NAMING#4
-      - ADR-AZ-NAMING#5
-      - ADR-AZ-NAMING#8
+      - ADR-AZ-NAMING#{1,4,5,8}
     links:
       - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.md
       - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png

@@ -5,11 +5,8 @@ catzc:
     kind: comment-page
     body_sha: bb48820b67cc
     adrs:
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#4
-      - ADR-PWSH-PESTER#3
-      - ADR-PWSH-PESTER#9
+      - ADR-AUTO-TEST#{4,19,26}
+      - ADR-PWSH-PESTER#{3,9}
 ---
 
 # automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1

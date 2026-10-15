@@ -9,9 +9,7 @@ catzc:
       source: automation/Catzc.Azure/Test-AzureNetworkPlan.ps1
     adrs:
       - ADR-AUTO-TEST#3
-      - ADR-AZ-NETWORK#2
-      - ADR-AZ-NETWORK#4
-      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#{2,4,5}
 ---
 #>
 

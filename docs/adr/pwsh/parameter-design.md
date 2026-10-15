@@ -5,14 +5,10 @@ catzc:
     kind: adr
     body_sha: "7373a919820f"
     defines:
-      - ADR-PWSH-PARAM#1
-      - ADR-PWSH-PARAM#2
-      - ADR-PWSH-PARAM#3
-      - ADR-PWSH-PARAM#4
+      - ADR-PWSH-PARAM#{1-4}
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-PWSH-AUTOVAR#6
-      - ADR-PWSH-AUTOVAR#7
+      - ADR-PWSH-AUTOVAR#{6,7}
       - ADR-PWSH-PESTER#3
     links:
       - docs/adr/automation/dry-run.md

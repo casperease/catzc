@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: "45b7d6cf4781"
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.chain.md
       - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.png

@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "746c77c76a50"
     adrs:
-      - ADR-AUTO-BUNDLE#1
-      - ADR-AUTO-BUNDLE#2
-      - ADR-AUTO-BUNDLE#3
-      - ADR-AUTO-BUNDLE#6
+      - ADR-AUTO-BUNDLE#{1-3,6}
       - ADR-DSGN-RUNMODE#7
     links:
       - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md

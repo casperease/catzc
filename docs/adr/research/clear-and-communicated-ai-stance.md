@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: b477e777a6cd
     defines:
-      - ADR-DORA-AISTANCE#1
-      - ADR-DORA-AISTANCE#2
-      - ADR-DORA-AISTANCE#3
-      - ADR-DORA-AISTANCE#4
-      - ADR-DORA-AISTANCE#5
+      - ADR-DORA-AISTANCE#{1-5}
     links:
       - docs/references/dora/ai.md#ai-capabilities-model
       - docs/references/dora/ai.md#individual-effectiveness

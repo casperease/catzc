@@ -10,10 +10,7 @@ catzc:
       test: automation/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
     adrs:
       - ADR-REPO-VOCAB
-      - ADR-REPO-VOCAB#1
-      - ADR-REPO-VOCAB#3
-      - ADR-REPO-VOCAB#4
-      - ADR-REPO-VOCAB#5
+      - ADR-REPO-VOCAB#{1,3-5}
   config:
     synopsis: Lists the glossary facts that span more than one source (check G1, cross-source) — one message per violation.
     description: |-

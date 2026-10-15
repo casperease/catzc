@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: "8fc65b2c4d32"
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.chain.md
       - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png

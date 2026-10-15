@@ -6,8 +6,7 @@ catzc:
     body_sha: "97ce2a4c3ad1"
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#2
+      - ADR-DSGN-TRACK#{1,2}
 ---
 
 # automation/Catzc.Base.Variants/types/VariantsConfig.cs

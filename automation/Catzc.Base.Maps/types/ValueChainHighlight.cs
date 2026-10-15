@@ -9,8 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md
       test: automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
     adrs:
-      - ADR-DSGN-TRACK#12
-      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#{12,16}
       - ADR-THES-ONETRUTH#3
 ---
 */

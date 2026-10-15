@@ -5,14 +5,7 @@ catzc:
     kind: adr
     body_sha: c6a66d2338ab
     defines:
-      - ADR-PRIN-ONELIVE#1
-      - ADR-PRIN-ONELIVE#2
-      - ADR-PRIN-ONELIVE#3
-      - ADR-PRIN-ONELIVE#4
-      - ADR-PRIN-ONELIVE#5
-      - ADR-PRIN-ONELIVE#6
-      - ADR-PRIN-ONELIVE#7
-      - ADR-PRIN-ONELIVE#8
+      - ADR-PRIN-ONELIVE#{1-8}
     adrs:
       - ADR-CONF-LOADING#4
       - ADR-REPO-CONTRACT#2

@@ -10,9 +10,7 @@ catzc:
       test: automation/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#4
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#6
+      - ADR-DSGN-TRACK#{1,3,6}
 ---
 */
 

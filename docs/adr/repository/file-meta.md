@@ -5,23 +5,13 @@ catzc:
     kind: adr
     body_sha: c7fd3fd9e109
     defines:
-      - ADR-REPO-FILEMETA#1
-      - ADR-REPO-FILEMETA#2
-      - ADR-REPO-FILEMETA#3
-      - ADR-REPO-FILEMETA#4
-      - ADR-REPO-FILEMETA#5
-      - ADR-REPO-FILEMETA#6
-      - ADR-REPO-FILEMETA#7
-      - ADR-REPO-FILEMETA#8
-      - ADR-REPO-FILEMETA#9
-      - ADR-REPO-FILEMETA#10
+      - ADR-REPO-FILEMETA#{1-10}
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
       - ADR-CONF-LOADING#5
       - ADR-REPO-COMMENTS#1
-      - ADR-REPO-FORMAT#5
-      - ADR-REPO-FORMAT#6
+      - ADR-REPO-FORMAT#{5,6}
       - ADR-REPO-LINK#4
     links:
       - docs/adr/automation/controlling-module-dependencies.md

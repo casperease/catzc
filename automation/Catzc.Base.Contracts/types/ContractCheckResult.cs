@@ -10,8 +10,7 @@ catzc:
       test: automation/Catzc.Base.Contracts/tests/types/ContractCheckResult.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-REPO-CONTRACT#4
-      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-CONTRACT#{4,6}
 ---
 */
 

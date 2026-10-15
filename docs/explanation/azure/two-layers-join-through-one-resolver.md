@@ -6,9 +6,7 @@ catzc:
     body_sha: "0b8ebf5deb43"
     adrs:
       - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-DATAMOD#1
-      - ADR-AZ-DATAMOD#3
-      - ADR-AZ-DATAMOD#8
+      - ADR-AZ-DATAMOD#{1,3,8}
     links:
       - docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.md
       - docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png

@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "42f43edabf19"
     adrs:
-      - ADR-DSGN-ASPECT#1
-      - ADR-DSGN-ASPECT#2
-      - ADR-DSGN-ASPECT#4
+      - ADR-DSGN-ASPECT#{1,2,4}
       - ADR-FLOW-CD-GLOBS#9
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md

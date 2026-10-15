@@ -12,8 +12,7 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-PWSH-PARAM#4
-      - ADR-REPO-LINK#5
-      - ADR-REPO-LINK#8
+      - ADR-REPO-LINK#{5,8}
 ---
 */
 

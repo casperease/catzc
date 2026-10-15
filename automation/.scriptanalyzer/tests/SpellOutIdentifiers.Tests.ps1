@@ -7,8 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1.md
     adrs:
-      - ADR-AUTO-SPELL#2
-      - ADR-AUTO-SPELL#4
+      - ADR-AUTO-SPELL#{2,4}
 ---
 #>
 

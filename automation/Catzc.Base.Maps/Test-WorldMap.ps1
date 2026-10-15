@@ -10,10 +10,7 @@ catzc:
       test: automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#13
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#6
+      - ADR-DSGN-TRACK#{1,3,6,13}
       - ADR-REPO-OUTDIR
   config:
     synopsis: |-
@@ -34,8 +31,9 @@ catzc:
       - Printed labels. Every label the world map prints names a defined term
         ([ADR-DSGN-TRACK#13](/docs/adr/design/tracks.md#rule-adr-dsgn-track13)): each world-map label of
         maps.yml (Get-Config -Config maps; the value_chain_ labels are Test-ValueChainMap's) names a glossary term
-        (Get-Glossary) in its head, the text before its first ':' (Resolve-MapLabelTerm). A row prints a track's name and a column a file language's name, so the
-        names resolve through their axis's term: the glossary holds 'track'
+        (Get-Glossary) in its head, the text before its first ':' (Resolve-MapLabelTerm). A row prints a track's
+        name and a column a file language's name, so the names resolve through their axis's term: the glossary holds
+        'track'
         ([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)) and 'file language'
         ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)). The two catch-all lines print their
         labels, root_files and unlisted_files, which the maps.yml check covers.

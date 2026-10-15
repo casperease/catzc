@@ -6,9 +6,7 @@ catzc:
     body_sha: "116b4fb7f05e"
     adrs:
       - ADR-AUTO-TEST#3
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#7
-      - ADR-FLOW-CD-GLOBS#8
+      - ADR-FLOW-CD-GLOBS#{4,7,8}
 ---
 
 # automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1

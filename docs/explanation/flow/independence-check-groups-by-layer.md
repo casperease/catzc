@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: "2eeb3688d95b"
     adrs:
-      - ADR-FLOW-CD-GLOBS#10
-      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-LINK#5
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.md

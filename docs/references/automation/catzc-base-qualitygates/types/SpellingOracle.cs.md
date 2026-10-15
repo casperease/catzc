@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "08bdadd3ea73"
     adrs:
-      - ADR-AUTO-SPELL#2
-      - ADR-AUTO-SPELL#6
+      - ADR-AUTO-SPELL#{2,6}
       - ADR-AUTO-TYPES#9
 ---
 

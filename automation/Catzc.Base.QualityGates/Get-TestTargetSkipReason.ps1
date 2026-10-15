@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#41
-      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#{8,41}
   config:
     synopsis: Says why an L4 test must skip against its target environment, or nothing when it may run.
     description: |-

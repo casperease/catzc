@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "0b8c763416c5"
     defines:
-      - ADR-PROC-LEAN#1
-      - ADR-PROC-LEAN#2
-      - ADR-PROC-LEAN#3
-      - ADR-PROC-LEAN#4
-      - ADR-PROC-LEAN#5
+      - ADR-PROC-LEAN#{1-5}
     links:
       - docs/adr/automation/caching.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

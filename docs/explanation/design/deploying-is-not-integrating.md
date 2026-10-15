@@ -5,10 +5,8 @@ catzc:
     kind: explanation
     body_sha: a9bdca79fa5e
     adrs:
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#9
-      - ADR-DSGN-VISUAL#13
-      - ADR-DSGN-VISUAL#4
+      - ADR-DSGN-LIFE#{1,9}
+      - ADR-DSGN-VISUAL#{4,13}
     links:
       - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md
       - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png

@@ -7,8 +7,7 @@ catzc:
     module: Catzc.Base.Contracts
     visibility: private
     adrs:
-      - ADR-REPO-CONTRACT#3
-      - ADR-REPO-CONTRACT#4
+      - ADR-REPO-CONTRACT#{3,4}
   config:
     synopsis: |-
       Lists the contract assets the repository must honour now: every asset of the current version folder, and the

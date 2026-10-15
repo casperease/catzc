@@ -9,8 +9,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md
     adrs:
-      - ADR-AUTO-REMOVE#3
-      - ADR-AUTO-REMOVE#6
+      - ADR-AUTO-REMOVE#{3,6}
   config:
     synopsis: Removes a manually installed Java JDK and cleans up system PATH.
     description: |-

@@ -5,13 +5,8 @@ catzc:
     kind: explanation
     body_sha: "57d23475251f"
     adrs:
-      - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-CUSTOMER#6
-      - ADR-AZ-DATAMOD#1
-      - ADR-AZ-DATAMOD#2
-      - ADR-AZ-DATAMOD#3
-      - ADR-AZ-DATAMOD#5
-      - ADR-AZ-DATAMOD#8
+      - ADR-AZ-CUSTOMER#{2,6}
+      - ADR-AZ-DATAMOD#{1-3,5,8}
     links:
       - docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
       - docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png

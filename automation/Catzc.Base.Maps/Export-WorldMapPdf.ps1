@@ -9,9 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Maps/tests/Export-WorldMapPdf.Tests.ps1
     adrs:
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#7
-      - ADR-DSGN-TRACK#8
+      - ADR-DSGN-TRACK#{3,7,8}
       - ADR-REPO-OUTDIR#2
   config:
     synopsis: 'Writes the world map as PDFs: the grid view, the tree view, or both, optionally with a highlight.'

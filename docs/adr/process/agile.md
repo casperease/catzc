@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: d01d0860d047
     defines:
-      - ADR-PROC-AGILE#1
-      - ADR-PROC-AGILE#2
-      - ADR-PROC-AGILE#3
-      - ADR-PROC-AGILE#4
+      - ADR-PROC-AGILE#{1-4}
     links:
       - docs/adr/principles/reduce-waste.md
       - docs/adr/process/agile-principles.md

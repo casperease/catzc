@@ -9,9 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-reports/types/OutputFormat.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-REPO-OUTFMT#1
-      - ADR-REPO-OUTFMT#3
-      - ADR-REPO-OUTFMT#5
+      - ADR-REPO-OUTFMT#{1,3,5}
 ---
 */
 

@@ -9,9 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
     adrs:
-      - ADR-AUTO-ASSETDEP#2
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-ASSETDEP#{2-4}
       - ADR-AUTO-TEST#35
   config:
     synopsis: 'Quality gate: every internal asset dependency is inventoried and covered by a test that runs in both run modes.'

@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "349056ff35c6"
     defines:
-      - ADR-AUTO-DRYRUN#1
-      - ADR-AUTO-DRYRUN#2
-      - ADR-AUTO-DRYRUN#3
-      - ADR-AUTO-DRYRUN#4
+      - ADR-AUTO-DRYRUN#{1-4}
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/automation/idempotent-state-functions.md

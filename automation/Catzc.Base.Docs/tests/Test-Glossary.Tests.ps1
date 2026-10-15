@@ -9,14 +9,8 @@ catzc:
       source: automation/Catzc.Base.Docs/Test-Glossary.ps1
     adrs:
       - ADR-AUTO-FAILFAST
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#20
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-VOCAB#1
-      - ADR-REPO-VOCAB#2
-      - ADR-REPO-VOCAB#3
-      - ADR-REPO-VOCAB#5
-      - ADR-REPO-VOCAB#6
+      - ADR-AUTO-TEST#{19,20,35}
+      - ADR-REPO-VOCAB#{1-3,5,6}
 ---
 #>
 

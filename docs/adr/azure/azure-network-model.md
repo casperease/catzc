@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: d2049d5d7120
     defines:
-      - ADR-AZ-NETWORK#1
-      - ADR-AZ-NETWORK#2
-      - ADR-AZ-NETWORK#3
-      - ADR-AZ-NETWORK#4
-      - ADR-AZ-NETWORK#5
-      - ADR-AZ-NETWORK#6
+      - ADR-AZ-NETWORK#{1-6}
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-CONF-LOADING#4

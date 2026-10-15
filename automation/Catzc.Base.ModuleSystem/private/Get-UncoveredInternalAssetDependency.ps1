@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
     adrs:
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-ASSETDEP#{3,4}
       - ADR-AUTO-TEST#13
       - ADR-PWSH-PESTER#5
   config:

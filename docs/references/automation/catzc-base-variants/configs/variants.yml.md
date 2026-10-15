@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: bb802cc658de
     adrs:
-      - ADR-DSGN-TRACK#2
-      - ADR-DSGN-TRACK#6
+      - ADR-DSGN-TRACK#{2,6}
 ---
 
 # automation/Catzc.Base.Variants/configs/variants.yml

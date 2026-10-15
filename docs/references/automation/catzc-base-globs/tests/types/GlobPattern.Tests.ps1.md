@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "599c17e2bd4e"
     adrs:
-      - ADR-FLOW-CD-GLOBS#2
-      - ADR-FLOW-CD-GLOBS#3
+      - ADR-FLOW-CD-GLOBS#{2,3}
 ---
 
 # automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1

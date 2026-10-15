@@ -10,8 +10,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-CONTRACT#6
-      - ADR-REPO-FORMAT#6
-      - ADR-REPO-FORMAT#7
+      - ADR-REPO-FORMAT#{6,7}
 ---
 #>
 

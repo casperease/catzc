@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: "9e7c3e8c16ec"
     defines:
-      - ADR-DORA-SMALLBATCH#1
-      - ADR-DORA-SMALLBATCH#2
-      - ADR-DORA-SMALLBATCH#3
-      - ADR-DORA-SMALLBATCH#4
-      - ADR-DORA-SMALLBATCH#5
-      - ADR-DORA-SMALLBATCH#6
+      - ADR-DORA-SMALLBATCH#{1-6}
     links:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
       - docs/adr/process/pull-work.md

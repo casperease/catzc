@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md
       source: automation/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
     adrs:
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#{1,3}
 ---
 #>
 

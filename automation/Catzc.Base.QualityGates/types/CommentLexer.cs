@@ -9,8 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md
       test: automation/Catzc.Base.QualityGates/tests/types/CommentLexer.Tests.ps1
     adrs:
-      - ADR-REPO-LINK#1
-      - ADR-REPO-LINK#6
+      - ADR-REPO-LINK#{1,6}
 ---
 */
 

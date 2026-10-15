@@ -5,16 +5,11 @@ catzc:
     kind: adr
     body_sha: "7aba34771d45"
     defines:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-ASSETDEP#2
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-ASSETDEP#4
-      - ADR-AUTO-ASSETDEP#5
+      - ADR-AUTO-ASSETDEP#{1-5}
     adrs:
       - ADR-AUTO-NOPWD#1
       - ADR-AUTO-TEST#1
-      - ADR-PWSH-PWD#4
-      - ADR-PWSH-PWD#7
+      - ADR-PWSH-PWD#{4,7}
     links:
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/never-depend-on-pwd.md

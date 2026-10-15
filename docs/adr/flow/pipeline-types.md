@@ -5,24 +5,9 @@ catzc:
     kind: adr
     body_sha: c03623e9b407
     defines:
-      - ADR-FLOW-CD-TYPE#1
-      - ADR-FLOW-CD-TYPE#2
-      - ADR-FLOW-CD-TYPE#3
-      - ADR-FLOW-CD-TYPE#4
-      - ADR-FLOW-CD-TYPE#5
-      - ADR-FLOW-CD-TYPE#6
-      - ADR-FLOW-CD-TYPE#7
-      - ADR-FLOW-CD-TYPE#8
-      - ADR-FLOW-CD-TYPE#9
-      - ADR-FLOW-CD-TYPE#10
-      - ADR-FLOW-CD-TYPE#11
-      - ADR-FLOW-CD-TYPE#12
-      - ADR-FLOW-CD-TYPE#13
-      - ADR-FLOW-CD-TYPE#14
+      - ADR-FLOW-CD-TYPE#{1-14}
     adrs:
-      - ADR-FLOW-CD#11
-      - ADR-FLOW-CD#13
-      - ADR-FLOW-CD#9
+      - ADR-FLOW-CD#{9,11,13}
     links:
       - docs/adr/automation/idempotent-state-functions.md
       - docs/adr/automation/test-automation.md

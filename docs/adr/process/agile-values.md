@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "972c86b870f6"
     defines:
-      - ADR-PROC-VALUES#1
-      - ADR-PROC-VALUES#2
-      - ADR-PROC-VALUES#3
-      - ADR-PROC-VALUES#4
+      - ADR-PROC-VALUES#{1-4}
     links:
       - docs/adr/principles/reduce-waste.md
       - docs/adr/process/agile-principles.md

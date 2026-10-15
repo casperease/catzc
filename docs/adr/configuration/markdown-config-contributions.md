@@ -5,23 +5,13 @@ catzc:
     kind: adr
     body_sha: e8192d50ae2b
     defines:
-      - ADR-CONF-MDCONTRIB#1
-      - ADR-CONF-MDCONTRIB#2
-      - ADR-CONF-MDCONTRIB#3
-      - ADR-CONF-MDCONTRIB#4
-      - ADR-CONF-MDCONTRIB#5
-      - ADR-CONF-MDCONTRIB#6
-      - ADR-CONF-MDCONTRIB#7
+      - ADR-CONF-MDCONTRIB#{1-7}
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#3
-      - ADR-AUTO-OVERLAY#4
-      - ADR-AUTO-OVERLAY#7
+      - ADR-AUTO-OVERLAY#{4,7}
       - ADR-CONF-ADDRESSING#3
-      - ADR-CONF-LOADING#1
-      - ADR-CONF-LOADING#3
-      - ADR-CONF-LOADING#4
-      - ADR-CONF-LOADING#5
+      - ADR-CONF-LOADING#{1,3-5}
     links:
       - docs/adr/automation/consumer-overlay.md#rule-adr-auto-overlay4
       - docs/adr/automation/consumer-overlay.md#rule-adr-auto-overlay7

@@ -6,8 +6,7 @@ catzc:
     body_sha: "824d978cfa10"
     adrs:
       - ADR-FLOW-CD-DETECT#1
-      - ADR-FLOW-CD-GLOBS#1
-      - ADR-FLOW-CD-GLOBS#9
+      - ADR-FLOW-CD-GLOBS#{1,9}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
       - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png

@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: cdb7040f722c
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
 ---
 
 # automation/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1

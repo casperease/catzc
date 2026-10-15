@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: "4bb99ea1e724"
     defines:
-      - ADR-AUTO-ONEJOB#1
-      - ADR-AUTO-ONEJOB#2
-      - ADR-AUTO-ONEJOB#3
-      - ADR-AUTO-ONEJOB#4
-      - ADR-AUTO-ONEJOB#5
-      - ADR-AUTO-ONEJOB#6
+      - ADR-AUTO-ONEJOB#{1-6}
     links:
       - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error9
 ---

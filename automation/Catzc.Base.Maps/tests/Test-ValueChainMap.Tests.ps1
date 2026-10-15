@@ -8,11 +8,8 @@ catzc:
       page: docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
       source: automation/Catzc.Base.Maps/Test-ValueChainMap.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
+      - ADR-AUTO-TEST#{3,35}
+      - ADR-DSGN-TRACK#{14-16}
 ---
 #>
 

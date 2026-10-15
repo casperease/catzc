@@ -7,8 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-BASH#6
       - ADR-AUTO-PY#8
-      - ADR-PRIN-CONFIG#2
-      - ADR-PRIN-CONFIG#4
+      - ADR-PRIN-CONFIG#{2,4}
       - ADR-PWSH-ASSERT#1
     links:
       - docs/how-to/automation/manual-test-plan.md

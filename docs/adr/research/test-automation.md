@@ -5,15 +5,9 @@ catzc:
     kind: adr
     body_sha: b779f54fa075
     defines:
-      - ADR-DORA-TESTAUTO#1
-      - ADR-DORA-TESTAUTO#2
-      - ADR-DORA-TESTAUTO#3
-      - ADR-DORA-TESTAUTO#4
-      - ADR-DORA-TESTAUTO#5
+      - ADR-DORA-TESTAUTO#{1-5}
     adrs:
-      - ADR-AUTO-TEST#22
-      - ADR-AUTO-TEST#24
-      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#{8,22,24}
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test1
       - docs/adr/automation/test-automation.md#rule-adr-auto-test22

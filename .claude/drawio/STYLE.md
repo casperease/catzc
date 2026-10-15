@@ -6,16 +6,8 @@ catzc:
     body_sha: "5cc03b54644d"
     adrs:
       - ADR-AUTO-DEPM#1
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#12
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#7
-      - ADR-DSGN-TRACK#8
-      - ADR-DSGN-TRACK#9
-      - ADR-DSGN-VISUAL#13
-      - ADR-DSGN-VISUAL#4
+      - ADR-DSGN-TRACK#{1,7-9,12,14-16}
+      - ADR-DSGN-VISUAL#{4,13}
       - ADR-FLOW-CD#3
       - ADR-REPO-FORMAT#6
     links:

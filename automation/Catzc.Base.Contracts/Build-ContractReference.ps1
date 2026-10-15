@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
     adrs:
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#5
+      - ADR-REPO-CONTRACT#{2,5}
       - ADR-REPO-FORMAT#5
       - ADR-REPO-README#7
   config:

@@ -5,13 +5,7 @@ catzc:
     kind: adr
     body_sha: "7fe7b9ac6558"
     defines:
-      - ADR-REPO-README#1
-      - ADR-REPO-README#2
-      - ADR-REPO-README#3
-      - ADR-REPO-README#4
-      - ADR-REPO-README#5
-      - ADR-REPO-README#6
-      - ADR-REPO-README#7
+      - ADR-REPO-README#{1-7}
     adrs:
       - ADR-PWSH-MANIFEST#3
       - ADR-REPO-FILEMETA#1

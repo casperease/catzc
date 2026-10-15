@@ -8,9 +8,7 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#7
-      - ADR-AZ-DATAMOD#8
+      - ADR-AZ-DATAMOD#{7,8,11}
       - ADR-AZ-NAMING#6
 ---
 

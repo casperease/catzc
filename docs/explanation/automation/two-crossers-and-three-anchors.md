@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: a93d455cb4f2
     adrs:
-      - ADR-AUTO-PATH#10
-      - ADR-AUTO-PATH#4
-      - ADR-AUTO-PATH#7
-      - ADR-AUTO-PATH#9
+      - ADR-AUTO-PATH#{4,7,9,10}
     links:
       - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.md
       - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png

@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "15139b8bcd1b"
     adrs:
-      - ADR-DSGN-ASPECT#2
-      - ADR-DSGN-ASPECT#3
-      - ADR-DSGN-ASPECT#4
+      - ADR-DSGN-ASPECT#{2-4}
       - ADR-DSGN-TRACK#3
       - ADR-FLOW-CD-GLOBS#4
       - ADR-REPO-VARIANT#1

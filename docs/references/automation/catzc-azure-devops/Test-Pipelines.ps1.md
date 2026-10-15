@@ -5,11 +5,7 @@ catzc:
     kind: comment-page
     body_sha: ac2c3a26550c
     adrs:
-      - ADR-PIPE-NAME#1
-      - ADR-PIPE-NAME#2
-      - ADR-PIPE-NAME#3
-      - ADR-PIPE-NAME#4
-      - ADR-PIPE-NAME#6
+      - ADR-PIPE-NAME#{1-4,6}
 ---
 
 # automation/Catzc.Azure.DevOps/Test-Pipelines.ps1

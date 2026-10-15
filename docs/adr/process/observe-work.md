@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "352ee47a842a"
     defines:
-      - ADR-PROC-OBSERVEWIP#1
-      - ADR-PROC-OBSERVEWIP#2
-      - ADR-PROC-OBSERVEWIP#3
-      - ADR-PROC-OBSERVEWIP#4
+      - ADR-PROC-OBSERVEWIP#{1-4}
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/design/commit-lifecycle.md

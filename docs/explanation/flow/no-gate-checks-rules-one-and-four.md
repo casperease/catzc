@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: a85da9fc8bca
     adrs:
-      - ADR-FLOW-CD-RUNNER#1
-      - ADR-FLOW-CD-RUNNER#2
-      - ADR-FLOW-CD-RUNNER#3
-      - ADR-FLOW-CD-RUNNER#4
+      - ADR-FLOW-CD-RUNNER#*
       - ADR-PIPE-NAME#4
     links:
       - docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md

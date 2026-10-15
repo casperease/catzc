@@ -6,8 +6,7 @@ catzc:
     body_sha: bbd9e1107b03
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-CUSTOMER#3
+      - ADR-AZ-CUSTOMER#{2,3}
 ---
 
 # automation/Catzc.Azure/types/CustomerConfig.cs

@@ -12,8 +12,7 @@ catzc:
     adrs:
       - ADR-AUTO-ENTERP#4
       - ADR-AUTO-IDEM#1
-      - ADR-AUTO-PKGMGR#5
-      - ADR-AUTO-PKGMGR#6
+      - ADR-AUTO-PKGMGR#{5,6}
       - ADR-AUTO-REMOVE#2
       - ADR-PRIN-CONFIG#1
   config:

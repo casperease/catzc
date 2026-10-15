@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/tests/Invoke-RuffFormat.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/private/Invoke-RuffFormat.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#{3,6}
 ---
 #>
 

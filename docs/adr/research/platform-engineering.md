@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "026da3c7367a"
     defines:
-      - ADR-DORA-PLATFORM#1
-      - ADR-DORA-PLATFORM#2
-      - ADR-DORA-PLATFORM#3
-      - ADR-DORA-PLATFORM#4
-      - ADR-DORA-PLATFORM#5
+      - ADR-DORA-PLATFORM#{1-5}
     links:
       - docs/adr/design/self-service.md
       - docs/adr/design/thin-platforms.md

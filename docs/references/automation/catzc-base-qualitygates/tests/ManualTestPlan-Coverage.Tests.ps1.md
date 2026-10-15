@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: a062b8ddd712
     adrs:
-      - ADR-AUTO-TEST#16
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{16,35}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1

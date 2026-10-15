@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: f6e84604175e
     adrs:
-      - ADR-DSGN-TRACK#12
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,12,16}
     links:
       - docs/.assets/explanation/glyphs.drawio.md
       - docs/.assets/explanation/glyphs.drawio.png

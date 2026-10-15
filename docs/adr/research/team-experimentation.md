@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "2f9ea2451e97"
     defines:
-      - ADR-DORA-EXPERIMENT#1
-      - ADR-DORA-EXPERIMENT#2
-      - ADR-DORA-EXPERIMENT#3
-      - ADR-DORA-EXPERIMENT#4
+      - ADR-DORA-EXPERIMENT#{1-4}
     links:
       - docs/adr/design/self-service.md
       - docs/adr/design/thin-platforms.md

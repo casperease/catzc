@@ -7,8 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/ManualTestPlan-Coverage.Tests.ps1.md
     adrs:
-      - ADR-AUTO-TEST#16
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{16,35}
 ---
 #>
 

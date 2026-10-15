@@ -9,10 +9,7 @@ catzc:
       source: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
     adrs:
       - ADR-AUTO-TEST#3
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#6
-      - ADR-REPO-CONTRACT#7
-      - ADR-REPO-CONTRACT#9
+      - ADR-REPO-CONTRACT#{2,6,7,9}
       - ADR-REPO-FORMAT#5
       - ADR-REPO-README#7
 ---

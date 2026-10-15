@@ -5,13 +5,7 @@ catzc:
     kind: adr
     body_sha: c2b95f4a9247
     defines:
-      - ADR-REPO-OUTFMT#1
-      - ADR-REPO-OUTFMT#2
-      - ADR-REPO-OUTFMT#3
-      - ADR-REPO-OUTFMT#4
-      - ADR-REPO-OUTFMT#5
-      - ADR-REPO-OUTFMT#6
-      - ADR-REPO-OUTFMT#7
+      - ADR-REPO-OUTFMT#{1-7}
     adrs:
       - ADR-AUTO-PATH#10
     links:

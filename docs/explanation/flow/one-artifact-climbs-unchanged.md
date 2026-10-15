@@ -5,12 +5,7 @@ catzc:
     kind: explanation
     body_sha: eefc2a1eb3c9
     adrs:
-      - ADR-FLOW-CD#13
-      - ADR-FLOW-CD#2
-      - ADR-FLOW-CD#3
-      - ADR-FLOW-CD#5
-      - ADR-FLOW-CD#6
-      - ADR-FLOW-CD#9
+      - ADR-FLOW-CD#{2,3,5,6,9,13}
     links:
       - docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.md
       - docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png

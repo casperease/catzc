@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-modulesystem/tests/Test-CheckedInBinaries.Tests.ps1.md
       source: automation/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
 ---
 #>
 

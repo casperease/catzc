@@ -12,8 +12,7 @@ catzc:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-ASPECT
       - ADR-DSGN-TRACK
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#2
+      - ADR-DSGN-TRACK#{1,2}
       - ADR-REPO-VARIANT
 ---
 */

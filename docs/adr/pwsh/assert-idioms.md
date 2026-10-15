@@ -5,18 +5,9 @@ catzc:
     kind: adr
     body_sha: "780f878a5b15"
     defines:
-      - ADR-PWSH-ASSERT#1
-      - ADR-PWSH-ASSERT#2
-      - ADR-PWSH-ASSERT#3
-      - ADR-PWSH-ASSERT#4
-      - ADR-PWSH-ASSERT#5
-      - ADR-PWSH-ASSERT#6
+      - ADR-PWSH-ASSERT#{1-6}
     adrs:
-      - ADR-AUTO-FAILFAST#1
-      - ADR-AUTO-FAILFAST#2
-      - ADR-AUTO-FAILFAST#4
-      - ADR-AUTO-FAILFAST#5
-      - ADR-AUTO-FAILFAST#7
+      - ADR-AUTO-FAILFAST#{1,2,4,5,7}
       - ADR-PWSH-AUTOVAR#2
       - ADR-PWSH-ERROR#3
     links:

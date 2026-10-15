@@ -6,9 +6,7 @@ catzc:
     body_sha: "2356399464e7"
     adrs:
       - ADR-AZ-CUSTOMER#6
-      - ADR-AZ-DATAMOD#1
-      - ADR-AZ-DATAMOD#2
-      - ADR-AZ-DATAMOD#3
+      - ADR-AZ-DATAMOD#{1-3}
     links:
       - docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
       - docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png

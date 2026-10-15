@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: "54ad5d90da9a"
     defines:
-      - ADR-CONF-LOADING#1
-      - ADR-CONF-LOADING#2
-      - ADR-CONF-LOADING#3
-      - ADR-CONF-LOADING#4
-      - ADR-CONF-LOADING#5
-      - ADR-CONF-LOADING#6
+      - ADR-CONF-LOADING#{1-6}
     adrs:
       - ADR-DSGN-TRACK#3
     links:

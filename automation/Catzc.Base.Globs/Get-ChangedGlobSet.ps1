@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
     adrs:
-      - ADR-FLOW-CD-GLOBS#1
-      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#{1,4}
   config:
     synopsis: The globsets a diff touches — the computed area-of-control of a change.
     description: |-

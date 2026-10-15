@@ -5,17 +5,7 @@ catzc:
     kind: adr
     body_sha: "62369ae583c9"
     defines:
-      - ADR-AUTO-CONSOLE#1
-      - ADR-AUTO-CONSOLE#3
-      - ADR-AUTO-CONSOLE#4
-      - ADR-AUTO-CONSOLE#5
-      - ADR-AUTO-CONSOLE#6
-      - ADR-AUTO-CONSOLE#7
-      - ADR-AUTO-CONSOLE#8
-      - ADR-AUTO-CONSOLE#9
-      - ADR-AUTO-CONSOLE#10
-      - ADR-AUTO-CONSOLE#11
-      - ADR-AUTO-CONSOLE#12
+      - ADR-AUTO-CONSOLE#{1,3-12}
     links:
       - docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types14
       - docs/adr/automation/log-before-invoke.md

@@ -5,23 +5,11 @@ catzc:
     kind: adr
     body_sha: "4511f151b87b"
     defines:
-      - ADR-PWSH-MANIFEST#1
-      - ADR-PWSH-MANIFEST#2
-      - ADR-PWSH-MANIFEST#3
-      - ADR-PWSH-MANIFEST#4
-      - ADR-PWSH-MANIFEST#5
-      - ADR-PWSH-MANIFEST#6
-      - ADR-PWSH-MANIFEST#7
-      - ADR-PWSH-MANIFEST#8
-      - ADR-PWSH-MANIFEST#9
-      - ADR-PWSH-MANIFEST#10
+      - ADR-PWSH-MANIFEST#{1-10}
     adrs:
-      - ADR-AUTO-DEPM#1
-      - ADR-AUTO-DEPM#2
-      - ADR-AUTO-EXTEND#1
-      - ADR-AUTO-EXTEND#4
-      - ADR-AUTO-ZERO#2
-      - ADR-AUTO-ZERO#3
+      - ADR-AUTO-DEPM#{1,2}
+      - ADR-AUTO-EXTEND#{1,4}
+      - ADR-AUTO-ZERO#{2,3}
       - ADR-PWSH-ENGINE#4
     links:
       - docs/adr/automation/open-closed-architecture.md

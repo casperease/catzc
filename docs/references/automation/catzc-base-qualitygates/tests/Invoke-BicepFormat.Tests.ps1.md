@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "588b5b70ce56"
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#{3,6}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Invoke-BicepFormat.Tests.ps1

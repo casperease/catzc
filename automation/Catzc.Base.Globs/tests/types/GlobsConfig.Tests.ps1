@@ -8,12 +8,9 @@ catzc:
       page: docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
       source: automation/Catzc.Base.Globs/types/GlobsConfig.cs
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#37
+      - ADR-AUTO-TEST#{3,37}
       - ADR-DSGN-TRACK#5
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#7
-      - ADR-FLOW-CD-GLOBS#8
+      - ADR-FLOW-CD-GLOBS#{4,7,8}
 ---
 #>
 

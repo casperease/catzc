@@ -11,8 +11,7 @@ catzc:
       test: automation/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN#2
-      - ADR-REPO-FORMAT#6
-      - ADR-REPO-FORMAT#7
+      - ADR-REPO-FORMAT#{6,7}
   config:
     synopsis: Makes the H1 of every in-scope Markdown file its title and brings its headings into normal form.
     description: |-

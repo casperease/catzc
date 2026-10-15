@@ -7,8 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
     adrs:
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-ASSETDEP#{3,4}
       - ADR-AUTO-TEST#35
 ---
 #>

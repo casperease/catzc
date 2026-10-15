@@ -9,8 +9,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md
     adrs:
-      - ADR-AUTO-REMOVE#3
-      - ADR-AUTO-REMOVE#6
+      - ADR-AUTO-REMOVE#{3,6}
   config:
     synopsis: Removes a manually installed Node.js and cleans up system PATH.
     description: |-

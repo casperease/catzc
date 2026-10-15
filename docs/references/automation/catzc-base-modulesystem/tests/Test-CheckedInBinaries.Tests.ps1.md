@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: cddb97f412f4
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
 ---
 
 # automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1

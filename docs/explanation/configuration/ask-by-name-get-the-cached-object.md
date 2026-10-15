@@ -6,10 +6,7 @@ catzc:
     body_sha: "87242c08bfcf"
     adrs:
       - ADR-CONF-ADDRESSING#4
-      - ADR-CONF-LOADING#1
-      - ADR-CONF-LOADING#2
-      - ADR-CONF-LOADING#3
-      - ADR-CONF-LOADING#4
+      - ADR-CONF-LOADING#{1-4}
     links:
       - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md
       - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png

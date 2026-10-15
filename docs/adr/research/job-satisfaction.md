@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: b12564197b48
     defines:
-      - ADR-DORA-JOBSAT#1
-      - ADR-DORA-JOBSAT#2
-      - ADR-DORA-JOBSAT#3
-      - ADR-DORA-JOBSAT#4
-      - ADR-DORA-JOBSAT#5
-      - ADR-DORA-JOBSAT#6
+      - ADR-DORA-JOBSAT#{1-6}
     links:
       - docs/adr/automation/effective-in-enterprises.md
       - docs/adr/automation/zero-ceremony-poka-yoke.md

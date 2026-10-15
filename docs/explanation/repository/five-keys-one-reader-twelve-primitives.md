@@ -6,11 +6,7 @@ catzc:
     body_sha: b6c4ef9f5ef7
     adrs:
       - ADR-PWSH-VERBS#6
-      - ADR-REPO-VARIANT#1
-      - ADR-REPO-VARIANT#2
-      - ADR-REPO-VARIANT#4
-      - ADR-REPO-VARIANT#5
-      - ADR-REPO-VARIANT#6
+      - ADR-REPO-VARIANT#{1,2,4-6}
     links:
       - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md
       - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png

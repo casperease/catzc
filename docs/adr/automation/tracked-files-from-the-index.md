@@ -5,17 +5,7 @@ catzc:
     kind: adr
     body_sha: "2f64cc7666e4"
     defines:
-      - ADR-AUTO-TRACKED#1
-      - ADR-AUTO-TRACKED#2
-      - ADR-AUTO-TRACKED#3
-      - ADR-AUTO-TRACKED#4
-      - ADR-AUTO-TRACKED#5
-      - ADR-AUTO-TRACKED#6
-      - ADR-AUTO-TRACKED#7
-      - ADR-AUTO-TRACKED#8
-      - ADR-AUTO-TRACKED#9
-      - ADR-AUTO-TRACKED#10
-      - ADR-AUTO-TRACKED#11
+      - ADR-AUTO-TRACKED#{1-11}
     adrs:
       - ADR-AUTO-CACHE#9
       - ADR-AUTO-FAILFAST#7

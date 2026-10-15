@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: d2cb16c40656
     defines:
-      - ADR-PROC-ANDON#1
-      - ADR-PROC-ANDON#2
-      - ADR-PROC-ANDON#3
-      - ADR-PROC-ANDON#4
+      - ADR-PROC-ANDON#{1-4}
     adrs:
       - ADR-PRIN-POKAYOKE#3
     links:

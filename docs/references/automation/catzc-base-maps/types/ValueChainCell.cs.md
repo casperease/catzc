@@ -6,8 +6,7 @@ catzc:
     body_sha: a7b54b309a80
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#10
-      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#{10,16}
 ---
 
 # automation/Catzc.Base.Maps/types/ValueChainCell.cs

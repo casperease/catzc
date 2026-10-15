@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: df9bdb9dc6a2
     defines:
-      - ADR-PROC-BUILTIN#1
-      - ADR-PROC-BUILTIN#2
-      - ADR-PROC-BUILTIN#3
-      - ADR-PROC-BUILTIN#4
+      - ADR-PROC-BUILTIN#{1-4}
     links:
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/automation/fail-fast-with-asserts.md

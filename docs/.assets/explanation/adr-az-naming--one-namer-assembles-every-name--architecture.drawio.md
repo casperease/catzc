@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: c8de989c7cd4
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.chain.md
       - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png

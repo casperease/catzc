@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: bfee8c5bb34b
     defines:
-      - ADR-DORA-WELLBEING#1
-      - ADR-DORA-WELLBEING#2
-      - ADR-DORA-WELLBEING#3
-      - ADR-DORA-WELLBEING#4
+      - ADR-DORA-WELLBEING#{1-4}
     links:
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/automation/zero-ceremony-poka-yoke.md

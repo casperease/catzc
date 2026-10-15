@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: af9948e9298f
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.chain.md
       - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png

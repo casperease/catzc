@@ -7,9 +7,7 @@ catzc:
     module: Catzc.Azure
     visibility: private
     adrs:
-      - ADR-AZ-NETWORK#2
-      - ADR-AZ-NETWORK#4
-      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#{2,4,5}
   config:
     synopsis: Returns every way a network plan is out of sync with the azure config's environments and subscriptions.
     description: |-

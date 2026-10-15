@@ -5,14 +5,9 @@ catzc:
     kind: adr
     body_sha: "0a928ba0ca1e"
     defines:
-      - ADR-AUTO-NOPWD#1
-      - ADR-AUTO-NOPWD#4
-      - ADR-AUTO-NOPWD#6
+      - ADR-AUTO-NOPWD#{1,4,6}
     adrs:
-      - ADR-PWSH-PWD#1
-      - ADR-PWSH-PWD#4
-      - ADR-PWSH-PWD#5
-      - ADR-PWSH-PWD#6
+      - ADR-PWSH-PWD#{1,4-6}
     links:
       - docs/adr/automation/internal-asset-dependencies.md
       - docs/adr/design/run-modes.md

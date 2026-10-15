@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
     adrs:
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#{1,3}
       - ADR-FLOW-CD
       - ADR-THES-ONETRUTH#3
   config:

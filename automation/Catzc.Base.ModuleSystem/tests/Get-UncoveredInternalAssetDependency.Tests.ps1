@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
     adrs:
       - ADR-AUTO-ASSETDEP
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-ASSETDEP#{3,4}
       - ADR-AUTO-TEST#3
 ---
 #>

@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
       source: automation/Catzc.Base.Reports/Write-QualityGateReport.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
 ---
 #>
 

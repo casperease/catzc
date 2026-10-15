@@ -10,11 +10,7 @@ catzc:
       test: automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS
-      - ADR-FLOW-CD-GLOBS#10
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#5
-      - ADR-FLOW-CD-GLOBS#7
-      - ADR-FLOW-CD-GLOBS#8
+      - ADR-FLOW-CD-GLOBS#{4,5,7,8,10}
       - ADR-REPO-PROTGLOB
 ---
 */

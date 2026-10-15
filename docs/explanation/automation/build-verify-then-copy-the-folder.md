@@ -6,10 +6,7 @@ catzc:
     body_sha: "7c07bf7b6e67"
     adrs:
       - ADR-AUTO-ASSETDEP#4
-      - ADR-AUTO-BUNDLE#1
-      - ADR-AUTO-BUNDLE#5
-      - ADR-AUTO-BUNDLE#6
-      - ADR-AUTO-BUNDLE#7
+      - ADR-AUTO-BUNDLE#{1,5-7}
     links:
       - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.md
       - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png

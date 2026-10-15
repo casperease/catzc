@@ -10,11 +10,8 @@ catzc:
       test: automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
     adrs:
       - ADR-AUTO-ENVVAR#7
-      - ADR-CONF-ADDRESSING#3
-      - ADR-CONF-ADDRESSING#4
-      - ADR-CONF-ADDRESSING#5
-      - ADR-CONF-LOADING#1
-      - ADR-CONF-LOADING#2
+      - ADR-CONF-ADDRESSING#{3-5}
+      - ADR-CONF-LOADING#{1,2}
   config:
     synopsis: Resolves a global config address to the value at that node (a leaf or a subtree).
     description: |-

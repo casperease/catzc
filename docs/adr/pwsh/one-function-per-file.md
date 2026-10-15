@@ -5,9 +5,7 @@ catzc:
     kind: adr
     body_sha: d121b8193149
     defines:
-      - ADR-PWSH-ONEFUNC#1
-      - ADR-PWSH-ONEFUNC#2
-      - ADR-PWSH-ONEFUNC#3
+      - ADR-PWSH-ONEFUNC#{1-3}
     adrs:
       - ADR-AUTO-EXTEND#4
       - ADR-PWSH-USEPS#1

@@ -5,11 +5,8 @@ catzc:
     kind: explanation
     body_sha: "67c27c50bf4b"
     adrs:
-      - ADR-DSGN-LIFE#6
-      - ADR-DSGN-LIFE#7
-      - ADR-DSGN-REMOTE#1
-      - ADR-DSGN-REMOTE#2
-      - ADR-DSGN-REMOTE#4
+      - ADR-DSGN-LIFE#{6,7}
+      - ADR-DSGN-REMOTE#{1,2,4}
     links:
       - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.md
       - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png

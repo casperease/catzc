@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: d10e7f217e23
     defines:
-      - ADR-AUTO-DEFAULT#1
-      - ADR-AUTO-DEFAULT#2
-      - ADR-AUTO-DEFAULT#5
-      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-DEFAULT#{1,2,5,6}
     adrs:
       - ADR-PWSH-PARAM#4
     links:

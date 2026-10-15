@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: abb8735bc8ea
     adrs:
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#20
+      - ADR-AUTO-TEST#{19,20}
 ---
 
 # automation/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1

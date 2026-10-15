@@ -5,28 +5,11 @@ catzc:
     kind: adr
     body_sha: "8fe3ab1c81d6"
     defines:
-      - ADR-AZ-WAFRE#1
-      - ADR-AZ-WAFRE#2
-      - ADR-AZ-WAFRE#3
-      - ADR-AZ-WAFRE#4
-      - ADR-AZ-WAFRE#5
-      - ADR-AZ-WAFRE#6
-      - ADR-AZ-WAFRE#7
-      - ADR-AZ-WAFRE#8
-      - ADR-AZ-WAFRE#9
-      - ADR-AZ-WAFRE#10
+      - ADR-AZ-WAFRE#{1-10}
     adrs:
-      - ADR-AZ-DATAMOD#6
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#2
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#5
-      - ADR-AZ-LZ#6
-      - ADR-AZ-LZ#7
-      - ADR-AZ-NETWORK#3
-      - ADR-AZ-NETWORK#5
+      - ADR-AZ-DATAMOD#{6,9}
+      - ADR-AZ-LZ#*
+      - ADR-AZ-NETWORK#{3,5}
     links:
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod6
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9

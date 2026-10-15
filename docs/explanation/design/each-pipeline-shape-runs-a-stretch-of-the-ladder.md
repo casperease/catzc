@@ -5,11 +5,8 @@ catzc:
     kind: explanation
     body_sha: cebebf5daac9
     adrs:
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#2
-      - ADR-DSGN-LIFE#8
-      - ADR-FLOW-CD#10
-      - ADR-FLOW-CD#9
+      - ADR-DSGN-LIFE#{1,2,8}
+      - ADR-FLOW-CD#{9,10}
     links:
       - docs/.assets/commits-quality/state-changes.drawio.png
       - docs/adr/design/commit-lifecycle.md

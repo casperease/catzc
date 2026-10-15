@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: f37383f96bac
     defines:
-      - ADR-DORA-FAILALERT#1
-      - ADR-DORA-FAILALERT#2
-      - ADR-DORA-FAILALERT#3
-      - ADR-DORA-FAILALERT#4
-      - ADR-DORA-FAILALERT#5
+      - ADR-DORA-FAILALERT#{1-5}
     links:
       - docs/adr/automation/console-output-matters.md#rule-adr-auto-console7
       - docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry5

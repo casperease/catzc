@@ -5,16 +5,9 @@ catzc:
     kind: adr
     body_sha: "9f2c295bbc83"
     defines:
-      - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-ENGINE#2
-      - ADR-AUTO-ENGINE#3
-      - ADR-AUTO-ENGINE#4
-      - ADR-AUTO-ENGINE#5
-      - ADR-AUTO-ENGINE#6
-      - ADR-AUTO-ENGINE#7
+      - ADR-AUTO-ENGINE#{1-7}
     adrs:
-      - ADR-AUTO-BASH#3
-      - ADR-AUTO-BASH#6
+      - ADR-AUTO-BASH#{3,6}
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-DEPS#3
       - ADR-AUTO-GO#3

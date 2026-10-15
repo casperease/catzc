@@ -6,8 +6,7 @@ catzc:
     body_sha: "391e2c98da04"
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-FILEMETA#2
-      - ADR-REPO-FILEMETA#4
+      - ADR-REPO-FILEMETA#{2,4}
 ---
 
 # automation/Catzc.Base.QualityGates/types/FileMetaKind.cs

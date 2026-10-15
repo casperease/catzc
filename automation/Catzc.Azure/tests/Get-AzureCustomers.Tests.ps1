@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md
       source: automation/Catzc.Azure/Get-AzureCustomers.ps1
     adrs:
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#4
+      - ADR-AUTO-TEST#{4,19}
 ---
 #>
 

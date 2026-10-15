@@ -7,8 +7,7 @@ catzc:
     module: Catzc.Base.Contracts
     visibility: private
     adrs:
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#5
+      - ADR-REPO-CONTRACT#{2,5}
   config:
     synopsis: Lists the contract assets of the selected versions of one unit.
     description: |-

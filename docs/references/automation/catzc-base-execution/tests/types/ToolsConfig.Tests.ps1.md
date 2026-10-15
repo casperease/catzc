@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "2c3e915007f1"
     adrs:
-      - ADR-AUTO-TEST#14
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#{3,14}
 ---
 
 # automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1

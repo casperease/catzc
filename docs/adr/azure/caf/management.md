@@ -5,52 +5,16 @@ catzc:
     kind: adr
     body_sha: "5bb2b8a1cdb8"
     defines:
-      - ADR-AZ-CAFMGMT#1
-      - ADR-AZ-CAFMGMT#2
-      - ADR-AZ-CAFMGMT#3
-      - ADR-AZ-CAFMGMT#4
-      - ADR-AZ-CAFMGMT#5
-      - ADR-AZ-CAFMGMT#6
-      - ADR-AZ-CAFMGMT#7
-      - ADR-AZ-CAFMGMT#8
-      - ADR-AZ-CAFMGMT#9
-      - ADR-AZ-CAFMGMT#10
-      - ADR-AZ-CAFMGMT#11
-      - ADR-AZ-CAFMGMT#12
-      - ADR-AZ-CAFMGMT#13
-      - ADR-AZ-CAFMGMT#14
-      - ADR-AZ-CAFMGMT#15
-      - ADR-AZ-CAFMGMT#16
-      - ADR-AZ-CAFMGMT#17
-      - ADR-AZ-CAFMGMT#18
-      - ADR-AZ-CAFMGMT#19
-      - ADR-AZ-CAFMGMT#20
-      - ADR-AZ-CAFMGMT#21
-      - ADR-AZ-CAFMGMT#22
+      - ADR-AZ-CAFMGMT#{1-22}
     adrs:
-      - ADR-AZ-CAFGOV#4
-      - ADR-AZ-CAFGOV#6
+      - ADR-AZ-CAFGOV#{4,6}
       - ADR-AZ-CAFPRIN#3
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#5
-      - ADR-AZ-LZ#6
-      - ADR-AZ-NETWORK#1
-      - ADR-AZ-NETWORK#3
-      - ADR-AZ-NETWORK#5
-      - ADR-AZ-NETWORK#6
-      - ADR-AZ-WAFOE#10
-      - ADR-AZ-WAFOE#7
-      - ADR-AZ-WAFOE#8
-      - ADR-AZ-WAFRE#10
-      - ADR-AZ-WAFRE#5
-      - ADR-AZ-WAFRE#9
-      - ADR-AZ-WAFSE#4
-      - ADR-AZ-WAFSE#5
-      - ADR-AZ-WAFSE#6
+      - ADR-AZ-DATAMOD#{9,11}
+      - ADR-AZ-LZ#{1,3-6}
+      - ADR-AZ-NETWORK#{1,3,5,6}
+      - ADR-AZ-WAFOE#{7,8,10}
+      - ADR-AZ-WAFRE#{5,9,10}
+      - ADR-AZ-WAFSE#{4-6}
     links:
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9

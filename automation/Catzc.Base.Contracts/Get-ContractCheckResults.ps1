@@ -9,10 +9,8 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1
     adrs:
-      - ADR-PWSH-VERBS#2
-      - ADR-PWSH-VERBS#6
-      - ADR-REPO-CONTRACT#4
-      - ADR-REPO-CONTRACT#6
+      - ADR-PWSH-VERBS#{2,6}
+      - ADR-REPO-CONTRACT#{4,6}
   config:
     synopsis: Checks contract assets against the real repository and returns one result per asset.
     description: |-

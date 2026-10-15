@@ -10,9 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md
       test: automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#30
-      - ADR-AUTO-TEST#31
-      - ADR-AUTO-TEST#33
+      - ADR-AUTO-TEST#{30,31,33}
       - ADR-DSGN-RUNMODE#6
   config:
     synopsis: 'Runs a build run: the same tests as Test-Automation, against a fresh build of the selected modules.'

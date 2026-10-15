@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: fcb272ff0358
     adrs:
-      - ADR-AZ-NAMING#1
-      - ADR-AZ-NAMING#3
-      - ADR-AZ-NAMING#7
-      - ADR-AZ-NAMING#8
+      - ADR-AZ-NAMING#{1,3,7,8}
     links:
       - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.md
       - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png

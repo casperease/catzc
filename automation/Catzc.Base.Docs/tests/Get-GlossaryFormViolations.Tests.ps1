@@ -11,8 +11,7 @@ catzc:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#4
       - ADR-REPO-FILEMETA#1
-      - ADR-REPO-VOCAB#2
-      - ADR-REPO-VOCAB#8
+      - ADR-REPO-VOCAB#{2,8}
 ---
 #>
 

@@ -14,8 +14,7 @@ catzc:
     body_sha: "20813ca506bb"
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-PATH#1
-      - ADR-AUTO-PATH#3
+      - ADR-AUTO-PATH#{1,3}
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TYPES#8
     links:

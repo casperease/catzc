@@ -6,8 +6,7 @@ catzc:
     body_sha: "5adec9f2a7d9"
     adrs:
       - ADR-AUTO-ASSETDEP#3
-      - ADR-PWSH-PESTER#3
-      - ADR-PWSH-PESTER#4
+      - ADR-PWSH-PESTER#{3,4}
 ---
 
 # automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1

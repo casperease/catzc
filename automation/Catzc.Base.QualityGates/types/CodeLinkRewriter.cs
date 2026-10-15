@@ -8,8 +8,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
     adrs:
-      - ADR-REPO-LINK#3
-      - ADR-REPO-LINK#9
+      - ADR-REPO-LINK#{3,9}
 ---
 */
 

@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: aa1fb107b65d
     defines:
-      - ADR-DORA-SECURITY#1
-      - ADR-DORA-SECURITY#2
-      - ADR-DORA-SECURITY#3
-      - ADR-DORA-SECURITY#4
-      - ADR-DORA-SECURITY#5
+      - ADR-DORA-SECURITY#{1-5}
     links:
       - docs/adr/automation/use-proper-package-managers.md
       - docs/adr/azure/az-session-verification.md

@@ -6,8 +6,7 @@ catzc:
     body_sha: b5b1dc793a03
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-ENGINE#6
+      - ADR-AUTO-ENGINE#{1,6}
       - ADR-AUTO-TEST#3
 ---
 

@@ -9,9 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-maps/types/MapCell.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#6
+      - ADR-DSGN-TRACK#{1,3,6}
 ---
 */
 

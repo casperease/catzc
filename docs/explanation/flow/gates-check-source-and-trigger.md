@@ -6,16 +6,7 @@ catzc:
     body_sha: "162cf941ab68"
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#1
-      - ADR-FLOW-CD-GLOBS#10
-      - ADR-FLOW-CD-GLOBS#2
-      - ADR-FLOW-CD-GLOBS#3
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#5
-      - ADR-FLOW-CD-GLOBS#6
-      - ADR-FLOW-CD-GLOBS#7
-      - ADR-FLOW-CD-GLOBS#8
-      - ADR-FLOW-CD-GLOBS#9
+      - ADR-FLOW-CD-GLOBS#*
       - ADR-REPO-PROTGLOB#5
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md

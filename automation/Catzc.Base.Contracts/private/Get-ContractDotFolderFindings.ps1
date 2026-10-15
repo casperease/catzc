@@ -10,8 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md
     adrs:
       - ADR-PWSH-ENUM#3
-      - ADR-REPO-CONTRACT#10
-      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#{2,10}
       - ADR-REPO-FOLDERS#4
   config:
     synopsis: Finds every dot-prefixed folder under contracts/, and returns one finding per folder.

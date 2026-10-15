@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "47103cd2d19b"
     defines:
-      - ADR-PWSH-NOSEMI#1
-      - ADR-PWSH-NOSEMI#2
-      - ADR-PWSH-NOSEMI#3
-      - ADR-PWSH-NOSEMI#4
+      - ADR-PWSH-NOSEMI#{1-4}
 ---
 
 # ADR: Avoid using semicolons

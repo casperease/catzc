@@ -6,10 +6,7 @@ catzc:
     body_sha: d1258477412c
     adrs:
       - ADR-AUTO-CACHE#6
-      - ADR-REPO-VARIANT#1
-      - ADR-REPO-VARIANT#2
-      - ADR-REPO-VARIANT#5
-      - ADR-REPO-VARIANT#6
+      - ADR-REPO-VARIANT#{1,2,5,6}
     links:
       - docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.md
       - docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png

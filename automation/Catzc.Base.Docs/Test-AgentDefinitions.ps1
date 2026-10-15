@@ -11,10 +11,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-AGENTS
-      - ADR-REPO-AGENTS#1
-      - ADR-REPO-AGENTS#2
-      - ADR-REPO-AGENTS#3
-      - ADR-REPO-AGENTS#4
+      - ADR-REPO-AGENTS#{1-4}
   config:
     synopsis: 'Quality gate: the sub-agent definitions, their registry (agents.yml), and the .claude/CLAUDE.md list agree.'
     description: |-

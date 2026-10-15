@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: fac580a0ca23
     adrs:
-      - ADR-DSGN-TRACK#2
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#4
-      - ADR-DSGN-TRACK#5
+      - ADR-DSGN-TRACK#{2-5}
     links:
       - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.md
       - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png

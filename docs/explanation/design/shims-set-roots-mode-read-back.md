@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "0ee78f503e58"
     adrs:
-      - ADR-DSGN-RUNMODE#1
-      - ADR-DSGN-RUNMODE#4
-      - ADR-DSGN-RUNMODE#5
-      - ADR-DSGN-RUNMODE#7
+      - ADR-DSGN-RUNMODE#{1,4,5,7}
     links:
       - docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.md
       - docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png

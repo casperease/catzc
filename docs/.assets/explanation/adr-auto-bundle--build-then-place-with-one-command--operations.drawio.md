@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: "1580340ea555"
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.chain.md
       - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png

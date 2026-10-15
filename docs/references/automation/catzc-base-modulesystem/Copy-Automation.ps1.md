@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: a6fb6e2726f3
     adrs:
-      - ADR-PWSH-ENUM#1
-      - ADR-PWSH-ENUM#3
+      - ADR-PWSH-ENUM#{1,3}
 ---
 
 # automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1

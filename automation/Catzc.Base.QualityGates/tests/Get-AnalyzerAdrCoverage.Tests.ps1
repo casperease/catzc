@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/tests/Get-AnalyzerAdrCoverage.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/private/Get-AnalyzerAdrCoverage.ps1
     adrs:
-      - ADR-AUTO-TEST#28
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{28,35}
       - ADR-PWSH-FORMAT#7
 ---
 #>

@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: "52974b3a4619"
     adrs:
-      - ADR-AUTO-BUNDLE#2
-      - ADR-AUTO-BUNDLE#3
+      - ADR-AUTO-BUNDLE#{2,3}
     links:
       - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.md
       - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png

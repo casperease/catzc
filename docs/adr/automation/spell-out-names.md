@@ -5,14 +5,7 @@ catzc:
     kind: adr
     body_sha: "9a5905f33231"
     defines:
-      - ADR-AUTO-SPELL#1
-      - ADR-AUTO-SPELL#2
-      - ADR-AUTO-SPELL#3
-      - ADR-AUTO-SPELL#4
-      - ADR-AUTO-SPELL#5
-      - ADR-AUTO-SPELL#6
-      - ADR-AUTO-SPELL#7
-      - ADR-AUTO-SPELL#8
+      - ADR-AUTO-SPELL#{1-8}
     adrs:
       - ADR-PWSH-NAMES#1
       - ADR-REPO-OUTDIR#5

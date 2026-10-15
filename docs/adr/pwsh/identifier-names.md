@@ -5,18 +5,9 @@ catzc:
     kind: adr
     body_sha: d7d834183993
     defines:
-      - ADR-PWSH-NAMES#1
-      - ADR-PWSH-NAMES#2
-      - ADR-PWSH-NAMES#3
-      - ADR-PWSH-NAMES#4
-      - ADR-PWSH-NAMES#5
-      - ADR-PWSH-NAMES#6
+      - ADR-PWSH-NAMES#{1-6}
     adrs:
-      - ADR-AUTO-SPELL#1
-      - ADR-AUTO-SPELL#2
-      - ADR-AUTO-SPELL#4
-      - ADR-AUTO-SPELL#6
-      - ADR-AUTO-SPELL#7
+      - ADR-AUTO-SPELL#{1,2,4,6,7}
     links:
       - docs/adr/automation/spell-out-names.md
       - docs/adr/automation/spell-out-names.md#rule-adr-auto-spell1

@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "6b5b0f557acf"
     defines:
-      - ADR-AUTO-PARITY#1
-      - ADR-AUTO-PARITY#2
-      - ADR-AUTO-PARITY#3
-      - ADR-AUTO-PARITY#4
+      - ADR-AUTO-PARITY#{1-4}
     links:
       - docs/adr/automation/test-automation.md
       - docs/adr/flow/durable-sha-globs.md

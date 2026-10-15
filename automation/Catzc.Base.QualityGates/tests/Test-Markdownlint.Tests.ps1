@@ -8,9 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/tests/Test-Markdownlint.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/Test-Markdownlint.ps1
     adrs:
-      - ADR-AUTO-TEST#14
-      - ADR-AUTO-TEST#35
-      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#{8,14,35}
       - ADR-REPO-PROTGLOB
 ---
 #>

@@ -7,8 +7,7 @@ catzc:
     relatives:
       source: automation/Catzc.Base.QualityGates/private/Get-HelpHeadFinding.ps1
     adrs:
-      - ADR-REPO-HELP#3
-      - ADR-REPO-HELP#4
+      - ADR-REPO-HELP#{3,4}
 ---
 #>
 

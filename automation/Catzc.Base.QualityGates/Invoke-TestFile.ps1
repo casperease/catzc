@@ -11,11 +11,7 @@ catzc:
       test: automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
     adrs:
       - ADR-AUTO-NOPWD
-      - ADR-AUTO-TEST#25
-      - ADR-AUTO-TEST#32
-      - ADR-AUTO-TEST#33
-      - ADR-AUTO-TEST#34
-      - ADR-AUTO-TEST#41
+      - ADR-AUTO-TEST#{25,32-34,41}
       - ADR-PWSH-ASSERT#1
   config:
     synopsis: Runs one or more test files by hand as a single worker shard — the blessed single-check entry point.

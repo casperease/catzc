@@ -12,8 +12,7 @@ catzc:
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-SPELL
-      - ADR-AUTO-SPELL#5
-      - ADR-AUTO-SPELL#6
+      - ADR-AUTO-SPELL#{5,6}
       - ADR-REPO-OUTDIR#8
   config:
     synopsis: |-

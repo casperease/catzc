@@ -5,10 +5,8 @@ catzc:
     kind: comment-page
     body_sha: "579b684d51ca"
     adrs:
-      - ADR-AUTO-TEST#17
-      - ADR-AUTO-TEST#3
-      - ADR-PWSH-PESTER#2
-      - ADR-PWSH-PESTER#3
+      - ADR-AUTO-TEST#{3,17}
+      - ADR-PWSH-PESTER#{2,3}
 ---
 
 # automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1

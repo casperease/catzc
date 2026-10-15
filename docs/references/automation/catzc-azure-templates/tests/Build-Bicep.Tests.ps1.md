@@ -5,9 +5,7 @@ catzc:
     kind: comment-page
     body_sha: f0827ce54949
     adrs:
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#4
+      - ADR-AUTO-TEST#{4,19,26}
 ---
 
 # automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1

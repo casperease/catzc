@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "6730189523e6"
     adrs:
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#{1,3}
 ---
 
 # automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1

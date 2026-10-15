@@ -5,10 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "30a3f172e440"
     adrs:
-      - ADR-REPO-LINK#1
-      - ADR-REPO-LINK#5
-      - ADR-REPO-LINK#6
-      - ADR-REPO-LINK#8
+      - ADR-REPO-LINK#{1,5,6,8}
 ---
 
 # automation/Catzc.Base.QualityGates/types/LinkEngine.cs

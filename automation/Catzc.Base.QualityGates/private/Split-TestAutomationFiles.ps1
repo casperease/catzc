@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#33
+      - ADR-AUTO-TEST#{26,33}
   config:
     synopsis: 'Splits the run''s test files into the three execution phases: parallel, greedy, and serial.'
     description: |-

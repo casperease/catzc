@@ -5,12 +5,9 @@ catzc:
     kind: comment-page
     body_sha: "2c35cb9dca6d"
     adrs:
-      - ADR-AUTO-PATH#1
-      - ADR-AUTO-PATH#2
+      - ADR-AUTO-PATH#{1,2}
       - ADR-AUTO-TYPES#8
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#6
-      - ADR-REPO-CONTRACT#7
+      - ADR-REPO-CONTRACT#{2,6,7}
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractAsset.cs

@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "7ebd59f1084e"
     defines:
-      - ADR-DORA-LEADERSHIP#1
-      - ADR-DORA-LEADERSHIP#2
-      - ADR-DORA-LEADERSHIP#3
-      - ADR-DORA-LEADERSHIP#4
-      - ADR-DORA-LEADERSHIP#5
+      - ADR-DORA-LEADERSHIP#{1-5}
     links:
       - docs/adr/process/holding-the-line.md
       - docs/adr/process/inspect-and-adapt.md

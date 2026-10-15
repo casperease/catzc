@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
     adrs:
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#5
+      - ADR-FLOW-CD-GLOBS#{4,5}
   config:
     synopsis: Returns the tracked files a globset matches — the deployable unit's actual members.
     description: |-

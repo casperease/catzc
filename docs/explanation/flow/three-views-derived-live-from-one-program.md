@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "1f77b803bb23"
     adrs:
-      - ADR-FLOW-CD-GLOBS#1
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#5
-      - ADR-FLOW-CD-GLOBS#9
+      - ADR-FLOW-CD-GLOBS#{1,4,5,9}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.md
       - docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png

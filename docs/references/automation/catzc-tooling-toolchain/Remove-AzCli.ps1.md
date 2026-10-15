@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: d8ad6b7aea2e
     adrs:
-      - ADR-AUTO-REMOVE#3
-      - ADR-AUTO-REMOVE#6
+      - ADR-AUTO-REMOVE#{3,6}
 ---
 
 # automation/Catzc.Tooling.Toolchain/Remove-AzCli.ps1

@@ -8,8 +8,7 @@ catzc:
       source: automation/Catzc.Base.Languages/types/FileCarriersConfig.cs
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-CODEMETA#1
-      - ADR-REPO-CODEMETA#3
+      - ADR-REPO-CODEMETA#{1,3}
       - ADR-REPO-FILEMETA#1
 ---
 #>

@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
     adrs:
-      - ADR-FLOW-CD-GLOBS#5
-      - ADR-FLOW-CD-GLOBS#9
+      - ADR-FLOW-CD-GLOBS#{5,9}
   config:
     synopsis: Computes a globset's durable SHA — the deployable unit's identity.
     description: |-

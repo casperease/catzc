@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
     adrs:
-      - ADR-DSGN-TRACK#13
-      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#{13,16}
   config:
     synopsis: Returns the glossary term a printed map label names, or nothing when it names none.
     description: |-

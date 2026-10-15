@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "1756066d4cce"
     adrs:
-      - ADR-FLOW-CD-GLOBS#4
-      - ADR-FLOW-CD-GLOBS#5
-      - ADR-FLOW-CD-GLOBS#6
-      - ADR-FLOW-CD-GLOBS#9
+      - ADR-FLOW-CD-GLOBS#{4-6,9}
       - ADR-REPO-PROTGLOB#5
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.md

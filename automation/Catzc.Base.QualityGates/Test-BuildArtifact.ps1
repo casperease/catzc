@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#24
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{24,35}
       - ADR-DSGN-RUNMODE#2
   config:
     synopsis: 'Quality gate: builds the selected modules once into a temporary destination and verifies the built artifact.'

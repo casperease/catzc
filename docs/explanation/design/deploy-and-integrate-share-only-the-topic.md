@@ -5,10 +5,8 @@ catzc:
     kind: explanation
     body_sha: afde8913f925
     adrs:
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#9
-      - ADR-DSGN-VISUAL#13
-      - ADR-DSGN-VISUAL#4
+      - ADR-DSGN-LIFE#{1,9}
+      - ADR-DSGN-VISUAL#{4,13}
     links:
       - docs/.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.md
       - docs/.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png

@@ -11,9 +11,7 @@ catzc:
       test: automation/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
-      - ADR-AUTO-SPELL#5
-      - ADR-AUTO-SPELL#6
-      - ADR-AUTO-SPELL#7
+      - ADR-AUTO-SPELL#{5-7}
   config:
     synopsis: |-
       Collects the spell-checker's flagged tokens into a triage queue for classification — the on-ramp to the

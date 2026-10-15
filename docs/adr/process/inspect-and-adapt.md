@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "7e821d6725bb"
     defines:
-      - ADR-PROC-KAIZEN#1
-      - ADR-PROC-KAIZEN#2
-      - ADR-PROC-KAIZEN#3
-      - ADR-PROC-KAIZEN#4
+      - ADR-PROC-KAIZEN#{1-4}
     links:
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/automation/test-automation.md

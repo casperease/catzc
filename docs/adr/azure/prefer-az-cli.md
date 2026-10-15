@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: "8d77f48a4cae"
     defines:
-      - ADR-AZ-CLI#1
-      - ADR-AZ-CLI#2
-      - ADR-AZ-CLI#3
-      - ADR-AZ-CLI#4
-      - ADR-AZ-CLI#5
-      - ADR-AZ-CLI#6
+      - ADR-AZ-CLI#{1-6}
 ---
 
 # ADR: Prefer Az CLI over Az PowerShell modules

@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "87398671b7d3"
     adrs:
-      - ADR-DSGN-ASPECT#1
-      - ADR-DSGN-ASPECT#2
-      - ADR-DSGN-ASPECT#3
+      - ADR-DSGN-ASPECT#{1-3}
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md
       - docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png

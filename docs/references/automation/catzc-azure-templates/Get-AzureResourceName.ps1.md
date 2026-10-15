@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: d42f84b1340a
     adrs:
-      - ADR-AZ-NAMING#4
-      - ADR-AZ-NAMING#6
+      - ADR-AZ-NAMING#{4,6}
 ---
 
 # automation/Catzc.Azure.Templates/Get-AzureResourceName.ps1

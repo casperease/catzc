@@ -5,16 +5,7 @@ catzc:
     kind: adr
     body_sha: d7e079d24e76
     defines:
-      - ADR-AUTO-DEPM#1
-      - ADR-AUTO-DEPM#2
-      - ADR-AUTO-DEPM#3
-      - ADR-AUTO-DEPM#4
-      - ADR-AUTO-DEPM#5
-      - ADR-AUTO-DEPM#6
-      - ADR-AUTO-DEPM#7
-      - ADR-AUTO-DEPM#8
-      - ADR-AUTO-DEPM#9
-      - ADR-AUTO-DEPM#10
+      - ADR-AUTO-DEPM#{1-10}
     adrs:
       - ADR-AUTO-TEST#35
     links:

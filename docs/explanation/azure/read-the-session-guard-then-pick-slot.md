@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: c8f5d7858cb5
     adrs:
-      - ADR-AZ-DATAMOD#4
-      - ADR-AZ-DATAMOD#5
-      - ADR-AZ-DATAMOD#7
+      - ADR-AZ-DATAMOD#{4,5,7}
     links:
       - docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.md
       - docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png

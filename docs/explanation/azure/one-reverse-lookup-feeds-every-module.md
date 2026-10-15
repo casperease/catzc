@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: "516e8f9171f2"
     adrs:
-      - ADR-AZ-DATAMOD#4
-      - ADR-AZ-DATAMOD#7
+      - ADR-AZ-DATAMOD#{4,7}
       - ADR-AZ-NAMING#8
     links:
       - docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md

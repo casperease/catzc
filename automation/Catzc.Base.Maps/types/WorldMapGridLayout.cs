@@ -9,8 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#7
-      - ADR-DSGN-TRACK#8
+      - ADR-DSGN-TRACK#{7,8}
 ---
 */
 

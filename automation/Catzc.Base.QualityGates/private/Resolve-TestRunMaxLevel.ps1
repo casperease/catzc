@@ -10,8 +10,7 @@ catzc:
       test: automation/Catzc.Base.QualityGates/tests/Resolve-TestRunMaxLevel.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#10
-      - ADR-AUTO-TEST#33
-      - ADR-AUTO-TEST#41
+      - ADR-AUTO-TEST#{33,41}
   config:
     synopsis: Resolves the highest tier a test run executes, from the location it runs in.
     description: |-

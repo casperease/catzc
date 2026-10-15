@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "08458010070e"
     adrs:
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#4
+      - ADR-AUTO-TEST#{4,19}
 ---
 
 # automation/Catzc.Azure.Templates/tests/Get-BicepTrackTagNameSet.Tests.ps1

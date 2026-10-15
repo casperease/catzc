@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.Docs/Get-AdrCitationMap.ps1
     adrs:
       - ADR-AUTO-TEST#3
-      - ADR-REPO-LINK#3
-      - ADR-REPO-LINK#5
+      - ADR-REPO-LINK#{3,5}
 ---
 #>
 

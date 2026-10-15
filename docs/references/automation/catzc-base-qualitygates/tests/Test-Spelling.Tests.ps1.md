@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: b6e27572ebcf
     adrs:
-      - ADR-AUTO-TEST#14
-      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#{8,14}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1

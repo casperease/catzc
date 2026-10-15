@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: "5ffe1a51b035"
     adrs:
-      - ADR-DSGN-THINPLAT#1
-      - ADR-DSGN-THINPLAT#2
-      - ADR-DSGN-THINPLAT#3
-      - ADR-DSGN-THINPLAT#5
+      - ADR-DSGN-THINPLAT#{1-3,5}
     links:
       - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md
       - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png

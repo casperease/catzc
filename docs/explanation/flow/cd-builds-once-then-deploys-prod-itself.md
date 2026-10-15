@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: cda664cacc34
     adrs:
-      - ADR-FLOW-CD#12
-      - ADR-FLOW-CD#3
-      - ADR-FLOW-CD#4
-      - ADR-FLOW-CD#5
+      - ADR-FLOW-CD#{3-5,12}
     links:
       - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md
       - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png

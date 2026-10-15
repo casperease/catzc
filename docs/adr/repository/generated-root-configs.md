@@ -5,14 +5,7 @@ catzc:
     kind: adr
     body_sha: "0472e09c2f90"
     defines:
-      - ADR-REPO-ROOTCFG#1
-      - ADR-REPO-ROOTCFG#2
-      - ADR-REPO-ROOTCFG#3
-      - ADR-REPO-ROOTCFG#4
-      - ADR-REPO-ROOTCFG#5
-      - ADR-REPO-ROOTCFG#6
-      - ADR-REPO-ROOTCFG#7
-      - ADR-REPO-ROOTCFG#8
+      - ADR-REPO-ROOTCFG#{1-8}
     adrs:
       - ADR-REPO-FILEMETA#7
     links:

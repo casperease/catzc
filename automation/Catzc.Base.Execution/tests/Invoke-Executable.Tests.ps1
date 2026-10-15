@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md
       source: automation/Catzc.Base.Execution/Invoke-Executable.ps1
     adrs:
-      - ADR-AUTO-TEST#10
-      - ADR-AUTO-TEST#38
+      - ADR-AUTO-TEST#{10,38}
 ---
 #>
 

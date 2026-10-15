@@ -10,8 +10,7 @@ catzc:
       page: docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md
       test: automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
     adrs:
-      - ADR-AUTO-REMOVE#6
-      - ADR-AUTO-REMOVE#7
+      - ADR-AUTO-REMOVE#{6,7}
   config:
     synopsis: |-
       Evicts an off-config Linux install of a tool so the managed (user-space) build can win — the Linux

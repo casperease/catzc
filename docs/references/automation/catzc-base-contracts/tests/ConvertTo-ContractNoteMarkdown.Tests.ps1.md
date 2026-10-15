@@ -6,8 +6,7 @@ catzc:
     body_sha: "0e1dbe878436"
     adrs:
       - ADR-AUTO-TEST#3
-      - ADR-REPO-LINK#2
-      - ADR-REPO-LINK#3
+      - ADR-REPO-LINK#{2,3}
 ---
 
 # automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1

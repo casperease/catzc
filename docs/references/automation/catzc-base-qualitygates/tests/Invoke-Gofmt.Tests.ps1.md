@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: ae2c9680b4d6
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#{3,6}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Invoke-Gofmt.Tests.ps1

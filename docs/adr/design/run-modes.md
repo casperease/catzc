@@ -5,13 +5,7 @@ catzc:
     kind: adr
     body_sha: feb2d9ae1bab
     defines:
-      - ADR-DSGN-RUNMODE#1
-      - ADR-DSGN-RUNMODE#2
-      - ADR-DSGN-RUNMODE#3
-      - ADR-DSGN-RUNMODE#4
-      - ADR-DSGN-RUNMODE#5
-      - ADR-DSGN-RUNMODE#6
-      - ADR-DSGN-RUNMODE#7
+      - ADR-DSGN-RUNMODE#{1-7}
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/effective-in-enterprises.md

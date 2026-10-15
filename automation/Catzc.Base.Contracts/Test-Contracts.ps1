@@ -10,12 +10,7 @@ catzc:
       test: automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-REPO-CONTRACT#10
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#3
-      - ADR-REPO-CONTRACT#4
-      - ADR-REPO-CONTRACT#5
-      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-CONTRACT#{2-6,10}
   config:
     synopsis: |-
       Quality gate: the repository honours every binding contract asset, every released version folder is unchanged,

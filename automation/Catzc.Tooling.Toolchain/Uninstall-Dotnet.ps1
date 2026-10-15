@@ -11,8 +11,7 @@ catzc:
       test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
     adrs:
       - ADR-AUTO-ONEJOB#5
-      - ADR-AUTO-REMOVE#4
-      - ADR-AUTO-REMOVE#5
+      - ADR-AUTO-REMOVE#{4,5}
   config:
     synopsis: Uninstalls the .NET SDK installed by Install-Dotnet.
     description: |-

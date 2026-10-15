@@ -7,8 +7,7 @@ catzc:
     relatives:
       source: automation/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1
     adrs:
-      - ADR-AUTO-REMOVE#4
-      - ADR-AUTO-REMOVE#5
+      - ADR-AUTO-REMOVE#{4,5}
 ---
 #>
 

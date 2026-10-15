@@ -8,12 +8,10 @@ catzc:
       page: docs/references/automation/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
       source: automation/Catzc.Azure/types/AzureConfig.cs
     adrs:
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#{1,3}
       - ADR-AZ-CUSTOMER
       - ADR-AZ-DATAMOD
-      - ADR-AZ-DATAMOD#11
-      - ADR-AZ-DATAMOD#8
+      - ADR-AZ-DATAMOD#{8,11}
 ---
 #>
 

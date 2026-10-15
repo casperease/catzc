@@ -8,9 +8,7 @@ catzc:
       page: docs/references/automation/catzc-tooling-core/tests/Remove-MacToolInstall.Tests.ps1.md
       source: automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
     adrs:
-      - ADR-AUTO-REMOVE#3
-      - ADR-AUTO-REMOVE#6
-      - ADR-AUTO-REMOVE#7
+      - ADR-AUTO-REMOVE#{3,6,7}
       - ADR-AUTO-TEST#3
 ---
 #>

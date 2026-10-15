@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: e428f4876a58
     adrs:
-      - ADR-FLOW-CD-GLOBS#7
-      - ADR-FLOW-CD-GLOBS#8
+      - ADR-FLOW-CD-GLOBS#{7,8}
 ---
 
 # automation/Catzc.Base.Globs/types/GlobsConfig.cs

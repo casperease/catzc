@@ -9,9 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
     adrs:
-      - ADR-AUTO-PATH#11
-      - ADR-AUTO-PATH#3
-      - ADR-AUTO-PATH#6
+      - ADR-AUTO-PATH#{3,6,11}
   config:
     synopsis: Resolves an inspiration's stored root to its binding form, a normalized absolute path.
     description: |-

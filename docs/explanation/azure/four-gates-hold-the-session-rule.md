@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: e5aa0b7c93ca
     adrs:
-      - ADR-AZ-DATAMOD#4
-      - ADR-AZ-DATAMOD#5
-      - ADR-AZ-DATAMOD#7
+      - ADR-AZ-DATAMOD#{4,5,7}
       - ADR-AZ-NAMING#8
     links:
       - docs/.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.md

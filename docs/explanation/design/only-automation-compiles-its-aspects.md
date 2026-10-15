@@ -5,12 +5,9 @@ catzc:
     kind: explanation
     body_sha: edf1d50add6a
     adrs:
-      - ADR-DSGN-ASPECT#2
-      - ADR-DSGN-ASPECT#3
-      - ADR-DSGN-ASPECT#4
+      - ADR-DSGN-ASPECT#{2-4}
       - ADR-DSGN-TRACK#3
-      - ADR-REPO-VARIANT#1
-      - ADR-REPO-VARIANT#2
+      - ADR-REPO-VARIANT#{1,2}
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md
       - docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png

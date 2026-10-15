@@ -8,11 +8,9 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/Test-Links.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#{3,35}
       - ADR-PRIN-CONFIG#4
-      - ADR-REPO-LINK#5
-      - ADR-REPO-LINK#8
+      - ADR-REPO-LINK#{5,8}
 ---
 #>
 

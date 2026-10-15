@@ -6,9 +6,7 @@ catzc:
     body_sha: "407db4d461eb"
     adrs:
       - ADR-AUTO-TYPES#4
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#6
+      - ADR-DSGN-TRACK#{1,3,6}
 ---
 
 # automation/Catzc.Base.Maps/types/WorldMapBuilder.cs

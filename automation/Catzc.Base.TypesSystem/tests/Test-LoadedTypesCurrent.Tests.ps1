@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-typessystem/tests/Test-LoadedTypesCurrent.Tests.ps1.md
       source: automation/Catzc.Base.TypesSystem/Test-LoadedTypesCurrent.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#{3,6}
       - ADR-AUTO-TYPES#15
 ---
 #>

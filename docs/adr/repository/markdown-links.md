@@ -5,14 +5,7 @@ catzc:
     kind: adr
     body_sha: "275963ff5695"
     defines:
-      - ADR-REPO-LINK#1
-      - ADR-REPO-LINK#2
-      - ADR-REPO-LINK#3
-      - ADR-REPO-LINK#4
-      - ADR-REPO-LINK#5
-      - ADR-REPO-LINK#6
-      - ADR-REPO-LINK#7
-      - ADR-REPO-LINK#8
+      - ADR-REPO-LINK#{1-8}
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-ERROR#3

@@ -10,8 +10,7 @@ catzc:
       page: docs/references/automation/catzc-tooling-core/Remove-MacToolInstall.ps1.md
       test: automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
     adrs:
-      - ADR-AUTO-REMOVE#6
-      - ADR-AUTO-REMOVE#7
+      - ADR-AUTO-REMOVE#{6,7}
   config:
     synopsis: |-
       Evicts an off-config macOS install of a tool so the managed build can win — the macOS platform core of the

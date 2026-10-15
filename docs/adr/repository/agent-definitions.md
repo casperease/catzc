@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: e4f338926673
     defines:
-      - ADR-REPO-AGENTS#1
-      - ADR-REPO-AGENTS#2
-      - ADR-REPO-AGENTS#3
-      - ADR-REPO-AGENTS#4
-      - ADR-REPO-AGENTS#5
+      - ADR-REPO-AGENTS#{1-5}
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-LINK#5

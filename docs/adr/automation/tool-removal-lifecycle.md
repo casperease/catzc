@@ -5,14 +5,7 @@ catzc:
     kind: adr
     body_sha: dd151d99a6db
     defines:
-      - ADR-AUTO-REMOVE#1
-      - ADR-AUTO-REMOVE#2
-      - ADR-AUTO-REMOVE#3
-      - ADR-AUTO-REMOVE#4
-      - ADR-AUTO-REMOVE#5
-      - ADR-AUTO-REMOVE#6
-      - ADR-AUTO-REMOVE#7
-      - ADR-AUTO-REMOVE#8
+      - ADR-AUTO-REMOVE#{1-8}
     adrs:
       - ADR-AUTO-DEPS#2
     links:

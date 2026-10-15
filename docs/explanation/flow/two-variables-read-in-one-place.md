@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "08911525b4a7"
     adrs:
-      - ADR-FLOW-CD-DETECT#1
-      - ADR-FLOW-CD-DETECT#4
-      - ADR-FLOW-CD-DETECT#5
+      - ADR-FLOW-CD-DETECT#{1,4,5}
     links:
       - docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.md
       - docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png

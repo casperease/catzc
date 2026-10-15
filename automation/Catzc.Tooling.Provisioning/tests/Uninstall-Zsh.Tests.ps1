@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md
       source: automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#9
+      - ADR-AUTO-TEST#{3,9}
 ---
 #>
 

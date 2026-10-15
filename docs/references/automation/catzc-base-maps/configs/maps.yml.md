@@ -6,10 +6,7 @@ catzc:
     body_sha: "936cd8ed35f6"
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-DSGN-TRACK#13
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#7
-      - ADR-DSGN-TRACK#8
+      - ADR-DSGN-TRACK#{7,8,13,16}
       - ADR-REPO-OUTDIR#2
 ---
 

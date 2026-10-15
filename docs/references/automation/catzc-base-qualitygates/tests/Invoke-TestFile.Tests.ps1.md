@@ -5,10 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "71ad8910ee6f"
     adrs:
-      - ADR-AUTO-TEST#23
-      - ADR-AUTO-TEST#25
-      - ADR-AUTO-TEST#32
-      - ADR-AUTO-TEST#33
+      - ADR-AUTO-TEST#{23,25,32,33}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1

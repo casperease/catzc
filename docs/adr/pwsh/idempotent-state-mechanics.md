@@ -5,18 +5,9 @@ catzc:
     kind: adr
     body_sha: "2b0b2d9c8f9f"
     defines:
-      - ADR-PWSH-IDEM#1
-      - ADR-PWSH-IDEM#2
-      - ADR-PWSH-IDEM#3
-      - ADR-PWSH-IDEM#4
-      - ADR-PWSH-IDEM#5
-      - ADR-PWSH-IDEM#6
+      - ADR-PWSH-IDEM#{1-6}
     adrs:
-      - ADR-AUTO-IDEM#1
-      - ADR-AUTO-IDEM#2
-      - ADR-AUTO-IDEM#3
-      - ADR-AUTO-IDEM#4
-      - ADR-AUTO-IDEM#5
+      - ADR-AUTO-IDEM#*
       - ADR-AUTO-REMOVE#4
     links:
       - docs/adr/automation/idempotent-state-functions.md

@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "8bff15b2a55a"
     defines:
-      - ADR-PROC-PULLWORK#1
-      - ADR-PROC-PULLWORK#2
-      - ADR-PROC-PULLWORK#3
-      - ADR-PROC-PULLWORK#4
+      - ADR-PROC-PULLWORK#{1-4}
     links:
       - docs/adr/principles/reduce-waste.md
       - docs/adr/process/agile-values.md

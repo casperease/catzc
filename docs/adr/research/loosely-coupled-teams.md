@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "24f01e1c2517"
     defines:
-      - ADR-DORA-LOOSETEAMS#1
-      - ADR-DORA-LOOSETEAMS#2
-      - ADR-DORA-LOOSETEAMS#3
-      - ADR-DORA-LOOSETEAMS#4
-      - ADR-DORA-LOOSETEAMS#5
+      - ADR-DORA-LOOSETEAMS#{1-5}
     links:
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/open-closed-architecture.md

@@ -6,8 +6,7 @@ catzc:
     body_sha: "640b239cd646"
     adrs:
       - ADR-DSGN-ASPECT#3
-      - ADR-REPO-VARIANT#1
-      - ADR-REPO-VARIANT#2
+      - ADR-REPO-VARIANT#{1,2}
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.md
       - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png

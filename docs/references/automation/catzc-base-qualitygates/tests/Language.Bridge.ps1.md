@@ -6,9 +6,7 @@ catzc:
     body_sha: ac306dc20239
     adrs:
       - ADR-AUTO-ENGINE#4
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#8
-      - ADR-AUTO-TEST#9
+      - ADR-AUTO-TEST#{8,9,26}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1

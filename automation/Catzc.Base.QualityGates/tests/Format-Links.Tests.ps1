@@ -12,13 +12,7 @@ catzc:
       - ADR-PWSH-PARAM#4
       - ADR-REPO-CODEMETA#2
       - ADR-REPO-CONTRACT#6
-      - ADR-REPO-LINK#1
-      - ADR-REPO-LINK#2
-      - ADR-REPO-LINK#3
-      - ADR-REPO-LINK#5
-      - ADR-REPO-LINK#6
-      - ADR-REPO-LINK#7
-      - ADR-REPO-LINK#8
+      - ADR-REPO-LINK#{1-3,5-8}
 ---
 #>
 

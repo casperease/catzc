@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: b79c1fbb598e
     adrs:
-      - ADR-DSGN-REMOTE#2
-      - ADR-DSGN-REMOTE#4
+      - ADR-DSGN-REMOTE#{2,4}
       - ADR-REPO-VARIANT#6
     links:
       - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md

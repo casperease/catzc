@@ -11,11 +11,7 @@ catzc:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-CODEMETA#5
-      - ADR-REPO-COMMENTS#1
-      - ADR-REPO-COMMENTS#2
-      - ADR-REPO-COMMENTS#3
-      - ADR-REPO-COMMENTS#4
-      - ADR-REPO-COMMENTS#5
+      - ADR-REPO-COMMENTS#*
 ---
 #>
 

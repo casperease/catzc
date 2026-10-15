@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "53cadb758d1b"
     defines:
-      - ADR-AUTO-UVPY#1
-      - ADR-AUTO-UVPY#2
-      - ADR-AUTO-UVPY#3
-      - ADR-AUTO-UVPY#4
-      - ADR-AUTO-UVPY#5
+      - ADR-AUTO-UVPY#{1-5}
     links:
       - docs/adr/azure/prefer-az-cli.md
 ---

@@ -6,11 +6,8 @@ catzc:
     body_sha: fd68d24c241c
     adrs:
       - ADR-DSGN-TRACK#5
-      - ADR-FLOW-CD-GLOBS#10
-      - ADR-FLOW-CD-GLOBS#7
-      - ADR-FLOW-CD-GLOBS#8
-      - ADR-REPO-PROTGLOB#6
-      - ADR-REPO-PROTGLOB#7
+      - ADR-FLOW-CD-GLOBS#{7,8,10}
+      - ADR-REPO-PROTGLOB#{6,7}
 ---
 
 # automation/Catzc.Base.Globs/configs/globs.yml

@@ -5,14 +5,9 @@ catzc:
     kind: adr
     body_sha: "52541bcc7cdf"
     defines:
-      - ADR-DSGN-REMOTE#1
-      - ADR-DSGN-REMOTE#2
-      - ADR-DSGN-REMOTE#3
-      - ADR-DSGN-REMOTE#4
+      - ADR-DSGN-REMOTE#{1-4}
     adrs:
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#6
-      - ADR-DSGN-LIFE#7
+      - ADR-DSGN-LIFE#{1,6,7}
       - ADR-PRIN-ONELIVE#4
       - ADR-REPO-VARIANT#6
     links:

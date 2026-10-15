@@ -5,11 +5,8 @@ catzc:
     kind: comment-page
     body_sha: c7880f07478b
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
+      - ADR-AUTO-TEST#{3,35}
+      - ADR-DSGN-TRACK#{14-16}
 ---
 
 # automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1

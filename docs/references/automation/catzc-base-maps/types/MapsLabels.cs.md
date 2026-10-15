@@ -7,9 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#7
-      - ADR-DSGN-TRACK#8
+      - ADR-DSGN-TRACK#{7,8,16}
 ---
 
 # automation/Catzc.Base.Maps/types/MapsLabels.cs

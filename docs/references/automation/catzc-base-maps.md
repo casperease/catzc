@@ -5,9 +5,7 @@ catzc:
     kind: reference
     body_sha: f9b41c1bf06e
     adrs:
-      - ADR-DSGN-TRACK#13
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#{3,13,15}
     links:
       - docs/adr/design/tracks.md
       - docs/adr/design/tracks.md#rule-adr-dsgn-track13

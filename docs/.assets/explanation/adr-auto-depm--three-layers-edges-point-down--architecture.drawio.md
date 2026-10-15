@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: fd7dc97da17e
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.chain.md
       - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png

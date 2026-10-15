@@ -7,8 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md
     adrs:
-      - ADR-PWSH-ENUM#1
-      - ADR-PWSH-ENUM#3
+      - ADR-PWSH-ENUM#{1,3}
 ---
 #>
 

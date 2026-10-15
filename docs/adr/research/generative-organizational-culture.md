@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: e4535674c432
     defines:
-      - ADR-DORA-CULTURE#1
-      - ADR-DORA-CULTURE#2
-      - ADR-DORA-CULTURE#3
-      - ADR-DORA-CULTURE#4
-      - ADR-DORA-CULTURE#5
+      - ADR-DORA-CULTURE#{1-5}
     links:
       - docs/adr/process/build-quality-in.md
       - docs/adr/process/holding-the-line.md

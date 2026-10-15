@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: d0b1eb6f0b40
     adrs:
-      - ADR-CONF-ADDRESSING#1
-      - ADR-CONF-ADDRESSING#2
-      - ADR-CONF-ADDRESSING#4
+      - ADR-CONF-ADDRESSING#{1,2,4}
     links:
       - docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.md
       - docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png

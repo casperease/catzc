@@ -6,8 +6,7 @@ catzc:
     body_sha: "1a78cc7b4ea8"
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-REPO-CONTRACT#4
-      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-CONTRACT#{4,6}
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractCheckResult.cs

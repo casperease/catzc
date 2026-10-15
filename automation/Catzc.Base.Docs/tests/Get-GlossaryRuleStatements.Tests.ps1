@@ -10,8 +10,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#4
-      - ADR-REPO-VOCAB#1
-      - ADR-REPO-VOCAB#5
+      - ADR-REPO-VOCAB#{1,5}
 ---
 #>
 

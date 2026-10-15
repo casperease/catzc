@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "93057ef1b5c9"
     adrs:
-      - ADR-REPO-CONTRACT#1
-      - ADR-REPO-CONTRACT#7
+      - ADR-REPO-CONTRACT#{1,7}
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractDirection.cs

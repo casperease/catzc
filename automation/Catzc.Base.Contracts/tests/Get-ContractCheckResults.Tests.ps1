@@ -8,8 +8,7 @@ catzc:
       page: docs/references/automation/catzc-base-contracts/tests/Get-ContractCheckResults.Tests.ps1.md
       source: automation/Catzc.Base.Contracts/Get-ContractCheckResults.ps1
     adrs:
-      - ADR-REPO-CONTRACT#4
-      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-CONTRACT#{4,6}
 ---
 #>
 

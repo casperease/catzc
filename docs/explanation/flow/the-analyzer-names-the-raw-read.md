@@ -6,8 +6,7 @@ catzc:
     body_sha: "3c30ffb9e17f"
     adrs:
       - ADR-AUTO-PARITY#2
-      - ADR-FLOW-CD-DETECT#1
-      - ADR-FLOW-CD-DETECT#4
+      - ADR-FLOW-CD-DETECT#{1,4}
     links:
       - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md
       - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png

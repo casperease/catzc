@@ -5,10 +5,8 @@ catzc:
     kind: comment-page
     body_sha: a118d549d663
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#35
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#3
+      - ADR-AUTO-TEST#{3,35}
+      - ADR-DSGN-TRACK#{1,3}
 ---
 
 # automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1

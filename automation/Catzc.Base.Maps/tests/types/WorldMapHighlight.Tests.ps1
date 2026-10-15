@@ -7,8 +7,7 @@ catzc:
     relatives:
       source: automation/Catzc.Base.Maps/types/WorldMapHighlight.cs
     adrs:
-      - ADR-DSGN-TRACK#12
-      - ADR-DSGN-TRACK#7
+      - ADR-DSGN-TRACK#{7,12}
 ---
 #>
 

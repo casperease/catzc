@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "226e53fa0afe"
     defines:
-      - ADR-DORA-MAINTAIN#1
-      - ADR-DORA-MAINTAIN#2
-      - ADR-DORA-MAINTAIN#3
-      - ADR-DORA-MAINTAIN#4
-      - ADR-DORA-MAINTAIN#5
+      - ADR-DORA-MAINTAIN#{1-5}
     links:
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/use-proper-package-managers.md

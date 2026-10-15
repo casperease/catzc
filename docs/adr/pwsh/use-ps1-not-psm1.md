@@ -5,8 +5,7 @@ catzc:
     kind: adr
     body_sha: fa2e9b2b1535
     defines:
-      - ADR-PWSH-USEPS#1
-      - ADR-PWSH-USEPS#2
+      - ADR-PWSH-USEPS#{1,2}
     links:
       - docs/adr/design/run-modes.md
       - docs/adr/pwsh/dynamic-module-manifests.md#regenerated-manifests

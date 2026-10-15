@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "4fef1899bf76"
     adrs:
-      - ADR-AUTO-REMOVE#3
-      - ADR-AUTO-REMOVE#6
+      - ADR-AUTO-REMOVE#{3,6}
 ---
 
 # automation/Catzc.Tooling.Toolchain/Remove-Java.ps1

@@ -9,8 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
     adrs:
-      - ADR-AUTO-TEST#32
-      - ADR-AUTO-TEST#33
+      - ADR-AUTO-TEST#{32,33}
   config:
     synopsis: Tries, without waiting, to take the user's system-test lock — the right to run L3 on this account.
     description: |-

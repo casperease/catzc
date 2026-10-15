@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "5377f5f22a31"
     adrs:
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#4
+      - ADR-AUTO-TEST#{4,19}
 ---
 
 # automation/Catzc.Azure/tests/Get-AzureEnvironment.Tests.ps1

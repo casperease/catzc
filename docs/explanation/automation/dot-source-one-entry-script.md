@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: a414cc3c826a
     adrs:
-      - ADR-AUTO-BUNDLE#3
-      - ADR-AUTO-BUNDLE#8
+      - ADR-AUTO-BUNDLE#{3,8}
     links:
       - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.md
       - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png

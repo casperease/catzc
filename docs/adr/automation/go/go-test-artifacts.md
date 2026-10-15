@@ -5,22 +5,11 @@ catzc:
     kind: adr
     body_sha: c35f0c02b784
     defines:
-      - ADR-AUTO-GO#1
-      - ADR-AUTO-GO#2
-      - ADR-AUTO-GO#3
-      - ADR-AUTO-GO#4
-      - ADR-AUTO-GO#5
-      - ADR-AUTO-GO#6
-      - ADR-AUTO-GO#7
-      - ADR-AUTO-GO#8
+      - ADR-AUTO-GO#{1-8}
     adrs:
       - ADR-AUTO-DEPS#3
       - ADR-AUTO-ENGINE#4
-      - ADR-AUTO-TEST#13
-      - ADR-AUTO-TEST#30
-      - ADR-AUTO-TEST#42
-      - ADR-AUTO-TEST#8
-      - ADR-AUTO-TEST#9
+      - ADR-AUTO-TEST#{8,9,13,30,42}
     links:
       - docs/adr/automation/controlling-systemwide-deps.md#3-assert-at-runtime
       - docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps1

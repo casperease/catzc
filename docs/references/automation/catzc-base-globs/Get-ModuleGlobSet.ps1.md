@@ -8,8 +8,7 @@ catzc:
       - ADR-AUTO-BASH#2
       - ADR-AUTO-GO#2
       - ADR-AUTO-PY#2
-      - ADR-FLOW-CD-GLOBS#10
-      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#{7,10}
 ---
 
 # automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1

@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: d48de2b4f591
     defines:
-      - ADR-DORA-DBCHANGE#1
-      - ADR-DORA-DBCHANGE#2
-      - ADR-DORA-DBCHANGE#3
-      - ADR-DORA-DBCHANGE#4
-      - ADR-DORA-DBCHANGE#5
+      - ADR-DORA-DBCHANGE#{1-5}
     links:
       - docs/adr/principles/everything-as-code.md
       - docs/adr/principles/one-living-version.md

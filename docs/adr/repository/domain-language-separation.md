@@ -5,16 +5,9 @@ catzc:
     kind: adr
     body_sha: "3ec1338daf69"
     defines:
-      - ADR-REPO-LANG#1
-      - ADR-REPO-LANG#2
-      - ADR-REPO-LANG#3
-      - ADR-REPO-LANG#4
-      - ADR-REPO-LANG#5
-      - ADR-REPO-LANG#6
-      - ADR-REPO-LANG#7
+      - ADR-REPO-LANG#{1-7}
     adrs:
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#{1,3}
     links:
       - docs/adr/automation/spell-out-names.md
       - docs/adr/automation/test-automation.md

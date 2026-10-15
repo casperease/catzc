@@ -6,13 +6,7 @@ catzc:
     body_sha: "514628fc27ea"
     adrs:
       - ADR-FLOW-CD-DETECT#1
-      - ADR-PIPE-AUTH#1
-      - ADR-PIPE-AUTH#2
-      - ADR-PIPE-AUTH#3
-      - ADR-PIPE-AUTH#4
-      - ADR-PIPE-AUTH#5
-      - ADR-PIPE-AUTH#6
-      - ADR-PIPE-AUTH#7
+      - ADR-PIPE-AUTH#*
     links:
       - docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md
       - docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png

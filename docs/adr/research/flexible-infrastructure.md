@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "0aba2454ac45"
     defines:
-      - ADR-DORA-FLEXINFRA#1
-      - ADR-DORA-FLEXINFRA#2
-      - ADR-DORA-FLEXINFRA#3
-      - ADR-DORA-FLEXINFRA#4
-      - ADR-DORA-FLEXINFRA#5
+      - ADR-DORA-FLEXINFRA#{1-5}
     links:
       - docs/adr/azure/azure-data-model.md
       - docs/adr/design/self-service.md

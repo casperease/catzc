@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: "3825cc41e801"
     defines:
-      - ADR-AZ-CUSTOMER#1
-      - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-CUSTOMER#3
-      - ADR-AZ-CUSTOMER#4
-      - ADR-AZ-CUSTOMER#5
-      - ADR-AZ-CUSTOMER#6
+      - ADR-AZ-CUSTOMER#{1-6}
     links:
       - docs/adr/azure/azure-data-model.md
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod3

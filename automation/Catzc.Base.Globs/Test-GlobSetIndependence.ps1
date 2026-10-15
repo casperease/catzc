@@ -11,8 +11,7 @@ catzc:
       test: automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#10
-      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-PROTGLOB#7
   config:
     synopsis: |-

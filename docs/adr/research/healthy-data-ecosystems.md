@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: a3b588f4a9ca
     defines:
-      - ADR-DORA-DATAECO#1
-      - ADR-DORA-DATAECO#2
-      - ADR-DORA-DATAECO#3
-      - ADR-DORA-DATAECO#4
-      - ADR-DORA-DATAECO#5
-      - ADR-DORA-DATAECO#6
+      - ADR-DORA-DATAECO#{1-6}
     adrs:
       - ADR-CONF-LOADING#4
     links:

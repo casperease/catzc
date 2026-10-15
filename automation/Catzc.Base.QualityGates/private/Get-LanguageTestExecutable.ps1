@@ -10,8 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md
       test: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestExecutable.Tests.ps1
     adrs:
-      - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-ENGINE#4
+      - ADR-AUTO-ENGINE#{1,4}
       - ADR-AUTO-GO#7
       - ADR-AUTO-PY#7
   config:

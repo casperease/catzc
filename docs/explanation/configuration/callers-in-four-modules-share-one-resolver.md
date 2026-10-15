@@ -5,9 +5,7 @@ catzc:
     kind: explanation
     body_sha: "0851cc5cff01"
     adrs:
-      - ADR-CONF-ADDRESSING#1
-      - ADR-CONF-ADDRESSING#2
-      - ADR-CONF-ADDRESSING#3
+      - ADR-CONF-ADDRESSING#{1-3}
     links:
       - docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.md
       - docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png

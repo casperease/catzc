@@ -6,8 +6,7 @@ catzc:
     body_sha: c86fdd7aabd6
     adrs:
       - ADR-AUTO-BASH#6
-      - ADR-AUTO-DEPS#2
-      - ADR-AUTO-DEPS#3
+      - ADR-AUTO-DEPS#{2,3}
       - ADR-AUTO-DRYRUN#2
       - ADR-CONF-LOADING#6
       - ADR-PWSH-CACHE#4

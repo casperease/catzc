@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: c8be4b47cb1e
     defines:
-      - ADR-AUTO-RETRY#1
-      - ADR-AUTO-RETRY#2
-      - ADR-AUTO-RETRY#3
-      - ADR-AUTO-RETRY#4
-      - ADR-AUTO-RETRY#5
-      - ADR-AUTO-RETRY#6
+      - ADR-AUTO-RETRY#{1-6}
     links:
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/automation/single-responsibility-functions.md

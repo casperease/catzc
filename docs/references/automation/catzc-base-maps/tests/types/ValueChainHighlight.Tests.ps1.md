@@ -6,8 +6,7 @@ catzc:
     body_sha: "006d9437695a"
     adrs:
       - ADR-AUTO-TEST#3
-      - ADR-DSGN-TRACK#12
-      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#{12,16}
 ---
 
 # automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1

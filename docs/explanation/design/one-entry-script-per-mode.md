@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: c24eef1948d2
     adrs:
-      - ADR-DSGN-RUNMODE#1
-      - ADR-DSGN-RUNMODE#2
-      - ADR-DSGN-RUNMODE#5
-      - ADR-DSGN-RUNMODE#7
+      - ADR-DSGN-RUNMODE#{1,2,5,7}
     links:
       - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md
       - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png

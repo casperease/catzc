@@ -5,8 +5,7 @@ catzc:
     kind: asset-description
     body_sha: f33d8afc7bde
     adrs:
-      - ADR-AUTO-TEST#13
-      - ADR-AUTO-TEST#26
+      - ADR-AUTO-TEST#{13,26}
       - ADR-REPO-PROTGLOB#9
 ---
 

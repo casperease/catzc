@@ -10,8 +10,7 @@ catzc:
       page: docs/references/automation/catzc-base-writers/Write-Message.ps1.md
       test: automation/Catzc.Base.Writers/tests/Write-Message.Tests.ps1
     adrs:
-      - ADR-AUTO-CONSOLE#7
-      - ADR-AUTO-CONSOLE#8
+      - ADR-AUTO-CONSOLE#{7,8}
   config:
     synopsis: Writes a status message with calling function name prefix.
     description: |-

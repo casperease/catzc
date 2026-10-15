@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "773f2f646c1a"
     defines:
-      - ADR-DSGN-THINPLAT#1
-      - ADR-DSGN-THINPLAT#2
-      - ADR-DSGN-THINPLAT#3
-      - ADR-DSGN-THINPLAT#4
-      - ADR-DSGN-THINPLAT#5
+      - ADR-DSGN-THINPLAT#{1-5}
     links:
       - "https://architectelevator.com"
       - "https://teamtopologies.com/key-concepts-content/what-is-a-thinnest-viable-platform-tvp"

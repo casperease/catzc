@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "6d931cf1787f"
     defines:
-      - ADR-DORA-FEEDBACK#1
-      - ADR-DORA-FEEDBACK#2
-      - ADR-DORA-FEEDBACK#3
-      - ADR-DORA-FEEDBACK#4
-      - ADR-DORA-FEEDBACK#5
+      - ADR-DORA-FEEDBACK#{1-5}
     links:
       - docs/adr/design/thin-platforms.md
       - docs/adr/process/agile-values.md#rule-adr-proc-values3

@@ -5,16 +5,8 @@ catzc:
     kind: explanation
     body_sha: "4ddf067c9039"
     adrs:
-      - ADR-FLOW-CD#11
-      - ADR-FLOW-CD#12
-      - ADR-FLOW-CD#13
-      - ADR-FLOW-CD#2
-      - ADR-FLOW-CD#3
-      - ADR-FLOW-CD#5
-      - ADR-FLOW-CD#9
-      - ADR-FLOW-CD-TYPE#11
-      - ADR-FLOW-CD-TYPE#4
-      - ADR-FLOW-CD-TYPE#8
+      - ADR-FLOW-CD#{2,3,5,9,11-13}
+      - ADR-FLOW-CD-TYPE#{4,8,11}
     links:
       - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
       - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png

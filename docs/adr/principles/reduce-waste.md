@@ -5,9 +5,7 @@ catzc:
     kind: adr
     body_sha: "04f58188ca31"
     defines:
-      - ADR-PRIN-NOWASTE#1
-      - ADR-PRIN-NOWASTE#2
-      - ADR-PRIN-NOWASTE#3
+      - ADR-PRIN-NOWASTE#{1-3}
 ---
 
 # Principle: Reduce waste

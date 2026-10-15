@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: acfd23004c4f
     defines:
-      - ADR-DORA-LEARNING#1
-      - ADR-DORA-LEARNING#2
-      - ADR-DORA-LEARNING#3
-      - ADR-DORA-LEARNING#4
-      - ADR-DORA-LEARNING#5
+      - ADR-DORA-LEARNING#{1-5}
     links:
       - docs/adr/principles/reduce-waste.md
       - docs/adr/process/holding-the-line.md

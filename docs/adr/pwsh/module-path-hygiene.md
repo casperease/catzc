@@ -5,9 +5,7 @@ catzc:
     kind: adr
     body_sha: ba9e66a45031
     defines:
-      - ADR-PWSH-MODPATH#1
-      - ADR-PWSH-MODPATH#2
-      - ADR-PWSH-MODPATH#3
+      - ADR-PWSH-MODPATH#{1-3}
     links:
       - docs/adr/automation/effective-in-enterprises.md
       - docs/adr/pwsh/vendor-toolset-dependencies.md

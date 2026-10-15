@@ -8,8 +8,7 @@ catzc:
       - ADR-FLOW-CD-DETECT#1
       - ADR-FLOW-CD-GLOBS#5
       - ADR-PWSH-CACHE#4
-      - ADR-REPO-PROTGLOB#4
-      - ADR-REPO-PROTGLOB#9
+      - ADR-REPO-PROTGLOB#{4,9}
     links:
       - docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png
 ---

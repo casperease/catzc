@@ -5,26 +5,13 @@ catzc:
     kind: adr
     body_sha: a619bc4a2253
     defines:
-      - ADR-AUTO-PY#1
-      - ADR-AUTO-PY#2
-      - ADR-AUTO-PY#3
-      - ADR-AUTO-PY#4
-      - ADR-AUTO-PY#5
-      - ADR-AUTO-PY#6
-      - ADR-AUTO-PY#7
-      - ADR-AUTO-PY#8
+      - ADR-AUTO-PY#{1-8}
     adrs:
       - ADR-AUTO-DEPS#3
       - ADR-AUTO-ENGINE#4
-      - ADR-AUTO-GO#3
-      - ADR-AUTO-GO#6
-      - ADR-AUTO-GO#7
-      - ADR-AUTO-TEST#42
-      - ADR-AUTO-TEST#8
-      - ADR-AUTO-TEST#9
-      - ADR-AUTO-UVPY#1
-      - ADR-AUTO-UVPY#2
-      - ADR-AUTO-UVPY#4
+      - ADR-AUTO-GO#{3,6,7}
+      - ADR-AUTO-TEST#{8,9,42}
+      - ADR-AUTO-UVPY#{1,2,4}
     links:
       - docs/adr/automation/controlling-systemwide-deps.md
       - docs/adr/automation/execution-engines.md

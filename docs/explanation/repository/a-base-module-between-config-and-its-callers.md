@@ -7,8 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-DEPM#1
       - ADR-CONF-LOADING#1
-      - ADR-REPO-VARIANT#1
-      - ADR-REPO-VARIANT#3
+      - ADR-REPO-VARIANT#{1,3}
     links:
       - docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.md
       - docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png

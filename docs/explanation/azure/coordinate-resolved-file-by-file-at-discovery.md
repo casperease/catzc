@@ -5,11 +5,8 @@ catzc:
     kind: explanation
     body_sha: "5676684496e7"
     adrs:
-      - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-CUSTOMER#6
-      - ADR-AZ-DATAMOD#2
-      - ADR-AZ-DATAMOD#3
-      - ADR-AZ-DATAMOD#8
+      - ADR-AZ-CUSTOMER#{2,6}
+      - ADR-AZ-DATAMOD#{2,3,8}
     links:
       - docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.md
       - docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png

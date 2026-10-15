@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: c9c9dacd1070
     defines:
-      - ADR-DORA-VISUAL#1
-      - ADR-DORA-VISUAL#2
-      - ADR-DORA-VISUAL#3
-      - ADR-DORA-VISUAL#4
-      - ADR-DORA-VISUAL#5
+      - ADR-DORA-VISUAL#{1-5}
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/design/visual-design.md

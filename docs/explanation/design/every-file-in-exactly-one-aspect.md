@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: edf4b6a5a7fa
     adrs:
-      - ADR-DSGN-ASPECT#1
-      - ADR-DSGN-ASPECT#2
-      - ADR-DSGN-ASPECT#4
-      - ADR-DSGN-ASPECT#5
+      - ADR-DSGN-ASPECT#{1,2,4,5}
       - ADR-FLOW-CD-GLOBS#9
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md

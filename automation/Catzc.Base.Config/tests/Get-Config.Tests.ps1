@@ -9,8 +9,7 @@ catzc:
       source: automation/Catzc.Base.Config/Get-Config.ps1
     adrs:
       - ADR-AUTO-OVERLAY
-      - ADR-AUTO-TEST#14
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#{3,14}
 ---
 #>
 

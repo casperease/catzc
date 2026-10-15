@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: b8b7bf2ed828
     defines:
-      - ADR-DORA-DOCS#1
-      - ADR-DORA-DOCS#2
-      - ADR-DORA-DOCS#3
-      - ADR-DORA-DOCS#4
-      - ADR-DORA-DOCS#5
+      - ADR-DORA-DOCS#{1-5}
     links:
       - docs/adr/repository/documentation-examples.md
       - docs/adr/repository/generated-readmes.md

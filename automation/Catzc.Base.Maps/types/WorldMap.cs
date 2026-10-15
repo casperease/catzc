@@ -8,8 +8,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-base-maps/types/WorldMap.cs.md
     adrs:
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#6
+      - ADR-DSGN-TRACK#{1,6}
       - ADR-THES-ONETRUTH#3
 ---
 */

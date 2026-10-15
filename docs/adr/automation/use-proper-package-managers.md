@@ -5,12 +5,7 @@ catzc:
     kind: adr
     body_sha: "7deec46cbb66"
     defines:
-      - ADR-AUTO-PKGMGR#1
-      - ADR-AUTO-PKGMGR#2
-      - ADR-AUTO-PKGMGR#3
-      - ADR-AUTO-PKGMGR#4
-      - ADR-AUTO-PKGMGR#5
-      - ADR-AUTO-PKGMGR#6
+      - ADR-AUTO-PKGMGR#{1-6}
     links:
       - docs/adr/automation/controlling-systemwide-deps.md
       - "https://docs.chocolatey.org/en-us/information/security/"

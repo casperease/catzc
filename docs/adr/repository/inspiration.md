@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "555677c00938"
     defines:
-      - ADR-REPO-INSPIRE#1
-      - ADR-REPO-INSPIRE#2
-      - ADR-REPO-INSPIRE#3
-      - ADR-REPO-INSPIRE#4
-      - ADR-REPO-INSPIRE#5
+      - ADR-REPO-INSPIRE#{1-5}
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-PATH#11

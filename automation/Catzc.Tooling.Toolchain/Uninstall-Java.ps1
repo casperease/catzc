@@ -12,8 +12,7 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-ONEJOB#5
-      - ADR-AUTO-REMOVE#4
-      - ADR-AUTO-REMOVE#5
+      - ADR-AUTO-REMOVE#{4,5}
   config:
     synopsis: Uninstalls Java via the platform package manager.
     description: |-

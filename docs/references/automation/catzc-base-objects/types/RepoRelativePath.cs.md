@@ -5,9 +5,7 @@ catzc:
     kind: comment-page
     body_sha: adf3199054ab
     adrs:
-      - ADR-AUTO-PATH#3
-      - ADR-AUTO-PATH#5
-      - ADR-AUTO-PATH#8
+      - ADR-AUTO-PATH#{3,5,8}
 ---
 
 # automation/Catzc.Base.Objects/types/RepoRelativePath.cs

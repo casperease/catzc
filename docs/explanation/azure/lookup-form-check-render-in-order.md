@@ -5,10 +5,7 @@ catzc:
     kind: explanation
     body_sha: cd0312dc18af
     adrs:
-      - ADR-AZ-NAMING#4
-      - ADR-AZ-NAMING#5
-      - ADR-AZ-NAMING#6
-      - ADR-AZ-NAMING#7
+      - ADR-AZ-NAMING#{4-7}
     links:
       - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md
       - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png

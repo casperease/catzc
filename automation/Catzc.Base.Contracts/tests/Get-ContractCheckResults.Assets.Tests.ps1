@@ -7,8 +7,7 @@ catzc:
     relatives:
       page: docs/references/automation/catzc-base-contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1.md
     adrs:
-      - ADR-REPO-CONTRACT#3
-      - ADR-REPO-CONTRACT#4
+      - ADR-REPO-CONTRACT#{3,4}
 ---
 #>
 

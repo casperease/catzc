@@ -5,9 +5,7 @@ catzc:
     kind: asset-description
     body_sha: "3d8cf505cd81"
     adrs:
-      - ADR-AUTO-TEST#13
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#30
+      - ADR-AUTO-TEST#{13,26,30}
       - ADR-REPO-PROTGLOB#9
     links:
       - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png

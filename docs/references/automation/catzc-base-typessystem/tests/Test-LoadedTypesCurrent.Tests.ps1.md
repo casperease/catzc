@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: b27b49261129
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#{3,6}
       - ADR-AUTO-TYPES#15
 ---
 

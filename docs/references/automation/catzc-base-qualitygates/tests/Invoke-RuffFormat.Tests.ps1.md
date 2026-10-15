@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: abd26b36d6d1
     adrs:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#{3,6}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Invoke-RuffFormat.Tests.ps1

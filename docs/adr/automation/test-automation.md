@@ -5,44 +5,7 @@ catzc:
     kind: adr
     body_sha: "4c8d25e5c86b"
     defines:
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TEST#4
-      - ADR-AUTO-TEST#6
-      - ADR-AUTO-TEST#7
-      - ADR-AUTO-TEST#8
-      - ADR-AUTO-TEST#9
-      - ADR-AUTO-TEST#10
-      - ADR-AUTO-TEST#13
-      - ADR-AUTO-TEST#14
-      - ADR-AUTO-TEST#15
-      - ADR-AUTO-TEST#16
-      - ADR-AUTO-TEST#17
-      - ADR-AUTO-TEST#19
-      - ADR-AUTO-TEST#20
-      - ADR-AUTO-TEST#21
-      - ADR-AUTO-TEST#22
-      - ADR-AUTO-TEST#23
-      - ADR-AUTO-TEST#24
-      - ADR-AUTO-TEST#25
-      - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#27
-      - ADR-AUTO-TEST#28
-      - ADR-AUTO-TEST#30
-      - ADR-AUTO-TEST#31
-      - ADR-AUTO-TEST#32
-      - ADR-AUTO-TEST#33
-      - ADR-AUTO-TEST#34
-      - ADR-AUTO-TEST#35
-      - ADR-AUTO-TEST#36
-      - ADR-AUTO-TEST#37
-      - ADR-AUTO-TEST#38
-      - ADR-AUTO-TEST#39
-      - ADR-AUTO-TEST#40
-      - ADR-AUTO-TEST#41
-      - ADR-AUTO-TEST#42
-      - ADR-AUTO-TEST#43
-      - ADR-AUTO-TEST#44
+      - ADR-AUTO-TEST#{1,3,4,6-10,13-17,19-28,30-44}
     adrs:
       - ADR-AUTO-BASH#5
       - ADR-AUTO-CACHE#5
@@ -50,12 +13,7 @@ catzc:
       - ADR-AUTO-GO#7
       - ADR-AUTO-PY#7
       - ADR-AUTO-RETRY#1
-      - ADR-PWSH-PESTER#14
-      - ADR-PWSH-PESTER#16
-      - ADR-PWSH-PESTER#2
-      - ADR-PWSH-PESTER#4
-      - ADR-PWSH-PESTER#5
-      - ADR-PWSH-PESTER#9
+      - ADR-PWSH-PESTER#{2,4,5,9,14,16}
     links:
       - docs/adr/automation/bash/bash-test-artifacts.md
       - docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2

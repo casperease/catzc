@@ -5,10 +5,7 @@ catzc:
     kind: adr
     body_sha: "9230a7e17988"
     defines:
-      - ADR-DORA-TOOLCHOICE#1
-      - ADR-DORA-TOOLCHOICE#2
-      - ADR-DORA-TOOLCHOICE#3
-      - ADR-DORA-TOOLCHOICE#4
+      - ADR-DORA-TOOLCHOICE#{1-4}
     links:
       - docs/adr/automation/controlling-systemwide-deps.md
       - docs/adr/design/thin-platforms.md

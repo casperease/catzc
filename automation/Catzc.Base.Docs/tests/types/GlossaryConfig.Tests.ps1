@@ -9,13 +9,7 @@ catzc:
       source: automation/Catzc.Base.Docs/types/GlossaryConfig.cs
     adrs:
       - ADR-AUTO-TEST#3
-      - ADR-REPO-VOCAB#1
-      - ADR-REPO-VOCAB#2
-      - ADR-REPO-VOCAB#3
-      - ADR-REPO-VOCAB#4
-      - ADR-REPO-VOCAB#5
-      - ADR-REPO-VOCAB#6
-      - ADR-REPO-VOCAB#8
+      - ADR-REPO-VOCAB#{1-6,8}
 ---
 #>
 

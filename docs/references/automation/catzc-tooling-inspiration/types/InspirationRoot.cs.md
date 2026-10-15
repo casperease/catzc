@@ -5,9 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "38fb69574f54"
     adrs:
-      - ADR-AUTO-PATH#11
-      - ADR-AUTO-PATH#3
-      - ADR-AUTO-PATH#6
+      - ADR-AUTO-PATH#{3,6,11}
 ---
 
 # automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs

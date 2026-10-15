@@ -9,9 +9,7 @@ catzc:
       source: automation/Catzc.Base.QualityGates/private/Get-TestTagViolations.ps1
     adrs:
       - ADR-AUTO-TEST
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TEST#13
-      - ADR-AUTO-TEST#27
+      - ADR-AUTO-TEST#{1,13,27}
 ---
 #>
 

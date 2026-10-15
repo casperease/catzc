@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "6298028e02bd"
     defines:
-      - ADR-DORA-MONITOR#1
-      - ADR-DORA-MONITOR#2
-      - ADR-DORA-MONITOR#3
-      - ADR-DORA-MONITOR#4
-      - ADR-DORA-MONITOR#5
+      - ADR-DORA-MONITOR#{1-5}
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/adr/process/observe-work.md

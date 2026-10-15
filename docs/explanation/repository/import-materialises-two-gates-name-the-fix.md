@@ -5,8 +5,7 @@ catzc:
     kind: explanation
     body_sha: "7e60f250283d"
     adrs:
-      - ADR-REPO-ROOTCFG#4
-      - ADR-REPO-ROOTCFG#6
+      - ADR-REPO-ROOTCFG#{4,6}
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md
       - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png

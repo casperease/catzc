@@ -5,30 +5,11 @@ catzc:
     kind: adr
     body_sha: "5442f36725bb"
     defines:
-      - ADR-AZ-WAFPE#1
-      - ADR-AZ-WAFPE#2
-      - ADR-AZ-WAFPE#3
-      - ADR-AZ-WAFPE#4
-      - ADR-AZ-WAFPE#5
-      - ADR-AZ-WAFPE#6
-      - ADR-AZ-WAFPE#7
-      - ADR-AZ-WAFPE#8
-      - ADR-AZ-WAFPE#9
-      - ADR-AZ-WAFPE#10
-      - ADR-AZ-WAFPE#11
-      - ADR-AZ-WAFPE#12
+      - ADR-AZ-WAFPE#{1-12}
     adrs:
       - ADR-AUTO-TEST#41
-      - ADR-AZ-DATAMOD#10
-      - ADR-AZ-DATAMOD#2
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#1
-      - ADR-AZ-LZ#2
-      - ADR-AZ-LZ#3
-      - ADR-AZ-LZ#4
-      - ADR-AZ-LZ#5
-      - ADR-AZ-LZ#6
-      - ADR-AZ-LZ#7
+      - ADR-AZ-DATAMOD#{2,9,10}
+      - ADR-AZ-LZ#*
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test41
       - docs/adr/azure/azure-data-model.md

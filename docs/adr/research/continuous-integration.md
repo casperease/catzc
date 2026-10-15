@@ -5,11 +5,7 @@ catzc:
     kind: adr
     body_sha: "6e3811077548"
     defines:
-      - ADR-DORA-CI#1
-      - ADR-DORA-CI#2
-      - ADR-DORA-CI#3
-      - ADR-DORA-CI#4
-      - ADR-DORA-CI#5
+      - ADR-DORA-CI#{1-5}
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test8
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

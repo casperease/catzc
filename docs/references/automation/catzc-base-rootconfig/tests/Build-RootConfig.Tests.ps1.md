@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "493ae25d0dbc"
     adrs:
-      - ADR-AUTO-TEST#14
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#{3,14}
       - ADR-PWSH-PESTER#2
 ---
 

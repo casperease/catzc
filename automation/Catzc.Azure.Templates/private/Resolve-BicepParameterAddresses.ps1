@@ -10,8 +10,7 @@ catzc:
       test: automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
     adrs:
       - ADR-AZ-DATAMOD#10
-      - ADR-CONF-ADDRESSING#1
-      - ADR-CONF-ADDRESSING#3
+      - ADR-CONF-ADDRESSING#{1,3}
   config:
     synopsis: Resolves the config-addressed entries of a template config's parameters into ARM `value` entries.
     description: |-

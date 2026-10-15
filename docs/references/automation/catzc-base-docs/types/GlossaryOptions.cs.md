@@ -6,8 +6,7 @@ catzc:
     body_sha: "1f8295ac3f17"
     adrs:
       - ADR-AUTO-TYPES#8
-      - ADR-REPO-VOCAB#2
-      - ADR-REPO-VOCAB#3
+      - ADR-REPO-VOCAB#{2,3}
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryOptions.cs

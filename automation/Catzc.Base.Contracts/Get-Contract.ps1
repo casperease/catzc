@@ -10,11 +10,7 @@ catzc:
       test: automation/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
     adrs:
       - ADR-AUTO-PATH#2
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#5
-      - ADR-REPO-CONTRACT#6
-      - ADR-REPO-CONTRACT#7
-      - ADR-REPO-CONTRACT#8
+      - ADR-REPO-CONTRACT#{2,5-8}
   config:
     synopsis: Lists the repository's contract assets, with every fact derived from each asset's name.
     description: |-

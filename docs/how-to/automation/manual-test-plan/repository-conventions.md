@@ -5,18 +5,8 @@ catzc:
     kind: how-to
     body_sha: "3d08ae3bea80"
     adrs:
-      - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#12
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#17
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACK#6
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#4
-      - ADR-REPO-CONTRACT#5
-      - ADR-REPO-CONTRACT#9
+      - ADR-DSGN-TRACK#{1,3,6,12,14-17}
+      - ADR-REPO-CONTRACT#{2,4,5,9}
       - ADR-REPO-FILEMETA#4
     links:
       - docs/how-to/automation/manual-test-plan.md

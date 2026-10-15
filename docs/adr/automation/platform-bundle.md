@@ -5,13 +5,7 @@ catzc:
     kind: adr
     body_sha: "4dacfa995a0b"
     defines:
-      - ADR-AUTO-BUNDLE#1
-      - ADR-AUTO-BUNDLE#2
-      - ADR-AUTO-BUNDLE#3
-      - ADR-AUTO-BUNDLE#5
-      - ADR-AUTO-BUNDLE#6
-      - ADR-AUTO-BUNDLE#7
-      - ADR-AUTO-BUNDLE#8
+      - ADR-AUTO-BUNDLE#{1-3,5-8}
     adrs:
       - ADR-FLOW-CD-GLOBS#5
     links:

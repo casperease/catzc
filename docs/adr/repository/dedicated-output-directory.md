@@ -5,18 +5,7 @@ catzc:
     kind: adr
     body_sha: f8ee280ed047
     defines:
-      - ADR-REPO-OUTDIR#1
-      - ADR-REPO-OUTDIR#2
-      - ADR-REPO-OUTDIR#3
-      - ADR-REPO-OUTDIR#4
-      - ADR-REPO-OUTDIR#5
-      - ADR-REPO-OUTDIR#6
-      - ADR-REPO-OUTDIR#7
-      - ADR-REPO-OUTDIR#8
-      - ADR-REPO-OUTDIR#9
-      - ADR-REPO-OUTDIR#10
-      - ADR-REPO-OUTDIR#11
-      - ADR-REPO-OUTDIR#12
+      - ADR-REPO-OUTDIR#{1-12}
     adrs:
       - ADR-AUTO-SPELL#5
     links:

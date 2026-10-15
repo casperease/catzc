@@ -9,8 +9,7 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/types/FileMetaKind.cs.md
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-FILEMETA#2
-      - ADR-REPO-FILEMETA#4
+      - ADR-REPO-FILEMETA#{2,4}
 ---
 */
 

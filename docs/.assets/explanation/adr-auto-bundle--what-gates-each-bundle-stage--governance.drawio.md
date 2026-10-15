@@ -5,10 +5,7 @@ catzc:
     kind: asset-description
     body_sha: "8c792d1d34f4"
     adrs:
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.md
       - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png

@@ -5,11 +5,7 @@ catzc:
     kind: explanation
     body_sha: "77b17b73c674"
     adrs:
-      - ADR-AUTO-PATH#1
-      - ADR-AUTO-PATH#10
-      - ADR-AUTO-PATH#2
-      - ADR-AUTO-PATH#3
-      - ADR-AUTO-PATH#4
+      - ADR-AUTO-PATH#{1-4,10}
     links:
       - docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md
       - docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.png

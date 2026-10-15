@@ -5,8 +5,7 @@ catzc:
     kind: comment-page
     body_sha: dfc058b41e36
     adrs:
-      - ADR-REPO-LINK#1
-      - ADR-REPO-LINK#6
+      - ADR-REPO-LINK#{1,6}
 ---
 
 # automation/Catzc.Base.QualityGates/tests/types/CommentLexer.Tests.ps1

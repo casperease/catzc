@@ -6,11 +6,8 @@ catzc:
     body_sha: e936870e0c62
     adrs:
       - ADR-AUTO-TEST#24
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#9
-      - ADR-DSGN-VISUAL#13
-      - ADR-DSGN-VISUAL#2
-      - ADR-DSGN-VISUAL#4
+      - ADR-DSGN-LIFE#{1,9}
+      - ADR-DSGN-VISUAL#{2,4,13}
     links:
       - docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.md
       - docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
