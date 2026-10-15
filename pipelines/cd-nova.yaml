@@ -1,19 +1,8 @@
 # CD pipeline for customer nova — thin root that extends the shared customer CD template.
-#
-# nova is dev-only (nonprod tier only), and the lists name exactly nova's configs: foundation and
-# discovery (the nova spoke) at nsub, expedition at dev (its base slot). Add the prod tier (psub /
-# preprod / prod) when nova grows. All structure
-# lives in /pipelines/extends/cd-customer.yaml; triggers live here (honored only at the pipeline root).
-# The target subscription is what the service connection logs into; the subscriptionIdAssertIs GUID
-# (from azure.yml) pins it.
-#
-# Reference shape: 'sc-nova-nonprod' is illustrative until real service connections + a non-placeholder
-# azure.yml exist.
+# [comment:1](/docs/references/pipelines/cd-nova.yaml.md#comment1)
 
-# Trigger = the 'nova' globset projected into ADO-native path filters (Get-GlobSetTrigger,
-# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)):
-# the foundation, discovery, and expedition templates + modules, plus nova's own configuration subfolder of
-# each, minus the other deployments' config.
+# Trigger = the 'nova' globset projected into ADO-native path filters (Get-GlobSetTrigger, ): the foundation, discovery, and expedition...
+# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/pipelines/cd-nova.yaml.md#comment2)
 trigger:
   branches:
     include: [main]

@@ -1,6 +1,5 @@
-// Reusable bicep module: one subnet added to an existing virtual network that the template does not
-// deploy itself. A VNet the template deploys declares all its subnets inline (virtual-network.bicep),
-// because redeploying a VNet without one of its subnets tries to delete it. `az bicep build` inlines it.
+// Reusable bicep module: one subnet added to an existing virtual network that the template does not deploy itself.
+// [comment:1](/docs/references/infrastructure/modules/subnet.bicep.md#comment1)
 
 @description('Name of the existing virtual network (in the deployment resource group).')
 param virtualNetworkName string

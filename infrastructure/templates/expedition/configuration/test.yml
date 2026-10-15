@@ -1,6 +1,5 @@
-# expedition, shared test (configuration root, shared_nonprod subscription): in the nonprod hub's shared-services
-# subnet, registered in the same hub's private DNS zones. Nonprod class: a serverless database that pauses when
-# idle.
+# expedition, shared test (configuration root, shared_nonprod subscription): in the nonprod hub's shared-services subnet, registered in...
+# [comment:1](/docs/references/infrastructure/templates/expedition/configuration/test.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

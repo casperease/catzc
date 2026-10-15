@@ -1,14 +1,6 @@
-// discovery — the CAF application landing zone. Deployed once per subscription (envs nsub/psub) at
-// subscription scope: a hub in each shared subscription, a spoke in each customer subscription. The
-// kind, the address space, and the subnets come from network.yml by config address, so the IP plan is
-// read, never copied ([ADR-AZ-NETWORK#1](/docs/adr/azure/azure-network-model.md#rule-adr-az-network1)).
-//
-// Both kinds deploy one resource group with the virtual network (every subnet inline), a network security
-// group per subnet named in networkSecurityGroupNames, the activity log and the network diagnostics to
-// foundation's Log Analytics workspace, three policy assignments, and a budget. A spoke adds a route table
-// and its peering to the hub; a hub adds its peerings to the spokes it lists and the private DNS zones,
-// linked to the hub and to every spoke. The reserved hub subnets (GatewaySubnet, AzureFirewallSubnet) get no
-// network security group and nothing is deployed into them.
+// discovery — the CAF application landing zone.
+// [ADR-AZ-NETWORK#1](/docs/adr/azure/azure-network-model.md#rule-adr-az-network1)
+// [comment:1](/docs/references/infrastructure/templates/discovery/main.bicep.md#comment1)
 
 targetScope = 'subscription'
 
@@ -154,8 +146,8 @@ var privateDnsZoneNames = [
   'privatelink.blob.${environment().suffixes.storage}'
 ]
 
-// Inbound: allow traffic inside the virtual networks, deny traffic from the internet. The Azure default
-// rules (deny all other inbound) apply beneath them.
+// Inbound: allow traffic inside the virtual networks, deny traffic from the internet.
+// [comment:2](/docs/references/infrastructure/templates/discovery/main.bicep.md#comment2)
 var securityRules = [
   {
     name: 'allow-virtual-network-inbound'

@@ -1,6 +1,5 @@
-# CI pipeline — expected failures. Verifies guardrails work by running
-# commands that must fail. All steps use continueOnError so the job
-# succeeds overall.
+# CI pipeline — expected failures.
+# [comment:1](/docs/references/pipelines/ci-automation-expected-failures.yaml.md#comment1)
 
 trigger:
   branches:
@@ -31,9 +30,8 @@ jobs:
           pwsh: true
         continueOnError: true
 
-      # 1b: Multiline RunCommand without DisplayName must fail
-      #     Simulates what invoke-automation.yaml does internally.
-      #     The throw propagates → step goes amber (expected).
+      # 1b: Multiline RunCommand without DisplayName must fail Simulates what invoke-automation.yaml does internally.
+      # [comment:2](/docs/references/pipelines/ci-automation-expected-failures.yaml.md#comment2)
       - task: PowerShell@2
         displayName: "Guard: multiline without DisplayName"
         inputs:

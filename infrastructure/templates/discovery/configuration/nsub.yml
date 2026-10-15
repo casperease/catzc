@@ -1,5 +1,5 @@
-# discovery, shared nonprod subscription (env nsub): the nonprod hub. The kind and the ranges come from
-# network.yml by config address; the hub peers to the nonprod spokes and links its private DNS zones to them.
+# discovery, shared nonprod subscription (env nsub): the nonprod hub.
+# [comment:1](/docs/references/infrastructure/templates/discovery/configuration/nsub.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

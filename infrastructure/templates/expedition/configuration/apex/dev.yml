@@ -1,5 +1,5 @@
-# expedition, apex dev (customer apex, apex_nonprod subscription): in the apex nonprod spoke, registered in
-# the nonprod hub's private DNS zones. Nonprod class: a serverless database that pauses when idle.
+# expedition, apex dev (customer apex, apex_nonprod subscription): in the apex nonprod spoke, registered in the nonprod hub's private DNS...
+# [comment:1](/docs/references/infrastructure/templates/expedition/configuration/apex/dev.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

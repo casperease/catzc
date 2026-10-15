@@ -1,6 +1,5 @@
-// Reusable bicep module: a route table (user-defined routes). The caller passes the routes in the ARM
-// `routes` shape ({ name, properties: { addressPrefix, nextHopType, nextHopIpAddress? } }). Attach it
-// to a subnet through virtual-network.bicep or subnet.bicep. `az bicep build` inlines it.
+// Reusable bicep module: a route table (user-defined routes).
+// [comment:1](/docs/references/infrastructure/modules/route-table.bicep.md#comment1)
 
 @description('Route table name (1-80 characters, unique within the resource group).')
 param name string

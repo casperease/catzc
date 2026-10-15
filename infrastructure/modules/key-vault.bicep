@@ -1,6 +1,5 @@
-// Reusable bicep module: a Key Vault (RBAC-authorized, no access policies). Templates reference it
-// with a relative `module` declaration (../../modules/key-vault.bicep) and `az bicep build` inlines
-// it into the template's main.json.
+// Reusable bicep module: a Key Vault (RBAC-authorized, no access policies).
+// [comment:1](/docs/references/infrastructure/modules/key-vault.bicep.md#comment1)
 
 @description('Key vault name (3-24 alphanumeric/hyphen, starts with a letter, globally unique).')
 param name string

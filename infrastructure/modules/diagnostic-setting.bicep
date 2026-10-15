@@ -1,8 +1,5 @@
-// Reusable bicep module: a diagnostic setting that sends a resource's logs and metrics to a Log
-// Analytics workspace. A diagnostic setting attaches to a typed resource, so the caller names the
-// resource kind and the resource; the module picks the log and metric categories that kind exposes
-// (logs by the `allLogs` category group). The subscription's activity log has its own module
-// (subscription-diagnostic-setting.bicep). `az bicep build` inlines it.
+// Reusable bicep module: a diagnostic setting that sends a resource's logs and metrics to a Log Analytics workspace.
+// [comment:1](/docs/references/infrastructure/modules/diagnostic-setting.bicep.md#comment1)
 
 @description('Kind of the target resource.')
 @allowed([

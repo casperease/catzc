@@ -1,7 +1,5 @@
-// Reusable bicep module: a private endpoint for one sub-resource of a target service (the `blob` of a
-// storage account, the `sqlServer` of a SQL server), placed in a subnet, with a private DNS zone group
-// that registers its address in the given private DNS zones (which may live in the hub's
-// subscription). `az bicep build` inlines it.
+// Reusable bicep module: a private endpoint for one sub-resource of a target service (the `blob` of a storage account, the `sqlServer`...
+// [comment:1](/docs/references/infrastructure/modules/private-endpoint.bicep.md#comment1)
 
 @description('Private endpoint name (2-64 characters, unique within the resource group).')
 param name string

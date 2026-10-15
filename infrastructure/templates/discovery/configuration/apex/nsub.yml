@@ -1,5 +1,5 @@
-# discovery, apex nonprod subscription (env nsub, customer apex): a spoke. The kind and the ranges come from
-# network.yml by config address; the spoke peers to the nonprod hub.
+# discovery, apex nonprod subscription (env nsub, customer apex): a spoke.
+# [comment:1](/docs/references/infrastructure/templates/discovery/configuration/apex/nsub.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

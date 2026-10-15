@@ -1,5 +1,5 @@
-// Reusable bicep module: a Log Analytics workspace. Templates reference it with a relative `module`
-// declaration (../../modules/log-analytics.bicep); `az bicep build` inlines it.
+// Reusable bicep module: a Log Analytics workspace.
+// [comment:1](/docs/references/infrastructure/modules/log-analytics.bicep.md#comment1)
 
 @description('Log Analytics workspace name.')
 param name string

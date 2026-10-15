@@ -1,14 +1,6 @@
-// Claude Code PreToolUse hook: denies a Bash call that does not run inside the time safeguard
-// ([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)).
-//
-// The decision is Catzc.Base.Timeouts.BashSafeguard and the limits are Catzc.Base.Timeouts.TimeoutsConfig — the
-// module's own source files, compiled into this program (see the .csproj), so the hook, Get-TimeoutSeconds and the
-// L0 tests share one parser, one set of defaults and one verdict. This file only does the I/O: read the payload
-// from stdin, load timeouts.yml, detect the run environment, print a denial, and append each denial to
-// out/time-safeguard.log — the list of blockers to tune.
-//
-// A compiled program because it runs before every Bash call: it starts in about a third of the time a pwsh script
-// does. Build-BashTimeoutHook publishes it to .claude/hooks/bin/, from where the repository root is three folders up.
+// Claude Code PreToolUse hook: denies a Bash call that does not run inside the time safeguard.
+// [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
+// [comment:1](/docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -65,8 +57,8 @@ public static class AssertBashTimeout
         }
     }
 
-    // timeouts.yml as the nested IDictionary TimeoutsConfig takes, typed the way the module's YAML loader types it:
-    // a plain integer is a number, a plain float a double, a quoted scalar stays a string.
+    // timeouts.yml as the nested IDictionary TimeoutsConfig takes, typed the way the module's YAML loader types it: a plain integer is a...
+    // [comment:2](/docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md#comment2)
     private static IDictionary LoadYaml(string path)
     {
         YamlStream stream = new YamlStream();

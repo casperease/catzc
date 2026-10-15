@@ -41,7 +41,7 @@ public static class CommentEngine
     static readonly Regex IgnoreDirective = new Regex(@"cspell:ignore[ \t]+(?<words>[^\r\n]*)", RegexOptions.Compiled);
     static readonly Regex IgnoreWord = new Regex(@"^[A-Za-z0-9][A-Za-z0-9'_-]*$", RegexOptions.Compiled);
     static readonly Regex PageIgnoreLine = new Regex(@"^<!-- cspell:ignore (?<words>[^\r\n]*?) -->[ \t]*$", RegexOptions.Compiled | RegexOptions.Multiline);
-    static readonly Regex SpaceBeforePunctuation =new Regex(@"\s+([.,;:])", RegexOptions.Compiled);
+    static readonly Regex SpaceBeforePunctuation = new Regex(@"\s+([.,;:])", RegexOptions.Compiled);
     const string FenceOpen = "```text";
     const string FenceClose = "```";
     const int ContextLength = 80;

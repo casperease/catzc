@@ -1,7 +1,5 @@
-// foundation — the once-per-subscription baseline: a Log Analytics workspace + a Key Vault. Deployed
-// once per subscription (envs nsub/psub), in the shared subscription and in each customer's. The Key
-// Vault holds shared secrets for that subscription — notably the SQL admin password that consuming
-// templates reference. Resources come from the reusable modules in infrastructure/modules/.
+// foundation — the once-per-subscription baseline: a Log Analytics workspace + a Key Vault.
+// [comment:1](/docs/references/infrastructure/templates/foundation/main.bicep.md#comment1)
 
 param location string = resourceGroup().location
 

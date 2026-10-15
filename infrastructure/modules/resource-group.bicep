@@ -1,6 +1,5 @@
-// Reusable bicep module: a resource group, deployed at subscription scope. A subscription-level template
-// (targetScope = 'subscription') creates its resource groups with it and then deploys resource-group
-// modules into them (`scope: resourceGroup(<name>)`). `az bicep build` inlines it.
+// Reusable bicep module: a resource group, deployed at subscription scope.
+// [comment:1](/docs/references/infrastructure/modules/resource-group.bicep.md#comment1)
 
 targetScope = 'subscription'
 

@@ -1,5 +1,5 @@
-# expedition, apex dev, the special slot blu (customer apex, apex_nonprod subscription): a second deployment
-# of the workload beside the base slot of dev, in its own resource group and the same apex nonprod spoke.
+# expedition, apex dev, the special slot blu (customer apex, apex_nonprod subscription): a second deployment of the workload beside the...
+# [comment:1](/docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

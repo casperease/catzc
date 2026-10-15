@@ -1,5 +1,5 @@
-# expedition, nova dev (customer nova, nova_nonprod subscription): in the nova nonprod spoke, registered in the
-# nonprod hub's private DNS zones. Nonprod class: a serverless database that pauses when idle.
+# expedition, nova dev (customer nova, nova_nonprod subscription): in the nova nonprod spoke, registered in the nonprod hub's private DNS...
+# [comment:1](/docs/references/infrastructure/templates/expedition/configuration/nova/dev.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

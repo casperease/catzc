@@ -1,8 +1,5 @@
-// Reusable bicep module: a network security group. The caller passes the rules in the ARM
-// `securityRules` shape ({ name, properties: { priority, direction, access, protocol, … } }); the
-// Azure default rules (allow VNet and load-balancer inbound, deny all other inbound) always apply
-// beneath them. Attach it to a subnet through virtual-network.bicep or subnet.bicep. `az bicep build`
-// inlines it.
+// Reusable bicep module: a network security group.
+// [comment:1](/docs/references/infrastructure/modules/nsg.bicep.md#comment1)
 
 @description('Network security group name (1-80 characters, unique within the resource group).')
 param name string

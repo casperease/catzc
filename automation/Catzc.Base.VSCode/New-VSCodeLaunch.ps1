@@ -3,15 +3,9 @@
     Renders .vscode/launch.json content from the vscode-launch registry — the debug launch profiles the
     editor offers.
 .DESCRIPTION
-    Reads the authored launch-profile registry (configs/vscode-launch.yml, via Get-Config -Config
-    vscode-launch, which maps and validates it as a VscodeLaunchConfig) and renders it to the launch.json content: a
-    generated-file header (JSONC — VS Code reads comments in launch.json) followed by the version and
-    configurations as JSON, in registry order. The per-profile explanations live as comments in the yml — the
-    authored, searched artifact — not in the rendering.
-
-    This is a pure renderer: it returns the content and writes nothing — it is the `generator` the
-    root-config registry names for the .vscode/launch.json target, and Build-RootConfig owns the write.
-    See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+    Reads the authored launch-profile registry (configs/vscode-launch.yml, via Get-Config -Config vscode-launch,...
+    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
+    [comment:1](/docs/references/automation/catzc-base-vscode/New-VSCodeLaunch.ps1.md#comment1)
 .OUTPUTS
     [string] The rendered launch.json content (LF-joined; the writer canonicalises).
 .EXAMPLE

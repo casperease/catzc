@@ -1,8 +1,5 @@
-// Reusable bicep module: a single SQL database on an existing logical server, with the Well-Architected
-// defaults — zone redundancy wherever the tier supports it, geo-redundant backup storage, and a
-// short-term backup retention policy. Serverless SKUs (`GP_S_Gen5`) take an auto-pause delay and a
-// minimum capacity. Templates reference it with a relative `module` declaration
-// (../../modules/sql-database.bicep); `az bicep build` inlines it.
+// Reusable bicep module: a single SQL database on an existing logical server, with the Well-Architected defaults — zone redundancy...
+// [comment:1](/docs/references/infrastructure/modules/sql-database.bicep.md#comment1)
 
 @description('Name of the existing SQL logical server that hosts this database.')
 param serverName string

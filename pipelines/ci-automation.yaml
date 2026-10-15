@@ -1,10 +1,6 @@
 # CI pipeline — unit tests, framework integration tests, and Azure auth tests.
-#
-# Trigger = the 'automation' globset projected into ADO-native path filters (Get-GlobSetTrigger,
-# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)):
-# the track is its own root folder (automation/**,
-# [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)), so this fires exactly — and only starts at
-# all — when the module system changes. No committed marker to go stale across a squash or concurrent merge.
+# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
+# [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1) [comment:1](/docs/references/pipelines/ci-automation.yaml.md#comment1)
 
 trigger:
   branches:
@@ -18,9 +14,8 @@ pr:
   paths:
     include: [automation/**]
 
-# ---------------------------------------------------------------------------
-# Job 1: Unit tests (Pester)
-# ---------------------------------------------------------------------------
+# --------------------------------------------------------------------------- Job 1: Unit tests (Pester)...
+# [comment:2](/docs/references/pipelines/ci-automation.yaml.md#comment2)
 jobs:
   - job: UnitTests
     displayName: "Unit Tests"
@@ -29,9 +24,8 @@ jobs:
     steps:
       - checkout: self
 
-      # cspell + markdownlint-cli2 are installed here so the L2 'Repository spelling/markdown integrity'
-      # tests run as part of Test-Automation -Level 2 (they self-skip when the tool is absent). These L2
-      # integrity tests are the single spell/markdown gate.
+      # cspell + markdownlint-cli2 are installed here so the L2 'Repository spelling/markdown integrity' tests run as part of...
+      # [comment:3](/docs/references/pipelines/ci-automation.yaml.md#comment3)
       - task: UseNode@1
         inputs:
           version: "22.x"
@@ -51,10 +45,8 @@ jobs:
         parameters:
           RunCommand: "Test-Automation -Level 2 -EnforceTimings"
 
-  # ---------------------------------------------------------------------------
-  # Job 2: Framework integration tests (no Azure auth)
-  # Each step exercises a different edge of the framework through the template.
-  # ---------------------------------------------------------------------------
+  # --------------------------------------------------------------------------- Job 2: Framework integration tests (no Azure auth) Each...
+  # [comment:4](/docs/references/pipelines/ci-automation.yaml.md#comment4)
   - job: FrameworkTests
     displayName: "Framework Integration Tests"
     pool:
@@ -165,9 +157,8 @@ jobs:
             Assert-True ($output -match 'RuntimeException')
             Write-Message 'Write-Exception output verified'
 
-  # ---------------------------------------------------------------------------
-  # Job 3: Azure auth mode tests (needs sc-azure-test service connection)
-  # ---------------------------------------------------------------------------
+  # --------------------------------------------------------------------------- Job 3: Azure auth mode tests (needs sc-azure-test service...
+  # [comment:5](/docs/references/pipelines/ci-automation.yaml.md#comment5)
   - job: AzureAuthTests
     displayName: "Azure Auth Tests"
     pool:
@@ -209,10 +200,8 @@ jobs:
             Write-Message 'SYSTEM_ACCESSTOKEN is available'
           ExposeAccessToken: true
 
-  # ---------------------------------------------------------------------------
-  # Job 4: Tool installation — install all locked-version tools on Linux
-  # One step per tool, in dependency order.
-  # ---------------------------------------------------------------------------
+  # --------------------------------------------------------------------------- Job 4: Tool installation — install all locked-version...
+  # [comment:6](/docs/references/pipelines/ci-automation.yaml.md#comment6)
   - job: ToolInstallation
     displayName: "Tool Installation (Linux)"
     pool:
@@ -221,7 +210,7 @@ jobs:
       - checkout: self
 
       # Activate pre-cached tool versions on the hosted agent.
-      # These put the correct version on PATH so Install-* sees it and skips.
+      # [comment:7](/docs/references/pipelines/ci-automation.yaml.md#comment7)
       - task: UsePythonVersion@0
         inputs:
           versionSpec: "3.13"
@@ -244,9 +233,7 @@ jobs:
           RunCommand: 'Get-ToolsStatus | Write-Object -Name "Before"'
 
       # Install remaining tools via our functions.
-      # Python, Dotnet, NodeJs use native ADO tasks above.
-      # pip-based tools depend on Python being on PATH (activated above).
-      # apt-based tools use sudo (available on hosted agents).
+      # [comment:8](/docs/references/pipelines/ci-automation.yaml.md#comment8)
       - template: /pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Install-AzCli (pip, depends on Python)"

@@ -1,9 +1,5 @@
-// Reusable bicep module: a policy assignment at subscription scope. The caller passes the policy
-// definition id, its parameters, and the enforcement mode, which has no default here: the template
-// reads it from the repository-wide setting in azure.yml (`policy_enforcement`). A policy whose effect
-// deploys or modifies resources (deployIfNotExists, modify) needs a managed identity and the roles its
-// remediation uses: set `assignIdentity` and list the role definition ids, and the module grants them on
-// the subscription. `az bicep build` inlines it.
+// Reusable bicep module: a policy assignment at subscription scope.
+// [comment:1](/docs/references/infrastructure/modules/policy-assignment.bicep.md#comment1)
 
 targetScope = 'subscription'
 

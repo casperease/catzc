@@ -1,5 +1,5 @@
-# discovery, apex prod subscription (env psub, customer apex): a spoke. The kind and the ranges come from
-# network.yml by config address; the spoke peers to the prod hub.
+# discovery, apex prod subscription (env psub, customer apex): a spoke.
+# [comment:1](/docs/references/infrastructure/templates/discovery/configuration/apex/psub.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

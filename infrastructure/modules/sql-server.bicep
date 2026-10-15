@@ -1,12 +1,5 @@
-// Reusable bicep module: a SQL logical server with the Well-Architected defaults — an Entra ID
-// administrator (a group by default), Entra-only authentication, no public network access, TLS 1.2
-// minimum, and a system-assigned managed identity. Reach it through a private endpoint
-// (../../modules/private-endpoint.bicep, group id `sqlServer`). Databases are separate
-// (../../modules/sql-database.bicep). Templates reference it with a relative `module` declaration;
-// `az bicep build` inlines it.
-//
-// A break-glass SQL login is opt-in: pass `entraOnlyAuthentication: false` together with
-// `administratorLogin` and `administratorLoginPassword` (the password as a Key Vault reference).
+// Reusable bicep module: a SQL logical server with the Well-Architected defaults — an Entra ID administrator (a group by default),...
+// [comment:1](/docs/references/infrastructure/modules/sql-server.bicep.md#comment1)
 
 @description('SQL logical server name (1-63 lowercase, globally unique).')
 param name string

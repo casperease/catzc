@@ -1,15 +1,7 @@
-// The VS Code launch-profile registry, configs/vscode-launch.yml — the single authored source that New-VSCodeLaunch
-// renders to the managed .vscode/launch.json ([ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)).
-// Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw.
-// Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.VSCode.VscodeLaunchConfig), so
-// Get-Config -Config vscode-launch returns this typed model. Mirrors the YAML mapping (snake_case keys,
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
-//
-// Load-time rules:
-//   - only the top-level keys 'version' and 'configurations';
-//   - 'version' is a non-empty string (the VS Code launch schema version, e.g. '0.2.0');
-//   - 'configurations' is a non-empty list of well-formed profiles (VscodeLaunchProfile), names unique
-//     case-insensitively.
+// The VS Code launch-profile registry, configs/vscode-launch.yml — the single authored source that New-VSCodeLaunch renders to the...
+// [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-vscode/types/VscodeLaunchConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

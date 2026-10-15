@@ -1,5 +1,5 @@
-# discovery, flux nonprod subscription (env nsub, customer flux): a spoke. The kind and the ranges come from
-# network.yml by config address; the spoke peers to the nonprod hub. flux is dev-only -> nonprod only.
+# discovery, flux nonprod subscription (env nsub, customer flux): a spoke.
+# [comment:1](/docs/references/infrastructure/templates/discovery/configuration/flux/nsub.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

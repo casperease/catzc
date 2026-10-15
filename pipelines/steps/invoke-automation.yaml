@@ -1,21 +1,6 @@
 # Unified step template for running PowerShell automation commands.
-#
-# Usage:
-#   - template: /pipelines/steps/invoke-automation.yaml
-#     parameters:
-#       RunCommand: 'Test-Automation'
-#
-#   - template: /pipelines/steps/invoke-automation.yaml
-#     parameters:
-#       RunCommand: |
-#         Build-Bicep -Template sample -Environments dev
-#         Deploy-Bicep -Environment dev -Template sample
-#       Mode: azcli
-#       ServiceConnection: 'sc-my-subscription'
-#
-# Security: all flags default to off. Each flag is an explicit escalation.
-# No credentials leak to environment variables in any mode.
-# See ADR: [ADR-FLOW-CD-RUNNER](/docs/adr/flow/pipeline-runner-pattern.md)
+# [ADR-FLOW-CD-RUNNER](/docs/adr/flow/pipeline-runner-pattern.md)
+# [comment:1](/docs/references/pipelines/steps/invoke-automation.yaml.md#comment1)
 
 parameters:
   - name: RunCommand
