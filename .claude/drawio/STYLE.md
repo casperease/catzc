@@ -239,14 +239,18 @@ view adds its sections in `describe.py`'s `VIEWS`.
 
 ### Colours (minimaps only; drawings keep the palettes above)
 
-- The background and the lit colour come from the `palette` of `maps.yml` (`Get-Config -Config maps`), the same colours as the world-map
-  PDFs: `background` `#1E2430`, drawn first, and `highlight`, the light ink `#E6EAF0`, which the PDFs use for a lit cell's outline.
+- A minimap has a **page of its own**, a dark green-grey nuance `#1C2A24`, drawn first, so the three insets read as maps set into the
+  slide and never as a fourth band of the page (`#1E2430`). The lit colour comes from the `palette` of `maps.yml`
+  (`Get-Config -Config maps`), the same as the world-map PDFs: `highlight`, the light ink `#E6EAF0`, which the PDFs use for a lit cell's
+  outline.
 - **One lit encoding on all three minimaps:** a lit cell or file is filled in the lit colour; lit by passing mentions only, in the lit
   colour at 40 % over the idle cell. One map-key entry covers both on the grid, the tree and the value-chain map.
-- Idle cells and tiles are `#262E3B`, with `#3A4555` borders. Labels are `#CDD3DC` (lit) and `#949FAE` (not lit).
-- A lit ADR file tile on the tree has a 1 px rim in the page colour `#1E2430` (a dark ring on the light tile).
+- Idle cells and tiles are `#243229`, with `#3B4D43` borders, the same nuance one step up. Labels are `#CDD3DC` (lit) and `#949FAE`
+  (not lit). The map key on the slide shows its idle swatch in these minimap tokens, not in the slide's band tokens.
+- A lit ADR file tile on the tree has a 1 px rim in the minimap page colour `#1C2A24` (a dark ring on the light tile).
 - The **lens badge** is dark text `#1E2430` on `#E6EAF0`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
-- No hue appears in a minimap: red stays reserved for failure inside drawings, and yellow for the BVT commit state.
+- No hue appears inside a minimap beyond its page's green cast: red stays reserved for failure inside drawings, and yellow for the BVT
+  commit state.
 - The lens badge sits on the **grid** minimap only, in its empty top-left corner. On the tree map it would hide tiles.
 - A lit file is often a tiny square inside a big group, so its **group tile gets a 3 px edge** in the lit colour as well.
 - A row is shorter than its 18 px name, so the names of two lit rows side by side are moved apart; the tick marks the exact row.

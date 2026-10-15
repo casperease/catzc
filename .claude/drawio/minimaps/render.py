@@ -22,9 +22,10 @@ import describe
 from PIL import Image, ImageDraw, ImageFont
 
 REPO = Path(__file__).resolve().parents[3]
-# The dark-theme tokens (.claude/drawio/STYLE.md, "Colours (minimaps only)"): page, idle cell, cell border, label, ink;
-# HALO is the page colour, used for the label halo, the lit ADR tile's rim and the lens badge's digits on the light badge.
-BG, IDLE, BORDER, LABEL, INK, HALO, BADGE = "#1E2430", "#262E3B", "#3A4555", "#949FAE", "#CDD3DC", "#1E2430", "#E6EAF0"
+# The minimap tokens (.claude/drawio/STYLE.md, "Colours (minimaps only)"): the minimap page, a dark green-grey nuance of
+# its own so a minimap reads as a map inset and never as a band of the slide; idle cell, cell border, label, ink; HALO is
+# the minimap page colour, used for the label halo, the lit ADR tile's rim and the lens badge's digits on the light badge.
+BG, IDLE, BORDER, LABEL, INK, HALO, BADGE = "#1C2A24", "#243229", "#3B4D43", "#949FAE", "#CDD3DC", "#1C2A24", "#E6EAF0"
 FONT_R = "C:/Windows/Fonts/segoeui.ttf"
 FONT_B = "C:/Windows/Fonts/segoeuib.ttf"
 FONT_SB = "C:/Windows/Fonts/seguisb.ttf"

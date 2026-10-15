@@ -176,9 +176,9 @@
     <mxCell id="mk-lit-t" value="lit: what the slide's ADRs select" style="text;html=1;align=left;verticalAlign=middle;fontSize=10.5;fontColor=#949FAE;" vertex="1" parent="1"><mxGeometry x="1350" y="549" width="200" height="20" as="geometry" /></mxCell>
     <mxCell id="mk-mention" value="" style="rounded=0;html=1;fillColor=#737983;strokeColor=#3A4555;" vertex="1" parent="1"><mxGeometry x="1328" y="570" width="14" height="14" as="geometry" /></mxCell>
     <mxCell id="mk-mention-t" value="lit by passing mentions only" style="text;html=1;align=left;verticalAlign=middle;fontSize=10.5;fontColor=#949FAE;" vertex="1" parent="1"><mxGeometry x="1350" y="567" width="200" height="20" as="geometry" /></mxCell>
-    <mxCell id="mk-adr" value="" style="rounded=0;html=1;fillColor=#E6EAF0;strokeColor=#1E2430;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="1328" y="588" width="14" height="14" as="geometry" /></mxCell>
+    <mxCell id="mk-adr" value="" style="rounded=0;html=1;fillColor=#E6EAF0;strokeColor=#1C2A24;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="1328" y="588" width="14" height="14" as="geometry" /></mxCell>
     <mxCell id="mk-adr-t" value="lit ADR file (dark rim)" style="text;html=1;align=left;verticalAlign=middle;fontSize=10.5;fontColor=#949FAE;" vertex="1" parent="1"><mxGeometry x="1350" y="585" width="200" height="20" as="geometry" /></mxCell>
-    <mxCell id="mk-idle" value="" style="rounded=0;html=1;fillColor=#262E3B;strokeColor=#3A4555;" vertex="1" parent="1"><mxGeometry x="1328" y="606" width="14" height="14" as="geometry" /></mxCell>
+    <mxCell id="mk-idle" value="" style="rounded=0;html=1;fillColor=#243229;strokeColor=#3B4D43;" vertex="1" parent="1"><mxGeometry x="1328" y="606" width="14" height="14" as="geometry" /></mxCell>
     <mxCell id="mk-idle-t" value="idle: not selected, or empty" style="text;html=1;align=left;verticalAlign=middle;fontSize=10.5;fontColor=#949FAE;" vertex="1" parent="1"><mxGeometry x="1350" y="603" width="200" height="20" as="geometry" /></mxCell>
   </root>
 </mxGraphModel>

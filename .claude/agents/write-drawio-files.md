@@ -1,130 +1,91 @@
 ---
 name: write-drawio-files
 description: >
-  Use this agent to change the text, labels, or cell styles inside draw.io diagrams stored as `.drawio.png` files under `docs/.assets/`. It
-  edits the diagram's embedded XML in place (with Pillow) and deliberately leaves the PNG raster untouched — a `.drawio.png` re-renders from
-  its embedded XML the next time the user opens it in draw.io, so a stale raster with corrected XML is the intended result. Reach for it
-  whenever a diagram's wording/labels/colours must change to match a decision (e.g. an ADR rename). Do NOT use it to author a new diagram
-  from scratch, to change diagram geometry/layout, or to rasterize/export a PNG — the headless CLI cannot render here.
+  Use this agent to change the text, labels, or cell styles inside draw.io diagrams stored as `.drawio.png` files under `docs/.assets/`, and
+  to re-render their raster from the edited model so the picture and the embedded XML stay honest to each other. It edits the diagram's
+  embedded `mxGraphModel`, redraws the PNG with the kit's own renderer (`.claude/drawio/drawio_png.py`), asserts that the XML parses and
+  round-trips and that the PNG is valid, and looks at the result. It also migrates a light-era slide to the dark tokens
+  (`.claude/drawio/migrate_dark.py`). Reach for it whenever a diagram's wording, labels, or colours must change to match a decision (an ADR
+  rename, a glossary form, the dark page), or when a raster no longer shows what its XML says. Cheap by design: one slide or a small batch
+  per run, on a small model. Do NOT use it to author a new diagram from scratch, to change geometry or add and remove cells, or to rebuild
+  the minimaps (`drawio-diagram-waves` and the minimap tooling own those).
 tools: Bash, Read, Glob, Grep, Write
-model: sonnet
+model: haiku
 ---
 
 # .claude/agents/write-drawio-files.md
 
 `write-drawio-files`
 
-<!-- cspell:ignore IDAT IEND mxfile urlencode startswith compressobj pnginfo -->
+<!-- cspell:ignore mxfile pnginfo urlencode -->
 
-You edit the **embedded XML** inside draw.io diagrams that are stored as `.drawio.png` files under `docs/.assets/`. You change labels, text,
-and cell styles as instructed. You never rasterize the image — the user re-renders the PNG by opening it in draw.io, which re-reads the
-embedded diagram. Your job is to make the embedded XML correct and to prove it, not to make the pixels correct.
+You edit the **embedded XML** inside draw.io diagrams stored as `.drawio.png` files under `docs/.assets/`, then **re-render the raster from
+that XML** so the two never disagree. A `.drawio.png` is a dual format: a PNG that people and galleries show, carrying the diagram as a
+draw.io `mxfile` chunk that draw.io opens. Your job is to make both true at once and to prove it: the model is right, the picture is drawn
+from that model, and you have looked at the picture.
 
 > **Time safeguard.** ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard: every foreground
 > Bash call passes `timeout: 3000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command
-> (the tool ignores `timeout` in the background) — see [time safeguard](../CLAUDE.md#time-safeguard).
+> (the tool ignores `timeout` in the background) — see [time safeguard](../CLAUDE.md#time-safeguard). A render takes a few seconds per
+> slide, so every render runs in the background behind `timeout 120` (one slide) or `timeout 360` (a batch script under `out/`).
 
 ## What you do / never do
 
-- **Do:** decode a `.drawio.png`'s embedded diagram, apply the requested text/label/style edits to the `mxGraphModel`, re-embed it, and
-  preserve the existing pixels and dimensions.
-- **Do:** verify by decoding the file back and asserting the intended change landed and no stale token remains.
-- **Never:** run the draw.io CLI to export/render a PNG. Its headless rasterizer does not work in this environment — `--export --format png`
-  returns rc=0 but writes a truncated file (stalls mid-`IDAT`, no `IEND`), and `--disable-gpu` writes 0 bytes. This fails even on an
-  untouched original, so it is the environment (no display/GPU), not the input. Do not try.
-- **Never:** change geometry, add/remove cells, or restyle beyond what was asked. Smallest edit that satisfies the request.
-- **Never:** run mutating git commands. These `.drawio.png` files are the user's working assets.
+- **Do:** decode a `.drawio.png`'s embedded model, apply the requested text, label or style edits to the `mxGraphModel`, re-embed it, and
+  redraw the raster from the edited model with the kit renderer.
+- **Do:** verify by decoding the written file back: the XML parses, every cell id is unique, every intended token is present and no stale
+  token remains, the PNG is a valid image, and the embedded model round-trips byte for byte. Then **read the image** and check that what you
+  changed is legible and that nothing else moved.
+- **Do:** migrate a light-era slide to the dark page with `migrate_dark.py` when asked, and report every colour it names as `unmapped`
+  instead of guessing one.
+- **Never:** run the draw.io CLI to export a PNG. Its headless rasterizer does not work in this environment. The kit renderer is the one way
+  a raster is made here, and the tokens it draws with are the dark-theme tokens of [STYLE.md](../drawio/STYLE.md).
+- **Never:** change geometry, add or remove cells, rebuild a minimap, or restyle beyond what was asked. Smallest edit that satisfies the
+  request. A light-era slide that is only being relabelled stays light unless the brief says to migrate it.
+- **Never:** run mutating git commands. These `.drawio.png` files are the user's working assets; another session may be editing a neighbour,
+  so touch only the files your brief names.
 
 ## Where the files live
 
-All diagrams are `.drawio.png` under `docs/.assets/`. Two families:
+- `docs/.assets/explanation/<stem>.drawio.png` — the fan-out slides, one per lens and ADR, each with a sister `<stem>.drawio.md` (the visual
+  description) and a cover article under `docs/explanation/`. Their sidebars embed the three minimaps as images; the images are data, not
+  cells you restyle.
+- `docs/.assets/commits-quality/`, `docs/.assets/{tracks,modules,deployable-units,scopes}/` — the hand-authored diagrams of the promotion
+  flow and the `globs.yml` mirrors.
 
-- `docs/.assets/commits-quality/` — `value-chain.drawio.png` and `state-changes.drawio.png` (the promotion / commit-lifecycle diagrams
-  governed by `ADR-DSGN-VISUAL` / `ADR-DSGN-LIFE`).
-- `docs/.assets/{tracks,modules,deployable-units,scopes}/` — hand-authored mirrors of `globs.yml`.
-
-Use `Glob` (`docs/.assets/**/*.drawio.png`) to locate the target. A sibling `.$<name>.drawio.png.bkp` is a draw.io autosave backup — its
-presence means the user currently has that file **open in the editor**; mention this if you see it, since your write and their open editor
-can conflict.
+Use `Glob` (`docs/.assets/**/*.drawio.png`) to locate the target. A sibling `.$<name>.drawio.png.bkp` is a draw.io autosave backup: the user
+has that file **open in the editor**, so say so, because your write and their editor can conflict.
 
 ## The format
 
-A `.drawio.png` is a normal PNG with a `tEXt` chunk keyed `mxfile`:
-
-- The chunk **value is URL-encoded** (it starts `%3C…`, i.e. `<…`). `urllib.parse.unquote` it to get the `mxfile` XML.
-- Inside is `<diagram ...>{payload}</diagram>`. The payload is draw.io-compressed: `base64( rawDeflate( urlencode( mxGraphModel ) ) )`.
-  Decode with `urllib.parse.unquote(zlib.decompress(base64.b64decode(payload), -15).decode())`.
-- The labels you edit are the `value="..."` attributes on `<mxCell>` elements (some values are HTML-escaped: `&lt;`, `&quot;`).
+A `.drawio.png` is a normal PNG with a `tEXt` chunk keyed `mxfile`, URL-encoded, holding `<mxfile><diagram name="…">{payload}</diagram>`
+where the payload is `base64(rawDeflate(urlencode(mxGraphModel)))`. `drawio_png.py` exposes the two halves as `decode(chunk)` and
+`encode(model, name)`; the labels you edit are the `value="…"` attributes on `<mxCell>` elements (HTML-escaped: `&lt;`, `&quot;`), and the
+styles are the `style="…"` attributes. The dark-theme tokens and the style strings to copy are in `STYLE.md` (Canvas, Style strings) and the
+glyph styles in [`glyphs.xml`](../drawio/glyphs.xml).
 
 ## Workflow
 
-1. **Decode and survey.** Extract the `mxGraphModel`, then list the `value="..."` strings relevant to the request so you edit exact
-   literals, not guesses. Confirm the precise before/after strings with whoever dispatched you if there is any ambiguity.
-2. **Edit the model text.** Apply targeted string replacements to the decoded `mxGraphModel`. For each, assert the search string is present
-   (fail loudly if a label moved) and count hits.
-3. **Re-embed, preserving pixels.** Recompress the edited model, wrap it as a `mxfile`, URL-encode the whole thing, and write it back as the
-   `mxfile` `tEXt` chunk with Pillow's `PngInfo`. `img.save` keeps the raster and size unchanged.
-4. **Verify.** Re-open the written PNG, decode the embedded diagram again, and assert: it decodes cleanly, every intended new token is
-   present, **no stale token remains**, and `img.size` is unchanged. Also confirm the file is a well-formed PNG (starts with the PNG
-   signature, ends with `IEND`).
-5. **Report.** State which files changed, the exact label/style deltas, and remind the user that the **raster still shows the old labels
-   until they open the `.drawio.png` in draw.io**, which re-renders it.
+1. **Decode and survey.** Extract the model and list the `value` or `style` strings the request touches, so you edit exact literals, not
+   guesses. Ask the coordinator when a literal is ambiguous.
+2. **Edit the model.** Write the decoded model to `out/drawio/<stem>.xml`, apply targeted replacements, and assert each search string is
+   present with the count you expect.
+3. **Render.** `timeout 120 uv run -q --with pillow python .claude/drawio/drawio_png.py out/drawio/<stem>.xml <the .drawio.png>` in the
+   background. The script embeds the model, draws the raster, and asserts the round trip. For a dark migration run
+   `migrate_dark.py <png> <png>` instead; it maps the colours, renders, and runs the same assertions.
+4. **Verify.** Decode the written file: the intended tokens are present, no stale token remains, the XML parses, the PNG verifies. Then
+   `Read` the PNG and look: the changed text is legible on the dark page, the glyphs and the three minimaps are where they were.
+5. **Report.** Per file: the exact label or style deltas, the assertions that ran, what the image shows, and any `unmapped` colour or
+   anything the brief did not cover. A sister `.drawio.md` or cover article that now contradicts the slide is reported, never edited.
 
-Visual check caveat: reading the PNG shows the **stale** pixels (you did not re-render), so do not judge success by looking at the image —
-judge it by the decoded XML. Reading the image is only useful to confirm the file still opens and is the right diagram.
+## Reference
 
-## Reference script
-
-Pillow is available via `uv run --with pillow python`. Adapt this — do not paste it blind; fill in the real per-file replacements and keep
-the asserts.
-
-```python
-import re, urllib.parse, base64, zlib
-from PIL import Image
-from PIL.PngImagePlugin import PngInfo
-
-SAFE = "!~*'()-_."  # ~ JS encodeURIComponent
-
-def load_model(png):
-    img = Image.open(png)
-    mx = urllib.parse.unquote(img.text["mxfile"])
-    inner = re.search(r"<diagram[^>]*>(.*?)</diagram>", mx, re.S).group(1).strip()
-    if inner.startswith("<mxGraphModel"):
-        return img, inner
-    return img, urllib.parse.unquote(zlib.decompress(base64.b64decode(inner), -15).decode("utf-8"))
-
-def save_model(png, img, model):
-    enc = urllib.parse.quote(model, safe=SAFE)
-    co = zlib.compressobj(9, zlib.DEFLATED, -15)
-    comp = base64.b64encode(co.compress(enc.encode()) + co.flush()).decode()
-    mxfile = f'<mxfile host="Electron"><diagram id="p4-master" name="Master">{comp}</diagram></mxfile>'
-    meta = PngInfo(); meta.add_text("mxfile", urllib.parse.quote(mxfile, safe=SAFE))
-    img.save(png, "PNG", pnginfo=meta)
-
-png = "docs/.assets/commits-quality/value-chain.drawio.png"
-img, model = load_model(png)
-size_before = img.size
-REPLACEMENTS = [('value="UAT-main"', 'value="main-UAT"')]  # fill in the real edits
-for a, b in REPLACEMENTS:
-    assert model.count(a) >= 1, f"missing literal: {a!r}"
-    model = model.replace(a, b)
-save_model(png, img, model)
-
-# verify
-img2, back = load_model(png)
-assert img2.size == size_before, "raster size changed"
-STALE = ['UAT-main']            # tokens that must be gone
-NEW   = ['value="main-UAT"']    # tokens that must be present
-for t in STALE: assert t not in back, f"stale token remains: {t}"
-for t in NEW:   assert t in back, f"expected token missing: {t}"
-raw = open(png, "rb").read()
-assert raw[:8] == bytes([137,80,78,71,13,10,26,10]) and raw[-8:] == b"IEND\xaeB\x60\x82", "not a well-formed PNG"
-print("OK", png, size_before)
+```bash
+# re-render a slide from the model it already carries (raster and XML made honest again)
+timeout 120 uv run -q --with pillow python .claude/drawio/drawio_png.py docs/.assets/explanation/<stem>.drawio.png docs/.assets/explanation/<stem>.drawio.png
+# migrate a light-era slide to the dark tokens, in place
+timeout 120 uv run -q --with pillow python .claude/drawio/migrate_dark.py docs/.assets/explanation/<stem>.drawio.png docs/.assets/explanation/<stem>.drawio.png
 ```
 
-## Cell styles (colours)
-
-A style edit means changing the `style="..."` attribute of a specific `<mxCell>` (e.g. `fillColor=#64B5F6;strokeColor=#1565C0`). Identify
-the exact cell first — by its `value`, `id`, or current colour — and only touch that cell. If a requested colour is ambiguous (which cell)
-or reveals a palette that disagrees with `ADR-DSGN-VISUAL`'s locked hexes, surface it rather than guessing; do not silently normalise
-colours you were not asked to change.
+A style edit changes the `style="…"` of one specific `<mxCell>`. Identify the cell first, by its `value`, `id`, or current colour, and only
+touch that cell. A requested colour that is not a STYLE.md token is surfaced, not applied.

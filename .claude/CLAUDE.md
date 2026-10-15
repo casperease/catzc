@@ -68,7 +68,8 @@ registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/
   owns, verifying each file, and asking the coordinator for shared-file entries. Use it whenever work is delegated and no specialised agent
   fits.
 - **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves for the user to approve.
-- **`write-drawio-files`** — changes labels, text, or styles inside existing `.drawio.png` diagrams.
+- **`write-drawio-files`** — changes labels, text, or styles inside existing `.drawio.png` diagrams and re-renders the raster from the
+  edited model, so the picture and the embedded XML stay honest to each other.
 - **`print-artifacts`** — republishes the diagram review artifact from the files on disk.
 - **`build-inspiration-module`** — creates or extends the inspiration module (`Get-Inspiration`).
 - **`session-cost-audit`** — measures what a session cost and why, against `out/plan-session-cost.md`, and proposes the changes.

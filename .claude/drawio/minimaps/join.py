@@ -35,8 +35,11 @@ SIDEBAR = {
     "supports": (576, 38),
 }
 MAPKEY_Y = 626
-# The dark-theme tokens (.claude/drawio/STYLE.md): ink, cell border, idle cell, the page, and the legend panel fill.
-INK, BORDER, IDLE, PAGE, PANEL = "#CDD3DC", "#3A4555", "#262E3B", "#1E2430", "#222A36"
+# The dark-theme tokens (.claude/drawio/STYLE.md): ink, panel border, the page, and the legend panel fill, for the sidebar's
+# chrome; and the minimap tokens ("Colours (minimaps only)"): the minimap page, idle cell and cell border, which the map
+# key's swatches show, so a swatch matches the cell it explains.
+INK, BORDER, PAGE, PANEL = "#CDD3DC", "#3A4555", "#1E2430", "#222A36"
+MAP_PAGE, MAP_IDLE, MAP_BORDER = "#1C2A24", "#243229", "#3B4D43"
 TEXT = f"text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor={INK};"
 
 
@@ -57,9 +60,9 @@ def map_key(palette, concerns, top):
     lit = palette["highlight"]
     rows = [
         ("lit", f"fillColor={lit};strokeColor={lit};", "lit: what the slide's ADRs select"),
-        ("touched", f"fillColor={mix(lit, 0.4, IDLE)};strokeColor={mix(lit, 0.4, IDLE)};", "lit by passing mentions only"),
-        ("adr", f"fillColor={lit};strokeColor={PAGE};strokeWidth=2;", "lit ADR file (dark rim)"),
-        ("idle", f"fillColor={IDLE};strokeColor={BORDER};", "idle: not selected, or empty"),
+        ("touched", f"fillColor={mix(lit, 0.4, MAP_IDLE)};strokeColor={mix(lit, 0.4, MAP_IDLE)};", "lit by passing mentions only"),
+        ("adr", f"fillColor={lit};strokeColor={MAP_PAGE};strokeWidth=2;", "lit ADR file (dark rim)"),
+        ("idle", f"fillColor={MAP_IDLE};strokeColor={MAP_BORDER};", "idle: not selected, or empty"),
     ]
     abbreviated = [f"{describe.concern_code(c)} {c}" for c in concerns if describe.concern_code(c) != c.upper()]
     key = (

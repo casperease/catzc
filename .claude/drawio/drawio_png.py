@@ -1,11 +1,13 @@
 # cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo segoeui segoeuib textbbox
-"""Build a .drawio.png from an mxGraphModel XML file.
+"""Build a .drawio.png from an mxGraphModel XML file, or re-render one from the model it already carries.
 
-usage: uv run --with pillow python drawio_png.py <model.xml> <out.drawio.png> [--name "Page-1"]
+usage: uv run --with pillow python drawio_png.py <model.xml | in.drawio.png> <out.drawio.png> [--name "Page-1"]
 
 The PNG carries the diagram as a draw.io `mxfile` tEXt chunk (compressed the way draw.io writes it), so draw.io opens
 and re-renders it. The raster is a Pillow preview (boxes, text, straight edges): the headless draw.io CLI cannot render
-in this environment. The script re-decodes the chunk and asserts the model round-trips.
+in this environment. A `.drawio.png` source is read through that chunk (its page name kept), so `in` and `out` may be
+the same file: the raster is redrawn from the embedded model and the two stay honest to each other. The script
+re-decodes the chunk and asserts the model round-trips.
 """
 import base64
 import html
@@ -280,7 +282,14 @@ def main():
         name = args[i + 1]
         del args[i:i + 2]
     src, dst = args
-    model = Path(src).read_text(encoding="utf-8").strip()
+    if src.lower().endswith(".png"):
+        chunk = Image.open(src).text["mxfile"]
+        page = re.search(r'name="([^"]*)"', unquote(chunk))
+        if page and "--name" not in sys.argv:
+            name = html.unescape(page.group(1))
+        model = decode(chunk).strip()
+    else:
+        model = Path(src).read_text(encoding="utf-8").strip()
     root = ET.fromstring(model)
     if root.tag != "mxGraphModel":
         raise SystemExit(f"root must be mxGraphModel, got {root.tag}")
