@@ -69,7 +69,8 @@ function Install-UvStandalone {
         [System.IO.Directory]::CreateDirectory($binDirectory) | Out-Null
         foreach ($binary in 'uv', 'uvx') {
             # Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the assert reports it
-            $found = [System.IO.Directory]::EnumerateFiles($extractDirectory, $binary, [System.IO.SearchOption]::AllDirectories) |
+            # The archive holds the binaries one folder down; the third level is headroom.
+            $found = Get-ChildPath $extractDirectory -File -Filter $binary -Depth 3 |
                 Select-Object -First 1
             Assert-NotNullOrWhitespace $found -ErrorText "'$binary' was not found in the extracted uv archive."
             $destination = Join-Path $binDirectory $binary

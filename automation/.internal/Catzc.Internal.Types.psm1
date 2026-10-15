@@ -506,16 +506,87 @@ function Test-TypesAssemblyContent {
         throw "Cannot verify the types assembly: '$Path' does not exist."
     }
 
-    $declared = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    $declared = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-TypesAssemblyManifest -Path $Path).Types.Name), [System.StringComparer]::Ordinal)
+    foreach ($source in $Expected) {
+        if (-not $declared.Contains("$($source.Module).$($source.Base)")) {
+            throw "Compiled C# types but '$($source.Module).$($source.Base)' was not produced. $($source.Module)/types/$($source.Base).cs must declare a public class named '$($source.Base)' (the module namespace '$($source.Module)' is added automatically)."
+        }
+    }
+}
+
+$script:TypesAliasAttribute = 'Catzc.Base.Objects.PSTypeAliasAttribute'
+$script:TypesDisplayAttribute = 'Catzc.Base.Objects.ConsoleDisplayAttribute'
+
+function Get-TypesAssemblyManifest {
+    <#
+    .SYNOPSIS
+        Lists the public types of a combined types assembly with the facts the importer registers for them, reading metadata only.
+    .DESCRIPTION
+        For each public top-level type: its full name, the PSTypeAlias names it declares, and the ConsoleDisplay properties that
+        apply to it (its own, else the nearest base type's in the same assembly, as the attribute is inherited). The file is read
+        into memory and parsed with System.Reflection.Metadata, so the assembly is never loaded and the file never locked.
+    .PARAMETER Path
+        The assembly file to read.
+    .OUTPUTS
+        [pscustomobject] with Types: the types sorted ordinally by Name, each with Name, Aliases and Display (string arrays).
+    .EXAMPLE
+        (Get-TypesAssemblyManifest -Path $dll).Types
+    #>
+    [CmdletBinding()]
+    [OutputType([pscustomobject])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Path
+    )
+
+    if (-not [System.IO.File]::Exists($Path)) {
+        throw "Cannot read the types assembly: '$Path' does not exist."
+    }
+
+    $tokens = [System.Reflection.Metadata.Ecma335.MetadataTokens]
+    $rows = @{}
     $stream = [System.IO.MemoryStream]::new([System.IO.File]::ReadAllBytes($Path))
     $peReader = [System.Reflection.PortableExecutable.PEReader]::new($stream)
     try {
         $reader = [System.Reflection.Metadata.PEReaderExtensions]::GetMetadataReader($peReader)
         foreach ($handle in $reader.TypeDefinitions) {
             $definition = $reader.GetTypeDefinition($handle)
-            $visibility = $definition.Attributes -band [System.Reflection.TypeAttributes]::VisibilityMask
-            if ($visibility -eq [System.Reflection.TypeAttributes]::Public) {
-                [void] $declared.Add($reader.GetString($definition.Namespace) + '.' + $reader.GetString($definition.Name))
+            $aliases = [System.Collections.Generic.List[string]]::new()
+            $display = $null
+            foreach ($attributeHandle in $definition.GetCustomAttributes()) {
+                $attribute = $reader.GetCustomAttribute($attributeHandle)
+                if ($attribute.Constructor.Kind -ne [System.Reflection.Metadata.HandleKind]::MethodDefinition) {
+                    continue
+                }
+                $constructor = $reader.GetMethodDefinition($tokens::MethodDefinitionHandle($tokens::GetRowNumber($attribute.Constructor)))
+                $attributeType = $reader.GetTypeDefinition($constructor.GetDeclaringType())
+                $attributeName = $reader.GetString($attributeType.Namespace) + '.' + $reader.GetString($attributeType.Name)
+                if ($attributeName -ne $script:TypesAliasAttribute -and $attributeName -ne $script:TypesDisplayAttribute) {
+                    continue
+                }
+                $blob = $reader.GetBlobReader($attribute.Value)
+                [void] $blob.ReadUInt16()
+                if ($attributeName -eq $script:TypesAliasAttribute) {
+                    $aliases.Add($blob.ReadSerializedString())
+                }
+                else {
+                    $display = [System.Collections.Generic.List[string]]::new()
+                    $count = $blob.ReadInt32()
+                    for ($i = 0; $i -lt $count; $i++) {
+                        $display.Add($blob.ReadSerializedString())
+                    }
+                }
+            }
+            $base = $null
+            if ($definition.BaseType.Kind -eq [System.Reflection.Metadata.HandleKind]::TypeDefinition) {
+                $base = $tokens::GetRowNumber($definition.BaseType)
+            }
+            $rows[$tokens::GetRowNumber($handle)] = [pscustomobject]@{
+                Name    = $reader.GetString($definition.Namespace) + '.' + $reader.GetString($definition.Name)
+                Public  = ($definition.Attributes -band [System.Reflection.TypeAttributes]::VisibilityMask) -eq [System.Reflection.TypeAttributes]::Public
+                Aliases = $aliases
+                Display = $display
+                Base    = $base
             }
         }
     }
@@ -524,11 +595,73 @@ function Test-TypesAssemblyContent {
         $stream.Dispose()
     }
 
-    foreach ($source in $Expected) {
-        if (-not $declared.Contains("$($source.Module).$($source.Base)")) {
-            throw "Compiled C# types but '$($source.Module).$($source.Base)' was not produced. $($source.Module)/types/$($source.Base).cs must declare a public class named '$($source.Base)' (the module namespace '$($source.Module)' is added automatically)."
+    $types = foreach ($row in $rows.Values) {
+        if (-not $row.Public) {
+            continue
+        }
+        $effective = $row
+        while ($null -eq $effective.Display -and $null -ne $effective.Base -and $rows.ContainsKey($effective.Base)) {
+            $effective = $rows[$effective.Base]
+        }
+        [pscustomobject]@{
+            Name    = $row.Name
+            Aliases = [string[]] @($row.Aliases)
+            Display = if ($null -eq $effective.Display) { [string[]] @() } else { [string[]] $effective.Display.ToArray() }
         }
     }
+    $sorted = [object[]] @($types)
+    [System.Array]::Sort($sorted, [System.Comparison[object]] { param($a, $b) [System.StringComparer]::Ordinal.Compare($a.Name, $b.Name) })
+    [pscustomobject]@{ Types = $sorted }
+}
+
+function Write-TypesAssemblyManifest {
+    <#
+    .SYNOPSIS
+        Writes the manifest Catzc.Types.<hash>.json beside a combined types assembly, unless it is there already.
+    .DESCRIPTION
+        The manifest is generated from the assembly's own metadata, never edited, and named by the same hash as the assembly, so
+        the two always describe the same build. It is written to a temporary file and moved into place.
+    .PARAMETER Path
+        The assembly (Catzc.Types.<hash>.dll) to describe.
+    .OUTPUTS
+        [string] The manifest path.
+    .EXAMPLE
+        Write-TypesAssemblyManifest -Path $dll
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes a generated build artifact beside the assembly; the build and the importer announce the build.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The caller (Build-CombinedTypeAssembly, Import-CSharpTypes) announces the build; the analyzer rule runs where only diagnostic records may be emitted.')]
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Path
+    )
+
+    $manifestPath = [System.IO.Path]::ChangeExtension($Path, 'json')
+    if ([System.IO.File]::Exists($manifestPath)) {
+        return $manifestPath
+    }
+
+    $hash = [System.IO.Path]::GetFileNameWithoutExtension($Path) -replace '^Catzc\.Types\.', ''
+    $manifest = [ordered]@{ hash = $hash; types = @((Get-TypesAssemblyManifest -Path $Path).Types | ForEach-Object { [ordered]@{ name = $_.Name; aliases = @($_.Aliases); display = @($_.Display) } }) }
+    $json = (ConvertTo-Json -InputObject $manifest -Depth 5) -replace "`r`n", "`n"
+    $tmp = "$manifestPath.$PID.tmp"
+    try {
+        [System.IO.File]::WriteAllText($tmp, $json + "`n", [System.Text.UTF8Encoding]::new($false))
+        [System.IO.File]::Move($tmp, $manifestPath)
+    }
+    catch {
+        # A concurrent writer that won the race left an equivalent manifest; anything else is a real failure.
+        if (-not [System.IO.File]::Exists($manifestPath)) {
+            throw
+        }
+    }
+    finally {
+        if ([System.IO.File]::Exists($tmp)) {
+            [System.IO.File]::Delete($tmp)
+        }
+    }
+    $manifestPath
 }
 
 # The default row and the allowed values live here, not on a C# type: the policy is read while the types assembly is still unloaded.
@@ -651,4 +784,4 @@ function Get-TypesLoadPolicy {
     [pscustomobject]$policy
 }
 
-Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesLoadPolicy
+Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesLoadPolicy

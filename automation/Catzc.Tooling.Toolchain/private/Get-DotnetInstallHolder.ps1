@@ -34,7 +34,8 @@ function Get-DotnetInstallHolder {
     }
 
     $seen = [System.Collections.Generic.HashSet[int]]::new()
-    foreach ($hostResolver in [System.IO.Directory]::EnumerateFiles($hostResolverRoot, '*hostfxr*', [System.IO.SearchOption]::AllDirectories)) {
+    # hostfxr sits under one version folder of host/fxr; the third level is headroom.
+    foreach ($hostResolver in Get-ChildPath $hostResolverRoot -File -Filter '*hostfxr*' -Depth 3) {
         foreach ($holder in Get-FileLockingProcess $hostResolver) {
             if ($seen.Add($holder.ProcessId)) {
                 $holder

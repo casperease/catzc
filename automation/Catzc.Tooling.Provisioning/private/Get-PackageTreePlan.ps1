@@ -40,8 +40,10 @@ function Get-PackageTreePlan {
     $sourceRoot = [System.IO.Path]::GetFullPath($Source)
     $destinationRoot = [System.IO.Path]::GetFullPath($Destination)
 
+    # A named whole-tree walk (ADR-PWSH-ENUM#3): a copy plan must see every file, so no folder name is pruned and the depth is the
+    # config's ceiling. A real package tree reaches ten levels, and a shallower bound would silently drop files from the copy.
     $sourceDirectories = [System.Collections.Generic.List[string]]::new()
-    foreach ($directory in [System.IO.Directory]::EnumerateDirectories($sourceRoot, '*', [System.IO.SearchOption]::AllDirectories)) {
+    foreach ($directory in Get-ChildPath $sourceRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false) {
         $sourceDirectories.Add([System.IO.Path]::GetRelativePath($sourceRoot, $directory).Replace('\', '/'))
     }
     # A parent is a prefix of its children, so the ordinal order lists every parent first.
@@ -56,7 +58,7 @@ function Get-PackageTreePlan {
 
     $files = [System.Collections.Generic.List[string]]::new()
     $kept = [System.Collections.Generic.List[string]]::new()
-    foreach ($file in [System.IO.Directory]::EnumerateFiles($sourceRoot, '*', [System.IO.SearchOption]::AllDirectories)) {
+    foreach ($file in Get-ChildPath $sourceRoot -File -Depth 64 -Exclude @() -PruneVendor $false) {
         $relative = [System.IO.Path]::GetRelativePath($sourceRoot, $file).Replace('\', '/')
         if ([System.IO.File]::Exists((Join-Path $destinationRoot $relative))) {
             $kept.Add($relative)
