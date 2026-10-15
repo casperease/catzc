@@ -1,3 +1,12 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-codemeta.md
+    kind: reference
+    body_sha: a4e0c1810d06
+    adrs: []
+---
+
 # Catzc.Base.CodeMeta
 
 The pure core of the code meta head: the leading comment run of a C# type file, a PowerShell function file or any other code file whose
