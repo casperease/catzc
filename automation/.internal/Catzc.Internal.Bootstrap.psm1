@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.internal/Catzc.Internal.Bootstrap.psm1
-    kind: other
+    kind: internal-module
 ---
 #>
 

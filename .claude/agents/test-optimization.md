@@ -13,7 +13,7 @@ tools: Bash, Read, Glob, Grep, Write, Edit
 catzc:
   derived:
     path: ".claude/agents/test-optimization.md"
-    kind: agent
+    kind: claude-agent
     body_sha: "9665e0853812"
     adrs:
       - ADR-AUTO-FAILFAST#7

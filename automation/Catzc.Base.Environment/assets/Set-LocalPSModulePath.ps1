@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1
-    kind: other
+    kind: asset
 ---
 #>
 

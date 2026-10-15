@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: pipelines/extends/cd-customer.yaml
-#     kind: other
+#     kind: pipeline-template
 # ---
 
 # Every entry pins its subscription with subscriptionIdAssertIs, so a mis-wired service connection fails loudly, not silently.

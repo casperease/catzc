@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.internal/Catzc.Internal.TestKit.psm1
-    kind: other
+    kind: internal-module
 ---
 #>
 

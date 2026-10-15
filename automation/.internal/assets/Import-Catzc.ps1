@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.internal/assets/Import-Catzc.ps1
-    kind: other
+    kind: asset
 ---
 #>
 

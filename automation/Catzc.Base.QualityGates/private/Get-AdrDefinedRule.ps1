@@ -15,8 +15,8 @@ catzc:
 .SYNOPSIS
     The rules a Markdown text defines in its own rule headings, spelled as citations.
 .DESCRIPTION
-    A rule heading is `### Rule ADR-<CODE>:<n>`; the colon form is the rule's own heading and the result spells it `ADR-<CODE>#<n>`, in document order.
-    [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)
+    The colon form of a rule heading is spelled as the citation `ADR-<CODE>#<n>`, in document order.
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AdrDefinedRule.ps1.md#comment1)
 .PARAMETER Text
     The Markdown body to read.
 .OUTPUTS

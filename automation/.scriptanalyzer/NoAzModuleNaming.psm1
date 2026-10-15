@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoAzModuleNaming.psm1
-    kind: other
+    kind: analyzer-rule
 ---
 #>
 

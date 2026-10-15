@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: pipelines/steps/invoke-automation.yaml
-#     kind: other
+#     kind: pipeline-template
 # ---
 
 # Every flag defaults to off and is an explicit escalation; no credentials reach environment variables in any mode.

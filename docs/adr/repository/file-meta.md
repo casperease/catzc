@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/file-meta.md
     kind: adr
-    body_sha: d15458bd7a76
+    body_sha: "77feec4cf5db"
     defines:
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FILEMETA#2
@@ -161,7 +161,7 @@ name: example-agent
 catzc:
   derived:
     path: .claude/agents/example-agent.md
-    kind: agent
+    kind: claude-agent
     body_sha: "3fa91c0d2b7e"
     adrs: []
     links: []
@@ -243,8 +243,8 @@ A rule an ADR declares and a rule it cites answer different questions: which dec
 on. Listing both under one key would make every ADR depend on itself, so the declared rules have their own key and the citations leave them
 out. The links answer a third question, what the file points at, in a spelling that does not depend on where the link was written, so a
 reader or a tool can find every file that points at a given page without parsing Markdown. Code links in comments only ever point into the
-ADRs ([ADR-REPO-LINK#4](markdown-links.md#rule-adr-repo-link4)), which `adrs` already lists, so the key belongs to Markdown. A link that stays inside the file tells a reader nothing about where the
-file leads, so it is left out.
+ADRs ([ADR-REPO-LINK#4](markdown-links.md#rule-adr-repo-link4)), which `adrs` already lists, so the key belongs to Markdown. A link that
+stays inside the file tells a reader nothing about where the file leads, so it is left out.
 
 ### How this is enforced
 

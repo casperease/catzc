@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/assets/PrePost.psm1
-    kind: other
+    kind: asset
 ---
 #>
 

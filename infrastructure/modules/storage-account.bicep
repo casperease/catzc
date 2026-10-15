@@ -2,7 +2,7 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/storage-account.bicep
-//     kind: other
+//     kind: bicep-module
 // ---
 
 // Public network, shared-key and anonymous blob access are all off, so data is reached through a private endpoint.

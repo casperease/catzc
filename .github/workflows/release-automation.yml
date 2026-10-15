@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: ".github/workflows/release-automation.yml"
-#     kind: other
+#     kind: pipeline
 # ---
 
 name: Release

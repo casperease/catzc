@@ -2,7 +2,7 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/sql-server.bicep
-//     kind: other
+//     kind: bicep-module
 // ---
 
 // Entra-only authentication is the default; a SQL login is an opt-in break-glass with a Key Vault password reference.

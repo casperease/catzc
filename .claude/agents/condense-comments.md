@@ -11,7 +11,7 @@ tools: Bash, Read, Glob, Grep, Edit
 catzc:
   derived:
     path: ".claude/agents/condense-comments.md"
-    kind: agent
+    kind: claude-agent
     body_sha: "5d4370a7a6e6"
     adrs:
       - ADR-AUTO-FAILFAST#7

@@ -2,7 +2,7 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/diagnostic-setting.bicep
-//     kind: other
+//     kind: bicep-module
 // ---
 
 // The caller names the resource kind because a setting attaches to a typed resource; the module picks that kind's categories.

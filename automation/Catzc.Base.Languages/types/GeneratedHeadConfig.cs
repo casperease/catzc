@@ -1,3 +1,14 @@
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/GeneratedHeadConfig.cs
+    kind: type
+    module: Catzc.Base.Languages
+    adrs: []
+---
+*/
+
 // The keys of the generated-file head, in the order they are written; a key a file has no value for is left out.
 
 using System;

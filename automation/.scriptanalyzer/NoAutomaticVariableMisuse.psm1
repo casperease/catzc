@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoAutomaticVariableMisuse.psm1
-    kind: other
+    kind: analyzer-rule
 ---
 #>
 

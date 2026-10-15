@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: ".claude/drawio/STYLE.md"
-    kind: other
+    kind: drawio-kit
     body_sha: "5cc03b54644d"
     adrs:
       - ADR-AUTO-DEPM#1

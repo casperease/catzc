@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/pwsh/pester-testing.md
     kind: adr
-    body_sha: b89ae502ac74
+    body_sha: "97dde284954c"
     defines:
       - ADR-PWSH-PESTER#1
       - ADR-PWSH-PESTER#2
@@ -133,8 +133,7 @@ chain, nearest block first (ADR-AUTO-TEST#13).
 Prefer `[System.IO]` over the other filesystem cmdlets on hot paths — in test setup **and** in the production code under test.
 `Copy-Item -Recurse` (~15×) and `New-Item`/`Set-Content` carry heavy per-call provider + AV/AMSI overhead on Windows; the `Copy-Directory`
 helper, `[System.IO.File]::WriteAllText`, and `[System.IO.Directory]::CreateDirectory` are ~0.1 ms. This is the same effect as the
-bulk-delete gotcha, generalized. Listing folders and files is its own rule: [bounded-enumeration](bounded-enumeration.md)
-(ADR-PWSH-ENUM).
+bulk-delete gotcha, generalized. Listing folders and files is its own rule: [bounded-enumeration](bounded-enumeration.md) (ADR-PWSH-ENUM).
 
 - [Fast tests in Pester](#fast-tests-in-pester)
 
@@ -334,11 +333,11 @@ exactly as in production.
 The doctrine's speed rules (ADR-AUTO-TEST#19 to ADR-AUTO-TEST#21) meet four PowerShell-specific costs:
 
 - **The filesystem-cmdlet tax (ADR-PWSH-PESTER#9).** On Windows the PowerShell file cmdlets carry ~20 ms of per-call provider + AV/AMSI
-  overhead that the raw .NET APIs avoid (~0.1 ms): `Copy-Item -Recurse` ~15× a `[System.IO]` tree copy, `New-Item`/`Set-Content` similar.
-  It bites **production code** the tests exercise as much as the tests themselves. Listing folders is covered by
-  [bounded-enumeration](bounded-enumeration.md) (ADR-PWSH-ENUM). In test setup, copy fixture trees with `Copy-Directory` (the `[System.IO]` recursive-copy helper in
-  `Catzc.Base.Files`) and write files with `[System.IO.File]::WriteAllText` / `[System.IO.Directory]::CreateDirectory`. The bulk-delete
-  gotcha below is the same effect for deletion.
+  overhead that the raw .NET APIs avoid (~0.1 ms): `Copy-Item -Recurse` ~15× a `[System.IO]` tree copy, `New-Item`/`Set-Content` similar. It
+  bites **production code** the tests exercise as much as the tests themselves. Listing folders is covered by
+  [bounded-enumeration](bounded-enumeration.md) (ADR-PWSH-ENUM). In test setup, copy fixture trees with `Copy-Directory` (the `[System.IO]`
+  recursive-copy helper in `Catzc.Base.Files`) and write files with `[System.IO.File]::WriteAllText` /
+  `[System.IO.Directory]::CreateDirectory`. The bulk-delete gotcha below is the same effect for deletion.
 - **Setup in `BeforeEach` (ADR-PWSH-PESTER#14).** `Get-BicepTemplates`/`Get-Config` key their session cache on the resolved root/path. A
   `BeforeEach` that assigns each test a fresh `Join-Path $TestDrive ([Guid]::NewGuid())` root, or re-runs
   `InModuleScope … { $script:configCache = $null }`, defeats that cache and pays a full cold re-derive **every test** — on the order of a

@@ -2,7 +2,7 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/nsg.bicep
-//     kind: other
+//     kind: bicep-module
 // ---
 
 // The Azure default rules (allow VNet inbound, deny all other inbound) always apply beneath the rules the caller passes.

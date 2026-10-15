@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoRawVsoCommand.psm1
-    kind: other
+    kind: analyzer-rule
 ---
 #>
 

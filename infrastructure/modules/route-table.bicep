@@ -2,7 +2,7 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/route-table.bicep
-//     kind: other
+//     kind: bicep-module
 // ---
 
 // Routes are passed in the ARM routes shape, where nextHopIpAddress is optional.

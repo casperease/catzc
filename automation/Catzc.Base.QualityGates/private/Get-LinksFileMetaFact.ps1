@@ -16,7 +16,7 @@ catzc:
     The links meta kind's fact: every link the file points at, in one spelling, sorted and without duplicates.
 .DESCRIPTION
     A link into the file itself, to an anchor in it, or to its own comment page stays internal and is not listed.
-    [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LinksFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
 .PARAMETER Path

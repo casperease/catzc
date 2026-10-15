@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: pipelines/ci-infrastructure.yaml
-#     kind: other
+#     kind: pipeline
 # ---
 
 # Build and verify only, no artifact and no deploy; az bicep build is offline, so Mode stays none and no auth is needed.

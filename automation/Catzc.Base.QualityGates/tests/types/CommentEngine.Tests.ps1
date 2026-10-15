@@ -212,6 +212,22 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $moved.Text.StartsWith("# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`n") | Should -BeTrue
     }
 
+    It 'keeps a line-comment head that opens with its front matter fence, in each line marker' -Tag 'ADR-REPO-COMMENTS#3', 'ADR-REPO-CODEMETA#5' {
+        $head = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = @{ yaml = @('# catzc:'); bicep = @('// catzc:') } })
+        $yaml = "# ---`n# catzc:`n#   derived:`n#     path: docs/widget.yml`n#     kind: config`n# ---`n`n# The widget registry, one entry per gadget,`n# read once per run.`ngadget: 1`n"
+        $blocks = [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', $head)
+        $blocks.Count | Should -Be 1
+        $blocks[0].StartLine | Should -Be 7
+        $bicep = "// ---`n// catzc:`n//   derived:`n//     path: docs/widget.bicep`n// ---`n`nparam gadget string`n"
+        [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($bicep, '.bicep', 'bicep', $head).Count | Should -Be 0
+    }
+
+    It 'reads a fence over an unlisted line as prose, so the run is a block' -Tag 'ADR-REPO-CODEMETA#5' {
+        $head = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = @{ yaml = @('# catzc:') } })
+        $yaml = "# ---`n# A widget note`n# on two lines.`n`ngadget: 1`n"
+        [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', $head).Count | Should -Be 1
+    }
+
     It 'reads a head the config does not list as prose, so the run is a block' -Tag 'ADR-REPO-CODEMETA#5' {
         $yaml = "# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`ngadget: 1`n"
         [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', [Catzc.Base.QualityGates.CommentsConfig]::new(@{})).Count | Should -Be 1

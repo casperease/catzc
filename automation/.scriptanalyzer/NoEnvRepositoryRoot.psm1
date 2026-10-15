@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoEnvRepositoryRoot.psm1
-    kind: other
+    kind: analyzer-rule
 ---
 #>
 

@@ -14,7 +14,7 @@ model: haiku
 catzc:
   derived:
     path: ".claude/agents/write-drawio-files.md"
-    kind: agent
+    kind: claude-agent
     body_sha: dc56e6631c20
     adrs: []
     links:

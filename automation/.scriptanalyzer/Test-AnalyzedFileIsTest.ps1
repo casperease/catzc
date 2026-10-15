@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1
-    kind: other
+    kind: analyzer-rule
 ---
 #>
 

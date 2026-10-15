@@ -2,7 +2,7 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/log-analytics.bicep
-//     kind: other
+//     kind: bicep-module
 // ---
 
 // Templates reference it by relative path and the build inlines it, so nothing ships separately at deploy time.

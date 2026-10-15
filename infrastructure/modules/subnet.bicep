@@ -2,7 +2,7 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/subnet.bicep
-//     kind: other
+//     kind: bicep-module
 // ---
 
 // Only for a VNet the template does not deploy: redeploying a VNet without one of its subnets tries to delete that subnet.

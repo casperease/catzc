@@ -2,7 +2,7 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/key-vault.bicep
-//     kind: other
+//     kind: bicep-module
 // ---
 
 // Access is RBAC only, so a role assignment, never a vault access policy, grants entry.

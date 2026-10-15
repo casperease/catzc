@@ -34,12 +34,12 @@ Describe 'DocumentLinks' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     }
 
     It 'sorts the links and lists each once, however it was spelled' {
-        $text = "[b](../gadget/spec.md) [a](/docs/gadget/spec.md) [c](other.md#x) [d](../gadget/other.md)"
+        $text = '[b](../gadget/spec.md) [a](/docs/gadget/spec.md) [c](other.md#x) [d](../gadget/other.md)'
         (Get-Links $text) | Should -Be @('docs/gadget/other.md', 'docs/gadget/spec.md', 'docs/widget/other.md#x')
     }
 
     It 'leaves out a link that stays inside the file' {
-        $text = "[a](#top) [b](part.md#top) [c](part.md) [d](/docs/widget/part.md#x)"
+        $text = '[a](#top) [b](part.md#top) [c](part.md) [d](/docs/widget/part.md#x)'
         (Get-Links $text).Count | Should -Be 0
     }
 

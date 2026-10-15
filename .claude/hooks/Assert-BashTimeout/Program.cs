@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: ".claude/hooks/Assert-BashTimeout/Program.cs"
-    kind: other
+    kind: claude-hook
 ---
 */
 

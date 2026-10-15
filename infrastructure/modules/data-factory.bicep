@@ -2,7 +2,7 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/data-factory.bicep
-//     kind: other
+//     kind: bicep-module
 // ---
 
 @description('Data Factory name (3-24 lowercase alphanumeric, globally unique).')

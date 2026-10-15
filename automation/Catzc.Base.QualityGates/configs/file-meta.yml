@@ -20,12 +20,23 @@ kinds:
         - { class: test, files: ["**/tests/**"] }
         - { class: type, files: ["automation/**/types/*.cs"] }
         - { class: function, files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"] }
+        - { class: analyzer-rule, files: ["automation/.scriptanalyzer/**"] }
+        - { class: internal-module, files: ["automation/.internal/*.psm1"] }
         - { class: template, files: ["infrastructure/templates/**/*.bicep"] }
-        - { class: template-config, files: ["infrastructure/templates/**/configuration/**/*.yml"] }
+        - {
+            class: template-config,
+            files: ["infrastructure/templates/**/configuration/**/*.yml", "infrastructure/templates/*/options.yml"],
+          }
+        - { class: bicep-module, files: ["infrastructure/modules/*.bicep"] }
         - { class: config, files: ["automation/**/configs/*.yml"] }
-        - { class: script, files: ["**/*.py", "**/*.sh"] }
-        - { class: agent, files: [".claude/agents/**"] }
-        - { class: skill, files: [".claude/skills/**"] }
+        - { class: pipeline-template, files: ["pipelines/*/*.yaml"] }
+        - { class: pipeline, files: ["pipelines/*.yaml", ".github/workflows/*.yml"] }
+        - { class: claude-hook, files: [".claude/hooks/**"] }
+        - { class: asset, files: ["automation/**/assets/**"] }
+        - { class: script, files: ["**/*.py", "**/*.sh", "**/*.ps1"] }
+        - { class: drawio-kit, files: [".claude/drawio/**"] }
+        - { class: claude-agent, files: [".claude/agents/**"] }
+        - { class: claude-skill, files: [".claude/skills/**"] }
         - { class: adr, files: ["docs/adr/**"] }
         # A comment page keeps its source file's name and extension plus.md, so the name marks it; it wins over reference.
         # [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment2)
@@ -47,6 +58,7 @@ kinds:
         - { class: explanation, files: ["docs/explanation/**"] }
         - { class: asset-description, files: ["docs/.assets/**"] }
         - { class: readme, files: ["**/README.md"] }
+        - { class: index, files: ["docs/index.md"] }
 
   # The hash of the body below the front matter, so it changes exactly when the file does.
   body-sha:

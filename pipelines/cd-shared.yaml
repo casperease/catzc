@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: pipelines/cd-shared.yaml
-#     kind: other
+#     kind: pipeline
 # ---
 
 # Stage order is the safety property: foundation owns the Key Vault the others use, and expedition lands in discovery's network.

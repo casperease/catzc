@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoRawConsoleWrite.psm1
-    kind: other
+    kind: analyzer-rule
 ---
 #>
 

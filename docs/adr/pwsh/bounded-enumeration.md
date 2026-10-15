@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/pwsh/bounded-enumeration.md
     kind: adr
-    body_sha: "6a7207852e05"
+    body_sha: "9b87a29e7037"
     defines:
       - ADR-PWSH-ENUM#1
       - ADR-PWSH-ENUM#2
@@ -47,8 +47,8 @@ why that depth is needed.
 ### Rule ADR-PWSH-ENUM:4
 
 A walk prunes the folders that are never the answer: the config's `exclude` names (`.git`, `node_modules`, `out`) and, while the global
-config value `prune_vendor_in_searches` is `true`, the vendor folder. A caller's explicit `-Exclude` or `-PruneVendor` wins over the
-config. A walk lists a link and never enters it.
+config value `prune_vendor_in_searches` is `true`, the vendor folder. A caller's explicit `-Exclude` or `-PruneVendor` wins over the config.
+A walk lists a link and never enters it.
 
 - [Pruned, and never through a link](#pruned-and-never-through-a-link)
 
@@ -70,8 +70,8 @@ depends on) lists one level with an inline, non-recursive `[System.IO.Directory]
 ## Context
 
 A recursive listing is the easiest way to find a file and the easiest way to make a command slow and its result wrong. An unbounded walk
-enters `.git`, `node_modules`, and vendored modules, loads the whole tree into memory, and returns files the caller never meant to touch. The
-cost grows with the repository, so a command that is fast today slows down as the tree grows, and nothing in the code says why.
+enters `.git`, `node_modules`, and vendored modules, loads the whole tree into memory, and returns files the caller never meant to touch.
+The cost grows with the repository, so a command that is fast today slows down as the tree grows, and nothing in the code says why.
 
 ### Raw .NET, one way
 
@@ -97,16 +97,16 @@ A depth is a promise about cost. `AllDirectories` makes no promise, and a full l
 even when the caller wants three files. A bounded, lazy walk visits only what its depth allows.
 
 Some work does cover a whole tree: copying a package tree, snapshotting a build. These are legitimate, so the rule does not forbid them. It
-asks the call site to state a depth that fits the tree and to say why, so a whole-tree walk is a decision someone made rather than a
-default nobody noticed.
+asks the call site to state a depth that fits the tree and to say why, so a whole-tree walk is a decision someone made rather than a default
+nobody noticed.
 
 ### Pruned, and never through a link
 
 A search for `*.yml` below `automation/` should not return the vendored modules' files, and a search below the repository root should not
 enter `.git`. Pruning by folder name, before descending, is far cheaper than filtering a full listing afterwards.
 
-Vendor pruning is a global config value rather than a list entry or a parameter default, because the same repository question, "do
-searches include third-party code?", has one answer for every command. A caller that needs vendored files passes `-PruneVendor $false`.
+Vendor pruning is a global config value rather than a list entry or a parameter default, because the same repository question, "do searches
+include third-party code?", has one answer for every command. A caller that needs vendored files passes `-PruneVendor $false`.
 
 A link can point back into its own ancestry, so a walk that follows links can run forever or leave the tree. The walker lists the link as an
 entry and does not descend into it.

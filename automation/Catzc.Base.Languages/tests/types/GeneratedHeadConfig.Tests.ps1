@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
     It 'keeps the keys in the order the registry lists them' {
         $config = [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'source', 'kind', 'generator') })

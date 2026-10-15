@@ -113,7 +113,7 @@ public static class CommentEngine
             string marker = MarkerOf(comment);
             bool continuesRun = run.Count > 0 && run[run.Count - 1].line == startLine - 1 && run[run.Count - 1].indent == before
                 && run[run.Count - 1].marker == marker;
-            if (config.IsKeptRun(language, comment) && !continuesRun)
+            if ((config.IsKeptRun(language, comment) || OpensFencedHead(lines, startLine, before, marker, comment, language, config)) && !continuesRun)
             {
                 // A head that keeps its run (the meta head) stays with the lines directly under it, so they never read as prose.
                 FlushRun();
@@ -161,6 +161,14 @@ public static class CommentEngine
     {
         if (endLine - startLine < 3 || lines[startLine + 1].Trim() != "---") { return false; }
         return config.IsKeptRun(language, FamilyMarker(extension) + " " + lines[startLine + 2].Trim());
+    }
+
+    // A line-comment fence (# ---) directly over a listed head in the same marker and indent: the meta head's first line.
+    static bool OpensFencedHead(Lines lines, int startLine, string indent, string marker, string comment, string language, CommentsConfig config)
+    {
+        if (comment.Substring(marker.Length).Trim() != "---" || startLine + 1 >= lines.Count) { return false; }
+        string next = lines[startLine + 1];
+        return next.StartsWith(indent + marker, StringComparison.Ordinal) && config.IsKeptRun(language, next.Trim());
     }
 
     static bool IsHelpBlock(Lines lines, int startLine, int endLine)

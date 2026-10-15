@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NeverDependOnPwd.psm1
-    kind: other
+    kind: analyzer-rule
 ---
 #>
 

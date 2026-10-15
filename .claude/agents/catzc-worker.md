@@ -12,7 +12,7 @@ tools: Bash, Read, Glob, Grep, Write, Edit
 catzc:
   derived:
     path: ".claude/agents/catzc-worker.md"
-    kind: agent
+    kind: claude-agent
     body_sha: dd3204360d3a
     adrs:
       - ADR-AUTO-TEST#3

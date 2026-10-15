@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/index.md
-    kind: other
+    kind: index
     body_sha: b721d0354e1f
     adrs: []
     links:
