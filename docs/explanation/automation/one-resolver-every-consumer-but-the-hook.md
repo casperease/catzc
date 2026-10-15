@@ -35,7 +35,7 @@ The diagram is described element by element in
    per-executable entries, and declares the sensible defaults once, for both environments and for every execution engine, pwsh, bash and
    zsh, with a foreground and a background limit for bash.
 3. **TimeoutExemptionsConfig.** The typed record behind `timeout-exemptions.yml`. It validates each exemption, a single budget GUID or an
-   inclusive range, with an optional scope and a reason, and declares the default ceilings: 600 seconds on a devbox, 3600 in a pipeline.
+   inclusive range, with a reason and, optionally, a scope, and declares the default ceilings: 600 seconds on a devbox, 3600 in a pipeline.
 4. **Get-TimeoutSeconds.** The resolver. With `-Executable` it returns the executable's own entry or the environment's pwsh limit; with
    `-Shell` it returns that engine's limit, and with `-Budget` it raises an exempt budget to the ceiling through `Get-TimeoutExemption`,
    never lowering it. A third form, `-Command`, resolves a function's own `[TimeLimit]` declaration the same way.

@@ -27,12 +27,12 @@ gate in the middle of the guard band, with the green result to its right and the
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                         |
-| --------------------- | ----- | --------------------------------------------- |
-| external tool         | 1     | az session (session band)                     |
-| gate                  | 1     | subscription guard (guard band, centre)       |
-| result                | 1     | deploy target (guard band, right)             |
-| failure               | 1     | mis-wired connection (guard band, below gate) |
+| Glyph (legend phrase) | Count | Where                                             |
+| --------------------- | ----- | ------------------------------------------------- |
+| external tool         | 1     | az session (session band)                         |
+| gate                  | 1     | subscription guard (guard band, centre)           |
+| result                | 1     | deploy target (guard band, right)                 |
+| failure               | 1     | mis-wired connection (guard band, below the gate) |
 
 The external tool and the gate are neutral, dark with a light rim; the result is green and the failure red, both with light names.
 

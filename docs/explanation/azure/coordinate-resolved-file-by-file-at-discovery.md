@@ -36,8 +36,8 @@ The diagram is described element by element in
    the root files first, then every subfolder's, both sorted, each tagged with its subfolder as its customer (empty for a root file).
    `default.yml` is reserved and skipped.
 3. **`Resolve-BicepConfigName`.** The filename is split on the first `-`: the part before must be a defined environment, the remainder is
-   the optional slot of one to three lowercase alphanumerics. An unknown environment or a bad slot throws, and discovery rethrows it with
-   the template name and the file's location.
+   the optional slot of one to three lowercase alphanumerics. An unknown environment throws, and so does a slot that is malformed. Discovery
+   rethrows either with the template name and the file's location.
 4. **`azure.yml`.** The identity config's subscriptions, each with the environments it serves and, for a customer subscription, a `customer`
    token by key or shortcode. The resolver receives it as `-AzureConfig`.
 5. **`Get-BicepConfigSubscriptionCandidates`.** For each subscription serving the environment, the resolver reads its customer token through
@@ -60,7 +60,7 @@ The diagram is described element by element in
   splitting on the first `-` (ADR-AZ-DATAMOD#2).
 - A configuration subfolder is always a customer key, and every coordinate must resolve to exactly one subscription id, asserted per file at
   discovery (ADR-AZ-DATAMOD#3).
-- The cross-layer link is enforced at discovery by `Get-BicepTemplates` through the shared `Get-BicepSubscriptionConfigViolations`
+- The link across the two layers is enforced at discovery by `Get-BicepTemplates` through the shared `Get-BicepSubscriptionConfigViolations`
   (ADR-AZ-DATAMOD#8).
 - A subscription binds a customer by either its key or its shortcode, and `Get-AzureCustomer` is the single resolver, keys first and then
   shortcodes (ADR-AZ-CUSTOMER#2).

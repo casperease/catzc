@@ -18,8 +18,8 @@ Supports ADR-AUTO-FAILFAST#7 (architecture lens).
 
 The time safeguard of cats has two consumers that must never disagree: the pwsh code that bounds its own work, and the hook that bounds a
 coding agent's shell calls. They cannot share a process, because the hook runs before Claude Code hands a call to the shell, outside any
-PowerShell session. They share source instead. The hook's project compiles the `Catzc.Base.Timeouts` module's own types straight from their
-files, so the limits it reads and the verdict it gives are the ones `Get-TimeoutSeconds` resolves and the module's tests check.
+PowerShell session. They share the source instead. The hook's project compiles the `Catzc.Base.Timeouts` module's own types straight from
+their files, so the limits it reads and the verdict it gives are the ones `Get-TimeoutSeconds` resolves and the module's tests check.
 
 ![The hook compiles the module's own verdict and limits](../../.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png)
 

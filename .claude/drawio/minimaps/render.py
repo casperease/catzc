@@ -22,7 +22,9 @@ import describe
 from PIL import Image, ImageDraw, ImageFont
 
 REPO = Path(__file__).resolve().parents[3]
-BG, IDLE, BORDER, LABEL, INK, WHITE = "#FFFFFF", "#ECEFF1", "#CFD8DC", "#546E7A", "#263238", "#FFFFFF"
+# The dark-theme tokens (.claude/drawio/STYLE.md, "Colours (minimaps only)"): page, idle cell, cell border, label, ink;
+# HALO is the page colour, used for the label halo, the lit ADR tile's rim and the lens badge's digits on the light badge.
+BG, IDLE, BORDER, LABEL, INK, HALO, BADGE = "#1E2430", "#262E3B", "#3A4555", "#949FAE", "#CDD3DC", "#1E2430", "#E6EAF0"
 FONT_R = "C:/Windows/Fonts/segoeui.ttf"
 FONT_B = "C:/Windows/Fonts/segoeuib.ttf"
 FONT_SB = "C:/Windows/Fonts/seguisb.ttf"
@@ -134,10 +136,10 @@ def draw_codes(d, items, f, top, low, high):
 
 def draw_badge(d, text, box, size):
     x0, y0, x1, y1 = box
-    d.rounded_rectangle(box, radius=6, fill=INK)
+    d.rounded_rectangle(box, radius=6, fill=BADGE)
     f = font(size, "b")
     tw = text_w(d, text, f)
-    d.text(((x0 + x1) / 2 - tw / 2, (y0 + y1) / 2), text, font=f, fill=WHITE, anchor="lm")
+    d.text(((x0 + x1) / 2 - tw / 2, (y0 + y1) / 2), text, font=f, fill=HALO, anchor="lm")
 
 
 # ---------------------------------------------------------------- grid minimap (tracks x file languages)
@@ -379,7 +381,7 @@ def draw_tree_base(d, layout, s):
 def draw_label(d, text, x, y, f, maxw, fill=INK):
     t = fit(d, text, f, maxw)
     if t:
-        d.text((x, y), t, font=f, fill=fill, anchor="lt", stroke_width=3, stroke_fill=WHITE)
+        d.text((x, y), t, font=f, fill=fill, anchor="lt", stroke_width=3, stroke_fill=HALO)
 
 
 def lit_groups(layout, files):
@@ -409,7 +411,7 @@ def render_tree(layout, files, mentions, adr_files, path):
         x0, y0, x1, y1 = x0 + 0.5, y0 + 0.5, max(x1 - 0.5, x0 + 3), max(y1 - 0.5, y0 + 3)
         d.rectangle((x0, y0, x1, y1), fill=touched() if f in mentions else lit())
         if f in adr_files:
-            d.rectangle((x0, y0, x1, y1), outline=WHITE, width=1)
+            d.rectangle((x0, y0, x1, y1), outline=HALO, width=1)
     # Labels: the lit groups in full, most lit files first; a label that would cover one already printed is left out.
     f = font(19, "b")
     taken = []

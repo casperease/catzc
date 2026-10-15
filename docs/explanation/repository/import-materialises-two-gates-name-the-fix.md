@@ -36,17 +36,17 @@ The diagram is described element by element in
    one entry, or one file of a wildcard entry, and throws when no opted-in entry targets the path.
 3. **Root file current.** The normal outcome. Every opted-in target is a link to its source or a real file equal to what the writer
    composes, so a second run changes nothing.
-4. **Test-GeneratedFiles.** The drift gate runs `Build-RootConfig -DryRun -PassThru -Silent` and turns every result that would change into
+4. **Test-GeneratedFiles.** The drift check runs `Build-RootConfig -DryRun -PassThru -Silent` and turns every result that would change into
    an issue, attributed to the generator that renders the file or to `Build-RootConfig` for a copy.
 5. **Stale, regenerate.** The issue reads `<path>: stale — <generator> would change it; regenerate with: Build-RootConfig '<path>'`. The
    gate writes its report under `out/test-generated-files/` and throws once listing every issue.
-6. **Test-RootConfigFiles.** The integrity gate checks every opted-in target, a wildcard entry per rendered file, against `git check-ignore`
-   and the index: a `committed: false` target must be ignored and untracked, a `committed: true` target tracked and not ignored, a
-   `copyAsLink` target an effective link to its source from this OS, and any other target a real file. The L2 integrity test runs it and
-   expects zero issues.
+6. **Test-RootConfigFiles.** The integrity check asserts every opted-in target, a wildcard entry per rendered file, against
+   `git check-ignore` and the index: a `committed: false` target must be ignored and untracked, a `committed: true` target tracked and not
+   ignored, a `copyAsLink` target an effective link to its source from this OS, and any other target a real file. The L2 integrity test runs
+   it and expects zero issues.
 7. **Registry and git disagree.** Each issue names its remedy: `git rm --cached <path>` for a copy that is tracked, "re-run the importer"
-   for a link that is missing, stale or not a link, or for a copy that is still a link. A third gate, `Test-RootAnalyzerSettings`, proves
-   the root analyzer settings parse through their link.
+   for a link that is missing, stale or not a link, or for a copy that is still a link. A third quality gate, `Test-RootAnalyzerSettings`,
+   proves the root analyzer settings parse through their link.
 
 ## Why it holds
 

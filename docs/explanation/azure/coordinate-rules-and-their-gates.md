@@ -32,11 +32,11 @@ The diagram is described element by element in
 1. **Config file.** The path `configuration/[<customer>/]<env>[-<slot>].yml` is ruled three times: the root is the shared platform and a
    subfolder a customer (ADR-AZ-DATAMOD#1), one file is one (customer?, env, slot), one subscription and one resource group
    (ADR-AZ-DATAMOD#2), and the subfolder is the customer key (ADR-AZ-CUSTOMER#6).
-2. **`Get-BicepTemplates`.** Discovery is the gate the data model names for the cross-layer link: it runs the shared check on every file and
+2. **`Get-BicepTemplates`.** Discovery is the gate the data model names for joining the layers: it runs the shared check on every file and
    throws on the first violation (ADR-AZ-DATAMOD#8).
 3. **Shipped template integrity.** An integrity test runs `Assert-BicepTemplate` over every shipped template without building it, and a
-   second one checks every discovered slot's environment and customer against the identity configs. Together they are the "integrity tests"
-   that ADR-AZ-DATAMOD#3 and #8 name beside discovery.
+   second one checks the environment and customer of every slot discovery found against the identity configs. Together they are the
+   "integrity tests" that ADR-AZ-DATAMOD#3 and #8 name beside discovery.
 4. **`Assert-BicepTemplate`.** The validator is the second caller of the shared check, collecting rather than failing fast, so the rule has
    one implementation and two callers (ADR-AZ-DATAMOD#8).
 5. **`Get-BicepSubscriptionConfigViolations`.** The shared check holds the exactly-one rule (ADR-AZ-DATAMOD#3) and the subfolder-is-a-key
@@ -44,9 +44,9 @@ The diagram is described element by element in
    (ADR-AZ-CUSTOMER#2).
 6. **Subscription.** The resolved subscription is a value the gate produced, never a path segment and never a deploy argument
    (ADR-AZ-DATAMOD#1).
-7. **Resource group.** The group's name is derived by `Get-BicepResourceGroupName` for both the deploy target and the tracking-tag scope,
-   and never hand-typed (ADR-AZ-DATAMOD#5). No gate checks a resource-group-target config for a typed name, which is why the rule's chip is
-   dashed: the code derives the name whatever a config says, and only a subscription-target config is asserted to carry none.
+7. **Resource group.** The group's name is derived by `Get-BicepResourceGroupName` for both the deploy target and the scope of the tracking
+   tag, and never hand-typed (ADR-AZ-DATAMOD#5). No gate checks a resource-group-target config for a typed name, which is why the rule's
+   chip is dashed: the code derives the name whatever a config says, and only a subscription-target config is asserted to carry none.
 
 ## Why it holds
 
@@ -55,8 +55,8 @@ The diagram is described element by element in
 - One config file is one (customer?, env, slot), one subscription and one resource group, and the tree is the inventory (ADR-AZ-DATAMOD#2).
 - Every coordinate must resolve to exactly one subscription id, asserted per file at discovery and by integrity tests (ADR-AZ-DATAMOD#3).
 - The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed (ADR-AZ-DATAMOD#5).
-- The cross-layer link is enforced at discovery through the shared `Get-BicepSubscriptionConfigViolations` and over the shipped tree by
-  integrity tests (ADR-AZ-DATAMOD#8).
+- The link between the two layers is enforced at discovery through the shared `Get-BicepSubscriptionConfigViolations` and over the shipped
+  tree by integrity tests (ADR-AZ-DATAMOD#8).
 - A subscription binds a customer by key or shortcode through the single resolver (ADR-AZ-CUSTOMER#2), and the key is the subfolder name
   (ADR-AZ-CUSTOMER#6).
 

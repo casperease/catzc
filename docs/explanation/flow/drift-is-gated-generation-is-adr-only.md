@@ -38,7 +38,7 @@ The diagram is described element by element in
    that Azure DevOps keeps a deeper-folder include over a broader exclude.
 4. **Generated YAML filters.** The ADR says the filters are generated from `globs.yml` into the orchestration YAML and never hand-authored,
    and that a set whose Azure DevOps projection cannot reproduce exact membership is caught at generation time. No code in the tree writes a
-   `paths:` filter, and `Get-GlobSetTrigger` defers that case to the coverage gate.
+   `paths:` filter, and `Get-GlobSetTrigger` defers that case to the coverage check.
 5. **Test-GitHubWorkflowTriggerGlob.** A quality gate: it recomputes the ordered GitHub list and compares it element by element with
    `on.push.paths` and `on.pull_request.paths` of the workflow it is given, one issue per drifted or missing workflow.
 6. **Test-AdoPipelineTriggerGlob.** A quality gate: for every pipeline-bound set it compares the `trigger:` and `pr:` include and exclude

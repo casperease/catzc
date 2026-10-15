@@ -16,10 +16,10 @@ Supports ADR-REPO-VARIANT#1, #2, #3, #4, #5 and #6 (governance lens).
 ```
 
 The six rules of the variants decision are held by two gates and one habit. The config type checks the file and its values whenever it
-loads; the module-dependency gate checks that the module keeps its three declared edges; and the rule that nothing reads the file directly,
+loads; the module-dependency check proves that the module keeps its three declared edges; and the rule that nothing reads the file directly,
 the one the decision is named for, has no gate at all and is left to code review. That gap is what the diagram points at.
 
-![Values and module edges are gated; the no-direct-read rule is left to review](../../.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png)
+![Values and module edges pass a quality gate; the no-direct-read rule is left to review](../../.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png)
 
 The diagram is described element by element in
 [its asset description](../../.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md).
@@ -28,10 +28,10 @@ The diagram is described element by element in
 
 1. **variants.yml.** Rule 1 makes the file the one home of every repo-wide switch: a growing dictionary whose keys are known. Any other
    home, a per-module config or an environment variable, is out.
-2. **VariantsConfig.** The C# config type registered for `variants` is the load gate for rules 1, 4, 5 and 6. It rejects an unknown key, an
-   `ado_naming` outside `standard` and `classic`, a `git_workspace` outside `main-direct` and `main-via-pr`, a `have_customers` that is not
-   a boolean, `all` or a list of unique names, and an `aspects` or `tracks` map of the wrong shape. Every violation goes into one throw. An
-   integrity test loads the shipped file through it.
+2. **VariantsConfig.** The C# config type registered for `variants` is the quality gate at load time for rules 1, 4, 5 and 6. It rejects an
+   unknown key, an `ado_naming` outside `standard` and `classic`, a `git_workspace` outside `main-direct` and `main-via-pr`, a
+   `have_customers` that is not a boolean, `all` or a list of unique names, and an `aspects` or `tracks` map of the wrong shape. Every
+   violation goes into one throw. An integrity test loads the shipped file through it.
 3. **Get-Variant.** Rule 2 makes the private reader the single access point, and no gate checks it: nothing asserts that the function stays
    private, and nothing scans the modules for a direct read of the loaded config. Today one caller, `Get-WorldMap` in `Catzc.Base.Maps`,
    reads the `aspects` key straight off `Get-Config -Config variants`, and nothing catches it.

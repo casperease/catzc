@@ -31,8 +31,8 @@ The diagram is described element by element in
 2. **Subscription guard.** `-SubscriptionIdAssertIs` carries the subscription id the session is expected to target. It is mandatory in a
    pipeline, where `Deploy-Bicep` throws without it, and optional on a devbox. When it is set, the resolved session must carry the same id.
    The guard selects nothing: the session has already decided.
-3. **Deploy target.** The session's subscription, confirmed. Its `customer` picks the template's config slot, the customer's subfolder or
-   the configuration root, and renders into the resource-group name. The subscription itself never appears in a name.
+3. **Deploy target.** The session's subscription, confirmed. Its `customer` picks the template's configuration slot, the customer's
+   subfolder or the configuration root, and renders into the resource-group name. The subscription itself never appears in a name.
 4. **Mis-wired connection.** When the session's id and the guard's id differ, the deploy throws before anything is built or deployed. In a
    pipeline that means the service connection is wired to the wrong subscription, so a re-wired connection can never silently retarget an
    existing pipeline's deploy.

@@ -43,7 +43,7 @@ The diagram is described element by element in
 5. **Build-Bicep.** `Build-Bicep -Template discovery` loads each slot's config and resolves every parameter written as
    `{ address: global.<config>.<key>… }` into `{ value: … }`; the shipped `discovery` configs address `global.azure.subscriptions` and
    `global.azure.policy_enforcement.production`, for example. A secure parameter takes a Key Vault `reference`, never an address.
-6. **parameters.&lt;config&gt;.json.** The rendered file lands under `out/template/<name>/`, named `parameters.<config>.json` for a shared
+6. **parameters.&lt;config&gt;.json.** The rendered file lands under `out/template/<name>/`, named `parameters.<config>.json` for a root
    slot or `parameters.<customer>.<config>.json` for a customer slot, with the addressed entries replaced by their values.
 7. **wrong address throws.** `Get-ConfigValue` throws at the call, and the message names the problem:
    `Cannot validate argument on parameter 'Address'` for a malformed address such as `global.Azure.x`;

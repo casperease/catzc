@@ -50,7 +50,7 @@ the page colour. The frame around the left band's two named sets is a thin grey 
 Every edge is straight and horizontal, pointing left. None crosses another, and none carries a label.
 
 **Rule chips.** Six small pills at the top-right corner of their glyphs: dashed `#2` on live and dashed `#3` on tests in the left band; `#3`
-above each VariantsConfig gate; dashed `#5` above AspectPartition.Validate; dashed `#3` on live in the right band.
+above each gate at VariantsConfig; dashed `#5` above AspectPartition.Validate; dashed `#3` on live in the right band.
 
 ## Legend
 

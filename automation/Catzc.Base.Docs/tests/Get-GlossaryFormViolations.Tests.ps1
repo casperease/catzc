@@ -59,6 +59,11 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         & $script:scan @{ 'docs/alpha.md' = @('It is widgeted, then widgeting again.') } @{} $true | Should -BeNullOrEmpty
     }
 
+    It 'reads no link or image destination and no repository-path title as prose' -Tag 'ADR-REPO-VOCAB#8' {
+        $text = @('# docs/explanation/pick-widget.md', '', 'See [the article](../pick-widget.md) and ![a gadget widget](../pick-widget.drawio.png).')
+        & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
+    }
+
     It 'exempts a mention in backticks or quotes, and never matches inside a longer word' -Tag 'ADR-REPO-VOCAB#8' {
         & $script:scan @{ 'docs/alpha.md' = @('Avoid `sprocket widget` and "sprocket widget"; a gadgetwidget, the widgetry.') } | Should -BeNullOrEmpty
     }

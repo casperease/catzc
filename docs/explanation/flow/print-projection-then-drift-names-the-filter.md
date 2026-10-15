@@ -59,7 +59,7 @@ element, since GitHub paths are ordered.
 
 - A pipeline, workflow or build-validation policy triggers on the globset's native projection, and the drift quality gates report one issue
   per pipeline whose declared trigger no longer equals its projection, or whose file is missing (ADR-FLOW-CD-GLOBS#6).
-- An include-only projection is a safe superset that can never under-trigger, which the coverage gate confirms for every member of a
+- An include-only projection is a safe superset that can never under-trigger, which the coverage check confirms for every member of a
   pipeline-bound set (ADR-FLOW-CD-GLOBS, "How this is enforced").
 
 ## Where the code and the ADR differ

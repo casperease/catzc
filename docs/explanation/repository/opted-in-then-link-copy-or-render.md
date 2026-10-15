@@ -60,8 +60,8 @@ The diagram is described element by element in
   entries are touched (ADR-REPO-ROOTCFG#2).
 - Every content write goes through `Write-FileIfChanged`: canonical output, an EOL-insensitive compare, write only on a real change,
   delete-then-write; link targets go through `Set-FileLink` instead (ADR-REPO-ROOTCFG#4).
-- A non-link source copy carries a leading generated-file header in the target's comment style; a generator owns its whole output and takes
-  no `comment`; a `copyAsLink` entry carries no header (ADR-REPO-ROOTCFG#5).
+- A source copy that is not a link carries a leading generated-file header in the target's comment style; a generator owns its whole output
+  and takes no `comment`; a `copyAsLink` entry carries no header (ADR-REPO-ROOTCFG#5).
 - A `copyAsLink` entry is a filesystem link, with its three constraints validated by `RootConfigFile`, and `Set-FileLink` throws rather than
   copy (ADR-REPO-ROOTCFG#7).
 - A generator entry may name a wildcard target and render one record per file, each written and reported on its own (ADR-REPO-ROOTCFG#8).

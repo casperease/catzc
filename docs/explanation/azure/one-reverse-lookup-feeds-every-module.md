@@ -19,8 +19,8 @@ Supports ADR-AZ-DATAMOD#4 and #7, and ADR-AZ-NAMING#8 (architecture lens).
 
 Cats keeps Azure identity in one file, `azure.yml`, and the deploy target in one place, the az session. The two meet in a single reverse
 lookup: `Catzc.Azure.Cli` resolves the session's subscription id to the identity the file declares, and every module further along reads
-that identity instead of asking the session again. The templating module picks the config slot from it, the Azure root module checks it
-against the environment, and the namer renders its customer into the resource-group name.
+that identity instead of asking the session again. The templating module picks the configuration slot from it, the Azure root module checks
+it against the environment, and the namer renders its customer into the resource-group name.
 
 ![One reverse lookup in Catzc.Azure.Cli hands the session to every module](../../.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png)
 
@@ -36,8 +36,9 @@ The diagram is described element by element in
 3. **Catzc.Azure.Cli.** `Get-AzCliSessionSubscription` takes the session's subscription id and finds the one `azure.yml` subscription with
    that id. It returns the declared identity, `{ name, id, customer, tenant }`, and throws when no declared subscription carries the id. It
    is read-only: it never logs in or switches context.
-4. **azure.yml.** The identity layer: tenants, customers, environments and subscriptions, each a map keyed by name. A subscription declares
-   its tenant, the environments it serves and, optionally, its customer. The file is read through `Get-Config -Config azure`.
+4. **azure.yml.** The config layer for identity: tenants, customers, environments and subscriptions, each a map keyed by name. A
+   subscription declares its tenant, the environments it serves and, optionally, its customer. The file is read through
+   `Get-Config -Config azure`.
 5. **Catzc.Azure.** The root Azure module holds the joins over `azure.yml`: `Get-AzureSubscription` resolves a named subscription with its
    tenant and customer, `Get-AzureEnvironment` asserts that a subscription serves an environment, and `Get-AzureResourceName` assembles
    every name. `Catzc.Azure.Cli` depends on it, and it depends on Base alone.
@@ -52,8 +53,8 @@ The diagram is described element by element in
 
 ## Why it holds
 
-- The cross-layer joins live in PowerShell and resolve on demand; the deploy-time subscription is the az session's, reverse-resolved against
-  `azure.yml` by `Get-AzCliSessionSubscription` (ADR-AZ-DATAMOD#7).
+- The joins between the two layers live in PowerShell and resolve on demand; the deploy-time subscription is the az session's,
+  reverse-resolved against `azure.yml` by `Get-AzCliSessionSubscription` (ADR-AZ-DATAMOD#7).
 - Customer is a configuration axis, the subfolder, and at deploy time it is derived from the session subscription, never a deploy argument;
   it addresses the customer's config and renders into the names (ADR-AZ-DATAMOD#4).
 - The subscription is never a name component; the customer that renders is derived from it (ADR-AZ-NAMING#8).

@@ -35,8 +35,9 @@ SIDEBAR = {
     "supports": (576, 38),
 }
 MAPKEY_Y = 626
-INK, BORDER, IDLE = "#263238", "#CFD8DC", "#ECEFF1"
-TEXT = "text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#37474F;"
+# The dark-theme tokens (.claude/drawio/STYLE.md): ink, cell border, idle cell, the page, and the legend panel fill.
+INK, BORDER, IDLE, PAGE, PANEL = "#CDD3DC", "#3A4555", "#262E3B", "#1E2430", "#222A36"
+TEXT = f"text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor={INK};"
 
 
 def mix(hue, alpha, base):
@@ -57,7 +58,7 @@ def map_key(palette, concerns, top):
     rows = [
         ("lit", f"fillColor={lit};strokeColor={lit};", "lit: what the slide's ADRs select"),
         ("touched", f"fillColor={mix(lit, 0.4, IDLE)};strokeColor={mix(lit, 0.4, IDLE)};", "lit by passing mentions only"),
-        ("adr", f"fillColor={lit};strokeColor=#FFFFFF;strokeWidth=2;", "lit ADR file (white rim)"),
+        ("adr", f"fillColor={lit};strokeColor={PAGE};strokeWidth=2;", "lit ADR file (dark rim)"),
         ("idle", f"fillColor={IDLE};strokeColor={BORDER};", "idle: not selected, or empty"),
     ]
     abbreviated = [f"{describe.concern_code(c)} {c}" for c in concerns if describe.concern_code(c) != c.upper()]
@@ -74,7 +75,7 @@ def map_key(palette, concerns, top):
         cell(
             "mapkey",
             "&lt;b&gt;Map key&lt;/b&gt;",
-            "rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#37474F;fillColor=#FFFFFF;"
+            f"rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fontSize=11;fontColor={INK};fillColor={PANEL};"
             f"strokeColor={BORDER};spacingLeft=8;spacingTop=2;",
             top,
             height,
@@ -108,7 +109,8 @@ def lay_out_sidebar(model, palette, concerns):
             raise SystemExit(f"the slide has no {cell_id} cell")
         attrs = re.sub(r'\s(x|y|width|height)="[^"]*"', "", match.group(2))
         model = model[: match.start(2)] + f' x="{X}" y="{y}" width="{WIDTH}" height="{height}"' + attrs + model[match.end(2) :]
-    model = re.sub(r'\s*<mxCell id="mapkey[^"]*"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.DOTALL)
+    # Drop the slide's own map key, the panel and its swatch rows (template-slide.xml names the rows mk-*), before adding a fresh one.
+    model = re.sub(r'\s*<mxCell id="(?:mapkey|mk-)[^"]*"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.DOTALL)
     # The ADR chips grow with their lines (11 px text, 14 px a line); the map key starts below them.
     supports = re.search(r'<mxCell id="supports" value="([^"]*)".*?</mxCell>', model, re.DOTALL)
     lines = supports.group(1).count("&lt;br&gt;") + 1

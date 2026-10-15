@@ -14,9 +14,10 @@ of the diagram glyphs; what it means is in [the article](../../explanation/autom
 ## At a glance
 
 A 1572 × 650 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
-full-width bands, labelled `HOOK`, `OUTCOME` and `AFTER`, in two columns: the left column runs gate, result, failure; the right column runs
-failure, file. It holds five glyphs, one gate, one result, two failures and one file, joined by two flow edges and two failure paths, with
-five markers and a legend panel along the bottom. The eye lands first on the gate at the top left, with a red edge running right from it.
+full-width bands, labelled `HOOK`, `OUTCOME` and `AFTER`, in two columns: the left column runs the gate, the result and the failure; the
+right column runs failure, file. It holds five glyphs, one gate, one result, two failures and one file, joined by two flow edges and two
+failure paths, with five markers and a legend panel along the bottom. The eye lands first on the gate at the top left, with a red edge
+running right from it.
 
 ## Reading path
 

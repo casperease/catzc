@@ -7,7 +7,9 @@
 //               constant string gives its value; an expandable string its value with every embedded variable or
 //               sub-expression removed. A string several of those contexts hold is read once.
 // Every segment's mentions — `code`, "quoted" and “curly-quoted” spans that do not cross a blank line — are blanked to
-// spaces (RemoveMentions), and it carries the line it starts on, so a match's offset maps to its line.
+// spaces (RemoveMentions), and it carries the line it starts on, so a match's offset maps to its line. Markdown also
+// blanks what is not prose: a link or image destination, the `(path)` after `]`, and the title line that names the
+// file's own repository path ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)).
 
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,8 @@ namespace Catzc.Base.Docs;
 public static class GlossaryProse
 {
     static readonly Regex FenceMarker = new Regex("^(`{3,}|~{3,})", RegexOptions.Compiled);
+    static readonly Regex LinkDestination = new Regex(@"\]\(([^)\s]+)", RegexOptions.Compiled);
+    static readonly Regex PathTitle = new Regex(@"^# \S+/\S+\.md$", RegexOptions.Compiled);
     static readonly Regex HelpKeyword = new Regex(@"(?im)^\s*\.(SYNOPSIS|DESCRIPTION)\b", RegexOptions.Compiled);
     static readonly Regex Mentions = new Regex(Span("`", "`") + "|" + Span("\"", "\"") + "|" + Span("“", "”"), RegexOptions.Compiled);
     static readonly HashSet<string> Writers = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "Write-Message", "Write-Warning", "Write-Error", "Write-Host" };
@@ -56,6 +60,14 @@ public static class GlossaryProse
                 {
                     fence = marker.Value;
                     lines[i] = string.Empty;
+                }
+                else if (PathTitle.IsMatch(lines[i]))
+                {
+                    lines[i] = string.Empty;
+                }
+                else
+                {
+                    lines[i] = LinkDestination.Replace(lines[i], m => "](" + new string(' ', m.Groups[1].Length));
                 }
                 continue;
             }

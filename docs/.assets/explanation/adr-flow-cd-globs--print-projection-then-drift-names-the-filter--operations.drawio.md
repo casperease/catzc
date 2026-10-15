@@ -31,12 +31,12 @@ panel along the bottom. The eye lands first on the three red failures in the bot
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                                         |
-| --------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------- |
-| file                  | 2     | globs.yml (top band, left); pipelines/cd-apex.yaml (middle band, centre)                                                      |
-| code unit             | 1     | Get-GlobSetTrigger (middle band, left)                                                                                        |
-| gate                  | 2     | Test-GlobSetTriggerCoverage (bottom band, left); Test-AdoPipelineTriggerGlob (bottom band, centre)                            |
-| failure               | 3     | matches no ADO include (below the left gate); trigger drifted and pipeline file not found (right of the centre gate, stacked) |
+| Glyph (legend phrase) | Count | Where                                                                                                                                       |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| file                  | 2     | globs.yml (top band, left); pipelines/cd-apex.yaml (middle band, centre)                                                                    |
+| code unit             | 1     | Get-GlobSetTrigger (middle band, left)                                                                                                      |
+| gate                  | 2     | Test-GlobSetTriggerCoverage (bottom band, left); Test-AdoPipelineTriggerGlob (bottom band, centre)                                          |
+| failure               | 3     | matches no ADO include (below the gate on the left); trigger drifted and pipeline file not found (right of the gate in the centre, stacked) |
 
 Files are olive and the code unit slate, with light names; gates are neutral rhombi with a thick light rim; failures are the only red.
 
@@ -48,8 +48,8 @@ Files are olive and the code unit slate, with light names; gates are neutral rho
 | ADR-only (no code) | 1     | Get-GlobSetTrigger → pipelines/cd-apex.yaml (dashed, horizontal)                                                                                                                                    |
 | failure path       | 3     | Test-GlobSetTriggerCoverage → matches no ADO include, Test-AdoPipelineTriggerGlob → trigger drifted, Test-AdoPipelineTriggerGlob → pipeline file not found                                          |
 
-The diagonal edge leaves the code unit's bottom-right corner and ends on the centre gate's left vertex; it crosses no glyph and no other
-edge.
+The diagonal edge leaves the code unit's bottom-right corner and ends on the left vertex of the gate in the centre; it crosses no glyph and
+no other edge.
 
 ## Legend
 

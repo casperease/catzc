@@ -204,8 +204,8 @@ under `docs/.assets/` (the slide descriptions and the minimaps' sister files), `
    files, ADR-DSGN-TRACK#8). The codes of neighbouring lit columns alternate between two lines so they never touch.
 2. **Repository tree map** (`<stem>.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by
    top-level folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). Every tile is
-   idle grey; the files the highlight lights are lit (the lighter lit colour when lit only by passing mentions); a lit ADR file has a white
-   rim.
+   idle grey; the files the highlight lights are lit (the lighter lit colour when lit only by passing mentions); a lit ADR file has a dark
+   rim in the page colour.
 
 ### The value-chain map (always shown)
 
@@ -266,13 +266,13 @@ view adds its sections in `describe.py`'s `VIEWS`.
     most 2 lines, so pack several ADR codes per line (`ADR-A · ADR-B`) and leave the rest to the `.md`. With more than 4 codes, put the
     first code inline after "Supports" and set the cell at 10.5 px;
   - `mapkey` at x 1316, y 626 (or 8 px below taller ADR chips, which `join.py` sizes at 14 px a line), 240 × 170: the minimap legend, one
-    swatch each shared by all three minimaps (lit; lit by passing mentions only; a lit ADR file, white rim; idle), then the key to the short
+    swatch each shared by all three minimaps (lit; lit by passing mentions only; a lit ADR file, dark rim; idle), then the key to the short
     labels (grid columns: a file language's first extension; value-chain rows: the value-chain stack; the abbreviated value-chain columns).
 - **Minimap PNGs** are rendered at 2× (480 × 300, 480 × 360 and 480 × 300) and placed at 1×. Text is ≥ 9 px at 1×. Every label is
   horizontal: the grid names a lit row by its track and a lit column by its short code; the value-chain map names every row and column by
-  its capital code. Lit tree groups are labelled with their full names, most lit files first; a label may run past its tile (the white halo
-  keeps it legible) and is cut only at the image edge, never to a stub like "Module…"; a label that would cover one already printed is left
-  out.
+  its capital code. Lit tree groups are labelled with their full names, most lit files first; a label may run past its tile (the page-colour
+  halo keeps it legible) and is cut only at the image edge, never to a stub like "Module…"; a label that would cover one already printed is
+  left out.
 - **Title:** ≤ 100 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, in the form
   `Supports <ADR-CODE>:<rules> · <lens> lens`.
 - **Boxes:**

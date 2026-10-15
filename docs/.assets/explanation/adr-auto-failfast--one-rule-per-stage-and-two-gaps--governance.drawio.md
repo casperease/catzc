@@ -16,7 +16,7 @@ diagram glyphs; what it means is in [the article](../../explanation/automation/o
 A 1572 × 640 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through four
 bands, labelled `AXES`, `LIMIT`, `RAISE` and `CONSUMERS`. It holds eight glyphs, three code units, two files and three gates, on three rows.
 Four flow edges and one dashed ADR-only edge join them, and six rule chips sit beside the glyphs, five solid and one dashed, with eight
-markers and a legend panel below the bands. The eye lands first on the three rhombus gates, one per band from `LIMIT` onward.
+markers and a legend panel below the bands. The eye lands first on the three gates, each a rhombus, one per band from `LIMIT`.
 
 ## Reading path
 

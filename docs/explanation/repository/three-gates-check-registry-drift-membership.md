@@ -18,8 +18,8 @@ Supports ADR-REPO-ROOTCFG#1, #2, #3, #4, #5, #6, #7 and #8 (governance lens).
 ```
 
 The eight rules of the generated-root-configs decision are enforced at three points. A malformed registry stops the config load; a target
-that differs from what the writer would compose fails the drift gate; and a target whose git membership, ignore rule or link mechanism
-disagrees with the registry fails the integrity gate. One clause stands on the ADR alone: that the target-to-source pairing is restated
+that differs from what the writer would compose fails the drift check; and a target whose git membership, ignore rule or link mechanism
+disagrees with the registry fails the integrity check. One clause stands on the ADR alone: that the target-to-source pairing is restated
 nowhere else.
 
 ![Three gates check the registry, the drift and the git membership; one rule has no gate](../../.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png)
@@ -41,12 +41,12 @@ The diagram is described element by element in
    throw when neither works, never a content copy (#7).
 5. **Write-FileIfChanged.** Every content write is canonical, compared without regard to line endings, and delete-then-write, so it can
    never tunnel into a source through a link (#4). The copy branch feeds it a leading generated-file header when the entry says
-   `comment: hash`; a generator owns its whole output (#5). The header is checked only through the composed content, by the drift gate.
+   `comment: hash`; a generator owns its whole output (#5). The header is checked only through the composed content, by the drift check.
 6. **Managed root files.** The `committed` boolean decides whether a target is a gitignored artifact or a tracked file, and nothing else
    (#3).
-7. **Test-GeneratedFiles.** The drift gate dry-runs the writer and reports every file whose content would change, one issue per file of a
+7. **Test-GeneratedFiles.** The drift check dry-runs the writer and reports every file whose content would change, one issue per file of a
    wildcard entry (#6, #8). It is a quality gate in the sense of ADR-AUTO-TEST#35: one report, one throw listing every issue.
-8. **Test-RootConfigFiles.** The integrity gate asserts, per opted-in target, that `committed` agrees with `.gitignore` and the index (#3,
+8. **Test-RootConfigFiles.** The integrity check asserts, per opted-in target, that `committed` agrees with `.gitignore` and the index (#3,
    #6), that every `copyAsLink` target is an effective link from the running OS, and that no other target is a link (#6, #7). The L2
    integrity test runs it and expects zero issues.
 
@@ -64,7 +64,7 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-ADR-REPO-ROOTCFG#6 lists the drift check among the integrity test's assertions; the integrity gate `Test-RootConfigFiles` compares no
+ADR-REPO-ROOTCFG#6 lists the drift check among the integrity test's assertions; the integrity check `Test-RootConfigFiles` compares no
 content, and the drift check lives in `Test-GeneratedFiles`. `Test-GeneratedFiles` does not list `New-PythonProject` among the generators it
 can be asked for, although the registry names it; a stale `pyproject.toml` is still caught by the default run.
 

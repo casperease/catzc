@@ -3,23 +3,23 @@
 // and a highlighted (lit) cell's outline, each a '#' and six hex digits. The properties mirror the YAML keys, so they are
 // snake_case ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). The defaults
 // are declared here, once ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), and
-// chosen to read on the light grey-blue background: dark text, a white empty cell, a blue scale, a red mark and an ink
-// lit colour (the diagram kit's ink, .claude/drawio/STYLE.md, which the slide minimaps share). MapsConfig validates the
-// section and builds one.
+// the dark-theme tokens of the diagram kit (.claude/drawio/STYLE.md), which the slide minimaps share: the dark page, light
+// text, an idle cell in the band fill, a scale that rises from the idle fill to the light ink, the kit's only red for a
+// violation mark, and the light ink as the lit colour. MapsConfig validates the section and builds one.
 
 namespace Catzc.Base.Maps;
 
 public sealed class MapsPalette
 {
-    public const string DefaultBackground = "#E6ECF2";
-    public const string DefaultRow = "#DCE6F0";
-    public const string DefaultColumn = "#E8E8E8";
-    public const string DefaultCell = "#FFFFFF";
-    public const string DefaultShade = "#2B6CB0";
-    public const string DefaultLine = "#9AA8B8";
-    public const string DefaultText = "#1F2933";
-    public const string DefaultViolation = "#C62828";
-    public const string DefaultHighlight = "#37474F";
+    public const string DefaultBackground = "#1E2430";
+    public const string DefaultRow = "#262E3B";
+    public const string DefaultColumn = "#262E3B";
+    public const string DefaultCell = "#262E3B";
+    public const string DefaultShade = "#DDE2E9";
+    public const string DefaultLine = "#3A4555";
+    public const string DefaultText = "#CDD3DC";
+    public const string DefaultViolation = "#E57373";
+    public const string DefaultHighlight = "#E6EAF0";
 
     // The fill of the whole page, drawn first so a viewer in dark or light mode shows it. Default: DefaultBackground.
     public string background { get; }
@@ -30,10 +30,10 @@ public sealed class MapsPalette
     // The fill of a file language's column header. Default: DefaultColumn.
     public string column { get; }
 
-    // The fill of an empty cell, and the light end of the file-count scale. Default: DefaultCell.
+    // The fill of an empty cell, and the idle end of the file-count scale. Default: DefaultCell.
     public string cell { get; }
 
-    // The fill of the fullest cell, the dark end of the file-count scale. Default: DefaultShade.
+    // The fill of the fullest cell, the lit end of the file-count scale. Default: DefaultShade.
     public string shade { get; }
 
     // The colour of the grid lines and the outlines. Default: DefaultLine.

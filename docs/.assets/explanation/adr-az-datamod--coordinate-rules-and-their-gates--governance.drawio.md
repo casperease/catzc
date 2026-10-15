@@ -46,14 +46,14 @@ is elided in the middle with `…`; the article gives it in full. No glyph is re
 | ----------------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | flow, leads to the next stage | 6     | config file → Get-BicepTemplates, shipped template integrity → Assert-BicepTemplate, Get-BicepTemplates → gate, Assert-BicepTemplate → gate, gate → subscription, subscription → resource group |
 
-The edge from the file rises gently across the band border; the two edges into the right-hand gate converge on it; the last edge is
+The edge from the file rises gently across the band border; the two edges into the gate on the right converge on it; the last edge is
 vertical. None crosses another.
 
 ## Rule chips
 
 Twelve chips, each a small pill beside the glyph its rule governs, lettered `D` for ADR-AZ-DATAMOD and `C` for ADR-AZ-CUSTOMER: `D1`, `D2`,
-`C6` on the file; `D8` on each code unit; `D3`, `D8` on the integrity gate; `D3`, `C6`, `C2` on the shared-check gate; `D1` on the
-subscription; and `D5`, the one dashed chip, on the resource group.
+`C6` on the file; `D8` on each code unit; `D3`, `D8` on the gate of the integrity tests; `D3`, `C6`, `C2` on the gate of the shared check;
+`D1` on the subscription; and `D5`, the one dashed chip, on the resource group.
 
 ## Legend
 

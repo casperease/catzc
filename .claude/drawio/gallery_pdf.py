@@ -21,8 +21,9 @@ ROOT = Path("out/diagrams")
 WIDTH = 1600
 BAR = 44
 MARGIN = 48
-INK, QUIET, RULE = "#37474F", "#546E7A", "#CFD8DC"
-BACKGROUND = "#E6ECF2"  # the grey-bluish base layer of every rendered output (.claude/drawio/STYLE.md)
+INK, QUIET, RULE = "#CDD3DC", "#949FAE", "#3A4555"  # the dark-theme tokens (.claude/drawio/STYLE.md)
+BACKGROUND = "#1E2430"  # the dark page, the base layer of every rendered output
+BAR_FILL, BAR_INK = "#262E3B", "#DDE2E9"  # the caption bar: band fill, title ink
 
 
 def font(size, bold=False, mono=False):
@@ -38,8 +39,8 @@ def font(size, bold=False, mono=False):
 def caption(img, path, section):
     out = Image.new("RGB", (WIDTH, img.height + BAR + 16), BACKGROUND)
     d = ImageDraw.Draw(out)
-    d.rectangle([0, 0, WIDTH, BAR], fill="#37474F")
-    d.text((14, 11), f"{section}  ·  {path.name}", font=font(20, bold=True), fill="#ffffff")
+    d.rectangle([0, 0, WIDTH, BAR], fill=BAR_FILL)
+    d.text((14, 11), f"{section}  ·  {path.name}", font=font(20, bold=True), fill=BAR_INK)
     out.paste(img, ((WIDTH - img.width) // 2, BAR + 8))
     return out
 
