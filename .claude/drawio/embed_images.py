@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   derived:
-#     path: .claude/drawio/embed_images.py
+#     path: ".claude/drawio/embed_images.py"
 #     kind: script
 # ---
 

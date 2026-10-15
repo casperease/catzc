@@ -5,6 +5,8 @@ configs:
   configs:
     type: Catzc.Base.Config.ConfigsConfig
     overridable: false
+  folder-walk:
+    type: Catzc.Base.Folders.FolderWalkConfig
   terminology:
     type: Catzc.Base.QualityGates.TerminologyConfig
   links:

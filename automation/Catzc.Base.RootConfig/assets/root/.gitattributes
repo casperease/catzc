@@ -106,3 +106,7 @@ automation/.compiled/** linguist-generated
 # (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA#5).
 /.claude/CLAUDE.md -catzc-meta
 /.github/README.md -catzc-meta
+
+# catzc: the root-file sources are copied verbatim to the repository root, so a head here would land in each copy
+# with the source's path; their heads wait for the generated-from-source kind (ADR-REPO-FILEMETA#5).
+/automation/Catzc.Base.RootConfig/assets/root/** -catzc-meta

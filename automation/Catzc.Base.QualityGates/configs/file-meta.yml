@@ -6,24 +6,18 @@ kinds:
   # The repository-relative path of every file that carries a block, first so it is written first; a Markdown H1 is the title.
   file-path:
     keys: [path]
-    files:
-      - "**/*.md"
-      - "automation/**/types/*.cs"
-      - "automation/Catzc.*/*.ps1"
-      - "automation/Catzc.*/private/*.ps1"
 
   # The class of the file, the first class whose globs match its path, or other.
   file-kind:
     keys: [kind]
-    files:
-      - "**/*.md"
-      - "automation/**/types/*.cs"
-      - "automation/Catzc.*/*.ps1"
-      - "automation/Catzc.*/private/*.ps1"
     settings:
       classes:
+        - { class: test, files: ["**/tests/**"] }
         - { class: type, files: ["automation/**/types/*.cs"] }
         - { class: function, files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"] }
+        - { class: template, files: ["infrastructure/templates/**/*.bicep"] }
+        - { class: template-config, files: ["infrastructure/templates/**/configuration/**/*.yml"] }
+        - { class: script, files: ["**/*.py", "**/*.sh"] }
         - { class: agent, files: [".claude/agents/**"] }
         - { class: skill, files: [".claude/skills/**"] }
         - { class: adr, files: ["docs/adr/**"] }
