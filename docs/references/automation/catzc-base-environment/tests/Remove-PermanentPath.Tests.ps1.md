@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-environment/tests/Remove-PermanentPath.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-environment/tests
+    name: remove-permanent-path-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: dcf2ae4f8a46

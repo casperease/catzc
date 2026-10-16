@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleDependencyClosure.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-modulesystem/tests
+    name: get-module-dependency-closure-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: ac19161945f2

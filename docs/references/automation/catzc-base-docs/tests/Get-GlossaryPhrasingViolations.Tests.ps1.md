@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-docs/tests
+    name: get-glossary-phrasing-violations-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "93b87ccdf917"

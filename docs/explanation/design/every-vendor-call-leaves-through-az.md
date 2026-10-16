@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/every-vendor-call-leaves-through-az.md
+    folder: docs/explanation/design
+    name: every-vendor-call-leaves-through-az
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "53dfed796091"
     adrs:

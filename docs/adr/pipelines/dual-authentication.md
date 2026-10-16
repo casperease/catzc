@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pipelines/dual-authentication.md
+    folder: docs/adr/pipelines
+    name: dual-authentication
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "245b02b1e15b"
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/gates-check-source-and-trigger.md
+    folder: docs/explanation/flow
+    name: gates-check-source-and-trigger
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "162cf941ab68"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/local-guard-and-server-policies.md
+    folder: docs/explanation/design
+    name: local-guard-and-server-policies
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: f8b79c407fcb
     adrs:

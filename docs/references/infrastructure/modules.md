@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules.md
+    folder: docs/references/infrastructure
+    name: modules
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: dc667b4441d5
     links:

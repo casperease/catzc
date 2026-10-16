@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/process/pull-work.md
+    folder: docs/adr/process
+    name: pull-work
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8bff15b2a55a"
     defines:

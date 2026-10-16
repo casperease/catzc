@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/waf/performance-efficiency.md
+    folder: docs/adr/azure/waf
+    name: performance-efficiency
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5442f36725bb"
     defines:

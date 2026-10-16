@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/only-automation-compiles-its-aspects.md
+    folder: docs/explanation/design
+    name: only-automation-compiles-its-aspects
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: edf1d50add6a
     adrs:

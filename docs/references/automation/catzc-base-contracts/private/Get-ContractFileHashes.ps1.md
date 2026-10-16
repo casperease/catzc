@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md
+    folder: docs/references/automation/catzc-base-contracts/private
+    name: get-contract-file-hashes-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "75816591014a"

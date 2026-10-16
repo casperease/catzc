@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/AzureTenantRecord.cs.md
+    folder: docs/references/automation/catzc-azure/types
+    name: azure-tenant-record-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "3f293549ae3b"

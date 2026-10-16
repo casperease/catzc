@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/repository/one-source-one-writer-one-boolean.md
+    folder: docs/explanation/repository
+    name: one-source-one-writer-one-boolean
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1932fd9f0525"
     adrs:

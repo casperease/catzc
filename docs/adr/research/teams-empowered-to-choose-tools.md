@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/teams-empowered-to-choose-tools.md
+    folder: docs/adr/research
+    name: teams-empowered-to-choose-tools
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9230a7e17988"
     defines:

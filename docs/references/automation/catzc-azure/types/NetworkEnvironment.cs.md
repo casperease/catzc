@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/NetworkEnvironment.cs.md
+    folder: docs/references/automation/catzc-azure/types
+    name: network-environment-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "77ff15dce0c0"

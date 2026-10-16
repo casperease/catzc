@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/discovery.md
+    folder: docs/references/infrastructure
+    name: discovery
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "499e30733666"
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/NetworkCidr.cs.md
+    folder: docs/references/automation/catzc-azure/types
+    name: network-cidr-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "39dc46804c48"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
+    folder: docs/.assets/references/automation/catzc-base-globs
+    name: protected-module-skip-by-hash-drawio-verify
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "38ab14dccb0d"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-life-engineer-merges-pipelines-do-the-rest-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0ba67eea298c"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-failfast-pass-the-limit-or-the-call-is-denied-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0639c2f179a2"
     links:

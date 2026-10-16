@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/pipelines/ci-automation.yaml.md
+    folder: docs/references/pipelines
+    name: ci-automation-yaml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "77798bd827ed"

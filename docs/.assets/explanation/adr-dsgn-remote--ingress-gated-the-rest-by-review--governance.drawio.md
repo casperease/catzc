@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-remote-ingress-gated-the-rest-by-review-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "64e2072921aa"
     adrs:

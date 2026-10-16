@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/configuration/apex/psub.yml.md
+    folder: docs/references/infrastructure/templates/discovery/configuration/apex
+    name: psub-yml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: afb19b22eeae

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-remote-local-guard-and-server-policies-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2d6f0e20cc67"
     adrs:

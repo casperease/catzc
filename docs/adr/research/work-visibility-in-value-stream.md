@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/work-visibility-in-value-stream.md
+    folder: docs/adr/research
+    name: work-visibility-in-value-stream
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9bffc5515fba"
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/managed-guids.md
+    folder: docs/adr/automation
+    name: managed-guids
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "94f06d40fd5a"
     defines:

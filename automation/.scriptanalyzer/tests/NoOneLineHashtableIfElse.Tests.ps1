@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoOneLineHashtableIfElse.Tests.ps1
+    folder: automation/.scriptanalyzer/tests
+    name: no-one-line-hashtable-if-else-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     adrs:
       - ADR-PWSH-FORMAT#10

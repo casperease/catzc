@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/faq.md
+    folder: docs/how-to/getting-started/automation
+    name: faq
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: abc05ae566cd
 ---

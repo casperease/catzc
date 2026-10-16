@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/design/server-remote-integration.md
+    folder: docs/adr/design
+    name: server-remote-integration
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "52541bcc7cdf"
     defines:

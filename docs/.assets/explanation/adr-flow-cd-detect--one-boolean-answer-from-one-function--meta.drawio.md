@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-detect-one-boolean-answer-from-one-function-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3b6e97a391d7"
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/python/index.md
+    folder: docs/how-to/getting-started/automation/python
+    name: index
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "76186ea3afc1"
 ---

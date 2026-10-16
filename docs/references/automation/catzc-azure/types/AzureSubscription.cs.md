@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/AzureSubscription.cs.md
+    folder: docs/references/automation/catzc-azure/types
+    name: azure-subscription-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a29cb678bfb3

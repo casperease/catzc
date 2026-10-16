@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/documentation-quality.md
+    folder: docs/adr/research
+    name: documentation-quality
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b8b7bf2ed828
     defines:

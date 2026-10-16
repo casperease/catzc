@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/waf/operational-excellence.md
+    folder: docs/adr/azure/waf
+    name: operational-excellence
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: be1d73e111ce
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/one-entry-script-per-mode.md
+    folder: docs/explanation/design
+    name: one-entry-script-per-mode
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: c24eef1948d2
     adrs:

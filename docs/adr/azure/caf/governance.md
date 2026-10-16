@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/caf/governance.md
+    folder: docs/adr/azure/caf
+    name: governance
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: ff679b35f782
     defines:

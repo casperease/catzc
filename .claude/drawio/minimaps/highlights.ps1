@@ -3,12 +3,14 @@
 catzc:
   derived:
     path: ".claude/drawio/minimaps/highlights.ps1"
+    folder: drawio/minimaps
+    name: highlights
+    filetype: ps1
     kind: script
     language: powershell
-    filetype: ps1
     track: ".claude"
     module: ".claude"
-    moduletype: settings-module
+    moduletype: settings
   config:
     synopsis: 'The minimap data step: reads the two map processors (module Catzc.Base.Maps) for a list of slides.'
     description: |-

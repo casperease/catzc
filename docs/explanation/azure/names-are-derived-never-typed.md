@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/names-are-derived-never-typed.md
+    folder: docs/explanation/azure
+    name: names-are-derived-never-typed
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0665f1c4e736"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-maps/tests
+    name: get-value-chain-map-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e8dcecdf1195

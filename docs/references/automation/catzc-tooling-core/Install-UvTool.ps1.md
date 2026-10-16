@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md
+    folder: docs/references/automation/catzc-tooling-core
+    name: install-uv-tool-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: cb6b02e0845f

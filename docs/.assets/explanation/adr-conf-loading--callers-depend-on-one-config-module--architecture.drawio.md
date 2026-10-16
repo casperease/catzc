@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-conf-loading-callers-depend-on-one-config-module-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2419ee9792e2"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/configs/contracts.yml.md
+    folder: docs/references/automation/catzc-base-contracts/configs
+    name: contracts-yml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "4da7dff5c38b"

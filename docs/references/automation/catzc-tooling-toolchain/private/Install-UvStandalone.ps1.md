@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md
+    folder: docs/references/automation/catzc-tooling-toolchain/private
+    name: install-uv-standalone-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6be38f691799"

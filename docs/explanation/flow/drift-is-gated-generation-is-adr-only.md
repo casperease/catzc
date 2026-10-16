@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
+    folder: docs/explanation/flow
+    name: drift-is-gated-generation-is-adr-only
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "37f8531166d7"
     adrs:

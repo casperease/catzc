@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
+    folder: docs/references/automation/catzc-base-languages/types
+    name: languages-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "98b2238f79a4"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md
+    folder: docs/.assets/references/automation/catzc-base-execution
+    name: invoke-executable-two-paths-one-bounded-drawio-verify
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9b66ab21863d"
     adrs:

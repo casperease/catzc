@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/function-help.md
+    folder: docs/adr/repository
+    name: function-help
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3c30ae3e63b3"
     defines:

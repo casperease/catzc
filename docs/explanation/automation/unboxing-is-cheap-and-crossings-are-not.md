@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md
+    folder: docs/explanation/automation
+    name: unboxing-is-cheap-and-crossings-are-not
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: dc4cf83cc6db
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/configuration/type-an-address-get-the-value.md
+    folder: docs/explanation/configuration
+    name: type-an-address-get-the-value
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5b750addd2a4"
     adrs:

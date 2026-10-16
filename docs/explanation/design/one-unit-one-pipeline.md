@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/one-unit-one-pipeline.md
+    folder: docs/explanation/design
+    name: one-unit-one-pipeline
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: c392cf3de1a3
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/CLAUDE.md
+    folder: docs/references/automation
+    name: claude
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: ae7fdacb19ff
     adrs:

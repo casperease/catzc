@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/github/github-release.md
+    folder: docs/adr/github
+    name: github-release
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: c7fbe67c5617
     defines:

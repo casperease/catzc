@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md
+    folder: docs/references/automation/catzc-tooling-inspiration/tests/types
+    name: inspiration-root-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "50b9f3095a47"

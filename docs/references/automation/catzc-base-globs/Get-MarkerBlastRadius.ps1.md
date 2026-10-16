@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md
+    folder: docs/references/automation/catzc-base-globs
+    name: get-marker-blast-radius-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: be7ee9e833a9

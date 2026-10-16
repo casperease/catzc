@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/callers-value-else-config-else-default.md
+    folder: docs/explanation/automation
+    name: callers-value-else-config-else-default
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "359dd20fdbc4"
     adrs:

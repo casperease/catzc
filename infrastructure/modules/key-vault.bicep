@@ -2,13 +2,14 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/key-vault.bicep
+//     name: key-vault
+//     filetype: bicep
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filetype: bicep
 //     track: infrastructure
 //     module: key-vault
-//     moduletype: bicep-module
+//     moduletype: bicep
 //     relatives:
 //       page: docs/references/infrastructure/modules/key-vault.bicep.md
 // ---

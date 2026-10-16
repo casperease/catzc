@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/every-doubt-fails-open-to-proceed.md
+    folder: docs/explanation/flow
+    name: every-doubt-fails-open-to-proceed
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: ef6923670aa4
     adrs:

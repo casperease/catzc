@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/waf/index.md
+    folder: docs/references/waf
+    name: index
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1c89ab77c942"
     adrs:

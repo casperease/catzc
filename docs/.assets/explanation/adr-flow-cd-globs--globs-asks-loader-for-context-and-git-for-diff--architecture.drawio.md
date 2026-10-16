@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-globs-asks-loader-for-context-and-git-for-diff-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "826b49ff232f"
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
+    folder: docs/explanation/repository
+    name: one-home-one-read-path-one-vocabulary
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7272a8567547"
     adrs:

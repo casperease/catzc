@@ -11,12 +11,14 @@ tools: Bash, Read, Glob, Grep, Write, Edit
 catzc:
   derived:
     path: ".claude/agents/catzc-worker.md"
+    folder: agents
+    name: catzc-worker
+    filetype: md
     kind: agent
     language: markdown
-    filetype: md
     track: ".claude"
     module: ".claude"
-    moduletype: settings-module
+    moduletype: settings
     body_sha: dd3204360d3a
     adrs:
       - ADR-AUTO-TEST#3

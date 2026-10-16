@@ -29,7 +29,7 @@ catzc:
     outputs: '[Catzc.Base.Variants.PathModule] The module (name) and its module type (type), or nothing.'
     examples:
       - '(Get-PathModule ''automation/Catzc.Base.Variants/Get-Track.ps1'').name   # -> Catzc.Base.Variants'
-      - '(Get-PathModule ''.claude/agents/x.md'').type                           # -> settings-module'
+      - '(Get-PathModule ''.claude/agents/x.md'').type                           # -> settings'
 ---
 #>
 

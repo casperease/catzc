@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/thesis/one-source-of-truth.md
+    folder: docs/adr/thesis
+    name: one-source-of-truth
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d790814a2975
     defines:

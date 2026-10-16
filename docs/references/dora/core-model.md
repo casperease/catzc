@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/dora/core-model.md
+    folder: docs/references/dora
+    name: core-model
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "523a0e9c4ca7"
     links:

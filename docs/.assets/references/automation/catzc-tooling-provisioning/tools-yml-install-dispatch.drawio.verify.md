@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md
+    folder: docs/.assets/references/automation/catzc-tooling-provisioning
+    name: tools-yml-install-dispatch-drawio-verify
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: efc44afd4854
     adrs:

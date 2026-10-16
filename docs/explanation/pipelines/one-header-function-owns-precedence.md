@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/pipelines/one-header-function-owns-precedence.md
+    folder: docs/explanation/pipelines
+    name: one-header-function-owns-precedence
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: a5d8d9ba4f36
     adrs:

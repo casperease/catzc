@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/dry-run.md
+    folder: docs/adr/automation
+    name: dry-run
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "349056ff35c6"
     defines:

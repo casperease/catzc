@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Get-ToolCommandSuffix.Tests.ps1.md
+    folder: docs/references/automation/catzc-tooling-core/tests
+    name: get-tool-command-suffix-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: be844779fd35

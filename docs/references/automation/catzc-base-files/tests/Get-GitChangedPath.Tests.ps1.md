@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-files/tests
+    name: get-git-changed-path-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "4ffac2cadc04"

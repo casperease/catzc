@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-runner-the-runner-is-the-only-seam-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7df1b9b44c0f"
     adrs:

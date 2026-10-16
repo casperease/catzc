@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/add-a-module.md
+    folder: docs/how-to/getting-started/automation
+    name: add-a-module
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: a4747cdafc78
     adrs:

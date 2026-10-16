@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/index.md
+    folder: docs/references/automation/internal
+    name: index
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "552fcd9f3460"
     adrs:

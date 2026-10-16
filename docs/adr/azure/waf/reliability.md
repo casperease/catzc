@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/waf/reliability.md
+    folder: docs/adr/azure/waf
+    name: reliability
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8fe3ab1c81d6"
     defines:

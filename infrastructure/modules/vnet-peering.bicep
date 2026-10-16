@@ -2,13 +2,14 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/vnet-peering.bicep
+//     name: vnet-peering
+//     filetype: bicep
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filetype: bicep
 //     track: infrastructure
 //     module: vnet-peering
-//     moduletype: bicep-module
+//     moduletype: bicep
 //     relatives:
 //       page: docs/references/infrastructure/modules/vnet-peering.bicep.md
 // ---

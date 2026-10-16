@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/pipelines/three-guarded-early-returns.md
+    folder: docs/explanation/pipelines
+    name: three-guarded-early-returns
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5990b16fd351"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
+    folder: docs/references/automation/catzc-base-repository
+    name: convert-to-repo-relative-path-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6a672e92a9c6"

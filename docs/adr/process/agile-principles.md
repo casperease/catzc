@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/process/agile-principles.md
+    folder: docs/adr/process
+    name: agile-principles
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d11206484097
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-datamod-two-layers-join-through-one-resolver-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "624f9d0de2d1"
     links:

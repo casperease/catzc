@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-ShippedConfigs.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-qualitygates/tests
+    name: test-shipped-configs-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e7964d1d3596

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/get-aspect-names-the-remainder.md
+    folder: docs/explanation/design
+    name: get-aspect-names-the-remainder
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "640b239cd646"
     adrs:

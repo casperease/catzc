@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/units-not-tracks-own-the-pipelines.md
+    folder: docs/explanation/design
+    name: units-not-tracks-own-the-pipelines
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: fac580a0ca23
     adrs:

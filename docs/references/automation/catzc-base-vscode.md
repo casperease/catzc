@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode.md
+    folder: docs/references/automation
+    name: catzc-base-vscode
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: eff1880109ad
     links:

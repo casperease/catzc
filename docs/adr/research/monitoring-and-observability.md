@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/monitoring-and-observability.md
+    folder: docs/adr/research
+    name: monitoring-and-observability
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8030049afc9c"
     defines:

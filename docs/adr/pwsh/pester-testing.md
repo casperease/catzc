@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/pester-testing.md
+    folder: docs/adr/pwsh
+    name: pester-testing
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "97dde284954c"
     defines:

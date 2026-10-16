@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-overlay.md
+    folder: docs/references/automation
+    name: catzc-base-overlay
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: a4a0355391e6
     links:

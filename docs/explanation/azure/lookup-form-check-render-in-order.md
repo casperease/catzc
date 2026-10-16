@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/lookup-form-check-render-in-order.md
+    folder: docs/explanation/azure
+    name: lookup-form-check-render-in-order
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: cd0312dc18af
     adrs:

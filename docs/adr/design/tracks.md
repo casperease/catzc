@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/design/tracks.md
+    folder: docs/adr/design
+    name: tracks
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: ad1e63e6e8fd
     defines:

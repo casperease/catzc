@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/one-function-per-file.md
+    folder: docs/adr/pwsh
+    name: one-function-per-file
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d121b8193149
     defines:

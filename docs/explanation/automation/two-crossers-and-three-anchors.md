@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/two-crossers-and-three-anchors.md
+    folder: docs/explanation/automation
+    name: two-crossers-and-three-anchors
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: a93d455cb4f2
     adrs:

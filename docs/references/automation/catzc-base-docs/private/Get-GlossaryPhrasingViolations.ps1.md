@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md
+    folder: docs/references/automation/catzc-base-docs/private
+    name: get-glossary-phrasing-violations-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a5eb1baf2b99

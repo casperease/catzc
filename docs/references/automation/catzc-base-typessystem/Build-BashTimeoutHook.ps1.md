@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
+    folder: docs/references/automation/catzc-base-typessystem
+    name: build-bash-timeout-hook-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6d30b15aacf1"

@@ -28,9 +28,13 @@ public sealed class PathModule
     // The id of the module type of the module-types registry.
     public string type { get; }
 
-    public PathModule(string name, string type)
+    // The path of the file under the module, '/'-separated: the file's own name for a module that is one file.
+    public string tail { get; }
+
+    public PathModule(string name, string type, string tail)
     {
         this.name = name;
         this.type = type;
+        this.tail = tail;
     }
 }

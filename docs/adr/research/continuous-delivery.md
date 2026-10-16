@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/continuous-delivery.md
+    folder: docs/adr/research
+    name: continuous-delivery
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: f32418cd25eb
     defines:

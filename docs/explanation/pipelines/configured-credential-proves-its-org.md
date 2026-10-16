@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/pipelines/configured-credential-proves-its-org.md
+    folder: docs/explanation/pipelines
+    name: configured-credential-proves-its-org
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6e7af59d401e"
     adrs:

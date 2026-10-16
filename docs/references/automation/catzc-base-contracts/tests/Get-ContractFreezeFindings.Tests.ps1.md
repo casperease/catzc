@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-contracts/tests
+    name: get-contract-freeze-findings-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: baabc049a1b4

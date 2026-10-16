@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/vendor-a-module.md
+    folder: docs/how-to/getting-started/automation
+    name: vendor-a-module
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: adca12471052
     links:

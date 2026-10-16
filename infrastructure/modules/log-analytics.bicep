@@ -2,13 +2,14 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/log-analytics.bicep
+//     name: log-analytics
+//     filetype: bicep
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filetype: bicep
 //     track: infrastructure
 //     module: log-analytics
-//     moduletype: bicep-module
+//     moduletype: bicep
 //     relatives:
 //       page: docs/references/infrastructure/modules/log-analytics.bicep.md
 // ---

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/test-automation.md
+    folder: docs/adr/research
+    name: test-automation
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b779f54fa075
     defines:

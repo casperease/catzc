@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-runmode-shims-set-roots-mode-read-back-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: fceaa6d70d03
     adrs:

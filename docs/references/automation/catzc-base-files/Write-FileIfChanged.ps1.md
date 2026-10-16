@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md
+    folder: docs/references/automation/catzc-base-files
+    name: write-file-if-changed-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "086315865188"

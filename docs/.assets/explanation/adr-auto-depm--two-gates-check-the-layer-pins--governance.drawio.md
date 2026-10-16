@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-depm-two-gates-check-the-layer-pins-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4e5df40b50d5"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/two-declared-layers-one-derived.md
+    folder: docs/explanation/flow
+    name: two-declared-layers-one-derived
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: c84eb71f0891
     adrs:

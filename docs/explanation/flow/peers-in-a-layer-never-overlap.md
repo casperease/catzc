@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/peers-in-a-layer-never-overlap.md
+    folder: docs/explanation/flow
+    name: peers-in-a-layer-never-overlap
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: e6efd0ad79ce
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
+    folder: docs/references/automation/catzc-base-qualitygates/types
+    name: file-meta-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e9d35d2769c6

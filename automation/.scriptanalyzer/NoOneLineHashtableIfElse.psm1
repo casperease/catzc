@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoOneLineHashtableIfElse.psm1
+    folder: automation/.scriptanalyzer
+    name: no-one-line-hashtable-if-else
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
 ---
 #>

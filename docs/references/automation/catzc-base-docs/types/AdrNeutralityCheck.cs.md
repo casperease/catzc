@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrNeutralityCheck.cs.md
+    folder: docs/references/automation/catzc-base-docs/types
+    name: adr-neutrality-check-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "104a6465f2e7"

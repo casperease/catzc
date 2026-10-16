@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/caf/network-private-access.md
+    folder: docs/adr/azure/caf
+    name: network-private-access
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: afa53038a9df
     defines:

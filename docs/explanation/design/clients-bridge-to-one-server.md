@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/clients-bridge-to-one-server.md
+    folder: docs/explanation/design
+    name: clients-bridge-to-one-server
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "67c27c50bf4b"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md
+    folder: docs/references/automation/catzc-base-qualitygates
+    name: test-python-lint-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c11a569779b3

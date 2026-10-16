@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
+    folder: docs/references/automation/catzc-base-engines/types
+    name: execution-engine-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d1b3363cb76a

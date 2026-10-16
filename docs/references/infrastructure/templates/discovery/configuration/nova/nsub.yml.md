@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/configuration/nova/nsub.yml.md
+    folder: docs/references/infrastructure/templates/discovery/configuration/nova
+    name: nsub-yml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c6d4ff513794

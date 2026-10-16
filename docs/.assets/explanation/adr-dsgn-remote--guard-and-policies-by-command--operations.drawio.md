@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-remote-guard-and-policies-by-command-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: b1e38c2ae347
     adrs:

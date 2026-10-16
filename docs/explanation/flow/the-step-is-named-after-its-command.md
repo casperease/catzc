@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/the-step-is-named-after-its-command.md
+    folder: docs/explanation/flow
+    name: the-step-is-named-after-its-command
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3bbcac23132a"
     adrs:

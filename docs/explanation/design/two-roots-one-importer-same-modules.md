@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/two-roots-one-importer-same-modules.md
+    folder: docs/explanation/design
+    name: two-roots-one-importer-same-modules
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4d9cd07a82cf"
     adrs:

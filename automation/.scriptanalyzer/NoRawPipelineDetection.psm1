@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoRawPipelineDetection.psm1
+    folder: automation/.scriptanalyzer
+    name: no-raw-pipeline-detection
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md

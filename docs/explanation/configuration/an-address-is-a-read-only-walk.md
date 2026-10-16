@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/configuration/an-address-is-a-read-only-walk.md
+    folder: docs/explanation/configuration
+    name: an-address-is-a-read-only-walk
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "54bd6341713f"
     adrs:

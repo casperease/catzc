@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/caf/network-topology.md
+    folder: docs/adr/azure/caf
+    name: network-topology
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d686931f9aad
     defines:

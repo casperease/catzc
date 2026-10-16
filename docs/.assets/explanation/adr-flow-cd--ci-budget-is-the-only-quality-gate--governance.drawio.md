@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-ci-budget-is-the-only-quality-gate-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3b2f8c46c61c"
     adrs:

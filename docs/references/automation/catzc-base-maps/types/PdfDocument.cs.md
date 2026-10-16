@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/PdfDocument.cs.md
+    folder: docs/references/automation/catzc-base-maps/types
+    name: pdf-document-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d1ae7ab8f48c

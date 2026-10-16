@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/the-runner-is-the-only-seam.md
+    folder: docs/explanation/flow
+    name: the-runner-is-the-only-seam
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: db59804939f1
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-two-declared-layers-one-derived-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "449c92e6182d"
     adrs:

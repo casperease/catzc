@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/the-loader-holds-the-one-detector.md
+    folder: docs/explanation/flow
+    name: the-loader-holds-the-one-detector
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8a2ef0492492"
     adrs:

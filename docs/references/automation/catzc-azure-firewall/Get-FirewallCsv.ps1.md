@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md
+    folder: docs/references/automation/catzc-azure-firewall
+    name: get-firewall-csv-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "3c8efece77ee"

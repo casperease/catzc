@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/decide-returns-null-or-a-reason.md
+    folder: docs/explanation/automation
+    name: decide-returns-null-or-a-reason
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9302c72f3cc8"
     adrs:

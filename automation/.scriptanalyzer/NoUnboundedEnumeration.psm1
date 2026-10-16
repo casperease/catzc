@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoUnboundedEnumeration.psm1
+    folder: automation/.scriptanalyzer
+    name: no-unbounded-enumeration
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
 ---
 #>

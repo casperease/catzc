@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoAzModuleNaming.psm1
+    folder: automation/.scriptanalyzer
+    name: no-az-module-naming
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoAzModuleNaming.psm1.md

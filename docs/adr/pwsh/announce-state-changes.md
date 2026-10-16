@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/announce-state-changes.md
+    folder: docs/adr/pwsh
+    name: announce-state-changes
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7e0fe1021a9b"
     defines:

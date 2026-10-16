@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/private-endpoint.bicep.md
+    folder: docs/references/infrastructure/modules
+    name: private-endpoint-bicep
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "308ec18c7d76"

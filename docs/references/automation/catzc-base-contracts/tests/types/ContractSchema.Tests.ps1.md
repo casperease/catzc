@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/tests/types/ContractSchema.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-contracts/tests/types
+    name: contract-schema-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "07d76f71d25a"

@@ -2,13 +2,14 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/private-dns-zone.bicep
+//     name: private-dns-zone
+//     filetype: bicep
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filetype: bicep
 //     track: infrastructure
 //     module: private-dns-zone
-//     moduletype: bicep-module
+//     moduletype: bicep
 //     relatives:
 //       page: docs/references/infrastructure/modules/private-dns-zone.bicep.md
 // ---

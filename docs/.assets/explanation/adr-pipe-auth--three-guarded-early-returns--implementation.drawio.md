@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-pipe-auth-three-guarded-early-returns-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "59985dac2e0a"
     adrs:

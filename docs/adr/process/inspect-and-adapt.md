@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/process/inspect-and-adapt.md
+    folder: docs/adr/process
+    name: inspect-and-adapt
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7e821d6725bb"
     defines:

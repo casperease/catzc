@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/index.md
+    folder: docs/explanation/azure
+    name: index
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: ee060595c823
     links:

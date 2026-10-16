@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md
+    folder: docs/references/automation/catzc-base-objects
+    name: convert-to-dictionary-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6bd79eff9796"

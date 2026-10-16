@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/comments-in-docs.md
+    folder: docs/adr/repository
+    name: comments-in-docs
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: da8f190cff2b
     defines:

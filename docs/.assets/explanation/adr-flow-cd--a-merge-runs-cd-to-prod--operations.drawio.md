@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-a-merge-runs-cd-to-prod-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "407355477171"
     adrs:

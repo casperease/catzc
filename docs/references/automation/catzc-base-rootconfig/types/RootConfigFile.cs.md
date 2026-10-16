@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md
+    folder: docs/references/automation/catzc-base-rootconfig/types
+    name: root-config-file-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "634c3ccea400"

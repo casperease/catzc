@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md
+    folder: docs/references/automation/catzc-tooling-core/private
+    name: resolve-session-tool-host-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "58feae1a33aa"

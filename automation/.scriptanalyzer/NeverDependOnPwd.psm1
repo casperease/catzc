@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NeverDependOnPwd.psm1
+    folder: automation/.scriptanalyzer
+    name: never-depend-on-pwd
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md

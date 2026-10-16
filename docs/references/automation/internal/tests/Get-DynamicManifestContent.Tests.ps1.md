@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Get-DynamicManifestContent.Tests.ps1.md
+    folder: docs/references/automation/internal/tests
+    name: get-dynamic-manifest-content-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "04e65cc96548"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-bundle-rule-and-gate-per-load-stage-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: c793830b9f91
     adrs:

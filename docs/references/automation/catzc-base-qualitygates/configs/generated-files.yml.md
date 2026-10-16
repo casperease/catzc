@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/generated-files.yml.md
+    folder: docs/references/automation/catzc-base-qualitygates/configs
+    name: generated-files-yml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b2ac99e2051e

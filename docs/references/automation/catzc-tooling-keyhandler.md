@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler.md
+    folder: docs/references/automation
+    name: catzc-tooling-keyhandler
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0ac4c274fd5e"
     links:

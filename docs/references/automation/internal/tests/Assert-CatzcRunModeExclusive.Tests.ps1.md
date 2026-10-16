@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1.md
+    folder: docs/references/automation/internal/tests
+    name: assert-catzc-run-mode-exclusive-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e83f8ed9a3fd

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md
+    folder: docs/references/automation/catzc-base-modulesystem
+    name: new-importer-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5b821d9f79a8"

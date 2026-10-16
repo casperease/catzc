@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryEntry.cs.md
+    folder: docs/references/automation/catzc-base-docs/types
+    name: glossary-entry-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "9122ef6978ce"

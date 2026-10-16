@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-conf-loading-ask-by-name-get-the-cached-object-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4c4c1279b03a"
     adrs:

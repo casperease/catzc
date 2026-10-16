@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/process/lean.md
+    folder: docs/adr/process
+    name: lean
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0b8c763416c5"
     defines:

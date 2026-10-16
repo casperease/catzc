@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/caf/naming-and-tagging.md
+    folder: docs/adr/azure/caf
+    name: naming-and-tagging
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "87723a9fb3e1"
     defines:

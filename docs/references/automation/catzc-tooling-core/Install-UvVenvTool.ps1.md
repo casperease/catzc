@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md
+    folder: docs/references/automation/catzc-tooling-core
+    name: install-uv-venv-tool-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "7cab80b49b24"

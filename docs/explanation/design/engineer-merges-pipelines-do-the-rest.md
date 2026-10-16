@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
+    folder: docs/explanation/design
+    name: engineer-merges-pipelines-do-the-rest
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: d4592a9826a0
     adrs:

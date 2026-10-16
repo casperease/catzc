@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-conf-addressing-strip-split-walk-every-wrong-turn-throws-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7add060779b0"
     links:

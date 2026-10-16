@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/types/RuleType.cs.md
+    folder: docs/references/automation/catzc-azure-firewall/types
+    name: rule-type-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c064865518e4

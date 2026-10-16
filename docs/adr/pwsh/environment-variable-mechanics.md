@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/environment-variable-mechanics.md
+    folder: docs/adr/pwsh
+    name: environment-variable-mechanics
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: f06f5693d22e
     defines:

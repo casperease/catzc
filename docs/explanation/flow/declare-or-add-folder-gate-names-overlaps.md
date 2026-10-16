@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
+    folder: docs/explanation/flow
+    name: declare-or-add-folder-gate-names-overlaps
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: bbaf0b40bf29
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-repo-rootcfg-three-gates-check-registry-drift-membership-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: cd7c8c4117e8
     links:

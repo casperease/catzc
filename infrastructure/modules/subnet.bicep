@@ -2,13 +2,14 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/subnet.bicep
+//     name: subnet
+//     filetype: bicep
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filetype: bicep
 //     track: infrastructure
 //     module: subnet
-//     moduletype: bicep-module
+//     moduletype: bicep
 //     relatives:
 //       page: docs/references/infrastructure/modules/subnet.bicep.md
 // ---

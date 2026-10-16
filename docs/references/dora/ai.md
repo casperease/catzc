@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/dora/ai.md
+    folder: docs/references/dora
+    name: ai
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4519db9d21f0"
     links:

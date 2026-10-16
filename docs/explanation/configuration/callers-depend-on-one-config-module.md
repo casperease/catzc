@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/configuration/callers-depend-on-one-config-module.md
+    folder: docs/explanation/configuration
+    name: callers-depend-on-one-config-module
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "68a60ba45051"
     adrs:

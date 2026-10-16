@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/controlling-systemwide-deps.md
+    folder: docs/adr/automation
+    name: controlling-systemwide-deps
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: f306aec32d72
     defines:

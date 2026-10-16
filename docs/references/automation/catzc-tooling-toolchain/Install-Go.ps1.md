@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md
+    folder: docs/references/automation/catzc-tooling-toolchain
+    name: install-go-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "23af37e615fb"

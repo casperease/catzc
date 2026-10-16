@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-runner-a-step-only-names-a-command-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5657707d9345"
     adrs:

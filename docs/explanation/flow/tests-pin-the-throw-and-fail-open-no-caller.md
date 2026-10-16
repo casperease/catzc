@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
+    folder: docs/explanation/flow
+    name: tests-pin-the-throw-and-fail-open-no-caller
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: ffbbf6cf0962
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/configuration/ask-by-name-get-the-cached-object.md
+    folder: docs/explanation/configuration
+    name: ask-by-name-get-the-cached-object
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "87242c08bfcf"
     adrs:

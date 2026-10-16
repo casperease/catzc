@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
+    folder: docs/references/automation/catzc-tooling-inspiration/configs
+    name: inspiration-yml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "10cb072ee225"

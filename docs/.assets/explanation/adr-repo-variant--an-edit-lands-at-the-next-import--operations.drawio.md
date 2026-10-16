@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-repo-variant-an-edit-lands-at-the-next-import-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: a3c5cb84627d
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/types/RestartManager.cs.md
+    folder: docs/references/automation/catzc-base-files/types
+    name: restart-manager-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "3fd02566ab4d"

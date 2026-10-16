@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/out-of-band-deploy-is-adr-only.md
+    folder: docs/explanation/design
+    name: out-of-band-deploy-is-adr-only
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: e936870e0c62
     adrs:

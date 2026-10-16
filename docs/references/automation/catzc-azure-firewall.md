@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall.md
+    folder: docs/references/automation
+    name: catzc-azure-firewall
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: b2174730a4a1
     links:

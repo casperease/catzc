@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/single-responsibility-functions.md
+    folder: docs/adr/automation
+    name: single-responsibility-functions
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4bb99ea1e724"
     defines:

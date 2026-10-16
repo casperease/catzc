@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
+    folder: docs/references/automation/catzc-base-config/private
+    name: get-config-overlay-root-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: beba738f27a0

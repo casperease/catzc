@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-aspect-each-track-picks-its-catch-all-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1e2ef25ba7f1"
     links:

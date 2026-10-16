@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/tests/types/SyntaxSearch.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-repository/tests/types
+    name: syntax-search-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "3f4fbef26384"

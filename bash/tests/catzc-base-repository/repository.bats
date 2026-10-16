@@ -2,12 +2,14 @@
 # catzc:
 #   derived:
 #     path: bash/tests/catzc-base-repository/repository.bats
+#     folder: tests/catzc-base-repository
+#     name: repository
+#     filetype: bats
 #     kind: test
 #     language: bash
-#     filetype: bats
 #     track: bash
 #     module: bash
-#     moduletype: bash-module
+#     moduletype: bash
 # ---
 
 # Black-box tests of Catzc.Base.Repository, in Bash.

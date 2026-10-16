@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
+    folder: docs/explanation/automation
+    name: one-rule-per-stage-and-two-gaps
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: d24069d9bd3b
     adrs:

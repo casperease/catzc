@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/pipelines-and-globs.md
+    folder: docs/how-to/automation/manual-test-plan
+    name: pipelines-and-globs
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4ed873adc971"
     adrs:

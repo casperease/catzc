@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/every-file-in-exactly-one-aspect.md
+    folder: docs/explanation/design
+    name: every-file-in-exactly-one-aspect
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: edf4b6a5a7fa
     adrs:

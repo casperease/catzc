@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/debug-in-vscode.md
+    folder: docs/how-to/getting-started/automation
+    name: debug-in-vscode
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: a210ea69b439
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/process/build-quality-in.md
+    folder: docs/adr/process
+    name: build-quality-in
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: df9bdb9dc6a2
     defines:

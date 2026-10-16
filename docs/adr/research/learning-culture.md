@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/learning-culture.md
+    folder: docs/adr/research
+    name: learning-culture
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: acfd23004c4f
     defines:

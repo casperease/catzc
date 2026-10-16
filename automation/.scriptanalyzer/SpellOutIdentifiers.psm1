@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/SpellOutIdentifiers.psm1
+    folder: automation/.scriptanalyzer
+    name: spell-out-identifiers
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md

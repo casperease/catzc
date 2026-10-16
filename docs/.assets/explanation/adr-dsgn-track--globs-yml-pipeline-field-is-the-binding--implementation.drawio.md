@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-track-globs-yml-pipeline-field-is-the-binding-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4cf8ead86ed1"
     adrs:

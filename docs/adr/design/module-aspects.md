@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/design/module-aspects.md
+    folder: docs/adr/design
+    name: module-aspects
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: ce9d5dbe10f2
     defines:

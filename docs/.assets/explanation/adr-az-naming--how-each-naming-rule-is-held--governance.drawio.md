@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-naming-how-each-naming-rule-is-held-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "558b77e45d42"
     adrs:

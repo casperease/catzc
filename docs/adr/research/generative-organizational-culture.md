@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/generative-organizational-culture.md
+    folder: docs/adr/research
+    name: generative-organizational-culture
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: e4535674c432
     defines:

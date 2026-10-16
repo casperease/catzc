@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1
+    folder: automation/.scriptanalyzer/tests
+    name: no-env-repository-root-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md

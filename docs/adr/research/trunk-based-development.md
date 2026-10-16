@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/trunk-based-development.md
+    folder: docs/adr/research
+    name: trunk-based-development
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1b8bb45ab915"
     defines:

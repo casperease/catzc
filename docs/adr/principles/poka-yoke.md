@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/principles/poka-yoke.md
+    folder: docs/adr/principles
+    name: poka-yoke
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b1f6ecea8d5e
     defines:

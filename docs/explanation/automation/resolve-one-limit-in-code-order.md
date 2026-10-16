@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/resolve-one-limit-in-code-order.md
+    folder: docs/explanation/automation
+    name: resolve-one-limit-in-code-order
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: f02beea63479
     adrs:

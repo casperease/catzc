@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/index.md
+    folder: docs/how-to/getting-started/automation
+    name: index
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: f1c4f850cec7
     links:

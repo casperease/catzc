@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-aspect-manifest-and-aspects-from-one-folder-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: e210720832ca
     adrs:

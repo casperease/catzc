@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-failfast-three-tests-prove-the-hook-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0842b420d8eb"
     links:

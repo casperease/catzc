@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md
+    folder: docs/references/automation/catzc-base-variants/types
+    name: variant-track-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c77d074b1dc0

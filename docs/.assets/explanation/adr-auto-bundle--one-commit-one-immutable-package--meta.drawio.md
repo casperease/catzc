@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-bundle-one-commit-one-immutable-package-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8073d5beee93"
     adrs:

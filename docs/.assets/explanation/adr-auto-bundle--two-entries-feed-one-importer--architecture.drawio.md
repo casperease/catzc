@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-bundle-two-entries-feed-one-importer-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8fc65b2c4d32"
     adrs:

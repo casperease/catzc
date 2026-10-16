@@ -42,6 +42,17 @@ Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
             $module.type | Should -BeExactly 'widget-folder'
         }
 
+        It 'gives the path under the module as the tail, for each way a place names its module' -ForEach @(
+            @{ Path = 'widgetry/Gadget/private/Cog.ps1'; Tail = 'private/Cog.ps1' }
+            @{ Path = 'widgetry/Gadget/Cog.ps1'; Tail = 'Cog.ps1' }
+            @{ Path = 'widgetry/.core/Widget.Core.Kit.wdg'; Tail = 'Widget.Core.Kit.wdg' }
+            @{ Path = '.gizmo/deep/x/y.json'; Tail = 'x/y.json' }
+            @{ Path = '.gizmo/other.json'; Tail = 'other.json' }
+            @{ Path = '.gizmo'; Tail = '' }
+        ) {
+            $script:config.Resolve($Path).tail | Should -BeExactly $Tail
+        }
+
         It 'never takes a dot-prefixed folder as a module' {
             $script:config.Resolve('widgetry/.hidden/Cog.ps1') | Should -BeNullOrEmpty
         }

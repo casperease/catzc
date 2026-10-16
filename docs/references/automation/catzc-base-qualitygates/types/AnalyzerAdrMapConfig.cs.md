@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/AnalyzerAdrMapConfig.cs.md
+    folder: docs/references/automation/catzc-base-qualitygates/types
+    name: analyzer-adr-map-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "1de4d513ed81"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/powershell/add-a-function.md
+    folder: docs/how-to/getting-started/automation/powershell
+    name: add-a-function
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5e937306972e"
     adrs:

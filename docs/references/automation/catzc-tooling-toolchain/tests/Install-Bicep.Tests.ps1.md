@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Bicep.Tests.ps1.md
+    folder: docs/references/automation/catzc-tooling-toolchain/tests
+    name: install-bicep-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: fb1af72c9512

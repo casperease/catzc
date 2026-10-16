@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/caf/management.md
+    folder: docs/adr/azure/caf
+    name: management
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5bb2b8a1cdb8"
     defines:

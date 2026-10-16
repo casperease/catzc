@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
+    folder: docs/references/automation/catzc-azure-cli
+    name: get-az-cli-subscription-access-state-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "1a55addf289e"

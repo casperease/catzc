@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/landing-zones.md
+    folder: docs/adr/azure
+    name: landing-zones
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: ddae9ec7174a
     defines:

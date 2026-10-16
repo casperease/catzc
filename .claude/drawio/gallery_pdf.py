@@ -2,12 +2,14 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/gallery_pdf.py"
+#     folder: drawio
+#     name: gallery-pdf
+#     filetype: py
 #     kind: script
 #     language: python
-#     filetype: py
 #     track: ".claude"
 #     module: ".claude"
-#     moduletype: settings-module
+#     moduletype: settings
 # ---
 
 # cspell:ignore minimaps consola cour arialbd textlength

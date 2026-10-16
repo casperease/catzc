@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/tests/Get-AzureSubscription.Tests.ps1.md
+    folder: docs/references/automation/catzc-azure/tests
+    name: get-azure-subscription-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5b9ab973559f"

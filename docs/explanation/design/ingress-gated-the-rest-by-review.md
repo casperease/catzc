@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/ingress-gated-the-rest-by-review.md
+    folder: docs/explanation/design
+    name: ingress-gated-the-rest-by-review
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "38ff1b133ab0"
     adrs:

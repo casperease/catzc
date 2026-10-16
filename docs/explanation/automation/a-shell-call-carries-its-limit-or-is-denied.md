@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
+    folder: docs/explanation/automation
+    name: a-shell-call-carries-its-limit-or-is-denied
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: fd4f00055329
     adrs:

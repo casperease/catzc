@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/one-scan-program-feeds-three-roles.md
+    folder: docs/explanation/flow
+    name: one-scan-program-feeds-three-roles
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1756066d4cce"
     adrs:

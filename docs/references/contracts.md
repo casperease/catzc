@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/contracts.md
+    folder: docs/references
+    name: contracts
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: b5678246da49
     links:

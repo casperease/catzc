@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/pipelines/cd-shared.yaml.md
+    folder: docs/references/pipelines
+    name: cd-shared-yaml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "0f2f92a434c5"

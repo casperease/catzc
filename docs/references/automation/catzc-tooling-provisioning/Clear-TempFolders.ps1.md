@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
+    folder: docs/references/automation/catzc-tooling-provisioning
+    name: clear-temp-folders-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f5aa324dbea0

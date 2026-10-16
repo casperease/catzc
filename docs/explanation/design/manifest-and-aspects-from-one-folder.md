@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/manifest-and-aspects-from-one-folder.md
+    folder: docs/explanation/design
+    name: manifest-and-aspects-from-one-folder
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "13b42c260a6c"
     adrs:

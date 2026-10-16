@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/one-namer-assembles-every-name.md
+    folder: docs/explanation/azure
+    name: one-namer-assembles-every-name
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9a514dbf85a3"
     adrs:

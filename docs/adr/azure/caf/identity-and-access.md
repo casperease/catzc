@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/caf/identity-and-access.md
+    folder: docs/adr/azure/caf
+    name: identity-and-access
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: e192bb608891
     defines:

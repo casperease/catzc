@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/overlap-gated-for-units-and-modules.md
+    folder: docs/explanation/flow
+    name: overlap-gated-for-units-and-modules
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0c1d71f47fcd"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/each-track-picks-its-catch-all.md
+    folder: docs/explanation/design
+    name: each-track-picks-its-catch-all
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "87398671b7d3"
     adrs:

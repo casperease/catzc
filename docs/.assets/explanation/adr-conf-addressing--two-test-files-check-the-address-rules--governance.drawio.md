@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-conf-addressing-two-test-files-check-the-address-rules-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1f468b4b3f2b"
     links:

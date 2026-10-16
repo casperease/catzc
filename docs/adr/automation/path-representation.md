@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/path-representation.md
+    folder: docs/adr/automation
+    name: path-representation
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: c24894c6fcd5
     defines:

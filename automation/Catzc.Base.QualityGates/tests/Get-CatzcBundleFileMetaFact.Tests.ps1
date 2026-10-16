@@ -2,7 +2,7 @@
 ---
 catzc:
   derived:
-    path: automation/Catzc.Base.QualityGates/tests/Get-BundleFileMetaFact.Tests.ps1
+    path: automation/Catzc.Base.QualityGates/tests/Get-CatzcBundleFileMetaFact.Tests.ps1
     kind: test
     language: powershell
     filetype: ps1
@@ -15,15 +15,15 @@ catzc:
 ---
 #>
 
-Describe 'Get-BundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
+Describe 'Get-CatzcBundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
     BeforeAll {
-        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ bundle = @{} } }).kinds[0]
+        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'catzc-bundle' = @{} } }).kinds[0]
 
         function script:Get-Fact {
             param([string] $Path)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Kind = $script:kind; Path = $Path } {
                 param($Kind, $Path)
-                Get-BundleFileMetaFact -State ([pscustomobject]@{}) -Path $Path -Kind $Kind
+                Get-CatzcBundleFileMetaFact -State ([pscustomobject]@{}) -Path $Path -Kind $Kind
             }
         }
     }
@@ -54,16 +54,16 @@ Describe 'Get-BundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
 
     It 'names the smallest bundle that holds the module of the file, under the kind''s key' {
         $fact = Get-Fact 'widgetry/Widget.Core/Get-Gadget.ps1'
-        @($fact.Keys) | Should -Be @('bundle')
-        $fact['bundle'] | Should -BeExactly 'small'
+        @($fact.Keys) | Should -Be @('catzc_bundle')
+        $fact['catzc_bundle'] | Should -BeExactly 'small'
     }
 
     It 'names the bundle that alone holds a module' {
-        (Get-Fact 'widgetry/Widget.Extra/private/Get-Cog.ps1')['bundle'] | Should -BeExactly 'large'
+        (Get-Fact 'widgetry/Widget.Extra/private/Get-Cog.ps1')['catzc_bundle'] | Should -BeExactly 'large'
     }
 
     It 'counts an infrastructure folder, whatever the depth of the file in it' {
-        (Get-Fact 'widgetry/.internal/tests/Assert-Widget.Tests.ps1')['bundle'] | Should -BeExactly 'small'
+        (Get-Fact 'widgetry/.internal/tests/Assert-Widget.Tests.ps1')['catzc_bundle'] | Should -BeExactly 'small'
     }
 
     It 'gives an empty value to a module no bundle holds, a file outside the track, and a file directly in the root' -ForEach @(
@@ -71,11 +71,11 @@ Describe 'Get-BundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
         @{ Path = 'docs/page.md' }
         @{ Path = 'widgetry/Get-Cog.ps1' }
     ) {
-        (Get-Fact $Path)['bundle'] | Should -BeExactly ''
+        (Get-Fact $Path)['catzc_bundle'] | Should -BeExactly ''
     }
 
     It 'reads a backslash path' {
-        (Get-Fact 'widgetry\Widget.Core\Get-Gadget.ps1')['bundle'] | Should -BeExactly 'small'
+        (Get-Fact 'widgetry\Widget.Core\Get-Gadget.ps1')['catzc_bundle'] | Should -BeExactly 'small'
     }
 
     It 'resolves each bundle''s members once while the exporter registry stays the same one' {

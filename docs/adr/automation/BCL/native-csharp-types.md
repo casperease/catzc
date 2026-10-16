@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/BCL/native-csharp-types.md
+    folder: docs/adr/automation/BCL
+    name: native-csharp-types
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: a55d51dfadd7
     defines:

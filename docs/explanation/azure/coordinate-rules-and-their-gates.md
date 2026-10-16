@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/coordinate-rules-and-their-gates.md
+    folder: docs/explanation/azure
+    name: coordinate-rules-and-their-gates
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "57d23475251f"
     adrs:

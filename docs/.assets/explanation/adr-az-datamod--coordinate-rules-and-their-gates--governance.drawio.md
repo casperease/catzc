@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-datamod-coordinate-rules-and-their-gates-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "88eb50a3a020"
     links:

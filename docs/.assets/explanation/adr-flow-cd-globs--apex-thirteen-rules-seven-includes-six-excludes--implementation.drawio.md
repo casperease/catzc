@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-apex-thirteen-rules-seven-includes-six-excludes-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "49750c4eef2b"
     links:

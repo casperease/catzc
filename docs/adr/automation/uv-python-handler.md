@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/uv-python-handler.md
+    folder: docs/adr/automation
+    name: uv-python-handler
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "53cadb758d1b"
     defines:

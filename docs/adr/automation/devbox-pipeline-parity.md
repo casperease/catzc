@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/devbox-pipeline-parity.md
+    folder: docs/adr/automation
+    name: devbox-pipeline-parity
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6b5b0f557acf"
     defines:

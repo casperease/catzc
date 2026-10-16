@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/documentation-examples.md
+    folder: docs/adr/repository
+    name: documentation-examples
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2524bd0104f1"
     defines:

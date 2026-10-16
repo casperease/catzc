@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/AnnounceStateChange.psm1
+    folder: automation/.scriptanalyzer
+    name: announce-state-change
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md

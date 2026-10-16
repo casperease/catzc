@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-datamod-config-path-is-a-coordinate-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: bb5d153b74ef
     links:

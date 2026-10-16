@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md
+    folder: docs/references/automation/catzc-base-vscode/configs
+    name: vscode-pipeline-schema-yml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "74006b1741eb"

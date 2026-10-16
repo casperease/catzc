@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/module-path-hygiene.md
+    folder: docs/adr/pwsh
+    name: module-path-hygiene
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: ba9e66a45031
     defines:

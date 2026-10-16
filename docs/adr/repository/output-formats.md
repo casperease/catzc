@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/output-formats.md
+    folder: docs/adr/repository
+    name: output-formats
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: c2b95f4a9247
     defines:

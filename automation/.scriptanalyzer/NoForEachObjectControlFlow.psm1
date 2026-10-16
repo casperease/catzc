@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoForEachObjectControlFlow.psm1
+    folder: automation/.scriptanalyzer
+    name: no-for-each-object-control-flow
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md

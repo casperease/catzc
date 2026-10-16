@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/cross-platform.md
+    folder: docs/adr/automation
+    name: cross-platform
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5991ca784914"
     defines:

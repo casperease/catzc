@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md
+    folder: docs/references/automation/catzc-base-maps/types
+    name: win-ansi-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5930dcf03e2c"

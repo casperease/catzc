@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates.md
+    folder: docs/references/automation
+    name: catzc-azure-templates
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: c62eb7ef9ecb
     links:

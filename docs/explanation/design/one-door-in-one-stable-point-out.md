@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/one-door-in-one-stable-point-out.md
+    folder: docs/explanation/design
+    name: one-door-in-one-stable-point-out
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: bb7ec869f6ce
     adrs:

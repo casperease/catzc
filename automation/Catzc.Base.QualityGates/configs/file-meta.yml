@@ -18,6 +18,14 @@ kinds:
   file-path:
     keys: [path]
 
+  # The folder of the file under its module and its name in kebab case; the path is these two and the file type, asserted when they are read.
+  file-name:
+    keys: [folder, name]
+
+  # The file type of the file, the extension of its name, which tells the sorts of file inside one language apart (ps1 from psm1 and psd1).
+  file-type:
+    keys: [filetype]
+
   # The kind of the file by its role, and its subkind when it has one, from the file-kinds registry.
   file-kind:
     keys: [kind, subkind]
@@ -25,10 +33,6 @@ kinds:
   # The file language of the file, from the languages registry by its extension; a file no language lists carries none.
   file-language:
     keys: [language]
-
-  # The file type of the file, the extension of its name, which tells the sorts of file inside one language apart (ps1 from psm1 and psd1).
-  file-type:
-    keys: [filetype]
 
   # The track whose root folder holds the file, from the tracks registry; a root file, which no track holds, carries none.
   track:
@@ -38,13 +42,13 @@ kinds:
   module-name:
     keys: [module]
 
-  # The type of that module, from the module-types registry (pwsh-folder-module, settings-module, pipeline-module, …).
+  # The type of that module, from the module-types registry (pwsh-folder, settings, pipeline, …).
   module-type:
     keys: [moduletype]
 
-  # The smallest built bundle that holds the module, from the exporter registry; a file in no module of a bundle carries none.
-  bundle:
-    keys: [bundle]
+  # The smallest bundle of the catzc exporter that holds the module, from the exporter registry; a file in no module of a bundle carries none.
+  catzc-bundle:
+    keys: [catzc_bundle]
 
   # The file that writes a generated comment page, so the head names its writer; the path is the setting, and the file must exist.
   generator:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-repo-variant-values-and-edges-gated-reads-reviewed-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5af07de768ed"
     links:

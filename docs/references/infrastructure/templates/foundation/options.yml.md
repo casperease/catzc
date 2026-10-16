@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/foundation/options.yml.md
+    folder: docs/references/infrastructure/templates/foundation
+    name: options-yml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a8739bf864a8

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/pipelines.md
+    folder: docs/references
+    name: pipelines
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "377b5cfd38e4"
     links:

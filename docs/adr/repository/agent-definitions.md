@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/agent-definitions.md
+    folder: docs/adr/repository
+    name: agent-definitions
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: e4f338926673
     defines:

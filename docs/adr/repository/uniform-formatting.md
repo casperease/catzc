@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/uniform-formatting.md
+    folder: docs/adr/repository
+    name: uniform-formatting
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "67d57c0ab117"
     defines:

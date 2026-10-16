@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-globs/tests
+    name: test-glob-set-independence-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a6dfd9c0052f

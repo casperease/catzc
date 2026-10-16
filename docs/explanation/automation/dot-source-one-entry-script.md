@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/dot-source-one-entry-script.md
+    folder: docs/explanation/automation
+    name: dot-source-one-entry-script
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: a414cc3c826a
     adrs:

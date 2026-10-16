@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
+    folder: docs/explanation/repository
+    name: values-and-edges-gated-reads-reviewed
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0042054487f7"
     adrs:

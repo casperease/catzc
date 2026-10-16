@@ -2,11 +2,13 @@
 catzc:
   derived:
     path: docs/adr/repository/file-meta.md
+    folder: docs/adr/repository
+    name: file-meta
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
-    body_sha: "72aa0565b076"
+    body_sha: cb681e7a14fb
     defines:
       - ADR-REPO-FILEMETA#{1-12}
     adrs:
@@ -152,7 +154,10 @@ left out. No file carries a pointer of its own in its code: the head is the one 
 
 The **kind** of a file is the role it plays, such as a test, a function, a config or a decision record, and never its language, track or
 module, which are facts of their own. A **subkind** narrows a kind, such as a gate among the functions, and a **file type** is the extension
-of the file's name, which tells the sorts of file inside one language apart. The kinds, their one-sentence definitions and the globs that
+of the file's name, which tells the sorts of file inside one language apart. The path of a file under its module (the whole path for a file
+in no module) is made of exactly three parts, written as `folder` (optional, left out for a file directly in the module), `name` (the file's
+name without its file type, in kebab case) and `filetype`, and reading them asserts that they build the path back, so a path made of
+anything else stops the run. The kinds, their one-sentence definitions and the globs that
 select them are one registry, `file-kinds.yml`, local to catzc and global to every file: the first kind whose globs match a path names it, a
 path no kind selects is `other`, a meta kind selects files by their kind and subkind and never by glob, and a consumer extends the registry
 with a config fragment. A provided contract pins the kind and subkind names.
@@ -164,8 +169,9 @@ with a config fragment. A provided contract pins the kind and subkind names.
 A **module type** says what sort of module a file is placed in, and the module-types registry says where the modules of each type are found
 and how a path in that place names its module: a PowerShell module is a folder under automation or one psm1 file, a settings module is a
 tool's dot-folder, a pipeline module is the folder that holds pipelines, and a Python, Go or Bash module is its track folder. The head holds
-`module` and `moduletype` from the registry for a file placed in a module, and neither for a file placed in none, and it holds `bundle`, the
-smallest built bundle that holds the module, from the exporter registry, so the head never carries a list of its own.
+`module` and `moduletype` from the registry for a file placed in a module, and neither for a file placed in none, and it holds
+`catzc_bundle`, the smallest bundle of the catzc exporter (the one bundler there is) that holds the module, from the exporter registry, so
+the head never carries a list of its own. A module type's name is the sort of module without the word module: `pwsh-folder`, `settings`.
 
 - [Module types](#module-types)
 
@@ -312,8 +318,8 @@ with a config fragment instead of editing it. A provided contract pins the names
 A module is not one thing in this repository: a PowerShell module is a folder or one file, a tool's settings are a dot-folder, the pipelines
 are a folder, and a Python, Go or Bash project is its track. Each is a module type, and the registry says per type where its modules are
 found and how a path in that place names its module, so `module` and `moduletype` are read from the registry and never guessed from a folder
-name. A file in no such place, such as a documentation page, has neither. The bundle a module ships in is read from the exporter registry,
-so the head says whether a module is in a built bundle without a second list.
+name. A file in no such place, such as a documentation page, has neither. The catzc bundle a module ships in is read from the exporter
+registry, so the head says whether a module is in a built bundle without a second list.
 
 ### How this is enforced
 

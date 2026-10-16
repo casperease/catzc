@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Initialize-Types.Tests.ps1.md
+    folder: docs/references/automation/internal/tests
+    name: initialize-types-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "688610b1e86c"

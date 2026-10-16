@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md
+    folder: docs/explanation/design
+    name: ten-commits-trace-the-whole-lifecycle
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "923959505b90"
     adrs:

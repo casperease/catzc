@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/one-commit-one-immutable-package.md
+    folder: docs/explanation/automation
+    name: one-commit-one-immutable-package
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3f52daff5480"
     adrs:

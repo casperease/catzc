@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md
+    folder: docs/references/automation/catzc-azure-cli
+    name: invoke-az-cli-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "1c273f04597f"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md
+    folder: docs/references/automation/catzc-base-globs/types
+    name: globs-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e428f4876a58

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/tests/New-VSCodeSettings.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-vscode/tests
+    name: new-vs-code-settings-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "81d5682c3de1"

@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoRawVsoCommand.psm1
+    folder: automation/.scriptanalyzer
+    name: no-raw-vso-command
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoRawVsoCommand.psm1.md

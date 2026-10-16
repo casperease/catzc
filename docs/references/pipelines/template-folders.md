@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/pipelines/template-folders.md
+    folder: docs/references/pipelines
+    name: template-folders
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6cd17e0faa5f"
     links:

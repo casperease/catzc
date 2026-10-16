@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/python/python-test-artifacts.md
+    folder: docs/adr/automation/python
+    name: python-test-artifacts
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: a619bc4a2253
     defines:

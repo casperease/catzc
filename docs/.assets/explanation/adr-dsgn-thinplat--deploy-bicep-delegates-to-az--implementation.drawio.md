@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-thinplat-deploy-bicep-delegates-to-az-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: ebf496b9bb58
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/index.md
+    folder: docs/adr/research
+    name: index
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4479ff9ca781"
     links:

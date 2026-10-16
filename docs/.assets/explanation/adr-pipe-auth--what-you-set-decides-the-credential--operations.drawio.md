@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-pipe-auth-what-you-set-decides-the-credential-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3fbd2c7014b2"
     adrs:

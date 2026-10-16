@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md
+    folder: docs/references/automation/catzc-base-contracts
+    name: publish-contract-release-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "4a5c3507f725"

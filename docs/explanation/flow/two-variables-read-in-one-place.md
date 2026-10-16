@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/two-variables-read-in-one-place.md
+    folder: docs/explanation/flow
+    name: two-variables-read-in-one-place
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "08911525b4a7"
     adrs:

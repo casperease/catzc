@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/configuration/three-caches-back-one-reader.md
+    folder: docs/explanation/configuration
+    name: three-caches-back-one-reader
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9449ba4f8a11"
     adrs:

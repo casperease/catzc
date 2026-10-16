@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/flexible-infrastructure.md
+    folder: docs/adr/research
+    name: flexible-infrastructure
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0aba2454ac45"
     defines:

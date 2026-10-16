@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-bundle-build-verify-then-copy-the-folder-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: c83868699fbf
     adrs:

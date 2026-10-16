@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/a-bad-coordinate-stops-discovery.md
+    folder: docs/explanation/azure
+    name: a-bad-coordinate-stops-discovery
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: de5f24266b08
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
+    folder: docs/.assets/references/automation/catzc-base-config
+    name: get-config-merge-seal-type-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "41345f139c1c"
     adrs:

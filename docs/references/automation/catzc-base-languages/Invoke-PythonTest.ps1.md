@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md
+    folder: docs/references/automation/catzc-base-languages
+    name: invoke-python-test-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "946a8e5b52bb"

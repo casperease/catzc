@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-naming-one-namer-assembles-every-name-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: c8de989c7cd4
     adrs:

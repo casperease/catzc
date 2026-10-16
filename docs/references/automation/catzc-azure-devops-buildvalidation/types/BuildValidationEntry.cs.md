@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
+    folder: docs/references/automation/catzc-azure-devops-buildvalidation/types
+    name: build-validation-entry-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8ccffbfb5dbe"

@@ -6,7 +6,7 @@
 #     kind: other
 #     track: ".cspell"
 #     module: ".cspell"
-#     moduletype: settings-module
+#     moduletype: settings
 #     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1
 # ---
 

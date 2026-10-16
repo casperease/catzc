@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-RuffFormat.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-qualitygates/tests
+    name: invoke-ruff-format-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: abd26b36d6d1

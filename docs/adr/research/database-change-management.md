@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/database-change-management.md
+    folder: docs/adr/research
+    name: database-change-management
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d48de2b4f591
     defines:

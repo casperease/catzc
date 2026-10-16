@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/design/run-modes.md
+    folder: docs/adr/design
+    name: run-modes
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: feb2d9ae1bab
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/VariableCasing.psm1.md
+    folder: docs/references/automation/scriptanalyzer
+    name: variable-casing-psm1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "1a55363585a6"

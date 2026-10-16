@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/configuration/one-gate-guards-the-read-path.md
+    folder: docs/explanation/configuration
+    name: one-gate-guards-the-read-path
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: cd955d1c421d
     adrs:

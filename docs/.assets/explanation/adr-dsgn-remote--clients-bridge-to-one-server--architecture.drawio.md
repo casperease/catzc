@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-remote-clients-bridge-to-one-server-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4b1749882fd0"
     adrs:

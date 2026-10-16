@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/api-contracts.md
+    folder: docs/adr/repository
+    name: api-contracts
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: cdee2333ea01
     defines:

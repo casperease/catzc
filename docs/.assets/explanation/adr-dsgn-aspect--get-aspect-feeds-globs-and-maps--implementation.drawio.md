@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-aspect-get-aspect-feeds-globs-and-maps-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: c5c596323647
     links:

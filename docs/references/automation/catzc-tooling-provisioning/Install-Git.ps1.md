@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md
+    folder: docs/references/automation/catzc-tooling-provisioning
+    name: install-git-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "94d6ec65ac3b"

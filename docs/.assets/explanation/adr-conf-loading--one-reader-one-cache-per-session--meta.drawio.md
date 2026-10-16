@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-conf-loading-one-reader-one-cache-per-session-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: af9948e9298f
     adrs:

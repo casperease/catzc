@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/the-analyzer-names-the-raw-read.md
+    folder: docs/explanation/flow
+    name: the-analyzer-names-the-raw-read
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3c30ffb9e17f"
     adrs:

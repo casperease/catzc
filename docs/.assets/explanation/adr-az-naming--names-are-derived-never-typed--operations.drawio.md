@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-naming-names-are-derived-never-typed-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "45b7d6cf4781"
     adrs:

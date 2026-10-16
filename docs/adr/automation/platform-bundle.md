@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/platform-bundle.md
+    folder: docs/adr/automation
+    name: platform-bundle
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4dacfa995a0b"
     defines:

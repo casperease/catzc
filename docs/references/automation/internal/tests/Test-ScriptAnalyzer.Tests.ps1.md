@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md
+    folder: docs/references/automation/internal/tests
+    name: test-script-analyzer-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "3df484ba0b86"

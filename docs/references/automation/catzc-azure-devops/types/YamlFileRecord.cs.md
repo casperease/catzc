@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md
+    folder: docs/references/automation/catzc-azure-devops/types
+    name: yaml-file-record-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5f49b3c80d14"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/open-closed-architecture.md
+    folder: docs/adr/automation
+    name: open-closed-architecture
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "311142b2a5ab"
     defines:

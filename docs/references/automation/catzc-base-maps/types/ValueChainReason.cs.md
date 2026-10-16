@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/ValueChainReason.cs.md
+    folder: docs/references/automation/catzc-base-maps/types
+    name: value-chain-reason-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "13bc199269bc"

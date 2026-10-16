@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs.md
+    folder: docs/references/automation
+    name: catzc-base-globs
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4cee0d74457d"
     adrs:

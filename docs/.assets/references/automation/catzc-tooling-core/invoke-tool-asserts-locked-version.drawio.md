@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+    folder: docs/.assets/references/automation/catzc-tooling-core
+    name: invoke-tool-asserts-locked-version-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "26e79173250c"
     adrs:

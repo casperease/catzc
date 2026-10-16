@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/output-root-first-then-repo-root.md
+    folder: docs/explanation/automation
+    name: output-root-first-then-repo-root
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9387b36c0e27"
     adrs:

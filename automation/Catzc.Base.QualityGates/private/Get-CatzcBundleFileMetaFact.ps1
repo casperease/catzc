@@ -2,7 +2,7 @@
 ---
 catzc:
   derived:
-    path: automation/Catzc.Base.QualityGates/private/Get-BundleFileMetaFact.ps1
+    path: automation/Catzc.Base.QualityGates/private/Get-CatzcBundleFileMetaFact.ps1
     kind: function
     subkind: fact
     language: powershell
@@ -13,7 +13,7 @@ catzc:
     bundle: azure
     visibility: private
     relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-BundleFileMetaFact.Tests.ps1
+      test: automation/Catzc.Base.QualityGates/tests/Get-CatzcBundleFileMetaFact.Tests.ps1
     adrs:
       - ADR-PRIN-CONFIG#1
   config:
@@ -34,7 +34,7 @@ catzc:
 ---
 #>
 
-function Get-BundleFileMetaFact {
+function Get-CatzcBundleFileMetaFact {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Every meta-kind processor is called with the same State, Path and Kind; this kind reads the bundle by path alone')]
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

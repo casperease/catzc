@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/configuration/one-reader-one-cache-per-session.md
+    folder: docs/explanation/configuration
+    name: one-reader-one-cache-per-session
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: c2da6a7a9882
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/caf/billing-and-tenant.md
+    folder: docs/adr/azure/caf
+    name: billing-and-tenant
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "43969d556544"
     defines:

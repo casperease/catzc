@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
+    folder: docs/explanation/repository
+    name: import-materialises-two-gates-name-the-fix
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7e60f250283d"
     adrs:

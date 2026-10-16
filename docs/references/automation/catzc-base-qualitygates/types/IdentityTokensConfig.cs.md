@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md
+    folder: docs/references/automation/catzc-base-qualitygates/types
+    name: identity-tokens-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8858db31548b"

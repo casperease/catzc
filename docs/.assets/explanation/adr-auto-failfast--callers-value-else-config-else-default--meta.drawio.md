@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-failfast-callers-value-else-config-else-default-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1be7d8fdbd51"
     links:

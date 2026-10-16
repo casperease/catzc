@@ -2,12 +2,14 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/migrate_dark.py"
+#     folder: drawio
+#     name: migrate-dark
+#     filetype: py
 #     kind: script
 #     language: python
-#     filetype: py
 #     track: ".claude"
 #     module: ".claude"
-#     moduletype: settings-module
+#     moduletype: settings
 # ---
 
 # cspell:ignore mxfile pnginfo IEND FAFAFA

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/principles/one-living-version.md
+    folder: docs/adr/principles
+    name: one-living-version
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: c6a66d2338ab
     defines:

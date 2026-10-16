@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/vnet-peering.bicep.md
+    folder: docs/references/infrastructure/modules
+    name: vnet-peering-bicep
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f5934d1be60a

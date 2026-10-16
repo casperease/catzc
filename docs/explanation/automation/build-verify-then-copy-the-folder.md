@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/build-verify-then-copy-the-folder.md
+    folder: docs/explanation/automation
+    name: build-verify-then-copy-the-folder
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7c07bf7b6e67"
     adrs:

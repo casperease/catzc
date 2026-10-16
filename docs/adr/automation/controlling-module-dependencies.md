@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/controlling-module-dependencies.md
+    folder: docs/adr/automation
+    name: controlling-module-dependencies
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d7e079d24e76
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/tests/AnnounceStateChange.Tests.ps1.md
+    folder: docs/references/automation/scriptanalyzer/tests
+    name: announce-state-change-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f8f78b6e5a3e

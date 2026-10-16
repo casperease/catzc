@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md
+    folder: docs/references/automation/catzc-base-qualitygates/types
+    name: engine-set-check-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "0ff811458b2f"

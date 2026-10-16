@@ -13,12 +13,14 @@ model: sonnet
 catzc:
   derived:
     path: ".claude/agents/session-cost-audit.md"
+    folder: agents
+    name: session-cost-audit
+    filetype: md
     kind: agent
     language: markdown
-    filetype: md
     track: ".claude"
     module: ".claude"
-    moduletype: settings-module
+    moduletype: settings
     body_sha: "7344db67cc8b"
     adrs:
       - ADR-AUTO-FAILFAST#7

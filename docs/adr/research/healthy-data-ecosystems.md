@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/healthy-data-ecosystems.md
+    folder: docs/adr/research
+    name: healthy-data-ecosystems
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: a3b588f4a9ca
     defines:

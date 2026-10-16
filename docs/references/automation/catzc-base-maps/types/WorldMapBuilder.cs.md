@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md
+    folder: docs/references/automation/catzc-base-maps/types
+    name: world-map-builder-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "407db4d461eb"

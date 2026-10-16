@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/ParameterDesign.psm1
+    folder: automation/.scriptanalyzer
+    name: parameter-design
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/streamlining-change-approval.md
+    folder: docs/adr/research
+    name: streamlining-change-approval
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: ab4ed1a741a8
     defines:

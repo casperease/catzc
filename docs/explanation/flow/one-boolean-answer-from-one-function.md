@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/one-boolean-answer-from-one-function.md
+    folder: docs/explanation/flow
+    name: one-boolean-answer-from-one-function
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6e9bebd9acdc"
     adrs:

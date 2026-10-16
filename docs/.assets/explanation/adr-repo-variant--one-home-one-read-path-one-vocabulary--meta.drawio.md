@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-repo-variant-one-home-one-read-path-one-vocabulary-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: d07547ca561f
     links:

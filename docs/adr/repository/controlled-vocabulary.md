@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/controlled-vocabulary.md
+    folder: docs/adr/repository
+    name: controlled-vocabulary
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: e303a0153364
     defines:

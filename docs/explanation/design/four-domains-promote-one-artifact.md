@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/four-domains-promote-one-artifact.md
+    folder: docs/explanation/design
+    name: four-domains-promote-one-artifact
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: dfa7b99511ce
     adrs:

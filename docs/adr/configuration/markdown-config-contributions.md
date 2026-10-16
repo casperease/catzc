@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/configuration/markdown-config-contributions.md
+    folder: docs/adr/configuration
+    name: markdown-config-contributions
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: e8192d50ae2b
     defines:

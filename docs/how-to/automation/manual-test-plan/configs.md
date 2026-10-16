@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/configs.md
+    folder: docs/how-to/automation/manual-test-plan
+    name: configs
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7f55509dde8a"
     adrs:

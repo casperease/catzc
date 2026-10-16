@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/catzc-internal-importer.md
+    folder: docs/references/automation/internal
+    name: catzc-internal-importer
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: e9a5cd44ce14
     adrs:

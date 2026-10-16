@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/protected-globs.md
+    folder: docs/adr/repository
+    name: protected-globs
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b9035752a1df
     defines:

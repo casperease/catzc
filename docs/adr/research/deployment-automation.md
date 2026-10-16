@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/deployment-automation.md
+    folder: docs/adr/research
+    name: deployment-automation
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "179a9dc40c85"
     defines:

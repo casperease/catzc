@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/a-merge-runs-cd-to-prod.md
+    folder: docs/explanation/flow
+    name: a-merge-runs-cd-to-prod
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1c55ad0ec400"
     adrs:

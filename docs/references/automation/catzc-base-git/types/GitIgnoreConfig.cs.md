@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md
+    folder: docs/references/automation/catzc-base-git/types
+    name: git-ignore-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "27428b771eb8"

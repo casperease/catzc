@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/where-code-loads-from-decides-the-mode.md
+    folder: docs/explanation/design
+    name: where-code-loads-from-decides-the-mode
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: c603138d451b
     adrs:

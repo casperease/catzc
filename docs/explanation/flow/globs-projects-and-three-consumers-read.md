@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/globs-projects-and-three-consumers-read.md
+    folder: docs/explanation/flow
+    name: globs-projects-and-three-consumers-read
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: ba817bcb8f65
     adrs:

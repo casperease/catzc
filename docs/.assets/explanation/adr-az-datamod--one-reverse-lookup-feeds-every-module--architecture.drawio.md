@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-datamod-one-reverse-lookup-feeds-every-module-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9bf82ab7df6b"
     links:

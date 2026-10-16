@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-docs/tests
+    name: get-cats-modules-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d2c30fe8c3d6

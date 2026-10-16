@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-depm-two-sections-unioned-into-one-allow-set-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "71d34610a4b4"
     adrs:

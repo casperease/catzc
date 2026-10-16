@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/pwsh-engine.md
+    folder: docs/adr/pwsh
+    name: pwsh-engine
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b8e8750cdd85
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/use-proper-package-managers.md
+    folder: docs/adr/automation
+    name: use-proper-package-managers
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7deec46cbb66"
     defines:

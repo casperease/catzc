@@ -14,38 +14,38 @@
 # ---
 
 module_types:
-  pwsh-folder-module:
+  pwsh-folder:
     definition: A PowerShell module that is a folder of function files under ex. automation, named by the folder.
     places:
       - { root: automation, name: folder }
       - { root: automation/.internal, name: folder, prefix: Catzc.Internal. }
-  pwsh-psm1-module:
+  pwsh-psm1:
     definition: A PowerShell module that is one psm1 file under automation/.internal, named by the file.
     places:
       - { root: automation/.internal, name: file, extension: psm1 }
-  python-module:
+  python:
     definition: A Python project, named by its track folder.
     places:
       - { root: python, name: root }
-  go-module:
+  go:
     definition: A Go project, named by its track folder.
     places:
       - { root: go, name: root }
-  bash-module:
+  bash:
     definition: A Bash project, named by its track folder.
     places:
       - { root: bash, name: root }
-  bicep-module:
+  bicep:
     definition: A Bicep template folder, or one reusable Bicep module file, under infrastructure.
     places:
       - { root: infrastructure/templates, name: folder }
       - { root: infrastructure/modules, name: file, extension: bicep }
-  pipeline-module:
+  pipeline:
     definition: A set of pipeline definitions, named by the folder that holds them.
     places:
       - { root: .github/workflows, name: root }
       - { root: pipelines, name: root }
-  settings-module:
+  settings:
     definition: The settings of a tool the repository configures, named by the tool's dot-folder.
     places:
       - { root: .claude, name: root }

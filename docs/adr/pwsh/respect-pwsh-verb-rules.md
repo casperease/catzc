@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/respect-pwsh-verb-rules.md
+    folder: docs/adr/pwsh
+    name: respect-pwsh-verb-rules
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "06c7a83a306a"
     defines:

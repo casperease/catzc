@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/four-gates-hold-the-session-rule.md
+    folder: docs/explanation/azure
+    name: four-gates-hold-the-session-rule
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: e5aa0b7c93ca
     adrs:

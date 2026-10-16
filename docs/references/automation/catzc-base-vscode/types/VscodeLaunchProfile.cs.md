@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/types/VscodeLaunchProfile.cs.md
+    folder: docs/references/automation/catzc-base-vscode/types
+    name: vscode-launch-profile-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "0b7ac8e9c6e1"

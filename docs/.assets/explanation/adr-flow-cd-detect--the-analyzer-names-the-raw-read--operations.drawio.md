@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-detect-the-analyzer-names-the-raw-read-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4b09a878c2b8"
     links:

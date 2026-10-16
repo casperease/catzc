@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/adr-registry.md
+    folder: docs/how-to/automation/manual-test-plan
+    name: adr-registry
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9130e4758ce4"
     links:

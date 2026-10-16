@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md
+    folder: docs/references/automation/scriptanalyzer
+    name: no-for-each-object-control-flow-psm1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: bd87b0cb6bd8

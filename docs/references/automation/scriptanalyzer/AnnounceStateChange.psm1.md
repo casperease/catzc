@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md
+    folder: docs/references/automation/scriptanalyzer
+    name: announce-state-change-psm1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b09d0ac4a344

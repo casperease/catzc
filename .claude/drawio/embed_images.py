@@ -2,12 +2,14 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/embed_images.py"
+#     folder: drawio
+#     name: embed-images
+#     filetype: py
 #     kind: script
 #     language: python
-#     filetype: py
 #     track: ".claude"
 #     module: ".claude"
-#     moduletype: settings-module
+#     moduletype: settings
 # ---
 
 """Embed PNG files into a draw.io model's image cells, as data URIs.

@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoAutomaticVariableMisuse.psm1
+    folder: automation/.scriptanalyzer
+    name: no-automatic-variable-misuse
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md

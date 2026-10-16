@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/azure-network-model.md
+    folder: docs/adr/azure
+    name: azure-network-model
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d2049d5d7120
     defines:

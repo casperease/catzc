@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/internal-asset-dependencies.md
+    folder: docs/adr/automation
+    name: internal-asset-dependencies
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7aba34771d45"
     defines:

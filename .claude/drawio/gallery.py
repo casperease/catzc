@@ -2,12 +2,14 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/gallery.py"
+#     folder: drawio
+#     name: gallery
+#     filetype: py
 #     kind: script
 #     language: python
-#     filetype: py
 #     track: ".claude"
 #     module: ".claude"
-#     moduletype: settings-module
+#     moduletype: settings
 # ---
 
 # cspell:ignore minimaps figcaption minmax

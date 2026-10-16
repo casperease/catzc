@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/flow/pipeline-detection.md
+    folder: docs/adr/flow
+    name: pipeline-detection
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0934c24a5d75"
     defines:

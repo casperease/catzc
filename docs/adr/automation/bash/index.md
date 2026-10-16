@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/bash/index.md
+    folder: docs/adr/automation/bash
+    name: index
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "22ad4883d6b9"
     links:

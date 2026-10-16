@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/caf/network-connectivity.md
+    folder: docs/adr/azure/caf
+    name: network-connectivity
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1bb977ab38e6"
     defines:

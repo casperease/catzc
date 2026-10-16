@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/guard-and-policies-by-command.md
+    folder: docs/explanation/design
+    name: guard-and-policies-by-command
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: b79c1fbb598e
     adrs:

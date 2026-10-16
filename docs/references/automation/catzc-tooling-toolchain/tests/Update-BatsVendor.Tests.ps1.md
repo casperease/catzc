@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md
+    folder: docs/references/automation/catzc-tooling-toolchain/tests
+    name: update-bats-vendor-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6aff4baacf3c"

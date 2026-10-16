@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-life-code-wires-only-the-first-rungs-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: f8d68fa2cf78
     adrs:

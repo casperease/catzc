@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-track-one-unit-one-pipeline-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "395e9272a0b7"
     adrs:

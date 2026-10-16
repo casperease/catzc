@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/add-a-cli-tool.md
+    folder: docs/how-to/getting-started/automation
+    name: add-a-cli-tool
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7e3a289fb0e4"
     adrs:

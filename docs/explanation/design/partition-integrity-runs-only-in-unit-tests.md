@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
+    folder: docs/explanation/design
+    name: partition-integrity-runs-only-in-unit-tests
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5591a605f706"
     adrs:

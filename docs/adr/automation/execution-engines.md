@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/execution-engines.md
+    folder: docs/adr/automation
+    name: execution-engines
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9f2c295bbc83"
     defines:

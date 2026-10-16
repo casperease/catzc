@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/dora/index.md
+    folder: docs/references/dora
+    name: index
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3cfd89b51712"
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md
+    folder: docs/references/automation/catzc-azure-firewall
+    name: convert-firewall-csv-to-yaml-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: aef1ff000e95

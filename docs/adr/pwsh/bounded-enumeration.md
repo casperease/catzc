@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/bounded-enumeration.md
+    folder: docs/adr/pwsh
+    name: bounded-enumeration
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b0131730897a
     defines:

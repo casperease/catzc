@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/what-gates-each-bundle-stage.md
+    folder: docs/explanation/automation
+    name: what-gates-each-bundle-stage
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "72ee88959e72"
     adrs:

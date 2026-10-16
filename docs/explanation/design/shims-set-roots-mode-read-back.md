@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/shims-set-roots-mode-read-back.md
+    folder: docs/explanation/design
+    name: shims-set-roots-mode-read-back
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0ee78f503e58"
     adrs:

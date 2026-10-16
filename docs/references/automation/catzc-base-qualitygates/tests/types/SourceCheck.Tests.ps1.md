@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/types/SourceCheck.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-qualitygates/tests/types
+    name: source-check-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d8e22f2b444a

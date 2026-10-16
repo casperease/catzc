@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1
+    folder: automation/.scriptanalyzer
+    name: test-analyzed-file-is-test
+    filetype: ps1
     kind: analyzer-rule
     language: powershell
-    filetype: ps1
     track: automation
   config:
     synopsis: Whether the code under analysis is a Pester test file — the one scope test the custom checks share.

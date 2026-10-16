@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/CLAUDE.md
+    folder: docs/references/infrastructure
+    name: claude
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "056458e98539"
     links:

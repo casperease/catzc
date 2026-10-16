@@ -10,12 +10,14 @@ tools: Agent, Bash, Read, Glob, Grep, Write, Edit
 catzc:
   derived:
     path: ".claude/agents/drawio-diagram-waves.md"
+    folder: agents
+    name: drawio-diagram-waves
+    filetype: md
     kind: agent
     language: markdown
-    filetype: md
     track: ".claude"
     module: ".claude"
-    moduletype: settings-module
+    moduletype: settings
     body_sha: "3c31582376b4"
     adrs:
       - ADR-DSGN-VISUAL#4

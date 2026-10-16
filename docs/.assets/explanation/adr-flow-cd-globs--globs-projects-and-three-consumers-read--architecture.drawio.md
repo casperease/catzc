@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-globs-projects-and-three-consumers-read-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8e52d2fa68f4"
     links:

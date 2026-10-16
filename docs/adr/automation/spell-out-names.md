@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/spell-out-names.md
+    folder: docs/adr/automation
+    name: spell-out-names
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9a5905f33231"
     defines:

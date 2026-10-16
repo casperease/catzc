@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Select-RuleTaggedFiles.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-qualitygates/tests
+    name: select-rule-tagged-files-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d574d4863133

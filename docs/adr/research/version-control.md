@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/version-control.md
+    folder: docs/adr/research
+    name: version-control
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "018c90c9fb6e"
     defines:

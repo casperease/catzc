@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/console-output-matters.md
+    folder: docs/adr/automation
+    name: console-output-matters
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "62369ae583c9"
     defines:

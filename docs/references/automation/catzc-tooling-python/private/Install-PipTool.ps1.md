@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md
+    folder: docs/references/automation/catzc-tooling-python/private
+    name: install-pip-tool-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e0c31651f0ea

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/tests/Get-AutoControlledGlobs.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-git/tests
+    name: get-auto-controlled-globs-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6f452770e0e3"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
+    folder: docs/references/automation/catzc-tooling-toolchain
+    name: install-dotnet-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "553b4f4cb70e"

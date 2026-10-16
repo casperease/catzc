@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-datamod-coordinate-resolved-file-by-file-at-discovery-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: ccd45c8651f3
     links:

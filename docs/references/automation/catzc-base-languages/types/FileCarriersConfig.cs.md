@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/FileCarriersConfig.cs.md
+    folder: docs/references/automation/catzc-base-languages/types
+    name: file-carriers-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "4c24139142ab"

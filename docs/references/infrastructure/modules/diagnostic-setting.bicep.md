@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/diagnostic-setting.bicep.md
+    folder: docs/references/infrastructure/modules
+    name: diagnostic-setting-bicep
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d3aa109a893d

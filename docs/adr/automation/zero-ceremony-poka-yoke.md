@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/zero-ceremony-poka-yoke.md
+    folder: docs/adr/automation
+    name: zero-ceremony-poka-yoke
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "203576ad0251"
     defines:

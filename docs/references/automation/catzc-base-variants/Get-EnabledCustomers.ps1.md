@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md
+    folder: docs/references/automation/catzc-base-variants
+    name: get-enabled-customers-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8a6b6e61c6de"

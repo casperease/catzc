@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/test-harness.md
+    folder: docs/how-to/automation/manual-test-plan
+    name: test-harness
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "405dd3ce034b"
     adrs:

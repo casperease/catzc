@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates.md
+    folder: docs/references/automation
+    name: catzc-base-qualitygates
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9f8a3f50e4a6"
     links:

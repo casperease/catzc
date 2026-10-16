@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/types-check-forms-review-checks-crossers.md
+    folder: docs/explanation/automation
+    name: types-check-forms-review-checks-crossers
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: b0cbf15d555a
     adrs:

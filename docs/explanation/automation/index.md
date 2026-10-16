@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/index.md
+    folder: docs/explanation/automation
+    name: index
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "483f44836461"
     links:

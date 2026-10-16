@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md
+    folder: docs/references/automation/catzc-azure-templates/tests
+    name: build-bicep-integrity-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "404a7b2eb747"

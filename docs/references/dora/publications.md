@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/dora/publications.md
+    folder: docs/references/dora
+    name: publications
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: cf8d14cd3095
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/principles/reduce-variability.md
+    folder: docs/adr/principles
+    name: reduce-variability
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6c7182f0738c"
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
+    folder: docs/explanation/flow
+    name: stop-only-on-false-everything-else-proceeds
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4eb015514f04"
     adrs:

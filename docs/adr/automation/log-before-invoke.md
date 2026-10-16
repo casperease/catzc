@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/log-before-invoke.md
+    folder: docs/adr/automation
+    name: log-before-invoke
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2c0702674ab9"
     defines:

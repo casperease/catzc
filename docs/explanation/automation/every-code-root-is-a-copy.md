@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/every-code-root-is-a-copy.md
+    folder: docs/explanation/automation
+    name: every-code-root-is-a-copy
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "746c77c76a50"
     adrs:

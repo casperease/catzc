@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/CatzcRules.psm1
+    folder: automation/.scriptanalyzer
+    name: catzc-rules
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/CatzcRules.psm1.md

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/each-pipeline-shape-runs-a-stretch-of-the-ladder.md
+    folder: docs/explanation/design
+    name: each-pipeline-shape-runs-a-stretch-of-the-ladder
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: cebebf5daac9
     adrs:

@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoScriptRootAnchor.psm1
+    folder: automation/.scriptanalyzer
+    name: no-script-root-anchor
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoScriptRootAnchor.psm1.md

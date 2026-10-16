@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md
+    folder: docs/references/automation/catzc-azure-templates/types
+    name: bicep-deployment-plan-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: be996c2a037b

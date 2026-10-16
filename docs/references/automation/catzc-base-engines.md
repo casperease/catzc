@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-engines.md
+    folder: docs/references/automation
+    name: catzc-base-engines
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1b597cfd377d"
     links:

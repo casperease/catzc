@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/a-declared-allow-list-of-layers.md
+    folder: docs/explanation/automation
+    name: a-declared-allow-list-of-layers
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "30924884b291"
     adrs:

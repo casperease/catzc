@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/flow/durable-sha-globs.md
+    folder: docs/adr/flow
+    name: durable-sha-globs
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: c6e0e1792463
     defines:

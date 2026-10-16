@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/design/visual-design.md
+    folder: docs/adr/design
+    name: visual-design
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9af99e4e5cbf"
     defines:

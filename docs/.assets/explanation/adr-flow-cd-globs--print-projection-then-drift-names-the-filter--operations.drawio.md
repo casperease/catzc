@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-print-projection-then-drift-names-the-filter-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5d810ac1cc08"
     links:

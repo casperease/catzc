@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/same-deploy-bicep-on-both-sides.md
+    folder: docs/explanation/design
+    name: same-deploy-bicep-on-both-sides
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: ea64b39cbb52
     adrs:

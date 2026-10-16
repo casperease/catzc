@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/python/index.md
+    folder: docs/adr/automation/python
+    name: index
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: daf24257c517
     links:

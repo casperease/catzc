@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/sensible-defaults.md
+    folder: docs/adr/automation
+    name: sensible-defaults
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d10e7f217e23
     defines:

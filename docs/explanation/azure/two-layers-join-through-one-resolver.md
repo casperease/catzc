@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/two-layers-join-through-one-resolver.md
+    folder: docs/explanation/azure
+    name: two-layers-join-through-one-resolver
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0b8ebf5deb43"
     adrs:

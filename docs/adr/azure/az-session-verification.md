@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/az-session-verification.md
+    folder: docs/adr/azure
+    name: az-session-verification
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b86a677eda72
     defines:

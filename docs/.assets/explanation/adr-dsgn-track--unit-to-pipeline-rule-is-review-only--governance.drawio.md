@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-track-unit-to-pipeline-rule-is-review-only-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: b01568f3d92e
     adrs:

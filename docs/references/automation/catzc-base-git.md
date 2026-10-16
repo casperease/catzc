@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git.md
+    folder: docs/references/automation
+    name: catzc-base-git
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: acb4f4fa1504
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/configs/gitignore.yml.md
+    folder: docs/references/automation/catzc-base-git/configs
+    name: gitignore-yml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "9b7ff39f1571"

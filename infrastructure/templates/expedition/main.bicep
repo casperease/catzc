@@ -2,12 +2,13 @@
 // catzc:
 //   derived:
 //     path: infrastructure/templates/expedition/main.bicep
+//     name: main
+//     filetype: bicep
 //     kind: template
 //     language: bicep
-//     filetype: bicep
 //     track: infrastructure
 //     module: expedition
-//     moduletype: bicep-module
+//     moduletype: bicep
 //     relatives:
 //       page: docs/references/infrastructure/templates/expedition/main.bicep.md
 // ---

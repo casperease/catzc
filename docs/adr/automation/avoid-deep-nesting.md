@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/avoid-deep-nesting.md
+    folder: docs/adr/automation
+    name: avoid-deep-nesting
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "35cf86a64cd4"
     defines:

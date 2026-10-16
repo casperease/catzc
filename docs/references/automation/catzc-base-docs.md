@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs.md
+    folder: docs/references/automation
+    name: catzc-base-docs
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: eaf719a948db
     adrs:

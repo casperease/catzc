@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/design/thin-platforms.md
+    folder: docs/adr/design
+    name: thin-platforms
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "773f2f646c1a"
     defines:

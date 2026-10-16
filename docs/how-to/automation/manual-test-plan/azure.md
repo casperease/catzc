@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/azure.md
+    folder: docs/how-to/automation/manual-test-plan
+    name: azure
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "14551fbb8311"
     adrs:

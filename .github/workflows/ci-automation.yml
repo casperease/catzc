@@ -2,12 +2,13 @@
 # catzc:
 #   derived:
 #     path: ".github/workflows/ci-automation.yml"
+#     name: ci-automation
+#     filetype: yml
 #     kind: pipeline
 #     language: yaml
-#     filetype: yml
 #     track: ".github"
 #     module: workflows
-#     moduletype: pipeline-module
+#     moduletype: pipeline
 # ---
 
 name: CI

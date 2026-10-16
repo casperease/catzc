@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
+    folder: docs/explanation/automation
+    name: two-sections-unioned-into-one-allow-set
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: be83854e0e86
     adrs:

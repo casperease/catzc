@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md
+    folder: docs/.assets/references/automation/catzc-azure-cli
+    name: az-cli-test-assert-share-one-state-drawio-verify
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4a8652767fed"
     adrs:

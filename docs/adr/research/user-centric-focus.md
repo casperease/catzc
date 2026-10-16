@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/user-centric-focus.md
+    folder: docs/adr/research
+    name: user-centric-focus
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: f9bb86787adb
     defines:

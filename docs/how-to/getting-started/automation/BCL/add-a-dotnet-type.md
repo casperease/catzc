@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
+    folder: docs/how-to/getting-started/automation/BCL
+    name: add-a-dotnet-type
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: d7792a0fc3a0
     adrs:

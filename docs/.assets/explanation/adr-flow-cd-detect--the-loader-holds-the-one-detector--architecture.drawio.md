@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-detect-the-loader-holds-the-one-detector-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: e6e91ae8e081
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/AzureCustomer.cs.md
+    folder: docs/references/automation/catzc-azure/types
+    name: azure-customer-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "65a0c8ffdf4d"

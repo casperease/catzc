@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/generated-readmes.md
+    folder: docs/adr/repository
+    name: generated-readmes
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: a0b4332cbb1e
     defines:

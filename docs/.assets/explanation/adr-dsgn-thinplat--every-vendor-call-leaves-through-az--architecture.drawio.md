@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-thinplat-every-vendor-call-leaves-through-az-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "71b2d201b12f"
     adrs:

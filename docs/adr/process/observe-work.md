@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/process/observe-work.md
+    folder: docs/adr/process
+    name: observe-work
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "352ee47a842a"
     defines:

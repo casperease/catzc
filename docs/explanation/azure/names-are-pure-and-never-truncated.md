@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/names-are-pure-and-never-truncated.md
+    folder: docs/explanation/azure
+    name: names-are-pure-and-never-truncated
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: fcb272ff0358
     adrs:

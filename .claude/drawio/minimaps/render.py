@@ -2,12 +2,14 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/minimaps/render.py"
+#     folder: drawio/minimaps
+#     name: render
+#     filetype: py
 #     kind: script
 #     language: python
-#     filetype: py
 #     track: ".claude"
 #     module: ".claude"
-#     moduletype: settings-module
+#     moduletype: settings
 # ---
 
 # cspell:ignore minimaps segoeui segoeuib seguisb textlength squarify Bruls rects cwid gfiles gmap gname maxw tname

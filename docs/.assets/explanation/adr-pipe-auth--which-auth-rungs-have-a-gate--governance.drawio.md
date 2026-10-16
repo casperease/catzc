@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-pipe-auth-which-auth-rungs-have-a-gate-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4dc5921ea701"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md
+    folder: docs/references/automation/scriptanalyzer
+    name: parameter-design-psm1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8960d512cee8"

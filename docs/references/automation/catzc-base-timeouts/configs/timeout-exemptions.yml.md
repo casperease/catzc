@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/configs/timeout-exemptions.yml.md
+    folder: docs/references/automation/catzc-base-timeouts/configs
+    name: timeout-exemptions-yml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8d3f11adaf5a"

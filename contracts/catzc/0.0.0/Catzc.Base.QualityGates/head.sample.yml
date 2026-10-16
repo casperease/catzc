@@ -5,14 +5,15 @@
 catzc:
   derived:
     path: automation/Catzc.Widget/Get-Gadget.ps1
+    name: get-gadget
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Widget
-    moduletype: pwsh-folder-module
-    bundle: minimal
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
     visibility: public
     relatives:
       test: automation/Catzc.Widget/tests/Get-Gadget.Tests.ps1

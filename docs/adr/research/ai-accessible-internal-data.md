@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/ai-accessible-internal-data.md
+    folder: docs/adr/research
+    name: ai-accessible-internal-data
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: a087c76d9705
     defines:

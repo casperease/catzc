@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/bash/bash-test-artifacts.md
+    folder: docs/adr/automation/bash
+    name: bash-test-artifacts
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "21cff11877fd"
     defines:

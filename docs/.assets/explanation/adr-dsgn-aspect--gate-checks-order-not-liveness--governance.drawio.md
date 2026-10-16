@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-aspect-gate-checks-order-not-liveness-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: a3332eead5c3
     links:

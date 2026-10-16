@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/csharp-types.md
+    folder: docs/how-to/automation/manual-test-plan
+    name: csharp-types
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6880bc8382a3"
     links:

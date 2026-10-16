@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/assert-idioms.md
+    folder: docs/adr/pwsh
+    name: assert-idioms
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "780f878a5b15"
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-depm-a-declared-allow-list-of-layers-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "240f57bb1bc5"
     adrs:

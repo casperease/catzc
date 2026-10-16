@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-repo-rootcfg-import-materialises-two-gates-name-the-fix-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "632b2688cc51"
     links:

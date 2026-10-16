@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md
+    folder: docs/references/automation/catzc-base-qualitygates
+    name: export-spelling-triage-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e6fad7eb5a6c

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md
+    folder: docs/references/automation/catzc-base-docs
+    name: build-git-keep-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: fc62cc6dc0b6

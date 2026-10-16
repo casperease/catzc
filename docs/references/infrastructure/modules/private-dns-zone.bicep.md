@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/private-dns-zone.bicep.md
+    folder: docs/references/infrastructure/modules
+    name: private-dns-zone-bicep
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a9644e681721

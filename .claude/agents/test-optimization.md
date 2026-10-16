@@ -13,12 +13,14 @@ tools: Bash, Read, Glob, Grep, Write, Edit
 catzc:
   derived:
     path: ".claude/agents/test-optimization.md"
+    folder: agents
+    name: test-optimization
+    filetype: md
     kind: agent
     language: markdown
-    filetype: md
     track: ".claude"
     module: ".claude"
-    moduletype: settings-module
+    moduletype: settings
     body_sha: "9665e0853812"
     adrs:
       - ADR-AUTO-FAILFAST#7

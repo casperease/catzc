@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-path-output-root-first-then-repo-root-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "629338942465"
     links:

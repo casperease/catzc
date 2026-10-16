@@ -68,20 +68,20 @@ Describe 'Get-PathModule' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
 
 Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
     It 'places a file in the module, and the module type, its folder names' -ForEach @(
-        @{ Path = 'automation/Catzc.Base.Variants/Get-Track.ps1'; Name = 'Catzc.Base.Variants'; Type = 'pwsh-folder-module' }
-        @{ Path = 'automation/.internal/Catzc.Internal.Types.psm1'; Name = 'Catzc.Internal.Types'; Type = 'pwsh-psm1-module' }
-        @{ Path = 'automation/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1'; Name = 'Catzc.Internal.Tests'; Type = 'pwsh-folder-module' }
-        @{ Path = 'automation/.internal/assets/obj/Debug/x.cs'; Name = 'Catzc.Internal.Assets'; Type = 'pwsh-folder-module' }
-        @{ Path = '.claude/agents/catzc-worker.md'; Name = '.claude'; Type = 'settings-module' }
-        @{ Path = '.github/README.md'; Name = '.github'; Type = 'settings-module' }
-        @{ Path = '.cspell/adr.txt'; Name = '.cspell'; Type = 'settings-module' }
-        @{ Path = '.github/workflows/ci-automation.yml'; Name = 'workflows'; Type = 'pipeline-module' }
-        @{ Path = 'pipelines/cd-apex.yaml'; Name = 'pipelines'; Type = 'pipeline-module' }
-        @{ Path = 'python/tests/catzc-base-repository/test_repository.py'; Name = 'python'; Type = 'python-module' }
-        @{ Path = 'go/tests/catzc-base-repository/repository_test.go'; Name = 'go'; Type = 'go-module' }
-        @{ Path = 'bash/tests/catzc-base-repository/repository.bats'; Name = 'bash'; Type = 'bash-module' }
-        @{ Path = 'infrastructure/templates/sample/main.bicep'; Name = 'sample'; Type = 'bicep-module' }
-        @{ Path = 'infrastructure/modules/storage.bicep'; Name = 'storage'; Type = 'bicep-module' }
+        @{ Path = 'automation/Catzc.Base.Variants/Get-Track.ps1'; Name = 'Catzc.Base.Variants'; Type = 'pwsh-folder' }
+        @{ Path = 'automation/.internal/Catzc.Internal.Types.psm1'; Name = 'Catzc.Internal.Types'; Type = 'pwsh-psm1' }
+        @{ Path = 'automation/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1'; Name = 'Catzc.Internal.Tests'; Type = 'pwsh-folder' }
+        @{ Path = 'automation/.internal/assets/obj/Debug/x.cs'; Name = 'Catzc.Internal.Assets'; Type = 'pwsh-folder' }
+        @{ Path = '.claude/agents/catzc-worker.md'; Name = '.claude'; Type = 'settings' }
+        @{ Path = '.github/README.md'; Name = '.github'; Type = 'settings' }
+        @{ Path = '.cspell/adr.txt'; Name = '.cspell'; Type = 'settings' }
+        @{ Path = '.github/workflows/ci-automation.yml'; Name = 'workflows'; Type = 'pipeline' }
+        @{ Path = 'pipelines/cd-apex.yaml'; Name = 'pipelines'; Type = 'pipeline' }
+        @{ Path = 'python/tests/catzc-base-repository/test_repository.py'; Name = 'python'; Type = 'python' }
+        @{ Path = 'go/tests/catzc-base-repository/repository_test.go'; Name = 'go'; Type = 'go' }
+        @{ Path = 'bash/tests/catzc-base-repository/repository.bats'; Name = 'bash'; Type = 'bash' }
+        @{ Path = 'infrastructure/templates/sample/main.bicep'; Name = 'sample'; Type = 'bicep' }
+        @{ Path = 'infrastructure/modules/storage.bicep'; Name = 'storage'; Type = 'bicep' }
     ) {
         $module = Get-PathModule $Path
         $module.name | Should -BeExactly $Name

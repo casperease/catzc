@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-runmode-which-run-mode-rules-have-a-gate-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "164775aa3ef5"
     adrs:

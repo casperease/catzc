@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-pipe-auth-configured-credential-proves-its-org-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "136cc22ac14c"
     adrs:

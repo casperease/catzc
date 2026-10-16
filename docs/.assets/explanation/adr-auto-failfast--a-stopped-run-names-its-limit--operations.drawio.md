@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-failfast-a-stopped-run-names-its-limit-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "94cd0541af62"
     links:

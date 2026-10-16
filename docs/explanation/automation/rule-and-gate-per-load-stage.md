@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/rule-and-gate-per-load-stage.md
+    folder: docs/explanation/automation
+    name: rule-and-gate-per-load-stage
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: a8f85abfe3b2
     adrs:

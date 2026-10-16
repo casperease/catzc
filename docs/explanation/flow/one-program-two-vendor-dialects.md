@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/one-program-two-vendor-dialects.md
+    folder: docs/explanation/flow
+    name: one-program-two-vendor-dialects
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: db61cae23740
     adrs:

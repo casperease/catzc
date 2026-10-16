@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-docs/tests
+    name: build-readme-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "40032377cc9d"

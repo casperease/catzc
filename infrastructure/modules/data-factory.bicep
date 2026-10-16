@@ -2,13 +2,14 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/data-factory.bicep
+//     name: data-factory
+//     filetype: bicep
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filetype: bicep
 //     track: infrastructure
 //     module: data-factory
-//     moduletype: bicep-module
+//     moduletype: bicep
 // ---
 
 @description('Data Factory name (3-24 lowercase alphanumeric, globally unique).')

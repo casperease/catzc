@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/gate-checks-order-not-liveness.md
+    folder: docs/explanation/design
+    name: gate-checks-order-not-liveness
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8bb9e4fa8e48"
     adrs:

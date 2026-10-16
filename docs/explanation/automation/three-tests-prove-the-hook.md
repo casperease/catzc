@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/three-tests-prove-the-hook.md
+    folder: docs/explanation/automation
+    name: three-tests-prove-the-hook
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1a89156b60a6"
     adrs:

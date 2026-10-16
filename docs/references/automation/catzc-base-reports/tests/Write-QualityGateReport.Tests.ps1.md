@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-reports/tests
+    name: write-quality-gate-report-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "901c41229511"

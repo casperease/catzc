@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md
+    folder: docs/references/automation/catzc-base-docs
+    name: test-adr-registry-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "4f587cd19f71"

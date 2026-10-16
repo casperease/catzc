@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/glyphs.drawio.md
+    folder: docs/.assets/explanation
+    name: glyphs-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9dcdf39c95c2"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/two-entries-feed-one-importer.md
+    folder: docs/explanation/automation
+    name: two-entries-feed-one-importer
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "52974b3a4619"
     adrs:

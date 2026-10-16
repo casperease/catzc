@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-datamod-pipeline-pins-devbox-picks-the-target-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6764f10936d7"
     links:

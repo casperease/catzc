@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/code-maintainability.md
+    folder: docs/adr/research
+    name: code-maintainability
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "226e53fa0afe"
     defines:

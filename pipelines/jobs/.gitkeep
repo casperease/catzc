@@ -6,7 +6,7 @@
 #     kind: other
 #     track: pipelines
 #     module: pipelines
-#     moduletype: pipeline-module
+#     moduletype: pipeline
 #     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1
 # ---
 

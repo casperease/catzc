@@ -2,12 +2,14 @@
 # catzc:
 #   derived:
 #     path: pipelines/extends/cd-customer.yaml
+#     folder: extends
+#     name: cd-customer
+#     filetype: yaml
 #     kind: pipeline-template
 #     language: pipeline-yaml
-#     filetype: yaml
 #     track: pipelines
 #     module: pipelines
-#     moduletype: pipeline-module
+#     moduletype: pipeline
 #     relatives:
 #       page: docs/references/pipelines/extends/cd-customer.yaml.md
 # ---

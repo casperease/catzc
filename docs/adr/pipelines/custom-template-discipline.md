@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pipelines/custom-template-discipline.md
+    folder: docs/adr/pipelines
+    name: custom-template-discipline
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "215f3b3c5d76"
     defines:

@@ -2,13 +2,15 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/expedition/configuration/test.yml
+#     folder: configuration
+#     name: test
+#     filetype: yml
 #     kind: template
 #     subkind: config
 #     language: yaml
-#     filetype: yml
 #     track: infrastructure
 #     module: expedition
-#     moduletype: bicep-module
+#     moduletype: bicep
 #     relatives:
 #       page: docs/references/infrastructure/templates/expedition/configuration/test.yml.md
 # ---

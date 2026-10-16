@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1
+    folder: automation/.scriptanalyzer/tests
+    name: no-raw-pipeline-detection-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1.md

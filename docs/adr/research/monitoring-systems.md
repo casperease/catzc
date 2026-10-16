@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/monitoring-systems.md
+    folder: docs/adr/research
+    name: monitoring-systems
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6298028e02bd"
     defines:

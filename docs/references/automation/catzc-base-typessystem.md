@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem.md
+    folder: docs/references/automation
+    name: catzc-base-typessystem
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: eeb3ed086f13
     adrs:

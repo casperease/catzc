@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/index.md
+    folder: docs/adr/pwsh
+    name: index
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: e7e62cc95be3
     links:

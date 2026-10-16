@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.verify.md
+    folder: docs/.assets/references/automation/catzc-base-qualitygates
+    name: test-automation-one-run-pipeline-drawio-verify
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: f33d8afc7bde
     adrs:

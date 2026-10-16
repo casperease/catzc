@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/add-a-deployable-unit.md
+    folder: docs/how-to/getting-started/automation
+    name: add-a-deployable-unit
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8cedc41c9bd5"
     links:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pipelines/pipeline-naming-and-placement.md
+    folder: docs/adr/pipelines
+    name: pipeline-naming-and-placement
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5dccdb8ff1e9"
     defines:

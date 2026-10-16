@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/what-keeps-the-platform-thin.md
+    folder: docs/explanation/design
+    name: what-keeps-the-platform-thin
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "03b1fe0ec1d7"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/one-folder-two-independent-readers.md
+    folder: docs/explanation/design
+    name: one-folder-two-independent-readers
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "42f43edabf19"
     adrs:

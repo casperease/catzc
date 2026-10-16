@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/waf/cost-optimization.md
+    folder: docs/adr/azure/waf
+    name: cost-optimization
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b885ae6df735
     defines:

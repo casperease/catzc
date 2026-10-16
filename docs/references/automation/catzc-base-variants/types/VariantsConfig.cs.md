@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md
+    folder: docs/references/automation/catzc-base-variants/types
+    name: variants-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "97ce2a4c3ad1"

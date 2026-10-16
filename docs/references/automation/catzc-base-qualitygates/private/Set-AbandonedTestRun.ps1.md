@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md
+    folder: docs/references/automation/catzc-base-qualitygates/private
+    name: set-abandoned-test-run-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: fdeda9fb8c79

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/configuration/module-config-loading.md
+    folder: docs/adr/configuration
+    name: module-config-loading
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "54ad5d90da9a"
     defines:

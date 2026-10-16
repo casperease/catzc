@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/cspell.md
+    folder: docs/references
+    name: cspell
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8d46afba173c"
     links:

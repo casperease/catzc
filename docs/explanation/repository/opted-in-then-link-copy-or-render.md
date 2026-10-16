@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/repository/opted-in-then-link-copy-or-render.md
+    folder: docs/explanation/repository
+    name: opted-in-then-link-copy-or-render
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2d4abe8ad11f"
     adrs:

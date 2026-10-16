@@ -2,12 +2,14 @@
 # catzc:
 #   derived:
 #     path: python/tests/catzc-base-repository/test_repository.py
+#     folder: tests/catzc-base-repository
+#     name: test-repository
+#     filetype: py
 #     kind: test
 #     language: python
-#     filetype: py
 #     track: python
 #     module: python
-#     moduletype: python-module
+#     moduletype: python
 # ---
 
 """Black-box tests of Catzc.Base.Repository.

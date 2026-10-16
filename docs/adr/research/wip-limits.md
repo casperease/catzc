@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/wip-limits.md
+    folder: docs/adr/research
+    name: wip-limits
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1e022637106f"
     defines:

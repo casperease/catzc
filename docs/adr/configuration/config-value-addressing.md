@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/configuration/config-value-addressing.md
+    folder: docs/adr/configuration
+    name: config-value-addressing
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0556ee64f476"
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md
+    folder: docs/references/automation/catzc-tooling-node
+    name: uninstall-node-js-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6bb2016d2353"

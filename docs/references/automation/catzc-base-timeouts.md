@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts.md
+    folder: docs/references/automation
+    name: catzc-base-timeouts
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: c9314955e75e
     links:

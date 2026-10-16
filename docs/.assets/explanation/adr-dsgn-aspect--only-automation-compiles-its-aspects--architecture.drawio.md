@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-aspect-only-automation-compiles-its-aspects-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: d67e1218359f
     links:

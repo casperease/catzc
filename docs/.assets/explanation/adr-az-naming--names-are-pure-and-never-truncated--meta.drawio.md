@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-naming-names-are-pure-and-never-truncated-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "192ccc156202"
     adrs:

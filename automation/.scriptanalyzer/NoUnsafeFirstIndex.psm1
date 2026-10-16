@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoUnsafeFirstIndex.psm1
+    folder: automation/.scriptanalyzer
+    name: no-unsafe-first-index
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoUnsafeFirstIndex.psm1.md

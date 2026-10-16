@@ -2,12 +2,13 @@
 # catzc:
 #   derived:
 #     path: pipelines/ci-automation-expected-failures.yaml
+#     name: ci-automation-expected-failures
+#     filetype: yaml
 #     kind: pipeline
 #     language: pipeline-yaml
-#     filetype: yaml
 #     track: pipelines
 #     module: pipelines
-#     moduletype: pipeline-module
+#     moduletype: pipeline
 #     relatives:
 #       page: docs/references/pipelines/ci-automation-expected-failures.yaml.md
 # ---

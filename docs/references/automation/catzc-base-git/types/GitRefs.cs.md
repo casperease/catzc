@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/types/GitRefs.cs.md
+    folder: docs/references/automation/catzc-base-git/types
+    name: git-refs-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6daa3ce5b8fd"

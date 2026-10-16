@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
+    folder: docs/explanation/design
+    name: deploy-and-integrate-share-only-the-topic
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: afde8913f925
     adrs:

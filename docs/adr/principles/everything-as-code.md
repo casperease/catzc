@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/principles/everything-as-code.md
+    folder: docs/adr/principles
+    name: everything-as-code
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "791634cbbe6b"
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/repository/three-gates-check-registry-drift-membership.md
+    folder: docs/explanation/repository
+    name: three-gates-check-registry-drift-membership
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "413a6f2fae83"
     adrs:

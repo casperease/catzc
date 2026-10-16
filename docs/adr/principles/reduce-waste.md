@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/principles/reduce-waste.md
+    folder: docs/adr/principles
+    name: reduce-waste
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "04f58188ca31"
     defines:

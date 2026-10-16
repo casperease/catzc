@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/module-system.md
+    folder: docs/how-to/automation/manual-test-plan
+    name: module-system
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: e7725350ff34
     adrs:

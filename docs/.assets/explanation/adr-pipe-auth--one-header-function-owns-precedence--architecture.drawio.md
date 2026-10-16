@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-pipe-auth-one-header-function-owns-precedence-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9f1128c9dab7"
     adrs:

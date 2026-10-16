@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/automatic-variable-pitfalls.md
+    folder: docs/adr/pwsh
+    name: automatic-variable-pitfalls
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6e7918d7cfad"
     defines:

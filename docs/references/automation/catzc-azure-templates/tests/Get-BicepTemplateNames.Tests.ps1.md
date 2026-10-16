@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateNames.Tests.ps1.md
+    folder: docs/references/automation/catzc-azure-templates/tests
+    name: get-bicep-template-names-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "25524a509a7c"

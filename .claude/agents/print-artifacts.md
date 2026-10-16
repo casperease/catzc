@@ -10,12 +10,14 @@ tools: Bash, Read, Glob, Grep, Write, Artifact, ArtifactData
 catzc:
   derived:
     path: ".claude/agents/print-artifacts.md"
+    folder: agents
+    name: print-artifacts
+    filetype: md
     kind: agent
     language: markdown
-    filetype: md
     track: ".claude"
     module: ".claude"
-    moduletype: settings-module
+    moduletype: settings
     body_sha: a50534912aec
     links:
       - ".claude/CLAUDE.md#time-safeguard"

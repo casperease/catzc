@@ -2,12 +2,14 @@
 // catzc:
 //   derived:
 //     path: go/tests/catzc-base-repository/repository_test.go
+//     folder: tests/catzc-base-repository
+//     name: repository-test
+//     filetype: go
 //     kind: test
 //     language: go
-//     filetype: go
 //     track: go
 //     module: go
-//     moduletype: go-module
+//     moduletype: go
 // ---
 
 // Black-box tests of Catzc.Base.Repository: each test starts the engine as its own process the way the run's engine

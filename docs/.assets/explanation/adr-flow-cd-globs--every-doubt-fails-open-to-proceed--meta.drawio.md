@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-every-doubt-fails-open-to-proceed-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2bc46fc32fea"
     links:

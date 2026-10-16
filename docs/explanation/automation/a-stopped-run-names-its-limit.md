@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/a-stopped-run-names-its-limit.md
+    folder: docs/explanation/automation
+    name: a-stopped-run-names-its-limit
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "877da7a37604"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md
+    folder: docs/references/automation/internal
+    name: catzc-internal-bootstrap-psm1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6b6fde003fd4"

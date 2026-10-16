@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/process/process-terms.md
+    folder: docs/adr/process
+    name: process-terms
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "85f093b7747b"
     defines:

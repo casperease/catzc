@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md
+    folder: docs/references/automation/catzc-base-writers/private
+    name: write-framed-line-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e5d2921677eb

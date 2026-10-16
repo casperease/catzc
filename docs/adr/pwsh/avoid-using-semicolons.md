@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/avoid-using-semicolons.md
+    folder: docs/adr/pwsh
+    name: avoid-using-semicolons
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "47103cd2d19b"
     defines:

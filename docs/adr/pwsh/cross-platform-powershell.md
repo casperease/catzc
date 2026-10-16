@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/cross-platform-powershell.md
+    folder: docs/adr/pwsh
+    name: cross-platform-powershell
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d914df52e6db
     defines:

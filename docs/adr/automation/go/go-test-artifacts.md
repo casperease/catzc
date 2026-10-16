@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/go/go-test-artifacts.md
+    folder: docs/adr/automation/go
+    name: go-test-artifacts
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: c35f0c02b784
     defines:

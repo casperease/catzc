@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/tests/Test-Pipelines.Tests.ps1.md
+    folder: docs/references/automation/catzc-azure-devops/tests
+    name: test-pipelines-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "618fc4ca8cbe"

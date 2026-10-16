@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md
+    folder: docs/references/automation/catzc-base-asserts
+    name: assert-path-exist-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b4d3680b1e6f

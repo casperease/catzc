@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/a-step-only-names-a-command.md
+    folder: docs/explanation/flow
+    name: a-step-only-names-a-command
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "01018e7b150d"
     adrs:

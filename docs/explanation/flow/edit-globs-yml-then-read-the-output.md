@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/edit-globs-yml-then-read-the-output.md
+    folder: docs/explanation/flow
+    name: edit-globs-yml-then-read-the-output
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "429a6f32246d"
     adrs:

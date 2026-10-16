@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-cd-builds-once-then-deploys-prod-itself-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6b9c519269c0"
     adrs:

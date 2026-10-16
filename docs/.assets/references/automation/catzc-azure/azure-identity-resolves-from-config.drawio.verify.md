@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
+    folder: docs/.assets/references/automation/catzc-azure
+    name: azure-identity-resolves-from-config-drawio-verify
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: e410849b57ff
     adrs:

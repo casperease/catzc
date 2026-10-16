@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/team-experimentation.md
+    folder: docs/adr/research
+    name: team-experimentation
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2f9ea2451e97"
     defines:

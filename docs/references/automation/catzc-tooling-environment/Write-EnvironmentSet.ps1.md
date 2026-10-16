@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+    folder: docs/references/automation/catzc-tooling-environment
+    name: write-environment-set-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d9ba83379060

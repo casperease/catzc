@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/visual-management.md
+    folder: docs/adr/research
+    name: visual-management
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: c9c9dacd1070
     defines:

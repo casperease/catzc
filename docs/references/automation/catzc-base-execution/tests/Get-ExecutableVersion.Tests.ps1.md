@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-execution/tests
+    name: get-executable-version-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "307cec29c5b2"

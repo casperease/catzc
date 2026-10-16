@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Split-CachedFile.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-qualitygates/tests
+    name: split-cached-file-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "05d20c8d4a2f"

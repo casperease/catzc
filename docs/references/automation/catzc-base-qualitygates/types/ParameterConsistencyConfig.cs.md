@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md
+    folder: docs/references/automation/catzc-base-qualitygates/types
+    name: parameter-consistency-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "273b36b97105"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md
+    folder: docs/references/automation/catzc-base-objects/types
+    name: ps-type-alias-attribute-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "79cd3e151b0e"

@@ -120,7 +120,7 @@ public sealed class ModuleTypesConfig
             foreach (ModulePlace place in type.places)
             {
                 string name = place.NameOf(normalized);
-                if (name != null) { return new PathModule(name, type.id); }
+                if (name != null) { return new PathModule(name, type.id, place.TailOf(normalized)); }
             }
         }
         return null;

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/catzc-internal-bootstrap.md
+    folder: docs/references/automation/internal
+    name: catzc-internal-bootstrap
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2b24078306c3"
     adrs:

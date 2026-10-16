@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/the-session-is-the-deploy-target.md
+    folder: docs/explanation/azure
+    name: the-session-is-the-deploy-target
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: d6736cd3c5ce
     adrs:

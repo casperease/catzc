@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
+    folder: docs/explanation/automation
+    name: one-resolver-every-consumer-but-the-hook
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6338c39818a8"
     adrs:

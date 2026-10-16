@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md
+    folder: docs/references/automation/catzc-base-qualitygates
+    name: invoke-test-file-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "4be740e3de33"

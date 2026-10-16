@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts.md
+    folder: docs/references/automation
+    name: catzc-base-contracts
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8b2e6e43bc08"
     adrs:

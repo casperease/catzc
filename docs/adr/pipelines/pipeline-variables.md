@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pipelines/pipeline-variables.md
+    folder: docs/adr/pipelines
+    name: pipeline-variables
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "539e1e9a45a2"
     defines:

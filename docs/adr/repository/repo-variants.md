@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/repo-variants.md
+    folder: docs/adr/repository
+    name: repo-variants
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: aacdd93c1006
     defines:

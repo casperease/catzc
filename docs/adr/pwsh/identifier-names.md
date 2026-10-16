@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/identifier-names.md
+    folder: docs/adr/pwsh
+    name: identifier-names
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d7d834183993
     defines:

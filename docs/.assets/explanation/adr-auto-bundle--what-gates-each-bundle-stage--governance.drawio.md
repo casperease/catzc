@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-bundle-what-gates-each-bundle-stage-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "8c792d1d34f4"
     adrs:

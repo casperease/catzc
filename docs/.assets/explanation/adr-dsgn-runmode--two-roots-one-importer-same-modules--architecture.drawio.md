@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-runmode-two-roots-one-importer-same-modules-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "18a7b164a729"
     adrs:

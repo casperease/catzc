@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
+    folder: docs/explanation/flow
+    name: one-gate-checks-the-raw-read-rule
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "214e0998f9bf"
     adrs:

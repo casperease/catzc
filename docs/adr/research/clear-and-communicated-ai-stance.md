@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/clear-and-communicated-ai-stance.md
+    folder: docs/adr/research
+    name: clear-and-communicated-ai-stance
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b477e777a6cd
     defines:

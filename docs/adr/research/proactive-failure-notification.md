@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/proactive-failure-notification.md
+    folder: docs/adr/research
+    name: proactive-failure-notification
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: f37383f96bac
     defines:

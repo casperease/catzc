@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/well-being.md
+    folder: docs/adr/research
+    name: well-being
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: bfee8c5bb34b
     defines:

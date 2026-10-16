@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/pipelines/what-you-set-decides-the-credential.md
+    folder: docs/explanation/pipelines
+    name: what-you-set-decides-the-credential
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: a1d9fba083df
     adrs:

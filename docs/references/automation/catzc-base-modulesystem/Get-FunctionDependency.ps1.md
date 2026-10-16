@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
+    folder: docs/references/automation/catzc-base-modulesystem
+    name: get-function-dependency-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "21cbd7522c30"

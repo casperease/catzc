@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Import-TypesAssembly.Tests.ps1.md
+    folder: docs/references/automation/internal/tests
+    name: import-types-assembly-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: ff3a0e6a5507

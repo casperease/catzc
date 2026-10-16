@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
+    folder: docs/explanation/design
+    name: bind-to-one-cli-delegate-the-rest
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5ffe1a51b035"
     adrs:

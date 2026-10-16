@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/principles/configure-not-program.md
+    folder: docs/adr/principles
+    name: configure-not-program
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: dc551b9dd238
     defines:

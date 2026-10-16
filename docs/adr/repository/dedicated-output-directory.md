@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/dedicated-output-directory.md
+    folder: docs/adr/repository
+    name: dedicated-output-directory
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: f8ee280ed047
     defines:

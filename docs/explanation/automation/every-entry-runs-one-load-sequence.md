@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/every-entry-runs-one-load-sequence.md
+    folder: docs/explanation/automation
+    name: every-entry-runs-one-load-sequence
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2fcdad285504"
     adrs:

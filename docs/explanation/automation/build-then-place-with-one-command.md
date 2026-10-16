@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/build-then-place-with-one-command.md
+    folder: docs/explanation/automation
+    name: build-then-place-with-one-command
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "996f53ad2447"
     adrs:

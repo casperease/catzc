@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/powershell-formatting.md
+    folder: docs/adr/pwsh
+    name: powershell-formatting
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d67f851938cf
     defines:

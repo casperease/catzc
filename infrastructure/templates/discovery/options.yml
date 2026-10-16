@@ -2,13 +2,14 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/discovery/options.yml
+#     name: options
+#     filetype: yml
 #     kind: template
 #     subkind: config
 #     language: yaml
-#     filetype: yml
 #     track: infrastructure
 #     module: discovery
-#     moduletype: bicep-module
+#     moduletype: bicep
 #     relatives:
 #       page: docs/references/infrastructure/templates/discovery/options.yml.md
 # ---

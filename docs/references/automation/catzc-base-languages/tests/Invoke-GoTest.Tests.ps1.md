@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-languages/tests
+    name: invoke-go-test-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "47b6a80cef22"

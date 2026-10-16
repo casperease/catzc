@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
+    folder: automation/.scriptanalyzer/tests
+    name: no-bare-cache-entry-read-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md

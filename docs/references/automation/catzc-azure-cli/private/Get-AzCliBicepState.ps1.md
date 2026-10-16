@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md
+    folder: docs/references/automation/catzc-azure-cli/private
+    name: get-az-cli-bicep-state-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a33ead7351f2

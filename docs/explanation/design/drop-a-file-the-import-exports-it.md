@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/drop-a-file-the-import-exports-it.md
+    folder: docs/explanation/design
+    name: drop-a-file-the-import-exports-it
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "652ba7de9c73"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/globs-module-owns-config-and-types.md
+    folder: docs/explanation/flow
+    name: globs-module-owns-config-and-types
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: acff02a4ee86
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-path-types-check-forms-review-checks-crossers-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "802bc5ecd360"
     links:

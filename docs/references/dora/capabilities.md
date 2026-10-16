@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/dora/capabilities.md
+    folder: docs/references/dora
+    name: capabilities
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "90973063281e"
     links:

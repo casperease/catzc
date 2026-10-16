@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md
+    folder: docs/references/automation/scriptanalyzer
+    name: no-raw-console-write-psm1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "30e4288af2cd"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
+    folder: docs/references/automation/catzc-base-modulesystem/types
+    name: dependency-graph-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: fc366001814c

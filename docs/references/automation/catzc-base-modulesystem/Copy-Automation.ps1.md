@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md
+    folder: docs/references/automation/catzc-base-modulesystem
+    name: copy-automation-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a6fb6e2726f3

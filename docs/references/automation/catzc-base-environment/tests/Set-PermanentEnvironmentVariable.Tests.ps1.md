@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-environment/tests
+    name: set-permanent-environment-variable-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c09a9991973f

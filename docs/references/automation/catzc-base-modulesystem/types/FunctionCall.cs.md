@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md
+    folder: docs/references/automation/catzc-base-modulesystem/types
+    name: function-call-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "419ea8ddb7b7"

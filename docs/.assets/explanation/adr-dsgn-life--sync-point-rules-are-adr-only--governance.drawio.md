@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-life-sync-point-rules-are-adr-only-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4e6f35ae6bb0"
     adrs:

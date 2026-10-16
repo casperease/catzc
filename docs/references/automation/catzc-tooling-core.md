@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core.md
+    folder: docs/references/automation
+    name: catzc-tooling-core
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "15269ce699bd"
     links:

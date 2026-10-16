@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/design/dora-explains.md
+    folder: docs/adr/design
+    name: dora-explains
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: af0afde9a632
     links:

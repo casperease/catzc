@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
+    folder: docs/explanation/repository
+    name: five-keys-one-reader-twelve-primitives
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: b6c4ef9f5ef7
     adrs:

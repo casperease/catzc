@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
+    folder: docs/explanation/flow
+    name: ci-budget-is-the-only-quality-gate
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4ddf067c9039"
     adrs:

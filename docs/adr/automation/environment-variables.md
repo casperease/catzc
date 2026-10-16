@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/environment-variables.md
+    folder: docs/adr/automation
+    name: environment-variables
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1858e9dff417"
     defines:

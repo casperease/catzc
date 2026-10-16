@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/catzc-internal-testkit.md
+    folder: docs/references/automation/internal
+    name: catzc-internal-testkit
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "38e1998cf760"
     links:

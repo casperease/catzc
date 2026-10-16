@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Assert-Tool.Tests.ps1.md
+    folder: docs/references/automation/catzc-tooling-core/tests
+    name: assert-tool-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d6b56e442589

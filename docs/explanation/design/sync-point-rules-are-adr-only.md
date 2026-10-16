@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/sync-point-rules-are-adr-only.md
+    folder: docs/explanation/design
+    name: sync-point-rules-are-adr-only
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3cd7f3cab990"
     adrs:

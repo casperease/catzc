@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/job-satisfaction.md
+    folder: docs/adr/research
+    name: job-satisfaction
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b12564197b48
     defines:

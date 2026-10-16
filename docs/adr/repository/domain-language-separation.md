@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/domain-language-separation.md
+    folder: docs/adr/repository
+    name: domain-language-separation
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3ec1338daf69"
     defines:

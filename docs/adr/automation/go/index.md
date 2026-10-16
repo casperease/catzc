@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/go/index.md
+    folder: docs/adr/automation/go
+    name: index
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "57d973bedb2e"
     links:

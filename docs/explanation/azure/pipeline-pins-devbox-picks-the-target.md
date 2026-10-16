@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
+    folder: docs/explanation/azure
+    name: pipeline-pins-devbox-picks-the-target
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: f69ade07773a
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md
+    folder: docs/references/automation/catzc-base-environment
+    name: set-permanent-environment-variable-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "05ffbb89e034"

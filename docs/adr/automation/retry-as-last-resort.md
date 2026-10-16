@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/retry-as-last-resort.md
+    folder: docs/adr/automation
+    name: retry-as-last-resort
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: c8be4b47cb1e
     defines:

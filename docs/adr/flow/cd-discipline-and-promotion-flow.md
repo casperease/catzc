@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/flow/cd-discipline-and-promotion-flow.md
+    folder: docs/adr/flow
+    name: cd-discipline-and-promotion-flow
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9a3a343e530b"
     defines:

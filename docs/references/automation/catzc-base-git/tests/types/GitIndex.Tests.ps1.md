@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/tests/types/GitIndex.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-git/tests/types
+    name: git-index-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "9df5719d6e27"

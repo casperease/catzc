@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
+    folder: docs/explanation/flow
+    name: pipeline-kinds-keyed-by-one-artifact
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3af8354b998e"
     adrs:

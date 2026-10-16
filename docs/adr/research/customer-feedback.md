@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/customer-feedback.md
+    folder: docs/adr/research
+    name: customer-feedback
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6d931cf1787f"
     defines:

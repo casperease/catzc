@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md
+    folder: docs/references/automation/catzc-base-modulesystem/types
+    name: module-dependency-edge-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "7a82bbac5334"

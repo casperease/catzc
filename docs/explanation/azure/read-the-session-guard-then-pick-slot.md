@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/read-the-session-guard-then-pick-slot.md
+    folder: docs/explanation/azure
+    name: read-the-session-guard-then-pick-slot
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: c8f5d7858cb5
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-globs-module-owns-config-and-types-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "677730c11378"
     adrs:

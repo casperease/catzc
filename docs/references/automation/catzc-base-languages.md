@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages.md
+    folder: docs/references/automation
+    name: catzc-base-languages
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "855319b6f7ee"
     adrs:

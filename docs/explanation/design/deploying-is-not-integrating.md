@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/deploying-is-not-integrating.md
+    folder: docs/explanation/design
+    name: deploying-is-not-integrating
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: a9bdca79fa5e
     adrs:

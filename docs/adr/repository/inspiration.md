@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/inspiration.md
+    folder: docs/adr/repository
+    name: inspiration
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "555677c00938"
     defines:

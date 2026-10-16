@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-repo-variant-a-base-module-between-config-and-its-callers-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1daecfe11995"
     links:

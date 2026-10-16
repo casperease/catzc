@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-az-datamod-the-session-is-the-deploy-target-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "5b775529e09f"
     links:

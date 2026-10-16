@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md
+    folder: docs/references/automation/catzc-base-objects/types
+    name: artifact-ref-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "60145a2c5c62"

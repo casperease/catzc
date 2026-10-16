@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-pipeline-kinds-keyed-by-one-artifact-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3f1ee3ef3742"
     adrs:

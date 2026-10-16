@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/repository/an-edit-lands-at-the-next-import.md
+    folder: docs/explanation/repository
+    name: an-edit-lands-at-the-next-import
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: d1258477412c
     adrs:

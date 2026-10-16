@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
+    folder: docs/.assets/references/automation/catzc-azure-templates
+    name: bicep-template-is-a-folder-drawio-verify
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7e76dc3b171b"
     adrs:

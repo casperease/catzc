@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md
+    folder: docs/references/automation/catzc-base-timeouts/types
+    name: timeouts-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "7f5aa1c12590"

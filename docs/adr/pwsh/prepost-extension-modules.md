@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/prepost-extension-modules.md
+    folder: docs/adr/pwsh
+    name: prepost-extension-modules
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: ddae042c3b46
     defines:

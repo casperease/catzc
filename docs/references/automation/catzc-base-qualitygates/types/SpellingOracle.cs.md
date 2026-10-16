@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
+    folder: docs/references/automation/catzc-base-qualitygates/types
+    name: spelling-oracle-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "08bdadd3ea73"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/a-push-fires-only-touched-pipelines.md
+    folder: docs/explanation/design
+    name: a-push-fires-only-touched-pipelines
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: bdee370f2672
     adrs:

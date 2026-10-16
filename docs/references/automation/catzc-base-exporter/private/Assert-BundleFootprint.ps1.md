@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+    folder: docs/references/automation/catzc-base-exporter/private
+    name: assert-bundle-footprint-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "04bd70cf9a20"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure.md
+    folder: docs/references/automation
+    name: catzc-azure
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: d8b3dc66ab75
     links:

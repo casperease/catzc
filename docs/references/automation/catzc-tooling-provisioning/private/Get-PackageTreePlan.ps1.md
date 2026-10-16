@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md
+    folder: docs/references/automation/catzc-tooling-provisioning/private
+    name: get-package-tree-plan-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c3f8c35af49c

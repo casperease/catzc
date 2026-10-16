@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-failfast-one-resolver-every-consumer-but-the-hook-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "51d044bb6625"
     links:

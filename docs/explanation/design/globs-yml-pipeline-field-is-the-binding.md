@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
+    folder: docs/explanation/design
+    name: globs-yml-pipeline-field-is-the-binding
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "46adf90a375a"
     adrs:

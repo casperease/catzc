@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/flow/pipeline-types.md
+    folder: docs/adr/flow
+    name: pipeline-types
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: c03623e9b407
     defines:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/no-gate-checks-rules-one-and-four.md
+    folder: docs/explanation/flow
+    name: no-gate-checks-rules-one-and-four
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: a85da9fc8bca
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Test-GlobSetAffected.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-globs/tests
+    name: test-glob-set-affected-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "34ee83c679f3"

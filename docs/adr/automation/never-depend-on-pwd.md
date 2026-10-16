@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/never-depend-on-pwd.md
+    folder: docs/adr/automation
+    name: never-depend-on-pwd
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0a928ba0ca1e"
     defines:

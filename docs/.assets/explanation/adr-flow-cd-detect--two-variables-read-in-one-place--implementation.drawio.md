@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-detect-two-variables-read-in-one-place-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7261e1b7fb1a"
     links:

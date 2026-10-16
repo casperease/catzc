@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/effective-in-enterprises.md
+    folder: docs/adr/automation
+    name: effective-in-enterprises
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "600c7ffc8192"
     defines:

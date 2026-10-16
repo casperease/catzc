@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/two-gates-check-the-layer-pins.md
+    folder: docs/explanation/automation
+    name: two-gates-check-the-layer-pins
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "969c7f84aaa7"
     adrs:

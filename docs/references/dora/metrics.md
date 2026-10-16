@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/dora/metrics.md
+    folder: docs/references/dora
+    name: metrics
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: e7f94588d30b
     links:

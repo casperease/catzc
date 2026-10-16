@@ -2,12 +2,14 @@
 # catzc:
 #   derived:
 #     path: bash/tests/catzc-base-engines/cats.bats
+#     folder: tests/catzc-base-engines
+#     name: cats
+#     filetype: bats
 #     kind: test
 #     language: bash
-#     filetype: bats
 #     track: bash
 #     module: bash
-#     moduletype: bash-module
+#     moduletype: bash
 # ---
 
 # Black-box tests of the bash engine's entry, importer.sh, and its cats dispatcher (Catzc.Base.Engines).

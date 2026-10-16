@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/two-forms-never-a-third.md
+    folder: docs/explanation/automation
+    name: two-forms-never-a-third
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "77b17b73c674"
     adrs:

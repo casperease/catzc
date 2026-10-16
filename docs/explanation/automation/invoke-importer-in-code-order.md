@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/invoke-importer-in-code-order.md
+    folder: docs/explanation/automation
+    name: invoke-importer-in-code-order
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3580a530afb4"
     adrs:

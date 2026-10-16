@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-thinplat-same-deploy-bicep-on-both-sides-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: c95c0447de2a
     adrs:

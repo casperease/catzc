@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/merging-to-main-is-what-deploys.md
+    folder: docs/explanation/design
+    name: merging-to-main-is-what-deploys
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: f0db1a761e05
     adrs:

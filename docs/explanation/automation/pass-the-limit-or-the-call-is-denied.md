@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
+    folder: docs/explanation/automation
+    name: pass-the-limit-or-the-call-is-denied
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "951dcc6dc22d"
     adrs:

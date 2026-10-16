@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
+    folder: docs/.assets/references/automation/catzc-azure-templates
+    name: bicep-deploy-one-immutable-context-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "053bd80fdbac"
     adrs:

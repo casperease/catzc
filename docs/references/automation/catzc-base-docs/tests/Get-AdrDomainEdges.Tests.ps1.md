@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Get-AdrDomainEdges.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-docs/tests
+    name: get-adr-domain-edges-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "7a485b732122"

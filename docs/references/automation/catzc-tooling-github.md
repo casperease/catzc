@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-github.md
+    folder: docs/references/automation
+    name: catzc-tooling-github
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1191cdb94053"
     adrs:

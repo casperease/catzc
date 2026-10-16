@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/types/ToolStatusKind.cs.md
+    folder: docs/references/automation/catzc-tooling-provisioning/types
+    name: tool-status-kind-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b8df542dc6b0

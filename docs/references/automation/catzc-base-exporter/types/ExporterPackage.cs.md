@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/types/ExporterPackage.cs.md
+    folder: docs/references/automation/catzc-base-exporter/types
+    name: exporter-package-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b6f057c53540

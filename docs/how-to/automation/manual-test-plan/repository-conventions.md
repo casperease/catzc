@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/repository-conventions.md
+    folder: docs/how-to/automation/manual-test-plan
+    name: repository-conventions
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3d08ae3bea80"
     adrs:

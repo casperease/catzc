@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md
+    folder: docs/references/automation/catzc-tooling-toolchain
+    name: remove-dotnet-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5f6b556bb267"

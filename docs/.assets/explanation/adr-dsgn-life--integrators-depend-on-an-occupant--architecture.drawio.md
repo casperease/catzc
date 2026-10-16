@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-life-integrators-depend-on-an-occupant-architecture-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "71019547d333"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan.md
+    folder: docs/how-to/automation
+    name: manual-test-plan
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "63acd364cda0"
     links:

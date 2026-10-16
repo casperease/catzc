@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/idempotent-state-mechanics.md
+    folder: docs/adr/pwsh
+    name: idempotent-state-mechanics
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2b0b2d9c8f9f"
     defines:

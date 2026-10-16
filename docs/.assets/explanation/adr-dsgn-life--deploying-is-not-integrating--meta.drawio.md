@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-life-deploying-is-not-integrating-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "001a6fa44750"
     adrs:

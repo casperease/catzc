@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/vendor-toolset-dependencies.md
+    folder: docs/adr/pwsh
+    name: vendor-toolset-dependencies
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6eefb77c0042"
     defines:

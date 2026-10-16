@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/prefer-foreach-over-foreach-object.md
+    folder: docs/adr/pwsh
+    name: prefer-foreach-over-foreach-object
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "36f1bd3f320b"
     defines:

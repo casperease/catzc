@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
+    folder: docs/.assets/references/automation/catzc-base-modulesystem
+    name: module-graph-declared-vs-observed-drawio-verify
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "9443abfdc337"
     adrs:

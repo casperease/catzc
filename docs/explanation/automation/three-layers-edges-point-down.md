@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/three-layers-edges-point-down.md
+    folder: docs/explanation/automation
+    name: three-layers-edges-point-down
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: a9f5e8f8eb54
     adrs:

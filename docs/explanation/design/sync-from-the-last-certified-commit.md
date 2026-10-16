@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/sync-from-the-last-certified-commit.md
+    folder: docs/explanation/design
+    name: sync-from-the-last-certified-commit
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "951692dadb53"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/consumer-overlay.md
+    folder: docs/adr/automation
+    name: consumer-overlay
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: ff4554a3466b
     defines:

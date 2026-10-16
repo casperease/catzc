@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/which-rung-gates-exist-in-code.md
+    folder: docs/explanation/design
+    name: which-rung-gates-exist-in-code
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "086277112b92"
     adrs:

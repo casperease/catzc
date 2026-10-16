@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/three-tasks-one-guard-one-runner.md
+    folder: docs/explanation/flow
+    name: three-tasks-one-guard-one-runner
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: ce8375725233
     adrs:

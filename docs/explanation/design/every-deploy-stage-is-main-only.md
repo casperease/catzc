@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/every-deploy-stage-is-main-only.md
+    folder: docs/explanation/design
+    name: every-deploy-stage-is-main-only
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1dbd42896d00"
     adrs:

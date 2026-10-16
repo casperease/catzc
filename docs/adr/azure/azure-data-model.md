@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/azure-data-model.md
+    folder: docs/adr/azure
+    name: azure-data-model
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "62bbc25cbfea"
     defines:

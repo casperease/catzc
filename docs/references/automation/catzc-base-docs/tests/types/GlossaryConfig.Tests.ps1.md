@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-docs/tests/types
+    name: glossary-config-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "69d998b50293"

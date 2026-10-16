@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/azure/caf/design-principles.md
+    folder: docs/adr/azure/caf
+    name: design-principles
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b891f6ab0cc2
     defines:

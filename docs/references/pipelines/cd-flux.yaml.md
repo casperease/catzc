@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/pipelines/cd-flux.yaml.md
+    folder: docs/references/pipelines
+    name: cd-flux-yaml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a0457d45a845

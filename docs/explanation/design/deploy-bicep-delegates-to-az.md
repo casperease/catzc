@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/deploy-bicep-delegates-to-az.md
+    folder: docs/explanation/design
+    name: deploy-bicep-delegates-to-az
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: df7b0bc977d6
     adrs:

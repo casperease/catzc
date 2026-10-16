@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/error-handling.md
+    folder: docs/adr/pwsh
+    name: error-handling
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: d289b074815d
     defines:

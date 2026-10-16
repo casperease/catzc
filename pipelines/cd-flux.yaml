@@ -2,12 +2,13 @@
 # catzc:
 #   derived:
 #     path: pipelines/cd-flux.yaml
+#     name: cd-flux
+#     filetype: yaml
 #     kind: pipeline
 #     language: pipeline-yaml
-#     filetype: yaml
 #     track: pipelines
 #     module: pipelines
-#     moduletype: pipeline-module
+#     moduletype: pipeline
 #     relatives:
 #       page: docs/references/pipelines/cd-flux.yaml.md
 # ---

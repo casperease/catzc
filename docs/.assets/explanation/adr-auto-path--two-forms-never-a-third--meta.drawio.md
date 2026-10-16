@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-path-two-forms-never-a-third-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "66e15f5bbc4d"
     links:

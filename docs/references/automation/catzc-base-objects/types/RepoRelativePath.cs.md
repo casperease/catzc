@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md
+    folder: docs/references/automation/catzc-base-objects/types
+    name: repo-relative-path-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: adf3199054ab

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/script-scope-caching.md
+    folder: docs/adr/pwsh
+    name: script-scope-caching
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "58af15b8aa6f"
     defines:

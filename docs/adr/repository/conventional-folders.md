@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/conventional-folders.md
+    folder: docs/adr/repository
+    name: conventional-folders
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4830a266e06c"
     defines:

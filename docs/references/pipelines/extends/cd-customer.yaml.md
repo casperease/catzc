@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/pipelines/extends/cd-customer.yaml.md
+    folder: docs/references/pipelines/extends
+    name: cd-customer-yaml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: db19b4249f72

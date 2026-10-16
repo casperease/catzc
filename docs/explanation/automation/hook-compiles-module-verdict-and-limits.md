@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
+    folder: docs/explanation/automation
+    name: hook-compiles-module-verdict-and-limits
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "334633557e7c"
     adrs:

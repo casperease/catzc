@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-auto-bundle-build-then-place-with-one-command-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1580340ea555"
     adrs:

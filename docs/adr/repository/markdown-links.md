@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/markdown-links.md
+    folder: docs/adr/repository
+    name: markdown-links
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "275963ff5695"
     defines:

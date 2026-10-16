@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/design/commit-lifecycle.md
+    folder: docs/adr/design
+    name: commit-lifecycle
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: c0b1c05d5104
     defines:

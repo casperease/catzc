@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/continuous-integration.md
+    folder: docs/adr/research
+    name: continuous-integration
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6e3811077548"
     defines:

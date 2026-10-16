@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
+    folder: docs/references/automation/catzc-base-git/types
+    name: git-history-scan-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c61e96b1f0f9

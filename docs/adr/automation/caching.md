@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/caching.md
+    folder: docs/adr/automation
+    name: caching
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: a9b615c0027f
     defines:

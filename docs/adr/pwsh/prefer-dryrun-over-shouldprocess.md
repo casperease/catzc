@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/prefer-dryrun-over-shouldprocess.md
+    folder: docs/adr/pwsh
+    name: prefer-dryrun-over-shouldprocess
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: b09ed58f0b41
     defines:

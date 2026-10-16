@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/design/self-service.md
+    folder: docs/adr/design
+    name: self-service
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: fd71bc64643a
     defines:

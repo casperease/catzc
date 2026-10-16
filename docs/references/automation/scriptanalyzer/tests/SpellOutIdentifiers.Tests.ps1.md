@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1.md
+    folder: docs/references/automation/scriptanalyzer/tests
+    name: spell-out-identifiers-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "12bbcdbec0d0"

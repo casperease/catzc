@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/working-directory-mechanics.md
+    folder: docs/adr/pwsh
+    name: working-directory-mechanics
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "215b77f1e4d2"
     defines:

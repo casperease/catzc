@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/infrastructure/expedition.md
+    folder: docs/references/infrastructure
+    name: expedition
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "562382a9cb1f"
     links:

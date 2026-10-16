@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/generated-root-configs.md
+    folder: docs/adr/repository
+    name: generated-root-configs
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0664fd3164c3"
     defines:

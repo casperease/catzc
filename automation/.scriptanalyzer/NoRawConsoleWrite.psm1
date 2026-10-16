@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoRawConsoleWrite.psm1
+    folder: automation/.scriptanalyzer
+    name: no-raw-console-write
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md

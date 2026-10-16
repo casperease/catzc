@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
+    folder: docs/explanation/configuration
+    name: callers-in-four-modules-share-one-resolver
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "0851cc5cff01"
     adrs:

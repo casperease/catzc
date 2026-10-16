@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/hosting-csharp-types.md
+    folder: docs/adr/pwsh
+    name: hosting-csharp-types
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "6fcb534e32be"
     defines:

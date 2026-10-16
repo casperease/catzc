@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/add-a-doc-chapter.md
+    folder: docs/how-to/getting-started/automation
+    name: add-a-doc-chapter
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: "3735962b4882"
     adrs:

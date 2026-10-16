@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
+    folder: docs/references/automation/catzc-base-globs/tests
+    name: glob-set-trigger-coverage-tests-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d6378d1c74a8

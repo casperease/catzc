@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
+    folder: docs/explanation/configuration
+    name: strip-split-walk-every-wrong-turn-throws
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: d0b1eb6f0b40
     adrs:

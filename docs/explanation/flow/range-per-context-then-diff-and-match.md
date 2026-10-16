@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/range-per-context-then-diff-and-match.md
+    folder: docs/explanation/flow
+    name: range-per-context-then-diff-and-match
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "542681e87b34"
     adrs:

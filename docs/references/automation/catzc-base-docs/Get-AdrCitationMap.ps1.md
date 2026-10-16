@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+    folder: docs/references/automation/catzc-base-docs
+    name: get-adr-citation-map-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "75bf9edd6e21"

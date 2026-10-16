@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
+    folder: docs/adr/repository
+    name: code-file-meta
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: eaee682470c8
     defines:

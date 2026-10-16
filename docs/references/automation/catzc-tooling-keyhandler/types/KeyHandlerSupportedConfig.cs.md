@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md
+    folder: docs/references/automation/catzc-tooling-keyhandler/types
+    name: key-handler-supported-config-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "22c1658729e5"

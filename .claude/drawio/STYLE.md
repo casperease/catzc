@@ -2,12 +2,14 @@
 catzc:
   derived:
     path: ".claude/drawio/STYLE.md"
+    folder: drawio
+    name: style
+    filetype: md
     kind: drawio-kit
     language: markdown
-    filetype: md
     track: ".claude"
     module: ".claude"
-    moduletype: settings-module
+    moduletype: settings
     body_sha: "5cc03b54644d"
     adrs:
       - ADR-AUTO-DEPM#1

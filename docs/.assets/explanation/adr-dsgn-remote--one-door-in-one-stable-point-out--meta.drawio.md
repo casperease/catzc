@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-remote-one-door-in-one-stable-point-out-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "96353e592a57"
     adrs:

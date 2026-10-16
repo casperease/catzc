@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md
+    folder: docs/references/automation/catzc-base-git
+    name: reset-git-clean-fxd-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "467486aa6d9a"

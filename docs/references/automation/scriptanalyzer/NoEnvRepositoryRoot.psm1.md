@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoEnvRepositoryRoot.psm1.md
+    folder: docs/references/automation/scriptanalyzer
+    name: no-env-repository-root-psm1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "1bf36336d5bd"

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-independence-check-groups-by-layer-implementation-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7e147c963129"
     adrs:

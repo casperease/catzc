@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md
+    folder: docs/references/automation/catzc-base-execution/private
+    name: invoke-executable-streamed-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "2e95f6eef7c2"

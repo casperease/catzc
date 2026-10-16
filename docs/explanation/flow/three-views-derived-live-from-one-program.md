@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/three-views-derived-live-from-one-program.md
+    folder: docs/explanation/flow
+    name: three-views-derived-live-from-one-program
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "1f77b803bb23"
     adrs:

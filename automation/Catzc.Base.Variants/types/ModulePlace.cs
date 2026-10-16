@@ -63,6 +63,19 @@ public sealed class ModulePlace
         return string.IsNullOrEmpty(prefix) ? folder : prefix + Pascal(folder);
     }
 
+    // The '/'-separated path of the file under the module NameOf names for it; call it only for a path NameOf placed. A file place's
+    // module is the file itself, so its tail is the file's name.
+    public string TailOf(string path)
+    {
+        if (name == "root")
+        {
+            return path == root ? "" : path.Substring(root.Length + 1);
+        }
+        string rest = path.Substring(root.Length + 1);
+        if (name == "file") { return rest; }
+        return rest.Substring(rest.IndexOf('/') + 1);
+    }
+
     static string Pascal(string folder) =>
         string.Concat(folder.Split('-').Where(part => part.Length > 0).Select(part => char.ToUpperInvariant(part[0]) + part.Substring(1)));
 }

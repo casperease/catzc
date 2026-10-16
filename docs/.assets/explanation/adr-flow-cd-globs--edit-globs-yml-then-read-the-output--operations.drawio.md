@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-edit-globs-yml-then-read-the-output-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: cd40ba6dd4e8
     adrs:

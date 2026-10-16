@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/BCL/types-system.md
+    folder: docs/references/automation/BCL
+    name: types-system
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: a2a9963d9de6
     links:

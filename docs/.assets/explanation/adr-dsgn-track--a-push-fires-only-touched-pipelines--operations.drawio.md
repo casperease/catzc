@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-dsgn-track-a-push-fires-only-touched-pipelines-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "51409d5b04f2"
     adrs:

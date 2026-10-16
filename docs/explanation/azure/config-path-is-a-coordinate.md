@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/azure/config-path-is-a-coordinate.md
+    folder: docs/explanation/azure
+    name: config-path-is-a-coordinate
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "2356399464e7"
     adrs:

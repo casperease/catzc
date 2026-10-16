@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/test-data-management.md
+    folder: docs/adr/research
+    name: test-data-management
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: fca065d02994
     defines:

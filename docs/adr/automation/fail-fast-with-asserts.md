@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/automation/fail-fast-with-asserts.md
+    folder: docs/adr/automation
+    name: fail-fast-with-asserts
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "64ab2812bb25"
     defines:

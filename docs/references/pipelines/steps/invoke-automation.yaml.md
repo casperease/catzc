@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/pipelines/steps/invoke-automation.yaml.md
+    folder: docs/references/pipelines/steps
+    name: invoke-automation-yaml
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "16fc292a209a"

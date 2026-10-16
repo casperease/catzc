@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-overlap-gated-for-units-and-modules-governance-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: c4ca1369b0fc
     adrs:

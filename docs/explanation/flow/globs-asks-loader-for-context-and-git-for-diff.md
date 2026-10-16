@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
+    folder: docs/explanation/flow
+    name: globs-asks-loader-for-context-and-git-for-diff
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "824d978cfa10"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig.md
+    folder: docs/references/automation
+    name: catzc-base-rootconfig
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "810b6c72d9b8"
     adrs:

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/pervasive-security.md
+    folder: docs/adr/research
+    name: pervasive-security
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: aa1fb107b65d
     defines:

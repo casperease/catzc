@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-declare-or-add-folder-gate-names-overlaps-operations-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "86d2f799afe9"
     adrs:

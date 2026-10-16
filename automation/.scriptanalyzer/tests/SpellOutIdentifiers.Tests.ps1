@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1
+    folder: automation/.scriptanalyzer/tests
+    name: spell-out-identifiers-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1.md

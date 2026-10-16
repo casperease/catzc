@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/pwsh/parameter-design.md
+    folder: docs/adr/pwsh
+    name: parameter-design
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "7373a919820f"
     defines:

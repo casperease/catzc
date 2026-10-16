@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md
+    folder: docs/references/automation/internal
+    name: catzc-internal-test-kit-psm1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: bf00f776e752

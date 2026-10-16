@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/automation/one-out-string-two-places.md
+    folder: docs/explanation/automation
+    name: one-out-string-two-places
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: "4ce846b18cf7"
     adrs:

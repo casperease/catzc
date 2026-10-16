@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoEnvRepositoryRoot.psm1
+    folder: automation/.scriptanalyzer
+    name: no-env-repository-root
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoEnvRepositoryRoot.psm1.md

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/design/integrators-depend-on-an-occupant.md
+    folder: docs/explanation/design
+    name: integrators-depend-on-an-occupant
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: e9b85c942879
     adrs:

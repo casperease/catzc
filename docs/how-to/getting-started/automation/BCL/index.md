@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/how-to/getting-started/automation/BCL/index.md
+    folder: docs/how-to/getting-started/automation/BCL
+    name: index
+    filetype: md
     kind: how-to
     language: markdown
-    filetype: md
     track: docs
     body_sha: f355f6d21e52
     links:

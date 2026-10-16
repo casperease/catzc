@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/internal/catzc-internal-types.md
+    folder: docs/references/automation/internal
+    name: catzc-internal-types
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "81f4203494e3"
     links:

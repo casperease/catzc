@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md
+    folder: docs/references/automation/catzc-base-docs
+    name: get-cats-adr-rule-ids-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "10a3bd2e098c"

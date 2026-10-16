@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/explanation/repository/a-base-module-between-config-and-its-callers.md
+    folder: docs/explanation/repository
+    name: a-base-module-between-config-and-its-callers
+    filetype: md
     kind: explanation
     language: markdown
-    filetype: md
     track: docs
     body_sha: deb5fed9f5ce
     adrs:

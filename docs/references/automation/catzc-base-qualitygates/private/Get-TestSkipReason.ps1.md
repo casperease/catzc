@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md
+    folder: docs/references/automation/catzc-base-qualitygates/private
+    name: get-test-skip-reason-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b9c07e667d0e

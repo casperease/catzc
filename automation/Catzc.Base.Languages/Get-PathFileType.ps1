@@ -40,9 +40,8 @@ function Get-PathFileType {
         [string] $Path
     )
 
-    $name = ($Path -replace '\\', '/') -replace '^.*/', ''
-    $dot = $name.LastIndexOf('.')
-    if ($dot -gt 0 -and $dot -lt $name.Length - 1) {
-        $name.Substring($dot + 1).ToLowerInvariant()
+    $fileType = [Catzc.Base.Languages.PathParts]::FileTypeOf($Path)
+    if ($fileType) {
+        $fileType
     }
 }

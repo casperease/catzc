@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/NoWriteErrorOrWarning.psm1
+    folder: automation/.scriptanalyzer
+    name: no-write-error-or-warning
+    filetype: psm1
     kind: analyzer-rule
     language: powershell
-    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoWriteErrorOrWarning.psm1.md

@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/adr/research/loosely-coupled-teams.md
+    folder: docs/adr/research
+    name: loosely-coupled-teams
+    filetype: md
     kind: adr
     language: markdown
-    filetype: md
     track: docs
     body_sha: "24f01e1c2517"
     defines:

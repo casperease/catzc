@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-repo-rootcfg-one-source-one-writer-one-boolean-meta-drawio
+    filetype: md
     kind: asset-description
     language: markdown
-    filetype: md
     track: docs
     body_sha: "190a3297513d"
     links:

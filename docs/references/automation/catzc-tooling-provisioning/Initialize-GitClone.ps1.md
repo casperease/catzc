@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
+    folder: docs/references/automation/catzc-tooling-provisioning
+    name: initialize-git-clone-ps1
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b2c2905f13cd

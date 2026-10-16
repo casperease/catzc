@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md
+    folder: docs/references/automation/catzc-base-qualitygates/types
+    name: sentence-guid-cs
+    filetype: md
     kind: comment-page
     language: markdown
-    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "51dd46d868f0"

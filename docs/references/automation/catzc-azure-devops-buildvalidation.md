@@ -2,9 +2,11 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation.md
+    folder: docs/references/automation
+    name: catzc-azure-devops-buildvalidation
+    filetype: md
     kind: reference
     language: markdown
-    filetype: md
     track: docs
     body_sha: "786214e1e4e5"
     links:
