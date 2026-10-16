@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Modules/Get-Aspect.ps1
     name: get-aspect
     filetype: ps1

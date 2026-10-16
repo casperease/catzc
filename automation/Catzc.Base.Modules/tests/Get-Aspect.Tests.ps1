@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
     folder: tests
     name: get-aspect-tests
@@ -25,13 +26,16 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#2' {
         $script:tracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{
                     widgets = [ordered]@{ places = @('widgetry'); type = 'modules'; languages = @('widget-script') }
                     gizmos  = [ordered]@{ places = @('gizmo'); type = 'gizmo-shelf' }
-                } }).tracks
+                }
+            }).tracks
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
                     'widget-script' = [ordered]@{ extensions = @('.wdg'); no_formatter = 'fixture'; layout = @(
                             [ordered]@{ folder = '.'; role = 'public-widget'; extensions = @('.wdg') }
                             [ordered]@{ folder = 'inner'; role = 'private-widget' }
-                        ) }
-                } })
+                        )
+                    }
+                }
+            })
         Mock Get-Track -ModuleName Catzc.Base.Modules { $script:tracks }
         Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'languages' } { $script:languages }
         Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'variants' } { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) }

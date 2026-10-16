@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleOrder.ps1
     name: get-module-order
     filetype: ps1

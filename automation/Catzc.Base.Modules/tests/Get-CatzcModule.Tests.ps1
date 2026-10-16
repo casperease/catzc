@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
     folder: tests
     name: get-catzc-module-tests
@@ -15,9 +16,9 @@ catzc:
     catzc_bundle: azure
   edges:
     cites:
-      - ADR-AUTO-MODULE#1
-      - ADR-AUTO-MODULE#2
+      - ADR-AUTO-MODULE#{1-4}
       - ADR-AUTO-TEST
+      - ADR-DSGN-MODTYPE#1
 ---
 #>
 
@@ -28,7 +29,8 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
         $script:tracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{
                     widgets = [ordered]@{ places = @('widgetry'); type = 'widget-works'; languages = @('widget-script', 'widget-data')
-                        execution_engines = @($script:first); module_execution_engines = [ordered]@{ Gadget = @($script:first, $script:second) } }
+                        execution_engines = @($script:first); module_execution_engines = [ordered]@{ Gadget = @($script:first, $script:second) }
+                    }
                     gizmos  = [ordered]@{ places = @('gizmo'); type = 'gizmo-shelf'; languages = @('gizmo-script') }
                     notes   = [ordered]@{ places = @('notes'); type = 'note-pile'; languages = @('widget-data') }
                 }
@@ -45,7 +47,8 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
                     'widget-folder' = [ordered]@{ definition = 'A widget folder.'; places = @(
                             @{ root = 'widgetry'; name = 'folder' }
                             @{ root = 'widgetry/.core'; name = 'folder'; prefix = 'Widget.Core.' }
-                        ) }
+                        )
+                    }
                     'widget-file'   = [ordered]@{ definition = 'A widget file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg' }) }
                     'gizmo-folder'  = [ordered]@{ definition = 'A gizmo folder.'; places = @(@{ root = 'gizmo'; name = 'folder' }) }
                 }
@@ -54,10 +57,12 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
                     'widget-script' = [ordered]@{ extensions = @('.wdg'); no_formatter = 'fixture'; layout = @(
                             [ordered]@{ folder = '.'; role = 'public-widget'; extensions = @('.wdg') }
                             [ordered]@{ folder = 'inner'; role = 'private-widget' }
-                        ) }
+                        )
+                    }
                     'widget-data'   = [ordered]@{ extensions = @('.wdd'); no_formatter = 'fixture' }
                     'gizmo-script'  = [ordered]@{ extensions = @('.gzm'); no_formatter = 'fixture' }
-                } })
+                }
+            })
 
         $script:root = Join-Path $TestDrive 'tree'
         $touch = { param($Path) $full = Join-Path $script:root $Path; New-Item -ItemType File -Path $full -Force | Out-Null }

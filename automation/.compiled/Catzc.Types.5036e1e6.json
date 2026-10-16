@@ -1,0 +1,1503 @@
+{
+  "hash": "5036e1e6",
+  "types": [
+    {
+      "name": "Catzc.Azure.AzureConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.AzureCustomer",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.AzureEnvironment",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.AzureEnvironmentRecord",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.AzureSubscription",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.AzureSubscriptionRecord",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.AzureTenantRecord",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Cli.BicepState",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Cli.ConnectionState",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Cli.SubscriptionAccessState",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Cli.SubscriptionContext",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.CustomerConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.AdoConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.BuildValidation.BuildValidationConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.BuildValidation.BuildValidationEntry",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.PipelineDefinition",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.PipelineEnvConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.YamlClassification",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.YamlClassificationResult",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.YamlFileRecord",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.YamlInventoryRecord",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.YamlTemplateType",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Firewall.CsvExportRef",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Firewall.RuleType",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.NetworkCidr",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.NetworkConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.NetworkEnvironment",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.NetworkSubscription",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepArtifacts",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepDeploymentContext",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepDeploymentPlan",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepParameter",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepParameterModel",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepShortName",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepSlot",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepTemplate",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Tenant",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.CodeMetaHead",
+      "aliases": [],
+      "display": [
+        "HasHead",
+        "NewLine"
+      ]
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.HeadAnchor",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.HeadForm",
+      "aliases": [],
+      "display": [
+        "Line",
+        "BlockOpen",
+        "BlockClose",
+        "Anchor",
+        "PreambleLines"
+      ]
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.PropertyHead",
+      "aliases": [],
+      "display": [
+        "Property",
+        "IsObject",
+        "HasHead",
+        "Foreign"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Config.ConfigsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractAsset",
+      "aliases": [],
+      "display": [
+        "AssetPath",
+        "Kind",
+        "Direction",
+        "Target"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractAssetKind",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractCheckResult",
+      "aliases": [],
+      "display": [
+        "Passed",
+        "Asset",
+        "Findings"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractDirection",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractFragment",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractManifest",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractSchema",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractValue",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrCheck",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrChecksConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrCitationChange",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrCitationChangeKind",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrCitationMap",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrCitationRewrite",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrCitationRewriter",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrCodeForm",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrDomain",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrDomainEdge",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrDoraCheck",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrNeutralityCheck",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrNeutralityToken",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrRuleSet",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AdrsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AgentEntry",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.AgentsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.CapabilitiesConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.CapabilityEntry",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.CheckMode",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.CheckModes",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.DocMapping",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.DocPattern",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.DocsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.GitHubAnchor",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryAvoid",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryConcept",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryEntry",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryOptions",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryProse",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryRealization",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryScan",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossarySegment",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.MarkdownLinkRebaser",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Engines.ExecutionEngine",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Engines.ExecutionEngines",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Execution.CliResult",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Execution.CliRunner",
+      "aliases": [],
+      "display": [
+        "ExitCode"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Execution.ExecutableProbe",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Execution.ToolConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Execution.ToolsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Exporter.ExporterBundle",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Exporter.ExporterConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Exporter.ExporterPackage",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Files.FileLockingProcess",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Files.InputStamp",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Files.RestartManager",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Folders.FolderWalkConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Folders.FolderWalker",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Git.GitHistoryScan",
+      "aliases": [],
+      "display": [
+        "Clean"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Git.GitIgnoreConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Git.GitIgnorePattern",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Git.GitIgnoreSection",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Git.GitIndex",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Git.GitRefs",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.Aspect",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.AspectPartition",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.CompiledAspect",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.DurableHash",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.FileKindEntry",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.FileKindMatch",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.FileKindsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.GlobPattern",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.GlobSet",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.GlobsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.BashConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.BashTestResult",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.CarrierKind",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.FileCarrier",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.FileCarriersConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.FileLanguage",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.FormatterEngine",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.GeneratedHeadConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.GoConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.GoTestResult",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.GoWorkspaceFile",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.ImprintStep",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.LanguagesConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.LayoutRow",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.PathParts",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.PythonConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.PythonTestResult",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.PythonWorkspaceFile",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.CitationScanner",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.CitationSite",
+      "aliases": [],
+      "display": [
+        "Path",
+        "Line",
+        "Kind",
+        "Citation"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.HelveticaMetrics",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.HighlightReason",
+      "aliases": [],
+      "display": [
+        "Path",
+        "Basis",
+        "Requested",
+        "Mention"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.HighlightedCell",
+      "aliases": [],
+      "display": [
+        "Track",
+        "FileLanguage",
+        "FileCount",
+        "Sources"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapCell",
+      "aliases": [],
+      "display": [
+        "Track",
+        "FileLanguage",
+        "FileCount",
+        "StackViolation"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapPlacement",
+      "aliases": [],
+      "display": [
+        "Path",
+        "Track",
+        "FileLanguage",
+        "Basis"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsHighlight",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsLabels",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsLimits",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsPalette",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsPin",
+      "aliases": [],
+      "display": [
+        "adr",
+        "track",
+        "file_language"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.PdfDocument",
+      "aliases": [],
+      "display": [
+        "PageCount"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.PdfFont",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.PdfNumber",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.PdfPage",
+      "aliases": [],
+      "display": [
+        "Width",
+        "Height",
+        "OperationCount"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.SquarifiedTreemap",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.TreemapRect",
+      "aliases": [],
+      "display": [
+        "Key",
+        "Weight",
+        "X",
+        "Y",
+        "Width",
+        "Height"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.ValueChainCell",
+      "aliases": [],
+      "display": [
+        "Stack",
+        "Concern",
+        "AdrCount"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.ValueChainHighlight",
+      "aliases": [],
+      "display": [
+        "Requested",
+        "Cells"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.ValueChainMap",
+      "aliases": [],
+      "display": [
+        "Stacks",
+        "Concerns",
+        "AdrCount"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.ValueChainReason",
+      "aliases": [],
+      "display": [
+        "Adr",
+        "Stack",
+        "Concern",
+        "Override"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WinAnsi",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMap",
+      "aliases": [],
+      "display": [
+        "Tracks",
+        "FileLanguages",
+        "FileCount"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMapBuilder",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMapGridLayout",
+      "aliases": [],
+      "display": [
+        "Rows",
+        "Columns",
+        "CellWidth",
+        "CellHeight"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMapHighlight",
+      "aliases": [],
+      "display": [
+        "Kind",
+        "Requested",
+        "Cells"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMapPdf",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.MarkdownMeta.MarkdownDocument",
+      "aliases": [],
+      "display": [
+        "HasFrontMatter",
+        "HasMetaBlock",
+        "Key",
+        "NewLine"
+      ]
+    },
+    {
+      "name": "Catzc.Base.MarkdownMeta.MarkdownMetaBlock",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.AdoArtifactsTarget",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ArtifactoryArtifactsTarget",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ArtifactsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ArtifactsTarget",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.DependenciesConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.DependencyGraph",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.FilesConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.FunctionCall",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.FunctionCallCollector",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.GithubArtifactsTarget",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ModuleDependencyEdge",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ModuleDependencyFormat",
+      "aliases": [
+        "Catzc.Module.Depm"
+      ],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ModuleFiles",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ModuleGroup",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ProfilesConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Modules.Module",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Objects.ArtifactRef",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Objects.ConsoleDisplayAttribute",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Objects.ConsoleText",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Objects.DictionaryRecord",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Objects.PSTypeAliasAttribute",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Objects.RepoRelativePath",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Objects.TypeShape",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.AnalyzerAdrMapConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CodeLinkRewriter",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentBlock",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentBlockKind",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentEngine",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentFileResult",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentLexer",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentPageMap",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.DocumentLinks",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.EngineSetCheck",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileCarrierResolver",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileMetaConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileMetaDirection",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileMetaKind",
+      "aliases": [],
+      "display": [
+        "id",
+        "direction",
+        "keys",
+        "target"
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileSelector",
+      "aliases": [],
+      "display": [
+        "classes",
+        "languages"
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FormatResult",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.GeneratedFilesConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.GeneratedWriter",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.GuidsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.GzipText",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.IdentityTokenRule",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.IdentityTokensConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkEngine",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkEngineResult",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkFinding",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkFindingType",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkKind",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkWrap",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinksConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.ManagedGuidEntry",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.MarkdownLinkScanner",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.ParameterConsistencyConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.PesterRunner",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.SentenceGuid",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.SourceCheck",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.SourceConventionsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.SpellingOracle",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.TerminologyConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.TerminologyTerm",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.TestPolicyConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.WorkerParentWatch",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputFile",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputFormat",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputFormatsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputPattern",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputRetention",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputRetentionPlan",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Reports.ReportsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Repository.ParsedScripts",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Repository.SyntaxSearch",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.RootConfig.RootConfigFile",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.RootConfig.RootConfigFiles",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Timeouts.BashSafeguard",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Timeouts.BoundedCommand",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Timeouts.PipelineWatchdog",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Timeouts.TestTiers",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Timeouts.TimeLimitAttribute",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Timeouts.TimeoutExemptionsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Timeouts.TimeoutsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeExtensionsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeLaunchConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeLaunchProfile",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodePipelineSchemaConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeSettingsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.ModulePlace",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.ModuleTypeEntry",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.ModuleTypesConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.PathModule",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.TrackTypeEntry",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.TrackTypesConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.VariantAspect",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.VariantTrack",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.VariantsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.VendorEntry",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Vendor.VendorConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Writers.Ansi",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Writers.RainbowColor",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.Core.EngineCaseTable",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.Inspiration.Inspiration",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.Inspiration.InspirationConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.Inspiration.InspirationEntry",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.Inspiration.InspirationRoot",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.KeyHandler.KeyHandlerBinding",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.Provisioning.ToolStatus",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.Provisioning.ToolStatusKind",
+      "aliases": [],
+      "display": []
+    }
+  ]
+}

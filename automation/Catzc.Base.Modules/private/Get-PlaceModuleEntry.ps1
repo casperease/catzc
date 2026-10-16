@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Modules/private/Get-PlaceModuleEntry.ps1
     folder: private
     name: get-place-module-entry
@@ -15,7 +16,6 @@ catzc:
     catzc_bundle: azure
     visibility: private
   edges:
-    test: automation/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
     cites:
       - ADR-AUTO-MODULE#1
   config:

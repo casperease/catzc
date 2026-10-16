@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Modules/types/Module.cs
     folder: types
     name: module
@@ -14,6 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
+    test: automation/Catzc.Base.Modules/tests/types/Module.Tests.ps1
     cites:
       - ADR-AUTO-MODULE#1
       - ADR-AUTO-TYPES#9

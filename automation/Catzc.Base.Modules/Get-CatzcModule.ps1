@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Modules/Get-CatzcModule.ps1
     name: get-catzc-module
     filetype: ps1
@@ -16,8 +17,7 @@ catzc:
   edges:
     test: automation/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
     cites:
-      - ADR-AUTO-MODULE#1
-      - ADR-AUTO-MODULE#2
+      - ADR-AUTO-MODULE#{1,2}
       - ADR-PWSH-ENUM#3
   config:
     synopsis: Returns the modules of the deployable tracks, resolved through their track.
