@@ -63,10 +63,10 @@ Code units are slate with white names; the gates are grey with dark text.
 
 ## Edges
 
-| Edge kind | Count | From → to                                                                                                                                                     |
-| --------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| flow      | 4     | automation/&lt;Module&gt;/ → Test-SourceConventions, → Test-FolderConventions, → Assert-Unique…FunctionName; Assert-Unique…FunctionName → New-DynamicManifest |
-| ADR-only  | 2     | VariantsConfig → AspectPartition.Validate, VariantsConfig → aspect sha lock                                                                                   |
+| Edge kind | Count | From → to                                                                                                                                                |
+| --------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| flow      | 4     | automation/\<Module/> → Test-SourceConventions, → Test-FolderConventions, → Assert-Unique…FunctionName; Assert-Unique…FunctionName → New-DynamicManifest |
+| ADR-only  | 2     | VariantsConfig → AspectPartition.Validate, VariantsConfig → aspect sha lock                                                                              |
 
 Every edge is straight; three point down and three point right. None crosses another, and none carries a label.
 
