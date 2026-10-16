@@ -76,14 +76,14 @@ Two phases, in this order. Phase 1 makes every edge to an ADR say exactly what i
 into their sister Markdown pages and leaves only unique one-liners and algorithmic insight. Phase 1 goes first because prose carries ADR
 links: the text Phase 2 moves is then already correct, and no link is fixed twice.
 
-Governing rules: [ADR-REPO-LINK#3](../docs/adr/repository/markdown-links.md#rule-adr-repo-link3) (the citation decides the link),
-[ADR-REPO-LINK#5](../docs/adr/repository/markdown-links.md#rule-adr-repo-link5) (one spelling),
-[ADR-REPO-LINK#8](../docs/adr/repository/markdown-links.md#rule-adr-repo-link8) (aligned by tool, never by hand), the **link granularity**
-convention in the [ADR index](../docs/adr/index.md#authoring-conventions) (cite a rule when the sentence invokes one concrete rule, link the
+Governing rules: [ADR-REPO-LINK#3](../../docs/adr/repository/markdown-links.md#rule-adr-repo-link3) (the citation decides the link),
+[ADR-REPO-LINK#5](../../docs/adr/repository/markdown-links.md#rule-adr-repo-link5) (one spelling),
+[ADR-REPO-LINK#8](../../docs/adr/repository/markdown-links.md#rule-adr-repo-link8) (aligned by tool, never by hand), the **link granularity**
+convention in the [ADR index](../../docs/adr/index.md#authoring-conventions) (cite a rule when the sentence invokes one concrete rule, link the
 ADR when the context is general, and over-narrowing a general pointer is worse than leaving it doc-level),
-[ADR-REPO-COMMENTS#1](../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1) to
-[#5](../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5) (a comment of more than one line moves verbatim to its page), and
-[ADR-PRIN-ONELIVE](../docs/adr/principles/one-living-version.md) (change the text and every caller in the same change, leave no old spelling
+[ADR-REPO-COMMENTS#1](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1) to
+[#5](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5) (a comment of more than one line moves verbatim to its page), and
+[ADR-PRIN-ONELIVE](../../docs/adr/principles/one-living-version.md) (change the text and every caller in the same change, leave no old spelling
 and no second copy).
 
 Decisions already made by you: the ledger is an `out/` script, not a function; verdicts are sampled at 5% before edits start; Phase 1 is a
@@ -202,7 +202,7 @@ citations of themselves.
   linked several times in one file.
 - Two kinds the plan did not name: 17 **section** links (to a heading of an ADR that is not a rule), which the review judges like the rest,
   and 685 **head-text** citations, in the `description` of PowerShell heads. D2 leaves that text in place, so those are reviewed for their
-  link only. [ADR-REPO-HELP#3](../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of the help text,
+  link only. [ADR-REPO-HELP#3](../../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of the help text,
   so these 685 may also be findings against HELP#3 rather than links to tidy; the review decides.
 
 ### Step 1.1: mechanical pre-pass (suggests, never decides)
@@ -260,7 +260,7 @@ keeps them. Result: 79 keep, 2 narrow, 7 hold, 0 widen, 0 merge, 0 retarget, 0 d
   specific rule.
 - **narrow (2):** prose that says "ADR-PIPE-NAME rules 1, 2, 3, 4 and 6" and "rule 4" cites specific rules without the `#n` spelling.
 - **hold (7), a decision for you:** the help text of `Test-Pipelines.ps1` carries citations, and
-  [ADR-REPO-HELP#3](../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of help text. 685 head-text
+  [ADR-REPO-HELP#3](../../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of help text. 685 head-text
   rows in the ledger are in the same position, so this is a rule against practice, not seven rows. Either strip them (the derived `adrs`
   already lists them) or relax HELP#3.
 - **Scope, a decision for you:** 6 rows come from `.unordered/` shelf plans. They are throwaway documents; exclude `.unordered/` from the
@@ -305,7 +305,7 @@ Peer sessions edit this tree, so check `git status` for the file first and messa
 
 Goal: in every `yml`, `yaml`, `cs`, `ps1` and `psm1` source file, keep only what the code does not say itself: a unique one-line insight or
 an algorithmic insight. Everything larger lives in the file's sister Markdown page, sorted into **reference** (what it is and does) and
-**explanation** (why it is that way), one living copy ([ADR-PRIN-ONELIVE](../docs/adr/principles/one-living-version.md)).
+**explanation** (why it is that way), one living copy ([ADR-PRIN-ONELIVE](../../docs/adr/principles/one-living-version.md)).
 
 ## What already exists, and what is left
 
@@ -331,7 +331,7 @@ What the numbers say:
   reported as pending. Finishing them is a run of the existing tool.
 - **The bulk of the remaining prose is the head `config:` of the PowerShell files: 14,572 lines across 719 files**, about 20 per file, up to
   109 in one. That is the `synopsis`, `description`, `parameters`, `outputs` and `examples`, which
-  [ADR-REPO-HELP#1](../docs/adr/repository/function-help.md#rule-adr-repo-help1) makes the function's help itself: structured data a tool
+  [ADR-REPO-HELP#1](../../docs/adr/repository/function-help.md#rule-adr-repo-help1) makes the function's help itself: structured data a tool
   parses, with no comment-based help block anywhere. It is the largest block of prose left in source files, and it is sanctioned there
   (decision D2 below).
 - **About 1,900 single-line comments remain in source.** Each is a candidate for one of three verdicts: stays as insight, deleted because it
@@ -345,8 +345,8 @@ What the numbers say:
 
 ## The rule to settle first
 
-[ADR-REPO-COMMENTS#2](../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments2) says a moved comment is a section of the page that
-holds its lines exactly and that the view puts back unchanged, and [#3](../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3)
+[ADR-REPO-COMMENTS#2](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments2) says a moved comment is a section of the page that
+holds its lines exactly and that the view puts back unchanged, and [#3](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3)
 puts every page under `docs/references/`. Sorting text into `docs/explanation/` therefore cannot be done by lifting a section out of a page,
 because the round-trip would no longer reproduce the file. Two ways to reconcile (decision D1):
 
@@ -417,14 +417,14 @@ Decided on 2026-10-16:
    several sections share, linked from the page's sections. COMMENTS#2/#3 are not amended. Option (b), promoting a section to an article, is
    revisited only if the duplicated words prove a real burden.
 2. **D2, head `config:` of the 719 PowerShell files (14,572 lines):** stays in place. The head is the function's help by rule
-   ([ADR-REPO-HELP#1](../docs/adr/repository/function-help.md#rule-adr-repo-help1)); moving a description out would amend HELP#1/#2 and
+   ([ADR-REPO-HELP#1](../../docs/adr/repository/function-help.md#rule-adr-repo-help1)); moving a description out would amend HELP#1/#2 and
    needs a page section with no code line, which COMMENTS#2 has no form for. Only outliers of several dozen lines get a hand review later.
 3. **D3, tests:** out of this pass. They hold one multi-line comment and 586 single-line ones.
 4. **D4, deleting one-liners:** delete only a clear restatement of the next line of code. Everything else stays, and near-duplicates are
    left alone. Every `delete` verdict is in your 5% read first, since a deletion is recoverable only through git.
 5. **D5, thresholds:** set from the data. Step 2.0 measures the size distribution of string literals and data values, then the cutoff is
    chosen. The starting guess is 3 lines or 200 characters, and the value is a setting with its default declared once on the config type
-   ([ADR-AUTO-DEFAULT#6](../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), not a constant in a script.
+   ([ADR-AUTO-DEFAULT#6](../../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), not a constant in a script.
 
 ## Effort
 
