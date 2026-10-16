@@ -5,61 +5,67 @@
 ![Grid minimap of adr-dsgn-life--every-deploy-stage-is-main-only--implementation](adr-dsgn-life--every-deploy-stage-is-main-only--implementation.grid.png)
 
 The grid minimap of the slide `adr-dsgn-life--every-deploy-stage-is-main-only--implementation` (implementation lens). The slide supports
-[ADR-DSGN-LIFE][1] and [ADR-DSGN-VISUAL][2]; the highlight of those ADR codes selects what is lit, and each reason below names the code that
-selects it.
+[ADR-DSGN-LIFE][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that selects it.
 
 ## What the minimap shows
 
-The grid crosses the 12 tracks (rows) with the 18 file languages (columns) of the world map and lights 3 cells, filled in ink. A cell lit
+The grid crosses the 16 tracks (rows) with the 18 file languages (columns) of the world map and lights 4 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (173 of the 216 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (237 of the 288 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 2 lit of 9 files
-- automation × yaml: 3 lit of 97 files
-- docs × markdown: 5 lit of 744 files
+- .unordered × markdown: 3 lit of 20 files
+- automation × yaml: 2 lit of 107 files
+- docs × markdown: 4 lit of 1985 files
+- pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
 
 A lit row prints its track's name; a lit column prints a short code, the first extension of its file language:
 
 - `.md`: markdown
+- `.yaml`: pipeline-yaml
 - `.yml`: yaml
 
 ## Why each cell is lit
 
-### .claude × markdown (2 lit files)
+### .unordered × markdown (3 lit files)
 
-Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
-([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
+Placed: the root folder `.unordered/` names the track .unordered ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language
+markdown ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [.claude/agents/drawio-diagram-waves.md][6]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 48 (text).
-- [.claude/agents/write-drawio-files.md][7]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 43 (text); selected by
-  [ADR-DSGN-VISUAL][2]: the file cites it at line 43 (text) and line 129 (text).
+- [.unordered/15-10-2026/plan-adr-consistency.md][5]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 100 (text), line 183 (text)
+  and line 268 (text).
+- [.unordered/15-10-2026/plan-concern-axis.md][6]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 91 (text).
+- [.unordered/15-10-2026/plan-explanation-drift.md][7]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 84 (text), line 86 (text),
+  line 86 (text), line 97 (text), line 99 (text), line 101 (text) and line 101 (text).
 
-### automation × yaml (3 lit files)
+### automation × yaml (2 lit files)
 
-Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
-([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
+Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
+([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][8]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 99 (text); selected by
-  [ADR-DSGN-VISUAL][2]: the file cites it at line 98 (text).
-- [automation/Catzc.Base.Docs/configs/agents.yml][9]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 32 (text), line 32 (body
-  comment) and line 37 (text).
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][10]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 52 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][8]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 95 (text).
+- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][9]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 68 (text).
 
-### docs × markdown (5 lit files)
+### docs × markdown (4 lit files)
 
-Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
-([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
+Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
+([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [docs/adr/design/commit-lifecycle.md][1]: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
-- [docs/adr/design/dora-explains.md][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 84 (text); selected by
-  [ADR-DSGN-VISUAL][2]: the file cites it at line 65 (text).
-- [docs/adr/design/visual-design.md][2]: selected by [ADR-DSGN-VISUAL][2]: the ADR's own file.
-- [docs/adr/glossary.md][12]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 149 (text).
-- [docs/adr/index.md][13]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 92 (text); selected by [ADR-DSGN-VISUAL][2]: the file
-  cites it at line 91 (text).
+- [docs/adr/design/dora-explains.md][10]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 121 (text).
+- [docs/adr/glossary.md][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 201 (text).
+- [docs/adr/index.md][12]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 107 (text).
+
+### pipelines × pipeline-yaml (1 lit file)
+
+Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
+pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+
+- [pipelines/ci-automation.yaml][13]: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing itself carries its globset's citations,
+  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 95 (text) and
+  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 68 (text).
 
 ## Keywords
 
@@ -68,10 +74,12 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [file language][16]
 - [cell][17]
 - [lit cell][18]
-- [.claude][19]: a track
+- [.unordered][19]: a track
 - [automation][19]: a track
 - [docs][19]: a track
+- [pipelines][19]: a track
 - [markdown][20]: a file language
+- [pipeline-yaml][20]: a file language
 - [yaml][20]: a file language
 
 Terms the cited ADRs define:
@@ -79,18 +87,18 @@ Terms the cited ADRs define:
 - [occupant][21], defined by [ADR-DSGN-LIFE#5][22]
 
 [1]: ../../adr/design/commit-lifecycle.md
-[2]: ../../adr/design/visual-design.md
-[3]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
-[4]: ../../adr/design/tracks.md#rule-adr-dsgn-track6
-[5]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
-[6]: ../../../.claude/agents/drawio-diagram-waves.md
-[7]: ../../../.claude/agents/write-drawio-files.md
+[2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
+[3]: ../../adr/design/tracks.md#rule-adr-dsgn-track6
+[4]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
+[5]: ../../../.unordered/15-10-2026/plan-adr-consistency.md
+[6]: ../../../.unordered/15-10-2026/plan-concern-axis.md
+[7]: ../../../.unordered/15-10-2026/plan-explanation-drift.md
 [8]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[9]: ../../../automation/Catzc.Base.Docs/configs/agents.yml
-[10]: ../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
-[11]: ../../adr/design/dora-explains.md
-[12]: ../../adr/glossary.md
-[13]: ../../adr/index.md
+[9]: ../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[10]: ../../adr/design/dora-explains.md
+[11]: ../../adr/glossary.md
+[12]: ../../adr/index.md
+[13]: ../../../pipelines/ci-automation.yaml
 [14]: ../../adr/glossary.md#world-map
 [15]: ../../adr/glossary.md#track
 [16]: ../../adr/glossary.md#file-language

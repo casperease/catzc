@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2d21112dd130"
+    with_body_sha: "04417d888cbb"
     path: docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-a-bad-coordinate-stops-discovery-operations-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.chain.md
       - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
+      - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.grid.md
+      - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.tree.md
       - docs/explanation/azure/a-bad-coordinate-stops-discovery.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # A bad coordinate stops discovery: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 660 diagram, read left to right through two bands.
 Glyphs: 1 file (olive), 2 code units (slate), 1 result, 3 failures in a frame; 3 flow edges, 2 failure paths; 7 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png) draws, in the vocabulary of the
@@ -82,5 +88,14 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-The lens badge reads `OPS`. The three minimaps, the world-map grid, the tree and the value-chain map, sit above it, and the map key below it
-names the four swatches: lit, lit by passing mentions only, lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AZ-CUSTOMER and ADR-AZ-DATAMOD): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-az-datamod--a-bad-coordinate-stops-discovery--operations.grid.md),
+[tree](adr-az-datamod--a-bad-coordinate-stops-discovery--operations.tree.md) and [value-chain map](adr-az-datamod--a-bad-coordinate-stops-discovery--operations.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** OPS, with "Supports ADR-AZ-CUSTOMER and ADR-AZ-DATAMOD" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

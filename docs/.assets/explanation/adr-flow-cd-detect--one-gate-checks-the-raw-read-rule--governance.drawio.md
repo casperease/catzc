@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4cb4d72923c0"
+    with_body_sha: "9da7c8406507"
     path: docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-one-gate-checks-the-raw-read-rule-governance-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.chain.md
       - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.grid.md
+      - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.tree.md
       - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # One gate checks the raw-read rule: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 640 diagram, read left to right across two bands, then down to a third.
 Glyphs: 2 code units (slate), 1 named set (mauve), 2 gates (neutral); 1 thick edge, 2 flow edges; 2 solid and 5 dashed rule chips; 5 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png) draws, in the vocabulary of
@@ -82,4 +88,14 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-The lens badge reads `GOV`. The three minimaps sit above it, and the map key below it names the four swatches.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-FLOW-CD-DETECT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.grid.md),
+[tree](adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.tree.md) and [value-chain map](adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** GOV, with "Supports ADR-FLOW-CD-DETECT" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

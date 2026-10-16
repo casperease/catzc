@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5371af829905"
+    with_body_sha: "88710b5ec160"
     path: docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-one-way-climb-three-endings-meta-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.chain.md
       - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png
       - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.grid.md
       - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.tree.md
       - docs/explanation/design/one-way-climb-three-endings.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # A commit only climbs, then ends in one of three ways: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 600 diagram, read left to right along one row of commits, with three bands stacked top to bottom.
 Glyphs: 11 commits (one a ghost); 2 flow edges, 7 ADR-only edges, 1 failure path; 4 markers.
-Sidebar: world-map grid (3 lit cells), tree (5 lit groups), value-chain map (3 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png) draws, in the vocabulary of the diagram
@@ -84,25 +85,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-dsgn-life--one-way-climb-three-endings--meta.grid.md), [tree](adr-dsgn-life--one-way-climb-three-endings--meta.tree.md) and
-[value-chain map](adr-dsgn-life--one-way-climb-three-endings--meta.chain.md). A file or ADR lights a minimap when it cites, or is, the ADR
-the slide supports (ADR-DSGN-LIFE, ADR-DSGN-VISUAL); the explanation articles, these descriptions and the drawing tooling never light
-anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-DSGN-LIFE): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-life--one-way-climb-three-endings--meta.grid.md),
+[tree](adr-dsgn-life--one-way-climb-three-endings--meta.tree.md) and [value-chain map](adr-dsgn-life--one-way-climb-three-endings--meta.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 3 lit cells, `.claude × .md` (2 files: 2 cite ADR-DSGN-LIFE,
-  ADR-DSGN-VISUAL); `automation × .yml` (3 files: 3 cite ADR-DSGN-LIFE, ADR-DSGN-VISUAL); `docs × .md` (5 files: 3 cite ADR-DSGN-LIFE,
-  ADR-DSGN-VISUAL; 2 are the ADR file of ADR-DSGN-LIFE, ADR-DSGN-VISUAL).
-- **Tree** (the repository's files): 5 lit groups, `adr/dsgn` (3 files); `.claude` (2 files); `Docs` (2 files); `adr/*` (2 files);
-  `ModuleSystem` (1 file). The ADR files `docs/adr/design/commit-lifecycle.md`, `docs/adr/design/visual-design.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 3 lit cells: `DSGN × QC`, because ADR-DSGN-LIFE: its ADR
-  domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern
-  (ADR-DSGN-TRACK#15); ADR-DSGN-VISUAL: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release,
-  deploy is its own value-chain concern (ADR-DSGN-TRACK#15); `DSGN × RELEASE`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the
-  DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-DSGN-VISUAL:
-  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
-  quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-DSGN-VISUAL: its ADR domain `design` sits on the
-  DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15).
-- **Lens badge:** META, with "Supports ADR-DSGN-LIFE · ADR-DSGN-VISUAL" beneath it.
+- **Lens badge:** META, with "Supports ADR-DSGN-LIFE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "558b77e45d42"
+    with_body_sha: fdb5c7d89863
     path: docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-naming-how-each-naming-rule-is-held-governance-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md
       - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
       - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.grid.md
       - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.tree.md
       - docs/explanation/azure/how-each-naming-rule-is-held.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # How each naming rule is held: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 820 diagram, read top to bottom through three bands.
 Glyphs: 4 gates, 1 code unit (slate), 1 failure, 1 result; 5 flow edges, 5 failure paths; 5 rule chips, 6 markers.
-Sidebar: world-map grid (4 lit cells), tree (7 lit groups), value-chain map (1 lit cell), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png) draws, in the vocabulary of the
@@ -86,18 +87,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-az-naming--how-each-naming-rule-is-held--governance.grid.md),
-[tree](adr-az-naming--how-each-naming-rule-is-held--governance.tree.md) and
-[value-chain map](adr-az-naming--how-each-naming-rule-is-held--governance.chain.md). A file or ADR lights a minimap when it cites, or is,
-the ADR the slide supports (ADR-AZ-NAMING); the explanation articles, these descriptions and the drawing tooling never light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AZ-NAMING): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-az-naming--how-each-naming-rule-is-held--governance.grid.md),
+[tree](adr-az-naming--how-each-naming-rule-is-held--governance.tree.md) and [value-chain map](adr-az-naming--how-each-naming-rule-is-held--governance.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 4 lit cells, `automation × .cs` (3 files: 3 cite ADR-AZ-NAMING);
-  `automation × .ps1` (7 files: 7 cite ADR-AZ-NAMING); `automation × .yml` (4 files: 4 cite ADR-AZ-NAMING); `docs × .md` (4 files: 3 cite
-  ADR-AZ-NAMING; 1 is the ADR file of ADR-AZ-NAMING).
-- **Tree** (the repository's files): 7 lit groups, `Az.Templates` (7 files); `Azure` (4 files); `Docs` (2 files); `adr/azure` (2 files);
-  `Variants` (1 file); `adr/*` (1 file); `docs` (1 file). The ADR file `docs/adr/azure/azure-naming-standard.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `CLOUD × DEPLOY`, because ADR-AZ-NAMING: its
-  ADR domain `azure` sits on the CLOUD row (ADR-DSGN-TRACK#14), and deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-AZ-NAMING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

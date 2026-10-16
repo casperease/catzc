@@ -110,4 +110,9 @@ The integrity test keeps running it over the real tree. Fixture agents and capab
 
 ## Done, and why
 
-Nothing yet.
+- 2026-10-16: `drawio.renderer`, `plan.shape`, `drawio-png`, `plan-clear` built and gate-green (Phase 2 ahead of Phase 1, on the
+  user's go). The kit got its first source-controlled defaults file, `.claude/drawio/drawio.yml` (`renderer.page: dark`,
+  `renderer.out: out/drawio`), read without a YAML library; a parameter overrides an entry for one run. `drawio_forward.py` is
+  the fail-forward step and drives the minimap pipeline for one slide from the slide itself. Three slides regenerated with fresh
+  minimaps in 9 to 10 s each; the token count is in `out/drawio/token-count.md`: about 3,900 tokens per spawn, about 380 per
+  slide for the deterministic step, about 1,790 per optional look at a PNG.

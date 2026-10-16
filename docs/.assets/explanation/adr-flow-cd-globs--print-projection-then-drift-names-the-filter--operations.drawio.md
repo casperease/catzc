@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5d810ac1cc08"
+    with_body_sha: ff33b65bfb09
     path: docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-print-projection-then-drift-names-the-filter-operations-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.chain.md
       - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.grid.md
+      - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.tree.md
       - docs/explanation/flow/print-projection-then-drift-names-the-filter.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Print the projection, then drift names the filter: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 720 diagram, read top to bottom through three bands.
 Glyphs: 2 files (olive), 1 code unit (slate), 2 gates, 3 failures (red); 4 flow edges, 1 ADR-only edge, 3 failure paths; 8 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png) draws, in the
@@ -84,5 +90,14 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-The lens badge reads `OPS`. The three minimaps sit above it, and the map key below it names the four swatches: lit, lit by passing mentions
-only, lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-FLOW-CD-GLOBS): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.grid.md),
+[tree](adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.tree.md) and [value-chain map](adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** OPS, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

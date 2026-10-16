@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3fbd2c7014b2"
+    with_body_sha: "7d24cafdceae"
     path: docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-pipe-auth-what-you-set-decides-the-credential-operations-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md
       - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
       - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.grid.md
       - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md
       - docs/explanation/pipelines/what-you-set-decides-the-credential.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # What you set decides the credential: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 620 diagram, read top to bottom inside one band, WHAT YOU SET.
 Glyphs: 3 gates, 1 result, 4 failures; 5 flow edges, 4 failure paths; 8 markers.
-Sidebar: world-map grid (2 lit cells), tree (3 lit groups), value-chain map (1 lit cell), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png) draws, in the vocabulary of the
@@ -83,17 +84,14 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-pipe-auth--what-you-set-decides-the-credential--operations.grid.md),
-[tree](adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md) and
-[value-chain map](adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md). A file or ADR lights a minimap when it cites, or
-is, the ADR the slide supports (ADR-PIPE-AUTH); the explanation articles, these descriptions and the drawing tooling never light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-PIPE-AUTH): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-pipe-auth--what-you-set-decides-the-credential--operations.grid.md),
+[tree](adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md) and [value-chain map](adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 2 lit cells, `automation × .yml` (1 file: 1 cites ADR-PIPE-AUTH);
-  `docs × .md` (3 files: 2 cite ADR-PIPE-AUTH; 1 is the ADR file of ADR-PIPE-AUTH).
-- **Tree** (the repository's files): 3 lit groups, `adr/pipe` (2 files); `Docs` (1 file); `adr/*` (1 file). The ADR file
-  `docs/adr/pipelines/dual-authentication.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `PIPE × ACCESS`, because ADR-PIPE-AUTH: its
-  ADR domain `pipelines` sits on the PIPE row (ADR-DSGN-TRACK#14), and access is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** OPS, with "Supports ADR-PIPE-AUTH" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

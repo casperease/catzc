@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4e5df40b50d5"
+    with_body_sha: d125b61b2d97
     path: docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-depm-two-gates-check-the-layer-pins-governance-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md
       - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
       - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md
       - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.tree.md
       - docs/explanation/automation/two-gates-check-the-layer-pins.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Two gates check the layer pins: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 700 diagram in two columns, each read top to bottom through three bands.
 Glyphs: 3 named sets (mauve), 2 gates, 1 ADR-only; 3 thick edges, 1 flow edge; 6 rule chips; 6 markers.
-Sidebar: world-map grid (8 lit cells), tree (39 lit groups), value-chain map (2 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png) draws, in the vocabulary of the
@@ -83,31 +84,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md),
-[tree](adr-auto-depm--two-gates-check-the-layer-pins--governance.tree.md) and
-[value-chain map](adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md). A file or ADR lights a minimap when it cites, or is,
-the ADR the slide supports (ADR-AUTO-DEPM, ADR-AUTO-TEST); the explanation articles, these descriptions and the drawing tooling never light
-anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AUTO-DEPM and ADR-AUTO-TEST): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md),
+[tree](adr-auto-depm--two-gates-check-the-layer-pins--governance.tree.md) and [value-chain map](adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 8 lit cells, `.claude × .md` (4 files: 4 cite ADR-AUTO-TEST);
-  `automation × .cs` (15 files: 15 cite ADR-AUTO-DEPM, ADR-AUTO-TEST); `automation × .ps1` (336 files: 336 cite ADR-AUTO-TEST);
-  `automation × .yml` (17 files: 17 cite ADR-AUTO-DEPM, ADR-AUTO-TEST); `docs × .md` (14 files: 12 cite ADR-AUTO-DEPM, ADR-AUTO-TEST; 2 are
-  the ADR file of ADR-AUTO-DEPM, ADR-AUTO-TEST); `pipelines × .yaml` (1 file, mentions only: 1 cites ADR-AUTO-TEST); `Root files × .ps1` (1
-  file: 1 is mapped through files.yml to ADR-AUTO-TEST); `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-TEST). 1
-  cell lit only by passing mentions shows at 40 % ink.
-- **Tree** (the repository's files): 39 lit groups, `QualityGates` (132 files); `Docs` (49 files); `Az.Templates` (29 files); `ModuleSystem`
-  (22 files); `Globs` (14 files); `Azure` (11 files); `Languages` (11 files); `Tool.Core` (11 files); `Execution` (10 files); `Maps` (9
-  files); `docs` (9 files); `RootConfig` (8 files); `Contracts` (7 files); `Tool.Provisioning` (7 files); `Reports` (5 files); `TypesSystem`
-  (5 files); `.claude` (4 files); `.internal` (4 files); `Az.DevOps` (4 files); `Tool.Inspiration` (4 files); `Root files` (3 files);
-  `Config` (3 files); `ConfigExtensions` (3 files); `Exporter` (3 files); `Tool.KeyHandler` (3 files); `adr/auto` (3 files); `Objects` (2
-  files); `Repository` (2 files); `Tool.Toolchain` (2 files); `adr/*` (2 files); `.scriptanalyzer` (1 file); `Az.DevOps.BuildValidation` (1
-  file); `Engines` (1 file); `Environment` (1 file); `Files` (1 file); `Overlay` (1 file); `Timeouts` (1 file); `Tool.Python` (1 file);
-  `pipelines` (1 file). The ADR files `docs/adr/automation/controlling-module-dependencies.md`, `docs/adr/automation/test-automation.md`
-  carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `AUTO × LOCAL`, because ADR-AUTO-DEPM: its
-  ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15);
-  `AUTO × QC`, because ADR-AUTO-TEST: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and quality-control is its own
-  value-chain concern (ADR-DSGN-TRACK#15).
-- **Lens badge:** GOV, with "Supports ADR-AUTO-DEPM · ADR-AUTO-TEST" beneath it.
+- **Lens badge:** GOV, with "Supports ADR-AUTO-DEPM and ADR-AUTO-TEST" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

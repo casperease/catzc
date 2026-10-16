@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8c792d1d34f4"
+    with_body_sha: "09318bc0cb50"
     path: docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-what-gates-each-bundle-stage-governance-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.md
       - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png
       - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.grid.md
       - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.tree.md
       - docs/explanation/automation/what-gates-each-bundle-stage.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Every stage has a rule, two gates check it: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 620 diagram, read left to right through three bands.
 Glyphs: 1 code unit (slate), 2 gates, 2 results, 1 ADR-only; 5 flow edges, 1 ADR-only edge; 6 rule chips; 7 markers.
-Sidebar: world-map grid (9 lit cells), tree (43 lit groups), value-chain map (6 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png) draws, in the vocabulary of the
@@ -89,39 +90,14 @@ A full-width panel at the bottom of the drawing area, in three columns of up to 
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-auto-bundle--what-gates-each-bundle-stage--governance.grid.md),
-[tree](adr-auto-bundle--what-gates-each-bundle-stage--governance.tree.md) and
-[value-chain map](adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.md). A file or ADR lights a minimap when it cites, or is,
-the ADR the slide supports (ADR-AUTO-BUNDLE, ADR-AUTO-TEST, ADR-DSGN-RUNMODE, ADR-PWSH-MANIFEST); the explanation articles, these
-descriptions and the drawing tooling never light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AUTO-BUNDLE and ADR-PWSH-MANIFEST): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-bundle--what-gates-each-bundle-stage--governance.grid.md),
+[tree](adr-auto-bundle--what-gates-each-bundle-stage--governance.tree.md) and [value-chain map](adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 9 lit cells, `.claude × .md` (4 files: 4 cite ADR-AUTO-TEST);
-  `.github × .yml` (1 file, mentions only: 1 cites ADR-AUTO-BUNDLE); `automation × .cs` (14 files: 14 cite ADR-AUTO-BUNDLE, ADR-AUTO-TEST);
-  `automation × .ps1` (371 files: 371 cite ADR-AUTO-BUNDLE, ADR-AUTO-TEST, ADR-DSGN-RUNMODE, ADR-PWSH-MANIFEST); `automation × .yml` (18
-  files: 18 cite ADR-AUTO-BUNDLE, ADR-AUTO-TEST, ADR-DSGN-RUNMODE, ADR-PWSH-MANIFEST); `docs × .md` (18 files: 14 cite ADR-AUTO-BUNDLE,
-  ADR-AUTO-TEST, ADR-DSGN-RUNMODE, ADR-PWSH-MANIFEST; 4 are the ADR file of ADR-AUTO-BUNDLE, ADR-AUTO-TEST, ADR-DSGN-RUNMODE,
-  ADR-PWSH-MANIFEST); `pipelines × .yaml` (1 file, mentions only: 1 cites ADR-AUTO-TEST); `Root files × .ps1` (1 file: 1 is mapped through
-  files.yml to ADR-AUTO-BUNDLE, ADR-AUTO-TEST, ADR-DSGN-RUNMODE, ADR-PWSH-MANIFEST); `Root files × other` (2 files: 2 are mapped through
-  files.yml to ADR-AUTO-TEST, ADR-DSGN-RUNMODE). 2 cells lit only by passing mentions show at 40 % ink.
-- **Tree** (the repository's files): 43 lit groups, `QualityGates` (136 files); `Docs` (50 files); `Az.Templates` (29 files); `ModuleSystem`
-  (25 files); `Globs` (15 files); `Exporter` (13 files); `Azure` (11 files); `Languages` (11 files); `Tool.Core` (11 files); `Execution` (10
-  files); `TypesSystem` (10 files); `Maps` (9 files); `RootConfig` (9 files); `docs` (9 files); `Contracts` (8 files); `.internal` (7
-  files); `Tool.Provisioning` (7 files); `Reports` (5 files); `Repository` (5 files); `.claude` (4 files); `Az.DevOps` (4 files);
-  `Tool.Inspiration` (4 files); `Root files` (3 files); `Config` (3 files); `ConfigExtensions` (3 files); `Tool.KeyHandler` (3 files);
-  `adr/auto` (3 files); `Objects` (2 files); `Overlay` (2 files); `Vendor` (2 files); `Tool.Toolchain` (2 files); `adr/*` (2 files);
-  `adr/dsgn` (2 files); `adr/pwsh` (2 files); `.github` (1 file); `.scriptanalyzer` (1 file); `Az.DevOps.BuildValidation` (1 file);
-  `Engines` (1 file); `Environment` (1 file); `Files` (1 file); `Timeouts` (1 file); `Tool.Python` (1 file); `pipelines` (1 file). The ADR
-  files `docs/adr/automation/platform-bundle.md`, `docs/adr/automation/test-automation.md`, `docs/adr/design/run-modes.md`,
-  `docs/adr/pwsh/dynamic-module-manifests.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 6 lit cells: `DSGN × LOCAL`, because ADR-DSGN-RUNMODE:
-  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
-  automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × LOCAL`, because ADR-PWSH-MANIFEST: its ADR domain `pwsh`
-  sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15); `AUTO × BUILD`, because
-  ADR-AUTO-BUNDLE: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `AUTO × QC`, because ADR-AUTO-TEST: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and
-  quality-control is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × RELEASE`, because ADR-AUTO-BUNDLE: its ADR domain `automation`
-  sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern (ADR-DSGN-TRACK#15).
-- **Lens badge:** GOV, with "Supports ADR-AUTO-BUNDLE · ADR-PWSH-MANIFEST" and "ADR-AUTO-TEST · ADR-DSGN-RUNMODE" beneath it.
+- **Lens badge:** GOV, with "Supports ADR-AUTO-BUNDLE and ADR-PWSH-MANIFEST" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

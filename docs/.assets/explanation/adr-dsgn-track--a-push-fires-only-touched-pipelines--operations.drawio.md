@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "51409d5b04f2"
+    with_body_sha: ad3fbb92a134
     path: docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-track-a-push-fires-only-touched-pipelines-operations-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.chain.md
       - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png
       - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.grid.md
       - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.tree.md
       - docs/explanation/design/a-push-fires-only-touched-pipelines.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # A push fires only the pipelines it touches: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 740 diagram, read left to right through three bands above a full-width band.
 Glyphs: 3 named sets (mauve), 3 runners (slate), 1 gate, 1 failure; 5 edges; 7 markers.
-Sidebar: world-map grid (5 lit cells), tree (11 lit groups), value-chain map (1 lit cell), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png) draws, in the vocabulary of
@@ -86,20 +87,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.grid.md),
-[tree](adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.tree.md) and
-[value-chain map](adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.chain.md). A file or ADR lights a minimap when it cites,
-or is, the ADR the slide supports (ADR-DSGN-TRACK); the explanation articles, these descriptions and the drawing tooling never light
-anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-DSGN-TRACK): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.grid.md),
+[tree](adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.tree.md) and [value-chain map](adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 5 lit cells, `automation × .cs` (18 files: 18 cite ADR-DSGN-TRACK);
-  `automation × .ps1` (23 files: 23 cite ADR-DSGN-TRACK); `automation × .yml` (8 files: 8 cite ADR-DSGN-TRACK); `docs × .md` (6 files: 5
-  cite ADR-DSGN-TRACK; 1 is the ADR file of ADR-DSGN-TRACK); `pipelines × .yaml` (1 file: 1 cites ADR-DSGN-TRACK).
-- **Tree** (the repository's files): 11 lit groups, `Maps` (29 files); `Languages` (6 files); `Docs` (5 files); `Variants` (4 files);
-  `Globs` (2 files); `QualityGates` (2 files); `adr/*` (2 files); `adr/dsgn` (2 files); `docs` (2 files); `ModuleSystem` (1 file);
-  `pipelines` (1 file). The ADR file `docs/adr/design/tracks.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `DSGN × LOCAL`, because ADR-DSGN-TRACK: its
-  ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** OPS, with "Supports ADR-DSGN-TRACK" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

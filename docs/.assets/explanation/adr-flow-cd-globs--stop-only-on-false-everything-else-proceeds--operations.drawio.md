@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0c50ac04051e"
+    with_body_sha: "97db1f292b6f"
     path: docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-stop-only-on-false-everything-else-proceeds-operations-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.chain.md
       - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.grid.md
+      - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.tree.md
       - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Stop only on $false, everything else proceeds: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 640 diagram, read top to bottom through three bands.
 Glyphs: 1 ADR-only, 1 code unit (slate), 3 results, 1 failure; 3 flow edges, 1 failure path, 1 ADR-only edge; 6 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png) draws, in the
@@ -81,5 +87,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The lens badge reads `OPS`. The three minimaps sit above it, and the map key below it names the four swatches: lit, lit by passing mentions
-only, lit ADR file, idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-FLOW-CD-GLOBS): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.grid.md),
+[tree](adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.tree.md) and [value-chain map](adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** OPS, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

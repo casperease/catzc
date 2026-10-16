@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cd85d597101c
+    with_body_sha: "1d7932ec6005"
     path: docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-runmode-one-entry-script-per-mode-operations-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.chain.md
       - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
       - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.grid.md
       - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.tree.md
       - docs/explanation/design/one-entry-script-per-mode.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Each run mode has one entry script, and a mixed session throws: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 720 diagram: three bands side by side over one full-width band.
 Glyphs: 4 code units (slate), 2 gates, 2 failures; 4 flow edges, 2 failure paths; 8 markers.
-Sidebar: world-map grid (5 lit cells), tree (13 lit groups), value-chain map (2 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png) draws, in the vocabulary of the
@@ -85,23 +86,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-dsgn-runmode--one-entry-script-per-mode--operations.grid.md),
-[tree](adr-dsgn-runmode--one-entry-script-per-mode--operations.tree.md) and
-[value-chain map](adr-dsgn-runmode--one-entry-script-per-mode--operations.chain.md). A file or ADR lights a minimap when it cites, or is,
-the ADR the slide supports (ADR-DSGN-RUNMODE); the explanation articles, these descriptions and the drawing tooling never light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-DSGN-RUNMODE): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-runmode--one-entry-script-per-mode--operations.grid.md),
+[tree](adr-dsgn-runmode--one-entry-script-per-mode--operations.tree.md) and [value-chain map](adr-dsgn-runmode--one-entry-script-per-mode--operations.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 5 lit cells, `automation × .ps1` (28 files: 28 cite ADR-DSGN-RUNMODE);
-  `automation × .yml` (2 files: 2 cite ADR-DSGN-RUNMODE); `docs × .md` (3 files: 2 cite ADR-DSGN-RUNMODE; 1 is the ADR file of
-  ADR-DSGN-RUNMODE); `Root files × .ps1` (1 file: 1 is mapped through files.yml to ADR-DSGN-RUNMODE); `Root files × other` (2 files: 2 are
-  mapped through files.yml to ADR-DSGN-RUNMODE).
-- **Tree** (the repository's files): 13 lit groups, `ModuleSystem` (8 files); `QualityGates` (5 files); `TypesSystem` (5 files);
-  `Root files` (3 files); `Repository` (3 files); `.internal` (2 files); `Docs` (2 files); `Vendor` (2 files); `adr/dsgn` (2 files);
-  `ConfigExtensions` (1 file); `Globs` (1 file); `RootConfig` (1 file); `adr/*` (1 file). The ADR file `docs/adr/design/run-modes.md`
-  carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × LOCAL`, because ADR-DSGN-RUNMODE:
-  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
-  automation, build is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** OPS, with "Supports ADR-DSGN-RUNMODE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

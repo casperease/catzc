@@ -114,4 +114,20 @@ ADR-REPO-LINK#1, the drawio ones cite ADR-DSGN-VISUAL#4) and `checks` (`[]` for 
 
 ## Done, and why
 
-Nothing yet.
+- 2026-10-16: drawio.renderer gained `--page dark|model`, an optional `<out_dir>`, both defaulting from `.claude/drawio/drawio.yml`,
+  and `--minimaps`, which derives the one-slide list from the file name and the sister `.drawio.md` and runs highlights.ps1,
+  render.py and join.py into `<out_dir>/<name>/`. Proven on three explanation slides, exit 0 each, 9 to 10 s each; count in
+  `out/drawio/token-count.md`.
+- 2026-10-16: all 148 explanation slides migrated to the dark tokens in place (migrate_dark.py, no light token left) and rebuilt
+  with fresh minimaps from the current maps; 60 slides got minimaps and sister files for the first time. The slide's ADR codes
+  come from its own labels and file name, checked against the ADR index (`slide_adrs` in drawio_forward.py), never from the
+  sister .md's citations. join.py now turns a template placeholder into an image cell and drops its label. Driver scripts:
+  `out/drawio/regen-explanation.py`, `out/drawio/relabel-subset.py`.
+- 2026-10-16, rule from the user: a slide's `<stem>.drawio.md` is the **instruction file** for the robot that rebuilds the slide,
+  not a record of its data. Its Sidebar names the ADR codes, the generators whose output the minimaps are (`Get-WorldMapHighlight`,
+  `Get-ValueChainHighlight`, `Get-WorldMap`, `Get-AdrCitationMap`, linked to their reference pages) and the rebuild step
+  (`drawio_forward.py <slide> --minimaps`); it never carries lit-cell counts, file names or reasons, which live in the generated
+  sister `.grid.md`, `.tree.md`, `.chain.md` as of each build. All 148 descriptions rewritten so (`out/drawio/regen-descriptions.py`);
+  the at-a-glance line reads "three minimaps and the map key, generated from the current maps". The same rule goes to the
+  `drawio.renderer` capability's robot (drawio-png step 2) and, when it is built, to `drawio.waves`: a maker writes the pointer
+  form, never the data form.

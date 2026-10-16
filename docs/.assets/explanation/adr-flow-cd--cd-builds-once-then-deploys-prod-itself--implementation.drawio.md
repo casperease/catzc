@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6b9c519269c0"
+    with_body_sha: d4cac583d849
     path: docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-cd-builds-once-then-deploys-prod-itself-implementation-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.chain.md
       - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
       - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.md
       - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.tree.md
       - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # The customer CD pipeline builds once, then deploys prod itself: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 600 diagram, read left to right through three bands.
 Glyphs: 4 runners (slate), 3 results, 2 environments; 10 flow edges; 6 markers.
-Sidebar: world-map grid (5 lit cells), tree (7 lit groups), value-chain map (4 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png) draws, in the vocabulary
@@ -82,25 +83,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.md),
-[tree](adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.tree.md) and
-[value-chain map](adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.chain.md). A file or ADR lights a minimap when it
-cites, or is, the ADR the slide supports (ADR-FLOW-CD); the explanation articles, these descriptions and the drawing tooling never light
-anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-FLOW-CD): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.md),
+[tree](adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.tree.md) and [value-chain map](adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 5 lit cells, `.claude × .md` (1 file: 1 cites ADR-FLOW-CD);
-  `automation × .cs` (2 files: 2 cite ADR-FLOW-CD); `automation × .ps1` (3 files: 3 cite ADR-FLOW-CD); `automation × .yml` (3 files: 3 cite
-  ADR-FLOW-CD); `docs × .md` (4 files: 3 cite ADR-FLOW-CD; 1 is the ADR file of ADR-FLOW-CD).
-- **Tree** (the repository's files): 7 lit groups, `Docs` (3 files); `Maps` (3 files); `adr/*` (2 files); `adr/flow` (2 files); `.claude` (1
-  file); `ModuleSystem` (1 file); `QualityGates` (1 file). The ADR file `docs/adr/flow/cd-discipline-and-promotion-flow.md` carries the
-  white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × BUILD`, because ADR-FLOW-CD: its
-  ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default
-  concern (ADR-DSGN-TRACK#15); `DSGN × QC`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build,
-  quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `DSGN × RELEASE`, because ADR-FLOW-CD: its ADR
-  domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern
-  (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build,
-  quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** IMPL, with "Supports ADR-FLOW-CD" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

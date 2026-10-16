@@ -11,13 +11,11 @@ selects it.
 ## What the minimap shows
 
 Value-chain map: value-chain stack × value-chain concerns. The grid crosses the 5 rows of the value-chain stack (PRIN, DSGN, AUTO, PIPE,
-CLOUD) with the 6 value-chain concerns (automation, build, quality-control, release, deploy, access) and lights 2 cells, filled in ink.
-Every other cell is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (7 of
-the 30 cells hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain
-map.
+CLOUD) with the 5 value-chain concerns (build, quality-control, release, deploy, access) and lights 1 cell, filled in ink. Every other cell
+is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (5 of the 25 cells
+hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
 
-- AUTO × automation: 1 lit of 63 ADRs
-- AUTO × quality-control: 1 lit of 10 ADRs
+- AUTO × quality-control: 1 lit of 14 ADRs
 
 ## Key
 
@@ -28,7 +26,6 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - `AUTO`: the AUTO row of the value-chain stack
 - `PIPE`: the PIPE row of the value-chain stack
 - `CLOUD`: the CLOUD row of the value-chain stack
-- `LOCAL`: the LOCAL row of the value-chain stack
 - `BUILD`: build
 - `QC`: quality-control
 - `RELEASE`: release
@@ -36,14 +33,6 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - `ACCESS`: access
 
 ## Why each cell is lit
-
-### AUTO × automation (1 ADR)
-
-Lit ([ADR-DSGN-TRACK#12][3]) by:
-
-- [ADR-AUTO-DEPM][1]: selected by [ADR-AUTO-DEPM][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its value-chain concerns (automation) are its ADR domain's default, so it lights the automation column
-  ([ADR-DSGN-TRACK#15][5]).
 
 ### AUTO × quality-control (1 ADR)
 

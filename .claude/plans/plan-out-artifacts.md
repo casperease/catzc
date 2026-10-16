@@ -31,16 +31,40 @@ Referenced by a plan or prompt in .claude/plans, so kept until that plan is done
 - Bounded enumeration: bench-folder-walk.ps1. Layers and generators: run-generator-tests.ps1, regen-generators.ps1, run-gates.ps1,
   run-meta-tests.ps1. Assert-BashTimeout.cs is named by a plan as out/ but lives under .claude/hooks; not an out/ file.
 
-Unreferenced by any plan: everything else, by prefix family: run-* (about 90), probe-* 12, fix-* 12, verify-meta-* 7, to-* 7, step1-7,
-check-* 7, migrate-* 5, meta-selector-* 5, gates-* 5, boxing-stages* 4, adrhead-* 4, debug-* 4, yamlcheck* 3, bodysha-* 3 and singles.
-Not yet sorted into one-off probe (delete), rerunnable check (keep in out/ and name it in its plan), or reusable tool (becomes a module
-function with tests). That sorting needs each script's body read; it is the next step of this plan, on the user's go.
+Harvest done 2026-10-16 by a Sonnet worker (Q75): 260 scripts read in full, one row each in out/harvest-verdicts.md (grouped by prefix
+family, a copyable probe line per family, counts first). The 27 .bak files were deleted the same day (Q76). Verdicts:
+
+| Verdict | Count | What it means |
+| --- | ---: | --- |
+| probe | 235 | one-off; safe to delete, one approved batch at a time (Q77) |
+| rerun | 20 | kept in out/ and named by its plan below |
+| tool | 5 | becomes a module function with tests, as an open step of the owning plan |
+
+Rerun scripts by plan: bounded enumeration run-folders-tests.ps1, run-folders-verify.ps1; lazy types probe-lazy-walker.ps1,
+phase0-timing.ps1; unboxing boxing-stages.ps1, measure-scopes.ps1, profile-module-build.ps1; file head run-meta-selector-tests.ps1,
+meta-selector-baseline.ps1, meta-selector-classes.ps1, check-generated-heads.ps1, audit-file-kinds.ps1, count-kinds.ps1 (the last two
+from the kinds-registry work, which the file-head plan records); out artifacts run-out-retention-tests.ps1; module kinds step3.ps1;
+test budget rerun-split.ps1; plans program bodysha-scan.py, bodysha-scan-wt.py; link cleanup dump-slice.ps1; minimal robots mr-gate.ps1.
+
+Tool candidates, each an open step for its owning plan: run-head-batch.ps1 (stamps heads, proves a second run changes nothing, then
+checks each file still loads in its own language; the load check recurs in four scripts and has no catzc command; QualityGates, file
+head plan); tests-comments-rollout.ps1 (proves no registered ADR code was lost across an export-and-format step, via Get-AdrCitationMap
+before and after; Docs, link cleanup plan); probe-corpus.ps1 (loads the git-HEAD version of a private function under an Old name and
+compares outputs; a generic refactor-equivalence helper; QualityGates); gates-module.ps1 (a per-module gate runner; QualityGates);
+diff-one.ps1 (a file's actual head against the fixed head, which Format-FileMeta -DryRun does not show; QualityGates).
+
+Caveats from the worker: scripts dated today 14:57 to 17:22 (step1 to step7, yamlcheck*, finish-glossary, time-comment-scope, mr-gate)
+may belong to sessions still running; the *-mine and peer scripts hardcode one session's file list; the drawio scripts belong to the
+drawio sessions; run-clear-output.ps1 was judged by reading, never run. Probe deletions skip anything younger than the session asking.
 
 ## Open steps (harvest)
 
-- [ ] Sort the unreferenced scripts by reading each body: probe, rerunnable, or tool (check: a table in this file with one verdict each).
-- [ ] Delete the probes and the 27 .bak files on the user's yes (check: the counts above shrink; nothing a plan names is gone).
-- [ ] Each tool verdict becomes an open step in the plan that owns the behaviour, never a copy in two places.
+- [ ] Delete the probes, one approved batch at a time, oldest families first, skipping today's scripts (check: the family's probe
+  line in harvest-verdicts.md is gone from out/; nothing a plan names is gone).
+- [ ] The five tool candidates become open steps in their owning plans: run-head-batch and diff-one and probe-corpus and gates-module
+  in the file-head and plans-program plans (QualityGates), tests-comments-rollout in the link cleanup plan (Docs).
+- [ ] Register the six out/ areas with their numbers in output-formats.yml (Q71); sessions under out/sessions/<session>/ (Q72);
+  time-safeguard.log never pruned (Q73); only Clear-Output prunes (Q74) (check: the config tests; Test-Links).
 
 ## Needed docs
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1be7d8fdbd51"
+    with_body_sha: "4b3cb5d131b4"
     path: docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-callers-value-else-config-else-default-meta-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.chain.md
       - docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
+      - docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.grid.md
+      - docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.tree.md
       - docs/explanation/automation/callers-value-else-config-else-default.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Every wait is bounded: the caller's value, else the config, else the default: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 640 diagram, read left to right through three bands.
 Glyphs: 2 code units (slate), 2 files (olive), 1 result (green); 4 flow edges; 5 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png) draws, in the vocabulary of
@@ -73,5 +79,14 @@ A full-width panel below the bands, in two columns, left to right:
 
 ## Sidebar
 
-The lens badge reads `META`. The three minimaps, the world-map grid, the tree and the value-chain map, sit above it, and the map key below
-it names the four swatches: lit, lit by passing mentions only, lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AUTO-DEFAULT and ADR-AUTO-FAILFAST): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-failfast--callers-value-else-config-else-default--meta.grid.md),
+[tree](adr-auto-failfast--callers-value-else-config-else-default--meta.tree.md) and [value-chain map](adr-auto-failfast--callers-value-else-config-else-default--meta.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** META, with "Supports ADR-AUTO-DEFAULT and ADR-AUTO-FAILFAST" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

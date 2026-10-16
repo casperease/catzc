@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "36c57ab09b8e"
+    with_body_sha: be2b4299476e
     path: docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-which-rung-gates-exist-in-code-governance-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md
       - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
       - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.grid.md
       - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.tree.md
       - docs/explanation/design/which-rung-gates-exist-in-code.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Only PR build validation, the BVT and the failure stop are checked in code: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 600 diagram, read left to right along one row of gates and commits, with a second band below.
 Glyphs: 8 commits, 3 gates, 4 ADR-only (3 gates, 1 runner); 4 flow, 8 ADR-only, 2 failure-path edges; 12 rule chips; 8 markers.
-Sidebar: world-map grid (8 lit cells), tree (41 lit groups), value-chain map (5 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png) draws, in the vocabulary of the
@@ -91,45 +92,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-dsgn-life--which-rung-gates-exist-in-code--governance.grid.md),
-[tree](adr-dsgn-life--which-rung-gates-exist-in-code--governance.tree.md) and
-[value-chain map](adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md). A file or ADR lights a minimap when it cites, or is,
-the ADR the slide supports (ADR-AUTO-TEST, ADR-DSGN-LIFE, ADR-DSGN-VISUAL, ADR-FLOW-CD); the explanation articles, these descriptions and
-the drawing tooling never light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-DSGN-LIFE): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-life--which-rung-gates-exist-in-code--governance.grid.md),
+[tree](adr-dsgn-life--which-rung-gates-exist-in-code--governance.tree.md) and [value-chain map](adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 8 lit cells, `.claude × .md` (6 files: 6 cite ADR-AUTO-TEST,
-  ADR-DSGN-LIFE, ADR-DSGN-VISUAL, ADR-FLOW-CD); `automation × .cs` (13 files: 13 cite ADR-AUTO-TEST, ADR-FLOW-CD); `automation × .ps1` (338
-  files: 338 cite ADR-AUTO-TEST, ADR-FLOW-CD); `automation × .yml` (18 files: 18 cite ADR-AUTO-TEST, ADR-DSGN-LIFE, ADR-DSGN-VISUAL,
-  ADR-FLOW-CD); `docs × .md` (18 files: 14 cite ADR-AUTO-TEST, ADR-DSGN-LIFE, ADR-DSGN-VISUAL, ADR-FLOW-CD; 4 are the ADR file of
-  ADR-AUTO-TEST, ADR-DSGN-LIFE, ADR-DSGN-VISUAL, ADR-FLOW-CD); `pipelines × .yaml` (1 file, mentions only: 1 cites ADR-AUTO-TEST);
-  `Root files × .ps1` (1 file: 1 is mapped through files.yml to ADR-AUTO-TEST); `Root files × other` (2 files: 2 are mapped through
-  files.yml to ADR-AUTO-TEST). 1 cell lit only by passing mentions shows at 40 % ink.
-- **Tree** (the repository's files): 41 lit groups, `QualityGates` (132 files); `Docs` (50 files); `Az.Templates` (29 files); `ModuleSystem`
-  (20 files); `Globs` (14 files); `Azure` (11 files); `Languages` (11 files); `Maps` (11 files); `Tool.Core` (11 files); `Execution` (10
-  files); `docs` (9 files); `RootConfig` (8 files); `Contracts` (7 files); `Tool.Provisioning` (7 files); `.claude` (6 files); `Reports` (5
-  files); `TypesSystem` (5 files); `.internal` (4 files); `Az.DevOps` (4 files); `Tool.Inspiration` (4 files); `Root files` (3 files);
-  `Config` (3 files); `ConfigExtensions` (3 files); `Exporter` (3 files); `Tool.KeyHandler` (3 files); `adr/dsgn` (3 files); `Objects` (2
-  files); `Repository` (2 files); `Tool.Toolchain` (2 files); `adr/*` (2 files); `adr/auto` (2 files); `adr/flow` (2 files);
-  `.scriptanalyzer` (1 file); `Az.DevOps.BuildValidation` (1 file); `Engines` (1 file); `Environment` (1 file); `Files` (1 file); `Overlay`
-  (1 file); `Timeouts` (1 file); `Tool.Python` (1 file); `pipelines` (1 file). The ADR files `docs/adr/automation/test-automation.md`,
-  `docs/adr/design/commit-lifecycle.md`, `docs/adr/design/visual-design.md`, `docs/adr/flow/cd-discipline-and-promotion-flow.md` carry the
-  white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 5 lit cells: `DSGN × BUILD`, because ADR-FLOW-CD: its
-  ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default
-  concern (ADR-DSGN-TRACK#15); `DSGN × QC`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
-  quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-DSGN-VISUAL: its ADR domain `design` sits on the
-  DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-FLOW-CD: its
-  ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default
-  concern (ADR-DSGN-TRACK#15); `DSGN × RELEASE`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14),
-  and quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-DSGN-VISUAL: its ADR domain `design` sits on
-  the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-FLOW-CD:
-  its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default
-  concern (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
-  quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-DSGN-VISUAL: its ADR domain `design` sits on the
-  DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-FLOW-CD: its
-  ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default
-  concern (ADR-DSGN-TRACK#15); `AUTO × QC`, because ADR-AUTO-TEST: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and
-  quality-control is its own value-chain concern (ADR-DSGN-TRACK#15).
-- **Lens badge:** GOV, with "Supports ADR-DSGN-LIFE · ADR-AUTO-TEST" and "ADR-DSGN-VISUAL · ADR-FLOW-CD" beneath it.
+- **Lens badge:** GOV, with "Supports ADR-DSGN-LIFE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

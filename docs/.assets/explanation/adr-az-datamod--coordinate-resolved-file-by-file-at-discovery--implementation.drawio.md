@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ccd45c8651f3
+    with_body_sha: "137e51633667"
     path: docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-coordinate-resolved-file-by-file-at-discovery-implementation-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.chain.md
       - docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png
+      - docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.grid.md
+      - docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.tree.md
       - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # The coordinate is resolved file by file at discovery: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 720 diagram, read left to right along the top band, then up from the two bands below it.
 Glyphs: 3 files (olive), 5 code units (slate), 1 gate, 1 failure; 8 flow edges, 2 failure paths; 9 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png) draws, in the
@@ -84,5 +90,14 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-The lens badge reads `IMPL`. The three minimaps, the world-map grid, the tree and the value-chain map, sit above it, and the map key below
-it names the four swatches: lit, lit by passing mentions only, lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AZ-CUSTOMER and ADR-AZ-DATAMOD): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.grid.md),
+[tree](adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.tree.md) and [value-chain map](adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** IMPL, with "Supports ADR-AZ-CUSTOMER and ADR-AZ-DATAMOD" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

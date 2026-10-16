@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3b2f8c46c61c"
+    with_body_sha: "89a318ed1a40"
     path: docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-ci-budget-is-the-only-quality-gate-governance-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.md
       - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
       - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.grid.md
       - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.tree.md
       - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # The CI budget is the only promotion rule a quality gate checks: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 600 diagram, read left to right along a FLOW band, with a CHECKS band below it.
 Glyphs: 4 runners (2 slate, 2 ADR-only), 3 gates (1 solid, 2 ADR-only), 1 actor; 7 rule chips; 1 flow and 1 ADR-only edge; 8 markers.
-Sidebar: world-map grid (6 lit cells), tree (11 lit groups), value-chain map (4 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png) draws, in the vocabulary of the
@@ -86,33 +87,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.grid.md),
-[tree](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.tree.md) and
-[value-chain map](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.md). A file or ADR lights a minimap when it cites, or
-is, the ADR the slide supports (ADR-FLOW-CD, ADR-FLOW-CD-TYPE); the explanation articles, these descriptions and the drawing tooling never
-light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-FLOW-CD and ADR-FLOW-CD-TYPE): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.grid.md),
+[tree](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.tree.md) and [value-chain map](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 6 lit cells, `.claude × .md` (1 file: 1 cites ADR-FLOW-CD);
-  `automation × .cs` (4 files: 4 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `automation × .ps1` (8 files: 8 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE);
-  `automation × .yml` (4 files: 4 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `docs × .md` (5 files: 3 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE; 2 are
-  the ADR file of ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `pipelines × .yaml` (2 files: 2 cite ADR-FLOW-CD-TYPE).
-- **Tree** (the repository's files): 11 lit groups, `Az.DevOps.BuildValidation` (6 files); `Docs` (3 files); `Maps` (3 files); `adr/flow` (3
-  files); `adr/*` (2 files); `pipelines` (2 files); `.claude` (1 file); `Az.DevOps` (1 file); `Az.Templates` (1 file); `ModuleSystem` (1
-  file); `QualityGates` (1 file). The ADR files `docs/adr/flow/cd-discipline-and-promotion-flow.md`, `docs/adr/flow/pipeline-types.md` carry
-  the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × BUILD`, because ADR-FLOW-CD: its
-  ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default
-  concern (ADR-DSGN-TRACK#15); ADR-FLOW-CD-TYPE: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control,
-  release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `DSGN × QC`, because ADR-FLOW-CD: its ADR domain `flow` sits on
-  the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15);
-  ADR-FLOW-CD-TYPE: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR
-  domain's default concern (ADR-DSGN-TRACK#15); `DSGN × RELEASE`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row
-  (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15);
-  ADR-FLOW-CD-TYPE: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR
-  domain's default concern (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row
-  (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15);
-  ADR-FLOW-CD-TYPE: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR
-  domain's default concern (ADR-DSGN-TRACK#15).
-- **Lens badge:** GOV, with "Supports ADR-FLOW-CD · ADR-FLOW-CD-TYPE" beneath it.
+- **Lens badge:** GOV, with "Supports ADR-FLOW-CD and ADR-FLOW-CD-TYPE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

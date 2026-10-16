@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7add060779b0"
+    with_body_sha: "9dda22f55d18"
     path: docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-strip-split-walk-every-wrong-turn-throws-implementation-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.chain.md
       - docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png
+      - docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.grid.md
+      - docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.tree.md
       - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Strip, split, walk, every wrong turn throws: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 640 diagram, read left to right along one band, with a second band below for the failures.
 Glyphs: 4 code units (slate), 1 gate, 1 result, 3 failures; 5 flow edges, 3 failure paths; 9 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png) draws, in the
@@ -82,4 +88,14 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-The lens badge reads `IMPL`. The three minimaps sit above it, and the map key below it names the four swatches.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-CONF-ADDRESSING): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.grid.md),
+[tree](adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.tree.md) and [value-chain map](adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** IMPL, with "Supports ADR-CONF-ADDRESSING" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

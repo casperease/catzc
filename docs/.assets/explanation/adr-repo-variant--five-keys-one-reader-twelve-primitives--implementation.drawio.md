@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "22fa3dc3233b"
+    with_body_sha: "89c0e7edff88"
     path: docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-five-keys-one-reader-twelve-primitives-implementation-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.chain.md
       - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
+      - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.grid.md
+      - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.tree.md
       - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Five keys, one private reader, twelve exported primitives: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 688 diagram, read top to bottom through four bands.
 Glyphs: 1 file (olive), 9 code units (slate); 6 downward edges; 10 markers; one frame around the accessor row.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png) draws, in the
@@ -75,5 +81,14 @@ A full-width panel at the bottom of the drawing area, in four columns over one r
 
 ## Sidebar
 
-The lens badge reads `IMPL`. The three minimaps, the world-map grid, the tree and the value-chain map, sit above it, and the map key below
-it names the four swatches: lit, lit by passing mentions only, lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-REPO-VARIANT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.grid.md),
+[tree](adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.tree.md) and [value-chain map](adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** IMPL, with "Supports ADR-REPO-VARIANT" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

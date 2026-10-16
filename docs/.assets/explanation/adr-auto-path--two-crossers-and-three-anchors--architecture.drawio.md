@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "90ce96d04619"
+    with_body_sha: "3e21af243630"
     path: docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-two-crossers-and-three-anchors-architecture-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.chain.md
       - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
+      - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.grid.md
+      - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.tree.md
       - docs/explanation/automation/two-crossers-and-three-anchors.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Two crossers and three anchors: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then the band below.
 Glyphs: 2 named sets (mauve), 3 code units (slate), 3 stores (slate); 9 flow edges; 8 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png) draws, in the vocabulary of the
@@ -78,5 +84,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The lens badge reads `ARCH`. The three minimaps, world map, tree and value-chain map, sit above it, and the map key below it names the four
-swatches: lit, lit by passing mentions only, lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AUTO-PATH): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-path--two-crossers-and-three-anchors--architecture.grid.md),
+[tree](adr-auto-path--two-crossers-and-three-anchors--architecture.tree.md) and [value-chain map](adr-auto-path--two-crossers-and-three-anchors--architecture.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** ARCH, with "Supports ADR-AUTO-PATH" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

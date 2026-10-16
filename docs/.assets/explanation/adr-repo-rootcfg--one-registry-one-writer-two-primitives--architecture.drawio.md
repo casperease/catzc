@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "085640e8bc5c"
+    with_body_sha: "91092c440a0c"
     path: docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-rootcfg-one-registry-one-writer-two-primitives-architecture-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.chain.md
       - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
+      - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.grid.md
+      - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.tree.md
       - docs/explanation/repository/one-registry-one-writer-two-primitives.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # One registry, one writer, two write primitives: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 640 diagram, read left to right through four bands under one span bar.
 Glyphs: 2 files (olive), 1 named set (mauve), 3 code units (slate), 2 results (green); 7 flow edges, 2 with fraction chips; 8 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png) draws, in the
@@ -80,5 +86,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The lens badge reads `ARCH`. The three minimaps sit above it, and the map key below it names the four swatches: lit, lit by passing mentions
-only, a lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-REPO-ROOTCFG): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.grid.md),
+[tree](adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.tree.md) and [value-chain map](adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** ARCH, with "Supports ADR-REPO-ROOTCFG" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

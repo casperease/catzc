@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e210720832ca
+    with_body_sha: "959c44b66989"
     path: docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-manifest-and-aspects-from-one-folder-implementation-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.chain.md
       - docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png
       - docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.grid.md
       - docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.tree.md
       - docs/explanation/design/manifest-and-aspects-from-one-folder.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # The manifest and the aspects both come from one folder: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 722 diagram, read left to right from a tall code unit into two bands.
 Glyphs: 4 code units (slate), 1 gate, 2 files (olive), 2 named sets (mauve); 8 edges; 9 markers.
-Sidebar: world-map grid (4 lit cells), tree (6 lit groups), value-chain map (2 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png) draws, in the vocabulary
@@ -85,21 +86,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.grid.md),
-[tree](adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.tree.md) and
-[value-chain map](adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.chain.md). A file or ADR lights a minimap when it
-cites, or is, the ADR the slide supports (ADR-DSGN-ASPECT); the explanation articles, these descriptions and the drawing tooling never light
-anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-DSGN-ASPECT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.grid.md),
+[tree](adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.tree.md) and [value-chain map](adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 4 lit cells, `automation × .cs` (3 files: 3 cite ADR-DSGN-ASPECT);
-  `automation × .ps1` (5 files: 5 cite ADR-DSGN-ASPECT); `automation × .yml` (2 files: 2 cite ADR-DSGN-ASPECT); `docs × .md` (3 files: 2
-  cite ADR-DSGN-ASPECT; 1 is the ADR file of ADR-DSGN-ASPECT).
-- **Tree** (the repository's files): 6 lit groups, `Globs` (4 files); `Variants` (4 files); `adr/dsgn` (2 files); `Docs` (1 file);
-  `QualityGates` (1 file); `adr/*` (1 file). The ADR file `docs/adr/design/module-aspects.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × LOCAL`, because ADR-DSGN-ASPECT:
-  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-ASPECT: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
-  automation, build is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** IMPL, with "Supports ADR-DSGN-ASPECT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

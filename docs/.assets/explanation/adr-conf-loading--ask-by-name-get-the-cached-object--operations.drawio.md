@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4c4c1279b03a"
+    with_body_sha: b3633b95033c
     path: docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-loading-ask-by-name-get-the-cached-object-operations-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.chain.md
       - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
       - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.grid.md
       - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.tree.md
       - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Ask by name, get the cached object: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 700 diagram, read left to right along one band, down into a second band and back up, then down to a band of failures.
 Glyphs: 3 code units (slate), 1 store (slate), 1 result, 3 failures; 5 flow edges, 3 failure paths; 8 markers.
-Sidebar: world-map grid (4 lit cells), tree (12 lit groups), value-chain map (1 lit cell), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png) draws, in the vocabulary of
@@ -84,24 +85,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-conf-loading--ask-by-name-get-the-cached-object--operations.grid.md),
-[tree](adr-conf-loading--ask-by-name-get-the-cached-object--operations.tree.md) and
-[value-chain map](adr-conf-loading--ask-by-name-get-the-cached-object--operations.chain.md). A file or ADR lights a minimap when it cites,
-or is, the ADR the slide supports (ADR-CONF-ADDRESSING, ADR-CONF-LOADING); the explanation articles, these descriptions and the drawing
-tooling never light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-CONF-ADDRESSING and ADR-CONF-LOADING): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-conf-loading--ask-by-name-get-the-cached-object--operations.grid.md),
+[tree](adr-conf-loading--ask-by-name-get-the-cached-object--operations.tree.md) and [value-chain map](adr-conf-loading--ask-by-name-get-the-cached-object--operations.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 4 lit cells, `automation × .cs` (6 files: 6 cite ADR-CONF-LOADING);
-  `automation × .ps1` (15 files: 15 cite ADR-CONF-ADDRESSING, ADR-CONF-LOADING); `automation × .yml` (1 file: 1 cites ADR-CONF-ADDRESSING,
-  ADR-CONF-LOADING); `docs × .md` (6 files: 4 cite ADR-CONF-ADDRESSING, ADR-CONF-LOADING; 2 are the ADR file of ADR-CONF-ADDRESSING,
-  ADR-CONF-LOADING).
-- **Tree** (the repository's files): 12 lit groups, `Docs` (9 files); `Config` (3 files); `adr/conf` (3 files); `Git` (2 files); `Languages`
-  (2 files); `QualityGates` (2 files); `docs` (2 files); `Az.Templates` (1 file); `Execution` (1 file); `ModuleSystem` (1 file);
-  `RootConfig` (1 file); `adr/*` (1 file). The ADR files `docs/adr/configuration/config-value-addressing.md`,
-  `docs/adr/configuration/module-config-loading.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `AUTO × LOCAL`, because ADR-CONF-ADDRESSING:
-  its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern
-  (ADR-DSGN-TRACK#15); ADR-CONF-LOADING: its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR
-  domain's default concern (ADR-DSGN-TRACK#15).
-- **Lens badge:** OPS, with "Supports ADR-CONF-LOADING" and "ADR-CONF-ADDRESSING" beneath it.
+- **Lens badge:** OPS, with "Supports ADR-CONF-ADDRESSING and ADR-CONF-LOADING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

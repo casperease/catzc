@@ -39,6 +39,10 @@ skills: [<capability>, ...]
 - **Registry.** `supported_by: [ADR-DSGN-VISUAL#4, ADR-REPO-FOLDERS#5]`, `checks: [Test-CheckedInBinaries]`.
 - **Built 2026-10-16** as `.claude/agents/drawio-png.md` (6-step body, 8 body lines), registered, listed in CLAUDE.md, named in
   catzc-worker's Do NOT clause; gate green. Only drawio.renderer exists of its four skills; the other three wait for Phase 4.
+- **Rule from the user, 2026-10-16.** The slide's `<name>.drawio.md` is the robot's instruction file: its Sidebar names the ADR codes,
+  the generators and the rebuild step, and links the generators' reference pages. The robot reads it to find and execute on the
+  current data, and never copies counts or file names from it (body step 2). A maker that writes a description writes that pointer
+  form; the data form is a defect the gate should catch once a description check exists (candidate: `Test-SlideDescriptions`).
 - **Open.** Does this robot also become the maker inside drawio-diagram-waves (plan-minimal-robots Q5)? Recommended yes.
 
 ## Proposed robot 2: plan-clear

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1f468b4b3f2b"
+    with_body_sha: "398f35db6d9e"
     path: docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-two-test-files-check-the-address-rules-governance-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.chain.md
       - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
+      - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.grid.md
+      - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.tree.md
       - docs/explanation/configuration/two-test-files-check-the-address-rules.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Two test files check the address rules: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 660 diagram, read left to right along two bands side by side, with a band of gates below pointing up.
 Glyphs: 4 code units (slate), 1 ADR-only box, 2 gates; 5 flow edges; 7 markers; 12 rule chips.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png) draws, in the
@@ -81,4 +87,14 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-The lens badge reads `GOV`. The three minimaps sit above it, and the map key below it names the four swatches.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AUTO-ENVVAR and ADR-CONF-ADDRESSING): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-conf-addressing--two-test-files-check-the-address-rules--governance.grid.md),
+[tree](adr-conf-addressing--two-test-files-check-the-address-rules--governance.tree.md) and [value-chain map](adr-conf-addressing--two-test-files-check-the-address-rules--governance.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** GOV, with "Supports ADR-AUTO-ENVVAR and ADR-CONF-ADDRESSING" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

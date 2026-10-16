@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5c930115f30b"
+    with_body_sha: b40c4f1be1fe
     path: docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-hook-compiles-module-verdict-and-limits-architecture-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.chain.md
       - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
+      - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.grid.md
+      - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.tree.md
       - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # The hook compiles the module's own verdict and limits: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 690 diagram, read top to bottom through three bands.
 Glyphs: 1 external tool (neutral), 5 code units (slate), 1 file (olive); 6 flow edges; 7 markers; one frame.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png) draws, in the
@@ -77,5 +83,14 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-The lens badge reads `ARCH`. The three minimaps, the world-map grid, the tree and the value-chain map, sit above it, and the map key below
-it names the four swatches: lit, lit by passing mentions only, lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AUTO-FAILFAST): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.grid.md),
+[tree](adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.tree.md) and [value-chain map](adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** ARCH, with "Supports ADR-AUTO-FAILFAST" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "71b2d201b12f"
+    with_body_sha: "9ff1292804ac"
     path: docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-thinplat-every-vendor-call-leaves-through-az-architecture-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.chain.md
       - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
       - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.grid.md
       - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.tree.md
       - docs/explanation/design/every-vendor-call-leaves-through-az.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Every vendor call leaves cats through the az CLI: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 802 diagram, read top to bottom through four bands.
 Glyphs: 3 code units (slate), 1 file (olive), 2 external tools, 1 environment; 7 flow edges; 8 markers.
-Sidebar: world-map grid (3 lit cells), tree (6 lit groups), value-chain map (4 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png) draws, in the vocabulary
@@ -83,25 +84,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.grid.md),
-[tree](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.tree.md) and
-[value-chain map](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.chain.md). A file or ADR lights a minimap when it
-cites, or is, the ADR the slide supports (ADR-AZ-CLI, ADR-DSGN-THINPLAT); the explanation articles, these descriptions and the drawing
-tooling never light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AZ-CLI and ADR-DSGN-THINPLAT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.grid.md),
+[tree](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.tree.md) and [value-chain map](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 3 lit cells, `automation × .ps1` (8 files: 8 cite ADR-AZ-CLI);
-  `automation × .yml` (3 files: 3 cite ADR-AZ-CLI, ADR-DSGN-THINPLAT); `docs × .md` (5 files: 3 cite ADR-AZ-CLI, ADR-DSGN-THINPLAT; 2 are
-  the ADR file of ADR-AZ-CLI, ADR-DSGN-THINPLAT).
-- **Tree** (the repository's files): 6 lit groups, `Az.Cli` (8 files); `QualityGates` (2 files); `adr/azure` (2 files); `adr/dsgn` (2
-  files); `Docs` (1 file); `adr/*` (1 file). The ADR files `docs/adr/azure/prefer-az-cli.md`, `docs/adr/design/thin-platforms.md` carry the
-  white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × LOCAL`, because ADR-DSGN-THINPLAT:
-  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, deploy is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-THINPLAT: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
-  automation, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); `CLOUD × DEPLOY`, because ADR-AZ-CLI: its ADR domain `azure` sits
-  on the CLOUD row (ADR-DSGN-TRACK#14), and deploy, access is its own value-chain concern (ADR-DSGN-TRACK#15); `CLOUD × ACCESS`, because
-  ADR-AZ-CLI: its ADR domain `azure` sits on the CLOUD row (ADR-DSGN-TRACK#14), and deploy, access is its own value-chain concern
-  (ADR-DSGN-TRACK#15).
-- **Lens badge:** ARCH, with "Supports ADR-DSGN-THINPLAT · ADR-AZ-CLI" beneath it.
+- **Lens badge:** ARCH, with "Supports ADR-AZ-CLI and ADR-DSGN-THINPLAT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

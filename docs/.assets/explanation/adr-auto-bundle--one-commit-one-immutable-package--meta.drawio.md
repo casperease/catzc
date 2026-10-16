@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8073d5beee93"
+    with_body_sha: "5c65bc6b7f3b"
     path: docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-one-commit-one-immutable-package-meta-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md
       - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
       - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.grid.md
       - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.tree.md
       - docs/explanation/automation/one-commit-one-immutable-package.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # One commit, one verified, immutable package: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 600 diagram, read left to right through four bands.
 Glyphs: 1 named set (mauve), 1 code unit (slate), 1 gate, 2 results; 5 flow edges; 6 markers.
-Sidebar: world-map grid (7 lit cells), tree (17 lit groups), value-chain map (4 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png) draws, in the vocabulary of the
@@ -84,29 +85,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-auto-bundle--one-commit-one-immutable-package--meta.grid.md),
-[tree](adr-auto-bundle--one-commit-one-immutable-package--meta.tree.md) and
-[value-chain map](adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md). A file or ADR lights a minimap when it cites, or is,
-the ADR the slide supports (ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE); the explanation articles, these descriptions and the drawing tooling never
-light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AUTO-BUNDLE): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-bundle--one-commit-one-immutable-package--meta.grid.md),
+[tree](adr-auto-bundle--one-commit-one-immutable-package--meta.tree.md) and [value-chain map](adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 7 lit cells, `.github × .yml` (1 file, mentions only: 1 cites
-  ADR-AUTO-BUNDLE); `automation × .cs` (2 files: 2 cite ADR-AUTO-BUNDLE); `automation × .ps1` (36 files: 36 cite ADR-AUTO-BUNDLE,
-  ADR-DSGN-RUNMODE); `automation × .yml` (3 files: 3 cite ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE); `docs × .md` (5 files: 3 cite ADR-AUTO-BUNDLE,
-  ADR-DSGN-RUNMODE; 2 are the ADR file of ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE); `Root files × .ps1` (1 file: 1 is mapped through files.yml to
-  ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE); `Root files × other` (2 files: 2 are mapped through files.yml to ADR-DSGN-RUNMODE). 1 cell lit only by
-  passing mentions shows at 40 % ink.
-- **Tree** (the repository's files): 17 lit groups, `Exporter` (10 files); `ModuleSystem` (8 files); `QualityGates` (5 files); `TypesSystem`
-  (5 files); `Root files` (3 files); `Repository` (3 files); `.internal` (2 files); `Docs` (2 files); `Vendor` (2 files); `adr/auto` (2
-  files); `adr/dsgn` (2 files); `.github` (1 file); `ConfigExtensions` (1 file); `Contracts` (1 file); `Globs` (1 file); `RootConfig` (1
-  file); `adr/*` (1 file). The ADR files `docs/adr/automation/platform-bundle.md`, `docs/adr/design/run-modes.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × LOCAL`, because ADR-DSGN-RUNMODE:
-  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
-  automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × BUILD`, because ADR-AUTO-BUNDLE: its ADR domain `automation`
-  sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × RELEASE`, because
-  ADR-AUTO-BUNDLE: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern
-  (ADR-DSGN-TRACK#15).
-- **Lens badge:** META, with "Supports ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE" beneath it on two lines.
+- **Lens badge:** META, with "Supports ADR-AUTO-BUNDLE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

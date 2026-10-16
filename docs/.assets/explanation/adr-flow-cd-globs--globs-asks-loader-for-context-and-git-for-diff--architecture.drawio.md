@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "826b49ff232f"
+    with_body_sha: "2b90429500ed"
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-globs-asks-loader-for-context-and-git-for-diff-architecture-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.chain.md
       - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.grid.md
+      - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.tree.md
       - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Globs asks the loader for the context and git for the diff: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 680 diagram, read top to bottom from a module band into two bands below it, with a caller band to the right.
 Glyphs: 5 code units (slate), 1 file (olive), 1 external tool (neutral), 1 ADR-only; 6 flow edges, 1 ADR-only edge; 8 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png) draws, in the
@@ -83,5 +89,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The lens badge reads `ARCH`. The three minimaps sit above it, and the map key below it names the four swatches: lit, lit by passing mentions
-only, lit ADR file, idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-FLOW-CD-DETECT and ADR-FLOW-CD-GLOBS): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.grid.md),
+[tree](adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.tree.md) and [value-chain map](adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** ARCH, with "Supports ADR-FLOW-CD-DETECT and ADR-FLOW-CD-GLOBS" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

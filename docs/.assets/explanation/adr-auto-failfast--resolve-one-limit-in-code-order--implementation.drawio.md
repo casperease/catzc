@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "38d8907aea0f"
+    with_body_sha: "3d7752024d20"
     path: docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-resolve-one-limit-in-code-order-implementation-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.chain.md
       - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
+      - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.grid.md
+      - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.tree.md
       - docs/explanation/automation/resolve-one-limit-in-code-order.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 640 diagram, read left to right through four bands.
 Glyphs: 5 code units (slate), 2 files (olive), 1 gate (neutral); 1 frame; 6 flow edges, 4 labelled; 8 markers; 1 count chip.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png) draws, in the vocabulary of
@@ -79,5 +85,14 @@ A full-width panel below the bands, in two columns, left to right:
 
 ## Sidebar
 
-The lens badge reads `IMPL`. The three minimaps, the world-map grid, the tree and the value-chain map, sit above it, and the map key below
-it names the four swatches: lit, lit by passing mentions only, lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AUTO-DEFAULT and ADR-AUTO-FAILFAST): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-failfast--resolve-one-limit-in-code-order--implementation.grid.md),
+[tree](adr-auto-failfast--resolve-one-limit-in-code-order--implementation.tree.md) and [value-chain map](adr-auto-failfast--resolve-one-limit-in-code-order--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** IMPL, with "Supports ADR-AUTO-DEFAULT and ADR-AUTO-FAILFAST" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

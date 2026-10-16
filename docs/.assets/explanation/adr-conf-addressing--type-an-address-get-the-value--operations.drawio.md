@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a3f8ef2c85f5
+    with_body_sha: d35377396f88
     path: docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-type-an-address-get-the-value-operations-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.chain.md
       - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
+      - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.grid.md
+      - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.tree.md
       - docs/explanation/configuration/type-an-address-get-the-value.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Type an address, get the value: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 660 diagram, read left to right through three bands side by side, in three rows.
 Glyphs: 3 code units (slate), 3 results, 2 failures; 3 flow edges, 2 failure paths; 8 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png) draws, in the vocabulary of the
@@ -83,4 +89,14 @@ A full-width panel at the bottom of the drawing area, in two columns, left to ri
 
 ## Sidebar
 
-The lens badge reads `OPS`. The three minimaps sit above it, and the map key below it names the four swatches.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AUTO-ENVVAR and ADR-CONF-ADDRESSING): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-conf-addressing--type-an-address-get-the-value--operations.grid.md),
+[tree](adr-conf-addressing--type-an-address-get-the-value--operations.tree.md) and [value-chain map](adr-conf-addressing--type-an-address-get-the-value--operations.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** OPS, with "Supports ADR-AUTO-ENVVAR and ADR-CONF-ADDRESSING" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

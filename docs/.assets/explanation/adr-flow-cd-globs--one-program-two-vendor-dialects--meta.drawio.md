@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b84d6ef800d8
+    with_body_sha: e70e4adcd671
     path: docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-one-program-two-vendor-dialects-meta-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.chain.md
       - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.grid.md
+      - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.tree.md
       - docs/explanation/flow/one-program-two-vendor-dialects.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # One flattened scan program, two vendor dialects: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 650 diagram, read top to bottom through two bands.
 Glyphs: 2 named sets (mauve), 3 results (green); 4 flow edges; 5 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png) draws, in the vocabulary of the
@@ -73,5 +79,14 @@ A full-width panel at the bottom of the drawing area, in two columns, left to ri
 
 ## Sidebar
 
-The lens badge reads `META`. The three minimaps sit above it, and the map key below it names the four swatches: lit, lit by passing mentions
-only, lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-FLOW-CD-GLOBS): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-flow-cd-globs--one-program-two-vendor-dialects--meta.grid.md),
+[tree](adr-flow-cd-globs--one-program-two-vendor-dialects--meta.tree.md) and [value-chain map](adr-flow-cd-globs--one-program-two-vendor-dialects--meta.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** META, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a3332eead5c3
+    with_body_sha: "9939a1c41b2b"
     path: docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-gate-checks-order-not-liveness-governance-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.chain.md
       - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
+      - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.grid.md
+      - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.tree.md
       - docs/explanation/design/gate-checks-order-not-liveness.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # The gate checks order, not liveness: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 640 diagram, read top to bottom inside two side-by-side column bands, each with its gate on the right.
 Glyphs: 4 named sets (mauve), 2 gates, 1 ADR-only gate; 2 flow edges, 1 ADR-only edge; 6 rule chips; 6 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png) draws, in the vocabulary of the
@@ -85,5 +91,14 @@ A full-width panel at the bottom of the drawing area, in two rows of four, left 
 
 ## Sidebar
 
-The lens badge reads GOV. The three minimaps, the world-map grid, the tree and the value-chain map, sit above it, and the map key below
-names the four swatches: lit, lit by passing mentions only, lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-DSGN-ASPECT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-aspect--gate-checks-order-not-liveness--governance.grid.md),
+[tree](adr-dsgn-aspect--gate-checks-order-not-liveness--governance.tree.md) and [value-chain map](adr-dsgn-aspect--gate-checks-order-not-liveness--governance.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** GOV, with "Supports ADR-DSGN-ASPECT" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

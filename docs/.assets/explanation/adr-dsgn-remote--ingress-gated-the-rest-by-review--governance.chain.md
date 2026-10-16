@@ -11,16 +11,14 @@ below names the code that selects it.
 ## What the minimap shows
 
 Value-chain map: value-chain stack × value-chain concerns. The grid crosses the 5 rows of the value-chain stack (PRIN, DSGN, AUTO, PIPE,
-CLOUD) with the 6 value-chain concerns (automation, build, quality-control, release, deploy, access) and lights 5 cells, filled in ink.
-Every other cell is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (7 of
-the 30 cells hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain
-map.
+CLOUD) with the 5 value-chain concerns (build, quality-control, release, deploy, access) and lights 4 cells, filled in ink. Every other cell
+is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (5 of the 25 cells
+hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
 
 - DSGN × build: 1 lit of 5 ADRs
 - DSGN × quality-control: 2 lit of 5 ADRs
 - DSGN × release: 1 lit of 4 ADRs
 - DSGN × deploy: 1 lit of 6 ADRs
-- AUTO × automation: 1 lit of 63 ADRs
 
 ## Key
 
@@ -31,7 +29,6 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - `AUTO`: the AUTO row of the value-chain stack
 - `PIPE`: the PIPE row of the value-chain stack
 - `CLOUD`: the CLOUD row of the value-chain stack
-- `LOCAL`: the LOCAL row of the value-chain stack
 - `BUILD`: build
 - `QC`: quality-control
 - `RELEASE`: release
@@ -74,14 +71,6 @@ Lit ([ADR-DSGN-TRACK#12][4]) by:
 - [ADR-DSGN-LIFE][1]: selected by [ADR-DSGN-LIFE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
   ([ADR-DSGN-TRACK#14][5]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
   (automation), so it lights the deploy column ([ADR-DSGN-TRACK#15][6]).
-
-### AUTO × automation (1 ADR)
-
-Lit ([ADR-DSGN-TRACK#12][4]) by:
-
-- [ADR-REPO-VARIANT][3]: selected by [ADR-REPO-VARIANT][3]; its ADR domain `repository` sits on the AUTO row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][5]); its value-chain concerns (automation) are its ADR domain's default, so it lights the automation column
-  ([ADR-DSGN-TRACK#15][6]).
 
 ## Keywords
 

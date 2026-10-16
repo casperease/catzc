@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4894e8cb3096"
+    with_body_sha: "98d3a39c5b0c"
     path: docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-rootcfg-opted-in-then-link-copy-or-render-implementation-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.chain.md
       - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
+      - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.grid.md
+      - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.tree.md
       - docs/explanation/repository/opted-in-then-link-copy-or-render.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # The optIn filter, then link, copy or render: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 640 diagram, read left to right through three bands.
 Glyphs: 1 file (olive), 6 code units (slate), 1 failure (red), 2 results (green); 9 flow edges, 1 failure path; 3 fraction chips; 10 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png) draws, in the vocabulary
@@ -84,5 +90,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The lens badge reads `IMPL`. The three minimaps sit above it, and the map key below it names the four swatches: lit, lit by passing mentions
-only, a lit ADR file, and idle.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-REPO-ROOTCFG): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.grid.md),
+[tree](adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.tree.md) and [value-chain map](adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** IMPL, with "Supports ADR-REPO-ROOTCFG" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -93,17 +93,25 @@ def run(cmd, seconds):
     return done.stdout.strip()
 
 
+def slide_adrs(name, model):
+    """The ADR codes a slide supports: every code a cell label that opens with `ADR-` names (the subtitle and the Supports
+    chips), plus the code its file name opens with (`adr-<domain>-<name>--…`). Never the sister .md's own citations."""
+    codes = set()
+    for c in ET.fromstring(model).iter("mxCell"):
+        value = plain(c.get("value") or "").strip()
+        if value.startswith("ADR-"):
+            codes.update(ADR_CODE.findall(value))
+    if name.startswith("adr-"):
+        codes.add("ADR-" + name[4:].split("--", 1)[0].upper())
+    known = set(re.findall(r"`(ADR-[A-Z]+(?:-[A-Z]+)*)`", (REPO / "docs" / "adr" / "index.md").read_text(encoding="utf-8")))
+    return sorted(codes & known)  # a label such as "ADR-only …" is prose, not a code of the index
+
+
 def minimaps(src, name, model_file, out_dir):
     """Regenerate the slide's three minimaps and the joined slide into out_dir/name; returns the joined slide path."""
-    sister = src.with_name(f"{name}.drawio.md")
-    if not sister.is_file():
-        raise RuntimeError(f"no sister {sister.name} to read the slide's ADR codes from")
-    text = sister.read_text(encoding="utf-8")
-    head = text[3:].split("\n---", 1)[0] if text.startswith("---") else ""
-    cites = head.split("cites:", 1)[1].split("links:", 1)[0] if "cites:" in head else ""
-    adrs = sorted(set(ADR_CODE.findall(cites)))
+    adrs = slide_adrs(name, model_file.read_text(encoding="utf-8"))
     if not adrs:
-        raise RuntimeError(f"{sister.name} cites no ADR code in its head")
+        raise RuntimeError("no ADR code in the slide's labels or file name to light the minimaps from")
     target = out_dir / name
     data = target / "minimaps-data"
     target.mkdir(parents=True, exist_ok=True)

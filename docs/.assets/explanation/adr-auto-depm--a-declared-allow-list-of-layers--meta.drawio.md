@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "240f57bb1bc5"
+    with_body_sha: "9c7cdc7f0e5c"
     path: docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-depm-a-declared-allow-list-of-layers-meta-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md
       - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
       - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md
       - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md
       - docs/explanation/automation/a-declared-allow-list-of-layers.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # One declared allow-list, edges point down: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands, beside one tall band on the right.
 Glyphs: 3 named sets (mauve), 1 code unit (slate), 1 failure; 5 downward edges, 1 failure path; 5 markers.
-Sidebar: world-map grid (3 lit cells), tree (4 lit groups), value-chain map (1 lit cell), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png) draws, in the vocabulary of the diagram
@@ -84,17 +85,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md),
-[tree](adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md) and
-[value-chain map](adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md). A file or ADR lights a minimap when it cites, or is, the
-ADR the slide supports (ADR-AUTO-DEPM); the explanation articles, these descriptions and the drawing tooling never light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-AUTO-DEPM): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md),
+[tree](adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md) and [value-chain map](adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 3 lit cells, `automation × .cs` (3 files: 3 cite ADR-AUTO-DEPM);
-  `automation × .yml` (1 file: 1 cites ADR-AUTO-DEPM); `docs × .md` (3 files: 2 cite ADR-AUTO-DEPM; 1 is the ADR file of ADR-AUTO-DEPM).
-- **Tree** (the repository's files): 4 lit groups, `ModuleSystem` (3 files); `adr/auto` (2 files); `Docs` (1 file); `adr/*` (1 file). The
-  ADR file `docs/adr/automation/controlling-module-dependencies.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `AUTO × LOCAL`, because ADR-AUTO-DEPM: its
-  ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** META, with "Supports ADR-AUTO-DEPM" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

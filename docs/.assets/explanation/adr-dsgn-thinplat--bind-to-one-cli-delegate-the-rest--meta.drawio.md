@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8e73f3596ba0"
+    with_body_sha: db25bbbda889
     path: docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-thinplat-bind-to-one-cli-delegate-the-rest-meta-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.md
       - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png
       - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.grid.md
       - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.tree.md
       - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Bind to one CLI; delegate the rest: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 750 diagram, read top to bottom through four bands down one centre spine.
 Glyphs: 1 actor, 1 code unit (slate), 1 external tool, 1 environment; 3 flow edges; 4 markers.
-Sidebar: world-map grid (2 lit cells), tree (4 lit groups), value-chain map (2 lit cells), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png) draws, in the vocabulary of the
@@ -81,19 +82,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.grid.md),
-[tree](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.tree.md) and
-[value-chain map](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.md). A file or ADR lights a minimap when it cites, or is,
-the ADR the slide supports (ADR-DSGN-THINPLAT); the explanation articles, these descriptions and the drawing tooling never light anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-DSGN-THINPLAT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.grid.md),
+[tree](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.tree.md) and [value-chain map](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 2 lit cells, `automation × .yml` (2 files: 2 cite ADR-DSGN-THINPLAT);
-  `docs × .md` (3 files: 2 cite ADR-DSGN-THINPLAT; 1 is the ADR file of ADR-DSGN-THINPLAT).
-- **Tree** (the repository's files): 4 lit groups, `adr/dsgn` (2 files); `Docs` (1 file); `QualityGates` (1 file); `adr/*` (1 file). The ADR
-  file `docs/adr/design/thin-platforms.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × LOCAL`, because ADR-DSGN-THINPLAT:
-  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, deploy is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-THINPLAT: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
-  automation, deploy is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** META, with "Supports ADR-DSGN-THINPLAT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

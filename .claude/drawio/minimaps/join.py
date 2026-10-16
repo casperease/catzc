@@ -127,6 +127,14 @@ def lay_out_sidebar(model, palette, concerns):
             raise SystemExit("the slide has no minimap-grid or minimap-tree cell")
         chain = re.sub(r'image=[^;"]*;?', "", grid.group(0).replace('id="minimap-grid"', 'id="minimap-chain"'))
         model = model[: tree.end()] + "\n    " + chain + model[tree.end() :]
+    # A minimap cell is an image cell. A template placeholder (a labelled box, no shape=image) becomes one here, so the
+    # embed step never meets a cell it cannot fill; the placeholder label goes, the picture is the label.
+    for view in VIEWS:
+        pattern = re.compile(r'(<mxCell id="minimap-' + view + r'" value=")([^"]*)(" style=")([^"]*)(")')
+        match = pattern.search(model)
+        if match and (match.group(2) or "shape=image" not in match.group(4)):
+            style = match.group(4) if "shape=image" in match.group(4) else "shape=image;imageAspect=0;" + match.group(4)
+            model = model[: match.start(2)] + match.group(3) + style + model[match.end(4) :]
     for cell_id, (y, height) in SIDEBAR.items():
         pattern = re.compile(r'(<mxCell id="' + re.escape(cell_id) + r'".*?<mxGeometry\b)([^>]*)(/?>)', re.DOTALL)
         match = pattern.search(model)

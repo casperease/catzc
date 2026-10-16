@@ -10,10 +10,9 @@ The value-chain minimap of the slide `adr-auto-bundle--build-then-place-with-one
 ## What the minimap shows
 
 Value-chain map: value-chain stack × value-chain concerns. The grid crosses the 5 rows of the value-chain stack (PRIN, DSGN, AUTO, PIPE,
-CLOUD) with the 6 value-chain concerns (automation, build, quality-control, release, deploy, access) and lights 2 cells, filled in ink.
-Every other cell is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (7 of
-the 30 cells hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain
-map.
+CLOUD) with the 5 value-chain concerns (build, quality-control, release, deploy, access) and lights 2 cells, filled in ink. Every other cell
+is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (5 of the 25 cells
+hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
 
 - AUTO × build: 1 lit of 5 ADRs
 - AUTO × release: 1 lit of 3 ADRs
@@ -27,7 +26,6 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - `AUTO`: the AUTO row of the value-chain stack
 - `PIPE`: the PIPE row of the value-chain stack
 - `CLOUD`: the CLOUD row of the value-chain stack
-- `LOCAL`: the LOCAL row of the value-chain stack
 - `BUILD`: build
 - `QC`: quality-control
 - `RELEASE`: release
@@ -60,6 +58,10 @@ Lit ([ADR-DSGN-TRACK#12][2]) by:
 - [cell][8]
 - [lit cell][9]
 
+Terms the cited ADRs define:
+
+- [bundle][10], defined by [ADR-AUTO-BUNDLE#1][11]
+
 [1]: ../../adr/automation/platform-bundle.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
 [3]: ../../adr/design/tracks.md#rule-adr-dsgn-track14
@@ -69,3 +71,5 @@ Lit ([ADR-DSGN-TRACK#12][2]) by:
 [7]: ../../adr/glossary.md#value-chain-concern
 [8]: ../../adr/glossary.md#cell
 [9]: ../../adr/glossary.md#lit-cell
+[10]: ../../adr/glossary.md#bundle
+[11]: ../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a994f364f2e6
+    with_body_sha: ee08f7d1e3b4
     path: docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-loading-three-caches-back-one-reader-implementation-drawio
@@ -11,14 +11,15 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.chain.md
       - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
       - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.grid.md
       - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.tree.md
       - docs/explanation/configuration/three-caches-back-one-reader.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # Three caches back one reader: the diagram described
@@ -26,7 +27,7 @@ catzc:
 ```text
 A 1572 x 700 diagram, read left to right along one band, then down into three bands below it.
 Glyphs: 4 code units (slate), 3 stores (slate), 2 files (olive), 1 result; 10 flow edges; 10 markers.
-Sidebar: world-map grid (4 lit cells), tree (10 lit groups), value-chain map (1 lit cell), map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png) draws, in the vocabulary of the
@@ -84,21 +85,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-conf-loading--three-caches-back-one-reader--implementation.grid.md),
-[tree](adr-conf-loading--three-caches-back-one-reader--implementation.tree.md) and
-[value-chain map](adr-conf-loading--three-caches-back-one-reader--implementation.chain.md). A file or ADR lights a minimap when it cites, or
-is, the ADR the slide supports (ADR-CONF-LOADING); the explanation articles, these descriptions and the drawing tooling never light
-anything.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-CONF-LOADING): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-conf-loading--three-caches-back-one-reader--implementation.grid.md),
+[tree](adr-conf-loading--three-caches-back-one-reader--implementation.tree.md) and [value-chain map](adr-conf-loading--three-caches-back-one-reader--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 4 lit cells, `automation × .cs` (6 files: 6 cite ADR-CONF-LOADING);
-  `automation × .ps1` (11 files: 11 cite ADR-CONF-LOADING); `automation × .yml` (1 file: 1 cites ADR-CONF-LOADING); `docs × .md` (5 files: 4
-  cite ADR-CONF-LOADING; 1 is the ADR file of ADR-CONF-LOADING).
-- **Tree** (the repository's files): 10 lit groups, `Docs` (9 files); `Config` (2 files); `Git` (2 files); `QualityGates` (2 files);
-  `adr/conf` (2 files); `docs` (2 files); `Execution` (1 file); `ModuleSystem` (1 file); `RootConfig` (1 file); `adr/*` (1 file). The ADR
-  file `docs/adr/configuration/module-config-loading.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `AUTO × LOCAL`, because ADR-CONF-LOADING:
-  its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern
-  (ADR-DSGN-TRACK#15).
 - **Lens badge:** IMPL, with "Supports ADR-CONF-LOADING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

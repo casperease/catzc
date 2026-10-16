@@ -58,6 +58,10 @@ Lit ([ADR-DSGN-TRACK#12][2]) by:
 - [cell][8]
 - [lit cell][9]
 
+Terms the cited ADRs define:
+
+- [bundle][10], defined by [ADR-AUTO-BUNDLE#1][11]
+
 [1]: ../../adr/automation/platform-bundle.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
 [3]: ../../adr/design/tracks.md#rule-adr-dsgn-track14
@@ -67,3 +71,5 @@ Lit ([ADR-DSGN-TRACK#12][2]) by:
 [7]: ../../adr/glossary.md#value-chain-concern
 [8]: ../../adr/glossary.md#cell
 [9]: ../../adr/glossary.md#lit-cell
+[10]: ../../adr/glossary.md#bundle
+[11]: ../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1

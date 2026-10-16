@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4b09a878c2b8"
+    with_body_sha: a95c6f8ef572
     path: docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-the-analyzer-names-the-raw-read-operations-drawio
@@ -12,8 +12,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.chain.md
       - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.grid.md
+      - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.tree.md
       - docs/explanation/flow/the-analyzer-names-the-raw-read.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
 # The analyzer names the raw read: the diagram described
@@ -21,7 +27,7 @@ catzc:
 ```text
 A 1572 x 640 diagram, read left to right along two stacked bands.
 Glyphs: 1 gate (neutral), 2 code units (slate), 3 results (green), 1 failure (red); 3 flow edges, 1 failure path; 5 markers.
-Sidebar: three minimaps and the map key.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
 This describes what the [diagram](adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png) draws, in the vocabulary of
@@ -80,4 +86,14 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-The lens badge reads `OPS`. The three minimaps sit above it, and the map key below it names the four swatches.
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-FLOW-CD-DETECT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
+renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.grid.md),
+[tree](adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.tree.md) and [value-chain map](adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.chain.md), which hold the reason for every lit cell or group as of that build.
+
+- **Lens badge:** OPS, with "Supports ADR-FLOW-CD-DETECT" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

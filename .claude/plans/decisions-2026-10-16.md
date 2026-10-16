@@ -99,6 +99,22 @@ two to ten words. Results move into the owning plans after the round.
 | Q83 | lazy types Phase 1 now                | yes       | metadata-only verification lands first         | independent of the module model                            |
 | Q84 | next session reruns the level-2 gate  | yes       | tag fixes confirmed in the background          |                                                            |
 | Q85 | delete the bounded plan on green      | yes       | one feature plan gone when its gate is green   |                                                            |
+| Q86 | unboxing P4 and P5 not now            | yes       | plan-unboxing closes after the commit checks   |                                                            |
+| Q87 | no ADR-AUTO-CACHE statics line        | yes       | ADR unchanged                                  |                                                            |
+| Q88 | shipped-types flags in module model   | yes       | TrackTypeEntry, VendorEntry owned there        |                                                            |
+| Q89 | re-point carried links now            | yes       | Test-Links clean on .claude/plans              | one file at a time with the link tool; link-fixer's job     |
+| Q90 | drop paste entries once recorded      | yes       | index stays short                              |                                                            |
+| Q91 | planner updates the lagging memory    | yes       | three memory notes current                     | a planner task after the round                             |
+| Q92 | each session fixes what it touches    | yes       | no cleanup session for unowned findings        |                                                            |
+| Q93 | catzc head beside plan: accepted      | yes       | plan files get stamped like any Markdown       |                                                            |
+| Q94 | keep questionnaire until rules exist  | yes       | both round files deleted once decisions are ADRs |                                                          |
+| Q95 | module model prepare pastes first     | yes       | the next fresh session runs the prepare prompt | layers P1 and lazy types Phase 1 may run beside            |
+| Q96 | a plan is the delta only              | yes       | plans shrink to zero and are deleted           | landed content lives in ADRs, tests, configs               |
+| Q97 | a constraining decision becomes an ADR rule in the same change | yes | no decision parked in a plan or register | the round's decisions each need their ADR home            |
+| Q98 | Track is the root; Module is one of its kinds | no    | module model premise reversed; ADR-AUTO-MODULE sits under the track model | the module-kinds plan and both module-model prompts change before they run |
+| Q99 | kinds owned by tracks, role separate  | yes       | kind and role stay two words                   |                                                            |
+| Q100 | track cluster model confirmed        | yes       | ADR-DSGN-TRACKTYPE is the living version       |                                                            |
+| Q101 | analyzer rule for literal defaults   | yes       | a gate enforces ADR-PRIN-CONFIG#3              | the config-defaults audit script is the seed               |
 
 ## Folded into the plans
 
