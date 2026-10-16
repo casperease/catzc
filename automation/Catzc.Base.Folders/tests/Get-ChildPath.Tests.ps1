@@ -66,7 +66,7 @@ Describe 'Get-ChildPath' -Tag 'L0', 'logic' {
         @(Get-ChildPath $root -Depth 1 -Exclude @() -PruneVendor $false).Count | Should -Be 2
     }
 
-    It 'fails fast on a folder that does not exist' -Tag 'ADR-AUTO-FAILFAST' {
+    It 'fails fast on a folder that does not exist' -Tag 'ADR-AUTO-FAILFAST#1' {
         { Get-ChildPath (Join-Path $root 'gadget-missing') -Depth 1 -Exclude @() -PruneVendor $false } | Should -Throw '*does not exist*'
     }
 }

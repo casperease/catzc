@@ -72,7 +72,7 @@ Describe 'FolderWalkConfig (shipped folder-walk.yml)' -Tag 'L1', 'integrity' {
         (Get-Config -Config folder-walk) | Should -BeOfType ([Catzc.Base.Folders.FolderWalkConfig])
     }
 
-    It 'is readable as the global address global.folder-walk.prune_vendor_in_searches' -Tag 'ADR-CONF-ADDRESS' {
+    It 'is readable as the global address global.folder-walk.prune_vendor_in_searches' -Tag 'ADR-CONF-ADDRESSING#1' {
         Get-ConfigValue -Address 'global.folder-walk.prune_vendor_in_searches' | Should -BeTrue
     }
 }

@@ -82,7 +82,7 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
         $listed | Should -Be $sorted
     }
 
-    It 'fails fast on a missing folder and on a depth below 1' -Tag 'ADR-AUTO-FAILFAST' {
+    It 'fails fast on a missing folder and on a depth below 1' -Tag 'ADR-AUTO-FAILFAST#1' {
         { [Catzc.Base.Folders.FolderWalker]::Walk((Join-Path $root 'gadget-missing'), 1, $null, $true, $true, $null) } | Should -Throw '*does not exist*'
         { [Catzc.Base.Folders.FolderWalker]::Walk($root, 0, $null, $true, $true, $null) } | Should -Throw '*at least 1*'
         { [Catzc.Base.Folders.FolderWalker]::Walk('', 1, $null, $true, $true, $null) } | Should -Throw '*must not be empty*'
