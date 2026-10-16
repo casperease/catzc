@@ -23,7 +23,7 @@ catzc:
 Describe 'Test-InIsolation' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ profiles = [ordered]@{ minimal = @('Catzc.Base.Asserts') } }
+            [pscustomobject]@{ profiles = [ordered]@{ minimal = @('Catzc.Base.Asserts'); full = @() } }
         }
         Mock Get-ModuleProfile -ModuleName Catzc.Base.QualityGates {
             @('Catzc.Base.Asserts', '.vendor', '.internal', '.compiled')

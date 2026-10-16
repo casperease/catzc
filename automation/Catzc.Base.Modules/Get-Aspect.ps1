@@ -43,7 +43,7 @@ function Get-Aspect {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Variants.VariantAspect])]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [string] $Track
     )
 
