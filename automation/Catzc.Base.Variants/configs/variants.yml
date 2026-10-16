@@ -31,7 +31,13 @@ aspects:
     - live: ["**"]
 
 tracks:
-  automation: { places: [automation], type: modules, languages: [powershell, csharp, yaml, json, jsonl, bash, xml, css, solution, stamp, asset] }
+  automation:
+    {
+      places: [automation],
+      type: modules,
+      languages: [powershell, csharp, yaml, json, jsonl, bash, xml, css, solution, stamp, asset],
+      execution_engines: [pwsh],
+    }
   automation-vendor: { places: [automation/.vendor], type: vendored-code }
   infrastructure: { places: [infrastructure], type: infrastructure, vendor: azure, languages: [bicep, yaml] }
   pipelines: { places: [pipelines], type: pipelines, vendor: ado, languages: [pipeline-yaml, powershell] }
