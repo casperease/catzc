@@ -50,7 +50,8 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 
 Every draft plan, ADR draft, analysis and continuation prompt that was in out/ is now in this folder: a draft is carried verbatim under a
 "Carried" heading of its meta plan, a continuation prompt is a `prompt-<topic>-continue.md` or `prompt-<topic>-<n>-<step>.md` file beside
-its plan, and reference-unboxing.md sits beside plan-unboxing. out/ holds README.md and scripts only. Two things the cleaner fixes next:
+its plan, and reference-unboxing.md sits beside plan-unboxing. out/ holds README.md, session scripts, logs, backups and run folders
+only; plan-out-artifacts carries the harvest inventory (what a plan names and keeps, what is unsorted). Two things the cleaner fixes next:
 
 - Carried text still says `out/plan-x.md` where it means a sibling here, and its relative links (`../docs/...`) were written from out/, so
   from this folder they resolve one level wrong. Re-point them with the link tool, one file at a time, never by sweep.

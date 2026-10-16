@@ -17,6 +17,31 @@ areas with defaults and a prune.
 The root is the contract and it is noisy. Low risk, clear win, but no other plan waits on it. The plans plan moves the plans out,
 which shrinks this one.
 
+## Harvest of out/ after the plan absorption (measured 2026-10-16, names only, bodies not read)
+
+Plan data left out/ on 2026-10-16; what remains is session tooling and output. Counted at the top level: 272 .ps1 scripts, 35 .log,
+27 .txt, 27 .bak (cc-int-*.bak of the internal .psm1 files and condense-comments-sa-*.bak of the analyzer modules), 2 .py, 5 .csv, .json
+or .sh, plus 45 run folders (test-* gates, cache, diagrams, template, verdicts, spike, glossary-check, to-scratch-*).
+
+Referenced by a plan or prompt in .claude/plans, so kept until that plan is done:
+
+- Link cleanup: adr-link-ledger.csv, build-adr-link-ledger.ps1, prepass-adr-link-ledger.ps1, refresh-ledger.ps1, apply-verdicts.ps1,
+  analysis-adr-link-ledger.txt, verdicts/, measure-text-in-source.ps1; source-text-ledger.csv is named but does not exist yet (Phase 2 builds it).
+- Unboxing: bench-unboxing.ps1, bench-unboxing.cs, bench-unboxing.log, boxing-bench.ps1, run-unboxing-tests.ps1.
+- Bounded enumeration: bench-folder-walk.ps1. Layers and generators: run-generator-tests.ps1, regen-generators.ps1, run-gates.ps1,
+  run-meta-tests.ps1. Assert-BashTimeout.cs is named by a plan as out/ but lives under .claude/hooks; not an out/ file.
+
+Unreferenced by any plan: everything else, by prefix family: run-* (about 90), probe-* 12, fix-* 12, verify-meta-* 7, to-* 7, step1-7,
+check-* 7, migrate-* 5, meta-selector-* 5, gates-* 5, boxing-stages* 4, adrhead-* 4, debug-* 4, yamlcheck* 3, bodysha-* 3 and singles.
+Not yet sorted into one-off probe (delete), rerunnable check (keep in out/ and name it in its plan), or reusable tool (becomes a module
+function with tests). That sorting needs each script's body read; it is the next step of this plan, on the user's go.
+
+## Open steps (harvest)
+
+- [ ] Sort the unreferenced scripts by reading each body: probe, rerunnable, or tool (check: a table in this file with one verdict each).
+- [ ] Delete the probes and the 27 .bak files on the user's yes (check: the counts above shrink; nothing a plan names is gone).
+- [ ] Each tool verdict becomes an open step in the plan that owns the behaviour, never a copy in two places.
+
 ## Needed docs
 
 - ADR-REPO-OUTDIR amendments: the areas, session placement, what prunes and when.
