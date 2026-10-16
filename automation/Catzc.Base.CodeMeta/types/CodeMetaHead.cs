@@ -75,6 +75,9 @@ public sealed class CodeMetaHead
     // The items of one list edge, as the head holds them.
     public IReadOnlyList<string> EdgeList(string key) => MarkdownMetaBlock.EdgeList(metaBlock, key);
 
+    // TEMPORARY (one-time re-imprint, deleted with it): the items of one list under the retired `derived` section.
+    public IReadOnlyList<string> LegacyDerivedList(string key) => MarkdownMetaBlock.LegacyDerivedList(metaBlock, key);
+
     // The authored lines under `config`, as written.
     public IReadOnlyList<string> ConfigLines => MarkdownMetaBlock.ConfigLines(metaBlock);
 

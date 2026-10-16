@@ -1,6 +1,6 @@
 ---
 catzc:
-  derived:
+  immutable:
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml
     kind: index

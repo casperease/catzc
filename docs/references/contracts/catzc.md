@@ -1,6 +1,6 @@
 ---
 catzc:
-  derived:
+  immutable:
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
     kind: reference

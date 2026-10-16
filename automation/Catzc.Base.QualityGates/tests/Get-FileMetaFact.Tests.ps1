@@ -53,9 +53,16 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     }
 
     It 'collects the facts of every kind that applies, in registry order' {
-        $facts = Get-Facts @{ kinds = [ordered]@{ 'adr-codes' = @{ keys = @('adrs') }; 'body-sha' = @{ keys = @('body_sha') } } }
-        $facts.Keys | Should -Be @('adrs', 'body_sha')
-        $facts['adrs'] | Should -Be @('ADR-GADGET#1')
+        $facts = Get-Facts @{ kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites'); section = 'edges' }; 'body-sha' = @{ keys = @('with_body_sha') } } }
+        $facts.Immutable.Keys | Should -Be @('with_body_sha')
+        $facts.Edges.Keys | Should -Be @('cites')
+        $facts.Edges['cites'] | Should -Be @('ADR-GADGET#1')
+    }
+
+    It 'puts each key into the part its kind names, in registry order within the part' {
+        $facts = Get-Facts @{ kinds = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha') }; 'adr-codes' = @{ keys = @('cites'); section = 'edges' }; 'file-kind' = @{ keys = @('kind') } } }
+        $facts.Immutable.Keys | Should -Be @('with_body_sha', 'kind')
+        $facts.Edges.Keys | Should -Be @('cites')
     }
 
     It 'skips a kind that selects neither the file''s class nor its language' -ForEach @(
@@ -65,9 +72,10 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     ) {
         $facts = Get-Facts @{
             classes = @(@{ class = 'widget'; files = @('docs/**') })
-            kinds   = [ordered]@{ 'body-sha' = @{ keys = @('body_sha'); select = $Select }; 'adr-codes' = @{ keys = @('adrs') } }
+            kinds   = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha'); select = $Select }; 'adr-codes' = @{ keys = @('cites'); section = 'edges' } }
         }
-        $facts.Keys | Should -Be @('adrs')
+        $facts.Immutable.Count | Should -Be 0
+        $facts.Edges.Keys | Should -Be @('cites')
     }
 
     It 'applies a kind when any select entry matches both the class and the language it names' -ForEach @(
@@ -78,9 +86,9 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     ) {
         $facts = Get-Facts @{
             classes = @(@{ class = 'widget'; files = @('docs/**') })
-            kinds   = [ordered]@{ 'body-sha' = @{ keys = @('body_sha'); select = $Select } }
+            kinds   = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha'); select = $Select } }
         }
-        $facts.Keys | Should -Be @('body_sha')
+        $facts.Immutable.Keys | Should -Be @('with_body_sha')
     }
 
     It 'names the function a kind expected when no module ships it' {
@@ -91,7 +99,7 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     It 'uses the function an entry names instead of the convention' {
         Mock Get-FileKindFileMetaFact { [ordered]@{ kind = 'widget' } } -ModuleName Catzc.Base.QualityGates
         $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('kind'); processor = 'Get-FileKindFileMetaFact' } } }
-        $facts['kind'] | Should -BeExactly 'widget'
+        $facts.Immutable['kind'] | Should -BeExactly 'widget'
     }
 
     It 'rejects a processor that returns keys its kind does not declare' {

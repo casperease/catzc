@@ -94,8 +94,21 @@ function Get-AdrCodesFileMetaFact {
         }
     }
     $held = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('held_classes'), $fileClass)
-    if ($held -and $State.PSObject.Properties['DerivedLists'] -and $State.DerivedLists.Contains($Kind.keys[0])) {
-        foreach ($token in $State.DerivedLists[$Kind.keys[0]]) {
+    if ($held -and $State.PSObject.Properties['EdgeLists'] -and $State.EdgeLists.Contains($Kind.keys[0])) {
+        foreach ($token in $State.EdgeLists[$Kind.keys[0]]) {
+            try {
+                foreach ($code in [Catzc.Base.Docs.AdrCodeForm]::Expand($token)) {
+                    [void] $codes.Add($code)
+                }
+            }
+            catch [System.FormatException] {
+                continue
+            }
+        }
+    }
+    # TEMPORARY (one-time re-imprint, deleted with it): the codes a head held under the retired `derived.adrs` list.
+    if ($held -and $State.PSObject.Properties['LegacyAdrs']) {
+        foreach ($token in $State.LegacyAdrs) {
             try {
                 foreach ($code in [Catzc.Base.Docs.AdrCodeForm]::Expand($token)) {
                     [void] $codes.Add($code)

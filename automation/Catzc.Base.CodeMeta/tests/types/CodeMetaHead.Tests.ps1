@@ -27,21 +27,21 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
         $script:lf = { param([string[]] $Lines) ($Lines -join "`n") }
         $script:head = {
             param([string] $Text, $Form = $script:block, $Fact = $script:facts)
-            [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form).WithFacts($Fact)
+            [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form).WithFacts($Fact, [ordered]@{})
         }
-        $script:written = & $script:lf '/*', '---', 'catzc:', '  derived:', '    path: automation/Widget/Get-Gadget.ps1', '    kind: function', '    module: Widget', '---', '*/'
+        $script:written = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: automation/Widget/Get-Gadget.ps1', '    kind: function', '    module: Widget', '---', '*/'
     }
 
     Context 'rendering' {
         It 'wraps the front matter of a Markdown meta block in the delimiters of a block comment' {
-            $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($script:facts, [string[]] @())
+            $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($script:facts, [ordered]@{}, [string[]] @())
             [Catzc.Base.CodeMeta.CodeMetaHead]::Wrap($block, $script:block) | Should -Be @(
-                '/*', '---', 'catzc:', '  derived:', '    path: automation/Widget/Get-Gadget.ps1', '    kind: function', '    module: Widget', '---', '*/')
+                '/*', '---', 'catzc:', '  immutable:', '    path: automation/Widget/Get-Gadget.ps1', '    kind: function', '    module: Widget', '---', '*/')
         }
 
         It 'wraps it in a line prefix, one space in, for a language without block comments' {
-            $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ path = 'a/b.yml' }, [string[]] @())
-            [Catzc.Base.CodeMeta.CodeMetaHead]::Wrap($block, $script:hash) | Should -Be @('# ---', '# catzc:', '#   derived:', '#     path: a/b.yml', '# ---')
+            $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ path = 'a/b.yml' }, [ordered]@{}, [string[]] @())
+            [Catzc.Base.CodeMeta.CodeMetaHead]::Wrap($block, $script:hash) | Should -Be @('# ---', '# catzc:', '#   immutable:', '#     path: a/b.yml', '# ---')
         }
     }
 
@@ -56,18 +56,30 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
             & $script:head $once | Should -BeExactly $once
             $parsed = [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($once, $script:block)
             $parsed.HasHead | Should -BeTrue
-            $parsed.Sections | Should -Be @('derived')
-            $parsed.DerivedKeys | Should -Be @('path', 'kind', 'module')
+            $parsed.Sections | Should -Be @('immutable')
+            $parsed.ImmutableKeys | Should -Be @('path', 'kind', 'module')
+            @($parsed.EdgeKeys).Count | Should -Be 0
             $parsed.Rest | Should -BeExactly (& $script:lf 'function Get-Gadget {', '}', '')
         }
 
+        It 'writes the edges after the place facts, and reads their names and items back' {
+            $edges = [ordered]@{ cites = @('ADR-WIDGET#1', 'ADR-GADGET#2'); test = 'tests/Get-Gadget.Tests.ps1' }
+            $once = [Catzc.Base.CodeMeta.CodeMetaHead]::Parse((& $script:lf 'class Gadget { }', ''), $script:block).WithFacts($script:facts, $edges)
+            $once | Should -BeLike '*module: Widget*  edges:*    cites:*      - ADR-WIDGET#1*    test: tests/Get-Gadget.Tests.ps1*'
+            $parsed = [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($once, $script:block)
+            $parsed.Sections | Should -Be @('immutable', 'edges')
+            $parsed.EdgeKeys | Should -Be @('cites', 'test')
+            $parsed.EdgeList('cites') | Should -Be @('ADR-WIDGET#1', 'ADR-GADGET#2')
+            $parsed.WithFacts($script:facts, $edges) | Should -BeExactly $once
+        }
+
         It 'rewrites a stale value and collapses the blank lines after the head, keeping the rest as written' {
-            $stale = & $script:lf '/*', '---', 'catzc:', '  derived:', '    path: automation/Old/Get-Gadget.ps1', '    module: Old', '---', '*/', '', '', '// The insight.', 'class Gadget { }', ''
+            $stale = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: automation/Old/Get-Gadget.ps1', '    module: Old', '---', '*/', '', '', '// The insight.', 'class Gadget { }', ''
             & $script:head $stale | Should -BeExactly ($script:written + "`n`n" + (& $script:lf '// The insight.', 'class Gadget { }', ''))
         }
 
         It 'keeps the authored config lines and removes the head only when nothing is left to write' {
-            $text = & $script:lf '/*', '---', 'catzc:', '  derived:', '    path: a/b.cs', '  config:', '    colour: red', '---', '*/', '', 'class Gadget { }', ''
+            $text = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: a/b.cs', '  config:', '    colour: red', '---', '*/', '', 'class Gadget { }', ''
             $rewritten = & $script:head $text $script:block ([ordered]@{ path = 'a/c.cs' })
             $rewritten | Should -BeLike '*path: a/c.cs*config:*colour: red*'
             & $script:head $text $script:block ([ordered]@{}) | Should -BeLike '*colour: red*'
@@ -89,7 +101,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
         }
 
         It 'writes a head alone in an empty file' {
-            & $script:head '' $script:block ([ordered]@{ path = 'a/b.cs' }) | Should -BeExactly (& $script:lf '/*', '---', 'catzc:', '  derived:', '    path: a/b.cs', '---', '*/', '')
+            & $script:head '' $script:block ([ordered]@{ path = 'a/b.cs' }) | Should -BeExactly (& $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: a/b.cs', '---', '*/', '')
         }
 
         It 'does not read a block comment that is not front matter with a catzc block as a head' {
@@ -104,9 +116,9 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
     Context 'imprinting a line head' {
         It 'reads back what it wrote and changes nothing on a second run' {
             $once = & $script:head (& $script:lf 'key: value', '') $script:hash ([ordered]@{ path = 'a/b.yml' })
-            $once | Should -BeExactly (& $script:lf '# ---', '# catzc:', '#   derived:', '#     path: a/b.yml', '# ---', '', 'key: value', '')
+            $once | Should -BeExactly (& $script:lf '# ---', '# catzc:', '#   immutable:', '#     path: a/b.yml', '# ---', '', 'key: value', '')
             & $script:head $once $script:hash ([ordered]@{ path = 'a/b.yml' }) | Should -BeExactly $once
-            [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($once, $script:hash).DerivedKeys | Should -Be @('path')
+            [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($once, $script:hash).ImmutableKeys | Should -Be @('path')
         }
     }
 
@@ -133,14 +145,14 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
             $form = [Catzc.Base.CodeMeta.HeadForm]::ForLine('#', [Catzc.Base.CodeMeta.HeadAnchor]::AfterShebang)
             $text = & $script:lf '#!/usr/bin/env python3', '# -*- coding: utf-8 -*-', 'import widget', ''
             & $script:head $text $form ([ordered]@{ path = 'a/b.py' }) |
-                Should -BeExactly (& $script:lf '#!/usr/bin/env python3', '# -*- coding: utf-8 -*-', '# ---', '# catzc:', '#   derived:', '#     path: a/b.py', '# ---', '', 'import widget', '')
+                Should -BeExactly (& $script:lf '#!/usr/bin/env python3', '# -*- coding: utf-8 -*-', '# ---', '# catzc:', '#   immutable:', '#     path: a/b.py', '# ---', '', 'import widget', '')
         }
 
         It 'puts a block head after the XML declaration and the doctype' {
             $form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('<!--', '-->', [Catzc.Base.CodeMeta.HeadAnchor]::AfterProlog)
             $text = & $script:lf '<?xml version="1.0"?>', '<!DOCTYPE widget>', '<Widget/>', ''
             $result = & $script:head $text $form ([ordered]@{ path = 'a/b.xml' })
-            $result | Should -BeExactly (& $script:lf '<?xml version="1.0"?>', '<!DOCTYPE widget>', '<!--', '---', 'catzc:', '  derived:', '    path: a/b.xml', '---', '-->', '', '<Widget/>', '')
+            $result | Should -BeExactly (& $script:lf '<?xml version="1.0"?>', '<!DOCTYPE widget>', '<!--', '---', 'catzc:', '  immutable:', '    path: a/b.xml', '---', '-->', '', '<Widget/>', '')
             & $script:head $result $form ([ordered]@{ path = 'a/b.xml' }) | Should -BeExactly $result
         }
 
@@ -148,14 +160,14 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
             $form = [Catzc.Base.CodeMeta.HeadForm]::ForLine('#', [Catzc.Base.CodeMeta.HeadAnchor]::AfterPreamble, 2)
             $text = "$([char] 0xFEFF)`nMicrosoft Visual Studio Solution File, Format Version 12.00`nProject(`"widget`")`n"
             $result = & $script:head $text $form ([ordered]@{ path = 'a/b.sln' })
-            $result | Should -BeExactly "$([char] 0xFEFF)`nMicrosoft Visual Studio Solution File, Format Version 12.00`n# ---`n# catzc:`n#   derived:`n#     path: a/b.sln`n# ---`n`nProject(`"widget`")`n"
+            $result | Should -BeExactly "$([char] 0xFEFF)`nMicrosoft Visual Studio Solution File, Format Version 12.00`n# ---`n# catzc:`n#   immutable:`n#     path: a/b.sln`n# ---`n`nProject(`"widget`")`n"
             & $script:head $result $form ([ordered]@{ path = 'a/b.sln' }) | Should -BeExactly $result
         }
     }
 
     Context 'a block head that never closes' {
         It 'is no head, so the opener stays where it is' {
-            $text = & $script:lf '/*', '---', 'catzc:', '  derived:', '    path: a/b.css', 'body { }', ''
+            $text = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: a/b.css', 'body { }', ''
             $parsed = [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($text, $script:block)
             $parsed.HasHead | Should -BeFalse
             $parsed.Rest | Should -BeExactly $text

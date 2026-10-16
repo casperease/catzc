@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: ".gitignore"
 #     source:
 #       - automation/Catzc.Base.Git/configs/gitignore.yml

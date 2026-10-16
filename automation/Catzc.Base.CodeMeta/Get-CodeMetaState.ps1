@@ -58,6 +58,7 @@ function Get-CodeMetaState {
         ImmutableKeys = [string[]] @($head.ImmutableKeys)
         EdgeKeys      = [string[]] @($head.EdgeKeys)
         EdgeLists     = $lists
+        LegacyAdrs    = [string[]] @($head.LegacyDerivedList('adrs'))
         ConfigLines   = [string[]] @($head.ConfigLines)
         Before        = $head.Before
         Rest          = $head.Rest

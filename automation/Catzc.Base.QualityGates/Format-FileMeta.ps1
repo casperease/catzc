@@ -21,7 +21,7 @@ catzc:
       - ADR-REPO-FILEMETA#3
       - ADR-REPO-FORMAT#9
   config:
-    synopsis: Imprints the derived facts into the meta block of every in-scope Markdown file.
+    synopsis: Imprints the place facts and the edges into the meta block of every in-scope Markdown file.
     description: |-
       The output is byte-identical on every run, so a second run changes no file. The authored `config` part is kept as written, and a
       file whose block holds a key no meta kind owns is reported and left unchanged.

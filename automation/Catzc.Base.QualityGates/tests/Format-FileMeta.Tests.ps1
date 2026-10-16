@@ -37,9 +37,9 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
         $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{
+                    'body-sha'  = @{ keys = @('with_body_sha') }
                     'file-kind' = @{ keys = @('kind') }
-                    'body-sha'  = @{ keys = @('body_sha') }
-                    'adr-codes' = @{ keys = @('adrs') }
+                    'adr-codes' = @{ keys = @('cites'); section = 'edges' }
                 }
             })
         # Not named $config: that is Get-Config's own -Config parameter inside the mock.
@@ -53,18 +53,18 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         $script:reportBase = Join-Path $script:widgetRoot 'reports'
     }
 
-    It 'imprints the derived facts above a file with no front matter, keeping its line endings and writing no BOM' {
+    It 'imprints the place facts and the edges above a file with no front matter, keeping its line endings and writing no BOM' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Should -Contain 'docs/widget.md'
         $bytes = [System.IO.File]::ReadAllBytes((Join-Path $script:widgetRoot 'docs/widget.md'))
         $bytes[0] | Should -Be ([byte] [char] '-')
         $text = [System.Text.Encoding]::UTF8.GetString($bytes)
-        $text | Should -BeLike "---`r`ncatzc:`r`n  derived:`r`n    kind: gadget`r`n    body_sha: *`r`n    adrs:`r`n      - ADR-GADGET#2`r`n---`r`n`r`n# docs/widget.md*"
+        $text | Should -BeLike "---`r`ncatzc:`r`n  immutable:`r`n    with_body_sha: *`r`n    kind: gadget`r`n  edges:`r`n    cites:`r`n      - ADR-GADGET#2`r`n---`r`n`r`n# docs/widget.md*"
     }
 
     It 'keeps the authored config part and the other front matter keys' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
-        $text = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) -replace 'body_sha: "?[0-9a-f]{12}"?', 'body_sha: HASH'
-        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  derived:`n    kind: gadget`n    body_sha: HASH`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
+        $text = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) -replace 'with_body_sha: "?[0-9a-f]{12}"?', 'with_body_sha: HASH'
+        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  immutable:`n    with_body_sha: HASH`n    kind: gadget`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
     }
 
     It 'changes nothing on a second run' {
@@ -92,12 +92,12 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
 
     It 'leaves a file with a key no kind owns unchanged and reports it' {
         $path = Join-Path $script:widgetRoot 'docs/widget.md'
-        $text = "---`ncatzc:`n  derived:`n    surprise: 1`n---`n# docs/widget.md`n"
+        $text = "---`ncatzc:`n  immutable:`n    surprise: 1`n---`n# docs/widget.md`n"
         [System.IO.File]::WriteAllText($path, $text)
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Should -Not -Contain 'docs/widget.md'
         [System.IO.File]::ReadAllText($path) | Should -BeExactly $text
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter {
-            $Message -like "docs/widget.md needs a decision by hand: 'catzc.derived.surprise'*" -and $Warning
+            $Message -like "docs/widget.md needs a decision by hand: 'catzc.immutable.surprise'*" -and $Warning
         }
     }
 
@@ -109,7 +109,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
     It 'flags a key no kind owns and says where it belongs' {
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "---`ncatzc:`n  other: 1`n---`n# docs/widget.md`n")
         { Test-FileMeta -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } |
-            Should -Throw "*docs/widget.md:0 ``[Unowned``] expected 'derived or config', found 'catzc.other' — move it under config, or remove it*"
+            Should -Throw "*docs/widget.md:0 ``[Unowned``] expected 'immutable, edges or config', found 'catzc.other' — move it under config, or remove it*"
     }
 
     It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {

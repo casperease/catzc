@@ -20,7 +20,7 @@ catzc:
   config:
     synopsis: Computes the meta block of every in-scope file — the one place Format-FileMeta and Test-FileMeta share.
     description: |-
-      Each file's `derived` part is rebuilt from the imprint kinds of the registry, and its authored `config` part is kept as written.
+      Each file's `immutable` and `edges` parts are rebuilt from the imprint kinds of the registry, and its authored `config` part is kept as written.
       A file whose block holds a key no kind owns is reported as Unowned and left unchanged, since writing it would drop the author's key
       ([ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)).
     parameters:
@@ -55,7 +55,10 @@ function Invoke-FileMetaEngine {
         else {
             Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config
         })
-    $owned = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.Imprint() | ForEach-Object { $_.keys }))
+    $ownedImmutable = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.KeysOf('immutable')))
+    $ownedEdges = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.KeysOf('edges')))
+    # TEMPORARY (one-time re-imprint, deleted with it): the retired `derived` section is read, its facts are rebuilt into the new parts.
+    $parts = 'immutable', 'edges', 'config', 'derived'
 
     $entries = foreach ($entry in $files) {
         $file = $entry.Path
@@ -93,30 +96,39 @@ function Invoke-FileMetaEngine {
             if ($state.Foreign) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "property '$property' holds something else"; Expected = 'a catzc meta block, or no such property' })
             }
-            foreach ($section in $state.Sections | Where-Object { $_ -notin 'derived', 'config' }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'derived or config' })
+            foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'immutable, edges or config' })
             }
-            foreach ($key in $state.DerivedKeys | Where-Object { -not $owned.Contains($_) }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.derived.$key"; Expected = 'a key a meta kind owns' })
+            foreach ($key in $state.ImmutableKeys | Where-Object { -not $ownedImmutable.Contains($_) }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.immutable.$key"; Expected = 'a key a meta kind owns' })
+            }
+            foreach ($key in $state.EdgeKeys | Where-Object { -not $ownedEdges.Contains($_) }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.edges.$key"; Expected = 'an edge a meta kind owns' })
             }
         }
         elseif ($isHead) {
             $form = $entry.Carrier.Form()
             $state = Get-CodeMetaState -Text $text -Form $form
-            foreach ($section in $state.Sections | Where-Object { $_ -notin 'derived', 'config' }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'derived or config' })
+            foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'immutable, edges or config' })
             }
-            foreach ($key in $state.DerivedKeys | Where-Object { -not $owned.Contains($_) }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.derived.$key"; Expected = 'a key a meta kind owns' })
+            foreach ($key in $state.ImmutableKeys | Where-Object { -not $ownedImmutable.Contains($_) }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.immutable.$key"; Expected = 'a key a meta kind owns' })
+            }
+            foreach ($key in $state.EdgeKeys | Where-Object { -not $ownedEdges.Contains($_) }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.edges.$key"; Expected = 'an edge a meta kind owns' })
             }
         }
         else {
             $state = Get-MarkdownMetaState -Text $text
-            foreach ($section in $state.Sections | Where-Object { $_ -notin 'derived', 'config' }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'derived or config' })
+            foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'immutable, edges or config' })
             }
-            foreach ($key in $state.DerivedKeys | Where-Object { -not $owned.Contains($_) }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.derived.$key"; Expected = 'a key a meta kind owns' })
+            foreach ($key in $state.ImmutableKeys | Where-Object { -not $ownedImmutable.Contains($_) }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.immutable.$key"; Expected = 'a key a meta kind owns' })
+            }
+            foreach ($key in $state.EdgeKeys | Where-Object { -not $ownedEdges.Contains($_) }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.edges.$key"; Expected = 'an edge a meta kind owns' })
             }
         }
 
@@ -124,13 +136,13 @@ function Invoke-FileMetaEngine {
         if ($findings.Count -eq 0) {
             $facts = Get-FileMetaFact -State $state -Path $file -Config $Config
             $fixed = if ($isProperty) {
-                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Fact $facts
+                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Immutable $facts.Immutable -Edges $facts.Edges
             }
             elseif ($isHead) {
-                Format-CodeMetaHead -Text $text -Form $form -Fact $facts
+                Format-CodeMetaHead -Text $text -Form $form -Immutable $facts.Immutable -Edges $facts.Edges
             }
             else {
-                Format-MarkdownMetaBlock -Text $text -Fact $facts
+                Format-MarkdownMetaBlock -Text $text -Immutable $facts.Immutable -Edges $facts.Edges
             }
             if ($fixed -cne $text) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'Drift'; Actual = 'the meta block as written'; Expected = 'the imprinted meta block' })

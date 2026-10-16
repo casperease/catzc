@@ -84,10 +84,10 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
         }
 
         It 'leaves the codes of a meta head as plain codes, in a block head and in a prefixed one' -Tag 'ADR-REPO-LINK#3', 'ADR-REPO-CODEMETA#2' {
-            $block = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-TST-WIDGET#2`n      - ADR-TST-GADGET`n---`n*/`n"
+            $block = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-TST-WIDGET#2`n      - ADR-TST-GADGET`n---`n*/`n"
             & $alignFile $root 'src/widget.cs' "$block`n// Follows ADR-TST-WIDGET throughout.`n" |
                 Should -BeExactly "$block`n// Follows $widgetDoc throughout.`n"
-            $help = "<#`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-TST-WIDGET#2`n---`n#>`n"
+            $help = "<#`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-TST-WIDGET#2`n---`n#>`n"
             & $alignFile $root 'src/widget.ps1' $help | Should -BeExactly $help
         }
 

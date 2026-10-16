@@ -36,19 +36,19 @@ Describe 'Get-AdrUsageRow' -Tag 'L0', 'logic' {
     }
 
     It 'expands a group in a Markdown head into one row per rule' {
-        $rows = @(Get-Rows "---`ncatzc:`n  derived:`n    adrs:`n      - ADR-WIDGET-PART#{1,3}`n---`nbody`n")
+        $rows = @(Get-Rows "---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET-PART#{1,3}`n---`nbody`n")
         @($rows.Rule) | Should -Be @(1, 3)
         @($rows.Source | Sort-Object -Unique) | Should -Be @('head')
     }
 
     It 'keeps a bare code as the whole ADR' {
-        $rows = @(Get-Rows "---`ncatzc:`n  derived:`n    adrs:`n      - ADR-WIDGET-PART`n---`nbody`n")
+        $rows = @(Get-Rows "---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET-PART`n---`nbody`n")
         $rows.Count | Should -Be 1
         $rows[0].Rule | Should -BeNullOrEmpty
     }
 
     It 'reads a link to a rule and a link to the ADR, and skips a link no code owns' {
-        $text = "---`ncatzc:`n  derived:`n    links:`n      - docs/adr/index.md`n      - docs/adr/widget/part.md`n      - docs/adr/widget/part.md#rule-adr-widget-part2`n---`nbody`n"
+        $text = "---`ncatzc:`n  edges:`n    links:`n      - docs/adr/index.md`n      - docs/adr/widget/part.md`n      - docs/adr/widget/part.md#rule-adr-widget-part2`n---`nbody`n"
         $rows = @(Get-Rows $text)
         $rows.Count | Should -Be 2
         @($rows.Code | Sort-Object -Unique) | Should -Be @('ADR-WIDGET-PART')
@@ -57,7 +57,7 @@ Describe 'Get-AdrUsageRow' -Tag 'L0', 'logic' {
     }
 
     It 'skips a code or a rule the index does not register' {
-        $rows = @(Get-Rows "---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET-SPEC`n      - ADR-WIDGET-PART#{3,9}`n---`nbody`n")
+        $rows = @(Get-Rows "---`ncatzc:`n  edges:`n    cites:`n      - ADR-GADGET-SPEC`n      - ADR-WIDGET-PART#{3,9}`n---`nbody`n")
         $rows.Count | Should -Be 1
         $rows[0].Rule | Should -Be 3
     }

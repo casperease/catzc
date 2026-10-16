@@ -36,7 +36,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
                 }, @())
         }
 
-        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'adr-codes' = @{ keys = @('adrs') } } }).kinds[0]
+        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites') } } }).kinds[0]
 
         function script:Get-Codes {
             param([string] $Body)
@@ -45,7 +45,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
                 param($State, $Kind)
                 Get-AdrCodesFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
             }
-            , @($fact['adrs'])
+            , @($fact['cites'])
         }
     }
 
@@ -100,14 +100,14 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     }
 
     It 'does not read a citation from the front matter' {
-        $codes = Get-Codes "---`ncatzc:`n  derived:`n    adrs:`n      - ADR-WIDGET#9`n---`nbody`n"
+        $codes = Get-Codes "---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET#9`n---`nbody`n"
         $codes.Count | Should -Be 0
     }
 
     Context 'a code file, whose class the kind names under domain_classes' {
         BeforeAll {
             $script:codeKind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    kinds = [ordered]@{ 'adr-codes' = @{ keys = @('adrs'); settings = @{ domain_classes = @('widget-*') } } }
+                    kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites'); settings = @{ domain_classes = @('widget-*') } } }
                 }).kinds[0]
 
             function script:Get-CodeCodes {
@@ -117,17 +117,17 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
                     param($State, $Kind)
                     Get-AdrCodesFileMetaFact -State $State -Path 'automation/Catzc.Widget/types/Widget.cs' -Kind $Kind
                 }
-                , @($fact['adrs'])
+                , @($fact['cites'])
             }
         }
 
         It 'lists a bare domain code beside the rule codes of other ADRs, reading below the head only' {
-            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET, ADR-GADGET#4 and ADR-WIDGET-PART#2`nclass Widget {}`n"
+            $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET, ADR-GADGET#4 and ADR-WIDGET-PART#2`nclass Widget {}`n"
             (Get-CodeCodes $text) | Should -Be @('ADR-GADGET#4', 'ADR-WIDGET', 'ADR-WIDGET-PART#2')
         }
 
         It 'lists a bare code alone when the text also cites a rule of that ADR, since no numbers means the whole ADR' {
-            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET and ADR-WIDGET#2`nclass Widget {}`n"
+            $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET and ADR-WIDGET#2`nclass Widget {}`n"
             (Get-CodeCodes $text) | Should -Be @('ADR-WIDGET')
         }
 
@@ -146,14 +146,14 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
                 param($State, $Kind)
                 Get-AdrCodesFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
             }
-            , @($fact['adrs']) | Should -Be @('ADR-GADGET#4')
+            , @($fact['cites']) | Should -Be @('ADR-GADGET#4')
         }
     }
 
     Context 'a code file, whose class the kind names under held_classes' {
         BeforeAll {
             $script:heldKind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    kinds = [ordered]@{ 'adr-codes' = @{ keys = @('adrs'); settings = @{ held_classes = @('widget-type') } } }
+                    kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites'); settings = @{ held_classes = @('widget-type') } } }
                 }).kinds[0]
 
             function script:Get-HeldCodes {
@@ -163,51 +163,51 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
                     param($State, $Kind, $Path)
                     Get-AdrCodesFileMetaFact -State $State -Path $Path -Kind $Kind
                 }
-                , @($fact['adrs'])
+                , @($fact['cites'])
             }
         }
 
         It 'keeps every code the head holds and adds the codes the text cites, sorted without duplicates' -Tag 'ADR-REPO-CODEMETA#2' {
-            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n      - ADR-GADGET#4`n---`n*/`n`n// ADR-GADGET#4 and ADR-WIDGET#2`nclass Widget {}`n"
+            $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-HEAD#1`n      - ADR-GADGET#4`n---`n*/`n`n// ADR-GADGET#4 and ADR-WIDGET#2`nclass Widget {}`n"
             (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#4', 'ADR-HEAD#1', 'ADR-WIDGET#2')
         }
 
         It 'reads a group the head holds and writes it back in the minimal form' -Tag 'ADR-REPO-CODEMETA#2' {
-            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET#{2,4-6}`n---`n*/`n`nclass Widget {}`n"
+            $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-GADGET#{2,4-6}`n---`n*/`n`nclass Widget {}`n"
             (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#{2,4-6}')
         }
 
         It 'merges a head group with the rules the text cites into one range' -Tag 'ADR-REPO-CODEMETA#2' {
-            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET#{2-3}`n---`n*/`n`n// ADR-GADGET#4`nclass Widget {}`n"
+            $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-GADGET#{2-3}`n---`n*/`n`n// ADR-GADGET#4`nclass Widget {}`n"
             (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#{2-4}')
         }
 
         It 'lets a bare code in the head absorb the rules the text cites, since no numbers means the whole ADR' -Tag 'ADR-REPO-CODEMETA#2' {
-            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET`n---`n*/`n`n// ADR-GADGET#4`nclass Widget {}`n"
+            $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-GADGET`n---`n*/`n`n// ADR-GADGET#4`nclass Widget {}`n"
             (Get-HeldCodes $text) | Should -Be @('ADR-GADGET')
         }
 
         It 'drops a head token that is malformed or a glob, keeping the rest' -Tag 'ADR-REPO-CODEMETA#2' {
-            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET#{5-3}`n      - ADR-NOPE-*`n      - ADR-GADGET#7`n---`n*/`n`nclass Widget {}`n"
+            $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-GADGET#{5-3}`n      - ADR-NOPE-*`n      - ADR-GADGET#7`n---`n*/`n`nclass Widget {}`n"
             (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#7')
         }
 
         It 'derives from the text alone for a file the setting does not name' -Tag 'ADR-REPO-CODEMETA#2' {
-            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET#2`nclass Widget {}`n"
+            $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET#2`nclass Widget {}`n"
             (Get-HeldCodes $text 'automation/Catzc.Widget/assets/widget.cs') | Should -Be @('ADR-WIDGET#2')
         }
     }
 
     It 'takes domain_classes and held_classes from the classes the kind selects when neither is set' -Tag 'ADR-AUTO-DEFAULT#6', 'ADR-REPO-CODEMETA#2' {
         $kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{ 'adr-codes' = @{ keys = @('adrs'); select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type') }) } }
+                kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites'); select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type') }) } }
             }).kinds[0]
-        $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET and ADR-GADGET#4`nclass Widget {}`n"
+        $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET and ADR-GADGET#4`nclass Widget {}`n"
         $state = Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/'))
         $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $kind } {
             param($State, $Kind)
             Get-AdrCodesFileMetaFact -State $State -Path 'automation/Catzc.Widget/types/Widget.cs' -Kind $Kind
         }
-        $fact['adrs'] | Should -Be @('ADR-GADGET#4', 'ADR-HEAD#1', 'ADR-WIDGET')
+        $fact['cites'] | Should -Be @('ADR-GADGET#4', 'ADR-HEAD#1', 'ADR-WIDGET')
     }
 }

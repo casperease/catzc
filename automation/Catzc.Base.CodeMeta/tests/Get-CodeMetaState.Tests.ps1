@@ -23,27 +23,29 @@ Describe 'Get-CodeMetaState' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1' {
     }
 
     It 'reports the head''s sections and keys in the order written, with what stands around it' {
-        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  derived:`n    path: a/b.cs`n    module: Widget`n  config:`n    colour: red`n---`n*/`n`n// The insight.`nclass Gadget { }`n" -Form $script:form
+        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  immutable:`n    path: a/b.cs`n    module: Widget`n  edges:`n    test: tests/b.Tests.ps1`n  config:`n    colour: red`n---`n*/`n`n// The insight.`nclass Gadget { }`n" -Form $script:form
         $state.HasHead | Should -BeTrue
-        $state.Sections | Should -Be @('derived', 'config')
-        $state.DerivedKeys | Should -Be @('path', 'module')
+        $state.Sections | Should -Be @('immutable', 'edges', 'config')
+        $state.ImmutableKeys | Should -Be @('path', 'module')
+        $state.EdgeKeys | Should -Be @('test')
         $state.ConfigLines | Should -Be @('    colour: red')
         $state.Before | Should -BeExactly ''
         $state.Rest | Should -BeExactly "// The insight.`nclass Gadget { }`n"
         $state.NewLine | Should -BeExactly "`n"
     }
 
-    It 'reports each derived list with the items the head holds, and no entry for a scalar key' {
-        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  derived:`n    path: a/b.cs`n    adrs:`n      - ADR-WIDGET#1`n      - ADR-GADGET#2`n---`n*/`n`nclass Gadget { }`n" -Form $script:form
-        @($state.DerivedLists.Keys) | Should -Be @('adrs')
-        $state.DerivedLists['adrs'] | Should -Be @('ADR-WIDGET#1', 'ADR-GADGET#2')
+    It 'reports each list edge with the items the head holds, and no entry for a scalar edge or a place fact' {
+        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  immutable:`n    path: a/b.cs`n  edges:`n    cites:`n      - ADR-WIDGET#1`n      - ADR-GADGET#2`n    test: tests/b.Tests.ps1`n---`n*/`n`nclass Gadget { }`n" -Form $script:form
+        @($state.EdgeLists.Keys) | Should -Be @('cites')
+        $state.EdgeLists['cites'] | Should -Be @('ADR-WIDGET#1', 'ADR-GADGET#2')
     }
 
     It 'reports a text without a head as having none, leaving the whole text as the rest' {
         $text = "class Gadget { }`r`n"
         $state = Get-CodeMetaState -Text $text -Form $script:form
         $state.HasHead | Should -BeFalse
-        @($state.DerivedKeys).Count | Should -Be 0
+        @($state.ImmutableKeys).Count | Should -Be 0
+        @($state.EdgeKeys).Count | Should -Be 0
         $state.Rest | Should -BeExactly $text
         $state.NewLine | Should -BeExactly "`r`n"
     }

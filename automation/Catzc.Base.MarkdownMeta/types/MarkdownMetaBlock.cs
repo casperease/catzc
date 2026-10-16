@@ -144,6 +144,9 @@ public static class MarkdownMetaBlock
     // The items of one list edge, as written; empty when the edge is absent or holds a scalar.
     public static IReadOnlyList<string> EdgeList(IReadOnlyList<string> block, string key) => ListIn(block, EdgesKey, key);
 
+    // TEMPORARY (one-time re-imprint, deleted with it): the items of one list under the retired `derived` section.
+    public static IReadOnlyList<string> LegacyDerivedList(IReadOnlyList<string> block, string key) => ListIn(block, "derived", key);
+
     static List<string> ListIn(IReadOnlyList<string> block, string section, string key)
     {
         var items = new List<string>();

@@ -117,13 +117,13 @@ function Format-GeneratedFileHead {
 
     switch ($entry.carrier) {
         ([Catzc.Base.Languages.CarrierKind]::CommentHead) {
-            Format-CodeMetaHead -Text $Text -Form $entry.Form() -Fact $facts
+            Format-CodeMetaHead -Text $Text -Form $entry.Form() -Immutable $facts
         }
         ([Catzc.Base.Languages.CarrierKind]::FrontMatter) {
-            Format-MarkdownMetaBlock -Text $Text -Fact $facts
+            Format-MarkdownMetaBlock -Text $Text -Immutable $facts
         }
         ([Catzc.Base.Languages.CarrierKind]::Property) {
-            Format-PropertyMetaHead -Text $Text -Property $entry.property -Strip $entry.strip -Fact $facts
+            Format-PropertyMetaHead -Text $Text -Property $entry.property -Strip $entry.strip -Immutable $facts
         }
         default {
             throw "Format-GeneratedFileHead: '$relative' uses the carrier '$id' of kind $($entry.carrier), and only front matter, a comment head or a property can be written into generated content."

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: pipelines/variables/.gitkeep
 #     source: automation/Catzc.Base.Docs/assets/gitkeep
 #     kind: other

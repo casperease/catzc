@@ -75,8 +75,17 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $result.FileCount | Should -Be 2
         $result.Files.Count | Should -Be 2
         $result.Files[0].Findings[0].Kind | Should -Be 'Drift'
-        $result.Files[0].Fixed | Should -BeExactly "<#`n---`ncatzc:`n  derived:`n    path: automation/Catzc.Widget/Get-Gadget.ps1`n    module: Catzc.Widget`n    visibility: public`n---`n#>`n`nfunction Get-Gadget { }`n"
+        $result.Files[0].Fixed | Should -BeExactly "<#`n---`ncatzc:`n  immutable:`n    path: automation/Catzc.Widget/Get-Gadget.ps1`n    module: Catzc.Widget`n    visibility: public`n---`n#>`n`nfunction Get-Gadget { }`n"
         $result.Files[1].Fixed | Should -BeLike "*    visibility: private`n---`n#>`n`nfunction Get-Sprocket { }`n"
+    }
+
+    It 'reports a key under edges that no kind owns, and a key a kind writes under the other part' {
+        $text = "<#`n---`ncatzc:`n  edges:`n    path: automation/Catzc.Widget/Get-Gadget.ps1`n---`n#>`n`nfunction Get-Gadget { }`n"
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/Get-Gadget.ps1'), $text)
+        $result = & $script:run $script:entries[0]
+        $result.Files[0].Findings.Kind | Should -Be @('UnownedHead')
+        $result.Files[0].Findings[0].Actual | Should -Be 'catzc.edges.path'
+        $result.Files[0].Fixed | Should -BeExactly $text
     }
 
     It 'skips an entry whose file the working tree no longer has, and still counts it in the scope' {
@@ -98,11 +107,11 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
     }
 
     It 'reports a head key no kind owns, and leaves that file''s text as written' {
-        $text = "<#`n---`ncatzc:`n  derived:`n    colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
+        $text = "<#`n---`ncatzc:`n  immutable:`n    colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/Get-Gadget.ps1'), $text)
         $result = & $script:run $script:entries[0]
         $result.Files[0].Findings.Kind | Should -Be @('UnownedHead')
-        $result.Files[0].Findings[0].Actual | Should -Be 'catzc.derived.colour'
+        $result.Files[0].Findings[0].Actual | Should -Be 'catzc.immutable.colour'
         $result.Files[0].Fixed | Should -BeExactly $text
     }
 
@@ -111,7 +120,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $result = & $script:run $mixed
         $result.FileCount | Should -Be 3
         $markdown = $result.Files | Where-Object Path -EQ 'docs/widget.md'
-        $markdown.Fixed | Should -BeLike "---`ncatzc:`n  derived:`n    path: docs/widget.md*---*# Widget*"
+        $markdown.Fixed | Should -BeLike "---`ncatzc:`n  immutable:`n    path: docs/widget.md*---*# Widget*"
         $markdown.Fixed | Should -Not -BeLike '*module:*' -Because 'the module kind lists automation/** only'
     }
 
@@ -120,7 +129,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $entry = [pscustomobject]@{ Path = 'docs/widget.json'; Carrier = $script:property }
         $first = & $script:run @($entry)
         $first.Files[0].Findings[0].Kind | Should -Be 'Drift'
-        $first.Files[0].Fixed | Should -BeExactly "{`n  `"//`": `"catzc:\n  derived:\n    path: docs/widget.json`",`n  `"name`": `"widget`"`n}`n"
+        $first.Files[0].Fixed | Should -BeExactly "{`n  `"//`": `"catzc:\n  immutable:\n    path: docs/widget.json`",`n  `"name`": `"widget`"`n}`n"
 
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.json'), $first.Files[0].Fixed)
         @((& $script:run @($entry)).Files).Count | Should -Be 0
@@ -130,7 +139,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/banner.json'), "{`n  `"//`": `"GENERATED FILE - do not edit.`",`n  `"name`": `"widget`"`n}`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/note.json'), "{`n  `"//`": `"a note someone wrote`"`n}`n")
         $banner = & $script:run @([pscustomobject]@{ Path = 'docs/banner.json'; Carrier = $script:property })
-        $banner.Files[0].Fixed | Should -BeExactly "{`n  `"//`": `"catzc:\n  derived:\n    path: docs/banner.json`",`n  `"name`": `"widget`"`n}`n"
+        $banner.Files[0].Fixed | Should -BeExactly "{`n  `"//`": `"catzc:\n  immutable:\n    path: docs/banner.json`",`n  `"name`": `"widget`"`n}`n"
 
         $note = & $script:run @([pscustomobject]@{ Path = 'docs/note.json'; Carrier = $script:property })
         $note.Files[0].Findings.Kind | Should -Be @('UnownedHead')

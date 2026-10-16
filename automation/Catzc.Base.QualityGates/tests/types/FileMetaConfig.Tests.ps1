@@ -21,6 +21,20 @@ catzc:
 #>
 
 Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
+    It 'lists the keys the imprint kinds write under each part, in registry order' -Tag 'ADR-REPO-FILEMETA#13' {
+        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
+                kinds = [ordered]@{
+                    stamp  = @{ keys = @('with_stamp') }
+                    cites  = @{ section = 'edges'; keys = @('cites') }
+                    size   = @{ keys = @('size') }
+                    widget = @{ direction = 'gather'; target = 'widgets' }
+                    links  = @{ section = 'edges' }
+                }
+            })
+        $config.KeysOf('immutable') | Should -Be @('with_stamp', 'size')
+        $config.KeysOf('edges') | Should -Be @('cites', 'links')
+    }
+
     It 'takes the declared defaults for every omitted key of a kind' -Tag 'ADR-AUTO-DEFAULT#6' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = $null } })
         $kind = $config.kinds[0]
@@ -30,6 +44,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         $kind.select[0].classes.Count | Should -Be 0
         $kind.select[0].languages.Count | Should -Be 0
         $kind.keys | Should -Be @('body_sha')
+        $kind.section | Should -BeExactly 'immutable'
         $kind.processor | Should -BeExactly 'Get-BodyShaFileMetaFact'
         $kind.target | Should -BeNullOrEmpty
         $kind.settings.Count | Should -Be 0
@@ -121,7 +136,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Raw = @{ kinds = 'x' }; Message = '*kinds must be a map*' }
         @{ Raw = @{ kinds = @{ 'Bad_Id' = @{} } }; Message = '*kind id ''Bad_Id''*' }
         @{ Raw = @{ kinds = @{ widget = 'x' } }; Message = '*kind ''widget'' must be a map*' }
-        @{ Raw = @{ kinds = @{ widget = @{ nope = 1 } } }; Message = '*unknown key ''nope'' (allowed: direction, select, keys, processor, target, settings)*' }
+        @{ Raw = @{ kinds = @{ widget = @{ nope = 1 } } }; Message = '*unknown key ''nope'' (allowed: direction, section, select, keys, processor, target, settings)*' }
         @{ Raw = @{ kinds = @{ widget = @{ files = @('docs/**') } } }; Message = '*unknown key ''files''*' }
         @{ Raw = @{ kinds = @{ widget = @{ direction = 'sideways' } } }; Message = '*direction ''sideways'' is not one of: imprint, gather*' }
         @{ Raw = @{ kinds = @{ widget = @{ direction = 'gather' } } }; Message = '*a gather kind names the config it feeds*' }
@@ -133,7 +148,9 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Raw = @{ kinds = @{ widget = @{ select = @(@{ files = @('a') }) } } }; Message = '*unknown select key ''files''*' }
         @{ Raw = @{ kinds = @{ widget = @{ select = @(@{ classes = @('*-*') }) } } }; Message = '*more than one ''*''*' }
         @{ Raw = @{ kinds = @{ widget = @{ settings = 'x' } } }; Message = '*settings must be a map*' }
-        @{ Raw = @{ kinds = [ordered]@{ widget = @{ keys = @('size') }; gadget = @{ keys = @('size') } } }; Message = '*derived key ''size'' is owned by both ''widget'' and ''gadget''*' }
+        @{ Raw = @{ kinds = [ordered]@{ widget = @{ keys = @('size') }; gadget = @{ keys = @('size') } } }; Message = '*key ''size'' is owned by both ''widget'' and ''gadget''*' }
+        @{ Raw = @{ kinds = [ordered]@{ widget = @{ section = 'derived' } } }; Message = '*kind ''widget'': section ''derived'' is not one of: immutable, edges*' }
+        @{ Raw = @{ kinds = [ordered]@{ widget = @{ direction = 'gather'; target = 'widgets'; section = 'edges' } } }; Message = '*kind ''widget'': only an imprint kind has a ''section''*' }
     ) {
         { [Catzc.Base.QualityGates.FileMetaConfig]::new($Raw) } | Should -Throw $Message
     }

@@ -19,7 +19,7 @@ catzc:
 
 Describe 'Get-BodyShaFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
-        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = @{ keys = @('body_sha') } } }).kinds[0]
+        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha') } } }).kinds[0]
     }
 
     It 'returns the body hash under the kind''s key' {
@@ -28,9 +28,9 @@ Describe 'Get-BodyShaFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
             param($State, $Kind)
             Get-BodyShaFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
         }
-        $fact.Keys | Should -Be @('body_sha')
-        $fact['body_sha'] | Should -BeExactly $state.BodyHash
-        $fact['body_sha'] | Should -Match '^[0-9a-f]{12}$'
+        $fact.Keys | Should -Be @('with_body_sha')
+        $fact['with_body_sha'] | Should -BeExactly $state.BodyHash
+        $fact['with_body_sha'] | Should -Match '^[0-9a-f]{12}$'
     }
 
     It 'does not move when only the front matter changes' {
@@ -40,7 +40,7 @@ Describe 'Get-BodyShaFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
             (InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:kind } {
                 param($State, $Kind)
                 Get-BodyShaFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
-            })['body_sha']
+            })['with_body_sha']
         }
         $hash[0] | Should -BeExactly $hash[1]
     }

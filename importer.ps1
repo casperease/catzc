@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: importer.ps1
     source: automation/.internal/Catzc.Internal.Importer.psm1
     kind: script

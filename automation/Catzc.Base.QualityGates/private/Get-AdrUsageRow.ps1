@@ -18,8 +18,8 @@ catzc:
   config:
     synopsis: The ADR citations one file's meta head holds, as rows of code and rule.
     description: |-
-      Pure: it takes the text, the path and the citation map, and reads no file. The `adrs` list of the head gives one row per citation,
-      a group such as `ADR-X#{1,3}` expanded to its rules and a bare code kept as the whole ADR (Rule is null). The `links` list gives a row
+      Pure: it takes the text, the path and the citation map, and reads no file. The `cites` edge of the head gives one row per citation,
+      a group such as `ADR-X#{1,3}` expanded to its rules and a bare code kept as the whole ADR (Rule is null). The `links` edge gives a row
       for every link into a registered ADR, with the rule its anchor names (Rule is null for a link to the ADR itself). A link to a
       document under docs/adr/ that no code owns, such as the index, gives no row.
     parameters:
@@ -49,9 +49,9 @@ function Get-AdrUsageRow {
     )
 
     if ($PSBoundParameters.ContainsKey('Form')) {
-        $lists = (Get-CodeMetaState -Text $Text -Form $Form).DerivedLists
-        $adrs = if ($lists.Contains('adrs')) {
-            $lists['adrs']
+        $lists = (Get-CodeMetaState -Text $Text -Form $Form).EdgeLists
+        $adrs = if ($lists.Contains('cites')) {
+            $lists['cites']
         }
         else {
             @()
@@ -65,8 +65,8 @@ function Get-AdrUsageRow {
     }
     else {
         $block = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Text).MetaBlock
-        $adrs = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($block, 'adrs')
-        $links = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($block, 'links')
+        $adrs = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::EdgeList($block, 'cites')
+        $links = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::EdgeList($block, 'links')
     }
 
     foreach ($token in $adrs) {

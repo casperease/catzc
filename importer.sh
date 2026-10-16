@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: importer.sh
 #     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
 #     kind: script

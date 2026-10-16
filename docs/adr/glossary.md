@@ -1,6 +1,6 @@
 ---
 catzc:
-  derived:
+  immutable:
     path: docs/adr/glossary.md
     kind: glossary
     language: markdown

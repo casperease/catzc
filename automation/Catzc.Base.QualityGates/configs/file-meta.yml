@@ -16,7 +16,12 @@
 # ---
 
 kinds:
-  # The repository-relative path of every file that carries a block, first so it is written first; a Markdown H1 is the title.
+  # The hash of the body below the front matter, so it changes exactly when the file does; first of the place facts, the stamp the edges were read under.
+  body-sha:
+    keys: [with_body_sha]
+    select: [{ languages: [markdown] }]
+
+  # The repository-relative path of every file that carries a block, written right after the stamp; a Markdown H1 is the title.
   file-path:
     keys: [path]
 
@@ -58,17 +63,15 @@ kinds:
     settings:
       generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
 
-  # The hash of the body below the front matter, so it changes exactly when the file does.
-  body-sha:
-    keys: [body_sha]
-    select: [{ languages: [markdown] }]
-
   # Whether a PowerShell function file is public or private, from the module's private folder.
   visibility:
     keys: [visibility]
     select: [{ classes: [function] }]
 
-  relatives:
+  # The few files a code file points at, one edge per fixed name; each only when it exists.
+  relative-edges:
+    section: edges
+    keys: [page, test]
     settings:
       relations:
         - name: page
@@ -81,14 +84,17 @@ kinds:
 
   # The rules an ADR defines in its own rule headings, spelled as citations; they are no citation of the ADR, so adrs never lists them.
   adr-defines:
+    section: edges
     keys: [defines]
     select: [{ classes: [adr], languages: [markdown] }]
 
   # The ADR codes a file cites; a code class also lists bare domain codes and keeps what its head holds (domain_ and held_classes default).
   adr-codes:
-    keys: [adrs]
+    section: edges
+    keys: [cites]
     select: [{ languages: [markdown] }, { classes: [type, function] }, { classes: [test, fixture], languages: [powershell] }]
 
   # Every link a Markdown file points out of itself, one spelling, sorted; a link that stays inside the file is not listed. Last: the longest key.
   links:
+    section: edges
     select: [{ languages: [markdown] }]

@@ -54,7 +54,7 @@ Describe 'Get-AdrDefinesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' 
     }
 
     It 'does not read a heading from the front matter' {
-        $fact = Get-Defines "---`ncatzc:`n  derived:`n    defines:`n      - ADR-WIDGET#9`n---`nbody`n"
+        $fact = Get-Defines "---`ncatzc:`n  edges:`n    defines:`n      - ADR-WIDGET#9`n---`nbody`n"
         @($fact['defines']).Count | Should -Be 0
     }
 }
