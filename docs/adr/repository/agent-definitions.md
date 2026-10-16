@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "87260716b58a"
+    with_body_sha: "2168255119e1"
     path: docs/adr/repository/agent-definitions.md
     folder: docs/adr/repository
     name: agent-definitions
@@ -15,6 +15,7 @@ catzc:
       - ADR-REPO-AGENTS#{1-10}
     cites:
       - ADR-AUTO-TEST#35
+      - ADR-REPO-FILEMETA#1
       - ADR-REPO-LINK#5
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test35
@@ -22,6 +23,7 @@ catzc:
       - docs/adr/design/visual-design.md
       - docs/adr/principles/configure-not-program.md
       - docs/adr/principles/reduce-variability.md
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
       - docs/adr/repository/markdown-links.md#rule-adr-repo-link5
 ---
 
@@ -155,8 +157,9 @@ the registry as settings, never as literals in the gate.
 
 A skill's own `model` key is a selection the harness honours only when the skill is invoked or forked, never when it is preloaded, so it
 cannot restrict the robot that loads it. The restriction is catzc data instead: the model floor in the `config` part of the capability's
-catzc head, under `metadata`, which the harness ignores and the gate enforces against the robot's `model`. The cheapest model that does the job is the default; a dearer one
-needs its reason written down where the registry can show it, so a model choice is a decision and never a habit.
+catzc head, under `metadata`, which the harness ignores and the gate enforces against the robot's `model`. The cheapest model that does
+the job is the default; a dearer one needs its reason written down where the registry can show it, so a model choice is a decision and
+never a habit.
 
 ## Decision
 

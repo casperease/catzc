@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c26023d0ac0f
+    with_body_sha: "0b66c5ee62e4"
     path: docs/references/automation/catzc-base-markdownmeta.md
     folder: docs/references/automation
     name: catzc-base-markdownmeta

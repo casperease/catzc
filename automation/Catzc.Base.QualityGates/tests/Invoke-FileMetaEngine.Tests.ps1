@@ -16,7 +16,7 @@ catzc:
   edges:
     cites:
       - ADR-REPO-CODEMETA#3
-      - ADR-REPO-FILEMETA#3
+      - ADR-REPO-FILEMETA#{1,3}
 ---
 #>
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e38b90b8d61d
+    with_body_sha: "06ec71836f5f"
     path: docs/adr/glossary.md
     kind: glossary
     language: markdown
@@ -1049,7 +1049,7 @@ A link inside a rendered .md file, written relative to that file so it resolves 
 ### meta block
 
 The facts the tooling owns about one tracked file, written into the file's carrier, which is the reserved front-matter key catzc of a
-Markdown file or the meta head of a code file.
+Markdown file, at the top level or nested at the key path its carrier declares, or the meta head of a code file.
 
 - **Defined by:** [ADR-REPO-FILEMETA#1](repository/file-meta.md#rule-adr-repo-filemeta1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce

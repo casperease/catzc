@@ -15,7 +15,7 @@ catzc:
     catzc_bundle: azure
   edges:
     cites:
-      - ADR-REPO-FILEMETA#3
+      - ADR-REPO-FILEMETA#{1,3}
 ---
 #>
 

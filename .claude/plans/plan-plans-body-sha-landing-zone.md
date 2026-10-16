@@ -111,7 +111,7 @@ Phase 0. The `.unordered` binding audit has only a first list (about 27 files, n
 | `.unordered/` files, all finished plans from 15-10-2026; `out/` plans                                  | 20; 26 |
 
 The `body-sha` kind in `file-meta.yml` selects every Markdown file, so every authored page is stamped and every edit is a drift finding until
-`Format-FileMeta` runs. [ADR-REPO-FILEMETA#7](../docs/adr/repository/file-meta.md#rule-adr-repo-filemeta7) lists the generated head's keys and
+`Format-FileMeta` runs. [ADR-REPO-FILEMETA#7](../../docs/adr/repository/file-meta.md#rule-adr-repo-filemeta7) lists the generated head's keys and
 has no body hash. A peer session is reshaping file-meta now (`immutable`/`edges`, class selectors): coordinate before editing any of it.
 
 ## Phase 0: the body-sha policy
@@ -143,7 +143,7 @@ temporary repositories and prove the log is preserved and a taken name is refuse
 reports the size or state of `.unordered/`.
 
 **The landing name (recommended).** `-Name` is optional. The default is the source's folder or repository name in kebab case, one resolution
-order with the explicit name winning ([ADR-AUTO-DEFAULT#6](../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). A name that
+order with the explicit name winning ([ADR-AUTO-DEFAULT#6](../../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). A name that
 is not a short kebab word, or that is already an address, fails fast; the tool never adds a suffix to make it unique, so an address always
 means what its name says.
 
