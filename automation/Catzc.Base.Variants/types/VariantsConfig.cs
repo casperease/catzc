@@ -33,11 +33,12 @@ namespace Catzc.Base.Variants;
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
-    private static readonly string[] AllowedTrackKeys = { "root", "class", "languages" };
+    private static readonly string[] AllowedTrackKeys = { "places", "type", "vendor", "languages" };
     private static readonly Regex CustomerName = new Regex("^[a-z][a-z0-9]+$");
     private static readonly Regex AspectName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
-    private static readonly Regex RootFolder = new Regex("^[A-Za-z0-9._-]+$");
+    private static readonly Regex PlacePath = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
+    private static readonly Regex TrackTypeName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     // Azure resource-name component order: 'standard' or 'classic'. Null when unset.
     public string ado_naming { get; }
@@ -216,7 +217,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
         IDictionary map = value as IDictionary;
         if (map == null)
         {
-            errors.Add("invalid tracks (must be a map of track -> { root, class, languages })");
+            errors.Add("invalid tracks (must be a map of track -> { places, type, vendor, languages })");
             return null;
         }
         if (map.Count == 0)
@@ -226,7 +227,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
         }
 
         List<VariantTrack> result = new List<VariantTrack>();
-        Dictionary<string, string> rootOwner = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        Dictionary<string, string> placeOwner = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (object nameKey in map.Keys)
         {
             string name = Text(nameKey);
@@ -237,7 +238,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
             IDictionary entry = map[nameKey] as IDictionary;
             if (entry == null)
             {
-                errors.Add(string.Format("tracks['{0}'] must be a mapping {{ root, class, languages }}", name));
+                errors.Add(string.Format("tracks['{0}'] must be a mapping {{ places, type, vendor, languages }}", name));
                 continue;
             }
             foreach (object k in entry.Keys)
