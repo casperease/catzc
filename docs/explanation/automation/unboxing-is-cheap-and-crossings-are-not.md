@@ -1,3 +1,20 @@
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md
+    kind: explanation
+    language: markdown
+    filetype: md
+    track: docs
+    body_sha: "62cf5484026b"
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/pwsh/bounded-enumeration.md
+      - docs/adr/pwsh/hosting-csharp-types.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/index.md
+---
+
 # Unboxing is cheap, the type tests and crossings around it are not
 
 ```text

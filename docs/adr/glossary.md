@@ -382,6 +382,17 @@ The BVT — the verification that precedes every promotion and every creation of
   - [quality gate](#quality-gate): A quality gate is one check inside the BVT; the BVT is the verification that runs them together, before a
     promotion and in the commit gate.
 
+### bundle
+
+The toolset's build, one installable, versioned Catzc package of one named bundle, built from a profile of the exporter registry.
+
+- **Defined by:** [ADR-AUTO-BUNDLE#1](automation/platform-bundle.md#rule-adr-auto-bundle1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [deployable-unit](#deployable-unit): A deployable-unit is what ships from the mono-repository, composed from a whole track or part of
+    one; a bundle is one build of the toolset.
+
 ### category
 
 A test's kind, logic or integrity — one mandatory tag saying whether it runs on fixtures or reads the shipped assets.
@@ -827,6 +838,18 @@ module facet (disk, session).
 - **Contrasts:**
   - [layer](#layer): A layer is one level of a stack, sitting on or containing the next; a facet is a parallel view of the same thing.
 
+### file type
+
+The extension of a file's name, which tells the sorts of file inside one language apart, such as ps1 from psm1 and psd1.
+
+- **Defined by:** [ADR-REPO-FILEMETA#11](repository/file-meta.md#rule-adr-repo-filemeta11)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [file language](#file-language): A file language groups the extensions of one kind of text; a file type is the single extension of one
+    file.
+  - [kind](#kind): A kind is the role a file plays; a file type is how its name ends.
+
 ### imprint step
 
 A step the file-language registry lists under imprint, global or for one language, which Format-Code runs after the formatter to write one
@@ -847,6 +870,21 @@ A sibling repository declared in inspiration.yml and read for ideas, never as a 
 | Avoid                | Say instead |
 | -------------------- | ----------- |
 | `inspiration source` | inspiration |
+
+### kind
+
+The role a file plays, such as a test, a function, a config or a decision record, named by the file-kinds registry and never by the file's
+language, track or module.
+
+- **Defined by:** [ADR-REPO-FILEMETA#11](repository/file-meta.md#rule-adr-repo-filemeta11)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a kind is what the file is
+    for.
+  - [meta kind](#meta-kind): A meta kind is a registry entry that says which derived fact goes into a head; a kind is the role one file
+    plays.
+  - [track](#track): A track is the root folder a file lives in; a kind is the role it plays, wherever it lives.
 
 ### language zone
 
@@ -924,6 +962,18 @@ files, with the files it applies to, the keys it owns and, for a gather kind, th
   - [meta block](#meta-block): The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block
     across files.
 
+### module type
+
+What sort of module a file is placed in, named by the module-types registry, which says where modules of each type are found and how a path
+in that place names its module.
+
+- **Defined by:** [ADR-REPO-FILEMETA#12](repository/file-meta.md#rule-adr-repo-filemeta12)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [track](#track): A track is a root folder and the concern it holds; a module type is the sort of module found at a place inside or
+    across roots.
+
 ### provided contract
 
 A contract an outside consumer may rely on — the repository's only public API, kept while a consumer pins that version of its unit.
@@ -967,6 +1017,16 @@ Where something comes from, always qualified — a source mode, run, or tree; a 
 - **Contrasts:**
   - [source of truth](#source-of-truth): The source of truth is the one store that decides what is true about the delivered system, the
     repository; a source, always qualified, names where one thing comes from.
+
+### subkind
+
+The narrowing of a kind, such as a gate among the functions, written under its kind in the file-kinds registry.
+
+- **Defined by:** [ADR-REPO-FILEMETA#11](repository/file-meta.md#rule-adr-repo-filemeta11)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [kind](#kind): A kind is the role a file plays; a subkind is one narrower role under it, and a file has at most one.
 
 ### workstream
 

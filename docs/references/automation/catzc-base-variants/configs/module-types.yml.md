@@ -1,3 +1,15 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-variants/configs/module-types.yml.md
+    kind: comment-page
+    language: markdown
+    filetype: md
+    track: docs
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
+    body_sha: "4ae483355a17"
+---
+
 # automation/Catzc.Base.Variants/configs/module-types.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its

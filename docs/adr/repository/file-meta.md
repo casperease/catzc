@@ -6,9 +6,9 @@ catzc:
     language: markdown
     filetype: md
     track: docs
-    body_sha: "080b0cd79500"
+    body_sha: cd6b8f442ae3
     defines:
-      - ADR-REPO-FILEMETA#{1-10}
+      - ADR-REPO-FILEMETA#{1-12}
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
@@ -148,6 +148,27 @@ out. No file carries a pointer of its own in its code: the head is the one place
 
 - [Relatives](#relatives)
 
+### Rule ADR-REPO-FILEMETA:11
+
+The **kind** of a file is the role it plays, such as a test, a function, a config or a decision record, and never its language, track or
+module, which are facts of their own. A **subkind** narrows a kind, such as a gate among the functions, and a **file type** is the extension
+of the file's name, which tells the sorts of file inside one language apart. The kinds, their one-sentence definitions and the globs that
+select them are one registry, `file-kinds.yml`, local to catzc and global to every file: the first kind whose globs match a path names it,
+a path no kind selects is `other`, a meta kind selects files by their kind and subkind and never by glob, and a consumer extends the
+registry with a config fragment. A provided contract pins the kind and subkind names.
+
+- [File kinds](#file-kinds)
+
+### Rule ADR-REPO-FILEMETA:12
+
+A **module type** says what sort of module a file is placed in, and the module-types registry says where the modules of each type are
+found and how a path in that place names its module: a PowerShell module is a folder under automation or one psm1 file, a settings module
+is a tool's dot-folder, a pipeline module is the folder that holds pipelines, and a Python, Go or Bash module is its track folder. The head
+holds `module` and `moduletype` from the registry for a file placed in a module, and neither for a file placed in none, and it holds
+`bundle`, the smallest built bundle that holds the module, from the exporter registry, so the head never carries a list of its own.
+
+- [Module types](#module-types)
+
 ## Context
 
 A file in this repository is more than its text. A Markdown agent definition declares a name, a description and its tools. An ADR sits in a
@@ -266,11 +287,34 @@ stays inside the file tells a reader nothing about where the file leads, so it i
 
 `A code file names the few files that belong to it, in the head`
 
-A code file has a handful of companions a reader wants one step away: the page that holds its moved comments, the test that proves it, the
-source a test covers. Writing each as a link in the code would put a pointer in every file and a line to keep in step with the companion.
-The head already holds derived facts, so the companions are one more, a map with a fixed name per kind of companion: eight at most, so the
-head stays small and a name has one meaning everywhere. The registry holds the list of relations and the path rule of each, and a relation
-whose file does not exist is not written, so an entry in the head is always a working pointer.
+A code file has two companions a reader wants one step away, and both cost to find: the page that holds its moved comments, and the test
+that proves it. Writing each as a link in the code would put a pointer in every file and a line to keep in step with the companion. The
+head already holds derived facts, so the companions are one more, a map with a fixed name per kind of companion, and no more than the
+ones that truly define a relationship, so the head stays a map of facts about its own file. A companion that the file's name already gives,
+such as the code a test covers, is not recorded from the test's side. The registry holds the list of relations and the path rule of each,
+and a relation whose file does not exist is not written, so an entry in the head is always a working pointer.
+
+### File kinds
+
+`A file's kind is its role, and one registry names every kind`
+
+A file has a language, a track, a module and a role, and each is a fact of its own. Folding the language into the role, a Python script
+and a PowerShell script as two kinds, makes the same fact twice and a head that disagrees with itself. So the kind says only what the file
+is for: a test, a function, a config, a decision record. The registry holds each kind with a one-sentence definition and the globs that
+select it, in the order they are checked, with the subkinds of a kind written under it, and it is the one place a glob for a file's role
+is written. It is local to catzc and global to every file, so a head, a comment scope and a gate all say the same thing about a file, and
+a consumer extends it with a config fragment instead of editing it. A provided contract pins the names, so a tool that reads a head may
+rely on them.
+
+### Module types
+
+`A module is placed by its type, and one registry says where`
+
+A module is not one thing in this repository: a PowerShell module is a folder or one file, a tool's settings are a dot-folder, the
+pipelines are a folder, and a Python, Go or Bash project is its track. Each is a module type, and the registry says per type where its
+modules are found and how a path in that place names its module, so `module` and `moduletype` are read from the registry and never
+guessed from a folder name. A file in no such place, such as a documentation page, has neither. The bundle a module ships in is read from
+the exporter registry, so the head says whether a module is in a built bundle without a second list.
 
 ### How this is enforced
 

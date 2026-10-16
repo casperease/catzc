@@ -389,6 +389,53 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       meta block: The meta block is the facts in any file; the meta head is the form they take in a code file.
+  kind:
+    key: file_kind
+    domain: repository
+    defined_by: ADR-REPO-FILEMETA#11
+    short:
+      The role a file plays, such as a test, a function, a config or a decision record, named by the file-kinds registry and never by the
+      file's language, track or module.
+    realized_by: { kind: prose-only }
+    contrasts:
+      meta kind: A meta kind is a registry entry that says which derived fact goes into a head; a kind is the role one file plays.
+      file language: A file language is the kind of text a file holds, named by its extension; a kind is what the file is for.
+      track: A track is the root folder a file lives in; a kind is the role it plays, wherever it lives.
+  subkind:
+    key: file_subkind
+    domain: repository
+    defined_by: ADR-REPO-FILEMETA#11
+    short: The narrowing of a kind, such as a gate among the functions, written under its kind in the file-kinds registry.
+    realized_by: { kind: prose-only }
+    contrasts:
+      kind: A kind is the role a file plays; a subkind is one narrower role under it, and a file has at most one.
+  file type:
+    key: file_type
+    domain: repository
+    defined_by: ADR-REPO-FILEMETA#11
+    short: The extension of a file's name, which tells the sorts of file inside one language apart, such as ps1 from psm1 and psd1.
+    realized_by: { kind: prose-only }
+    contrasts:
+      file language: A file language groups the extensions of one kind of text; a file type is the single extension of one file.
+      kind: A kind is the role a file plays; a file type is how its name ends.
+  module type:
+    key: module_type
+    domain: repository
+    defined_by: ADR-REPO-FILEMETA#12
+    short:
+      What sort of module a file is placed in, named by the module-types registry, which says where modules of each type are found and how a
+      path in that place names its module.
+    realized_by: { kind: prose-only }
+    contrasts:
+      track: A track is a root folder and the concern it holds; a module type is the sort of module found at a place inside or across roots.
+  bundle:
+    key: bundle
+    domain: automation
+    defined_by: ADR-AUTO-BUNDLE#1
+    short: The toolset's build, one installable, versioned Catzc package of one named bundle, built from a profile of the exporter registry.
+    realized_by: { kind: prose-only }
+    contrasts:
+      deployable-unit: A deployable-unit is what ships from the mono-repository, composed from a whole track or part of one; a bundle is one build of the toolset.
   imprint step:
     key: imprint_step
     domain: repository

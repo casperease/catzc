@@ -6,8 +6,9 @@ catzc:
     language: markdown
     filetype: md
     track: docs
-    body_sha: ef9adf853ade
+    body_sha: "45c1cf629bc4"
     links:
+      - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/platform-bundle.md
       - docs/adr/index.md#automation
@@ -24,6 +25,7 @@ catzc:
       - docs/explanation/automation/two-entries-feed-one-importer.md
       - docs/explanation/automation/two-gates-check-the-layer-pins.md
       - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
+      - docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md
       - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
       - docs/explanation/automation/what-gates-each-bundle-stage.md
       - docs/explanation/index.md
