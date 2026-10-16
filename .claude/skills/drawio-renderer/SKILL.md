@@ -1,5 +1,5 @@
 ---
-name: drawio.renderer
+name: drawio-renderer
 description: Fail-forward render of a given .drawio.png, always a source copy and a result PNG, model XML, a page of asserted text and the slide's minimaps regenerated when asked; for drawio-png; input is the PNG's repository path, optional model XML, asserted-text path, page, minimaps.
 user-invocable: false
 allowed-tools: Bash, Read
@@ -8,11 +8,11 @@ metadata: { catzc: { model_floor: haiku, needs: [uv, pillow, pwsh] } }
 catzc:
   immutable:
     with_body_sha: "2f00d172d68b"
-    path: ".claude/skills/drawio.renderer/SKILL.md"
-    folder: skills/drawio.renderer
+    path: ".claude/skills/drawio-renderer/SKILL.md"
+    folder: skills/drawio-renderer
     name: skill
     filetype: md
-    kind: other
+    kind: capability
     language: markdown
     track: ".claude"
     tracktype: vendor-settings

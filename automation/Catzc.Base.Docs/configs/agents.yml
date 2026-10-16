@@ -17,9 +17,16 @@
 # ---
 
 standard: catzc-worker
+# The roofs Test-AgentDefinitions holds every robot and capability under; the defaults are declared once on AgentsConfig.
+roofs:
+  agent_body_lines: 20
+  capability_lines: 10
+# The contracts every robot and capability names under `contracts` in its front matter and reads first.
+contracts: [ADR-AI]
 agents:
   # The standard agent: one task from a coordinator's brief, each file verified with the gates before the next.
   - name: catzc-worker
+    model_reason: writes code, tests and docs that must pass the analyzer and the gates on the first run, across several files of one brief
     supported_by: [ADR-REPO-AGENTS#4, ADR-PRIN-REDUCEVAR#3, ADR-PROC-BUILTIN#3]
     checks:
       - Invoke-TestFile
@@ -38,6 +45,7 @@ agents:
   - name: drawio-diagram-waves
     supported_by: [ADR-DSGN-VISUAL#1, ADR-DSGN-VISUAL#4, ADR-REPO-FOLDERS#5]
     checks: [Test-CheckedInBinaries, Test-Links]
+    model_reason: leads other agents, ranks candidates and writes briefs in the ADRs' exact terms
 
   # Re-renders a given .drawio.png's model to out/drawio and reports raster-versus-model and source-versus-diagram differences.
   - name: drawio-png
@@ -58,6 +66,7 @@ agents:
   - name: build-inspiration-module
     supported_by: [ADR-REPO-INSPIRE#1, ADR-REPO-INSPIRE#3]
     checks: [Invoke-TestFile, Test-ShippedConfigs, Test-ModuleDependency]
+    model_reason: writes a typed config, a resolver and their tests that must pass the analyzer and the gates on the first run
 
   # Measures what a session cost and why, and proposes the changes; it writes only to out/ and runs no catzc check.
   - name: session-cost-audit
@@ -68,6 +77,7 @@ agents:
   - name: plan-clear
     supported_by: [ADR-PRIN-ONELIVE#1, ADR-PRIN-NOWASTE#1]
     checks: [Test-Links]
+    model_reason: judging whether a plan's data is in the tree reads several files against each other
 
   # Lands a pasted continuation prompt in the plans, nothing discarded, every done claim checked against the tree.
   - name: plan-intake
@@ -79,7 +89,29 @@ agents:
     supported_by: [ADR-PRIN-CONFIG#5, ADR-PRIN-NOWASTE#1]
     checks: [Test-Links]
 
+  # Runs one gate or test file in the background and brings its verdict back verbatim.
+  - name: gate-runner
+    supported_by: [ADR-AUTO-FAILFAST#7, ADR-AUTO-TEST#35]
+    checks: [Invoke-TestFile, Test-Automation]
+
+  # Repairs the links of a named set of markdown files, one file and one target at a time.
+  - name: link-fixer
+    supported_by: [ADR-REPO-LINK#1, ADR-REPO-LINK#5]
+    checks: [Test-Links, Format-Links]
+
+  # Read-only review of a file set against the rules that govern it, each finding with its rule code.
+  - name: adr-reviewer
+    supported_by: [ADR-PROC-BUILTIN#3, ADR-REPO-LINK#5]
+    checks: []
+    model_reason: weighs a rule's prose against code across several ADRs and files
+
+  # Keeps the glossary sources in step with the rules that bold each term, one term at a time.
+  - name: glossary-keeper
+    supported_by: [ADR-REPO-VOCAB#1]
+    checks: [Test-Glossary, Build-Glossary]
+
   # Makes the test suite faster under the timeouts.yml roofs without losing any test or assertion, one measured file at a time.
   - name: test-optimization
     supported_by: [ADR-AUTO-TEST#21, ADR-AUTO-TEST#19, ADR-AUTO-TEST#22, ADR-PRIN-NOWASTE#1]
     checks: [Invoke-TestFile, Test-ScriptAnalyzer]
+    model_reason: diagnoses where a test's time goes and changes production code without changing what it proves

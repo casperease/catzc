@@ -1,10 +1,24 @@
 ---
-name: plan.decide
+name: plan-decide
 description: Run a decision round over open plan questions; for plan-decide; input is .claude/plans and the user's answers.
 user-invocable: false
 allowed-tools: Read, Grep, Edit, Write, AskUserQuestion
 paths: .claude/plans/**
 metadata: { catzc: { model_floor: sonnet, needs: [] } }
+catzc:
+  immutable:
+    with_body_sha: "14a11b7dd8ae"
+    path: ".claude/skills/plan-decide/SKILL.md"
+    folder: skills/plan-decide
+    name: skill
+    filetype: md
+    kind: capability
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 1. One questionnaire item per open question: one to five lines of context, the options, no links; items are numbered once and never renumbered.
 2. Ask four at a time; the first option is the recommendation and says so; a decision row records Q, Decision, Rec taken, Outcome (two to ten words), Note; a reframing answer is quoted where it carries a new rule.

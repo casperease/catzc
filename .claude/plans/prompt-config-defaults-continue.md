@@ -1,8 +1,8 @@
-# out/prompt-config-defaults-continue.md
+# .claude/plans/prompt-config-defaults-continue.md
 
 `Continuation prompt for the config-defaults work (coded defaults, repo fragment, generated defaults contract): paste as the first message of a fresh session`
 
-Written 2026-10-16. Copy this file and `out/plan-config-defaults.md` into your scratchpad first (another session wiped `out/` once). Everything below the
+Written 2026-10-16. Copy this file and `.claude/plans/plan-config-defaults.md` into your scratchpad first (another session wiped `out/` once). Everything below the
 rule is the prompt.
 
 ---
@@ -15,9 +15,9 @@ are made; do not re-ask them.
 1. `.claude/CLAUDE.md` (already loaded) and `docs/adr/index.md`; then in full: `docs/adr/automation/sensible-defaults.md` (`ADR-AUTO-DEFAULT`),
    `docs/adr/automation/consumer-overlay.md` (`ADR-AUTO-OVERLAY`), `docs/adr/configuration/module-config-loading.md` (`ADR-CONF-LOADING`),
    `docs/adr/repository/api-contracts.md` (`ADR-REPO-CONTRACT`). Cite rules by code.
-2. `out/plan-config-defaults.md` (master: facts, design, postures, phases 1-5, **section 6 holds the decisions**, section 7 the cross-plan interactions).
-3. `out/plan-module-model.md` (lands first; it adds `tracks.<t>.engines` and shrinks `aspects`), `out/plan-automation-layers-rename.md` and
-   `out/plan-rename-worklist.md` (the `automation` -> `pwsh` rename; overlay path `.catzc/pwsh/`), `out/plan-layers-importer-vocabulary.md` (`ImporterConfig`).
+2. `.claude/plans/plan-config-defaults.md` (master: facts, design, postures, phases 1-5, **section 6 holds the decisions**, section 7 the cross-plan interactions).
+3. `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model)` (lands first; it adds `tracks.<t>.engines` and shrinks `aspects`), `.claude/plans/plan-layers-vocabulary-rename-contracts.md (carried section: master plan)` and
+   `.claude/plans/plan-layers-vocabulary-rename-contracts.md (carried section: rename worklist)` (the `automation` -> `pwsh` rename; overlay path `.catzc/pwsh/`), `.claude/plans/plan-layers-vocabulary-rename-contracts.md (carried section: layer model)` (`ImporterConfig`).
 4. Reference code: `automation/Catzc.Base.Contracts/types/ContractsConfig.cs` (the model: constants for defaults, null means default),
    `automation/Catzc.Base.Variants/types/VariantsConfig.cs` (the pilot), `automation/Catzc.Base.Config/Get-Config.ps1`,
    `automation/Catzc.Base.Repository/Get-CatzcOverlayRoot.ps1`, `automation/Catzc.Base.Objects/types/DictionaryRecord.cs` (`Contains` is false for null).

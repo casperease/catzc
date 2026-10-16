@@ -637,73 +637,80 @@ statement of its topic; d) cite all three. Decision:
 
 A robot's body is everything after the closing `---` of the front matter. The 20-line roof (`roofs.agent_body_lines`) can count the body
 only, or body plus front matter minus the catzc head. The front matter is fixed by rule 4; only `description` varies in length. Options:
-a) body only, and the gate caps `description` at 3 lines; b) body plus front matter minus the catzc head. Decision:
+a) body only, and the gate caps `description` at 3 lines; b) body plus front matter minus the catzc head. Decision: a) body only, description capped at 3 lines.
 
 ### Q128 Capability roof
 
 A capability is at most N lines outside its catzc head, front matter and body together (`roofs.capability_lines`). The built
-drawio.renderer, with `paths:` and `needs:` set and a 3-step body, is 8 front-matter lines (delimiters included) plus 3 body lines, 11 by
+drawio-renderer, with `paths:` and `needs:` set and a 3-step body, is 8 front-matter lines (delimiters included) plus 3 body lines, 11 by
 the plan's own count, though the plan says 10. Options: a) 10, the body shrinks when `paths:` is set; b) 12, so `paths:`, `needs:` and a
-3-step body fit together; c) count the body only, as for robots, with the front matter fixed by rule. Decision:
+3-step body fit together; c) count the body only, as for robots, with the front matter fixed by rule. Decision: a) 10 lines.
 
 ### Q129 ADR home for capabilities
 
 The shape rules and the capabilities section need an ADR home. A capability is part of an agent's definition. Options: a) amend
-ADR-REPO-AGENTS with rules 6 to 12 and a Capabilities context section; b) a new ADR-REPO-CAPS beside it. Decision:
+ADR-REPO-AGENTS with rules 6 to 12 and a Capabilities context section; b) a new ADR-REPO-CAPS beside it. Decision: a) amend ADR-REPO-AGENTS.
 
 ### Q130 Capability name form
 
 The five built capabilities use dotted names, `<domain>.<job>`, which is a valid skill folder name. Options: a) dotted, and the gate
-enforces `^[a-z]+(\.[a-z-]+)+$` for capabilities and `^[a-z-]+$` for agents; b) hyphenated like agents. Decision:
+enforces `^[a-z]+(\.[a-z-]+)+$` for capabilities and `^[a-z-]+$` for agents; b) hyphenated like agents. Decision: a) dotted, both regexes enforced.
 
 ### Q131 drawio-diagram-waves in 20 lines
 
 The waves lead orchestrates up to 12 makers with the Agent tool; its scout, rank, make protocol does not fit 20 lines. Options: a) the
-protocol becomes the `drawio.waves` capability (floor sonnet), the makers become the drawio-png robot, the lead body is the loop; b) split
-into a lead robot and a maker robot, each under the roof; c) exempt the lead from the roof. Decision:
+protocol becomes the `drawio-waves` capability (floor sonnet), the makers become the drawio-png robot, the lead body is the loop; b) split
+into a lead robot and a maker robot, each under the roof; c) exempt the lead from the roof. Decision: a) drawio-waves capability, makers are drawio-png, the lead body is the loop.
 
 ### Q132 Effort and maxTurns as a cost brake
 
 Every built robot sets `effort` and `maxTurns`. Options: a) set both on every robot, the maxTurns per robot in the agents catalogue;
-b) leave both to the harness default; c) set `effort` only. Decision:
+b) leave both to the harness default; c) set `effort` only. Decision: a) both on every robot.
 
 ### Q133 drawio-png and write-drawio-files
 
 drawio-png talks to the user and verifies one slide; write-drawio-files edits labels and styles in batch on a brief. Once drawio-png loads
-`drawio.model-edit` it could do both. Options: a) two jobs, two robots (ADR-REPO-AGENTS#4); b) drawio-png absorbs write-drawio-files.
-Decision:
+`drawio-model-edit` it could do both. Options: a) two jobs, two robots (ADR-REPO-AGENTS#4); b) drawio-png absorbs write-drawio-files.
+Decision: a) two jobs, two robots.
 
 ### Q134 adr-reviewer model
 
 adr-reviewer weighs a rule's prose against code; the catalogue says haiku misreads the ADR corpus. It is the one recommended robot above
-haiku. Options: a) sonnet from the start, with a `model_reason` in the registry; b) haiku first, promote on evidence. Decision:
+haiku. Options: a) sonnet from the start, with a `model_reason` in the registry; b) haiku first, promote on evidence. Decision: a) sonnet from the start.
 
 ### Q135 Agent name form
 
 The user's "Drawio.png agent" was built as `drawio-png`: the file name is the agent name, lower case, hyphenated. Options: a) confirm;
-b) another form (say which). Decision:
+b) another form (say which). Decision: a) drawio-png confirmed.
 
 ### Q136 Capability floors
 
-Every recommended capability sits at haiku; drawio.waves, test.speed and the plan.* ones sit at sonnet. Raising adr.cite to sonnet
+Every recommended capability sits at haiku; drawio-waves, test-speed and the plan.* ones sit at sonnet. Raising adr-cite to sonnet
 pushes catzc-worker to sonnet by the floor rule (it is proposed at sonnet anyway). Options: a) keep the floors as catalogued; b) raise
-adr.cite to sonnet. Decision:
+adr-cite to sonnet. Decision: a) floors kept as catalogued.
 
-### Q137 report.fixed
+### Q137 report-fixed
 
-Every robot loads report.fixed, three lines that say what the fixed report contains. Options: a) keep it a capability, so the report shape
-is written once; b) fold its three lines into rule 7 and each robot body. Decision:
+Every robot loads report-fixed, three lines that say what the fixed report contains. Options: a) keep it a capability, so the report shape
+is written once; b) fold its three lines into rule 7 and each robot body. Decision: a) keep it a capability.
 
 ### Q138 paths on capabilities
 
 `paths:` pins a skill's auto-activation to a file family and keeps the main session from loading it unasked. Options: a) set it on every
-capability about a file family (drawio.*, plan.*, md.links), off on report.fixed and catzc.run; b) on every capability; c) on none.
-Decision:
+capability about a file family (drawio.*, plan.*, md-links), off on report-fixed and catzc-run; b) on every capability; c) on none.
+Decision: a) file-family capabilities only.
 
 ### Q139 What lands next
 
-Phase 2 ran ahead of Phase 1 on the user's go. Today: four built robots preload capabilities that do not exist yet (catzc.run,
-report.fixed, git.readonly, md.links), so they run without them; the three plan robots and four plan capabilities carry no catzc head;
+Phase 2 ran ahead of Phase 1 on the user's go. Today: four built robots preload capabilities that do not exist yet (catzc-run,
+report-fixed, git-readonly, md-links), so they run without them; the three plan robots and four plan capabilities carry no catzc head;
 drawio-png lists three skills where the catalogue says four; the gate checks none of the new shape. Options: a) build the four missing
 shared capabilities first so the built robots are whole, then Phase 1; b) Phase 1 now, the missing capabilities as its first targets;
-c) keep going on Phase 2 and 3 rewrites, Phase 1 later. Decision:
+c) keep going on Phase 2 and 3 rewrites, Phase 1 later. Decision: a) Phase 1 now; the shared capabilities were built by a peer session during the round.
+
+### Q140 Where ADR-AI is named for agents
+
+The gate's rule 6 fixes the agent front matter to a closed key set; plan-adr-ai plans `contracts: [ADR-AI]` on every robot and
+capability, the same value on every file. Options: a) name it once, the CLAUDE.md session-start line and a top-level `contracts:` entry in
+agents.yml the gate reads, no per-file key; b) extend rule 6 with `contracts`; c) a contracts list per registry entry. Decision: a) named
+once; the per-file key is dropped and plan-adr-ai steps 34, 40 and 46 change.

@@ -6,7 +6,7 @@ from that work". Read that plan where the prompt says to read the out/ plan. Eve
 
 ---
 
-Continue from out/plan-file-kinds-registry.md in C:\projects\catzc. Read docs/adr/index.md and the plan first. State: file kinds registry,
+Continue from .claude/plans/plan-file-head-immutable-edges-classes.md (section: the file-kinds registry work) in C:\projects\catzc. Read docs/adr/index.md and the plan first. State: file kinds registry,
 head vocabulary, provided contract draft, generated .gitattributes classes and the glossary-scan fix are done and verified. First: (1) check
 memory file-head-vocabulary.md for the one remaining derived mention; (2) run Test-Spelling, Test-FileMeta, Test-Glossary, Test-Contracts,
 Test-GeneratedFiles one by one in the background (scripts under out/) and report what is mine; (3) ask me where the "PowerShell/Powershell"

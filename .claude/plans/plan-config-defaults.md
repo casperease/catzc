@@ -25,6 +25,9 @@ more than a new rule. It generalises to every typed config in configs.yml.
 - Q6 is reframed: .catzc and .cats are not canonical and alias. cats and catzc, their distinction and their cross-purpose use are a
   core product principle to be ruled by a new ADR-CATS (plan-adr-cats); the overlay and fragment folder names follow from it.
 - Q20 Phase 1 waits for the module model too (shared VariantsConfig.cs); Q21 the assert ladder is a section in ADR-AUTO-FAILFAST.
+- F5, Q101, S5: every config type is audited into a posture; every -Default literal in a getter goes; the contract folder gains one
+  defaults file per type; an analyzer rule flags a literal default in a function and keeps it so (the audit script is its seed;
+  ADR-PRIN-CONFIG#3 is its rule). The fragment folder name waits for ADR-CATS.
 
 - Q1 have_customers defaults to false; this repo's fragment sets all. Q2 tracks is required (throws when omitted or empty); aspects
   defaults to a universal catch-all per track. Q3 the shipped variants.yml is deleted; a typed config with no file is built from an

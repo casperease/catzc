@@ -1,6 +1,6 @@
-# out/prompt-module-model-1-prepare.md
+# .claude/plans/prompt-module-model-1-prepare.md
 
-`Prompt 1 of 2 for out/plan-module-model.md: close the missing work, read-only, and draft the ADR — paste as the first message of a fresh session`
+`Prompt 1 of 2 for .claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model): close the missing work, read-only, and draft the ADR — paste as the first message of a fresh session`
 
 Written 2026-10-16. Named `prompt-*`; copy it and the two plans into your scratchpad first (another session wiped `out/` once).
 Everything below the rule is the prompt.
@@ -19,7 +19,7 @@ the code and docs trees**: it writes only under `out/`. Nothing is committed; th
    (`automation/controlling-module-dependencies.md`), `ADR-AUTO-ENGINE` (`automation/execution-engines.md`), `ADR-AUTO-BUNDLE`
    (`automation/platform-bundle.md`), `ADR-PWSH-MANIFEST` (`pwsh/dynamic-module-manifests.md`), `ADR-AUTO-TYPES` (`automation/BCL/native-csharp-types.md`),
    `ADR-AUTO-DEFAULT`, `ADR-AUTO-ZERO`, `ADR-AUTO-EXTEND`, `ADR-PRIN-CONFIG`, `ADR-PRIN-ONELIVE`, `ADR-REPO-VOCAB`. Never sweep the corpus.
-3. `out/plan-module-model.md` (the plan this prepares) and `out/plan-k8s-kinds.md` (the sibling that consumes `Module`).
+3. `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model)` (the plan this prepares) and `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-k8s-kinds)` (the sibling that consumes `Module`).
 
 ## 2. Decisions in force (the user's, 2026-10-16; do not reopen)
 
@@ -47,11 +47,11 @@ the code and docs trees**: it writes only under `out/`. Nothing is committed; th
 5. **Draft the ADR** (`out/draft-adr-auto-module.md`) following `docs/adr/index.md` authoring conventions (rules registry first, present
    tense, no history, plain language, padded headings, links per `ADR-REPO-LINK`), the seven rules in the plan section 4, plus the
    glossary entry text and the `adrs.yml` entry. Do not place it in `docs/` yet.
-6. **Update the plan** `out/plan-module-model.md`: answer each open question Q-A to Q-G with a recommendation grounded in what you read,
+6. **Update the plan** `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model)`: answer each open question Q-A to Q-G with a recommendation grounded in what you read,
    mark each **unverified** item verified or still open, and correct any claim the reading disproved. State corrections in a short list at
    the top.
 
 ## 4. Done when
 
 All six files exist; the plan has no unverified item left that step 1 to 4 could settle; a three-line summary lists the open choices that
-only the user can make. Do not start implementation. Tell the user the next prompt is `out/prompt-module-model-2-implement.md`.
+only the user can make. Do not start implementation. Tell the user the next prompt is `.claude/plans/prompt-module-model-2-implement.md`.

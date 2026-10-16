@@ -31,7 +31,7 @@ namespace Catzc.Base.Docs;
 
 public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "name", "supported_by", "checks" };
+    private static readonly string[] AllowedKeys = { "name", "supported_by", "checks", "model_reason" };
     private static readonly Regex NameRe = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$", RegexOptions.Compiled);
     private static readonly Regex CitationRe = new Regex("^ADR-[A-Z]+(-[A-Z]+)*#[1-9][0-9]*$", RegexOptions.Compiled);
     private static readonly Regex CommandRe = new Regex("^[A-Z][a-z]+-[A-Za-z0-9]+$", RegexOptions.Compiled);
@@ -44,6 +44,10 @@ public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
 
     // The gate and check functions the agent runs or guards, in file order; empty when it has none.
     public IReadOnlyList<string> checks { get; }
+
+    // Why the agent runs above the default model, when it does; null when it runs on the default
+    // ([ADR-REPO-AGENTS#7](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents7)).
+    public string model_reason { get; }
 
     public AgentEntry(IDictionary d)
     {
@@ -71,11 +75,18 @@ public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
 
         checks = ReadList(d, "checks", CommandRe, "a Verb-Noun command name", errors);
 
+        if (d.Contains("model_reason"))
+        {
+            model_reason = OptStr(d, "model_reason");
+            if (model_reason == null) { errors.Add("'model_reason' is empty; leave the key out when the agent runs on the default model"); }
+        }
+
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
     }
 
     // Reads a required list of distinct strings that each match the pattern, collecting every violation.
-    private static IReadOnlyList<string> ReadList(IDictionary d, string key, Regex pattern, string what, List<string> errors)
+    // Shared with CapabilityEntry, whose registry entries have the same two lists.
+    internal static IReadOnlyList<string> ReadList(IDictionary d, string key, Regex pattern, string what, List<string> errors)
     {
         List<string> values = new List<string>();
         if (!d.Contains(key))

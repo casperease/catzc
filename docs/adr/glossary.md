@@ -836,6 +836,15 @@ numbers it.
 
 ## repository
 
+### capability
+
+One `.claude/skills/<domain>-<job>/SKILL.md` file a robot preloads through its `skills` list — at most the roof's lines, with a model floor
+declared once in its metadata.
+
+- **Defined by:** [ADR-REPO-AGENTS#8](repository/agent-definitions.md#rule-adr-repo-agents8)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+
 ### code link
 
 An ADR citation in a code comment, written as a repository-rooted markdown link whose text is the citation code.
@@ -1073,6 +1082,14 @@ files, with the files it applies to, the keys it owns and, for a gather kind, th
   - [meta block](#meta-block): The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block
     across files.
 
+### model floor
+
+The lowest model that performs a capability's steps reliably; no robot that preloads the capability runs below it.
+
+- **Defined by:** [ADR-REPO-AGENTS#7](repository/agent-definitions.md#rule-adr-repo-agents7)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+
 ### place facts
 
 The facts under the immutable part of a meta block, which are what the repository's own configuration makes of a file's location, such as
@@ -1097,6 +1114,15 @@ A contract an outside consumer may rely on — the repository's only public API,
     follows that platform; a provided contract is a promise to a consumer, kept while the consumer pins that version of its unit.
   - [pin](#pin): A pin is the consumer's explicit choice of a version that crosses the repository boundary; a provided contract is the
     promise catzc keeps under that pin.
+
+### robot
+
+A sub-agent in its minimal form — a body of at most the roof's lines on a named model, loading shared know-how from capabilities instead of
+carrying it.
+
+- **Defined by:** [ADR-REPO-AGENTS#6](repository/agent-definitions.md#rule-adr-repo-agents6)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 
 ### scope
 

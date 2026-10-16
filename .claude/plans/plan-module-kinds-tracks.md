@@ -36,6 +36,13 @@ one landing.
   primary language by default, a rule for ADR-DSGN-TRACK.
 - Q36 namespace is planned after kinds land; Q37 the module-model session looks at the three Get-ModuleProtectionIdentity failures
   first; Q38 layers P1 runs beside the module model, code phases wait.
+- Re-rooted (Q98, F2, S2, 2026-10-16): Track is the root entity and Module is one of its kinds. ADR-AUTO-MODULE becomes a rule set
+  under ADR-DSGN-TRACK; the resolver reads modules through their track; every deployable track has the Module kind. The carried
+  module-model draft and both module-model prompts were written with Module as the centre and are rewritten before they run. The
+  first import into the landing zone is the proof of the track model on foreign code (F10).
+- Vendor note (C1): node_modules compares to .vendor, tracked or not; both are ignored by everything but their loader. A vendor track
+  rule says so, and the enumeration prune sets name both.
+- Q88: the Test-ShippedTypes flags on TrackTypeEntry and VendorEntry are this plan's.
 
 ## Done, and why: tracks, track types and vendors as ADRs and code (session report of 2026-10-16 15:14, verified in the tree)
 
@@ -66,6 +73,8 @@ one landing.
 
 ## Open steps
 
+- [ ] Rewrite prompt-module-model-1-prepare.md and prompt-module-model-2-implement.md on the Track-as-root premise (check: neither
+  says Module is the central concern; both say ADR-AUTO-MODULE sits under ADR-DSGN-TRACK).
 - [ ] Copy the two plans and two prompts to the scratchpad, then run the prepare prompt (check: its read-only report and ADR draft in out/).
 - [ ] Run the implement prompt (check: ModuleSystem and Variants tests; the two old getters gone).
 - [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean).

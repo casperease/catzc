@@ -42,12 +42,16 @@ and layers (the glossary terms for cats, catzc, pwsh and automation).
 
 ## Open steps
 
-- [ ] Decide the domain, thesis or principles (check: the ADR's path).
 - [ ] Write ADR-CATS from the material above (check: Test-AdrRegistry, Test-Links clean).
 - [ ] Glossary terms and avoid-phrasings (check: Test-Glossary clean).
 - [ ] Tell plan-config-defaults and plan-layers-vocabulary-rename-contracts the folder and term decisions (check: their waits_on clear).
 
-## Open questions
+## Decided (F1, S1, 2026-10-16)
 
-1. Domain: thesis (what catzc is for) or principles (a design axiom)?
-2. Does the rule also cover pwsh and automation as names, or only cats and catzc?
+- ADR-CATS rules cats and catzc only. pwsh and automation are kept strictly separate from it: the automation to pwsh folder rename is
+  technical, and automation is a subject, the big cross-cutter together with design principles and pipelines; those names belong to
+  the layers ADRs. The vocabulary gate covers every file, plans and prompts included.
+
+## Decided (B3, 2026-10-16)
+
+- Domain: principles. The ADR lives beside everything-as-code, configure-not-program and one-living-version.

@@ -62,6 +62,8 @@ configs:
     type: Catzc.Base.QualityGates.SourceConventionsConfig
   agents:
     type: Catzc.Base.Docs.AgentsConfig
+  capabilities:
+    type: Catzc.Base.Docs.CapabilitiesConfig
   glossary:
     type: Catzc.Base.Docs.GlossaryConfig
     overridable: false

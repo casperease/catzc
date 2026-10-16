@@ -1,10 +1,24 @@
 ---
-name: plan.value
+name: plan-value
 description: Rank a plan by value and by the docs and tests it needs, never by job size; for plan-intake and plan-decide; input is one plan file.
 user-invocable: false
 allowed-tools: Read, Grep
 paths: .claude/plans/**
 metadata: { catzc: { model_floor: sonnet, needs: [] } }
+catzc:
+  immutable:
+    with_body_sha: e464b225efd2
+    path: ".claude/skills/plan-value/SKILL.md"
+    folder: skills/plan-value
+    name: skill
+    filetype: md
+    kind: capability
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 1. Value is what the plan delivers once landed (a broken rule fixed, a vocabulary settled, a blocker removed), stated in one sentence; job size never ranks.
 2. Needed docs are the ADR rules, glossary terms and CLAUDE.md lines the plan must write; needed tests are the gates and Pester files that prove it; both are listed by name.

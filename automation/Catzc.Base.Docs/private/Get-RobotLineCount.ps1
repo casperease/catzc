@@ -1,0 +1,76 @@
+<#
+---
+catzc:
+  immutable:
+    path: automation/Catzc.Base.Docs/private/Get-RobotLineCount.ps1
+    folder: private
+    name: get-robot-line-count
+    filetype: ps1
+    kind: function
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    cites:
+      - ADR-REPO-AGENTS#{6,8}
+  config:
+    synopsis: Counts the lines of a robot or capability file the roofs apply to.
+    description: |-
+      Reads one .claude/agents/<name>.md or .claude/skills/<name>/SKILL.md and returns two counts
+      ([ADR-REPO-AGENTS#6](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents6),
+      [ADR-REPO-AGENTS#8](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents8)): Body, the non-blank
+      lines after the front matter's closing `---`; and Capability, the front-matter lines before the `catzc:` head
+      (the two `---` delimiters excluded) plus the non-blank body lines. The catzc head is left out of both because
+      Format-FileMeta writes it, so it is never the author's text. A file with no front matter counts every non-blank
+      line as body.
+
+      Private helper for Test-AgentDefinitions; not exported.
+    parameters:
+      Path: Absolute path to the agent or capability file.
+    outputs: '[pscustomobject] { Body; Capability }.'
+    examples:
+      - Get-RobotLineCount -Path (Resolve-RepoPath '.claude/agents/plan-clear.md')
+---
+#>
+
+function Get-RobotLineCount {
+    [CmdletBinding()]
+    [OutputType([pscustomobject])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Path
+    )
+
+    Assert-PathExist $Path
+
+    $lines = [System.IO.File]::ReadAllLines($Path)
+    $end = -1
+    if ($lines.Count -gt 0 -and $lines[0].TrimEnd() -eq '---') {
+        for ($index = 1; $index -lt $lines.Count; $index++) {
+            if ($lines[$index].TrimEnd() -eq '---') {
+                $end = $index
+                break
+            }
+        }
+    }
+    $front = 0
+    if ($end -gt 0) {
+        for ($index = 1; $index -lt $end; $index++) {
+            if ($lines[$index] -cmatch '^catzc:\s*$') {
+                break
+            }
+            $front++
+        }
+    }
+    $body = 0
+    for ($index = $end + 1; $index -lt $lines.Count; $index++) {
+        if (-not [string]::IsNullOrWhiteSpace($lines[$index])) {
+            $body++
+        }
+    }
+    [pscustomobject]@{ Body = $body; Capability = $front + $body }
+}

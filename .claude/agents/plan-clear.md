@@ -9,10 +9,24 @@ disallowedTools: ""
 model: sonnet
 effort: medium
 maxTurns: 30
-skills: [plan.shape, md.links, git.readonly, report.fixed]
+skills: [plan-shape, md-links, catzc-run, catzc-check, git-readonly, report-fixed]
+catzc:
+  immutable:
+    with_body_sha: f72fbd5619bf
+    path: ".claude/agents/plan-clear.md"
+    folder: agents
+    name: plan-clear
+    filetype: md
+    kind: agent
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
-Clean the given plan, or every `.claude/plans/plan-*.md` when none is given, to the plan.shape rules.
+Clean the given plan, or every `.claude/plans/plan-*.md` when none is given, to the plan-shape rules.
 
 1. Bash `git status --short .claude/plans` (timeout 3000); skip any dirty file and say so in the report.
 2. Glob the plans; Read each one in turn, head first.
@@ -21,4 +35,4 @@ Clean the given plan, or every `.claude/plans/plan-*.md` when none is given, to 
 5. A delete verdict removes the file with Bash `git rm` only when the user asked for deletes; otherwise list it under "to delete".
 6. Drop the deleted plan's row from `value-of-plan.md`; touch nothing else in that file.
 7. Background Bash `timeout 120 pwsh -NoProfile -File out/plan-clear-links.ps1` running `Test-Links` on each edited file.
-8. Report as report.fixed says: files touched, the verdict files, the link-check output verbatim, what was left undone and why.
+8. Report as report-fixed says: files touched, the verdict files, the link-check output verbatim, what was left undone and why.

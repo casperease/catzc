@@ -1,9 +1,9 @@
-# out/prompt-k8s-kinds-2-implement.md
+# .claude/plans/prompt-k8s-kinds-2-implement.md
 
-`Prompt 2 of 2 for out/plan-k8s-kinds.md: implement the kind/role split and the per-track kinds — paste as the first message of a fresh session`
+`Prompt 2 of 2 for .claude/plans/plan-module-kinds-tracks.md (carried section: plan-k8s-kinds): implement the kind/role split and the per-track kinds — paste as the first message of a fresh session`
 
-Written 2026-10-16. Run only after `out/prompt-k8s-kinds-1-prepare.md` produced its files **and** the Module model
-(`out/prompt-module-model-2-implement.md`) has landed, because kinds are defined against `Module`. Everything below the rule is the prompt.
+Written 2026-10-16. Run only after `.claude/plans/prompt-k8s-kinds-1-prepare.md` produced its files **and** the Module model
+(`.claude/plans/prompt-module-model-2-implement.md`) has landed, because kinds are defined against `Module`. Everything below the rule is the prompt.
 
 ---
 
@@ -13,9 +13,9 @@ file sets to the `catzc-worker` sub-agent with a brief naming the files it owns 
 ## 1. Read first
 
 1. `.claude/CLAUDE.md` in full (one file at a time, verify each, no script sweeps, time safeguard, no mutating git).
-2. `docs/adr/index.md`; in full the ADRs of `out/prompt-k8s-kinds-1-prepare.md` section 1, plus `ADR-AUTO-TEST`, `ADR-PWSH-ONEFUNC`,
+2. `docs/adr/index.md`; in full the ADRs of `.claude/plans/prompt-k8s-kinds-1-prepare.md` section 1, plus `ADR-AUTO-TEST`, `ADR-PWSH-ONEFUNC`,
    `ADR-AUTO-DEPM`.
-3. `out/plan-k8s-kinds.md` (corrected by prompt 1) and its outputs: `out/k8s-kinds-consumers.md`, `k8s-kinds-vocabulary.md`,
+3. `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-k8s-kinds)` (corrected by prompt 1) and its outputs: `out/k8s-kinds-consumers.md`, `k8s-kinds-vocabulary.md`,
    `k8s-kinds-config.md`, `k8s-kinds-head-schema.md`, `draft-adr-dsgn-track-kinds.md`; also the landed `ADR-AUTO-MODULE`. If any is
    missing, stop and tell the user. Copy them to your scratchpad.
 4. `git status --short` before every file. `FileMetaConfig.cs` and `FileSelector.cs` (`Catzc.Base.QualityGates`) had another session's

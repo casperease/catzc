@@ -8,7 +8,7 @@ that as a reading, not the source). Everything below the rule is the prompt as p
 
 ---
 
-Read .claude/CLAUDE.md and docs/adr/index.md, then out/plan-file-kinds-and-formatting.md.
+Read .claude/CLAUDE.md and docs/adr/index.md, then .claude/plans/plan-file-head-immutable-edges-classes.md (section: formatter crash rule and kinds tuning).
 
 The file-kind registry work, the Measure-NoOneLineHashtableIfElse rule (ADR-PWSH-FORMAT#10) and the formatter-crash fixes are done and
 verified (see "Done"). Work the "Open" list in this order, one file at a time, verifying each wit

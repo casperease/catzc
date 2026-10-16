@@ -56,16 +56,22 @@ every other plan.
 - Q03 the sorting how-to lives in docs/how-to.
 - Q04 no line roof: a shape rule instead (head, value, decided, done, open steps; carried text allowed below). Test-Plans checks
   sections, never a line count.
-- Q05 the stable-locators rule is repository-wide: ADR-REPO-PLANS plus a naming rule in the repository domain.
+- Q05 the stable-locators rule is repository-wide: ADR-REPO-PLANS plus a rule in ADR-REPO-FOLDERS (B4); the PowerShell naming rule
+  (prose PowerShell, identifiers pwsh or powershell) goes to ADR-REPO-VOCAB (Q45, B4).
 - Q06 both a Test-Plans gate and a cleaner agent, gate first. The cleaner exists since 2026-10-16 as the plan-clear agent with the
-  plan.shape capability (plan-minimal-robots-agents); the gate is still to build.
+  plan-shape capability (plan-minimal-robots-agents); the gate is still to build.
 - Q07 plans are authored directly in .claude/plans; Publish-Plan and Get-PlanCandidate are dropped from this plan; out/ holds no drafts.
 - Q08 a done plan is deleted and the index keeps one "deleted, why" line.
 - Q09 the 20 finished plans in .unordered/15-10-2026 are deleted now (a deletion the user runs or approves; git keeps them).
 - Q10 body-sha Phase 0 goes now.
 - Q11 carried drafts stay until their data is in the tree, then the cleaner trims.
 - Q12 continuation prompts stay files beside their plans.
-- Robots: the planner's own method is now the plan-intake and plan-decide agents with plan.intake, plan.decide and plan.value.
+- Robots: the planner's own method is now the plan-intake and plan-decide agents with plan-intake, plan-decide and plan-value.
+- The funnel (F3, F4, F9, F10, S3, S4, T2): a plan is the delta only and every constraining decision becomes an ADR rule in the same
+  change, so decisions-2026-10-16.md carries an ADR-home column and a homeless decision is reopened; the tree settles in five steps in
+  this order: body hashes, .unordered emptied, out/ areas, the plans gate, then the pwsh move in the user's quiet window; CLAUDE.md's
+  reading rule changes to citing rules by code; the next structural change after the module model and the move is the first import
+  into the landing zone. Q49: plans never concern themselves with locked or in-use files (a scope rule for ADR-REPO-PLANS).
 
 ## Refs
 

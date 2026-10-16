@@ -1,6 +1,6 @@
-# out/prompt-k8s-kinds-1-prepare.md
+# .claude/plans/prompt-k8s-kinds-1-prepare.md
 
-`Prompt 1 of 2 for out/plan-k8s-kinds.md: close the missing work, read-only, and draft the ADR extension — paste as the first message of a fresh session`
+`Prompt 1 of 2 for .claude/plans/plan-module-kinds-tracks.md (carried section: plan-k8s-kinds): close the missing work, read-only, and draft the ADR extension — paste as the first message of a fresh session`
 
 Written 2026-10-16. Copy it and both plans into your scratchpad first (another session wiped `out/` once). Everything below the rule is
 the prompt.
@@ -18,7 +18,7 @@ vocabulary only: catzc's own ADRs decide every meaning, and you say so when a na
 2. `docs/adr/index.md`, then in full: `ADR-DSGN-TRACK` (`design/tracks.md`), `ADR-REPO-FILEMETA` (`repository/file-meta.md`),
    `ADR-REPO-CODEMETA` (`repository/code-file-meta.md`), `ADR-REPO-CONTRACT` (`repository/api-contracts.md`), `ADR-REPO-VOCAB`
    (`repository/controlled-vocabulary.md`), `ADR-AUTO-TYPES`, `ADR-AUTO-DEFAULT`, `ADR-PRIN-ONELIVE`. Never sweep the corpus.
-3. `out/plan-k8s-kinds.md` (this plan) and `out/plan-module-model.md` (defines `Module`; this plan consumes it and must not redefine it).
+3. `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-k8s-kinds)` (this plan) and `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model)` (defines `Module`; this plan consumes it and must not redefine it).
 
 ## 2. Decisions in force (the user's, 2026-10-16; do not reopen)
 
@@ -46,11 +46,11 @@ vocabulary only: catzc's own ADRs decide every meaning, and you say so when a na
    track; unique per track; the role/kind split) plus the glossary entries (Module, Deployment, Pipeline, ConfigMap, role, reserved
    Service) and the `adrs.yml` change, following the index authoring conventions (present tense, no history, plain language). Not placed in
    `docs/` yet.
-6. **Update the plan** `out/plan-k8s-kinds.md`: replace the draft table with what you derived, mark each missing-work item (section 4a)
+6. **Update the plan** `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-k8s-kinds)`: replace the draft table with what you derived, mark each missing-work item (section 4a)
    closed or still open, and list corrections at the top.
 
 ## 4. Done when
 
 All files exist; section 4a of the plan has no open item that reading could settle; a three-line summary names the choices only the user can
-make. Do not implement. Tell the user the next prompt is `out/prompt-k8s-kinds-2-implement.md`, which runs **after** the Module model is
-implemented (`out/prompt-module-model-2-implement.md`).
+make. Do not implement. Tell the user the next prompt is `.claude/plans/prompt-k8s-kinds-2-implement.md`, which runs **after** the Module model is
+implemented (`.claude/plans/prompt-module-model-2-implement.md`).

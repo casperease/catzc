@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e4f338926673
+    with_body_sha: "87260716b58a"
     path: docs/adr/repository/agent-definitions.md
     folder: docs/adr/repository
     name: agent-definitions
@@ -12,7 +12,7 @@ catzc:
     tracktype: documentation
   edges:
     defines:
-      - ADR-REPO-AGENTS#{1-5}
+      - ADR-REPO-AGENTS#{1-10}
     cites:
       - ADR-AUTO-TEST#35
       - ADR-REPO-LINK#5
@@ -20,6 +20,7 @@ catzc:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test35
       - docs/adr/configuration/module-config-loading.md
       - docs/adr/design/visual-design.md
+      - docs/adr/principles/configure-not-program.md
       - docs/adr/principles/reduce-variability.md
       - docs/adr/repository/markdown-links.md#rule-adr-repo-link5
 ---
@@ -65,6 +66,49 @@ step, and it resolves every `supported_by` citation to a real rule and every `ch
 
 - [How this is enforced](#how-this-is-enforced)
 
+### Rule ADR-REPO-AGENTS:6
+
+A sub-agent is a **robot**: its file's body, everything after the front matter, has at most `roofs.agent_body_lines` non-blank lines
+(20, declared once on `AgentsConfig` and set in `agents.yml`); its front matter carries only the robot keys in their fixed order
+(`name`, `description`, `tools`, `disallowedTools`, `model`, `effort`, `maxTurns`, `skills`, then the catzc head); and its body is one
+job line, numbered steps of one action each, and the report line. The contracts every robot reads first (`agents.yml` `contracts`, today
+`ADR-AI`) are named once, there and in `.claude/CLAUDE.md`, never in a file's front matter.
+
+- [Robots and capabilities](#robots-and-capabilities)
+
+### Rule ADR-REPO-AGENTS:7
+
+Every robot names its `model`, never `inherit`. The default is `haiku`; a robot above it carries a `model_reason` in the registry; and
+no robot runs below the highest **model floor** of the capabilities it preloads, the floor being the lowest model that performs a
+capability's steps reliably.
+
+- [Robots and capabilities](#robots-and-capabilities)
+
+### Rule ADR-REPO-AGENTS:8
+
+A **capability** is one file `.claude/skills/<domain>-<job>/SKILL.md` (lowercase letters, digits and hyphens, the only characters the
+harness accepts in a skill name) that a robot preloads through its `skills` list: at most
+`roofs.capability_lines` lines outside its catzc head (10, the `---` delimiters excluded), with `name` equal to its folder,
+`user-invocable: false`, `allowed-tools`, and a `metadata.catzc.model_floor` of `haiku`, `sonnet` or `opus`, declared there once and
+nowhere else.
+
+- [Robots and capabilities](#robots-and-capabilities)
+
+### Rule ADR-REPO-AGENTS:9
+
+No orphan and no ghost: every capability is preloaded by at least one robot, and every name in a `skills` list is a capability file. A
+capability exists because a robot loads it, as a robot exists because a rule supports it.
+
+- [Robots and capabilities](#robots-and-capabilities)
+
+### Rule ADR-REPO-AGENTS:10
+
+Every capability is registered in `automation/Catzc.Base.Docs/configs/capabilities.yml` with `supported_by` and `checks`, the way an
+agent is in `agents.yml`; neither registry repeats the model floor or the `skills` list, which live in their one file each.
+`Test-AgentDefinitions` enforces rules 6 to 10 together with rules 1 to 5.
+
+- [How this is enforced](#how-this-is-enforced)
+
 ## Context
 
 A sub-agent is a prompt with tools that a session hands work to. Its definition steers what the agent does, which files it touches, and
@@ -96,10 +140,26 @@ fixed report. One standard agent carries that shape, so each delegation does not
 where the job needs knowledge the standard agent lacks, such as the diagram grammar of [ADR-DSGN-VISUAL](../design/visual-design.md), and
 that need is exactly what a supporting rule states.
 
+### Robots and capabilities
+
+Every spawn of a sub-agent reads its whole definition cold, so a long definition is paid for on every delegation, and know-how written
+into one agent is written again into the next. A robot keeps its own file to the job and its steps, and loads the know-how it shares
+with other robots from capabilities: one skill file each, injected whole by the harness at spawn through the `skills` list, so a load
+costs no turn. A capability is written once and read by every robot that lists it ([ADR-PRIN-CONFIG](../principles/configure-not-program.md),
+[ADR-PRIN-REDUCEVAR](../principles/reduce-variability.md)). The roofs keep both small enough to be read whole on every spawn, and live in
+the registry as settings, never as literals in the gate.
+
+A skill's own `model` key is a selection the harness honours only when the skill is invoked or forked, never when it is preloaded, so it
+cannot restrict the robot that loads it. The restriction is catzc data instead: the model floor in the capability's `metadata`, which
+the harness ignores and the gate enforces against the robot's `model`. The cheapest model that does the job is the default; a dearer one
+needs its reason written down where the registry can show it, so a model choice is a decision and never a habit.
+
 ## Decision
 
 Each sub-agent is one `.claude/agents/<name>.md` file, registered in `agents.yml` with the rules that support it and the checks it runs or
 guards, and listed in `.claude/CLAUDE.md`. `catzc-worker` is the standard agent; any other agent is specialised and justified by a rule.
+Every agent is a robot: a body under the roof, a named model at or above the floors of the capabilities it preloads, and its shared
+know-how in capabilities under `.claude/skills/`, each registered in `capabilities.yml` and loaded by at least one robot.
 
 ### How this is enforced
 
@@ -113,7 +173,15 @@ guards, and listed in `.claude/CLAUDE.md`. `catzc-worker` is the standard agent;
   - a `supported_by` citation that names no rule (resolved through `Get-CatsAdrRuleIds`);
   - a `checks` entry that names no command;
   - a registered agent that the `## Sub-agents` section of `.claude/CLAUDE.md` does not list, and a listed agent that is not registered;
-  - a specialised agent that the standard agent's `description` does not name.
+  - a specialised agent that the standard agent's `description` does not name;
+  - a robot body over `roofs.agent_body_lines`, a front-matter key outside the robot set or out of the fixed order, a missing or
+    inherited `model`, or a `model` below the floor of a preloaded capability (`Get-RobotLineCount` counts the lines);
+  - a capability over `roofs.capability_lines`, with a `name` unlike its folder, user-invocable, without `allowed-tools` or a valid
+    `metadata.catzc.model_floor`, preloaded by no robot, or named in a `skills` list without a file;
+  - a capability file with no `capabilities.yml` entry, an entry with no file, or an entry whose citation or check resolves to nothing.
+- **`capabilities.yml`** (in `Catzc.Base.Docs`) is the capability registry, read through `Get-Config -Config capabilities` and validated
+  on load by `CapabilitiesConfig`, one `CapabilityEntry` per capability, with the same shape rules as `AgentsConfig`. The roofs are
+  `roofs` in `agents.yml`; their defaults are declared once on `AgentsConfig`.
 - An integrity test runs the gate over the real tree, so every default test run includes it.
 
 ## Consequences

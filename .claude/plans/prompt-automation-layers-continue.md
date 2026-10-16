@@ -1,4 +1,4 @@
-# out/prompt-automation-layers-continue.md
+# .claude/plans/prompt-automation-layers-continue.md
 
 `Continuation prompt for the automation layers + pwsh rename work: paste as the first message of a fresh session`
 
@@ -13,10 +13,10 @@ renamed yet. Every decision is made; do not re-ask them.
 ## Read first, in this order
 
 1. `.claude/CLAUDE.md` (already loaded) and `docs/adr/index.md`; then, for each phase, the ADRs that govern the files it touches. Cite rules by code.
-2. `out/plan-automation-layers-rename.md` (master: phases P0-P8, work waves, risks; **section 8 holds the decisions**).
-3. `out/plan-layers-importer-vocabulary.md` (layers, vocabulary, ADRs, importer mix), `out/plan-command-contracts.md` (command contracts, contract
-   language), `out/plan-rename-worklist.md` (evidence: sense classes S1-S8, registries, bootstrap constants, funnel sites, edge hazards, generator order).
-4. `out/plan-module-model.md`, `out/plan-k8s-kinds.md`, `out/prompt-module-model-1-prepare.md`, `out/prompt-module-model-2-implement.md` (they land first).
+2. `.claude/plans/plan-layers-vocabulary-rename-contracts.md (carried section: master plan)` (master: phases P0-P8, work waves, risks; **section 8 holds the decisions**).
+3. `.claude/plans/plan-layers-vocabulary-rename-contracts.md (carried section: layer model)` (layers, vocabulary, ADRs, importer mix), `.claude/plans/plan-layers-vocabulary-rename-contracts.md (carried section: command contracts)` (command contracts, contract
+   language), `.claude/plans/plan-layers-vocabulary-rename-contracts.md (carried section: rename worklist)` (evidence: sense classes S1-S8, registries, bootstrap constants, funnel sites, edge hazards, generator order).
+4. `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model)`, `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-k8s-kinds)`, `.claude/plans/prompt-module-model-1-prepare.md`, `.claude/plans/prompt-module-model-2-implement.md` (they land first).
 5. The surveys `out/survey-*.md` only if they still exist; the worklist carries what you need.
 
 ## The decisions (final)

@@ -60,13 +60,17 @@ Which catzc ADR decides each aspect you might take an idea for:
 
 Sub-agent definitions live in `.claude/agents/<name>.md`. Every agent exists because an ADR rule supports it, and is mapped to the gates and
 checks it runs or guards; the registry is `automation/Catzc.Base.Docs/configs/agents.yml`, and `Test-AgentDefinitions` keeps the files, the
-registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/adr/repository/agent-definitions.md)).
+registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/adr/repository/agent-definitions.md)). Every agent is a
+robot: a body of at most 20 lines on a named model, loading its shared know-how from capabilities, `.claude/skills/<domain>-<job>/SKILL.md`
+files of at most 10 lines with a model floor, registered in `automation/Catzc.Base.Docs/configs/capabilities.yml`. Every robot and
+capability reads the AI agent contract first, [ADR-AI](../docs/adr/repository/ai-agent-contract.md); it is named once, here and as
+`contracts` in `agents.yml`, never in a file's front matter ([agent contracts](../docs/references/agent-contracts.md)).
 
 - **`catzc-worker`** — the **standard** sub-agent for delegated work: one scoped task from a coordinator's brief, editing only the files it
   owns, verifying each file, and asking the coordinator for shared-file entries. Use it whenever work is delegated and no specialised agent
   fits.
 - **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves for the user to approve.
-- **`drawio-png`** — takes a `.drawio.png` address and its markdown sources, re-renders the embedded model to `out/drawio/`, and reports
+- **`drawio-png`** — takes a `.drawio.png` address and its markdown pages, re-renders the embedded model to `out/drawio/`, and reports
   what the raster hides or the sources say and the diagram lacks; lands nothing under `docs/`.
 - **`write-drawio-files`** — changes labels, text, or styles inside existing `.drawio.png` diagrams and re-renders the raster from the
   edited model, so the picture and the embedded XML stay honest to each other.
@@ -79,6 +83,10 @@ registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/
   tree, open questions kept open.
 - **`plan-decide`** — runs a decision round over the plans' open questions: a questionnaire, four items per ask with the recommendation
   first, every answer recorded with its projected outcome, then folded into the plans.
+- **`gate-runner`** — runs one gate or test file in the background and brings its verdict back verbatim.
+- **`link-fixer`** — repairs the links of a named set of markdown files, one file and one target at a time.
+- **`adr-reviewer`** — read-only review of a file set against the rules that govern it, each finding with its rule code.
+- **`glossary-keeper`** — keeps the glossary sources in step with the rules that bold each term, one term at a time.
 - **`test-optimization`** — makes all tests faster under the `timeouts.yml` roofs, one measured file at a time, without removing or
   weakening any test.
 

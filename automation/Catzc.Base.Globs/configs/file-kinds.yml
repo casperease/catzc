@@ -127,6 +127,9 @@ kinds:
   agent:
     definition: The definition of a sub-agent.
     files: [".claude/agents/**"]
+  capability:
+    definition: A capability a sub-agent preloads, a skill file with a model floor.
+    files: [".claude/skills/**"]
   index:
     definition: The entry page that lists and links what a folder holds.
     files: ["docs/index.md", "docs/adr/index.md"]

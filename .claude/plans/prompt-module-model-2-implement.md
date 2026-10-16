@@ -1,8 +1,8 @@
-# out/prompt-module-model-2-implement.md
+# .claude/plans/prompt-module-model-2-implement.md
 
-`Prompt 2 of 2 for out/plan-module-model.md: implement the Module model, ADR first — paste as the first message of a fresh session, after prompt 1 has run`
+`Prompt 2 of 2 for .claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model): implement the Module model, ADR first — paste as the first message of a fresh session, after prompt 1 has run`
 
-Written 2026-10-16. Run only after `out/prompt-module-model-1-prepare.md` produced its six files and the user answered its open choices.
+Written 2026-10-16. Run only after `.claude/plans/prompt-module-model-1-prepare.md` produced its six files and the user answered its open choices.
 Everything below the rule is the prompt.
 
 ---
@@ -13,9 +13,9 @@ to the `catzc-worker` sub-agent, with a brief that names the files it owns and t
 ## 1. Read first
 
 1. `.claude/CLAUDE.md` in full (one file at a time, verify each before the next, never a script sweep; time safeguard; no mutating git).
-2. `docs/adr/index.md`, then in full the ADRs named in `out/prompt-module-model-1-prepare.md` section 1, plus `ADR-AUTO-TEST`,
+2. `docs/adr/index.md`, then in full the ADRs named in `.claude/plans/prompt-module-model-1-prepare.md` section 1, plus `ADR-AUTO-TEST`,
    `ADR-PWSH-ONEFUNC`, `ADR-PWSH-PARAM`, `ADR-PWSH-ENUM` and `ADR-REPO-CONTRACT`.
-3. `out/plan-module-model.md` (corrected by prompt 1) and these prompt-1 outputs: `out/module-model-callers.md`,
+3. `.claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model)` (corrected by prompt 1) and these prompt-1 outputs: `out/module-model-callers.md`,
    `module-model-reading.md`, `module-model-slots.md`, `module-model-layering.md`, `draft-adr-auto-module.md`. If any is missing, stop and
    tell the user. Copy them and the plan into your scratchpad.
 4. Run `git status --short` before touching any file. Other sessions edit concurrently; never edit a file another session has dirty
@@ -49,4 +49,4 @@ Report faithfully: never say a gate passed that you did not run; report a red ga
 
 The ADR is registered and its gates are green; no old module type or function remains; the order, layout and axes each have one source;
 the L1 integrity test passes. Hand the user a list of changed files and the gates actually run, then point to
-`out/prompt-k8s-kinds-2-implement.md` as the sibling that consumes `Module`.
+`.claude/plans/prompt-k8s-kinds-2-implement.md` as the sibling that consumes `Module`.

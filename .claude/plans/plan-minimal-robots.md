@@ -77,8 +77,7 @@ The integrity test keeps running it over the real tree. Fixture agents and capab
 
 ## Phases
 
-- **Phase 0, decide.** Answer Q1 to Q6 below and paste in the second agent and second capability. Nothing is written before the
-  roofs and the home of the ADR text are settled.
+- **Phase 0, decide.** Done 2026-10-16: see Decided.
 - **Phase 1, doctrine and gate.** ADR amendment; `roofs` and `capabilities.yml` with their config types; the gate extensions with
   L0 tests on fixtures; the CLAUDE.md sentence; glossary terms. Run the gate: it must fail on every existing agent (no model, over
   the roof) so the migration has a red-to-green signal.
@@ -93,20 +92,20 @@ The integrity test keeps running it over the real tree. Fixture agents and capab
 - **Phase 5, measure.** `session-cost-audit` (now a robot) runs on a session that spawned each robot once; the context bytes per
   spawn and the model mix go into "Done, and why" before this plan is deleted.
 
-## Open questions
+## Decided (2026-10-16, questionnaire items Q127 to Q132 and Q139)
 
-- Q1 Roof counting: the 20 lines are the body only, as proposed, or body plus front matter minus the catzc head? Recommendation:
-  body only; the front matter is fixed by rule 4 and the gate caps `description` at 3 lines instead.
-- Q2 Capability roof: 10 lines including front matter, the catzc head excluded. The examples in the sibling fit in 10. Confirm, or
-  set 12 so a `paths:` line and a `needs:` line fit together.
-- Q3 ADR home: amend ADR-REPO-AGENTS (recommended) or a new ADR-REPO-CAPS for capabilities.
-- Q4 Capability name form: dotted `drawio.renderer` (a domain prefix and a job) is a valid skill directory name. Confirm dots over
-  hyphens; the gate then enforces `^[a-z]+(\.[a-z-]+)+$` for capabilities and `^[a-z-]+$` for agents.
-- Q5 drawio-diagram-waves orchestrates 12 makers with the Agent tool; its wave logic does not fit 20 lines. Recommendation: the
-  wave protocol becomes a capability (`drawio.waves`), the makers become the `drawio-png` robot, and the lead body is the loop.
-  Alternative: split into a lead robot and a maker robot.
-- Q6 Effort and turns: set `effort: low` and `maxTurns` on every haiku robot as a cost brake, or leave both to the harness default.
-  Recommendation: set both; the `maxTurns` per robot is in the catalogue.
+- Q127 Roof counting: the 20 lines are the body only; the gate caps `description` at 3 lines (rule 1).
+- Q128 Capability roof: 10 lines outside the catzc head, front matter and body together; the built drawio.renderer is 11 by this count
+  and loses one line in Phase 1 (rule 3).
+- Q129 ADR home: amend ADR-REPO-AGENTS with rules 6 to 12 and a Capabilities context section; no new ADR.
+- Q130 Name form: capabilities are dotted `<domain>.<job>`; the gate enforces `^[a-z]+(\.[a-z-]+)+$` for capabilities and `^[a-z-]+$`
+  for agents.
+- Q131 drawio-diagram-waves: the wave protocol becomes the `drawio.waves` capability (floor sonnet), the makers are the drawio-png robot,
+  the lead body is the loop.
+- Q132 Effort and turns: every robot sets `effort` and `maxTurns`; the gate requires both keys; the maxTurns per robot is in the agents
+  catalogue.
+- Q139 Next: Phase 1 now. The shared capabilities (catzc.run, catzc.gate, git.readonly, md.links, report.fixed) were built by a peer
+  session during the round, so Phase 1 starts from whole robots; each decision above becomes an ADR rule in the same change (Q97).
 
 ## Done, and why
 
@@ -116,3 +115,27 @@ The integrity test keeps running it over the real tree. Fixture agents and capab
   the fail-forward step and drives the minimap pipeline for one slide from the slide itself. Three slides regenerated with fresh
   minimaps in 9 to 10 s each; the token count is in `out/drawio/token-count.md`: about 3,900 tokens per spawn, about 380 per
   slide for the deterministic step, about 1,790 per optional look at a PNG.
+- 2026-10-16, Phase 1 landed on the recommended answers (Q1 body lines only; Q2 10 content lines, delimiters and catzc head excluded;
+  Q3 amend ADR-REPO-AGENTS; Q4 dotted names; Q6 effort and maxTurns set, not gated): ADR-REPO-AGENTS rules 6 to 10 with a "Robots and
+  capabilities" context; `roofs` in agents.yml with defaults on `AgentsConfig`; `capabilities.yml` with `CapabilitiesConfig` and
+  `CapabilityEntry` (dotted names), registered in configs.yml; file kind `capability`; `Test-AgentDefinitions` extended (roof, key
+  set and order, model, floor, orphan, ghost, registry) with `Get-RobotLineCount`; L0 tests for every new rule; glossary terms robot,
+  capability, model floor; CLAUDE.md sentence; generated pages rebuilt, Test-GeneratedFiles 0.
+- 2026-10-16, Phase 3 and 4 landed in one pass: all seven old agents rewritten as robots (print-artifacts, write-drawio-files,
+  build-inspiration-module, session-cost-audit, test-optimization, catzc-worker, drawio-diagram-waves), their know-how in
+  capabilities artifact.publish, drawio.model-edit, drawio.look, catzc.module, catzc.verify, test.speed, drawio.waves; the inventory
+  script of print-artifacts became `.claude/drawio/catalogue.py`. Sonnet with a `model_reason` for catzc-worker,
+  build-inspiration-module, test-optimization, drawio-diagram-waves, plan-clear; haiku for the rest. Open: Q5 answered by making
+  drawio-png the maker; the only gate issues left are the `contracts` key of plan-intake and plan-decide, a design conflict with
+  rule 6 that the user decides (plan-adr-ai), relayed by session catzc-bf.
+- 2026-10-16, decided (Q140 in decisions-2026-10-16.md, after one wrong relay that briefly put the key on every file): ADR-AI is
+  named once, never per file. Rule 6's key set stays closed; the required set is `contracts` in agents.yml, default once on
+  `AgentsConfig`; `.claude/CLAUDE.md` carries the session-start line that names it, linked to the contract and to
+  `docs/references/agent-contracts.md`; the gate checks CLAUDE.md names every contract of the registry. The key was removed again from
+  every file this session owns; the two staged peer files are catzc-71's to clean. The index registration of ADR-AI stays with
+  plan-adr-ai; the gate reads the code as a literal, so neither blocks the other.
+- 2026-10-16, Q4 reversed by the harness: a skill name may hold only lowercase letters, digits and hyphens (the user hit the error on
+  `adr.cite`), so the capability form is `<domain>-<job>`. All 18 folders renamed, every `skills:` list, body reference, registry name,
+  the `CapabilityEntry` name rule (at least one hyphen), rule 8, CLAUDE.md, the glossary short and the test fixtures follow. The three
+  planner-session skills (plan-intake, plan-decide, plan-value) were renamed with the rest, the peers told. The hyphen made
+  `catzc-gate` a "gate" family phrase for the glossary (ADR-REPO-VOCAB), so that capability is `catzc-check`.

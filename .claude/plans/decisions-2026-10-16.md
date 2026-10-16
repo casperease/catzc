@@ -7,115 +7,217 @@ plan:
 
 # Decisions of the 2026-10-16 questionnaire round
 
-One row per answer, in the order given. The question text is in questionnaire-2026-10-16.md. The planner's recommendation is shown with each
-question from Q01 on (first option), so the Rec column records whether the user took it. Outcome is the projected effect of the decision in
-two to ten words. Results move into the owning plans after the round.
+One row per answer, in the order given. The question text is in questionnaire-2026-10-16.md (Q) and questionnaire-fundamental-2026-10-16.md
+(F, S, T). The recommendation was shown first with each question, so Rec records whether the user took it. Outcome is the projected effect in
+two to ten words. ADR home is where the decision becomes a rule (F3): a row whose home is "none" is an action or a sequencing choice, not a
+rule; a row marked "reopen" has no home yet and is open again until one is named. Results move into the owning plans; this file stays until
+its decisions are in their ADRs (Q94).
 
-| Q   | Decision                              | Rec taken | Outcome                                        | Note                                                       |
-| --- | ------------------------------------- | --------- | ---------------------------------------------- | ---------------------------------------------------------- |
-| Q01 | decide at first import                | yes       | import tool ships without a history-move pin   | the tool's contract does not depend on it                  |
-| Q02 | optional -Ref, default branch default | yes       | one more parameter, one resolution order       | explicit wins                                              |
-| Q03 | docs/how-to                           | yes       | one new how-to page on sorting                 |                                                            |
-| Q04 | shape rule, no line roof              | yes       | Test-Plans checks sections, never a line count | head, value, decided, done, open steps; carried text below |
-| Q05 | repository-wide naming rule too       | yes       | no rank prefixes anywhere in the tree          | ADR-REPO-PLANS plus a repository-domain naming rule        |
-| Q06 | both, gate first                      | yes       | Test-Plans gate, then plan-cleaner agent       |                                                            |
-| Q07 | author directly in .claude/plans      | yes       | Publish-Plan and Get-PlanCandidate dropped     | out/ holds no plan drafts                                  |
-| Q08 | delete, index keeps one line          | yes       | index grows one line per finished plan         |                                                            |
-| Q09 | delete all 20 .unordered plans now    | yes       | .unordered empty, ready as landing zone        | git keeps them; a deletion the user runs or approves       |
-| Q10 | body-sha Phase 0 go now               | yes       | ADR edits stop being drift findings            | unblocks the link cleanup                                  |
-| Q11 | keep carried drafts until landed      | yes       | plans stay long until data is in the tree      | cleaner trims per plan                                     |
-| Q12 | prompts stay files                    | yes       | nine prompt files beside their plans           | header maps old out/ paths                                 |
-| Q13 | have_customers default false          | yes       | shipped and code defaults agree                | repo fragment says all                                     |
-| Q14 | tracks required, aspects catch-all    | yes       | a repo without tracks fails at construction    |                                                            |
-| Q15 | shipped variants.yml deleted          | yes       | type plus fragment is the whole config         | general rule for a type with no file                       |
-| Q16 | defaults as a fifth asset kind        | yes       | contracts/catzc gains generated defaults files | ADR-REPO-CONTRACT#6 amended                                |
-| Q17 | source mode reads own fragments only  | yes       | no function shadowing in source mode           |                                                            |
-| Q18 | reframed: two names, two audiences    | no        | alias idea dropped; folder question re-asked   | cats: friendly product form, root executor for bash and zsh, name for new and other-sourced modules, usable for pwsh in places; catzc: the inner repository namespace. Also answers part of Q105 |
-| Q19 | required key in a header comment      | yes       | generated defaults never show a fake value     |                                                            |
-| Q20 | Phase 1 after the module model        | yes       | config defaults waits entirely on module model | shared VariantsConfig.cs                                   |
-| Q18b | new ADR-CATS decides it              | no        | a new principle-level ADR; folder names follow | cats and catzc, their distinction and cross-purpose use, are a core high-level product principle controlled by ADR-CATS; the overlay folder question waits for it; a new plan item |
-| Q21 | section in ADR-AUTO-FAILFAST          | yes       | FAILFAST gains the five-rung ladder            |                                                            |
-| Q22 | the user names the P4 window          | yes       | folder move only on a named time               |                                                            |
-| Q23 | no diagrams in the layers plan        | yes       | P8 removed from the plan                       | render nothing unasked                                     |
-| Q24 | session proposes the pilot list       | yes       | pilot set approved before the first contract   | cats entry point commands the likely answer                |
-| Q25 | ci names re-pointed same day as P6    | yes       | no CI mismatch window                          | user re-points Azure DevOps and GitHub bindings            |
-| Q26 | planner re-points prompt paths now    | yes       | prompts read clean in a fresh session          | a planner task after the round                             |
-| Q27 | model languages generally             | yes       | language axis in the model, forbidden by track | ADR-AUTO-GO, PY, BASH unchanged                            |
-| Q28 | engines per track, module override    | yes       | tracks.<t>.engines plus rare module overrides  |                                                            |
-| Q29 | Get-CatzcModule                       | yes       | Get-BaseModule and Get-AutomationModules go    |                                                            |
-| Q30 | LoadedModule in ADR-AUTO-MODULE       | yes       | one ADR page for the module model              |                                                            |
-| Q31 | domain automation                     | yes       | docs/adr/automation/module-model.md or similar |                                                            |
-| Q32 | layout under languages.yml            | yes       | slots beside formatter and checks per language |                                                            |
-| Q33 | unplaced file is a finding            | yes       | a gate flags stray files in modules            |                                                            |
-| Q34 | all vendored files in the vendor track | no       | no vendored file beside its user                | the session's candidate list is not needed                 |
-| Q35 | kits stay; condition on front matter  | partly    | .claude kits stay in the holder track          | the user does not mind modules living in vendor folders as long as their front matter is processed and formatted; and a track has one primary language by default (a rule for ADR-DSGN-TRACK) |
-| Q36 | namespace planned after kinds land    | no        | a follow-up item in the module-kinds plan      |                                                            |
-| Q37 | module-model session looks first      | yes       | three failures owned by the module model work  |                                                            |
-| Q38 | layers P1 beside the module model     | yes       | docs-only layers work starts now               | code phases wait                                           |
-| Q39 | schema hand-written, no generator     | yes       | step 6 of the head draft dropped               | key-set test guards the schema                             |
-| Q40 | not applicable                        | yes       | no registry shape work                         | follows Q39                                                |
-| Q41 | write overlaps, strengthen the test   | yes       | a shadowed kind fails the kinds tests          | intended overlaps written in the test or registry          |
-| Q42 | keep the visibility key               | no        | visibility stays in heads beside kinds         |                                                            |
-| Q43 | generated heads stay minimal          | yes       | no folder or name on generated heads           |                                                            |
-| Q44 | no glossary term for catzc_bundle     | yes       | glossary unchanged                             |                                                            |
-| Q45 | prose PowerShell; ids pwsh or powershell | partly | one form per axis, written as a rule           | prose text may say PowerShell; identifiers use only pwsh (engine, folder) or powershell (language id) |
-| Q46 | fix the module-types.yml typo now     | no        | one-word edit in a peer's file, user-approved  | planner touches no code; the next session does it with this approval |
-| Q47 | read the formatting ADR, follow it    | yes       | .compiled handling decided by the ADR          |                                                            |
-| Q48 | owners fix the six comment findings   | yes       | findings stay until owners act                 |                                                            |
-| Q49 | out of scope: in-use files            | no        | plans drop every locked or in-use file item    | user: plans never concern themselves with locked or in-use files; that is for much later in the timeline. Saved as memory feedback. Q46 and Q48 are of the same kind and shrink to context lines |
-| Q50 | class selectors go now                | yes       | globs spelled once; kinds select by class      |                                                            |
-| Q51 | planner fixes the memory note         | yes       | file-head-vocabulary says immutable            | a planner task after the round                             |
-| Q52 | one plan for the head                 | yes       | file-head plan stays whole                     |                                                            |
-| Q53 | note becomes a glossary term          | no        | glossary gains note                            |                                                            |
-| Q54 | re-read ADR-AUTO-ASSETDEP for asset   | yes       | asset kind confirmed or moved after a read     |                                                            |
-| Q55 | exclude .unordered rows from ledger   | yes       | ledger shrinks by 274 rows                     | Q09 deletes those plans anyway                             |
-| Q56 | relax ADR-REPO-HELP#3                 | yes       | in-sentence citations allowed; bare lines reported | explored: the sentence says which claim a code backs; the head stays the derived complete set; 0 edits |
-| Q57 | sample-then-stop review               | yes       | about 400 rows reviewed instead of 4,500       | stop when the sample shows the pattern                     |
-| Q58 | TryParse regression test now          | yes       | oversized rule number covered by a test        |                                                            |
-| Q59 | five gates on the usage code now      | yes       | Get-AdrUsage and helpers gate-clean            |                                                            |
-| Q60 | Phase 2 thresholds measured           | yes       | long is what the data says, no fixed count     |                                                            |
-| Q61 | per-engine cache stamps               | yes       | a pin edit reformats one engine, not all       | invalidation test proves each declared input               |
-| Q62 | config conventions test left, report-only | yes   | 0.77 s line stays a report                     |                                                            |
-| Q63 | snapshot test left                    | yes       | 15 s test unchanged; scheduling is the lever   |                                                            |
-| Q64 | slow files after two full runs        | yes       | test-optimization starts on the new balance    |                                                            |
-| Q65 | report-only until under budget        | yes       | EnforceTimings on once the run is under 180 s  |                                                            |
-| Q66 | scoped sha = deployable-module globs  | partly    | commit key reuses the globset patterns         | user: "scoped shas should basically be our deployable module glob patterns we can make config variants for"; the key's scope is a globset, variants configurable |
-| Q67 | declared per resource kind, explicit pins | yes   | one config entry per kind, one default         |                                                            |
-| Q68 | loud fallback on a dirty tree         | yes       | one announced line, never silent               |                                                            |
-| Q69 | own ADR-AUTO-MATERIAL                 | yes       | a new ADR beside ADR-AUTO-CACHE                |                                                            |
-| Q70 | write ADR-AUTO-MATERIAL now           | yes       | ADR, glossary, dora-explains entry, index      |                                                            |
-| Q71 | accept the six out/ areas             | yes       | output-formats.yml gains the areas and numbers |                                                            |
-| Q72 | out/sessions/<session>/               | yes       | session scratch named by session               |                                                            |
-| Q73 | never prune time-safeguard.log        | yes       | the log keeps every denial                     | tuning evidence                                            |
-| Q74 | only Clear-Output prunes              | yes       | the importer never deletes                     |                                                            |
-| Q75 | Sonnet catzc-worker harvests scripts  | yes       | a verdict per unreferenced out/ script         | launched 2026-10-16 in the background; writes out/harvest-verdicts.md |
-| Q76 | delete the 27 .bak files now          | yes       | out/ loses its backups; git has the files      | done 2026-10-16                                            |
-| Q77 | a yes per batch for probe deletions   | yes       | each probe deletion batch is approved          |                                                            |
-| Q78 | verify the step loop, then add        | yes       | comments step on top of the landed loop        |                                                            |
-| Q79 | imprint step with one ADR sentence    | yes       | a step may write the page as a second file     |                                                            |
-| Q80 | pages for ours, .vendor excluded      | yes       | .scriptanalyzer and .internal get comment pages |                                                           |
-| Q81 | loader guard if no bypass             | yes       | deferred load via Import-ModuleFiles           | bypasses become eagerTypes config entries                  |
-| Q82 | manifest committed with the DLL       | yes       | a bundle needs no compile                      |                                                            |
-| Q83 | lazy types Phase 1 now                | yes       | metadata-only verification lands first         | independent of the module model                            |
-| Q84 | next session reruns the level-2 gate  | yes       | tag fixes confirmed in the background          |                                                            |
-| Q85 | delete the bounded plan on green      | yes       | one feature plan gone when its gate is green   |                                                            |
-| Q86 | unboxing P4 and P5 not now            | yes       | plan-unboxing closes after the commit checks   |                                                            |
-| Q87 | no ADR-AUTO-CACHE statics line        | yes       | ADR unchanged                                  |                                                            |
-| Q88 | shipped-types flags in module model   | yes       | TrackTypeEntry, VendorEntry owned there        |                                                            |
-| Q89 | re-point carried links now            | yes       | Test-Links clean on .claude/plans              | one file at a time with the link tool; link-fixer's job     |
-| Q90 | drop paste entries once recorded      | yes       | index stays short                              |                                                            |
-| Q91 | planner updates the lagging memory    | yes       | three memory notes current                     | a planner task after the round                             |
-| Q92 | each session fixes what it touches    | yes       | no cleanup session for unowned findings        |                                                            |
-| Q93 | catzc head beside plan: accepted      | yes       | plan files get stamped like any Markdown       |                                                            |
-| Q94 | keep questionnaire until rules exist  | yes       | both round files deleted once decisions are ADRs |                                                          |
-| Q95 | module model prepare pastes first     | yes       | the next fresh session runs the prepare prompt | layers P1 and lazy types Phase 1 may run beside            |
-| Q96 | a plan is the delta only              | yes       | plans shrink to zero and are deleted           | landed content lives in ADRs, tests, configs               |
-| Q97 | a constraining decision becomes an ADR rule in the same change | yes | no decision parked in a plan or register | the round's decisions each need their ADR home            |
-| Q98 | Track is the root; Module is one of its kinds | no    | module model premise reversed; ADR-AUTO-MODULE sits under the track model | the module-kinds plan and both module-model prompts change before they run |
-| Q99 | kinds owned by tracks, role separate  | yes       | kind and role stay two words                   |                                                            |
-| Q100 | track cluster model confirmed        | yes       | ADR-DSGN-TRACKTYPE is the living version       |                                                            |
-| Q101 | analyzer rule for literal defaults   | yes       | a gate enforces ADR-PRIN-CONFIG#3              | the config-defaults audit script is the seed               |
+| Q | Decision | Rec | Outcome | ADR home | Note |
+| --- | --- | --- | --- | --- | --- |
+| Q01 | decide at first import | yes | import tool ships without a history-move pin | none (decided at first import) | the tool's contract does not depend on it |
+| Q02 | optional -Ref, default branch default | yes | one more parameter, one resolution order | ADR-DSGN-TRACK#17 (import tool contract) | explicit wins, ADR-AUTO-DEFAULT#6 |
+| Q03 | docs/how-to | yes | one new how-to page on sorting | none (a how-to, not a rule) | |
+| Q04 | shape rule, no line roof | yes | Test-Plans checks sections, never a line count | ADR-REPO-PLANS (new) | head, value, decided, done, open steps; carried text below |
+| Q05 | repository-wide naming rule too | yes | no rank prefixes anywhere in the tree | ADR-REPO-PLANS and a repository-domain naming rule (ADR-REPO-FOLDERS, to confirm) | |
+| Q06 | both, gate first | yes | Test-Plans gate, then the plan-clear agent | ADR-REPO-PLANS; ADR-REPO-AGENTS (registry) | plan-clear exists |
+| Q07 | author directly in .claude/plans | yes | Publish-Plan and Get-PlanCandidate dropped | ADR-REPO-PLANS | out/ holds no plan drafts |
+| Q08 | delete, index keeps one line | yes | index grows one line per finished plan | ADR-REPO-PLANS | |
+| Q09 | delete all 20 .unordered plans now | yes | .unordered empty, ready as landing zone | none (action; ADR-DSGN-TRACK#17 names the zone) | the user runs or approves the deletion |
+| Q10 | body-sha Phase 0 go now | yes | ADR edits stop being drift findings | ADR-REPO-FILEMETA#3 #7 | unblocks the link cleanup |
+| Q11 | keep carried drafts until landed | yes | plans stay long until data is in the tree | ADR-REPO-PLANS (trim rule) | |
+| Q12 | prompts stay files | yes | nine prompt files beside their plans | ADR-REPO-PLANS | header maps old out/ paths |
+| Q13 | have_customers default false | yes | shipped and code defaults agree | ADR-AUTO-DEFAULT#6 | repo fragment says all |
+| Q14 | tracks required, aspects catch-all | yes | a repo without tracks fails at construction | ADR-AUTO-DEFAULT#6 (postures) | |
+| Q15 | shipped variants.yml deleted | yes | type plus fragment is the whole config | ADR-CONF-LOADING | type with no file |
+| Q16 | defaults as a fifth asset kind | yes | contracts/catzc gains generated defaults files | ADR-REPO-CONTRACT#6 | |
+| Q17 | source mode reads own fragments only | yes | no function shadowing in source mode | ADR-AUTO-OVERLAY#1 #8 | |
+| Q18 | reframed: two names, two audiences | no | alias idea dropped | ADR-CATS (new) | cats: friendly product form, root executor for bash and zsh, name for new and other-sourced modules, usable for pwsh in places; catzc: the inner repository namespace |
+| Q18b | new ADR-CATS decides the folder names | no | a new principle-level ADR | ADR-CATS (new) | cats and catzc, their distinction and cross-purpose use, are a core high-level product principle |
+| Q19 | required key in a header comment | yes | generated defaults never show a fake value | ADR-REPO-CONTRACT#9 | |
+| Q20 | Phase 1 after the module model | yes | config defaults waits entirely on module model | none (sequencing) | shared VariantsConfig.cs |
+| Q21 | section in ADR-AUTO-FAILFAST | yes | FAILFAST gains the five-rung ladder | ADR-AUTO-FAILFAST | |
+| Q22 | the user names the P4 window | yes | folder move only on a named time | none (process) | |
+| Q23 | no diagrams in the layers plan | yes | P8 removed from the plan | CLAUDE.md (render nothing unasked) | |
+| Q24 | session proposes the pilot list | yes | pilot set approved before the first contract | ADR-REPO-CMDCONTRACT (new) | cats entry point commands likely |
+| Q25 | ci names re-pointed same day as P6 | yes | no CI mismatch window | none (process) | user re-points Azure DevOps and GitHub |
+| Q26 | planner re-points prompt paths now | yes | prompts read clean in a fresh session | none (action) | |
+| Q27 | model languages generally | yes | language axis in the model, forbidden by track | ADR-AUTO-MODULE (new, under ADR-DSGN-TRACK) | ADR-AUTO-GO, PY, BASH unchanged |
+| Q28 | engines per track, module override | yes | tracks.<t>.engines plus rare module overrides | ADR-AUTO-MODULE | |
+| Q29 | Get-CatzcModule | yes | Get-BaseModule and Get-AutomationModules go | ADR-AUTO-MODULE | |
+| Q30 | LoadedModule in ADR-AUTO-MODULE | yes | one ADR page for the module model | ADR-AUTO-MODULE | |
+| Q31 | domain automation | yes | docs/adr/automation/module-model.md or similar | ADR-AUTO-MODULE | |
+| Q32 | layout under languages.yml | yes | slots beside formatter and checks per language | ADR-AUTO-MODULE | |
+| Q33 | unplaced file is a finding | yes | a gate flags stray files in modules | ADR-AUTO-MODULE | |
+| Q34 | all vendored files in the vendor track | no | no vendored file beside its user | ADR-DSGN-TRACKTYPE | |
+| Q35 | kits stay; one primary language per track | partly | .claude kits stay in the holder track | ADR-DSGN-TRACK (one primary language by default) | modules may live in vendor folders as long as their front matter is processed and formatted |
+| Q36 | namespace planned after kinds land | no | a follow-up in the module-kinds plan | none (follow-up) | |
+| Q37 | module-model session looks first | yes | three failures owned by the module model work | none (action) | |
+| Q38 | layers P1 beside the module model | yes | docs-only layers work starts now | none (sequencing) | |
+| Q39 | schema hand-written, no generator | yes | step 6 of the head draft dropped | ADR-REPO-CONTRACT#9 | key-set test guards the schema |
+| Q40 | not applicable | yes | no registry shape work | none | follows Q39 |
+| Q41 | write overlaps, strengthen the test | yes | a shadowed kind fails the kinds tests | ADR-REPO-FILEMETA#11 (test) | |
+| Q42 | keep the visibility key | no | visibility stays in heads beside kinds | ADR-REPO-CODEMETA#2 | |
+| Q43 | generated heads stay minimal | yes | no folder or name on generated heads | ADR-REPO-FILEMETA#7 | |
+| Q44 | no glossary term for catzc_bundle | yes | glossary unchanged | none | |
+| Q45 | prose PowerShell; ids pwsh or powershell | partly | one form per axis, written as a rule | ADR-REPO-VOCAB (naming rule) or ADR-AUTO-LAYERS, to confirm | prose may say PowerShell; identifiers only pwsh (engine, folder) or powershell (language id) |
+| Q46 | fix the module-types.yml typo now | no | one-word edit, user-approved | none (action; in-use file, Q49) | |
+| Q47 | read the formatting ADR, follow it | yes | .compiled handling decided by the ADR | ADR-REPO-FORMAT | |
+| Q48 | owners fix the six comment findings | yes | findings stay until owners act | none (in-use files, Q49) | |
+| Q49 | out of scope: in-use files | no | plans drop every locked or in-use file item | ADR-REPO-PLANS (scope rule); memory feedback saved | user: plans never concern themselves with locked or in-use files |
+| Q50 | class selectors go now | yes | globs spelled once; kinds select by class | ADR-REPO-FILEMETA (classes) | |
+| Q51 | planner checks the memory note | yes | checked: nothing stale | none | the one "derived" is the English verb |
+| Q52 | one plan for the head | yes | file-head plan stays whole | none | |
+| Q53 | note becomes a glossary term | no | glossary gains note | ADR-REPO-VOCAB | |
+| Q54 | re-read ADR-AUTO-ASSETDEP for asset | yes | asset kind confirmed or moved after a read | ADR-AUTO-ASSETDEP | |
+| Q55 | exclude .unordered rows from ledger | yes | ledger shrinks by 274 rows | none (ledger config) | |
+| Q56 | relax ADR-REPO-HELP#3 | yes | in-sentence citations allowed; bare lines reported | ADR-REPO-HELP#3 | explored with the user |
+| Q57 | sample-then-stop review | yes | about 400 rows reviewed instead of 4,500 | none (process) | |
+| Q58 | TryParse regression test now | yes | oversized rule number covered by a test | none (test) | |
+| Q59 | five gates on the usage code now | yes | Get-AdrUsage and helpers gate-clean | none (action) | |
+| Q60 | Phase 2 thresholds measured | yes | long is what the data says | ADR-REPO-COMMENTS | |
+| Q61 | per-engine cache stamps | yes | a pin edit reformats one engine, not all | ADR-REPO-FORMAT (stamp rule) | invalidation test per declared input |
+| Q62 | config conventions test left, report-only | yes | 0.77 s line stays a report | ADR-AUTO-TEST (timings) | |
+| Q63 | snapshot test left | yes | 15 s test unchanged | none | |
+| Q64 | slow files after two full runs | yes | test-optimization starts on the new balance | none (sequencing) | |
+| Q65 | report-only until under budget | yes | EnforceTimings on once under 180 s | ADR-AUTO-TEST | |
+| Q66 | scoped sha = deployable-module globs | partly | commit key reuses the globset patterns | ADR-AUTO-MATERIAL (new) | user: "scoped shas should basically be our deployable module glob patterns we can make config variants for" |
+| Q67 | declared per resource kind, explicit pins | yes | one config entry per kind, one default | ADR-AUTO-MATERIAL | |
+| Q68 | loud fallback on a dirty tree | yes | one announced line, never silent | ADR-AUTO-MATERIAL | |
+| Q69 | own ADR-AUTO-MATERIAL | yes | a new ADR beside ADR-AUTO-CACHE | ADR-AUTO-MATERIAL | |
+| Q70 | write ADR-AUTO-MATERIAL now | yes | ADR, glossary, dora-explains entry, index | ADR-AUTO-MATERIAL | |
+| Q71 | accept the six out/ areas | yes | output-formats.yml gains the areas and numbers | ADR-REPO-OUTDIR | |
+| Q72 | out/sessions/<session>/ | yes | session scratch named by session | ADR-REPO-OUTDIR | |
+| Q73 | never prune time-safeguard.log | yes | the log keeps every denial | ADR-REPO-OUTDIR | tuning evidence |
+| Q74 | only Clear-Output prunes | yes | the importer never deletes | ADR-REPO-OUTDIR | |
+| Q75 | Sonnet catzc-worker harvests scripts | yes | a verdict per unreferenced out/ script | none (action, done) | out/harvest-verdicts.md: probe 235, rerun 20, tool 5 |
+| Q76 | delete the 27 .bak files now | yes | out/ loses its backups | none (action, done) | |
+| Q77 | a yes per batch for probe deletions | yes | each probe deletion batch is approved | none (process) | |
+| Q78 | verify the step loop, then add | yes | comments step on top of the landed loop | ADR-REPO-FORMAT#8 | |
+| Q79 | imprint step with one ADR sentence | yes | a step may write the page as a second file | ADR-REPO-FORMAT#8 | |
+| Q80 | pages for ours, .vendor excluded | yes | .scriptanalyzer and .internal get comment pages | ADR-REPO-COMMENTS (comments.yml) | |
+| Q81 | loader guard if no bypass | yes | deferred load via Import-ModuleFiles | ADR-AUTO-TYPES (native-csharp-types) | bypasses become eagerTypes entries |
+| Q82 | manifest committed with the DLL | yes | a bundle needs no compile | ADR-AUTO-TYPES#13 | |
+| Q83 | lazy types Phase 1 now | yes | metadata-only verification lands first | none (sequencing) | |
+| Q84 | next session reruns the level-2 gate | yes | tag fixes confirmed in the background | none (action) | |
+| Q85 | delete the bounded plan on green | yes | one feature plan gone | ADR-REPO-PLANS (delete rule) | |
+| Q86 | unboxing P4 and P5 not now | yes | plan-unboxing closes after the commit checks | none | |
+| Q87 | no ADR-AUTO-CACHE statics line | yes | ADR unchanged | none | |
+| Q88 | shipped-types flags in module model | yes | TrackTypeEntry, VendorEntry owned there | none (action) | |
+| Q89 | re-point carried links now | yes | Test-Links clean on .claude/plans | ADR-REPO-LINK | link-fixer's job |
+| Q90 | drop paste entries once recorded | yes | index stays short | ADR-REPO-PLANS (index rule) | |
+| Q91 | planner updates the lagging memory | yes | three memory notes current | none (action) | |
+| Q92 | each session fixes what it touches | yes | no cleanup session for unowned findings | none (process) | |
+| Q93 | catzc head beside plan: accepted | yes | plan files stamped like any Markdown | ADR-REPO-FILEMETA | |
+| Q94 | keep the round files until rules exist | yes | both deleted once decisions are ADRs | ADR-REPO-PLANS | |
+| Q95 | module model prepare pastes first | yes | the next fresh session runs the prepare prompt | none (sequencing) | layers P1 and lazy types Phase 1 beside |
+| Q96 | a plan is the delta only | yes | plans shrink to zero and are deleted | ADR-REPO-PLANS; ADR-PRIN-ONELIVE#5 | |
+| Q97 | a constraining decision becomes an ADR rule in the same change | yes | no decision parked in a plan | ADR-REPO-PLANS | this column exists because of it |
+| Q98 | Track is the root; Module one of its kinds | no | module model premise reversed | ADR-DSGN-TRACK; ADR-AUTO-MODULE under it | prompts change before they run |
+| Q99 | kinds owned by tracks, role separate | yes | kind and role stay two words | ADR-DSGN-TRACK (kinds) | |
+| Q100 | track cluster model confirmed | yes | ADR-DSGN-TRACKTYPE is the living version | ADR-DSGN-TRACKTYPE | |
+| Q101 | analyzer rule for literal defaults | yes | a gate enforces ADR-PRIN-CONFIG#3 | ADR-PRIN-CONFIG#3; analyzer-adr-map entry | audit script is the seed |
+| F1 | ADR-CATS rules cats and catzc only; pwsh and automation strictly separate | no | two name rules, two places; automation a subject | ADR-CATS; ADR-AUTO-LAYERS (automation as subject, pwsh as engine) | user: the /automation to /pwsh rename is technical; automation as a subject is the big cross-cutter with design principles and pipelines |
+| F2 | ADR-AUTO-MODULE under ADR-DSGN-TRACK; resolver via track; prompts rewritten first | yes | module model re-rooted on Track | ADR-DSGN-TRACK; ADR-AUTO-MODULE | |
+| F3 | every decision names its ADR home now; homeless is reopened | yes | this column; plans shrink as ADRs land | ADR-REPO-PLANS | |
+| F4 | five tree changes in order: body hashes, .unordered, out/ areas, plans gate, pwsh move | yes | top-level tree settled in five steps | ADR-REPO-FILEMETA; ADR-DSGN-TRACK#17; ADR-REPO-OUTDIR; ADR-REPO-PLANS; ADR-AUTO-LAYERS | |
+| F5 | every config type audited into a posture; literals go; one defaults file per type; analyzer keeps it | yes | configuration doctrine enforced end to end | ADR-PRIN-CONFIG; ADR-AUTO-DEFAULT; ADR-REPO-CONTRACT | fragment folder name waits for ADR-CATS |
+| F6 | most of the 439 become internal; pilot hand-written; generation from ADRs tried second | yes | public API shrinks to what contracts name | ADR-REPO-CONTRACT#1; ADR-REPO-CMDCONTRACT | |
+| F7 | generated tracked files and the analyzer cache are commit resources keyed by globset; body_sha is the key's face | yes | ADR-AUTO-MATERIAL names the kinds | ADR-AUTO-MATERIAL; ADR-REPO-FILEMETA#7 | |
+| F8 | HELP#3 relaxed; bold rule lines in principles ADRs; glossary gate covers .claude/plans; sampled review fixes patterns | yes | citation with the claim; gate reaches planning files | ADR-REPO-HELP#3; index authoring conventions; ADR-REPO-VOCAB | |
+| F9 | reading rule cites rules by code; model policy in agents.yml; doctrine memory points at rules; git the user's | yes | cheaper sessions, one source of doctrine | CLAUDE.md; ADR-REPO-AGENTS; ADR-PROC-BUILTIN#3 | |
+| F10 | the first import into the landing zone | yes | the track model proven on foreign code | ADR-DSGN-TRACK#17 | after module model and pwsh move |
+| S1 | yes: one gated vocabulary, cats outside, catzc inside | yes | ADR-CATS and the gate's scope | ADR-CATS; ADR-REPO-VOCAB | F1, F8 |
+| S2 | yes: typed tracks owning kinds, Module among them; the import is the proof | yes | track model is the structure | ADR-DSGN-TRACK; ADR-DSGN-TRACKTYPE | F2, F10 |
+| S3 | yes: sessions produce rules, tests, configs; plans are deltas | yes | no parked plans, no homeless decisions | ADR-REPO-PLANS; ADR-REPO-AGENTS | F3, F9 |
+| S4 | yes: one tree of settled roots; authored or commit-keyed files | yes | hashes only where a key needs a face | ADR-AUTO-MATERIAL; ADR-REPO-FILEMETA | F4, F7 |
+| S5 | yes: configuration over a contracted surface | yes | analyzer rule and contracts as the only API | ADR-PRIN-CONFIG; ADR-REPO-CONTRACT | F5, F6 |
+| T1 | what it is: typed tracks, one gated vocabulary, configuration over a contracted surface | yes | the thesis statement's first half | docs/adr/thesis | S1, S2, S5 |
+| T2 | how it changes: rules not plans, keys not hashes, five steps then an import | yes | the thesis statement's second half | docs/adr/thesis | S3, S4 |
+| C1 | comment: node_modules compares to .vendor | n/a | a prune-set and vendor-track note | ADR-DSGN-TRACKTYPE (vendor); ADR-PWSH-ENUM (prune) | user: "mostly ignored by everything but their loader", tracked or not |
+| U1 | ADR-AI: a 100-line agent contract every agent and skill reads first | n/a (user's ask) | tests postponed and reported as owed; no agent git; cheap verification | ADR-AI (new, written 2026-10-16, unregistered) | front matter `contracts: [ADR-AI]` on robots and skills; plan-adr-ai |
+| Q127 | body only, description capped at 3 lines | yes      | roofs.agent_body_lines counts the body only    | front matter fixed by rule 4                               |
+| Q128 | 10 lines outside the catzc head       | yes       | drawio-renderer must lose one line             | plan's own count of the built file is 11, not 10           |
+| Q129 | amend ADR-REPO-AGENTS                 | yes       | rules 6 to 12 plus a Capabilities section      | no ADR-REPO-CAPS                                           |
+| Q130 | dotted <domain>.<job>                 | yes       | gate enforces the two name regexes             | agents stay hyphenated                                     |
+| Q131 | protocol becomes drawio-waves         | yes       | makers are drawio-png; lead body is the loop   | floor sonnet on drawio-waves                               |
+| Q132 | effort and maxTurns on every robot    | yes       | gate requires both keys                        | maxTurns per robot in the agents catalogue                 |
+| Q133 | two jobs, two robots                  | yes       | write-drawio-files stays                       | drawio-png hands parameter edits to it                     |
+| Q134 | adr-reviewer on sonnet                | yes       | model_reason in the registry                   |                                                            |
+| Q135 | drawio-png confirmed                  | yes       | agents lower-case hyphenated                   |                                                            |
+| Q136 | floors kept as catalogued             | yes       | adr-cite stays haiku                           | catzc-worker's sonnet is a Phase 3 hypothesis              |
+| Q137 | report-fixed stays a capability       | yes       | report shape written once                      | built by a peer session during the round                   |
+| Q138 | paths on file-family capabilities     | yes       | drawio.*, plan.*, md-links pinned              | report-fixed and catzc-run unpinned                        |
+| Q139 | Phase 1 now                           | yes       | doctrine, roofs, capabilities.yml, gate next   | peer session built the shared capabilities during the round; rewrites in flight there |
+| Q140 | ADR-AI named once, no per-file key    | yes       | CLAUDE.md line plus top-level contracts in agents.yml | user: a key is never just dropped; its meaning and context go into a markdown page: docs/references/agent-contracts.md, absorbed by ADR-AI's Context when written; plan-adr-ai steps 34, 40, 46 change; the key on plan-intake and plan-decide is removed by its author |
+
+## Batch 2: the 25 unasked items, answered by the planner on the user's delegation (2026-10-16)
+
+The user delegated the remaining items; each takes the planner's sealed recommendation unless a batch-1 answer already settled it.
+
+| Q | Decision | By | Outcome | ADR home |
+| --- | --- | --- | --- | --- |
+| Q102 | plans obey one living version: done-and-why goes when its data is in the tree | settled by S3 | plans shrink to the delta | ADR-REPO-PLANS; ADR-PRIN-ONELIVE#5 |
+| Q103 | guards are controls becomes an ADR rule the materialization ADR cites | planner | no cached guard verdict, by rule | ADR-AUTO-MATERIAL; ADR-AUTO-FAILFAST |
+| Q104 | every idea taken from the sibling checkout is named in the plan that uses it | planner | provenance of ideas visible | ADR-REPO-INSPIRATION |
+| Q105 | cats and catzc by ADR-CATS; pwsh and automation by ADR-AUTO-LAYERS; glossary terms follow | settled by F1 | four names, two rules | ADR-CATS; ADR-AUTO-LAYERS |
+| Q106 | per-unit freezes; no repo-wide version | planner | contracts freeze unit by unit | ADR-REPO-CONTRACT#3 #5; thesis |
+| Q107 | public exactly what a contract names | settled by F6 | the 439 shrink to the contracted | ADR-REPO-CONTRACT#1 |
+| Q108 | generation from ADRs is a direction tried on the second contract set | settled by F6 | hand-written pilot first | ADR-REPO-CMDCONTRACT |
+| Q109 | the reading rule cites rules by code | settled by F9 | cheaper sessions | CLAUDE.md |
+| Q110 | time safeguard limits stay tight; tune from the denial log | planner | 3 s and 360 s unchanged | ADR-AUTO-FAILFAST#7 |
+| Q111 | model policy in agents.yml | settled by F9 | reads haiku, edits sonnet, coordination main | ADR-REPO-AGENTS |
+| Q112 | doctrine memory points at a rule or CLAUDE.md line | settled by F9 | one source of doctrine | CLAUDE.md |
+| Q113 | the head is the generated marker; folders may mix | planner | no separate generated tree | ADR-REPO-FILEMETA#7 |
+| Q114 | comment pages hold prose for C# too | planner | one mechanism per kind | ADR-REPO-COMMENTS |
+| Q115 | glossary gate covers plans and prompts | settled by F8 | planning files gated | ADR-REPO-VOCAB |
+| Q116 | render nothing unasked is a CLAUDE.md line, and ADR-AI rule 13 | planner | memory becomes rule | CLAUDE.md; ADR-AI#13 |
+| Q117 | every open step names its check: a rule and a Test-Plans check | planner | a step without a check is not a step | ADR-REPO-PLANS |
+| Q118 | the first import into the landing zone | settled by F10 | track model proven | ADR-DSGN-TRACK#17 |
+| Q119 | the user is the only mutating-git actor | settled by F9 | ADR-AI rule 5 | ADR-AI#5 |
+| Q120 | method kept: recommendation first, four per ask, funnels of 20 to 10 to 5 to 2 to one | user changed it today | the plan-decide robot encodes it | plan-decide capability |
+| Q121 | every rule statement bold, all domains | settled by F8 | gate finds every defining rule | index authoring conventions |
+| Q122 | INPUT pipelines land via PR or directly: for the user (batch-2 question) | open | | ADR-FLOW pipeline types |
+| Q123 | engine names settled by layers P1 with the vocabulary | planner | one place decides | ADR-AUTO-ENGINE#4; ADR-AUTO-LAYERS |
+| Q124 | branch tag on a devbox deploy: for the user (batch-2 question) | open | | ADR-AZ CAF naming |
+| Q125 | service connection per environment: for the user (batch-2 question) | open | | ADR-AZ CAF identity |
+| Q126 | ADR-REPO-PLANS cites reduce waste, poka-yoke and one living version | planner | three reasons, one rule set | ADR-REPO-PLANS |
+
+## Batch 2: the five for the user (2026-10-16)
+
+| Q | Decision | Rec | Outcome | ADR home |
+| --- | --- | --- | --- | --- |
+| B1 | INPUT pipelines: keep open until one exists | yes | the flow ADR's open line stays | ADR-FLOW pipeline types |
+| B2 | Azure leftovers: open until a deploy touches them | yes | two CAF lines stay open | ADR-AZ CAF naming and identity |
+| B3 | ADR-CATS in the principles domain | yes | docs/adr/principles/cats.md or similar | ADR-CATS |
+| B4 | locators rule in ADR-REPO-FOLDERS; PowerShell naming in ADR-REPO-VOCAB | yes | the two "to confirm" homes confirmed | ADR-REPO-FOLDERS; ADR-REPO-VOCAB |
+| B5 | first probe batch: not answered; stays open | open | no deletion without a yes | none (action) |
+
+## After the round
+
+- U3 (2026-10-16, decided by session catzc-bf on the user's delegation "decide and talk to the active planner"; supersedes U2): Q140
+  stands. ADR-AI is named once, in the CLAUDE.md session-start line and as the top-level `contracts: [ADR-AI]` in agents.yml; no
+  per-file key on robots or capabilities; rule 6's key set stays closed. Reasons: Q140 is the later answer and came with the rule that
+  a removed key gets a page for its meaning (docs/references/agent-contracts.md, written); a value identical on every file is a
+  constant, declared once (ADR-PRIN-CONFIG, ADR-PRIN-REDUCEVAR, robots program rule 4); the gate proves every robot reads ADR-AI
+  through the registry list and the CLAUDE.md check, one declaration instead of 23; the tree already followed Q140. The planner's
+  question to the user on the collision is withdrawn; its first answer had been withdrawn by the user as a flake. The five planner
+  files are clean of the key; the ADR's Decision text and plan-adr-ai say "named once". ADR home: ADR-REPO-AGENTS#6.
+
+- U2 (2026-10-16, user, on a peer's report that Test-AgentDefinitions fails on the `contracts:` key): keep `contracts: [ADR-AI]` in the
+  front matter and extend ADR-REPO-AGENTS#6's fixed key set with `contracts` after `skills` for agents and after `metadata` for
+  capabilities; the gate checks every agent and skill names ADR-AI. Recommendation taken. ADR home: ADR-REPO-AGENTS#6 and #8. Landed
+  the same day by session catzc-d7: required set in agents.yml with its default on AgentsConfig, rolled out to 9 robots and 14
+  capabilities, gate green.
 
 ## Folded into the plans
 
-- 2026-10-16: Q01 to Q57 folded (plan-plans-body-sha-landing-zone, plan-config-defaults, plan-layers-vocabulary-rename-contracts, plan-module-kinds-tracks, plan-file-head-immutable-edges-classes, plan-adr-link-cleanup-prose-to-pages, new plan-adr-cats). Q51 checked: the memory note's only "derived" is the English verb, not the old block name; nothing to fix.
+- Planner tasks done 2026-10-16: Q26 every dead out/ plan or prompt path in the eleven prompt files re-pointed to its .claude/plans
+  sibling (out/ script paths and future out/ outputs left as they are); Q91 the three lagging memory notes carry a dated update and the
+  memory index line is current; U1 ADR-AI written and named in the five planner files. Still for others: Q89 link re-pointing with
+  the link tool, Q09 the .unordered deletion, Q77 the probe batches, every ADR in the home column.
+
+- 2026-10-16: Q01 to Q57 folded first; then Q58 to T2 and C1 with the funnel's end (plan-plans-body-sha-landing-zone, plan-config-defaults,
+  plan-layers-vocabulary-rename-contracts, plan-module-kinds-tracks, plan-file-head-immutable-edges-classes, plan-adr-link-cleanup-prose-to-pages,
+  plan-materialization-of-knowledge, plan-out-artifacts, plan-adr-cats, plan-minimal-robots-agents, plan-bounded-folder-enumeration).
+- Reopened (no ADR home yet): none. To confirm a home: Q05 (which repository ADR carries the naming rule), Q45 (VOCAB or LAYERS).

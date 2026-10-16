@@ -36,10 +36,19 @@ generated heads. One word and one default prevent each of them from inventing it
   not recorded as a rule. The three open choices below are the session's own recommendations, taken for the draft only.
 - Memory entry materialization-of-knowledge-resources.md saved with its MEMORY.md pointer.
 
+## Decided in the questionnaire round of 2026-10-16 (Q66 to Q70, F7, S4)
+
+- The commit key is the scoped sha of a deployable-module globset (the patterns in globs.yml), with config variants possible; the
+  user's words: "scoped shas should basically be our deployable module glob patterns we can make config variants for".
+- Declared per resource kind with one default; an instance changes it only by an explicit pin. A commit resource on a dirty tree falls
+  back to on-demand with one announced line. Its own ADR, ADR-AUTO-MATERIAL, next to ADR-AUTO-CACHE, written now.
+- Scope (F7): generated tracked files and the analyzer cache become commit resources keyed by their globset; body_sha is that key's
+  visible form; on-demand stays the default for everything else.
+
 ## Needed docs
 
-- ADR-AUTO-MATERIAL: the axis, the default, the guard exception, the loud fallback. Registered in adrs.yml, a dora-explains.md entry,
-  the index regenerated.
+- ADR-AUTO-MATERIAL: the axis, the default, the globset key, the guard exception, the loud fallback, the kinds that are commit
+  resources. Registered in adrs.yml, a dora-explains.md entry, the index regenerated.
 - Glossary entry in the owning module's configs/glossary.yml, contrasting cache and persistence.
 - The sha-marker companion plan rewritten to say its marker is a commit-materialized resource.
 
@@ -50,9 +59,7 @@ generated heads. One word and one default prevent each of them from inventing it
 
 ## Open steps
 
-- [ ] Confirm the three choices: scoped-sha commit key; declared per resource kind with one default, instances pin only explicitly;
-  dirty tree falls back to on-demand loudly (check: the draft's Open choices section says confirmed).
-- [ ] Write the ADR and the glossary entry (check: the three gates clean).
+- [ ] Write the ADR and the glossary entry from the decided section (check: the three gates clean).
 - [ ] Check the sha-marker companion plan for overlap (check: its text names materialization).
 
 ## Refs

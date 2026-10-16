@@ -51,6 +51,39 @@ Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#2' {
         $message | Should -Match "missing required key 'agents'"
     }
 
+    It 'declares the roofs once as defaults and takes an override from roofs' -Tag 'ADR-REPO-AGENTS#6', 'ADR-REPO-AGENTS#8' {
+        $default = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($widget) })
+        $default.agent_body_lines | Should -Be 20
+        $default.capability_lines | Should -Be 10
+        $set = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($widget); roofs = [ordered]@{ agent_body_lines = 12 } })
+        $set.agent_body_lines | Should -Be 12
+        $set.capability_lines | Should -Be 10
+        $thrown = { [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($widget); roofs = [ordered]@{ capability_lines = 0; gizmo = 1 } }) } |
+            Should -Throw -PassThru
+        $thrown.Exception.Message | Should -Match 'roofs: capability_lines must be a positive integer'
+        $thrown.Exception.Message | Should -Match "roofs: unknown key 'gizmo'"
+    }
+
+    It 'keeps model_reason optional and rejects it empty' -Tag 'ADR-REPO-AGENTS#7' {
+        $reasoned = [ordered]@{ name = 'widget'; supported_by = @('ADR-WI-ONE#1'); checks = @(); model_reason = 'judges across files' }
+        $config = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($reasoned, $gadget) })
+        $config.agents[0].model_reason | Should -Be 'judges across files'
+        $config.agents[1].model_reason | Should -BeNullOrEmpty
+        $empty = [ordered]@{ name = 'widget'; supported_by = @('ADR-WI-ONE#1'); checks = @(); model_reason = '' }
+        { [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($empty) }) } |
+            Should -Throw "*'model_reason' is empty*"
+    }
+
+    It 'declares the required contracts once as a default and takes an override' -Tag 'ADR-REPO-AGENTS#6' {
+        $default = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($widget) })
+        $default.contracts | Should -Be @('ADR-AI')
+        $set = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($widget); contracts = @('ADR-WI', 'ADR-GA') })
+        $set.contracts | Should -Be @('ADR-WI', 'ADR-GA')
+        $thrown = { [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($widget); contracts = @('ADR-WI#1') }) } |
+            Should -Throw -PassThru
+        $thrown.Exception.Message | Should -Match "contracts entry 'ADR-WI#1' must be a bare ADR code"
+    }
+
     It 'rejects an empty agents list' {
         { [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @() }) } |
             Should -Throw '*agents must be a non-empty list*'

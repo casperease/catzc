@@ -7,6 +7,6 @@ prompt as pasted.
 
 ---
 
-Read out/plan-head-path-split.md. The head path-split work is done; pick up only the "Left" items I name: run the spelling gate and fix
+Read .claude/plans/plan-file-head-immutable-edges-classes.md (section: head path split). The head path-split work is done; pick up only the "Left" items I name: run the spelling gate and fix
 coined words if flagged, and (if I say so) extend generated-file heads with folder/name. Follow .claude/CLAUDE.md: one file at a time,
 Bash timeout 3000, background runs via a script in out/, no mutating git.

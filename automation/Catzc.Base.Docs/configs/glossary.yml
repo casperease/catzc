@@ -33,6 +33,29 @@ concepts:
       One labeled section of a plan's work breakdown (`out/plan-*.md`) — its own `### W<n>:` heading, order, and gate — that lands as one
       change.
     realized_by: { kind: prose-only }
+  robot:
+    key: robot
+    domain: repository
+    defined_by: ADR-REPO-AGENTS#6
+    short:
+      A sub-agent in its minimal form — a body of at most the roof's lines on a named model, loading shared know-how from capabilities
+      instead of carrying it.
+    realized_by: { kind: prose-only }
+  capability:
+    key: capability
+    domain: repository
+    defined_by: ADR-REPO-AGENTS#8
+    short:
+      One `.claude/skills/<domain>-<job>/SKILL.md` file a robot preloads through its `skills` list — at most the roof's lines, with a model
+      floor declared once in its metadata.
+    realized_by: { kind: prose-only }
+  model floor:
+    key: model_floor
+    domain: repository
+    defined_by: ADR-REPO-AGENTS#7
+    short:
+      The lowest model that performs a capability's steps reliably; no robot that preloads the capability runs below it.
+    realized_by: { kind: prose-only }
   domain:
     key: domain
     domain: repository

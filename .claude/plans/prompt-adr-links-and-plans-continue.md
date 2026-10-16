@@ -2,22 +2,22 @@
 
 Paste this into a new session in `C:\projects\catzc`.
 
-Carried here from out/continuation-prompt-adr-links-and-plans.md on 2026-10-16. Where the text below names `out/plan-adr-link-cleanup.md`
-read `plan-adr-link-cleanup-prose-to-pages.md` beside this file, and where it names `out/plan-claude-plans.md` read
+Carried here from .claude/plans/prompt-adr-links-and-plans-continue.md on 2026-10-16. Where the text below names `.claude/plans/plan-adr-link-cleanup-prose-to-pages.md`
+read `plan-adr-link-cleanup-prose-to-pages.md` beside this file, and where it names `.claude/plans/plan-plans-body-sha-landing-zone.md` read
 `plan-plans-body-sha-landing-zone.md`; each carries its draft verbatim under a "Carried" heading. The ledger, its scripts and the analysis
 text stay in out/. The three open decisions it waits on are still open.
 
 ---
 
-Read `.claude/CLAUDE.md` and `docs/adr/index.md`, then `out/plan-claude-plans.md` and `out/plan-adr-link-cleanup.md` (each opens with a
+Read `.claude/CLAUDE.md` and `docs/adr/index.md`, then `.claude/plans/plan-plans-body-sha-landing-zone.md` and `.claude/plans/plan-adr-link-cleanup-prose-to-pages.md` (each opens with a
 "Status at the end of the 2026-10-16 session" block).
 
 ## Two plans, one order
 
-1. **`out/plan-claude-plans.md`** (nothing started, all questions answered): Phase 0 the body-hash policy; Phase 1 `.unordered/` as an
+1. **`.claude/plans/plan-plans-body-sha-landing-zone.md`** (nothing started, all questions answered): Phase 0 the body-hash policy; Phase 1 `.unordered/` as an
    import landing zone; Phase 2 tracked plans in `.claude/plans/` with a cleaner. Start with the two read-only audits: the `.unordered`
    bindings (about 27 files) and the triage of the 20 plans in `.unordered/15-10-2026/`.
-2. **`out/plan-adr-link-cleanup.md`** (paused): Steps 1.0 and 1.1 done, Step 1.2 piloted on one slice. It resumes after the plan move.
+2. **`.claude/plans/plan-adr-link-cleanup-prose-to-pages.md`** (paused): Steps 1.0 and 1.1 done, Step 1.2 piloted on one slice. It resumes after the plan move.
 
 ## Decisions already made (do not re-ask)
 

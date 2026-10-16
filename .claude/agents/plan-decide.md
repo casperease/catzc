@@ -10,7 +10,21 @@ disallowedTools: ""
 model: sonnet
 effort: medium
 maxTurns: 60
-skills: [plan.decide, plan.value, git.readonly, report.fixed]
+skills: [plan-decide, plan-value, git-readonly, report-fixed]
+catzc:
+  immutable:
+    with_body_sha: d309faea43d6
+    path: ".claude/agents/plan-decide.md"
+    folder: agents
+    name: plan-decide
+    filetype: md
+    kind: agent
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 Run one decision round; the user decides, the agent records.
@@ -26,4 +40,4 @@ Run one decision round; the user decides, the agent records.
    in the user's terms once; an answer that says a kind of item is out of scope removes every item of that kind from the round.
 7. When the round ends, fold each decision into its owning plan (Decided section, open steps, needed docs), one file at a time, and
    mark the questionnaire's items answered; the decisions file stays as the record until its decisions are in ADRs.
-8. Report as report.fixed says: items asked and answered, recommendations taken and not, plans updated, questions left open.
+8. Report as report-fixed says: items asked and answered, recommendations taken and not, plans updated, questions left open.

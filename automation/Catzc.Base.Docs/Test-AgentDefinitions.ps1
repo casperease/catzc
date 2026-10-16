@@ -20,12 +20,13 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-REPO-AGENTS
   config:
-    synopsis: 'Quality gate: the sub-agent definitions, their registry (agents.yml), and the .claude/CLAUDE.md list agree.'
+    synopsis: 'Quality gate: the sub-agent definitions, their capabilities, both registries, and the .claude/CLAUDE.md list agree.'
     description: |-
       A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the
-      sub-agent definitions .claude/agents/*.md, the registry (Get-Config -Config agents, an AgentsConfig), and the
-      `## Sub-agents` section of .claude/CLAUDE.md
-      ([ADR-REPO-AGENTS](/docs/adr/repository/agent-definitions.md)). It collects an issue when:
+      sub-agent definitions .claude/agents/*.md, the capabilities .claude/skills/*/SKILL.md, the two registries
+      (Get-Config -Config agents, an AgentsConfig; Get-Config -Config capabilities, a CapabilitiesConfig), and the
+      `## Sub-agents` section of .claude/CLAUDE.md ([ADR-REPO-AGENTS](/docs/adr/repository/agent-definitions.md)).
+      It collects an issue when:
 
         - an agent file has no registry entry, or an entry has no agent file;
         - a file's front matter does not parse, its `name` differs from the file name, or it lacks a `description`,
@@ -36,13 +37,28 @@ catzc:
         - a registered agent is not listed in the CLAUDE.md section, or a listed agent is not registered
           ([ADR-REPO-AGENTS#3](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents3));
         - a specialised agent is not named in the standard agent's description
-          ([ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4)).
+          ([ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4));
+        - an agent's body has more lines than roofs.agent_body_lines, or its front matter carries a key outside the
+          robot set or out of the fixed order
+          ([ADR-REPO-AGENTS#6](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents6));
+        - .claude/CLAUDE.md does not name a contract of the registry's `contracts`, the contracts every robot reads
+          first, named once there and never per file
+          ([ADR-REPO-AGENTS#6](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents6));
+        - an agent names no `model`, names `inherit`, or names a model below the highest `model_floor` of the
+          capabilities it preloads ([ADR-REPO-AGENTS#7](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents7));
+        - a capability has more lines than roofs.capability_lines outside its catzc head, its `name` differs from
+          its folder, it is user-invocable, or it lacks `allowed-tools` or a `metadata.catzc.model_floor` of haiku,
+          sonnet or opus ([ADR-REPO-AGENTS#8](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents8));
+        - a `skills` name has no capability file, or a capability is preloaded by no agent
+          ([ADR-REPO-AGENTS#9](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents9));
+        - a capability file has no registry entry, an entry has no file, or an entry's citation or check resolves
+          to nothing ([ADR-REPO-AGENTS#10](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents10)).
 
-      The registry's own shape (citation and command spelling, distinct names, a standard that names an entry) is an
-      AgentsConfig construction rule, not this gate's.
+      The registries' own shape (citation and command spelling, distinct names, a standard that names an entry, the
+      roofs) is an AgentsConfig or CapabilitiesConfig construction rule, not this gate's.
     parameters:
       OutputFolder: The report base folder. Defaults to out/test-agent-definitions/ (Write-QualityGateReport).
-      PassThru: Return the result ({ Subject; IssueCount; Issues; ReportPath; Agents; Files }) instead of throwing on issues.
+      PassThru: Return the result ({ Subject; IssueCount; Issues; ReportPath; Agents; Files; Capabilities }) instead of throwing on issues.
     outputs: '[pscustomobject] With -PassThru only.'
     examples:
       - Test-AgentDefinitions
@@ -59,13 +75,66 @@ function Test-AgentDefinitions {
     )
 
     $config = Get-Config -Config agents
+    $capabilityConfig = Get-Config -Config capabilities
     $agentsRoot = Resolve-RepoPath '.claude/agents'
+    $skillsRoot = Resolve-RepoPath '.claude/skills'
     $claudeMd = Resolve-RepoPath '.claude/CLAUDE.md'
     $issues = [System.Collections.Generic.List[string]]::new()
+    $robotKeys = @('name', 'description', 'tools', 'disallowedTools', 'model', 'effort', 'maxTurns', 'skills', 'catzc')
+    $modelRank = @{ haiku = 1; sonnet = 2; opus = 3; fable = 4 }
 
     $entries = [ordered]@{}
     foreach ($entry in $config.agents) {
         $entries[$entry.name] = $entry
+    }
+
+    # The capability files first: their floors decide what model an agent may name.
+    $capabilityFiles = @(if ([System.IO.Directory]::Exists($skillsRoot)) {
+            Get-ChildPath $skillsRoot -Depth 2 -File -Filter 'SKILL.md' | ForEach-Object { [string]$_ } | Sort-Object
+        })
+    $floors = @{}
+    foreach ($file in $capabilityFiles) {
+        $name = [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($file))
+        $relative = ".claude/skills/$name/SKILL.md"
+        try {
+            $frontMatter = Get-AgentFrontMatter -Path $file
+        }
+        catch {
+            $issues.Add("${relative}: $($_.Exception.Message)")
+            continue
+        }
+        $declared = if ($frontMatter.Contains('name')) {
+            [string]$frontMatter['name']
+        }
+        if ($declared -cne $name) {
+            $issues.Add("${relative}: front-matter name '$declared' must equal the folder name '$name'")
+        }
+        if (-not $frontMatter.Contains('user-invocable') -or [string]$frontMatter['user-invocable'] -ne 'False') {
+            $issues.Add("${relative}: front matter must set user-invocable: false")
+        }
+        if (-not $frontMatter.Contains('allowed-tools') -or [string]::IsNullOrWhiteSpace([string]$frontMatter['allowed-tools'])) {
+            $issues.Add("${relative}: front matter has no allowed-tools")
+        }
+        $floor = $null
+        if ($frontMatter.Contains('metadata') -and $frontMatter['metadata'] -is [System.Collections.IDictionary] -and
+            $frontMatter['metadata'].Contains('catzc') -and $frontMatter['metadata']['catzc'] -is [System.Collections.IDictionary] -and
+            $frontMatter['metadata']['catzc'].Contains('model_floor')) {
+            $floor = [string]$frontMatter['metadata']['catzc']['model_floor']
+        }
+        if (-not $floor -or -not $modelRank.ContainsKey($floor)) {
+            $issues.Add("${relative}: metadata.catzc.model_floor must be haiku, sonnet or opus")
+        }
+        else {
+            $floors[$name] = $floor
+        }
+        $lines = Get-RobotLineCount -Path $file
+        if ($lines.Capability -gt $config.capability_lines) {
+            $issues.Add("${relative}: has $($lines.Capability) lines outside its catzc head, the roof is $($config.capability_lines) (roofs.capability_lines)")
+        }
+    }
+    $capabilityNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    foreach ($file in $capabilityFiles) {
+        [void]$capabilityNames.Add([System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($file)))
     }
 
     # The agent files, by name, and the descriptions the standard-agent check reads.
@@ -73,6 +142,7 @@ function Test-AgentDefinitions {
             [System.IO.Directory]::GetFiles($agentsRoot, '*.md') | Sort-Object
         })
     $descriptions = @{}
+    $preloaded = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($file in $files) {
         $name = [System.IO.Path]::GetFileNameWithoutExtension($file)
         $relative = ".claude/agents/$name.md"
@@ -107,6 +177,50 @@ function Test-AgentDefinitions {
         if (-not $frontMatter.Contains('tools') -or [string]::IsNullOrWhiteSpace([string]$frontMatter['tools'])) {
             $issues.Add("${relative}: front matter has no tools")
         }
+        $position = -1
+        foreach ($key in @($frontMatter.Keys)) {
+            $index = [Array]::IndexOf($robotKeys, [string]$key)
+            if ($index -lt 0) {
+                $issues.Add("${relative}: front-matter key '$key' is outside the robot set ($($robotKeys -join ', '))")
+            }
+            elseif ($index -lt $position) {
+                $issues.Add("${relative}: front-matter key '$key' is out of the fixed order ($($robotKeys -join ', '))")
+            }
+            else {
+                $position = $index
+            }
+        }
+        $model = if ($frontMatter.Contains('model')) {
+            [string]$frontMatter['model']
+        }
+        if ([string]::IsNullOrWhiteSpace($model) -or $model -eq 'inherit') {
+            $issues.Add("${relative}: front matter must name a model (haiku, sonnet or opus), never inherit")
+            $model = $null
+        }
+        $skills = @(if ($frontMatter.Contains('skills') -and $null -ne $frontMatter['skills']) {
+                @($frontMatter['skills'])
+            })
+        foreach ($skill in $skills) {
+            $skill = [string]$skill
+            if (-not $capabilityNames.Contains($skill)) {
+                $issues.Add("${relative}: skills names '$skill', which has no file .claude/skills/$skill/SKILL.md")
+                continue
+            }
+            [void]$preloaded.Add($skill)
+            if ($model -and $floors.ContainsKey($skill) -and $modelRank.ContainsKey($model) -and $modelRank[$model] -lt $modelRank[$floors[$skill]]) {
+                $issues.Add("${relative}: model '$model' is below the model_floor '$($floors[$skill])' of capability '$skill'")
+            }
+        }
+        $lines = Get-RobotLineCount -Path $file
+        if ($lines.Body -gt $config.agent_body_lines) {
+            $issues.Add("${relative}: body has $($lines.Body) lines, the roof is $($config.agent_body_lines) (roofs.agent_body_lines)")
+        }
+    }
+
+    foreach ($name in $capabilityNames) {
+        if (-not $preloaded.Contains($name)) {
+            $issues.Add(".claude/skills/$name/SKILL.md: no agent preloads it in its skills list")
+        }
     }
 
     $fileNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
@@ -132,6 +246,40 @@ function Test-AgentDefinitions {
         }
     }
 
+    $registered = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    foreach ($entry in $capabilityConfig.capabilities) {
+        [void]$registered.Add($entry.name)
+        if (-not $capabilityNames.Contains($entry.name)) {
+            $issues.Add("capabilities.yml: capability '$($entry.name)' has no file .claude/skills/$($entry.name)/SKILL.md")
+        }
+        foreach ($citation in $entry.supported_by) {
+            if (-not $ruleIds.Contains($citation.Replace('#', ':'))) {
+                $issues.Add("capabilities.yml: capability '$($entry.name)' supported_by '$citation' names no ADR rule")
+            }
+        }
+        foreach ($check in $entry.checks) {
+            if (-not (Get-Command -Name $check -ErrorAction Ignore)) {
+                $issues.Add("capabilities.yml: capability '$($entry.name)' checks '$check' names no command")
+            }
+        }
+    }
+    foreach ($name in $capabilityNames) {
+        if (-not $registered.Contains($name)) {
+            $issues.Add(".claude/skills/$name/SKILL.md: has no entry in capabilities.yml")
+        }
+    }
+
+    # The contracts every robot reads first are named once, in the registry and in CLAUDE.md, never per file.
+    $claudeText = ''
+    if ([System.IO.File]::Exists($claudeMd)) {
+        $claudeText = [System.IO.File]::ReadAllText($claudeMd)
+    }
+    foreach ($contract in @($config.contracts)) {
+        if (-not $claudeText.Contains($contract)) {
+            $issues.Add(".claude/CLAUDE.md: does not name the contract '$contract' that agents.yml contracts requires every robot to read first")
+        }
+    }
+
     $listed = @(Get-ClaudeMdAgentNames -Path $claudeMd)
     foreach ($name in $entries.Keys) {
         if ($listed -cnotcontains $name) {
@@ -153,5 +301,5 @@ function Test-AgentDefinitions {
     }
 
     Write-QualityGateReport -Subject 'agent-definitions' -Title 'Test-AgentDefinitions' -Issues $issues `
-        -Facts ([ordered]@{ Agents = $entries.Count; Files = $files.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
+        -Facts ([ordered]@{ Agents = $entries.Count; Files = $files.Count; Capabilities = $capabilityFiles.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

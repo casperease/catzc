@@ -5,7 +5,7 @@
 #     folder: drawio
 #     name: drawio
 #     filetype: yml
-#     kind: config
+#     kind: drawio-kit
 #     language: yaml
 #     track: ".claude"
 #     tracktype: vendor-settings

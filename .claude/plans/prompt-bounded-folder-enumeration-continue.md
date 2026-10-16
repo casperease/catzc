@@ -6,7 +6,7 @@ whole-suite run. Peer sessions edit the repository at the same time: re-read a f
 
 ## State
 
-The bounded folder enumeration feature is built and migrated (plan: `out/plan-bounded-folder-enumeration.md`, memory note
+The bounded folder enumeration feature is built and migrated (plan: `.claude/plans/plan-bounded-folder-enumeration.md`, memory note
 `bounded-folder-enumeration`): module `Catzc.Base.Folders` (`FolderWalker`, `FolderWalkConfig`, `folder-walk.yml`, `Get-ChildPath`),
 `ADR-PWSH-ENUM`, every non-test and test call site migrated, analyzer rule `Measure-NoUnboundedEnumeration`.
 

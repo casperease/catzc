@@ -1,0 +1,110 @@
+# ---
+# catzc:
+#   immutable:
+#     path: automation/Catzc.Base.Docs/configs/capabilities.yml
+#     folder: configs
+#     name: capabilities
+#     filetype: yml
+#     kind: config
+#     language: yaml
+#     track: automation
+#     tracktype: modules
+#     module: Catzc.Base.Docs
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     page: docs/references/automation/catzc-base-docs/configs/capabilities.yml.md
+# ---
+
+# One entry per capability .claude/skills/<name>/SKILL.md: the rules behind it and the checks it runs or guards. The model
+# floor is not here; it lives once in the file's metadata.catzc.model_floor, and Test-AgentDefinitions enforces it.
+capabilities:
+  # The time safeguard for every shell call and cats command a robot runs.
+  - name: catzc-run
+    supported_by: [ADR-AUTO-FAILFAST#7]
+    checks: []
+
+  # One gate or test file per run, its verdict forwarded verbatim.
+  - name: catzc-check
+    supported_by: [ADR-AUTO-TEST#35, ADR-PROC-BUILTIN#3]
+    checks: [Invoke-TestFile, Test-Links, Test-AgentDefinitions]
+
+  # How a cats module is built to the domain rules, one file at a time with its tests.
+  - name: catzc-module
+    supported_by: [ADR-PWSH-ONEFUNC#1, ADR-AUTO-DEFAULT#6, ADR-AUTO-TEST#3, ADR-AUTO-TYPES#8]
+    checks: [Invoke-TestFile, Test-ShippedConfigs, Test-ModuleDependency]
+
+  # Diagnosing and fixing one slow test file by the speed rules, nothing lost.
+  - name: test-speed
+    supported_by: [ADR-AUTO-TEST#21, ADR-AUTO-TEST#19, ADR-AUTO-TEST#22, ADR-PWSH-PESTER#9]
+    checks: [Invoke-TestFile, Test-ScriptAnalyzer]
+
+  # The per-file and end-of-task checks of a delegated change, and the shared files it never edits.
+  - name: catzc-verify
+    supported_by: [ADR-PROC-BUILTIN#3, ADR-AUTO-TEST#35, ADR-REPO-AGENTS#4]
+    checks: [Invoke-TestFile, Test-ScriptAnalyzer, Test-Spelling, Format-Types, Format-Code, Test-Links, Test-Glossary, Build-Readme, Build-Glossary, Build-AdrIndex, Test-GeneratedFiles]
+
+  # Finding the rules that govern a file set and citing them by code, without sweeping the corpus.
+  - name: adr-cite
+    supported_by: [ADR-REPO-LINK#5]
+    checks: []
+
+  # The fixed end-of-run report of every robot.
+  - name: report-fixed
+    supported_by: [ADR-REPO-AGENTS#4]
+    checks: []
+
+  # Git as a read-only probe; no state-changing command.
+  - name: git-readonly
+    supported_by: [ADR-PROC-BUILTIN#3]
+    checks: []
+
+  # Check and repair the links of one markdown file, one link at a time.
+  - name: md-links
+    supported_by: [ADR-REPO-LINK#1, ADR-REPO-LINK#5]
+    checks: [Test-Links, Format-Links]
+
+  # Republishing the Diagram Waves Review page from the catalogue on disk, its answers kept.
+  - name: artifact-publish
+    supported_by: [ADR-DORA-VISUAL#1, ADR-DORA-VISUAL#3]
+    checks: []
+
+  # Label and style edits in the embedded model of a .drawio.png, re-rendered and verified.
+  - name: drawio-model-edit
+    supported_by: [ADR-DSGN-VISUAL#4, ADR-REPO-FOLDERS#5]
+    checks: [Test-CheckedInBinaries]
+
+  # Looking at one diagram PNG in the kit's vocabulary, never a meaning.
+  - name: drawio-look
+    supported_by: [ADR-DSGN-VISUAL#1]
+    checks: []
+
+  # The wave protocol for authoring new diagrams: bounded fan-out, fixed briefs, one shared kit.
+  - name: drawio-waves
+    supported_by: [ADR-DSGN-VISUAL#1, ADR-DSGN-VISUAL#4, ADR-REPO-FOLDERS#5]
+    checks: [Test-CheckedInBinaries, Test-Links]
+
+  # Fail-forward render of a .drawio.png with its minimaps, on the dark page by default.
+  - name: drawio-renderer
+    supported_by: [ADR-DSGN-VISUAL#4]
+    checks: [Test-CheckedInBinaries]
+
+  # The verdict rules for one plan file.
+  - name: plan-shape
+    supported_by: [ADR-PRIN-ONELIVE#1, ADR-PRIN-NOWASTE#1]
+    checks: []
+
+  # Landing a pasted continuation prompt in the plans, nothing discarded.
+  - name: plan-intake
+    supported_by: [ADR-PRIN-ONELIVE#5, ADR-PRIN-NOWASTE#1]
+    checks: []
+
+  # A decision round over the plans' open questions.
+  - name: plan-decide
+    supported_by: [ADR-PRIN-CONFIG#5, ADR-PRIN-NOWASTE#1]
+    checks: []
+
+  # Ranking a plan by value and by the docs and tests it needs.
+  - name: plan-value
+    supported_by: [ADR-PRIN-NOWASTE#1, ADR-PROC-PULLWORK#1]
+    checks: []
