@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e3ec9d53914c
+    with_body_sha: f364d0f20408
     path: docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-four-domains-promote-one-artifact-architecture-drawio
@@ -12,10 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md
       - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
-      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.grid.md
-      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.tree.md
+      - docs/.assets/explanation/chain/adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md
+      - docs/.assets/explanation/grid/adr-dsgn-life--four-domains-promote-one-artifact--architecture.grid.md
+      - docs/.assets/explanation/tree/adr-dsgn-life--four-domains-promote-one-artifact--architecture.tree.md
       - docs/explanation/design/four-domains-promote-one-artifact.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
@@ -93,8 +93,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
 renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-life--four-domains-promote-one-artifact--architecture.grid.md),
-[tree](adr-dsgn-life--four-domains-promote-one-artifact--architecture.tree.md) and [value-chain map](adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md), which hold the reason for every lit cell or group as of that build.
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-dsgn-life--four-domains-promote-one-artifact--architecture.grid.md),
+[tree](tree/adr-dsgn-life--four-domains-promote-one-artifact--architecture.tree.md) and [value-chain map](chain/adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-DSGN-LIFE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

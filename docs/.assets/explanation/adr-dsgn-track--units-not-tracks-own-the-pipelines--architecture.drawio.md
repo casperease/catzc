@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "277fb182ae55"
+    with_body_sha: "103f31e77a6d"
     path: docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-track-units-not-tracks-own-the-pipelines-architecture-drawio
@@ -12,10 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.chain.md
       - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png
-      - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.grid.md
-      - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.tree.md
+      - docs/.assets/explanation/chain/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.chain.md
+      - docs/.assets/explanation/grid/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.grid.md
+      - docs/.assets/explanation/tree/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.tree.md
       - docs/explanation/design/units-not-tracks-own-the-pipelines.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
@@ -90,8 +90,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
 renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.grid.md),
-[tree](adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.tree.md) and [value-chain map](adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.chain.md), which hold the reason for every lit cell or group as of that build.
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.grid.md),
+[tree](tree/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.tree.md) and [value-chain map](chain/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-DSGN-TRACK" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

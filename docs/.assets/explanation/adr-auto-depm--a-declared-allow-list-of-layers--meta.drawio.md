@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9c7cdc7f0e5c"
+    with_body_sha: e8aaa2b7a171
     path: docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-depm-a-declared-allow-list-of-layers-meta-drawio
@@ -12,10 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md
       - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
-      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md
-      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md
+      - docs/.assets/explanation/chain/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md
+      - docs/.assets/explanation/grid/adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md
+      - docs/.assets/explanation/tree/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md
       - docs/explanation/automation/a-declared-allow-list-of-layers.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
@@ -91,8 +91,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
 renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md),
-[tree](adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md) and [value-chain map](adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md), which hold the reason for every lit cell or group as of that build.
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md),
+[tree](tree/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md) and [value-chain map](chain/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** META, with "Supports ADR-AUTO-DEPM" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

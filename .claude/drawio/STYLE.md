@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5cc03b54644d"
+    with_body_sha: "9c9ed8571f76"
     path: ".claude/drawio/STYLE.md"
     folder: drawio
     name: style
@@ -287,20 +287,20 @@ value-chain view is still to come). A minimap lights the repository's citations 
 under `docs/.assets/` (the slide descriptions and the minimaps' sister files), `docs/explanation/` (the articles the slides illustrate) and
 `.claude/drawio/` (this tooling) cite nothing for the highlight (`maps.yml` `highlight.citation_exclude`); they still sit in their cell.
 
-1. **Grid** (`<stem>.grid.png`). Rows are the tracks and columns the file languages, in the map's order, with the root-file row and the
+1. **Grid** (`grid/<stem>.grid.png`). Rows are the tracks and columns the file languages, in the map's order, with the root-file row and the
    unlisted-file column last. Every cell is an idle grey box, empty ones included, and every **lit cell** is filled in the lit colour. A
    cell lit only by passing mentions (citations in body comments, not in a file's header or text) is **touched**: the lighter lit colour.
    Only the lit rows and columns are named, each with a tick on its axis: a row by its track (the root-file row by `labels.root_files`,
    ADR-DSGN-TRACK#7, #13), a column by a short horizontal code, the file language's first extension (`.ps1`, `.md`; `other` for the unlisted
    files, ADR-DSGN-TRACK#8). The codes of neighbouring lit columns alternate between two lines so they never touch.
-2. **Repository tree map** (`<stem>.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by
+2. **Repository tree map** (`tree/<stem>.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by
    top-level folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). Every tile is
    idle grey; the files the highlight lights are lit (the lighter lit colour when lit only by passing mentions); a lit ADR file has a dark
    rim in the page colour.
 
 ### The value-chain map (always shown)
 
-**Value-chain grid** (`<stem>.chain.png`). The **value-chain map** of `Get-ValueChainMap` (ADR-DSGN-TRACK#16), lit by
+**Value-chain grid** (`chain/<stem>.chain.png`). The **value-chain map** of `Get-ValueChainMap` (ADR-DSGN-TRACK#16), lit by
 `Get-ValueChainHighlight -Adr <the slide's ADR codes>`: rows are the **value-chain stack** (`PRIN`, `DSGN`, `AUTO`, `PIPE`, `CLOUD`,
 ADR-DSGN-TRACK#14) and columns the **value-chain concerns** (ADR-DSGN-TRACK#15), both closed sets in their declared order and always all
 named by capital codes, horizontal: a row by its code, a column by the initials of a hyphenated concern or else the whole concern in
@@ -313,8 +313,9 @@ colour. The axis titles are not printed on the minimap: the map key and the sist
 
 ### The sister `.md` of each minimap
 
-Every minimap PNG has a **sister `.md`** with the same stem, next to it (`<stem>.grid.md`, `<stem>.tree.md`, `<stem>.chain.md`). `render.py`
-writes it in the same run, from the same data (`describe.py`), and never by hand. It opens with its path as the H1 (ADR-REPO-FORMAT#6),
+Every minimap PNG has a **sister `.md`** with the same stem, next to it in the minimap's own sub-folder (`grid/<stem>.grid.md`,
+`tree/<stem>.tree.md`, `chain/<stem>.chain.md`): one sub-folder per minimap, so each minimap's renderings and descriptions stand on their own
+beside the slides that embed them. `render.py` writes it in the same run, from the same data (`describe.py`), and never by hand. It opens with its path as the H1 (ADR-REPO-FORMAT#6),
 states once that every unlit cell is idle and why a cell holds nothing (no file of that track and file language; no ADR's value-chain
 concern lands there), expands the minimap's short codes under **Key**, and gives **every lit cell or lit group its reason**:
 
@@ -382,8 +383,8 @@ view adds its sections in `describe.py`'s `VIEWS`.
 - **Names:**
   - The drawing is `<adr>--<explanation>--<lens>.drawio.png`. `<adr>` is the main ADR code in lower case (`adr-flow-cd`). `<explanation>` is
     3–7 kebab words, ≤ 48 chars. `<lens>` is one of the five. The whole name is ≤ 90 chars.
-  - The minimaps are `<same stem>.grid.png`, `<same stem>.tree.png` and `<same stem>.chain.png`, each with its sister `.md`, next to the
-    drawing.
+  - The minimaps are `grid/<same stem>.grid.png`, `tree/<same stem>.tree.png` and `chain/<same stem>.chain.png`, each with its sister
+    `.md` beside it, in one sub-folder per minimap under the drawing's folder.
 
 ### Who does what, and how to rerun
 

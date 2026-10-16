@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4830a266e06c"
+    with_body_sha: "9da21d94b4e1"
     path: docs/adr/repository/conventional-folders.md
     folder: docs/adr/repository
     name: conventional-folders
@@ -80,8 +80,8 @@ applied repo-wide.
 Documentation folders are markdown-only. `docs/` organizes its subfolders freely (the names and casing are the author's), but it holds only
 `.md` files — except the dot-prefixed `docs/.assets/`, which holds the binary diagram assets the markdown embeds and their companions: a
 diagram's `<name>.drawio.md` description (what it draws, in words), its `<name>.drawio.verify.md` record (each drawn claim, the `file:line`
-that backs it, and its status), and its minimap images (`<name>.grid.png`, `<name>.tree.png`, `<name>.chain.png`), each beside its own `.md`
-naming why every lit cell is lit. Each subfolder of `docs/adr/` is an ADR **domain**: a group of ADRs that `adrs.yml` declares with its role
+that backs it, and its status), and its minimap images in one sub-folder per minimap (`grid/<name>.grid.png`, `tree/<name>.tree.png`,
+`chain/<name>.chain.png`), each beside its own `.md` naming why every lit cell is lit. Each subfolder of `docs/adr/` is an ADR **domain**: a group of ADRs that `adrs.yml` declares with its role
 and the domains it depends on.
 
 - [Level 1: Repository root](#level-1-repository-root)

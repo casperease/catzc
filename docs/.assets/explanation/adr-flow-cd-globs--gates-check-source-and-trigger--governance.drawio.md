@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3dd0f394ee3d"
+    with_body_sha: a8e018cec219
     path: docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-gates-check-source-and-trigger-governance-drawio
@@ -12,10 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.md
       - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png
-      - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.grid.md
-      - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.tree.md
+      - docs/.assets/explanation/chain/adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.md
+      - docs/.assets/explanation/grid/adr-flow-cd-globs--gates-check-source-and-trigger--governance.grid.md
+      - docs/.assets/explanation/tree/adr-flow-cd-globs--gates-check-source-and-trigger--governance.tree.md
       - docs/explanation/flow/gates-check-source-and-trigger.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
@@ -95,8 +95,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
 renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-flow-cd-globs--gates-check-source-and-trigger--governance.grid.md),
-[tree](adr-flow-cd-globs--gates-check-source-and-trigger--governance.tree.md) and [value-chain map](adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.md), which hold the reason for every lit cell or group as of that build.
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-flow-cd-globs--gates-check-source-and-trigger--governance.grid.md),
+[tree](tree/adr-flow-cd-globs--gates-check-source-and-trigger--governance.tree.md) and [value-chain map](chain/adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AUTO-TEST and ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

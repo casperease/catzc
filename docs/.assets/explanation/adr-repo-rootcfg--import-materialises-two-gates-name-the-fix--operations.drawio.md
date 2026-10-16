@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1504ba866fee"
+    with_body_sha: "7cfe199ffe28"
     path: docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-rootcfg-import-materialises-two-gates-name-the-fix-operations-drawio
@@ -12,10 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.chain.md
       - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
-      - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.grid.md
-      - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.tree.md
+      - docs/.assets/explanation/chain/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.chain.md
+      - docs/.assets/explanation/grid/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.grid.md
+      - docs/.assets/explanation/tree/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.tree.md
       - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
@@ -94,8 +94,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
 renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.grid.md),
-[tree](adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.tree.md) and [value-chain map](adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.chain.md), which hold the reason for every lit cell or group as of that build.
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.grid.md),
+[tree](tree/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.tree.md) and [value-chain map](chain/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-REPO-ROOTCFG" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

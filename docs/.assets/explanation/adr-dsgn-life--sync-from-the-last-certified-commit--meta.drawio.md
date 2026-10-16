@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "985eac18401b"
+    with_body_sha: "6450c4c1a587"
     path: docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-sync-from-the-last-certified-commit-meta-drawio
@@ -12,10 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
       - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
-      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md
-      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
+      - docs/.assets/explanation/chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
+      - docs/.assets/explanation/grid/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md
+      - docs/.assets/explanation/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
       - docs/explanation/design/sync-from-the-last-certified-commit.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
@@ -85,8 +85,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
 renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md),
-[tree](adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md) and [value-chain map](adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md), which hold the reason for every lit cell or group as of that build.
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md),
+[tree](tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md) and [value-chain map](chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** META, with "Supports ADR-DSGN-LIFE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

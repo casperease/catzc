@@ -79,6 +79,7 @@ settings:
 
   files.associations:
     "**/LICENSE": plaintext
+    "**/.gitkeep": plaintext
     "**/*.yml": yaml
     "**/*.yaml": azure-pipelines
     "**/.markdownlintignore": ignore

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9b4c2ea1ce91"
+    with_body_sha: "7a640b110d58"
     path: docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-remote-local-guard-and-server-policies-implementation-drawio
@@ -12,10 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.chain.md
       - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
-      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.md
-      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.tree.md
+      - docs/.assets/explanation/chain/adr-dsgn-remote--local-guard-and-server-policies--implementation.chain.md
+      - docs/.assets/explanation/grid/adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.md
+      - docs/.assets/explanation/tree/adr-dsgn-remote--local-guard-and-server-policies--implementation.tree.md
       - docs/explanation/design/local-guard-and-server-policies.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
@@ -95,8 +95,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
 renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.md),
-[tree](adr-dsgn-remote--local-guard-and-server-policies--implementation.tree.md) and [value-chain map](adr-dsgn-remote--local-guard-and-server-policies--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.md),
+[tree](tree/adr-dsgn-remote--local-guard-and-server-policies--implementation.tree.md) and [value-chain map](chain/adr-dsgn-remote--local-guard-and-server-policies--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-DSGN-REMOTE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

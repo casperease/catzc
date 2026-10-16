@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "17e7b978f7b4"
+    with_body_sha: "2ad1ce92da19"
     path: docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-rule-and-gate-per-load-stage-governance-drawio
@@ -12,10 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md
       - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
-      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.grid.md
-      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.tree.md
+      - docs/.assets/explanation/chain/adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md
+      - docs/.assets/explanation/grid/adr-auto-bundle--rule-and-gate-per-load-stage--governance.grid.md
+      - docs/.assets/explanation/tree/adr-auto-bundle--rule-and-gate-per-load-stage--governance.tree.md
       - docs/explanation/automation/rule-and-gate-per-load-stage.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
@@ -85,8 +85,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
 renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-bundle--rule-and-gate-per-load-stage--governance.grid.md),
-[tree](adr-auto-bundle--rule-and-gate-per-load-stage--governance.tree.md) and [value-chain map](adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md), which hold the reason for every lit cell or group as of that build.
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-auto-bundle--rule-and-gate-per-load-stage--governance.grid.md),
+[tree](tree/adr-auto-bundle--rule-and-gate-per-load-stage--governance.tree.md) and [value-chain map](chain/adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AUTO-BUNDLE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

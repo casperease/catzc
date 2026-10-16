@@ -19,7 +19,7 @@
 
 For every slide of the list: rewrite its source XML's sidebar (the minimap-grid, minimap-tree and minimap-chain image
 cells, the lens badge, the ADR chips and a map key below them; .claude/drawio/STYLE.md, "Limits"), embed
-<target>/<stem>.{grid,tree,chain}.png as data URIs, write the XML back, and build <target>/<stem>.drawio.png. Fails
+<target>/{grid,tree,chain}/<stem>.{grid,tree,chain}.png as data URIs, write the XML back, and build <target>/<stem>.drawio.png. Fails
 loudly on any missing piece.
 
 usage (repo root, background):
@@ -191,7 +191,7 @@ def main():
     for slide in slides:
         stem = slide["stem"]
         xml = REPO / slide["xml"]
-        pngs = {view: target / f"{stem}.{view}.png" for view in VIEWS}
+        pngs = {view: target / view / f"{stem}.{view}.png" for view in VIEWS}
         gaps = [str(p) for p in [xml, *pngs.values()] if not p.exists()]
         if gaps:
             missing.append((stem, gaps))

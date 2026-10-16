@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6a5243823c74"
+    with_body_sha: e874cc56fb4f
     path: docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-output-root-first-then-repo-root-implementation-drawio
@@ -12,10 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.chain.md
       - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
-      - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.grid.md
-      - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.tree.md
+      - docs/.assets/explanation/chain/adr-auto-path--output-root-first-then-repo-root--implementation.chain.md
+      - docs/.assets/explanation/grid/adr-auto-path--output-root-first-then-repo-root--implementation.grid.md
+      - docs/.assets/explanation/tree/adr-auto-path--output-root-first-then-repo-root--implementation.tree.md
       - docs/explanation/automation/output-root-first-then-repo-root.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
@@ -92,8 +92,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
 renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-auto-path--output-root-first-then-repo-root--implementation.grid.md),
-[tree](adr-auto-path--output-root-first-then-repo-root--implementation.tree.md) and [value-chain map](adr-auto-path--output-root-first-then-repo-root--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-auto-path--output-root-first-then-repo-root--implementation.grid.md),
+[tree](tree/adr-auto-path--output-root-first-then-repo-root--implementation.tree.md) and [value-chain map](chain/adr-auto-path--output-root-first-then-repo-root--implementation.chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-AUTO-PATH" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

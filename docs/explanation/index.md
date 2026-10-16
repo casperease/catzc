@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dfa35480f290
+    with_body_sha: "908116468cc3"
     path: docs/explanation/index.md
     folder: docs/explanation
     name: index
@@ -79,7 +79,8 @@ The sidebar of every diagram places it on three maps, each drawn small as a mini
 
 On each map, a **lit cell** ([ADR-DSGN-TRACK#12](../adr/design/tracks.md#rule-adr-dsgn-track12)) is one the diagram's ADR selects; a cell
 lit only by passing mentions is drawn lighter, and every other cell is idle. The map key below the minimaps names the four swatches, and
-each minimap's own description, beside the diagram, gives the reason for every lit cell.
+each minimap's own description, in the minimap's sub-folder of `docs/.assets/explanation/` (`grid/`, `tree/`, `chain/`), gives the reason
+for every lit cell.
 
 ## Domains
 

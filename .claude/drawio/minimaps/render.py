@@ -17,11 +17,11 @@
 # cspell:ignore minimaps segoeui segoeuib seguisb textlength squarify Bruls rects cwid gfiles gmap gname maxw tname
 """Render the three minimaps of every slide, each with its sister .md, from the map processors' data.
 
-Per slide, into the target folder (.claude/drawio/STYLE.md, "Fan-out"):
-  <stem>.grid.png   the world map's grid: tracks x file languages, the lit cells filled
-  <stem>.tree.png   the world map's tree: the files of the map as a treemap, the lit files filled
-  <stem>.chain.png  the value-chain map: value-chain stack x value-chain concerns, the lit cells filled
-and the sister <stem>.<view>.md of each (describe.py). The data comes from highlights.ps1 (the --data folder); this script
+Per slide, into one sub-folder per minimap under the target folder (.claude/drawio/STYLE.md, "Fan-out"):
+  grid/<stem>.grid.png    the world map's grid: tracks x file languages, the lit cells filled
+  tree/<stem>.tree.png    the world map's tree: the files of the map as a treemap, the lit files filled
+  chain/<stem>.chain.png  the value-chain map: value-chain stack x value-chain concerns, the lit cells filled
+and the sister <view>/<stem>.<view>.md of each (describe.py), beside its PNG. The data comes from highlights.ps1 (the --data folder); this script
 places nothing itself: every lit cell, lit file and reason is the highlight's.
 
 usage (repo root, background):
@@ -495,7 +495,8 @@ def main():
     parser.add_argument("--facts", help="also write each slide's sidebar facts (lit cells, lit groups, file names) to this JSON")
     args = parser.parse_args()
     data, target = REPO / args.data, REPO / args.target
-    target.mkdir(parents=True, exist_ok=True)
+    for view in VIEWS:
+        (target / view).mkdir(parents=True, exist_ok=True)
     labels = configure(data)
     slides = json.loads((REPO / args.slides).read_text(encoding="utf-8"))["slides"]
     world = json.loads((data / "world-map.json").read_text(encoding="utf-8"))
@@ -516,12 +517,12 @@ def main():
         stem = slide["stem"]
         files = lit_files(world_lit)
         groups = lit_groups(layout, files)
-        render_grid(world, world_lit, extensions, LENS_BADGE[slide["lens"]], target / f"{stem}.grid.png")
-        render_tree(layout, files, mentions_only(world_lit), adr_files, target / f"{stem}.tree.png")
-        render_chain(chain, chain_lit, target / f"{stem}.chain.png")
-        describe.write(ctx, target / f"{stem}.grid.md", slide, "grid", world_lit, {})
-        describe.write(ctx, target / f"{stem}.tree.md", slide, "tree", world_lit, {"groups": groups})
-        describe.write(ctx, target / f"{stem}.chain.md", slide, "chain", chain_lit, {})
+        render_grid(world, world_lit, extensions, LENS_BADGE[slide["lens"]], target / "grid" / f"{stem}.grid.png")
+        render_tree(layout, files, mentions_only(world_lit), adr_files, target / "tree" / f"{stem}.tree.png")
+        render_chain(chain, chain_lit, target / "chain" / f"{stem}.chain.png")
+        describe.write(ctx, target / "grid" / f"{stem}.grid.md", slide, "grid", world_lit, {})
+        describe.write(ctx, target / "tree" / f"{stem}.tree.md", slide, "tree", world_lit, {"groups": groups})
+        describe.write(ctx, target / "chain" / f"{stem}.chain.md", slide, "chain", chain_lit, {})
         facts[stem] = describe.facts(ctx, slide, world_lit, chain_lit, groups)
     if args.facts:
         (REPO / args.facts).write_text(json.dumps(facts, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")

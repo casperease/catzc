@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0b1b89229291"
+    with_body_sha: d1e992b90b12
     path: docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-deploying-is-not-integrating-meta-drawio
@@ -12,10 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md
       - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
-      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.grid.md
-      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.tree.md
+      - docs/.assets/explanation/chain/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md
+      - docs/.assets/explanation/grid/adr-dsgn-life--deploying-is-not-integrating--meta.grid.md
+      - docs/.assets/explanation/tree/adr-dsgn-life--deploying-is-not-integrating--meta.tree.md
       - docs/explanation/design/deploying-is-not-integrating.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
@@ -90,8 +90,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
 renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](adr-dsgn-life--deploying-is-not-integrating--meta.grid.md),
-[tree](adr-dsgn-life--deploying-is-not-integrating--meta.tree.md) and [value-chain map](adr-dsgn-life--deploying-is-not-integrating--meta.chain.md), which hold the reason for every lit cell or group as of that build.
+computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-dsgn-life--deploying-is-not-integrating--meta.grid.md),
+[tree](tree/adr-dsgn-life--deploying-is-not-integrating--meta.tree.md) and [value-chain map](chain/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** META, with "Supports ADR-DSGN-LIFE and ADR-DSGN-VISUAL" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.
