@@ -24,7 +24,7 @@ catzc:
     description: |-
       Reads the root-config registry (configs/rootconfig.yml, via Get-Config -Config rootconfig), filters it to
       the opted-in entries (Get-RootConfigTargets), and reproduces each target from its single source of truth:
-      a `source` entry copies the authored file out under the generated-from-source head, a
+      a `source` entry copies the authored file out under the generated-file head, a
       `generator` entry renders the content through Invoke-RootConfigGenerator (e.g. New-Importer for
       importer.ps1) and gets the same head, and a `copyAsLink` source entry skips content entirely — the target is materialised as a
       filesystem link to the source (Set-FileLink), so the root file IS the source. Whether the target is

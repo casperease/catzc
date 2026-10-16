@@ -76,12 +76,7 @@ kinds:
   # The ADR codes a file cites; a code class also lists bare domain codes and keeps what its head holds (domain_ and held_classes default).
   adr-codes:
     keys: [adrs]
-    select:
-      [
-        { languages: [markdown] },
-        { classes: [type, function] },
-        { classes: [test, fixture], languages: [powershell] },
-      ]
+    select: [{ languages: [markdown] }, { classes: [type, function] }, { classes: [test, fixture], languages: [powershell] }]
 
   # Every link a Markdown file points out of itself, one spelling, sorted; a link that stays inside the file is not listed. Last: the longest key.
   links:

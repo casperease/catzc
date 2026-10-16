@@ -21,7 +21,7 @@ catzc:
       Row: The usage rows, each @{ Path; Code; Rule; Source }.
       By: '`Rule` or `Document`.'
     outputs: |-
-      [pscustomobject[]] By Rule @{ Code; Rule; Count; Documents }, by Document @{ Path; Count; Citations }, each list sorted without
+      [pscustomobject] one per group, by Rule @{ Code; Rule; Count; Documents }, by Document @{ Path; Count; Citations }, each list sorted without
       duplicates.
 ---
 #>

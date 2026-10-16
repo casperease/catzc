@@ -6,7 +6,7 @@ catzc:
     language: markdown
     filekind: md
     track: docs
-    body_sha: "439b2b02352f"
+    body_sha: d0ff94ef53bf
     adrs:
       - ADR-REPO-ROOTCFG#{2,4,5,7,8}
     links:
@@ -68,7 +68,7 @@ The diagram is described element by element in
    result to `{ Target; Content }` records: one string for a literal target, one record per file for a wildcard such as `*/tests/*/go.mod`,
    which may render none. A record outside the pattern, or a literal target with anything but one file, throws naming the entry and the
    generator. 10 entries take this branch.
-8. **Write-FileIfChanged.** The copy branch reads the source, normalises it to LF and writes the generated-from-source head over it, naming
+8. **Write-FileIfChanged.** The copy branch reads the source, normalises it to LF and writes the generated-file head over it, naming
    the source; 6 entries take it. A rendered record gets the same head, naming the generator and its sources. That content goes to
    `Write-FileIfChanged`: canonical LF and UTF-8 without BOM, a compare that ignores carriage returns, and a delete-then-write only on a
    real change. A target that is currently a link is deleted first and counted as changed.

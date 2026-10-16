@@ -28,7 +28,7 @@ catzc:
       Source: Keep only rows from the `head` (cited in the file) or from a `link` (linked from the file).
       GroupBy: '`Rule` for one row per cited rule, `Document` for one row per citing file. Default: the ungrouped rows.'
     outputs: |-
-      [pscustomobject[]] @{ Path; Code; Rule; Source }, or with GroupBy Rule @{ Code; Rule; Count; Documents }, or with GroupBy Document
+      [pscustomobject] one @{ Path; Code; Rule; Source }, or with GroupBy Rule @{ Code; Rule; Count; Documents }, or with GroupBy Document
       @{ Path; Count; Citations }.
     examples:
       - Get-AdrUsage -Code ADR-PWSH-ERROR -GroupBy Rule

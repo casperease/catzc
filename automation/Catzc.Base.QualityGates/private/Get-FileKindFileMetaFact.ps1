@@ -48,7 +48,12 @@ function Get-FileKindFileMetaFact {
     $match = Get-FileKind $Path
     $fact = [ordered]@{ $Kind.keys[0] = $match.kind }
     if ($Kind.keys.Count -gt 1) {
-        $fact[$Kind.keys[1]] = $(if ($match.subkind) { $match.subkind } else { '' })
+        $fact[$Kind.keys[1]] = $(if ($match.subkind) {
+                $match.subkind
+            }
+            else {
+                ''
+            })
     }
     $fact
 }

@@ -23,7 +23,7 @@ catzc:
       Path: The file's repository-relative path.
       Map: The ADR citation map.
       Form: The comment syntax of a code file's head (a Catzc.Base.CodeMeta.HeadForm). Omitted for a Markdown file, which carries its block in front matter.
-    outputs: '[pscustomobject[]] @{ Path; Code; Rule; Source } with Source `head` or `link`.'
+    outputs: '[pscustomobject] one @{ Path; Code; Rule; Source } per row, with Source `head` or `link`.'
 ---
 #>
 

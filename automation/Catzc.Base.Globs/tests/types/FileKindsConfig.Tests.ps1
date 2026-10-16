@@ -23,8 +23,8 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         }
 
         $script:config = New-Config ([ordered]@{
-                widget = [ordered]@{ definition = 'A widget file.'; files = @('widgets/**/*.wdg') }
-                gadget = [ordered]@{
+                widget   = [ordered]@{ definition = 'A widget file.'; files = @('widgets/**/*.wdg') }
+                gadget   = [ordered]@{
                     definition = 'A gadget file.'
                     subkinds   = [ordered]@{
                         cog    = [ordered]@{ definition = 'A cog of a gadget.'; files = @('gadgets/cog-*.gdg') }
