@@ -87,6 +87,9 @@ settings:
   workbench.editorAssociations:
     "*.drawio.png": imagePreview.previewEditor
 
+  # A click in the Source Control pane opens the file on disk; the diff stays on the right-click menu as "Open Changes".
+  git.openDiffOnClick: false
+
   prettier.documentSelectors:
     - "**/*.yaml"
 
