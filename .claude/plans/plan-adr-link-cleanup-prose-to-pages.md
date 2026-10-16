@@ -37,6 +37,22 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
 - [ ] Step 1.3 apply and 1.4 verify, one slice at a time (check: Test-Links clean).
 - [ ] Phase 2 per decided D1, one file at a time (check: Test-Comments, Test-FileMeta clean).
 
+## Done, and why (session report of 2026-10-16 15:23)
+
+- Get-AdrUsage takes -GroupBy Rule or Document; Get-AdrUsageRow and Group-AdrUsage ship with their tests, 14 pass, Test-FileMeta clean
+  for these files. Built so the ledger and the analysis read one measured source.
+- The edge ledger out/adr-link-ledger.csv: 5,203 rows, each with a stable Key, the exact line, a paragraph or list-item context, the
+  rule's summary and the pre-pass triage. Keyed so verdicts survive a rebuild.
+- Pilot review of the pipelines slice: 88 rows, 79 keep, 2 narrow, 7 hold. Analysis and recommendations in out/analysis-adr-link-ledger.txt.
+- The plans plan (now plan-plans-body-sha-landing-zone) written with the user's answers recorded.
+- Not done, stated by that session: no document edited; the two narrow fixes are lines 62 and 63 of
+  docs/explanation/flow/no-gate-checks-rules-one-and-four.md; the earlier Test-Formatting failure came from files another session was
+  editing and was not re-run; the remaining about 4,800 ledger rows (rest of Step 1.2, all of 1.3 and 1.4) wait on the three decisions.
+- The two draft plans were not trimmed to the new plan rules (short, present tense, no history); that is the cleaner's job and the
+  cleaner does not exist yet. Decisions and plan locations saved to memory as adr-link-and-plan-program.md.
+- Paste-after-clear line from that session, re-pointed: read .claude/CLAUDE.md and docs/adr/index.md, then
+  prompt-adr-links-and-plans-continue.md beside this file, and follow it.
+
 ## Refs
 
 - the full draft is carried below (formerly out/plan-adr-link-cleanup.md; status at its top); the shared continuation prompt is

@@ -2,6 +2,11 @@
 
 Paste this into a new session in `C:\projects\catzc`.
 
+Carried here from out/continuation-prompt-adr-links-and-plans.md on 2026-10-16. Where the text below names `out/plan-adr-link-cleanup.md`
+read `plan-adr-link-cleanup-prose-to-pages.md` beside this file, and where it names `out/plan-claude-plans.md` read
+`plan-plans-body-sha-landing-zone.md`; each carries its draft verbatim under a "Carried" heading. The ledger, its scripts and the analysis
+text stay in out/. The three open decisions it waits on are still open.
+
 ---
 
 Read `.claude/CLAUDE.md` and `docs/adr/index.md`, then `out/plan-claude-plans.md` and `out/plan-adr-link-cleanup.md` (each opens with a

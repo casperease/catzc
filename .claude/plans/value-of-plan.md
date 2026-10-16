@@ -71,6 +71,11 @@ its plan, and reference-unboxing.md sits beside plan-unboxing. out/ holds README
 
 ## Pastes processed
 
+- 2026-10-16 15:23 (arrived after absorption), ADR links and plans: done list, not-done list, the untrimmed-plans note, the
+  continuation prompt and three open decisions. Everything but five details was already carried; the details (GroupBy, ledger columns,
+  the narrow fixes at lines 62 and 63, the Test-Formatting failure's origin, the paste-after-clear line) landed in
+  plan-adr-link-cleanup-prose-to-pages; the prompt file got a header re-pointing its out/ plan names. The three decisions stay open.
+
 - 2026-10-16 15:22 (arrived after the deletion round), file-kinds registry: the done list, four leftovers (five gates to run, the
   PowerShell/Powershell question for the user, the module-types.yml typo in a peer's file, one derived mention in a memory note) and a
   continuation prompt. Landed in plan-file-head-immutable-edges-classes and prompt-file-kinds-registry-continue.md. The out/ plan it names
