@@ -28,18 +28,21 @@ Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contract
 
 The draft: the one mutable version folder ([ADR-REPO-CONTRACT#5](../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
 
-| Module                 | Asset                                            | Target                                           | Direction   | Kind     |
-| ---------------------- | ------------------------------------------------ | ------------------------------------------------ | ----------- | -------- |
-| `Catzc.Azure.DevOps`   | `pipelines/cd-apex.yaml`                         | `pipelines/cd-apex.yaml`                         | depended-on | fragment |
-| `Catzc.Azure.DevOps`   | `pipelines/cd-flux.yaml`                         | `pipelines/cd-flux.yaml`                         | depended-on | fragment |
-| `Catzc.Azure.DevOps`   | `pipelines/cd-nova.yaml`                         | `pipelines/cd-nova.yaml`                         | depended-on | fragment |
-| `Catzc.Azure.DevOps`   | `pipelines/cd-shared.yaml`                       | `pipelines/cd-shared.yaml`                       | depended-on | fragment |
-| `Catzc.Azure.DevOps`   | `pipelines/ci-automation-expected-failures.yaml` | `pipelines/ci-automation-expected-failures.yaml` | depended-on | fragment |
-| `Catzc.Azure.DevOps`   | `pipelines/ci-automation.yaml`                   | `pipelines/ci-automation.yaml`                   | depended-on | fragment |
-| `Catzc.Azure.DevOps`   | `pipelines/ci-infrastructure.yaml`               | `pipelines/ci-infrastructure.yaml`               | depended-on | fragment |
-| `Catzc.Tooling.Github` | `README.md`                                      | `.github/README.md`                              | depended-on | presence |
-| `Catzc.Tooling.Github` | `workflows/ci-automation.yml`                    | `.github/workflows/ci-automation.yml`            | depended-on | fragment |
-| `Catzc.Tooling.Github` | `workflows/release-automation.yml`               | `.github/workflows/release-automation.yml`       | depended-on | fragment |
+| Module                    | Asset                                            | Target                                                          | Direction               | Kind           |
+| ------------------------- | ------------------------------------------------ | --------------------------------------------------------------- | ----------------------- | -------------- |
+| `Catzc.Azure.DevOps`      | `pipelines/cd-apex.yaml`                         | `pipelines/cd-apex.yaml`                                        | depended-on             | fragment       |
+| `Catzc.Azure.DevOps`      | `pipelines/cd-flux.yaml`                         | `pipelines/cd-flux.yaml`                                        | depended-on             | fragment       |
+| `Catzc.Azure.DevOps`      | `pipelines/cd-nova.yaml`                         | `pipelines/cd-nova.yaml`                                        | depended-on             | fragment       |
+| `Catzc.Azure.DevOps`      | `pipelines/cd-shared.yaml`                       | `pipelines/cd-shared.yaml`                                      | depended-on             | fragment       |
+| `Catzc.Azure.DevOps`      | `pipelines/ci-automation-expected-failures.yaml` | `pipelines/ci-automation-expected-failures.yaml`                | depended-on             | fragment       |
+| `Catzc.Azure.DevOps`      | `pipelines/ci-automation.yaml`                   | `pipelines/ci-automation.yaml`                                  | depended-on             | fragment       |
+| `Catzc.Azure.DevOps`      | `pipelines/ci-infrastructure.yaml`               | `pipelines/ci-infrastructure.yaml`                              | depended-on             | fragment       |
+| `Catzc.Base.Globs`        | `configs/file-kinds.yml`                         | `automation/Catzc.Base.Globs/configs/file-kinds.yml`            | provided (contract.yml) | fragment       |
+| `Catzc.Base.QualityGates` | `head.sample.yml`                                | none                                                            | provided                | sample payload |
+| `Catzc.Base.QualityGates` | `head.schema.json`                               | `contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.sample.yml` | provided                | schema         |
+| `Catzc.Tooling.Github`    | `README.md`                                      | `.github/README.md`                                             | depended-on             | presence       |
+| `Catzc.Tooling.Github`    | `workflows/ci-automation.yml`                    | `.github/workflows/ci-automation.yml`                           | depended-on             | fragment       |
+| `Catzc.Tooling.Github`    | `workflows/release-automation.yml`               | `.github/workflows/release-automation.yml`                      | depended-on             | fragment       |
 
 Notes:
 
@@ -71,6 +74,17 @@ Notes:
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): what Azure Pipelines reads at the pipeline root —
   the `trigger` and `pr` blocks, and the `jobs` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
+- `Catzc.Base.Globs/configs/file-kinds.yml`: Provided fragment of automation/Catzc.Base.Globs/configs/file-kinds.yml
+  ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the kinds and subkinds a consumer may rely on to
+  be in the file-kinds registry, so the `kind` and `subkind` a file's meta head names keep their meaning. A null value pins only that the
+  key exists; the definitions and the globs may change, and a consumer extends the registry with a config fragment of its own.
+- `Catzc.Base.QualityGates/head.sample.yml`: Provided sample of a file's meta head
+  ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the shape a tool may rely on when it reads the
+  `catzc.derived` part of a head, written by Format-FileMeta in the carrier of the file (a comment head, or Markdown front matter). Every
+  key is optional except `path` and `kind`, and a fact a file has no value for is left out. Its schema, head.schema.json, lists the keys.
+- `Catzc.Base.QualityGates/head.schema.json`: Provided schema of a file's meta head, validated against the sample beside it
+  (ADR-REPO-CONTRACT#6): the keys of catzc.derived, which a tool may rely on. A fact a file has no value for is left out, so only path and
+  kind are required.
 - `Catzc.Tooling.Github/workflows/ci-automation.yml`: Depended-on fragment of .github/workflows/ci-automation.yml
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the keys GitHub Actions requires to run the
   workflow — the `on` events, and `jobs`, each job with the `runs-on` runner and its `steps`. A null value pins only that the key exists.

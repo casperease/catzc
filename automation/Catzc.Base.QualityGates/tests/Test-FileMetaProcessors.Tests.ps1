@@ -29,7 +29,7 @@ Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
         # The gate sees every processor function of the module, so each fixture registry also names the shipped ones.
         function script:Invoke-Gate {
             param($Kinds, [switch] $PassThru)
-            $all = [ordered]@{ 'file-path' = @{ keys = @('path') }; 'file-kind' = @{ keys = @('kind') }; 'file-language' = @{ keys = @('language') }; 'file-extension' = @{ keys = @('filekind') }; track = @{}; generator = @{}; 'body-sha' = @{ keys = @('body_sha') }; 'adr-defines' = @{ keys = @('defines') }; 'adr-codes' = @{ keys = @('adrs') }; links = @{}; 'module-name' = @{ keys = @('module') }; visibility = @{ keys = @('visibility') }; relatives = @{} }
+            $all = [ordered]@{ 'file-path' = @{ keys = @('path') }; 'file-kind' = @{ keys = @('kind') }; 'file-language' = @{ keys = @('language') }; 'file-type' = @{ keys = @('filetype') }; track = @{}; generator = @{}; 'body-sha' = @{ keys = @('body_sha') }; 'adr-defines' = @{ keys = @('defines') }; 'adr-codes' = @{ keys = @('adrs') }; links = @{}; 'module-name' = @{ keys = @('module') }; visibility = @{ keys = @('visibility') }; relatives = @{} }
             foreach ($id in $Kinds.Keys) {
                 $all[$id] = $Kinds[$id]
             }

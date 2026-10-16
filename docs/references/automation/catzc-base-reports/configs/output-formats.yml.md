@@ -7,7 +7,9 @@ catzc:
     filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9375ee5a0a0e"
+    body_sha: "5dab92069aae"
+    adrs:
+      - ADR-REPO-OUTDIR#10
 ---
 
 # automation/Catzc.Base.Reports/configs/output-formats.yml
@@ -39,4 +41,13 @@ runs its validator.
 
 Validator kinds: png, drawio-png, drawio-model, pdf, json, csv, md, nunit-xml, zip, powershell, text,
 latest-pointer, delegate (names an existing Assert-* that already proves the format).
+```
+
+## comment:2
+
+Above `max_age: none`, written with `#`.
+
+```text
+a plan cannot be regenerated
+([ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)), so a person retires it
 ```

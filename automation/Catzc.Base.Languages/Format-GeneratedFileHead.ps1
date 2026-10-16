@@ -18,7 +18,7 @@ catzc:
     synopsis: Returns the text of a generated file with the meta head that says which generator or source wrote it.
     description: |-
       The head is the one unified form of ADR-REPO-FILEMETA#7: the kind of the file by its role, and its subkind when it has one, as the
-      caller read them from the file-kinds registry; the file language, the file kind (extension), the track and the module when the file
+      caller read them from the file-kinds registry; the file language, the file type (extension), the track and the module when the file
       has them; and the generator and the source when the file has them. The generator is written as the path of the file its command is
       defined in. The carrier is named by id, or found from the file's language when no id is given.
     parameters:
@@ -82,9 +82,9 @@ function Format-GeneratedFileHead {
     if ($language) {
         $values['language'] = $language.name
     }
-    $fileKind = Get-PathFileKind $relative
-    if ($fileKind) {
-        $values['filekind'] = $fileKind
+    $fileType = Get-PathFileType $relative
+    if ($fileType) {
+        $values['filetype'] = $fileType
     }
     # A root file is in no track, and a file outside automation is in no module.
     $track = Get-Track -Path $relative

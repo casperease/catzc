@@ -1191,6 +1191,8 @@ terms:
       meaning: "coined adjective 'assertable'"
     - term: capturable
       meaning: "coined adjective 'capturable'"
+    - term: filetype
+      meaning: "coined noun 'filetype' — the head key naming a file's extension, which tells the sorts of file inside one language apart"
     - term: foldered
       meaning: "coined adjective 'foldered'"
     - term: globset
@@ -1215,6 +1217,10 @@ terms:
       meaning: "coined adjective 'protectable' - a scan the protected-glob skip may pass over (ADR-REPO-PROTGLOB)"
     - term: stringly
       meaning: "'stringly-typed' (stringly)"
+    - term: subkind
+      meaning: "coined noun 'subkind' — the narrowing of a file kind, such as gate under function (the file-kinds registry)"
+    - term: subkinds
+      meaning: "plural of the coined noun 'subkind'"
     - term: suppressable
       meaning: "coined adjective 'suppressable'"
     - term: unparseable

@@ -7,13 +7,13 @@ catzc:
     filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: dabdff10291b
+    body_sha: "29db5acb5ef4"
 ---
 
 # automation/Catzc.Base.Globs/configs/file-kinds.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 

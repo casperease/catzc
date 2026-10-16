@@ -2,34 +2,31 @@
 ---
 catzc:
   derived:
-    path: automation/Catzc.Base.Languages/Get-PathFileKind.ps1
+    path: automation/Catzc.Base.Languages/Get-PathFileType.ps1
     kind: function
-    language: powershell
-    filekind: ps1
-    track: automation
     module: Catzc.Base.Languages
     visibility: public
     relatives:
-      test: automation/Catzc.Base.Languages/tests/Get-PathFileKind.Tests.ps1
+      test: automation/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK#6
   config:
-    synopsis: Returns the file kind of a path, the extension of its file name without the dot.
+    synopsis: Returns the file type of a path, the extension of its file name without the dot.
     description: |-
-      The file kind says which sort of file inside its file language this is: `ps1`, `psm1` and `psd1` are all PowerShell, `yml` and `yaml`
-      are different file kinds of the YAML family. It is the last extension of the file name, lower case. A file with no extension, a dotfile
+      The file type says which sort of file inside its file language this is: `ps1`, `psm1` and `psd1` are all PowerShell, `yml` and `yaml`
+      are different file types of the YAML family. It is the last extension of the file name, lower case. A file with no extension, a dotfile
       such as `.gitkeep`, and a name that ends in a dot have none: nothing is returned
       ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)).
     parameters:
       Path: A repository-relative or absolute path ('/' or '\' separated).
     outputs: '[string] The extension without its dot, in lower case, or nothing.'
     examples:
-      - '(Get-PathFileKind ''automation/.internal/Catzc.Internal.Types.psm1'')   # -> psm1'
-      - '(Get-PathFileKind ''docs/references/Get-Foo.ps1.md'')                   # -> md'
+      - '(Get-PathFileType ''automation/.internal/Catzc.Internal.Types.psm1'')   # -> psm1'
+      - '(Get-PathFileType ''docs/references/Get-Foo.ps1.md'')                   # -> md'
 ---
 #>
 
-function Get-PathFileKind {
+function Get-PathFileType {
     [CmdletBinding()]
     [OutputType([string])]
     param(

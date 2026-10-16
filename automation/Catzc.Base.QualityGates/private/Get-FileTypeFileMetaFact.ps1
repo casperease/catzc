@@ -2,22 +2,19 @@
 ---
 catzc:
   derived:
-    path: automation/Catzc.Base.QualityGates/private/Get-FileExtensionFileMetaFact.ps1
+    path: automation/Catzc.Base.QualityGates/private/Get-FileTypeFileMetaFact.ps1
     kind: function
     subkind: fact
-    language: powershell
-    filekind: ps1
-    track: automation
     module: Catzc.Base.QualityGates
     visibility: private
     relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-FileExtensionFileMetaFact.Tests.ps1
+      test: automation/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK#6
   config:
-    synopsis: 'The file-extension meta kind''s fact: the file kind of the file, the extension of its name.'
+    synopsis: 'The file-type meta kind''s fact: the file type of the file, the extension of its name.'
     description: |-
-      The file kind is the one Get-PathFileKind names for the path ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)); the
+      The file type is the one Get-PathFileType names for the path ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)); the
       kind's `keys` name the head key it is written under. A file with no extension gets an empty value, so the key is left out of its head.
     parameters:
       State: What Get-MarkdownMetaState read from the file.
@@ -27,8 +24,8 @@ catzc:
 ---
 #>
 
-function Get-FileExtensionFileMetaFact {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Every meta-kind processor is called with the same State, Path and Kind; this kind reads the file kind by path alone')]
+function Get-FileTypeFileMetaFact {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Every meta-kind processor is called with the same State, Path and Kind; this kind reads the file type by path alone')]
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(
@@ -42,12 +39,6 @@ function Get-FileExtensionFileMetaFact {
         [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
-    $fileKind = Get-PathFileKind $Path
-    $value = if ($fileKind) {
-        $fileKind
-    }
-    else {
-        ''
-    }
-    [ordered]@{ $Kind.keys[0] = $value }
+    $fileType = Get-PathFileType $Path
+    [ordered]@{ $Kind.keys[0] = $(if ($fileType) { $fileType } else { '' }) }
 }

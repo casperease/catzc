@@ -70,6 +70,10 @@ function Invoke-FileMetaEngine {
             continue
         }
 
+        # A path the index lists but the working tree has lost, a deletion not yet staged, has nothing to imprint.
+        if (-not [System.IO.File]::Exists((Join-Path $RepositoryRoot $file))) {
+            continue
+        }
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $file))
 
         # A key no kind owns is the author's: report it and leave the file alone.

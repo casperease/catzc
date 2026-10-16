@@ -15,3 +15,4 @@ addressing: full-path
 
 target_roots:
   Catzc.Tooling.Github: .github
+  Catzc.Base.Globs: automation/Catzc.Base.Globs

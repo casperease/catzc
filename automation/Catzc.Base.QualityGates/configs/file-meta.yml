@@ -24,9 +24,9 @@ kinds:
   file-language:
     keys: [language]
 
-  # The file kind of the file, the extension of its name, which tells the sorts of file inside one language apart (ps1 from psm1 and psd1).
-  file-extension:
-    keys: [filekind]
+  # The file type of the file, the extension of its name, which tells the sorts of file inside one language apart (ps1 from psm1 and psd1).
+  file-type:
+    keys: [filetype]
 
   # The track whose root folder holds the file, from the tracks registry; a root file, which no track holds, carries none.
   track:

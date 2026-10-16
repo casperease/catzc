@@ -77,6 +77,14 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $result.Files[1].Fixed | Should -BeLike "*    visibility: private`n---`n#>`n`nfunction Get-Sprocket { }`n"
     }
 
+    It 'skips an entry whose file the working tree no longer has, and still counts it in the scope' {
+        $gone = [pscustomobject]@{ Path = 'automation/Catzc.Widget/Get-Gone.ps1'; Carrier = $script:head }
+        $result = & $script:run (@($gone) + $script:entries)
+        $result.FileCount | Should -Be 3
+        $result.Files.Count | Should -Be 2
+        $result.Files.Path | Should -Not -Contain 'automation/Catzc.Widget/Get-Gone.ps1'
+    }
+
     It 'finds nothing to change once the head is written' {
         $first = & $script:run $script:entries
         foreach ($file in $first.Files) {

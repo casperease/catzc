@@ -170,7 +170,7 @@ formats:
   # ---- agent sessions: plans, handoffs, scripts, dumps, logs (the top of out/ and their own folders) ----
   session-document:
     area: session
-    max_age: none # a plan cannot be regenerated (ADR-REPO-OUTDIR#10), so a person retires it
+    max_age: none
     patterns: ["*.md"]
     producer: an agent session (plan-*.md and handoff-*.md, where .claude/CLAUDE.md places them, and other notes)
     audience: the user reviewing a plan, and the next session picking up a handoff
@@ -200,7 +200,7 @@ formats:
     audience: the session that wrote it
     validator: { kind: text }
 
-  # ---- the folder's own keep file (ADR-REPO-OUTDIR#6) ----
+  # ---- the folder's own keep file ([ADR-REPO-OUTDIR#6](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir6)) ----
   output-keep:
     area: review
     patterns: [".gitkeep"]

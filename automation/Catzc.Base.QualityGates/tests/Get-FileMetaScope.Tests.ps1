@@ -78,12 +78,12 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
         $narrow = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{ 'file-path' = @{ keys = @('path'); select = @(@{ classes = @('read-doc') }) } }
             })
-        $fileKinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
+        $script:fileKinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
                 kinds = [ordered]@{ 'read-doc' = [ordered]@{ definition = 'A document to read.'; files = @('docs/read.gdg') } }
             })
-        $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $narrow; Resolver = $script:resolver; FileKinds = $fileKinds } {
-            param($Root, $Config, $Resolver, $FileKinds)
-            Mock Get-Config { $FileKinds } -ParameterFilter { $Config -eq 'file-kinds' }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-kinds' } { $script:fileKinds }
+        $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $narrow; Resolver = $script:resolver } {
+            param($Root, $Config, $Resolver)
             @(Get-FileMetaScope -RepositoryRoot $Root -Config $Config -Resolver $Resolver)
         }
         $found.Path | Should -Be @('docs/read.gdg')

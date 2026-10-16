@@ -16,7 +16,7 @@ keys:
   - kind
   - subkind
   - language
-  - filekind
+  - filetype
   - track
   - module
   - generator

@@ -1,0 +1,46 @@
+{
+  "$comment": "Provided schema of a file's meta head, validated against the sample beside it (ADR-REPO-CONTRACT#6): the keys of catzc.derived, which a tool may rely on. A fact a file has no value for is left out, so only path and kind are required.",
+  "type": "object",
+  "required": ["catzc"],
+  "additionalProperties": false,
+  "properties": {
+    "catzc": {
+      "type": "object",
+      "required": ["derived"],
+      "additionalProperties": false,
+      "properties": {
+        "config": { "type": "object" },
+        "derived": {
+          "type": "object",
+          "required": ["path", "kind"],
+          "additionalProperties": false,
+          "properties": {
+            "path": { "type": "string" },
+            "source": { "type": "string" },
+            "kind": { "type": "string" },
+            "subkind": { "type": "string" },
+            "language": { "type": "string" },
+            "filetype": { "type": "string" },
+            "track": { "type": "string" },
+            "module": { "type": "string" },
+            "generator": { "type": "string" },
+            "body_sha": { "type": "string" },
+            "visibility": { "type": "string", "enum": ["public", "private"] },
+            "relatives": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page": { "type": "string" },
+                "test": { "type": "string" },
+                "source": { "type": "string" }
+              }
+            },
+            "defines": { "type": "array", "items": { "type": "string" } },
+            "adrs": { "type": "array", "items": { "type": "string" } },
+            "links": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  }
+}

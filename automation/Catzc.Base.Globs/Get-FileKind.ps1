@@ -24,7 +24,7 @@ catzc:
       Path: A repository-relative path ('/' or '\' separated).
     outputs: '[Catzc.Base.Globs.FileKindMatch] The kind, the subkind (null when none), the kind''s definition, and Class, what a selector matches.'
     examples:
-      - '(Get-FileKind ''automation/Catzc.Base.Variants/Test-GitWorkspace.ps1'')   # -> kind function, subkind gate'
+      - '(Get-FileKind ''automation/Catzc.Base.Variants/Test-GitWorkspace.ps1'')   # -> Class function/gate'
       - '(Get-FileKind ''elsewhere/notes.txt'').kind                                # -> other'
 ---
 #>

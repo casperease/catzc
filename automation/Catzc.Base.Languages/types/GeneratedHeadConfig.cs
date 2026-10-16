@@ -25,7 +25,7 @@ namespace Catzc.Base.Languages;
 public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "generated-head configuration validation failed:\n";
-    private static readonly string[] Known = { "path", "source", "kind", "subkind", "language", "filekind", "track", "module", "generator" };
+    private static readonly string[] Known = { "path", "source", "kind", "subkind", "language", "filetype", "track", "module", "generator" };
 
     // The head keys in writing order.
     public string[] order { get; }

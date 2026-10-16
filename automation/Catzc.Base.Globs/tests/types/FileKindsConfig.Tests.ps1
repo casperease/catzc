@@ -27,8 +27,8 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
                 gadget   = [ordered]@{
                     definition = 'A gadget file.'
                     subkinds   = [ordered]@{
-                        cog    = [ordered]@{ definition = 'A cog of a gadget.'; files = @('gadgets/cog-*.gdg') }
-                        sprock = [ordered]@{ definition = 'A sprocket of a gadget.'; files = @('gadgets/*sprock*.gdg') }
+                        cog  = [ordered]@{ definition = 'A cog of a gadget.'; files = @('gadgets/cog-*.gdg') }
+                        gear = [ordered]@{ definition = 'A gear of a gadget.'; files = @('gadgets/*gear*.gdg') }
                     }
                     files      = @('gadgets/**/*.gdg')
                 }
@@ -50,12 +50,12 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         }
 
         It 'names a subkind before the kind''s own globs, and in the order the subkinds are written' {
-            $cog = $script:config.Resolve('gadgets/cog-sprock.gdg')
+            $cog = $script:config.Resolve('gadgets/cog-gear.gdg')
             $cog.kind | Should -BeExactly 'gadget'
             $cog.subkind | Should -BeExactly 'cog'
             $cog.Class | Should -BeExactly 'gadget/cog'
-            $script:config.Resolve('gadgets/deep/sprock-one.gdg').subkind | Should -BeNullOrEmpty
-            $script:config.Resolve('gadgets/sprock-one.gdg').subkind | Should -BeExactly 'sprock'
+            $script:config.Resolve('gadgets/deep/gear-one.gdg').subkind | Should -BeNullOrEmpty
+            $script:config.Resolve('gadgets/gear-one.gdg').subkind | Should -BeExactly 'gear'
         }
 
         It 'names the kind alone for a file only its own globs match' {
