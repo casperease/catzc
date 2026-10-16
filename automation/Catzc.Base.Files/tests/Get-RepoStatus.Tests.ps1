@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/tests/Get-RepoStatus.Tests.ps1
     folder: tests
     name: get-repo-status-tests

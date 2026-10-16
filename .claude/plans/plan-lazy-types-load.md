@@ -105,7 +105,7 @@ assembly in memory, and adding a trigger for the real load.
 
 ## Phases
 
-### Phase 0 — measure and spike (nothing committed)
+#### Phase 0 — measure and spike (nothing committed)
 
 - Time the import stages with `-DiagnoseLoadTime` (cold and warm): hash, shadow copy, `Add-Type`, verification, registration. Record in the
   plan.
@@ -120,20 +120,20 @@ assembly in memory, and adding a trigger for the real load.
 
 Status: plan finalized 2026-10-15. Phase 0 started (timings run first).
 
-### Phase 1 — metadata verification (D1)
+#### Phase 1 — metadata verification (D1)
 
 - `Test-TypesAssemblyContent` (private, Types module): metadata-only existence check per expected type. L0 tests with the fixture DLL
   (neutral names, `widget`/`gadget`).
 - `Import-CSharpTypes` verifies through it; `Add-Type` stays where it is. Behaviour-neutral, proves the reader.
 
-### Phase 2 — manifest (D2)
+#### Phase 2 — manifest (D2)
 
 - `Build-CombinedTypeAssembly` emits `Catzc.Types.<hash>.json`; the janitor (`Invoke-TypeCacheJanitor`) and `Clear-CompiledType` treat it as
   part of the same build; bundle builder ships it with the DLL (`ADR-BUNDLE`, `Assert-CatzcBundle`, `Test-BuildArtifact`).
 - Decide committed vs gitignored: the DLL is committed (`.compiled`, `Get-CommittedTypesDrift`); the manifest follows it so a bundle needs
   no compile.
 
-### Phase 3 — deferred load (D3, D4)
+#### Phase 3 — deferred load (D3, D4)
 
 - Split `Import-CSharpTypes` into `Register-DeferredTypes` (verify + manifest into `$global:__CatzcTypes`, no load) and `Initialize-Types`
   (shadow copy, `Add-Type`, accelerators, display data), idempotent.
@@ -141,11 +141,11 @@ Status: plan finalized 2026-10-15. Phase 0 started (timings run first).
   loaded-vs-source comparison keeps working once loaded.
 - `Get-LoadedTypeDrift` reports `Loaded = $false` as "not yet loaded", not as drift.
 
-### Phase 4 — the find (D5, only if Phase 0 says so)
+#### Phase 4 — the find (D5, only if Phase 0 says so)
 
 - Stat-stamp memo in front of `Get-CombinedTypeHash`.
 
-### Phase 5 — rules, docs, tests
+#### Phase 5 — rules, docs, tests
 
 - Update `docs/adr/automation/BCL/native-csharp-types.md` (new rule: the importer never loads the types assembly; the first use does) and
   the comment pages for the touched Bootstrap/Types functions. One living version: delete the eager path in the same change
@@ -168,7 +168,7 @@ The trigger, the eager fallback, and the "which entries stay unloaded" question 
 (`ADR-PRIN-CONFIG`, `ADR-AUTO-DEFAULT#6`: caller's value, else the module config, else the sensible default declared once on the config
 type). Nothing in code branches on a mode name; code reads the resolved setting.
 
-### The 8 modes
+#### The 8 modes
 
 Three binary axes, 2 x 2 x 2 = 8. Only pwsh can load the C# DLL (`ADR-AUTO-ENGINE:1`); bash and zsh never do, so they are outside the table
 and the model answers `load: never` for them by one rule, not eight rows.
@@ -181,7 +181,7 @@ and the model answers `load: never` for them by one rule, not eight rows.
 
 > Assumption to confirm: your "2x2 = 8" read as these three axes. If the third axis is something else, only the table keys change.
 
-### The settings (one config type, defaults declared on it)
+#### The settings (one config type, defaults declared on it)
 
 | Setting      | Meaning                                                                                                      | Answers |
 | ------------ | ------------------------------------------------------------------------------------------------------------ | ------- |
@@ -193,7 +193,7 @@ and the model answers `load: never` for them by one rule, not eight rows.
 Config file: `automation/<owning module>/configs/types-load.yml` (owner decided in Phase 0; a Types/Objects-side module, not Bootstrap,
 since Bootstrap is removed after import). Keys are the mode, `host.os.runmode`, plus a `default` row.
 
-### Sensible defaults (the 8 cells)
+#### Sensible defaults (the 8 cells)
 
 | host     | os      | run mode | load  | trigger     | shadowCopy | Why                                                                                                                                                     |
 | -------- | ------- | -------- | ----- | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
