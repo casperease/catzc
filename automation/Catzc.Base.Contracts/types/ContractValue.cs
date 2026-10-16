@@ -44,10 +44,13 @@ public static class ContractValue
         {
             case null:
                 return "null";
-            case bool:
-                return "boolean";
             case string:
                 return "string";
+            case bool:
+                return "boolean";
+            case int:
+            case long:
+                return "integer";
             case IDictionary:
                 return "object";
             case IList:
@@ -142,6 +145,22 @@ public static class ContractValue
     {
         left = Unwrap(left);
         right = Unwrap(right);
+        if (left is int leftInt && right is int rightInt)
+        {
+            return leftInt == rightInt;
+        }
+        if (left is long leftLong && right is long rightLong)
+        {
+            return leftLong == rightLong;
+        }
+        if (left is bool leftBool && right is bool rightBool)
+        {
+            return leftBool == rightBool;
+        }
+        if (left is string leftText && right is string rightText)
+        {
+            return string.Equals(leftText, rightText, StringComparison.Ordinal);
+        }
         string kind = Kind(left);
         string otherKind = Kind(right);
         bool numeric = (kind == "integer" || kind == "number") && (otherKind == "integer" || otherKind == "number");

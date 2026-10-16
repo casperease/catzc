@@ -59,6 +59,35 @@ Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
         [Catzc.Base.Contracts.ContractValue]::Equal($leftValue, $rightValue) | Should -Be $Equal
     }
 
+    It 'reads a <Type> as <Kind>' -ForEach @(
+        @{ Type = 'int'; Value = [int]7; Kind = 'integer' }
+        @{ Type = 'long'; Value = [long]7; Kind = 'integer' }
+        @{ Type = 'bool'; Value = $false; Kind = 'boolean' }
+        @{ Type = 'string'; Value = 'gadget'; Kind = 'string' }
+        @{ Type = 'null'; Value = $null; Kind = 'null' }
+        @{ Type = 'PSObject-wrapped int'; Value = [psobject]::AsPSObject([int]7); Kind = 'integer' }
+    ) {
+        [Catzc.Base.Contracts.ContractValue]::Kind($Value) | Should -Be $Kind
+    }
+
+    It 'compares a <Left> with a <Right> as equal: <Equal>' -ForEach @(
+        @{ Left = [int]7; Right = [int]7; Equal = $true }
+        @{ Left = [int]7; Right = [int]8; Equal = $false }
+        @{ Left = [int]7; Right = [long]7; Equal = $true }
+        @{ Left = [long]7; Right = [long]8; Equal = $false }
+        @{ Left = [int]7; Right = [double]7; Equal = $true }
+        @{ Left = [int]7; Right = [double]7.5; Equal = $false }
+        @{ Left = $true; Right = $true; Equal = $true }
+        @{ Left = $true; Right = $false; Equal = $false }
+        @{ Left = 'widget'; Right = 'widget'; Equal = $true }
+        @{ Left = 'widget'; Right = 'Widget'; Equal = $false }
+        @{ Left = 'widget'; Right = [psobject]::AsPSObject('widget'); Equal = $true }
+        @{ Left = [int]1; Right = 'gadget'; Equal = $false }
+        @{ Left = $true; Right = [int]1; Equal = $false }
+    ) {
+        [Catzc.Base.Contracts.ContractValue]::Equal($Left, $Right) | Should -Be $Equal
+    }
+
     It 'compares a YAML decimal and a JSON double by value' {
         $yaml = "widget: 1.5`n" | ConvertFrom-Yaml -Ordered
         $json = '{"widget":1.5}' | ConvertFrom-Json -AsHashtable
