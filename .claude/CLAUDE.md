@@ -71,6 +71,12 @@ registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/
 - **`print-artifacts`** — republishes the diagram review artifact from the files on disk.
 - **`build-inspiration-module`** — creates or extends the inspiration module (`Get-Inspiration`).
 - **`session-cost-audit`** — measures what a session cost and why, against `out/plan-session-cost.md`, and proposes the changes.
+- **`plan-clear`** — cleans the plans in `.claude/plans/` to the plan rules: a verdict per plan (keep, trim, re-point, delete, intake),
+  acted on one file at a time, links re-checked.
+- **`plan-intake`** — lands a pasted continuation prompt in the plans: every item in exactly one plan, done claims checked against the
+  tree, open questions kept open.
+- **`plan-decide`** — runs a decision round over the plans' open questions: a questionnaire, four items per ask with the recommendation
+  first, every answer recorded with its projected outcome, then folded into the plans.
 - **`test-optimization`** — makes all tests faster under the `timeouts.yml` roofs, one measured file at a time, without removing or
   weakening any test.
 

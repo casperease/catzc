@@ -66,3 +66,8 @@ two to ten words. Results move into the owning plans after the round.
 | Q50 | class selectors go now                | yes       | globs spelled once; kinds select by class      |                                                            |
 | Q51 | planner fixes the memory note         | yes       | file-head-vocabulary says immutable            | a planner task after the round                             |
 | Q52 | one plan for the head                 | yes       | file-head plan stays whole                     |                                                            |
+| Q53 | note becomes a glossary term          | no        | glossary gains note                            |                                                            |
+| Q54 | re-read ADR-AUTO-ASSETDEP for asset   | yes       | asset kind confirmed or moved after a read     |                                                            |
+| Q55 | exclude .unordered rows from ledger   | yes       | ledger shrinks by 274 rows                     | Q09 deletes those plans anyway                             |
+| Q56 | relax ADR-REPO-HELP#3                 | yes       | in-sentence citations allowed; bare lines reported | explored: the sentence says which claim a code backs; the head stays the derived complete set; 0 edits |
+| Q57 | sample-then-stop review               | yes       | about 400 rows reviewed instead of 4,500       | stop when the sample shows the pattern                     |

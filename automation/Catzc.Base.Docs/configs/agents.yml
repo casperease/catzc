@@ -59,6 +59,21 @@ agents:
     supported_by: [ADR-PRIN-NOWASTE#1, ADR-PROC-KAIZEN#2, ADR-AUTO-FAILFAST#7]
     checks: []
 
+  # Cleans the plans in .claude/plans to the plan rules, one verdict and one file at a time; sonnet because it judges across files.
+  - name: plan-clear
+    supported_by: [ADR-PRIN-ONELIVE#1, ADR-PRIN-NOWASTE#1]
+    checks: [Test-Links]
+
+  # Lands a pasted continuation prompt in the plans, nothing discarded, every done claim checked against the tree.
+  - name: plan-intake
+    supported_by: [ADR-PRIN-ONELIVE#5, ADR-PRIN-NOWASTE#1]
+    checks: [Test-Links]
+
+  # Runs a decision round over the plans' open questions: recommendation first, every answer recorded with its outcome.
+  - name: plan-decide
+    supported_by: [ADR-PRIN-CONFIG#5, ADR-PRIN-NOWASTE#1]
+    checks: [Test-Links]
+
   # Makes the test suite faster under the timeouts.yml roofs without losing any test or assertion, one measured file at a time.
   - name: test-optimization
     supported_by: [ADR-AUTO-TEST#21, ADR-AUTO-TEST#19, ADR-AUTO-TEST#22, ADR-PRIN-NOWASTE#1]
