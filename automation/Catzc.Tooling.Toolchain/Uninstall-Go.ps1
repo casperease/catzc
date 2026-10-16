@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Uninstall-Go.ps1
     name: uninstall-go
     filetype: ps1

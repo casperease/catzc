@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/storage-account.bicep
 //     name: storage-account
 //     filetype: bicep

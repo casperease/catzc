@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
     name: export-spelling-triage
     filetype: ps1

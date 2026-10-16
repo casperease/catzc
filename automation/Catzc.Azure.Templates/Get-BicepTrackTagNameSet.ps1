@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/Get-BicepTrackTagNameSet.ps1
     name: get-bicep-track-tag-name-set
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
     folder: tests
     name: test-git-history-clean-tests

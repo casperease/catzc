@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Azure.DevOps/configs/ado.yml
 #     folder: configs
 #     name: ado

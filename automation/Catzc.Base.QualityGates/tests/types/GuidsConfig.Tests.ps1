@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/types/GuidsConfig.Tests.ps1
     folder: tests/types
     name: guids-config-tests

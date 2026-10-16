@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/Set-CurrentAzSubscription.ps1
     name: set-current-az-subscription
     filetype: ps1

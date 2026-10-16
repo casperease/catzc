@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: ".claude/drawio/contact_sheet.py"
 #     folder: drawio
 #     name: contact-sheet

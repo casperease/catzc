@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Python/tests/Invoke-Poetry.L2.Tests.ps1
     folder: tests
     name: invoke-poetry-l2-tests

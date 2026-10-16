@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
     folder: tests
     name: deploy-bicep-tests

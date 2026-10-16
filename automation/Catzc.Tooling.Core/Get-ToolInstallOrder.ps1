@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Get-ToolInstallOrder.ps1
     name: get-tool-install-order
     filetype: ps1

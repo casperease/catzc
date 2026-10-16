@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/types/AgentsConfig.cs
     folder: types
     name: agents-config
@@ -19,7 +20,7 @@ catzc:
     cites:
       - ADR-AUTO-TYPES#8
       - ADR-CONF-LOADING#4
-      - ADR-REPO-AGENTS#{2,4}
+      - ADR-REPO-AGENTS#{2,4,6,8}
 ---
 */
 

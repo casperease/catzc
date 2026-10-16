@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure/types/NetworkEnvironment.cs
     folder: types
     name: network-environment

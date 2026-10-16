@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
     folder: tests/types
     name: output-retention-tests

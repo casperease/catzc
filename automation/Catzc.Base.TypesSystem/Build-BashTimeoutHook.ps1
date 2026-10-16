@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1
     name: build-bash-timeout-hook
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Assert-NotNullOrWhitespace.ps1
     name: assert-not-null-or-whitespace
     filetype: ps1

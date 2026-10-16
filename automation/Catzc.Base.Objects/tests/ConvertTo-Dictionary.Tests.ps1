@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/tests/ConvertTo-Dictionary.Tests.ps1
     folder: tests
     name: convert-to-dictionary-tests

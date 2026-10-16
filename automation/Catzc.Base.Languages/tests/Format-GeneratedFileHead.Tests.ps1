@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
     folder: tests
     name: format-generated-file-head-tests

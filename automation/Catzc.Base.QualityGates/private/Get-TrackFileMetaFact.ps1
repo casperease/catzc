@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Get-TrackFileMetaFact.ps1
     folder: private
     name: get-track-file-meta-fact

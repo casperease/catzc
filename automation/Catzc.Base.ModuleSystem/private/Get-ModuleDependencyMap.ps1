@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyMap.ps1
     folder: private
     name: get-module-dependency-map

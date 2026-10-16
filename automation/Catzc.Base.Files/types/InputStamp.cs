@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/types/InputStamp.cs
     folder: types
     name: input-stamp
@@ -13,8 +14,6 @@ catzc:
     module: Catzc.Base.Files
     moduletype: pwsh-folder
     catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-files/types/InputStamp.cs.md
 ---
 */
 

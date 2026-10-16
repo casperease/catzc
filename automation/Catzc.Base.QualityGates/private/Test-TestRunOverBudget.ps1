@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
     folder: private
     name: test-test-run-over-budget

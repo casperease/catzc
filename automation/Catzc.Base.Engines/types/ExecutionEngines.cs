@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Engines/types/ExecutionEngines.cs
     folder: types
     name: execution-engines

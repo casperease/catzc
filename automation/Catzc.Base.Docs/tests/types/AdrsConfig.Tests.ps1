@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     folder: tests/types
     name: adrs-config-tests

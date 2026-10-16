@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: pipelines/steps/invoke-automation.yaml
 #     folder: steps
 #     name: invoke-automation

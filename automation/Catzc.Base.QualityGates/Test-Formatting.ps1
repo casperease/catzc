@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Test-Formatting.ps1
     name: test-formatting
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBinding.cs
     folder: types
     name: key-handler-binding

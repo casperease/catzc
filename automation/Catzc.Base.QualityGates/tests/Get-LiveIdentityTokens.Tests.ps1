@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Get-LiveIdentityTokens.Tests.ps1
     folder: tests
     name: get-live-identity-tokens-tests

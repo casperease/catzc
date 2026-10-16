@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
 #     folder: configs
 #     name: build-validation

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Write-TestRunLockRecord.ps1
     folder: private
     name: write-test-run-lock-record

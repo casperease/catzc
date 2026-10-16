@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/nsg.bicep
 //     name: nsg
 //     filetype: bicep

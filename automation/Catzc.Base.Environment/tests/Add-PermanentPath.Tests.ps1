@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Environment/tests/Add-PermanentPath.Tests.ps1
     folder: tests
     name: add-permanent-path-tests

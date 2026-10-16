@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Writers/tests/types/Ansi.Tests.ps1
     folder: tests/types
     name: ansi-tests

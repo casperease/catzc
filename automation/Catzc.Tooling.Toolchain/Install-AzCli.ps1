@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Install-AzCli.ps1
     name: install-az-cli
     filetype: ps1

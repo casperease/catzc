@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/New-Importer.ps1
     name: new-importer
     filetype: ps1

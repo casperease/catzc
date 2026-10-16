@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1
     folder: private
     name: remove-uv-pip-or-stray-install

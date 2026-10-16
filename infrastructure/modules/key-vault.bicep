@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/key-vault.bicep
 //     name: key-vault
 //     filetype: bicep

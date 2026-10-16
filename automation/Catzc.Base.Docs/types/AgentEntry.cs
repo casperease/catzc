@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/types/AgentEntry.cs
     folder: types
     name: agent-entry
@@ -18,7 +19,7 @@ catzc:
     test: automation/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
     cites:
       - ADR-AUTO-TYPES#8
-      - ADR-REPO-AGENTS#2
+      - ADR-REPO-AGENTS#{2,7}
 ---
 */
 

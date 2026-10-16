@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/Get-CatzcOverlayRoot.ps1
     name: get-catzc-overlay-root
     filetype: ps1

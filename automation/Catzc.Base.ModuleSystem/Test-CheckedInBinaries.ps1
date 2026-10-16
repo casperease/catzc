@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
     name: test-checked-in-binaries
     filetype: ps1

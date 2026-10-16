@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.MarkdownMeta/Remove-MarkdownFrontMatter.ps1
     name: remove-markdown-front-matter
     filetype: ps1

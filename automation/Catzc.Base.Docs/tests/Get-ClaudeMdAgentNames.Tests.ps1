@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/Get-ClaudeMdAgentNames.Tests.ps1
     folder: tests
     name: get-claude-md-agent-names-tests

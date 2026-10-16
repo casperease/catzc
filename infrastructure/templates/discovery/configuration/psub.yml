@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: infrastructure/templates/discovery/configuration/psub.yml
 #     folder: configuration
 #     name: psub

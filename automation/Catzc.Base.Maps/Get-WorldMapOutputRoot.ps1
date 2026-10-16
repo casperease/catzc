@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/Get-WorldMapOutputRoot.ps1
     name: get-world-map-output-root
     filetype: ps1

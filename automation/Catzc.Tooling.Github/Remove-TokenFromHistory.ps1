@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
     name: remove-token-from-history
     filetype: ps1

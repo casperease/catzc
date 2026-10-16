@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1
     folder: tests
     name: invoke-go-test-tests

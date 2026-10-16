@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Node/Uninstall-Prettier.ps1
     name: uninstall-prettier
     filetype: ps1

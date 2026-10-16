@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Overlay/Import-CatzcOverlay.ps1
     name: import-catzc-overlay
     filetype: ps1

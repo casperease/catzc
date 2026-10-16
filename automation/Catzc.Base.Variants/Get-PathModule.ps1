@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/Get-PathModule.ps1
     name: get-path-module
     filetype: ps1

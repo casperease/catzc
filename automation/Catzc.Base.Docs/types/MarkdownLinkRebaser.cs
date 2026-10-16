@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/types/MarkdownLinkRebaser.cs
     folder: types
     name: markdown-link-rebaser

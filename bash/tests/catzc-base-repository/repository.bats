@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: bash/tests/catzc-base-repository/repository.bats
 #     folder: tests/catzc-base-repository
 #     name: repository

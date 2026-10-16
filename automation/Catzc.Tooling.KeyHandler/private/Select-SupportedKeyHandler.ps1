@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
     folder: private
     name: select-supported-key-handler

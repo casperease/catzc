@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
     name: build-contract-reference
     filetype: ps1

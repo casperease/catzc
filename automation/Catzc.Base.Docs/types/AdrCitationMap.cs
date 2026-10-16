@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/types/AdrCitationMap.cs
     folder: types
     name: adr-citation-map

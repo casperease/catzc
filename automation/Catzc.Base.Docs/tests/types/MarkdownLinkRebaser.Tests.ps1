@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/types/MarkdownLinkRebaser.Tests.ps1
     folder: tests/types
     name: markdown-link-rebaser-tests

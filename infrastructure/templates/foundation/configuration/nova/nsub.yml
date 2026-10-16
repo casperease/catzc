@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: infrastructure/templates/foundation/configuration/nova/nsub.yml
 #     folder: configuration/nova
 #     name: nsub

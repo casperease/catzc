@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
     folder: tests
     name: write-quality-gate-report-tests

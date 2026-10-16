@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Show-Cats.ps1
     name: show-cats
     filetype: ps1

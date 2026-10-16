@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Install-Uv.ps1
     name: install-uv
     filetype: ps1

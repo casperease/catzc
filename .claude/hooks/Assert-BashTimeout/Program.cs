@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: ".claude/hooks/Assert-BashTimeout/Program.cs"
     folder: hooks/Assert-BashTimeout
     name: program

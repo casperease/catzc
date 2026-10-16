@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Writers/Write-Header.ps1
     name: write-header
     filetype: ps1

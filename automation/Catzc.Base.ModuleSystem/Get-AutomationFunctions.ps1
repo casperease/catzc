@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Get-AutomationFunctions.ps1
     name: get-automation-functions
     filetype: ps1

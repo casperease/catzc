@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/tests/Test-AdoNaming.Tests.ps1
     folder: tests
     name: test-ado-naming-tests

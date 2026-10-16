@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
     folder: tests
     name: remove-az-cli-tests

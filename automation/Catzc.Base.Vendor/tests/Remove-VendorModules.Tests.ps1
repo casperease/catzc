@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Vendor/tests/Remove-VendorModules.Tests.ps1
     folder: tests
     name: remove-vendor-modules-tests

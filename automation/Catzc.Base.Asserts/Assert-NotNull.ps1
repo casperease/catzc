@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Assert-NotNull.ps1
     name: assert-not-null
     filetype: ps1

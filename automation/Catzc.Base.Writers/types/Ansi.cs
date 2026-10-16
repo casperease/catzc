@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Writers/types/Ansi.cs
     folder: types
     name: ansi

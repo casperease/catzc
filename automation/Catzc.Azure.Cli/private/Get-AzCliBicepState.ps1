@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
     folder: private
     name: get-az-cli-bicep-state

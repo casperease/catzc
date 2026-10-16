@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Github/New-SyntheticHistory.ps1
     name: new-synthetic-history
     filetype: ps1

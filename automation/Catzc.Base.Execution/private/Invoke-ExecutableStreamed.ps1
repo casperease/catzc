@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/private/Invoke-ExecutableStreamed.ps1
     folder: private
     name: invoke-executable-streamed

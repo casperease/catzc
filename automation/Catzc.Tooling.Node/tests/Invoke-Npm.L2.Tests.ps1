@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Node/tests/Invoke-Npm.L2.Tests.ps1
     folder: tests
     name: invoke-npm-l2-tests

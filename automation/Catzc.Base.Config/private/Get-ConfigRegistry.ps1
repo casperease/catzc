@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
     folder: private
     name: get-config-registry

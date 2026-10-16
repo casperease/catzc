@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Get-PythonCheckScope.ps1
     folder: private
     name: get-python-check-scope

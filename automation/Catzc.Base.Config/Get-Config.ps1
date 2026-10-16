@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Config/Get-Config.ps1
     name: get-config
     filetype: ps1

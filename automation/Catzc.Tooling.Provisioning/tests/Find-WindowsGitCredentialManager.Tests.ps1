@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/tests/Find-WindowsGitCredentialManager.Tests.ps1
     folder: tests
     name: find-windows-git-credential-manager-tests

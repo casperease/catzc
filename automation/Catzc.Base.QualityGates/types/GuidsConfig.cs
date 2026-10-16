@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/types/GuidsConfig.cs
     folder: types
     name: guids-config

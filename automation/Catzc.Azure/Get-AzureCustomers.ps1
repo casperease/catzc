@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure/Get-AzureCustomers.ps1
     name: get-azure-customers
     filetype: ps1

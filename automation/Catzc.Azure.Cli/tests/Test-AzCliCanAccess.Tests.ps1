@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/tests/Test-AzCliCanAccess.Tests.ps1
     folder: tests
     name: test-az-cli-can-access-tests

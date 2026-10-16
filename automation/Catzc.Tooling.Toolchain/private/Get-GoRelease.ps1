@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/private/Get-GoRelease.ps1
     folder: private
     name: get-go-release

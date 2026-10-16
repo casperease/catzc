@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/Get-SessionActor.ps1
     name: get-session-actor
     filetype: ps1

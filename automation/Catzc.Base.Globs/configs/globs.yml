@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Globs/configs/globs.yml
 #     folder: configs
 #     name: globs

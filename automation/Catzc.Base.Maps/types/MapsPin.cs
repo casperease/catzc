@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/types/MapsPin.cs
     folder: types
     name: maps-pin

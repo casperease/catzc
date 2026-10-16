@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
     name: test-git-hub-workflow-trigger-glob
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Github/tests/Remove-TokenFromHistory.Tests.ps1
     folder: tests
     name: remove-token-from-history-tests

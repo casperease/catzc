@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
     folder: tests/types
     name: bounded-command-tests

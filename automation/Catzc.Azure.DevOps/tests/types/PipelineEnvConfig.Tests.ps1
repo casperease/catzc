@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1
     folder: tests/types
     name: pipeline-env-config-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
     name: test-ado-pipeline-trigger-glob
     filetype: ps1

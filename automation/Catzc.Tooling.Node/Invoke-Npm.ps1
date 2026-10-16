@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Node/Invoke-Npm.ps1
     name: invoke-npm
     filetype: ps1

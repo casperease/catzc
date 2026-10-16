@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1
     folder: tests/types
     name: vendor-config-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/private/ConvertFrom-PytestJunit.ps1
     folder: private
     name: convert-from-pytest-junit

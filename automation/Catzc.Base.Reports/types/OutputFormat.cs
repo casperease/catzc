@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Reports/types/OutputFormat.cs
     folder: types
     name: output-format

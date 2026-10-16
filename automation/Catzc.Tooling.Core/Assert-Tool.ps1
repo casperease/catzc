@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Assert-Tool.ps1
     name: assert-tool
     filetype: ps1

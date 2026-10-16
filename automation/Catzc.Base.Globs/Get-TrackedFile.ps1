@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Get-TrackedFile.ps1
     name: get-tracked-file
     filetype: ps1

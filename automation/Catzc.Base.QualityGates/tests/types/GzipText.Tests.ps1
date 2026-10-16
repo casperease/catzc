@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/types/GzipText.Tests.ps1
     folder: tests/types
     name: gzip-text-tests

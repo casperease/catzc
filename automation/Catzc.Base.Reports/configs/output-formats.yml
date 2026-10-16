@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Reports/configs/output-formats.yml
 #     folder: configs
 #     name: output-formats

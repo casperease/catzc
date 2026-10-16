@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/Get-AzCliConnectionState.ps1
     name: get-az-cli-connection-state
     filetype: ps1

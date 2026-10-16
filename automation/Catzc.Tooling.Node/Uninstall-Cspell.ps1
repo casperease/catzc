@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Node/Uninstall-Cspell.ps1
     name: uninstall-cspell
     filetype: ps1

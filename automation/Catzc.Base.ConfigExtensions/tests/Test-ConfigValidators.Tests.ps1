@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
     folder: tests
     name: test-config-validators-tests

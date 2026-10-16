@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
     folder: tests
     name: test-glob-set-protection-tests

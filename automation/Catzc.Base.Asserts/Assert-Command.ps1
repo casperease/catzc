@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Assert-Command.ps1
     name: assert-command
     filetype: ps1

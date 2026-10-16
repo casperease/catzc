@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
     folder: tests
     name: new-go-workspace-tests

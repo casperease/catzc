@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Get-TypesLoadPolicy.Tests.ps1
     name: get-types-load-policy-tests
     filetype: ps1

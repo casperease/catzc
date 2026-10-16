@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/types/HelveticaMetrics.cs
     folder: types
     name: helvetica-metrics

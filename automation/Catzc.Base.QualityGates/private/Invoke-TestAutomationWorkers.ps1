@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Invoke-TestAutomationWorkers.ps1
     folder: private
     name: invoke-test-automation-workers

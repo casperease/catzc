@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
     folder: tests
     name: assert-tool-version-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/Get-FileLockingProcess.ps1
     name: get-file-locking-process
     filetype: ps1

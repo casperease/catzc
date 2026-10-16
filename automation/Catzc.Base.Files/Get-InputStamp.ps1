@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/Get-InputStamp.ps1
     name: get-input-stamp
     filetype: ps1
@@ -14,7 +15,6 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
-    page: docs/references/automation/catzc-base-files/Get-InputStamp.ps1.md
     test: automation/Catzc.Base.Files/tests/Get-InputStamp.Tests.ps1
     cites:
       - ADR-PRIN-ONELIVE

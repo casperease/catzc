@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/types/PythonWorkspaceFile.cs
     folder: types
     name: python-workspace-file

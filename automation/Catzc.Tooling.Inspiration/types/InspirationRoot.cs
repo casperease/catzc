@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
     folder: types
     name: inspiration-root

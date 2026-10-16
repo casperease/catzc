@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
     folder: tests
     name: test-contracts-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
     folder: tests
     name: glob-set-trigger-coverage-tests

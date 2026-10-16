@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
     folder: tests
     name: copy-object-tests

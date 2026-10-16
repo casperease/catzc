@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Vendor/Install-VendorModule.ps1
     name: install-vendor-module
     filetype: ps1

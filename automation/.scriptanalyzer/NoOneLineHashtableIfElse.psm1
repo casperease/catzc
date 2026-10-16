@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/NoOneLineHashtableIfElse.psm1
     folder: automation/.scriptanalyzer
     name: no-one-line-hashtable-if-else

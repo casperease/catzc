@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Set-RedirectedOutputEncoding.Tests.ps1
     name: set-redirected-output-encoding-tests
     filetype: ps1

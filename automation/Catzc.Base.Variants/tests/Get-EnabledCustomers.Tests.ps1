@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/tests/Get-EnabledCustomers.Tests.ps1
     folder: tests
     name: get-enabled-customers-tests

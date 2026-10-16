@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
     name: get-internal-asset-dependency
     filetype: ps1

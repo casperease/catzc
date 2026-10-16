@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1
     folder: tests
     name: convert-to-adr-domain-diagram-tests

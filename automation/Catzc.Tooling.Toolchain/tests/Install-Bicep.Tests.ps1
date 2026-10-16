@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Bicep.Tests.ps1
     folder: tests
     name: install-bicep-tests

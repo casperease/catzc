@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/Resolve-RepoPath.ps1
     name: resolve-repo-path
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Assert-IsGuidInRange.ps1
     name: assert-is-guid-in-range
     filetype: ps1

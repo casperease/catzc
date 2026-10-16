@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/private/Resolve-DotnetRemovalTarget.ps1
     folder: private
     name: resolve-dotnet-removal-target

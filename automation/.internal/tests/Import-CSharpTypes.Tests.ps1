@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Import-CSharpTypes.Tests.ps1
     name: import-c-sharp-types-tests
     filetype: ps1

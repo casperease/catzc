@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/private/Get-ContractAssetNote.ps1
     folder: private
     name: get-contract-asset-note

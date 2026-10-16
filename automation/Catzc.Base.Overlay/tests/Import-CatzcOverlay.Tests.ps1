@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
     folder: tests
     name: import-catzc-overlay-tests

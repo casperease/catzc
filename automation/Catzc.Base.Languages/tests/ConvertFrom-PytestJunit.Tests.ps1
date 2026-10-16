@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
     folder: tests
     name: convert-from-pytest-junit-tests

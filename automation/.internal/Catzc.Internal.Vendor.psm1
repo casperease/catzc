@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/Catzc.Internal.Vendor.psm1
     name: catzc-internal-vendor
     filetype: psm1

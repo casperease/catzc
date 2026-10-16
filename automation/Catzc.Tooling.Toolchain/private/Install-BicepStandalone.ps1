@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/private/Install-BicepStandalone.ps1
     folder: private
     name: install-bicep-standalone

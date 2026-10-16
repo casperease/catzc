@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Exit-TestRunLocation.ps1
     folder: private
     name: exit-test-run-location

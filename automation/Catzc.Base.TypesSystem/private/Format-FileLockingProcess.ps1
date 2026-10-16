@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/private/Format-FileLockingProcess.ps1
     folder: private
     name: format-file-locking-process

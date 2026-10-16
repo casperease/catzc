@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Remove-Java.ps1
     name: remove-java
     filetype: ps1

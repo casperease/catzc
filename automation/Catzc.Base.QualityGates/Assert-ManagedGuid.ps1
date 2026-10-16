@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Assert-ManagedGuid.ps1
     name: assert-managed-guid
     filetype: ps1

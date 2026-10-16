@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
     folder: private
     name: resolve-bicep-parameter-addresses

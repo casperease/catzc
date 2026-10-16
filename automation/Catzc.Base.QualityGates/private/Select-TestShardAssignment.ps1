@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Select-TestShardAssignment.ps1
     folder: private
     name: select-test-shard-assignment

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
     folder: tests
     name: find-executable-tests

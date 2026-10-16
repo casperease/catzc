@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/Format-MarkdownParagraph.Tests.ps1
     folder: tests
     name: format-markdown-paragraph-tests

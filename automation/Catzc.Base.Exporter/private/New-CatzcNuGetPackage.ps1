@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
     folder: private
     name: new-catzc-nu-get-package

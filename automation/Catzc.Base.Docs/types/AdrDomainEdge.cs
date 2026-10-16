@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/types/AdrDomainEdge.cs
     folder: types
     name: adr-domain-edge

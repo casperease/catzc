@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/Export-WorldMapPdf.ps1
     name: export-world-map-pdf
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/types/GeneratedFilesConfig.cs
     folder: types
     name: generated-files-config

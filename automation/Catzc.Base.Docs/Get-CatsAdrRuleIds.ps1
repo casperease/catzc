@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1
     name: get-cats-adr-rule-ids
     filetype: ps1

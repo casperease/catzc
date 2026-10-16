@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/Copy-Object.ps1
     name: copy-object
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/Get-ValueChainMap.ps1
     name: get-value-chain-map
     filetype: ps1

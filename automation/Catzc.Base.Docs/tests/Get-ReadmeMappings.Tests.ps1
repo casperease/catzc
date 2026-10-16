@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
     folder: tests
     name: get-readme-mappings-tests

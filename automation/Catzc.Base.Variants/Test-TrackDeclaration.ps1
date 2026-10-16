@@ -2,12 +2,15 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/Test-TrackDeclaration.ps1
     name: test-track-declaration
     filetype: ps1
     kind: function
+    subkind: gate
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Variants
     moduletype: pwsh-folder
     catzc_bundle: azure

@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: ".claude/drawio/minimaps/describe.py"
 #     folder: drawio/minimaps
 #     name: describe

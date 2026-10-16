@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/types/PesterRunner.cs
     folder: types
     name: pester-runner

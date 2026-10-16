@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs
     folder: types
     name: code-link-rewriter

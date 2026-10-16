@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
     folder: tests
     name: deploy-azure-resource-group-tests

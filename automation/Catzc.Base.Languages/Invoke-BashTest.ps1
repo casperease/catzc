@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/Invoke-BashTest.ps1
     name: invoke-bash-test
     filetype: ps1

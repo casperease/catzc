@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Azure/configs/identity-tokens.yml
 #     folder: configs
 #     name: identity-tokens

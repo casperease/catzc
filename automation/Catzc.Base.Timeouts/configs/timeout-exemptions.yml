@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Timeouts/configs/timeout-exemptions.yml
 #     folder: configs
 #     name: timeout-exemptions

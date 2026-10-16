@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.RootConfig/tests/New-GitAttributes.Tests.ps1
     folder: tests
     name: new-git-attributes-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/types/FileLockingProcess.cs
     folder: types
     name: file-locking-process

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/tests/Test-TrackDeclaration.Tests.ps1
     folder: tests
     name: test-track-declaration-tests
@@ -9,6 +10,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Variants
     moduletype: pwsh-folder
     catzc_bundle: azure

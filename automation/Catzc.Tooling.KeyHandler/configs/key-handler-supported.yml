@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Tooling.KeyHandler/configs/key-handler-supported.yml
 #     folder: configs
 #     name: key-handler-supported

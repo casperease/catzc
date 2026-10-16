@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/tests/Test-AzCliIsConnected.Tests.ps1
     folder: tests
     name: test-az-cli-is-connected-tests

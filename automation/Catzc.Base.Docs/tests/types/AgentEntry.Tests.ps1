@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
     folder: tests/types
     name: agent-entry-tests

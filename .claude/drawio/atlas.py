@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: ".claude/drawio/atlas.py"
 #     folder: drawio
 #     name: atlas

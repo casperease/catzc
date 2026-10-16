@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/types/SubscriptionAccessState.cs
     folder: types
     name: subscription-access-state

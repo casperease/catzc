@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Python/Invoke-PySpark.ps1
     name: invoke-py-spark
     filetype: ps1

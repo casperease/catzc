@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.RootConfig/New-GitAttributes.ps1
     name: new-git-attributes
     filetype: ps1

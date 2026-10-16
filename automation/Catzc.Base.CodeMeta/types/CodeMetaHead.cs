@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.CodeMeta/types/CodeMetaHead.cs
     folder: types
     name: code-meta-head

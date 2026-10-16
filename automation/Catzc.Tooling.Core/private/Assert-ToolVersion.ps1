@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
     folder: private
     name: assert-tool-version

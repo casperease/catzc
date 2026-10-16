@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
     name: test-generated-files
     filetype: ps1

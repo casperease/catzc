@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Test-IsAdministrator.ps1
     name: test-is-administrator
     filetype: ps1

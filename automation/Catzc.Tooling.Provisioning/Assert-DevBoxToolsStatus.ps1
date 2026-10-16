@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
     name: assert-dev-box-tools-status
     filetype: ps1

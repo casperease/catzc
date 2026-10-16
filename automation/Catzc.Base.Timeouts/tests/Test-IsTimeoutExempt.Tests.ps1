@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/tests/Test-IsTimeoutExempt.Tests.ps1
     folder: tests
     name: test-is-timeout-exempt-tests

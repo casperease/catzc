@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/types/TestPolicyConfig.Tests.ps1
     folder: tests/types
     name: test-policy-config-tests

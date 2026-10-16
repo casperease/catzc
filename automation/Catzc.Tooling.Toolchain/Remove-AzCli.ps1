@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Remove-AzCli.ps1
     name: remove-az-cli
     filetype: ps1

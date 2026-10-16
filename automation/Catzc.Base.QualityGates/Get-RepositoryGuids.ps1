@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Get-RepositoryGuids.ps1
     name: get-repository-guids
     filetype: ps1

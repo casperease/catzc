@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/tests/New-AdoPullRequest.Tests.ps1
     folder: tests
     name: new-ado-pull-request-tests

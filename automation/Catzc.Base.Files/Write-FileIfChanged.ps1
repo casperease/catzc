@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/Write-FileIfChanged.ps1
     name: write-file-if-changed
     filetype: ps1

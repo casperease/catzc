@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Shipped.Tests.ps1
     folder: tests
     name: get-inspiration-shipped-tests

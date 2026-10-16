@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/private/Get-Variant.ps1
     folder: private
     name: get-variant

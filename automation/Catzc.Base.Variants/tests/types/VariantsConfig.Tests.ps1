@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
     folder: tests/types
     name: variants-config-tests
@@ -13,6 +14,9 @@ catzc:
     module: Catzc.Base.Variants
     moduletype: pwsh-folder
     catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-AUTO-MODULE#4
 ---
 #>
 

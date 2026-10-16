@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
     folder: private
     name: assert-bundle-footprint

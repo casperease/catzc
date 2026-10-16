@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1
     name: get-az-cli-subscription-access-state
     filetype: ps1

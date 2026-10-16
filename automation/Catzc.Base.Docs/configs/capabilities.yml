@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Docs/configs/capabilities.yml
 #     folder: configs
 #     name: capabilities
@@ -12,8 +13,6 @@
 #     module: Catzc.Base.Docs
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#   edges:
-#     page: docs/references/automation/catzc-base-docs/configs/capabilities.yml.md
 # ---
 
 # One entry per capability .claude/skills/<name>/SKILL.md: the rules behind it and the checks it runs or guards. The model

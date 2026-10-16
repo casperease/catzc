@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
     folder: types
     name: key-handler-supported-config

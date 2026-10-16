@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
     folder: tests
     name: get-glob-set-hash-tests

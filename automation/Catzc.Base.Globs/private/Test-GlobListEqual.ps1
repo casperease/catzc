@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1
     folder: private
     name: test-glob-list-equal

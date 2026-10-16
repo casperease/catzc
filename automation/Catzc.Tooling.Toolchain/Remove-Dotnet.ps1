@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Remove-Dotnet.ps1
     name: remove-dotnet
     filetype: ps1

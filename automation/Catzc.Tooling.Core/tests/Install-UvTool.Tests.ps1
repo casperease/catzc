@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
     folder: tests
     name: install-uv-tool-tests

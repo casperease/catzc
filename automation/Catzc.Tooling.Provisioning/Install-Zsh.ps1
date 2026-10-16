@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/Install-Zsh.ps1
     name: install-zsh
     filetype: ps1

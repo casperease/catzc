@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/Invoke-PythonTest.ps1
     name: invoke-python-test
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/types/GoTestResult.cs
     folder: types
     name: go-test-result

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1
     name: get-execution-engine
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Writers/private/Resolve-WriterColor.ps1
     folder: private
     name: resolve-writer-color

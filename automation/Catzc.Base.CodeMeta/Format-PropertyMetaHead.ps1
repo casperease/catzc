@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.CodeMeta/Format-PropertyMetaHead.ps1
     name: format-property-meta-head
     filetype: ps1

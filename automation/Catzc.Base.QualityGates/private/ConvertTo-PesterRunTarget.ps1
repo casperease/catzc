@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/ConvertTo-PesterRunTarget.ps1
     folder: private
     name: convert-to-pester-run-target

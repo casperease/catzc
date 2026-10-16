@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Get-FunctionDependencyTree.ps1
     name: get-function-dependency-tree
     filetype: ps1

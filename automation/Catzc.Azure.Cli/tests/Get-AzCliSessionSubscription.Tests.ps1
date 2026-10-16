@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
     folder: tests
     name: get-az-cli-session-subscription-tests

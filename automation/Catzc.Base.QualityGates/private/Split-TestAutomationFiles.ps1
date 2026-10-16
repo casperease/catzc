@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Split-TestAutomationFiles.ps1
     folder: private
     name: split-test-automation-files

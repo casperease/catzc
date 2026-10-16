@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
     name: write-environment-set
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
     name: get-inspiration
     filetype: ps1

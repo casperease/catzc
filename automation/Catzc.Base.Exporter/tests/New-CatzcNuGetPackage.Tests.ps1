@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
     folder: tests
     name: new-catzc-nu-get-package-tests

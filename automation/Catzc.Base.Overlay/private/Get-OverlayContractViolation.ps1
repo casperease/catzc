@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Overlay/private/Get-OverlayContractViolation.ps1
     folder: private
     name: get-overlay-contract-violation

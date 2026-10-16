@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
     folder: tests/types
     name: inspiration-root-tests

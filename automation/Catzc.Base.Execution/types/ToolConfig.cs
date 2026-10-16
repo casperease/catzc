@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/types/ToolConfig.cs
     folder: types
     name: tool-config

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
     folder: tests
     name: set-ado-pipeline-variable-tests

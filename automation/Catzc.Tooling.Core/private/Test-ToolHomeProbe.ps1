@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/private/Test-ToolHomeProbe.ps1
     folder: private
     name: test-tool-home-probe

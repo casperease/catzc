@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
     folder: private
     name: get-firewall-markdown-columns

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1
     folder: tests/types
     name: parsed-scripts-tests

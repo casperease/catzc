@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/tests/Test-GitPathChanged.Tests.ps1
     folder: tests
     name: test-git-path-changed-tests

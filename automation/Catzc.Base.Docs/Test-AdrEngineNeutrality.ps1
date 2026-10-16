@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
     name: test-adr-engine-neutrality
     filetype: ps1

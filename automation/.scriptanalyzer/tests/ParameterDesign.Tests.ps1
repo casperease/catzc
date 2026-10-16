@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/tests/ParameterDesign.Tests.ps1
     folder: automation/.scriptanalyzer/tests
     name: parameter-design-tests

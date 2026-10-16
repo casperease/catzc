@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Test-PythonLint.ps1
     name: test-python-lint
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Get-VendorFileMetaFact.ps1
     folder: private
     name: get-vendor-file-meta-fact
@@ -10,6 +11,7 @@ catzc:
     subkind: fact
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure

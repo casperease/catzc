@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1
     folder: tests
     name: test-have-property-tests

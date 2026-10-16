@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/ConvertTo-Dictionary.ps1
     name: convert-to-dictionary
     filetype: ps1

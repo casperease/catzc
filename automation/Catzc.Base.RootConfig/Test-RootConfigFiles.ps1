@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
     name: test-root-config-files
     filetype: ps1

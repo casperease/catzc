@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Install-Shellcheck.ps1
     name: install-shellcheck
     filetype: ps1

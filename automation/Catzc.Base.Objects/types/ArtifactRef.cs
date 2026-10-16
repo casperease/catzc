@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/types/ArtifactRef.cs
     folder: types
     name: artifact-ref

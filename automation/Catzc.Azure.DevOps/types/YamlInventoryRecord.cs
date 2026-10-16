@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/types/YamlInventoryRecord.cs
     folder: types
     name: yaml-inventory-record

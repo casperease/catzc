@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/Resolve-EngineExecutable.ps1
     name: resolve-engine-executable
     filetype: ps1

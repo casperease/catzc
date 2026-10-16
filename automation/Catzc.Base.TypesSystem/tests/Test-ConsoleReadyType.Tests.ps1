@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
     folder: tests
     name: test-console-ready-type-tests

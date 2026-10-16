@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Invoke-RuffFormat.ps1
     folder: private
     name: invoke-ruff-format

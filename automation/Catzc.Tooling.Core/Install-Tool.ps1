@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Install-Tool.ps1
     name: install-tool
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.CodeMeta/tests/types/PropertyHead.Tests.ps1
     folder: tests/types
     name: property-head-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Get-CatzcBundleFileMetaFact.Tests.ps1
     folder: tests
     name: get-catzc-bundle-file-meta-fact-tests

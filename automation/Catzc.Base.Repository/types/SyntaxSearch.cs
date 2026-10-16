@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/types/SyntaxSearch.cs
     folder: types
     name: syntax-search

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Firewall/Get-FirewallCsv.ps1
     name: get-firewall-csv
     filetype: ps1

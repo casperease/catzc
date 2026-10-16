@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1
     folder: tests/types
     name: git-hub-anchor-tests

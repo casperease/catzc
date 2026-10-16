@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
     folder: tests
     name: write-tool-probe-report-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownDocument.Tests.ps1
     folder: tests/types
     name: markdown-document-tests

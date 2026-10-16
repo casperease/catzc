@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/Get-EnabledCustomers.ps1
     name: get-enabled-customers
     filetype: ps1

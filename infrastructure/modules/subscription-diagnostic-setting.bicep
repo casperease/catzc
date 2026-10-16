@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/subscription-diagnostic-setting.bicep
 //     name: subscription-diagnostic-setting
 //     filetype: bicep

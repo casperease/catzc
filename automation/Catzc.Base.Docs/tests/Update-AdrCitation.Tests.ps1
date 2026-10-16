@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
     folder: tests
     name: update-adr-citation-tests

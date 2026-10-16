@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/NoForEachObjectControlFlow.psm1
     folder: automation/.scriptanalyzer
     name: no-for-each-object-control-flow

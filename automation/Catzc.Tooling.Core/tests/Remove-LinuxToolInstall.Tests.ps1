@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
     folder: tests
     name: remove-linux-tool-install-tests

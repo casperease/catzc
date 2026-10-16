@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Vendor/Assert-VendorModuleAvailable.ps1
     name: assert-vendor-module-available
     filetype: ps1

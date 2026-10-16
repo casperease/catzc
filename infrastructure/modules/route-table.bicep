@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/route-table.bicep
 //     name: route-table
 //     filetype: bicep

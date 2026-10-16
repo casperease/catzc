@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
     folder: tests
     name: format-markdown-title-tests

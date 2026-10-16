@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Variants/configs/module-types.yml
 #     folder: configs
 #     name: module-types

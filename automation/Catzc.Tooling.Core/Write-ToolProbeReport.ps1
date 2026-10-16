@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Write-ToolProbeReport.ps1
     name: write-tool-probe-report
     filetype: ps1

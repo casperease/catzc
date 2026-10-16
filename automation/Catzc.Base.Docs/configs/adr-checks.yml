@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Docs/configs/adr-checks.yml
 #     folder: configs
 #     name: adr-checks

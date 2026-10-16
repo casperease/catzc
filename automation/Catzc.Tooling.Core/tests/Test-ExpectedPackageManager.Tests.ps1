@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
     folder: tests
     name: test-expected-package-manager-tests

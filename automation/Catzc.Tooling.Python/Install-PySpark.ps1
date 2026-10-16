@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Python/Install-PySpark.ps1
     name: install-py-spark
     filetype: ps1

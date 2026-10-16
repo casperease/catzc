@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/Install-DevBoxTools.ps1
     name: install-dev-box-tools
     filetype: ps1

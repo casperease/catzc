@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/Get-TimeoutExemption.ps1
     name: get-timeout-exemption
     filetype: ps1

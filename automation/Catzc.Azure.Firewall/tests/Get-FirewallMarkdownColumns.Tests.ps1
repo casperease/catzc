@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownColumns.Tests.ps1
     folder: tests
     name: get-firewall-markdown-columns-tests

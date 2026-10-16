@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1
     folder: tests/types
     name: parameter-consistency-config-tests

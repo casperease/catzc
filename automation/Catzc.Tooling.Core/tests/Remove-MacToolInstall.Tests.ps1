@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
     folder: tests
     name: remove-mac-tool-install-tests

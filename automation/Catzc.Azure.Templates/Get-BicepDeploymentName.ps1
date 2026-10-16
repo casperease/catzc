@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
     name: get-bicep-deployment-name
     filetype: ps1

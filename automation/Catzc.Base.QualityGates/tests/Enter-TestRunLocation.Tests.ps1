@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Enter-TestRunLocation.Tests.ps1
     folder: tests
     name: enter-test-run-location-tests

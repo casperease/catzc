@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
     folder: private
     name: get-config-validator-name

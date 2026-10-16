@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
     name: initialize-git-clone
     filetype: ps1

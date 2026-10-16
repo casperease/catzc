@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1
     folder: tests/types
     name: engine-set-check-tests

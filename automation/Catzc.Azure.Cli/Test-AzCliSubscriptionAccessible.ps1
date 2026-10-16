@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
     name: test-az-cli-subscription-accessible
     filetype: ps1

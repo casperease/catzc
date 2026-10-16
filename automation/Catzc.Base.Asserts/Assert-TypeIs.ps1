@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Assert-TypeIs.ps1
     name: assert-type-is
     filetype: ps1

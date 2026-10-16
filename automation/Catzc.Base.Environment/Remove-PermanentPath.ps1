@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Environment/Remove-PermanentPath.ps1
     name: remove-permanent-path
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/Get-GitCurrentBranch.ps1
     name: get-git-current-branch
     filetype: ps1

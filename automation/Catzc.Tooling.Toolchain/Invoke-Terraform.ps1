@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Invoke-Terraform.ps1
     name: invoke-terraform
     filetype: ps1

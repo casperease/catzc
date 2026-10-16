@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
     folder: private
     name: convert-to-contract-note-markdown

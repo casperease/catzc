@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
     name: test-root-analyzer-settings
     filetype: ps1

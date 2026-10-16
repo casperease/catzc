@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
     folder: tests
     name: assert-git-hub-purge-ready-tests

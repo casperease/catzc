@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/diagnostic-setting.bicep
 //     name: diagnostic-setting
 //     filetype: bicep

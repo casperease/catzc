@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/log-analytics.bicep
 //     name: log-analytics
 //     filetype: bicep

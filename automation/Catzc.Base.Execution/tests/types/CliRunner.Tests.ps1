@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
     folder: tests/types
     name: cli-runner-tests

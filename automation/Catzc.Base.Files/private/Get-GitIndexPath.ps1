@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/private/Get-GitIndexPath.ps1
     folder: private
     name: get-git-index-path

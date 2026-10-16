@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/AnnounceStateChange.psm1
     folder: automation/.scriptanalyzer
     name: announce-state-change

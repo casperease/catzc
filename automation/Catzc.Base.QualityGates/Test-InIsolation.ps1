@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Test-InIsolation.ps1
     name: test-in-isolation
     filetype: ps1

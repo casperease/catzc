@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/private/Read-ContractManifest.ps1
     folder: private
     name: read-contract-manifest

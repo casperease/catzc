@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/types/ContractAssetKind.cs
     folder: types
     name: contract-asset-kind

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
     folder: tests
     name: clear-module-type-cache-tests

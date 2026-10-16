@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/NoWriteErrorOrWarning.psm1
     folder: automation/.scriptanalyzer
     name: no-write-error-or-warning

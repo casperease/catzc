@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
     name: get-firewall-ipgs-yaml
     filetype: ps1

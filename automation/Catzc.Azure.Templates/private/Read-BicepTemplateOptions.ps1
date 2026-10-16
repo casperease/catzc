@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/private/Read-BicepTemplateOptions.ps1
     folder: private
     name: read-bicep-template-options

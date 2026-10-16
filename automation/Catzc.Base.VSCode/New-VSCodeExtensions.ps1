@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/New-VSCodeExtensions.ps1
     name: new-vs-code-extensions
     filetype: ps1

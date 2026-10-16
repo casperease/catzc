@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1
     name: reset-git-clean-fxd
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/Assert-FileIsLocked.ps1
     name: assert-file-is-locked
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependencyTree.Tests.ps1
     folder: tests
     name: get-function-dependency-tree-tests

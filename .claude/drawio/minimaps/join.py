@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: ".claude/drawio/minimaps/join.py"
 #     folder: drawio/minimaps
 #     name: join

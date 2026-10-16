@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
     folder: tests
     name: sync-generated-file-tests

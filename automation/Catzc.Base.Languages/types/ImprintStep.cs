@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/types/ImprintStep.cs
     folder: types
     name: imprint-step

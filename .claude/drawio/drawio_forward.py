@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: ".claude/drawio/drawio_forward.py"
 #     folder: drawio
 #     name: drawio-forward

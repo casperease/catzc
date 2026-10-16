@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
     folder: private
     name: resolve-map-label-term

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHint.Tests.ps1
     folder: tests
     name: resolve-session-tool-hint-tests

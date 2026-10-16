@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/types/PathParts.Tests.ps1
     folder: tests/types
     name: path-parts-tests

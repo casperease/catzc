@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/Test-GitWorkspace.ps1
     name: test-git-workspace
     filetype: ps1

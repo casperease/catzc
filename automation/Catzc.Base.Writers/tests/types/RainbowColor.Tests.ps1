@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
     folder: tests/types
     name: rainbow-color-tests

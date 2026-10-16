@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1
     folder: tests/types
     name: file-carrier-resolver-tests

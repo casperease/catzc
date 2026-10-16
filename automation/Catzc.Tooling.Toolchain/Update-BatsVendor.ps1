@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Update-BatsVendor.ps1
     name: update-bats-vendor
     filetype: ps1

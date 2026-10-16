@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/Set-FileLink.ps1
     name: set-file-link
     filetype: ps1

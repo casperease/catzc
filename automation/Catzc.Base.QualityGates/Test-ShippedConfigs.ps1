@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
     name: test-shipped-configs
     filetype: ps1

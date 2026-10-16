@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Get-GlobSetHash.ps1
     name: get-glob-set-hash
     filetype: ps1

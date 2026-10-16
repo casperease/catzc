@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Save-FileMetaResult.ps1
     folder: private
     name: save-file-meta-result

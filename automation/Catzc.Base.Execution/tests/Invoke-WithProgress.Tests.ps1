@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/tests/Invoke-WithProgress.Tests.ps1
     folder: tests
     name: invoke-with-progress-tests

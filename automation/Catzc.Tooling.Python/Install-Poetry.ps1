@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Python/Install-Poetry.ps1
     name: install-poetry
     filetype: ps1

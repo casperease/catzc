@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/Catzc.Internal.Builder.psm1
     name: catzc-internal-builder
     filetype: psm1

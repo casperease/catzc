@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Test-ToolRequiresElevation.ps1
     name: test-tool-requires-elevation
     filetype: ps1

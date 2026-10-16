@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
     folder: tests
     name: get-neutral-code-finding-tests

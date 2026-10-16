@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleProfile.ps1
     name: get-module-profile
     filetype: ps1

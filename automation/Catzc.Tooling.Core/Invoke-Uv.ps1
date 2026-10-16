@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Invoke-Uv.ps1
     name: invoke-uv
     filetype: ps1

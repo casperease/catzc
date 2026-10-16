@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
     folder: tests/types
     name: folder-walker-tests

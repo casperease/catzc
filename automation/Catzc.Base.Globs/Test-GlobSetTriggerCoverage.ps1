@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
     name: test-glob-set-trigger-coverage
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/Build-Modules.ps1
     name: build-modules
     filetype: ps1

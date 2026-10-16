@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/private/Install-UvStandalone.ps1
     folder: private
     name: install-uv-standalone

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
     folder: tests
     name: save-verified-download-tests

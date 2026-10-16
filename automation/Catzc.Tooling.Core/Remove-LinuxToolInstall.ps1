@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
     name: remove-linux-tool-install
     filetype: ps1

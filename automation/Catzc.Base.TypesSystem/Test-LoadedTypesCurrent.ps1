@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/Test-LoadedTypesCurrent.ps1
     name: test-loaded-types-current
     filetype: ps1

@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/templates/expedition/main.bicep
 //     name: main
 //     filetype: bicep

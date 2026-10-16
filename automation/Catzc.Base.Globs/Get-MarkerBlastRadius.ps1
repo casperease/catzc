@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1
     name: get-marker-blast-radius
     filetype: ps1

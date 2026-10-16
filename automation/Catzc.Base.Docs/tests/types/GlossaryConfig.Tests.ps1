@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
     folder: tests/types
     name: glossary-config-tests

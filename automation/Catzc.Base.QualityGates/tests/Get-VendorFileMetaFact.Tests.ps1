@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Get-VendorFileMetaFact.Tests.ps1
     folder: tests
     name: get-vendor-file-meta-fact-tests
@@ -9,6 +10,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure

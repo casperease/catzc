@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
     name: remove-system-installation
     filetype: ps1

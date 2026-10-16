@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Group-AdrUsage.Tests.ps1
     folder: tests
     name: group-adr-usage-tests

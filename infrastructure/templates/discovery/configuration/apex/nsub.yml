@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: infrastructure/templates/discovery/configuration/apex/nsub.yml
 #     folder: configuration/apex
 #     name: nsub

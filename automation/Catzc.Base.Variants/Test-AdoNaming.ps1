@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/Test-AdoNaming.ps1
     name: test-ado-naming
     filetype: ps1

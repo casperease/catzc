@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
     name: convert-firewall-csv-to-markdown
     filetype: ps1

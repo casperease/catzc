@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/Resolve-AdrLinkTarget.Tests.ps1
     folder: tests
     name: resolve-adr-link-target-tests

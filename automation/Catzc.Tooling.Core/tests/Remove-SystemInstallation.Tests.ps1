@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
     folder: tests
     name: remove-system-installation-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Import-AllModules.Tests.ps1
     name: import-all-modules-tests
     filetype: ps1

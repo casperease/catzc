@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
     folder: private
     name: get-root-config-targets

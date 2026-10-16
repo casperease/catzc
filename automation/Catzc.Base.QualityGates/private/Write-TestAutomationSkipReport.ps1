@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationSkipReport.ps1
     folder: private
     name: write-test-automation-skip-report

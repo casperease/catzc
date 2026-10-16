@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/NoScriptRootAnchor.psm1
     folder: automation/.scriptanalyzer
     name: no-script-root-anchor

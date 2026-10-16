@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/Uninstall-Git.ps1
     name: uninstall-git
     filetype: ps1

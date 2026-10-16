@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
     name: get-markdown-meta-state
     filetype: ps1

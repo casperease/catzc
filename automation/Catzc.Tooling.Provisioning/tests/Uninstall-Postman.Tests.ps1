@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1
     folder: tests
     name: uninstall-postman-tests

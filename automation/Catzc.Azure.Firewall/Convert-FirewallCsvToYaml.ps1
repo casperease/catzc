@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1
     name: convert-firewall-csv-to-yaml
     filetype: ps1

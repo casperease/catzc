@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Uninstall-Tool.ps1
     name: uninstall-tool
     filetype: ps1

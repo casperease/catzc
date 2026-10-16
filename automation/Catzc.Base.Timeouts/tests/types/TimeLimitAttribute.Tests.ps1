@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/tests/types/TimeLimitAttribute.Tests.ps1
     folder: tests/types
     name: time-limit-attribute-tests

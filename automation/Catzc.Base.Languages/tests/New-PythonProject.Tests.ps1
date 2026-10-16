@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
     folder: tests
     name: new-python-project-tests

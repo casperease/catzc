@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Vendor/Remove-VendorModules.ps1
     name: remove-vendor-modules
     filetype: ps1

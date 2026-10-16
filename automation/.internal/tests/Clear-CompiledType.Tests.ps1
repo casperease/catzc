@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Clear-CompiledType.Tests.ps1
     name: clear-compiled-type-tests
     filetype: ps1

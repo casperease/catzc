@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/resource-group.bicep
 //     name: resource-group
 //     filetype: bicep

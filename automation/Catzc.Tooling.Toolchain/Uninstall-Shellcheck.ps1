@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Uninstall-Shellcheck.ps1
     name: uninstall-shellcheck
     filetype: ps1

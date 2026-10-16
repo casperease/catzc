@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Test-Glossary.ps1
     name: test-glossary
     filetype: ps1

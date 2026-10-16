@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Invoke-DotnetFormat.Tests.ps1
     folder: tests
     name: invoke-dotnet-format-tests

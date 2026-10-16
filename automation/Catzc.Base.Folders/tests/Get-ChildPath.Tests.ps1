@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
     folder: tests
     name: get-child-path-tests

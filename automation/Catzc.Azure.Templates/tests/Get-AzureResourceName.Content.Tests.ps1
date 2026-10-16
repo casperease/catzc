@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/Get-AzureResourceName.Content.Tests.ps1
     folder: tests
     name: get-azure-resource-name-content-tests

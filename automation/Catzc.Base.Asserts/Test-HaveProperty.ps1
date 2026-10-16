@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Test-HaveProperty.ps1
     name: test-have-property
     filetype: ps1

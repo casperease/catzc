@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Writers/Write-EnvironmentDiagnostic.ps1
     name: write-environment-diagnostic
     filetype: ps1

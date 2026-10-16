@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
     folder: tests/types
     name: dictionary-record-tests

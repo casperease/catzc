@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/Get-AdoYamlInventory.ps1
     name: get-ado-yaml-inventory
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Write-TypesAssemblyManifest.Tests.ps1
     name: write-types-assembly-manifest-tests
     filetype: ps1

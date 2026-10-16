@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: infrastructure/templates/expedition/configuration/apex/dev.yml
 #     folder: configuration/apex
 #     name: dev

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Python/tests/Invoke-PySpark.Tests.ps1
     folder: tests
     name: invoke-py-spark-tests

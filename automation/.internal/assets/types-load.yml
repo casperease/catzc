@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/.internal/assets/types-load.yml
 #     name: types-load
 #     filetype: yml

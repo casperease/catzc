@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/Build-Bicep.ps1
     name: build-bicep
     filetype: ps1

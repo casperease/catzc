@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/private/Get-AdrRuleSummaryLines.ps1
     folder: private
     name: get-adr-rule-summary-lines

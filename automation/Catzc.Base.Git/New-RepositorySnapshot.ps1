@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/New-RepositorySnapshot.ps1
     name: new-repository-snapshot
     filetype: ps1

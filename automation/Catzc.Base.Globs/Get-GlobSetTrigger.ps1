@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
     name: get-glob-set-trigger
     filetype: ps1

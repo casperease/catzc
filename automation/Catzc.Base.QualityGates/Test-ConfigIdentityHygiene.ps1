@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1
     name: test-config-identity-hygiene
     filetype: ps1

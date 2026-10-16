@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
     folder: tests
     name: resolve-map-label-term-tests

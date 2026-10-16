@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
     name: convert-to-repo-relative-path
     filetype: ps1

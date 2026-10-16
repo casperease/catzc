@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
     folder: types
     name: build-validation-entry

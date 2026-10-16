@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Get-AdrCitationMap.ps1
     name: get-adr-citation-map
     filetype: ps1

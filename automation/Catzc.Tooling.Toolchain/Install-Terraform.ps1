@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Install-Terraform.ps1
     name: install-terraform
     filetype: ps1

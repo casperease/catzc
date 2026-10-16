@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Python/Uninstall-Python.ps1
     name: uninstall-python
     filetype: ps1

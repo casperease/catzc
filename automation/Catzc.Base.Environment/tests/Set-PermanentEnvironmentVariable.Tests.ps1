@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
     folder: tests
     name: set-permanent-environment-variable-tests

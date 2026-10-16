@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
     name: register-ado-build-validation
     filetype: ps1

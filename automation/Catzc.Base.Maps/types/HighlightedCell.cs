@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/types/HighlightedCell.cs
     folder: types
     name: highlighted-cell

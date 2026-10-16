@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1
     name: format-markdown-meta-block
     filetype: ps1

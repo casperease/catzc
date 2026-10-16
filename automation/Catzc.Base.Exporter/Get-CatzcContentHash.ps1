@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
     name: get-catzc-content-hash
     filetype: ps1

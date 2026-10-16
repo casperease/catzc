@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/Catzc.Internal.Importer.psm1
     name: catzc-internal-importer
     filetype: psm1

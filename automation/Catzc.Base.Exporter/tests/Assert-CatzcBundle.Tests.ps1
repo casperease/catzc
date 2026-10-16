@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
     folder: tests
     name: assert-catzc-bundle-tests

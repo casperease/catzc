@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/sql-server.bicep
 //     name: sql-server
 //     filetype: bicep

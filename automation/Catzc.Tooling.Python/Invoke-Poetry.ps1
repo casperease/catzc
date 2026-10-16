@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Python/Invoke-Poetry.ps1
     name: invoke-poetry
     filetype: ps1

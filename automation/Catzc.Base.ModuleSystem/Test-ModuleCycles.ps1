@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
     name: test-module-cycles
     filetype: ps1

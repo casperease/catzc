@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
     folder: types
     name: vscode-pipeline-schema-config

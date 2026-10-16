@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.L2.Tests.ps1
     folder: tests
     name: invoke-az-cli-l2-tests

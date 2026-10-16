@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/types/TestTiers.cs
     folder: types
     name: test-tiers

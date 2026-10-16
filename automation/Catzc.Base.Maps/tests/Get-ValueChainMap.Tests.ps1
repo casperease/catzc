@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
     folder: tests
     name: get-value-chain-map-tests

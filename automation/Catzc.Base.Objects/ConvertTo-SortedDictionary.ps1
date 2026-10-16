@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
     name: convert-to-sorted-dictionary
     filetype: ps1

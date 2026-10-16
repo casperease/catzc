@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Get-DynamicManifestContent.Tests.ps1
     name: get-dynamic-manifest-content-tests
     filetype: ps1

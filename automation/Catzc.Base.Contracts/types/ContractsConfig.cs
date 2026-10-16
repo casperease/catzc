@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/types/ContractsConfig.cs
     folder: types
     name: contracts-config

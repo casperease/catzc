@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
     name: new-built-catzc-root-tests
     filetype: ps1

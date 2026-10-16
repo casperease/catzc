@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/types/PythonTestResult.cs
     folder: types
     name: python-test-result

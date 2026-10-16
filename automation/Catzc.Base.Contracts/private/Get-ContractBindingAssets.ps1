@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/private/Get-ContractBindingAssets.ps1
     folder: private
     name: get-contract-binding-assets

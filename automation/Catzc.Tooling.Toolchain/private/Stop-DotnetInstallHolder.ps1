@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
     folder: private
     name: stop-dotnet-install-holder

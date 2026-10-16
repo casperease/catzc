@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: pipelines/ci-infrastructure.yaml
 #     name: ci-infrastructure
 #     filetype: yaml

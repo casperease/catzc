@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/types/FileMetaKind.cs
     folder: types
     name: file-meta-kind

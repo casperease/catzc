@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
     name: resolve-catzc-build-version
     filetype: ps1

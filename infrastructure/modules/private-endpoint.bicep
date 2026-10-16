@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/private-endpoint.bicep
 //     name: private-endpoint
 //     filetype: bicep

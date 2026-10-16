@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
     folder: tests
     name: uninstall-dotnet-tests

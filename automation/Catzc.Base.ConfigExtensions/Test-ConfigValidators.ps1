@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
     name: test-config-validators
     filetype: ps1

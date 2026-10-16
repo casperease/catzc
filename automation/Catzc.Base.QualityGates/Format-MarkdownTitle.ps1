@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1
     name: format-markdown-title
     filetype: ps1

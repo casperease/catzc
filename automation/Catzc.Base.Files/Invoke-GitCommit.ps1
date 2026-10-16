@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/Invoke-GitCommit.ps1
     name: invoke-git-commit
     filetype: ps1

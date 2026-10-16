@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/Reset-LastExitCode.ps1
     name: reset-last-exit-code
     filetype: ps1

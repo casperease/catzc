@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/types/ExporterPackage.cs
     folder: types
     name: exporter-package

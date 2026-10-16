@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1
     name: invoke-ado-rest-method
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
     folder: tests
     name: install-dotnet-tests

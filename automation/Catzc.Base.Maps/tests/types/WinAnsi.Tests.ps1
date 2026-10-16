@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/tests/types/WinAnsi.Tests.ps1
     folder: tests/types
     name: win-ansi-tests

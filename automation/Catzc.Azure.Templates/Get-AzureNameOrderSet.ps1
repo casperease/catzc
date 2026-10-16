@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/Get-AzureNameOrderSet.ps1
     name: get-azure-name-order-set
     filetype: ps1

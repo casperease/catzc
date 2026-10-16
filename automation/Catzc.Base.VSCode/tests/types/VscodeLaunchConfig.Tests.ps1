@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/tests/types/VscodeLaunchConfig.Tests.ps1
     folder: tests/types
     name: vscode-launch-config-tests

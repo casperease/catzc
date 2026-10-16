@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/types/ContractCheckResult.cs
     folder: types
     name: contract-check-result

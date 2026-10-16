@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs
     folder: types
     name: console-display-attribute

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Node/Install-Markdownlint.ps1
     name: install-markdownlint
     filetype: ps1

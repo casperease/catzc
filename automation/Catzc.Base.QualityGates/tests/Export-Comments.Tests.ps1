@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
     folder: tests
     name: export-comments-tests

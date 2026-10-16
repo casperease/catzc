@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs
     folder: types
     name: bicep-deployment-plan

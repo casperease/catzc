@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/types/VscodeLaunchConfig.cs
     folder: types
     name: vscode-launch-config

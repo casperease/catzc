@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/Test-AzCliExtension.ps1
     name: test-az-cli-extension
     filetype: ps1

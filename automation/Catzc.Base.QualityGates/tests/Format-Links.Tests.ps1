@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
     folder: tests
     name: format-links-tests

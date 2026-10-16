@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
     folder: tests
     name: reset-git-hub-repository-tests

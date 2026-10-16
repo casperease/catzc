@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/types/GitHistoryScan.cs
     folder: types
     name: git-history-scan

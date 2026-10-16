@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/Invoke-Executable.ps1
     name: invoke-executable
     filetype: ps1

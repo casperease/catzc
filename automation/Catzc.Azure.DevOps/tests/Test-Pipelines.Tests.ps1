@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
     folder: tests
     name: test-pipelines-tests

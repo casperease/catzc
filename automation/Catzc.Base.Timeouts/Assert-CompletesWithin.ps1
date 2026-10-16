@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1
     name: assert-completes-within
     filetype: ps1

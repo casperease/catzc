@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Get-RepoStatusFileMetaFact.ps1
     folder: private
     name: get-repo-status-file-meta-fact
@@ -15,6 +16,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-RepoStatusFileMetaFact.Tests.ps1
   config:
     synopsis: 'The repo-status meta kind''s fact: whether the file is locked (generated, edit its source) or clean (authored).'
     description: |-

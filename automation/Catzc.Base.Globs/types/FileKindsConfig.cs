@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/types/FileKindsConfig.cs
     folder: types
     name: file-kinds-config

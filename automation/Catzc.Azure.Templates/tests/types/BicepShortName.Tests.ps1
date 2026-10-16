@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
     folder: tests/types
     name: bicep-short-name-tests

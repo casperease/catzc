@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Invoke-TypeCacheJanitor.Tests.ps1
     name: invoke-type-cache-janitor-tests
     filetype: ps1

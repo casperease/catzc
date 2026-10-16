@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/Deploy-AzureResourceGroup.ps1
     name: deploy-azure-resource-group
     filetype: ps1

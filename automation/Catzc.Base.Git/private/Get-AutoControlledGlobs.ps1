@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
     folder: private
     name: get-auto-controlled-globs

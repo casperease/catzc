@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
     folder: tests
     name: get-auto-controlled-globs-tests

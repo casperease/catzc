@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1
     name: uninstall-az-cli
     filetype: ps1

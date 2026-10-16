@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/Build-AdrIndex.Tests.ps1
     folder: tests
     name: build-adr-index-tests

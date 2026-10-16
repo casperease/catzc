@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/tests/New-Importer.Tests.ps1
     folder: tests
     name: new-importer-tests

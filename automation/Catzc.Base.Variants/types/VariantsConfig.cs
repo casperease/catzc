@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/types/VariantsConfig.cs
     folder: types
     name: variants-config

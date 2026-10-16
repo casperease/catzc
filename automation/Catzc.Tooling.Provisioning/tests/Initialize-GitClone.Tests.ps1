@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
     folder: tests
     name: initialize-git-clone-tests

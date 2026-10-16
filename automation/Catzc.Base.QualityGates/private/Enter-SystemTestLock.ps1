@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Enter-SystemTestLock.ps1
     folder: private
     name: enter-system-test-lock

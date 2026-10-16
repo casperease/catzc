@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/tests/Test-IsRunningAsAgent.Tests.ps1
     folder: tests
     name: test-is-running-as-agent-tests

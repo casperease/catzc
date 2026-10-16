@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
     folder: tests
     name: new-test-automation-shard-script-tests

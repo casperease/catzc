@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/types/GoWorkspaceFile.cs
     folder: types
     name: go-workspace-file

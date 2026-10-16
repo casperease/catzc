@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Invoke-Dotnet.ps1
     name: invoke-dotnet
     filetype: ps1

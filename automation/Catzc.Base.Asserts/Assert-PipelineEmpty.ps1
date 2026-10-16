@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Assert-PipelineEmpty.ps1
     name: assert-pipeline-empty
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
     name: get-test-time-limits
     filetype: ps1

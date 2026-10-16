@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
     name: get-ado-build-validations
     filetype: ps1

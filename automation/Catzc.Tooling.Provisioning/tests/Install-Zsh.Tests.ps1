@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
     folder: tests
     name: install-zsh-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Overlay/private/Get-LocalModuleViolation.ps1
     folder: private
     name: get-local-module-violation

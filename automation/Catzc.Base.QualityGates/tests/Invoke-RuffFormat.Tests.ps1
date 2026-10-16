@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Invoke-RuffFormat.Tests.ps1
     folder: tests
     name: invoke-ruff-format-tests

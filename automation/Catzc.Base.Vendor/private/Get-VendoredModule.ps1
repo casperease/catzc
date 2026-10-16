@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Vendor/private/Get-VendoredModule.ps1
     folder: private
     name: get-vendored-module

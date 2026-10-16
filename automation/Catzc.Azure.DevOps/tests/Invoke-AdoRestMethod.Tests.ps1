@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/tests/Invoke-AdoRestMethod.Tests.ps1
     folder: tests
     name: invoke-ado-rest-method-tests

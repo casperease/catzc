@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
     name: remove-mac-tool-install
     filetype: ps1

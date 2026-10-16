@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
     folder: tests
     name: reset-git-clean-fxd-tests

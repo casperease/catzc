@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1
     folder: tests
     name: resolve-engine-executable-tests

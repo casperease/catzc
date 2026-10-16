@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Get-AdrDomainEdges.ps1
     name: get-adr-domain-edges
     filetype: ps1

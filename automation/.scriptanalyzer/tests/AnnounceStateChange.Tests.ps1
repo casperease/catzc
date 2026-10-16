@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1
     folder: automation/.scriptanalyzer/tests
     name: announce-state-change-tests

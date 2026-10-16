@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Writers/Write-CmdletParameterSet.ps1
     name: write-cmdlet-parameter-set
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
     folder: tests/types
     name: executable-probe-tests

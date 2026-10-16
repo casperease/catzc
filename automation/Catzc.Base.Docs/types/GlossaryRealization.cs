@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/types/GlossaryRealization.cs
     folder: types
     name: glossary-realization

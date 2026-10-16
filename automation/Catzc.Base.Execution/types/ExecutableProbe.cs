@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/types/ExecutableProbe.cs
     folder: types
     name: executable-probe

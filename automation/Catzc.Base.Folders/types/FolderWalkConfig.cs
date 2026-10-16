@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Folders/types/FolderWalkConfig.cs
     folder: types
     name: folder-walk-config

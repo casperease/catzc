@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
     folder: private
     name: merge-config-fragment

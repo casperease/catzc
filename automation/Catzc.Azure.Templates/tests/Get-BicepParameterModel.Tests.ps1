@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
     folder: tests
     name: get-bicep-parameter-model-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1
     folder: private
     name: resolve-vendor-repository

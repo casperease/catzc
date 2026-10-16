@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
     name: invoke-build-for-vs-code
     filetype: ps1

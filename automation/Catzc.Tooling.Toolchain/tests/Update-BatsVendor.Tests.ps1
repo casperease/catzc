@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
     folder: tests
     name: update-bats-vendor-tests

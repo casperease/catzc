@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Environment/Sync-SessionPath.ps1
     name: sync-session-path
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Uninstall-Bicep.ps1
     name: uninstall-bicep
     filetype: ps1

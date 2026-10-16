@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure/Get-AzureSubscription.ps1
     name: get-azure-subscription
     filetype: ps1

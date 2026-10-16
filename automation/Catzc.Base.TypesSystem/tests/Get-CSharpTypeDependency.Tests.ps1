@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
     folder: tests
     name: get-c-sharp-type-dependency-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/types/SubscriptionContext.cs
     folder: types
     name: subscription-context

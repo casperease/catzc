@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Initialize-Types.Tests.ps1
     name: initialize-types-tests
     filetype: ps1

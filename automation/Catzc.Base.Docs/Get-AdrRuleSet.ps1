@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Get-AdrRuleSet.ps1
     name: get-adr-rule-set
     filetype: ps1

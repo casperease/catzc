@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/Invoke-WithTimeout.ps1
     name: invoke-with-timeout
     filetype: ps1

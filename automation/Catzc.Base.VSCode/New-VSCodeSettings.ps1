@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/New-VSCodeSettings.ps1
     name: new-vs-code-settings
     filetype: ps1

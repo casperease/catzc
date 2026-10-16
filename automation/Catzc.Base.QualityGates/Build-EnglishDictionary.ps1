@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
     name: build-english-dictionary
     filetype: ps1

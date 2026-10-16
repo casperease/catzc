@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/tests/ConvertTo-RepoRelativePath.Tests.ps1
     folder: tests
     name: convert-to-repo-relative-path-tests

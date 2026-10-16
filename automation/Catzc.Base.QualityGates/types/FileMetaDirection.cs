@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/types/FileMetaDirection.cs
     folder: types
     name: file-meta-direction

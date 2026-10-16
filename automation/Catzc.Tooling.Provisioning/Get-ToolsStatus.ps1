@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/Get-ToolsStatus.ps1
     name: get-tools-status
     filetype: ps1

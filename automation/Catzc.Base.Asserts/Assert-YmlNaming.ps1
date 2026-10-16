@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Assert-YmlNaming.ps1
     name: assert-yml-naming
     filetype: ps1

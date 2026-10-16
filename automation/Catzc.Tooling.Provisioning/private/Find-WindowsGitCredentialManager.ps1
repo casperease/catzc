@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/private/Find-WindowsGitCredentialManager.ps1
     folder: private
     name: find-windows-git-credential-manager

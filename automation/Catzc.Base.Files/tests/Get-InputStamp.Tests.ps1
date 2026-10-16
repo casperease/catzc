@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/tests/Get-InputStamp.Tests.ps1
     folder: tests
     name: get-input-stamp-tests

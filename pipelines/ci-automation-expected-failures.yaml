@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: pipelines/ci-automation-expected-failures.yaml
 #     name: ci-automation-expected-failures
 #     filetype: yaml

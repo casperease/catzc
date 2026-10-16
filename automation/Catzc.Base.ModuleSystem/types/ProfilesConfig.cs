@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/types/ProfilesConfig.cs
     folder: types
     name: profiles-config

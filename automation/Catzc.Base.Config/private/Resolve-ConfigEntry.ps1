@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
     folder: private
     name: resolve-config-entry

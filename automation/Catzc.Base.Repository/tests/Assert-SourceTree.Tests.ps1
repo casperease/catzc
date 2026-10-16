@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/tests/Assert-SourceTree.Tests.ps1
     folder: tests
     name: assert-source-tree-tests

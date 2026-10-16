@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
     folder: types
     name: markdown-meta-block

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/tests/Stop-FileLockingProcess.Tests.ps1
     folder: tests
     name: stop-file-locking-process-tests

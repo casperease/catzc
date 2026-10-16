@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Select-InScopeTestFiles.ps1
     folder: private
     name: select-in-scope-test-files

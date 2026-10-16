@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Format-FileMeta.Contract.Tests.ps1
     folder: tests
     name: format-file-meta-contract-tests

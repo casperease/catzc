@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Test-ManualTestPlan.Tests.ps1
     folder: tests
     name: test-manual-test-plan-tests

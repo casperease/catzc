@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1
     folder: tests
     name: get-pipeline-trigger-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/tests/Set-FileLink.Tests.ps1
     folder: tests
     name: set-file-link-tests

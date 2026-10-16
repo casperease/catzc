@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
     name: test-logic-test-identity
     filetype: ps1

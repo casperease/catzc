@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/FunctionLength.psm1
     folder: automation/.scriptanalyzer
     name: function-length

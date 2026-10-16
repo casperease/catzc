@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
     name: format-generated-file-head
     filetype: ps1

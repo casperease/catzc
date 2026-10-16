@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Write-LoadTime.Tests.ps1
     name: write-load-time-tests
     filetype: ps1

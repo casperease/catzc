@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/types/WorkerParentWatch.cs
     folder: types
     name: worker-parent-watch

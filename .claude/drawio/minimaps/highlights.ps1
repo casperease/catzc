@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: ".claude/drawio/minimaps/highlights.ps1"
     folder: drawio/minimaps
     name: highlights

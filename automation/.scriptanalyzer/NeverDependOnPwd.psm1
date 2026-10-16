@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/NeverDependOnPwd.psm1
     folder: automation/.scriptanalyzer
     name: never-depend-on-pwd

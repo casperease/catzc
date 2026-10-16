@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Tests.ps1
     folder: tests
     name: get-timeout-seconds-tests

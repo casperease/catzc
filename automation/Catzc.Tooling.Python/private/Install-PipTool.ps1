@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Python/private/Install-PipTool.ps1
     folder: private
     name: install-pip-tool

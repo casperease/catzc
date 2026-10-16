@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1
     folder: tests/types
     name: python-config-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/Invoke-AzCli.ps1
     name: invoke-az-cli
     filetype: ps1

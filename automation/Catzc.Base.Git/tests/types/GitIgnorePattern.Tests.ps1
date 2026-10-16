@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/tests/types/GitIgnorePattern.Tests.ps1
     folder: tests/types
     name: git-ignore-pattern-tests

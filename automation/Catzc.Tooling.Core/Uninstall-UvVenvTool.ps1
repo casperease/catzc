@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Uninstall-UvVenvTool.ps1
     name: uninstall-uv-venv-tool
     filetype: ps1

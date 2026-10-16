@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/private/ConvertFrom-BatsJunit.ps1
     folder: private
     name: convert-from-bats-junit

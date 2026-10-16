@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
     folder: tests/types
     name: git-history-scan-tests

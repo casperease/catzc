@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1
     folder: tests
     name: convert-to-test-automation-row-set-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/Get-AdoRepositoryName.ps1
     name: get-ado-repository-name
     filetype: ps1

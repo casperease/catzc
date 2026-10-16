@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: ".claude/drawio/gallery_pdf.py"
 #     folder: drawio
 #     name: gallery-pdf

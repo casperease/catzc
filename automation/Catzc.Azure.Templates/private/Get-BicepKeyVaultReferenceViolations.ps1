@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/private/Get-BicepKeyVaultReferenceViolations.ps1
     folder: private
     name: get-bicep-key-vault-reference-violations

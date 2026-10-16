@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
     name: get-glob-set-change-range
     filetype: ps1

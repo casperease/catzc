@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/tests/Get-CatzcContentHash.Tests.ps1
     folder: tests
     name: get-catzc-content-hash-tests

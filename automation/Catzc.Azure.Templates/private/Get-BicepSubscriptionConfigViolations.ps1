@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/private/Get-BicepSubscriptionConfigViolations.ps1
     folder: private
     name: get-bicep-subscription-config-violations

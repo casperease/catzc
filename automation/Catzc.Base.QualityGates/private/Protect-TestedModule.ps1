@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Protect-TestedModule.ps1
     folder: private
     name: protect-tested-module

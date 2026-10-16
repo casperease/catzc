@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/tests/Assert-LastExitCodeWasZero.Tests.ps1
     folder: tests
     name: assert-last-exit-code-was-zero-tests

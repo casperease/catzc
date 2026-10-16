@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/types/RestartManager.cs
     folder: types
     name: restart-manager

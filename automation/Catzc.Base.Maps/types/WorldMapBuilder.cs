@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/types/WorldMapBuilder.cs
     folder: types
     name: world-map-builder

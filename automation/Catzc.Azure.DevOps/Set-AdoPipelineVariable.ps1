@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
     name: set-ado-pipeline-variable
     filetype: ps1

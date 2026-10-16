@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/types/ParameterConsistencyConfig.cs
     folder: types
     name: parameter-consistency-config

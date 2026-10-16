@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Test-ShellScripts.ps1
     name: test-shell-scripts
     filetype: ps1

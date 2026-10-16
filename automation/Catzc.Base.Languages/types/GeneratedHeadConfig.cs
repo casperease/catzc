@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/types/GeneratedHeadConfig.cs
     folder: types
     name: generated-head-config

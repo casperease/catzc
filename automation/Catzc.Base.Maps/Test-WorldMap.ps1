@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/Test-WorldMap.ps1
     name: test-world-map
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
     name: get-value-chain-highlight
     filetype: ps1

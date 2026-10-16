@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Test-IsGuid.ps1
     name: test-is-guid
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.CodeMeta/tests/Format-PropertyMetaHead.Tests.ps1
     folder: tests
     name: format-property-meta-head-tests

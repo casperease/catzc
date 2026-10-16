@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Vendor/configs/vendor.yml
 #     folder: configs
 #     name: vendor

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/Get-AdoPipelineDefinitions.ps1
     name: get-ado-pipeline-definitions
     filetype: ps1

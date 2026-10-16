@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Environment/Add-PermanentPath.ps1
     name: add-permanent-path
     filetype: ps1

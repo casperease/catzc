@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Node/Uninstall-NodeJs.ps1
     name: uninstall-node-js
     filetype: ps1

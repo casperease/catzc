@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/tests/types/GitIgnoreSection.Tests.ps1
     folder: tests/types
     name: git-ignore-section-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/ConvertTo-AdrDomainDiagram.ps1
     name: convert-to-adr-domain-diagram
     filetype: ps1

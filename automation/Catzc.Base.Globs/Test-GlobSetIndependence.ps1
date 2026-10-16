@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
     name: test-glob-set-independence
     filetype: ps1

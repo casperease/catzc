@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Github/Reset-GitHubRepository.ps1
     name: reset-git-hub-repository
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Get-FileTypeFileMetaFact.ps1
     folder: private
     name: get-file-type-file-meta-fact

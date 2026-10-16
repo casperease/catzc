@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
     name: save-verified-download
     filetype: ps1

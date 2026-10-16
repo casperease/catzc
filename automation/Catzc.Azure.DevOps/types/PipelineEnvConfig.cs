@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs
     folder: types
     name: pipeline-env-config

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
     folder: types
     name: pipeline-watchdog

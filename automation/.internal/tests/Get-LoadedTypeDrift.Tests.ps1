@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Get-LoadedTypeDrift.Tests.ps1
     name: get-loaded-type-drift-tests
     filetype: ps1

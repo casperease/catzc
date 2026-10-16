@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
     folder: tests/types
     name: execution-engine-tests

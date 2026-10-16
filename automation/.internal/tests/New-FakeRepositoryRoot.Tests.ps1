@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
     name: new-fake-repository-root-tests
     filetype: ps1

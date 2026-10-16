@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure/Get-AzureEnvironment.ps1
     name: get-azure-environment
     filetype: ps1

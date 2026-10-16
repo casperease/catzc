@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/Get-RunEnvironment.ps1
     name: get-run-environment
     filetype: ps1

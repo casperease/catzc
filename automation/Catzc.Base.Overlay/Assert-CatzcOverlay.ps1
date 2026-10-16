@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
     name: assert-catzc-overlay
     filetype: ps1

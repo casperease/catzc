@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/types/YamlClassification.cs
     folder: types
     name: yaml-classification

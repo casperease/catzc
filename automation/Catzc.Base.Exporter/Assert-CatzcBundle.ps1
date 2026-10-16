@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
     name: assert-catzc-bundle
     filetype: ps1

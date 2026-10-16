@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
     name: clear-module-type-cache
     filetype: ps1

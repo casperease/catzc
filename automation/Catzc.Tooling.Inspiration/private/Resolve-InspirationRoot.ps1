@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
     folder: private
     name: resolve-inspiration-root

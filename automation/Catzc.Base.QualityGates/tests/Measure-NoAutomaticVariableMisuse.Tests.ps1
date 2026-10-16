@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1
     folder: tests
     name: measure-no-automatic-variable-misuse-tests

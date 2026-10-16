@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
     folder: private
     name: get-glob-set-member

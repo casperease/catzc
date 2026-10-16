@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Environment/Get-PermanentEnvironmentVariable.ps1
     name: get-permanent-environment-variable
     filetype: ps1

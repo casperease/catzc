@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
     folder: tests
     name: reset-last-exit-code-tests

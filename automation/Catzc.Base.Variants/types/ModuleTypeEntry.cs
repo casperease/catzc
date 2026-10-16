@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/types/ModuleTypeEntry.cs
     folder: types
     name: module-type-entry

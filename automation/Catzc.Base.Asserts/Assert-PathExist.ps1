@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Assert-PathExist.ps1
     name: assert-path-exist
     filetype: ps1

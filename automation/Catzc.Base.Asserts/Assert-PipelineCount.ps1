@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Asserts/Assert-PipelineCount.ps1
     name: assert-pipeline-count
     filetype: ps1

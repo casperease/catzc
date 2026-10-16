@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/tests/types/FileKindsConfig.Tests.ps1
     folder: tests/types
     name: file-kinds-config-tests

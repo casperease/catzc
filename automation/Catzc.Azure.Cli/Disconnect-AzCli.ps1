@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/Disconnect-AzCli.ps1
     name: disconnect-az-cli
     filetype: ps1

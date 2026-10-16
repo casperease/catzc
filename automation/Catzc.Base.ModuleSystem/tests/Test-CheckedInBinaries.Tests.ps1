@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
     folder: tests
     name: test-checked-in-binaries-tests

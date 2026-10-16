@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
     folder: tests/types
     name: world-map-highlight-tests

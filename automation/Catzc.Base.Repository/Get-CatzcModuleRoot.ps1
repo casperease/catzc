@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
     name: get-catzc-module-root
     filetype: ps1

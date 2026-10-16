@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.ModuleSystem/configs/dependencies.yml
 #     folder: configs
 #     name: dependencies

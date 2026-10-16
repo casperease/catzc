@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/Test-GeneratedFileCurrent.Tests.ps1
     folder: tests
     name: test-generated-file-current-tests

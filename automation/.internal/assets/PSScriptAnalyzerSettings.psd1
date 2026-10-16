@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
     name: ps-script-analyzer-settings
     filetype: psd1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/tests/Get-GoRelease.Tests.ps1
     folder: tests
     name: get-go-release-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
     name: new-ado-pull-request
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/types/PSTypeAliasAttribute.cs
     folder: types
     name: ps-type-alias-attribute

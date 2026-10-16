@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1
     name: get-catzc-run-mode
     filetype: ps1

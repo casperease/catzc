@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/data-factory.bicep
 //     name: data-factory
 //     filetype: bicep

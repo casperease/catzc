@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Assert-TestTagGate.ps1
     folder: private
     name: assert-test-tag-gate

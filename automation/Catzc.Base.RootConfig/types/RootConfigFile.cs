@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
     folder: types
     name: root-config-file

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Protect-GlobSet.ps1
     name: protect-glob-set
     filetype: ps1

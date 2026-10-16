@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
     folder: tests
     name: install-java-tests

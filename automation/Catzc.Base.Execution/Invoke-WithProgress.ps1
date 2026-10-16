@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/Invoke-WithProgress.ps1
     name: invoke-with-progress
     filetype: ps1

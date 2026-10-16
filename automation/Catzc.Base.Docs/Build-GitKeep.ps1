@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Build-GitKeep.ps1
     name: build-git-keep
     filetype: ps1

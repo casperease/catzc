@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Measure-QualityGates.ps1
     name: measure-quality-gates
     filetype: ps1

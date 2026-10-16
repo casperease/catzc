@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Get-InstallScope.ps1
     name: get-install-scope
     filetype: ps1

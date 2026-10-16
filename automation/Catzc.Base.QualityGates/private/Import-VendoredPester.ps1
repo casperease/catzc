@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Import-VendoredPester.ps1
     folder: private
     name: import-vendored-pester

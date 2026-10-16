@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
     name: get-azure-resource-type-set
     filetype: ps1

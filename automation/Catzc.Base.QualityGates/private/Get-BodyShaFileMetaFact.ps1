@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
     folder: private
     name: get-body-sha-file-meta-fact

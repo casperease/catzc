@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: pipelines/cd-shared.yaml
 #     name: cd-shared
 #     filetype: yaml

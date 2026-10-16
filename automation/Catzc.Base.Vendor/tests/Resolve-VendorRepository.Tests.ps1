@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
     folder: tests
     name: resolve-vendor-repository-tests

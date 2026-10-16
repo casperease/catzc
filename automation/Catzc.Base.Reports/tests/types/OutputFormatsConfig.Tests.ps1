@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
     folder: tests/types
     name: output-formats-config-tests

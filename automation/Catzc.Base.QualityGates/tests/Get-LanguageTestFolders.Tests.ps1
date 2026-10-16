@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestFolders.Tests.ps1
     folder: tests
     name: get-language-test-folders-tests

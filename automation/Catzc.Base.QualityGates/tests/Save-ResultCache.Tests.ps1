@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Save-ResultCache.Tests.ps1
     folder: tests
     name: save-result-cache-tests

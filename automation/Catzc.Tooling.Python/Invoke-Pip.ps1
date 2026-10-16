@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Python/Invoke-Pip.ps1
     name: invoke-pip
     filetype: ps1

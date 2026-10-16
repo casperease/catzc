@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/Get-GitTrackedPath.ps1
     name: get-git-tracked-path
     filetype: ps1

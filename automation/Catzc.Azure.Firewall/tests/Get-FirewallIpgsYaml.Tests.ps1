@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Firewall/tests/Get-FirewallIpgsYaml.Tests.ps1
     folder: tests
     name: get-firewall-ipgs-yaml-tests

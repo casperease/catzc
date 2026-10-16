@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/private/Resolve-AdrLinkTarget.ps1
     folder: private
     name: resolve-adr-link-target

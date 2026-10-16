@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Overlay/tests/Get-FunctionFileViolation.Tests.ps1
     folder: tests
     name: get-function-file-violation-tests

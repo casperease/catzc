@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Test-FileMeta.ps1
     name: test-file-meta
     filetype: ps1

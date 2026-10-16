@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Test-IsRunningInPipeline.Tests.ps1
     name: test-is-running-in-pipeline-tests
     filetype: ps1

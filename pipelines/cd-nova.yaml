@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: pipelines/cd-nova.yaml
 #     name: cd-nova
 #     filetype: yaml

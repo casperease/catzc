@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
     folder: tests
     name: assert-bicep-template-tests

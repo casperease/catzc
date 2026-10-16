@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: ".claude/drawio/embed_images.py"
 #     folder: drawio
 #     name: embed-images

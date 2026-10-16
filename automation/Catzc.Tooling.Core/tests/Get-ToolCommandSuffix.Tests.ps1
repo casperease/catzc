@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/tests/Get-ToolCommandSuffix.Tests.ps1
     folder: tests
     name: get-tool-command-suffix-tests

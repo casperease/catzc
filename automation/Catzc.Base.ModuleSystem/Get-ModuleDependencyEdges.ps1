@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleDependencyEdges.ps1
     name: get-module-dependency-edges
     filetype: ps1

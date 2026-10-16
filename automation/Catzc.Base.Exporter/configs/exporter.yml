@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Exporter/configs/exporter.yml
 #     folder: configs
 #     name: exporter

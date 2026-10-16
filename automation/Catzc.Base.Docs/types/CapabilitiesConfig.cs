@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/types/CapabilitiesConfig.cs
     folder: types
     name: capabilities-config
@@ -14,7 +15,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    page: docs/references/automation/catzc-base-docs/types/CapabilitiesConfig.cs.md
     test: automation/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1
     cites:
       - ADR-AUTO-TYPES#8

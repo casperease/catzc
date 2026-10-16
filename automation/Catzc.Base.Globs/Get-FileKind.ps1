@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Get-FileKind.ps1
     name: get-file-kind
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
     folder: tests
     name: test-module-dependency-tests

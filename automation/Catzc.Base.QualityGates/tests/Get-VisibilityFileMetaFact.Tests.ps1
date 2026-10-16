@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Get-VisibilityFileMetaFact.Tests.ps1
     folder: tests
     name: get-visibility-file-meta-fact-tests

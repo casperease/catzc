@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
     folder: private
     name: get-package-tree-plan

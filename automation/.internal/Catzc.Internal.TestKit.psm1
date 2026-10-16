@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/Catzc.Internal.TestKit.psm1
     name: catzc-internal-test-kit
     filetype: psm1

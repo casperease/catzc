@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/types/ModuleDependencyFormat.cs
     folder: types
     name: module-dependency-format

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/tests/Invoke-WithTimeout.Tests.ps1
     folder: tests
     name: invoke-with-timeout-tests

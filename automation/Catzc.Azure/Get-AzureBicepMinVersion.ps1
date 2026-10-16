@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure/Get-AzureBicepMinVersion.ps1
     name: get-azure-bicep-min-version
     filetype: ps1

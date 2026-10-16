@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
     folder: private
     name: get-config-overlay-root

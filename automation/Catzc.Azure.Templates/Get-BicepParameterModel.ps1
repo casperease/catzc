@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/Get-BicepParameterModel.ps1
     name: get-bicep-parameter-model
     filetype: ps1

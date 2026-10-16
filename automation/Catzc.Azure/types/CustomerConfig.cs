@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure/types/CustomerConfig.cs
     folder: types
     name: customer-config

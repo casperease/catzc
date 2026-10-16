@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/Write-AdoEnvironmentDiagnostic.ps1
     name: write-ado-environment-diagnostic
     filetype: ps1

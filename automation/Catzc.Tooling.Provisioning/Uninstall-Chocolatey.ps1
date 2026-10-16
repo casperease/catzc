@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
     name: uninstall-chocolatey
     filetype: ps1

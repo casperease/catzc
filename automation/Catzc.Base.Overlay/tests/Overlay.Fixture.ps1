@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
     folder: tests
     name: overlay-fixture

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/ConvertTo-FlatSettingSet.ps1
     name: convert-to-flat-setting-set
     filetype: ps1

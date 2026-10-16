@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure/types/AzureEnvironmentRecord.cs
     folder: types
     name: azure-environment-record

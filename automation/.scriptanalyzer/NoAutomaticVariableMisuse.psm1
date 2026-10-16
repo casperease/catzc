@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/NoAutomaticVariableMisuse.psm1
     folder: automation/.scriptanalyzer
     name: no-automatic-variable-misuse

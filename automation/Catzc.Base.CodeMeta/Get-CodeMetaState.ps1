@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.CodeMeta/Get-CodeMetaState.ps1
     name: get-code-meta-state
     filetype: ps1

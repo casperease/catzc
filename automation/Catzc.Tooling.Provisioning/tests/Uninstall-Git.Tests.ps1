@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Git.Tests.ps1
     folder: tests
     name: uninstall-git-tests

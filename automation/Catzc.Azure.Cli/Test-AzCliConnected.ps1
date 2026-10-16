@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/Test-AzCliConnected.ps1
     name: test-az-cli-connected
     filetype: ps1

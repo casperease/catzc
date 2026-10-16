@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/private/Get-EngineContract.ps1
     folder: private
     name: get-engine-contract

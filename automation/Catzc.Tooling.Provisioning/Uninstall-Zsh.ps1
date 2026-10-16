@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
     name: uninstall-zsh
     filetype: ps1

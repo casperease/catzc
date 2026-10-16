@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
     name: sync-ado-build-validations
     filetype: ps1

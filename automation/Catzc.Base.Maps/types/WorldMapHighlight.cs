@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/types/WorldMapHighlight.cs
     folder: types
     name: world-map-highlight

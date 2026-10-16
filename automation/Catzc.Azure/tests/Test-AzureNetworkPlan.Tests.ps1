@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
     folder: tests
     name: test-azure-network-plan-tests

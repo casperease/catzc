@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Exporter/Install-Catzc.ps1
     name: install-catzc
     filetype: ps1

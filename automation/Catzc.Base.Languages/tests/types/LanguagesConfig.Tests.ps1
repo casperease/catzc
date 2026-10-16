@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     folder: tests/types
     name: languages-config-tests
@@ -17,6 +18,7 @@ catzc:
     cites:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-MODULE#2
       - ADR-PRIN-CONFIG#{2,4}
       - ADR-REPO-FORMAT#8
 ---

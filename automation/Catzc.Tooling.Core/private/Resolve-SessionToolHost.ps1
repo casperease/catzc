@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/private/Resolve-SessionToolHost.ps1
     folder: private
     name: resolve-session-tool-host

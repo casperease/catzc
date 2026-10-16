@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/Get-AdoNaming.ps1
     name: get-ado-naming
     filetype: ps1

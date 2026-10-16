@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/Test-PrePost.Tests.ps1
     folder: tests
     name: test-pre-post-tests

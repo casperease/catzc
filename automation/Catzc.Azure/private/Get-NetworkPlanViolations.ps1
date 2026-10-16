@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure/private/Get-NetworkPlanViolations.ps1
     folder: private
     name: get-network-plan-violations

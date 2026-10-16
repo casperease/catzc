@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/types/TrackTypesConfig.cs
     folder: types
     name: track-types-config

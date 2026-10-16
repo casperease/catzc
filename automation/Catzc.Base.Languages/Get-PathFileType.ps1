@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/Get-PathFileType.ps1
     name: get-path-file-type
     filetype: ps1

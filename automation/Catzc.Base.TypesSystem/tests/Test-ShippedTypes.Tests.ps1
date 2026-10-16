@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
     folder: tests
     name: test-shipped-types-tests

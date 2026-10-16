@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
     folder: tests
     name: test-adr-engine-neutrality-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
     folder: tests
     name: uninstall-node-js-tests

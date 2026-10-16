@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
     name: get-changed-glob-set
     filetype: ps1

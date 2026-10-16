@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/assets/Import-ModuleFiles.ps1
     name: import-module-files
     filetype: ps1

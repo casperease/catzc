@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/New-DynamicManifest.Tests.ps1
     name: new-dynamic-manifest-tests
     filetype: ps1

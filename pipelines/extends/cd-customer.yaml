@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: pipelines/extends/cd-customer.yaml
 #     folder: extends
 #     name: cd-customer

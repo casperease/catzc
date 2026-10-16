@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Writers/tests/Write-Exception.Tests.ps1
     folder: tests
     name: write-exception-tests

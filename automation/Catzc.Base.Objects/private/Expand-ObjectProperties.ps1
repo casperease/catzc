@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
     folder: private
     name: expand-object-properties

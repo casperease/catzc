@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/Test-Pipelines.ps1
     name: test-pipelines
     filetype: ps1

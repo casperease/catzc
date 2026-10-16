@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
     name: get-azure-bicep-environment-kinds
     filetype: ps1

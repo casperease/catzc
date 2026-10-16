@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Build-Glossary.ps1
     name: build-glossary
     filetype: ps1

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Resolve-TestRunMaxLevel.ps1
     folder: private
     name: resolve-test-run-max-level

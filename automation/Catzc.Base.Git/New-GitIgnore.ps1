@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/New-GitIgnore.ps1
     name: new-git-ignore
     filetype: ps1

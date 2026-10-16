@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/private/Test-IsWslSession.ps1
     folder: private
     name: test-is-wsl-session

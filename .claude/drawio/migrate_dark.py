@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: ".claude/drawio/migrate_dark.py"
 #     folder: drawio
 #     name: migrate-dark

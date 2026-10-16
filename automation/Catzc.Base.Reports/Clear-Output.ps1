@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Reports/Clear-Output.ps1
     name: clear-output
     filetype: ps1

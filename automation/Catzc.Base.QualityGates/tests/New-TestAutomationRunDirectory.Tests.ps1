@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/New-TestAutomationRunDirectory.Tests.ps1
     folder: tests
     name: new-test-automation-run-directory-tests

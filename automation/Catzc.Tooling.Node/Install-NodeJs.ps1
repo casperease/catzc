@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Node/Install-NodeJs.ps1
     name: install-node-js
     filetype: ps1

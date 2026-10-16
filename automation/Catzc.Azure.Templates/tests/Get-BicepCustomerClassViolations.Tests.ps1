@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/Get-BicepCustomerClassViolations.Tests.ps1
     folder: tests
     name: get-bicep-customer-class-violations-tests

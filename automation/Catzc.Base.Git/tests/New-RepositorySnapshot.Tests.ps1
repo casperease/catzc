@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
     folder: tests
     name: new-repository-snapshot-tests

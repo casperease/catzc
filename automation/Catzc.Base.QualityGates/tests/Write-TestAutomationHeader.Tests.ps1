@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationHeader.Tests.ps1
     folder: tests
     name: write-test-automation-header-tests

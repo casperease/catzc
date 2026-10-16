@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/types/ArtifactoryArtifactsTarget.cs
     folder: types
     name: artifactory-artifacts-target

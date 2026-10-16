@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1
     folder: tests/types
     name: source-conventions-config-tests

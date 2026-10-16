@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/Get-AzureBicepDeploymentModes.ps1
     name: get-azure-bicep-deployment-modes
     filetype: ps1

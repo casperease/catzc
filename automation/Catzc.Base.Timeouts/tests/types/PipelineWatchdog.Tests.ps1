@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/tests/types/PipelineWatchdog.Tests.ps1
     folder: tests/types
     name: pipeline-watchdog-tests

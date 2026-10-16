@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/tests/Wait-Mutex.Tests.ps1
     folder: tests
     name: wait-mutex-tests

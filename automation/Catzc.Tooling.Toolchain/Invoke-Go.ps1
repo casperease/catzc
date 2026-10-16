@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Toolchain/Invoke-Go.ps1
     name: invoke-go
     filetype: ps1

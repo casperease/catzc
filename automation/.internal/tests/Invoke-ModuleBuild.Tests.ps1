@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Invoke-ModuleBuild.Tests.ps1
     name: invoke-module-build-tests
     filetype: ps1

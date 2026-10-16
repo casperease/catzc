@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Environment/Set-EnvironmentPath.ps1
     name: set-environment-path
     filetype: ps1

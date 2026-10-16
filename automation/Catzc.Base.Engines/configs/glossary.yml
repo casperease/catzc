@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Engines/configs/glossary.yml
 #     folder: configs
 #     name: glossary

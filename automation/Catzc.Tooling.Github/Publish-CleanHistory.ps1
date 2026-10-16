@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Github/Publish-CleanHistory.ps1
     name: publish-clean-history
     filetype: ps1

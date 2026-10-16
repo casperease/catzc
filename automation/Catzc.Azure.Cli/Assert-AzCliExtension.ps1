@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/Assert-AzCliExtension.ps1
     name: assert-az-cli-extension
     filetype: ps1

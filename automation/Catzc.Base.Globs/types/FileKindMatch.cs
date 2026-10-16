@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/types/FileKindMatch.cs
     folder: types
     name: file-kind-match

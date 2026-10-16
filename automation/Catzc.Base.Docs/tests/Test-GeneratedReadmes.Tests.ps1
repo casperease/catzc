@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
     folder: tests
     name: test-generated-readmes-tests

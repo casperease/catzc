@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/private/Test-ConsoleReadyType.ps1
     folder: private
     name: test-console-ready-type

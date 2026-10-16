@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1
     folder: tests
     name: file-kind-reachability-tests

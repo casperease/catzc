@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Select-TestRunFiles.Tests.ps1
     folder: tests
     name: select-test-run-files-tests

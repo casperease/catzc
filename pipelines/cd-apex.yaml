@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: pipelines/cd-apex.yaml
 #     name: cd-apex
 #     filetype: yaml

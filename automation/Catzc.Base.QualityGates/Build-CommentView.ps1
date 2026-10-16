@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Build-CommentView.ps1
     name: build-comment-view
     filetype: ps1

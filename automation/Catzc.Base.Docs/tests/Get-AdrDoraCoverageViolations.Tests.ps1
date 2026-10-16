@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
     folder: tests
     name: get-adr-dora-coverage-violations-tests

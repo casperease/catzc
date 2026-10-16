@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1
     name: test-script-analyzer-tests
     filetype: ps1

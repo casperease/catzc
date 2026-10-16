@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/Assert-HaveCustomer.ps1
     name: assert-have-customer
     filetype: ps1

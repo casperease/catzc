@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.VSCode/configs/vscode-settings.yml
 #     folder: configs
 #     name: vscode-settings

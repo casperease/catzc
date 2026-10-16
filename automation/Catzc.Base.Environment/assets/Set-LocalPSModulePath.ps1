@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1
     folder: assets
     name: set-local-ps-module-path

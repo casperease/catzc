@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/types/IdentityTokenRule.cs
     folder: types
     name: identity-token-rule

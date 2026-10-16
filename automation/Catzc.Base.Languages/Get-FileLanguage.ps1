@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/Get-FileLanguage.ps1
     name: get-file-language
     filetype: ps1

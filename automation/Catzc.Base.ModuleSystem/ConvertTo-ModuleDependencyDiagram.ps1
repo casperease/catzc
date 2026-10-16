@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/ConvertTo-ModuleDependencyDiagram.ps1
     name: convert-to-module-dependency-diagram
     filetype: ps1

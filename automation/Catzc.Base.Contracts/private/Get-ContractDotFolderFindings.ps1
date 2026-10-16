@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1
     folder: private
     name: get-contract-dot-folder-findings

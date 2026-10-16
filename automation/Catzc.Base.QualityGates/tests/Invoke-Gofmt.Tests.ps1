@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Invoke-Gofmt.Tests.ps1
     folder: tests
     name: invoke-gofmt-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/private/Get-AdrDoraCoverageViolations.ps1
     folder: private
     name: get-adr-dora-coverage-violations

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Update-AdrCitation.ps1
     name: update-adr-citation
     filetype: ps1

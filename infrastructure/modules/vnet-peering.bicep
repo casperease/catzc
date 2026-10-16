@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/vnet-peering.bicep
 //     name: vnet-peering
 //     filetype: bicep

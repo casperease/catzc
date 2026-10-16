@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1
     folder: tests
     name: build-terminology-dictionary-tests

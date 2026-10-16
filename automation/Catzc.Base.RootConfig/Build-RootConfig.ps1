@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
     name: build-root-config
     filetype: ps1

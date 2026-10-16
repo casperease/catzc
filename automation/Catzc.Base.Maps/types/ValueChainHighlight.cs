@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Maps/types/ValueChainHighlight.cs
     folder: types
     name: value-chain-highlight

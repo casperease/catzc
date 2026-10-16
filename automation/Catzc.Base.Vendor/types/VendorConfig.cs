@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Vendor/types/VendorConfig.cs
     folder: types
     name: vendor-config

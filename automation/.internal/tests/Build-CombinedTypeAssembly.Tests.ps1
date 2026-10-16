@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Build-CombinedTypeAssembly.Tests.ps1
     name: build-combined-type-assembly-tests
     filetype: ps1

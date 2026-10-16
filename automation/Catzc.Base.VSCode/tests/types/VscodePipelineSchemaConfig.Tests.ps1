@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/tests/types/VscodePipelineSchemaConfig.Tests.ps1
     folder: tests/types
     name: vscode-pipeline-schema-config-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
     name: new-vs-code-launch
     filetype: ps1

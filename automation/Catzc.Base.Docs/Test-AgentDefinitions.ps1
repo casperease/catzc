@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Test-AgentDefinitions.ps1
     name: test-agent-definitions
     filetype: ps1

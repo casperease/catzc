@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
     folder: tests
     name: get-ado-yaml-files-tests

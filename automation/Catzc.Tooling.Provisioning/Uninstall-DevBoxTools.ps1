@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/Uninstall-DevBoxTools.ps1
     name: uninstall-dev-box-tools
     filetype: ps1

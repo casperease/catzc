@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Languages/configs/languages.yml
 #     folder: configs
 #     name: languages

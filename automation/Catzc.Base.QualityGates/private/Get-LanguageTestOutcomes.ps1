@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1
     folder: private
     name: get-language-test-outcomes

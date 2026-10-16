@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1
     name: get-test-target-skip-reason
     filetype: ps1

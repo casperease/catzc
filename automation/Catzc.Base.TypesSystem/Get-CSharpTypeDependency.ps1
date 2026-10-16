@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
     name: get-c-sharp-type-dependency
     filetype: ps1

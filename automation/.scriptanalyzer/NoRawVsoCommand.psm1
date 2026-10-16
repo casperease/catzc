@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/NoRawVsoCommand.psm1
     folder: automation/.scriptanalyzer
     name: no-raw-vso-command

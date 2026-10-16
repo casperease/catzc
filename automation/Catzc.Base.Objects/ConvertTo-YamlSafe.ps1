@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/ConvertTo-YamlSafe.ps1
     name: convert-to-yaml-safe
     filetype: ps1

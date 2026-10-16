@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Objects/types/RepoRelativePath.cs
     folder: types
     name: repo-relative-path

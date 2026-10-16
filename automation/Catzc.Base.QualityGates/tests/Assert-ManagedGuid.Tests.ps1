@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Assert-ManagedGuid.Tests.ps1
     folder: tests
     name: assert-managed-guid-tests

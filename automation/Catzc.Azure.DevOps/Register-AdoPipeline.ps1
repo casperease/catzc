@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/Register-AdoPipeline.ps1
     name: register-ado-pipeline
     filetype: ps1

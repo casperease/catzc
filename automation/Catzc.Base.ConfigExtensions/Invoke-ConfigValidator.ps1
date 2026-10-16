@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1
     name: invoke-config-validator
     filetype: ps1

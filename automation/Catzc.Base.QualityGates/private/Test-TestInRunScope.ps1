@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Test-TestInRunScope.ps1
     folder: private
     name: test-test-in-run-scope

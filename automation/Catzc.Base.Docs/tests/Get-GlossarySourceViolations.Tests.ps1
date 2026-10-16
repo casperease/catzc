@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
     folder: tests
     name: get-glossary-source-violations-tests

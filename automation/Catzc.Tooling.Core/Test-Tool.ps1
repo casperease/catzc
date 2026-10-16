@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Test-Tool.ps1
     name: test-tool
     filetype: ps1

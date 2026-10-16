@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/virtual-network.bicep
 //     name: virtual-network
 //     filetype: bicep

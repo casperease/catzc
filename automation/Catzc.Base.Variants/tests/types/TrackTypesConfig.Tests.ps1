@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Variants/tests/types/TrackTypesConfig.Tests.ps1
     folder: tests/types
     name: track-types-config-tests

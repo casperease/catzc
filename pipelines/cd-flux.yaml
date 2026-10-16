@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: pipelines/cd-flux.yaml
 #     name: cd-flux
 #     filetype: yaml

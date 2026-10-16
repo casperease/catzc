@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Node/Uninstall-Markdownlint.ps1
     name: uninstall-markdownlint
     filetype: ps1

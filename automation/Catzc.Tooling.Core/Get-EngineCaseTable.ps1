@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
     name: get-engine-case-table
     filetype: ps1

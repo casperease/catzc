@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Writers/private/Write-InformationColored.ps1
     folder: private
     name: write-information-colored

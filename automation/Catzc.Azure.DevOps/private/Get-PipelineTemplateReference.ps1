@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1
     folder: private
     name: get-pipeline-template-reference

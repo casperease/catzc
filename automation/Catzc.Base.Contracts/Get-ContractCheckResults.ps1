@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/Get-ContractCheckResults.ps1
     name: get-contract-check-results
     filetype: ps1

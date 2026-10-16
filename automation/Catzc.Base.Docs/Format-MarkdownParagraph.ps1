@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1
     name: format-markdown-paragraph
     filetype: ps1

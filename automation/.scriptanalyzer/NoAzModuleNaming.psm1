@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.scriptanalyzer/NoAzModuleNaming.psm1
     folder: automation/.scriptanalyzer
     name: no-az-module-naming

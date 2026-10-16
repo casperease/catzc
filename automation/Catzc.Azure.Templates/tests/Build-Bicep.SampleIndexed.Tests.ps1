@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1
     folder: tests
     name: build-bicep-sample-indexed-tests

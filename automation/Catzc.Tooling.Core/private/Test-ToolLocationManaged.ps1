@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/private/Test-ToolLocationManaged.ps1
     folder: private
     name: test-tool-location-managed

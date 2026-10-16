@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: infrastructure/templates/expedition/configuration/test.yml
 #     folder: configuration
 #     name: test

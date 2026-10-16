@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
     folder: tests
     name: get-pipeline-template-reference-tests

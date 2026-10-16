@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/private/Stop-FileLockingProcess.ps1
     folder: private
     name: stop-file-locking-process

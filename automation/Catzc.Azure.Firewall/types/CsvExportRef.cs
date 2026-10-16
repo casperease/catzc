@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Firewall/types/CsvExportRef.cs
     folder: types
     name: csv-export-ref

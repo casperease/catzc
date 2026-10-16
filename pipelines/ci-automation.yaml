@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: pipelines/ci-automation.yaml
 #     name: ci-automation
 #     filetype: yaml

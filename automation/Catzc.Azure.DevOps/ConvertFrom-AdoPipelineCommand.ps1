@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.DevOps/ConvertFrom-AdoPipelineCommand.ps1
     name: convert-from-ado-pipeline-command
     filetype: ps1

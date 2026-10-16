@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Repository/types/ParsedScripts.cs
     folder: types
     name: parsed-scripts

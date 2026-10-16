@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
     folder: tests
     name: resolve-inspiration-root-tests

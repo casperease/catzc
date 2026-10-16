@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Get-ChangeCheckPlan.ps1
     folder: private
     name: get-change-check-plan

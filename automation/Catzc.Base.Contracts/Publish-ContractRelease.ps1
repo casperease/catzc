@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1
     name: publish-contract-release
     filetype: ps1

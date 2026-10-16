@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
     folder: tests
     name: resolve-bicep-parameter-addresses-tests

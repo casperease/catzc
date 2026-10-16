@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/types/BicepShortName.cs
     folder: types
     name: bicep-short-name

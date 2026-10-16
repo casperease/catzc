@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/types/BicepArtifacts.cs
     folder: types
     name: bicep-artifacts

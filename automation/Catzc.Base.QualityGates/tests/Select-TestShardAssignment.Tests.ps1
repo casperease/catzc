@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Select-TestShardAssignment.Tests.ps1
     folder: tests
     name: select-test-shard-assignment-tests

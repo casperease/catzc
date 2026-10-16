@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
     name: test-generated-readmes
     filetype: ps1

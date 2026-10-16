@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.CodeMeta/tests/Get-CodeMetaState.Tests.ps1
     folder: tests
     name: get-code-meta-state-tests

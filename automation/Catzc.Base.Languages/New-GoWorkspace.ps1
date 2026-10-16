@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/New-GoWorkspace.ps1
     name: new-go-workspace
     filetype: ps1

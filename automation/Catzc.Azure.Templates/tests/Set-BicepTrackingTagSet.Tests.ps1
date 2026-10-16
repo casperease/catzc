@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Templates/tests/Set-BicepTrackingTagSet.Tests.ps1
     folder: tests
     name: set-bicep-tracking-tag-set-tests

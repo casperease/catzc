@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Import-TypesAssembly.Tests.ps1
     name: import-types-assembly-tests
     filetype: ps1

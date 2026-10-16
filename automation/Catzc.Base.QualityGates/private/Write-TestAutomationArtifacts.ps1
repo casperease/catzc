@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationArtifacts.ps1
     folder: private
     name: write-test-automation-artifacts

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
     name: new-vs-code-pipeline-schema
     filetype: ps1

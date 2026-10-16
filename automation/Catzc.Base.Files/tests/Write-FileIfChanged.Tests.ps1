@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/tests/Write-FileIfChanged.Tests.ps1
     folder: tests
     name: write-file-if-changed-tests

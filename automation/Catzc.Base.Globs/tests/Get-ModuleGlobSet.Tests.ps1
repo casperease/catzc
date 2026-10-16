@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
     folder: tests
     name: get-module-glob-set-tests

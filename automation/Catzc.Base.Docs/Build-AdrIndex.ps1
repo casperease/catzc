@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/Build-AdrIndex.ps1
     name: build-adr-index
     filetype: ps1

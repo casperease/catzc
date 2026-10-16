@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
     name: clear-temp-folders
     filetype: ps1

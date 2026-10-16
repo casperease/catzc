@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Set-AbandonedTestRun.Tests.ps1
     folder: tests
     name: set-abandoned-test-run-tests

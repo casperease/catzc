@@ -1,6 +1,7 @@
 // ---
 // catzc:
 //   immutable:
+//     repo_status: clean
 //     path: infrastructure/modules/private-dns-zone.bicep
 //     name: private-dns-zone
 //     filetype: bicep

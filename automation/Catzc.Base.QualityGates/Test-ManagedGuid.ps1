@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Test-ManagedGuid.ps1
     name: test-managed-guid
     filetype: ps1

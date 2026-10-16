@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
     name: test-internal-asset-dependency
     filetype: ps1

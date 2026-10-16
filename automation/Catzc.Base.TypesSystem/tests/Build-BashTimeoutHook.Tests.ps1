@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1
     folder: tests
     name: build-bash-timeout-hook-tests

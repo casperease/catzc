@@ -2,10 +2,12 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/Test-GeneratedFileCurrent.ps1
     name: test-generated-file-current
     filetype: ps1
     kind: function
+    subkind: gate
     language: powershell
     track: automation
     tracktype: modules
@@ -14,7 +16,6 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
-    page: docs/references/automation/catzc-base-languages/Test-GeneratedFileCurrent.ps1.md
     test: automation/Catzc.Base.Languages/tests/Test-GeneratedFileCurrent.Tests.ps1
     cites:
       - ADR-PRIN-ONELIVE

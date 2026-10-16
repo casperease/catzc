@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1
     folder: tests/types
     name: bash-config-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.CodeMeta/Get-PropertyMetaState.ps1
     name: get-property-meta-state
     filetype: ps1

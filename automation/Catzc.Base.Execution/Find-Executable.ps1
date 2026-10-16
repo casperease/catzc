@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Execution/Find-Executable.ps1
     name: find-executable
     filetype: ps1

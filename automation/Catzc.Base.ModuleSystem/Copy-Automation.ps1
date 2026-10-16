@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1
     name: copy-automation
     filetype: ps1

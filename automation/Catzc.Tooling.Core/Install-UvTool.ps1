@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Install-UvTool.ps1
     name: install-uv-tool
     filetype: ps1

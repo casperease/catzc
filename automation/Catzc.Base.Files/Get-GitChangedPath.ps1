@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Files/Get-GitChangedPath.ps1
     name: get-git-changed-path
     filetype: ps1

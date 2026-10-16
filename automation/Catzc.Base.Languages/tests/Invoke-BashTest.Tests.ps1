@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
     folder: tests
     name: invoke-bash-test-tests

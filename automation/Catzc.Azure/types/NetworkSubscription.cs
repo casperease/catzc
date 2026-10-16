@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure/types/NetworkSubscription.cs
     folder: types
     name: network-subscription

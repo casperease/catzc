@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/.internal/tests/Test-FolderConventions.Tests.ps1
     name: test-folder-conventions-tests
     filetype: ps1

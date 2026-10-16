@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.Maps/configs/maps.yml
 #     folder: configs
 #     name: maps

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/tests/Set-CSharpFileScopedNamespace.Tests.ps1
     folder: tests
     name: set-c-sharp-file-scoped-namespace-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Set-CSharpFileScopedNamespace.ps1
     folder: private
     name: set-c-sharp-file-scoped-namespace

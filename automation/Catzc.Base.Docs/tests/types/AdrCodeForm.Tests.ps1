@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
     folder: tests/types
     name: adr-code-form-tests

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
     name: sync-generated-file
     filetype: ps1

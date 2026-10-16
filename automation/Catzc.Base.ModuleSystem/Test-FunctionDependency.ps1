@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
     name: test-function-dependency
     filetype: ps1

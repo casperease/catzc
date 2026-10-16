@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/private/Group-AdrUsage.ps1
     folder: private
     name: group-adr-usage

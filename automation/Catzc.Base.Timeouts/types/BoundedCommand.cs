@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/types/BoundedCommand.cs
     folder: types
     name: bounded-command

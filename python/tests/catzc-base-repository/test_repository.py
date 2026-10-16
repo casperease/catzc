@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: python/tests/catzc-base-repository/test_repository.py
 #     folder: tests/catzc-base-repository
 #     name: test-repository

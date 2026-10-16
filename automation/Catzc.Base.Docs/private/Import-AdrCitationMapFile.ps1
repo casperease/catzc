@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
     folder: private
     name: import-adr-citation-map-file

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
     name: build-terminology-dictionary
     filetype: ps1

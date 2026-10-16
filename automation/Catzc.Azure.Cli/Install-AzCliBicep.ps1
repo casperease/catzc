@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1
     name: install-az-cli-bicep
     filetype: ps1

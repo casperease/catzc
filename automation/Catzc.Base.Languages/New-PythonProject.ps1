@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Languages/New-PythonProject.ps1
     name: new-python-project
     filetype: ps1

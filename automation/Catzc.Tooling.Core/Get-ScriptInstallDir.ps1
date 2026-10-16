@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Tooling.Core/Get-ScriptInstallDir.ps1
     name: get-script-install-dir
     filetype: ps1

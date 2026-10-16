@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyClosure.ps1
     folder: private
     name: get-module-dependency-closure
