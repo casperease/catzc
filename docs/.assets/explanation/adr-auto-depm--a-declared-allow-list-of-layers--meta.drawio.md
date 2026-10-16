@@ -43,29 +43,29 @@ markers and a legend panel along the bottom. The eye lands first on the red fail
 
 ## Reading path
 
-1. Marker 1, top band: the named set AzureExt.
+1. Marker 1, top band: the named set contosoExt.
 2. Down the three edges that leave it.
-3. Markers 2 and 3, middle band, left to right: the code unit Catzc.Azure, the named set Tooling.
+3. Markers 2 and 3, middle band, left to right: the code unit Catzc.contoso, the named set Tooling.
 4. Marker 4, foundation band: the named set Base, which every downward edge reaches.
 5. Right along the failure path to marker 5, INVARIANT band: the failure Undeclared edge.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                           |
-| --------------------- | ----- | ------------------------------------------------------------------------------- |
-| named set             | 3     | AzureExt (top band), Tooling (middle band, right), Base (foundation band, wide) |
-| code unit             | 1     | Catzc.Azure (middle band, left)                                                 |
-| failure               | 1     | Undeclared edge (INVARIANT band, bottom)                                        |
+| Glyph (legend phrase) | Count | Where                                                                             |
+| --------------------- | ----- | --------------------------------------------------------------------------------- |
+| named set             | 3     | contosoExt (top band), Tooling (middle band, right), Base (foundation band, wide) |
+| code unit             | 1     | Catzc.contoso (middle band, left)                                                 |
+| failure               | 1     | Undeclared edge (INVARIANT band, bottom)                                          |
 
 Named sets are mauve and the code unit is slate, both with white names; the failure is light red.
 
 ## Edges
 
-| Edge kind              | Count | From → to                                                               |
-| ---------------------- | ----- | ----------------------------------------------------------------------- |
-| thick, to a named set  | 4     | AzureExt → Base, AzureExt → Tooling, Catzc.Azure → Base, Tooling → Base |
-| flow, to one code unit | 1     | AzureExt → Catzc.Azure                                                  |
-| failure path           | 1     | Base → Undeclared edge                                                  |
+| Edge kind              | Count | From → to                                                                     |
+| ---------------------- | ----- | ----------------------------------------------------------------------------- |
+| thick, to a named set  | 4     | contosoExt → Base, contosoExt → Tooling, Catzc.contoso → Base, Tooling → Base |
+| flow, to one code unit | 1     | contosoExt → Catzc.contoso                                                    |
+| failure path           | 1     | Base → Undeclared edge                                                        |
 
 Every edge is straight, and none crosses another. No edge carries a chip.
 
