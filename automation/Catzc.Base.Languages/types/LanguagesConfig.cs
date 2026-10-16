@@ -469,6 +469,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             return rows;
         }
         HashSet<string> seen = new HashSet<string>(StringComparer.Ordinal);
+        HashSet<string> rootExtensions = new HashSet<string>(StringComparer.Ordinal);
         foreach (object item in list)
         {
             IDictionary row = item as IDictionary;
@@ -490,7 +491,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             {
                 errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: invalid folder '{1}' (\".\" for the module root, or one lowercase folder name)", name, folder));
             }
-            else if (!seen.Add(folder))
+            else if (folder != LayoutRow.Root && !seen.Add(folder))
             {
                 errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: folder '{1}' is named twice", name, folder));
             }
@@ -515,6 +516,10 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
                         if (!languageExtensions.Contains(extension))
                         {
                             errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: extension '{1}' is not one of the language's own", name, extension));
+                        }
+                        else if (folder == LayoutRow.Root && !rootExtensions.Add(extension))
+                        {
+                            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: extension '{1}' is placed by two root rows", name, extension));
                         }
                         else
                         {

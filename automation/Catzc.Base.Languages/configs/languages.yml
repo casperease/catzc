@@ -80,6 +80,7 @@ languages:
     # shipped means a build copies the folder verbatim; the functions are merged into one file instead, so their rows are not shipped.
     layout:
       - { folder: ".", role: public-function, extensions: [.ps1], shipped: false }
+      - { folder: ".", role: manifest, extensions: [.psd1], live: false, shipped: false }
       - { folder: private, role: private-function, shipped: false }
   csharp:
     extensions: [.cs]
@@ -105,6 +106,8 @@ languages:
     extensions: [.md]
     formatter: prettier
     checks: [Test-Markdownlint, Test-MarkdownTitle, Test-Formatting, Test-Spelling, Test-Links, Test-AgentDefinitions]
+    layout:
+      - { folder: ".", role: readme, extensions: [.md], live: false, shipped: false }
   bicep:
     extensions: [.bicep]
     formatter: bicep

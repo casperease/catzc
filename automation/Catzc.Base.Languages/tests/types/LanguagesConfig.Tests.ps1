@@ -299,6 +299,8 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                             [ordered]@{ folder = '.'; role = 'r' }
                             [ordered]@{ folder = 'c'; role = 'r'; extensions = @('.wdg') }
                             [ordered]@{ folder = '.'; role = 'r'; extensions = @('.zzz') }
+                            [ordered]@{ folder = '.'; role = 's'; extensions = @('.wdg') }
+                            [ordered]@{ folder = '.'; role = 't'; extensions = @('.wdg') }
                         ) }) } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*layout: unknown key 'speed'*"
             $err.Exception.Message | Should -BeLike "*invalid folder 'Bad/Folder'*"
@@ -306,6 +308,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike '*the root row must list the extensions it places*'
             $err.Exception.Message | Should -BeLike "*only the root row lists extensions; folder 'c'*"
             $err.Exception.Message | Should -BeLike "*extension '.zzz' is not one of the language's own*"
+            $err.Exception.Message | Should -BeLike "*extension '.wdg' is placed by two root rows*"
         }
 
         It 'throws on a layout that is not a list, and on live or shipped that is not a boolean' -Tag 'ADR-AUTO-MODULE#2' {
