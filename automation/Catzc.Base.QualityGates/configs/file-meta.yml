@@ -22,6 +22,12 @@ kinds:
     keys: [with_body_sha]
     select: [{ languages: [markdown] }]
 
+  # What the file itself decides of its repository status: locked for a generated file (edit its source), clean for an authored one; the states only git knows are computed on demand, never stored.
+  repo-status:
+    keys: [repo_status]
+    settings:
+      locked_classes: [comment-page]
+
   # The repository-relative path of every file that carries a block, written right after the stamp; a Markdown H1 is the title.
   file-path:
     keys: [path]

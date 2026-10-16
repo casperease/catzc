@@ -3,7 +3,7 @@ plan:
   status: active
   value: high
   reviewed: 2026-10-16
-  next: run prompt-module-model-1-prepare.md (beside this file) in a fresh, read-only session; track types and vendors are landed
+  next: the user settles the three open choices under "Corrections" in the carried module-model section, then run prompt-module-model-2-implement.md; prepare ran 2026-10-16 and its files are out/module-model-*.md and out/draft-adr-auto-module.md
   targets: [automation/Catzc.Base.ModuleSystem, automation/Catzc.Base.Variants, automation/Catzc.Base.Globs/configs, docs/adr/automation, docs/adr/design]
 ---
 
@@ -76,11 +76,12 @@ one landing.
 
 ## Open steps
 
-- [ ] Copy the two plans and two prompts to the scratchpad, then run the prepare prompt (check: its read-only report and ADR draft in out/).
+- [x] Run the prepare prompt (check: its read-only report and ADR draft in out/: module-model-callers, -reading, -slots, -layering, -protection-identity, draft-adr-auto-module).
+- [ ] Settle the three open choices listed under "Corrections" (check: each answered in "Decided, and why"), then update the implement prompt for the layering result.
 - [ ] Run the implement prompt (check: ModuleSystem and Variants tests; the two old getters gone).
 - [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean).
 - [ ] Rerun Test-Links on WorldMapBuilder.cs (check: zero findings there).
-- [ ] Look at the 3 Get-ModuleProtectionIdentity failures first in the module-model session (check: that test file).
+- [x] Look at the 3 Get-ModuleProtectionIdentity failures (check: that test file): run 2026-10-16, 11 passed, 0 failed; the file is in QualityGates and isolated from tracks; nothing to fix (out/module-model-protection-identity.md). Run it again after the dependencies.yml edges land.
 - [ ] ADR-DSGN-TRACK gains the rule that a track has one primary language by default (check: Test-AdrRegistry, Test-Links).
 - [ ] Namespace follow-up after kinds land (check: a decided section here).
 - [ ] Tell plan-config-defaults and plan-layers-vocabulary-rename-contracts when implemented (check: the waits_on line in both heads
@@ -95,11 +96,54 @@ one landing.
 
 ## Carried: out/plan-module-model.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
+### Corrections (prepare session, 2026-10-16; evidence in out/module-model-callers.md, -reading.md, -slots.md, -layering.md, -protection-identity.md, draft-adr-auto-module.md)
+
+Where this list and the draft below disagree, this list wins.
+
+1. **Root premise.** Track is the root entity; a deployable track holds modules; ADR-AUTO-MODULE sits under ADR-DSGN-TRACK and cites
+   ADR-DSGN-TRACK, ADR-DSGN-TRACKTYPE and ADR-DSGN-MODTYPE. Module is not "the central concern". The ADR text does not use the word
+   "kind" for it until the kind-to-role rename lands (the glossary defines kind as the role a file plays).
+2. **Resolver placement (disproves step 4).** ModuleSystem may take Languages, Engines and Variants with no cycle, but a resolver there
+   cannot be the one resolver: TypesSystem (`Get-CSharpTypeDependency`) and Globs (`Get-ModuleGlobSet`) are below ModuleSystem and need a
+   module list. It goes in a module they can both declare: a new small module above Languages (recommended) or Languages itself. The
+   returned type carries identity only; needs, closure and order stay functions in ModuleSystem, because `dependencies.yml` lives there.
+3. **Get-PathModule is already the thin lookup** (one line over `ModuleTypesConfig.Resolve`, data in `module-types.yml`). It stays in
+   Variants as the primitive the resolver builds on; step 5's "no second regex" is already true. The copies are elsewhere (item 7).
+4. **Order (disproves "one order for load, build, test, bundle").** Only `Test-Automation` uses a dependency order, through
+   `Get-TestAutomationTestPaths`. Load is directory order (modules never import each other), build is ordinal, bundle is a sorted closure.
+   Rule 5 is narrowed to "one function sorts the graph; commands that need the order call it".
+5. **Build (disproves "a registry entry per language").** `Build-Modules` is a front; the engine is `Invoke-ModuleBuild` in the closed
+   `.internal` Builder: the merge, the side-folder copy and the types compile are code, not handlers. Bicep is not built by the module
+   build; `az bicep build` runs at deploy in `Catzc.Azure.*`. Rule 6 is narrowed to check and test handlers; build stays the bundle's until
+   a second building language exists.
+6. **"New-DynamicManifest is the loader's own copy of the slot rules" is verified, and it cannot be merged**: it runs before the types
+   load, so it cannot call a C# resolver. Rule 2 is "one layout; the loader is held to it by a test", not "one source".
+7. **Copies of the layout found** (more than the three named): `variants.yml` aspects, an inline default in `Get-Aspect`, `file-kinds.yml`,
+   `New-DynamicManifest`, `Get-MergedModule`, the build's `shippedSideFolders`, the types scan, the config scan, `Test-FolderConventions`,
+   and the module-type places. Four enumerations of module folders besides the loader. Six places spell the literal `'automation'`.
+8. **Names that collide.** `languages.yml` already has `engines:` meaning formatter engines, so `tracks.<t>.engines` collides in meaning
+   (recommend `execution_engines`). `slot` is defined by ADR-AZ-DATAMOD and `fragment` is used by ADR-DSGN-TRACK#17, so the ADR says
+   "layout" and "layout row". `module` is already bolded in ADR-DSGN-MODTYPE#1, so its glossary entry is defined by that rule and the new
+   ADR does not bold it. `Kind` also names `ModuleDependencyEdge.Kind` (actual or declared) and four unrelated types.
+9. **A rule and a config disagree.** ADR-PWSH-MANIFEST#5 says the `live` aspect excludes `assets/`; `variants.yml` `live` includes
+   `assets/**`. Reconcile when the layout lands; not this plan's edit to make blindly.
+10. **Q88 and Q37 are settled by running.** Test-ShippedTypes: 274 types, 0 issues, so the flags on `TrackTypeEntry` and `VendorEntry` are
+    clear. `Get-ModuleProtectionIdentity.Tests.ps1`: 11 passed, 0 failed (the file is in QualityGates, not ModuleSystem).
+11. **Caller sizes:** `Get-BaseModule` 2 production files (its session half has none), `Get-AutomationModules` 9, `Get-PathModule` 5,
+    `Get-ModuleTestOrder` 1, `Get-ModuleProfile` 4; 14 test files; 37 generated doc pages follow. The overlay (`Resolve-ConfigEntry`) adds
+    local modules outside the track root; the resolver must model or exclude them.
+
+**Open choices only the user can make** (the recommendation is first in each):
+(a) Resolver home: a new small module above Languages, or Languages itself; identity-only type, order and needs stay in ModuleSystem.
+(b) Names: `execution_engines` for the track key, "layout" for the table, and "kind" kept out of the ADR until the rename.
+(c) Scope: rule 5 narrowed, rule 6 narrowed to check and test, `LoadedModule` kept although no production code uses it (or dropped).
+
 # Plan: Module as the generalized, ADR-backed meta model
 
 Part of [plan-k8s-kinds.md](plan-module-kinds-tracks.md) (kinds are tracks; `Module` is a kind). That plan said "Module is a kind inside the
-`automation` track". This plan refines it: `Module` is the repository's central concern, so it gets one generic C# definition that every
-track instantiates, and one ADR that backs it. The decisions of the k8s plan (no `modules` track, kind unique per track) still hold.
+`automation` track". This plan refines it: a deployable track holds modules, so they get one generic C# definition that every deployable
+track instantiates, and one ADR under ADR-DSGN-TRACK that backs it. The decisions of the k8s plan (no `modules` track, kind unique per
+track) still hold.
 
 Nothing here is built yet. Facts below were read from the tree on 2026-10-16; items I did not read are marked **unverified**.
 
@@ -246,15 +290,19 @@ per kind). The registry is an extension of `languages.yml`, which already holds 
 | --- | --- | --- |
 | **define** | folder + `.ps1` files; `configs/*.yml` validated by a C# type | `Module` derived (2.1); the config types are `ConfigMap`-kind objects of it |
 | **order** | `Get-ModuleTestOrder` | `Get-ModuleOrder`: the one function every operation below uses (rename, same change, all callers) |
-| **build** | `Build-Modules` merges PowerShell into one psm1 + manifest; C# types compile into one assembly (`ADR-PWSH-MANIFEST#5/6`, `ADR-AUTO-TYPES#3`); Bicep compiles per template (**unverified**) | `build:` handler id per language in `languages.yml`: `powershell` -> merge, `csharp` -> compile into the combined assembly, `bicep` -> `bicep build`. Build walks `Get-ModuleOrder`. |
+| **build** | `Build-Modules` merges PowerShell into one psm1 + manifest; C# types compile into one assembly (`ADR-PWSH-MANIFEST#5/6`, `ADR-AUTO-TYPES#3`); Bicep compiles per template (verified 2026-10-16: not in the module build; `az bicep build` runs at deploy in `Catzc.Azure.*`) | `build:` handler id per language in `languages.yml`: `powershell` -> merge, `csharp` -> compile into the combined assembly, `bicep` -> `bicep build`. Build walks `Get-ModuleOrder`. |
 | **QC** | `languages.yml` `checks:` per language, run by gates | unchanged mechanism; the module supplies the scope (its live and tests members) and the gate set is the union of its languages' `checks`. A new "does every module have a handler for each of its languages" integrity test. |
 | **test** | Pester per module in `Get-ModuleTestOrder`; Go/Python/Bash black-box per engine | `test:` handler id per language; run per `Module.Engines`; ordered by `Get-ModuleOrder` |
 | **bundle** | `profiles.yml` closure -> `exporter.yml` bundle -> one `Catzc` module (`ADR-AUTO-BUNDLE`) | profile resolves to Modules, closure over `Needs`, the bundle is the ordered list of their `live` aspect built by the build handlers |
 
-`Module.Order` makes load order, test order, build order and bundle order the same fact. Today `Get-ModuleTestOrder` states the property in
-its description ("a module is ordered after every module it may depend on"), but only `Test-Automation` uses it.
+Corrected 2026-10-16 (see Corrections 4 and 5): `Get-ModuleTestOrder` states the property in its description ("a module is ordered after
+every module it may depend on"), and only `Test-Automation` uses it. Load, build and bundle order are not dependency orders and need no
+such sort, so there is one function and one consumer, not four orders made one.
 
 ## 4. The ADR
+
+The text to land is out/draft-adr-auto-module.md (rules restated under ADR-DSGN-TRACK, rules 5 and 6 narrowed, glossary, dora-explains and
+adrs.yml entries); the rule list below is the older draft.
 
 New ADR `ADR-AUTO-MODULE`, file `docs/adr/automation/module-model.md`. It belongs in `automation/` because that domain is stated for any
 engine and already owns `DEPM`, `ENGINE` and `BUNDLE`, which it ties together; `design/` cannot cite `automation/` by the domain order
@@ -289,14 +337,16 @@ Ordering matters: the model must exist before the ADR's enforcement can name it,
 1. **Settle open questions** (section 7) with the user. No code before.
 2. **Inventory the callers (read-only).** Grep every use of `Get-BaseModule`, `Get-AutomationModules`, `Get-PathModule`,
    `Get-ModuleTestOrder`, `Get-ModuleDependencyMap/Closure`, `Get-ModuleProfile`, `DiskModule`, `BaseModule`, `SessionModule`, and the
-   `Kind` values. Write the list to `out/`. This is the one-living-version worklist; it is also where the **unverified** items
-   (`Build-Modules`, `Get-ModuleGlobSet`, `Get-AutomationModules`, `Test-Automation`'s use of the order) get read.
+   `Kind` values. Write the list to `out/`. This is the one-living-version worklist; it is also where the unread items
+   (`Build-Modules`, `Get-ModuleGlobSet`, `Get-AutomationModules`, `Test-Automation`'s use of the order) get read. Done 2026-10-16:
+   out/module-model-callers.md and out/module-model-reading.md.
 3. **Write the ADR** and its glossary entry (section 4). Run the ADR gates only after the file lands.
 4. **Type.** Add `Module` and `LoadedModule` in `Catzc.Base.ModuleSystem/types/` (it already holds the module types and `DependencyGraph`);
    it needs `Catzc.Base.Engines` and `Catzc.Base.Languages` for the axes, so declare those edges in `dependencies.yml` in the same change
    (`ADR-AUTO-DEPM#5`). **Layering check before this step:** `Catzc.Base.Globs` depends on `Languages` and `Variants`; confirm `ModuleSystem`
-   may depend on `Languages` and `Variants` without a cycle (**unverified**; if it would cycle, the type goes in the lowest module that sees
-   all three, or the axes are passed in as plain names and resolved by the caller).
+   may depend on `Languages` and `Variants` without a cycle (verified 2026-10-16, out/module-model-layering.md: it may, no cycle; but the
+   resolver cannot live in `ModuleSystem` because `TypesSystem` and `Globs` are below it; it goes in a module above `Languages`, see
+   Corrections 2).
 5. **Resolver.** One public `Get-Module`-style function that builds `Module[]` (name it so it does not collide with PowerShell's `Get-Module`,
    `ADR-PWSH-MANIFEST#4`; `Get-CatzcModule` is the working name) from the folder walk (bounded, `ADR-PWSH-ENUM`), `Get-Track`, `AspectPartition`,
    `languages.yml` and the graph. `Get-PathModule` becomes a thin lookup into it, not a second regex.
@@ -304,7 +354,8 @@ Ordering matters: the model must exist before the ADR's enforcement can name it,
 6a. **Layout.** Add the `layout:` slots per language to `languages.yml` with the default on its C# type (`FileLanguage`/`LanguagesConfig`), then
    repoint, one file at a time, the three duplicates onto it: the `aspects` live patterns (`VariantAspect`, `AspectPartition` input), the
    `file-kinds.yml` module globs, and `Get-PathModule`/`New-DynamicManifest`. Each repoint is verified by its own tests before the next.
-   Read `New-DynamicManifest` first (**unverified**: it is the loader's own copy of the slot rules).
+   Read `New-DynamicManifest` first (verified 2026-10-16: it is the loader's own copy of the slot rules, runs before the types load and
+   cannot read a C# resolver; hold it to the layout by a test, out/module-model-slots.md).
 7. **Axes in config.** `variants.yml` `tracks.<t>.engines`; `languages.yml` `build:` and `test:` handler ids; the C# config types
    (`VariantsConfig`/`VariantTrack`, `LanguagesConfig`/`FileLanguage`) validate them at load. Edit `FileLanguage.cs`/`VariantTrack.cs` one
    at a time; C# edits need a fresh `pwsh` process.
@@ -319,7 +370,7 @@ Ordering matters: the model must exist before the ADR's enforcement can name it,
 Verification for every step: run the affected file's tests and the relevant gate in the background with `timeout`, and report what
 actually ran. Per-file checks only; the user runs the full suite (memory: user handles commits and tests).
 
-## 5a. Missing work (closed by prompt 1, `out/prompt-module-model-1-prepare.md`)
+## 5a. Missing work (closed by prompt 1 on 2026-10-16: items 1 to 4 and 6 by out/module-model-callers.md, -reading.md, -slots.md, -layering.md and draft-adr-auto-module.md; item 5 by out/module-model-slots.md section C; item 7 by Corrections and the answers under section 7)
 
 1. **Caller inventory** of `Get-BaseModule`, `Get-AutomationModules`, `Get-PathModule`, `Get-ModuleTestOrder`, `Get-ModuleProfile`,
    `DiskModule`/`BaseModule`/`SessionModule` and the `Kind` values (step 2).
@@ -360,6 +411,28 @@ actually ran. Per-file checks only; the user runs the full suite (memory: user h
   Recommend a new name, because the old one changes shape.
 - **Q-D.** Is `LoadedModule` (session provenance) part of this ADR or its own? Recommend part of it (rule 7), one page.
 - **Q-E.** ADR domain: `automation/` (recommended) or `design/`. `design/` cannot cite `automation/` by the domain order.
+
+Answers after the prepare session (2026-10-16). Q-A to Q-G were decided by the user as Q27 to Q33; these are the recommendations the
+reading supports, to carry into the implement prompt, not new questions:
+
+- **Q-F (layout home): `languages.yml`, confirmed.** Each file language owns its rows, so the layout map sits under the language. One
+  caveat the reading found: a module's folders span languages (root powershell, `types/` csharp, `configs/` yaml), so a row names a folder
+  and the language that owns it; the loader (`New-DynamicManifest`) keeps its two powershell rows and a test holds them to the layout
+  (Corrections 6). Add `layout` to `AllowedEntryKeys` of `LanguagesConfig` with its default on `FileLanguage`.
+- **Q-G (unplaced file): a finding, confirmed.** `Test-FolderConventions` already fails an unconventional subfolder, a test file at the
+  root or in `private/` and a non-flat `configs/`; extend it (or fold it into the resolver's integrity test) to a file at the module
+  root that no row places. One list of folders, read from the layout, replaces its own `$allowedModuleSubdirs`.
+- **Q-A (non-test Bash, Go, Python modules): model generally, forbid by the track's `languages`, confirmed.** `variants.yml` already
+  declares `go: [go]`, `python: [python]`, `bash: [bash]` for the verification tracks and `automation` lists `bash` among its languages,
+  so no ADR change is needed.
+- **Q-B (engines): per track with a per-module override, confirmed; name the key `execution_engines`** because `languages.yml` `engines:`
+  already means formatter engines. `VariantsConfig` validates the names against `ExecutionEngines.Names`, which needs the edge
+  `Variants -> Engines` (acyclic).
+- **Q-C (resolver name): `Get-CatzcModule`, confirmed.** Its module is not ModuleSystem (Corrections 2). `Get-PathModule` stays.
+- **Q-D (`LoadedModule` in the ADR): rule 7, confirmed, but note it has no production consumer.** Only tests and one help line use the
+  four session kinds; keep it as the interactive diagnostic or drop it in the same change as `BaseModule` (the user's call, open
+  choice (c)).
+- **Q-E (domain): `automation`, confirmed.**
 
 ## Carried: out/plan-k8s-kinds.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 

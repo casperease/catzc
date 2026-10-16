@@ -39,6 +39,6 @@ Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
     }
 
     It 'loads the shipped generated-head.yml' {
-        (Get-Config -Config generated-head).order | Should -Be @('with_body_sha', 'path', 'source', 'kind', 'subkind', 'language', 'filetype', 'track', 'tracktype', 'vendor', 'module', 'moduletype', 'generator')
+        (Get-Config -Config generated-head).order | Should -Be @('with_body_sha', 'repo_status', 'path', 'source', 'kind', 'subkind', 'language', 'filetype', 'track', 'tracktype', 'vendor', 'module', 'moduletype', 'generator')
     }
 }

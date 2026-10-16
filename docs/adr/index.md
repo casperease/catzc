@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7c3699443d09"
+    repo_status: locked
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml
     kind: index

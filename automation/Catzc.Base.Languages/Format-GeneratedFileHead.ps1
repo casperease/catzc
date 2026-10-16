@@ -80,7 +80,8 @@ function Format-GeneratedFileHead {
     $entry = $Carriers.Find($id)
     Assert-NotNull $entry -ErrorText "Format-GeneratedFileHead: '$relative' names the carrier '$id', which file-carriers.yml does not declare."
 
-    $values = @{ path = $relative; kind = $FileKind.kind }
+    # A generated file is locked: its source is the truth, so the head says to edit that instead.
+    $values = @{ repo_status = 'locked'; path = $relative; kind = $FileKind.kind }
     if ($FileKind.subkind) {
         $values['subkind'] = $FileKind.subkind
     }

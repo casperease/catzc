@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "06ec71836f5f"
+    repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
     language: markdown

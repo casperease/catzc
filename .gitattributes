@@ -2,6 +2,7 @@
 # catzc:
 #   immutable:
 #     with_body_sha: "7412814e8bc8"
+#     repo_status: locked
 #     path: ".gitattributes"
 #     source:
 #       - automation/Catzc.Base.RootConfig/assets/root/.gitattributes

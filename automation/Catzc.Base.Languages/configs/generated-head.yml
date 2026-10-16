@@ -18,6 +18,7 @@
 # word before it reads as a qualifier of the glossary's source term.
 keys:
   - with_body_sha
+  - repo_status
   - path
   - source
   - kind
