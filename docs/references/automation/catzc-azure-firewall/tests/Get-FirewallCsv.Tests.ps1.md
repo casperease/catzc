@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "71e1b2a9c4e2"
 ---
 

@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "26c010fc3baf"
     adrs:
       - ADR-CONF-LOADING#4

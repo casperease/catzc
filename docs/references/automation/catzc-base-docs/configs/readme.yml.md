@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/configs/readme.yml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "866785be0f66"
     adrs:
       - ADR-REPO-README#6

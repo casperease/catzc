@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/tests/Build-BashTimeoutHook.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: ff7937d1c71b
 ---
 

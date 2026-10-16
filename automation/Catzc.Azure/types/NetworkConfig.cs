@@ -11,7 +11,6 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-NETWORK
-      - ADR-AZ-NETWORK#{2,5,6}
 ---
 */
 

@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrDoraCheck.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "55d1103e9a48"
     adrs:
       - ADR-AUTO-TYPES#8

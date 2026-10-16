@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-LiveIdentityTokens.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a1c0238073c0
     adrs:
       - ADR-AUTO-TEST#3

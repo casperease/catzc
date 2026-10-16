@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "84ddb654f66c"
     adrs:
       - ADR-AUTO-TEST#{3,9}

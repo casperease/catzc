@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrNeutralityCheck.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "104a6465f2e7"
     adrs:
       - ADR-AUTO-ENGINE#1

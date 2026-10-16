@@ -14,6 +14,12 @@ catzc:
 Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
         $script:form = [Catzc.Base.Docs.AdrCodeForm]
+        $entry = { param($rules) @{ path = 'docs/adr/widget/x.md'; rules = $rules } }
+        $script:registry = [Catzc.Base.Docs.AdrCitationMap]::new([ordered]@{
+                'ADR-WIDGET-GADGET'   = (& $entry @(1, 2, 3, 4, 5))
+                'ADR-WIDGET-SPROCKET' = (& $entry @(1, 2))
+                'ADR-WIDGET-LONE'     = (& $entry @(7))
+            }, @())
     }
 
     Context 'Expand' {
@@ -112,9 +118,9 @@ Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
             $script:form::Minimize([string[]] @('ADR-WIDGET-GADGET#1', 'ADR-WIDGET-GADGET#1')) | Should -Be @('ADR-WIDGET-GADGET#1')
         }
 
-        It 'keeps a bare code beside the code''s rules and never groups it' {
-            $script:form::Minimize([string[]] @('ADR-WIDGET-GADGET', 'ADR-WIDGET-GADGET#1', 'ADR-WIDGET')) |
-                Should -Be @('ADR-WIDGET', 'ADR-WIDGET-GADGET', 'ADR-WIDGET-GADGET#1')
+        It 'lets a bare code, which names the whole ADR, absorb the code''s rules, and keeps a domain code' {
+            $script:form::Minimize([string[]] @('ADR-WIDGET-GADGET', 'ADR-WIDGET-GADGET#1', 'ADR-WIDGET-GADGET#4', 'ADR-WIDGET')) |
+                Should -Be @('ADR-WIDGET', 'ADR-WIDGET-GADGET')
         }
 
         It 'orders the entries by code' {
@@ -126,8 +132,23 @@ Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
             @($script:form::Minimize([string[]] @())).Count | Should -Be 0
         }
 
-        It 'never writes a star, however many rules a code has' {
-            $script:form::Minimize([string[]] @(1..30 | ForEach-Object { "ADR-WIDGET-GADGET#$_" })) | Should -Be @('ADR-WIDGET-GADGET#{1-30}')
+        It 'writes the bare code when every rule the registry declares is present' {
+            $script:form::Minimize([string[]] @(1..5 | ForEach-Object { "ADR-WIDGET-GADGET#$_" }), $script:registry) | Should -Be @('ADR-WIDGET-GADGET')
+            $script:form::Minimize([string[]] @('ADR-WIDGET-SPROCKET#2', 'ADR-WIDGET-SPROCKET#1'), $script:registry) | Should -Be @('ADR-WIDGET-SPROCKET')
+        }
+
+        It 'writes the bare code for an ADR with a single rule when that rule is cited' {
+            $script:form::Minimize([string[]] @('ADR-WIDGET-LONE#7'), $script:registry) | Should -Be @('ADR-WIDGET-LONE')
+        }
+
+        It 'keeps the numbers when a rule is missing, or when one is not in the registry' {
+            $script:form::Minimize([string[]] @(1..4 | ForEach-Object { "ADR-WIDGET-GADGET#$_" }), $script:registry) | Should -Be @('ADR-WIDGET-GADGET#{1-4}')
+            $script:form::Minimize([string[]] @(1..5 + 9 | ForEach-Object { "ADR-WIDGET-GADGET#$_" }), $script:registry) | Should -Be @('ADR-WIDGET-GADGET#{1-5,9}')
+        }
+
+        It 'never collapses a code the registry does not hold, nor without a registry' {
+            $script:form::Minimize([string[]] @('ADR-NOPE-ONE#1'), $script:registry) | Should -Be @('ADR-NOPE-ONE#1')
+            $script:form::Minimize([string[]] @(1..5 | ForEach-Object { "ADR-WIDGET-GADGET#$_" })) | Should -Be @('ADR-WIDGET-GADGET#{1-5}')
         }
 
         It 'rejects an input that is a group, a star, a glob, or no citation' -ForEach @(

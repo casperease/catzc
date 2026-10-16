@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/configs/glossary.yml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6fb3d150ed69"
     adrs:
       - ADR-REPO-VOCAB#2

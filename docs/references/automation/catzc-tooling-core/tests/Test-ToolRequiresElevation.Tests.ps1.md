@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "48e228b8e9c7"
 ---
 

@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8ccffbfb5dbe"
     adrs:
       - ADR-AUTO-TYPES#8

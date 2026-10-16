@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/HighlightReason.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: df56639377f4
     adrs:
       - ADR-AUTO-TYPES#8

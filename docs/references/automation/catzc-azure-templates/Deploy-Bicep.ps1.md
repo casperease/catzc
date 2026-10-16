@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5df2510ace91"
     adrs:
       - ADR-PWSH-ERROR#8

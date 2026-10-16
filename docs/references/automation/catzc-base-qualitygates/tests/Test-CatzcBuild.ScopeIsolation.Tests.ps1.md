@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "375dc0021c56"
     adrs:
       - ADR-DSGN-RUNMODE#3

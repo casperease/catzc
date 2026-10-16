@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml
     kind: tracked-generated-from-source
-    generator: Build-AdrIndex
+    generator: automation/Catzc.Base.Docs/Build-AdrIndex.ps1
 ---
 
 # ADR index and rule-citation registry

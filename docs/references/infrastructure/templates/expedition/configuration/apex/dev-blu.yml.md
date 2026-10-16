@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b84f310f3209
 ---
 

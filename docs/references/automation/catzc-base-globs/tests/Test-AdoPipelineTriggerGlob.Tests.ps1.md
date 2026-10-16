@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: cd0ce90e9750
     adrs:
       - ADR-AUTO-TEST#35

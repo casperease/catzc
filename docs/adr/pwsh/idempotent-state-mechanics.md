@@ -7,7 +7,7 @@ catzc:
     defines:
       - ADR-PWSH-IDEM#{1-6}
     adrs:
-      - ADR-AUTO-IDEM#{1-5}
+      - ADR-AUTO-IDEM
       - ADR-AUTO-REMOVE#4
     links:
       - docs/adr/automation/idempotent-state-functions.md

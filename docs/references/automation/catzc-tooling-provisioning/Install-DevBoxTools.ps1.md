@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "169dd915e433"
 ---
 

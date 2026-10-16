@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/pipelines/extends/cd-customer.yaml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: db19b4249f72
     adrs:
       - ADR-AZ-LZ#7

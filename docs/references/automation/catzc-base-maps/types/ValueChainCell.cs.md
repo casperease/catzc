@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/ValueChainCell.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a7b54b309a80
     adrs:
       - ADR-AUTO-TYPES#8

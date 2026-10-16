@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "26f05cbbd5fc"
     adrs:
       - ADR-PWSH-PESTER#9

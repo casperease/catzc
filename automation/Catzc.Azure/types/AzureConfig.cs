@@ -13,7 +13,6 @@ catzc:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
       - ADR-AZ-DATAMOD
-      - ADR-AZ-DATAMOD#{7,8,11}
       - ADR-AZ-NAMING#6
 ---
 */

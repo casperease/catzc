@@ -17,7 +17,6 @@ catzc:
       - ADR-PWSH-ERROR#3
       - ADR-REPO-FORMAT#5
       - ADR-REPO-LINK
-      - ADR-REPO-LINK#{5,9}
       - ADR-REPO-README
   config:
     synopsis: |-

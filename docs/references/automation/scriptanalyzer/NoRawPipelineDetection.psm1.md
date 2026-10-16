@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: eedf6f528a1f
     adrs:
       - ADR-PWSH-FORMAT#6

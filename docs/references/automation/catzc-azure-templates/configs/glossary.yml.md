@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/configs/glossary.yml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "608312b8a5e6"
     adrs:
       - ADR-REPO-VOCAB#2

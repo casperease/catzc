@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b4d3680b1e6f
 ---
 

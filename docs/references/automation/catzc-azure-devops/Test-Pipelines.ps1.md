@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: ac2c3a26550c
     adrs:
       - ADR-PIPE-NAME#{1-4,6}

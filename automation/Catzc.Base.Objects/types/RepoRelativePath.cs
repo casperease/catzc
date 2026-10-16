@@ -10,7 +10,6 @@ catzc:
       test: automation/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1
     adrs:
       - ADR-AUTO-PATH
-      - ADR-AUTO-PATH#{3,5,8}
 ---
 */
 

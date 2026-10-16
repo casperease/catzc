@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/tests/Publish-ContractRelease.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d800ad362b8a
     adrs:
       - ADR-AUTO-TEST#3

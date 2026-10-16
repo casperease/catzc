@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "21766fca03aa"
     adrs:
       - ADR-AUTO-TEST#{13,41}

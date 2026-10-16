@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "42bace4e3c90"
     adrs:
       - ADR-AUTO-DEFAULT#6

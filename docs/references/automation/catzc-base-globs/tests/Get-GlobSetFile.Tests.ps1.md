@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f6d8ae0fc35c
     adrs:
       - ADR-FLOW-CD-GLOBS#{4,5}

@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: fa69f67998f0
     adrs:
       - ADR-AUTO-TEST#24

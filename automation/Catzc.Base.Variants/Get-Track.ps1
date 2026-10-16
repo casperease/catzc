@@ -10,7 +10,6 @@ catzc:
       test: automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK
-      - ADR-DSGN-TRACK#{1,2,6}
   config:
     synopsis: Returns the repository's tracks — all of them, the named ones, or the track that owns a path.
     description: |-

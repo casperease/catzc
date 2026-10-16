@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/internal/tests/Get-DynamicManifestContent.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "04e65cc96548"
 ---
 

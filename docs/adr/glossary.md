@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/glossary.md
     kind: tracked-generated-from-source
-    generator: Build-Glossary
+    generator: automation/Catzc.Base.Docs/Build-Glossary.ps1
 ---
 
 # docs/adr/glossary.md

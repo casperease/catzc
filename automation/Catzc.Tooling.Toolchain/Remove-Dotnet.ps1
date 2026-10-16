@@ -11,7 +11,6 @@ catzc:
       test: automation/Catzc.Tooling.Toolchain/tests/Remove-Dotnet.Tests.ps1
     adrs:
       - ADR-AUTO-REMOVE
-      - ADR-AUTO-REMOVE#{3,6,7}
   config:
     synopsis: Evicts an off-config .NET install — one the tooling's managed user-space install does not own.
     description: |-

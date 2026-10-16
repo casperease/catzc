@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6ac5479d2df8"
     adrs:
       - ADR-PWSH-ENUM#3

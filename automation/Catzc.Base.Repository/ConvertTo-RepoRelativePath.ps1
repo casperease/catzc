@@ -11,7 +11,6 @@ catzc:
       test: automation/Catzc.Base.Repository/tests/ConvertTo-RepoRelativePath.Tests.ps1
     adrs:
       - ADR-AUTO-PATH
-      - ADR-AUTO-PATH#5
   config:
     synopsis: 'Normalizes a path to its communication form: out/-anchored, then repo-root-relative, else absolute.'
     description: |-

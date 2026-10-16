@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b2c2905f13cd
     adrs:
       - ADR-AUTO-DRYRUN#2

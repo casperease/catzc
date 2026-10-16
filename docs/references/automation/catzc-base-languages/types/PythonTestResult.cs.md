@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/PythonTestResult.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8cbea2bb6980"
     adrs:
       - ADR-AUTO-TEST#1

@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/pipelines/ci-automation-expected-failures.yaml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a6eff047f4dc
 ---
 

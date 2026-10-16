@@ -7,7 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-DEPM#4
       - ADR-AUTO-TEST#35
-      - ADR-REPO-VARIANT#{1-6}
+      - ADR-REPO-VARIANT
     links:
       - docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md
       - docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png

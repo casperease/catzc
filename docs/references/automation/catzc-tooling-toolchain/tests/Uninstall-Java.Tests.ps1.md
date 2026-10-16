@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f80f37c01327
     adrs:
       - ADR-PWSH-ENV#4

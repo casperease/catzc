@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/AzureTenantRecord.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "3f293549ae3b"
     adrs:
       - ADR-AUTO-TYPES#8

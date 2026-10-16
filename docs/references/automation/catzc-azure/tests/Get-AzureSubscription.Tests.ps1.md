@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/tests/Get-AzureSubscription.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5b9ab973559f"
     adrs:
       - ADR-AUTO-TEST#{4,19}

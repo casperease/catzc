@@ -10,7 +10,6 @@ catzc:
       test: automation/Catzc.Base.QualityGates/tests/types/TerminologyConfig.Tests.ps1
     adrs:
       - ADR-AUTO-SPELL
-      - ADR-AUTO-SPELL#{5,8}
 ---
 */
 

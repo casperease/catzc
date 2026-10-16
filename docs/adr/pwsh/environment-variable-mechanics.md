@@ -7,7 +7,7 @@ catzc:
     defines:
       - ADR-PWSH-ENV#{1-11}
     adrs:
-      - ADR-AUTO-ENVVAR#{1-7}
+      - ADR-AUTO-ENVVAR
       - ADR-AUTO-NOPWD#6
       - ADR-FLOW-CD-DETECT#1
     links:

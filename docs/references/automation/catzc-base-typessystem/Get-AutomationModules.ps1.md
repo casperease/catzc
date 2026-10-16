@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f2dc382197c9
     adrs:
       - ADR-PWSH-PESTER#9

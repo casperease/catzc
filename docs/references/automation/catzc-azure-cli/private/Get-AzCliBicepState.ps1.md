@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a33ead7351f2
     adrs:
       - ADR-AUTO-PRELOG#5

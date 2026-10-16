@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "14c9b5750d9a"
     adrs:
       - ADR-PWSH-ENUM#3

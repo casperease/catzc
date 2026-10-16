@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/configs/network.yml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: cdc1a6c15994
 ---
 

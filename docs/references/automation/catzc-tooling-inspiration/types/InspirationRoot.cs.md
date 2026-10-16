@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "38fb69574f54"
     adrs:
       - ADR-AUTO-PATH#{3,6,11}

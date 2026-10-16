@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "30e4288af2cd"
     adrs:
       - ADR-PWSH-FORMAT#6

@@ -10,7 +10,7 @@ catzc:
       - ADR-AUTO-DEPS#5
       - ADR-AUTO-PARITY#1
       - ADR-AUTO-PATH#4
-      - ADR-AUTO-XPLAT#{3,6,7,9}
+      - ADR-AUTO-XPLAT
     links:
       - docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps5
       - docs/adr/automation/cross-platform.md

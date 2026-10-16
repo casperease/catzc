@@ -11,7 +11,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-LINK
-      - ADR-REPO-LINK#5
       - ADR-X
   config:
     synopsis: 'The link quality gate: fails on any off-form, dangling, or dead link or citation.'

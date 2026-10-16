@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/pipelines/ci-infrastructure.yaml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f4fb119b9079
     adrs:
       - ADR-AUTO-TEST#37

@@ -6,7 +6,7 @@ catzc:
     body_sha: "162cf941ab68"
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#{1-10}
+      - ADR-FLOW-CD-GLOBS
       - ADR-REPO-PROTGLOB#5
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md

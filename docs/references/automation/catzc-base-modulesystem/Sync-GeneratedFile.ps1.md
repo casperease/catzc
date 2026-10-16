@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "407e748d1a27"
     adrs:
       - ADR-AUTO-CACHE#8

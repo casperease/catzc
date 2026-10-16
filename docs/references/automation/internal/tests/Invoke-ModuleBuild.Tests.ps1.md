@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e4528a41d626
     adrs:
       - ADR-PWSH-ENUM#3

@@ -4,7 +4,7 @@ catzc:
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
     kind: tracked-generated-from-source
-    generator: Build-ContractReference
+    generator: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
 ---
 
 # docs/references/contracts/catzc.md

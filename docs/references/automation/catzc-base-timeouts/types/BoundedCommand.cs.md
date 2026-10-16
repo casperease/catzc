@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: cdf657694cda
     adrs:
       - ADR-AUTO-ENGINE#2

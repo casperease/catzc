@@ -23,7 +23,7 @@ catzc:
       - ADR-GH-RELEASE#1
       - ADR-PIPE-AUTH#6
       - ADR-PIPE-TEMPLATE#6
-      - ADR-PRIN-EAC#{1-3}
+      - ADR-PRIN-EAC
       - ADR-PRIN-ONELIVE#{4,5}
       - ADR-PROC-KAIZEN#2
       - ADR-REPO-VARIANT#6

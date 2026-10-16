@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6d5a92f076c4"
     adrs:
       - ADR-PWSH-ENUM#3

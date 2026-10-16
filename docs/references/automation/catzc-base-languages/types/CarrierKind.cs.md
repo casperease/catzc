@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d531d05fa3d2
     adrs:
       - ADR-REPO-FILEMETA#1

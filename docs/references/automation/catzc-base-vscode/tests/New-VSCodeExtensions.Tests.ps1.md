@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/tests/New-VSCodeExtensions.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "29c45aa31fd9"
     adrs:
       - ADR-PWSH-PESTER#2

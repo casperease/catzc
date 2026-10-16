@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d8ad6b7aea2e
     adrs:
       - ADR-AUTO-REMOVE#{3,6}

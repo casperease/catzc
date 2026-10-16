@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: beba738f27a0
     adrs:
       - ADR-PWSH-CACHE#4

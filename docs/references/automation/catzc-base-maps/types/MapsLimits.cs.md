@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/MapsLimits.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "4a9e3ca18e0d"
     adrs:
       - ADR-AUTO-DEFAULT#6

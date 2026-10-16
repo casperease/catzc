@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "21cbd7522c30"
     adrs:
       - ADR-AUTO-CACHE#{2,4-6}

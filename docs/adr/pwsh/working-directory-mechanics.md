@@ -8,7 +8,7 @@ catzc:
       - ADR-PWSH-PWD#{1-7}
     adrs:
       - ADR-AUTO-ASSETDEP#{1,2}
-      - ADR-AUTO-NOPWD#{1,4,6}
+      - ADR-AUTO-NOPWD
     links:
       - docs/adr/automation/environment-variables.md
       - docs/adr/automation/internal-asset-dependencies.md

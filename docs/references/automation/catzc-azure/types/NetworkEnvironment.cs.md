@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/NetworkEnvironment.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "77ff15dce0c0"
     adrs:
       - ADR-AUTO-TYPES#8

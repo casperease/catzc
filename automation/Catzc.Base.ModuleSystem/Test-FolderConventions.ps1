@@ -12,7 +12,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-FOLDERS
-      - ADR-REPO-FOLDERS#4
   config:
     synopsis: 'Quality gate: every module folder under automation/ follows the folder and file conventions.'
     description: |-

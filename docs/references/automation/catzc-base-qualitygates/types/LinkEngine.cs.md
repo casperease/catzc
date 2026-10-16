@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "30a3f172e440"
     adrs:
       - ADR-REPO-LINK#{1,5,6,8}

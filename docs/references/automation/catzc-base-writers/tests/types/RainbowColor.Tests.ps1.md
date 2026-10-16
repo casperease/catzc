@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/tests/types/RainbowColor.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8ff12bad41dd"
     adrs:
       - ADR-AUTO-CONSOLE#7

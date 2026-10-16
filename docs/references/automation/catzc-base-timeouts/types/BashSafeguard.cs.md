@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f61e2a4e3bac
     adrs:
       - ADR-AUTO-FAILFAST#7

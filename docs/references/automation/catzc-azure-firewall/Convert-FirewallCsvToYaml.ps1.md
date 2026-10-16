@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: aef1ff000e95
     adrs:
       - ADR-PWSH-PARAM#4

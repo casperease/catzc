@@ -6,7 +6,7 @@ catzc:
     body_sha: "413a6f2fae83"
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-REPO-ROOTCFG#{1-8}
+      - ADR-REPO-ROOTCFG
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.md
       - docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png

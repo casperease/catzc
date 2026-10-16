@@ -17,7 +17,6 @@ catzc:
       - ADR-DSGN-RUNMODE
       - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-PROTGLOB
-      - ADR-REPO-PROTGLOB#7
   config:
     synopsis: |-
       Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1

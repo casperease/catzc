@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e339ea80dbd6
     adrs:
       - ADR-AUTO-TYPES#8

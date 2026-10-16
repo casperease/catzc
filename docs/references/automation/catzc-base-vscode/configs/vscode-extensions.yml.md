@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: fb120ef392d2
     adrs:
       - ADR-REPO-FORMAT#8

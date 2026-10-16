@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-reports/Write-QualityGateReport.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: af46afce2597
     adrs:
       - ADR-PWSH-PARAM#4

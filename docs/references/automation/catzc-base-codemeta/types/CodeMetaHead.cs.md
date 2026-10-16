@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-codemeta/types/CodeMetaHead.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d566eadc0aa6
     adrs:
       - ADR-REPO-CODEMETA#1

@@ -11,7 +11,6 @@ catzc:
       test: automation/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
     adrs:
       - ADR-PWSH-CACHE
-      - ADR-PWSH-CACHE#4
       - ADR-REPO-VOCAB#2
   config:
     synopsis: 'Returns the controlled vocabulary: every concept of every glossary source, merged and sorted by term.'

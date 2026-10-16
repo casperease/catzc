@@ -47,9 +47,15 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $codes | Should -Be @('ADR-GADGET#{4-6,9}')
     }
 
-    It 'writes every rule of a code as a range, never as a star, so the list does not move when the ADR gains a rule' {
+    It 'writes the bare code, which means the whole ADR, when every rule the registry declares is cited' {
         $all = (1..30 | ForEach-Object { "ADR-GADGET#$_" }) -join ' '
-        (Get-Codes "$all`n") | Should -Be @('ADR-GADGET#{1-30}')
+        (Get-Codes "$all`n") | Should -Be @('ADR-GADGET')
+        (Get-Codes "$all ADR-WIDGET-PART#3`n") | Should -Be @('ADR-GADGET', 'ADR-WIDGET-PART#3')
+    }
+
+    It 'keeps the numbers while one rule of the ADR is not cited' {
+        $most = (1..29 | ForEach-Object { "ADR-GADGET#$_" }) -join ' '
+        (Get-Codes "$most`n") | Should -Be @('ADR-GADGET#{1-29}')
     }
 
     It 'reads a wildcard or a group in body text as a mention, never a citation' {
@@ -104,9 +110,14 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
             }
         }
 
-        It 'lists a bare domain code beside the rule codes, reading below the head only' {
-            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET, ADR-GADGET#4 and ADR-WIDGET#2`nclass Widget {}`n"
-            (Get-CodeCodes $text) | Should -Be @('ADR-GADGET#4', 'ADR-WIDGET', 'ADR-WIDGET#2')
+        It 'lists a bare domain code beside the rule codes of other ADRs, reading below the head only' {
+            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET, ADR-GADGET#4 and ADR-WIDGET-PART#2`nclass Widget {}`n"
+            (Get-CodeCodes $text) | Should -Be @('ADR-GADGET#4', 'ADR-WIDGET', 'ADR-WIDGET-PART#2')
+        }
+
+        It 'lists a bare code alone when the text also cites a rule of that ADR, since no numbers means the whole ADR' {
+            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET and ADR-WIDGET#2`nclass Widget {}`n"
+            (Get-CodeCodes $text) | Should -Be @('ADR-WIDGET')
         }
 
         It 'drops a bare code that is neither registered nor the prefix of a registered code' {
@@ -159,6 +170,11 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         It 'merges a head group with the rules the text cites into one range' -Tag 'ADR-REPO-CODEMETA#2' {
             $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET#{2-3}`n---`n*/`n`n// ADR-GADGET#4`nclass Widget {}`n"
             (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#{2-4}')
+        }
+
+        It 'lets a bare code in the head absorb the rules the text cites, since no numbers means the whole ADR' -Tag 'ADR-REPO-CODEMETA#2' {
+            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET`n---`n*/`n`n// ADR-GADGET#4`nclass Widget {}`n"
+            (Get-HeldCodes $text) | Should -Be @('ADR-GADGET')
         }
 
         It 'drops a head token that is malformed or a glob, keeping the rest' -Tag 'ADR-REPO-CODEMETA#2' {

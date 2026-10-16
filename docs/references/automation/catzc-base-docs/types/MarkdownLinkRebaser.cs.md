@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "78ccf8b2ed35"
     adrs:
       - ADR-REPO-README#6

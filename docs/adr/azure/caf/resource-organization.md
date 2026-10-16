@@ -9,7 +9,7 @@ catzc:
     adrs:
       - ADR-AZ-CUSTOMER#{2,4}
       - ADR-AZ-DATAMOD#{1-3,8,9,11}
-      - ADR-AZ-LZ#{1-7}
+      - ADR-AZ-LZ
       - ADR-AZ-NETWORK#{1,3,5,6}
       - ADR-AZ-WAFRE#10
       - ADR-DSGN-SELFSERV#1

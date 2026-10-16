@@ -10,7 +10,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PIPE-NAME
-      - ADR-PIPE-NAME#{1-4,6}
       - ADR-PWSH-PESTER#2
 ---
 #>

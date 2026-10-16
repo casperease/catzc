@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/internal/tests/Build-CombinedTypeAssembly.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f3308993ccf7
 ---
 

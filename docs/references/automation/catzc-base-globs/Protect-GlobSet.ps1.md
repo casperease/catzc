@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: bfb5c9d1fb41
     adrs:
       - ADR-PWSH-CACHE#4

@@ -9,7 +9,6 @@ catzc:
       page: docs/references/automation/catzc-base-globs/types/DurableHash.cs.md
     adrs:
       - ADR-FLOW-CD-GLOBS
-      - ADR-FLOW-CD-GLOBS#5
 ---
 */
 

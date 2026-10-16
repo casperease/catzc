@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryRealization.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "0dbc26beb6af"
     adrs:
       - ADR-AUTO-TYPES#8

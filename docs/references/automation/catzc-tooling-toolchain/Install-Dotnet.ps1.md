@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "553b4f4cb70e"
     adrs:
       - ADR-AUTO-ASSETDEP#1

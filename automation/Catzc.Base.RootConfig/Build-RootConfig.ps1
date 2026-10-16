@@ -120,7 +120,7 @@ function Build-RootConfig {
 
             # Normalize the source to LF so composition is line-ending agnostic (the write itself canonicalises).
             $content = [System.IO.File]::ReadAllText($sourcePath) -replace "`r`n", "`n" -replace "`r", "`n"
-            $content = Format-GeneratedFileHead -Text $content -Path $entry.target -Carrier $entry.carrier -Source $entry.source -Tracked:([bool] $entry.committed)
+            $content = Format-GeneratedFileHead -Text $content -Path $entry.target -Carrier $entry.carrier -Generator Build-RootConfig -Source $entry.source -Tracked:([bool] $entry.committed)
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
         }
         else {

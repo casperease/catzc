@@ -4,6 +4,7 @@
 #     path: ".gitattributes"
 #     source: automation/Catzc.Base.RootConfig/assets/root/.gitattributes
 #     kind: tracked-generated-from-source
+#     generator: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
 # ---
 
 # Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts
@@ -85,6 +86,22 @@ automation/.compiled/** linguist-generated
 # The generated Markdown named above stays out.
 *.md linguist-detectable
 *.md linguist-documentation=false
+# GitHub (linguist): YAML, JSON and XML are "data" and "markup" languages, outside the statistics by default. Here the
+# YAML module configs, the Azure DevOps pipelines (pipelines/, *.yaml), the GitHub workflows (.github/workflows/), the
+# JSON, the XML/XSD schemas and the .NET project files are authored and reviewed like source, so they count in. Test
+# fixture trees and the frozen contract copies are data or duplicates, so they stay out (the later rules win).
+*.yml    linguist-detectable
+*.yaml   linguist-detectable
+*.json   linguist-detectable
+*.xml    linguist-detectable
+*.xsd    linguist-detectable
+*.csproj linguist-detectable
+*.ps1xml linguist-detectable
+# Module assets (scripts, templates, schemas, project files) are product, whatever their language: any recognized
+# language there counts in, data languages included.
+**/assets/** linguist-detectable
+**/tests/assets/** linguist-detectable=false
+/contracts/** linguist-detectable=false
 # The minimap grid, tree and chain descriptions are rendered by .claude/drawio/minimaps/render.py from the slide and
 # its reasons: output, not authored prose — out of the statistics, and collapsed in pull-request diffs.
 /docs/.assets/**/*.grid.md  linguist-generated

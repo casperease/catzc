@@ -5,7 +5,7 @@ catzc:
     kind: explanation
     body_sha: ee09541f42c4
     adrs:
-      - ADR-AZ-NAMING#{1-8}
+      - ADR-AZ-NAMING
     links:
       - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
       - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png

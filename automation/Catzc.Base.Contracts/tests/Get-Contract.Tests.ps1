@@ -11,7 +11,6 @@ catzc:
       - ADR-AUTO-DEFAULT#{1,6}
       - ADR-AUTO-PATH#2
       - ADR-REPO-CONTRACT
-      - ADR-REPO-CONTRACT#{2,5-8}
 ---
 #>
 

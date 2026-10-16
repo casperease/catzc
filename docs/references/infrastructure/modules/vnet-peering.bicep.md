@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/infrastructure/modules/vnet-peering.bicep.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f5934d1be60a
 ---
 

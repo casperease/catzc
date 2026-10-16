@@ -10,7 +10,6 @@ catzc:
       test: automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
     adrs:
       - ADR-REPO-LINK
-      - ADR-REPO-LINK#8
       - ADR-X
   config:
     synopsis: 'Aligns the repository''s links in place: code links repository-rooted, markdown links relative.'

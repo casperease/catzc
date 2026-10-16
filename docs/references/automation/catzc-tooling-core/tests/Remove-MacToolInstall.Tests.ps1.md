@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Remove-MacToolInstall.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "2569b8f983c4"
     adrs:
       - ADR-AUTO-TEST#3

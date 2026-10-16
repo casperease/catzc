@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "634c3ccea400"
 ---
 

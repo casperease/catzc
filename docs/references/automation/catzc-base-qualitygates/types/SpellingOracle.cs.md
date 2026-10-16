@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "08bdadd3ea73"
     adrs:
       - ADR-AUTO-SPELL#{2,6}

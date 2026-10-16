@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "0a5326e0221a"
     adrs:
       - ADR-AUTO-TEST#6

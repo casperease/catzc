@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "34e26fb9f40d"
 ---
 

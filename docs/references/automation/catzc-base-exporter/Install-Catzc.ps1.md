@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "01d159efd894"
     adrs:
       - ADR-AUTO-DRYRUN#2

@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "89e19e3c644b"
     adrs:
       - ADR-AUTO-TEST#3

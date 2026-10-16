@@ -11,7 +11,6 @@ catzc:
       - ADR-AUTO-TEST#{1,3}
       - ADR-AZ-CUSTOMER
       - ADR-AZ-DATAMOD
-      - ADR-AZ-DATAMOD#{8,11}
 ---
 #>
 

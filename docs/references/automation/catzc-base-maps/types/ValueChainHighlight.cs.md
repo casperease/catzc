@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "870806179829"
     adrs:
       - ADR-DSGN-TRACK#{12,16}

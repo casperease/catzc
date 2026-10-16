@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c7880f07478b
     adrs:
       - ADR-AUTO-TEST#{3,35}

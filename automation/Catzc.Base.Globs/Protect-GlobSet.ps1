@@ -11,7 +11,6 @@ catzc:
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-PROTGLOB
-      - ADR-REPO-PROTGLOB#4
   config:
     synopsis: Records a green scan against its globset's identity, so an unchanged repeat run can be skipped.
     description: |-

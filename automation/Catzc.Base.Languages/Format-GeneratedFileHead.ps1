@@ -14,12 +14,13 @@ catzc:
     synopsis: Returns the text of a generated file with the meta head that says which generator or source wrote it.
     description: |-
       The head is the one unified form of ADR-REPO-FILEMETA#7: kind generated-from-source, and the generator and the source when the file has
-      them. The carrier is named by id, or found from the file's language when no id is given.
+      them. The generator is written as the path of the file its command is defined in. The carrier is named by id, or found from the
+      file's language when no id is given.
     parameters:
       Text: The whole content the generator composed, without any head.
       Path: The repository-relative path the content is written to. It names the file in the head and finds its language.
       Carrier: 'The id of the file-carriers entry that says where the head goes. Default: the entry of the file language of Path.'
-      Generator: The command that composed the content, when one did.
+      Generator: The command that composed the content, when one did; the head names the path of its file.
       Source: The repository-relative authored file or files the content comes from, when it has any.
       Tracked: The file is tracked by git, so it gets the tracked kind of generated-head.yml instead of the plain generated kind.
       Carriers: 'The carrier registry. Default: the shipped file-carriers.yml.'
@@ -75,7 +76,7 @@ function Format-GeneratedFileHead {
     }
     $values = @{ path = $relative; kind = $kind }
     if ($Generator) {
-        $values['generator'] = $Generator
+        $values['generator'] = Get-GeneratorPath $Generator
     }
     if ($Source.Count -eq 1) {
         $values['source'] = $Source[0]

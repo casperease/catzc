@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: bade05ffcf7d
 ---
 

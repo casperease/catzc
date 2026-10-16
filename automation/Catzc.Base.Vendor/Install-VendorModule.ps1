@@ -12,7 +12,6 @@ catzc:
     adrs:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-VENDOR
-      - ADR-PWSH-VENDOR#7
   config:
     synopsis: Saves a PowerShell module into the automation/.vendor directory from the configured source.
     description: |-

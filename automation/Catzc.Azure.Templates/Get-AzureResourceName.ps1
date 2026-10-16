@@ -11,7 +11,6 @@ catzc:
       test: automation/Catzc.Azure.Templates/tests/Get-AzureResourceName.Tests.ps1
     adrs:
       - ADR-AZ-NAMING
-      - ADR-AZ-NAMING#{4,6}
   config:
     synopsis: Assembles a deterministic Azure resource name from the standard component set.
     description: |-

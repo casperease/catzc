@@ -9,7 +9,7 @@ catzc:
     relatives:
       test: automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
     adrs:
-      - ADR-AUTO-ENTERP#4
+      - ADR-AUTO-ENTERP
   config:
     synopsis: |-
       Returns where Install-Zsh puts zsh on Windows: the Git for Windows home, its MSYS2 runtime, zsh's executable, and the

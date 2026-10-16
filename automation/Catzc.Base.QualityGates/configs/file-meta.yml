@@ -73,6 +73,12 @@ kinds:
   file-kind:
     keys: [kind]
 
+  # The file that writes a generated comment page, so the head names its writer; the path is the setting, and the file must exist.
+  generator:
+    select: [{ classes: [comment-page] }]
+    settings:
+      generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
+
   # The hash of the body below the front matter, so it changes exactly when the file does.
   body-sha:
     keys: [body_sha]

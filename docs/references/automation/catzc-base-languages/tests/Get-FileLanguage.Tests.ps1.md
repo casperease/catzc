@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8ea95b0c48c2"
     adrs:
       - ADR-DSGN-TRACK#3

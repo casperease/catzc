@@ -11,7 +11,6 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER
-      - ADR-AZ-CUSTOMER#{2,3}
 ---
 */
 

@@ -10,7 +10,6 @@ catzc:
       test: automation/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE
-      - ADR-AUTO-CONSOLE#7
 ---
 */
 

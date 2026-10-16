@@ -24,9 +24,10 @@ namespace Catzc.Base.Docs;
 //
 //   ADR-X-Y#5                one rule
 //   ADR-X-Y#{1,3-5,9}        a group: numbers and ranges (a range is a run of three or more)
-//   ADR-X-Y                  a bare code: a domain citation, never grouped
+//   ADR-X-Y                  no numbers: the whole ADR, every rule of it (or a domain), never grouped
 //
-// The form is a pure function of the citations: it reads no registry, so a head written in it never changes meaning when an ADR gains a rule.
+// Minimize takes the registry only to see when a code's rules are all present, and then writes the bare code: the whole ADR. A bare code
+// never changes meaning when the ADR gains a rule; without a registry no code is ever collapsed.
 public static class AdrCodeForm
 {
     const int MaxRange = 10000;
@@ -86,8 +87,9 @@ public static class AdrCodeForm
         return list;
     }
 
-    // The fewest tokens that name exactly the citations given. Each input is a bare code or a single rule; duplicates collapse.
-    public static IReadOnlyList<string> Minimize(string[] citations)
+    // The fewest tokens that name exactly the citations given. Each input is a bare code or a single rule; duplicates collapse. A code whose
+    // rules the registry declares, all present and none extra, is written as the bare code.
+    public static IReadOnlyList<string> Minimize(string[] citations, AdrCitationMap registry = null)
     {
         if (citations == null) { throw new ArgumentNullException(nameof(citations)); }
         var bare = new SortedSet<string>(StringComparer.Ordinal);
@@ -113,7 +115,18 @@ public static class AdrCodeForm
         }
 
         var tokens = new List<string>(bare);
-        foreach (KeyValuePair<string, SortedSet<int>> entry in rulesByCode) { tokens.Add(Group(entry.Key, entry.Value)); }
+        foreach (KeyValuePair<string, SortedSet<int>> entry in rulesByCode)
+        {
+            // No numbers means the whole ADR, so a bare code already names every rule of its own.
+            if (bare.Contains(entry.Key)) { continue; }
+            IReadOnlyList<int> declared = registry == null ? null : registry.RulesOf(entry.Key);
+            if (declared != null && declared.Count > 0 && entry.Value.SetEquals(declared))
+            {
+                tokens.Add(entry.Key);
+                continue;
+            }
+            tokens.Add(Group(entry.Key, entry.Value));
+        }
         tokens.Sort(StringComparer.Ordinal);
         return tokens;
     }

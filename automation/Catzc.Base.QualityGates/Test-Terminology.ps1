@@ -11,7 +11,6 @@ catzc:
       test: automation/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1
     adrs:
       - ADR-AUTO-SPELL
-      - ADR-AUTO-SPELL#{5,6,8}
       - ADR-AUTO-TEST#35
   config:
     synopsis: 'Checks the terminology registry: no drift, no orphans, no unjustified entries. Writes a report under out/.'

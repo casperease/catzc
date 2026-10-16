@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5f6b556bb267"
     adrs:
       - ADR-AUTO-REMOVE#{3,6,7}

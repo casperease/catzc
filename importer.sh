@@ -4,6 +4,7 @@
 #     path: importer.sh
 #     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
 #     kind: tracked-generated-from-source
+#     generator: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
 # ---
 
 # shellcheck shell=bash

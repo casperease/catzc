@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: bd87b0cb6bd8
     adrs:
       - ADR-PWSH-FORMAT#6

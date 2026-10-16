@@ -10,7 +10,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#{8,14,35}
       - ADR-REPO-PROTGLOB
-      - ADR-REPO-PROTGLOB#6
 ---
 #>
 

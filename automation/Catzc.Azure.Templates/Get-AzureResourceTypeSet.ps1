@@ -10,7 +10,6 @@ catzc:
       test: automation/Catzc.Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1
     adrs:
       - ADR-AZ-NAMING
-      - ADR-AZ-NAMING#4
   config:
     synopsis: Returns the Azure resource-type registry used by Get-AzureResourceName.
     description: |-

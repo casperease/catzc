@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8457dfdf5b65"
 ---
 

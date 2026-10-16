@@ -10,7 +10,7 @@ catzc:
       page: docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md
       test: automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
     adrs:
-      - ADR-AUTO-ENTERP#4
+      - ADR-AUTO-ENTERP
       - ADR-AUTO-IDEM#1
       - ADR-AUTO-PKGMGR#{5,6}
       - ADR-AUTO-REMOVE#2

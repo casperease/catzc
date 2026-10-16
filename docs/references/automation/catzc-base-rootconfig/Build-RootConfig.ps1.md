@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: db6cee771e6d
 ---
 

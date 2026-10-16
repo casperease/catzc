@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "63b48f8ba3ad"
     adrs:
       - ADR-FLOW-CD-GLOBS#1

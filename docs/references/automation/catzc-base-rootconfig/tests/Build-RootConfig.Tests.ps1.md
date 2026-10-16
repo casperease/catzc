@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "493ae25d0dbc"
     adrs:
       - ADR-AUTO-TEST#{3,14}

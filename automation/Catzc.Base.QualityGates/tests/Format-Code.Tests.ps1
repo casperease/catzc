@@ -10,7 +10,6 @@ catzc:
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-CACHE
-      - ADR-AUTO-CACHE#10
       - ADR-AUTO-TEST#{3,6,8}
       - ADR-PRIN-CONFIG#{1,2,4}
       - ADR-REPO-FORMAT#8

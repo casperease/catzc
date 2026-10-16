@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: bf00f776e752
     adrs:
       - ADR-DSGN-RUNMODE#4

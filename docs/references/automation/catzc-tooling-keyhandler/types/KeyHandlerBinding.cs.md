@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: ec5fc031a675
     adrs:
       - ADR-AUTO-TYPES#8

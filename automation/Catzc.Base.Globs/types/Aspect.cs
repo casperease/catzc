@@ -10,7 +10,6 @@ catzc:
       test: automation/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
     adrs:
       - ADR-DSGN-ASPECT
-      - ADR-DSGN-ASPECT#5
       - ADR-FLOW-CD-GLOBS#4
 ---
 */

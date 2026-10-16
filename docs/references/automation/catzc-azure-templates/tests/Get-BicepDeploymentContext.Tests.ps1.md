@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: bb48820b67cc
     adrs:
       - ADR-AUTO-TEST#{4,19,26}

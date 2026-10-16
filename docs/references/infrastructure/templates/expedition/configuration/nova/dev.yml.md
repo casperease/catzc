@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/infrastructure/templates/expedition/configuration/nova/dev.yml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "035ded2f9c82"
 ---
 

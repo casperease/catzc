@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "09c4f4bb90bf"
     adrs:
       - ADR-PWSH-ASSERT#1

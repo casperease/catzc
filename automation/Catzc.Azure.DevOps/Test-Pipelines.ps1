@@ -12,7 +12,6 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PIPE-NAME
-      - ADR-PIPE-NAME#{1-4,6,7}
   config:
     synopsis: 'Quality gate: checks the pipelines/ tree against the naming-and-placement contract.'
     description: |-

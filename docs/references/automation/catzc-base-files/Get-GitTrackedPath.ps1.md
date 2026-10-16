@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a926a158f7d0
     adrs:
       - ADR-AUTO-CACHE#9

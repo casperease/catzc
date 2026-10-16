@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "2276d83149dc"
     adrs:
       - ADR-AUTO-FAILFAST#7

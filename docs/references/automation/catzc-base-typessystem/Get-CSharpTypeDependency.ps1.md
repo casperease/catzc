@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "0a6d03d0ce3c"
     adrs:
       - ADR-PWSH-PESTER#9

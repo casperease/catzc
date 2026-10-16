@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b7dcd603d49b
     adrs:
       - ADR-PWSH-FORMAT#6

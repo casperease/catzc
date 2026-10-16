@@ -10,7 +10,6 @@ catzc:
       test: automation/Catzc.Base.Docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1
     adrs:
       - ADR-REPO-VOCAB
-      - ADR-REPO-VOCAB#6
   config:
     synopsis: Lists the realized glossary concepts whose defining rule nothing enforces (check G5) — one message per violation.
     description: |-

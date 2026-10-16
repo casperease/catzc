@@ -10,7 +10,6 @@ catzc:
       test: automation/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
     adrs:
       - ADR-AUTO-SPELL
-      - ADR-AUTO-SPELL#{2,6}
       - ADR-AUTO-TYPES#9
 ---
 */

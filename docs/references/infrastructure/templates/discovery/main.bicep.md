@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/main.bicep.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "239f47e44093"
     adrs:
       - ADR-AZ-NETWORK#1

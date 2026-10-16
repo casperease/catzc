@@ -13,6 +13,8 @@ catzc:
 
 Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
+        # The fixture generators are no loaded functions; the resolver's own tests prove the lookup.
+        Mock Get-GeneratorPath -ModuleName Catzc.Base.Languages { "automation/Catzc.Widget/$Name.ps1" }
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{
                 languages = [ordered]@{
                     widget = @{ extensions = @('.wdg'); no_formatter = 'widgets are never formatted' }
@@ -35,7 +37,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
 
     It 'writes the unified head with the generator and the source, in the comment style of the file language' {
         $text = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -Generator New-Widget -Source 'docs/widget.yml' -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: docs/gen.wdg`n#     source: docs/widget.yml`n#     kind: generated-from-source`n#     generator: New-Widget`n# ---`n`nwidget body`n"
+        $text | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: docs/gen.wdg`n#     source: docs/widget.yml`n#     kind: generated-from-source`n#     generator: automation/Catzc.Widget/New-Widget.ps1`n# ---`n`nwidget body`n"
     }
 
     It 'leaves the generator and the source out when the file has none, and lists several sources' {
@@ -43,7 +45,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $bare | Should -BeExactly "/*`n---`ncatzc:`n  derived:`n    path: docs/gen.gdg`n    kind: generated-from-source`n---`n*/`n`nbody`n"
 
         $many = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.gdg' -Generator New-Gadget -Source 'a/one.yml', 'a/two.yml' -Carriers $script:carriers -Languages $script:languages
-        $many | Should -BeLike "*    source:`n      - a/one.yml`n      - a/two.yml`n    kind: generated-from-source`n    generator: New-Gadget`n---*"
+        $many | Should -BeLike "*    source:`n      - a/one.yml`n      - a/two.yml`n    kind: generated-from-source`n    generator: automation/Catzc.Widget/New-Gadget.ps1`n---*"
     }
 
     It 'writes the tracked kind for a file git tracks' {
@@ -65,7 +67,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
 
     It 'writes a property carrier into JSON, replacing an old banner its carrier strips' {
         $text = Format-GeneratedFileHead -Text "{`n  `"`$comment`": `"GENERATED FILE - do not edit.`",`n  `"type`": `"object`"`n}`n" -Path 'docs/gen.schema.dat' -Carrier schema -Generator New-Schema -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  derived:\n    path: docs/gen.schema.dat\n    kind: generated-from-source\n    generator: New-Schema`",`n  `"type`": `"object`"`n}`n"
+        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  derived:\n    path: docs/gen.schema.dat\n    kind: generated-from-source\n    generator: automation/Catzc.Widget/New-Schema.ps1`",`n  `"type`": `"object`"`n}`n"
     }
 
     It 'refuses a carrier that holds no head, and an undeclared carrier' {

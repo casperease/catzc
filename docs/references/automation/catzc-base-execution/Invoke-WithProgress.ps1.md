@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "280a86e8851c"
 ---
 

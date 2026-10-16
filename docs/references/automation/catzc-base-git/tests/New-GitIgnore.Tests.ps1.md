@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: faa62cb3951c
     adrs:
       - ADR-PWSH-PESTER#2

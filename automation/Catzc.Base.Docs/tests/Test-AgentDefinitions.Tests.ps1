@@ -9,7 +9,7 @@ catzc:
       source: automation/Catzc.Base.Docs/Test-AgentDefinitions.ps1
     adrs:
       - ADR-AUTO-TEST#{3,35}
-      - ADR-REPO-AGENTS#{1-5}
+      - ADR-REPO-AGENTS
 ---
 #>
 

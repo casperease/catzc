@@ -11,7 +11,6 @@ catzc:
       test: automation/Catzc.Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1
     adrs:
       - ADR-PWSH-CACHE
-      - ADR-PWSH-CACHE#4
   config:
     synopsis: Returns the consumer overlay root Get-Config merges fragments from, cached per pair of session anchors.
     description: |-

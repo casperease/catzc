@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6bb2016d2353"
     adrs:
       - ADR-AUTO-ONEJOB#5

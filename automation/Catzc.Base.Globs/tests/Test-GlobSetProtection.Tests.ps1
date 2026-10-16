@@ -9,7 +9,6 @@ catzc:
       source: automation/Catzc.Base.Globs/Test-GlobSetProtection.ps1
     adrs:
       - ADR-REPO-PROTGLOB
-      - ADR-REPO-PROTGLOB#4
 ---
 #>
 

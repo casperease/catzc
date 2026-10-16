@@ -8,7 +8,7 @@ catzc:
       - ADR-AZ-WAFRE#{1-10}
     adrs:
       - ADR-AZ-DATAMOD#{6,9}
-      - ADR-AZ-LZ#{1-7}
+      - ADR-AZ-LZ
       - ADR-AZ-NETWORK#{3,5}
     links:
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod6

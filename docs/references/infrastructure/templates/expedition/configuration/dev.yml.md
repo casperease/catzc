@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/infrastructure/templates/expedition/configuration/dev.yml.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "9744f69b3d1f"
 ---
 

@@ -11,7 +11,6 @@ catzc:
     adrs:
       - ADR-AZ-CUSTOMER#3
       - ADR-REPO-VOCAB
-      - ADR-REPO-VOCAB#3
 ---
 */
 

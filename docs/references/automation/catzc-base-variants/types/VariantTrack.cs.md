@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c77d074b1dc0
     adrs:
       - ADR-AUTO-TYPES#8

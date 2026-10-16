@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/infrastructure/modules/policy-assignment.bicep.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8319265c1cdf"
 ---
 

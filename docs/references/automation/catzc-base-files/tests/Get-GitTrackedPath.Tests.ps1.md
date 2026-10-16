@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md
     kind: comment-page
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: dd9fa66789b2
 ---
 

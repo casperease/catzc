@@ -9,7 +9,6 @@ catzc:
       page: docs/references/automation/catzc-base-qualitygates/types/TerminologyTerm.cs.md
     adrs:
       - ADR-AUTO-SPELL
-      - ADR-AUTO-SPELL#{5,8}
 ---
 */
 

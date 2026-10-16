@@ -8,7 +8,7 @@ catzc:
       - ADR-THES-ONETRUTH#{1-6}
     adrs:
       - ADR-FLOW-CD#14
-      - ADR-PRIN-EAC#{1-3}
+      - ADR-PRIN-EAC
     links:
       - docs/adr/automation/platform-bundle.md
       - docs/adr/design/tracks.md
