@@ -116,6 +116,11 @@ catzc:
         while it runs. The report lands in the working folder's out/ either way, and run.json records where the
         run executed.
       KeepSandbox: Keep the snapshot (when the run used one) after the run instead of deleting it, for a post-mortem.
+      DiagnoseBlocking: |-
+        Stand a one-second watchpoint (Assert-Wait) at four places in the startup, before the workers launch: after discovery, after the
+        tag gate, after the run context, and just before the workers start. Each prints its ticks and ends with a warning naming how
+        late the thread ran, so a stall shows where it happens. Costs about four seconds, so it is off by default. A worker's own
+        import does not carry the switch.
     examples:
       - Test-Automation
       - 'Test-Automation -Isolated -KeepSandbox   # run in a frozen snapshot of the working folder and keep it'
@@ -178,7 +183,9 @@ function Test-Automation {
 
         [switch] $Isolated,
 
-        [switch] $KeepSandbox
+        [switch] $KeepSandbox,
+
+        [switch] $DiagnoseBlocking
     )
 
     if ($MinLevel -gt $MaxLevel) {
@@ -197,5 +204,5 @@ function Test-Automation {
     Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
         -Modules $Modules -Category $Category -Workers $Workers -GreedyGroupSize $GreedyGroupSize -TimeoutSeconds $TimeoutSeconds -Output $Output `
         -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -Suite $Suite -OutputFolder $OutputFolder `
-        -Isolated:$Isolated -KeepSandbox:$KeepSandbox
+        -Isolated:$Isolated -KeepSandbox:$KeepSandbox -DiagnoseBlocking:$DiagnoseBlocking
 }

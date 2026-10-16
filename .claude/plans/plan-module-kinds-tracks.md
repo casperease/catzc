@@ -3,9 +3,7 @@ plan:
   status: active
   value: high
   reviewed: 2026-10-16
-  next:
-    the user settles the three open choices under "Corrections" in the carried module-model section, then run
-    prompt-module-model-2-implement.md; prepare ran 2026-10-16 and its files are out/module-model-*.md and out/draft-adr-auto-module.md
+  next: the module model has landed; its open items are in plan-module-model-closeout; then kind to role
   targets:
     [
       automation/Catzc.Base.ModuleSystem,

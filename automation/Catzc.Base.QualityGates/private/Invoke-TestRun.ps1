@@ -65,6 +65,9 @@ catzc:
       EntryParameter: Named arguments for -EntryScript.
       Isolated: Run in a snapshot of the working folder even when it is free (Enter-TestRunLocation).
       KeepSandbox: Keep the snapshot (when the run used one) after the run, for a post-mortem.
+      DiagnoseBlocking: |-
+        Stand a watchpoint (Assert-Wait) at four places in the startup, before the workers launch, to show where the thread or process
+        stalls (Test-Automation's -DiagnoseBlocking). Each costs its full duration, so it is off by default.
 ---
 #>
 
@@ -122,7 +125,9 @@ function Invoke-TestRun {
 
         [switch] $Isolated,
 
-        [switch] $KeepSandbox
+        [switch] $KeepSandbox,
+
+        [switch] $DiagnoseBlocking
     )
 
     # The entry point's key: its default report folder under out/ and its protection-key prefix.
@@ -144,9 +149,15 @@ function Invoke-TestRun {
 
     $discovery = Get-TestDiscovery -TestPath $testPaths
     Write-Message '.' -NoHeader -NoNewline
+    if ($DiagnoseBlocking) {
+        Assert-Wait
+    }
 
     # Enforce the two mandatory tag axes on every test, regardless of -Level (Assert-TestTagGate).
     Assert-TestTagGate -Discovery $discovery
+    if ($DiagnoseBlocking) {
+        Assert-Wait
+    }
 
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $entryPointKey
@@ -169,6 +180,9 @@ function Invoke-TestRun {
 
         $context = Get-TestRunContext -EntryPoint $EntryPoint -EntryScript $EntryScript -Location $location -MinLevel $MinLevel `
             -RequestedMaxLevel $requestedMaxLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Suite $Suite -Rule $Rule
+        if ($DiagnoseBlocking) {
+            Assert-Wait
+        }
 
         $excludeTags = Get-TestExcludeTag -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category
 
@@ -214,6 +228,9 @@ function Invoke-TestRun {
         Write-Message '' -NoHeader   # ends the dot line
         Write-TestAutomationHeader -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Title $Title
         Write-TestRunContext -Context $context
+        if ($DiagnoseBlocking) {
+            Assert-Wait
+        }
 
         $workerRun = if (($parallelFiles.Count + $greedyFiles.Count + $serialFiles.Count) -eq 0) {
             $nothingToRun = if ($testFiles.Count -eq 0) {

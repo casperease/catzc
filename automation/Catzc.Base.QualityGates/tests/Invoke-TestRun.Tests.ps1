@@ -148,6 +148,34 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         }
     }
 
+    Context 'the blocking watchpoints (-DiagnoseBlocking)' {
+        BeforeEach {
+            $script:steps = [System.Collections.Generic.List[string]]::new()
+            Mock Assert-Wait -ModuleName Catzc.Base.QualityGates { $script:steps.Add('wait') }
+            Mock Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates {
+                $script:steps.Add('workers')
+                [pscustomobject]@{
+                    Rows = @([pscustomobject]@{ Result = 'Passed'; Level = 'L0'; DurationMs = 1 }); Files = @()
+                    FailedShardLabels = @(); ShardExitCodes = @{}; DurationSeconds = 0.1; Shards = @(); WorkerSummaries = @(); Location = $null
+                }
+            }
+        }
+
+        It 'stands four watchpoints in the startup, the last one just before the workers launch' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false; DiagnoseBlocking = $true } | Out-Null
+
+            Should -Invoke Assert-Wait -ModuleName Catzc.Base.QualityGates -Times 4 -Exactly
+            $script:steps -join ',' | Should -Be 'wait,wait,wait,wait,workers'
+        }
+
+        It 'stands none by default' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false } | Out-Null
+
+            Should -Invoke Assert-Wait -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+            $script:steps -join ',' | Should -Be 'workers'
+        }
+    }
+
     Context 'the location decides the top tier (ADR-AUTO-TEST#33)' {
         It 'runs every tier, L3 included, in place by default' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null

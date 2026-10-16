@@ -57,8 +57,8 @@ The diagram is described element by element in
 
 1. **importer.ps1.** The source-mode shim turns on `Set-StrictMode -Version Latest`, sets `$env:RepositoryRoot` to its own folder, imports
    `Catzc.Internal.Loader.psm1` by path and the importer through `Import-InternalModule Importer -Force`, and calls
-   `Invoke-Importer @PSBoundParameters`. Its `param()` block holds seven switches, `-ExportPrivates`, `-AllowWarnings`, `-DiagnoseLoadTime`,
-   `-ClearCompiledTypes`, `-SkipJanitors`, `-CleanClone` and `-Bundle`, the same set as `Invoke-Importer`.
+   `Invoke-Importer @PSBoundParameters`. Its `param()` block holds eight switches, `-ExportPrivates`, `-AllowWarnings`, `-DiagnoseLoadTime`,
+   `-DiagnoseBlocking`, `-ClearCompiledTypes`, `-SkipJanitors`, `-CleanClone` and `-Bundle`, the same set as `Invoke-Importer`.
 2. **Invoke-Importer.** It throws below PowerShell 7.4, sets `$global:ErrorActionPreference` to `Stop` and `$global:WarningPreference` to
    `Stop` unless `-AllowWarnings`, makes a redirected session write UTF-8, and sets `$env:CatzcModulesRoot`. Under `-Bundle` it sets
    `$SkipJanitors`.

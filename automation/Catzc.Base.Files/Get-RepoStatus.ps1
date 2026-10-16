@@ -62,15 +62,18 @@ function Get-RepoStatus {
         return 'staged'
     }
 
-    $branch = "$((Invoke-Executable 'git branch --show-current' -WorkingDirectory $root -PassThru -Silent).Output)".Trim()
-    $upstream = if ($branch) {
-        "$((Invoke-Executable "git for-each-ref --format=%(upstream:short) refs/heads/$branch" -WorkingDirectory $root -PassThru -Silent).Output)".Trim()
+    $branchResult = Invoke-Executable 'git branch --show-current' -WorkingDirectory $root -PassThru -Silent
+    $branch = "$($branchResult.Output)".Trim()
+    $upstream = ''
+    if ($branch) {
+        $upstreamResult = Invoke-Executable "git for-each-ref --format=%(upstream:short) refs/heads/$branch" -WorkingDirectory $root -PassThru -Silent
+        $upstream = "$($upstreamResult.Output)".Trim()
     }
     if (-not $upstream) {
         return 'ready'
     }
-    $unpushed = "$((Invoke-Executable "git log -1 --format=%H $upstream..HEAD -- `"$relative`"" -WorkingDirectory $root -PassThru -Silent).Output)".Trim()
-    if ($unpushed) {
+    $logResult = Invoke-Executable "git log -1 --format=%H $upstream..HEAD -- `"$relative`"" -WorkingDirectory $root -PassThru -Silent
+    if ("$($logResult.Output)".Trim()) {
         return 'committed'
     }
     'pushed'

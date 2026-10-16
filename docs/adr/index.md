@@ -2,7 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5657fad93dd9"
-    with_inputs_sha: dc2d9d5d98c4b7ee79b7e7d683ef6d41a34ae7f8d535767bc5c6719840e53811
+    with_inputs_sha: "111d50c52eda5206b7e2268f5f5d35d4d4ce42d848340f21a318bb055e062836"
     repo_status: locked
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml

@@ -3,7 +3,7 @@ plan:
   status: open
   value: medium
   reviewed: 2026-10-16
-  blocked_on: Q1-Q5 below are unanswered; steps 1-2 wait for Q2 and Q3
+  blocked_on: Q1, Q2, Q3 and Q5 are unanswered; the code is built on their recommendations until the user answers
   targets:
     [
       automation/Catzc.Base.Timeouts,
@@ -82,31 +82,37 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 ## Open questions
 
 - **Q1.** Defaults 1 s and 1 ms: declared once on `TimeoutsConfig` (devbox tight, pipeline may differ, like every limit) or literals in the
-  `param` block? Recommendation: on the config type. Read ADR-AUTO-DEFAULT#6 first.
+  `param` block? Recommendation: on the config type. Read ADR-AUTO-DEFAULT#6 first. **Built with literals 1 and 1 in the `param` block**
+  (the request's own wording); moving them to `TimeoutsConfig` stays open, and `Assert-Wait.Tests.ps1` pins the 1.001 s total either way.
 - **Q2.** Reading of the request: it really waits and measures its own ticks (not a threshold on time since a start mark); `Millisecs` adds
   to `Seconds` (not a tick interval); the closing warning always fires. Recommendation: as drafted.
 - **Q3.** Is "complete startup time" the whole span with Bootstrap included? The writers do not exist before `Import-AllModules`, and a
   Bootstrap copy would be a second living version (ADR-PRIN-ONELIVE), so that span needs a different shape (a heartbeat thread started
   before the first module). Recommendation: v1 as in step 3, then decide once a run shows whether Bootstrap ever blocks.
-- **Q4.** Name of the opt-in switch (`-DiagnoseBlocking`, beside `-DiagnoseLoadTime`) and that a call site reads
-  `if ($DiagnoseBlocking) { Assert-Wait }`, because each point costs its full duration on every run.
+- **Q4 (built, not yet confirmed).** The opt-in switch is `-DiagnoseBlocking`, beside `-DiagnoseLoadTime`, on `importer.ps1`,
+  `Test-Automation` and `Invoke-TestRun`; a call site reads `if ($DiagnoseBlocking) { Assert-Wait }`, because each point costs its full
+  duration on every run. The importer's standing points add about four seconds to its own "Loaded in" line.
 - **Q5.** Do the two ADR rules land with the code, or after the first use proves the shape?
 
 ## Open steps
 
 One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing); C# edits need a fresh `pwsh`.
 
-- [ ] Answer Q1-Q5 (check: each recorded here with its outcome, then fold into the contract above).
-- [ ] If Q1 is config: add the default to `TimeoutsConfig.cs` and its test (check: `tests/types/TimeoutsConfig.Tests.ps1` passes).
-- [ ] Write `Assert-Wait.ps1`, add it to the `.psd1` export list and `CatzcFiles`, write its test (check: `Assert-Wait.Tests.ps1` passes,
-      then the module's tests).
-- [ ] Importer: the opt-in switch and four standing points, all after the writers load: after `Import-AllModules`, after
-      `Assert-CatzcRunModeExclusive`, after `Invoke-ImporterJanitors`, after the UNC `PSModulePath` check (check: `Invoke-Importer` tests
-      pass; a run with the switch shows four warnings).
-- [ ] `Invoke-TestRun` (startup is everything before the workers launch): the same switch through `Test-Automation`, four points: after
-      `Get-TestDiscovery`, after `Assert-TestTagGate`, after `Get-TestRunContext`, before `Invoke-TestAutomationWorkers` (check: the
-      `Invoke-TestRun` and `Test-Automation` tests pass; a worker's own switch stays off).
-- [ ] Function help, then the ADR rules if Q5 says so (check: `Test-Links` and the ADR gates on the touched pages).
+- [ ] Answer Q1, Q2, Q3 and Q5 (check: each recorded here with its outcome, then fold into the contract above).
+- [ ] If Q1 is config: add the default to `TimeoutsConfig.cs` and its test, and drop the literals from `Assert-Wait.ps1` (check:
+      `tests/types/TimeoutsConfig.Tests.ps1` and `Assert-Wait.Tests.ps1` pass).
+- [x] Write `Assert-Wait.ps1`, add it to the `.psd1` export list and `CatzcFiles`, write its test. Done 2026-10-17: `Assert-Wait.Tests.ps1`
+      passes 16 of 16. The rest of the module's tests were not run.
+- [x] Importer: the opt-in switch and four standing points (after `Import-AllModules`, `Assert-CatzcRunModeExclusive`,
+      `Invoke-ImporterJanitors`, the UNC `PSModulePath` check). Done 2026-10-17: a `-DiagnoseBlocking` import printed four watchpoints;
+      `importer.ps1` regenerated with `Build-RootConfig 'importer.ps1'`, and `New-Importer.Tests.ps1` passes 9 of 9. Docs updated:
+      `invoke-importer-in-code-order.md` and the getting-started `index.md`. `Invoke-Importer` has no test of its own for the switch.
+- [x] `Invoke-TestRun` and `Test-Automation`: the same switch, four points (after `Get-TestDiscovery`, `Assert-TestTagGate`,
+      `Get-TestRunContext`, and just before the workers). Done 2026-10-17: `Invoke-TestRun.Tests.ps1` passes 21 of 21, including two new
+      tests (four waits then workers; none by default). A real `Test-Automation -DiagnoseBlocking` run was not made.
+- [ ] Run `Test-Automation.Tests.ps1` green. Its one failure on 2026-10-17 is the source-conventions check, caused by other files: a peer's
+      `Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1` name and "bash and zsh" wording in seven other plans, none of them this one.
+- [ ] Function help beyond the head blocks, then the ADR rules if Q5 says so (check: `Test-Links` and the ADR gates on the touched pages).
 - [ ] After the first measured run: replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check:
       no `Assert-Wait` call left without a finding).
 
