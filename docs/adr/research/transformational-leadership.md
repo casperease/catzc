@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7ebd59f1084e"
+    repo_status: clean
     path: docs/adr/research/transformational-leadership.md
     folder: docs/adr/research
     name: transformational-leadership

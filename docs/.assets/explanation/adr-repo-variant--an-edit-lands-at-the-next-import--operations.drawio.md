@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9667a0e4574a"
+    with_body_sha: "130b132b473e"
+    repo_status: clean
     path: docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-an-edit-lands-at-the-next-import-operations-drawio

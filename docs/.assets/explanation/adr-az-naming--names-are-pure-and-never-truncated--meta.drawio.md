@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1d6154f3a7ea"
+    with_body_sha: "1abbbb59293c"
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-naming-names-are-pure-and-never-truncated-meta-drawio

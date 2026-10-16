@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8ff12bad41dd"
+    repo_status: locked
     path: docs/references/automation/catzc-base-writers/tests/types/RainbowColor.Tests.ps1.md
     folder: docs/references/automation/catzc-base-writers/tests/types
     name: rainbow-color-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8ebc8a912f72"
+    repo_status: clean
     path: docs/explanation/repository/one-registry-one-writer-two-primitives.md
     folder: docs/explanation/repository
     name: one-registry-one-writer-two-primitives

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "862f59ab1f30"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/Show-Cats.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: show-cats-ps1

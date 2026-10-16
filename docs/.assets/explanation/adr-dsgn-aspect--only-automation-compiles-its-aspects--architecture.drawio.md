@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "96640421b91d"
+    with_body_sha: "14cd05630ac1"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-only-automation-compiles-its-aspects-architecture-drawio

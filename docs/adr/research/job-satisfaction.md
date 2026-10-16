@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b12564197b48
+    repo_status: clean
     path: docs/adr/research/job-satisfaction.md
     folder: docs/adr/research
     name: job-satisfaction

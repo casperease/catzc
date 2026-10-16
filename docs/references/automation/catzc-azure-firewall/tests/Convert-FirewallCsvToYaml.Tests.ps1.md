@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "73542d88cc07"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-firewall/tests
     name: convert-firewall-csv-to-yaml-tests-ps1

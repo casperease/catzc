@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "03f95758400c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md
     folder: docs/references/automation/catzc-base-objects/tests/types
     name: repo-relative-path-tests-ps1

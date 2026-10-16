@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b26129decf79
+    with_body_sha: f2e7fe93db77
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-decide-returns-null-or-a-reason-implementation-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0f6063ff4e0f"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/MapsPalette.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: maps-palette-cs

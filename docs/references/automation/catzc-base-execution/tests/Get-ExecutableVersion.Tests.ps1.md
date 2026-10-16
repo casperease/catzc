@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "307cec29c5b2"
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
     folder: docs/references/automation/catzc-base-execution/tests
     name: get-executable-version-tests-ps1

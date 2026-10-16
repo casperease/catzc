@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "35f298e8542f"
+    with_body_sha: "9113a49c0e0d"
+    repo_status: clean
     path: docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-rootcfg-one-registry-one-writer-two-primitives-architecture-drawio

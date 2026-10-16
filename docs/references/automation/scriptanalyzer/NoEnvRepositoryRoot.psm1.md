@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1bf36336d5bd"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NoEnvRepositoryRoot.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-env-repository-root-psm1

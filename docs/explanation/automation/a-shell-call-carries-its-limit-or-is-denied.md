@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fd4f00055329
+    repo_status: clean
     path: docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
     folder: docs/explanation/automation
     name: a-shell-call-carries-its-limit-or-is-denied

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "686ba78a627b"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-inspiration/tests
     name: resolve-inspiration-root-tests-ps1

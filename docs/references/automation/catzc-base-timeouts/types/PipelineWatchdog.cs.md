@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "254b38dd639b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: pipeline-watchdog-cs

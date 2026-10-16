@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c9af362980df
+    repo_status: locked
     path: docs/references/automation/catzc-base-files/Set-FileLink.ps1.md
     folder: docs/references/automation/catzc-base-files
     name: set-file-link-ps1

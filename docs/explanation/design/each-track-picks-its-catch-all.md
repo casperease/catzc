@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "87398671b7d3"
+    repo_status: clean
     path: docs/explanation/design/each-track-picks-its-catch-all.md
     folder: docs/explanation/design
     name: each-track-picks-its-catch-all

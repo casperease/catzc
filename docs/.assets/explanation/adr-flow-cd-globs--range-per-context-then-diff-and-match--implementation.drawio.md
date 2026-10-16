@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "731bc6e3ce5b"
+    with_body_sha: "5ba4dc00cc60"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-range-per-context-then-diff-and-match-implementation-drawio

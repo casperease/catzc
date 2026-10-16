@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "636ba4db748f"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/types/Tenant.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: tenant-cs

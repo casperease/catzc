@@ -6,6 +6,29 @@ plan:
   reviewed: 2026-10-16
   waits_on: a level-2 Test-Automation rerun to confirm the three test-tag fixes (unconfirmed as of 2026-10-16 15:33)
   targets: [automation/Catzc.Base.Folders, automation/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
+catzc:
+  immutable:
+    with_body_sha: "2011dac7618a"
+    repo_status: clean
+    path: ".claude/plans/plan-bounded-folder-enumeration.md"
+    folder: plans
+    name: plan-bounded-folder-enumeration
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-FAILFAST#1
+      - ADR-AUTO-TYPES#{4,7,8,14}
+      - ADR-CONF-ADDRESSING#1
+      - ADR-PWSH-PARAM#4
+      - ADR-PWSH-PESTER#9
 ---
 
 # Bounded folder enumeration: raw .NET, depth 2 by default, nothing deeply loaded

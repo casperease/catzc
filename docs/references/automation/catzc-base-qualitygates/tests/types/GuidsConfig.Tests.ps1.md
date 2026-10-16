@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ff786f7c9b84
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/types/GuidsConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: guids-config-tests-ps1

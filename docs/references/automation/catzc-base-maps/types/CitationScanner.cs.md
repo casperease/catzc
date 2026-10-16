@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "19b1496bb479"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: citation-scanner-cs

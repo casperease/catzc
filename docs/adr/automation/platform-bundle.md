@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4dacfa995a0b"
+    repo_status: clean
     path: docs/adr/automation/platform-bundle.md
     folder: docs/adr/automation
     name: platform-bundle

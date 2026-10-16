@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "499e30733666"
+    repo_status: clean
     path: docs/references/infrastructure/discovery.md
     folder: docs/references/infrastructure
     name: discovery

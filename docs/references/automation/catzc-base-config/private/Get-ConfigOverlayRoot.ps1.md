@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: beba738f27a0
+    repo_status: locked
     path: docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
     folder: docs/references/automation/catzc-base-config/private
     name: get-config-overlay-root-ps1

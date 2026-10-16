@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e19b69ac223a
+    with_body_sha: "781a95ba963d"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-runmode-where-code-loads-from-decides-the-mode-meta-drawio

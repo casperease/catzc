@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fbefa2a1f591
+    with_body_sha: b42d58a0817b
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-remote-guard-and-policies-by-command-operations-drawio

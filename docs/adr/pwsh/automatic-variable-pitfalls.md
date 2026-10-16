@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6e7918d7cfad"
+    repo_status: clean
     path: docs/adr/pwsh/automatic-variable-pitfalls.md
     folder: docs/adr/pwsh
     name: automatic-variable-pitfalls

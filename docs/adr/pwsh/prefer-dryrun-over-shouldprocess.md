@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b09ed58f0b41
+    repo_status: clean
     path: docs/adr/pwsh/prefer-dryrun-over-shouldprocess.md
     folder: docs/adr/pwsh
     name: prefer-dryrun-over-shouldprocess

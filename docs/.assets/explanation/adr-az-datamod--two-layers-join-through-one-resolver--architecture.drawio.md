@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "481831031a08"
+    with_body_sha: eebc210adb34
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-two-layers-join-through-one-resolver-architecture-drawio

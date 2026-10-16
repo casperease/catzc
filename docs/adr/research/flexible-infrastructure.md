@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0aba2454ac45"
+    repo_status: clean
     path: docs/adr/research/flexible-infrastructure.md
     folder: docs/adr/research
     name: flexible-infrastructure

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dbac6d937338
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
     folder: docs/references/automation/catzc-azure-devops-buildvalidation/configs
     name: build-validation-yml

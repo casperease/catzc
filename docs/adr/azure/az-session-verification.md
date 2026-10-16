@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b86a677eda72
+    repo_status: clean
     path: docs/adr/azure/az-session-verification.md
     folder: docs/adr/azure
     name: az-session-verification

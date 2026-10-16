@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5cad299b80d8"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: comment-page-map-cs

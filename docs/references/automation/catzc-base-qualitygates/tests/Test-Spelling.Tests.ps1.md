@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b6e27572ebcf
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Spelling.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-spelling-tests-ps1

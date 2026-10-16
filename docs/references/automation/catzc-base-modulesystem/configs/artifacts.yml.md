@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e692d3570f46
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/configs/artifacts.yml.md
     folder: docs/references/automation/catzc-base-modulesystem/configs
     name: artifacts-yml

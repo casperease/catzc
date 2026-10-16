@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "15269ce699bd"
+    repo_status: clean
     path: docs/references/automation/catzc-tooling-core.md
     folder: docs/references/automation
     name: catzc-tooling-core

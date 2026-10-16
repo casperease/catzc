@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e6fad7eb5a6c
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: export-spelling-triage-ps1

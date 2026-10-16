@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "25b006c5662e"
+    repo_status: locked
     path: docs/references/automation/catzc-base-configextensions/tests/Invoke-ConfigValidator.Tests.ps1.md
     folder: docs/references/automation/catzc-base-configextensions/tests
     name: invoke-config-validator-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f80f37c01327
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: uninstall-java-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7d506feeec53"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/types/YamlClassification.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: yaml-classification-cs

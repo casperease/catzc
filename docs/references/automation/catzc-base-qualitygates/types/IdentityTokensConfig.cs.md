@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8858db31548b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: identity-tokens-config-cs

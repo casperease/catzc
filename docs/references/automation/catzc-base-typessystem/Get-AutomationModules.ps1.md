@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f2dc382197c9
+    repo_status: locked
     path: docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md
     folder: docs/references/automation/catzc-base-typessystem
     name: get-automation-modules-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ca2933103521
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/TerminologyTerm.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: terminology-term-cs

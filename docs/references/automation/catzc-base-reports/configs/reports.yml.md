@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "453a3a06fe8d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-reports/configs/reports.yml.md
     folder: docs/references/automation/catzc-base-reports/configs
     name: reports-yml

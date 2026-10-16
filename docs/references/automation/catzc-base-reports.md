@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ec85aa816323
+    repo_status: clean
     path: docs/references/automation/catzc-base-reports.md
     folder: docs/references/automation
     name: catzc-base-reports

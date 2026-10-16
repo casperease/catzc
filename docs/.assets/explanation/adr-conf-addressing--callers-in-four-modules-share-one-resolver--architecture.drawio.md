@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f3a63d100682
+    with_body_sha: "0f4e274371ab"
+    repo_status: clean
     path: docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-callers-in-four-modules-share-one-resolver-architecture-drawio

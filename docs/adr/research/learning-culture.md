@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: acfd23004c4f
+    repo_status: clean
     path: docs/adr/research/learning-culture.md
     folder: docs/adr/research
     name: learning-culture

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "086315865188"
+    repo_status: locked
     path: docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md
     folder: docs/references/automation/catzc-base-files
     name: write-file-if-changed-ps1

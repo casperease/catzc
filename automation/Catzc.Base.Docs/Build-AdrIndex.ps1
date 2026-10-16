@@ -71,6 +71,20 @@ function Build-AdrIndex {
         [switch] $PassThru
     )
 
+    # Every input of the page: the registry, the ADR files the slugs resolve to, and the code that renders. An unchanged stamp means the page on
+    # disk was written from exactly these, so nothing is read or rendered. The two generated pages beside the ADRs are outputs, not inputs.
+    $inputsSha = Get-InputStamp -Path @(
+        (Resolve-RepoPath 'automation/Catzc.Base.Docs/configs/adrs.yml')
+        (Resolve-RepoPath 'docs/adr')
+        (Resolve-RepoPath 'automation/Catzc.Base.Docs/Build-AdrIndex.ps1')
+        (Resolve-RepoPath 'automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1')
+        (Resolve-RepoPath 'automation/Catzc.Base.Docs/types')
+    ) -Exclude (Resolve-RepoPath 'docs/adr/index.md'), (Resolve-RepoPath 'docs/adr/glossary.md')
+    $indexPath = Resolve-RepoPath 'docs/adr/index.md'
+    if (-not $PassThru -and (Test-GeneratedFileCurrent -Path $indexPath -InputsSha $inputsSha)) {
+        return ConvertTo-RepoRelativePath $indexPath
+    }
+
     $preamble = @'
 # ADR index and rule-citation registry
 
@@ -266,7 +280,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 
     $content = (& $reflow $preamble) + "`n`n" + ($sections -join "`n`n") + "`n`n" + (& $reflow $conventions) + "`n"
 
-    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -Source 'automation/Catzc.Base.Docs/configs/adrs.yml' -FileKind (Get-FileKind 'docs/adr/index.md')
+    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -InputsSha $inputsSha -Source 'automation/Catzc.Base.Docs/configs/adrs.yml' -FileKind (Get-FileKind 'docs/adr/index.md')
     $target = Resolve-RepoPath 'docs/adr/index.md'
     $changed = Write-FileIfChanged $target $content -DryRun:$DryRun
 

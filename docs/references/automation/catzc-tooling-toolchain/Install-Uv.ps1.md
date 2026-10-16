@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "23522969bf24"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: install-uv-ps1

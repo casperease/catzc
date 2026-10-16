@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3790294fa343"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md
     folder: docs/references/automation/catzc-azure-devops
     name: get-ado-yaml-files-ps1

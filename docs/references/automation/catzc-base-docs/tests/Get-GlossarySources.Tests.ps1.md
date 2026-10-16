@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bac7aa50fcf4
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Get-GlossarySources.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-glossary-sources-tests-ps1

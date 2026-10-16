@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "059a1111bc79"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: uninstall-java-ps1

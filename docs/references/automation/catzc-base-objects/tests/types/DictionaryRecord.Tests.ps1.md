@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9b417057c89b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md
     folder: docs/references/automation/catzc-base-objects/tests/types
     name: dictionary-record-tests-ps1

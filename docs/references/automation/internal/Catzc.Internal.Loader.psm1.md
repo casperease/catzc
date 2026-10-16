@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "47e98bc8fa99"
+    repo_status: locked
     path: docs/references/automation/internal/Catzc.Internal.Loader.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-loader-psm1

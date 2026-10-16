@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "14d7107353a5"
+    with_body_sha: b1781bf61e7e
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-pipeline-kinds-keyed-by-one-artifact-architecture-drawio

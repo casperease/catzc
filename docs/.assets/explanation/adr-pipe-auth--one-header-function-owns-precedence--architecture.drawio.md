@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9912e947b807"
+    with_body_sha: "358508e4a3e7"
+    repo_status: clean
     path: docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-pipe-auth-one-header-function-owns-precedence-architecture-drawio

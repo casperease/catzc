@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c61e96b1f0f9
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-history-scan-cs

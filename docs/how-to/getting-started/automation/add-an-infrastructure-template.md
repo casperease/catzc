@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7fb02af5197f"
+    repo_status: clean
     path: docs/how-to/getting-started/automation/add-an-infrastructure-template.md
     folder: docs/how-to/getting-started/automation
     name: add-an-infrastructure-template

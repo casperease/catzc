@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "74006b1741eb"
+    repo_status: locked
     path: docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md
     folder: docs/references/automation/catzc-base-vscode/configs
     name: vscode-pipeline-schema-yml

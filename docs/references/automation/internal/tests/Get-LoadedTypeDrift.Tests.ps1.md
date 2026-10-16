@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a8e691394734
+    repo_status: locked
     path: docs/references/automation/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: get-loaded-type-drift-tests-ps1

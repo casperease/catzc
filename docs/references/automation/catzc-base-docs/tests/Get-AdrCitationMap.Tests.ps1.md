@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0182b28fdef1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-adr-citation-map-tests-ps1

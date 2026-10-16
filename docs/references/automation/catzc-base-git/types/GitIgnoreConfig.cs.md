@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "27428b771eb8"
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-ignore-config-cs

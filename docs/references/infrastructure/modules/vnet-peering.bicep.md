@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f5934d1be60a
+    repo_status: locked
     path: docs/references/infrastructure/modules/vnet-peering.bicep.md
     folder: docs/references/infrastructure/modules
     name: vnet-peering-bicep

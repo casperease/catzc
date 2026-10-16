@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4c2b0eba9568"
+    repo_status: locked
     path: docs/references/infrastructure/modules/sql-database.bicep.md
     folder: docs/references/infrastructure/modules
     name: sql-database-bicep

@@ -9,6 +9,7 @@ metadata:
   catzc:
     immutable:
       with_body_sha: c50619c2d871
+      repo_status: clean
       path: ".claude/skills/git-readonly/SKILL.md"
       folder: skills/git-readonly
       name: skill

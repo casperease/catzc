@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5511923651f8"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md
     folder: docs/references/automation/catzc-base-languages/configs
     name: file-carriers-yml

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "43d9ac2f784f"
+    with_body_sha: "88883acb6a99"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-a-merge-runs-cd-to-prod-operations-drawio

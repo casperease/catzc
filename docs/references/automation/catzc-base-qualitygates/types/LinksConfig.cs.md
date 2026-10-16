@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e7a24120f663
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/LinksConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: links-config-cs

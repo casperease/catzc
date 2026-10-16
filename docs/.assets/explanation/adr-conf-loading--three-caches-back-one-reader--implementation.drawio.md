@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2cda9fa3917a"
+    with_body_sha: ff4f8d2e0434
+    repo_status: clean
     path: docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-loading-three-caches-back-one-reader-implementation-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: aef1ff000e95
+    repo_status: locked
     path: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md
     folder: docs/references/automation/catzc-azure-firewall
     name: convert-firewall-csv-to-yaml-ps1

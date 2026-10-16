@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a9b615c0027f
+    repo_status: clean
     path: docs/adr/automation/caching.md
     folder: docs/adr/automation
     name: caching

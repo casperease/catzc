@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bd683e01a697
+    with_body_sha: b2e7b20711d3
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-one-folder-two-independent-readers-architecture-drawio

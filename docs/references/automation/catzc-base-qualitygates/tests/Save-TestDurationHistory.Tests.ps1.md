@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3d6a323f6dee"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Save-TestDurationHistory.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: save-test-duration-history-tests-ps1

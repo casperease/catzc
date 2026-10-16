@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5155ea43ddc4"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NoScriptRootAnchor.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-script-root-anchor-psm1

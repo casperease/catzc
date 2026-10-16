@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "020f965966ab"
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/tests/Get-ContractAssetKind.Tests.ps1.md
     folder: docs/references/automation/catzc-base-contracts/tests
     name: get-contract-asset-kind-tests-ps1

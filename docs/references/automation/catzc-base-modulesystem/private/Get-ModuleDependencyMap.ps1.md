@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9bd38d6287bb"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/private
     name: get-module-dependency-map-ps1

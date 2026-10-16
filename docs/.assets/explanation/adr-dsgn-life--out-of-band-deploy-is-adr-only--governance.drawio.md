@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "031ddc577ded"
+    with_body_sha: "504a3df3a67d"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-out-of-band-deploy-is-adr-only-governance-drawio

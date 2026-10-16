@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c84eb71f0891
+    repo_status: clean
     path: docs/explanation/flow/two-declared-layers-one-derived.md
     folder: docs/explanation/flow
     name: two-declared-layers-one-derived

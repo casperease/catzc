@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ef90cd38beeb
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: invoke-ps-script-analyzer-format-ps1

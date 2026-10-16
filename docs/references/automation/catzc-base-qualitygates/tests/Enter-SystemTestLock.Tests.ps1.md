@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ba83966656b8
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Enter-SystemTestLock.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: enter-system-test-lock-tests-ps1

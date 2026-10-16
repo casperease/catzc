@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "54bd6341713f"
+    repo_status: clean
     path: docs/explanation/configuration/an-address-is-a-read-only-walk.md
     folder: docs/explanation/configuration
     name: an-address-is-a-read-only-walk

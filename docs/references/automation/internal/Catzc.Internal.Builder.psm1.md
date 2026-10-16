@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "12ea9b16727f"
+    repo_status: locked
     path: docs/references/automation/internal/Catzc.Internal.Builder.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-builder-psm1

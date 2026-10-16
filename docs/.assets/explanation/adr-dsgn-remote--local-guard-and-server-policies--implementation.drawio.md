@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7a640b110d58"
+    with_body_sha: f9a767ad3da8
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-remote-local-guard-and-server-policies-implementation-drawio

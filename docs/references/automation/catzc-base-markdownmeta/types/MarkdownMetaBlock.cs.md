@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "58550ab205cd"
+    repo_status: locked
     path: docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
     folder: docs/references/automation/catzc-base-markdownmeta/types
     name: markdown-meta-block-cs

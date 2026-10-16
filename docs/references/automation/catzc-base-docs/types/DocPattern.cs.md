@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f278c4e56c2b
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/DocPattern.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: doc-pattern-cs

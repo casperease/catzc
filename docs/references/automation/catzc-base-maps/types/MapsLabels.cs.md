@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "19b4d0c959ec"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/MapsLabels.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: maps-labels-cs

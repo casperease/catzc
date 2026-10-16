@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0192001e640d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: test-generated-readmes-tests-ps1

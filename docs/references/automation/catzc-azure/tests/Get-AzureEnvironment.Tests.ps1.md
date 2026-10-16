@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5377f5f22a31"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/tests/Get-AzureEnvironment.Tests.ps1.md
     folder: docs/references/automation/catzc-azure/tests
     name: get-azure-environment-tests-ps1

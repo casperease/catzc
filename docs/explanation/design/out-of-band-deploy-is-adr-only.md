@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e936870e0c62
+    repo_status: clean
     path: docs/explanation/design/out-of-band-deploy-is-adr-only.md
     folder: docs/explanation/design
     name: out-of-band-deploy-is-adr-only

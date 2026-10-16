@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "97e6a8f51e06"
+    with_body_sha: "56220d19c312"
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-coordinate-rules-and-their-gates-governance-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cf5a82df3f23
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Postman.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: uninstall-postman-tests-ps1

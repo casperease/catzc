@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "16147d2960ae"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-NeutralCodeFinding.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-neutral-code-finding-tests-ps1

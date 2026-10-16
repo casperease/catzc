@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a087c76d9705
+    repo_status: clean
     path: docs/adr/research/ai-accessible-internal-data.md
     folder: docs/adr/research
     name: ai-accessible-internal-data

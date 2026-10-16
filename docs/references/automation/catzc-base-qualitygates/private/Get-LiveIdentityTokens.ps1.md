@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d46bcccdd685
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-live-identity-tokens-ps1

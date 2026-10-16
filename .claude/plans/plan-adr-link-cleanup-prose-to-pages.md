@@ -5,6 +5,44 @@ plan:
   reviewed: 2026-10-16
   blocked_on: plan-plans-body-sha-landing-zone phase 0 and the plan move; three ledger recommendations await an answer
   targets: [docs, automation/Catzc.Base.QualityGates, out/adr-link-ledger.csv]
+catzc:
+  immutable:
+    with_body_sha: b555aa3e89bb
+    repo_status: clean
+    path: ".claude/plans/plan-adr-link-cleanup-prose-to-pages.md"
+    folder: plans
+    name: plan-adr-link-cleanup-prose-to-pages
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TEST#35
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-NETWORK#1
+      - ADR-REPO-COMMENTS#{1,2}
+      - ADR-REPO-HELP#{1,3}
+      - ADR-REPO-LINK#{3,5,8}
+    links:
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/index.md#authoring-conventions
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1
+      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments2
+      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3
+      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5
+      - docs/adr/repository/function-help.md#rule-adr-repo-help1
+      - docs/adr/repository/function-help.md#rule-adr-repo-help3
+      - docs/adr/repository/markdown-links.md#rule-adr-repo-link3
+      - docs/adr/repository/markdown-links.md#rule-adr-repo-link5
+      - docs/adr/repository/markdown-links.md#rule-adr-repo-link8
 ---
 
 # Every edge to an ADR says exactly what it means; then source prose moves into sister pages

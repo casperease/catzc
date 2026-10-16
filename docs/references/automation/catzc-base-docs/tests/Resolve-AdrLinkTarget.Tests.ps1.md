@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fceb6a0a7cef
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: resolve-adr-link-target-tests-ps1

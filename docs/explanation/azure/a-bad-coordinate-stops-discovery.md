@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: de5f24266b08
+    repo_status: clean
     path: docs/explanation/azure/a-bad-coordinate-stops-discovery.md
     folder: docs/explanation/azure
     name: a-bad-coordinate-stops-discovery

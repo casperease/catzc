@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a090a16238c9
+    repo_status: clean
     path: docs/references/automation/catzc-tooling-provisioning.md
     folder: docs/references/automation
     name: catzc-tooling-provisioning

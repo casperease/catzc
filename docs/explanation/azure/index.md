@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ee060595c823
+    repo_status: clean
     path: docs/explanation/azure/index.md
     folder: docs/explanation/azure
     name: index

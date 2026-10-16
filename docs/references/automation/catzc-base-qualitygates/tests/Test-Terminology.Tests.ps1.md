@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "745282c098fe"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Terminology.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-terminology-tests-ps1

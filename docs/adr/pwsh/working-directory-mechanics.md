@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "215b77f1e4d2"
+    repo_status: clean
     path: docs/adr/pwsh/working-directory-mechanics.md
     folder: docs/adr/pwsh
     name: working-directory-mechanics

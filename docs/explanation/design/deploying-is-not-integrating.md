@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a9bdca79fa5e
+    repo_status: clean
     path: docs/explanation/design/deploying-is-not-integrating.md
     folder: docs/explanation/design
     name: deploying-is-not-integrating

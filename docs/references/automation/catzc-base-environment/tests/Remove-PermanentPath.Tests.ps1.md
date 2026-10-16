@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dcf2ae4f8a46
+    repo_status: locked
     path: docs/references/automation/catzc-base-environment/tests/Remove-PermanentPath.Tests.ps1.md
     folder: docs/references/automation/catzc-base-environment/tests
     name: remove-permanent-path-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7e9638347b06"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/types/AzureEnvironmentRecord.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: azure-environment-record-cs

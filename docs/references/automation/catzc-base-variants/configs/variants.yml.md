@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bb802cc658de
+    repo_status: locked
     path: docs/references/automation/catzc-base-variants/configs/variants.yml.md
     folder: docs/references/automation/catzc-base-variants/configs
     name: variants-yml

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "66cc733e57c8"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/types/SessionModule.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: session-module-cs

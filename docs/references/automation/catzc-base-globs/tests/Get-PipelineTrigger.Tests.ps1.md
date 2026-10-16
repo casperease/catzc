@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "63b48f8ba3ad"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: get-pipeline-trigger-tests-ps1

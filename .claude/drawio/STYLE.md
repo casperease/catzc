@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7f8f28dcd288"
+    repo_status: clean
     path: ".claude/drawio/STYLE.md"
     folder: drawio
     name: style

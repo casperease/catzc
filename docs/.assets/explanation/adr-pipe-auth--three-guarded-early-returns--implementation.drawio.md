@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "98697d129918"
+    with_body_sha: a5249f255284
+    repo_status: clean
     path: docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-pipe-auth-three-guarded-early-returns-implementation-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "37f8531166d7"
+    repo_status: clean
     path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
     folder: docs/explanation/flow
     name: drift-is-gated-generation-is-adr-only

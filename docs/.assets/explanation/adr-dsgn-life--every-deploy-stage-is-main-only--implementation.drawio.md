@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4296a92f6f61"
+    with_body_sha: bbb8ce2641e3
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-every-deploy-stage-is-main-only-implementation-drawio

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9420bf7afb16"
+    with_body_sha: "96bf1b9085e2"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-thinplat-every-vendor-call-leaves-through-az-architecture-drawio

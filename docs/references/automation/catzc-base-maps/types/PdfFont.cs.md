@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a1851ba2c465
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/PdfFont.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: pdf-font-cs

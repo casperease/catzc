@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: df9202a23048
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests/types
     name: aspect-tests-ps1

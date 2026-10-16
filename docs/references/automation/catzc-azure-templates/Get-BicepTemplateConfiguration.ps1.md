@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "72ec41ba4f0b"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
     folder: docs/references/automation/catzc-azure-templates
     name: get-bicep-template-configuration-ps1

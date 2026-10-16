@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6e39aeeb1668"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/types/WorkerParentWatch.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: worker-parent-watch-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4836b39ab8b8"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrCodeForm.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-code-form-cs

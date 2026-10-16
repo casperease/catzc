@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b2838cca06b9
+    with_body_sha: "1246d13021d4"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-which-rung-gates-exist-in-code-governance-drawio

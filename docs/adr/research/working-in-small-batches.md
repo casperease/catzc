@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9e7c3e8c16ec"
+    repo_status: clean
     path: docs/adr/research/working-in-small-batches.md
     folder: docs/adr/research
     name: working-in-small-batches

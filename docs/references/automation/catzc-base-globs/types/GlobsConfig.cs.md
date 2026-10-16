@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e428f4876a58
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md
     folder: docs/references/automation/catzc-base-globs/types
     name: globs-config-cs

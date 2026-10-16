@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: eefc2a1eb3c9
+    repo_status: clean
     path: docs/explanation/flow/one-artifact-climbs-unchanged.md
     folder: docs/explanation/flow
     name: one-artifact-climbs-unchanged

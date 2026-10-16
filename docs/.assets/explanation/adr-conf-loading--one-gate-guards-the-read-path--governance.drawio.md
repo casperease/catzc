@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8df1cbc22515"
+    with_body_sha: a6b0071de2a1
+    repo_status: clean
     path: docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-loading-one-gate-guards-the-read-path-governance-drawio

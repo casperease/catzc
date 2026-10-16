@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8ba93717158a"
+    repo_status: clean
     path: docs/adr/pwsh/dora-explains.md
     folder: docs/adr/pwsh
     name: dora-explains

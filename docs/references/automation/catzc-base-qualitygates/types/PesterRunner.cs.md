@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "17dc9d5925fa"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: pester-runner-cs

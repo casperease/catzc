@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "14961a5c2956"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-readme-mappings-tests-ps1

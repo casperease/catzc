@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dff933650ecc
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: remove-linux-tool-install-ps1

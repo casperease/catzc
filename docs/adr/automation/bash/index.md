@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "22ad4883d6b9"
+    repo_status: clean
     path: docs/adr/automation/bash/index.md
     folder: docs/adr/automation/bash
     name: index

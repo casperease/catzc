@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "65c651bc9bfc"
+    repo_status: locked
     path: docs/references/automation/internal/tests/Test-IsRunningInPipeline.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: test-is-running-in-pipeline-tests-ps1

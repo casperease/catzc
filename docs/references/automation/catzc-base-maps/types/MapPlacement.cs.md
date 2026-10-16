@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8cd67c187a87"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: map-placement-cs

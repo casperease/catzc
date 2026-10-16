@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "221efa2ddbf7"
+    with_body_sha: d5923e74f01f
+    repo_status: clean
     path: docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-type-an-address-get-the-value-operations-drawio

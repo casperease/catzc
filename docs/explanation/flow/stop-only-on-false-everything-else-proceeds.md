@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4eb015514f04"
+    repo_status: clean
     path: docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
     folder: docs/explanation/flow
     name: stop-only-on-false-everything-else-proceeds

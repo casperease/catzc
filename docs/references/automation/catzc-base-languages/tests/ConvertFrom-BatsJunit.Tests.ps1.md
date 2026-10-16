@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "88ad9c04b391"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/tests/ConvertFrom-BatsJunit.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: convert-from-bats-junit-tests-ps1

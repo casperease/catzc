@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "579b684d51ca"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/tests/Get-ToolInstallOrder.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: get-tool-install-order-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e64e7a761816
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/types/AdoArtifactsTarget.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: ado-artifacts-target-cs

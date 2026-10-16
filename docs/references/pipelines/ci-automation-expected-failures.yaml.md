@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a6eff047f4dc
+    repo_status: locked
     path: docs/references/pipelines/ci-automation-expected-failures.yaml.md
     folder: docs/references/pipelines
     name: ci-automation-expected-failures-yaml

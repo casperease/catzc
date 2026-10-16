@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8b125be96b11"
+    with_body_sha: "4cd115ae091b"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-three-views-derived-live-from-one-program-meta-drawio

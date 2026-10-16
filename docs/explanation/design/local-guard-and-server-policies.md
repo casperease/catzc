@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f8b79c407fcb
+    repo_status: clean
     path: docs/explanation/design/local-guard-and-server-policies.md
     folder: docs/explanation/design
     name: local-guard-and-server-policies

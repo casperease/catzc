@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "14551fbb8311"
+    repo_status: clean
     path: docs/how-to/automation/manual-test-plan/azure.md
     folder: docs/how-to/automation/manual-test-plan
     name: azure

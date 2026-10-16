@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "433a23513767"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-adr-rule-set-tests-ps1

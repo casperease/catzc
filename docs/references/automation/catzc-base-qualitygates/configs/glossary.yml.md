@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1b864b81372e"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/configs/glossary.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: glossary-yml

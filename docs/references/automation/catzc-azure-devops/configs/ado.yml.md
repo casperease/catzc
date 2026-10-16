@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e619b9b777fc
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/configs/ado.yml.md
     folder: docs/references/automation/catzc-azure-devops/configs
     name: ado-yml

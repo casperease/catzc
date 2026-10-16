@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "566571b5acf9"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: install-uv-tests-ps1

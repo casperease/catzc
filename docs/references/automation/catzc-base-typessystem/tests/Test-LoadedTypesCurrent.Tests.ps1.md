@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b27b49261129
+    repo_status: locked
     path: docs/references/automation/catzc-base-typessystem/tests/Test-LoadedTypesCurrent.Tests.ps1.md
     folder: docs/references/automation/catzc-base-typessystem/tests
     name: test-loaded-types-current-tests-ps1

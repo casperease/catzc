@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: acf70e0b97e3
+    repo_status: clean
     path: docs/adr/azure/caf/landing-zone-security.md
     folder: docs/adr/azure/caf
     name: landing-zone-security

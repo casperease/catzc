@@ -1,3 +1,21 @@
+---
+catzc:
+  immutable:
+    with_body_sha: d1390e535fdc
+    repo_status: clean
+    path: ".claude/plans/prompt-unboxing-continue.md"
+    folder: plans
+    name: prompt-unboxing-continue
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+---
+
 # Continuation prompt: unboxing (P1 to P3 done; P4 and P5 next)
 
 Paste this into a fresh session.

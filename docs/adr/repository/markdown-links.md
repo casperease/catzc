@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "275963ff5695"
+    repo_status: clean
     path: docs/adr/repository/markdown-links.md
     folder: docs/adr/repository
     name: markdown-links

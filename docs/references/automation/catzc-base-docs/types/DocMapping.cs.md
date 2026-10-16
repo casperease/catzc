@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5964339922b7"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/DocMapping.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: doc-mapping-cs

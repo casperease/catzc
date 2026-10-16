@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "76442505190b"
+    repo_status: locked
     path: docs/references/pipelines/cd-apex.yaml.md
     folder: docs/references/pipelines
     name: cd-apex-yaml

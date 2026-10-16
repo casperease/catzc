@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9443abfdc337"
+    repo_status: clean
     path: docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
     folder: docs/.assets/references/automation/catzc-base-modulesystem
     name: module-graph-declared-vs-observed-drawio-verify

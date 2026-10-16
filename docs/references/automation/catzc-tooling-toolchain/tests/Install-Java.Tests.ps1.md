@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "153a0c001554"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: install-java-tests-ps1

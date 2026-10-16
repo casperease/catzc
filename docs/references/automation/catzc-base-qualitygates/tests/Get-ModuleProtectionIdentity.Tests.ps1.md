@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1f64d06bb315"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-module-protection-identity-tests-ps1

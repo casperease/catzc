@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "305509bb72d7"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Build-EnglishDictionary.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: build-english-dictionary-tests-ps1

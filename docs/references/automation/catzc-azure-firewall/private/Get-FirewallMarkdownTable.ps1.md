@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fc9d82aa260d
+    repo_status: locked
     path: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md
     folder: docs/references/automation/catzc-azure-firewall/private
     name: get-firewall-markdown-table-ps1

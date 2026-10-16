@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e7f94588d30b
+    repo_status: clean
     path: docs/references/dora/metrics.md
     folder: docs/references/dora
     name: metrics

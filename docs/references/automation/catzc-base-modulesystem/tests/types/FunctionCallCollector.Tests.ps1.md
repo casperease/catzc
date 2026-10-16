@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "35be3a091768"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/tests/types/FunctionCallCollector.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests/types
     name: function-call-collector-tests-ps1

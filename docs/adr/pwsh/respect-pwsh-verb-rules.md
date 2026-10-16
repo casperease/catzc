@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "06c7a83a306a"
+    repo_status: clean
     path: docs/adr/pwsh/respect-pwsh-verb-rules.md
     folder: docs/adr/pwsh
     name: respect-pwsh-verb-rules

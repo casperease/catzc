@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2a66d46a65f0"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/TestTitle-TemplateTokens.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-title-template-tokens-tests-ps1

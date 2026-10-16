@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "35cf86a64cd4"
+    repo_status: clean
     path: docs/adr/automation/avoid-deep-nesting.md
     folder: docs/adr/automation
     name: avoid-deep-nesting

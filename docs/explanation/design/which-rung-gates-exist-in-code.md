@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "086277112b92"
+    repo_status: clean
     path: docs/explanation/design/which-rung-gates-exist-in-code.md
     folder: docs/explanation/design
     name: which-rung-gates-exist-in-code

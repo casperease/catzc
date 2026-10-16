@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "026fc2b5bae9"
+    with_body_sha: "38bb9c83f6e8"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-every-entry-runs-one-load-sequence-meta-drawio

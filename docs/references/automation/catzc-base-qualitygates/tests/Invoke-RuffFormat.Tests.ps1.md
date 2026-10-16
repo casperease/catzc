@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: abd26b36d6d1
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-RuffFormat.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: invoke-ruff-format-tests-ps1

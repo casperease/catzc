@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2678d113eea1"
+    repo_status: clean
     path: docs/explanation/flow/print-projection-then-drift-names-the-filter.md
     folder: docs/explanation/flow
     name: print-projection-then-drift-names-the-filter

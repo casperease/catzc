@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d42f84b1340a
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
     folder: docs/references/automation/catzc-azure-templates
     name: get-azure-resource-name-ps1

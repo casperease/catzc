@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e89294ac318a
+    with_body_sha: "48aca2f4c194"
+    repo_status: clean
     path: docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-rootcfg-opted-in-then-link-copy-or-render-implementation-drawio

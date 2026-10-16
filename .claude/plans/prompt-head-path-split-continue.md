@@ -1,3 +1,21 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "4517bc2b3452"
+    repo_status: clean
+    path: ".claude/plans/prompt-head-path-split-continue.md"
+    folder: plans
+    name: prompt-head-path-split-continue
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+---
+
 # Continuation prompt: head path split leftovers (written 2026-10-16 15:22, carried here 2026-10-16)
 
 The prompt names `out/plan-head-path-split.md`, deleted on 2026-10-16. Its decisions, done list and leftovers are in

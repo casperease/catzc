@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9f0e7c0a9302"
+    with_body_sha: b84f30c7afcd
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-thinplat-deploy-bicep-delegates-to-az-implementation-drawio

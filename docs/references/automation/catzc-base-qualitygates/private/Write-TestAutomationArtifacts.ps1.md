@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "63ae6bc9722b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: write-test-automation-artifacts-ps1

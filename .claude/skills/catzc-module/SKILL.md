@@ -10,6 +10,7 @@ metadata:
   catzc:
     immutable:
       with_body_sha: "5a5badfb8c98"
+      repo_status: clean
       path: ".claude/skills/catzc-module/SKILL.md"
       folder: skills/catzc-module
       name: skill

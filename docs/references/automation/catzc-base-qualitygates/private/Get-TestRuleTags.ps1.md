@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3941eb2d4d4b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRuleTags.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-test-rule-tags-ps1

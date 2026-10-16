@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "52541bcc7cdf"
+    repo_status: clean
     path: docs/adr/design/server-remote-integration.md
     folder: docs/adr/design
     name: server-remote-integration

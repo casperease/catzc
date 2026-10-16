@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a9f5e8f8eb54
+    repo_status: clean
     path: docs/explanation/automation/three-layers-edges-point-down.md
     folder: docs/explanation/automation
     name: three-layers-edges-point-down

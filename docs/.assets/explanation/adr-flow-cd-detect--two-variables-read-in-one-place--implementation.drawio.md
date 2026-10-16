@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a637eaa58b34
+    with_body_sha: "8575c59222f7"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-two-variables-read-in-one-place-implementation-drawio

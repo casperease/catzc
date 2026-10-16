@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f694fa908eab
+    repo_status: locked
     path: docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md
     folder: docs/references/automation/catzc-azure
     name: get-azure-subscription-ps1

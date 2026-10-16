@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3ef303bef0c8"
+    repo_status: locked
     path: docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md
     folder: docs/references/automation/catzc-base-environment
     name: add-permanent-path-ps1

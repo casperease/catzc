@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8e1c270981fa"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: convert-to-test-automation-row-set-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e114d85b13db
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-raw-pipeline-detection-tests-ps1

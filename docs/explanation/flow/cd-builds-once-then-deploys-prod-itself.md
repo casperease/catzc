@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cda664cacc34
+    repo_status: clean
     path: docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
     folder: docs/explanation/flow
     name: cd-builds-once-then-deploys-prod-itself

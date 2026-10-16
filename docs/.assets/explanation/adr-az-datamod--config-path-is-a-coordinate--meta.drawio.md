@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3bfe5a348876"
+    with_body_sha: "60ce1bb6759f"
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-config-path-is-a-coordinate-meta-drawio

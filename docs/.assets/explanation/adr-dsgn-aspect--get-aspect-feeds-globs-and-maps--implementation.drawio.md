@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "35ea0e8a2dc0"
+    with_body_sha: "14fd75d30e74"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-get-aspect-feeds-globs-and-maps-implementation-drawio

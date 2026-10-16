@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "17736e91a36c"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/types/AdoConfig.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: ado-config-cs

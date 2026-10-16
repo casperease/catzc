@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "67c27c50bf4b"
+    repo_status: clean
     path: docs/explanation/design/clients-bridge-to-one-server.md
     folder: docs/explanation/design
     name: clients-bridge-to-one-server

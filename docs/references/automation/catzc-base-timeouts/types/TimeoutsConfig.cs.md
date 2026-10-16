@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7f5aa1c12590"
+    repo_status: locked
     path: docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: timeouts-config-cs

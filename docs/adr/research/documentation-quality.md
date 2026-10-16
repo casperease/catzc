@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b8b7bf2ed828
+    repo_status: clean
     path: docs/adr/research/documentation-quality.md
     folder: docs/adr/research
     name: documentation-quality

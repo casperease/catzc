@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a33ead7351f2
+    repo_status: locked
     path: docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md
     folder: docs/references/automation/catzc-azure-cli/private
     name: get-az-cli-bicep-state-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "62438d34031c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/FileCarrier.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: file-carrier-cs

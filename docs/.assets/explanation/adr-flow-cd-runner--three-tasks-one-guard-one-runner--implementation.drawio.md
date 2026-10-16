@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f0380a6b85a1
+    with_body_sha: d5994a350d2c
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-runner-three-tasks-one-guard-one-runner-implementation-drawio

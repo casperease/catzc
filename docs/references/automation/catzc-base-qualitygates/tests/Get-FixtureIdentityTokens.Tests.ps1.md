@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fa7dfa339f20
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-FixtureIdentityTokens.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-fixture-identity-tokens-tests-ps1

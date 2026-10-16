@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e303a0153364
+    repo_status: clean
     path: docs/adr/repository/controlled-vocabulary.md
     folder: docs/adr/repository
     name: controlled-vocabulary

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c86fdd7aabd6
+    repo_status: clean
     path: docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md
     folder: docs/.assets/references/automation/catzc-tooling-core
     name: invoke-tool-asserts-locked-version-drawio-verify

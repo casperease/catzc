@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6969acb44afb"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-FileMetaProcessors.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-file-meta-processors-tests-ps1

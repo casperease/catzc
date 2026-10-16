@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e0c0bc81eb0a
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: convert-to-pester-run-target-tests-ps1

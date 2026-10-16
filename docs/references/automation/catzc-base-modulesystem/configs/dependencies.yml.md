@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9743c3492c70"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md
     folder: docs/references/automation/catzc-base-modulesystem/configs
     name: dependencies-yml

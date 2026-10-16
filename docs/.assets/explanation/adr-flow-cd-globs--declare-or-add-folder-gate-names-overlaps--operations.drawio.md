@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b718f9c9e476
+    with_body_sha: e1de5e6f7672
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-declare-or-add-folder-gate-names-overlaps-operations-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8333c7b0fe8a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/LinkKind.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: link-kind-cs

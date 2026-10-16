@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "076ae86c8b69"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: world-map-grid-layout-cs

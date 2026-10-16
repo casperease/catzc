@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4a9e3ca18e0d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/MapsLimits.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: maps-limits-cs

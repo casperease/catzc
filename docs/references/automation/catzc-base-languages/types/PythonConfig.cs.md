@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: caeab4608db0
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: python-config-cs

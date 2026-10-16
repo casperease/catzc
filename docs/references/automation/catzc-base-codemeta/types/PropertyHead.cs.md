@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "43bb55c0b666"
+    repo_status: locked
     path: docs/references/automation/catzc-base-codemeta/types/PropertyHead.cs.md
     folder: docs/references/automation/catzc-base-codemeta/types
     name: property-head-cs

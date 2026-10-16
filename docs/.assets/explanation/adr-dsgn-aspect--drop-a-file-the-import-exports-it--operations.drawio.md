@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "304ff4b6bccb"
+    with_body_sha: e59843bc81a4
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-drop-a-file-the-import-exports-it-operations-drawio

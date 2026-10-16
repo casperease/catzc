@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "874b9cb93d7c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: test-policy-yml

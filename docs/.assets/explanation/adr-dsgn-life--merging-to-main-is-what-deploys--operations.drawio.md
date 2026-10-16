@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c06ba5972a48
+    with_body_sha: "6a910ec148fe"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-merging-to-main-is-what-deploys-operations-drawio

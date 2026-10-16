@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fd17e6621bd1
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-automation-source-files-ps1

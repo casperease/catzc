@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: aa661f311f91
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/CheckModes.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: check-modes-cs

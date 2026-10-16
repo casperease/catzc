@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fa69f67998f0
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: artifacts-config-cs

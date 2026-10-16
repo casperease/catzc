@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bd33f2160b25
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/CommentFileResult.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: comment-file-result-cs

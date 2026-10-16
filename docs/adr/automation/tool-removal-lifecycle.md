@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dd151d99a6db
+    repo_status: clean
     path: docs/adr/automation/tool-removal-lifecycle.md
     folder: docs/adr/automation
     name: tool-removal-lifecycle

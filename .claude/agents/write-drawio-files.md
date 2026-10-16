@@ -15,6 +15,7 @@ skills: [drawio-model-edit, drawio-renderer, drawio-look, catzc-run, git-readonl
 catzc:
   immutable:
     with_body_sha: "9b21100a11e2"
+    repo_status: clean
     path: ".claude/agents/write-drawio-files.md"
     folder: agents
     name: write-drawio-files

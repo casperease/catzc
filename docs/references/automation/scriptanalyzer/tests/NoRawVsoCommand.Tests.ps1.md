@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e23eae1a88b8
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-raw-vso-command-tests-ps1

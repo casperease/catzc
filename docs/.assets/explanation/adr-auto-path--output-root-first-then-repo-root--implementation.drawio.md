@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e874cc56fb4f
+    with_body_sha: "8cf65ab08fce"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-output-root-first-then-repo-root-implementation-drawio

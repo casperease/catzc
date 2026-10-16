@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2c0702674ab9"
+    repo_status: clean
     path: docs/adr/automation/log-before-invoke.md
     folder: docs/adr/automation
     name: log-before-invoke

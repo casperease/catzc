@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1fd0ab551e02"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Get-AgentFrontMatter.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-agent-front-matter-tests-ps1

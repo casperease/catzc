@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8db48b00db88"
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/tests/Wait-Mutex.Tests.ps1.md
     folder: docs/references/automation/catzc-base-execution/tests
     name: wait-mutex-tests-ps1

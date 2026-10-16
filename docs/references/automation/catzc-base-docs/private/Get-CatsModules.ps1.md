@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1ddcb43d259d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md
     folder: docs/references/automation/catzc-base-docs/private
     name: get-cats-modules-ps1

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b7b7d6657246
+    with_body_sha: "901c5497834b"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-two-declared-layers-one-derived-architecture-drawio

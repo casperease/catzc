@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "57156afc1717"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/ImprintStep.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: imprint-step-cs

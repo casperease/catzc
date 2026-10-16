@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b758fcb9129b
+    repo_status: locked
     path: docs/references/automation/catzc-azure-cli/tests/Invoke-AzCli.L2.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-cli/tests
     name: invoke-az-cli-l2-tests-ps1

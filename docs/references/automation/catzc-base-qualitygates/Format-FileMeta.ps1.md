@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "17f14415274e"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: format-file-meta-ps1

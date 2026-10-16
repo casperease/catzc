@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dd8b0e44f671
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/types/GitIgnoreSection.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-ignore-section-cs

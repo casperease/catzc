@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "280a86e8851c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md
     folder: docs/references/automation/catzc-base-execution
     name: invoke-with-progress-ps1

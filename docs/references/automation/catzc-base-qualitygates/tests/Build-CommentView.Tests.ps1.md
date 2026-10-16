@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f14f3cd7ba21
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: build-comment-view-tests-ps1

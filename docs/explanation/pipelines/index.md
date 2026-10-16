@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "57680316fafd"
+    repo_status: clean
     path: docs/explanation/pipelines/index.md
     folder: docs/explanation/pipelines
     name: index

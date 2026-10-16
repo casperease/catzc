@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3446e1beca76"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: get-glob-set-change-range-tests-ps1

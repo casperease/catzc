@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "21cbd7522c30"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: get-function-dependency-ps1

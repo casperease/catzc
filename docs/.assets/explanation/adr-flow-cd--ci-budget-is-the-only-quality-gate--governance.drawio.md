@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a230f08f1045
+    with_body_sha: cd65e0ec1f09
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-ci-budget-is-the-only-quality-gate-governance-drawio

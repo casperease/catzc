@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9dcdf39c95c2"
+    repo_status: clean
     path: docs/.assets/explanation/glyphs.drawio.md
     folder: docs/.assets/explanation
     name: glyphs-drawio

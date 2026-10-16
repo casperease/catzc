@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "58feae1a33aa"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md
     folder: docs/references/automation/catzc-tooling-core/private
     name: resolve-session-tool-host-ps1

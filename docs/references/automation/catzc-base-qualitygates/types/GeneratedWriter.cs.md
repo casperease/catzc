@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5d0c08659752"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/GeneratedWriter.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: generated-writer-cs

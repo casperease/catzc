@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1b52e79ba831"
+    with_body_sha: e06703574d92
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-remote-ingress-gated-the-rest-by-review-governance-drawio

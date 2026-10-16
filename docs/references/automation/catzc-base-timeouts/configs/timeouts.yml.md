@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5242912b6ef5"
+    repo_status: locked
     path: docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md
     folder: docs/references/automation/catzc-base-timeouts/configs
     name: timeouts-yml

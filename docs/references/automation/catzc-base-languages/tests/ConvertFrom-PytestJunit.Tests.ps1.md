@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9302961a8d12"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: convert-from-pytest-junit-tests-ps1

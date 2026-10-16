@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bfee8c5bb34b
+    repo_status: clean
     path: docs/adr/research/well-being.md
     folder: docs/adr/research
     name: well-being

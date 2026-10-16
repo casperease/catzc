@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b2c2905f13cd
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: initialize-git-clone-ps1

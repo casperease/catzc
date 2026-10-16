@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8de5ff236ad9"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NoRawVsoCommand.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-raw-vso-command-psm1

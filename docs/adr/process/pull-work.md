@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8bff15b2a55a"
+    repo_status: clean
     path: docs/adr/process/pull-work.md
     folder: docs/adr/process
     name: pull-work

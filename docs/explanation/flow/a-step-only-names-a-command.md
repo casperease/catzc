@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "01018e7b150d"
+    repo_status: clean
     path: docs/explanation/flow/a-step-only-names-a-command.md
     folder: docs/explanation/flow
     name: a-step-only-names-a-command

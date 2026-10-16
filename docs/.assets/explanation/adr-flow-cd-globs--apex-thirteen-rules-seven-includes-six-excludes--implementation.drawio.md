@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e20f6db40a91
+    with_body_sha: ba29d61485fc
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-apex-thirteen-rules-seven-includes-six-excludes-implementation-drawio

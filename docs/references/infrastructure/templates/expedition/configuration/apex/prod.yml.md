@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "85b062cfbaf8"
+    repo_status: locked
     path: docs/references/infrastructure/templates/expedition/configuration/apex/prod.yml.md
     folder: docs/references/infrastructure/templates/expedition/configuration/apex
     name: prod-yml

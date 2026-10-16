@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "330a4a562231"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/tests/Test-Tool.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: test-tool-tests-ps1

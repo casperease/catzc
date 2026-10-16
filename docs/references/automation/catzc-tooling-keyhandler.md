@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0ac4c274fd5e"
+    repo_status: clean
     path: docs/references/automation/catzc-tooling-keyhandler.md
     folder: docs/references/automation
     name: catzc-tooling-keyhandler

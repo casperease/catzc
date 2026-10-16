@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: df9bdb9dc6a2
+    repo_status: clean
     path: docs/adr/process/build-quality-in.md
     folder: docs/adr/process
     name: build-quality-in

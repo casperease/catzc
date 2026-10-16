@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a7da309b074e
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-inspiration/configs/glossary.yml.md
     folder: docs/references/automation/catzc-tooling-inspiration/configs
     name: glossary-yml

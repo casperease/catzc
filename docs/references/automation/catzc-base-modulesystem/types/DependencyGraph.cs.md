@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fc366001814c
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: dependency-graph-cs

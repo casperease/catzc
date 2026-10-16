@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e0c31651f0ea
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md
     folder: docs/references/automation/catzc-tooling-python/private
     name: install-pip-tool-ps1

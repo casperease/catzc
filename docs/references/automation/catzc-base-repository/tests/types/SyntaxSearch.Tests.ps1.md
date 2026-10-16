@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3f4fbef26384"
+    repo_status: locked
     path: docs/references/automation/catzc-base-repository/tests/types/SyntaxSearch.Tests.ps1.md
     folder: docs/references/automation/catzc-base-repository/tests/types
     name: syntax-search-tests-ps1

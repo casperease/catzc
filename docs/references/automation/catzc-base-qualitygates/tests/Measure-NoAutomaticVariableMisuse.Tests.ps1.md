@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e90ca6e164da
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: measure-no-automatic-variable-misuse-tests-ps1

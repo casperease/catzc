@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "29db5acb5ef4"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/configs/file-kinds.yml.md
     folder: docs/references/automation/catzc-base-globs/configs
     name: file-kinds-yml

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e4018128b6cc
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md
     folder: docs/references/automation/catzc-base-git/private
     name: get-auto-controlled-globs-ps1

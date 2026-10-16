@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "026da3c7367a"
+    repo_status: clean
     path: docs/adr/research/platform-engineering.md
     folder: docs/adr/research
     name: platform-engineering

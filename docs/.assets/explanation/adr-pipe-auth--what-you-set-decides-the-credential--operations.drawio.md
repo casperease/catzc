@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "300f95e0a76a"
+    with_body_sha: a287ad086972
+    repo_status: clean
     path: docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-pipe-auth-what-you-set-decides-the-credential-operations-drawio

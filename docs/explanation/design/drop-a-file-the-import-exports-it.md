@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "652ba7de9c73"
+    repo_status: clean
     path: docs/explanation/design/drop-a-file-the-import-exports-it.md
     folder: docs/explanation/design
     name: drop-a-file-the-import-exports-it

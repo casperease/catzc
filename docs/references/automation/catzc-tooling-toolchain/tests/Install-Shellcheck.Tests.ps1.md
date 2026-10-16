@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "75f2fa107539"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: install-shellcheck-tests-ps1

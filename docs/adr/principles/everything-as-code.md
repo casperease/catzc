@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "791634cbbe6b"
+    repo_status: clean
     path: docs/adr/principles/everything-as-code.md
     folder: docs/adr/principles
     name: everything-as-code

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "564ddddb2d8d"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: uninstall-az-cli-ps1

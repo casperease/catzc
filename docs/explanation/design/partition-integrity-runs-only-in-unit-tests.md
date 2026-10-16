@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5591a605f706"
+    repo_status: clean
     path: docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
     folder: docs/explanation/design
     name: partition-integrity-runs-only-in-unit-tests

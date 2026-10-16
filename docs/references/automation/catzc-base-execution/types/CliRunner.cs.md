@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a48373545e11
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/types/CliRunner.cs.md
     folder: docs/references/automation/catzc-base-execution/types
     name: cli-runner-cs

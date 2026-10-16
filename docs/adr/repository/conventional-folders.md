@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9da21d94b4e1"
+    with_body_sha: "58e9ad3b502a"
+    repo_status: clean
     path: docs/adr/repository/conventional-folders.md
     folder: docs/adr/repository
     name: conventional-folders

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0532a409c074"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: file-meta-yml

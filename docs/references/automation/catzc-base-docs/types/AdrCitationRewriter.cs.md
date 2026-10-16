@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: efbe38d34e1f
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-citation-rewriter-cs

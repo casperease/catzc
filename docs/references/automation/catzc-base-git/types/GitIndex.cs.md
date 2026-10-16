@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "350e468ab517"
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/types/GitIndex.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-index-cs

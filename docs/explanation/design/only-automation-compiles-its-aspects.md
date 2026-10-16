@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: edf1d50add6a
+    repo_status: clean
     path: docs/explanation/design/only-automation-compiles-its-aspects.md
     folder: docs/explanation/design
     name: only-automation-compiles-its-aspects

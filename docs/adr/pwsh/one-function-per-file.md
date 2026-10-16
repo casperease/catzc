@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d121b8193149
+    repo_status: clean
     path: docs/adr/pwsh/one-function-per-file.md
     folder: docs/adr/pwsh
     name: one-function-per-file

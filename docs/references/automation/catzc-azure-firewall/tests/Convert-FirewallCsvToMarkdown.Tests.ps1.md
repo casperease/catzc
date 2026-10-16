@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f4877a5f5208
+    repo_status: locked
     path: docs/references/automation/catzc-azure-firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-firewall/tests
     name: convert-firewall-csv-to-markdown-tests-ps1

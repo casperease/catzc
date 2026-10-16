@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "62bbc25cbfea"
+    repo_status: clean
     path: docs/adr/azure/azure-data-model.md
     folder: docs/adr/azure
     name: azure-data-model

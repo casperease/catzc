@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "00744ff7965d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md
     folder: docs/references/automation/catzc-base-exporter
     name: assert-catzc-bundle-ps1

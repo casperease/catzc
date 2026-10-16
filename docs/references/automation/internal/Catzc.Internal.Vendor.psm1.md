@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "778706f0dcc0"
+    repo_status: locked
     path: docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-vendor-psm1

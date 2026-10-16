@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "04d9bb4ffa57"
+    repo_status: locked
     path: docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: import-all-modules-tests-ps1

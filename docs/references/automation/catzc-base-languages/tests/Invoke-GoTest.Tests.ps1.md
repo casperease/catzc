@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "47b6a80cef22"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: invoke-go-test-tests-ps1

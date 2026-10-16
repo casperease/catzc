@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e9bd40d4b74c
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-ChangeCheckPlan.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-change-check-plan-tests-ps1

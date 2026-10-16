@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c77d074b1dc0
+    repo_status: locked
     path: docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md
     folder: docs/references/automation/catzc-base-variants/types
     name: variant-track-cs

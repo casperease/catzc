@@ -10,6 +10,7 @@ metadata:
   catzc:
     immutable:
       with_body_sha: "81d72c2e3972"
+      repo_status: clean
       path: ".claude/skills/adr-cite/SKILL.md"
       folder: skills/adr-cite
       name: skill

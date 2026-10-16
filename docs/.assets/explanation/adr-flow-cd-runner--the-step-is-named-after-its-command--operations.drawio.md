@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b1054b3e53e1
+    with_body_sha: c95322ec4b6a
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-runner-the-step-is-named-after-its-command-operations-drawio

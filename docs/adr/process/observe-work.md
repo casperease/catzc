@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "352ee47a842a"
+    repo_status: clean
     path: docs/adr/process/observe-work.md
     folder: docs/adr/process
     name: observe-work

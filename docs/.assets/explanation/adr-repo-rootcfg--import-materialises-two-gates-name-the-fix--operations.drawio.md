@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7cfe199ffe28"
+    with_body_sha: cb651ff15133
+    repo_status: clean
     path: docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-rootcfg-import-materialises-two-gates-name-the-fix-operations-drawio

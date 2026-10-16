@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ca4eb97ed733
+    with_body_sha: f7d4635c118e
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-naming-one-namer-assembles-every-name-architecture-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5df2510ace91"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md
     folder: docs/references/automation/catzc-azure-templates
     name: deploy-bicep-ps1

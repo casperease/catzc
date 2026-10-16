@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3b9c17464265"
+    repo_status: locked
     path: docs/references/automation/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md
     folder: docs/references/automation/catzc-base-exporter/tests
     name: build-modules-tests-ps1

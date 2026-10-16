@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: aba8ec1b0c8a
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-ImprintStep.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: invoke-imprint-step-tests-ps1

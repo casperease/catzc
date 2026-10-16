@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fe8e0cbd60d9
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: pdf-number-cs

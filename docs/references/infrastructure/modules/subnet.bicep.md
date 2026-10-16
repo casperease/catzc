@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "17f911199a56"
+    repo_status: locked
     path: docs/references/infrastructure/modules/subnet.bicep.md
     folder: docs/references/infrastructure/modules
     name: subnet-bicep

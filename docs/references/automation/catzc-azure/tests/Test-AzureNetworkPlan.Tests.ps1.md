@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "828f1cd57b2e"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md
     folder: docs/references/automation/catzc-azure/tests
     name: test-azure-network-plan-tests-ps1

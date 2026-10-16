@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "74b18c9fb9f0"
+    with_body_sha: "8e85fa99e5e2"
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-the-session-is-the-deploy-target-meta-drawio

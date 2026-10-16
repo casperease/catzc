@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c0e239358fa0
+    with_body_sha: d74a8a60f389
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-naming-how-each-naming-rule-is-held-governance-drawio

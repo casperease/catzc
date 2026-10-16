@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "86a7078e2057"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: get-changed-glob-set-tests-ps1

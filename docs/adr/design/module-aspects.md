@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ce9d5dbe10f2
+    with_body_sha: "9aafbcc628d9"
+    repo_status: clean
     path: docs/adr/design/module-aspects.md
     folder: docs/adr/design
     name: module-aspects

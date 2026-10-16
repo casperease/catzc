@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "142e63a2905a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: get-engine-contract-tests-ps1

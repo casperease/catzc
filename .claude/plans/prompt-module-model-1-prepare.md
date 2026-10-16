@@ -1,3 +1,24 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e2fba49e7149
+    repo_status: clean
+    path: ".claude/plans/prompt-module-model-1-prepare.md"
+    folder: plans
+    name: prompt-module-model-1-prepare
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+---
+
 # .claude/plans/prompt-module-model-1-prepare.md
 
 `Prompt 1 of 2 for .claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model): close the missing work, read-only, and draft the ADR under ADR-DSGN-TRACK — paste as the first message of a fresh session`

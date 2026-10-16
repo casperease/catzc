@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "41d4659b92bc"
+    with_body_sha: e5fd7df2273a
+    repo_status: clean
     path: docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-an-address-is-a-read-only-walk-meta-drawio

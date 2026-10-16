@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d4973a08a4f5
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-inspiration/types/InspirationEntry.cs.md
     folder: docs/references/automation/catzc-tooling-inspiration/types
     name: inspiration-entry-cs

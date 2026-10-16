@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04bfd7055904"
+    with_body_sha: "1b399cdba449"
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-four-gates-hold-the-session-rule-governance-drawio

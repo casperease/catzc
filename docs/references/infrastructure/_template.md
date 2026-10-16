@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bb19393e975b
+    repo_status: clean
     path: docs/references/infrastructure/_template.md
     folder: docs/references/infrastructure
     name: template

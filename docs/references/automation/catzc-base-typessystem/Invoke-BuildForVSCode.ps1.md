@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1bd5d0ba42ef"
+    repo_status: locked
     path: docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md
     folder: docs/references/automation/catzc-base-typessystem
     name: invoke-build-for-vs-code-ps1

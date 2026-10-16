@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0665f1c4e736"
+    repo_status: clean
     path: docs/explanation/azure/names-are-derived-never-typed.md
     folder: docs/explanation/azure
     name: names-are-derived-never-typed

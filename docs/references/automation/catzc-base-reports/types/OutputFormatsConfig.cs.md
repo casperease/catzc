@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8d1262066552"
+    repo_status: locked
     path: docs/references/automation/catzc-base-reports/types/OutputFormatsConfig.cs.md
     folder: docs/references/automation/catzc-base-reports/types
     name: output-formats-config-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e83064f03359
+    repo_status: locked
     path: docs/references/infrastructure/modules/virtual-network.bicep.md
     folder: docs/references/infrastructure/modules
     name: virtual-network-bicep

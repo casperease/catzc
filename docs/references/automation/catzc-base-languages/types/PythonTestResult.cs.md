@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8cbea2bb6980"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/PythonTestResult.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: python-test-result-cs

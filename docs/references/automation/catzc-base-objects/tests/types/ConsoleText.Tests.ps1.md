@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "903a7ebedf28"
+    repo_status: locked
     path: docs/references/automation/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md
     folder: docs/references/automation/catzc-base-objects/tests/types
     name: console-text-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fc62cc6dc0b6
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: build-git-keep-ps1

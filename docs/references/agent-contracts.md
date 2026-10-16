@@ -1,3 +1,18 @@
+---
+catzc:
+  immutable:
+    with_body_sha: db82dec95bb6
+    repo_status: clean
+    path: docs/references/agent-contracts.md
+    folder: docs/references
+    name: agent-contracts
+    filetype: md
+    kind: reference
+    language: markdown
+    track: docs
+    tracktype: documentation
+---
+
 # Agent contracts: what `contracts: [ADR-AI]` said, and where it lives now
 
 ## What the key said

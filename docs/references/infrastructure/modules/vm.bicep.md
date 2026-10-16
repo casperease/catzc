@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e957048a989c
+    repo_status: locked
     path: docs/references/infrastructure/modules/vm.bicep.md
     folder: docs/references/infrastructure/modules
     name: vm-bicep

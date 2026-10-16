@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1c273f04597f"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md
     folder: docs/references/automation/catzc-azure-cli
     name: invoke-az-cli-ps1

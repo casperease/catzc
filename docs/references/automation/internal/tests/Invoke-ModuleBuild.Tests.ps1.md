@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e4528a41d626
+    repo_status: locked
     path: docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: invoke-module-build-tests-ps1

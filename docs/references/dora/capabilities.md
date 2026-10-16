@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "90973063281e"
+    repo_status: clean
     path: docs/references/dora/capabilities.md
     folder: docs/references/dora
     name: capabilities

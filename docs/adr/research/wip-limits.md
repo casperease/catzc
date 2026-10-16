@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1e022637106f"
+    repo_status: clean
     path: docs/adr/research/wip-limits.md
     folder: docs/adr/research
     name: wip-limits

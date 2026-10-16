@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0a0e9b77f768"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrDomain.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-domain-cs

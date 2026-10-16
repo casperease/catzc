@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "454974e7bbc0"
+    repo_status: locked
     path: docs/references/automation/catzc-base-config/Get-Config.ps1.md
     folder: docs/references/automation/catzc-base-config
     name: get-config-ps1

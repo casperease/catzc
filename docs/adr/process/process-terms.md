@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "85f093b7747b"
+    repo_status: clean
     path: docs/adr/process/process-terms.md
     folder: docs/adr/process
     name: process-terms

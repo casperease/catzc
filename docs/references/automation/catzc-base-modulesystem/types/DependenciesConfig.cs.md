@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "610774cd171a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: dependencies-config-cs

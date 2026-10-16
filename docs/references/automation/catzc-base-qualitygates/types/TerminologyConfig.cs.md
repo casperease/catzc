@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8058b5d5a3d1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: terminology-config-cs

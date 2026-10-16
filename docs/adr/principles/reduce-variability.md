@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6c7182f0738c"
+    repo_status: clean
     path: docs/adr/principles/reduce-variability.md
     folder: docs/adr/principles
     name: reduce-variability

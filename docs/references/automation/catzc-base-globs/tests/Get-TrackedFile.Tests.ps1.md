@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "93794e61b874"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: get-tracked-file-tests-ps1

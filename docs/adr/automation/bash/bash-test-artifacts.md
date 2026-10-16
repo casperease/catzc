@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "21cff11877fd"
+    repo_status: clean
     path: docs/adr/automation/bash/bash-test-artifacts.md
     folder: docs/adr/automation/bash
     name: bash-test-artifacts

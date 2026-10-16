@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b09d0ac4a344
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: announce-state-change-psm1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "877da7a37604"
+    repo_status: clean
     path: docs/explanation/automation/a-stopped-run-names-its-limit.md
     folder: docs/explanation/automation
     name: a-stopped-run-names-its-limit

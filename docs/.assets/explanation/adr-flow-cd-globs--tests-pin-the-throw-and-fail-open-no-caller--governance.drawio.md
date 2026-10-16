@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3791f041196b"
+    with_body_sha: "0a297537dd0f"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-tests-pin-the-throw-and-fail-open-no-caller-governance-drawio

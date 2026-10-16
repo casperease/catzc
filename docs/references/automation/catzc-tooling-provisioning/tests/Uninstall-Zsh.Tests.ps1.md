@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "84ddb654f66c"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: uninstall-zsh-tests-ps1

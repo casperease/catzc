@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ecf96c04e49c
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: write-test-automation-rule-coverage-ps1

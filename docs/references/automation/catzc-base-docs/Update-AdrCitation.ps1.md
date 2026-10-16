@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "34bd7cce88d8"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: update-adr-citation-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "81f4203494e3"
+    repo_status: clean
     path: docs/references/automation/internal/catzc-internal-types.md
     folder: docs/references/automation/internal
     name: catzc-internal-types

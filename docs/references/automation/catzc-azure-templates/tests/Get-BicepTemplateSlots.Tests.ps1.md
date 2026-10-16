@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: da9d3f63e812
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: get-bicep-template-slots-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "93b87ccdf917"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-glossary-phrasing-violations-tests-ps1

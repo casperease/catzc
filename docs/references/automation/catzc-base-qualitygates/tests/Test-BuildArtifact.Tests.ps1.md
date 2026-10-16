@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: daa3f42114cc
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-BuildArtifact.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-build-artifact-tests-ps1

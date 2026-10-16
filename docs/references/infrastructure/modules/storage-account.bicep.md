@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "68edc3b2c5cd"
+    repo_status: locked
     path: docs/references/infrastructure/modules/storage-account.bicep.md
     folder: docs/references/infrastructure/modules
     name: storage-account-bicep

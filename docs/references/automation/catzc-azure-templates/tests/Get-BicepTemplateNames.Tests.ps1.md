@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "25524a509a7c"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateNames.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: get-bicep-template-names-tests-ps1

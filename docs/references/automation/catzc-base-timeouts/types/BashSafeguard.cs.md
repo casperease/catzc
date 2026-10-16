@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f61e2a4e3bac
+    repo_status: locked
     path: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: bash-safeguard-cs

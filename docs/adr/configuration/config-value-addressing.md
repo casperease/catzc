@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0556ee64f476"
+    repo_status: clean
     path: docs/adr/configuration/config-value-addressing.md
     folder: docs/adr/configuration
     name: config-value-addressing

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "563850a17d3a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: file-meta-config-tests-ps1

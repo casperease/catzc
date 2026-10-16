@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c63daf9d1c82
+    with_body_sha: f7974f9dabcc
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-track-one-unit-one-pipeline-meta-drawio

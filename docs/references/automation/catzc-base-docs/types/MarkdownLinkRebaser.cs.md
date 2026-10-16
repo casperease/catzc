@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "78ccf8b2ed35"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: markdown-link-rebaser-cs

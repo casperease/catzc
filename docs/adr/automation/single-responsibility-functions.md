@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4bb99ea1e724"
+    repo_status: clean
     path: docs/adr/automation/single-responsibility-functions.md
     folder: docs/adr/automation
     name: single-responsibility-functions

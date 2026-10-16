@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f4fb119b9079
+    repo_status: locked
     path: docs/references/pipelines/ci-infrastructure.yaml.md
     folder: docs/references/pipelines
     name: ci-infrastructure-yaml

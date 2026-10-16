@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cb92fdfe77f1
+    repo_status: locked
     path: docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md
     folder: docs/references/automation/catzc-azure-cli/types
     name: connection-state-cs

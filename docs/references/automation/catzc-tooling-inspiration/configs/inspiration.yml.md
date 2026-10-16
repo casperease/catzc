@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "10cb072ee225"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
     folder: docs/references/automation/catzc-tooling-inspiration/configs
     name: inspiration-yml

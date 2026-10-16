@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2916e7b4f989"
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md
     folder: docs/references/automation/catzc-base-git
     name: new-git-ignore-ps1

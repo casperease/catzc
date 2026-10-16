@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d1b3363cb76a
+    repo_status: locked
     path: docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
     folder: docs/references/automation/catzc-base-engines/types
     name: execution-engine-cs

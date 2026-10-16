@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0745db6e4ee9"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md
     folder: docs/references/automation/catzc-azure-cli
     name: connect-az-cli-ps1

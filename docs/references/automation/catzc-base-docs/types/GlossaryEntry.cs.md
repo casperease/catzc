@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9122ef6978ce"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/GlossaryEntry.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-entry-cs

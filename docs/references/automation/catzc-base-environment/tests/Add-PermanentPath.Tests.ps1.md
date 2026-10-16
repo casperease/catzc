@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: df07bc970c5f
+    repo_status: locked
     path: docs/references/automation/catzc-base-environment/tests/Add-PermanentPath.Tests.ps1.md
     folder: docs/references/automation/catzc-base-environment/tests
     name: add-permanent-path-tests-ps1

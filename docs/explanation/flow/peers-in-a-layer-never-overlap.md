@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e6efd0ad79ce
+    repo_status: clean
     path: docs/explanation/flow/peers-in-a-layer-never-overlap.md
     folder: docs/explanation/flow
     name: peers-in-a-layer-never-overlap

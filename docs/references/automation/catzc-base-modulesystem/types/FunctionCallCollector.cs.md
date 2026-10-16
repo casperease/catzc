@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fc1ddbd83ee9
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/types/FunctionCallCollector.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: function-call-collector-cs

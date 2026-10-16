@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f02beea63479
+    repo_status: clean
     path: docs/explanation/automation/resolve-one-limit-in-code-order.md
     folder: docs/explanation/automation
     name: resolve-one-limit-in-code-order

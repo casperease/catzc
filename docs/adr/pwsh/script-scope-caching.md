@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "58af15b8aa6f"
+    repo_status: clean
     path: docs/adr/pwsh/script-scope-caching.md
     folder: docs/adr/pwsh
     name: script-scope-caching

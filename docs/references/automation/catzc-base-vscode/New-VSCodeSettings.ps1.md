@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e126a3782264
+    repo_status: locked
     path: docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md
     folder: docs/references/automation/catzc-base-vscode
     name: new-vs-code-settings-ps1

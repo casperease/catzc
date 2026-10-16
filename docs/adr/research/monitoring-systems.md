@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6298028e02bd"
+    repo_status: clean
     path: docs/adr/research/monitoring-systems.md
     folder: docs/adr/research
     name: monitoring-systems

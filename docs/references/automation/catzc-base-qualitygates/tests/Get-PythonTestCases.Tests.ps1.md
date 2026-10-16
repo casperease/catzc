@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c2907f8ee136
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-PythonTestCases.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-python-test-cases-tests-ps1

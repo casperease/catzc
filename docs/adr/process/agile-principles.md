@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d11206484097
+    repo_status: clean
     path: docs/adr/process/agile-principles.md
     folder: docs/adr/process
     name: agile-principles

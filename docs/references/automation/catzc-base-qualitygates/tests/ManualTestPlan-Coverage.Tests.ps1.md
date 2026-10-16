@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a062b8ddd712
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/ManualTestPlan-Coverage.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: manual-test-plan-coverage-tests-ps1

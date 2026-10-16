@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "401fe45a1c96"
+    repo_status: locked
     path: docs/references/infrastructure/templates/expedition/configuration/apex/dev.yml.md
     folder: docs/references/infrastructure/templates/expedition/configuration/apex
     name: dev-yml

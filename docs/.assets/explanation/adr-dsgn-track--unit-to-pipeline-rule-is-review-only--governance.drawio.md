@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7fa11b1957be"
+    with_body_sha: ca21c502bb48
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-track-unit-to-pipeline-rule-is-review-only-governance-drawio

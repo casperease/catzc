@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ac985da13429
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: set-c-sharp-file-scoped-namespace-ps1

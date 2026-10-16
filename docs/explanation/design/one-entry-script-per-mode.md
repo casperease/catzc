@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c24eef1948d2
+    repo_status: clean
     path: docs/explanation/design/one-entry-script-per-mode.md
     folder: docs/explanation/design
     name: one-entry-script-per-mode

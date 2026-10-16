@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "70d8d04228d6"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md
     folder: docs/references/automation/catzc-azure/tests
     name: get-azure-bicep-min-version-tests-ps1

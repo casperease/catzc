@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "552deceff0f0"
+    with_body_sha: e4daa7448399
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-depm-two-sections-unioned-into-one-allow-set-implementation-drawio

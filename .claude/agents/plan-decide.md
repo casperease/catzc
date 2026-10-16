@@ -14,6 +14,7 @@ skills: [plan-decide, plan-value, git-readonly, report-fixed]
 catzc:
   immutable:
     with_body_sha: "308683e2cb57"
+    repo_status: clean
     path: ".claude/agents/plan-decide.md"
     folder: agents
     name: plan-decide

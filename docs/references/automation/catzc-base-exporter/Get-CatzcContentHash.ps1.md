@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6ac5479d2df8"
+    repo_status: locked
     path: docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
     folder: docs/references/automation/catzc-base-exporter
     name: get-catzc-content-hash-ps1

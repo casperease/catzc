@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: be844779fd35
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/tests/Get-ToolCommandSuffix.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: get-tool-command-suffix-tests-ps1

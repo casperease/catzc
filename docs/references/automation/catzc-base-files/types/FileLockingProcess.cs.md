@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3f70343d0bd1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md
     folder: docs/references/automation/catzc-base-files/types
     name: file-locking-process-cs

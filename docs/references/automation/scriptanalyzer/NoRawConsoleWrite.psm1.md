@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "30e4288af2cd"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-raw-console-write-psm1

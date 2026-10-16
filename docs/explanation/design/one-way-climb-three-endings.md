@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4316f5080e62"
+    repo_status: clean
     path: docs/explanation/design/one-way-climb-three-endings.md
     folder: docs/explanation/design
     name: one-way-climb-three-endings

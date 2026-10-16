@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0042054487f7"
+    repo_status: clean
     path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
     folder: docs/explanation/repository
     name: values-and-edges-gated-reads-reviewed

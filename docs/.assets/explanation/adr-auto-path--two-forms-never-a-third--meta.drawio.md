@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a9c27f786304
+    with_body_sha: a0acd92af1a9
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-two-forms-never-a-third-meta-drawio

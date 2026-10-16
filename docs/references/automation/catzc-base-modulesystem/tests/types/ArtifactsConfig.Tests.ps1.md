@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4de5e814cbcc"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/tests/types/ArtifactsConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests/types
     name: artifacts-config-tests-ps1

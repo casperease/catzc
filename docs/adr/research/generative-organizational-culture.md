@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e4535674c432
+    repo_status: clean
     path: docs/adr/research/generative-organizational-culture.md
     folder: docs/adr/research
     name: generative-organizational-culture

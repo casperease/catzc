@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e91cfaa33f4c
+    with_body_sha: c1af882eeb6b
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-callers-value-else-config-else-default-meta-drawio

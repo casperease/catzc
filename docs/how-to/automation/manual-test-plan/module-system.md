@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e7725350ff34
+    repo_status: clean
     path: docs/how-to/automation/manual-test-plan/module-system.md
     folder: docs/how-to/automation/manual-test-plan
     name: module-system

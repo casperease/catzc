@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cdf657694cda
+    repo_status: locked
     path: docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: bounded-command-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a1c0238073c0
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-LiveIdentityTokens.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-live-identity-tokens-tests-ps1

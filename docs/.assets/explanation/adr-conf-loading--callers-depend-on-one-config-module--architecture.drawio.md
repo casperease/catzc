@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "23d38ffb8e68"
+    with_body_sha: "9de3a4eccd70"
+    repo_status: clean
     path: docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-loading-callers-depend-on-one-config-module-architecture-drawio

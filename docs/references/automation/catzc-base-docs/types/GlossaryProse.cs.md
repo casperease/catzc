@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "721b082d9d0e"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-prose-cs

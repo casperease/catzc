@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6b1330060d8b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrCheck.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-check-cs

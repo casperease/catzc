@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7cab80b49b24"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: install-uv-venv-tool-ps1

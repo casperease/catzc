@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c154b56bcc13
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/types/ContractFragment.cs.md
     folder: docs/references/automation/catzc-base-contracts/types
     name: contract-fragment-cs

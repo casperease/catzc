@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9298a17c589b"
+    with_body_sha: c18a289f87f2
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-runner-the-runner-is-the-only-seam-architecture-drawio

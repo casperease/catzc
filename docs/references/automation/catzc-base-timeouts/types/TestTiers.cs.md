@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "21766fca03aa"
+    repo_status: locked
     path: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: test-tiers-cs

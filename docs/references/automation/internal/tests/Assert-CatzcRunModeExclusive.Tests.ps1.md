@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e83f8ed9a3fd
+    repo_status: locked
     path: docs/references/automation/internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: assert-catzc-run-mode-exclusive-tests-ps1

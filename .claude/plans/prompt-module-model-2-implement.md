@@ -1,3 +1,21 @@
+---
+catzc:
+  immutable:
+    with_body_sha: f486d243f728
+    repo_status: clean
+    path: ".claude/plans/prompt-module-model-2-implement.md"
+    folder: plans
+    name: prompt-module-model-2-implement
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+---
+
 # .claude/plans/prompt-module-model-2-implement.md
 
 `Prompt 2 of 2 for .claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model): implement the Module kind of the deployable tracks, ADR first — paste as the first message of a fresh session, after prompt 1 has run`

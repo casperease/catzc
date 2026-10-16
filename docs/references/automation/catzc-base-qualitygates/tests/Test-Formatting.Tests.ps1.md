@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f2c82250d2e4
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Formatting.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-formatting-tests-ps1

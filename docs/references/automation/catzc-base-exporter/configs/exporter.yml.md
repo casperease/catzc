@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cf39253df0a8
+    repo_status: locked
     path: docs/references/automation/catzc-base-exporter/configs/exporter.yml.md
     folder: docs/references/automation/catzc-base-exporter/configs
     name: exporter-yml

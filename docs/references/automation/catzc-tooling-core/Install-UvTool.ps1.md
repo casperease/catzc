@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cb6b02e0845f
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: install-uv-tool-ps1

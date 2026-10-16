@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d6ef411f01e1
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepCustomerClassViolations.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: get-bicep-customer-class-violations-tests-ps1

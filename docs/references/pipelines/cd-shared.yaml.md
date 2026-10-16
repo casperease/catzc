@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0f2f92a434c5"
+    repo_status: locked
     path: docs/references/pipelines/cd-shared.yaml.md
     folder: docs/references/pipelines
     name: cd-shared-yaml

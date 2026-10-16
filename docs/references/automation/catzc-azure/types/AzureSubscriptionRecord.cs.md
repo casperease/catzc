@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a58f4c2dca6d
+    repo_status: locked
     path: docs/references/automation/catzc-azure/types/AzureSubscriptionRecord.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: azure-subscription-record-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "866785be0f66"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/configs/readme.yml.md
     folder: docs/references/automation/catzc-base-docs/configs
     name: readme-yml

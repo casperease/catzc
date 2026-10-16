@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d574d4863133
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Select-RuleTaggedFiles.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: select-rule-tagged-files-tests-ps1

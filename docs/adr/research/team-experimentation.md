@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2f9ea2451e97"
+    repo_status: clean
     path: docs/adr/research/team-experimentation.md
     folder: docs/adr/research
     name: team-experimentation

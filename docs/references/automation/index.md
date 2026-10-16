@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e08fa0b56b3f
+    repo_status: clean
     path: docs/references/automation/index.md
     folder: docs/references/automation
     name: index

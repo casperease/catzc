@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "38e1998cf760"
+    repo_status: clean
     path: docs/references/automation/internal/catzc-internal-testkit.md
     folder: docs/references/automation/internal
     name: catzc-internal-testkit

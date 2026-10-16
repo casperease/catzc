@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "39dc46804c48"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/types/NetworkCidr.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: network-cidr-cs

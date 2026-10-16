@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "806ba38112f9"
+    repo_status: locked
     path: docs/references/automation/catzc-base-overlay/tests/Import-CatzcOverlay.Tests.ps1.md
     folder: docs/references/automation/catzc-base-overlay/tests
     name: import-catzc-overlay-tests-ps1

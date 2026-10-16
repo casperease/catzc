@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cebebf5daac9
+    repo_status: clean
     path: docs/explanation/design/each-pipeline-shape-runs-a-stretch-of-the-ladder.md
     folder: docs/explanation/design
     name: each-pipeline-shape-runs-a-stretch-of-the-ladder

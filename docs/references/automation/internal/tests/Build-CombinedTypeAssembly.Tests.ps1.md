@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f3308993ccf7
+    repo_status: locked
     path: docs/references/automation/internal/tests/Build-CombinedTypeAssembly.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: build-combined-type-assembly-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ed0e85e37e08
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: code-link-rewriter-cs

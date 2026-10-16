@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4be740e3de33"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: invoke-test-file-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "77798bd827ed"
+    repo_status: locked
     path: docs/references/pipelines/ci-automation.yaml.md
     folder: docs/references/pipelines
     name: ci-automation-yaml

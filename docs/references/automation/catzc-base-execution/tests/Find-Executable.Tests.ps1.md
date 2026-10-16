@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b42819bf7f7b
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
     folder: docs/references/automation/catzc-base-execution/tests
     name: find-executable-tests-ps1

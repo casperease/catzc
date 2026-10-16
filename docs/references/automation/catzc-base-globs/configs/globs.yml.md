@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fd68d24c241c
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/configs/globs.yml.md
     folder: docs/references/automation/catzc-base-globs/configs
     name: globs-yml

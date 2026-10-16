@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c40dc2238d5f
+    repo_status: clean
     path: docs/explanation/design/code-wires-only-the-first-rungs.md
     folder: docs/explanation/design
     name: code-wires-only-the-first-rungs

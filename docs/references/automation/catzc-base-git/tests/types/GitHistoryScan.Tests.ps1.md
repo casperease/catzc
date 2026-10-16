@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d118d67a879c
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md
     folder: docs/references/automation/catzc-base-git/tests/types
     name: git-history-scan-tests-ps1

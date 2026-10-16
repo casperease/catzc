@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d1e992b90b12
+    with_body_sha: b7fff471d4c0
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-deploying-is-not-integrating-meta-drawio

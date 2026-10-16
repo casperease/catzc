@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: faa62cb3951c
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md
     folder: docs/references/automation/catzc-base-git/tests
     name: new-git-ignore-tests-ps1

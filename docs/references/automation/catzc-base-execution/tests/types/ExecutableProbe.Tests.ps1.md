@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b21f8884ff49
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md
     folder: docs/references/automation/catzc-base-execution/tests/types
     name: executable-probe-tests-ps1

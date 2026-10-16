@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "08458010070e"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepTrackTagNameSet.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: get-bicep-track-tag-name-set-tests-ps1

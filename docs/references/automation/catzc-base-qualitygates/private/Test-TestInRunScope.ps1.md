@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "217da252795b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: test-test-in-run-scope-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: abdbe6ea4edf
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-adr-codes-file-meta-fact-ps1

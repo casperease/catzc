@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cad79f0bad20
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/MapCell.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: map-cell-cs

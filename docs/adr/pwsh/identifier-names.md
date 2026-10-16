@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d7d834183993
+    repo_status: clean
     path: docs/adr/pwsh/identifier-names.md
     folder: docs/adr/pwsh
     name: identifier-names

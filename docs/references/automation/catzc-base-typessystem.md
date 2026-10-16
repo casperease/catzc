@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: eeb3ed086f13
+    repo_status: clean
     path: docs/references/automation/catzc-base-typessystem.md
     folder: docs/references/automation
     name: catzc-base-typessystem

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9a0aff8c5260"
+    with_body_sha: "17e8460d6f9a"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-independence-check-groups-by-layer-implementation-drawio

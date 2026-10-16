@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "827ea9e79c69"
+    repo_status: clean
     path: docs/references/infrastructure/foundation.md
     folder: docs/references/infrastructure
     name: foundation

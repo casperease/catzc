@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4a11065400c0"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/types/BicepParameterModel.cs.md
     folder: docs/references/automation/catzc-azure-templates/types
     name: bicep-parameter-model-cs

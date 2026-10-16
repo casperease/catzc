@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4026714be5ef"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyFormat.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: module-dependency-format-cs

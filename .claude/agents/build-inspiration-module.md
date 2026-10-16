@@ -15,6 +15,7 @@ skills: [catzc-module, catzc-run, catzc-check, git-readonly, report-fixed]
 catzc:
   immutable:
     with_body_sha: "04e2fa5a7a1e"
+    repo_status: clean
     path: ".claude/agents/build-inspiration-module.md"
     folder: agents
     name: build-inspiration-module

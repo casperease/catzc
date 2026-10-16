@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "25ebce541ef8"
+    repo_status: clean
     path: docs/adr/pipelines/dora-explains.md
     folder: docs/adr/pipelines
     name: dora-explains

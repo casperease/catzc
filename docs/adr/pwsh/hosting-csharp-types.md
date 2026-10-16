@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6fcb534e32be"
+    repo_status: clean
     path: docs/adr/pwsh/hosting-csharp-types.md
     folder: docs/adr/pwsh
     name: hosting-csharp-types

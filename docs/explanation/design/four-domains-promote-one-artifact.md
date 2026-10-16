@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dfa7b99511ce
+    repo_status: clean
     path: docs/explanation/design/four-domains-promote-one-artifact.md
     folder: docs/explanation/design
     name: four-domains-promote-one-artifact

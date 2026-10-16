@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9f8a3f50e4a6"
+    repo_status: clean
     path: docs/references/automation/catzc-base-qualitygates.md
     folder: docs/references/automation
     name: catzc-base-qualitygates

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a4a0355391e6
+    repo_status: clean
     path: docs/references/automation/catzc-base-overlay.md
     folder: docs/references/automation
     name: catzc-base-overlay

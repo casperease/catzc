@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b17180a593cb
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Get-GlossaryFormViolations.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-glossary-form-violations-tests-ps1

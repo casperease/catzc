@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "923959505b90"
+    repo_status: clean
     path: docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md
     folder: docs/explanation/design
     name: ten-commits-trace-the-whole-lifecycle

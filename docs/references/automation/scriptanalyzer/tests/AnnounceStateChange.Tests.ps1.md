@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f8f78b6e5a3e
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/AnnounceStateChange.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: announce-state-change-tests-ps1

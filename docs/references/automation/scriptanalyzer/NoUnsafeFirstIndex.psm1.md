@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "861a9fc050ac"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NoUnsafeFirstIndex.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-unsafe-first-index-psm1

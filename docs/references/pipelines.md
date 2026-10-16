@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "377b5cfd38e4"
+    repo_status: clean
     path: docs/references/pipelines.md
     folder: docs/references
     name: pipelines

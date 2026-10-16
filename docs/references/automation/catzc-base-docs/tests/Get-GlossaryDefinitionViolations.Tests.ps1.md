@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "47786d06e1b1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Get-GlossaryDefinitionViolations.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-glossary-definition-violations-tests-ps1

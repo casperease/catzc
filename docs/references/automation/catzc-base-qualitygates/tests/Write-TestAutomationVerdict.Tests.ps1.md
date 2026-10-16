@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "296f308e0429"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationVerdict.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: write-test-automation-verdict-tests-ps1

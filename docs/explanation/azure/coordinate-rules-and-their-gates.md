@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "57d23475251f"
+    repo_status: clean
     path: docs/explanation/azure/coordinate-rules-and-their-gates.md
     folder: docs/explanation/azure
     name: coordinate-rules-and-their-gates

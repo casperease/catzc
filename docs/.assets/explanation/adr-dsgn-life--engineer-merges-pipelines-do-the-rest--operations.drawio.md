@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "71adb2447107"
+    with_body_sha: c0bafd6a3aa9
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-engineer-merges-pipelines-do-the-rest-operations-drawio

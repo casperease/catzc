@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "12a627caf7e2"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-ParameterConsistency.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-parameter-consistency-tests-ps1

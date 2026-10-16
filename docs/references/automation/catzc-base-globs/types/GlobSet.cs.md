@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e46532d94541
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/types/GlobSet.cs.md
     folder: docs/references/automation/catzc-base-globs/types
     name: glob-set-cs

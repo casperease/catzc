@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ed256fbd2099
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: remove-system-installation-tests-ps1

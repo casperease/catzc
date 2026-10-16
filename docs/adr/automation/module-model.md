@@ -1,3 +1,52 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "109b2c75917d"
+    repo_status: clean
+    path: docs/adr/automation/module-model.md
+    folder: docs/adr/automation
+    name: module-model
+    filetype: md
+    kind: adr
+    language: markdown
+    track: docs
+    tracktype: documentation
+  edges:
+    defines:
+      - ADR-AUTO-MODULE#{1-6}
+    cites:
+      - ADR-AUTO-BUNDLE#1
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-DEPM#{2,4}
+      - ADR-AUTO-ENGINE#{1,4,7}
+      - ADR-AUTO-TYPES#9
+      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-MODTYPE#3
+      - ADR-DSGN-TRACK#{6,11}
+      - ADR-DSGN-TRACKTYPE#{2,5}
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9
+      - docs/adr/automation/consumer-overlay.md
+      - docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm2
+      - docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm4
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine1
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine4
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine7
+      - docs/adr/automation/open-closed-architecture.md
+      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle1
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/design/module-aspects.md#rule-adr-dsgn-aspect2
+      - docs/adr/design/module-types.md
+      - docs/adr/design/module-types.md#rule-adr-dsgn-modtype3
+      - docs/adr/design/track-types.md
+      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype2
+      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype5
+      - docs/adr/design/tracks.md
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track11
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track6
+      - docs/adr/principles/configure-not-program.md
+---
+
 # ADR: Module model — how a deployable track's modules are found, shaped and ordered
 
 ## Rules: ADR-AUTO-MODULE

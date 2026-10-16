@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c2e2d0492021
+    with_body_sha: "11f2d2ac1db2"
+    repo_status: clean
     path: docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-one-home-one-read-path-one-vocabulary-meta-drawio

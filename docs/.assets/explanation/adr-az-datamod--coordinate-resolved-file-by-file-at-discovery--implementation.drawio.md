@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e920b6465d71
+    with_body_sha: "66a89d68cdf9"
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-coordinate-resolved-file-by-file-at-discovery-implementation-drawio

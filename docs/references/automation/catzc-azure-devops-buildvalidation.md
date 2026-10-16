@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "786214e1e4e5"
+    repo_status: clean
     path: docs/references/automation/catzc-azure-devops-buildvalidation.md
     folder: docs/references/automation
     name: catzc-azure-devops-buildvalidation

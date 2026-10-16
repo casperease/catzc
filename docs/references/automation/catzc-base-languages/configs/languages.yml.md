@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bc55e83376ef
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/configs/languages.yml.md
     folder: docs/references/automation/catzc-base-languages/configs
     name: languages-yml

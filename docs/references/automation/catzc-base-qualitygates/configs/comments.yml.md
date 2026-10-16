@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d38451e453fd
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: comments-yml

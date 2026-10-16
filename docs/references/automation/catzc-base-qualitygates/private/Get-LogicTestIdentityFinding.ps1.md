@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "86d044ad18e2"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-logic-test-identity-finding-ps1

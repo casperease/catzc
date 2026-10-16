@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "87088394ff85"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md
     folder: docs/references/automation/catzc-base-globs/types
     name: glob-pattern-cs

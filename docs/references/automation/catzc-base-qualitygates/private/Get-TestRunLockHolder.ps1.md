@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bff1eea7aa5d
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-test-run-lock-holder-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cb7bfab391fb
+    repo_status: clean
     path: docs/how-to/automation/manual-test-plan/docs-and-links.md
     folder: docs/how-to/automation/manual-test-plan
     name: docs-and-links

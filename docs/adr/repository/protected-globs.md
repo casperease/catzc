@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b9035752a1df
+    repo_status: clean
     path: docs/adr/repository/protected-globs.md
     folder: docs/adr/repository
     name: protected-globs

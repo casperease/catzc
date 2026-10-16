@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1166443dc18a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: git-hub-anchor-cs

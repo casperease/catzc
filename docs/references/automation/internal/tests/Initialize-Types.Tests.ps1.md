@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "688610b1e86c"
+    repo_status: locked
     path: docs/references/automation/internal/tests/Initialize-Types.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: initialize-types-tests-ps1

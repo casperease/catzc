@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9c67852ea30c"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: install-tool-ps1

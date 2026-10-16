@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5f53c1942c70"
+    repo_status: clean
     path: docs/adr/automation/idempotent-state-functions.md
     folder: docs/adr/automation
     name: idempotent-state-functions

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e2f11e10d89e
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: build-terminology-dictionary-ps1

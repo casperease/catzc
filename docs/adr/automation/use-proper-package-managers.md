@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7deec46cbb66"
+    repo_status: clean
     path: docs/adr/automation/use-proper-package-managers.md
     folder: docs/adr/automation
     name: use-proper-package-managers

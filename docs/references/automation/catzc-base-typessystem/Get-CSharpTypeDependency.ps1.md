@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0a6d03d0ce3c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md
     folder: docs/references/automation/catzc-base-typessystem
     name: get-c-sharp-type-dependency-ps1

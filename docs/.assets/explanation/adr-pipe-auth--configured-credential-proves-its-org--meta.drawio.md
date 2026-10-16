@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b134c2b3d2dc
+    with_body_sha: ead7eeef9327
+    repo_status: clean
     path: docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-pipe-auth-configured-credential-proves-its-org-meta-drawio

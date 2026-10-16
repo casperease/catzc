@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "357bdd78420d"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-keyhandler/tests/Select-SupportedKeyHandler.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-keyhandler/tests
     name: select-supported-key-handler-tests-ps1

@@ -1,3 +1,24 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "6aae36fab4ec"
+    repo_status: clean
+    path: ".claude/plans/prompt-k8s-kinds-1-prepare.md"
+    folder: plans
+    name: prompt-k8s-kinds-1-prepare
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-CONTRACT#3
+---
+
 # .claude/plans/prompt-k8s-kinds-1-prepare.md
 
 `Prompt 1 of 2 for .claude/plans/plan-module-kinds-tracks.md (carried section: plan-k8s-kinds): close the missing work, read-only, and draft the ADR-DSGN-TRACK extension — paste as the first message of a fresh session`

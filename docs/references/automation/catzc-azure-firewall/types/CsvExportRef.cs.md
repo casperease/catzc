@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "47f1aab341e7"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
     folder: docs/references/automation/catzc-azure-firewall/types
     name: csv-export-ref-cs

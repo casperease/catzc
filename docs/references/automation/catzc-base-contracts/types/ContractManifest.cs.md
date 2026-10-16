@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "84344a460771"
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/types/ContractManifest.cs.md
     folder: docs/references/automation/catzc-base-contracts/types
     name: contract-manifest-cs

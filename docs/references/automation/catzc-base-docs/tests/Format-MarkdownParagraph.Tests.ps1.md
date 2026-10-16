@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c7c9f77db18d
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Format-MarkdownParagraph.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: format-markdown-paragraph-tests-ps1

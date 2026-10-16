@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "94f10a51b345"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-PythonCheckScope.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-python-check-scope-tests-ps1

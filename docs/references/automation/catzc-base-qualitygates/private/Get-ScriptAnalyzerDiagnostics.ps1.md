@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0aee62528ccd"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-script-analyzer-diagnostics-ps1

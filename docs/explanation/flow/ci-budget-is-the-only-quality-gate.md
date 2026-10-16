@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4ddf067c9039"
+    repo_status: clean
     path: docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
     folder: docs/explanation/flow
     name: ci-budget-is-the-only-quality-gate

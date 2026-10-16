@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7e60f250283d"
+    repo_status: clean
     path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
     folder: docs/explanation/repository
     name: import-materialises-two-gates-name-the-fix

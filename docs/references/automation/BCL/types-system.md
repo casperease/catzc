@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a2a9963d9de6
+    repo_status: clean
     path: docs/references/automation/BCL/types-system.md
     folder: docs/references/automation/BCL
     name: types-system

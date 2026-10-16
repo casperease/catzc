@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "448bd2231d38"
+    with_body_sha: "4cbba6f40d06"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-globs-asks-loader-for-context-and-git-for-diff-architecture-drawio

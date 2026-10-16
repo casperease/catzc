@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "449fd4712c67"
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md
     folder: docs/references/automation/catzc-base-execution/tests/types
     name: cli-runner-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e46d2f670bbe
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md
     folder: docs/references/automation/catzc-tooling-node
     name: install-node-js-ps1

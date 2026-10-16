@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "34e26fb9f40d"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: custom-rule-wiring-tests-ps1

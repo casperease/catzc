@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "87723a9fb3e1"
+    repo_status: clean
     path: docs/adr/azure/caf/naming-and-tagging.md
     folder: docs/adr/azure/caf
     name: naming-and-tagging

@@ -10,6 +10,27 @@ plan:
       automation/.internal/Catzc.Internal.Importer.psm1,
       automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1,
     ]
+catzc:
+  immutable:
+    with_body_sha: "8ca388139657"
+    repo_status: clean
+    path: ".claude/plans/plan-assert-wait.md"
+    folder: plans
+    name: plan-assert-wait
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-CONSOLE#7
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-FAILFAST#{5,7}
+      - ADR-PWSH-ASSERT#6
 ---
 
 # Assert-Wait: a watchpoint for a suspected block

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "743d2e0f83bb"
+    repo_status: locked
     path: docs/references/automation/catzc-base-markdownmeta/types/MarkdownDocument.cs.md
     folder: docs/references/automation/catzc-base-markdownmeta/types
     name: markdown-document-cs

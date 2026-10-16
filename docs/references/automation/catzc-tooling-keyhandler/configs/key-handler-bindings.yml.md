@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "29e8bb3da3b6"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-bindings.yml.md
     folder: docs/references/automation/catzc-tooling-keyhandler/configs
     name: key-handler-bindings-yml

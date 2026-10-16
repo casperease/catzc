@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cf4ac8044d3d
+    with_body_sha: "1392e260a28e"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-remote-clients-bridge-to-one-server-architecture-drawio

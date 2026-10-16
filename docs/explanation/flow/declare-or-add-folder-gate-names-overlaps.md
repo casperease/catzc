@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bbaf0b40bf29
+    repo_status: clean
     path: docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
     folder: docs/explanation/flow
     name: declare-or-add-folder-gate-names-overlaps

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "49e2849deee3"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: get-zsh-install-layout-tests-ps1

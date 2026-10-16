@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8e80877a76e6"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/tests/Install-Zsh.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: install-zsh-tests-ps1

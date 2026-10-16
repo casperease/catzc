@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b5b1dc793a03
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: source-conventions-yml

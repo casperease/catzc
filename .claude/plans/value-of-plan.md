@@ -3,6 +3,21 @@ plan:
   status: active
   reviewed: 2026-10-16
   rule: value first, then needed docs and tests; job size never ranks
+catzc:
+  immutable:
+    with_body_sha: f5abd7c55e5e
+    repo_status: clean
+    path: ".claude/plans/value-of-plan.md"
+    folder: plans
+    name: value-of-plan
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # Value of each plan

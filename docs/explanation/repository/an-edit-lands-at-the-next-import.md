@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d1258477412c
+    repo_status: clean
     path: docs/explanation/repository/an-edit-lands-at-the-next-import.md
     folder: docs/explanation/repository
     name: an-edit-lands-at-the-next-import

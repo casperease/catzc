@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "608312b8a5e6"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/configs/glossary.yml.md
     folder: docs/references/automation/catzc-azure-templates/configs
     name: glossary-yml

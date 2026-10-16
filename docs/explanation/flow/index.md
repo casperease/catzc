@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c91496ef0580
+    repo_status: clean
     path: docs/explanation/flow/index.md
     folder: docs/explanation/flow
     name: index

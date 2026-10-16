@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5dccdb8ff1e9"
+    repo_status: clean
     path: docs/adr/pipelines/pipeline-naming-and-placement.md
     folder: docs/adr/pipelines
     name: pipeline-naming-and-placement

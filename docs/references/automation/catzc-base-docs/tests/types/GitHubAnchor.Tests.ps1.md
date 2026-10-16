@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "473ce1b81231"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/types/GitHubAnchor.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests/types
     name: git-hub-anchor-tests-ps1

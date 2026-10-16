@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9c73c4bae97b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-GeneratedFiles.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-generated-files-tests-ps1

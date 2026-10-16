@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7a82bbac5334"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: module-dependency-edge-cs

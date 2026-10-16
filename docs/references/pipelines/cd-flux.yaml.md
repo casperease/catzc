@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a0457d45a845
+    repo_status: locked
     path: docs/references/pipelines/cd-flux.yaml.md
     folder: docs/references/pipelines
     name: cd-flux-yaml

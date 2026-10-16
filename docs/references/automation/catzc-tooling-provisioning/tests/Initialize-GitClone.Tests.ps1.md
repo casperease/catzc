@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: af41731ef025
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/tests/Initialize-GitClone.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: initialize-git-clone-tests-ps1

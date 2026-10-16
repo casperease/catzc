@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "25a228011c9c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md
     folder: docs/references/automation/catzc-base-environment
     name: sync-session-path-ps1

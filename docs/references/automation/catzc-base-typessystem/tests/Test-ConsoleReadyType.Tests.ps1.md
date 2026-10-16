@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b65b88b012f4
+    repo_status: locked
     path: docs/references/automation/catzc-base-typessystem/tests/Test-ConsoleReadyType.Tests.ps1.md
     folder: docs/references/automation/catzc-base-typessystem/tests
     name: test-console-ready-type-tests-ps1

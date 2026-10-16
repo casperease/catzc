@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dc667b4441d5
+    repo_status: clean
     path: docs/references/infrastructure/modules.md
     folder: docs/references/infrastructure
     name: modules

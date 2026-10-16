@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1a828fd28aba"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests/types
     name: adrs-config-tests-ps1

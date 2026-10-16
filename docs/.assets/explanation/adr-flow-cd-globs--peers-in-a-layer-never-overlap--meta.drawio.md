@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "58491ac5c6a1"
+    with_body_sha: "20a6adddef91"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-peers-in-a-layer-never-overlap-meta-drawio

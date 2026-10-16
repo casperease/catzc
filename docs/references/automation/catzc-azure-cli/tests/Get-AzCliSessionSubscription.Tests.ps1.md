@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3a9fe16d66bb"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-cli/tests
     name: get-az-cli-session-subscription-tests-ps1

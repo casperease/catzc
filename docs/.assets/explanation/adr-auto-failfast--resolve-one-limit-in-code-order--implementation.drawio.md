@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "505ac8b2b669"
+    with_body_sha: d639a43578ce
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-resolve-one-limit-in-code-order-implementation-drawio

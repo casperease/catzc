@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "94d6ec65ac3b"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: install-git-ps1

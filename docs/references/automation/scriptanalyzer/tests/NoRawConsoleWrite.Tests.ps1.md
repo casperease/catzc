@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a52fc2c0041f
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-raw-console-write-tests-ps1

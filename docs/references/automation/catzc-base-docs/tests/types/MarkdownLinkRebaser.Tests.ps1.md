@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6fd613b909e0"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/types/MarkdownLinkRebaser.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests/types
     name: markdown-link-rebaser-tests-ps1

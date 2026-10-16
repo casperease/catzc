@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d7b0c4e3fd74
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Get-AdoBuildValidations.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-devops-buildvalidation/tests
     name: get-ado-build-validations-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "633cfc33305a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: glob-set-independence-tests-ps1

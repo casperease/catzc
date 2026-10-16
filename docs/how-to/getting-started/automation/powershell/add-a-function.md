@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5e937306972e"
+    repo_status: clean
     path: docs/how-to/getting-started/automation/powershell/add-a-function.md
     folder: docs/how-to/getting-started/automation/powershell
     name: add-a-function

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0b52fefe80b6"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AgentEntry.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: agent-entry-cs

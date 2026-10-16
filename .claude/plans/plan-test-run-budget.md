@@ -5,6 +5,21 @@ plan:
   reviewed: 2026-10-16
   blocked_on: the per-engine cache stamp needs an ADR decision
   targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Engines, automation/Catzc.Base.Timeouts/configs]
+catzc:
+  immutable:
+    with_body_sha: b343d69ef683
+    repo_status: clean
+    path: ".claude/plans/plan-test-run-budget.md"
+    folder: plans
+    name: plan-test-run-budget
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # The full test run under its 180 s roof

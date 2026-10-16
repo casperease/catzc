@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "950a31bee0b4"
+    with_body_sha: "9f9800355f7f"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-manifest-and-aspects-from-one-folder-implementation-drawio

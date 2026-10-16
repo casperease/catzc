@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d6b56e442589
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/tests/Assert-Tool.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: assert-tool-tests-ps1

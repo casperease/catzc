@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "553b4f4cb70e"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: install-dotnet-ps1

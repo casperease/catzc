@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6e9bebd9acdc"
+    repo_status: clean
     path: docs/explanation/flow/one-boolean-answer-from-one-function.md
     folder: docs/explanation/flow
     name: one-boolean-answer-from-one-function

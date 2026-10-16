@@ -13,6 +13,21 @@ plan:
       .claude/skills,
       .claude/CLAUDE.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: bfcdf5aaabc1
+    repo_status: clean
+    path: ".claude/plans/plan-adr-ai.md"
+    folder: plans
+    name: plan-adr-ai
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # ADR-AI: the contract every agent and skill reads first

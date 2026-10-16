@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fe00a5aa2d65
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-FormatEngineStamp.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-format-engine-stamp-tests-ps1

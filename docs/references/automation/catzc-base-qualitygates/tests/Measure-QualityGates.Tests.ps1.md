@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d3867880b6d2
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Measure-QualityGates.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: measure-quality-gates-tests-ps1

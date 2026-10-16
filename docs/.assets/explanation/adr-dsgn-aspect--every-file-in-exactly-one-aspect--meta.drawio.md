@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "49f0992a9014"
+    with_body_sha: "05a433bb786c"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-every-file-in-exactly-one-aspect-meta-drawio

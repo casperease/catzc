@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a2e9acb9e01c
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-inspiration/tests/Get-Inspiration.Shipped.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-inspiration/tests
     name: get-inspiration-shipped-tests-ps1

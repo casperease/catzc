@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8ea95b0c48c2"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: get-file-language-tests-ps1

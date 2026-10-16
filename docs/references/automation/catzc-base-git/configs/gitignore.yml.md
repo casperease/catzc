@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9b7ff39f1571"
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/configs/gitignore.yml.md
     folder: docs/references/automation/catzc-base-git/configs
     name: gitignore-yml

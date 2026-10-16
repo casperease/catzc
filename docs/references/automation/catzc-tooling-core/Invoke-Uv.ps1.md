@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b65c83c60830
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: invoke-uv-ps1

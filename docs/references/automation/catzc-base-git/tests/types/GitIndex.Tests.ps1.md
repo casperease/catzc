@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9df5719d6e27"
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/tests/types/GitIndex.Tests.ps1.md
     folder: docs/references/automation/catzc-base-git/tests/types
     name: git-index-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "89494fa95a45"
+    repo_status: clean
     path: docs/references/automation/catzc-tooling-toolchain.md
     folder: docs/references/automation
     name: catzc-tooling-toolchain

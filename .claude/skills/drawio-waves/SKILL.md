@@ -10,6 +10,7 @@ metadata:
   catzc:
     immutable:
       with_body_sha: bc2ca7f3721f
+      repo_status: clean
       path: ".claude/skills/drawio-waves/SKILL.md"
       folder: skills/drawio-waves
       name: skill

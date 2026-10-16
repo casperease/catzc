@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d917267d0225
+    repo_status: clean
     path: docs/how-to/getting-started/automation/run-tests-and-checks.md
     folder: docs/how-to/getting-started/automation
     name: run-tests-and-checks

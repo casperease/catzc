@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1de4d513ed81"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/AnalyzerAdrMapConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: analyzer-adr-map-config-cs

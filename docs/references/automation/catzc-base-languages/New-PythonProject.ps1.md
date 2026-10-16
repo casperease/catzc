@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "33f95b5ebf1e"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md
     folder: docs/references/automation/catzc-base-languages
     name: new-python-project-ps1

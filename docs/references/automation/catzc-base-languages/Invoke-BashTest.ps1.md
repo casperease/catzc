@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "05571cedbc19"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md
     folder: docs/references/automation/catzc-base-languages
     name: invoke-bash-test-ps1

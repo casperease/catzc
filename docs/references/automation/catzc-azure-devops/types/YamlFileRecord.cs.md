@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5f49b3c80d14"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: yaml-file-record-cs

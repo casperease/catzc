@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ba9589b91c4a
+    repo_status: locked
     path: docs/references/automation/catzc-base-exporter/types/ExporterConfig.cs.md
     folder: docs/references/automation/catzc-base-exporter/types
     name: exporter-config-cs

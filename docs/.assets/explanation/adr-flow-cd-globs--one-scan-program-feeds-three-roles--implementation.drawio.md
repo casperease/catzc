@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a33c0dc003d5
+    with_body_sha: "45d612b7aa84"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-one-scan-program-feeds-three-roles-implementation-drawio

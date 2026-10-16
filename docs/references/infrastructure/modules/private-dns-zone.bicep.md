@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a9644e681721
+    repo_status: locked
     path: docs/references/infrastructure/modules/private-dns-zone.bicep.md
     folder: docs/references/infrastructure/modules
     name: private-dns-zone-bicep

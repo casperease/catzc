@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "164526347027"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/types/AzureConfig.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: azure-config-cs

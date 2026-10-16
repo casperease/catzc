@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "964a8351c982"
+    repo_status: locked
     path: docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: console-text-cs

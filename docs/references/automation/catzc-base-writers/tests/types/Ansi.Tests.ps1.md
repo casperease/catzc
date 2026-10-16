@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "452e168524eb"
+    repo_status: locked
     path: docs/references/automation/catzc-base-writers/tests/types/Ansi.Tests.ps1.md
     folder: docs/references/automation/catzc-base-writers/tests/types
     name: ansi-tests-ps1

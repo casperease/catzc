@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "77ff15dce0c0"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/types/NetworkEnvironment.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: network-environment-cs

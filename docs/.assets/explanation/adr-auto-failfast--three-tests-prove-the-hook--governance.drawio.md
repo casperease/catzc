@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e4a878d771c"
+    with_body_sha: "345e0388f37c"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-three-tests-prove-the-hook-governance-drawio

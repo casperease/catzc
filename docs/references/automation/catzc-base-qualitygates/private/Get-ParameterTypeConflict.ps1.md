@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "60d42493606b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-parameter-type-conflict-ps1

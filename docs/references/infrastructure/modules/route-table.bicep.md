@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "81e9bb4c7e5a"
+    repo_status: locked
     path: docs/references/infrastructure/modules/route-table.bicep.md
     folder: docs/references/infrastructure/modules
     name: route-table-bicep

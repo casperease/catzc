@@ -10,6 +10,7 @@ metadata:
   catzc:
     immutable:
       with_body_sha: "0889f385fd1a"
+      repo_status: clean
       path: ".claude/skills/drawio-model-edit/SKILL.md"
       folder: skills/drawio-model-edit
       name: skill

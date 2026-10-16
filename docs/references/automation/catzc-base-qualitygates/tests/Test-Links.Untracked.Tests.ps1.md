@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "186a878d371c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Untracked.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-links-untracked-tests-ps1

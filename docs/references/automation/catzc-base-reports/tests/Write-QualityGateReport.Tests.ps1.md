@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "901c41229511"
+    repo_status: locked
     path: docs/references/automation/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
     folder: docs/references/automation/catzc-base-reports/tests
     name: write-quality-gate-report-tests-ps1

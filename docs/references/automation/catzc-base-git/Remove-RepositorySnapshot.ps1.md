@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "14c9b5750d9a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md
     folder: docs/references/automation/catzc-base-git
     name: remove-repository-snapshot-ps1

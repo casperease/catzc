@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c1e0f8f84b93
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
     folder: docs/references/automation/catzc-base-docs/private
     name: get-cats-rule-enforcers-ps1

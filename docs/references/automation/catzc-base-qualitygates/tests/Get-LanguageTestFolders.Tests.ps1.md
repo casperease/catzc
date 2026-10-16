@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cadd3b9038e1
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-LanguageTestFolders.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-language-test-folders-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d9ba83379060
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
     folder: docs/references/automation/catzc-tooling-environment
     name: write-environment-set-ps1

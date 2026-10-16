@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c0c1a863ef8c
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-scan-cs

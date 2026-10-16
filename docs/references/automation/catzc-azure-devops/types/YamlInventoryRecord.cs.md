@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "81fc4f9ebc94"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: yaml-inventory-record-cs

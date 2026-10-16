@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6a672e92a9c6"
+    repo_status: locked
     path: docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
     folder: docs/references/automation/catzc-base-repository
     name: convert-to-repo-relative-path-ps1

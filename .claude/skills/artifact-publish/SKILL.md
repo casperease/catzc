@@ -10,6 +10,7 @@ metadata:
   catzc:
     immutable:
       with_body_sha: c97c3be9f57e
+      repo_status: clean
       path: ".claude/skills/artifact-publish/SKILL.md"
       folder: skills/artifact-publish
       name: skill

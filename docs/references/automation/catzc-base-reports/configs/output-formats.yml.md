@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5dab92069aae"
+    repo_status: locked
     path: docs/references/automation/catzc-base-reports/configs/output-formats.yml.md
     folder: docs/references/automation/catzc-base-reports/configs
     name: output-formats-yml

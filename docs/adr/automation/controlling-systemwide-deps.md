@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f306aec32d72
+    repo_status: clean
     path: docs/adr/automation/controlling-systemwide-deps.md
     folder: docs/adr/automation
     name: controlling-systemwide-deps

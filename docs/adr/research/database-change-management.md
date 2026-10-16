@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d48de2b4f591
+    repo_status: clean
     path: docs/adr/research/database-change-management.md
     folder: docs/adr/research
     name: database-change-management

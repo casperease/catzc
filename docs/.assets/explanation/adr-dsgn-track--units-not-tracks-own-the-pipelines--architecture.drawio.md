@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "103f31e77a6d"
+    with_body_sha: a8a8c8b58908
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-track-units-not-tracks-own-the-pipelines-architecture-drawio

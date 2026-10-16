@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f874447dd29b
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: uninstall-zsh-ps1

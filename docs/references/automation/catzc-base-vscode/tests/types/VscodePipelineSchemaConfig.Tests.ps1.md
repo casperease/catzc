@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dbb5c6f2ca2b
+    repo_status: locked
     path: docs/references/automation/catzc-base-vscode/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-vscode/tests/types
     name: vscode-pipeline-schema-config-tests-ps1

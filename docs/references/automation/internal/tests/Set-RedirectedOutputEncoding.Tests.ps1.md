@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3b6725043936"
+    repo_status: locked
     path: docs/references/automation/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: set-redirected-output-encoding-tests-ps1

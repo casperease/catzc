@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4519db9d21f0"
+    repo_status: clean
     path: docs/references/dora/ai.md
     folder: docs/references/dora
     name: ai

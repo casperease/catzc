@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "726fe6f1b591"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: squarified-treemap-cs

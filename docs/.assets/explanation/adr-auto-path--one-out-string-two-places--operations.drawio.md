@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3fc8b5b15402"
+    with_body_sha: d56d70851118
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-one-out-string-two-places-operations-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: be83854e0e86
+    repo_status: clean
     path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
     folder: docs/explanation/automation
     name: two-sections-unioned-into-one-allow-set

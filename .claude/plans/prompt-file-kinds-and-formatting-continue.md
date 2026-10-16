@@ -1,3 +1,24 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "2245052fbff6"
+    repo_status: clean
+    path: ".claude/plans/prompt-file-kinds-and-formatting-continue.md"
+    folder: plans
+    name: prompt-file-kinds-and-formatting-continue
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-PWSH-FORMAT#10
+---
+
 # Continuation prompt: file kinds and formatting follow-ups (written 2026-10-16 15:22, carried here 2026-10-16)
 
 The prompt names `out/plan-file-kinds-and-formatting.md`, deleted on 2026-10-16. Its done list and open items are in

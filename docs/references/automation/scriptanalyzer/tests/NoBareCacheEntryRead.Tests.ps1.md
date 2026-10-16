@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "76d14f1b2920"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-bare-cache-entry-read-tests-ps1

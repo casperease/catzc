@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dcdde7c396ea
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/New-TestRunFinalManifest.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: new-test-run-final-manifest-tests-ps1

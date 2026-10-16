@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: eedf6f528a1f
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-raw-pipeline-detection-psm1

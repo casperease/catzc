@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e041f22782a3
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-content-stamp-ps1

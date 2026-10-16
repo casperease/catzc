@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: db19b4249f72
+    repo_status: locked
     path: docs/references/pipelines/extends/cd-customer.yaml.md
     folder: docs/references/pipelines/extends
     name: cd-customer-yaml

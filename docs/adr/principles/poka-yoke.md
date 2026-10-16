@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b1f6ecea8d5e
+    repo_status: clean
     path: docs/adr/principles/poka-yoke.md
     folder: docs/adr/principles
     name: poka-yoke

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "019d5ff849b0"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: get-glossary-ps1

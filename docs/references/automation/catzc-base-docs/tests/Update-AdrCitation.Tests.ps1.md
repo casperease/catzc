@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: faf089b7b2df
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: update-adr-citation-tests-ps1

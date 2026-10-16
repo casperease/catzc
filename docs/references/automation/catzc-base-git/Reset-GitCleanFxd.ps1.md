@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "467486aa6d9a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md
     folder: docs/references/automation/catzc-base-git
     name: reset-git-clean-fxd-ps1

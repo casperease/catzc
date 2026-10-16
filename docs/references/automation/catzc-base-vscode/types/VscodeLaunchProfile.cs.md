@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0b7ac8e9c6e1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-vscode/types/VscodeLaunchProfile.cs.md
     folder: docs/references/automation/catzc-base-vscode/types
     name: vscode-launch-profile-cs

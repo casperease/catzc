@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1f77b803bb23"
+    repo_status: clean
     path: docs/explanation/flow/three-views-derived-live-from-one-program.md
     folder: docs/explanation/flow
     name: three-views-derived-live-from-one-program

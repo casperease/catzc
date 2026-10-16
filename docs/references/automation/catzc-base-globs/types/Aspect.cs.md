@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "367138ea885f"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/types/Aspect.cs.md
     folder: docs/references/automation/catzc-base-globs/types
     name: aspect-cs

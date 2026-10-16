@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c3c5978b9a64
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-TestTitles.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-test-titles-tests-ps1

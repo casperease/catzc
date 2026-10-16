@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4cc432932323"
+    repo_status: locked
     path: docs/references/automation/catzc-base-variants/types/VariantAspect.cs.md
     folder: docs/references/automation/catzc-base-variants/types
     name: variant-aspect-cs

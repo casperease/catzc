@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8f70d553c67f"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-TestExcludeTag.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-test-exclude-tag-tests-ps1

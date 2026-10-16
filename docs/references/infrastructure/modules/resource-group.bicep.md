@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "043e7da02e27"
+    repo_status: locked
     path: docs/references/infrastructure/modules/resource-group.bicep.md
     folder: docs/references/infrastructure/modules
     name: resource-group-bicep

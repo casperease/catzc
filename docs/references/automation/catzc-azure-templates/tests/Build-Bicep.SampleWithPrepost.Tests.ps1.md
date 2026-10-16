@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3964af3f98e4"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: build-bicep-sample-with-prepost-tests-ps1

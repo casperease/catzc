@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d845f13115b2
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: invoke-python-test-tests-ps1

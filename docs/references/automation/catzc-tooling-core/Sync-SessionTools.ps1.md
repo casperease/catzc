@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d97fcc2d48b2
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: sync-session-tools-ps1

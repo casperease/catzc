@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4d9cd07a82cf"
+    repo_status: clean
     path: docs/explanation/design/two-roots-one-importer-same-modules.md
     folder: docs/explanation/design
     name: two-roots-one-importer-same-modules

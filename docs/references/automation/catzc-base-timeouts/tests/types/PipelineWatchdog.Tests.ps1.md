@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9a2deaa257cc"
+    repo_status: locked
     path: docs/references/automation/catzc-base-timeouts/tests/types/PipelineWatchdog.Tests.ps1.md
     folder: docs/references/automation/catzc-base-timeouts/tests/types
     name: pipeline-watchdog-tests-ps1

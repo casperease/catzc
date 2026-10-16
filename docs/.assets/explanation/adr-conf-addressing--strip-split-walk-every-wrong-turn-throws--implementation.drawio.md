@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0e9ecbf161ab"
+    with_body_sha: "978c95aa6601"
+    repo_status: clean
     path: docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-strip-split-walk-every-wrong-turn-throws-implementation-drawio

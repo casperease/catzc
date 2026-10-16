@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a7ac33cc0ebc
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: parameter-design-tests-ps1

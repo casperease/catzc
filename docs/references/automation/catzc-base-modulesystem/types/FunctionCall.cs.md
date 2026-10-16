@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "419ea8ddb7b7"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: function-call-cs

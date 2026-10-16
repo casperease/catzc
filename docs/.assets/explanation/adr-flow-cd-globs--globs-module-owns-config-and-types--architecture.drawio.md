@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: af49a0ba73da
+    with_body_sha: efd4bf9bb21f
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-globs-module-owns-config-and-types-architecture-drawio

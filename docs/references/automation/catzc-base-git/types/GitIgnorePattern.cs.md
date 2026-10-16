@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3d4d7a256c9c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/types/GitIgnorePattern.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-ignore-pattern-cs

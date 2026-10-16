@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "799d8325540d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-writers/Write-Message.ps1.md
     folder: docs/references/automation/catzc-base-writers
     name: write-message-ps1

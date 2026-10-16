@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f25401efffd7
+    repo_status: locked
     path: docs/references/infrastructure/templates/discovery/configuration/apex/nsub.yml.md
     folder: docs/references/infrastructure/templates/discovery/configuration/apex
     name: nsub-yml

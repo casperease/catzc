@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "433d62e959f7"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-az-module-naming-tests-ps1

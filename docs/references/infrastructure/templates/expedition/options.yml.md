@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: eb80f2153485
+    repo_status: locked
     path: docs/references/infrastructure/templates/expedition/options.yml.md
     folder: docs/references/infrastructure/templates/expedition
     name: options-yml

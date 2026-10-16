@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dd3bde32dec4
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-LogicTestIdentity.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-logic-test-identity-tests-ps1

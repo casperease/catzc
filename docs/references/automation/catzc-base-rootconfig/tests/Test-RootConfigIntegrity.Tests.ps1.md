@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a04230723fbf
+    repo_status: locked
     path: docs/references/automation/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md
     folder: docs/references/automation/catzc-base-rootconfig/tests
     name: test-root-config-integrity-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bd2d0d8211b0
+    repo_status: locked
     path: docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md
     folder: docs/references/automation/catzc-base-rootconfig/configs
     name: rootconfig-yml

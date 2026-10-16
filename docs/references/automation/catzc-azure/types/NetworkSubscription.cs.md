@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dedf00873437
+    repo_status: locked
     path: docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: network-subscription-cs

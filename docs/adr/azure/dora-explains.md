@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "018849f8c800"
+    repo_status: clean
     path: docs/adr/azure/dora-explains.md
     folder: docs/adr/azure
     name: dora-explains

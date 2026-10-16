@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: afa53038a9df
+    repo_status: clean
     path: docs/adr/azure/caf/network-private-access.md
     folder: docs/adr/azure/caf
     name: network-private-access

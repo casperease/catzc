@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1f4695deceda"
+    repo_status: locked
     path: docs/references/automation/internal/tests/New-BuiltCatzcRoot.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: new-built-catzc-root-tests-ps1

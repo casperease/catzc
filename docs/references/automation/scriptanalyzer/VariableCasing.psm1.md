@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1a55363585a6"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/VariableCasing.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: variable-casing-psm1

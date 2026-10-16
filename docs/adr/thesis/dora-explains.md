@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e9ca16ab63b7
+    repo_status: clean
     path: docs/adr/thesis/dora-explains.md
     folder: docs/adr/thesis
     name: dora-explains

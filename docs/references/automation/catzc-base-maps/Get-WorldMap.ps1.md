@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8e15113ab7f9"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
     folder: docs/references/automation/catzc-base-maps
     name: get-world-map-ps1

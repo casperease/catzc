@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: df56639377f4
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/HighlightReason.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: highlight-reason-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f944fad90de3
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md
     folder: docs/references/automation/catzc-azure-devops
     name: new-ado-pull-request-ps1

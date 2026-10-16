@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "609294b356e1"
+    with_body_sha: b6cd66e16526
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-every-doubt-fails-open-to-proceed-meta-drawio

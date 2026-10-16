@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d6378d1c74a8
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: glob-set-trigger-coverage-tests-ps1

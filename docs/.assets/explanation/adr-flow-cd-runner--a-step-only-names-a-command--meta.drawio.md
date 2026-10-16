@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3c663c658fbf"
+    with_body_sha: "222732d69a7a"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-runner-a-step-only-names-a-command-meta-drawio

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b377c40c96ad
+    with_body_sha: ea2388ba017e
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-depm-three-layers-edges-point-down-architecture-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7dd941bf5171"
+    repo_status: locked
     path: docs/references/automation/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md
     folder: docs/references/automation/catzc-base-engines/tests/types
     name: execution-engine-tests-ps1

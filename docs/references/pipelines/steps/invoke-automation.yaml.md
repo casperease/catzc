@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "16fc292a209a"
+    repo_status: locked
     path: docs/references/pipelines/steps/invoke-automation.yaml.md
     folder: docs/references/pipelines/steps
     name: invoke-automation-yaml

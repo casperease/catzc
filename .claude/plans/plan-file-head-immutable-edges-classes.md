@@ -12,6 +12,28 @@ plan:
       contracts/catzc/0.0.0,
       docs/adr/repository/file-meta.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: "90d329be0d19"
+    repo_status: clean
+    path: ".claude/plans/plan-file-head-immutable-edges-classes.md"
+    folder: plans
+    name: plan-file-head-immutable-edges-classes
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PWSH-FORMAT#10
+      - ADR-REPO-CODEMETA#{2,3}
+      - ADR-REPO-CONTRACT#{3,5,9}
+      - ADR-REPO-FILEMETA#{2,5,7,11,13}
 ---
 
 # The file head: immutable place facts plus declared edges, with globs spelled once as classes

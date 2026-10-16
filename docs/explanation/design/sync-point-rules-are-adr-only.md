@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3cd7f3cab990"
+    repo_status: clean
     path: docs/explanation/design/sync-point-rules-are-adr-only.md
     folder: docs/explanation/design
     name: sync-point-rules-are-adr-only

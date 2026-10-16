@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "55be044ddcaf"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Dotnet.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: uninstall-dotnet-tests-ps1

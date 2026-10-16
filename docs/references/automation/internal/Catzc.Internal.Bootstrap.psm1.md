@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6b6fde003fd4"
+    repo_status: locked
     path: docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-bootstrap-psm1

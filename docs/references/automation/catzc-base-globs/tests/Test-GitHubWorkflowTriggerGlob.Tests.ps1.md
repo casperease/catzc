@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "23e193e110e9"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: test-git-hub-workflow-trigger-glob-tests-ps1

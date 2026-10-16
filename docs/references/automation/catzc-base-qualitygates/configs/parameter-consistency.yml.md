@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2a5f985b2258"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: parameter-consistency-yml

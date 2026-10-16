@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6d5a92f076c4"
+    repo_status: locked
     path: docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md
     folder: docs/references/automation/catzc-base-overlay/private
     name: get-local-module-violation-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bade05ffcf7d
+    repo_status: locked
     path: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: dictionary-record-cs

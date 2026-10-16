@@ -10,6 +10,27 @@ plan:
       automation/Catzc.Base.Languages/configs/languages.yml,
       automation/Catzc.Base.Docs/configs/comments.yml,
     ]
+catzc:
+  immutable:
+    with_body_sha: "327adc9e03c2"
+    repo_status: clean
+    path: ".claude/plans/plan-format-step-moves-comments.md"
+    folder: plans
+    name: plan-format-step-moves-comments
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-CACHE#10
+      - ADR-PRIN-CONFIG#1
+      - ADR-REPO-COMMENTS#{2,4,5}
+      - ADR-REPO-FORMAT#8
 ---
 
 # The format command moves long comments to their pages

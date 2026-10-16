@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6bb3c2144092"
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md
     folder: docs/references/automation/catzc-base-contracts/types
     name: contract-value-cs

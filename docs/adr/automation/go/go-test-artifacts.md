@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c35f0c02b784
+    repo_status: clean
     path: docs/adr/automation/go/go-test-artifacts.md
     folder: docs/adr/automation/go
     name: go-test-artifacts

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8ebfe821ccd6"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/tests/Get-AzureResourceName.Content.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: get-azure-resource-name-content-tests-ps1

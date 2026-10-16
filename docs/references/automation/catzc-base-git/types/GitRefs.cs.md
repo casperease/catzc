@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6daa3ce5b8fd"
+    repo_status: locked
     path: docs/references/automation/catzc-base-git/types/GitRefs.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-refs-cs

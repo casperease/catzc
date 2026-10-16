@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "329eba9a7924"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: world-map-highlight-cs

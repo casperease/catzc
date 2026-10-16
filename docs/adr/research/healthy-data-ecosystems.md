@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a3b588f4a9ca
+    repo_status: clean
     path: docs/adr/research/healthy-data-ecosystems.md
     folder: docs/adr/research
     name: healthy-data-ecosystems

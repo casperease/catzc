@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "10a3bd2e098c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: get-cats-adr-rule-ids-ps1

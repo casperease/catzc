@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8a6b6e61c6de"
+    repo_status: locked
     path: docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md
     folder: docs/references/automation/catzc-base-variants
     name: get-enabled-customers-ps1

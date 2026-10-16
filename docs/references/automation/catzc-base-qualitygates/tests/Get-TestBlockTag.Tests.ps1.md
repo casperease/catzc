@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "962f055c4aec"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-TestBlockTag.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-test-block-tag-tests-ps1

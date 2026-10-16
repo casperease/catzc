@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1ee09723f274"
+    with_body_sha: "02e8c0669f15"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-one-artifact-climbs-unchanged-meta-drawio

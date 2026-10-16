@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "349056ff35c6"
+    repo_status: clean
     path: docs/adr/automation/dry-run.md
     folder: docs/adr/automation
     name: dry-run

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3fd02566ab4d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-files/types/RestartManager.cs.md
     folder: docs/references/automation/catzc-base-files/types
     name: restart-manager-cs

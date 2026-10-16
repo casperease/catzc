@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "24f01e1c2517"
+    repo_status: clean
     path: docs/adr/research/loosely-coupled-teams.md
     folder: docs/adr/research
     name: loosely-coupled-teams

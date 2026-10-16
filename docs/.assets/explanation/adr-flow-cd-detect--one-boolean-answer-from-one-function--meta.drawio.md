@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "58eac46f510b"
+    with_body_sha: "440c8961d77a"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-one-boolean-answer-from-one-function-meta-drawio

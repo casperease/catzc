@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f9f4bf14dfed
+    with_body_sha: bf713710486d
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-sync-point-rules-are-adr-only-governance-drawio

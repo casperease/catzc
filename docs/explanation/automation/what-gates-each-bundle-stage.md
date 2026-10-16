@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "72ee88959e72"
+    repo_status: clean
     path: docs/explanation/automation/what-gates-each-bundle-stage.md
     folder: docs/explanation/automation
     name: what-gates-each-bundle-stage

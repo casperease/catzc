@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2e95f6eef7c2"
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md
     folder: docs/references/automation/catzc-base-execution/private
     name: invoke-executable-streamed-ps1

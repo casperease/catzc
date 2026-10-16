@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "83105447c674"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Select-TestShardAssignment.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: select-test-shard-assignment-tests-ps1

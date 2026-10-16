@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "83f4029256cb"
+    with_body_sha: db6a5501d3f8
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-thinplat-same-deploy-bicep-on-both-sides-operations-drawio

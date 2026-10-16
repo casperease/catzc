@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a4c5189a4f76
+    repo_status: locked
     path: docs/references/automation/catzc-base-reports/types/ReportsConfig.cs.md
     folder: docs/references/automation/catzc-base-reports/types
     name: reports-config-cs

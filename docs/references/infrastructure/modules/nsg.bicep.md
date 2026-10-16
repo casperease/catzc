@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5c9e3b705c1b"
+    repo_status: locked
     path: docs/references/infrastructure/modules/nsg.bicep.md
     folder: docs/references/infrastructure/modules
     name: nsg-bicep

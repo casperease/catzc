@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fa34b9ef9840
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: guids-yml

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d8dc0dce5b85
+    with_body_sha: cb72479dd951
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-build-then-place-with-one-command-operations-drawio

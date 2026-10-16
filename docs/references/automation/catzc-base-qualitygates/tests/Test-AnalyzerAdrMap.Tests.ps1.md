@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1c2a076698f9"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-AnalyzerAdrMap.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-analyzer-adr-map-tests-ps1

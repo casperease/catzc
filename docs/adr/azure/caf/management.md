@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5bb2b8a1cdb8"
+    repo_status: clean
     path: docs/adr/azure/caf/management.md
     folder: docs/adr/azure/caf
     name: management

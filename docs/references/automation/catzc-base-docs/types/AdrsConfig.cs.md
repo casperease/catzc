@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "04687311c854"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adrs-config-cs

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04c6051a5de3"
+    with_body_sha: "83036034a2bd"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-two-entries-feed-one-importer-architecture-drawio

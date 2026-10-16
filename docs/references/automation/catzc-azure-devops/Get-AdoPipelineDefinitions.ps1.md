@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ad282d62831d
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md
     folder: docs/references/automation/catzc-azure-devops
     name: get-ado-pipeline-definitions-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a1d9fba083df
+    repo_status: clean
     path: docs/explanation/pipelines/what-you-set-decides-the-credential.md
     folder: docs/explanation/pipelines
     name: what-you-set-decides-the-credential

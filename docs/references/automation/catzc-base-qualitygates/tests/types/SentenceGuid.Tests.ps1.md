@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0a096ffd23ff"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/types/SentenceGuid.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: sentence-guid-tests-ps1

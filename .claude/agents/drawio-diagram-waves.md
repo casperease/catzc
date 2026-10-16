@@ -15,6 +15,7 @@ skills: [drawio-waves, drawio-look, drawio-renderer, catzc-run, git-readonly, re
 catzc:
   immutable:
     with_body_sha: "7a10c54234c1"
+    repo_status: clean
     path: ".claude/agents/drawio-diagram-waves.md"
     folder: agents
     name: drawio-diagram-waves

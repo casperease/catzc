@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4b85d7799390"
+    repo_status: locked
     path: docs/references/automation/catzc-base-rootconfig/tests/Test-RootAnalyzerSettings.Tests.ps1.md
     folder: docs/references/automation/catzc-base-rootconfig/tests
     name: test-root-analyzer-settings-tests-ps1

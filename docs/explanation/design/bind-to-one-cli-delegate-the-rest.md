@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5ffe1a51b035"
+    repo_status: clean
     path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
     folder: docs/explanation/design
     name: bind-to-one-cli-delegate-the-rest

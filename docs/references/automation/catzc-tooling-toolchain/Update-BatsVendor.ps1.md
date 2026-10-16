@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "511d6c329a0e"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/Update-BatsVendor.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: update-bats-vendor-ps1

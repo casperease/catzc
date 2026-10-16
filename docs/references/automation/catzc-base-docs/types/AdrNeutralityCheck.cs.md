@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "104a6465f2e7"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrNeutralityCheck.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-neutrality-check-cs

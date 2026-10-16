@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "018c90c9fb6e"
+    repo_status: clean
     path: docs/adr/research/version-control.md
     folder: docs/adr/research
     name: version-control

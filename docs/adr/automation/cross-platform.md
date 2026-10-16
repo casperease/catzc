@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5991ca784914"
+    repo_status: clean
     path: docs/adr/automation/cross-platform.md
     folder: docs/adr/automation
     name: cross-platform

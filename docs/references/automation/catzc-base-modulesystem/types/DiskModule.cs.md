@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f1d34517b03b
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/types/DiskModule.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: disk-module-cs

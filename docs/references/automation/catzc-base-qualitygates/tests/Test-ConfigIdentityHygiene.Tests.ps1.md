@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "11502d215c91"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-ConfigIdentityHygiene.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-config-identity-hygiene-tests-ps1

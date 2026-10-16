@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8c72e049afa6"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Import-VendoredPester.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: import-vendored-pester-tests-ps1

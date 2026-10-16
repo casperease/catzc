@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ff3a0e6a5507
+    repo_status: locked
     path: docs/references/automation/internal/tests/Import-TypesAssembly.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: import-types-assembly-tests-ps1

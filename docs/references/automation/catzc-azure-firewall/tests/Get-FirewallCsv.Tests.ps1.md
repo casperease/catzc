@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "71e1b2a9c4e2"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-firewall/tests
     name: get-firewall-csv-tests-ps1

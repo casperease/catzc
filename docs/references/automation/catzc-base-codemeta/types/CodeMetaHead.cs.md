@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d566eadc0aa6
+    repo_status: locked
     path: docs/references/automation/catzc-base-codemeta/types/CodeMetaHead.cs.md
     folder: docs/references/automation/catzc-base-codemeta/types
     name: code-meta-head-cs

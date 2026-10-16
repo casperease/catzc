@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0851cc5cff01"
+    repo_status: clean
     path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
     folder: docs/explanation/configuration
     name: callers-in-four-modules-share-one-resolver

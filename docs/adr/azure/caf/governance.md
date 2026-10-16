@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ff679b35f782
+    repo_status: clean
     path: docs/adr/azure/caf/governance.md
     folder: docs/adr/azure/caf
     name: governance

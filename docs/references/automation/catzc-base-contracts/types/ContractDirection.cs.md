@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "93057ef1b5c9"
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/types/ContractDirection.cs.md
     folder: docs/references/automation/catzc-base-contracts/types
     name: contract-direction-cs

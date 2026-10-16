@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a619bc4a2253
+    repo_status: clean
     path: docs/adr/automation/python/python-test-artifacts.md
     folder: docs/adr/automation/python
     name: python-test-artifacts

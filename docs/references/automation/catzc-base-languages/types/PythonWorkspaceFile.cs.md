@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "46b3779ff193"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/PythonWorkspaceFile.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: python-workspace-file-cs

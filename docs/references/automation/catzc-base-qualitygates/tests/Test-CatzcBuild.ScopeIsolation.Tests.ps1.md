@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "375dc0021c56"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-catzc-build-scope-isolation-tests-ps1

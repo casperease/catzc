@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5285ff57f091"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/FileCarrierResolver.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: file-carrier-resolver-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "539e1e9a45a2"
+    repo_status: clean
     path: docs/adr/pipelines/pipeline-variables.md
     folder: docs/adr/pipelines
     name: pipeline-variables

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1c55ad0ec400"
+    repo_status: clean
     path: docs/explanation/flow/a-merge-runs-cd-to-prod.md
     folder: docs/explanation/flow
     name: a-merge-runs-cd-to-prod

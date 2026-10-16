@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8267c9f7bd07"
+    with_body_sha: "41bc4b4cdfc4"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-every-code-root-is-a-copy-architecture-drawio

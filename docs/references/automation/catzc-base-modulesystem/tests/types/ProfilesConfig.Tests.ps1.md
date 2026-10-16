@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f5eb83d81bb9
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/tests/types/ProfilesConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests/types
     name: profiles-config-tests-ps1

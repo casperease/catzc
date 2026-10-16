@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "28ab2e5a3605"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Write-ReportModeFinding.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: write-report-mode-finding-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "05d20c8d4a2f"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Split-CachedFile.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: split-cached-file-tests-ps1

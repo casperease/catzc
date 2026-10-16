@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5266d45b219c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-timeouts/tests/types/BoundedCommand.Tests.ps1.md
     folder: docs/references/automation/catzc-base-timeouts/tests/types
     name: bounded-command-tests-ps1

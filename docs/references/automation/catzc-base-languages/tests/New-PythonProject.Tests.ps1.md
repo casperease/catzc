@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "82b1ba3eb0fd"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: new-python-project-tests-ps1

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: eb34fc4ffbe3
+    with_body_sha: "2a4d54089ff1"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-cd-builds-once-then-deploys-prod-itself-implementation-drawio

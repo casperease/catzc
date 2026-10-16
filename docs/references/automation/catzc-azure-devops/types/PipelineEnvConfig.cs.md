@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e0a40c517c57
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/types/PipelineEnvConfig.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: pipeline-env-config-cs

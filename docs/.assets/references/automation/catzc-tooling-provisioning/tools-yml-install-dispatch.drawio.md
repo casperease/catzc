@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "26b52e084a21"
+    repo_status: clean
     path: docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
     folder: docs/.assets/references/automation/catzc-tooling-provisioning
     name: tools-yml-install-dispatch-drawio

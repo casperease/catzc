@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a4effc39178e
+    repo_status: locked
     path: docs/references/automation/catzc-base-files/Copy-Directory.ps1.md
     folder: docs/references/automation/catzc-base-files
     name: copy-directory-ps1

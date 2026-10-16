@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ab3978c48aea
+    with_body_sha: "6ef29334e98b"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-depm-two-gates-check-the-layer-pins-governance-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6db24447c9bc"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/tests/Get-Config.Integrity.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: get-config-integrity-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "62f8d941bea4"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: test-in-isolation-ps1

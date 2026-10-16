@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a0bdd43224ba
+    with_body_sha: "90e4ff806034"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-drift-is-gated-generation-is-adr-only-governance-drawio

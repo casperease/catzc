@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9199aeed05cf"
+    with_body_sha: caffa246300c
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-runmode-which-run-mode-rules-have-a-gate-governance-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "04f58188ca31"
+    repo_status: clean
     path: docs/adr/principles/reduce-waste.md
     folder: docs/adr/principles
     name: reduce-waste

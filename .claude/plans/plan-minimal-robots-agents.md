@@ -5,6 +5,34 @@ plan:
   reviewed: 2026-10-16
   parent: plan-minimal-robots
   targets: [.claude/agents, automation/Catzc.Base.Docs/configs/agents.yml, .claude/CLAUDE.md]
+catzc:
+  immutable:
+    with_body_sha: b1d0a493cf5b
+    repo_status: clean
+    path: ".claude/plans/plan-minimal-robots-agents.md"
+    folder: plans
+    name: plan-minimal-robots-agents
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-FAILFAST#7
+      - ADR-AUTO-TEST#35
+      - ADR-DSGN-VISUAL#4
+      - ADR-PRIN-CONFIG#5
+      - ADR-PRIN-NOWASTE#1
+      - ADR-PRIN-ONELIVE#{1,5}
+      - ADR-PROC-BUILTIN#3
+      - ADR-REPO-AGENTS#4
+      - ADR-REPO-FOLDERS#5
+      - ADR-REPO-LINK#{1,5}
+      - ADR-REPO-VOCAB#1
 ---
 
 # Minimal-Robots catalogue: the agents

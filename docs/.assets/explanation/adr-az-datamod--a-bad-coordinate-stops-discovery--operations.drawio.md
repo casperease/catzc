@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8df46916832d"
+    with_body_sha: "857259d99c9d"
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-a-bad-coordinate-stops-discovery-operations-drawio

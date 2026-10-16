@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "77ac509bd65a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: get-uncovered-internal-asset-dependency-tests-ps1

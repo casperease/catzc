@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "93e86afe9fa8"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/GlossaryAvoid.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-avoid-cs

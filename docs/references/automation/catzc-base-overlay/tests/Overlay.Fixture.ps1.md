@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "89e19e3c644b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
     folder: docs/references/automation/catzc-base-overlay/tests
     name: overlay-fixture-ps1

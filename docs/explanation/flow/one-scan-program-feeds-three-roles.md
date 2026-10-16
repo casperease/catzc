@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1756066d4cce"
+    repo_status: clean
     path: docs/explanation/flow/one-scan-program-feeds-three-roles.md
     folder: docs/explanation/flow
     name: one-scan-program-feeds-three-roles

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4fca178e7865"
+    repo_status: clean
     path: docs/references/automation/BCL/index.md
     folder: docs/references/automation/BCL
     name: index

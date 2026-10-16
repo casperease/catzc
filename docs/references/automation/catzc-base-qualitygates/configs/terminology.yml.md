@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "43ca183e1145"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/configs/terminology.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: terminology-yml

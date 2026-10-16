@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5cae5681c9d5"
+    repo_status: locked
     path: docs/references/automation/catzc-base-codemeta/types/HeadAnchor.cs.md
     folder: docs/references/automation/catzc-base-codemeta/types
     name: head-anchor-cs

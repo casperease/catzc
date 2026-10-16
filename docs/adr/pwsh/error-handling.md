@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d289b074815d
+    repo_status: clean
     path: docs/adr/pwsh/error-handling.md
     folder: docs/adr/pwsh
     name: error-handling

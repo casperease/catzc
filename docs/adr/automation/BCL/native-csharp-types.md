@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a55d51dfadd7
+    with_body_sha: "0fe8fb47f375"
+    repo_status: clean
     path: docs/adr/automation/BCL/native-csharp-types.md
     folder: docs/adr/automation/BCL
     name: native-csharp-types

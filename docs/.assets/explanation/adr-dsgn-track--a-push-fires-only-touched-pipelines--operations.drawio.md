@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f8b8a60cbed5
+    with_body_sha: "8bb6bde49d63"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-track-a-push-fires-only-touched-pipelines-operations-drawio

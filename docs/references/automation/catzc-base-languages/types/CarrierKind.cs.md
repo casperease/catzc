@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d531d05fa3d2
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: carrier-kind-cs

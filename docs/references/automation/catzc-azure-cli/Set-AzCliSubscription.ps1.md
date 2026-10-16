@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "901ddbb93e94"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md
     folder: docs/references/automation/catzc-azure-cli
     name: set-az-cli-subscription-ps1

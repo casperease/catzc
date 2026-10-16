@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bf00f776e752
+    repo_status: locked
     path: docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-test-kit-psm1

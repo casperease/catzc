@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "391e2c98da04"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/FileMetaKind.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: file-meta-kind-cs

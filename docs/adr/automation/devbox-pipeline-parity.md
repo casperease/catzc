@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6b5b0f557acf"
+    repo_status: clean
     path: docs/adr/automation/devbox-pipeline-parity.md
     folder: docs/adr/automation
     name: devbox-pipeline-parity

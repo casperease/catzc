@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "618fc4ca8cbe"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/tests/Test-Pipelines.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-devops/tests
     name: test-pipelines-tests-ps1

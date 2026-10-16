@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c1c1106a80c5
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: assert-dev-box-tools-status-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "08bdadd3ea73"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: spelling-oracle-cs

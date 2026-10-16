@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "51b985fcb383"
+    with_body_sha: "605a6ab968d9"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-depm-undeclared-edge-fails-with-one-line-operations-drawio

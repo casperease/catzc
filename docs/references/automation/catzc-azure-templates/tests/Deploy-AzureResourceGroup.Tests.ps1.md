@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "07584256fd65"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/tests/Deploy-AzureResourceGroup.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: deploy-azure-resource-group-tests-ps1

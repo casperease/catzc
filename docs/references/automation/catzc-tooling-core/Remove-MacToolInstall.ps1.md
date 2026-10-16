@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7c353656a0e1"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/Remove-MacToolInstall.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: remove-mac-tool-install-ps1

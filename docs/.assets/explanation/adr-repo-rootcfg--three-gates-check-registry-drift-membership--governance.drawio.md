@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7dbb8f9512f4"
+    with_body_sha: "576176614b70"
+    repo_status: clean
     path: docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-rootcfg-three-gates-check-registry-drift-membership-governance-drawio

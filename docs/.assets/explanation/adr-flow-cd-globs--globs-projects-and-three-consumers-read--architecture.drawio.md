@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dcf0bff2c4b0
+    with_body_sha: "7a84c3df41b8"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-globs-projects-and-three-consumers-read-architecture-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2fcdad285504"
+    repo_status: clean
     path: docs/explanation/automation/every-entry-runs-one-load-sequence.md
     folder: docs/explanation/automation
     name: every-entry-runs-one-load-sequence

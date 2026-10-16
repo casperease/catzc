@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "98b2238f79a4"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: languages-config-cs

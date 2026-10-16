@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: deb5fed9f5ce
+    repo_status: clean
     path: docs/explanation/repository/a-base-module-between-config-and-its-callers.md
     folder: docs/explanation/repository
     name: a-base-module-between-config-and-its-callers

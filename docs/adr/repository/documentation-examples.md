@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2524bd0104f1"
+    repo_status: clean
     path: docs/adr/repository/documentation-examples.md
     folder: docs/adr/repository
     name: documentation-examples

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "599c17e2bd4e"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests/types
     name: glob-pattern-tests-ps1

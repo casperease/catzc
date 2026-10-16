@@ -5,6 +5,35 @@ plan:
   reviewed: 2026-10-16
   waits_on: plan-module-kinds-tracks implemented (Q8); P4 folder move waits for the user's explicit go
   targets: [automation, docs/adr/automation, docs/adr/repository, contracts, automation/Catzc.Base.Docs/configs, .catzc]
+catzc:
+  immutable:
+    with_body_sha: f4eb9fa1608f
+    repo_status: clean
+    path: ".claude/plans/plan-layers-vocabulary-rename-contracts.md"
+    folder: plans
+    name: plan-layers-vocabulary-rename-contracts
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-BUNDLE#3
+      - ADR-AUTO-CACHE#6
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-ENGINE#{1,4,6,7}
+      - ADR-AUTO-EXTEND#3
+      - ADR-AUTO-TYPES#7
+      - ADR-DSGN-RUNMODE#1
+      - ADR-DSGN-TRACK#{3,15,17}
+      - ADR-REPO-CONTRACT#{1-3,6-9}
+    links:
+      - ".claude/plans/plan-config-defaults.md"
+      - ".claude/plans/prompt-automation-layers-continue.md"
 ---
 
 # Automation is the abstract term; the PowerShell track is named pwsh; public commands get contracts

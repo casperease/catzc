@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8960d512cee8"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: parameter-design-psm1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3bb9702f9f53"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: test-source-conventions-ps1

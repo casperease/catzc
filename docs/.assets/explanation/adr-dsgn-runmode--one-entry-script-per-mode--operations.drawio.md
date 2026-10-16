@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "959cab4cbfe2"
+    with_body_sha: da32502c3ff3
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-runmode-one-entry-script-per-mode-operations-drawio

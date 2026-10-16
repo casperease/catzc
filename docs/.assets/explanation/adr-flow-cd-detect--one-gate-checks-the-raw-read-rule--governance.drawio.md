@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6005ac44cbfb"
+    with_body_sha: "54dda89d2fb0"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-one-gate-checks-the-raw-read-rule-governance-drawio

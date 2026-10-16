@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dd2622030779
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-Prettier.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: invoke-prettier-tests-ps1

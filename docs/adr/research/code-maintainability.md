@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "226e53fa0afe"
+    repo_status: clean
     path: docs/adr/research/code-maintainability.md
     folder: docs/adr/research
     name: code-maintainability

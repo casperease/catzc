@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a6c28ba4602e
+    repo_status: locked
     path: docs/references/automation/catzc-base-overlay/Get-CatzcOverlay.ps1.md
     folder: docs/references/automation/catzc-base-overlay
     name: get-catzc-overlay-ps1

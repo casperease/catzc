@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4b1652ac5417"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/types/TerminologyConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: terminology-config-tests-ps1

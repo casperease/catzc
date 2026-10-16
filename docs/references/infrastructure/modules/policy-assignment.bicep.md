@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8319265c1cdf"
+    repo_status: locked
     path: docs/references/infrastructure/modules/policy-assignment.bicep.md
     folder: docs/references/infrastructure/modules
     name: policy-assignment-bicep

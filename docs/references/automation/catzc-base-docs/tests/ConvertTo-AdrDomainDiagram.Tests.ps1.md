@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1b1d4d938f02"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: convert-to-adr-domain-diagram-tests-ps1

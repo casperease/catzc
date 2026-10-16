@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cddb97f412f4
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/tests/Test-CheckedInBinaries.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: test-checked-in-binaries-tests-ps1

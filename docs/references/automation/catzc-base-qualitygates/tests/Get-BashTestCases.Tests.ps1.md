@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d492d48eb8a6
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-BashTestCases.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-bash-test-cases-tests-ps1

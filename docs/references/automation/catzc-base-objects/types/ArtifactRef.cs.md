@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "60145a2c5c62"
+    repo_status: locked
     path: docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: artifact-ref-cs

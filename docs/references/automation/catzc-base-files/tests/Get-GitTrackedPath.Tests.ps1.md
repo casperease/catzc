@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dd9fa66789b2
+    repo_status: locked
     path: docs/references/automation/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md
     folder: docs/references/automation/catzc-base-files/tests
     name: get-git-tracked-path-tests-ps1

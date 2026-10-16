@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b9c07e667d0e
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-test-skip-reason-ps1

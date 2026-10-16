@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a4747cdafc78
+    repo_status: clean
     path: docs/how-to/getting-started/automation/add-a-module.md
     folder: docs/how-to/getting-started/automation
     name: add-a-module

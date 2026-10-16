@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6e24a1615476"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: test-expected-package-manager-ps1

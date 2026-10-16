@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "532ddd6253c6"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/types/FileKindsConfig.cs.md
     folder: docs/references/automation/catzc-base-globs/types
     name: file-kinds-config-cs

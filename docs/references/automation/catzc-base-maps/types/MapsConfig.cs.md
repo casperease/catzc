@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4d6945873658"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/MapsConfig.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: maps-config-cs

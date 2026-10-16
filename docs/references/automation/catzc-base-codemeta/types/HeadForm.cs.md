@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4fc7c7757669"
+    repo_status: locked
     path: docs/references/automation/catzc-base-codemeta/types/HeadForm.cs.md
     folder: docs/references/automation/catzc-base-codemeta/types
     name: head-form-cs

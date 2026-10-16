@@ -1,3 +1,24 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "367f1c4d7eb2"
+    repo_status: clean
+    path: ".claude/plans/prompt-automation-layers-continue.md"
+    folder: plans
+    name: prompt-automation-layers-continue
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-ENGINE#4
+---
+
 # .claude/plans/prompt-automation-layers-continue.md
 
 `Continuation prompt for the automation layers + pwsh rename work: paste as the first message of a fresh session`

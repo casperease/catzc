@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "544d6c9551d1"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-keyhandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-keyhandler/tests
     name: import-ps-read-line-key-handler-set-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "644771053f63"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-GoTestCases.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-go-test-cases-tests-ps1

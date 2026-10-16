@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ac306dc20239
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: language-bridge-ps1

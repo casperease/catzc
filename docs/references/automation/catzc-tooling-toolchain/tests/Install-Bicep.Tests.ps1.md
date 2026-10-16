@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fb1af72c9512
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Bicep.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: install-bicep-tests-ps1

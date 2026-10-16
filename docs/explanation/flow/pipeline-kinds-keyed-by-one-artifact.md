@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3af8354b998e"
+    repo_status: clean
     path: docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
     folder: docs/explanation/flow
     name: pipeline-kinds-keyed-by-one-artifact

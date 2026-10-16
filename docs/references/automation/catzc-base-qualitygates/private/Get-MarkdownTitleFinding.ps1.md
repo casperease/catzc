@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4a419dac15d2"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-markdown-title-finding-ps1

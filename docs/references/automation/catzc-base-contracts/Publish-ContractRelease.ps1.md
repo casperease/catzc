@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4a5c3507f725"
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md
     folder: docs/references/automation/catzc-base-contracts
     name: publish-contract-release-ps1

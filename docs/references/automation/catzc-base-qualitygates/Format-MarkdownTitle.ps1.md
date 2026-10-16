@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "85ca84513188"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: format-markdown-title-ps1

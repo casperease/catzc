@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8ed1cf7997bb"
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md
     folder: docs/references/automation/catzc-base-execution/tests
     name: invoke-executable-tests-ps1

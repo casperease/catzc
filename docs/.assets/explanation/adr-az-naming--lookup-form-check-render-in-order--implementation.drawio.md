@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "11a610f05c60"
+    with_body_sha: b6a26f53576c
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-naming-lookup-form-check-render-in-order-implementation-drawio

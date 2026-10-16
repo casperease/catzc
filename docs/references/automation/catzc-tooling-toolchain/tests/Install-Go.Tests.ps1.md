@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ff7dee7c80a0
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Go.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: install-go-tests-ps1

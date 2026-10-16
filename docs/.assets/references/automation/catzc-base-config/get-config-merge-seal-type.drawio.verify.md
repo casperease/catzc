@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e64cd3135583
+    repo_status: clean
     path: docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.verify.md
     folder: docs/.assets/references/automation/catzc-base-config
     name: get-config-merge-seal-type-drawio-verify

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f364d0f20408
+    with_body_sha: "2c4625acfd45"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-four-domains-promote-one-artifact-architecture-drawio

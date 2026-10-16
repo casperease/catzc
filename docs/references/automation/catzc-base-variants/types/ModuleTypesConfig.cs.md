@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f0e1ea2fadaf
+    repo_status: locked
     path: docs/references/automation/catzc-base-variants/types/ModuleTypesConfig.cs.md
     folder: docs/references/automation/catzc-base-variants/types
     name: module-types-config-cs

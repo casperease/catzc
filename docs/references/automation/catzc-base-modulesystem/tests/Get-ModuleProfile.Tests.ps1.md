@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6ae55e8a8db1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleProfile.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: get-module-profile-tests-ps1

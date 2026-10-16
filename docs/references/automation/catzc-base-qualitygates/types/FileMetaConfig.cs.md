@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e9d35d2769c6
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: file-meta-config-cs

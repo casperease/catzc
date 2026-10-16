@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1bb977ab38e6"
+    repo_status: clean
     path: docs/adr/azure/caf/network-connectivity.md
     folder: docs/adr/azure/caf
     name: network-connectivity

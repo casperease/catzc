@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "654bf7f1f7c2"
+    with_body_sha: "32a9d1e6316c"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-pass-the-limit-or-the-call-is-denied-operations-drawio

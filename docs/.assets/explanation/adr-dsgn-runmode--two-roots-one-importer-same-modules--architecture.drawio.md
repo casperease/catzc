@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "70aa3884c443"
+    with_body_sha: "170ab5715e58"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-runmode-two-roots-one-importer-same-modules-architecture-drawio

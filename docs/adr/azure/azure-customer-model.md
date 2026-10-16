@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3825cc41e801"
+    repo_status: clean
     path: docs/adr/azure/azure-customer-model.md
     folder: docs/adr/azure
     name: azure-customer-model

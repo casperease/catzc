@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: eb6450f21ef8
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: get-tools-status-tests-ps1

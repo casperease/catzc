@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8f72f4b324da"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/types/EngineSetCheck.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: engine-set-check-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "399ecfd1d4c9"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-citation-map-cs

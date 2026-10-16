@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: aaaf816e6238
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-TestRunContext.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-test-run-context-tests-ps1

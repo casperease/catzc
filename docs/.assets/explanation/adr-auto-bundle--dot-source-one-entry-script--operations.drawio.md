@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f37e140e68ea
+    with_body_sha: a022325de562
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-dot-source-one-entry-script-operations-drawio

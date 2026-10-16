@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cfce914ef14b
+    with_body_sha: d5f70f8f8828
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-overlap-gated-for-units-and-modules-governance-drawio

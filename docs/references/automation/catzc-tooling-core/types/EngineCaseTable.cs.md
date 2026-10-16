@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "56a014811357"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md
     folder: docs/references/automation/catzc-tooling-core/types
     name: engine-case-table-cs

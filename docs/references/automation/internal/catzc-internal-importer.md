@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e9a5cd44ce14
+    repo_status: clean
     path: docs/references/automation/internal/catzc-internal-importer.md
     folder: docs/references/automation/internal
     name: catzc-internal-importer

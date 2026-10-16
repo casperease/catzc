@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e86dddf45f2c
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/types/DocMapping.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests/types
     name: doc-mapping-tests-ps1

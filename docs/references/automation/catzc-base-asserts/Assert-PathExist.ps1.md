@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b4d3680b1e6f
+    repo_status: locked
     path: docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md
     folder: docs/references/automation/catzc-base-asserts
     name: assert-path-exist-ps1

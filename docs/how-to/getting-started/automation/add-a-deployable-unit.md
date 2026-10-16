@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8cedc41c9bd5"
+    repo_status: clean
     path: docs/how-to/getting-started/automation/add-a-deployable-unit.md
     folder: docs/how-to/getting-started/automation
     name: add-a-deployable-unit

@@ -13,6 +13,7 @@ skills: [plan-intake, plan-value, git-readonly, report-fixed]
 catzc:
   immutable:
     with_body_sha: fec762254390
+    repo_status: clean
     path: ".claude/agents/plan-intake.md"
     folder: agents
     name: plan-intake

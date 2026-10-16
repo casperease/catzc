@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c6a66d2338ab
+    repo_status: clean
     path: docs/adr/principles/one-living-version.md
     folder: docs/adr/principles
     name: one-living-version

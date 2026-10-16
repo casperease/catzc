@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b7dcd603d49b
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-automatic-variable-misuse-psm1

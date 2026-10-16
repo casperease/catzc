@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4360f996ecaf"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/HighlightedCell.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: highlighted-cell-cs

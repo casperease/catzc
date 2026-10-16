@@ -12,6 +12,21 @@ plan:
       automation/.compiled,
       docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: "67c2890f42f6"
+    repo_status: clean
+    path: ".claude/plans/plan-unboxing.md"
+    folder: plans
+    name: plan-unboxing
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # Unboxing: P1 to P3 shipped; P4 and P5 wait for a go

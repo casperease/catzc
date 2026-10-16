@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "884456f1f5d2"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-python/tests/Install-PipTool.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-python/tests
     name: install-pip-tool-tests-ps1

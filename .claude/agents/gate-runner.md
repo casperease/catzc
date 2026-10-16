@@ -14,6 +14,7 @@ skills: [catzc-run, catzc-check, report-fixed]
 catzc:
   immutable:
     with_body_sha: "07dee7cd8948"
+    repo_status: clean
     path: ".claude/agents/gate-runner.md"
     folder: agents
     name: gate-runner

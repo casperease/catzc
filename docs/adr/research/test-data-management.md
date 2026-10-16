@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fca065d02994
+    repo_status: clean
     path: docs/adr/research/test-data-management.md
     folder: docs/adr/research
     name: test-data-management

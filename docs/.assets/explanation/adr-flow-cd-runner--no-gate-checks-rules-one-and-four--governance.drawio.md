@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7c29dc6ff328"
+    with_body_sha: a6812f8c7b41
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-runner-no-gate-checks-rules-one-and-four-governance-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "52298307f3b5"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/configs/identity-tokens.yml.md
     folder: docs/references/automation/catzc-azure/configs
     name: identity-tokens-yml

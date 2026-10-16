@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a8ed9f652f1a
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: format-types-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "19d36db4ee84"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/LinkFindingType.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: link-finding-type-cs

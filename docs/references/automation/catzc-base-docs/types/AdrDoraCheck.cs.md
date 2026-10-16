@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "55d1103e9a48"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrDoraCheck.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-dora-check-cs

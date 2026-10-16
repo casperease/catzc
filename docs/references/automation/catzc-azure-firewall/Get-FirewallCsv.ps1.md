@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3c8efece77ee"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md
     folder: docs/references/automation/catzc-azure-firewall
     name: get-firewall-csv-ps1

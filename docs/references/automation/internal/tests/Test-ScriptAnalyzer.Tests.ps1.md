@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3df484ba0b86"
+    repo_status: locked
     path: docs/references/automation/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: test-script-analyzer-tests-ps1

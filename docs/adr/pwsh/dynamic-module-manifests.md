@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4511f151b87b"
+    repo_status: clean
     path: docs/adr/pwsh/dynamic-module-manifests.md
     folder: docs/adr/pwsh
     name: dynamic-module-manifests

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7c84eae1bb10"
+    repo_status: clean
     path: docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
     folder: docs/.assets/references/automation/catzc-base-globs
     name: protected-module-skip-by-hash-drawio

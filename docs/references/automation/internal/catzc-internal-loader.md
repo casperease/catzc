@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d748a59e3c95
+    repo_status: clean
     path: docs/references/automation/internal/catzc-internal-loader.md
     folder: docs/references/automation/internal
     name: catzc-internal-loader

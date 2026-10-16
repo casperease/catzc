@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: aa98ed33c436
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-link-scope-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "53cadb758d1b"
+    repo_status: clean
     path: docs/adr/automation/uv-python-handler.md
     folder: docs/adr/automation
     name: uv-python-handler

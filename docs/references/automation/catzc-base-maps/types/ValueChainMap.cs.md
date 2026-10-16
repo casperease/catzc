@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8525e8f48664"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: value-chain-map-cs

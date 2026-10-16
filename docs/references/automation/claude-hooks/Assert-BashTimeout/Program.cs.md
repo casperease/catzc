@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2276d83149dc"
+    repo_status: locked
     path: docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md
     folder: docs/references/automation/claude-hooks/Assert-BashTimeout
     name: program-cs

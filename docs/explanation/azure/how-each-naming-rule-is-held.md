@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ee09541f42c4
+    repo_status: clean
     path: docs/explanation/azure/how-each-naming-rule-is-held.md
     folder: docs/explanation/azure
     name: how-each-naming-rule-is-held

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "179a9dc40c85"
+    repo_status: clean
     path: docs/adr/research/deployment-automation.md
     folder: docs/adr/research
     name: deployment-automation

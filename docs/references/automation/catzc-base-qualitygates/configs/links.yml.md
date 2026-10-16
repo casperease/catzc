@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: db7980c5beb3
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/configs/links.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: links-yml

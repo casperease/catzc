@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "67d5399efe4e"
+    with_body_sha: e608ed7093ea
+    repo_status: clean
     path: docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-loading-ask-by-name-get-the-cached-object-operations-drawio

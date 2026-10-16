@@ -9,6 +9,7 @@ metadata:
   catzc:
     immutable:
       with_body_sha: "9abf4bd088e2"
+      repo_status: clean
       path: ".claude/skills/plan-value/SKILL.md"
       folder: skills/plan-value
       name: skill

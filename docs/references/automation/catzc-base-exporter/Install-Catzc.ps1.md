@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "01d159efd894"
+    repo_status: locked
     path: docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md
     folder: docs/references/automation/catzc-base-exporter
     name: install-catzc-ps1

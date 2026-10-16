@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bd87b0cb6bd8
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-for-each-object-control-flow-psm1

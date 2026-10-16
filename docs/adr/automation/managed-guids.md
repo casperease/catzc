@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "94f06d40fd5a"
+    repo_status: clean
     path: docs/adr/automation/managed-guids.md
     folder: docs/adr/automation
     name: managed-guids

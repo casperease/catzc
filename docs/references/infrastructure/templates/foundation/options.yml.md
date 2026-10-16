@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a8739bf864a8
+    repo_status: locked
     path: docs/references/infrastructure/templates/foundation/options.yml.md
     folder: docs/references/infrastructure/templates/foundation
     name: options-yml

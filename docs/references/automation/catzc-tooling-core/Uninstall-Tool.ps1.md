@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8c76190e7354"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: uninstall-tool-ps1

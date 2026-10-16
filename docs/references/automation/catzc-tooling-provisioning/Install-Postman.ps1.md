@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "603f05ac2c81"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: install-postman-ps1

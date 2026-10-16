@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c24894c6fcd5
+    repo_status: clean
     path: docs/adr/automation/path-representation.md
     folder: docs/adr/automation
     name: path-representation

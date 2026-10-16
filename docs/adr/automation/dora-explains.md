@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3627036d4752"
+    with_body_sha: d865f91f9a39
+    repo_status: clean
     path: docs/adr/automation/dora-explains.md
     folder: docs/adr/automation
     name: dora-explains
@@ -32,6 +33,7 @@ catzc:
       - docs/adr/automation/internal-asset-dependencies.md
       - docs/adr/automation/log-before-invoke.md
       - docs/adr/automation/managed-guids.md
+      - docs/adr/automation/module-model.md
       - docs/adr/automation/never-depend-on-pwd.md
       - docs/adr/automation/open-closed-architecture.md
       - docs/adr/automation/path-representation.md

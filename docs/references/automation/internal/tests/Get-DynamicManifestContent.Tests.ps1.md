@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "04e65cc96548"
+    repo_status: locked
     path: docs/references/automation/internal/tests/Get-DynamicManifestContent.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: get-dynamic-manifest-content-tests-ps1

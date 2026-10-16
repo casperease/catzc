@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1dfc696f8d7c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/configs/go.yml.md
     folder: docs/references/automation/catzc-base-languages/configs
     name: go-yml

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "21e254f9ac30"
+    with_body_sha: d34bce750a2c
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-one-rule-per-stage-and-two-gaps-governance-drawio

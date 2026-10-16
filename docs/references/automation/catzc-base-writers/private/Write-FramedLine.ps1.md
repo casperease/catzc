@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e5d2921677eb
+    repo_status: locked
     path: docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md
     folder: docs/references/automation/catzc-base-writers/private
     name: write-framed-line-ps1

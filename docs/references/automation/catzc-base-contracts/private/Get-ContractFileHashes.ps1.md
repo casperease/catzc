@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "75816591014a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md
     folder: docs/references/automation/catzc-base-contracts/private
     name: get-contract-file-hashes-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c176ac54b88e
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/configs/agents.yml.md
     folder: docs/references/automation/catzc-base-docs/configs
     name: agents-yml

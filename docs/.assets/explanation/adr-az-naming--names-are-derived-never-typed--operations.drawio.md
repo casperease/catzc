@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "669e1b5ac16d"
+    with_body_sha: d0686e125b9f
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-naming-names-are-derived-never-typed-operations-drawio

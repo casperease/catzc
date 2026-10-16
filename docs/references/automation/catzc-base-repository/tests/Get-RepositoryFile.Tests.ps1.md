@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a5441cb35901
+    repo_status: locked
     path: docs/references/automation/catzc-base-repository/tests/Get-RepositoryFile.Tests.ps1.md
     folder: docs/references/automation/catzc-base-repository/tests
     name: get-repository-file-tests-ps1

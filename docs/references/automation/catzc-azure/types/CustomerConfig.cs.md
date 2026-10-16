@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bbd9e1107b03
+    repo_status: locked
     path: docs/references/automation/catzc-azure/types/CustomerConfig.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: customer-config-cs

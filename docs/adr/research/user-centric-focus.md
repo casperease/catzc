@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f9bb86787adb
+    repo_status: clean
     path: docs/adr/research/user-centric-focus.md
     folder: docs/adr/research
     name: user-centric-focus

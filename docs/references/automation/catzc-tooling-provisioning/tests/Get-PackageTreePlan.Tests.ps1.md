@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "06247398c1a5"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/tests/Get-PackageTreePlan.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: get-package-tree-plan-tests-ps1

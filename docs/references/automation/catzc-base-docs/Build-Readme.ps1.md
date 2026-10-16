@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0c03e9388d1d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/Build-Readme.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: build-readme-ps1

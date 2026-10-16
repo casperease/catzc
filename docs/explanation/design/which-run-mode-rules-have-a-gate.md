@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6ae87099e7a9"
+    repo_status: clean
     path: docs/explanation/design/which-run-mode-rules-have-a-gate.md
     folder: docs/explanation/design
     name: which-run-mode-rules-have-a-gate

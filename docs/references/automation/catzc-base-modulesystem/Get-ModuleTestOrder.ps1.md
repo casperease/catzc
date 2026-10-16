@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a1f371bece65
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: get-module-test-order-ps1

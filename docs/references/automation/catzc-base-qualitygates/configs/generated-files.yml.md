@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b2ac99e2051e
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/configs/generated-files.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: generated-files-yml

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0d5279858354"
+    repo_status: locked
     path: docs/references/infrastructure/modules/log-analytics.bicep.md
     folder: docs/references/infrastructure/modules
     name: log-analytics-bicep

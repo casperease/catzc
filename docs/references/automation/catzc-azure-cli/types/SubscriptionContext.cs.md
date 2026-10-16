@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c0a980682507
+    repo_status: locked
     path: docs/references/automation/catzc-azure-cli/types/SubscriptionContext.cs.md
     folder: docs/references/automation/catzc-azure-cli/types
     name: subscription-context-cs

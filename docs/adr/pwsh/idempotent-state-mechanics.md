@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2b0b2d9c8f9f"
+    repo_status: clean
     path: docs/adr/pwsh/idempotent-state-mechanics.md
     folder: docs/adr/pwsh
     name: idempotent-state-mechanics

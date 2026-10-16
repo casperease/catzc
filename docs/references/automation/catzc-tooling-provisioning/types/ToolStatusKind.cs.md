@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b8df542dc6b0
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/types/ToolStatusKind.cs.md
     folder: docs/references/automation/catzc-tooling-provisioning/types
     name: tool-status-kind-cs

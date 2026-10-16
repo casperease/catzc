@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8457dfdf5b65"
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
     folder: docs/references/automation/catzc-base-execution/types
     name: executable-probe-cs

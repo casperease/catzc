@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4679ae4fa14e"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests/types
     name: agent-entry-tests-ps1

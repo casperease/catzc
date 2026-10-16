@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a9cdfaf77fc2
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownScope.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-markdown-scope-ps1

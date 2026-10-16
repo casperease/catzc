@@ -11,6 +11,21 @@ plan:
       automation/Catzc.Base.Docs/configs/adrs.yml,
       .claude/CLAUDE.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: "019acc135c9a"
+    repo_status: clean
+    path: ".claude/plans/plan-adr-cats.md"
+    folder: plans
+    name: plan-adr-cats
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # ADR-CATS: cats and catzc, two names, two audiences, used across each other on purpose

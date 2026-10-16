@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4277d8fc37cc"
+    repo_status: clean
     path: docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
     folder: docs/.assets/references/automation/catzc-base-execution
     name: invoke-executable-two-paths-one-bounded-drawio

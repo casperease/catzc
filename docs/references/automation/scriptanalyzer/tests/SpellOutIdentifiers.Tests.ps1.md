@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "12bbcdbec0d0"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: spell-out-identifiers-tests-ps1

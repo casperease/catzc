@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fae9c4665e33
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationSkipReport.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: write-test-automation-skip-report-tests-ps1

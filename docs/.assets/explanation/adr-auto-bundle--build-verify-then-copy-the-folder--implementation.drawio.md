@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "06ed04eda1d7"
+    with_body_sha: a183ffcbaa0f
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-build-verify-then-copy-the-folder-implementation-drawio

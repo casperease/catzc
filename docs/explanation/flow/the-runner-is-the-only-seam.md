@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: db59804939f1
+    repo_status: clean
     path: docs/explanation/flow/the-runner-is-the-only-seam.md
     folder: docs/explanation/flow
     name: the-runner-is-the-only-seam

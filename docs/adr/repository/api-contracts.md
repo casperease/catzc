@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ea04d4d14d37
+    repo_status: clean
     path: docs/adr/repository/api-contracts.md
     folder: docs/adr/repository
     name: api-contracts

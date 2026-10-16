@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "012b985164f7"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md
     folder: docs/references/automation/catzc-tooling-keyhandler/types
     name: key-handler-bindings-config-cs

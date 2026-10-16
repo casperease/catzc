@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "855b897c8e12"
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/configs/tools.yml.md
     folder: docs/references/automation/catzc-base-execution/configs
     name: tools-yml

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d00114a8500f
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrRuleSet.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-rule-set-cs

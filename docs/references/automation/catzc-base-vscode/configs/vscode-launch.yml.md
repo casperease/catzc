@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e26c6cd7e8c3
+    repo_status: locked
     path: docs/references/automation/catzc-base-vscode/configs/vscode-launch.yml.md
     folder: docs/references/automation/catzc-base-vscode/configs
     name: vscode-launch-yml

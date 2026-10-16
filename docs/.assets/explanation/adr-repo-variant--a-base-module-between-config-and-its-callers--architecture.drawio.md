@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "78c6b97aed3f"
+    with_body_sha: ceea7c0ef4bf
+    repo_status: clean
     path: docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-a-base-module-between-config-and-its-callers-architecture-drawio

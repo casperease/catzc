@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2c35cb9dca6d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/types/ContractAsset.cs.md
     folder: docs/references/automation/catzc-base-contracts/types
     name: contract-asset-cs

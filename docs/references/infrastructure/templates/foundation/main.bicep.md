@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4b99c52504cc"
+    repo_status: locked
     path: docs/references/infrastructure/templates/foundation/main.bicep.md
     folder: docs/references/infrastructure/templates/foundation
     name: main-bicep

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ddae9ec7174a
+    repo_status: clean
     path: docs/adr/azure/landing-zones.md
     folder: docs/adr/azure
     name: landing-zones

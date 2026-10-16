@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b0cbf15d555a
+    repo_status: clean
     path: docs/explanation/automation/types-check-forms-review-checks-crossers.md
     folder: docs/explanation/automation
     name: types-check-forms-review-checks-crossers

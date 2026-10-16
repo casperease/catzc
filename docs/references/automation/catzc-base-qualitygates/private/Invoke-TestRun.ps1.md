@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "99b7f70d0893"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: invoke-test-run-ps1

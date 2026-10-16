@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6fdcf2867642"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/GoTestResult.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: go-test-result-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "51994793db3c"
+    repo_status: locked
     path: docs/references/infrastructure/templates/discovery/options.yml.md
     folder: docs/references/infrastructure/templates/discovery
     name: options-yml

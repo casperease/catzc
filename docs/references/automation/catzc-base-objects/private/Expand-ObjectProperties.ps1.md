@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a57eb9def1d6
+    repo_status: locked
     path: docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md
     folder: docs/references/automation/catzc-base-objects/private
     name: expand-object-properties-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3bc8ff8c6a25"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/types/YamlTemplateType.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: yaml-template-type-cs

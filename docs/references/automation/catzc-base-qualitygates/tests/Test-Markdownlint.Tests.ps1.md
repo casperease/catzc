@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d66d433484db
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Markdownlint.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-markdownlint-tests-ps1

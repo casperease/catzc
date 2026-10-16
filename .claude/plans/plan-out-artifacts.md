@@ -10,6 +10,25 @@ plan:
       automation/Catzc.Base.Reports,
       docs/adr/repository/dedicated-output-directory.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: "52edab517f25"
+    repo_status: clean
+    path: ".claude/plans/plan-out-artifacts.md"
+    folder: plans
+    name: plan-out-artifacts
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-OUTDIR#{2,7,9}
 ---
 
 # Configurable output artifacts with sensible defaults

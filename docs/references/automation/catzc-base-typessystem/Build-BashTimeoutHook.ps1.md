@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6d30b15aacf1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
     folder: docs/references/automation/catzc-base-typessystem
     name: build-bash-timeout-hook-ps1

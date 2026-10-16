@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b477e777a6cd
+    repo_status: clean
     path: docs/adr/research/clear-and-communicated-ai-stance.md
     folder: docs/adr/research
     name: clear-and-communicated-ai-stance

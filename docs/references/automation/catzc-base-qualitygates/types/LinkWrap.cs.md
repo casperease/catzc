@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cde1f722ed85
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/LinkWrap.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: link-wrap-cs

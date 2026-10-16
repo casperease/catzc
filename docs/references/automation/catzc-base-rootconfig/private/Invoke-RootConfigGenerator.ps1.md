@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: eff317802684
+    repo_status: locked
     path: docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
     folder: docs/references/automation/catzc-base-rootconfig/private
     name: invoke-root-config-generator-ps1

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: af64f8fd976a
+    with_body_sha: f7db6022a8fb
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-invoke-importer-in-code-order-implementation-drawio

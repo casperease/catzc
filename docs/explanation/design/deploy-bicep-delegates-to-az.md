@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: df7b0bc977d6
+    repo_status: clean
     path: docs/explanation/design/deploy-bicep-delegates-to-az.md
     folder: docs/explanation/design
     name: deploy-bicep-delegates-to-az

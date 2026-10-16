@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "954aeb4113e5"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/GlossarySegment.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-segment-cs

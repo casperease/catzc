@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d5f31c0bb9a1
+    with_body_sha: "7811511d3ec0"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-thinplat-bind-to-one-cli-delegate-the-rest-meta-drawio

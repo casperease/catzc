@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c064865518e4
+    repo_status: locked
     path: docs/references/automation/catzc-azure-firewall/types/RuleType.cs.md
     folder: docs/references/automation/catzc-azure-firewall/types
     name: rule-type-cs

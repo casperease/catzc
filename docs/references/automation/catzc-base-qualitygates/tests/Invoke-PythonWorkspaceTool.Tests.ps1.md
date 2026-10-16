@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9f472fc02560"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-PythonWorkspaceTool.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: invoke-python-workspace-tool-tests-ps1

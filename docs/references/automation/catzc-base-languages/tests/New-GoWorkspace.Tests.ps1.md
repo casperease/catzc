@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "75f88b50d291"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: new-go-workspace-tests-ps1

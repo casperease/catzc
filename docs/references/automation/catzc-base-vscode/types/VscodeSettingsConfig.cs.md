@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8df00d95ce3c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-vscode/types/VscodeSettingsConfig.cs.md
     folder: docs/references/automation/catzc-base-vscode/types
     name: vscode-settings-config-cs

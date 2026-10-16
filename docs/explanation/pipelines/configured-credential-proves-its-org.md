@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6e7af59d401e"
+    repo_status: clean
     path: docs/explanation/pipelines/configured-credential-proves-its-org.md
     folder: docs/explanation/pipelines
     name: configured-credential-proves-its-org

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cbe120df3896
+    repo_status: locked
     path: docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md
     folder: docs/references/automation/catzc-base-variants
     name: test-have-customers-ps1

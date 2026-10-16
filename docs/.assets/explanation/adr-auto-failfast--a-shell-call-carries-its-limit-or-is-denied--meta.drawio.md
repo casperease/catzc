@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4efd470d4e41"
+    with_body_sha: e5638575f5f6
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-a-shell-call-carries-its-limit-or-is-denied-meta-drawio

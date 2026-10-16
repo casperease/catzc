@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6d12d5cc0bb7"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-PythonLint.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-python-lint-tests-ps1

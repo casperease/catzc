@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "79189fd52e3b"
+    with_body_sha: d16a35aac546
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-the-analyzer-names-the-raw-read-operations-drawio

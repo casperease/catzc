@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2adefb665c7d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md
     folder: docs/references/automation/catzc-base-contracts/private
     name: read-contract-data-ps1

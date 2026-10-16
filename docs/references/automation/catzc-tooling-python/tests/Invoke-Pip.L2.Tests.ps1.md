@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: aa4f92977a14
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-python/tests
     name: invoke-pip-l2-tests-ps1

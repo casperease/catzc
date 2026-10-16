@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "588b5b70ce56"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-BicepFormat.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: invoke-bicep-format-tests-ps1

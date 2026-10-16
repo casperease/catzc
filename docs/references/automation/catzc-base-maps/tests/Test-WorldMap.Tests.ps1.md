@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a118d549d663
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
     folder: docs/references/automation/catzc-base-maps/tests
     name: test-world-map-tests-ps1

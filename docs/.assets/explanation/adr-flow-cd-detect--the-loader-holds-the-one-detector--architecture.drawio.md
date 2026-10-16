@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "67683992d18b"
+    with_body_sha: "205241820a58"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-the-loader-holds-the-one-detector-architecture-drawio

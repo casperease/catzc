@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a6256dbbd5ec
+    with_body_sha: "8b58f8e216df"
+    repo_status: clean
     path: docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md
     folder: docs/explanation/automation
     name: unboxing-is-cheap-and-crossings-are-not

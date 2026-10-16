@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c03623e9b407
+    repo_status: clean
     path: docs/adr/flow/pipeline-types.md
     folder: docs/adr/flow
     name: pipeline-types

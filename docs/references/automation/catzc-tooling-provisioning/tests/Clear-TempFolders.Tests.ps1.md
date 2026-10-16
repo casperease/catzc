@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "273798cd91e7"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: clear-temp-folders-tests-ps1

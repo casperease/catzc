@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ffcc2f41afaa
+    with_body_sha: "81939292c545"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-print-projection-then-drift-names-the-filter-operations-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: be7ee9e833a9
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md
     folder: docs/references/automation/catzc-base-globs
     name: get-marker-blast-radius-ps1

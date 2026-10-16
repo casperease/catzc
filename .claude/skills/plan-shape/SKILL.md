@@ -8,6 +8,7 @@ metadata:
   catzc:
     immutable:
       with_body_sha: ecc1dfef34ad
+      repo_status: clean
       path: ".claude/skills/plan-shape/SKILL.md"
       folder: skills/plan-shape
       name: skill

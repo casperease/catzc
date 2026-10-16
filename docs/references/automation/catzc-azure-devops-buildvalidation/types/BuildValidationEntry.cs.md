@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8ccffbfb5dbe"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
     folder: docs/references/automation/catzc-azure-devops-buildvalidation/types
     name: build-validation-entry-cs

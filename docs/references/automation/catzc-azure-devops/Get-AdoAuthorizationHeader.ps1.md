@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "63f9c7440a96"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md
     folder: docs/references/automation/catzc-azure-devops
     name: get-ado-authorization-header-ps1

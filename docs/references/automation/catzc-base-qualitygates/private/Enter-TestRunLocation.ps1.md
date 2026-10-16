@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fcca4c9c5e1b
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: enter-test-run-location-ps1

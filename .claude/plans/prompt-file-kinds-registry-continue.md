@@ -1,3 +1,21 @@
+---
+catzc:
+  immutable:
+    with_body_sha: b9d2cd62e5eb
+    repo_status: clean
+    path: ".claude/plans/prompt-file-kinds-registry-continue.md"
+    folder: plans
+    name: prompt-file-kinds-registry-continue
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+---
+
 # Continuation prompt: file kinds registry leftovers (written 2026-10-16 15:22, carried here 2026-10-16)
 
 The prompt names `out/plan-file-kinds-registry.md`, which was deleted on 2026-10-16. Its state and leftovers are in

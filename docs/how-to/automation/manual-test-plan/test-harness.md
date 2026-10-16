@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "405dd3ce034b"
+    repo_status: clean
     path: docs/how-to/automation/manual-test-plan/test-harness.md
     folder: docs/how-to/automation/manual-test-plan
     name: test-harness

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6450c4c1a587"
+    with_body_sha: "83074c031e6c"
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-sync-from-the-last-certified-commit-meta-drawio

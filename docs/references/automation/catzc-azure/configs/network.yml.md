@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cdc1a6c15994
+    repo_status: locked
     path: docs/references/automation/catzc-azure/configs/network.yml.md
     folder: docs/references/automation/catzc-azure/configs
     name: network-yml

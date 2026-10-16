@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2d29c7499e9d"
+    with_body_sha: a7c298a51cf9
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-remote-one-door-in-one-stable-point-out-meta-drawio

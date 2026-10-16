@@ -9,6 +9,7 @@ metadata:
   catzc:
     immutable:
       with_body_sha: "33747a7441f4"
+      repo_status: clean
       path: ".claude/skills/catzc-check/SKILL.md"
       folder: skills/catzc-check
       name: skill

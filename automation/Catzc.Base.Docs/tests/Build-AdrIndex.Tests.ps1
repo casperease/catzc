@@ -32,6 +32,13 @@ Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'sourc
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
+    It 'the on-disk index carries the stamp of the inputs it is built from, so an unchanged build is skipped' {
+        Build-AdrIndex -Silent | Out-Null
+        $head = [System.IO.File]::ReadAllText((Join-Path $script:adrRoot 'index.md'))
+        $head | Should -Match 'with_inputs_sha: "?[0-9a-f]{64}'
+        (Build-AdrIndex -Silent -PassThru).Changed | Should -BeFalse
+    }
+
     It 'every adrs.yml ruleset is one parseable index row (codes agree with the flattened rule-sets)' {
         (@($script:indexEntries.Code) | Sort-Object) -join ',' |
             Should -Be ((@($script:ruleSets.External) | Sort-Object) -join ',') -Because (

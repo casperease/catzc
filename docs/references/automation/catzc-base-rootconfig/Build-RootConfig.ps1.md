@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: db6cee771e6d
+    repo_status: locked
     path: docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md
     folder: docs/references/automation/catzc-base-rootconfig
     name: build-root-config-ps1

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a19eb7f2ba2e
+    with_body_sha: f070e7adfe99
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-thinplat-what-keeps-the-platform-thin-governance-drawio

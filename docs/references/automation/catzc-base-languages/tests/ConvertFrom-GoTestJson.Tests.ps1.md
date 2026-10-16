@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7cf61401ce1f"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/tests/ConvertFrom-GoTestJson.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: convert-from-go-test-json-tests-ps1

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "361f99d60270"
+    with_body_sha: "9684ad09663c"
+    repo_status: clean
     path: docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-pipe-auth-which-auth-rungs-have-a-gate-governance-drawio

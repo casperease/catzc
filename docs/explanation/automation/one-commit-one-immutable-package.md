@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3f52daff5480"
+    repo_status: clean
     path: docs/explanation/automation/one-commit-one-immutable-package.md
     folder: docs/explanation/automation
     name: one-commit-one-immutable-package

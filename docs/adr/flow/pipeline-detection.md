@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0934c24a5d75"
+    repo_status: clean
     path: docs/adr/flow/pipeline-detection.md
     folder: docs/adr/flow
     name: pipeline-detection

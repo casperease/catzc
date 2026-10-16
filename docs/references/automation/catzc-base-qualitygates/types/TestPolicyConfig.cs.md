@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bd7dd2508428
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/TestPolicyConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: test-policy-config-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fdeda9fb8c79
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: set-abandoned-test-run-ps1

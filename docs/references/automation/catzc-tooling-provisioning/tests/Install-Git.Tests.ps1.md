@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4a4314849a9c"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/tests/Install-Git.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: install-git-tests-ps1

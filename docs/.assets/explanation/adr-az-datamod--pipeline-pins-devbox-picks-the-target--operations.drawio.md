@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: facd1e6be33b
+    with_body_sha: d13e837b344e
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-pipeline-pins-devbox-picks-the-target-operations-drawio

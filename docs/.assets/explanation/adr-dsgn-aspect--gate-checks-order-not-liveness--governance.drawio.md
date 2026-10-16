@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b74df221608c
+    with_body_sha: beafed532027
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-gate-checks-order-not-liveness-governance-drawio

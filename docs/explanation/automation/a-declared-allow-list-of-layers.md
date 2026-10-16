@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "30924884b291"
+    repo_status: clean
     path: docs/explanation/automation/a-declared-allow-list-of-layers.md
     folder: docs/explanation/automation
     name: a-declared-allow-list-of-layers

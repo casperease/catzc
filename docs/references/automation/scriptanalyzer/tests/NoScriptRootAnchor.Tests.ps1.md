@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "51d5a9ac5917"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-script-root-anchor-tests-ps1

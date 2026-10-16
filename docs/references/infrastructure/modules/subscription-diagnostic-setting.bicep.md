@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4371dd8a56dc"
+    repo_status: locked
     path: docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md
     folder: docs/references/infrastructure/modules
     name: subscription-diagnostic-setting-bicep

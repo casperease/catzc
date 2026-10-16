@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3acdceed8f51"
+    with_body_sha: "35b7a3496210"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-a-stopped-run-names-its-limit-operations-drawio

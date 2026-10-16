@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "42bace4e3c90"
+    repo_status: locked
     path: docs/references/automation/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-folders/tests/types
     name: folder-walk-config-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d2536c4ce4db
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Get-GlossaryRuleStatements.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-glossary-rule-statements-tests-ps1

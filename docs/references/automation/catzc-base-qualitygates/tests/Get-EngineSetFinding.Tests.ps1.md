@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a0cbd0833e8e
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-EngineSetFinding.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-engine-set-finding-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: eaa67b4c30f1
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/private
     name: get-module-dependency-violations-ps1

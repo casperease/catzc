@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4e79469756d3"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-FormatScope.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-format-scope-tests-ps1

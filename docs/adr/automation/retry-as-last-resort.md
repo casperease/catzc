@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c8be4b47cb1e
+    repo_status: clean
     path: docs/adr/automation/retry-as-last-resort.md
     folder: docs/adr/automation
     name: retry-as-last-resort

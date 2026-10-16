@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fe3b340399ec
+    repo_status: clean
     path: docs/how-to/automation/manual-test-plan/static-analysis.md
     folder: docs/how-to/automation/manual-test-plan
     name: static-analysis

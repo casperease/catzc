@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3346d79c33a7"
+    with_body_sha: b7663d9bb0b4
+    repo_status: clean
     path: docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-five-keys-one-reader-twelve-primitives-implementation-drawio

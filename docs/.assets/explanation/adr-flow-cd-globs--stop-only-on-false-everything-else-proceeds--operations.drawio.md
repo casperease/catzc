@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c70dd16f7e3a
+    with_body_sha: "27360ee2d11f"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-stop-only-on-false-everything-else-proceeds-operations-drawio

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: afb19b22eeae
+    repo_status: locked
     path: docs/references/infrastructure/templates/discovery/configuration/apex/psub.yml.md
     folder: docs/references/infrastructure/templates/discovery/configuration/apex
     name: psub-yml

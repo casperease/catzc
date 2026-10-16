@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ed6c00018bbd
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md
     folder: docs/references/automation/catzc-base-docs/private
     name: get-cats-adr-index-ps1

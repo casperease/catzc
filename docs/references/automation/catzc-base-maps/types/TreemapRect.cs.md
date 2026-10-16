@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "074f8a140c4b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/TreemapRect.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: treemap-rect-cs

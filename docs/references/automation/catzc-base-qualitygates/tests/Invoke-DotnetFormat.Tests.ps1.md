@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b38164b72e0d
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-DotnetFormat.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: invoke-dotnet-format-tests-ps1

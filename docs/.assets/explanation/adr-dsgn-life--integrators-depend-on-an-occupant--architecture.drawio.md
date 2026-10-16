@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: db007e47a419
+    with_body_sha: fc08fc2e906d
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-integrators-depend-on-an-occupant-architecture-drawio

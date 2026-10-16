@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e19e260878a6
+    repo_status: clean
     path: docs/adr/azure/caf/resource-organization.md
     folder: docs/adr/azure/caf
     name: resource-organization

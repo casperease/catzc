@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f201ce362b2e
+    repo_status: locked
     path: docs/references/automation/internal/tests/Test-FolderConventions.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: test-folder-conventions-tests-ps1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4ffac2cadc04"
+    repo_status: locked
     path: docs/references/automation/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md
     folder: docs/references/automation/catzc-base-files/tests
     name: get-git-changed-path-tests-ps1

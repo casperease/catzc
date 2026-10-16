@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4a6afd26888a"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/BashConfig.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: bash-config-cs

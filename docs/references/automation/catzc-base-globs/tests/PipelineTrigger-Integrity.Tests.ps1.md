@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "64af90c568dc"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: pipeline-trigger-integrity-tests-ps1

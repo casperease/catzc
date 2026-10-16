@@ -14,6 +14,7 @@ skills: [adr-cite, git-readonly, report-fixed]
 catzc:
   immutable:
     with_body_sha: "972cdc6b4872"
+    repo_status: clean
     path: ".claude/agents/adr-reviewer.md"
     folder: agents
     name: adr-reviewer

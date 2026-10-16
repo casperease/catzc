@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f7120001802a
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/tests/Sync-GeneratedFile.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: sync-generated-file-tests-ps1

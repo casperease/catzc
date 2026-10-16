@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "697ba93b2f6e"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-github/tests/Test-GitHistoryClean.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-github/tests
     name: test-git-history-clean-tests-ps1

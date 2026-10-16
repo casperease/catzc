@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "05ffbb89e034"
+    repo_status: locked
     path: docs/references/automation/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md
     folder: docs/references/automation/catzc-base-environment
     name: set-permanent-environment-variable-ps1

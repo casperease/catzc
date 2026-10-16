@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6eeb31407732"
+    with_body_sha: "697272e1f91d"
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-one-program-two-vendor-dialects-meta-drawio

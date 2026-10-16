@@ -19,6 +19,7 @@ skills: [catzc-module, catzc-verify, catzc-run, catzc-check, git-readonly, repor
 catzc:
   immutable:
     with_body_sha: "6ab8b737985a"
+    repo_status: clean
     path: ".claude/agents/catzc-worker.md"
     folder: agents
     name: catzc-worker

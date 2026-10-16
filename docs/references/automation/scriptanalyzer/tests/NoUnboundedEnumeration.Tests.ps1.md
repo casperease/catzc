@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "83e8a7f21018"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-unbounded-enumeration-tests-ps1

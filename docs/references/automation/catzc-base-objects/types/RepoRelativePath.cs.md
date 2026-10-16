@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: adf3199054ab
+    repo_status: locked
     path: docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: repo-relative-path-cs

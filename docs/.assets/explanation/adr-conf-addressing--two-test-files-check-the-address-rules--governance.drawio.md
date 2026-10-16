@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f7e89999e70e
+    with_body_sha: "5925a0616ee3"
+    repo_status: clean
     path: docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-two-test-files-check-the-address-rules-governance-drawio

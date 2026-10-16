@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "96d4a2de82c7"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/configs/adrs.yml.md
     folder: docs/references/automation/catzc-base-docs/configs
     name: adrs-yml

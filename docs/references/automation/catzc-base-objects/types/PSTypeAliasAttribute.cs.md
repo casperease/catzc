@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "79cd3e151b0e"
+    repo_status: locked
     path: docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: ps-type-alias-attribute-cs

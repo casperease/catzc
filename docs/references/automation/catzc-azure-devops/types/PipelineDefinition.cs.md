@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4963c5eed1a0"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops/types/PipelineDefinition.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: pipeline-definition-cs

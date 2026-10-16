@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c6d4ff513794
+    repo_status: locked
     path: docs/references/infrastructure/templates/discovery/configuration/nova/nsub.yml.md
     folder: docs/references/infrastructure/templates/discovery/configuration/nova
     name: nsub-yml

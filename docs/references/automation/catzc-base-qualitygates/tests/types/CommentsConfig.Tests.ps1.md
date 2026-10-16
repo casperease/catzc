@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "061494e70970"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/types/CommentsConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: comments-config-tests-ps1

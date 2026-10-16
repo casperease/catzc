@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bdd2d3950710
+    with_body_sha: "15b880aab661"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-types-check-forms-review-checks-crossers-governance-drawio

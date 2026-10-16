@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0c1d71f47fcd"
+    repo_status: clean
     path: docs/explanation/flow/overlap-gated-for-units-and-modules.md
     folder: docs/explanation/flow
     name: overlap-gated-for-units-and-modules

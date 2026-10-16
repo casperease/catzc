@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3d86333ca60b"
+    with_body_sha: "37cd55ce8505"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-two-crossers-and-three-anchors-architecture-drawio

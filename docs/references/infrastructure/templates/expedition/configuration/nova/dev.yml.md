@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "035ded2f9c82"
+    repo_status: locked
     path: docs/references/infrastructure/templates/expedition/configuration/nova/dev.yml.md
     folder: docs/references/infrastructure/templates/expedition/configuration/nova
     name: dev-yml

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9130e4758ce4"
+    repo_status: clean
     path: docs/how-to/automation/manual-test-plan/adr-registry.md
     folder: docs/how-to/automation/manual-test-plan
     name: adr-registry

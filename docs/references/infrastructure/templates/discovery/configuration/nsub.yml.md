@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c5f4b69adf8d
+    repo_status: locked
     path: docs/references/infrastructure/templates/discovery/configuration/nsub.yml.md
     folder: docs/references/infrastructure/templates/discovery/configuration
     name: nsub-yml

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4ced4f35102b"
+    with_body_sha: "212468b2dba0"
+    repo_status: clean
     path: docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-values-and-edges-gated-reads-reviewed-governance-drawio

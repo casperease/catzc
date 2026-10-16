@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: bbf887422ab1
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/BashTestResult.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: bash-test-result-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "52974b3a4619"
+    repo_status: clean
     path: docs/explanation/automation/two-entries-feed-one-importer.md
     folder: docs/explanation/automation
     name: two-entries-feed-one-importer

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2dfc39b18823"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-devops-buildvalidation/tests/types
     name: build-validation-config-tests-ps1

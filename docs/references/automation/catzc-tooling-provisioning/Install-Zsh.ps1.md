@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "66bfe3570d10"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: install-zsh-ps1

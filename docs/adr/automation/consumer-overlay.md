@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ff4554a3466b
+    repo_status: clean
     path: docs/adr/automation/consumer-overlay.md
     folder: docs/adr/automation
     name: consumer-overlay

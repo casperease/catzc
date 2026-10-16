@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "19287435b367"
+    repo_status: clean
     path: docs/adr/flow/dora-explains.md
     folder: docs/adr/flow
     name: dora-explains

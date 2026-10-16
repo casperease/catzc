@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ac19161945f2
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleDependencyClosure.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: get-module-dependency-closure-tests-ps1

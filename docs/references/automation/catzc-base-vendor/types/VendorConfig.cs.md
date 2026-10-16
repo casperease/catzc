@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e339ea80dbd6
+    repo_status: locked
     path: docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md
     folder: docs/references/automation/catzc-base-vendor/types
     name: vendor-config-cs

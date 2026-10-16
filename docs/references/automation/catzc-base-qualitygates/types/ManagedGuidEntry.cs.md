@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "66875bbdc9e4"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/ManagedGuidEntry.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: managed-guid-entry-cs

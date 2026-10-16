@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8dc4c1a40d09"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/configs/customer.yml.md
     folder: docs/references/automation/catzc-azure/configs
     name: customer-yml

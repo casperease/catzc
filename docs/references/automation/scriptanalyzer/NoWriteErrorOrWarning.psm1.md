@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8dc664278599"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NoWriteErrorOrWarning.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-write-error-or-warning-psm1

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b6c4ef9f5ef7
+    repo_status: clean
     path: docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
     folder: docs/explanation/repository
     name: five-keys-one-reader-twelve-primitives

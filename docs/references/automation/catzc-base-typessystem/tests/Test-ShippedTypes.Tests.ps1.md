@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b92ee29f2c31
+    repo_status: locked
     path: docs/references/automation/catzc-base-typessystem/tests/Test-ShippedTypes.Tests.ps1.md
     folder: docs/references/automation/catzc-base-typessystem/tests
     name: test-shipped-types-tests-ps1

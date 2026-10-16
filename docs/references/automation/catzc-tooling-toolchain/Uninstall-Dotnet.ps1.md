@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5d8227c874a1"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: uninstall-dotnet-ps1

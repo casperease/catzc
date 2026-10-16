@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "676e97f3373f"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-guid-scan-files-ps1

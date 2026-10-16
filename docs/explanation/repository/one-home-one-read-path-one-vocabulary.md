@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7272a8567547"
+    repo_status: clean
     path: docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
     folder: docs/explanation/repository
     name: one-home-one-read-path-one-vocabulary

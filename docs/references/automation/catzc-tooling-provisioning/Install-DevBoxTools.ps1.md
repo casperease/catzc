@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "169dd915e433"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: install-dev-box-tools-ps1

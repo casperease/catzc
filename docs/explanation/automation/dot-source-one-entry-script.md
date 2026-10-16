@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a414cc3c826a
+    repo_status: clean
     path: docs/explanation/automation/dot-source-one-entry-script.md
     folder: docs/explanation/automation
     name: dot-source-one-entry-script

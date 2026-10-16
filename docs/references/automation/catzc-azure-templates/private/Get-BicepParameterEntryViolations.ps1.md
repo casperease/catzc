@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0c8dd0e6f9a5"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md
     folder: docs/references/automation/catzc-azure-templates/private
     name: get-bicep-parameter-entry-violations-ps1

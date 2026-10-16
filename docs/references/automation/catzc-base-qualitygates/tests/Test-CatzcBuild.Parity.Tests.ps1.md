@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ba385d230a39
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-catzc-build-parity-tests-ps1

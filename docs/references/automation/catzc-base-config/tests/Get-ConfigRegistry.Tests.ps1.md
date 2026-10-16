@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5adec9f2a7d9"
+    repo_status: locked
     path: docs/references/automation/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md
     folder: docs/references/automation/catzc-base-config/tests
     name: get-config-registry-tests-ps1

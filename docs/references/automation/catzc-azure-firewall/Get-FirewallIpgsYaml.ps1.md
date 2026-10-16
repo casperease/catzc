@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7c8cddc9ef71"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md
     folder: docs/references/automation/catzc-azure-firewall
     name: get-firewall-ipgs-yaml-ps1

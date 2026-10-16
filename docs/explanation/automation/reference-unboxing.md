@@ -1,3 +1,22 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "6f97a628b101"
+    repo_status: clean
+    path: docs/explanation/automation/reference-unboxing.md
+    folder: docs/explanation/automation
+    name: reference-unboxing
+    filetype: md
+    kind: explanation
+    language: markdown
+    track: docs
+    tracktype: documentation
+  edges:
+    cites:
+      - ADR-AUTO-TYPES#7
+      - ADR-PWSH-TYPES#1
+---
+
 # Unboxing in PowerShell and C#: a reference
 
 Written 2026-10-16 for catzc. Runtime for every measurement: .NET 10.0.12, PowerShell 7.6.6, 64-bit, Windows 11. A figure is **measured**

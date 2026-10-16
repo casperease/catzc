@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e485ab72069d
+    with_body_sha: "1fbf6457ddc1"
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-one-reverse-lookup-feeds-every-module-architecture-drawio

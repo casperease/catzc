@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "53dfed796091"
+    repo_status: clean
     path: docs/explanation/design/every-vendor-call-leaves-through-az.md
     folder: docs/explanation/design
     name: every-vendor-call-leaves-through-az

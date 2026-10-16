@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "97ce2a4c3ad1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md
     folder: docs/references/automation/catzc-base-variants/types
     name: variants-config-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d8e22f2b444a
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/types/SourceCheck.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: source-check-tests-ps1

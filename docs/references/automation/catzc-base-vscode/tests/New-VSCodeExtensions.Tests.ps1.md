@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "29c45aa31fd9"
+    repo_status: locked
     path: docs/references/automation/catzc-base-vscode/tests/New-VSCodeExtensions.Tests.ps1.md
     folder: docs/references/automation/catzc-base-vscode/tests
     name: new-vs-code-extensions-tests-ps1

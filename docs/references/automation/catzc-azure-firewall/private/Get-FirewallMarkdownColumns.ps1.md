@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "2049fc81e20a"
+    repo_status: locked
     path: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md
     folder: docs/references/automation/catzc-azure-firewall/private
     name: get-firewall-markdown-columns-ps1

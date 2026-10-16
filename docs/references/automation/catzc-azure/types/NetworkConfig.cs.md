@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0ddf1598fb36"
+    repo_status: locked
     path: docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: network-config-cs

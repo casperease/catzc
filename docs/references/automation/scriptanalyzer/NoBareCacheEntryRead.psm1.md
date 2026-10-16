@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b2817ebe7ae5
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-bare-cache-entry-read-psm1

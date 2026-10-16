@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "27c2290f0331"
+    with_body_sha: "7bffad2ffff9"
+    repo_status: clean
     path: docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-read-the-session-guard-then-pick-slot-implementation-drawio

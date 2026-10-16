@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: c6e445dd6f3f
+    repo_status: locked
     path: docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: deploy-bicep-sample-subscription-tests-ps1

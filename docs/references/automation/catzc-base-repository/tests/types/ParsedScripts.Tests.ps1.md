@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6ca562f9f6b1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-repository/tests/types/ParsedScripts.Tests.ps1.md
     folder: docs/references/automation/catzc-base-repository/tests/types
     name: parsed-scripts-tests-ps1

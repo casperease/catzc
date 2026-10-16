@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a1f49dcfadfd
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/FormatResult.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: format-result-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d91030908155
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/tests/Resolve-SessionToolHint.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: resolve-session-tool-hint-tests-ps1

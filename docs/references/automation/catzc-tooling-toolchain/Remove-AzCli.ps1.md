@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d8ad6b7aea2e
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: remove-az-cli-ps1

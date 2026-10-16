@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4cee0d74457d"
+    repo_status: clean
     path: docs/references/automation/catzc-base-globs.md
     folder: docs/references/automation
     name: catzc-base-globs

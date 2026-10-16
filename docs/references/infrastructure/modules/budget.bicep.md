@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4140fa185b2a"
+    repo_status: locked
     path: docs/references/infrastructure/modules/budget.bicep.md
     folder: docs/references/infrastructure/modules
     name: budget-bicep

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9e2ffbe1ee22"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: agents-config-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "0a928ba0ca1e"
+    repo_status: clean
     path: docs/adr/automation/never-depend-on-pwd.md
     folder: docs/adr/automation
     name: never-depend-on-pwd

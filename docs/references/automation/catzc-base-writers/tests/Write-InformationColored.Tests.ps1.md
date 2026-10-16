@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "713185b89500"
+    repo_status: locked
     path: docs/references/automation/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md
     folder: docs/references/automation/catzc-base-writers/tests
     name: write-information-colored-tests-ps1

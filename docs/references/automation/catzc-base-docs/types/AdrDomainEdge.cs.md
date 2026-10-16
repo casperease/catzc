@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "00f03bae2e00"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrDomainEdge.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-domain-edge-cs

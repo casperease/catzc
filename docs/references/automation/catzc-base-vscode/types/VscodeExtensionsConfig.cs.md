@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d6badb5e299d
+    repo_status: locked
     path: docs/references/automation/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md
     folder: docs/references/automation/catzc-base-vscode/types
     name: vscode-extensions-config-cs

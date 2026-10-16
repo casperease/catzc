@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4426264fdb44"
+    repo_status: locked
     path: docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md
     folder: docs/references/automation/catzc-base-writers/private
     name: resolve-writer-color-ps1

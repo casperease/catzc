@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "734ffe400d0f"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-python/Install-Python.ps1.md
     folder: docs/references/automation/catzc-tooling-python
     name: install-python-ps1

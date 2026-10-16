@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e8dcecdf1195
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md
     folder: docs/references/automation/catzc-base-maps/tests
     name: get-value-chain-map-tests-ps1

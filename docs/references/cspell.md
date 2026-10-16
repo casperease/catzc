@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8d46afba173c"
+    repo_status: clean
     path: docs/references/cspell.md
     folder: docs/references
     name: cspell

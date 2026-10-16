@@ -14,6 +14,24 @@ plan:
       .claude/CLAUDE.md,
     ]
   siblings: [plan-minimal-robots-agents, plan-minimal-robots-capabilities]
+catzc:
+  immutable:
+    with_body_sha: f285afe8201a
+    repo_status: clean
+    path: ".claude/plans/plan-minimal-robots.md"
+    folder: plans
+    name: plan-minimal-robots
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-PRIN-NOWASTE#1
 ---
 
 # Minimal-Robots: every sub-agent is a 20-line robot that loads 10-line capabilities

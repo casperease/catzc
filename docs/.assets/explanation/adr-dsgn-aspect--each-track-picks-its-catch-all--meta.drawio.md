@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f4c5e28fb3bc
+    with_body_sha: ecb307a3898f
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-each-track-picks-its-catch-all-meta-drawio

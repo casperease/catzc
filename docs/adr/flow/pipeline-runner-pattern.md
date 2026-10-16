@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: aee9df2ea8f2
+    repo_status: clean
     path: docs/adr/flow/pipeline-runner-pattern.md
     folder: docs/adr/flow
     name: pipeline-runner-pattern

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b779f54fa075
+    repo_status: clean
     path: docs/adr/research/test-automation.md
     folder: docs/adr/research
     name: test-automation

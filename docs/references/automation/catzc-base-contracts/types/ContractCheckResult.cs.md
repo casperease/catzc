@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1a78cc7b4ea8"
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/types/ContractCheckResult.cs.md
     folder: docs/references/automation/catzc-base-contracts/types
     name: contract-check-result-cs

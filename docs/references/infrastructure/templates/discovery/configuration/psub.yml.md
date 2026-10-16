@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a63f865eb97f
+    repo_status: locked
     path: docs/references/infrastructure/templates/discovery/configuration/psub.yml.md
     folder: docs/references/infrastructure/templates/discovery/configuration
     name: psub-yml

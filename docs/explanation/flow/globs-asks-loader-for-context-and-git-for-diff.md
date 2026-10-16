@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "824d978cfa10"
+    repo_status: clean
     path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
     folder: docs/explanation/flow
     name: globs-asks-loader-for-context-and-git-for-diff

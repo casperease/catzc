@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: cd6c7996b751
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/tests/Test-ToolLocationManaged.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: test-tool-location-managed-tests-ps1

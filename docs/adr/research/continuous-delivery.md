@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f32418cd25eb
+    repo_status: clean
     path: docs/adr/research/continuous-delivery.md
     folder: docs/adr/research
     name: continuous-delivery

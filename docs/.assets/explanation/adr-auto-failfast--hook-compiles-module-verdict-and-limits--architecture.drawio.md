@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a2172dea8e71
+    with_body_sha: "51baaed94aef"
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-hook-compiles-module-verdict-and-limits-architecture-drawio

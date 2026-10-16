@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b7cc3a7f4b16
+    repo_status: locked
     path: docs/references/automation/catzc-azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1.md
     folder: docs/references/automation/catzc-azure/tests
     name: get-azure-subscription-environment-tests-ps1

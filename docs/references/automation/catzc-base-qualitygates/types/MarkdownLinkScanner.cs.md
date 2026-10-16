@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "70e6dc39258d"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: markdown-link-scanner-cs

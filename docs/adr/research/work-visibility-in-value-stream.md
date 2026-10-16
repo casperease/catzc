@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9bffc5515fba"
+    repo_status: clean
     path: docs/adr/research/work-visibility-in-value-stream.md
     folder: docs/adr/research
     name: work-visibility-in-value-stream

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "675d40d989f6"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/CatzcRules.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: catzc-rules-psm1

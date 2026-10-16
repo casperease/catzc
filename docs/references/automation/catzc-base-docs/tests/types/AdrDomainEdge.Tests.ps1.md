@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: a33a52233a3a
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/types/AdrDomainEdge.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests/types
     name: adr-domain-edge-tests-ps1

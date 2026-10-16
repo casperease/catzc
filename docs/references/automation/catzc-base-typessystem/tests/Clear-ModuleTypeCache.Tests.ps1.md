@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: fd534558e021
+    repo_status: locked
     path: docs/references/automation/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md
     folder: docs/references/automation/catzc-base-typessystem/tests
     name: clear-module-type-cache-tests-ps1

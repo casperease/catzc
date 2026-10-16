@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: dc551b9dd238
+    repo_status: clean
     path: docs/adr/principles/configure-not-program.md
     folder: docs/adr/principles
     name: configure-not-program

@@ -1,3 +1,24 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8f7a1551fc25"
+    repo_status: clean
+    path: ".claude/plans/prompt-config-defaults-continue.md"
+    folder: plans
+    name: prompt-config-defaults-continue
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-CONTRACT#3
+---
+
 # .claude/plans/prompt-config-defaults-continue.md
 
 `Continuation prompt for the config-defaults work (coded defaults, repo fragment, generated defaults contract): paste as the first message of a fresh session`

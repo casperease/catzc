@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "780f878a5b15"
+    repo_status: clean
     path: docs/adr/pwsh/assert-idioms.md
     folder: docs/adr/pwsh
     name: assert-idioms

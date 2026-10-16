@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d62ab0214fc7
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/types/CliResult.cs.md
     folder: docs/references/automation/catzc-base-execution/types
     name: cli-result-cs

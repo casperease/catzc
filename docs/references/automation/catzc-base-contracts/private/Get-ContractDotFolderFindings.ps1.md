@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "268c6162b3b9"
+    repo_status: locked
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md
     folder: docs/references/automation/catzc-base-contracts/private
     name: get-contract-dot-folder-findings-ps1

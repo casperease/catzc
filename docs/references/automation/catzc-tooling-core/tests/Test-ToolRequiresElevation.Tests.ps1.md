@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "48e228b8e9c7"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: test-tool-requires-elevation-tests-ps1

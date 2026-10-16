@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f17efce5c71c
+    with_body_sha: a6af3544fa3c
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-edit-globs-yml-then-read-the-output-operations-drawio

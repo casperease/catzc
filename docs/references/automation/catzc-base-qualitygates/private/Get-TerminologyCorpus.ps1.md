@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "306d60263b29"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-terminology-corpus-ps1

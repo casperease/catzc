@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "870806179829"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: value-chain-highlight-cs

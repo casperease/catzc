@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "43bd9672b6fc"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: comment-lexer-cs

@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "269dce145c6b"
+    with_body_sha: d1de97046db9
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-track-globs-yml-pipeline-field-is-the-binding-implementation-drawio

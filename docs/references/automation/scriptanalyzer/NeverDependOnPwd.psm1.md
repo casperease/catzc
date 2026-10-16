@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3ec3199d26a6"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: never-depend-on-pwd-psm1

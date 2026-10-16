@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "62c262e67ba8"
+    with_body_sha: "0f04d05075e4"
+    repo_status: clean
     path: docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-loading-one-reader-one-cache-per-session-meta-drawio

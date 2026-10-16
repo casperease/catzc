@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2248ac0d6834"
+    with_body_sha: bc441aa1346f
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-one-resolver-every-consumer-but-the-hook-architecture-drawio

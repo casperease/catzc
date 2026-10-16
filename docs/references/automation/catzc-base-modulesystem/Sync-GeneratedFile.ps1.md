@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "407e748d1a27"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: sync-generated-file-ps1

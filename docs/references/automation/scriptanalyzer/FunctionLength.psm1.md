@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1e2b8cb17f5c"
+    repo_status: locked
     path: docs/references/automation/scriptanalyzer/FunctionLength.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: function-length-psm1

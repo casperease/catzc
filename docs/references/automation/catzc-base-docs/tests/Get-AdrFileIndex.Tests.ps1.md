@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7bb7b36068a1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/tests/Get-AdrFileIndex.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-adr-file-index-tests-ps1

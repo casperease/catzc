@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "04bd70cf9a20"
+    repo_status: locked
     path: docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
     folder: docs/references/automation/catzc-base-exporter/private
     name: assert-bundle-footprint-ps1

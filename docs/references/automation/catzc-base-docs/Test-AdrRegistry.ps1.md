@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "4f587cd19f71"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: test-adr-registry-ps1

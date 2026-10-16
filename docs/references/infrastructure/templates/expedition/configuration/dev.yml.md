@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "9744f69b3d1f"
+    repo_status: locked
     path: docs/references/infrastructure/templates/expedition/configuration/dev.yml.md
     folder: docs/references/infrastructure/templates/expedition/configuration
     name: dev-yml

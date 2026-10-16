@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "255c52fcf955"
+    repo_status: locked
     path: docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: uninstall-dev-box-tools-ps1

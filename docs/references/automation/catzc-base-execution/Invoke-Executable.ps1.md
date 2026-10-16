@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "000e07c88ba1"
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md
     folder: docs/references/automation/catzc-base-execution
     name: invoke-executable-ps1

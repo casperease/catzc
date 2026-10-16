@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d260d5b2df4e
+    repo_status: locked
     path: docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md
     folder: docs/references/automation/catzc-base-vendor
     name: install-vendor-module-ps1

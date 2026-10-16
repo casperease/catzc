@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "318617907d07"
+    repo_status: locked
     path: docs/references/automation/catzc-base-vscode/tests/New-VSCodePipelineSchema.Tests.ps1.md
     folder: docs/references/automation/catzc-base-vscode/tests
     name: new-vs-code-pipeline-schema-tests-ps1

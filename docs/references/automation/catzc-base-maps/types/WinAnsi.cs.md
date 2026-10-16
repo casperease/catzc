@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "5930dcf03e2c"
+    repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: win-ansi-cs

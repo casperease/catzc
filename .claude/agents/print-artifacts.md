@@ -15,6 +15,7 @@ skills: [artifact-publish, catzc-run, git-readonly, report-fixed]
 catzc:
   immutable:
     with_body_sha: "4892f119990e"
+    repo_status: clean
     path: ".claude/agents/print-artifacts.md"
     folder: agents
     name: print-artifacts

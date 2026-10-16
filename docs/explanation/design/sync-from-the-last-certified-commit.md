@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "951692dadb53"
+    repo_status: clean
     path: docs/explanation/design/sync-from-the-last-certified-commit.md
     folder: docs/explanation/design
     name: sync-from-the-last-certified-commit

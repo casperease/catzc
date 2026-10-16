@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "56206c2344ed"
+    repo_status: locked
     path: docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md
     folder: docs/references/automation/catzc-base-vscode/configs
     name: vscode-settings-yml

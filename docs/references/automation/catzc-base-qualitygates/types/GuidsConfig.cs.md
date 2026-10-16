@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "684327842a48"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/GuidsConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: guids-config-cs

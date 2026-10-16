@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "3377702bc161"
+    repo_status: locked
     path: docs/references/automation/catzc-base-writers/types/Ansi.cs.md
     folder: docs/references/automation/catzc-base-writers/types
     name: ansi-cs

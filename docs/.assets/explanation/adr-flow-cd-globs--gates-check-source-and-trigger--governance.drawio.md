@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a8e018cec219
+    with_body_sha: b54a68cb05a1
+    repo_status: clean
     path: docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-gates-check-source-and-trigger-governance-drawio

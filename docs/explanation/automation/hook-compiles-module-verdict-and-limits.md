@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "334633557e7c"
+    repo_status: clean
     path: docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
     folder: docs/explanation/automation
     name: hook-compiles-module-verdict-and-limits

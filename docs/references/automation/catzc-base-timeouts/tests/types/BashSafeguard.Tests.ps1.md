@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6bf5ef464fc5"
+    repo_status: locked
     path: docs/references/automation/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md
     folder: docs/references/automation/catzc-base-timeouts/tests/types
     name: bash-safeguard-tests-ps1

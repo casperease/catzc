@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1858e9dff417"
+    repo_status: clean
     path: docs/adr/automation/environment-variables.md
     folder: docs/adr/automation
     name: environment-variables

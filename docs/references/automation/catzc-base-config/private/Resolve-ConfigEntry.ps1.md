@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "073e2a661522"
+    repo_status: locked
     path: docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
     folder: docs/references/automation/catzc-base-config/private
     name: resolve-config-entry-ps1

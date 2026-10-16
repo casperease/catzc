@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: f8ee280ed047
+    repo_status: clean
     path: docs/adr/repository/dedicated-output-directory.md
     folder: docs/adr/repository
     name: dedicated-output-directory

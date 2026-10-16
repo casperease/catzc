@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "73213c43613b"
+    repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrCitationChangeKind.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-citation-change-kind-cs

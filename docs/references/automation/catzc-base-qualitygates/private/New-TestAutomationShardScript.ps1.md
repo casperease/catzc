@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "436b6c1a68a9"
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: new-test-automation-shard-script-ps1

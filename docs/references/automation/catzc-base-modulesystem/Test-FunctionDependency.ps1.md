@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1aec4295f427"
+    repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: test-function-dependency-ps1

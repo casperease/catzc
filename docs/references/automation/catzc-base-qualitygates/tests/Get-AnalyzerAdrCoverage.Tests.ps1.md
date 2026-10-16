@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: d5abb94987b3
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-AnalyzerAdrCoverage.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-analyzer-adr-coverage-tests-ps1

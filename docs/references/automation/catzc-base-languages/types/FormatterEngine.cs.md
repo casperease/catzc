@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "42255bc55bec"
+    repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/FormatterEngine.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: formatter-engine-cs

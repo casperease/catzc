@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c129108c9aaf
+    with_body_sha: eb9d6712142a
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-get-aspect-names-the-remainder-operations-drawio

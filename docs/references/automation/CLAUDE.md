@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ae7fdacb19ff
+    repo_status: clean
     path: docs/references/automation/CLAUDE.md
     folder: docs/references/automation
     name: claude

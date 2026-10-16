@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2ad1ce92da19"
+    with_body_sha: e63447a1a2dc
+    repo_status: clean
     path: docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-rule-and-gate-per-load-stage-governance-drawio

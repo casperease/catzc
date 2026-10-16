@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "1fbddffee983"
+    repo_status: locked
     path: docs/references/automation/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md
     folder: docs/references/automation/catzc-base-execution/tests
     name: resolve-tool-executable-tests-ps1

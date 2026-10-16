@@ -1,7 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "665ad509b4fb"
+    with_body_sha: bd26177f6dd2
+    repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-runmode-shims-set-roots-mode-read-back-implementation-drawio

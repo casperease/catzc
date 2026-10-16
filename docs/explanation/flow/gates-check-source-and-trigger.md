@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "162cf941ab68"
+    repo_status: clean
     path: docs/explanation/flow/gates-check-source-and-trigger.md
     folder: docs/explanation/flow
     name: gates-check-source-and-trigger

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: afb136929daa
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/LinkEngineResult.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: link-engine-result-cs

@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: ef2e495b535e
+    repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/types/SourceCheck.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: source-check-cs

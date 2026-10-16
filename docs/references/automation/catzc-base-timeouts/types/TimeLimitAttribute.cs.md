@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "09c4f4bb90bf"
+    repo_status: locked
     path: docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: time-limit-attribute-cs

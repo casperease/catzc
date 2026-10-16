@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "321027a9c381"
+    repo_status: locked
     path: docs/references/automation/catzc-base-globs/types/DurableHash.cs.md
     folder: docs/references/automation/catzc-base-globs/types
     name: durable-hash-cs

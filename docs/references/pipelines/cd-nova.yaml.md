@@ -2,6 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "8238d511e41c"
+    repo_status: locked
     path: docs/references/pipelines/cd-nova.yaml.md
     folder: docs/references/pipelines
     name: cd-nova-yaml
