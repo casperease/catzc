@@ -98,6 +98,24 @@ concepts:
       module type: A module type is the sort of module found at a place; a track is a cluster of places and the concern it holds.
       track type: A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
       place: A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
+      module: A module is one named unit placed in a track; a track is the cluster of module contents and the concern it holds.
+  module:
+    key: module
+    domain: design
+    defined_by: ADR-DSGN-MODTYPE#1
+    short: A named unit placed in a track — a folder or one file, found by where its files stand — resolved through its track.
+    realized_by: { kind: type, pattern: "Catzc.Base.Modules.Module" }
+    contrasts:
+      track: A track is the cluster of module contents and the concern it holds; a module is one named unit placed in it.
+      module type: A module type is the sort of module found at a place; a module is one unit of that sort.
+  layout:
+    key: layout
+    domain: automation
+    defined_by: ADR-AUTO-MODULE#2
+    short: The one table of folders inside a module and what each holds, declared once under each file language and read by every command that reads a module's folders.
+    realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Languages/configs/languages.yml" }
+    contrasts:
+      module type: A module type says where modules of a sort are found; a layout says what a module's own folders hold.
   track type:
     key: track_type
     domain: design

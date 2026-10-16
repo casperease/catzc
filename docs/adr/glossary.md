@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "06ec71836f5f"
+    with_body_sha: "6fdbade1deab"
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -183,6 +183,17 @@ ADR sits in.
   - [stack violation](#stack-violation): A stack violation is a finding about a cell's files; a lit cell is a selection, made by a
     highlight, that never judges the cell.
 
+### module
+
+A named unit placed in a track — a folder or one file, found by where its files stand — resolved through its track.
+
+- **Defined by:** [ADR-DSGN-MODTYPE#1](design/module-types.md#rule-adr-dsgn-modtype1)
+- **Realized by:** type `Catzc.Base.Modules.Module`
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [module type](#module-type): A module type is the sort of module found at a place; a module is one unit of that sort.
+  - [track](#track): A track is the cluster of module contents and the concern it holds; a module is one named unit placed in it.
+
 ### module type
 
 The sort of module, named by the module-types registry, which says where modules of each type are found and how a path in that place names
@@ -192,6 +203,9 @@ its module.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
+  - [layout](#layout): A layout says what a module's own folders hold; a module type says where modules of a sort are found.
+  - [module](#module): A module is one named unit placed in a track; a module type is the sort of module found at a place, one of a closed
+    set.
   - [track](#track): A track is the cluster of module contents and the concern it holds; a module type is the sort of module found at a
     place inside or across tracks.
   - [track type](#track-type): A track type is the sort of cluster a track is; a module type is the sort of module placed in it.
@@ -264,6 +278,7 @@ type.
   - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the cluster the
     file lives in, and its tech-stack is a set of file languages.
   - [kind](#kind): A kind is the role a file plays, wherever it lives; a track is the cluster the file lives in.
+  - [module](#module): A module is one named unit placed in a track; a track is the cluster of module contents and the concern it holds.
   - [module type](#module-type): A module type is the sort of module found at a place; a track is a cluster of places and the concern it
     holds.
   - [place](#place): A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
@@ -523,6 +538,17 @@ tests.
 - **Defined by:** [ADR-AUTO-GO#2](automation/go/go-test-artifacts.md#rule-adr-auto-go2)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Languages/configs/glossary.yml`
+
+### layout
+
+The one table of folders inside a module and what each holds, declared once under each file language and read by every command that reads a
+module's folders.
+
+- **Defined by:** [ADR-AUTO-MODULE#2](automation/module-model.md#rule-adr-auto-module2)
+- **Realized by:** config-key `automation/Catzc.Base.Languages/configs/languages.yml`
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [module type](#module-type): A module type says where modules of a sort are found; a layout says what a module's own folders hold.
 
 ### phase
 

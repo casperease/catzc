@@ -18,6 +18,7 @@ catzc:
     test: automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     cites:
       - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-MODULE#2
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#6
       - ADR-PRIN-CONFIG#{1,2,4}
@@ -38,7 +39,10 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "engines", "imprint", "steps", "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout" };
+    private static readonly string[] AllowedLayoutKeys = { "folder", "role", "extensions", "live", "shipped" };
+    private static readonly Regex LayoutFolder = new Regex("^(\\.|[a-z][a-z0-9]*(-[a-z0-9]+)*)$");
+    private static readonly Regex LayoutRole = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly string[] AllowedStepKeys = { "settings" };
     private static readonly Regex CheckName = new Regex("^Test-[A-Z][A-Za-z0-9]*$");
     private static readonly string[] AllowedEngineKeys = { "vscode_extension", "settings" };
@@ -70,6 +74,18 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     public IReadOnlyList<FileLanguage> languages { get; }
 
     public IReadOnlyDictionary<string, FormatterEngine> engines { get; }
+
+    // The one layout: every language's rows in declared order, then the shared rows. No folder is named twice.
+    public IReadOnlyList<LayoutRow> layout { get; }
+
+    // The globs, relative to a module root, that place the live files: the live rows' patterns.
+    public IReadOnlyList<string> LivePatterns() => layout.Where(r => r.live).SelectMany(r => r.Patterns()).ToArray();
+
+    // The module subfolders the layout names (never the root), in layout order.
+    public IReadOnlyList<string> LayoutFolders() => layout.Where(r => r.folder != LayoutRow.Root).Select(r => r.folder).ToArray();
+
+    // The module subfolders a build ships verbatim.
+    public IReadOnlyList<string> ShippedFolders() => layout.Where(r => r.shipped && r.folder != LayoutRow.Root).Select(r => r.folder).ToArray();
 
     public LanguagesConfig(IDictionary raw)
     {
@@ -135,7 +151,28 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
+        // A subfolder is named by one row of the whole layout; the shared rows count, so a language cannot redeclare assets or tests.
+        List<LayoutRow> rows = new List<LayoutRow>();
+        foreach (FileLanguage language in result) { rows.AddRange(language.layout); }
+        rows.AddRange(LayoutRow.Shared);
+        Dictionary<string, string> folderOwner = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (LayoutRow row in rows)
+        {
+            if (row.folder == LayoutRow.Root) { continue; }
+            string owner = row.language ?? "(shared)";
+            string first;
+            if (folderOwner.TryGetValue(row.folder, out first))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "layout: folder '{0}' is named twice (by '{1}' and '{2}'); a folder has one row", row.folder, first, owner));
+            }
+            else
+            {
+                folderOwner[row.folder] = owner;
+            }
+        }
+
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
+        layout = rows;
         foreach (string step in globalSteps.Concat(result.SelectMany(l => l.imprint)))
         {
             if (!stepMap.ContainsKey(step)) { stepMap[step] = new ImprintStep(step, null); }
@@ -410,10 +447,104 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             ? ReadStepNames(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].imprint", name), entry["imprint"], errors)
             : new List<string>();
 
+        List<LayoutRow> layoutRows = ReadLayout(name, extensions, entry.Contains("layout") ? entry["layout"] : null, errors);
+
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray());
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray());
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
+    }
+
+    // A language's layout rows: { folder, role, extensions, live, shipped }. A row at the module root ('.') lists the extensions it places,
+    // all among the language's own; any other row places every file in its folder. live and shipped default to true, the default every
+    // language row takes; only the shared tests row differs, and it is declared on LayoutRow.
+    private static List<LayoutRow> ReadLayout(string name, List<string> languageExtensions, object value, List<string> errors)
+    {
+        List<LayoutRow> rows = new List<LayoutRow>();
+        if (value == null) { return rows; }
+        IList list = value as IList;
+        if (list == null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: layout must be a list of rows {{ folder, role, extensions, live, shipped }}", name));
+            return rows;
+        }
+        HashSet<string> seen = new HashSet<string>(StringComparer.Ordinal);
+        foreach (object item in list)
+        {
+            IDictionary row = item as IDictionary;
+            if (row == null)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: a layout row must be a mapping {{ folder, role, extensions, live, shipped }}", name));
+                continue;
+            }
+            int before = errors.Count;
+            foreach (object k in row.Keys)
+            {
+                if (Array.IndexOf(AllowedLayoutKeys, Text(k)) < 0)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: unknown key '{1}' (allowed: {2})", name, Text(k), string.Join(", ", AllowedLayoutKeys)));
+                }
+            }
+            string folder = row.Contains("folder") && row["folder"] != null ? Text(row["folder"]) : null;
+            if (folder == null || !LayoutFolder.IsMatch(folder))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: invalid folder '{1}' (\".\" for the module root, or one lowercase folder name)", name, folder));
+            }
+            else if (!seen.Add(folder))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: folder '{1}' is named twice", name, folder));
+            }
+            string role = row.Contains("role") && row["role"] != null ? Text(row["role"]) : null;
+            if (role == null || !LayoutRole.IsMatch(role))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: invalid role '{1}' (kebab-case, e.g. public-function)", name, role));
+            }
+            List<string> rowExtensions = new List<string>();
+            if (row.Contains("extensions") && row["extensions"] != null)
+            {
+                IList extensionList = row["extensions"] as IList;
+                if (extensionList == null)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: extensions must be a list", name));
+                }
+                else
+                {
+                    foreach (object e in extensionList)
+                    {
+                        string extension = Text(e);
+                        if (!languageExtensions.Contains(extension))
+                        {
+                            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: extension '{1}' is not one of the language's own", name, extension));
+                        }
+                        else
+                        {
+                            rowExtensions.Add(extension);
+                        }
+                    }
+                }
+            }
+            if (folder == LayoutRow.Root && rowExtensions.Count == 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: the root row must list the extensions it places", name));
+            }
+            else if (folder != null && folder != LayoutRow.Root && rowExtensions.Count > 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: only the root row lists extensions; folder '{1}' places every file in it", name, folder));
+            }
+            bool live = ReadFlag(name, row, "live", errors);
+            bool shipped = ReadFlag(name, row, "shipped", errors);
+            if (errors.Count > before) { continue; }
+            rows.Add(new LayoutRow(name, folder, role, rowExtensions.ToArray(), live, shipped));
+        }
+        return rows;
+    }
+
+    private static bool ReadFlag(string name, IDictionary row, string key, List<string> errors)
+    {
+        if (!row.Contains(key) || row[key] == null) { return true; }
+        if (row[key] is bool) { return (bool)row[key]; }
+        errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: {1} must be true or false", name, key));
+        return true;
     }
 
     private static List<string> ReadChecks(string name, object value, List<string> errors)

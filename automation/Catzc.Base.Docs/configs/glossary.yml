@@ -481,6 +481,8 @@ concepts:
     contrasts:
       track: A track is the cluster of module contents and the concern it holds; a module type is the sort of module found at a place inside or across tracks.
       track type: A track type is the sort of cluster a track is; a module type is the sort of module placed in it.
+      module: A module is one named unit placed in a track; a module type is the sort of module found at a place, one of a closed set.
+      layout: A layout says what a module's own folders hold; a module type says where modules of a sort are found.
   bundle:
     key: bundle
     domain: automation

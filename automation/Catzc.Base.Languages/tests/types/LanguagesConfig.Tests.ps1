@@ -256,5 +256,71 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*duplicate check 'Test-Spelling'*"
             { & $script:one ([ordered]@{ extensions = @('.wdg'); checks = 'Test-Spelling' }) } | Should -Throw '*checks must be a list*'
         }
+
+        It 'reads a language''s layout rows, then the shared assets and tests rows, and derives the live patterns and folders from them' -Tag 'ADR-AUTO-MODULE#2' {
+            $config = & $script:one ([ordered]@{ extensions = @('.wdg', '.wdx'); layout = @(
+                        [ordered]@{ folder = '.'; role = 'public-widget'; extensions = @('.wdg') }
+                        [ordered]@{ folder = 'inner'; role = 'private-widget' }
+                        [ordered]@{ folder = 'drafts'; role = 'draft'; live = $false; shipped = $false }
+                    )
+                })
+            $config.languages[0].layout.folder | Should -Be @('.', 'inner', 'drafts')
+            $config.layout.folder | Should -Be @('.', 'inner', 'drafts', 'assets', 'tests')
+            $config.LivePatterns() | Should -Be @('*.wdg', 'inner/**', 'assets/**')
+            $config.LayoutFolders() | Should -Be @('inner', 'drafts', 'assets', 'tests')
+            $config.ShippedFolders() | Should -Be @('inner', 'assets')
+        }
+
+        It 'has only the shared rows when no language declares a layout' -Tag 'ADR-AUTO-MODULE#2' {
+            $config = & $script:one ([ordered]@{ extensions = @('.wdg') })
+            $config.layout.folder | Should -Be @('assets', 'tests')
+            $config.LivePatterns() | Should -Be @('assets/**')
+        }
+
+        It 'throws on a folder named twice, within a language, across languages and against a shared row' -Tag 'ADR-AUTO-MODULE#2' {
+            $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @(
+                            [ordered]@{ folder = 'inner'; role = 'a' }
+                            [ordered]@{ folder = 'inner'; role = 'b' }
+                        ) }) } | Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*folder 'inner' is named twice*"
+            { & $script:make ([ordered]@{ languages = [ordered]@{
+                            widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'x'; layout = @([ordered]@{ folder = 'inner'; role = 'a' }) }
+                            gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'x'; layout = @([ordered]@{ folder = 'inner'; role = 'b' }) }
+                        } }) } | Should -Throw "*folder 'inner' is named twice (by 'widget' and 'gadget')*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @([ordered]@{ folder = 'tests'; role = 'a' }) }) } |
+                Should -Throw "*folder 'tests' is named twice (by 'widget' and '(shared)')*"
+        }
+
+        It 'throws on an unknown layout key, a bad folder, a bad role, a root row without extensions, extensions on a folder row, and a foreign extension' -Tag 'ADR-AUTO-MODULE#2' {
+            $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @(
+                            [ordered]@{ folder = 'a'; role = 'r'; speed = 1 }
+                            [ordered]@{ folder = 'Bad/Folder'; role = 'r' }
+                            [ordered]@{ folder = 'b'; role = 'Bad Role' }
+                            [ordered]@{ folder = '.'; role = 'r' }
+                            [ordered]@{ folder = 'c'; role = 'r'; extensions = @('.wdg') }
+                            [ordered]@{ folder = '.'; role = 'r'; extensions = @('.zzz') }
+                        ) }) } | Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*layout: unknown key 'speed'*"
+            $err.Exception.Message | Should -BeLike "*invalid folder 'Bad/Folder'*"
+            $err.Exception.Message | Should -BeLike "*invalid role 'Bad Role'*"
+            $err.Exception.Message | Should -BeLike '*the root row must list the extensions it places*'
+            $err.Exception.Message | Should -BeLike "*only the root row lists extensions; folder 'c'*"
+            $err.Exception.Message | Should -BeLike "*extension '.zzz' is not one of the language's own*"
+        }
+
+        It 'throws on a layout that is not a list, and on live or shipped that is not a boolean' -Tag 'ADR-AUTO-MODULE#2' {
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = 'inner' }) } | Should -Throw '*layout must be a list of rows*'
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @([ordered]@{ folder = 'a'; role = 'r'; live = 'yes' }) }) } |
+                Should -Throw '*live must be true or false*'
+        }
+    }
+
+    Context 'integrity (shipped languages.yml layout)' -Tag 'integrity' {
+        It 'places the five live folders the aspects were written with, and the shared tests folder is not live' -Tag 'ADR-AUTO-MODULE#2' {
+            $config = Get-Config -Config languages
+            $config.LivePatterns() | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', 'assets/**')
+            $config.LayoutFolders() | Should -Be @('private', 'types', 'configs', 'assets', 'tests')
+            $config.ShippedFolders() | Should -Be @('types', 'configs', 'assets')
+        }
     }
 }

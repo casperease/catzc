@@ -675,3 +675,21 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a flag, quote rule, or file name lives once in the
   engine model, never restated at a call site.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Module model
+
+`Module model — how a deployable track's modules are found, shaped and ordered`
+
+[ADR-AUTO-MODULE](module-model.md)
+
+> DORA's research ties maintainable code and loosely coupled teams to delivery performance. Resolving every module through its track with
+> one resolver, registering a module by where its files stand, and reading its languages, engines and order from declared data lets a
+> person add or move a module without touching a list, and keeps the facts a reviewer needs in one place.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a folder rule lives in the layout once, not in each
+  command that walks a module.
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a module is added by placement, with no shared
+  registry to edit.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — a module's tests run under the engines it names, from the
+  declared data.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

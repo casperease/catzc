@@ -16,6 +16,7 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-languages/types/FileLanguage.cs.md
     cites:
+      - ADR-AUTO-MODULE#2
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#6
 ---
@@ -51,9 +52,13 @@ public sealed class FileLanguage
     // The imprint steps Format-Code runs over this language's files only, after its formatter; empty when it has none of its own.
     public IReadOnlyList<string> imprint { get; }
 
+    // The folders of a module this language owns and what each holds; empty when it owns none.
+    public IReadOnlyList<LayoutRow> layout { get; }
+
     public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,
-        string[] checks, string[] imprint = null)
+        string[] checks, string[] imprint = null, LayoutRow[] layout = null)
     {
+        this.layout = layout == null ? Array.Empty<LayoutRow>() : (LayoutRow[])layout.Clone();
         this.imprint = imprint == null ? Array.Empty<string>() : (string[])imprint.Clone();
         this.name = name;
         this.extensions = extensions == null ? Array.Empty<string>() : (string[])extensions.Clone();

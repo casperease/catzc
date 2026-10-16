@@ -43,6 +43,12 @@ one landing.
 - Vendor note (C1): node_modules compares to .vendor, tracked or not; both are ignored by everything but their loader. A vendor track
   rule says so, and the enumeration prune sets name both.
 - Q88: the Test-ShippedTypes flags on TrackTypeEntry and VendorEntry are this plan's.
+- Module-model open choices a, b, c (2026-10-16), taken as recommended, user not yet confirmed: (a) the resolver lives in a new small
+  module above Languages and returns a type carrying identity only; needs and order stay in ModuleSystem (dependencies.yml lives
+  there). (b) the track key is execution_engines (languages.yml engines: means formatter engines); the table is called "layout"; the
+  word "kind" stays out of the ADR text until the kind-to-role rename lands. (c) rule 5 says one function sorts the graph; rule 6
+  covers check and test handlers only (the build is code in the closed Builder); LoadedModule is kept only if the draft's reasoning
+  holds on re-reading, else dropped with BaseModule.
 
 ## Done, and why: tracks, track types and vendors as ADRs and code (session report of 2026-10-16 15:14, verified in the tree)
 
