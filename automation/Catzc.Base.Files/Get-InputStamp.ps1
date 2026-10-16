@@ -19,19 +19,20 @@ catzc:
     cites:
       - ADR-PRIN-ONELIVE
   config:
-    synopsis: Fingerprints a set of input files by their paths, lengths and last-write times, without reading their content.
+    synopsis: Fingerprints a set of input files by their paths and content, the same on every checkout of the same inputs.
     description: |-
-      Returns one SHA-256 hex string over the sorted (path, length, last-write ticks) of every file named by -Path. A
-      path may be a file or a folder: a folder contributes every file below it (-Filter narrows by name). A missing path
-      contributes a marker of its own, so deleting an input changes the stamp. The stamp reads file metadata only, so it
-      costs one enumeration however large the inputs are.
+      Returns one SHA-256 hex string over the sorted (path, content hash) of every file named by -Path. A path may be a
+      file or a folder: a folder contributes every file below it (-Filter narrows by name). A missing path contributes a
+      marker of its own, so deleting an input changes the stamp.
 
-      A touched-but-identical file changes the stamp and costs one redundant rebuild; it never hides a real change, so a
-      generator that skips on an equal stamp (Test-GeneratedFileCurrent) can only be too eager to rebuild, never too late. The
-      caller passes absolute paths; a path is held as given, so the same inputs reached by another spelling stamp
-      differently.
+      The stamp depends on what the inputs say, never on when they were written: a path under -Root is named relative to
+      it with '/' separators, and a file's content is hashed with its carriage returns removed. A clone, a snapshot, a
+      CRLF checkout and a touched-but-identical file all stamp the same, so a generator can write the stamp into the file
+      it generates and every checkout agrees with it (Test-GeneratedFileCurrent). The cost is one read and hash of each
+      input; a few megabytes of text take milliseconds.
     parameters:
       Path: The input files and folders to fingerprint.
+      Root: 'The folder paths are named relative to. Default: the repository root. A path outside it is named in full.'
       Filter: A file-name filter applied inside folders (for example `*.md`). Defaults to every file.
       Exclude: Files left out of the stamp, by path. A generator names its own output when that sits inside an input folder.
       Salt: Extra text folded into the stamp, for an input that is not a file (a setting, a version).
@@ -52,8 +53,26 @@ function Get-InputStamp {
 
         [string[]] $Exclude = @(),
 
+        [string] $Root = (Get-RepositoryRoot),
+
         [string] $Salt = ''
     )
+
+    $rootFull = [System.IO.Path]::GetFullPath($Root).TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar
+    $name = {
+        param([string] $FullPath)
+        if ($FullPath.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase)) {
+            $FullPath.Substring($rootFull.Length) -replace '\\', '/'
+        }
+        else {
+            $FullPath -replace '\\', '/'
+        }
+    }
+    $hashOf = {
+        param([string] $FullPath)
+        $text = [System.IO.File]::ReadAllText($FullPath).Replace("`r", '')
+        [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($text))).ToLowerInvariant()
+    }
 
     # A generator's own output often sits inside an input folder; leaving it out keeps its write from changing the stamp it was built under.
     $excluded = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
@@ -63,9 +82,9 @@ function Get-InputStamp {
     $lines = [System.Collections.Generic.List[string]]::new()
     foreach ($entry in $Path) {
         if ([System.IO.File]::Exists($entry)) {
-            $info = [System.IO.FileInfo]::new($entry)
-            if (-not $excluded.Contains($info.FullName)) {
-                $lines.Add("$($info.FullName)|$($info.Length)|$($info.LastWriteTimeUtc.Ticks)")
+            $full = [System.IO.Path]::GetFullPath($entry)
+            if (-not $excluded.Contains($full)) {
+                $lines.Add("$(& $name $full)|$(& $hashOf $full)")
             }
         }
         elseif ([System.IO.Directory]::Exists($entry)) {
@@ -73,12 +92,12 @@ function Get-InputStamp {
             $options.RecurseSubdirectories = $true
             foreach ($info in [System.IO.DirectoryInfo]::new($entry).EnumerateFiles($Filter, $options)) {
                 if (-not $excluded.Contains($info.FullName)) {
-                    $lines.Add("$($info.FullName)|$($info.Length)|$($info.LastWriteTimeUtc.Ticks)")
+                    $lines.Add("$(& $name $info.FullName)|$(& $hashOf $info.FullName)")
                 }
             }
         }
         else {
-            $lines.Add("$entry|missing")
+            $lines.Add("$(& $name ([System.IO.Path]::GetFullPath($entry)))|missing")
         }
     }
 

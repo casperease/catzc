@@ -36,16 +36,29 @@ Describe 'Get-InputStamp' -Tag 'L0', 'logic' {
         Get-InputStamp $widget, $gadgets | Should -BeExactly $first
     }
 
-    It 'changes when a file changes length' {
+    It 'changes when a file changes, even to a text of the same length' {
         $before = Get-InputStamp $widget
-        [System.IO.File]::WriteAllText($widget, 'one two')
+        [System.IO.File]::WriteAllText($widget, 'two')
         Get-InputStamp $widget | Should -Not -BeExactly $before
     }
 
-    It 'changes when a file is touched without a content change' {
+    It 'does not change when a file is only touched' {
         $before = Get-InputStamp $widget
         [System.IO.File]::SetLastWriteTimeUtc($widget, [datetime]::UtcNow.AddHours(-3))
-        Get-InputStamp $widget | Should -Not -BeExactly $before
+        Get-InputStamp $widget | Should -BeExactly $before
+    }
+
+    It 'does not change between LF and CRLF line endings' {
+        [System.IO.File]::WriteAllText($widget, "one`ntwo`n")
+        $lf = Get-InputStamp $widget
+        [System.IO.File]::WriteAllText($widget, "one`r`ntwo`r`n")
+        Get-InputStamp $widget | Should -BeExactly $lf
+    }
+
+    It 'names paths relative to -Root, so the same tree in another place stamps the same' {
+        $copy = Join-Path $TestDrive 'copy'
+        Copy-Item $gadgets (Join-Path $copy 'gadgets') -Recurse
+        Get-InputStamp $gadgets -Root $TestDrive | Should -BeExactly (Get-InputStamp (Join-Path $copy 'gadgets') -Root $copy)
     }
 
     It 'includes files below a folder, recursively' {
