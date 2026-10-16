@@ -29,8 +29,8 @@ catzc:
       Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1
       module, the reserved infra umbrellas, and the 'module-leftovers' catch-all.
     description: |-
-      Derived sets are never written in globs.yml: the folder (or file) is the registration. Every non-dot
-      module folder under automation/ partitions into live/tests aspect sets
+      Derived sets are never written in globs.yml: the folder (or file) is the registration. Every module
+      folder the resolver (Get-CatzcModule) finds in the code track partitions into live/tests aspect sets
       ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)), named by the
       readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and
       'catzc-base-globs-tests') — 'live' the module's shippable surface (functions, private helpers, types,
@@ -67,7 +67,8 @@ function Get-ModuleGlobSet {
     [OutputType([Catzc.Base.Globs.GlobSet])]
     param(
         [ArgumentCompleter({
-                @((Get-CatzcModule -Track (@(Get-Track).Where({ $_.type -ceq 'modules' })[0].name) -IncludeInternal).Where({ $_.shape -ceq 'file' -or $_.place -ceq (@(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]) }).name) +
+                $code = @(Get-Track).Where({ $_.type -ceq 'modules' })[0]
+                @((Get-CatzcModule -Track $code.name -IncludeInternal).Where({ $_.shape -ceq 'file' -or $_.place -ceq $code.places[0] }).name) +
                 [Catzc.Base.Globs.GlobsConfig]::ReservedNames
             })]
         [string[]] $Name
