@@ -34,7 +34,7 @@ catzc:
       Path: The input files and folders to fingerprint.
       Root: 'The folder paths are named relative to. Default: the repository root. A path outside it is named in full.'
       Filter: A file-name filter applied inside folders (for example `*.md`). Defaults to every file.
-      Exclude: Files left out of the stamp, by path. A generator names its own output when that sits inside an input folder.
+      Exclude: 'Wildcard patterns for files left out of the stamp, matched against the full path with ''/'' separators (for example `*/README.md`). A generator names its own output, and the generated pages beside its inputs, so writing them does not change the stamp.'
       Salt: Extra text folded into the stamp, for an input that is not a file (a setting, a version).
     outputs: '[string] A 64-character lowercase SHA-256 hex string.'
     examples:
@@ -59,51 +59,62 @@ function Get-InputStamp {
     )
 
     $rootFull = [System.IO.Path]::GetFullPath($Root).TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar
-    $name = {
-        param([string] $FullPath)
-        if ($FullPath.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase)) {
-            $FullPath.Substring($rootFull.Length) -replace '\\', '/'
+
+    # A generator's own output, and every generated page beside its inputs, is left out by pattern: a write of it must not change the stamp it was built under.
+    $skip = [System.Management.Automation.WildcardPattern[]] @($Exclude | ForEach-Object {
+            [System.Management.Automation.WildcardPattern]::new(($_ -replace '\\', '/'), [System.Management.Automation.WildcardOptions]::IgnoreCase)
+        })
+
+    $files = [System.Collections.Generic.List[string]]::new()
+    $missing = [System.Collections.Generic.List[string]]::new()
+    $options = [System.IO.EnumerationOptions]::new()
+    $options.RecurseSubdirectories = $true
+    foreach ($entry in $Path) {
+        $full = [System.IO.Path]::GetFullPath($entry)
+        if ([System.IO.File]::Exists($full)) {
+            $files.Add($full)
+        }
+        elseif ([System.IO.Directory]::Exists($full)) {
+            foreach ($file in [System.IO.Directory]::EnumerateFiles($full, $Filter, $options)) {
+                $files.Add($file)
+            }
         }
         else {
-            $FullPath -replace '\\', '/'
+            $missing.Add($full)
         }
-    }
-    $hashOf = {
-        param([string] $FullPath)
-        $text = [System.IO.File]::ReadAllText($FullPath).Replace("`r", '')
-        [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($text))).ToLowerInvariant()
     }
 
-    # A generator's own output often sits inside an input folder; leaving it out keeps its write from changing the stamp it was built under.
-    $excluded = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    foreach ($entry in $Exclude) {
-        [void] $excluded.Add([System.IO.Path]::GetFullPath($entry))
-    }
     $lines = [System.Collections.Generic.List[string]]::new()
-    foreach ($entry in $Path) {
-        if ([System.IO.File]::Exists($entry)) {
-            $full = [System.IO.Path]::GetFullPath($entry)
-            if (-not $excluded.Contains($full)) {
-                $lines.Add("$(& $name $full)|$(& $hashOf $full)")
+    $sha = [System.Security.Cryptography.SHA256]::Create()
+    $utf8 = [System.Text.Encoding]::UTF8
+    foreach ($file in $files) {
+        $slashed = $file.Replace('\', '/')
+        $isSkipped = $false
+        foreach ($pattern in $skip) {
+            if ($pattern.IsMatch($slashed)) {
+                $isSkipped = $true
+                break
             }
         }
-        elseif ([System.IO.Directory]::Exists($entry)) {
-            $options = [System.IO.EnumerationOptions]::new()
-            $options.RecurseSubdirectories = $true
-            foreach ($info in [System.IO.DirectoryInfo]::new($entry).EnumerateFiles($Filter, $options)) {
-                if (-not $excluded.Contains($info.FullName)) {
-                    $lines.Add("$(& $name $info.FullName)|$(& $hashOf $info.FullName)")
-                }
-            }
+        if ($isSkipped) {
+            continue
+        }
+        $relative = if ($file.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase)) {
+            $slashed.Substring($rootFull.Length)
         }
         else {
-            $lines.Add("$(& $name ([System.IO.Path]::GetFullPath($entry)))|missing")
+            $slashed
         }
+        $content = [System.IO.File]::ReadAllText($file).Replace("`r", '')
+        $lines.Add($relative + '|' + [System.Convert]::ToHexString($sha.ComputeHash($utf8.GetBytes($content))))
+    }
+    foreach ($file in $missing) {
+        $slashed = $file.Replace('\', '/')
+        $lines.Add(($(if ($file.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase)) { $slashed.Substring($rootFull.Length) } else { $slashed })) + '|missing')
     }
 
     $sorted = $lines.ToArray()
     [System.Array]::Sort($sorted, [System.StringComparer]::Ordinal)
     $text = ($sorted -join "`n") + "`n#salt:$Salt"
-    $hash = [System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($text))
-    [System.Convert]::ToHexString($hash).ToLowerInvariant()
+    [System.Convert]::ToHexString($sha.ComputeHash($utf8.GetBytes($text))).ToLowerInvariant()
 }
