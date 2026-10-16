@@ -5,6 +5,20 @@ user-invocable: false
 allowed-tools: Bash, Read
 paths: docs/.assets/**/*.drawio.png, out/drawio/**
 metadata: { catzc: { model_floor: haiku, needs: [uv, pillow] } }
+catzc:
+  immutable:
+    with_body_sha: "265830886dfc"
+    path: ".claude/skills/drawio.renderer/SKILL.md"
+    folder: skills/drawio.renderer
+    name: skill
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 1. Deterministic, background Bash, absolute paths: `timeout 60 uv run --with pillow python <repo>/.claude/drawio/drawio_forward.py <src> <repo>/out/drawio [--xml <model>] [--assert <text.md>]`; exit 0 clean, 2 warnings with every artifact still delivered, 3 no source, 124 the safeguard.
 2. Forward the `src`, `result`, `model`, `report` paths and every `warn` line verbatim; never retry, never edit the source, never judge a warning away.

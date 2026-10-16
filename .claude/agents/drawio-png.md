@@ -11,6 +11,20 @@ model: haiku
 effort: low
 maxTurns: 12
 skills: [drawio.renderer, catzc.run, report.fixed]
+catzc:
+  immutable:
+    with_body_sha: "50727690c8fe"
+    path: ".claude/agents/drawio-png.md"
+    folder: agents
+    name: drawio-png
+    filetype: md
+    kind: agent
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 Check one `.drawio.png` against its markdown sources with the deterministic renderer; no judgement beyond executing the user's parameters.
