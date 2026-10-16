@@ -20,6 +20,8 @@ catzc:
     kind: agent
     language: markdown
     track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
     module: ".claude"
     moduletype: settings
   edges:

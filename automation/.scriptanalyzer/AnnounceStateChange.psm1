@@ -9,6 +9,7 @@ catzc:
     kind: analyzer-rule
     language: powershell
     track: automation
+    tracktype: modules
   edges:
     page: docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md
 ---

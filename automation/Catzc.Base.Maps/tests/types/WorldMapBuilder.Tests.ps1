@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -18,11 +19,11 @@ catzc:
 Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tracks = @(
-            [Catzc.Base.Variants.VariantTrack]::new('widgets', 'widgets', 'core', @('widget-script', 'widget-config'))
-            [Catzc.Base.Variants.VariantTrack]::new('gadgets', 'gadgets', 'adapter', @('widget-config'))
-            [Catzc.Base.Variants.VariantTrack]::new('probes', 'probes', 'verification', @())
-            [Catzc.Base.Variants.VariantTrack]::new('docs', 'docs', 'external-port', @('notes'))
-            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::PipelinesTrack, 'pipelines', 'adapter', @('gadget-pipe'))
+            [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script', 'widget-config'))
+            [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'infrastructure', $null, @('widget-config'))
+            [Catzc.Base.Variants.VariantTrack]::new('probes', @('probes'), 'verification', $null, @())
+            [Catzc.Base.Variants.VariantTrack]::new('docs', @('docs'), 'documentation', $null, @('notes'))
+            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::PipelinesTrack, @('pipelines'), 'pipelines', $null, @('gadget-pipe'))
         )
         $script:languages = @(
             [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)

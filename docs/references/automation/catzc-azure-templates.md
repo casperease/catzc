@@ -9,6 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md

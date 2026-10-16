@@ -9,6 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     defines:
       - ADR-REPO-CODEMETA#{1-5}

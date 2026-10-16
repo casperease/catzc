@@ -9,6 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     defines:
       - ADR-AZ-NETWORK#{1-6}

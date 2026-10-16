@@ -9,6 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     defines:
       - ADR-AUTO-CONSOLE#{1,3-12}

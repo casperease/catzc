@@ -8,6 +8,7 @@
 #     kind: test
 #     language: python
 #     track: python
+#     tracktype: verification
 #     module: python
 #     moduletype: python
 # ---

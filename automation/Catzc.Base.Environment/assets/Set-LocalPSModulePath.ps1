@@ -9,6 +9,7 @@ catzc:
     kind: asset
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Environment
     moduletype: pwsh-folder
     catzc_bundle: azure

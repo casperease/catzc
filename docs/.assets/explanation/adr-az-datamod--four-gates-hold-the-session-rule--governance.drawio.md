@@ -9,6 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png

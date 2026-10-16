@@ -9,6 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/references/automation/catzc-base-config.md

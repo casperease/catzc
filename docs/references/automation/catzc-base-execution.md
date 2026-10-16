@@ -9,6 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md

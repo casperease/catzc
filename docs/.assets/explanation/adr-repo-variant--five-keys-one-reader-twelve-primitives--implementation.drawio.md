@@ -9,6 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png

@@ -9,6 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     cites:
       - ADR-AUTO-TEST#37

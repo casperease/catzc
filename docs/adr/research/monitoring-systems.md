@@ -9,6 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     defines:
       - ADR-DORA-MONITOR#{1-5}

@@ -9,6 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     defines:
       - ADR-AUTO-DEPS#{1-8}

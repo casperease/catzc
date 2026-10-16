@@ -9,6 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png

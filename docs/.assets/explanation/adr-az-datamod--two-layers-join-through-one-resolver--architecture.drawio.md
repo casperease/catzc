@@ -9,6 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png

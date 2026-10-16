@@ -9,6 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png

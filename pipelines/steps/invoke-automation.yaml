@@ -8,6 +8,8 @@
 #     kind: pipeline-template
 #     language: pipeline-yaml
 #     track: pipelines
+#     tracktype: pipelines
+#     vendor: ado
 #     module: pipelines
 #     moduletype: pipeline
 #   edges:

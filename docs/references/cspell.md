@@ -9,6 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - automation/Catzc.Base.QualityGates/configs/terminology.yml

@@ -9,6 +9,7 @@ catzc:
     subkind: formatter
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.MarkdownMeta
     moduletype: pwsh-folder
     catzc_bundle: azure

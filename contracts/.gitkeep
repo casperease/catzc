@@ -5,6 +5,7 @@
 #     source: automation/Catzc.Base.Docs/assets/gitkeep
 #     kind: other
 #     track: contracts
+#     tracktype: contracts
 #     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1
 # ---
 

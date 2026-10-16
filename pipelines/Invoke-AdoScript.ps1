@@ -8,6 +8,8 @@ catzc:
     kind: script
     language: powershell
     track: pipelines
+    tracktype: pipelines
+    vendor: ado
     module: pipelines
     moduletype: pipeline
   config:

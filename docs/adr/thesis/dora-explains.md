@@ -9,6 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/adr/thesis/one-source-of-truth.md

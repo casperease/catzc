@@ -9,6 +9,7 @@ catzc:
     kind: type
     language: csharp
     track: automation
+    tracktype: modules
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -17,7 +18,8 @@ catzc:
     test: automation/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1
     cites:
       - ADR-AUTO-TYPES#4
-      - ADR-DSGN-TRACK#{1,3,6}
+      - ADR-DSGN-TRACK#{1,3,6,11}
+      - ADR-DSGN-TRACKTYPE#5
 ---
 */
 
@@ -48,14 +50,8 @@ public static class WorldMapBuilder
         List<Catzc.Base.Globs.GlobSet> globSetList = Items<Catzc.Base.Globs.GlobSet>(globSets, "globset");
         IReadOnlyDictionary<string, string> index = CitationScanner.Index(adrIndex);
 
-        Dictionary<string, Catzc.Base.Variants.VariantTrack> trackByRoot =
-            new Dictionary<string, Catzc.Base.Variants.VariantTrack>(StringComparer.Ordinal);
         List<string> trackNames = new List<string>();
-        foreach (Catzc.Base.Variants.VariantTrack track in trackList)
-        {
-            trackByRoot[track.root] = track;
-            trackNames.Add(track.name);
-        }
+        foreach (Catzc.Base.Variants.VariantTrack track in trackList) { trackNames.Add(track.name); }
 
         Dictionary<string, string> languageByExtension = new Dictionary<string, string>(StringComparer.Ordinal);
         List<string> languageNames = new List<string>();
@@ -98,15 +94,14 @@ public static class WorldMapBuilder
         List<MapPlacement> placements = new List<MapPlacement>();
         foreach (string path in pathList)
         {
-            int slash = path.IndexOf('/');
-            Catzc.Base.Variants.VariantTrack track = null;
-            if (slash > 0) { trackByRoot.TryGetValue(path.Substring(0, slash), out track); }
+            int placeLength = -1;
+            Catzc.Base.Variants.VariantTrack track = path.IndexOf('/') > 0 ? TrackOf(path, trackList, out placeLength) : null;
 
             string extension = Catzc.Base.Languages.LanguagesConfig.ExtensionOf(path);
             string fileLanguage;
             if (extension == null || !languageByExtension.TryGetValue(extension, out fileLanguage)) { fileLanguage = WorldMap.NoFileLanguage; }
 
-            bool live = track != null && IsLive(path, track, aspectsByTrack);
+            bool live = track != null && IsLive(path, track, placeLength, aspectsByTrack);
             bool violation = live && extension != null && !Declares(track, fileLanguage);
 
             string adr;
@@ -150,13 +145,30 @@ public static class WorldMapBuilder
         return new WorldMap(trackNames.ToArray(), languageNames.ToArray(), placements.ToArray(), index);
     }
 
+    // The track with the longest place that contains a '/'-separated path
+    // ([ADR-DSGN-TRACKTYPE#5](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype5)), or null when no place does.
+    private static Catzc.Base.Variants.VariantTrack TrackOf(string path, List<Catzc.Base.Variants.VariantTrack> trackList, out int placeLength)
+    {
+        Catzc.Base.Variants.VariantTrack best = null;
+        placeLength = -1;
+        foreach (Catzc.Base.Variants.VariantTrack track in trackList)
+        {
+            int length = track.PlaceLengthOf(path);
+            if (length > placeLength) { best = track; placeLength = length; }
+        }
+        return best;
+    }
+
+    // Track types whose files are never live: test-only projects and code written by a third party
+    // ([ADR-DSGN-TRACK#11](/docs/adr/design/tracks.md#rule-adr-dsgn-track11)).
+    private static readonly string[] NeverLiveTypes = { "verification", "vendored-code" };
+
     // Is a file of a track in the track's live aspect?
-    private static bool IsLive(string path, Catzc.Base.Variants.VariantTrack track,
+    private static bool IsLive(string path, Catzc.Base.Variants.VariantTrack track, int placeLength,
         Dictionary<string, List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>>> aspectsByTrack)
     {
-        if (string.Equals(track.@class, "verification", StringComparison.Ordinal)) { return false; }
-        string relative = path.Substring(track.root.Length + 1);
-        if (relative.StartsWith(".vendor/", StringComparison.Ordinal) || relative.Contains("/.vendor/")) { return false; }
+        if (Array.IndexOf(NeverLiveTypes, track.type) >= 0) { return false; }
+        string relative = path.Length > placeLength ? path.Substring(placeLength + 1) : "";
         List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>> trackAspects;
         if (!aspectsByTrack.TryGetValue(track.name, out trackAspects)) { return true; }
         int slash = relative.IndexOf('/');

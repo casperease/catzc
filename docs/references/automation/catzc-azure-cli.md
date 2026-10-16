@@ -9,6 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md

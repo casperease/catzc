@@ -9,6 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     cites:
       - ADR-DSGN-TRACK#{1,3,6,12,14-17}

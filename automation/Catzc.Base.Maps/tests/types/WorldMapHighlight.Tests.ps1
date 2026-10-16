@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -21,9 +22,9 @@ catzc:
 Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $tracks = @(
-            [Catzc.Base.Variants.VariantTrack]::new('widgets', 'widgets', 'core', @('widget-script'))
-            [Catzc.Base.Variants.VariantTrack]::new('docs', 'docs', 'external-port', @('notes'))
-            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::PipelinesTrack, 'pipelines', 'adapter', @('gadget-pipe'))
+            [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script'))
+            [Catzc.Base.Variants.VariantTrack]::new('docs', @('docs'), 'documentation', $null, @('notes'))
+            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::PipelinesTrack, @('pipelines'), 'pipelines', $null, @('gadget-pipe'))
         )
         $languages = @(
             [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)

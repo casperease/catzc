@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
   edges:
     page: docs/references/automation/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md
     cites:

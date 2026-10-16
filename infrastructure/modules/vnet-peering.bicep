@@ -8,6 +8,8 @@
 //     subkind: module
 //     language: bicep
 //     track: infrastructure
+//     tracktype: infrastructure
+//     vendor: azure
 //     module: vnet-peering
 //     moduletype: bicep
 //   edges:

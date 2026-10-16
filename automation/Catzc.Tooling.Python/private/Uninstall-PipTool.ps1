@@ -9,6 +9,7 @@ catzc:
     kind: function
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Tooling.Python
     moduletype: pwsh-folder
     catzc_bundle: azure

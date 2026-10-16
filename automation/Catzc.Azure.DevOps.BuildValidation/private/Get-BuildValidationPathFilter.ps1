@@ -9,6 +9,7 @@ catzc:
     kind: function
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Azure.DevOps.BuildValidation
     moduletype: pwsh-folder
     catzc_bundle: full

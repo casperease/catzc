@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -22,8 +23,8 @@ catzc:
 Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:map = [Catzc.Base.Maps.WorldMapBuilder]::Build(
-            @([Catzc.Base.Variants.VariantTrack]::new('widgets', 'widgets', 'core', @('widget-script')),
-                [Catzc.Base.Variants.VariantTrack]::new('gadgets', 'gadgets', 'adapter', @('widget-script'))),
+            @([Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script')),
+                [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'infrastructure', $null, @('widget-script'))),
             @([Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)),
             @('widgets/Alpha/Get-Widget.ps1', 'widgets/Beta/Get-Gadget.ps1', 'README.md'),
             [ordered]@{}, [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry' }, [ordered]@{}, [ordered]@{ 'widgets/Alpha/Get-Widget.ps1' = '# ADR-WIDGET-GADGET' },

@@ -9,6 +9,8 @@ catzc:
     kind: hook
     language: csharp
     track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
     module: ".claude"
     moduletype: settings
   edges:

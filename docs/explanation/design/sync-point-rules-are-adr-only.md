@@ -9,6 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     cites:
       - ADR-DSGN-LIFE#{2,5-8}

@@ -9,6 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

@@ -5,6 +5,8 @@
 #     source: automation/Catzc.Base.Docs/assets/gitkeep
 #     kind: other
 #     track: pipelines
+#     tracktype: pipelines
+#     vendor: ado
 #     module: pipelines
 #     moduletype: pipeline
 #     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1

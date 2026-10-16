@@ -9,6 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     defines:
       - ADR-AUTO-TEST#{1,3,4,6-10,13-17,19-28,30-44}

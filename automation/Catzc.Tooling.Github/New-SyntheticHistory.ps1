@@ -9,6 +9,7 @@ catzc:
     subkind: writer
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Tooling.Github
     moduletype: pwsh-folder
     catzc_bundle: full

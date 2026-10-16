@@ -8,6 +8,7 @@
 #     kind: test
 #     language: bash
 #     track: bash
+#     tracktype: verification
 #     module: bash
 #     moduletype: bash
 # ---

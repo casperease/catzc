@@ -9,6 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
+    tracktype: documentation
 ---
 
 # Python how-to guides — reserved

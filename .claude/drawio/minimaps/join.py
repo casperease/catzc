@@ -8,6 +8,8 @@
 #     kind: drawio-kit
 #     language: python
 #     track: ".claude"
+#     tracktype: vendor-settings
+#     vendor: claude
 #     module: ".claude"
 #     moduletype: settings
 # ---

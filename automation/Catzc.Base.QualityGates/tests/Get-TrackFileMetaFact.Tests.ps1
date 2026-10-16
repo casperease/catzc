@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -22,8 +23,8 @@ Describe 'Get-TrackFileMetaFact' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#1' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{
-                    widget   = [ordered]@{ root = 'widget'; class = 'core'; languages = @('widget-lang') }
-                    '.gizmo' = [ordered]@{ root = '.gizmo'; class = 'external-port' }
+                    widget   = [ordered]@{ places = @('widget'); type = 'widget-works'; languages = @('widget-lang') }
+                    '.gizmo' = [ordered]@{ places = @('.gizmo', 'widget/gizmo-settings'); type = 'gizmo-settings'; vendor = 'gizmo' }
                 }
             })
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:fixture }
@@ -47,6 +48,11 @@ Describe 'Get-TrackFileMetaFact' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#1' {
 
     It 'names a dot-root track' {
         (Get-Fact '.gizmo/settings.json')['track'] | Should -BeExactly '.gizmo'
+    }
+
+    It 'names the track of the longest place, so a narrower place inside another track''s root wins' {
+        (Get-Fact 'widget/gizmo-settings/a.json')['track'] | Should -BeExactly '.gizmo'
+        (Get-Fact 'widget/other/a.json')['track'] | Should -BeExactly 'widget'
     }
 
     It 'gives an empty value to a root file, the output folder, and a root no track declares' -ForEach @(

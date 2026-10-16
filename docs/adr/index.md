@@ -7,6 +7,7 @@ catzc:
     language: markdown
     filetype: md
     track: docs
+    tracktype: documentation
     generator: automation/Catzc.Base.Docs/Build-AdrIndex.ps1
 ---
 

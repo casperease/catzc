@@ -9,6 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     cites:
       - ADR-AUTO-ENVVAR#{1,7}

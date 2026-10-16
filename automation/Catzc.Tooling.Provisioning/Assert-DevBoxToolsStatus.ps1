@@ -9,6 +9,7 @@ catzc:
     subkind: assert
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Tooling.Provisioning
     moduletype: pwsh-folder
     catzc_bundle: azure

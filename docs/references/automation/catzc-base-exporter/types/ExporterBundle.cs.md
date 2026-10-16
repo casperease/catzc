@@ -9,6 +9,7 @@ catzc:
     kind: comment-page
     language: markdown
     track: docs
+    tracktype: documentation
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
   edges:
     cites:

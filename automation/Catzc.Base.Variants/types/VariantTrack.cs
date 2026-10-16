@@ -9,6 +9,7 @@ catzc:
     kind: type
     language: csharp
     track: automation
+    tracktype: modules
     module: Catzc.Base.Variants
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -17,6 +18,7 @@ catzc:
     cites:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK
+      - ADR-DSGN-TRACKTYPE#1
 ---
 */
 

@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -39,7 +40,7 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
 
     BeforeEach {
         InModuleScope Catzc.Base.Maps { $script:worldMapTextCache = $null }
-        Mock Get-Track -ModuleName Catzc.Base.Maps { [Catzc.Base.Variants.VariantTrack]::new('widgets', 'widgets', 'core', @('widget-script')) }
+        Mock Get-Track -ModuleName Catzc.Base.Maps { [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script')) }
         Mock Get-FileLanguage -ModuleName Catzc.Base.Maps { [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null) }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Maps { 'importer.ps1', 'widgets/Alpha/Get-Widget.ps1', 'widgets/Alpha/widget.json', 'widgets/Alpha/gone.ps1' }
         Mock Get-Aspect -ModuleName Catzc.Base.Maps { $script:variants.aspects[$Track] }

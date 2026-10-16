@@ -9,6 +9,7 @@ catzc:
     kind: analyzer-rule
     language: powershell
     track: automation
+    tracktype: modules
   config:
     synopsis: Whether the code under analysis is a Pester test file — the one scope test the custom checks share.
     description: |-

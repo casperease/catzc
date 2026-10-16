@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a7995a5f134e
+    with_body_sha: "0db9b3fa036c"
     path: docs/adr/design/track-types.md
     folder: docs/adr/design
     name: track-types
@@ -9,6 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     defines:
       - ADR-DSGN-TRACKTYPE#{1-7}
@@ -158,8 +159,10 @@ declarations ([ADR-DSGN-TRACKTYPE#4](#rule-adr-dsgn-tracktype4)); the longest pl
 
 ### How this is enforced
 
-- **The config types** fail the load on a track without a type, an unknown type, an unknown vendor, an equal-length overlapping place, an
-  unknown key, and a type that admits an unknown module type.
+- **The config types** (`VariantsConfig`, `TrackTypesConfig`) fail the load on a track without a place or a type, a place two tracks share,
+  a place under `out/`, an unknown key, a role outside the closed set, and a track type that admits a module type twice.
+- **`Test-TrackDeclaration`** reads the tracks, the track types, the vendors and the module types together and fails a track whose type or
+  vendor is not declared, and a track type that admits a module type no registry declares.
 - **`Test-WorldMap`** fails a tracked file in no track and a stack violation ([ADR-DSGN-TRACK#11](tracks.md#rule-adr-dsgn-track11)); its
   rows are the tracks.
 - **`Test-FileMeta`** compares `track`, `tracktype` and `vendor` in each head with the declaration.

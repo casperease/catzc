@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -47,27 +48,28 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
 
     It 'writes the unified head with the generator and the source, in the comment style of the file language' {
         $text = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -Generator New-Widget -Source 'docs/widget.yml' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     path: docs/gen.wdg`n#     source: docs/widget.yml`n#     kind: widget`n#     language: widget`n#     filetype: wdg`n#     track: docs`n#     generator: automation/Catzc.Widget/New-Widget.ps1`n# ---`n`nwidget body`n"
+        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     path: docs/gen.wdg`n#     source: docs/widget.yml`n#     kind: widget`n#     language: widget`n#     filetype: wdg`n#     track: docs`n#     tracktype: documentation`n#     generator: automation/Catzc.Widget/New-Widget.ps1`n# ---`n`nwidget body`n"
     }
 
     It 'leaves the generator and the source out when the file has none, and lists several sources' {
         $bare = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.gdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $bare | Should -BeExactly "/*`n---`ncatzc:`n  immutable:`n    path: docs/gen.gdg`n    kind: widget`n    language: gadget`n    filetype: gdg`n    track: docs`n---`n*/`n`nbody`n"
+        $bare | Should -BeExactly "/*`n---`ncatzc:`n  immutable:`n    path: docs/gen.gdg`n    kind: widget`n    language: gadget`n    filetype: gdg`n    track: docs`n    tracktype: documentation`n---`n*/`n`nbody`n"
 
         $many = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.gdg' -Generator New-Gadget -Source 'a/one.yml', 'a/two.yml' -FileKind $script:narrowRole -Carriers $script:carriers -Languages $script:languages
-        $many | Should -BeLike "*    source:`n      - a/one.yml`n      - a/two.yml`n    kind: gadget`n    subkind: cog`n    language: gadget`n    filetype: gdg`n    track: docs`n    generator: automation/Catzc.Widget/New-Gadget.ps1`n---*"
+        $many | Should -BeLike "*    source:`n      - a/one.yml`n      - a/two.yml`n    kind: gadget`n    subkind: cog`n    language: gadget`n    filetype: gdg`n    track: docs`n    tracktype: documentation`n    generator: automation/Catzc.Widget/New-Gadget.ps1`n---*"
     }
 
     It 'leaves the language, the track and the module out for a root file no language lists' {
         $text = Format-GeneratedFileHead -Text "body`n" -Path 'sprocket' -Carrier sprocket -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
         $text | Should -Not -BeLike '*language:*'
         $text | Should -Not -BeLike '*track:*'
+        $text | Should -Not -BeLike '*tracktype:*'
         $text | Should -Not -BeLike '*module:*'
     }
 
     It 'names the track and, under automation, the module the file is placed in' {
         $text = Format-GeneratedFileHead -Text "body`n" -Path 'automation/Catzc.Base.Docs/gen.wdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeLike "*#     language: widget`n#     filetype: wdg`n#     track: automation`n#     module: Catzc.Base.Docs`n#     moduletype: pwsh-folder`n# ---*"
+        $text | Should -BeLike "*#     language: widget`n#     filetype: wdg`n#     track: automation`n#     tracktype: modules`n#     module: Catzc.Base.Docs`n#     moduletype: pwsh-folder`n# ---*"
         $docs = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.wdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
         $docs | Should -Not -BeLike '*module:*'
     }
@@ -94,7 +96,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
 
     It 'writes a property carrier into JSON, replacing an old banner its carrier strips' {
         $text = Format-GeneratedFileHead -Text "{`n  `"`$comment`": `"GENERATED FILE - do not edit.`",`n  `"type`": `"object`"`n}`n" -Path 'docs/gen.schema.dat' -Carrier schema -Generator New-Schema -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  immutable:\n    path: docs/gen.schema.dat\n    kind: widget\n    language: data\n    filetype: dat\n    track: docs\n    generator: automation/Catzc.Widget/New-Schema.ps1`",`n  `"type`": `"object`"`n}`n"
+        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  immutable:\n    path: docs/gen.schema.dat\n    kind: widget\n    language: data\n    filetype: dat\n    track: docs\n    tracktype: documentation\n    generator: automation/Catzc.Widget/New-Schema.ps1`",`n  `"type`": `"object`"`n}`n"
     }
 
     It 'refuses a carrier that holds no head, and an undeclared carrier' {

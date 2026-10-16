@@ -9,6 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/adr/azure/azure-data-model.md

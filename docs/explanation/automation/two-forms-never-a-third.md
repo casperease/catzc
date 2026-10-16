@@ -9,6 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     cites:
       - ADR-AUTO-PATH#{1-4,10}

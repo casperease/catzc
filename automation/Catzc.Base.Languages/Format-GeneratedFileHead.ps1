@@ -9,6 +9,7 @@ catzc:
     subkind: formatter
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -93,6 +94,10 @@ function Format-GeneratedFileHead {
     $track = Get-Track -Path $relative
     if ($track) {
         $values['track'] = $track.name
+        $values['tracktype'] = $track.type
+        if ($track.vendor) {
+            $values['vendor'] = $track.vendor
+        }
     }
     $module = Get-PathModule $relative
     if ($module) {

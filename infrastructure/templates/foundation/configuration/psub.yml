@@ -9,6 +9,8 @@
 #     subkind: config
 #     language: yaml
 #     track: infrastructure
+#     tracktype: infrastructure
+#     vendor: azure
 #     module: foundation
 #     moduletype: bicep
 # ---

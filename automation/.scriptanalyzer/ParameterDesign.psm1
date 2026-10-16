@@ -9,6 +9,7 @@ catzc:
     kind: analyzer-rule
     language: powershell
     track: automation
+    tracktype: modules
   edges:
     page: docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md
 ---

@@ -9,6 +9,7 @@ catzc:
     subkind: assert
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Overlay
     moduletype: pwsh-folder
     catzc_bundle: azure

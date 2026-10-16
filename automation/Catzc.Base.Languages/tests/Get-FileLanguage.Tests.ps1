@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -104,13 +105,10 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
 
         $script:isLive = {
             param([string] $File, $Track)
-            if ($Track.class -eq 'verification') {
+            if ($Track.type -in 'verification', 'vendored-code') {
                 return $false
             }
-            $relative = $File.Substring($Track.root.Length + 1)
-            if ($relative -like '.vendor/*' -or $relative -like '*/.vendor/*') {
-                return $false
-            }
+            $relative = $File.Substring($Track.PlaceLengthOf($File) + 1)
             if ($null -eq $script:aspectTracks -or -not $script:aspectTracks.ContainsKey($Track.name)) {
                 return $true
             }
@@ -155,17 +153,13 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
     }
 
     It "keeps every live file of a track in the track's declared file languages" {
-        $byRoot = @{}
-        foreach ($track in $script:tracks) {
-            $byRoot[$track.root] = $track
-        }
         $violations = [System.Collections.Generic.SortedDictionary[string, System.Collections.Generic.List[string]]]::new([System.StringComparer]::Ordinal)
         foreach ($file in $script:tracked) {
             $slash = $file.IndexOf('/')
             if ($slash -lt 0) {
                 continue
             }
-            $track = $byRoot[$file.Substring(0, $slash)]
+            $track = Get-Track -Path $file
             if ($null -eq $track -or -not (& $script:isLive $file $track)) {
                 continue
             }

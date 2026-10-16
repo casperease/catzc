@@ -8,6 +8,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Internal.Tests
     moduletype: pwsh-folder
     catzc_bundle: minimal

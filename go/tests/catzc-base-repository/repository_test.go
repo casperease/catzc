@@ -8,6 +8,7 @@
 //     kind: test
 //     language: go
 //     track: go
+//     tracktype: verification
 //     module: go
 //     moduletype: go
 // ---

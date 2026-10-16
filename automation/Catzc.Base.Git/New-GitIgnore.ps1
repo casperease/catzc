@@ -9,6 +9,7 @@ catzc:
     subkind: writer
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Git
     moduletype: pwsh-folder
     catzc_bundle: azure

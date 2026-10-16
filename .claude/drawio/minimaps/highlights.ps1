@@ -9,6 +9,8 @@ catzc:
     kind: drawio-kit
     language: powershell
     track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
     module: ".claude"
     moduletype: settings
   config:

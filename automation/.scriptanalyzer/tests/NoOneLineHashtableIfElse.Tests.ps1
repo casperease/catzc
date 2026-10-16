@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
   edges:
     cites:
       - ADR-PWSH-FORMAT#10

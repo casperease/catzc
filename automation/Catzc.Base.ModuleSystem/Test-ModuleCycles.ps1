@@ -9,6 +9,7 @@ catzc:
     subkind: gate
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure

@@ -10,6 +10,7 @@ catzc:
     subkind: fact
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -62,7 +63,7 @@ function Get-CatzcBundleFileMetaFact {
         $script:bundleMembersFor = $exporter
     }
 
-    $root = (Get-Track -Name automation).root
+    $root = (Get-Track -Name automation).places[0]
     $value = ''
     $folder = [regex]::Match(($Path -replace '\\', '/'), '^' + [regex]::Escape($root) + '/(?<folder>[^/]+)/')
     if ($folder.Success) {

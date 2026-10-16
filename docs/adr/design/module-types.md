@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "219dcd43c022"
+    with_body_sha: "4316b55080b9"
     path: docs/adr/design/module-types.md
     folder: docs/adr/design
     name: module-types
@@ -9,6 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     defines:
       - ADR-DSGN-MODTYPE#{1-4}
@@ -88,7 +89,8 @@ module is the holder ([ADR-DSGN-MODTYPE#4](#rule-adr-dsgn-modtype4)).
 
 ### How this is enforced
 
-- **The config types** fail the load on a module type its track type does not admit, an unknown key and a place two types claim.
+- **`Test-TrackDeclaration`** fails a module type with a place in a track whose track type does not admit it.
+- **The config types** fail the load on an unknown key and a module type without a definition or a place.
 - **`Test-FileMeta`** compares `module`, `moduletype` and `catzc_bundle` in each head with the registry.
 
 ## Consequences

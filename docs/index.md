@@ -9,6 +9,7 @@ catzc:
     kind: index
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/adr/automation/avoid-deep-nesting.md

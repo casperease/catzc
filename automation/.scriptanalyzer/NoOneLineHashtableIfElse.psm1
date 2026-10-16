@@ -9,6 +9,7 @@ catzc:
     kind: analyzer-rule
     language: powershell
     track: automation
+    tracktype: modules
 ---
 #>
 

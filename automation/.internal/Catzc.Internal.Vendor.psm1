@@ -9,6 +9,7 @@ catzc:
     subkind: internal
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Internal.Vendor
     moduletype: pwsh-psm1
     catzc_bundle: minimal

@@ -9,6 +9,7 @@ catzc:
     kind: type
     language: csharp
     track: automation
+    tracktype: modules
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure

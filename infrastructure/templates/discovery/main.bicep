@@ -7,6 +7,8 @@
 //     kind: template
 //     language: bicep
 //     track: infrastructure
+//     tracktype: infrastructure
+//     vendor: azure
 //     module: discovery
 //     moduletype: bicep
 //   edges:

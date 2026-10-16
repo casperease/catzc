@@ -9,6 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     links:
       - docs/how-to/automation/manual-test-plan/adr-registry.md

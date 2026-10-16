@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Variants
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -22,10 +23,10 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{
-                    widget   = [ordered]@{ root = 'widget'; class = 'core'; languages = @('widget-lang') }
-                    gadget   = [ordered]@{ root = 'gadget'; class = 'adapter'; languages = @('gadget-lang', 'widget-lang') }
-                    '.gizmo' = [ordered]@{ root = '.gizmo'; class = 'external-port' }
-                    sprocket = [ordered]@{ root = '.sprocket'; class = 'verification' }
+                    widget   = [ordered]@{ places = @('widget'); type = 'widget-works'; languages = @('widget-lang') }
+                    gadget   = [ordered]@{ places = @('gadget'); type = 'gadget-shelf'; vendor = 'gizmo'; languages = @('gadget-lang', 'widget-lang') }
+                    '.gizmo' = [ordered]@{ places = @('.gizmo', 'gadget/gizmo-settings'); type = 'gizmo-settings'; vendor = 'gizmo' }
+                    sprocket = [ordered]@{ places = @('.sprocket'); type = 'sprocket-tests' }
                 }
             })
     }
@@ -43,20 +44,27 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
 
         It 'returns the named tracks' {
             (Get-Track -Name gadget).languages | Should -Be @('gadget-lang', 'widget-lang')
-            @(Get-Track -Name widget, '.gizmo').class | Should -Be @('core', 'external-port')
+            @(Get-Track -Name widget, '.gizmo').type | Should -Be @('widget-works', 'gizmo-settings')
+            (Get-Track -Name gadget).vendor | Should -Be 'gizmo'
         }
 
         It 'throws on an unknown name, naming the config file and the declared tracks' {
             { Get-Track -Name gimbal } | Should -Throw "*Unknown track 'gimbal'*variants.yml*widget, gadget*"
         }
 
-        It 'returns the track whose root is the first segment of a path' {
+        It 'returns the track with the longest place that contains the path, so a narrower place wins' {
+            (Get-Track -Path 'gadget/gizmo-settings/gizmo.json').name | Should -Be '.gizmo'
+            (Get-Track -Path 'gadget/gizmo-settings').name | Should -Be '.gizmo'
+            (Get-Track -Path 'gadget/gizmo-settings-extra/x.json').name | Should -Be 'gadget'
+        }
+
+        It 'returns the track whose place contains the path' {
             (Get-Track -Path 'widget/Widget.Module/Get-Widget.ps1').name | Should -Be 'widget'
             (Get-Track -Path 'gadget/deep/nested/folder/gadget.cfg').name | Should -Be 'gadget'
             (Get-Track -Path '.gizmo/settings.json').name | Should -Be '.gizmo'
         }
 
-        It 'matches the root, not the track name' {
+        It 'matches the place, not the track name' {
             (Get-Track -Path '.sprocket/tests/sprocket_test.go').name | Should -Be 'sprocket'
             Get-Track -Path 'sprocket/file.txt' | Should -BeNullOrEmpty
         }
@@ -88,7 +96,7 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
 
 Describe 'Get-Track — the real repository' -Tag 'L1', 'integrity', 'source-only', 'ADR-DSGN-TRACK#17' {
     It 'declares the unordered track as the shelf nothing defaults to' {
-        (Get-Track -Name '.unordered').class | Should -Be 'unordered'
+        (Get-Track -Name '.unordered').type | Should -Be 'unordered'
         (Get-Track -Path '.unordered/15-10-2026/plan-widget.md').name | Should -Be '.unordered'
     }
 }

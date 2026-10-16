@@ -9,6 +9,7 @@ catzc:
     kind: analyzer-rule
     language: powershell
     track: automation
+    tracktype: modules
   edges:
     page: docs/references/automation/scriptanalyzer/NoAzModuleNaming.psm1.md
 ---

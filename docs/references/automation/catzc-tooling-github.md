@@ -9,6 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
+    tracktype: documentation
   edges:
     cites:
       - ADR-REPO-CONTRACT#{1-3,6}

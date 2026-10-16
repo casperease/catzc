@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.Contracts
     moduletype: pwsh-folder
     catzc_bundle: azure

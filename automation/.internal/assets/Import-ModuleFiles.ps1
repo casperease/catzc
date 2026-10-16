@@ -8,6 +8,7 @@ catzc:
     kind: asset
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Internal.Assets
     moduletype: pwsh-folder
     catzc_bundle: minimal

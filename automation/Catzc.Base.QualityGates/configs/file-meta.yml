@@ -8,6 +8,7 @@
 #     kind: config
 #     language: yaml
 #     track: automation
+#     tracktype: modules
 #     module: Catzc.Base.QualityGates
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
@@ -41,9 +42,17 @@ kinds:
   file-language:
     keys: [language]
 
-  # The track whose root folder holds the file, from the tracks registry; a root file, which no track holds, carries none.
+  # The track with the longest place that contains the file, from the tracks registry; a root file, which no track holds, carries none.
   track:
     keys: [track]
+
+  # The type of that track, from the tracks registry (modules, pipelines, vendor-settings, …); a root file carries none.
+  track-type:
+    keys: [tracktype]
+
+  # The vendor that reads that track's files, from the tracks registry; a root file and a track with no vendor carry none.
+  vendor:
+    keys: [vendor]
 
   # The module the file is placed in, from the module-types registry; a file placed in no module carries none.
   module-name:

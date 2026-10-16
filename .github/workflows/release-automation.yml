@@ -6,7 +6,9 @@
 #     filetype: yml
 #     kind: pipeline
 #     language: yaml
-#     track: ".github"
+#     track: github-workflows
+#     tracktype: pipelines
+#     vendor: github
 #     module: workflows
 #     moduletype: pipeline
 # ---

@@ -9,6 +9,7 @@ catzc:
     kind: fixture
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure

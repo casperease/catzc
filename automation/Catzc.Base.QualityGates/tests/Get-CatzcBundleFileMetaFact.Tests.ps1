@@ -9,6 +9,7 @@ catzc:
     kind: test
     language: powershell
     track: automation
+    tracktype: modules
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
@@ -52,7 +53,7 @@ Describe 'Get-CatzcBundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
                 @('Widget.Core', 'Widget.Extra', '.internal')
             }
         }
-        Mock Get-Track -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ name = 'automation'; root = 'widgetry' } }
+        Mock Get-Track -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ name = 'automation'; places = @('widgetry') } }
     }
 
     It 'names the smallest bundle that holds the module of the file, under the kind''s key' {
