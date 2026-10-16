@@ -12,8 +12,6 @@
 #     module: Catzc.Base.VSCode
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#   edges:
-#     page: docs/references/automation/catzc-base-vscode/configs/vscode-tasks.yml.md
 # ---
 
 version: "2.0.0"

@@ -1,22 +1,3 @@
-<?catzc
----
-catzc:
-  immutable:
-    with_body_sha: "8b51a39eb4b2"
-    repo_status: locked
-    path: automation/.internal/assets/Catzc.Types.csproj
-    source: automation/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
-    kind: asset
-    language: xml
-    filetype: csproj
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Assets
-    moduletype: pwsh-folder
-    generator: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
----
-?>
-
 <!--
   IDE: It exists so VS Code's C# Dev Kit (and any Roslyn-based editor) compiles and analyzes
   the repo's native type sources — automation/<Module>/types/*.cs — with the SAME rules the runtime honors.
@@ -35,6 +16,22 @@ catzc:
   runtime enables neither). Build output (obj/, bin/) is gitignored. See ADR native-csharp-types (code types).
 -->
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="catzc">
+    <CatzcMeta><![CDATA[catzc:
+  immutable:
+    with_body_sha: "8b51a39eb4b2"
+    repo_status: locked
+    path: automation/.internal/assets/Catzc.Types.csproj
+    source: automation/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
+    kind: asset
+    language: xml
+    filetype: csproj
+    track: automation
+    tracktype: modules
+    module: Catzc.Internal.Assets
+    moduletype: pwsh-folder
+    generator: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1]]></CatzcMeta>
+  </PropertyGroup>
 
   <PropertyGroup>
     <!-- The runtime host (PowerShell 7.6) runs on .NET 10, the framework Add-Type compiles these against. -->

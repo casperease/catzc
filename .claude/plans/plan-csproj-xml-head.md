@@ -3,12 +3,13 @@ plan:
   status: blocked
   value: low
   reviewed: 2026-10-17
-  blocked_on: the editor still reports MSB4025 on Catzc.Types.csproj after a window reload (Q1)
+  blocked_on: Q1, the editor load of Catzc.Types.csproj is not yet confirmed
   targets:
     [
       automation/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml,
       automation/Catzc.Base.RootConfig/configs/rootconfig.yml,
       automation/Catzc.Base.Languages/configs/file-carriers.yml,
+      automation/Catzc.Base.CodeMeta/types/PropertyHead.cs,
     ]
 ---
 
@@ -20,21 +21,20 @@ plan:
 ## Landed
 
 - The root-config entry (`rootconfig.yml`, `committed: true`) names the `.xml` source and the carrier `msbuild-project`.
-- `file-carriers.yml` holds `msbuild-project`: a comment head whose delimiters are the processing instruction `<?catzc` and `?>`, scoped to
-  this one file. An XML comment cannot hold the `---` fence, so a processing instruction carries it.
-- `.gitattributes` (from `assets/root/.gitattributes`) marks the file `linguist-generated` and `eol=lf`, which also keeps the file-meta gate
-  from reading its `source` key.
-- Checked: `Test-FileMeta` on the file, `Test-RootConfigIntegrity`, `Test-GeneratedFileCurrent`, `Test-RootConfigFiles`, and `dotnet
-  restore` plus `dotnet build` of the project, 0 warnings and 0 errors.
+- `file-carriers.yml` holds `msbuild-project`: a property carrier (`property: CatzcMeta`) scoped to this one file. A processing-instruction
+  head was tried first and the editor's project loader refused it (`MSB4025`), so the block is a CDATA property of the first
+  `PropertyGroup Label="catzc"` of the project. An XML comment cannot hold the `---` fence.
+- `PropertyHead` (`Catzc.Base.CodeMeta`) reads and writes that form beside its JSON form, with six L0 tests in `PropertyHead.Tests.ps1`.
+- `.gitattributes` (from `assets/root/.gitattributes`) marks the file `linguist-generated` and `eol=lf`.
+- Checked: `PropertyHead.Tests.ps1` (20), `Test-FileMeta` on the file, `Test-RootConfigIntegrity`, `Test-GeneratedFileCurrent`,
+  `FileCarriersConfig.Tests.ps1`, `Test-RootConfigFiles`, and `dotnet build` of the project (succeeds).
 
 ## Open
 
-- **Q1.** The editor's project loader reported `MSB4025` ("Name cannot begin with the '\n' character", line 1, position 3). `dotnet build`
-  and `System.Xml` both load the same file, so a stale copy is the first suspect. Reload the window and see whether it returns.
-  - Gone: close this plan.
-  - Back: the head moves into the project as a CDATA property (`Project` > `PropertyGroup` > one property), a new XML property carrier in
-    `Catzc.Base.CodeMeta` and `Catzc.Base.Languages` with its tests and page, and `msbuild-project` becomes that carrier.
-- **Q2.** Four tests in `Build-RootConfig.Tests.ps1` compare an exact head text and fail; they are about fixture files. Run them against
+- **Q1.** Open the project in the editor after a window reload and confirm `MSB4025` is gone.
+- **Q2.** The `PropertyHead` page under `docs/references/automation/catzc-base-codemeta/types/` and the `Format-PropertyMetaHead` and
+  `Get-PropertyMetaState` help still describe a JSON-only head; bring them to the XML form.
+- **Q3.** Four tests in `Build-RootConfig.Tests.ps1` compare an exact head text and fail; they are about fixture files. Run them against
   the tree without this change to learn whether they failed before it.
 - The index holds one `automation/.compiled/Catzc.Types.<hash>.dll`; it goes stale at every `types/*.cs` edit, and staging it is the
   user's.

@@ -14,7 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    page: docs/references/automation/catzc-base-vscode/types/VscodeTasksConfig.cs.md
     test: automation/Catzc.Base.VSCode/tests/types/VscodeTasksConfig.Tests.ps1
     cites:
       - ADR-AUTO-TYPES#8

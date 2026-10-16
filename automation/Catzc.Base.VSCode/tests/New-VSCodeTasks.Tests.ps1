@@ -14,7 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    page: docs/references/automation/catzc-base-vscode/tests/New-VSCodeTasks.Tests.ps1.md
     cites:
       - ADR-PWSH-PESTER#2
 ---

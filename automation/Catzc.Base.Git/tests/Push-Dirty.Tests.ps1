@@ -13,8 +13,6 @@ catzc:
     module: Catzc.Base.Git
     moduletype: pwsh-folder
     catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-git/tests/Push-Dirty.Tests.ps1.md
 ---
 #>
 

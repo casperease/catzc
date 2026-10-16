@@ -255,7 +255,7 @@ examples below are the canonical set.
 
 `One push lands a commit`
 
-Integration here is continuous, so the cheapest landing wins: the client commits and pushes once, and the machine gates (BVT onward) judge
+Integration here is continuous, so the cheapest landing wins: the client commits and pushes once, and the BVT and the stages after it judge
 the commit after it is on main, not before. That only works if a push can never damage what the server already holds, hence the two
 refusals: no force, no amend of a pushed commit. The one sanctioned failure is a rejected push, where another client landed first; the
 tooling stops and reports rather than rebasing, because rebasing builds the commit on the server's tip, which may be a dirty HEAD

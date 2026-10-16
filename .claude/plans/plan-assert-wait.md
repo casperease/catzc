@@ -45,9 +45,10 @@ A hang today shows nothing about where it stopped (ADR-AUTO-FAILFAST#7, "A hang 
 a limit can be put there and tuned. It is a diagnostic that leaves the tree once the block is bounded, so its lasting value is the limits it
 leads to, not the function. It needs one ADR pair and one L0 test file.
 
-## Contract (as drafted; Q1-Q3 confirm it)
+## Contract (final for v1; Q1-Q3 answered below)
 
-- `Assert-Wait [-Seconds <int>] [-Millisecs <int>]`, both `ValidateRange(0, ...)`; the total must be above zero (`Assert-True`).
+- `Assert-Wait [-Seconds <int>] [-Millisecs <int>]`, both `ValidateRange` (Seconds 0-3600, Millisecs 0-3600000), defaults read from the
+  `wait` map of `TimeoutsConfig` (1 s and 1 ms); the total must be above zero (`Assert-True`).
 - Waits `Seconds + Millisecs` in ten evenly spaced ticks (a named constant, not a knob). Each tick line gives due, actual and lateness from
   a `Stopwatch`; the opening line names `<file>:<line>` from `Get-PSCallStack` frame 1.
 - Information stream always, never `-Verbose`-gated; silent under Pester like every writer.
@@ -65,7 +66,7 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 - `ADR-AUTO-FAILFAST#8`: mark a suspected block with a watchpoint, then bound it (Q5). `ADR-PWSH-ASSERT#7`: the pwsh form. Both go through
   `automation/Catzc.Base.Docs/configs/adrs.yml` and `Build-AdrIndex`; present tense, no history.
 - Function help for `Assert-Wait` (ADR-REPO-HELP); a glossary entry only if `watchpoint` becomes a defined term (`glossary-keeper`).
-- If Q1 settles on config defaults: the `timeouts.yml` page documents the new keys.
+- The `timeouts.yml` page documents the new `wait` keys (Q1).
 
 ## Needed tests
 
@@ -76,7 +77,8 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
   - the warning is on the information stream and `$WarningPreference = 'Stop'` does not terminate it
   - a late tick (mocked clock or `Start-Sleep`) is named in the closing line
   - returns nothing
-- `TimeoutsConfig` tests for the default keys, if Q1 picks config defaults.
+- `TimeoutsConfig` tests for the `wait` keys (Q1): the defaults 1 and 1 when the key is absent, an override read, an unknown key under
+  `wait` rejected, and a zero or negative value rejected.
 - Module-graph check that `Catzc.Base.Timeouts` -> `Catzc.Base.Writers` makes no cycle (ADR-AUTO-DEPM).
 
 ## Open questions
@@ -84,27 +86,42 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 - **Q1. Answered 2026-10-17 at the user's request: on the config type.** The defaults 1 s and 1 ms are declared once on `TimeoutsConfig`,
   as a `wait` map with `seconds` and `millisecs`, one pair and not keyed by environment (a watchpoint is a diagnostic; a pipeline run of
   one is the rare case). The `param` block reads them from `Get-Config -Config timeouts` and restates no number. Why:
-  [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6) declares a sensible default exactly once, on the
+  [ADR-AUTO-DEFAULT#6](../../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6) declares a sensible default exactly once, on the
   setting's config type, and ADR-AUTO-DEFAULT#2 pulls defaults from configuration. Projected outcome: `timeouts.yml` may set `wait`, a
   fresh checkout behaves as the type says, and `Assert-Wait.Tests.ps1` still pins a 1.001 s total. The literals now in `Assert-Wait.ps1`
   are replaced in the same change (ADR-PRIN-ONELIVE).
-- **Q2.** Reading of the request: it really waits and measures its own ticks (not a threshold on time since a start mark); `Millisecs` adds
-  to `Seconds` (not a tick interval); the closing warning always fires. Recommendation: as drafted.
-- **Q3.** Is "complete startup time" the whole span with Bootstrap included? The writers do not exist before `Import-AllModules`, and a
-  Bootstrap copy would be a second living version (ADR-PRIN-ONELIVE), so that span needs a different shape (a heartbeat thread started
-  before the first module). Recommendation: v1 as in step 3, then decide once a run shows whether Bootstrap ever blocks.
+- **Q2. Answered 2026-10-17 at the user's request: as drafted.** `Assert-Wait` really waits and measures its own ticks (not a threshold on
+  time since a start mark); `Millisecs` adds to `Seconds` (not a tick interval); the closing warning always fires. Why: a threshold needs a
+  start mark and a second function, so a one-line watchpoint cannot be one; the request's own wording ("write-aggressively ... conclude with
+  write-warning and then let go") describes a function that stands and speaks; and an always-on warning keeps a temporary diagnostic from
+  being parked in the tree (ADR-PRIN-ONELIVE). Projected outcome: the 16 tests in `Assert-Wait.Tests.ps1` stand as they are, and the
+  contract above is final for v1.
+- **Q3. Answered 2026-10-17 at the user's request: v1 as built; the Bootstrap span stays uncovered until a measured run asks for it.** The
+  standing points sit only after the module import. The Bootstrap phases (loader, vendor, type compile) keep `-DiagnoseLoadTime`, which
+  already times them. A Bootstrap copy of `Assert-Wait` would be a second living version (ADR-PRIN-ONELIVE), and the other shape (a
+  heartbeat thread started before the first module, as `Invoke-WithProgress` runs one) is a new function, so it waits for evidence.
+  Evidence to collect first: run `importer.ps1 -DiagnoseBlocking` and `-DiagnoseLoadTime` side by side; a Bootstrap phase that dominates
+  the load time without a visible cause is the trigger to open that shape as its own plan. Observation from the first real run: all four
+  importer watchpoints reported a worst tick about 110 ms late (116, 114, 106, 109), the same each time, so it looks like a fixed cost of the
+  first tick in that session and not a stall; find its source before reading a late tick in the importer as a block. Projected outcome: no
+  new code now; the follow-up is a measured step below.
 - **Q4 (built, not yet confirmed).** The opt-in switch is `-DiagnoseBlocking`, beside `-DiagnoseLoadTime`, on `importer.ps1`,
   `Test-Automation` and `Invoke-TestRun`; a call site reads `if ($DiagnoseBlocking) { Assert-Wait }`, because each point costs its full
   duration on every run. The importer's standing points add about four seconds to its own "Loaded in" line.
-- **Q5.** Do the two ADR rules land with the code, or after the first use proves the shape?
+- **Q5. Answered 2026-10-17 at the user's request: after the first measured run, not with the code.** `ADR-AUTO-FAILFAST#8` and
+  `ADR-PWSH-ASSERT#7` are written once a run has shown what a watchpoint finds and whether the ten-tick shape and the always-on warning
+  hold. An ADR states the current design in the present tense and is cited by code (`ADR-AUTO-FAILFAST#8`); a rule written before the
+  shape is proven would be edited or retired again, and a retired number is never reused. The function's head block cites
+  ADR-AUTO-FAILFAST#{5,7}, which is what governs it meanwhile. Projected outcome: the ADR step stays open with that trigger.
 
 ## Open steps
 
 One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing); C# edits need a fresh `pwsh`.
 
-- [ ] Answer Q1, Q2, Q3 and Q5 (check: each recorded here with its outcome, then fold into the contract above).
-- [ ] If Q1 is config: add the default to `TimeoutsConfig.cs` and its test, and drop the literals from `Assert-Wait.ps1` (check:
-      `tests/types/TimeoutsConfig.Tests.ps1` and `Assert-Wait.Tests.ps1` pass).
+- [x] Answer Q1, Q2, Q3 and Q5. Done 2026-10-17: each is recorded above with its outcome and folded into the contract.
+- [ ] Q1: add the `wait` map (`seconds`, `millisecs`, defaults 1 and 1) to `TimeoutsConfig.cs` and its tests, then replace the literals in
+      `Assert-Wait.ps1` with the config read (check: `tests/types/TimeoutsConfig.Tests.ps1` and `Assert-Wait.Tests.ps1` pass; C# edits need a
+      fresh `pwsh`).
 - [x] Write `Assert-Wait.ps1`, add it to the `.psd1` export list and `CatzcFiles`, write its test. Done 2026-10-17: `Assert-Wait.Tests.ps1`
       passes 16 of 16. The rest of the module's tests were not run.
 - [x] Importer: the opt-in switch and four standing points (after `Import-AllModules`, `Assert-CatzcRunModeExclusive`,
@@ -116,7 +133,11 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
       tests (four waits then workers; none by default). A real `Test-Automation -DiagnoseBlocking` run was not made.
 - [ ] Run `Test-Automation.Tests.ps1` green. Its one failure on 2026-10-17 is the source-conventions check, caused by other files: a peer's
       `Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1` name and "bash and zsh" wording in seven other plans, none of them this one.
-- [ ] Function help beyond the head blocks, then the ADR rules if Q5 says so (check: `Test-Links` and the ADR gates on the touched pages).
+- [ ] Q3: run `importer.ps1 -DiagnoseBlocking` and `-DiagnoseLoadTime` side by side and find where the fixed ~110 ms first-tick lateness
+      comes from (check: the cause is named here, or the tick no longer reports it).
+- [ ] Function help beyond the head blocks (check: `Test-Links` on the touched pages).
+- [ ] Q5: after the first measured run, write `ADR-AUTO-FAILFAST#8` and `ADR-PWSH-ASSERT#7` (check: `Build-AdrIndex`, `Test-Links` and the ADR
+      gates on the touched pages).
 - [ ] After the first measured run: replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check:
       no `Assert-Wait` call left without a finding).
 

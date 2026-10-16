@@ -15,7 +15,6 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
-    page: docs/references/automation/catzc-base-vscode/New-VSCodeTasks.ps1.md
     test: automation/Catzc.Base.VSCode/tests/New-VSCodeTasks.Tests.ps1
     cites:
       - ADR-REPO-ROOTCFG

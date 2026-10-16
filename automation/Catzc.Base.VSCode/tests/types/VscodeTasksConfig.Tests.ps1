@@ -13,8 +13,6 @@ catzc:
     module: Catzc.Base.VSCode
     moduletype: pwsh-folder
     catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-vscode/tests/types/VscodeTasksConfig.Tests.ps1.md
 ---
 #>
 

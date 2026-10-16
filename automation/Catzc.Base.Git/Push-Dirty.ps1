@@ -14,7 +14,6 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
-    page: docs/references/automation/catzc-base-git/Push-Dirty.ps1.md
     test: automation/Catzc.Base.Git/tests/Push-Dirty.Tests.ps1
     cites:
       - ADR-AUTO-DRYRUN#2

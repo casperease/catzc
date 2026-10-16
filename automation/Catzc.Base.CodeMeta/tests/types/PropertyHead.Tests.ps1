@@ -145,7 +145,7 @@ Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
         It 'imprints a labelled first property group and a second run changes nothing' {
             $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($script:project, 'CatzcMeta').WithFacts($script:facts, $script:none)
             $once | Should -BeLike '*<Project Sdk="Widget.Sdk">*<PropertyGroup Label="catzc">*<CatzcMeta><![[]CDATA[[]catzc:*immutable:*path: a/b.json*kind: other]]></CatzcMeta>*<Gadget>1</Gadget>*'
-            ([xml] $once).Project.PropertyGroup[0].CatzcMeta | Should -Be "catzc:`n  immutable:`n    path: a/b.json`n    kind: other"
+            ([xml] $once).Project.PropertyGroup[0].CatzcMeta.InnerText | Should -Be "catzc:`n  immutable:`n    path: a/b.json`n    kind: other"
             [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, 'CatzcMeta').WithFacts($script:facts, $script:none) | Should -BeExactly $once
         }
 
