@@ -1,0 +1,127 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Globs/configs/file-kinds.yml
+#     kind: config
+#     language: yaml
+#     filekind: yml
+#     track: automation
+#     module: Catzc.Base.Globs
+#     relatives:
+#       page: docs/references/automation/catzc-base-globs/configs/file-kinds.yml.md
+# ---
+
+kinds:
+  comment-page:
+    definition: The page that holds the long comments moved out of one code or config file.
+    files:
+      - docs/references/**/*.ps1.md
+      - docs/references/**/*.psm1.md
+      - docs/references/**/*.psd1.md
+      - docs/references/**/*.cs.md
+      - docs/references/**/*.yml.md
+      - docs/references/**/*.yaml.md
+      - docs/references/**/*.bicep.md
+  test:
+    definition: A file that proves the behaviour of the code it sits beside.
+    files:
+      - "**/tests/**/*.Tests.ps1"
+      - "**/tests/**/*.py"
+      - "**/tests/**/*.bats"
+      - "**/tests/**/*.sh"
+      - "**/tests/**/*.go"
+  fixture:
+    definition: A supporting file of a test that is no test itself, such as sample data.
+    files: ["**/tests/**"]
+  type:
+    definition: A compiled C# type that a module ships.
+    files: ["automation/**/types/*.cs"]
+  function:
+    definition: A PowerShell function of a module, one function to a file.
+    subkinds:
+      gate:
+        definition: A quality gate that checks the repository and reports every issue.
+        files: ["automation/Catzc.*/Test-*.ps1"]
+      writer:
+        definition: A function that composes and writes a generated file.
+        files: ["automation/Catzc.*/Build-*.ps1", "automation/Catzc.*/New-*.ps1"]
+      assert:
+        definition: A function that stops the caller when a condition does not hold.
+        files: ["automation/Catzc.*/Assert-*.ps1"]
+      formatter:
+        definition: A function that rewrites a file into its one canonical form.
+        files: ["automation/Catzc.*/Format-*.ps1"]
+      fact:
+        definition: A processor that computes one derived fact of a file's meta head.
+        files: ["automation/Catzc.*/private/Get-*FileMetaFact.ps1"]
+    files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"]
+  analyzer-rule:
+    definition: A PSScriptAnalyzer rule module that enforces a domain rule.
+    files: ["automation/.scriptanalyzer/**"]
+  module:
+    definition: A PowerShell module that is one file, named by the file.
+    subkinds:
+      internal:
+        definition: A loader module of catzc itself, kept under automation/.internal.
+        files: ["automation/.internal/*.psm1"]
+  template:
+    definition: A Bicep template that deploys one concern.
+    subkinds:
+      config:
+        definition: The settings of a template for one deployment target.
+        files: ["infrastructure/templates/**/configuration/**/*.yml", "infrastructure/templates/*/options.yml"]
+      module:
+        definition: A reusable Bicep module that templates compose.
+        files: ["infrastructure/modules/*.bicep"]
+    files: ["infrastructure/templates/**/*.bicep"]
+  config:
+    definition: A YAML config of a module, validated by its C# type.
+    files: ["automation/**/configs/*.yml"]
+  pipeline-template:
+    definition: A reusable pipeline template that pipelines extend.
+    files: ["pipelines/*/*.yaml"]
+  pipeline:
+    definition: A pipeline definition that a delivery platform runs.
+    files: ["pipelines/*.yaml", ".github/workflows/*.yml"]
+  hook:
+    definition: A hook that the assistant tooling runs on an event.
+    files: [".claude/hooks/**"]
+  asset:
+    definition: A file a module ships that is neither code nor config, such as the source of a root file.
+    files: ["automation/**/assets/**"]
+  script:
+    definition: A standalone script that is no function of a module.
+    files: ["**/*.py", "**/*.sh", "**/*.ps1"]
+  drawio-kit:
+    definition: The tooling that draws and renders the diagrams.
+    files: [".claude/drawio/**"]
+  agent:
+    definition: The definition of a sub-agent.
+    files: [".claude/agents/**"]
+  skill:
+    definition: The definition of a skill.
+    files: [".claude/skills/**"]
+  index:
+    definition: The entry page that lists and links what a folder holds.
+    files: ["docs/index.md", "docs/adr/index.md"]
+  glossary:
+    definition: The generated page that defines the terms of the domain rules.
+    files: ["docs/adr/glossary.md"]
+  adr:
+    definition: A decision record whose numbered rules the code follows.
+    files: ["docs/adr/**"]
+  reference:
+    definition: A reference page that states facts for lookup.
+    files: ["docs/references/**"]
+  how-to:
+    definition: A guide to one task, for a reader who knows the basics.
+    files: ["docs/how-to/**"]
+  explanation:
+    definition: A page that explains why something works as it does.
+    files: ["docs/explanation/**"]
+  asset-description:
+    definition: The description that sits beside a diagram asset.
+    files: ["docs/.assets/**"]
+  readme:
+    definition: The README of a folder.
+    files: ["**/README.md"]

@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1
-    kind: fact
+    kind: function
+    subkind: fact
     language: powershell
     filekind: ps1
     track: automation
@@ -56,13 +57,7 @@ function Get-AdrCodesFileMetaFact {
         $text += "`n" + (Get-MarkdownMetaState -Text ([System.IO.File]::ReadAllText((Join-Path $repositoryRoot $page)))).Body
     }
 
-    $registry = if ($Kind.registry) {
-        $Kind.registry
-    }
-    else {
-        Get-Config -Config file-meta
-    }
-    $fileClass = $registry.ClassOf($Path)
+    $fileClass = (Get-FileKind $Path).Class
     $withDomain = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('domain_classes'), $fileClass)
     $map = Get-AdrCitationMap -RepositoryRoot $repositoryRoot
     $pattern = if ($withDomain) {

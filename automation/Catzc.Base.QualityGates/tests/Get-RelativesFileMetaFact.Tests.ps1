@@ -18,6 +18,14 @@ catzc:
 
 Describe 'Get-RelativesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#10', 'ADR-PRIN-CONFIG#1' {
     BeforeAll {
+        $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
+                kinds = [ordered]@{
+                    'widget-test'     = [ordered]@{ definition = 'A widget test.'; files = @('widgets/Catzc.*/tests/*.Tests.ps1') }
+                    'widget-function' = [ordered]@{ definition = 'A widget function.'; files = @('widgets/Catzc.*/*.ps1', 'widgets/Catzc.*/private/*.ps1') }
+                }
+            })
+        Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
+
         $script:relations = @(
             @{ name = 'page'; rules = @(@{ paths = @('{page}') }) }
             @{ name = 'test'; rules = @(@{ classes = @('widget-function'); paths = @('widgets/{module}/tests/{stem}.Tests.ps1') }) }
@@ -27,11 +35,7 @@ Describe 'Get-RelativesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#10',
         function script:Get-Kind {
             param($Relations = $script:relations)
             [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    classes = @(
-                        @{ class = 'widget-test'; files = @('widgets/Catzc.*/tests/*.Tests.ps1') }
-                        @{ class = 'widget-function'; files = @('widgets/Catzc.*/*.ps1', 'widgets/Catzc.*/private/*.ps1') }
-                    )
-                    kinds   = [ordered]@{ relatives = @{ settings = @{ relations = $Relations } } }
+                    kinds = [ordered]@{ relatives = @{ settings = @{ relations = $Relations } } }
                 }).kinds[0]
         }
 

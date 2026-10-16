@@ -23,9 +23,26 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
         }
         $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nSee ADR-GADGET#1.`n"
 
+        # A fixture registry: the `classes` of a test's raw config become the kinds the file-kinds registry names, and none leaves every file other.
+        $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{})
+        Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
+
         function script:Get-Facts {
             param($Raw, [string] $Path = 'docs/widget.md')
-            $config = [Catzc.Base.QualityGates.FileMetaConfig]::new($Raw)
+            $kindMap = [ordered]@{}
+            foreach ($entry in @($Raw['classes'])) {
+                if ($entry) {
+                    $kindMap[$entry.class] = [ordered]@{ definition = "A $($entry.class) file."; files = $entry.files }
+                }
+            }
+            $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{ kinds = $kindMap })
+            $meta = @{}
+            foreach ($key in $Raw.Keys) {
+                if ($key -ne 'classes') {
+                    $meta[$key] = $Raw[$key]
+                }
+            }
+            $config = [Catzc.Base.QualityGates.FileMetaConfig]::new($meta)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $script:state; Config = $config; Path = $Path } {
                 param($State, $Config, $Path)
                 Get-FileMetaFact -State $State -Path $Path -Config $Config

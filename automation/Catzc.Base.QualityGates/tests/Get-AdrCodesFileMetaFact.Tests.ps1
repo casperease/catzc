@@ -19,6 +19,12 @@ catzc:
 
 Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
+        # The one fixture kind below is a code file, so its class is what the kind's settings name.
+        $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
+                kinds = [ordered]@{ 'widget-type' = [ordered]@{ definition = 'A widget type.'; files = @('automation/**/types/*.cs') } }
+            })
+        Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
+
         # The fixture codes below are the only ones this index registers, each declaring rules 1 to 30.
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Docs.AdrCitationMap]::new(@{
@@ -99,8 +105,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     Context 'a code file, whose class the kind names under domain_classes' {
         BeforeAll {
             $script:codeKind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    classes = @(@{ class = 'widget-type'; files = @('automation/**/types/*.cs') })
-                    kinds   = [ordered]@{ 'adr-codes' = @{ keys = @('adrs'); settings = @{ domain_classes = @('widget-*') } } }
+                    kinds = [ordered]@{ 'adr-codes' = @{ keys = @('adrs'); settings = @{ domain_classes = @('widget-*') } } }
                 }).kinds[0]
 
             function script:Get-CodeCodes {
@@ -146,8 +151,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     Context 'a code file, whose class the kind names under held_classes' {
         BeforeAll {
             $script:heldKind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    classes = @(@{ class = 'widget-type'; files = @('automation/**/types/*.cs') })
-                    kinds   = [ordered]@{ 'adr-codes' = @{ keys = @('adrs'); settings = @{ held_classes = @('widget-type') } } }
+                    kinds = [ordered]@{ 'adr-codes' = @{ keys = @('adrs'); settings = @{ held_classes = @('widget-type') } } }
                 }).kinds[0]
 
             function script:Get-HeldCodes {
@@ -194,8 +198,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
 
     It 'takes domain_classes and held_classes from the classes the kind selects when neither is set' -Tag 'ADR-AUTO-DEFAULT#6', 'ADR-REPO-CODEMETA#2' {
         $kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                classes = @(@{ class = 'widget-type'; files = @('automation/**/types/*.cs') })
-                kinds   = [ordered]@{ 'adr-codes' = @{ keys = @('adrs'); select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type') }) } }
+                kinds = [ordered]@{ 'adr-codes' = @{ keys = @('adrs'); select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type') }) } }
             }).kinds[0]
         $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET and ADR-GADGET#4`nclass Widget {}`n"
         $state = Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/'))

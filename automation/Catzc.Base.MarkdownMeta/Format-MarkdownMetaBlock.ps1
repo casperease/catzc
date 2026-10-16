@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1
-    kind: formatter
+    kind: function
+    subkind: formatter
     language: powershell
     filekind: ps1
     track: automation

@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Asserts/Assert-PipelineCount.ps1
-    kind: assert
+    kind: function
+    subkind: assert
     language: powershell
     filekind: ps1
     track: automation

@@ -11,70 +11,14 @@
 #       page: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
 # ---
 
-# The file classes, in precedence order: a file is the first class whose globs match it, or other. The one place file-meta names globs.
-classes:
-  # A comment page is marked by its name, the source file's plus .md; first, since a test's page sits under tests/.
-  - {
-      class: comment-page,
-      files:
-        [
-          "docs/references/**/*.ps1.md",
-          "docs/references/**/*.psm1.md",
-          "docs/references/**/*.psd1.md",
-          "docs/references/**/*.cs.md",
-          "docs/references/**/*.yml.md",
-          "docs/references/**/*.yaml.md",
-          "docs/references/**/*.bicep.md",
-        ],
-    }
-  # A class names the role of a file and never its language, track or module: those are the keys language, track and module of its head.
-  - {
-      class: test,
-      files: ["**/tests/**/*.Tests.ps1", "**/tests/**/*.py", "**/tests/**/*.bats", "**/tests/**/*.sh", "**/tests/**/*.go"],
-    }
-  - { class: fixture, files: ["**/tests/**"] }
-  - { class: type, files: ["automation/**/types/*.cs"] }
-  # A function file is told by its role, from the folder and its verb, before it is told by its visibility.
-  - { class: gate, files: ["automation/Catzc.*/Test-*.ps1"] }
-  - { class: writer, files: ["automation/Catzc.*/Build-*.ps1", "automation/Catzc.*/New-*.ps1"] }
-  - { class: assert, files: ["automation/Catzc.*/Assert-*.ps1"] }
-  - { class: formatter, files: ["automation/Catzc.*/Format-*.ps1"] }
-  - { class: fact, files: ["automation/Catzc.*/private/Get-*FileMetaFact.ps1"] }
-  - { class: function, files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"] }
-  - { class: analyzer-rule, files: ["automation/.scriptanalyzer/**"] }
-  - { class: internal, files: ["automation/.internal/*.psm1"] }
-  - { class: template, files: ["infrastructure/templates/**/*.bicep"] }
-  - {
-      class: template-config,
-      files: ["infrastructure/templates/**/configuration/**/*.yml", "infrastructure/templates/*/options.yml"],
-    }
-  - { class: template-module, files: ["infrastructure/modules/*.bicep"] }
-  - { class: config, files: ["automation/**/configs/*.yml"] }
-  - { class: pipeline-template, files: ["pipelines/*/*.yaml"] }
-  - { class: pipeline, files: ["pipelines/*.yaml", ".github/workflows/*.yml"] }
-  - { class: hook, files: [".claude/hooks/**"] }
-  - { class: asset, files: ["automation/**/assets/**"] }
-  - { class: script, files: ["**/*.py", "**/*.sh", "**/*.ps1"] }
-  - { class: drawio-kit, files: [".claude/drawio/**"] }
-  - { class: agent, files: [".claude/agents/**"] }
-  - { class: skill, files: [".claude/skills/**"] }
-  - { class: adr, files: ["docs/adr/**"] }
-  - { class: reference, files: ["docs/references/**"] }
-  - { class: how-to, files: ["docs/how-to/**"] }
-  - { class: explanation, files: ["docs/explanation/**"] }
-  - { class: asset-description, files: ["docs/.assets/**"] }
-  - { class: readme, files: ["**/README.md"] }
-  - { class: index, files: ["docs/index.md"] }
-
-# A kind selects files by class and language, never by glob; with no select it applies to every file that carries a head.
 kinds:
   # The repository-relative path of every file that carries a block, first so it is written first; a Markdown H1 is the title.
   file-path:
     keys: [path]
 
-  # The class of the file, from the classes above.
+  # The kind of the file by its role, and its subkind when it has one, from the file-kinds registry.
   file-kind:
-    keys: [kind]
+    keys: [kind, subkind]
 
   # The file language of the file, from the languages registry by its extension; a file no language lists carries none.
   file-language:
@@ -106,7 +50,7 @@ kinds:
   # Whether a PowerShell function file is public or private, from the module's private folder.
   visibility:
     keys: [visibility]
-    select: [{ classes: [gate, writer, assert, formatter, fact, function] }]
+    select: [{ classes: [function] }]
 
   # The few files a file points at, as at most eight relations with fixed names; one is written only when its file exists.
   relatives:
@@ -118,7 +62,7 @@ kinds:
         - name: test
           rules:
             - { classes: [type], paths: ["automation/{module}/tests/types/{stem}.Tests.ps1"] }
-            - { classes: [gate, writer, assert, formatter, fact, function], paths: ["automation/{module}/tests/{stem}.Tests.ps1"] }
+            - { classes: [function], paths: ["automation/{module}/tests/{stem}.Tests.ps1"] }
         - name: source
           rules:
             - { classes: [test], paths: ["automation/{module}/types/{stem}.cs"] }
@@ -135,7 +79,7 @@ kinds:
     select:
       [
         { languages: [markdown] },
-        { classes: [type, gate, writer, assert, formatter, fact, function] },
+        { classes: [type, function] },
         { classes: [test, fixture], languages: [powershell] },
       ]
 

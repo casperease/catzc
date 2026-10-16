@@ -2,7 +2,8 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/virtual-network.bicep
-//     kind: template-module
+//     kind: template
+//     subkind: module
 //     language: bicep
 //     filekind: bicep
 //     track: infrastructure

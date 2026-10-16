@@ -2,7 +2,8 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/foundation/configuration/flux/nsub.yml
-#     kind: template-config
+#     kind: template
+#     subkind: config
 #     language: yaml
 #     filekind: yml
 #     track: infrastructure

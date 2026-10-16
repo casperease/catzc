@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-ModuleNameFileMetaFact.ps1
-    kind: fact
+    kind: function
+    subkind: fact
     language: powershell
     filekind: ps1
     track: automation
@@ -42,5 +43,11 @@ function Get-ModuleNameFileMetaFact {
     )
 
     $module = Get-PathModule $Path
-    [ordered]@{ $Kind.keys[0] = $(if ($module) { $module } else { '' }) }
+    $value = if ($module) {
+        $module
+    }
+    else {
+        ''
+    }
+    [ordered]@{ $Kind.keys[0] = $value }
 }

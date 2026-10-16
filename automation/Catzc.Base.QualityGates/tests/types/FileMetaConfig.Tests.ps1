@@ -34,22 +34,15 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
 
     It 'selects every file, root-level and dot-prefixed files included, when a kind names no select' -Tag 'ADR-REPO-FILEMETA#2' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ widget = @{} } })
-        foreach ($path in 'importer.sh', '.gitignore', 'docs/adr/widget.md', 'automation/Catzc.Base.Widget/types/Gadget.cs') {
-            $config.Selects($config.kinds[0], $path, $null) | Should -BeTrue -Because $path
-            $config.SelectsAny($path, 'markdown') | Should -BeTrue -Because $path
+        foreach ($fileClass in 'other', 'script', 'type', 'function/gate') {
+            $config.Selects($config.kinds[0], $fileClass, $null) | Should -BeTrue -Because $fileClass
+            $config.SelectsAny($fileClass, 'markdown') | Should -BeTrue -Because $fileClass
         }
     }
 
-    It 'names a path''s class from the ordered classes, first match first, and other when none matches' {
-        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                classes = @(
-                    @{ class = 'widget-test'; files = @('**/tests/**') }
-                    @{ class = 'widget-type'; files = @('widgets/**/*.cs') }
-                )
-            })
-        $config.ClassOf('widgets/tests/Gadget.cs') | Should -BeExactly 'widget-test'
-        $config.ClassOf('widgets/types/Gadget.cs') | Should -BeExactly 'widget-type'
-        $config.ClassOf('docs/gadget.md') | Should -BeExactly 'other'
+    It 'no longer holds the file classes, which the file-kinds registry owns' {
+        { [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ classes = @(@{ class = 'widget'; files = @('a/**') }) }) } |
+            Should -Throw '*unknown key ''classes'' (allowed: kinds)*'
     }
 
     It 'matches a class pattern with one star, and a class name exactly' -ForEach @(
@@ -58,6 +51,18 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Pattern = '*-function'; Class = 'function'; Expected = $false }
         @{ Pattern = 'widget-type'; Class = 'widget-types'; Expected = $false }
         @{ Pattern = 'w*e'; Class = 'we'; Expected = $true }
+    ) {
+        [Catzc.Base.QualityGates.FileSelector]::ClassMatches($Pattern, $Class) | Should -Be $Expected
+    }
+
+    It 'lets a kind pattern select the kind whatever its subkind, and a kind/subkind pattern only that subkind' -ForEach @(
+        @{ Pattern = 'gadget'; Class = 'gadget/cog'; Expected = $true }
+        @{ Pattern = 'gadget'; Class = 'gadget'; Expected = $true }
+        @{ Pattern = 'gadget/cog'; Class = 'gadget/cog'; Expected = $true }
+        @{ Pattern = 'gadget/cog'; Class = 'gadget'; Expected = $false }
+        @{ Pattern = 'gadget/cog'; Class = 'gadget/sprocket'; Expected = $false }
+        @{ Pattern = 'gadget'; Class = 'gadgets/cog'; Expected = $false }
+        @{ Pattern = 'gad*'; Class = 'gadget/cog'; Expected = $true }
     ) {
         [Catzc.Base.QualityGates.FileSelector]::ClassMatches($Pattern, $Class) | Should -Be $Expected
     }
@@ -109,7 +114,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
     }
 
     It 'rejects a malformed registry, naming the kind and the allowed set' -ForEach @(
-        @{ Raw = @{ other = 1 }; Message = '*unknown key ''other'' (allowed: classes, kinds)*' }
+        @{ Raw = @{ other = 1 }; Message = '*unknown key ''other'' (allowed: kinds)*' }
         @{ Raw = @{ kinds = 'x' }; Message = '*kinds must be a map*' }
         @{ Raw = @{ kinds = @{ 'Bad_Id' = @{} } }; Message = '*kind id ''Bad_Id''*' }
         @{ Raw = @{ kinds = @{ widget = 'x' } }; Message = '*kind ''widget'' must be a map*' }

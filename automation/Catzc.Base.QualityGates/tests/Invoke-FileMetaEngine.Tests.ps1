@@ -31,12 +31,15 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $script:front = $carriers.Find('markdown')
         $script:property = $carriers.Find('json')
         $script:sidecar = $carriers.Find('picture')
+        $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
+                kinds = [ordered]@{
+                    'widget-function' = [ordered]@{ definition = 'A widget function.'; files = @('automation/**/*.ps1') }
+                    'widget-code'     = [ordered]@{ definition = 'Any other widget code.'; files = @('automation/**') }
+                }
+            })
+        Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
         $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                classes = @(
-                    @{ class = 'widget-function'; files = @('automation/**/*.ps1') }
-                    @{ class = 'widget-code'; files = @('automation/**') }
-                )
-                kinds   = [ordered]@{
+                kinds = [ordered]@{
                     'file-path'   = @{ keys = @('path') }
                     'module-name' = @{ keys = @('module'); select = @(@{ classes = @('widget-*') }) }
                     visibility    = @{ keys = @('visibility'); select = @(@{ classes = @('widget-function') }) }

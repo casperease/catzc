@@ -18,52 +18,57 @@ catzc:
 
 Describe 'Get-FileKindFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-PRIN-CONFIG#1' {
     BeforeAll {
-        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                classes = @(
-                    @{ class = 'widget'; files = @('docs/widgets/**') }
-                    @{ class = 'gadget'; files = @('docs/**/gadget.md', 'tools/*.md') }
-                )
-                kinds   = [ordered]@{ 'file-kind' = @{ keys = @('kind') } }
-            }).kinds[0]
+        $script:registry = [Catzc.Base.Globs.FileKindsConfig]::new(@{
+                kinds = [ordered]@{
+                    widget = [ordered]@{ definition = 'A widget file.'; files = @('docs/widgets/**') }
+                    gadget = [ordered]@{
+                        definition = 'A gadget file.'
+                        subkinds   = [ordered]@{ cog = [ordered]@{ definition = 'A cog of a gadget.'; files = @('docs/**/cog.md') } }
+                        files      = @('docs/**/gadget.md', 'tools/*.md')
+                    }
+                }
+            })
+        Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:registry }
 
-        function script:Get-Class {
-            param([string] $Path, $Kind = $script:kind)
+        function script:Get-Fact {
+            param([string] $Path, [string[]] $Keys = @('kind', 'subkind'))
+            $kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-kind' = @{ keys = $Keys } } }).kinds[0]
             $state = Get-MarkdownMetaState -Text "# $Path`n"
-            $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $Kind; Path = $Path } {
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $kind; Path = $Path } {
                 param($State, $Kind, $Path)
                 Get-FileKindFileMetaFact -State $State -Path $Path -Kind $Kind
             }
-            $fact['kind']
         }
     }
 
-    It 'names the class whose globs match the path' -ForEach @(
+    It 'names the kind whose globs match the path, under the kind''s first key' -ForEach @(
         @{ Path = 'docs/widgets/part.md'; Expected = 'widget' }
         @{ Path = 'docs/deep/gadget.md'; Expected = 'gadget' }
         @{ Path = 'tools/notes.md'; Expected = 'gadget' }
     ) {
-        Get-Class -Path $Path | Should -BeExactly $Expected
+        $fact = Get-Fact $Path
+        @($fact.Keys) | Should -Be @('kind', 'subkind')
+        $fact['kind'] | Should -BeExactly $Expected
+        $fact['subkind'] | Should -BeExactly ''
     }
 
-    It 'takes the first class that matches, in the order declared' {
-        Get-Class -Path 'docs/widgets/gadget.md' | Should -BeExactly 'widget'
+    It 'names the subkind under the kind''s second key' {
+        $fact = Get-Fact 'docs/deep/cog.md'
+        $fact['kind'] | Should -BeExactly 'gadget'
+        $fact['subkind'] | Should -BeExactly 'cog'
     }
 
-    It 'names a file no class matches other' {
-        Get-Class -Path 'elsewhere/notes.md' | Should -BeExactly 'other'
+    It 'takes the first kind that matches, in the order declared' {
+        (Get-Fact 'docs/widgets/gadget.md')['kind'] | Should -BeExactly 'widget'
     }
 
-    It 'names every file other when the registry declares no classes' {
-        $bare = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-kind' = @{ keys = @('kind') } } }).kinds[0]
-        Get-Class -Path 'docs/widgets/part.md' -Kind $bare | Should -BeExactly 'other'
+    It 'names a file no kind matches other' {
+        (Get-Fact 'elsewhere/notes.md')['kind'] | Should -BeExactly 'other'
     }
 
-    It 'rejects a class entry that lacks its files, a class listed twice, and a class named other' -ForEach @(
-        @{ Classes = @(@{ class = 'widget' }); Message = "*entries need 'class' and 'files'*" }
-        @{ Classes = @(@{ class = 'widget'; files = @('a/**') }, @{ class = 'widget'; files = @('b/**') }); Message = "*'widget' is listed twice*" }
-        @{ Classes = @(@{ class = 'other'; files = @('a/**') }); Message = "*not 'other'*" }
-    ) {
-        { [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ classes = $Classes; kinds = [ordered]@{ 'file-kind' = @{ keys = @('kind') } } }) } |
-            Should -Throw $Message
+    It 'writes only the kind when the registry entry lists one key' {
+        $fact = Get-Fact 'docs/deep/cog.md' @('kind')
+        @($fact.Keys) | Should -Be @('kind')
+        $fact['kind'] | Should -BeExactly 'gadget'
     }
 }

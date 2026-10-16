@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-RelativesFileMetaFact.ps1
-    kind: fact
+    kind: function
+    subkind: fact
     language: powershell
     filekind: ps1
     track: automation
@@ -63,15 +64,14 @@ function Get-RelativesFileMetaFact {
         '{stem}' = $name -replace '\.Tests$', ''
     }
     $module = Get-PathModule $Path
-    $tokens['{module}'] = $(if ($module) { $module } else { '' })
+    $tokens['{module}'] = $(if ($module) {
+            $module
+        }
+        else {
+            ''
+        })
 
-    $registry = if ($Kind.registry) {
-        $Kind.registry
-    }
-    else {
-        Get-Config -Config file-meta
-    }
-    $fileClass = $registry.ClassOf($Path)
+    $fileClass = (Get-FileKind $Path).Class
     $relatives = [ordered]@{}
     foreach ($relation in $relations) {
         Assert-True ($relation -is [System.Collections.IDictionary] -and $relation.Contains('name') -and $relation.Contains('rules')) `

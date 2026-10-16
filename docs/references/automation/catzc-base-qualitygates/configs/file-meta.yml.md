@@ -7,10 +7,9 @@ catzc:
     filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "73b526bcb523"
+    body_sha: e3a6bcb60960
     adrs:
       - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-COMMENTS#3
       - ADR-REPO-FILEMETA#2
 ---
 
@@ -29,16 +28,6 @@ The meta-kind registry: each entry is one kind of derived fact imprinted into a 
 [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 ```
 
-## comment:2
-
-Above `- {` (occurrence 2), written with `#`.
-
-```text
-A comment page keeps its source file's name and extension plus .md
-([ADR-REPO-COMMENTS#3](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3)), so the name marks it; it wins over
-reference.
-```
-
 ## comment:3
 
 Above `adr-codes:`, written with `#`.
@@ -46,4 +35,13 @@ Above `adr-codes:`, written with `#`.
 ```text
 The ADR codes the file cites, its comment page's too, sorted and without duplicates, less the rules it defines; a long key, so late.
 A code file also lists the bare domain codes.
+```
+
+## comment:4
+
+Above `kinds:`, written with `#`.
+
+```text
+A meta kind selects files by their file kind (a kind, or kind/subkind, of the file-kinds registry) and language, never by glob; with no
+select it applies to every file that carries a head.
 ```

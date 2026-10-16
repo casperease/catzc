@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
-    kind: writer
+    kind: function
+    subkind: writer
     language: powershell
     filekind: ps1
     track: automation

@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-FileMetaFact.ps1
-    kind: fact
+    kind: function
+    subkind: fact
     language: powershell
     filekind: ps1
     track: automation
@@ -49,8 +50,9 @@ function Get-FileMetaFact {
     else {
         $null
     }
+    $fileClass = (Get-FileKind $Path).Class
     foreach ($kind in $Config.Imprint()) {
-        if (-not $Config.Selects($kind, $Path, $languageName)) {
+        if (-not $Config.Selects($kind, $fileClass, $languageName)) {
             continue
         }
         $processor = Get-Command -Name $kind.processor -CommandType Function -ErrorAction Ignore

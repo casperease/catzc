@@ -2,7 +2,8 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/expedition/configuration/dev.yml
-#     kind: template-config
+#     kind: template
+#     subkind: config
 #     language: yaml
 #     filekind: yml
 #     track: infrastructure

@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/.internal/Catzc.Internal.Types.psm1
-    kind: internal
+    kind: module
+    subkind: internal
     language: powershell
     filekind: psm1
     track: automation

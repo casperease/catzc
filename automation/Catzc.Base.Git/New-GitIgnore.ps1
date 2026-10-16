@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/New-GitIgnore.ps1
-    kind: writer
+    kind: function
+    subkind: writer
     language: powershell
     filekind: ps1
     track: automation

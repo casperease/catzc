@@ -43,6 +43,7 @@ function Get-FileMetaScope {
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $lookup = Get-ScopeLookup -RepositoryRoot $root -Path $Path -Command Get-FileMetaScope
     $languages = Get-Config -Config languages
+    $fileKinds = Get-Config -Config file-kinds
 
     $candidates = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($tracked in @(Get-GitTrackedPath $lookup)) {
@@ -63,7 +64,7 @@ function Get-FileMetaScope {
         else {
             $null
         }
-        if ($Config.SelectsAny($tracked, $languageName)) {
+        if ($Config.SelectsAny($fileKinds.Resolve($tracked).Class, $languageName)) {
             $candidates.Add([pscustomobject]@{ Path = $tracked; Carrier = $carrier })
         }
     }

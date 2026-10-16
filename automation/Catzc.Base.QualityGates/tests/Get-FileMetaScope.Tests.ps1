@@ -76,11 +76,14 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
 
     It 'leaves out a file whose class has no carrier, a carrier of none, and a file no imprint kind selects' {
         $narrow = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                classes = @(@{ class = 'read-doc'; files = @('docs/read.gdg') })
-                kinds   = [ordered]@{ 'file-path' = @{ keys = @('path'); select = @(@{ classes = @('read-doc') }) } }
+                kinds = [ordered]@{ 'file-path' = @{ keys = @('path'); select = @(@{ classes = @('read-doc') }) } }
             })
-        $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $narrow; Resolver = $script:resolver } {
-            param($Root, $Config, $Resolver)
+        $fileKinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
+                kinds = [ordered]@{ 'read-doc' = [ordered]@{ definition = 'A document to read.'; files = @('docs/read.gdg') } }
+            })
+        $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $narrow; Resolver = $script:resolver; FileKinds = $fileKinds } {
+            param($Root, $Config, $Resolver, $FileKinds)
+            Mock Get-Config { $FileKinds } -ParameterFilter { $Config -eq 'file-kinds' }
             @(Get-FileMetaScope -RepositoryRoot $Root -Config $Config -Resolver $Resolver)
         }
         $found.Path | Should -Be @('docs/read.gdg')

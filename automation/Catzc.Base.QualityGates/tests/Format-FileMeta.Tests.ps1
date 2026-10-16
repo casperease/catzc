@@ -29,9 +29,12 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
             [pscustomobject]@{ Path = 'docs/gadget.md'; Carrier = $script:front }
         )
         Mock Get-FileMetaScope { $script:scope } -ModuleName Catzc.Base.QualityGates
+        $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
+                kinds = [ordered]@{ gadget = [ordered]@{ definition = 'A gadget file.'; files = @('docs/**') } }
+            })
+        Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
         $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                classes = @(@{ class = 'gadget'; files = @('docs/**') })
-                kinds   = [ordered]@{
+                kinds = [ordered]@{
                     'file-kind' = @{ keys = @('kind') }
                     'body-sha'  = @{ keys = @('body_sha') }
                     'adr-codes' = @{ keys = @('adrs') }

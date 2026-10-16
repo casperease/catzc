@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-    kind: gate
+    kind: function
+    subkind: gate
     language: powershell
     filekind: ps1
     track: automation

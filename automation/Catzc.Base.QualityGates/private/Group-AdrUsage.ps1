@@ -46,13 +46,24 @@ function Group-AdrUsage {
             $documents = [string[]] @($group.Group.Path | Sort-Object -Unique -CaseSensitive)
             [pscustomobject]@{ Code = $first.Code; Rule = $first.Rule; Count = $documents.Count; Documents = $documents }
         }
-        $result | Sort-Object -Property Code, @{ Expression = { if ($null -eq $_.Rule) { -1 } else { $_.Rule } } }
+        $result | Sort-Object -Property Code, @{ Expression = { if ($null -eq $_.Rule) {
+                    -1
+                }
+                else {
+                    $_.Rule
+                } }
+        }
         return
     }
 
     $groups = $Row | Group-Object -Property Path
     $result = foreach ($group in $groups) {
-        $citations = [string[]] @($group.Group | ForEach-Object { if ($null -eq $_.Rule) { $_.Code } else { "$($_.Code)#$($_.Rule)" } } | Sort-Object -Unique -CaseSensitive)
+        $citations = [string[]] @($group.Group | ForEach-Object { if ($null -eq $_.Rule) {
+                    $_.Code
+                }
+                else {
+                    "$($_.Code)#$($_.Rule)"
+                } } | Sort-Object -Unique -CaseSensitive)
         [pscustomobject]@{ Path = $group.Name; Count = $citations.Count; Citations = $citations }
     }
     $result | Sort-Object -Property Path

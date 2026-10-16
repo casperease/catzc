@@ -79,10 +79,13 @@ public sealed class FileSelector
         (classes.Count == 0 || classes.Any(pattern => ClassMatches(pattern, fileClass)))
         && (languages.Count == 0 || (language != null && languages.Contains(language, StringComparer.Ordinal)));
 
-    // A class name, or a name with one '*' standing for any run of characters.
+    // A class name, or a name with one '*' standing for any run of characters. A file's class is its kind, or kind/subkind; a pattern
+    // without a '/' names the kind, so it selects the kind whatever its subkind, and a pattern with one names a subkind.
     public static bool ClassMatches(string pattern, string fileClass)
     {
         if (pattern == null || fileClass == null) { return false; }
+        int slash = fileClass.IndexOf('/');
+        if (slash >= 0 && pattern.IndexOf('/') < 0) { fileClass = fileClass.Substring(0, slash); }
         int star = pattern.IndexOf('*');
         if (star < 0) { return string.Equals(pattern, fileClass, StringComparison.Ordinal); }
         string prefix = pattern.Substring(0, star);

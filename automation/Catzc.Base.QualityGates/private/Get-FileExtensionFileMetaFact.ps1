@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-FileExtensionFileMetaFact.ps1
-    kind: fact
+    kind: function
+    subkind: fact
     language: powershell
     filekind: ps1
     track: automation
@@ -42,5 +43,11 @@ function Get-FileExtensionFileMetaFact {
     )
 
     $fileKind = Get-PathFileKind $Path
-    [ordered]@{ $Kind.keys[0] = $(if ($fileKind) { $fileKind } else { '' }) }
+    $value = if ($fileKind) {
+        $fileKind
+    }
+    else {
+        ''
+    }
+    [ordered]@{ $Kind.keys[0] = $value }
 }

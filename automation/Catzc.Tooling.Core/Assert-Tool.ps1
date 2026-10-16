@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/Assert-Tool.ps1
-    kind: assert
+    kind: function
+    subkind: assert
     language: powershell
     filekind: ps1
     track: automation

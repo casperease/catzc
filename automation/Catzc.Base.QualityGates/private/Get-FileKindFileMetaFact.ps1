@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-FileKindFileMetaFact.ps1
-    kind: fact
+    kind: function
+    subkind: fact
     language: powershell
     filekind: ps1
     track: automation
@@ -15,10 +16,12 @@ catzc:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#3
   config:
-    synopsis: 'The file-kind meta kind''s fact: the class of the file, from the registry''s ordered classes.'
+    synopsis: 'The file-kind meta kind''s fact: the kind of the file, and its subkind when it has one, from the file-kinds registry.'
     description: |-
-      The first class whose globs match the path wins; a file no class matches is `other`. The classes are data in the
-      registry (its top-level `classes`), never a list in this function ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+      The kind is the one Get-FileKind names for the path: the first kind of the registry whose globs match wins, and a file no kind
+      matches is `other`. The kind's first key holds the kind and its second, when the registry entry lists one, the subkind, which is
+      left out of the head for a file with none. The kinds are data in the file-kinds registry, never a list in this function
+      ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
     parameters:
       State: What Get-MarkdownMetaState read from the file.
       Path: The file's repository-relative path.
@@ -42,11 +45,10 @@ function Get-FileKindFileMetaFact {
         [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
-    $registry = if ($Kind.registry) {
-        $Kind.registry
+    $match = Get-FileKind $Path
+    $fact = [ordered]@{ $Kind.keys[0] = $match.kind }
+    if ($Kind.keys.Count -gt 1) {
+        $fact[$Kind.keys[1]] = $(if ($match.subkind) { $match.subkind } else { '' })
     }
-    else {
-        Get-Config -Config file-meta
-    }
-    [ordered]@{ $Kind.keys[0] = $registry.ClassOf($Path) }
+    $fact
 }

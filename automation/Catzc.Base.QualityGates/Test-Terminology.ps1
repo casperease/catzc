@@ -3,7 +3,8 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Test-Terminology.ps1
-    kind: gate
+    kind: function
+    subkind: gate
     language: powershell
     filekind: ps1
     track: automation
