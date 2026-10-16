@@ -5,8 +5,10 @@
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filekind: bicep
+//     filetype: bicep
 //     track: infrastructure
+//     module: policy-assignment
+//     moduletype: bicep-module
 //     relatives:
 //       page: docs/references/infrastructure/modules/policy-assignment.bicep.md
 // ---

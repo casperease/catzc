@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "46adf90a375a"
     adrs:

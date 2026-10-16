@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-tooling-core/tests/Remove-LinuxToolInstall.Tests.ps1.md
-      source: automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
     adrs:
       - ADR-AUTO-REMOVE#{3,6,7}
       - ADR-AUTO-TEST#3

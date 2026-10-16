@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/pipelines/index.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "57680316fafd"
     links:

@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: gate
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.Cli/tests/Test-AzCliCanAccess.Tests.ps1

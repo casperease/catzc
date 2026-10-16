@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: c793830b9f91
     adrs:

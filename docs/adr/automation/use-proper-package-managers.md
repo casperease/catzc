@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/use-proper-package-managers.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "7deec46cbb66"
     defines:

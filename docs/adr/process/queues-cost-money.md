@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/process/queues-cost-money.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "620d1efbab2c"
     defines:

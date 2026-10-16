@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Git
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-git/tests/Get-AutoControlledGlobs.Tests.ps1.md
-      source: automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
     adrs:
       - ADR-REPO-OUTDIR#10
 ---

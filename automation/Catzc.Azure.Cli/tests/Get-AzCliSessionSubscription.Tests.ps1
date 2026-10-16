@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md
-      source: automation/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
     adrs:
       - ADR-PWSH-PESTER#3
 ---

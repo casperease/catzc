@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/devbox-pipeline-parity.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "6b5b0f557acf"
     defines:

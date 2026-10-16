@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.CodeMeta/types/HeadAnchor.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.CodeMeta
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-codemeta/types/HeadAnchor.cs.md
     adrs:

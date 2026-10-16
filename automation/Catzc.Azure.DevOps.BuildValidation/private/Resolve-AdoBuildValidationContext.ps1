@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps.BuildValidation/private/Resolve-AdoBuildValidationContext.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps.BuildValidation
+    moduletype: pwsh-folder-module
+    bundle: full
     visibility: private
   config:
     synopsis: Resolves the ADO coordinates every build-validation call needs — org, project, repository id, API base.

@@ -4,7 +4,7 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/tooling.md
     kind: how-to
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "714072254ede"
     links:

@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/flow/globs-projects-and-three-consumers-read.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: ba817bcb8f65
     adrs:

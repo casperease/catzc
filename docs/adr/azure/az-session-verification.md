@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/azure/az-session-verification.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b86a677eda72
     defines:

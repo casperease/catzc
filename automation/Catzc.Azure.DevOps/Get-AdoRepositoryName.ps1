@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps/Get-AdoRepositoryName.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.DevOps/tests/Get-AdoRepositoryName.Tests.ps1

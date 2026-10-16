@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/private/Invoke-MarkdownTitleEngine.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
   config:
     synopsis: Checks every in-scope Markdown file's title and headings — the one place Format-MarkdownTitle and Test-MarkdownTitle share.

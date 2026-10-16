@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: formatter
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md

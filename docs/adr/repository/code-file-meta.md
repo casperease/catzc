@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: eaee682470c8
     defines:

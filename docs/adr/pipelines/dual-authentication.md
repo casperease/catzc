@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pipelines/dual-authentication.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "245b02b1e15b"
     defines:

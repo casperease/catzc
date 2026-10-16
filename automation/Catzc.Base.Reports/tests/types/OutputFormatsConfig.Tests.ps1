@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Reports
-    relatives:
-      source: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-OUTFMT#{1,3,5}

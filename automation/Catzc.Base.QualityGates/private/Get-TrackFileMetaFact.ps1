@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: fact
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1

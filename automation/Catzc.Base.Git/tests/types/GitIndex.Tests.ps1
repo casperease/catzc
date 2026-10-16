@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Git/tests/types/GitIndex.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Git
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-git/tests/types/GitIndex.Tests.ps1.md
-      source: automation/Catzc.Base.Git/types/GitIndex.cs
 ---
 #>
 

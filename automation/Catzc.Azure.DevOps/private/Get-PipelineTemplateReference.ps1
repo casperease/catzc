@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1

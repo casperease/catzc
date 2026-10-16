@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "60d42493606b"

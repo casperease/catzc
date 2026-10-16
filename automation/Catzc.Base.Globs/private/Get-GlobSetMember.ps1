@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1

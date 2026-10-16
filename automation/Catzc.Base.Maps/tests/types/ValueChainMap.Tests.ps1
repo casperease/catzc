@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md
-      source: automation/Catzc.Base.Maps/types/ValueChainMap.cs
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-DSGN-TRACK#{15,16}

@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "51409d5b04f2"
     adrs:

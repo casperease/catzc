@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Git
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md

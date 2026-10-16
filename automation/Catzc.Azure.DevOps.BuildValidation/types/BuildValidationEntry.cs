@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure.DevOps.BuildValidation
+    moduletype: pwsh-folder-module
+    bundle: full
     relatives:
       page: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
     adrs:

@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/deploy-bicep-delegates-to-az.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: df7b0bc977d6
     adrs:

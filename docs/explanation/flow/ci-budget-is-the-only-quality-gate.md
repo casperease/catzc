@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "4ddf067c9039"
     adrs:

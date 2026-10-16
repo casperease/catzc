@@ -4,9 +4,11 @@
 #     path: automation/Catzc.Base.Config/configs/configs.yml
 #     kind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.Config
+#     moduletype: pwsh-folder-module
+#     bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-config/configs/configs.yml.md
 # ---

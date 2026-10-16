@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/design/server-remote-integration.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "52541bcc7cdf"
     defines:

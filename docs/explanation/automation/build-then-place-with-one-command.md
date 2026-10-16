@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/build-then-place-with-one-command.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "996f53ad2447"
     adrs:

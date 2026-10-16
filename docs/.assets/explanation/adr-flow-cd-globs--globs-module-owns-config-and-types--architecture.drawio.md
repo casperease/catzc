@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "677730c11378"
     adrs:

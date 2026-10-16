@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/Uninstall-UvTool.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
   config:
     synopsis: Uninstalls a uv-managed tool.

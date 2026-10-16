@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1

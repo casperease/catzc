@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1

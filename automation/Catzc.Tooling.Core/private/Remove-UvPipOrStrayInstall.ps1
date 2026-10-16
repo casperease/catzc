@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md

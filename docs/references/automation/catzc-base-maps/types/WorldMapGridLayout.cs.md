@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "076ae86c8b69"

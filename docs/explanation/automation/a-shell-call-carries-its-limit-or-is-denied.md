@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: fd4f00055329
     adrs:

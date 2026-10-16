@@ -4,7 +4,7 @@ catzc:
     path: docs/how-to/getting-started/automation/debug-in-vscode.md
     kind: how-to
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a210ea69b439
     links:

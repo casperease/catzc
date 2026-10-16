@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md
-      source: automation/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1
     adrs:
       - ADR-AUTO-TEST#20
 ---

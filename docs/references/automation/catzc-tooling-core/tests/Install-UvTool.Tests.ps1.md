@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/tests/Install-UvTool.Tests.ps1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "57da6465711f"

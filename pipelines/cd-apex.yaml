@@ -4,8 +4,10 @@
 #     path: pipelines/cd-apex.yaml
 #     kind: pipeline
 #     language: pipeline-yaml
-#     filekind: yaml
+#     filetype: yaml
 #     track: pipelines
+#     module: pipelines
+#     moduletype: pipeline-module
 #     relatives:
 #       page: docs/references/pipelines/cd-apex.yaml.md
 # ---

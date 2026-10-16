@@ -4,7 +4,7 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/azure.md
     kind: how-to
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "14551fbb8311"
     adrs:

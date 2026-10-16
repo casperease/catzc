@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "22fa3dc3233b"
     links:

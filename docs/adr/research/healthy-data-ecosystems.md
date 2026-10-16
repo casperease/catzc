@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/healthy-data-ecosystems.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a3b588f4a9ca
     defines:

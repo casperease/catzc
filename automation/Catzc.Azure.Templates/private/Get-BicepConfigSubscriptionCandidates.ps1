@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md

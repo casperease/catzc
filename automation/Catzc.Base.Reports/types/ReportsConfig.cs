@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Reports/types/ReportsConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Reports
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-reports/types/ReportsConfig.cs.md
       test: automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1

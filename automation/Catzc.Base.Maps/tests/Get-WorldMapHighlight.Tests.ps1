@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
-    relatives:
-      source: automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-DSGN-TRACK#12
       - ADR-FLOW-CD

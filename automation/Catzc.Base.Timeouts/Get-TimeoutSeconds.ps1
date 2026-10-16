@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Timeouts/Get-TimeoutSeconds.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Timeouts
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Tests.ps1

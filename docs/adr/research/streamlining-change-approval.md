@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/streamlining-change-approval.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: ab4ed1a741a8
     defines:

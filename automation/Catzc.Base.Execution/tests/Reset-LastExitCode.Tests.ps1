@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
-    relatives:
-      source: automation/Catzc.Base.Execution/Reset-LastExitCode.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

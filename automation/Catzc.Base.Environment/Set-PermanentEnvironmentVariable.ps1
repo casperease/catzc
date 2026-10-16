@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Environment/Set-PermanentEnvironmentVariable.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Environment
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md

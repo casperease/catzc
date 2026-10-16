@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Python/Remove-Python.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Python
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
   config:
     synopsis: Removes a manually installed Python and cleans up system PATH.

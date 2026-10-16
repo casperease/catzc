@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "9c67852ea30c"

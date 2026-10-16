@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "4cf8ead86ed1"
     adrs:

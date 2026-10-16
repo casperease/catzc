@@ -4,8 +4,10 @@
 #     path: python/tests/catzc-base-repository/test_repository.py
 #     kind: test
 #     language: python
-#     filekind: py
+#     filetype: py
 #     track: python
+#     module: python
+#     moduletype: python-module
 # ---
 
 """Black-box tests of Catzc.Base.Repository.

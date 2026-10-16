@@ -15,8 +15,10 @@ catzc:
     path: ".claude/agents/session-cost-audit.md"
     kind: agent
     language: markdown
-    filekind: md
+    filetype: md
     track: ".claude"
+    module: ".claude"
+    moduletype: settings-module
     body_sha: "7344db67cc8b"
     adrs:
       - ADR-AUTO-FAILFAST#7

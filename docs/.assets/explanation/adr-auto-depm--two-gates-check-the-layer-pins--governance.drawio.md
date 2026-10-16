@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "4e5df40b50d5"
     adrs:

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps.BuildValidation
+    moduletype: pwsh-folder-module
+    bundle: full
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md

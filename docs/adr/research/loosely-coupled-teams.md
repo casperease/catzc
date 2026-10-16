@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/loosely-coupled-teams.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "24f01e1c2517"
     defines:

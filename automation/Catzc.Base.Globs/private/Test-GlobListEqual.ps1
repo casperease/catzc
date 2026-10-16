@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     adrs:
       - ADR-AUTO-XPLAT

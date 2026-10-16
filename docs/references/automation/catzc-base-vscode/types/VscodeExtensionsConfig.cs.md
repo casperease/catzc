@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d6badb5e299d

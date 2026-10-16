@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/one-door-in-one-stable-point-out.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: bb7ec869f6ce
     adrs:

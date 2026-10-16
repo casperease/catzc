@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/transformational-leadership.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "7ebd59f1084e"
     defines:

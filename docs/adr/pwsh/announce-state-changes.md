@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/announce-state-changes.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "7e0fe1021a9b"
     defines:

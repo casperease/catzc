@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/flexible-infrastructure.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "0aba2454ac45"
     defines:

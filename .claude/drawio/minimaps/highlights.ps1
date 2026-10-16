@@ -5,8 +5,10 @@ catzc:
     path: ".claude/drawio/minimaps/highlights.ps1"
     kind: script
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: ".claude"
+    module: ".claude"
+    moduletype: settings-module
   config:
     synopsis: 'The minimap data step: reads the two map processors (module Catzc.Base.Maps) for a list of slides.'
     description: |-

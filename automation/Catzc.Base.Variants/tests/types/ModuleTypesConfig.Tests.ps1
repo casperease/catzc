@@ -4,8 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
     kind: test
-    relatives:
-      source: automation/Catzc.Base.Variants/types/ModuleTypesConfig.cs
+    language: powershell
+    filetype: ps1
+    track: automation
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-DSGN-TRACK#3
 ---

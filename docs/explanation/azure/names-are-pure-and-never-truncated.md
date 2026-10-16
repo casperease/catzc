@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/azure/names-are-pure-and-never-truncated.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: fcb272ff0358
     adrs:

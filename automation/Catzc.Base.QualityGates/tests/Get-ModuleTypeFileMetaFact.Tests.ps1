@@ -4,8 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1
     kind: test
-    relatives:
-      source: automation/Catzc.Base.QualityGates/private/Get-ModuleTypeFileMetaFact.ps1
+    language: powershell
+    filetype: ps1
+    track: automation
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-DSGN-TRACK#3
 ---

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Execution/Invoke-Executable.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md

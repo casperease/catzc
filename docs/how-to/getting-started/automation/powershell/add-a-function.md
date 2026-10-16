@@ -4,7 +4,7 @@ catzc:
     path: docs/how-to/getting-started/automation/powershell/add-a-function.md
     kind: how-to
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "5e937306972e"
     adrs:

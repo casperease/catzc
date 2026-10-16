@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/automatic-variable-pitfalls.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "6e7918d7cfad"
     defines:

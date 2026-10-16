@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.TypesSystem/private/Test-ConsoleReadyType.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.TypesSystem
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1

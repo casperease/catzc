@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-maps.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: f9b41c1bf06e
     adrs:

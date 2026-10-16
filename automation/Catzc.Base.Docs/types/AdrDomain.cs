@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrDomain.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Docs
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-docs/types/AdrDomain.cs.md
     adrs:

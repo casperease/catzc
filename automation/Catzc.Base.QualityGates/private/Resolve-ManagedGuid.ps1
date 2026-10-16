@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/private/Resolve-ManagedGuid.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
   config:
     synopsis: Resolves a GUID to its managed-registry entry, or $null when it is unregistered.

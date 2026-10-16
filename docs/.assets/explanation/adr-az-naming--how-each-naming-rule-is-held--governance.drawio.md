@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "558b77e45d42"
     adrs:

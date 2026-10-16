@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Writers/types/RainbowColor.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Writers
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md
       test: automation/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1

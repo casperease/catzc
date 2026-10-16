@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Writers
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md
-      source: automation/Catzc.Base.Writers/private/Write-InformationColored.ps1
 ---
 #>
 

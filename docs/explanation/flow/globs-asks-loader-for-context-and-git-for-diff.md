@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "824d978cfa10"
     adrs:

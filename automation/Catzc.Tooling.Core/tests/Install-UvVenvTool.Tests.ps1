@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
-    relatives:
-      source: automation/Catzc.Tooling.Core/Install-UvVenvTool.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

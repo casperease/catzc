@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/rule-and-gate-per-load-stage.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a8f85abfe3b2
     adrs:

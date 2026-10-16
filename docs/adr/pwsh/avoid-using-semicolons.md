@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/avoid-using-semicolons.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "47103cd2d19b"
     defines:

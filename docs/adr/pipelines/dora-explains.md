@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pipelines/dora-explains.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "25ebce541ef8"
     links:

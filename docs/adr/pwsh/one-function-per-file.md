@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/one-function-per-file.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d121b8193149
     defines:

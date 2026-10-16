@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Objects
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md

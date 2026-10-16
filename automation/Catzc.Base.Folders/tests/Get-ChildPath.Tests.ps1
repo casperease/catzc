@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Folders
-    relatives:
-      source: automation/Catzc.Base.Folders/Get-ChildPath.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST

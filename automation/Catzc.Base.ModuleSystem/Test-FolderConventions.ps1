@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: gate
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md

@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/job-satisfaction.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b12564197b48
     defines:

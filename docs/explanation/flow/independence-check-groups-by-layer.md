@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/flow/independence-check-groups-by-layer.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "2eeb3688d95b"
     adrs:

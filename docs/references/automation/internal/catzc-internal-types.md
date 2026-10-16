@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/internal/catzc-internal-types.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "81f4203494e3"
     links:

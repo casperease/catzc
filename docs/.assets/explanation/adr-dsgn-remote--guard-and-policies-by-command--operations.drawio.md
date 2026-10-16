@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b1e38c2ae347
     adrs:

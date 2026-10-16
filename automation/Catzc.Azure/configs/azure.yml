@@ -4,9 +4,11 @@
 #     path: automation/Catzc.Azure/configs/azure.yml
 #     kind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: automation
 #     module: Catzc.Azure
+#     moduletype: pwsh-folder-module
+#     bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-azure/configs/azure.yml.md
 # ---

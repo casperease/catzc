@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Provisioning/private/Find-WindowsGitCredentialManager.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Tooling.Provisioning/tests/Find-WindowsGitCredentialManager.Tests.ps1

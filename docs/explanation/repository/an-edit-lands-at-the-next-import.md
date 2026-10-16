@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/repository/an-edit-lands-at-the-next-import.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d1258477412c
     adrs:

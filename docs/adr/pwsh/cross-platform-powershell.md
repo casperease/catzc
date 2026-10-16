@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/cross-platform-powershell.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d914df52e6db
     defines:

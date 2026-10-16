@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitIgnoreSection.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Git
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-git/types/GitIgnoreSection.cs.md
       test: automation/Catzc.Base.Git/tests/types/GitIgnoreSection.Tests.ps1

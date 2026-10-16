@@ -4,7 +4,7 @@ catzc:
     path: docs/references/infrastructure/modules/vnet-peering.bicep.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: f5934d1be60a

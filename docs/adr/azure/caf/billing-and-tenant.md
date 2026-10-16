@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/azure/caf/billing-and-tenant.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "43969d556544"
     defines:

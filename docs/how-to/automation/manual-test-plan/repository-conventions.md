@@ -4,7 +4,7 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/repository-conventions.md
     kind: how-to
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "3d08ae3bea80"
     adrs:

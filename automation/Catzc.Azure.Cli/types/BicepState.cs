@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Cli/types/BicepState.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure.Cli
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-cli/types/BicepState.cs.md
 ---

@@ -4,8 +4,10 @@
 #     path: ".claude/drawio/embed_images.py"
 #     kind: script
 #     language: python
-#     filekind: py
+#     filetype: py
 #     track: ".claude"
+#     module: ".claude"
+#     moduletype: settings-module
 # ---
 
 """Embed PNG files into a draw.io model's image cells, as data URIs.

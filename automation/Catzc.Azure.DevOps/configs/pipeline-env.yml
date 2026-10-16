@@ -4,9 +4,11 @@
 #     path: automation/Catzc.Azure.DevOps/configs/pipeline-env.yml
 #     kind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: automation
 #     module: Catzc.Azure.DevOps
+#     moduletype: pwsh-folder-module
+#     bundle: azure
 # ---
 
 # Build context

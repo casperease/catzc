@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Writers/tests/Write-Exception.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Writers
-    relatives:
-      source: automation/Catzc.Base.Writers/Write-Exception.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

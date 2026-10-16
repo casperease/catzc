@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Files/private/Get-GitIndexPath.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Files
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.Files/tests/Get-GitIndexPath.Tests.ps1

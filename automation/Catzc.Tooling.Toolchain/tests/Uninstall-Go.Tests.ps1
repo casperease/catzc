@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Go.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
-    relatives:
-      source: automation/Catzc.Tooling.Toolchain/Uninstall-Go.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.ConfigExtensions
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.ConfigExtensions/tests/Get-ConfigValidatorName.Tests.ps1

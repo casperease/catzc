@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/Deploy-AzureResourceGroup.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1

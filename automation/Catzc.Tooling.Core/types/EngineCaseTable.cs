@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Tooling.Core
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md
       test: automation/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1

@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-rootconfig/tests/Get-RootConfigRenderedFile.Tests.ps1.md
-      source: automation/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---

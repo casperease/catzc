@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Repository/tests/Get-CatzcOverlayRoot.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Repository
-    relatives:
-      source: automation/Catzc.Base.Repository/Get-CatzcOverlayRoot.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

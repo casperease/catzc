@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Node
-    relatives:
-      source: automation/Catzc.Tooling.Node/Uninstall-NodeJs.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-AUTO-REMOVE#{4,5}
 ---

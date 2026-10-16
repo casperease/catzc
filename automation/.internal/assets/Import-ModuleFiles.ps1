@@ -5,9 +5,11 @@ catzc:
     path: automation/.internal/assets/Import-ModuleFiles.ps1
     kind: asset
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Internal.Assets
+    moduletype: pwsh-folder-module
+    bundle: minimal
 ---
 #>
 

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.MarkdownMeta
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
       test: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1

@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/callers-value-else-config-else-default.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "359dd20fdbc4"
     adrs:

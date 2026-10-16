@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Config
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-config/tests/Get-Config.Tests.ps1.md
-      source: automation/Catzc.Base.Config/Get-Config.ps1
     adrs:
       - ADR-AUTO-OVERLAY
       - ADR-AUTO-TEST#{3,14}

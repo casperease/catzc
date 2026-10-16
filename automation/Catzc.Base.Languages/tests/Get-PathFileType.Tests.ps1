@@ -4,8 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
     kind: test
-    relatives:
-      source: automation/Catzc.Base.Languages/Get-PathFileType.ps1
+    language: powershell
+    filetype: ps1
+    track: automation
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-DSGN-TRACK#6
 ---

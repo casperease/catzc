@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md
-      source: automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
     adrs:
       - ADR-AUTO-TEST#{3,9}
 ---

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/private/Get-ModuleSourceFunctions.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
   config:
     synopsis: Lists a source module's public and private function names, from its files.

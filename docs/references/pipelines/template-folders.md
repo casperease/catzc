@@ -4,7 +4,7 @@ catzc:
     path: docs/references/pipelines/template-folders.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "6cd17e0faa5f"
     links:

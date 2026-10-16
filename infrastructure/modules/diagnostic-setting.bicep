@@ -5,8 +5,10 @@
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filekind: bicep
+//     filetype: bicep
 //     track: infrastructure
+//     module: diagnostic-setting
+//     moduletype: bicep-module
 //     relatives:
 //       page: docs/references/infrastructure/modules/diagnostic-setting.bicep.md
 // ---

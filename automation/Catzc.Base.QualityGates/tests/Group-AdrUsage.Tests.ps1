@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/tests/Group-AdrUsage.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    relatives:
-      source: automation/Catzc.Base.QualityGates/private/Group-AdrUsage.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

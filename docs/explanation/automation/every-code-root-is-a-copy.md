@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/every-code-root-is-a-copy.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "746c77c76a50"
     adrs:

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/Get-AzureNamePatternSet.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.Templates/tests/Get-AzureNamePatternSet.Tests.ps1

@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Languages/tests/types/GoWorkspaceFile.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    relatives:
-      source: automation/Catzc.Base.Languages/types/GoWorkspaceFile.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

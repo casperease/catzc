@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/sensible-defaults.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d10e7f217e23
     defines:

@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/pipelines/one-header-function-owns-precedence.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a5d8d9ba4f36
     adrs:

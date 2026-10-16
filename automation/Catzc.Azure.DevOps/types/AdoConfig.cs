@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/AdoConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-devops/types/AdoConfig.cs.md
       test: automation/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1

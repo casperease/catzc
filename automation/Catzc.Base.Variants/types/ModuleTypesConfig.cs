@@ -4,7 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/types/ModuleTypesConfig.cs
     kind: type
+    language: csharp
+    filetype: cs
+    track: automation
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
+      page: docs/references/automation/catzc-base-variants/types/ModuleTypesConfig.cs.md
       test: automation/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK#3
@@ -20,9 +27,6 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Variants;
 
-// The one definition of what a module is, by type: where modules of each type are placed in the repository, and how a file path names its
-// module. Local to catzc and global to every file; a consumer extends it by a config fragment, which adds a type (checked after these) or
-// replaces the places of one (a map merges key by key, a list replaces).
 public sealed class ModuleTypesConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

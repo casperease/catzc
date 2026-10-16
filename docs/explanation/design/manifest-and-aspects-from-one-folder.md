@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/manifest-and-aspects-from-one-folder.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "13b42c260a6c"
     adrs:

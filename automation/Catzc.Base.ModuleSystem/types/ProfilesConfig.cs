@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/ProfilesConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md
       test: automation/Catzc.Base.ModuleSystem/tests/types/ProfilesConfig.Tests.ps1

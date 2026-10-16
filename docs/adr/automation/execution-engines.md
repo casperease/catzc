@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/execution-engines.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "9f2c295bbc83"
     defines:

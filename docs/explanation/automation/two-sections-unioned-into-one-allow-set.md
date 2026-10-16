@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: be83854e0e86
     adrs:

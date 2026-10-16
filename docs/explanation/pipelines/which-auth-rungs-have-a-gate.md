@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "514628fc27ea"
     adrs:

@@ -4,7 +4,7 @@ catzc:
     path: docs/references/infrastructure/modules/storage-account.bicep.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "68edc3b2c5cd"

@@ -4,8 +4,10 @@
 #     path: ".claude/drawio/contact_sheet.py"
 #     kind: script
 #     language: python
-#     filekind: py
+#     filetype: py
 #     track: ".claude"
+#     module: ".claude"
+#     moduletype: settings-module
 # ---
 
 # cspell:ignore textbbox arialbd

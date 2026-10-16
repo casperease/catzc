@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Repository/tests/Get-RepositoryRoot.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Repository
-    relatives:
-      source: automation/Catzc.Base.Repository/Get-RepositoryRoot.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

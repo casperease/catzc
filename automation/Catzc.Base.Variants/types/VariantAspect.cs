@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Variants/types/VariantAspect.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Variants
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-variants/types/VariantAspect.cs.md
     adrs:

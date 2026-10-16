@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Execution/tests/Invoke-WithProgress.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
-    relatives:
-      source: automation/Catzc.Base.Execution/Invoke-WithProgress.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

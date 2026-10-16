@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/tests/Read-BicepTemplateOptions.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    relatives:
-      source: automation/Catzc.Azure.Templates/private/Read-BicepTemplateOptions.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

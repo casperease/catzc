@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Languages/types/GeneratedHeadConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Languages
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       test: automation/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
 ---

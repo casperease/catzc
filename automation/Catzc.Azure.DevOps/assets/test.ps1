@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps/assets/test.ps1
     kind: asset
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.CodeMeta/Get-PropertyMetaState.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.CodeMeta
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     adrs:
       - ADR-REPO-FILEMETA#8

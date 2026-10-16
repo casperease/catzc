@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/bash/index.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "22ad4883d6b9"
     links:

@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/shims-set-roots-mode-read-back.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "0ee78f503e58"
     adrs:

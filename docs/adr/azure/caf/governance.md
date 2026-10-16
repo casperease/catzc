@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/azure/caf/governance.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: ff679b35f782
     defines:

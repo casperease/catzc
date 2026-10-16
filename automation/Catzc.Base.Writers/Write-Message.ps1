@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Writers/Write-Message.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Writers
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-writers/Write-Message.ps1.md

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure/types/AzureEnvironmentRecord.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure/types/AzureEnvironmentRecord.cs.md
     adrs:

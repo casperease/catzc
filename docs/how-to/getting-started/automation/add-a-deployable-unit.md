@@ -4,7 +4,7 @@ catzc:
     path: docs/how-to/getting-started/automation/add-a-deployable-unit.md
     kind: how-to
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "8cedc41c9bd5"
     links:

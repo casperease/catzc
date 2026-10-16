@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Repository/types/SyntaxSearch.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Repository
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       test: automation/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
 ---

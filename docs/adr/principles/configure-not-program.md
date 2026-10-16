@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/principles/configure-not-program.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: dc551b9dd238
     defines:

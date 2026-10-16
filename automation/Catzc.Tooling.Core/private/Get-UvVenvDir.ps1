@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/private/Get-UvVenvDir.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
   config:
     synopsis: Returns the dedicated uv-venv directory for a tool installed via `uv_venv`.

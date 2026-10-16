@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Objects/ConvertTo-Dictionary.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Objects
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md

@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "47f1aab341e7"

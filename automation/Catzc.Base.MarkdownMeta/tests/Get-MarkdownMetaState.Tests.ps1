@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.MarkdownMeta/tests/Get-MarkdownMetaState.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.MarkdownMeta
-    relatives:
-      source: automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-REPO-FILEMETA#1
 ---

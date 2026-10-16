@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Provisioning/Install-Zsh.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md

@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/azure/index.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: ee060595c823
     links:

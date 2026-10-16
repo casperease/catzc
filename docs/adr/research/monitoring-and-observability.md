@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/monitoring-and-observability.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "8030049afc9c"
     defines:

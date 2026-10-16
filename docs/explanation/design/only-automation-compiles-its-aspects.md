@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/only-automation-compiles-its-aspects.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: edf1d50add6a
     adrs:

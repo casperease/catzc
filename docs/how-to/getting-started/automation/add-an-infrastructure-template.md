@@ -4,7 +4,7 @@ catzc:
     path: docs/how-to/getting-started/automation/add-an-infrastructure-template.md
     kind: how-to
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "7fb02af5197f"
     links:

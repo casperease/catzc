@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Reports/types/OutputRetention.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Reports
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       test: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
 ---

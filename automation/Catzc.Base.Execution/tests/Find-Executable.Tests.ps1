@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
-      source: automation/Catzc.Base.Execution/Find-Executable.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#3

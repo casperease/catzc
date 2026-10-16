@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "3b2f8c46c61c"
     adrs:

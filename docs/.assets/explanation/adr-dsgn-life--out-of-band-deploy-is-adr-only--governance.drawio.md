@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "58c9f6a27cb6"
     adrs:

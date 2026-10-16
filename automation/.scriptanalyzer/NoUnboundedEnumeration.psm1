@@ -5,7 +5,7 @@ catzc:
     path: automation/.scriptanalyzer/NoUnboundedEnumeration.psm1
     kind: analyzer-rule
     language: powershell
-    filekind: psm1
+    filetype: psm1
     track: automation
 ---
 #>

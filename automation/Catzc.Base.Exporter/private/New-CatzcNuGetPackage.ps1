@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Exporter
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1

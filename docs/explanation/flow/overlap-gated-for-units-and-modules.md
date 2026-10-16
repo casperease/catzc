@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/flow/overlap-gated-for-units-and-modules.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "0c1d71f47fcd"
     adrs:

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Contracts/Get-ContractCheckResults.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Exporter/types/ExporterConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Exporter
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-exporter/types/ExporterConfig.cs.md
       test: automation/Catzc.Base.Exporter/tests/types/ExporterConfig.Tests.ps1

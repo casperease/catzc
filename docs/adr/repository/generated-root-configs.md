@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/repository/generated-root-configs.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "0664fd3164c3"
     defines:

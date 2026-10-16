@@ -4,8 +4,10 @@
 //     path: infrastructure/templates/expedition/main.bicep
 //     kind: template
 //     language: bicep
-//     filekind: bicep
+//     filetype: bicep
 //     track: infrastructure
+//     module: expedition
+//     moduletype: bicep-module
 //     relatives:
 //       page: docs/references/infrastructure/templates/expedition/main.bicep.md
 // ---

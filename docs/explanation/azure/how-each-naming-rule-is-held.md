@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/azure/how-each-naming-rule-is-held.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: ee09541f42c4
     adrs:

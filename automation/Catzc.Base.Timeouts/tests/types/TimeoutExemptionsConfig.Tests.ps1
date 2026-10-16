@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Timeouts/tests/types/TimeoutExemptionsConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Timeouts
-    relatives:
-      source: automation/Catzc.Base.Timeouts/types/TimeoutExemptionsConfig.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Contracts/private/Get-ContractSchemaFindings.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     adrs:
       - ADR-REPO-CONTRACT#6

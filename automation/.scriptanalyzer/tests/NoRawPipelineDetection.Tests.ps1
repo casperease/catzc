@@ -5,7 +5,7 @@ catzc:
     path: automation/.scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1.md

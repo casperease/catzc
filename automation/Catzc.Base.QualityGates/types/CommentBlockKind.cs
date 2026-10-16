@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentBlockKind.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-PRIN-ONELIVE#1
 ---

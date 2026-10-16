@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md
-      source: automation/Catzc.Base.Docs/Update-AdrCitation.ps1
     adrs:
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-IDEM#1

@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/ai-accessible-internal-data.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a087c76d9705
     defines:

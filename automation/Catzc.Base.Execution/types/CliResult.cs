@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Execution/types/CliResult.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Execution
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-execution/types/CliResult.cs.md
 ---

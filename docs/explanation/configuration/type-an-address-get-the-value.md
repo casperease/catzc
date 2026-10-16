@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/configuration/type-an-address-get-the-value.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "5b750addd2a4"
     adrs:

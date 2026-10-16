@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Firewall
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md
-      source: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1
 ---
 #>
 

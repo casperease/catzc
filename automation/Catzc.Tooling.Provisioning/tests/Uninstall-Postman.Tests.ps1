@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Postman.Tests.ps1.md
-      source: automation/Catzc.Tooling.Provisioning/Uninstall-Postman.ps1
 ---
 #>
 

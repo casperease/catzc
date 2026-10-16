@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure-cli/types/SubscriptionContext.cs.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c0a980682507

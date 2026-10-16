@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/fail-fast-with-asserts.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "64ab2812bb25"
     defines:

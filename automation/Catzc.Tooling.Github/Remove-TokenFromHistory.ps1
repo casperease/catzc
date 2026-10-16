@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Github
+    moduletype: pwsh-folder-module
+    bundle: full
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.Github/tests/Remove-TokenFromHistory.Tests.ps1

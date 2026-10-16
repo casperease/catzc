@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.TypesSystem/tests/Stop-FileLockingProcess.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.TypesSystem
-    relatives:
-      source: automation/Catzc.Base.TypesSystem/private/Stop-FileLockingProcess.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

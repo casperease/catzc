@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: gate
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.L2.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-cli/tests/Invoke-AzCli.L2.Tests.ps1.md
 ---

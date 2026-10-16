@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Globs/types/FileKindMatch.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Globs
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-REPO-FILEMETA#2
 ---

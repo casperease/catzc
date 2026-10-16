@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "7e60f250283d"
     adrs:

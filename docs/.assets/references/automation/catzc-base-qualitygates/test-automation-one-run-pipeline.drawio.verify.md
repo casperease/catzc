@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.verify.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: f33d8afc7bde
     adrs:

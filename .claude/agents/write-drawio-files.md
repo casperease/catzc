@@ -16,8 +16,10 @@ catzc:
     path: ".claude/agents/write-drawio-files.md"
     kind: agent
     language: markdown
-    filekind: md
+    filetype: md
     track: ".claude"
+    module: ".claude"
+    moduletype: settings-module
     body_sha: dc56e6631c20
     links:
       - ".claude/CLAUDE.md#time-safeguard"

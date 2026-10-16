@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b7e23c06a752
     adrs:

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Files/types/FileLockingProcess.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Files
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md
 ---

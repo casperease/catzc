@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    relatives:
-      source: automation/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-REPO-FILEMETA#7
 ---

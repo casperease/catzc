@@ -5,7 +5,12 @@ catzc:
     path: automation/Catzc.Base.QualityGates/private/Get-FileTypeFileMetaFact.ps1
     kind: function
     subkind: fact
+    language: powershell
+    filetype: ps1
+    track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1

@@ -4,8 +4,10 @@
 #     path: ".claude/drawio/minimaps/render.py"
 #     kind: script
 #     language: python
-#     filekind: py
+#     filetype: py
 #     track: ".claude"
+#     module: ".claude"
+#     moduletype: settings-module
 # ---
 
 # cspell:ignore minimaps segoeui segoeuib seguisb textlength squarify Bruls rects cwid gfiles gmap gname maxw tname

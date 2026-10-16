@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md

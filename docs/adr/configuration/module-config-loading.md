@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/configuration/module-config-loading.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "54ad5d90da9a"
     defines:

@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/internal/catzc-internal-testkit.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "38e1998cf760"
     links:

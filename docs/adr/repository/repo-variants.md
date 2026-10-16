@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/repository/repo-variants.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: aacdd93c1006
     defines:

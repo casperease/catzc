@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/design/tracks.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: ad1e63e6e8fd
     defines:

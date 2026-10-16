@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/process/lean.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "0b8c763416c5"
     defines:

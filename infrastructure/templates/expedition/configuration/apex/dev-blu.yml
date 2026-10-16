@@ -5,8 +5,10 @@
 #     kind: template
 #     subkind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: infrastructure
+#     module: expedition
+#     moduletype: bicep-module
 #     relatives:
 #       page: docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md
 # ---

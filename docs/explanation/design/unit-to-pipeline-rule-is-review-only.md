@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: c709a49d0a69
     adrs:

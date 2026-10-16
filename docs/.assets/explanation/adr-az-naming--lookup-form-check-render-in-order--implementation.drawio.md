@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "41b9b8e4da41"
     adrs:

@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.VSCode/tests/types/VscodeLaunchConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.VSCode
-    relatives:
-      source: automation/Catzc.Base.VSCode/types/VscodeLaunchConfig.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

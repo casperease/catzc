@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/merging-to-main-is-what-deploys.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: f0db1a761e05
     adrs:

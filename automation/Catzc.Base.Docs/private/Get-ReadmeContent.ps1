@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Docs/private/Get-ReadmeContent.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     adrs:
       - ADR-REPO-README#6

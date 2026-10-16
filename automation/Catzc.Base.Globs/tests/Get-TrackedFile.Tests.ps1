@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
-      source: automation/Catzc.Base.Globs/Get-TrackedFile.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS#4
 ---

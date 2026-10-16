@@ -4,8 +4,10 @@
 //     path: go/tests/catzc-base-repository/repository_test.go
 //     kind: test
 //     language: go
-//     filekind: go
+//     filetype: go
 //     track: go
+//     module: go
+//     moduletype: go-module
 // ---
 
 // Black-box tests of Catzc.Base.Repository: each test starts the engine as its own process the way the run's engine

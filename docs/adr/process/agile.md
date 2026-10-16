@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/process/agile.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d01d0860d047
     defines:

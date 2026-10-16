@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "4e6f35ae6bb0"
     adrs:

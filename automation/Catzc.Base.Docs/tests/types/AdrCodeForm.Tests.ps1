@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    relatives:
-      source: automation/Catzc.Base.Docs/types/AdrCodeForm.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-AUTO-TYPES#9
 ---

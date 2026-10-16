@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepShortName.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure.Templates
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md
       test: automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1

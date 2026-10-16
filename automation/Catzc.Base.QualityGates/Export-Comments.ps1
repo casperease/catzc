@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1

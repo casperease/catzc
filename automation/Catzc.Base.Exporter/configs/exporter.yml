@@ -4,9 +4,11 @@
 #     path: automation/Catzc.Base.Exporter/configs/exporter.yml
 #     kind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.Exporter
+#     moduletype: pwsh-folder-module
+#     bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-exporter/configs/exporter.yml.md
 # ---

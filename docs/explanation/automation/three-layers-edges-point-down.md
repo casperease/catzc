@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/three-layers-edges-point-down.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a9f5e8f8eb54
     adrs:

@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
-    relatives:
-      source: automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-AUTO-OVERLAY
 ---

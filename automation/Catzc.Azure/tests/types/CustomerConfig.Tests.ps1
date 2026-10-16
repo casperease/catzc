@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure
-    relatives:
-      source: automation/Catzc.Azure/types/CustomerConfig.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-AZ-CUSTOMER#2
 ---

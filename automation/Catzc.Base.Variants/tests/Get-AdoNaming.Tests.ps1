@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Variants/tests/Get-AdoNaming.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Variants
-    relatives:
-      source: automation/Catzc.Base.Variants/Get-AdoNaming.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

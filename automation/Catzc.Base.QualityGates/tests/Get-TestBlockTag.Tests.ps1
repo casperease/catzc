@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/Get-TestBlockTag.Tests.ps1.md
-      source: automation/Catzc.Base.QualityGates/private/Get-TestBlockTag.ps1
     adrs:
       - ADR-AUTO-TEST#42
       - ADR-PWSH-PESTER#8

@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/principles/poka-yoke.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b1f6ecea8d5e
     defines:

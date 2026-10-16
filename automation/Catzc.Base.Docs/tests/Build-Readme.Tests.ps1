@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md
-      source: automation/Catzc.Base.Docs/Build-Readme.ps1
     adrs:
       - ADR-PWSH-PESTER#2
       - ADR-REPO-README#6

@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/identifier-names.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d7d834183993
     defines:

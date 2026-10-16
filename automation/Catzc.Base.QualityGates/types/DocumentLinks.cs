@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/DocumentLinks.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/types/DocumentLinks.Tests.ps1
 ---

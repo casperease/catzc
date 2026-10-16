@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-vscode.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: eff1880109ad
     links:

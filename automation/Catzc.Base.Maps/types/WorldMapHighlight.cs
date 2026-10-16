@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/types/WorldMapHighlight.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Maps
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md
       test: automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1

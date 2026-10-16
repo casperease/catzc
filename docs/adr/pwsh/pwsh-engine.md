@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/pwsh-engine.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b8e8750cdd85
     defines:

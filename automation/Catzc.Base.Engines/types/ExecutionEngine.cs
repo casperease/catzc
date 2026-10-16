@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Engines
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
       test: automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1

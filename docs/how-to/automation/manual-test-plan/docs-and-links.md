@@ -4,7 +4,7 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/docs-and-links.md
     kind: how-to
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: cb7bfab391fb
     adrs:

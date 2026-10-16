@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/same-deploy-bicep-on-both-sides.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: ea64b39cbb52
     adrs:

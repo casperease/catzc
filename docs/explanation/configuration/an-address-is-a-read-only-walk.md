@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/configuration/an-address-is-a-read-only-walk.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "54bd6341713f"
     adrs:

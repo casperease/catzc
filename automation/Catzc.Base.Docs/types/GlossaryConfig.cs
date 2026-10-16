@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Docs
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-docs/types/GlossaryConfig.cs.md
       test: automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1

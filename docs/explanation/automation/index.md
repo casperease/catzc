@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/index.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: ef9adf853ade
     links:
@@ -37,11 +37,12 @@ How the automation layer of cats holds together.
 The bundle                 one commit becomes one verified package, and every code root is a copy
 The importer               every entry runs one load sequence
 Module dependency groups   one declared allow-list, and every edge points down
+Compiled types             what unboxing costs, and what costs more than it
 ```
 
 These articles explain decisions from the [automation ADR domain](../../adr/index.md#automation): how the bundle is built and placed, how
-the importer loads the modules, and how modules may depend on one another. Each article narrates one diagram; the
-[explanation index](../index.md) says how to read them.
+the importer loads the modules, how modules may depend on one another, and what compiled types cost. Each article but the last narrates one
+diagram; the [explanation index](../index.md) says how to read them.
 
 ## The bundle
 
@@ -80,3 +81,12 @@ One declared allow-list says what may depend on what, and the declared graph for
 | implementation | [Two sections of dependencies.yml are unioned into one allow-set per source module](two-sections-unioned-into-one-allow-set.md) |
 | operations     | [An undeclared module edge fails the gate with one line per issue](undeclared-edge-fails-with-one-line.md)                      |
 | governance     | [Two gates check the layer pins, and one rule is left to review](two-gates-check-the-layer-pins.md)                             |
+
+## Compiled types
+
+Reading a value out of an object costs a few nanoseconds, and the type tests, reflection lookups and PowerShell crossings around it cost
+more ([native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)).
+
+| Article |
+| ------- |
+| [Unboxing is cheap, the type tests and crossings around it are not](unboxing-is-cheap-and-crossings-are-not.md) |

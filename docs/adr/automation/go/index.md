@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/go/index.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "57d973bedb2e"
     links:

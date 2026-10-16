@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "5ffe1a51b035"
     adrs:

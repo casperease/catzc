@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: gate
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Asserts
+    moduletype: pwsh-folder-module
+    bundle: minimal
     visibility: public
     relatives:
       test: automation/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1

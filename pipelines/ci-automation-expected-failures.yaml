@@ -4,8 +4,10 @@
 #     path: pipelines/ci-automation-expected-failures.yaml
 #     kind: pipeline
 #     language: pipeline-yaml
-#     filekind: yaml
+#     filetype: yaml
 #     track: pipelines
+#     module: pipelines
+#     moduletype: pipeline-module
 #     relatives:
 #       page: docs/references/pipelines/ci-automation-expected-failures.yaml.md
 # ---

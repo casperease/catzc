@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Globs/types/GlobsConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Globs
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md
       test: automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1

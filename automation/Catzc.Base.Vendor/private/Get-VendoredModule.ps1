@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Vendor/private/Get-VendoredModule.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Vendor
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
   config:
     synopsis: Enumerates the vendored modules on disk under automation/.vendor.

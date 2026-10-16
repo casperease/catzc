@@ -4,8 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-BundleFileMetaFact.Tests.ps1
     kind: test
-    relatives:
-      source: automation/Catzc.Base.QualityGates/private/Get-BundleFileMetaFact.ps1
+    language: powershell
+    filetype: ps1
+    track: automation
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-PRIN-CONFIG#1
 ---
@@ -31,14 +35,14 @@ Describe 'Get-BundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
                 module_guid            = '00000000-0000-0000-0000-000000000001'
                 default_bundle         = 'large'
                 bundles                = [ordered]@{
-                    large = @{ profile = 'large'; version = '1.0' }
-                    small = @{ profile = 'small'; version = '1.0' }
+                    large = @{ profile = 'azure'; version = '1.0' }
+                    small = @{ profile = 'minimal'; version = '1.0' }
                 }
                 package                = @{ author = 'A'; company = 'C'; description = 'D'; tags = @('t'); project_uri = 'https://example.org'; license_uri = 'https://example.org/l' }
             })
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'exporter' } { $script:exporter }
         Mock Get-ModuleProfile -ModuleName Catzc.Base.QualityGates {
-            if ($Name -eq 'small') { @('Widget.Core', '.internal') } else { @('Widget.Core', 'Widget.Extra', '.internal') }
+            if ($Name -eq 'minimal') { @('Widget.Core', '.internal') } else { @('Widget.Core', 'Widget.Extra', '.internal') }
         }
         Mock Get-Track -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ name = 'automation'; root = 'widgetry' } }
     }

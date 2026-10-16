@@ -15,8 +15,10 @@ catzc:
     path: ".claude/agents/test-optimization.md"
     kind: agent
     language: markdown
-    filekind: md
+    filetype: md
     track: ".claude"
+    module: ".claude"
+    moduletype: settings-module
     body_sha: "9665e0853812"
     adrs:
       - ADR-AUTO-FAILFAST#7

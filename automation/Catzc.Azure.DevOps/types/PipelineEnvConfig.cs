@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-devops/types/PipelineEnvConfig.cs.md
       test: automation/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1

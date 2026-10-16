@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleDependencyEdges.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyEdges.Tests.ps1

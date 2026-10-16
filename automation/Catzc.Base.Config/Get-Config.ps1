@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Config/Get-Config.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Config
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-config/Get-Config.ps1.md

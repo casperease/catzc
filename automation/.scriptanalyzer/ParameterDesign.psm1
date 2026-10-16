@@ -5,7 +5,7 @@ catzc:
     path: automation/.scriptanalyzer/ParameterDesign.psm1
     kind: analyzer-rule
     language: powershell
-    filekind: psm1
+    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md

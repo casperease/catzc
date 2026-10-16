@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/process/holding-the-line.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d2cb16c40656
     defines:

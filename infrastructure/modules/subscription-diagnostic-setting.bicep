@@ -5,8 +5,10 @@
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filekind: bicep
+//     filetype: bicep
 //     track: infrastructure
+//     module: subscription-diagnostic-setting
+//     moduletype: bicep-module
 //     relatives:
 //       page: docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md
 // ---

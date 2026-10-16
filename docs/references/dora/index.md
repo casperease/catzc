@@ -4,7 +4,7 @@ catzc:
     path: docs/references/dora/index.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "3cfd89b51712"
     links:

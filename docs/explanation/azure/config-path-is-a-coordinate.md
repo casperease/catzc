@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/azure/config-path-is-a-coordinate.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "2356399464e7"
     adrs:

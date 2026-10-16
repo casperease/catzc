@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/flow/a-merge-runs-cd-to-prod.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "1c55ad0ec400"
     adrs:

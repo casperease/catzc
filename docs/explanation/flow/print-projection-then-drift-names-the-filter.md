@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/flow/print-projection-then-drift-names-the-filter.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "2678d113eea1"
     adrs:

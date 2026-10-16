@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Files/tests/Get-GitCurrentBranch.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Files
-    relatives:
-      source: automation/Catzc.Base.Files/Get-GitCurrentBranch.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

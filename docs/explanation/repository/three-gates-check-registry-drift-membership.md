@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/repository/three-gates-check-registry-drift-membership.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "413a6f2fae83"
     adrs:

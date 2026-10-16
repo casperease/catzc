@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps/tests/ConvertFrom-AdoPipelineCommand.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
-    relatives:
-      source: automation/Catzc.Azure.DevOps/ConvertFrom-AdoPipelineCommand.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md
-      source: automation/Catzc.Base.Execution/types/ToolsConfig.cs
     adrs:
       - ADR-AUTO-DEPS#4
       - ADR-AUTO-TEST#{3,14}

@@ -4,8 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ModuleNameFileMetaFact.Tests.ps1
     kind: test
-    relatives:
-      source: automation/Catzc.Base.QualityGates/private/Get-ModuleNameFileMetaFact.ps1
+    language: powershell
+    filetype: ps1
+    track: automation
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-REPO-CODEMETA#2
 ---

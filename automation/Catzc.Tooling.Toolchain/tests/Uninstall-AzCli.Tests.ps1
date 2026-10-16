@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
-    relatives:
-      source: automation/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-AUTO-REMOVE#{4,5}
 ---

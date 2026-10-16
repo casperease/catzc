@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps.BuildValidation
+    moduletype: pwsh-folder-module
+    bundle: full
     relatives:
       page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Unregister-AdoBuildValidation.Tests.ps1.md
-      source: automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-IDEM#2

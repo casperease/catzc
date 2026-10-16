@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Firewall
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md

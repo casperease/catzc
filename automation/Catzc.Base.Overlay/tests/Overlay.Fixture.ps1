@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
     kind: fixture
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
     adrs:

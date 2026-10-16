@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Engines
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Engines/tests/Get-ExecutionEngine.Tests.ps1

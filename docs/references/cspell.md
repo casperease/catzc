@@ -4,7 +4,7 @@ catzc:
     path: docs/references/cspell.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "8d46afba173c"
     links:

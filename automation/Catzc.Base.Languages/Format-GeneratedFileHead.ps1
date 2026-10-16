@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: formatter
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1

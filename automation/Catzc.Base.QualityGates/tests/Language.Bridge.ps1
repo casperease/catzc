@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1
     kind: fixture
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md
     adrs:

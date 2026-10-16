@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md

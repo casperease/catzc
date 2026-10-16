@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.RootConfig/tests/types/RootConfigFile.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.RootConfig
-    relatives:
-      source: automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

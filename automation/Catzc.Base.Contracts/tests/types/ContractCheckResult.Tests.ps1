@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Contracts/tests/types/ContractCheckResult.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-contracts/tests/types/ContractCheckResult.Tests.ps1.md
-      source: automation/Catzc.Base.Contracts/types/ContractCheckResult.cs
     adrs:
       - ADR-AUTO-TYPES#14
       - ADR-REPO-CONTRACT#4

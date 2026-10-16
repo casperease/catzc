@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepParametersFileName.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    relatives:
-      source: automation/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

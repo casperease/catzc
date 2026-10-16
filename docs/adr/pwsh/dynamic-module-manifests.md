@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/dynamic-module-manifests.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "4511f151b87b"
     defines:

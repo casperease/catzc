@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: writer
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1

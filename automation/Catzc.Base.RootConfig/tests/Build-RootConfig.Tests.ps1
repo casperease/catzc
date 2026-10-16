@@ -8,9 +8,10 @@ catzc:
     filetype: ps1
     track: automation
     module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md
-      source: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
     adrs:
       - ADR-AUTO-TEST#{3,14}
       - ADR-PWSH-PESTER#2

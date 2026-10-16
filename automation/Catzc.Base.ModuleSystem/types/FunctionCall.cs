@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/FunctionCall.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md
 ---

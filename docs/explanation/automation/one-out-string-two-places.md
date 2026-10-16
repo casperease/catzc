@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/one-out-string-two-places.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "4ce846b18cf7"
     adrs:

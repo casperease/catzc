@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Node/Install-Prettier.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Node
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
   config:
     synopsis: Installs Prettier (the prettier formatter engine's CLI) globally via npm.

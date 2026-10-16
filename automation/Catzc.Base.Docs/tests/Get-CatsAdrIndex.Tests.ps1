@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Docs/tests/Get-CatsAdrIndex.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    relatives:
-      source: automation/Catzc.Base.Docs/private/Get-CatsAdrIndex.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

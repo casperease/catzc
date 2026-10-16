@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/get-aspect-feeds-globs-and-maps.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "15139b8bcd1b"
     adrs:

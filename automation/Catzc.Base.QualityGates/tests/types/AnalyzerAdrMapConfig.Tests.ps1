@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    relatives:
-      source: automation/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-PWSH-FORMAT#7
 ---

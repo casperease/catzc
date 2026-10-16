@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps/tests/Get-AdoRepositoryName.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
-    relatives:
-      source: automation/Catzc.Azure.DevOps/Get-AdoRepositoryName.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-PWSH-PARAM#4
 ---

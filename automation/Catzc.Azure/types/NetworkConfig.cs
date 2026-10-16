@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure/types/NetworkConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
       test: automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1

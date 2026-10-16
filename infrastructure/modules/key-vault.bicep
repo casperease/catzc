@@ -5,8 +5,10 @@
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filekind: bicep
+//     filetype: bicep
 //     track: infrastructure
+//     module: key-vault
+//     moduletype: bicep-module
 //     relatives:
 //       page: docs/references/infrastructure/modules/key-vault.bicep.md
 // ---

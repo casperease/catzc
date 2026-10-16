@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-docs/types/AdrNeutralityToken.cs.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "0659863137bc"

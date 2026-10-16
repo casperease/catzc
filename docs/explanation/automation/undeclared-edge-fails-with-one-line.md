@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/undeclared-edge-fails-with-one-line.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: de8d7a0b63f5
     adrs:

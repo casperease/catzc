@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Toolchain/private/Install-UvStandalone.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md

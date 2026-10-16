@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/deploying-is-not-integrating.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a9bdca79fa5e
     adrs:

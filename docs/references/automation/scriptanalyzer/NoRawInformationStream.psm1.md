@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/scriptanalyzer/NoRawInformationStream.psm1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "770ca6eda0bb"

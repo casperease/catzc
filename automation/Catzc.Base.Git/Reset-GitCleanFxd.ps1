@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Git
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure/types/AzureSubscription.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure/types/AzureSubscription.cs.md
 ---

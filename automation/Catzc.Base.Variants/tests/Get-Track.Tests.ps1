@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Variants
-    relatives:
-      source: automation/Catzc.Base.Variants/Get-Track.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-DSGN-TRACK#17
 ---

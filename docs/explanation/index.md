@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/index.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: f6e84604175e
     adrs:
@@ -32,7 +32,7 @@ catzc:
 ```text
 Explanation articles: how cats works and why, one diagram each.
 
-automation      module dependencies, the importer, and the bundle
+automation      module dependencies, the importer, the bundle, and what compiled types cost
 azure           how Azure resource names are assembled
 configuration   how configuration is read, cached and addressed
 design          the commit lifecycle, run modes, module aspects, tracks, the thin platform, the server remote

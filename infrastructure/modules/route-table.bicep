@@ -5,8 +5,10 @@
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filekind: bicep
+//     filetype: bicep
 //     track: infrastructure
+//     module: route-table
+//     moduletype: bicep-module
 //     relatives:
 //       page: docs/references/infrastructure/modules/route-table.bicep.md
 // ---

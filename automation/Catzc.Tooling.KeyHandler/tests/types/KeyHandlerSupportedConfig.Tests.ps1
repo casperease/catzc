@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.KeyHandler
-    relatives:
-      source: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
+    moduletype: pwsh-folder-module
+    bundle: full
 ---
 #>
 

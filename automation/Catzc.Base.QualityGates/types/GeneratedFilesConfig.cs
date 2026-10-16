@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/GeneratedFilesConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/types/GeneratedFilesConfig.Tests.ps1
 ---

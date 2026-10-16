@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "5a1868e2e496"
     adrs:

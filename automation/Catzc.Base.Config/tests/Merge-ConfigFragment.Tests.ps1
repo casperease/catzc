@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Config
-    relatives:
-      source: automation/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

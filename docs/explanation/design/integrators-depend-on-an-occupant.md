@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/integrators-depend-on-an-occupant.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: e9b85c942879
     adrs:

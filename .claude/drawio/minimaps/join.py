@@ -4,8 +4,10 @@
 #     path: ".claude/drawio/minimaps/join.py"
 #     kind: script
 #     language: python
-#     filekind: py
+#     filetype: py
 #     track: ".claude"
+#     module: ".claude"
+#     moduletype: settings-module
 # ---
 
 # cspell:ignore minimaps mapkey

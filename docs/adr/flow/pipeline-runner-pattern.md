@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/flow/pipeline-runner-pattern.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: aee9df2ea8f2
     defines:

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Objects/ConvertTo-YamlSafe.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Objects
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Objects/tests/ConvertTo-YamlSafe.Tests.ps1

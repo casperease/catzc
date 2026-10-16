@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Config
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md
-      source: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-PWSH-PESTER#{3,4}

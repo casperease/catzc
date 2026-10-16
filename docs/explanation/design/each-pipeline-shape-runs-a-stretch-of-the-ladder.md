@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/each-pipeline-shape-runs-a-stretch-of-the-ladder.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: cebebf5daac9
     adrs:

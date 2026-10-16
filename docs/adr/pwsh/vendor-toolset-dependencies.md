@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/vendor-toolset-dependencies.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "6eefb77c0042"
     defines:

@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Engines
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md
-      source: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
     adrs:
       - ADR-AUTO-ENGINE
 ---

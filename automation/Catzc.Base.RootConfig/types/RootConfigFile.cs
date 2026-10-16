@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md
       test: automation/Catzc.Base.RootConfig/tests/types/RootConfigFile.Tests.ps1

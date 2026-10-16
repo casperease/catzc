@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.QualityGates/tests/Enter-TestRunLocation.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/Enter-TestRunLocation.Tests.ps1.md
-      source: automation/Catzc.Base.QualityGates/private/Enter-TestRunLocation.ps1
 ---
 #>
 

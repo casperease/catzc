@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/log-before-invoke.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "2c0702674ab9"
     defines:

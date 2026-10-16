@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md

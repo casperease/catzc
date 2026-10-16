@@ -5,9 +5,11 @@ catzc:
     path: automation/.internal/tests/Test-IsRunningInPipeline.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Internal.Tests
+    moduletype: pwsh-folder-module
+    bundle: minimal
     relatives:
       page: docs/references/automation/internal/tests/Test-IsRunningInPipeline.Tests.ps1.md
 ---

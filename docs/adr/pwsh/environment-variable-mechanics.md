@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/environment-variable-mechanics.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: f06f5693d22e
     defines:

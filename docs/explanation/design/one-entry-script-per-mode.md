@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/one-entry-script-per-mode.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: c24eef1948d2
     adrs:

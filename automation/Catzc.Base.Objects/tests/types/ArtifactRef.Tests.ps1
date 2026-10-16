@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Objects
-    relatives:
-      source: automation/Catzc.Base.Objects/types/ArtifactRef.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-AUTO-PATH#10
 ---

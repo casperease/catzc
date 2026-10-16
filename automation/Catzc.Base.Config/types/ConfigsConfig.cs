@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Config/types/ConfigsConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Config
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-config/types/ConfigsConfig.cs.md
     adrs:

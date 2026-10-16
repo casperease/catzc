@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "0f8a9212a9e1"

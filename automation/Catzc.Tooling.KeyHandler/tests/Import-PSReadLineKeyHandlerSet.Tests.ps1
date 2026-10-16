@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.KeyHandler
+    moduletype: pwsh-folder-module
+    bundle: full
     relatives:
       page: docs/references/automation/catzc-tooling-keyhandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1.md
-      source: automation/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---

@@ -4,8 +4,10 @@
 #     path: bash/tests/catzc-base-engines/cats.bats
 #     kind: test
 #     language: bash
-#     filekind: bats
+#     filetype: bats
 #     track: bash
+#     module: bash
+#     moduletype: bash-module
 # ---
 
 # Black-box tests of the bash engine's entry, importer.sh, and its cats dispatcher (Catzc.Base.Engines).

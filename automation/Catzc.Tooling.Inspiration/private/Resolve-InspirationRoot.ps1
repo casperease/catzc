@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Inspiration
+    moduletype: pwsh-folder-module
+    bundle: full
     visibility: private
     relatives:
       test: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1

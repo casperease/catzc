@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/internal/catzc-internal-vendor.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: af35dd6b1d66
     links:

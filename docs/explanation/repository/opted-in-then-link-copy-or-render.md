@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/repository/opted-in-then-link-copy-or-render.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "2d4abe8ad11f"
     adrs:

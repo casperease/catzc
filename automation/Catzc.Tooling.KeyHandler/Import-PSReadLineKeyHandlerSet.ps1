@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.KeyHandler
+    moduletype: pwsh-folder-module
+    bundle: full
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1

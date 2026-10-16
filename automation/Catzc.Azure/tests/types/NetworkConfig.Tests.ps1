@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md
-      source: automation/Catzc.Azure/types/NetworkConfig.cs
     adrs:
       - ADR-AUTO-TEST#{1,3}
       - ADR-AZ-NETWORK#{5,6}

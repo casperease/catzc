@@ -12,8 +12,10 @@ catzc:
     path: ".claude/agents/build-inspiration-module.md"
     kind: agent
     language: markdown
-    filekind: md
+    filetype: md
     track: ".claude"
+    module: ".claude"
+    moduletype: settings-module
     body_sha: "20813ca506bb"
     adrs:
       - ADR-AUTO-DEFAULT#6

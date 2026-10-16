@@ -6,9 +6,11 @@ catzc:
     kind: module
     subkind: internal
     language: powershell
-    filekind: psm1
+    filetype: psm1
     track: automation
     module: Catzc.Internal.Vendor
+    moduletype: pwsh-psm1-module
+    bundle: minimal
     relatives:
       page: docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md
 ---

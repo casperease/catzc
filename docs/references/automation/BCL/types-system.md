@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/BCL/types-system.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a2a9963d9de6
     links:

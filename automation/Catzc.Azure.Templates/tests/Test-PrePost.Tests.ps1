@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/tests/Test-PrePost.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md
 ---

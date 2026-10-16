@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: ac40c5649ac6

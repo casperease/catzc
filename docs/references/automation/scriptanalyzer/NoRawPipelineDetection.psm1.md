@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: eedf6f528a1f

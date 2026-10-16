@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/internal/catzc-internal-bootstrap.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "2b24078306c3"
     adrs:

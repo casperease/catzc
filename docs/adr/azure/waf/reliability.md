@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/azure/waf/reliability.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "8fe3ab1c81d6"
     defines:

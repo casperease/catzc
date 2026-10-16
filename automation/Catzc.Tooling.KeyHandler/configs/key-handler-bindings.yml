@@ -4,9 +4,11 @@
 #     path: automation/Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml
 #     kind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: automation
 #     module: Catzc.Tooling.KeyHandler
+#     moduletype: pwsh-folder-module
+#     bundle: full
 #     relatives:
 #       page: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-bindings.yml.md
 # ---

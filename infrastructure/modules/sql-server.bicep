@@ -5,8 +5,10 @@
 //     kind: template
 //     subkind: module
 //     language: bicep
-//     filekind: bicep
+//     filetype: bicep
 //     track: infrastructure
+//     module: sql-server
+//     moduletype: bicep-module
 //     relatives:
 //       page: docs/references/infrastructure/modules/sql-server.bicep.md
 // ---

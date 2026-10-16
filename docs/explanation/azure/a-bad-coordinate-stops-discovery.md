@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/azure/a-bad-coordinate-stops-discovery.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: de5f24266b08
     adrs:

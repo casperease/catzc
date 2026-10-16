@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/azure/waf/cost-optimization.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b885ae6df735
     defines:

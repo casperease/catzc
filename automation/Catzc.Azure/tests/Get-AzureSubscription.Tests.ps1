@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure/tests/Get-AzureSubscription.Tests.ps1.md
-      source: automation/Catzc.Azure/Get-AzureSubscription.ps1
     adrs:
       - ADR-AUTO-TEST#{4,19}
 ---

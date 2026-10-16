@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-overlay.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a4a0355391e6
     links:

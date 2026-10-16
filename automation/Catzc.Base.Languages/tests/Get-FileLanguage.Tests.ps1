@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
-      source: automation/Catzc.Base.Languages/Get-FileLanguage.ps1
     adrs:
       - ADR-DSGN-TRACK#{1,3,6}
 ---

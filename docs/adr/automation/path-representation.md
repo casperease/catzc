@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/path-representation.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: c24894c6fcd5
     defines:

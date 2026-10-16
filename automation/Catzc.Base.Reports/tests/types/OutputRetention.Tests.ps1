@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Reports
-    relatives:
-      source: automation/Catzc.Base.Reports/types/OutputRetention.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-REPO-OUTDIR#7
 ---

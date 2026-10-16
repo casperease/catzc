@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "76df95b93b6e"

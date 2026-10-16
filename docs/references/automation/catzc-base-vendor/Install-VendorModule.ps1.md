@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d260d5b2df4e

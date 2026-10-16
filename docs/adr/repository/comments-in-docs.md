@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/repository/comments-in-docs.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: da8f190cff2b
     defines:

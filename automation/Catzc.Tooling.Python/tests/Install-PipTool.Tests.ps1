@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Python
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-tooling-python/tests/Install-PipTool.Tests.ps1.md
-      source: automation/Catzc.Tooling.Python/private/Install-PipTool.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-UVPY#2

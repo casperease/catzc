@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Node/tests/Invoke-Npm.L2.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Node
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

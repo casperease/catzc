@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps.BuildValidation
+    moduletype: pwsh-folder-module
+    bundle: full
     relatives:
       page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md
-      source: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AZ-CUSTOMER#3

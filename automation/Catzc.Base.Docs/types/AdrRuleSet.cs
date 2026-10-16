@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrRuleSet.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Docs
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-docs/types/AdrRuleSet.cs.md
     adrs:

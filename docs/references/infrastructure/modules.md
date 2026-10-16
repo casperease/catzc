@@ -4,7 +4,7 @@ catzc:
     path: docs/references/infrastructure/modules.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: dc667b4441d5
     links:

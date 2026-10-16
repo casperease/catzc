@@ -4,9 +4,11 @@
 #     path: automation/Catzc.Base.ModuleSystem/configs/glossary.yml
 #     kind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.ModuleSystem
+#     moduletype: pwsh-folder-module
+#     bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-modulesystem/configs/glossary.yml.md
 # ---

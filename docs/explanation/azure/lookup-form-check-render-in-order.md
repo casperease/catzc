@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/azure/lookup-form-check-render-in-order.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: cd0312dc18af
     adrs:

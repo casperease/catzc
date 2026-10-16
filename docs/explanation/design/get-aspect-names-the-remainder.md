@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/get-aspect-names-the-remainder.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "640b239cd646"
     adrs:

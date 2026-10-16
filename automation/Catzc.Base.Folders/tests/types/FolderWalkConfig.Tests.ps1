@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Folders
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
-      source: automation/Catzc.Base.Folders/types/FolderWalkConfig.cs
     adrs:
       - ADR-AUTO-DEFAULT#6
 ---

@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    relatives:
-      source: automation/Catzc.Base.QualityGates/private/Get-TrackFileMetaFact.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-DSGN-TRACK#1
 ---

@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure-devops-buildvalidation.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "786214e1e4e5"
     links:

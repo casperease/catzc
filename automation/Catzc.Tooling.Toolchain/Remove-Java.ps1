@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Toolchain/Remove-Java.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md

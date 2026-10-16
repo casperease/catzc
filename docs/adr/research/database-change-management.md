@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/database-change-management.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d48de2b4f591
     defines:

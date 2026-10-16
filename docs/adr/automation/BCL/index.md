@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/BCL/index.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "340ada650a79"
     links:

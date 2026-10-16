@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.L2.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

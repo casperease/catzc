@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md
-      source: automation/Catzc.Base.Maps/Get-WorldMap.ps1
     adrs:
       - ADR-DSGN-TRACK#3
 ---

@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/continuous-delivery.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: f32418cd25eb
     defines:

@@ -4,7 +4,7 @@ catzc:
     path: docs/references/dora/metrics.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: e7f94588d30b
     links:

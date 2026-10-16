@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapsLabels.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Maps
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-maps/types/MapsLabels.cs.md
     adrs:

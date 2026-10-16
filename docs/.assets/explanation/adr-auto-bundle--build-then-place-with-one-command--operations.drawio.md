@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "1580340ea555"
     adrs:

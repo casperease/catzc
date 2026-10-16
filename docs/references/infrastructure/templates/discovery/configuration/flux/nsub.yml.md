@@ -4,7 +4,7 @@ catzc:
     path: docs/references/infrastructure/templates/discovery/configuration/flux/nsub.yml.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "787adf66f7bc"

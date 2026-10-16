@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/flow/durable-sha-globs.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: c6e0e1792463
     defines:

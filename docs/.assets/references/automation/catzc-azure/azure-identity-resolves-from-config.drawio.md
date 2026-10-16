@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: e71cc3ad7cb6
     adrs:

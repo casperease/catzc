@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: writer
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md

@@ -4,8 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/types/ModulePlace.cs
     kind: type
+    language: csharp
+    filetype: cs
+    track: automation
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
-      test: automation/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
+      page: docs/references/automation/catzc-base-variants/types/ModulePlace.cs.md
     adrs:
       - ADR-DSGN-TRACK#3
 ---
@@ -16,10 +22,6 @@ using System.Linq;
 
 namespace Catzc.Base.Variants;
 
-// A place under a root folder where modules of one type are found, and how a path in that place names its module:
-// folder  the first folder under the root, never a dot-prefixed one, with the prefix put before its PascalCase when there is one;
-// file    a file of the extension directly under the root, named without the extension;
-// root    the root folder itself, named by its last segment.
 public sealed class ModulePlace
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Python/Install-Python.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Python
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-tooling-python/Install-Python.ps1.md

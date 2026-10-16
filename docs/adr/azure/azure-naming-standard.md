@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/azure/azure-naming-standard.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "73a0cb2d870c"
     defines:

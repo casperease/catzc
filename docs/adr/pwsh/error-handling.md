@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/error-handling.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d289b074815d
     defines:

@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/dot-source-one-entry-script.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a414cc3c826a
     adrs:

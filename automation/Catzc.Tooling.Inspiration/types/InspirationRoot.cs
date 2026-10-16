@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Tooling.Inspiration
+    moduletype: pwsh-folder-module
+    bundle: full
     relatives:
       page: docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md
       test: automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1

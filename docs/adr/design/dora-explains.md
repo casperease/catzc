@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/design/dora-explains.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: af0afde9a632
     links:

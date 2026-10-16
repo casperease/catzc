@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/repository/markdown-links.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "275963ff5695"
     defines:

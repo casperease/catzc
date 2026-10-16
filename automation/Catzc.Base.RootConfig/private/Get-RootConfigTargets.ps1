@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.RootConfig/tests/Get-RootConfigTargets.Tests.ps1

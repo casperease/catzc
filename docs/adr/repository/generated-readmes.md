@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/repository/generated-readmes.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a0b4332cbb1e
     defines:

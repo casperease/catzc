@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/tests/Copy-Automation.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
-    relatives:
-      source: automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

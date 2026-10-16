@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/pipelines/what-you-set-decides-the-credential.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a1d9fba083df
     adrs:

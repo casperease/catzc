@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Reports/types/OutputFormat.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Reports
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-reports/types/OutputFormat.cs.md
     adrs:

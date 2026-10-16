@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/BashSafeguard.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Timeouts
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
       test: automation/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1

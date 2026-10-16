@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/repository/output-formats.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: c2b95f4a9247
     defines:

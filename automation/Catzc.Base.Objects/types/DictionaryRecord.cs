@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Objects/types/DictionaryRecord.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Objects
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
       test: automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1

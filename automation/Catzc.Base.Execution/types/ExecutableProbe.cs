@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Execution/types/ExecutableProbe.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Execution
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
       test: automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1

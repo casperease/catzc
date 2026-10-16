@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/private/Get-CommittedTypesDrift.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
   config:
     synopsis: Reports why the committed combined types assembly is not the current one.

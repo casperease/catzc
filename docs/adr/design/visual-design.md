@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/design/visual-design.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "9af99e4e5cbf"
     defines:

@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "828f1cd57b2e"

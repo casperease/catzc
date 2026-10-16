@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Files/tests/Test-FileIsLocked.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Files
-    relatives:
-      source: automation/Catzc.Base.Files/Test-FileIsLocked.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

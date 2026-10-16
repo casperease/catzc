@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.TypesSystem/tests/Test-LoadedTypesCurrent.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.TypesSystem
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-typessystem/tests/Test-LoadedTypesCurrent.Tests.ps1.md
-      source: automation/Catzc.Base.TypesSystem/Test-LoadedTypesCurrent.ps1
     adrs:
       - ADR-AUTO-TEST#{3,6}
       - ADR-AUTO-TYPES#15

@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/tests/Get-WorldMapOutputRoot.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
-    relatives:
-      source: automation/Catzc.Base.Maps/Get-WorldMapOutputRoot.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

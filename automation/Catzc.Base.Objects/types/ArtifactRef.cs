@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Objects/types/ArtifactRef.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Objects
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md
       test: automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1

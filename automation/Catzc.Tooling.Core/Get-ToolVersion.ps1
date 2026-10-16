@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/Get-ToolVersion.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
   config:
     synopsis: Runs a tool's version command and extracts the installed version string.

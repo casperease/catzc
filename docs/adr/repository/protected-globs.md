@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/repository/protected-globs.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b9035752a1df
     defines:

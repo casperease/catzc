@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/LinkEngineResult.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/types/LinkEngineResult.cs.md
 ---

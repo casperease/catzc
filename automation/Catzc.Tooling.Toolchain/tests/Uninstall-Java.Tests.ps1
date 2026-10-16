@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md
-      source: automation/Catzc.Tooling.Toolchain/Uninstall-Java.ps1
     adrs:
       - ADR-AUTO-REMOVE#{4,5}
       - ADR-PWSH-ENV#4

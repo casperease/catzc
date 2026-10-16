@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/internal-asset-dependencies.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "7aba34771d45"
     defines:

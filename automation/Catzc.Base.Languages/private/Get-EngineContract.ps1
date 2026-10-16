@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Languages/private/Get-EngineContract.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md

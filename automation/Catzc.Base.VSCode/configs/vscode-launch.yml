@@ -4,9 +4,11 @@
 #     path: automation/Catzc.Base.VSCode/configs/vscode-launch.yml
 #     kind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.VSCode
+#     moduletype: pwsh-folder-module
+#     bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-vscode/configs/vscode-launch.yml.md
 # ---

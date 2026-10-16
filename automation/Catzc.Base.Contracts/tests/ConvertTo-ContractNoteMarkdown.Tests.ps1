@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md
-      source: automation/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-LINK#{2,3,7}

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/YamlClassificationResult.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-devops/types/YamlClassificationResult.cs.md
 ---

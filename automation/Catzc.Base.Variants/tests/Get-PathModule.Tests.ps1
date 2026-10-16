@@ -4,8 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
     kind: test
-    relatives:
-      source: automation/Catzc.Base.Variants/Get-PathModule.ps1
+    language: powershell
+    filetype: ps1
+    track: automation
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-DSGN-TRACK#3
 ---
@@ -76,7 +80,7 @@ Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic
         @{ Path = 'python/tests/catzc-base-repository/test_repository.py'; Name = 'python'; Type = 'python-module' }
         @{ Path = 'go/tests/catzc-base-repository/repository_test.go'; Name = 'go'; Type = 'go-module' }
         @{ Path = 'bash/tests/catzc-base-repository/repository.bats'; Name = 'bash'; Type = 'bash-module' }
-        @{ Path = 'infrastructure/templates/foundation/main.bicep'; Name = 'foundation'; Type = 'bicep-module' }
+        @{ Path = 'infrastructure/templates/sample/main.bicep'; Name = 'sample'; Type = 'bicep-module' }
         @{ Path = 'infrastructure/modules/storage.bicep'; Name = 'storage'; Type = 'bicep-module' }
     ) {
         $module = Get-PathModule $Path

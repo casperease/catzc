@@ -5,8 +5,10 @@ catzc:
     path: ".claude/hooks/Assert-BashTimeout/Program.cs"
     kind: hook
     language: csharp
-    filekind: cs
+    filetype: cs
     track: ".claude"
+    module: ".claude"
+    moduletype: settings-module
     relatives:
       page: docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md
 ---

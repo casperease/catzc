@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-docs/types/GlossaryConfig.cs.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: b8ea5cda5305

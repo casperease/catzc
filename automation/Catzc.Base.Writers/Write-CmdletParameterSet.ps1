@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Writers/Write-CmdletParameterSet.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Writers
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Writers/tests/Write-CmdletParameterSet.Tests.ps1

@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "0851cc5cff01"
     adrs:

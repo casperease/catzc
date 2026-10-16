@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Config
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md

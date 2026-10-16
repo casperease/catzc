@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Firewall/types/CsvExportRef.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure.Firewall
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
 ---

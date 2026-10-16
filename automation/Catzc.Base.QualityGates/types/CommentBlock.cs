@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentBlock.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-AUTO-TYPES#9
 ---

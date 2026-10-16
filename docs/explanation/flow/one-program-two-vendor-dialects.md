@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/flow/one-program-two-vendor-dialects.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: db61cae23740
     adrs:

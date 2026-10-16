@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/repository/one-source-one-writer-one-boolean.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "1932fd9f0525"
     adrs:

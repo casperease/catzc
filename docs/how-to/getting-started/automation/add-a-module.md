@@ -4,7 +4,7 @@ catzc:
     path: docs/how-to/getting-started/automation/add-a-module.md
     kind: how-to
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: a4747cdafc78
     adrs:

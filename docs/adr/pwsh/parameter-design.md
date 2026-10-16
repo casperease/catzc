@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/parameter-design.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "7373a919820f"
     defines:

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Overlay/private/Get-LocalModuleViolation.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md

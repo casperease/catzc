@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Firewall/tests/Get-FirewallIpgsYaml.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Firewall
-    relatives:
-      source: automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

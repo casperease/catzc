@@ -12,8 +12,10 @@ catzc:
     path: ".claude/agents/print-artifacts.md"
     kind: agent
     language: markdown
-    filekind: md
+    filetype: md
     track: ".claude"
+    module: ".claude"
+    moduletype: settings-module
     body_sha: a50534912aec
     links:
       - ".claude/CLAUDE.md#time-safeguard"

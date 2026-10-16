@@ -4,8 +4,10 @@
 #     path: bash/tests/catzc-base-repository/repository.bats
 #     kind: test
 #     language: bash
-#     filekind: bats
+#     filetype: bats
 #     track: bash
+#     module: bash
+#     moduletype: bash-module
 # ---
 
 # Black-box tests of Catzc.Base.Repository, in Bash.

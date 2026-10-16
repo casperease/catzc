@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md

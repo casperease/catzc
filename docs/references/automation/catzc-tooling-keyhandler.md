@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-tooling-keyhandler.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "0ac4c274fd5e"
     links:

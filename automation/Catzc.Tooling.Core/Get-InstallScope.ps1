@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/Get-InstallScope.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
   config:
     synopsis: Returns the install scope of a tool based on its binary location.

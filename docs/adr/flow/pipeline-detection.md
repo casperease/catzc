@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/flow/pipeline-detection.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "0934c24a5d75"
     defines:

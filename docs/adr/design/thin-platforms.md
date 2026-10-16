@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/design/thin-platforms.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "773f2f646c1a"
     defines:

@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Inspiration
+    moduletype: pwsh-folder-module
+    bundle: full
     relatives:
       page: docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
-      source: automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
     adrs:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-TEST#3

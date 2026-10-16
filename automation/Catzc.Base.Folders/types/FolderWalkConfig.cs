@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Folders/types/FolderWalkConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Folders
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       test: automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
 ---

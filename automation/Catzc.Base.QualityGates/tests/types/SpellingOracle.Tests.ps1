@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/types/SpellingOracle.Tests.ps1.md
-      source: automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
     adrs:
       - ADR-AUTO-SPELL#6
       - ADR-AUTO-TEST#1

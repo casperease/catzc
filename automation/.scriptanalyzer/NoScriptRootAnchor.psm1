@@ -5,7 +5,7 @@ catzc:
     path: automation/.scriptanalyzer/NoScriptRootAnchor.psm1
     kind: analyzer-rule
     language: powershell
-    filekind: psm1
+    filetype: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoScriptRootAnchor.psm1.md

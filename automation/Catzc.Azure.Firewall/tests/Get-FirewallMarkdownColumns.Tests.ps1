@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownColumns.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Firewall
-    relatives:
-      source: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

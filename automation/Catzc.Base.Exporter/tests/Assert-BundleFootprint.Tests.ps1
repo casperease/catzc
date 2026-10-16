@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Exporter/tests/Assert-BundleFootprint.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Exporter
-    relatives:
-      source: automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

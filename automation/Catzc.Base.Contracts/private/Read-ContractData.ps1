@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Contracts/private/Read-ContractData.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md

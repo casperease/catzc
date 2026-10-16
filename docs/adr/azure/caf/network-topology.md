@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/azure/caf/network-topology.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d686931f9aad
     defines:

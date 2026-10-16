@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Config
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     adrs:
       - ADR-CONF-ADDRESSING#{2,4,5}

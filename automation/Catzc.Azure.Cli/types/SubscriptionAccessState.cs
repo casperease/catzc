@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Cli/types/SubscriptionAccessState.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Azure.Cli
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-cli/types/SubscriptionAccessState.cs.md
 ---

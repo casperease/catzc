@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d0b1eb6f0b40
     adrs:

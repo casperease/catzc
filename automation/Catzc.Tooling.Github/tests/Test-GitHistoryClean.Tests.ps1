@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Github
+    moduletype: pwsh-folder-module
+    bundle: full
     relatives:
       page: docs/references/automation/catzc-tooling-github/tests/Test-GitHistoryClean.Tests.ps1.md
-      source: automation/Catzc.Tooling.Github/Test-GitHistoryClean.ps1
 ---
 #>
 

@@ -4,9 +4,9 @@ catzc:
     path: docs/adr/repository/file-meta.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
-    body_sha: "81f8b04936d2"
+    body_sha: "080b0cd79500"
     defines:
       - ADR-REPO-FILEMETA#{1-10}
     adrs:

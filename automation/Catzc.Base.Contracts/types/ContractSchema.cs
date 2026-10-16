@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Contracts/types/ContractSchema.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Contracts
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-contracts/types/ContractSchema.cs.md
       test: automation/Catzc.Base.Contracts/tests/types/ContractSchema.Tests.ps1

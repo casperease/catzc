@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
     kind: asset
     language: css
-    filekind: css
+    filetype: css
     track: automation
     module: Catzc.Base.VSCode
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 */
 

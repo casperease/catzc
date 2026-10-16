@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/research/visual-management.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: c9c9dacd1070
     defines:

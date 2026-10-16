@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a8ed9f652f1a

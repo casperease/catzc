@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Exporter/tests/types/ExporterConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Exporter
-    relatives:
-      source: automation/Catzc.Base.Exporter/types/ExporterConfig.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

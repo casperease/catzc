@@ -5,8 +5,10 @@
 #     kind: template
 #     subkind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: infrastructure
+#     module: foundation
+#     moduletype: bicep-module
 #     relatives:
 #       page: docs/references/infrastructure/templates/foundation/options.yml.md
 # ---

@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.CodeMeta
-    relatives:
-      source: automation/Catzc.Base.CodeMeta/types/HeadForm.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-REPO-CODEMETA#1
 ---

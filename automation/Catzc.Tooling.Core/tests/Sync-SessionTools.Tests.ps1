@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
-    relatives:
-      source: automation/Catzc.Tooling.Core/Sync-SessionTools.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

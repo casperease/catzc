@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/configuration/one-reader-one-cache-per-session.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: c2da6a7a9882
     adrs:

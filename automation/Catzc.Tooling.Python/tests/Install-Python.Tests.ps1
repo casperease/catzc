@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Python
-    relatives:
-      source: automation/Catzc.Tooling.Python/Install-Python.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

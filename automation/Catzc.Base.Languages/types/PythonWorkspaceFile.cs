@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Languages/types/PythonWorkspaceFile.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Languages
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-languages/types/PythonWorkspaceFile.cs.md
     adrs:

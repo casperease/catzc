@@ -5,9 +5,11 @@ catzc:
     path: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
     kind: asset
     language: powershell
-    filekind: psd1
+    filetype: psd1
     track: automation
     module: Catzc.Internal.Assets
+    moduletype: pwsh-folder-module
+    bundle: minimal
 ---
 #>
 

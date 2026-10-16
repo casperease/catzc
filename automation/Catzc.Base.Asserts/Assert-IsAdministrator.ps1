@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: assert
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Asserts
+    moduletype: pwsh-folder-module
+    bundle: minimal
     visibility: public
   config:
     synopsis: Throws if the current session is not running as Administrator.

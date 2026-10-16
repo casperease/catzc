@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
-    relatives:
-      source: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

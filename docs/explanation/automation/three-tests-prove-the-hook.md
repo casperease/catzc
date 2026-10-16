@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/three-tests-prove-the-hook.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "1a89156b60a6"
     adrs:

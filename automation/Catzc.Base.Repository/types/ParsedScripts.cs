@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Repository/types/ParsedScripts.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Repository
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       test: automation/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1
 ---

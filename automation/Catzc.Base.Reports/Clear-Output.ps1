@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Reports/Clear-Output.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Reports
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     adrs:
       - ADR-AUTO-DRYRUN#1

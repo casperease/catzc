@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md
     adrs:

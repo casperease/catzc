@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     adrs:
       - ADR-AUTO-FAILFAST

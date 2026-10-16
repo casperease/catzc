@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Writers/private/Write-InformationColored.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Writers
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md

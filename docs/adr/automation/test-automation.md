@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/test-automation.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "4c8d25e5c86b"
     defines:

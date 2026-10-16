@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md
-      source: automation/Catzc.Azure.Templates/private/Get-BicepParameterViolations.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#2

@@ -4,8 +4,10 @@
 #     path: pipelines/steps/invoke-automation.yaml
 #     kind: pipeline-template
 #     language: pipeline-yaml
-#     filekind: yaml
+#     filetype: yaml
 #     track: pipelines
+#     module: pipelines
+#     moduletype: pipeline-module
 #     relatives:
 #       page: docs/references/pipelines/steps/invoke-automation.yaml.md
 # ---

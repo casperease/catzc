@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/flow/two-variables-read-in-one-place.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "08911525b4a7"
     adrs:

@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Toolchain/tests/Stop-DotnetInstallHolder.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
-    relatives:
-      source: automation/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

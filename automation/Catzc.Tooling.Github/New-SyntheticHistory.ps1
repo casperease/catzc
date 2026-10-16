@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: writer
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Github
+    moduletype: pwsh-folder-module
+    bundle: full
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1

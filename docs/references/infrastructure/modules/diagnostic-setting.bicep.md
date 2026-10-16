@@ -4,7 +4,7 @@ catzc:
     path: docs/references/infrastructure/modules/diagnostic-setting.bicep.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: d3aa109a893d

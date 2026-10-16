@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure/Get-AzureCustomer.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1

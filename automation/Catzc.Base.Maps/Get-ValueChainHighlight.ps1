@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1

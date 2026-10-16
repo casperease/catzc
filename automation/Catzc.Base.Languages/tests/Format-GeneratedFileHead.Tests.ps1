@@ -8,8 +8,8 @@ catzc:
     filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    relatives:
-      source: automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-REPO-FILEMETA#3
 ---

@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/single-responsibility-functions.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "4bb99ea1e724"
     defines:

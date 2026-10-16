@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    relatives:
-      source: automation/Catzc.Base.Languages/types/LanguagesConfig.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
     adrs:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-DEFAULT#6

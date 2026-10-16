@@ -4,8 +4,10 @@ catzc:
     path: ".claude/drawio/STYLE.md"
     kind: drawio-kit
     language: markdown
-    filekind: md
+    filetype: md
     track: ".claude"
+    module: ".claude"
+    moduletype: settings-module
     body_sha: "5cc03b54644d"
     adrs:
       - ADR-AUTO-DEPM#1

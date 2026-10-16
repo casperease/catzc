@@ -4,7 +4,7 @@ catzc:
     path: docs/how-to/getting-started/automation/add-a-doc-chapter.md
     kind: how-to
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "3735962b4882"
     adrs:

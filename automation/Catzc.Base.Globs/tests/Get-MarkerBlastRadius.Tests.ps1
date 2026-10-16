@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
-    relatives:
-      source: automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b6c4ef9f5ef7
     adrs:

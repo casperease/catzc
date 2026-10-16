@@ -4,9 +4,11 @@
 #     path: automation/Catzc.Base.QualityGates/configs/test-policy.yml
 #     kind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.QualityGates
+#     moduletype: pwsh-folder-module
+#     bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md
 # ---

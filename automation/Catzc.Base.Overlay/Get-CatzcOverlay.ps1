@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Overlay/Get-CatzcOverlay.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-overlay/Get-CatzcOverlay.ps1.md

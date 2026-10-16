@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/azure/one-namer-assembles-every-name.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "9a514dbf85a3"
     adrs:

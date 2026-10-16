@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/types/HelveticaMetrics.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Maps
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-maps/types/HelveticaMetrics.cs.md
     adrs:

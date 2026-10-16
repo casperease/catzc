@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/a-declared-allow-list-of-layers.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "30924884b291"
     adrs:

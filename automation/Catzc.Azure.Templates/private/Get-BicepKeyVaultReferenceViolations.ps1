@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/private/Get-BicepKeyVaultReferenceViolations.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
   config:
     synopsis: Returns the ways an ARM Key Vault reference in a parameters file is not well-formed.

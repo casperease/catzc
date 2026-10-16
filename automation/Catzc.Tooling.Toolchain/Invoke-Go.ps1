@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Toolchain/Invoke-Go.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.Toolchain/tests/Invoke-Go.Tests.ps1

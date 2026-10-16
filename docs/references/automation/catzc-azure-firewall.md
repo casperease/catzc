@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure-firewall.md
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b2174730a4a1
     links:

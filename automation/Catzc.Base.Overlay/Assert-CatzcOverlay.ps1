@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: assert
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1

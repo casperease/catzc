@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Git/tests/types/GitIgnoreConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Git
-    relatives:
-      source: automation/Catzc.Base.Git/types/GitIgnoreConfig.cs
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

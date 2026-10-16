@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1

@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md
-      source: automation/Catzc.Tooling.Toolchain/private/Get-RegisteredInstallProduct.ps1
     adrs:
       - ADR-AUTO-REMOVE#7
 ---

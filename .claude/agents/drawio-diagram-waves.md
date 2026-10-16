@@ -12,8 +12,10 @@ catzc:
     path: ".claude/agents/drawio-diagram-waves.md"
     kind: agent
     language: markdown
-    filekind: md
+    filetype: md
     track: ".claude"
+    module: ".claude"
+    moduletype: settings-module
     body_sha: "3c31582376b4"
     adrs:
       - ADR-DSGN-VISUAL#4

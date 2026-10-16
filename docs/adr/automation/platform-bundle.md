@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/platform-bundle.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "4dacfa995a0b"
     defines:

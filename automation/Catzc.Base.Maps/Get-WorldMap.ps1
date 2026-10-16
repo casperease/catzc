@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/Get-WorldMap.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md

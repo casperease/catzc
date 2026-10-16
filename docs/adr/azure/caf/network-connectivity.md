@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/azure/caf/network-connectivity.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "1bb977ab38e6"
     defines:

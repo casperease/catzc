@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/tests/Sync-GeneratedFile.Tests.ps1.md
-      source: automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
     adrs:
       - ADR-AUTO-CACHE#8
       - ADR-AUTO-TYPES#13

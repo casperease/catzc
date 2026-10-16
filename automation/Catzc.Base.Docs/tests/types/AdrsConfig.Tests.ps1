@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md
-      source: automation/Catzc.Base.Docs/types/AdrsConfig.cs
     adrs:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#{14,15}

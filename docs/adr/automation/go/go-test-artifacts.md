@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/automation/go/go-test-artifacts.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: c35f0c02b784
     defines:

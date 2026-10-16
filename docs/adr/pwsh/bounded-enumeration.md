@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/bounded-enumeration.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b0131730897a
     defines:

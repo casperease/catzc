@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/principles/reduce-waste.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "04f58188ca31"
     defines:

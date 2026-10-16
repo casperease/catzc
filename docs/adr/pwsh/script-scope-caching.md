@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/pwsh/script-scope-caching.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "58af15b8aa6f"
     defines:

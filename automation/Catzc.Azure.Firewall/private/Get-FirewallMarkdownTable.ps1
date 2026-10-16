@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Firewall
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md

@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Overlay/Import-CatzcOverlay.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1

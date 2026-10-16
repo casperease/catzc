@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: assert
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.Exporter
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md

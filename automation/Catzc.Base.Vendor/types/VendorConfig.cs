@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Base.Vendor/types/VendorConfig.cs
     kind: type
     language: csharp
-    filekind: cs
+    filetype: cs
     track: automation
     module: Catzc.Base.Vendor
+    moduletype: pwsh-folder-module
+    bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md
       test: automation/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1

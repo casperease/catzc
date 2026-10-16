@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/design/self-service.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: fd71bc64643a
     defines:

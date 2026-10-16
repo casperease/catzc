@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Cli/tests/Assert-AzCliCanAccess.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    relatives:
-      source: automation/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+    moduletype: pwsh-folder-module
+    bundle: azure
 ---
 #>
 

@@ -5,9 +5,11 @@ catzc:
     path: automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
     kind: test
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Internal.Tests
+    moduletype: pwsh-folder-module
+    bundle: minimal
     adrs:
       - ADR-DSGN-RUNMODE#4
 ---

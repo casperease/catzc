@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "5591a605f706"
     adrs:

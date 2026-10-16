@@ -4,7 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md
     kind: comment-page
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8b3b701b1c4c"

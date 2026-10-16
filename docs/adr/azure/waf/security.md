@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/azure/waf/security.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "945a8dd38e53"
     defines:

@@ -4,7 +4,7 @@ catzc:
     path: docs/adr/thesis/one-source-of-truth.md
     kind: adr
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: d790814a2975
     defines:

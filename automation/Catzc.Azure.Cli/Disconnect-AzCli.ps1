@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Cli/Disconnect-AzCli.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-cli/Disconnect-AzCli.ps1.md

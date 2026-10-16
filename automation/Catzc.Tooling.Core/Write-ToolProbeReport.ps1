@@ -5,9 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.Core/Write-ToolProbeReport.ps1
     kind: function
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1

@@ -4,7 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md
     kind: asset-description
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: "1a836a35d6de"
     adrs:

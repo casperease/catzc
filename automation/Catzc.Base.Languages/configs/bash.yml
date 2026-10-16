@@ -4,9 +4,11 @@
 #     path: automation/Catzc.Base.Languages/configs/bash.yml
 #     kind: config
 #     language: yaml
-#     filekind: yml
+#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.Languages
+#     moduletype: pwsh-folder-module
+#     bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-languages/configs/bash.yml.md
 # ---

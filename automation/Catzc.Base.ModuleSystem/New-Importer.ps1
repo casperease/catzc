@@ -6,9 +6,11 @@ catzc:
     kind: function
     subkind: writer
     language: powershell
-    filekind: ps1
+    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder-module
+    bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md

@@ -4,7 +4,7 @@ catzc:
     path: docs/explanation/automation/types-check-forms-review-checks-crossers.md
     kind: explanation
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     body_sha: b0cbf15d555a
     adrs:
