@@ -8,628 +8,625 @@ plan:
 # Questionnaire, 2026-10-16: every open decision in the plans
 
 One item per open question in the plans. Each has the context a reader needs, the options, and a Decision line filled in as the user
-answers. The planner's recommendations are sealed elsewhere until the round ends; then they are compared here one by one and the
-results move into the owning plans.
+answers. The planner's recommendations are sealed elsewhere until the round ends; then they are compared here one by one and the results
+move into the owning plans.
 
 ## A. The plans program (plan-plans-body-sha-landing-zone)
 
 ### Q01 History move for an import
+
 An outside repository is imported with its history to .unordered/<name>. git subtree add keeps the source's own paths nested under the
 landing address with no rewrite; git filter-repo rewrites the paths under it first. The tool's contract does not depend on the choice.
-Options: a) subtree add; b) filter-repo; c) decide when the first import happens.
-Decision:
+Options: a) subtree add; b) filter-repo; c) decide when the first import happens. Decision:
 
 ### Q02 Import takes a ref?
-Does Import-RepositoryWithHistory take a branch or ref, or always the source's default branch?
-Options: a) default branch only; b) optional -Ref, default the default branch.
-Decision:
+
+Does Import-RepositoryWithHistory take a branch or ref, or always the source's default branch? Options: a) default branch only; b) optional
+-Ref, default the default branch. Decision:
 
 ### Q03 Where the sorting how-to lives
-A how-to explains sorting a landing address into modules with git mv. docs/how-to holds the other task guides.
-Options: a) docs/how-to beside the others; b) a section in the ADR, no how-to.
-Decision:
+
+A how-to explains sorting a landing address into modules with git mv. docs/how-to holds the other task guides. Options: a) docs/how-to
+beside the others; b) a section in the ADR, no how-to. Decision:
 
 ### Q04 Plan length roof
-The proposed rule caps a plan at 150 lines (a setting). The plans here now carry their drafts verbatim and run to 900 lines.
-Options: a) keep 150 and let the cleaner shorten once data is in the tree; b) raise the roof; c) replace the roof with a shape rule
-(head, value, decided, done, open steps; carried text allowed below).
-Decision:
+
+The proposed rule caps a plan at 150 lines (a setting). The plans here now carry their drafts verbatim and run to 900 lines. Options: a)
+keep 150 and let the cleaner shorten once data is in the tree; b) raise the roof; c) replace the roof with a shape rule (head, value,
+decided, done, open steps; carried text allowed below). Decision:
 
 ### Q05 Where the stable-locators rule lives
-File names never encode an order or rank; sorting is an overlay and the default sort is the name order.
-Options: a) ADR-REPO-PLANS only; b) also a repository-wide naming rule in the repository domain.
-Decision:
+
+File names never encode an order or rank; sorting is an overlay and the default sort is the name order. Options: a) ADR-REPO-PLANS only; b)
+also a repository-wide naming rule in the repository domain. Decision:
 
 ### Q06 Cleaner shape
-A plan-cleaner sub-agent gives verdicts and acts; a Test-Plans gate checks the rules.
-Options: a) both, gate first; b) gate only for now; c) agent only for now.
-Decision:
+
+A plan-cleaner sub-agent gives verdicts and acts; a Test-Plans gate checks the rules. Options: a) both, gate first; b) gate only for now; c)
+agent only for now. Decision:
 
 ### Q07 Where plans are authored
-Drafts were in out/ with Publish-Plan promoting them. All drafts now live in .claude/plans directly.
-Options: a) author directly in .claude/plans, no promotion step, Publish-Plan dropped; b) keep out/ drafts plus Publish-Plan.
-Decision:
+
+Drafts were in out/ with Publish-Plan promoting them. All drafts now live in .claude/plans directly. Options: a) author directly in
+.claude/plans, no promotion step, Publish-Plan dropped; b) keep out/ drafts plus Publish-Plan. Decision:
 
 ### Q08 Done means deleted
-A plan with no open step is deleted, always; git keeps it.
-Options: a) delete always, as decided; b) delete, but the index keeps a one-line "deleted, why" record (as it does today).
-Decision:
+
+A plan with no open step is deleted, always; git keeps it. Options: a) delete always, as decided; b) delete, but the index keeps a one-line
+"deleted, why" record (as it does today). Decision:
 
 ### Q09 The 20 finished plans in .unordered/15-10-2026
-Finished by the old rule; the plans plan says triage deletes most of them first.
-Options: a) delete all 20 now; b) triage one by one; c) leave until the import landing zone is defined.
-Decision:
+
+Finished by the old rule; the plans plan says triage deletes most of them first. Options: a) delete all 20 now; b) triage one by one; c)
+leave until the import landing zone is defined. Decision:
 
 ### Q10 Body-sha Phase 0 go
+
 Remove body_sha from about 650 authored pages, keep it autogenerated on generated tracked files only. Every ADR edit is a drift finding
-until this lands.
-Options: a) go now; b) after the file-head class selectors land; c) hold.
-Decision:
+until this lands. Options: a) go now; b) after the file-head class selectors land; c) hold. Decision:
 
 ### Q11 Carried verbatim drafts
-Each meta plan carries its out/ drafts verbatim under "Carried" headings.
-Options: a) keep until the plan's data is in the tree, then the cleaner trims; b) trim now to the head sections only; c) keep forever
-as the plan's record.
-Decision:
+
+Each meta plan carries its out/ drafts verbatim under "Carried" headings. Options: a) keep until the plan's data is in the tree, then the
+cleaner trims; b) trim now to the head sections only; c) keep forever as the plan's record. Decision:
 
 ### Q12 Prompts as files
-Nine continuation prompts sit as files beside their plans.
-Options: a) keep as files; b) fold each into its plan as a section; c) keep as files but regenerate them from the plan.
-Decision:
+
+Nine continuation prompts sit as files beside their plans. Options: a) keep as files; b) fold each into its plan as a section; c) keep as
+files but regenerate them from the plan. Decision:
 
 ## B. Config defaults (plan-config-defaults), Q1 to Q7 taken as recommended
 
 ### Q13 have_customers default
-Default false on the type; this repo's fragment says all. Today the shipped file says all and the code default says false.
-Options: a) confirm; b) default all; c) required, no default.
-Decision:
+
+Default false on the type; this repo's fragment says all. Today the shipped file says all and the code default says false. Options: a)
+confirm; b) default all; c) required, no default. Decision:
 
 ### Q14 tracks required, aspects catch-all
-tracks throws when omitted or empty; aspects defaults to a universal catch-all per track with no entry.
-Options: a) confirm both; b) tracks defaults to empty; c) aspects required.
-Decision:
+
+tracks throws when omitted or empty; aspects defaults to a universal catch-all per track with no entry. Options: a) confirm both; b) tracks
+defaults to empty; c) aspects required. Decision:
 
 ### Q15 Shipped variants.yml deleted
-A typed config with no shipped file is built from an empty map plus the fragment (general rule).
-Options: a) confirm; b) keep a slim shipped file.
-Decision:
+
+A typed config with no shipped file is built from an empty map plus the fragment (general rule). Options: a) confirm; b) keep a slim shipped
+file. Decision:
 
 ### Q16 New contract asset kind defaults
-A generated contract publishes a type's full defaults as a fifth asset kind.
-Options: a) confirm; b) publish defaults inside the existing config asset kind; c) no contract for defaults.
-Decision:
+
+A generated contract publishes a type's full defaults as a fifth asset kind. Options: a) confirm; b) publish defaults inside the existing
+config asset kind; c) no contract for defaults. Decision:
 
 ### Q17 Source mode reads the repo's own fragments only
-Function and asset overrides, local modules and local tests stay build-only.
-Options: a) confirm; b) source mode reads the whole overlay.
+
+Function and asset overrides, local modules and local tests stay build-only. Options: a) confirm; b) source mode reads the whole overlay.
 Decision:
 
 ### Q18 .catzc canonical, .cats read alias
-Both present is one error; .cats is never written.
-Options: a) confirm; b) .catzc only, no alias; c) .cats canonical.
-Decision:
+
+Both present is one error; .cats is never written. Options: a) confirm; b) .catzc only, no alias; c) .cats canonical. Decision:
 
 ### Q19 Required key in a header comment
-A required key is named in a header comment of the generated contract file and omitted as a value.
-Options: a) confirm; b) listed with a placeholder value; c) a separate required list in the file.
-Decision:
+
+A required key is named in a header comment of the generated contract file and omitted as a value. Options: a) confirm; b) listed with a
+placeholder value; c) a separate required list in the file. Decision:
 
 ### Q20 Phase 1 timing
+
 Phase 1 edits VariantsConfig.cs and five getters; the module model also edits VariantsConfig.cs and owns the file when both touch it.
-Options: a) start Phase 1 now and coordinate on the file; b) after the module model is implemented.
-Decision:
+Options: a) start Phase 1 now and coordinate on the file; b) after the module model is implemented. Decision:
 
 ### Q21 Assert ladder home
-Construct-time, load-time, cross-config, contract-time, repo-time.
-Options: a) a section in ADR-AUTO-FAILFAST; b) a new ADR.
-Decision:
+
+Construct-time, load-time, cross-config, contract-time, repo-time. Options: a) a section in ADR-AUTO-FAILFAST; b) a new ADR. Decision:
 
 ## C. Layers, rename and command contracts (plan-layers-vocabulary-rename-contracts)
 
 ### Q22 Quiet window for P4
-The folder move automation to pwsh (git mv) needs a quiet window with no other session editing.
-Options: a) the user names a time and runs the move; b) the session proposes a time when P3 is done; c) move when P3 reports green,
-any time.
-Decision:
+
+The folder move automation to pwsh (git mv) needs a quiet window with no other session editing. Options: a) the user names a time and runs
+the move; b) the session proposes a time when P3 is done; c) move when P3 reports green, any time. Decision:
 
 ### Q23 P8 diagrams
-Diagrams for the layer model, only on an explicit go.
-Options: a) never in this plan; b) one sample diagram first; c) full set after P6.
+
+Diagrams for the layer model, only on an explicit go. Options: a) never in this plan; b) one sample diagram first; c) full set after P6.
 Decision:
 
 ### Q24 Command contract pilot set
-Contracts come first for a pilot set of public commands.
-Options: a) the commands the cats bash entry point calls; b) the gate commands Test-*; c) one module's public functions; d) the
-session proposes a list for approval.
-Decision:
+
+Contracts come first for a pilot set of public commands. Options: a) the commands the cats bash entry point calls; b) the gate commands
+Test-\*; c) one module's public functions; d) the session proposes a list for approval. Decision:
 
 ### Q25 Externally bound pipeline names
+
 ci-automation and ci-automation-expected-failures rename late (P6); Azure DevOps and GitHub bindings outside git must be re-pointed.
-Options: a) the user re-points them the same day as P6; b) keep those two names forever; c) rename them before P4.
-Decision:
+Options: a) the user re-points them the same day as P6; b) keep those two names forever; c) rename them before P4. Decision:
 
 ### Q26 Re-point the prompts before pasting
-The prompts' reading lists still name out/ plan paths.
-Options: a) the planner re-points them now; b) each fresh session reads the header note and maps paths itself.
-Decision:
+
+The prompts' reading lists still name out/ plan paths. Options: a) the planner re-points them now; b) each fresh session reads the header
+note and maps paths itself. Decision:
 
 ## D. Module model, kinds and tracks (plan-module-kinds-tracks)
 
 ### Q27 Q-A shipping non-test Bash, Go or Python modules
-The model allows the language axis; ADR-AUTO-GO, PY and BASH forbid shipping modules in them today.
-Options: a) model generally, forbid by the track's declared languages, leave the ADRs; b) exclude the axis until a real case.
-Decision:
+
+The model allows the language axis; ADR-AUTO-GO, PY and BASH forbid shipping modules in them today. Options: a) model generally, forbid by
+the track's declared languages, leave the ADRs; b) exclude the axis until a real case. Decision:
 
 ### Q28 Q-B engines declared where
-Options: a) per track with a per-module override; b) per module only; c) per track only.
-Decision:
+
+Options: a) per track with a per-module override; b) per module only; c) per track only. Decision:
 
 ### Q29 Q-C resolver name
-Get-Module is taken by PowerShell.
-Options: a) Get-CatzcModule, new name; b) reuse Get-BaseModule's name with the new shape.
-Decision:
+
+Get-Module is taken by PowerShell. Options: a) Get-CatzcModule, new name; b) reuse Get-BaseModule's name with the new shape. Decision:
 
 ### Q30 Q-D LoadedModule in the same ADR
-Session provenance of a loaded module.
-Options: a) one rule in ADR-AUTO-MODULE; b) its own ADR.
-Decision:
+
+Session provenance of a loaded module. Options: a) one rule in ADR-AUTO-MODULE; b) its own ADR. Decision:
 
 ### Q31 Q-E ADR domain
-design cannot cite automation by the domain order.
-Options: a) automation; b) design.
-Decision:
+
+design cannot cite automation by the domain order. Options: a) automation; b) design. Decision:
 
 ### Q32 Q-F layout home
-A slot is a property of the language.
-Options: a) under each language in languages.yml; b) its own layout.yml.
-Decision:
+
+A slot is a property of the language. Options: a) under each language in languages.yml; b) its own layout.yml. Decision:
 
 ### Q33 Q-G unplaced file inside a module folder
-Options: a) a finding by default; b) tolerated, kept non-live by the aspect default-deny alone.
-Decision:
+
+Options: a) a finding by default; b) tolerated, kept non-live by the aspect default-deny alone. Decision:
 
 ### Q34 Vendored files staying with their users
-The tracks session asks which vendored files stay beside the code that uses them rather than in the vendor track.
-Options: a) none, all vendored files in the vendor track; b) the session lists candidates for a yes or no each; c) the user names them.
-Decision:
+
+The tracks session asks which vendored files stay beside the code that uses them rather than in the vendor track. Options: a) none, all
+vendored files in the vendor track; b) the session lists candidates for a yes or no each; c) the user names them. Decision:
 
 ### Q35 .claude kits as tracks
-The agents and drawio kits under .claude: part of the vendor-settings holder track, or separate tracks.
-Options: a) stay inside the holder track; b) each kit its own track; c) one kits track.
-Decision:
+
+The agents and drawio kits under .claude: part of the vendor-settings holder track, or separate tracks. Options: a) stay inside the holder
+track; b) each kit its own track; c) one kits track. Decision:
 
 ### Q36 Kubernetes namespace follow-up
-The k8s plan deferred namespace.
-Options: a) drop it; b) plan it after kinds land.
-Decision:
+
+The k8s plan deferred namespace. Options: a) drop it; b) plan it after kinds land. Decision:
 
 ### Q37 Get-ModuleProtectionIdentity failures
-Three test failures, unowned, in ModuleSystem.
-Options: a) the module-model session looks at them first; b) a separate fix now; c) leave until someone owns them.
-Decision:
+
+Three test failures, unowned, in ModuleSystem. Options: a) the module-model session looks at them first; b) a separate fix now; c) leave
+until someone owns them. Decision:
 
 ### Q38 Sequencing confirmation
-Module model first, then config defaults Phase 2 and layers P2 and P4.
-Options: a) confirm; b) layers P1 (docs only) may run in parallel with the module model; c) config defaults Phase 1 in parallel too.
-Decision:
+
+Module model first, then config defaults Phase 2 and layers P2 and P4. Options: a) confirm; b) layers P1 (docs only) may run in parallel
+with the module model; c) config defaults Phase 1 in parallel too. Decision:
 
 ## E. The file head (plan-file-head-immutable-edges-classes)
 
 ### Q39 Contract schema $comment
-The schema's $comment must say what the contract pins (ADR-REPO-CONTRACT#9); a generated head would use the same property.
-Options: a) hand-written schema and sample, no generator; b) generated, the generated head wins and the pin note moves elsewhere;
-c) generated, the pin note wins and the head goes into another property.
-Decision:
+
+The schema's $comment must say what the contract pins (ADR-REPO-CONTRACT#9); a generated head would use the same property. Options: a)
+hand-written schema and sample, no generator; b) generated, the generated head wins and the pin note moves elsewhere; c) generated, the pin
+note wins and the head goes into another property. Decision:
 
 ### Q40 Registry shape before a generator
-If generated, file-meta.yml first says which keys are lists and which have a fixed value set.
-Options: a) yes, registry first; b) not applicable (Q39 a).
-Decision:
+
+If generated, file-meta.yml first says which keys are lists and which have a fixed value set. Options: a) yes, registry first; b) not
+applicable (Q39 a). Decision:
 
 ### Q41 Strengthen the reachability test
+
 It proves each kind claims a file, not that a kind is not mostly shadowed by an earlier one; needs the intended overlaps written down.
-Options: a) write the overlaps and strengthen; b) leave as is.
-Decision:
+Options: a) write the overlaps and strengthen; b) leave as is. Decision:
 
 ### Q42 The visibility head key
-Redundant with the kinds.
-Options: a) drop it; b) keep it.
-Decision:
+
+Redundant with the kinds. Options: a) drop it; b) keep it. Decision:
 
 ### Q43 Generated-file heads carry folder and name
-Authored heads do; generated heads do not today.
-Options: a) yes, same keys everywhere; b) no, generated heads stay minimal.
-Decision:
+
+Authored heads do; generated heads do not today. Options: a) yes, same keys everywhere; b) no, generated heads stay minimal. Decision:
 
 ### Q44 Glossary entry for catzc_bundle
-Options: a) add a term; b) no, a key name is not a term.
-Decision:
+
+Options: a) add a term; b) no, a key name is not a term. Decision:
 
 ### Q45 PowerShell versus Powershell
+
 The only literal Powershell is in a vendored Microsoft script. Possibly powershell versus pwsh naming (language id, engine, folder).
-Options: a) the user points at where it shows; b) it is the language-id versus engine naming, decide one form; c) drop the item.
-Decision:
+Options: a) the user points at where it shows; b) it is the language-id versus engine naming, decide one form; c) drop the item. Decision:
 
 ### Q46 Typo in module-types.yml
-"under ex. automation" in a peer-edited file.
-Options: a) fix it now; b) leave to the peer.
-Decision:
+
+"under ex. automation" in a peer-edited file. Options: a) fix it now; b) leave to the peer. Decision:
 
 ### Q47 Format-Code and automation/.compiled
-Test-Formatting flags the compiled types .json.
-Options: a) the formatter skips .compiled; b) format the json too; c) read the ADR first and follow it.
-Decision:
+
+Test-Formatting flags the compiled types .json. Options: a) the formatter skips .compiled; b) format the json too; c) read the ADR first and
+follow it. Decision:
 
 ### Q48 Six Test-Comments findings in peers' files
-Orphan sections and two-line comments still in files.
-Options: a) owners fix; b) one session fixes all six now; c) leave.
-Decision:
+
+Orphan sections and two-line comments still in files. Options: a) owners fix; b) one session fixes all six now; c) leave. Decision:
 
 ### Q49 Untracked page Get-AutomationSourceFiles.ps1.md
-Restored from history, unstaged.
-Options: a) the user stages it; b) delete it.
-Decision:
+
+Restored from history, unstaged. Options: a) the user stages it; b) delete it. Decision:
 
 ### Q50 Class selectors go
-Globs once in file-kind's classes; other kinds select by class. Unblocked.
-Options: a) go now; b) after body-sha Phase 0; c) hold.
-Decision:
+
+Globs once in file-kind's classes; other kinds select by class. Unblocked. Options: a) go now; b) after body-sha Phase 0; c) hold. Decision:
 
 ### Q51 Memory note file-head-vocabulary
-One derived mention remains.
-Options: a) the planner fixes the memory note; b) leave.
-Decision:
+
+One derived mention remains. Options: a) the planner fixes the memory note; b) leave. Decision:
 
 ### Q52 Split the file-head plan
-It carries four records: immutable and edges, class selectors, kinds registry and formatting, path split.
-Options: a) keep one plan for the head; b) split out a kinds-registry plan; c) split all four.
-Decision:
+
+It carries four records: immutable and edges, class selectors, kinds registry and formatting, path split. Options: a) keep one plan for the
+head; b) split out a kinds-registry plan; c) split all four. Decision:
 
 ### Q53 note as a glossary term
-Options: a) yes; b) no.
-Decision:
+
+Options: a) yes; b) no. Decision:
 
 ### Q54 asset kind versus ADR-AUTO-ASSETDEP
-Kept as a top-level kind; the match was not re-read.
-Options: a) re-read and confirm; b) accept as is.
-Decision:
+
+Kept as a top-level kind; the match was not re-read. Options: a) re-read and confirm; b) accept as is. Decision:
 
 ## F. ADR link cleanup (plan-adr-link-cleanup-prose-to-pages)
 
 ### Q55 Exclude .unordered from the ledger
-274 rows come from finished plans.
-Options: a) exclude; b) keep.
-Decision:
+
+274 rows come from finished plans. Options: a) exclude; b) keep. Decision:
 
 ### Q56 Head-text citations under ADR-REPO-HELP#3
-687 citations in function help text.
-Options: a) relax the rule; b) strip them.
-Decision:
+
+687 citations in function help text. Options: a) relax the rule; b) strip them. Decision:
 
 ### Q57 Review method
-Options: a) sample-then-stop; b) 35 chunks.
-Decision:
+
+Options: a) sample-then-stop; b) 35 chunks. Decision:
 
 ### Q58 TryParse regression test
-Missing for an oversized rule number.
-Options: a) add now; b) with Phase 1 apply.
-Decision:
+
+Missing for an oversized rule number. Options: a) add now; b) with Phase 1 apply. Decision:
 
 ### Q59 Gates on the new usage code
-Formatting, link, spelling, glossary, analyzer not run on Get-AdrUsage and helpers.
-Options: a) run now; b) with the next phase.
-Decision:
+
+Formatting, link, spelling, glossary, analyzer not run on Get-AdrUsage and helpers. Options: a) run now; b) with the next phase. Decision:
 
 ### Q60 Phase 2 size thresholds from the data
-What counts as a long comment to move is measured, not guessed.
-Options: a) accept; b) set a fixed line count.
-Decision:
+
+What counts as a long comment to move is measured, not guessed. Options: a) accept; b) set a fixed line count. Decision:
 
 ## G. Test run budget (plan-test-run-budget)
 
 ### Q61 Per-engine cache stamp rule
-Each engine's stamp holds only its own tool pin and settings files.
-Options: a) adopt; b) keep one shared stamp.
-Decision:
+
+Each engine's stamp holds only its own tool pin and settings files. Options: a) adopt; b) keep one shared stamp. Decision:
 
 ### Q62 Config conventions test over the L0 limit
-0.77 s against 400 ms; re-tiering to escape is not allowed.
-Options: a) leave, report-only; b) a stated per-test limit with its reason.
+
+0.77 s against 400 ms; re-tiering to escape is not allowed. Options: a) leave, report-only; b) a stated per-test limit with its reason.
 Decision:
 
 ### Q63 Snapshot test
-Two importer spawns, about 15 s.
-Options: a) leave; b) optimise.
-Decision:
+
+Two importer spawns, about 15 s. Options: a) leave; b) optimise. Decision:
 
 ### Q64 Next files to the test-optimization agent
-Options: a) after two full runs on the new shard balance; b) now.
-Decision:
+
+Options: a) after two full runs on the new shard balance; b) now. Decision:
 
 ### Q65 EnforceTimings
-Over-limit lines are report-only today.
-Options: a) keep report-only; b) enforce once under budget.
-Decision:
+
+Over-limit lines are report-only today. Options: a) keep report-only; b) enforce once under budget. Decision:
 
 ## H. Materialization (plan-materialization-of-knowledge)
 
 ### Q66 Commit key
-Options: a) scoped sha of the resource's inputs; b) whole-repo commit sha.
-Decision:
+
+Options: a) scoped sha of the resource's inputs; b) whole-repo commit sha. Decision:
 
 ### Q67 Where declared
-Options: a) per resource kind, one default, instances pin only explicitly; b) per instance.
-Decision:
+
+Options: a) per resource kind, one default, instances pin only explicitly; b) per instance. Decision:
 
 ### Q68 Dirty tree
-Options: a) fall back to on-demand loudly, one announced line; b) silently; c) fail.
-Decision:
+
+Options: a) fall back to on-demand loudly, one announced line; b) silently; c) fail. Decision:
 
 ### Q69 ADR code and place
-Options: a) ADR-AUTO-MATERIAL next to ADR-AUTO-CACHE; b) a section inside ADR-AUTO-CACHE.
-Decision:
+
+Options: a) ADR-AUTO-MATERIAL next to ADR-AUTO-CACHE; b) a section inside ADR-AUTO-CACHE. Decision:
 
 ### Q70 Write the ADR now
-Options: a) yes; b) after the three choices settle in use.
-Decision:
+
+Options: a) yes; b) after the three choices settle in use. Decision:
 
 ## I. Output directory (plan-out-artifacts)
 
 ### Q71 Areas and defaults
-Six areas with retention numbers in the draft.
-Options: a) accept the table; b) change numbers (say which).
-Decision:
+
+Six areas with retention numbers in the draft. Options: a) accept the table; b) change numbers (say which). Decision:
 
 ### Q72 Session scratch placement
-Options: a) out/sessions/<session>/; b) flat out/scratch/.
-Decision:
+
+Options: a) out/sessions/<session>/; b) flat out/scratch/. Decision:
 
 ### Q73 time-safeguard.log
-Options: a) rotate by size, keep one older; b) never prune (tuning evidence).
-Decision:
+
+Options: a) rotate by size, keep one older; b) never prune (tuning evidence). Decision:
 
 ### Q74 Automatic pruning
-Options: a) the importer tail prunes the run area; b) only Clear-Output prunes.
-Decision:
+
+Options: a) the importer tail prunes the run area; b) only Clear-Output prunes. Decision:
 
 ### Q75 Harvest of 250 unreferenced scripts
-Options: a) the planner reads them inline; b) a Sonnet catzc-worker; c) skip the harvest, delete unreferenced scripts wholesale.
-Decision:
+
+Options: a) the planner reads them inline; b) a Sonnet catzc-worker; c) skip the harvest, delete unreferenced scripts wholesale. Decision:
 
 ### Q76 The 27 .bak files
-Backups of analyzer modules and internal psm1 files from the comment work.
-Options: a) delete now; b) after the harvest.
-Decision:
+
+Backups of analyzer modules and internal psm1 files from the comment work. Options: a) delete now; b) after the harvest. Decision:
 
 ### Q77 Probe scripts after verdicts
-Options: a) standing yes to delete probes; b) a yes per batch.
-Decision:
+
+Options: a) standing yes to delete probes; b) a yes per batch. Decision:
 
 ## J. Format step for comments (plan-format-step-moves-comments)
 
 ### Q78 Order
-Options: a) verify whether the step loop landed, then add the comments step; b) build the loop here.
-Decision:
+
+Options: a) verify whether the step loop landed, then add the comments step; b) build the loop here. Decision:
 
 ### Q79 A step that writes a second file
-Options: a) an imprint step with one ADR sentence; b) a separate category.
-Decision:
+
+Options: a) an imprint step with one ADR sentence; b) a separate category. Decision:
 
 ### Q80 Dot-folder scope
-Options: a) .scriptanalyzer and .internal get page entries, .vendor excluded; b) all three excluded.
-Decision:
+
+Options: a) .scriptanalyzer and .internal get page entries, .vendor excluded; b) all three excluded. Decision:
 
 ## K. Lazy types load (plan-lazy-types-load)
 
 ### Q81 Load trigger
-Options: a) a loader-level guard in Import-ModuleFiles, confirmed by the Phase 0 spike; b) eager load stays, only the verification
-goes metadata-only.
-Decision:
+
+Options: a) a loader-level guard in Import-ModuleFiles, confirmed by the Phase 0 spike; b) eager load stays, only the verification goes
+metadata-only. Decision:
 
 ### Q82 Manifest beside the DLL
-Options: a) committed with the DLL; b) gitignored, rebuilt on import.
-Decision:
+
+Options: a) committed with the DLL; b) gitignored, rebuilt on import. Decision:
 
 ### Q83 Proceed to Phase 1
-Options: a) now; b) after the module model.
-Decision:
+
+Options: a) now; b) after the module model. Decision:
 
 ## L. Bounded enumeration and unboxing (feature plans)
 
 ### Q84 Level-2 gate rerun
-Options: a) the next session reruns it in the background; b) the user runs it.
-Decision:
+
+Options: a) the next session reruns it in the background; b) the user runs it. Decision:
 
 ### Q85 Delete the bounded-enumeration plan on green
-Options: a) yes; b) keep until the full suite ran.
-Decision:
+
+Options: a) yes; b) keep until the full suite ran. Decision:
 
 ### Q86 Unboxing P4 and P5
-Parse each file once per build; build glob objects once. Bar: 15 percent on the row, no new allocation.
-Options: a) go, plan them; b) not now.
-Decision:
+
+Parse each file once per build; build glob objects once. Bar: 15 percent on the row, no new allocation. Options: a) go, plan them; b) not
+now. Decision:
 
 ### Q87 ADR line on type-level statics
-Options: a) add the one sentence to ADR-AUTO-CACHE; b) no.
-Decision:
+
+Options: a) add the one sentence to ADR-AUTO-CACHE; b) no. Decision:
 
 ### Q88 Test-ShippedTypes flags on two Variants types
-TrackTypeEntry and VendorEntry do not resolve after import.
-Options: a) investigate now; b) within the module model.
-Decision:
+
+TrackTypeEntry and VendorEntry do not resolve after import. Options: a) investigate now; b) within the module model. Decision:
 
 ## M. Cross-cutting
 
 ### Q89 Relative links in carried text
-Written from out/, they resolve one level wrong from .claude/plans.
-Options: a) the planner re-points with the link tool, one file at a time; b) leave until the cleaner trims.
-Decision:
+
+Written from out/, they resolve one level wrong from .claude/plans. Options: a) the planner re-points with the link tool, one file at a
+time; b) leave until the cleaner trims. Decision:
 
 ### Q90 Pastes-processed log
-Grows in the index with every paste.
-Options: a) keep in the index; b) move to a separate log file; c) drop entries once their plan records them.
-Decision:
+
+Grows in the index with every paste. Options: a) keep in the index; b) move to a separate log file; c) drop entries once their plan records
+them. Decision:
 
 ### Q91 Stale memory notes
-automation-layers says Q1-Q11 open; file-head-vocabulary says derived; bounded-enumeration behind the tree.
-Options: a) the planner updates the three now; b) leave to the owning sessions.
-Decision:
+
+automation-layers says Q1-Q11 open; file-head-vocabulary says derived; bounded-enumeration behind the tree. Options: a) the planner updates
+the three now; b) leave to the owning sessions. Decision:
 
 ### Q92 Unowned gate findings
-Spelling 5, ScriptAnalyzer about 37, markdownlint about 39, reported by several sessions as not theirs.
-Options: a) one cleanup session owns them; b) each next session fixes what it touches; c) record only.
-Decision:
+
+Spelling 5, ScriptAnalyzer about 37, markdownlint about 39, reported by several sessions as not theirs. Options: a) one cleanup session owns
+them; b) each next session fixes what it touches; c) record only. Decision:
 
 ### Q93 Heads on plan files
-Format-FileMeta stamps every Markdown file; the plan files use a plan: front-matter key today.
-Options: a) accept the catzc head on plans and keep plan: beside it; b) exclude .claude/plans from file-meta; c) move plan fields under
-catzc config.
-Decision:
+
+Format-FileMeta stamps every Markdown file; the plan files use a plan: front-matter key today. Options: a) accept the catzc head on plans
+and keep plan: beside it; b) exclude .claude/plans from file-meta; c) move plan fields under catzc config. Decision:
 
 ### Q94 Questionnaire after the round
-Options: a) delete it once the answers are in the plans; b) keep it as the decision record.
-Decision:
+
+Options: a) delete it once the answers are in the plans; b) keep it as the decision record. Decision:
 
 ### Q95 Next continuation prompt to paste first
-Options: a) module model prepare; b) config defaults Phase 1; c) plans program Phase 0; d) something else.
-Decision:
+
+Options: a) module model prepare; b) config defaults Phase 1; c) plans program Phase 0; d) something else. Decision:
 
 ## N. Meta: the model, the repository and its principles
 
 ### Q96 What a plan is for
-Plans here carry decisions, done-and-why, open steps and whole drafts. A plan could instead be only the delta the tree does not yet
-hold, with everything landed living in ADRs, tests and configs.
-Options: a) a plan is the delta only, shrinking to zero and deleted; b) a plan is the record of a topic, kept while the topic lives;
-c) delta only, with the index as the one record.
-Decision:
+
+Plans here carry decisions, done-and-why, open steps and whole drafts. A plan could instead be only the delta the tree does not yet hold,
+with everything landed living in ADRs, tests and configs. Options: a) a plan is the delta only, shrinking to zero and deleted; b) a plan is
+the record of a topic, kept while the topic lives; c) delta only, with the index as the one record. Decision:
 
 ### Q97 Where decisions live once made
-A decision answered here lands in the plan now. ADR rules are the sanctioned place for conventions; plans are not cited by code.
-Options: a) every decision that constrains code or docs becomes an ADR rule in the same change; b) plans may hold decisions until the
-work lands; c) a decisions register separate from plans and ADRs.
-Decision:
+
+A decision answered here lands in the plan now. ADR rules are the sanctioned place for conventions; plans are not cited by code. Options: a)
+every decision that constrains code or docs becomes an ADR rule in the same change; b) plans may hold decisions until the work lands; c) a
+decisions register separate from plans and ADRs. Decision:
 
 ### Q98 Module as the central concern
-The module model says Module is the repository's central concern, one generic C# definition every track instantiates.
-Options: a) confirm Module as the one root entity; b) Track is the root and Module is one of its kinds; c) both are peers under a
-repository root entity.
+
+The module model says Module is the repository's central concern, one generic C# definition every track instantiates. Options: a) confirm
+Module as the one root entity; b) Track is the root and Module is one of its kinds; c) both are peers under a repository root entity.
 Decision:
 
 ### Q99 Kinds as tracks' vocabulary
+
 An object kind is owned by a track and unique within it; a file's role is a separate word. The k8s vocabulary is inspiration, not authority.
-Options: a) confirm; b) kinds are repository-wide; c) keep only role and drop object kinds.
-Decision:
+Options: a) confirm; b) kinds are repository-wide; c) keep only role and drop object kinds. Decision:
 
 ### Q100 Track as an on-disk cluster
-A track may be a root, a sub-path or a group of dot-roots, typed deployable or holder, with a vendor. That is landed.
-Options: a) confirm as landed; b) one root per track again; c) revisit after the pwsh rename.
-Decision:
+
+A track may be a root, a sub-path or a group of dot-roots, typed deployable or holder, with a vendor. That is landed. Options: a) confirm as
+landed; b) one root per track again; c) revisit after the pwsh rename. Decision:
 
 ### Q101 Configure, don't program, as a gate
-Per-instance behaviour is a config entry with a default declared once on the type. Today the rule is doctrine and a memory note.
-Options: a) an analyzer rule flags a literal default in a function (the config-defaults audit as its seed); b) doctrine only;
-c) a test over every typed config instead of an analyzer rule.
-Decision:
+
+Per-instance behaviour is a config entry with a default declared once on the type. Today the rule is doctrine and a memory note. Options: a)
+an analyzer rule flags a literal default in a function (the config-defaults audit as its seed); b) doctrine only; c) a test over every typed
+config instead of an analyzer rule. Decision:
 
 ### Q102 One living version against carried history
-ADR-PRIN-ONELIVE forbids retained history in files. The plans here carry drafts with dated status blocks and done lists.
-Options: a) plans are exempt: a plan is a record, git is history for code; b) plans obey it too: done-and-why goes when its data is in
-the tree; c) exempt until the cleaner exists.
-Decision:
+
+ADR-PRIN-ONELIVE forbids retained history in files. The plans here carry drafts with dated status blocks and done lists. Options: a) plans
+are exempt: a plan is a record, git is history for code; b) plans obey it too: done-and-why goes when its data is in the tree; c) exempt
+until the cleaner exists. Decision:
 
 ### Q103 Guards are controls
-A guard's verdict is never cached across a session; the devbox is a regulated opsbox. Materialization pins guards on-demand.
-Options: a) make this an ADR rule the materialization ADR cites; b) leave as memory and doctrine.
-Decision:
+
+A guard's verdict is never cached across a session; the devbox is a regulated opsbox. Materialization pins guards on-demand. Options: a)
+make this an ADR rule the materialization ADR cites; b) leave as memory and doctrine. Decision:
 
 ### Q104 Inspiration from the sibling checkout
-C:\projects\eac may be read for ideas, never copied or cited. The inspiration module exists.
-Options: a) every idea taken from it is named in the plan that uses it; b) no tracking needed; c) also list eac's ideas that were
-weighed and rejected.
-Decision:
+
+C:\projects\eac may be read for ideas, never copied or cited. The inspiration module exists. Options: a) every idea taken from it is named
+in the plan that uses it; b) no tracking needed; c) also list eac's ideas that were weighed and rejected. Decision:
 
 ### Q105 Catzc versus cats versus pwsh
-catzc is the code-level name, cats the conversational cover, pwsh the PowerShell track, automation the abstract term.
-Options: a) confirm the four and add them to the glossary where missing; b) fold cats into catzc; c) rename the product token too.
-Decision:
+
+catzc is the code-level name, cats the conversational cover, pwsh the PowerShell track, automation the abstract term. Options: a) confirm
+the four and add them to the glossary where missing; b) fold cats into catzc; c) rename the product token too. Decision:
 
 ### Q106 Mono repo, not monolith
-Every deployable unit, module and contract group versions on its own; nothing versions repo-wide. The contracts are at 0.0.0.
-Options: a) confirm, first release freezes per unit; b) one repo-wide 0.1.0 when the pwsh rename lands; c) version only contracts.
-Decision:
+
+Every deployable unit, module and contract group versions on its own; nothing versions repo-wide. The contracts are at 0.0.0. Options: a)
+confirm, first release freezes per unit; b) one repo-wide 0.1.0 when the pwsh rename lands; c) version only contracts. Decision:
 
 ### Q107 Contracts as the only public API
-A command is public exactly when a contract names it; the other 400-odd functions are internal and free to change.
-Options: a) confirm; b) every function at a module root stays public as today; c) public is a head key, contracts follow it.
-Decision:
+
+A command is public exactly when a contract names it; the other 400-odd functions are internal and free to change. Options: a) confirm; b)
+every function at a module root stays public as today; c) public is a head key, contracts follow it. Decision:
 
 ### Q108 Contracts generated from ADRs
-The immutable-edges session noted that contracts are the type of the ADR documents, so a contract can be generated from its ADR.
-Options: a) adopt as a direction: each contract's schema is generated from the ADR and registry that define it; b) contracts stay
-hand-written, ADRs cite them; c) decide per contract.
-Decision:
+
+The immutable-edges session noted that contracts are the type of the ADR documents, so a contract can be generated from its ADR. Options: a)
+adopt as a direction: each contract's schema is generated from the ADR and registry that define it; b) contracts stay hand-written, ADRs
+cite them; c) decide per contract. Decision:
 
 ### Q109 The ADR reading rule and session cost
-Every session reads the ADR index and the governing ADRs in full. Sessions are expensive; a session-cost agent exists.
-Options: a) keep the rule; b) read the index and only the rules a change cites, by code; c) a generated per-module ADR digest replaces
-reading the ADRs in full.
+
+Every session reads the ADR index and the governing ADRs in full. Sessions are expensive; a session-cost agent exists. Options: a) keep the
+rule; b) read the index and only the rules a change cites, by code; c) a generated per-module ADR digest replaces reading the ADRs in full.
 Decision:
 
 ### Q110 Time safeguard limits
-3 s foreground, 360 s background, tight on purpose while blockers are tuned.
-Options: a) keep tight; b) raise the foreground to 10 s; c) make the limit per command kind in timeouts.yml.
-Decision:
+
+3 s foreground, 360 s background, tight on purpose while blockers are tuned. Options: a) keep tight; b) raise the foreground to 10 s; c)
+make the limit per command kind in timeouts.yml. Decision:
 
 ### Q111 Sub-agent model policy
-The user allows cheaper models for large-context reads; the agent definitions set a model each.
-Options: a) write the policy into agents.yml: reads on Haiku, scoped edits on Sonnet, coordination on the main model; b) keep per-agent
-choice as is; c) always ask.
-Decision:
+
+The user allows cheaper models for large-context reads; the agent definitions set a model each. Options: a) write the policy into
+agents.yml: reads on Haiku, scoped edits on Sonnet, coordination on the main model; b) keep per-agent choice as is; c) always ask. Decision:
 
 ### Q112 Memory notes as a layer
-Memory holds doctrine the repo does not (configure don't program, guards are controls, render nothing unasked).
-Options: a) each doctrine note becomes an ADR rule or a CLAUDE.md line, and the note points at it; b) memory stays the home;
-c) memory is for the user's preferences only, doctrine moves out.
-Decision:
+
+Memory holds doctrine the repo does not (configure don't program, guards are controls, render nothing unasked). Options: a) each doctrine
+note becomes an ADR rule or a CLAUDE.md line, and the note points at it; b) memory stays the home; c) memory is for the user's preferences
+only, doctrine moves out. Decision:
 
 ### Q113 Generated versus authored in one folder
-docs/references mirrors code with generated pages; authored docs sit beside them. Heads say generator: on generated files.
-Options: a) confirm: the head is the marker, folders may mix; b) generated files get their own folder tree; c) a .gitattributes class
-is the marker and the head follows it.
-Decision:
+
+docs/references mirrors code with generated pages; authored docs sit beside them. Heads say generator: on generated files. Options: a)
+confirm: the head is the marker, folders may mix; b) generated files get their own folder tree; c) a .gitattributes class is the marker and
+the head follows it. Decision:
 
 ### Q114 Comment pages as the home of prose
-Comments longer than a line move to the file's sister page; the file keeps one insight line and a link.
-Options: a) confirm, including for C# types; b) C# keeps XML doc comments in the file; c) revisit after Phase 2 of the link cleanup.
-Decision:
+
+Comments longer than a line move to the file's sister page; the file keeps one insight line and a link. Options: a) confirm, including for
+C# types; b) C# keeps XML doc comments in the file; c) revisit after Phase 2 of the link cleanup. Decision:
 
 ### Q115 Glossary as the controlled vocabulary
-A term is defined by one ADR rule that bolds it; the glossary is generated from module configs; avoid-phrasings are gated.
-Options: a) confirm and extend the gate to plans and prompts; b) plans and prompts exempt; c) gate only ADRs and code.
-Decision:
+
+A term is defined by one ADR rule that bolds it; the glossary is generated from module configs; avoid-phrasings are gated. Options: a)
+confirm and extend the gate to plans and prompts; b) plans and prompts exempt; c) gate only ADRs and code. Decision:
 
 ### Q116 Diagrams and rendering
-Render nothing unasked; a sample is one file.
-Options: a) confirm as CLAUDE.md text, not only memory; b) memory is enough.
-Decision:
+
+Render nothing unasked; a sample is one file. Options: a) confirm as CLAUDE.md text, not only memory; b) memory is enough. Decision:
 
 ### Q117 Tests as the proof of a plan step
-Every open step names the check proving it; a step without a check is not a step.
-Options: a) confirm as an ADR-REPO-PLANS rule and a Test-Plans check; b) convention only.
-Decision:
+
+Every open step names the check proving it; a step without a check is not a step. Options: a) confirm as an ADR-REPO-PLANS rule and a
+Test-Plans check; b) convention only. Decision:
 
 ### Q118 What the next structural change is
-After the module model and the pwsh rename, the next big change is unnamed.
-Options: a) the import landing zone and first import; b) command contracts beyond the pilot; c) the services track; d) none planned,
-let the pastes decide.
-Decision:
+
+After the module model and the pwsh rename, the next big change is unnamed. Options: a) the import landing zone and first import; b) command
+contracts beyond the pilot; c) the services track; d) none planned, let the pastes decide. Decision:
 
 ### Q119 The user as the only mutating-git actor
-No session commits; the user commits and runs the full suite.
-Options: a) confirm; b) allow a session to commit with an explicit go per commit; c) allow commits in a session's own branch.
-Decision:
+
+No session commits; the user commits and runs the full suite. Options: a) confirm; b) allow a session to commit with an explicit go per
+commit; c) allow commits in a session's own branch. Decision:
 
 ### Q120 This questionnaire's method
-Batches of four, sealed recommendations, compare at the end.
-Options: a) keep; b) recommendations shown with each question; c) fewer, bigger questions next time.
-Decision:
+
+Batches of four, sealed recommendations, compare at the end. Options: a) keep; b) recommendations shown with each question; c) fewer, bigger
+questions next time. Decision:
+
+### Q121 Rule lines in the principles ADRs are not bolded
+
+ADR-PRIN-ONELIVE and ADR-PRIN-CONFIG state their rules as plain lines. The authoring convention defines a term by the one rule that bolds
+it, and the glossary gate looks for the bold. Options: a) make every rule statement bold, uniform across domains; b) only rules that define
+a term are bold; c) leave as is. Decision:
+
+### Q122 INPUT pipelines land via PR or directly
+
+The flow ADR on pipeline types leaves one decision deliberately open: whether an INPUT pipeline's commit lands through a pull request or
+directly on trunk. The invariant input, commit, CD holds either way. Options: a) directly on trunk; b) through a PR; c) keep it open until
+an INPUT pipeline exists. Decision:
+
+### Q123 Engine names left open
+
+The execution-engines ADR says a choice about what appears in the model's engine names is left open. Options: a) the layers plan P1 settles
+it with the vocabulary; b) leave open; c) settle now (say how). Decision:
+
+### Q124 Branch provenance tag on a devbox deploy
+
+The CAF naming-and-tagging ADR says what the branch tag records for a devbox deploy is to be decided. Options: a) the branch name; b) a
+fixed devbox marker; c) leave open until a devbox deploy is tagged. Decision:
+
+### Q125 Service connection per environment
+
+The CAF identity-and-access ADR leaves a service connection per environment as a decision for the user. Options: a) one per environment; b)
+one shared; c) leave open. Decision:
+
+### Q126 Which principle governs ADR-REPO-PLANS
+
+The plans rules (short, current, checked, deleted when done) could be grounded in reduce waste, poka-yoke or one living version. Options: a)
+reduce waste, a stale plan is waste; b) poka-yoke, the gate makes a stale plan impossible; c) one living version, a plan is the one current
+statement of its topic; d) cite all three. Decision:
