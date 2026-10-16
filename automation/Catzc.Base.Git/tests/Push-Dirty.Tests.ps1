@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/tests/Push-Dirty.Tests.ps1
     folder: tests
     name: push-dirty-tests

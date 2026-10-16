@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a6fb6e2726f3
+    with_body_sha: "408fbcb6d113"
     repo_status: locked
     path: docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem

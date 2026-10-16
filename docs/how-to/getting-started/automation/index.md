@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f1c4f850cec7
+    with_body_sha: "0dc8efd80f4d"
     repo_status: clean
     path: docs/how-to/getting-started/automation/index.md
     folder: docs/how-to/getting-started/automation

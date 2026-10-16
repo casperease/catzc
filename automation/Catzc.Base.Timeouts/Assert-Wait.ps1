@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Timeouts/Assert-Wait.ps1
     name: assert-wait
     filetype: ps1

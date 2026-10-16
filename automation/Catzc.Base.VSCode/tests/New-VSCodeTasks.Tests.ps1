@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/tests/New-VSCodeTasks.Tests.ps1
     folder: tests
     name: new-vs-code-tasks-tests

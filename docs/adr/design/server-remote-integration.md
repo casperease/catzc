@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "52541bcc7cdf"
+    with_body_sha: b7196d70e72e
     repo_status: clean
     path: docs/adr/design/server-remote-integration.md
     folder: docs/adr/design
@@ -15,7 +15,7 @@ catzc:
     defines:
       - ADR-DSGN-REMOTE#{1-4}
     cites:
-      - ADR-DSGN-LIFE#{1,6,7}
+      - ADR-DSGN-LIFE#{1,2,6,7}
       - ADR-PRIN-ONELIVE#4
       - ADR-REPO-VARIANT#6
     links:

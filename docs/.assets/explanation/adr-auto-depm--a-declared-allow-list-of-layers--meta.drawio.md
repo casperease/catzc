@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d84328feec99
+    with_body_sha: abae4702c678
     repo_status: clean
     path: docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
     folder: docs/.assets/explanation

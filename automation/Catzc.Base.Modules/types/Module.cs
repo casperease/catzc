@@ -15,6 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
+    page: docs/references/automation/catzc-base-modules/types/Module.cs.md
     test: automation/Catzc.Base.Modules/tests/types/Module.Tests.ps1
     cites:
       - ADR-AUTO-MODULE#1

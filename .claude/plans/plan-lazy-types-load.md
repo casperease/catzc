@@ -13,7 +13,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: b70b976499b7
+    with_body_sha: e3a3f1b47251
     repo_status: clean
     path: ".claude/plans/plan-lazy-types-load.md"
     folder: plans
@@ -29,7 +29,7 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#{7,15}
+      - ADR-AUTO-TYPES#15
 ---
 
 # Find the types DLL fast, load it only on first use

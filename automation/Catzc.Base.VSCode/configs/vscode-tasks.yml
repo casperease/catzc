@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     repo_status: clean
 #     path: automation/Catzc.Base.VSCode/configs/vscode-tasks.yml
 #     folder: configs
 #     name: vscode-tasks

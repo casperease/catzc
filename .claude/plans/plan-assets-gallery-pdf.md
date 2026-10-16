@@ -4,6 +4,21 @@ plan:
   value: low
   reviewed: 2026-10-17
   targets: [.claude/drawio/gallery_pdf.py, .claude/skills/drawio-waves/SKILL.md, .claude/drawio/STYLE.md]
+catzc:
+  immutable:
+    with_body_sha: d00257c05ca1
+    repo_status: clean
+    path: ".claude/plans/plan-assets-gallery-pdf.md"
+    folder: plans
+    name: plan-assets-gallery-pdf
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # Assets gallery PDF: every PNG under docs/.assets in one review file

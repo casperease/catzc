@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Git/Push-Dirty.ps1
     name: push-dirty
     filetype: ps1

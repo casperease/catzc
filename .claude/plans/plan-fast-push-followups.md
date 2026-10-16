@@ -10,6 +10,21 @@ plan:
       automation/Catzc.Base.VSCode,
       docs/adr/design/commit-lifecycle.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: "416c33506ebf"
+    repo_status: clean
+    path: ".claude/plans/plan-fast-push-followups.md"
+    folder: plans
+    name: plan-fast-push-followups
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # Fast push to main: what is left

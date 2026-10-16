@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/New-VSCodeTasks.ps1
     name: new-vs-code-tasks
     filetype: ps1

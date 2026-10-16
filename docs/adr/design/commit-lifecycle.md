@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c0b1c05d5104
+    with_body_sha: aeba5609dd4b
     repo_status: clean
     path: docs/adr/design/commit-lifecycle.md
     folder: docs/adr/design
@@ -15,14 +15,13 @@ catzc:
     defines:
       - ADR-DSGN-LIFE#{1-12}
     cites:
-      - ADR-DSGN-REMOTE#{2,3,4}
+      - ADR-DSGN-REMOTE#{2-4}
       - ADR-DSGN-VISUAL#{12,13}
       - ADR-FLOW-CD#{9,10,14}
       - ADR-REPO-VARIANT#6
     links:
       - docs/.assets/commits-quality/commit-lifecycle-states.drawio.png
       - docs/.assets/commits-quality/sync-point.drawio.png
-      - docs/adr/design/server-remote-integration.md
       - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote2
       - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote3
       - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote4
@@ -32,7 +31,6 @@ catzc:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd10
       - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
       - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9
-      - docs/adr/repository/repo-variants.md
       - docs/adr/repository/repo-variants.md#rule-adr-repo-variant6
 ---
 

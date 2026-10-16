@@ -4,6 +4,21 @@ plan:
   value: low
   reviewed: 2026-10-17
   blocked_on: Q1 below is unanswered
+catzc:
+  immutable:
+    with_body_sha: "2f954a7c562a"
+    repo_status: clean
+    path: ".claude/plans/plan-idle-compaction.md"
+    folder: plans
+    name: plan-idle-compaction
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # Idle compaction off

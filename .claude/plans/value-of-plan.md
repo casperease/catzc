@@ -5,7 +5,7 @@ plan:
   rule: value first, then needed docs and tests; job size never ranks
 catzc:
   immutable:
-    with_body_sha: "242e94a1a008"
+    with_body_sha: dc12b247a546
     repo_status: clean
     path: ".claude/plans/value-of-plan.md"
     folder: plans

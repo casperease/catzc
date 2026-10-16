@@ -12,7 +12,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "8ca388139657"
+    with_body_sha: fe151e7efcd3
     repo_status: clean
     path: ".claude/plans/plan-assert-wait.md"
     folder: plans
@@ -28,9 +28,11 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-CONSOLE#7
-      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-DEFAULT#{2,6}
       - ADR-AUTO-FAILFAST#{5,7}
       - ADR-PWSH-ASSERT#6
+    links:
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
 ---
 
 # Assert-Wait: a watchpoint for a suspected block

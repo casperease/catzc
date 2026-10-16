@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "817011b871ee"
+    with_body_sha: "844662ad9a79"
     repo_status: clean
     path: docs/adr/repository/file-meta.md
     folder: docs/adr/repository
@@ -119,7 +119,8 @@ meta-kind registry ([controlling-module-dependencies](../automation/controlling-
 
 A file the automation composes whole — a root-config copy, a generator's output, a `.gitkeep` — carries the **generated-file head** instead
 of an imprinted block. Its writer composes the content bare and writes the head through the one head function, in the carrier the file's
-class has. The head holds the same facts as an imprinted block, `path`, `kind` and `subkind` (the role the file-kinds registry names for the
+class has. The head holds the same facts as an imprinted block, `repo_status` (always `locked`, since the file's source is the truth and is edited
+instead), `path`, `kind` and `subkind` (the role the file-kinds registry names for the
 file, which the writer reads and passes down), `language`, `filetype`, `track`, `module` and `moduletype` (the module-types registry's type
 of the module the file is placed in), each left out for a file that has none, and what only a composed file has: `generator` (the
 repository-relative path of the file that defines the command that composed the file) and `source` (the authored file or files it comes

@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
     folder: types
     name: vscode-tasks-config

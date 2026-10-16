@@ -28,6 +28,9 @@ catzc:
       every commit that touched it is on the upstream. `ready`: tracked and unchanged on a branch with no upstream, so nothing says
       whether the server has it.
 
+      The answer is git's alone. The file's own stored `repo_status` (`locked` or `clean`) is in its head, which a module above this one
+      reads, so a caller that wants both reads the head too; the two never share a value.
+
       Read-only: one `git status`, and for an unchanged tracked file one `git branch --show-current`, one `git for-each-ref` and one
       `git log`, each from the repository root.
     parameters:

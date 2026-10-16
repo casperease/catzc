@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "61919602b044"
+    with_body_sha: d798c98c8711
     repo_status: clean
     path: docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md
     folder: docs/.assets/explanation
