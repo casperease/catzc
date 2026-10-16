@@ -9,8 +9,8 @@ plan:
 
 # Every edge to an ADR says exactly what it means; then source prose moves into sister pages
 
-Phase 1 reads every declared edge to an ADR and narrows, widens or retargets it. Phase 2 moves larger text out of source files into
-their comment pages and explanation articles, leaving one-liners and algorithmic insight. Phase 1 is paused; Phase 2 has not started.
+Phase 1 reads every declared edge to an ADR and narrows, widens or retargets it. Phase 2 moves larger text out of source files into their
+comment pages and explanation articles, leaving one-liners and algorithmic insight. Phase 1 is paused; Phase 2 has not started.
 
 ## Why its value is medium
 
@@ -39,17 +39,17 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
 
 ## Done, and why (session report of 2026-10-16 15:23)
 
-- Get-AdrUsage takes -GroupBy Rule or Document; Get-AdrUsageRow and Group-AdrUsage ship with their tests, 14 pass, Test-FileMeta clean
-  for these files. Built so the ledger and the analysis read one measured source.
-- The edge ledger out/adr-link-ledger.csv: 5,203 rows, each with a stable Key, the exact line, a paragraph or list-item context, the
-  rule's summary and the pre-pass triage. Keyed so verdicts survive a rebuild.
+- Get-AdrUsage takes -GroupBy Rule or Document; Get-AdrUsageRow and Group-AdrUsage ship with their tests, 14 pass, Test-FileMeta clean for
+  these files. Built so the ledger and the analysis read one measured source.
+- The edge ledger out/adr-link-ledger.csv: 5,203 rows, each with a stable Key, the exact line, a paragraph or list-item context, the rule's
+  summary and the pre-pass triage. Keyed so verdicts survive a rebuild.
 - Pilot review of the pipelines slice: 88 rows, 79 keep, 2 narrow, 7 hold. Analysis and recommendations in out/analysis-adr-link-ledger.txt.
 - The plans plan (now plan-plans-body-sha-landing-zone) written with the user's answers recorded.
 - Not done, stated by that session: no document edited; the two narrow fixes are lines 62 and 63 of
   docs/explanation/flow/no-gate-checks-rules-one-and-four.md; the earlier Test-Formatting failure came from files another session was
   editing and was not re-run; the remaining about 4,800 ledger rows (rest of Step 1.2, all of 1.3 and 1.4) wait on the three decisions.
-- The two draft plans were not trimmed to the new plan rules (short, present tense, no history); that is the cleaner's job and the
-  cleaner does not exist yet. Decisions and plan locations saved to memory as adr-link-and-plan-program.md.
+- The two draft plans were not trimmed to the new plan rules (short, present tense, no history); that is the cleaner's job and the cleaner
+  does not exist yet. Decisions and plan locations saved to memory as adr-link-and-plan-program.md.
 - Paste-after-clear line from that session, re-pointed: read .claude/CLAUDE.md and docs/adr/index.md, then
   prompt-adr-links-and-plans-continue.md beside this file, and follow it.
 
@@ -76,32 +76,33 @@ convention in the [ADR index](../docs/adr/index.md#authoring-conventions) (cite 
 ADR when the context is general, and over-narrowing a general pointer is worse than leaving it doc-level),
 [ADR-REPO-COMMENTS#1](../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1) to
 [#5](../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5) (a comment of more than one line moves verbatim to its page), and
-[ADR-PRIN-ONELIVE](../docs/adr/principles/one-living-version.md) (change the text and every caller in the same change, leave no old
-spelling and no second copy).
+[ADR-PRIN-ONELIVE](../docs/adr/principles/one-living-version.md) (change the text and every caller in the same change, leave no old spelling
+and no second copy).
 
 Decisions already made by you: the ledger is an `out/` script, not a function; verdicts are sampled at 5% before edits start; Phase 1 is a
 one-time cleanup with no standing guard; the placeholder-code fix in `Get-AdrCodesFileMetaFact` comes after Phase 1; code comments are
-handled by Phase 2. Phase 2 is settled too (see [Decisions](#decisions-phase-2)): pages stay lossless with explanation articles beside
-them, the heads' function help stays in place, tests are out, only clear restatements are deleted, and size thresholds come from the data.
+handled by Phase 2. Phase 2 is settled too (see [Decisions](#decisions-phase-2)): pages stay lossless with explanation articles beside them,
+the heads' function help stays in place, tests are out, only clear restatements are deleted, and size thresholds come from the data.
 
 ---
 
 ## Status at the end of the 2026-10-16 session
 
-Phase 1 is paused. It resumes after Phase 0 and the plan move in `out/plan-claude-plans.md`, because they remove the 274 `.unordered/`
-rows and the body-hash drift that every ADR edit causes. Phase 2 has not started.
+Phase 1 is paused. It resumes after Phase 0 and the plan move in `out/plan-claude-plans.md`, because they remove the 274 `.unordered/` rows
+and the body-hash drift that every ADR edit causes. Phase 2 has not started.
 
 - Step 1.0 (the edge ledger) and Step 1.1 (the pre-pass) are done. The ledger is `out/adr-link-ledger.csv`, built by
-  `out/build-adr-link-ledger.ps1` then `out/prepass-adr-link-ledger.ps1` (both through `out/refresh-ledger.ps1`), 5,203 rows, keyed by `Key`.
+  `out/build-adr-link-ledger.ps1` then `out/prepass-adr-link-ledger.ps1` (both through `out/refresh-ledger.ps1`), 5,203 rows, keyed by
+  `Key`.
 - Step 1.2 has one pilot slice reviewed, `pipelines` (88 rows: 79 keep, 2 narrow, 7 hold). The verdicts are in the ledger and in
   `out/verdicts/pipelines-overrides.csv`, applied by `out/apply-verdicts.ps1`.
 - The analysis is in `out/analysis-adr-link-ledger.txt`. Its recommendations wait for your answer: exclude `.unordered/` from the ledger;
-  relax `ADR-REPO-HELP#3` (687 head-text citations) instead of stripping them; replace the 35 chunks with a sample-then-stop review
-  (the ~42 no-overlap rows, the repeat groups, a 100-row sample of whole links, a 150-row sample of rule rows).
+  relax `ADR-REPO-HELP#3` (687 head-text citations) instead of stripping them; replace the 35 chunks with a sample-then-stop review (the ~42
+  no-overlap rows, the repeat groups, a 100-row sample of whole links, a 150-row sample of rule rows).
 - Steps 1.3 (apply) and 1.4 (verify) have not started, and no document has been edited. The two `narrow` edits are in
   `docs/explanation/flow/no-gate-checks-rules-one-and-four.md`.
-- Code built on the way, in `Catzc.Base.QualityGates`: `Get-AdrUsage`, `Get-AdrUsageRow`, `Group-AdrUsage` and their tests (14 pass), plus
-  a `TryParse` fix in `Get-AdrCodesFileMetaFact`. `Test-FileMeta` is clean for them; the formatting, link, spelling, glossary and analyzer
+- Code built on the way, in `Catzc.Base.QualityGates`: `Get-AdrUsage`, `Get-AdrUsageRow`, `Group-AdrUsage` and their tests (14 pass), plus a
+  `TryParse` fix in `Get-AdrCodesFileMetaFact`. `Test-FileMeta` is clean for them; the formatting, link, spelling, glossary and analyzer
   gates have not run on them, and the `TryParse` fix has no regression test for an oversized rule number.
 
 # Phase 1: clean up ADR linking, semantically
@@ -136,13 +137,13 @@ Markdown links by area: ADR bodies 1,465 (621 to a rule, 844 whole); other docs 
 
 An **edge** is one declared reference from a citing place to an ADR, optionally with a rule.
 
-| Form           | Lives in                  | Example                                       | Edited where                 |
-| -------------- | ------------------------- | --------------------------------------------- | ---------------------------- |
-| Markdown link  | a `.md` body or page      | `[rule text](../x/y.md#rule-adr-x-y3)`        | the body                     |
-| Prose citation | body or page, unlinked    | `ADR-X-Y#3`                                   | the text (the aligner links) |
-| Test tag       | a Pester `-Tag`           | `'ADR-X-Y#3'`                                 | out of scope, rule by design |
-| Head `adrs:`   | file head                 | `ADR-X-Y#{1,3}`                               | never by hand: derived       |
-| Head `links:`  | file head                 | `docs/adr/x/y.md#rule-adr-x-y3`               | never by hand: derived       |
+| Form           | Lives in               | Example                                | Edited where                 |
+| -------------- | ---------------------- | -------------------------------------- | ---------------------------- |
+| Markdown link  | a `.md` body or page   | `[rule text](../x/y.md#rule-adr-x-y3)` | the body                     |
+| Prose citation | body or page, unlinked | `ADR-X-Y#3`                            | the text (the aligner links) |
+| Test tag       | a Pester `-Tag`        | `'ADR-X-Y#3'`                          | out of scope, rule by design |
+| Head `adrs:`   | file head              | `ADR-X-Y#{1,3}`                        | never by hand: derived       |
+| Head `links:`  | file head              | `docs/adr/x/y.md#rule-adr-x-y3`        | never by hand: derived       |
 
 Heads are derived from the bodies by `Format-FileMeta`, so the edit is always in the body or page and the head follows.
 
@@ -150,14 +151,14 @@ Heads are derived from the bodies by `Format-FileMeta`, so the edit is always in
 
 Each in-scope edge gets exactly one verdict, decided from the sentence around it and the text of the rule it names:
 
-| Verdict      | When                                                                                                                                         | Edit                                  |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| **keep**     | The sentence invokes the rule's own claim: a constraint obeyed, a reason given ("because"), a cited prohibition, an exception to that rule. | none                                  |
-| **widen**    | The sentence is a pointer or topic mention ("see X for the rationale", an index or list of related ADRs, the ADR's whole thesis).           | rule link becomes the whole-ADR link  |
-| **merge**    | One file cites three or more distinct rules of the same ADR, or the same rule repeatedly in one section.                                     | one whole-ADR link, or one link kept  |
-| **narrow**   | A whole-ADR link whose sentence plainly leans on one rule and the ADR has several. Used rarely: over-narrowing is the worse error.          | whole-ADR link becomes the rule link  |
-| **retarget** | The rule named does not say what the sentence claims (stale after a renumber or a split), and another rule of the ADR does.                  | change the number                     |
-| **drop**     | A duplicate of an edge already in the same sentence or section, or a link to the file itself.                                                | remove the link, keep the words       |
+| Verdict      | When                                                                                                                                        | Edit                                 |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| **keep**     | The sentence invokes the rule's own claim: a constraint obeyed, a reason given ("because"), a cited prohibition, an exception to that rule. | none                                 |
+| **widen**    | The sentence is a pointer or topic mention ("see X for the rationale", an index or list of related ADRs, the ADR's whole thesis).           | rule link becomes the whole-ADR link |
+| **merge**    | One file cites three or more distinct rules of the same ADR, or the same rule repeatedly in one section.                                    | one whole-ADR link, or one link kept |
+| **narrow**   | A whole-ADR link whose sentence plainly leans on one rule and the ADR has several. Used rarely: over-narrowing is the worse error.          | whole-ADR link becomes the rule link |
+| **retarget** | The rule named does not say what the sentence claims (stale after a renumber or a split), and another rule of the ADR does.                 | change the number                    |
+| **drop**     | A duplicate of an edge already in the same sentence or section, or a link to the file itself.                                               | remove the link, keep the words      |
 
 Reading signals, in order: what the sentence asserts; whether the rule's summary line states that assertion; whether the surrounding
 sentence names the rule's content or only the ADR's topic; how many different rules of the ADR the file cites.
@@ -169,8 +170,8 @@ sentence names the rule's content or only the ADR's topic; how many different ru
 `Get-AdrUsage` reads heads, so it has no line number and no sentence. The review needs both. Build a ledger, one row per edge:
 `file, line, form, code, rule, sentence, ruleSummary, verdict, replacement, note`.
 
-- Source the edges from the body with the link scanner the gates already use (`DocumentLinks` behind `Test-Links`), not a new regex.
-  Source the rule summary from `Get-AdrRuleSummaryLines`.
+- Source the edges from the body with the link scanner the gates already use (`DocumentLinks` behind `Test-Links`), not a new regex. Source
+  the rule summary from `Get-AdrRuleSummaryLines`.
 - A script under `out/` writes `out/adr-link-ledger.csv`, regenerated after edits so a rerun shows what is left. It is not a function.
 - Measure the page and prose-citation shares, and set the review slices from the real counts.
 
@@ -180,22 +181,22 @@ and the unlinked citations with the citation pattern the head tooling uses. It s
 text under `docs/.assets/` (435 generated files that would have added 16,900 rows), 35 unregistered placeholder citations and 476 ADRs'
 citations of themselves.
 
-| Form                       | Rule | Section | Whole |
-| -------------------------- | ---: | ------: | ----: |
-| markdown link              | 1,084 |      17 | 1,930 |
-| prose citation             | 1,264 |       - |   178 |
-| head help text (PowerShell)|   503 |       - |   182 |
-| code-comment               |   21 |       - |     3 |
+| Form                        |  Rule | Section | Whole |
+| --------------------------- | ----: | ------: | ----: |
+| markdown link               | 1,084 |      17 | 1,930 |
+| prose citation              | 1,264 |       - |   178 |
+| head help text (PowerShell) |   503 |       - |   182 |
+| code-comment                |    21 |       - |     3 |
 
 - By area: ADR bodies 2,629 rows, explanation 1,031, code 709, references 351, other `.md` 312, other docs 150.
-- Generated files carry 268 of the rows (`docs/adr/index.md` 180, the glossary 77): their edits belong in the source, so Step 1.3
-  leaves them alone and the `Generated` column marks them.
+- Generated files carry 268 of the rows (`docs/adr/index.md` 180, the glossary 77): their edits belong in the source, so Step 1.3 leaves
+  them alone and the `Generated` column marks them.
 - The unit is an occurrence, not a file and target pair: the 1,084 markdown rule links are about 670 distinct pairs, and a rule is often
   linked several times in one file.
-- Two kinds the plan did not name: 17 **section** links (to a heading of an ADR that is not a rule), which the review judges like the
-  rest, and 685 **head-text** citations, in the `description` of PowerShell heads. D2 leaves that text in place, so those are reviewed for
-  their link only. [ADR-REPO-HELP#3](../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of the help
-  text, so these 685 may also be findings against HELP#3 rather than links to tidy; the review decides.
+- Two kinds the plan did not name: 17 **section** links (to a heading of an ADR that is not a rule), which the review judges like the rest,
+  and 685 **head-text** citations, in the `description` of PowerShell heads. D2 leaves that text in place, so those are reviewed for their
+  link only. [ADR-REPO-HELP#3](../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of the help text,
+  so these 685 may also be findings against HELP#3 rather than links to tidy; the review decides.
 
 ### Step 1.1: mechanical pre-pass (suggests, never decides)
 
@@ -210,12 +211,12 @@ Cheap signals that sort the ledger so review time goes where judgement is needed
 **Done on 2026-10-16.** `out/prepass-adr-link-ledger.ps1` adds three columns to `out/adr-link-ledger.csv` and keeps every other column,
 verdicts included, so it is safe to rerun: `Slice` (the domain folder of the cited ADR), `Signals` and `Triage`.
 
-| Triage    | Rows | Meaning                                                                                                                 |
-| --------- | ---: | ----------------------------------------------------------------------------------------------------------------------- |
-| `check`   | 1,539 | A sharp signal fired: `NOOVERLAP`, `REPEAT`, `MOSTLYWHOLE`, `SECTION`, `HEADTEXT`, `MULTI5`, or `MULTI` with `LIST`.     |
-| `read`    | 2,571 | No sharp signal; the sentence is read as written.                                                                       |
-| `confirm` |   804 | `POPULAR` only: a rule cited 8 or more times across 4 or more files; a quick confirm.                                    |
-| `skip`    |   268 | Generated files (`docs/adr/index.md`, the glossary): edited in their source.                                            |
+| Triage    |  Rows | Meaning                                                                                                              |
+| --------- | ----: | -------------------------------------------------------------------------------------------------------------------- |
+| `check`   | 1,539 | A sharp signal fired: `NOOVERLAP`, `REPEAT`, `MOSTLYWHOLE`, `SECTION`, `HEADTEXT`, `MULTI5`, or `MULTI` with `LIST`. |
+| `read`    | 2,571 | No sharp signal; the sentence is read as written.                                                                    |
+| `confirm` |   804 | `POPULAR` only: a rule cited 8 or more times across 4 or more files; a quick confirm.                                |
+| `skip`    |   268 | Generated files (`docs/adr/index.md`, the glossary): edited in their source.                                         |
 
 Signal counts: `POPULAR` 1,383, `LIST` 1,013, `HEADTEXT` 685, `MULTI` 533, `MULTI5` 380, `REPEAT` 122, `NOOVERLAP` 96, `MOSTLYWHOLE` 23,
 `SECTION` 17. The sharp ones are the small set to look at first: `NOOVERLAP` (96, retarget), `REPEAT` (122, merge), `MOSTLYWHOLE` (23, widen
@@ -239,23 +240,22 @@ order: `azure` (heaviest rule linking), `automation`, `pwsh`, `repository`, then
 
 - Reviewers read the rule text and the sentence, then fill `verdict`, `replacement`, and a one-line `note` in the ledger. They edit no
   document in this step.
-- Delegation uses `catzc-worker`, one slice per brief, each owning only its own ledger file under `out/`. Nothing is launched until you
-  ask.
+- Delegation uses `catzc-worker`, one slice per brief, each owning only its own ledger file under `out/`. Nothing is launched until you ask.
 - You read **5%** of the `keep` and `widen` verdicts per slice before Step 1.3 starts. The rate goes up for a slice where more than a few
   are wrong.
 
-**Pilot done on 2026-10-16: the `pipelines` slice (88 rows), reviewed inline.** Verdicts are in the ledger (`Verdict`, `Replacement`, `Note`,
-`ReviewedBy`) and in `out/verdicts/pipelines-overrides.csv`, applied by `out/apply-verdicts.ps1`, which keys on `Key` so a rebuild keeps
-them. Result: 79 keep, 2 narrow, 7 hold, 0 widen, 0 merge, 0 retarget, 0 drop.
+**Pilot done on 2026-10-16: the `pipelines` slice (88 rows), reviewed inline.** Verdicts are in the ledger (`Verdict`, `Replacement`,
+`Note`, `ReviewedBy`) and in `out/verdicts/pipelines-overrides.csv`, applied by `out/apply-verdicts.ps1`, which keys on `Key` so a rebuild
+keeps them. Result: 79 keep, 2 narrow, 7 hold, 0 widen, 0 merge, 0 retarget, 0 drop.
 
-- Every rule citation in a "Why it holds" bullet states the rule it cites; every whole-ADR link sits in a "See also", "Related",
-  "Context" or index line and is a general pointer. The sharp signals were false alarms here: the one `MOSTLYWHOLE` row is a sentence about
-  that specific rule.
+- Every rule citation in a "Why it holds" bullet states the rule it cites; every whole-ADR link sits in a "See also", "Related", "Context"
+  or index line and is a general pointer. The sharp signals were false alarms here: the one `MOSTLYWHOLE` row is a sentence about that
+  specific rule.
 - **narrow (2):** prose that says "ADR-PIPE-NAME rules 1, 2, 3, 4 and 6" and "rule 4" cites specific rules without the `#n` spelling.
 - **hold (7), a decision for you:** the help text of `Test-Pipelines.ps1` carries citations, and
-  [ADR-REPO-HELP#3](../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of help text. 685 head-text rows
-  in the ledger are in the same position, so this is a rule against practice, not seven rows. Either strip them (the derived `adrs` already
-  lists them) or relax HELP#3.
+  [ADR-REPO-HELP#3](../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of help text. 685 head-text
+  rows in the ledger are in the same position, so this is a rule against practice, not seven rows. Either strip them (the derived `adrs`
+  already lists them) or relax HELP#3.
 - **Scope, a decision for you:** 6 rows come from `.unordered/` shelf plans. They are throwaway documents; exclude `.unordered/` from the
   ledger.
 - **Tool fixes the pilot forced:** the context of a list item or table row is now that item or row, and `LineText` holds the exact line, so
@@ -296,41 +296,41 @@ Peer sessions edit this tree, so check `git status` for the file first and messa
 
 # Phase 2: larger text out of source files into sister pages
 
-Goal: in every `yml`, `yaml`, `cs`, `ps1` and `psm1` source file, keep only what the code does not say itself: a unique one-line insight
-or an algorithmic insight. Everything larger lives in the file's sister Markdown page, sorted into **reference** (what it is and does)
-and **explanation** (why it is that way), one living copy ([ADR-PRIN-ONELIVE](../docs/adr/principles/one-living-version.md)).
+Goal: in every `yml`, `yaml`, `cs`, `ps1` and `psm1` source file, keep only what the code does not say itself: a unique one-line insight or
+an algorithmic insight. Everything larger lives in the file's sister Markdown page, sorted into **reference** (what it is and does) and
+**explanation** (why it is that way), one living copy ([ADR-PRIN-ONELIVE](../docs/adr/principles/one-living-version.md)).
 
 ## What already exists, and what is left
 
-Most of the mechanism and most of the move are done. `Export-Comments` (run by `Format-Code`) moves every comment of two or more lines
-out of PowerShell, YAML, pipeline YAML, C# and Bicep files into `docs/references/<path>/<file>.md` as `## comment:N` sections, losslessly
+Most of the mechanism and most of the move are done. `Export-Comments` (run by `Format-Code`) moves every comment of two or more lines out
+of PowerShell, YAML, pipeline YAML, C# and Bicep files into `docs/references/<path>/<file>.md` as `## comment:N` sections, losslessly
 (`Build-CommentView` puts them back, `Test-Comments` gates it). 1,076 comment pages exist beside 158 explanation pages.
 
 Measured on 2026-10-16 with `out/measure-text-in-source.ps1` (tracked files; vendor, `assets/`, tests and fixtures counted apart):
 
-| Where                          |  Files | Multi-line comment runs | Single-line comments | Head `config:` lines |
-| ------------------------------ | -----: | ----------------------: | -------------------: | -------------------: |
-| source `ps1`                   |    719 |                6 (17 lines) |                 602 |               14,572 |
-| source `psm1`                  |     27 |                       0 |                   80 |                    - |
-| source `cs`                    |    261 |                       0 |                1,091 |             not read |
-| source `yml` and `yaml`        |    102 |            18 (71 lines) |                  150 |                    - |
-| tests `ps1`                    |    787 |                  1 (2 lines) |                 586 |                    - |
-| `assets/` (copied verbatim)    |     51 |           79 (545 lines) |                  61 |                    - |
-| vendor (third party)           |      6 |        351 (2,013 lines) |                 546 |                    - |
+| Where                       | Files | Multi-line comment runs | Single-line comments | Head `config:` lines |
+| --------------------------- | ----: | ----------------------: | -------------------: | -------------------: |
+| source `ps1`                |   719 |            6 (17 lines) |                  602 |               14,572 |
+| source `psm1`               |    27 |                       0 |                   80 |                    - |
+| source `cs`                 |   261 |                       0 |                1,091 |             not read |
+| source `yml` and `yaml`     |   102 |           18 (71 lines) |                  150 |                    - |
+| tests `ps1`                 |   787 |             1 (2 lines) |                  586 |                    - |
+| `assets/` (copied verbatim) |    51 |          79 (545 lines) |                   61 |                    - |
+| vendor (third party)        |     6 |       351 (2,013 lines) |                  546 |                    - |
 
 What the numbers say:
 
 - **The comment text has mostly left.** About 88 lines of multi-line comments remain in source files, plus the 2 comments `Format-Code`
   reported as pending. Finishing them is a run of the existing tool.
-- **The bulk of the remaining prose is the head `config:` of the PowerShell files: 14,572 lines across 719 files**, about 20 per file, up
-  to 109 in one. That is the `synopsis`, `description`, `parameters`, `outputs` and `examples`, which
+- **The bulk of the remaining prose is the head `config:` of the PowerShell files: 14,572 lines across 719 files**, about 20 per file, up to
+  109 in one. That is the `synopsis`, `description`, `parameters`, `outputs` and `examples`, which
   [ADR-REPO-HELP#1](../docs/adr/repository/function-help.md#rule-adr-repo-help1) makes the function's help itself: structured data a tool
   parses, with no comment-based help block anywhere. It is the largest block of prose left in source files, and it is sanctioned there
   (decision D2 below).
 - **About 1,900 single-line comments remain in source.** Each is a candidate for one of three verdicts: stays as insight, deleted because it
   restates the code, or moved because it is long or explains design.
-- **Not yet measured:** long string literals and here-strings (throw messages, templates), long values in YAML data (`description:` keys
-  and similar), and C# heads and `///` documentation, where my reader found no head. Step 2.0 measures them.
+- **Not yet measured:** long string literals and here-strings (throw messages, templates), long values in YAML data (`description:` keys and
+  similar), and C# heads and `///` documentation, where my reader found no head. Step 2.0 measures them.
 - **Folders outside the page map.** The ledger run found multi-line comments with ADR citations in `.github/workflows/*.yml` and
   `.claude/drawio/` scripts. `comments.yml` maps pages only for `automation/`, `pipelines/`, `infrastructure/` and `.claude/hooks/`, so the
   exporter never moved those comments. Step 2.0 measures them and adds the folders to the `pages` map if the count warrants it.
@@ -338,16 +338,15 @@ What the numbers say:
 
 ## The rule to settle first
 
-[ADR-REPO-COMMENTS#2](../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments2) says a moved comment is a section of the page
-that holds its lines exactly and that the view puts back unchanged, and
-[#3](../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3) puts every page under `docs/references/`. Sorting text into
-`docs/explanation/` therefore cannot be done by lifting a section out of a page, because the round-trip would no longer reproduce the file.
-Two ways to reconcile (decision D1):
+[ADR-REPO-COMMENTS#2](../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments2) says a moved comment is a section of the page that
+holds its lines exactly and that the view puts back unchanged, and [#3](../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3)
+puts every page under `docs/references/`. Sorting text into `docs/explanation/` therefore cannot be done by lifting a section out of a page,
+because the round-trip would no longer reproduce the file. Two ways to reconcile (decision D1):
 
 - **(a) Keep the page lossless; write the explanation beside it.** The comment page stays the sister page and keeps its sections. A new
-  `docs/explanation/<area>/<topic>.md` article carries the *why* that several pages share, and the page's section links to it. No rule
-  changes. The text exists twice only where the page holds the verbatim comment and the article holds the synthesis, which is a second
-  copy of some words. This is the cheapest and keeps `Test-Comments` as is.
+  `docs/explanation/<area>/<topic>.md` article carries the _why_ that several pages share, and the page's section links to it. No rule
+  changes. The text exists twice only where the page holds the verbatim comment and the article holds the synthesis, which is a second copy
+  of some words. This is the cheapest and keeps `Test-Comments` as is.
 - **(b) Let a section be promoted.** Amend COMMENTS#2/#3 so a section may be marked `promoted: <article>`, the view reads its text from the
   article, and `Test-Comments` follows the pointer. One living copy, but it changes a rule, the view builder and the gate in one change.
 
@@ -357,20 +356,21 @@ Decided: (a). (b) is revisited only if the duplication proves a real burden.
 
 ### Step 2.0: inventory every piece of larger text
 
-An `out/` script writes `out/source-text-ledger.csv`, one row per piece, for all five languages: `file, kind, line, lines, chars, text,
-verdict, destination, note`. Kinds: `comment-run`, `string-literal`, `data-value`, `single-line-comment`, `xml-doc`. The head `config:` is
-not inventoried (D2) and tests are not scanned (D3). The script first reports the size distribution of string literals and data values so
-the threshold can be chosen from it (D5); thresholds (lines and characters) are settings with a default, not constants in the script.
+An `out/` script writes `out/source-text-ledger.csv`, one row per piece, for all five languages:
+`file, kind, line, lines, chars, text, verdict, destination, note`. Kinds: `comment-run`, `string-literal`, `data-value`,
+`single-line-comment`, `xml-doc`. The head `config:` is not inventoried (D2) and tests are not scanned (D3). The script first reports the
+size distribution of string literals and data values so the threshold can be chosen from it (D5); thresholds (lines and characters) are
+settings with a default, not constants in the script.
 
 ### Step 2.1: verdicts
 
-| Verdict         | When                                                                                                                 | Result                                                     |
-| --------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| **stay**        | One line of insight the code does not state: an invariant, an order it depends on, an edge it guards, why a branch exists. | none                                                       |
-| **delete**      | A clear restatement of the next line of code (D4); a near-duplicate stays.                                            | removed; the page keeps no copy, because there is nothing to keep |
-| **reference**   | What a thing is or does: interface, config keys, formats, behaviours, examples.                                       | the page, as a section                                     |
-| **explanation** | Why it is this way: trade-offs, rationale, how parts fit; present tense, plain language.                              | an explanation article, linked from the page (D1 a)        |
-| **rule**        | The text states a rule that belongs in an ADR.                                                                        | flagged to you; nothing moves                              |
+| Verdict         | When                                                                                                                       | Result                                                            |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **stay**        | One line of insight the code does not state: an invariant, an order it depends on, an edge it guards, why a branch exists. | none                                                              |
+| **delete**      | A clear restatement of the next line of code (D4); a near-duplicate stays.                                                 | removed; the page keeps no copy, because there is nothing to keep |
+| **reference**   | What a thing is or does: interface, config keys, formats, behaviours, examples.                                            | the page, as a section                                            |
+| **explanation** | Why it is this way: trade-offs, rationale, how parts fit; present tense, plain language.                                   | an explanation article, linked from the page (D1 a)               |
+| **rule**        | The text states a rule that belongs in an ADR.                                                                             | flagged to you; nothing moves                                     |
 
 Algorithmic insight (why this order, why this bound, what the loop keeps true) stays in the file as one line and is never moved, even if it
 is long to say; if it needs more than a line it moves and the line points nowhere (nothing in the file, ADR-REPO-COMMENTS#1).
@@ -406,12 +406,12 @@ applied; `Test-Comments` and `Test-FileMeta` clean. The head `config:` line coun
 
 Decided on 2026-10-16:
 
-1. **D1, destination:** option (a). A comment page stays lossless, and an explanation article in `docs/explanation/` carries the *why* that
-   several sections share, linked from the page's sections. COMMENTS#2/#3 are not amended. Option (b), promoting a section to an article,
-   is revisited only if the duplicated words prove a real burden.
+1. **D1, destination:** option (a). A comment page stays lossless, and an explanation article in `docs/explanation/` carries the _why_ that
+   several sections share, linked from the page's sections. COMMENTS#2/#3 are not amended. Option (b), promoting a section to an article, is
+   revisited only if the duplicated words prove a real burden.
 2. **D2, head `config:` of the 719 PowerShell files (14,572 lines):** stays in place. The head is the function's help by rule
-   ([ADR-REPO-HELP#1](../docs/adr/repository/function-help.md#rule-adr-repo-help1)); moving a description out would amend HELP#1/#2 and needs a
-   page section with no code line, which COMMENTS#2 has no form for. Only outliers of several dozen lines get a hand review later.
+   ([ADR-REPO-HELP#1](../docs/adr/repository/function-help.md#rule-adr-repo-help1)); moving a description out would amend HELP#1/#2 and
+   needs a page section with no code line, which COMMENTS#2 has no form for. Only outliers of several dozen lines get a hand review later.
 3. **D3, tests:** out of this pass. They hold one multi-line comment and 586 single-line ones.
 4. **D4, deleting one-liners:** delete only a clear restatement of the next line of code. Everything else stays, and near-duplicates are
    left alone. Every `delete` verdict is in your 5% read first, since a deletion is recoverable only through git.
