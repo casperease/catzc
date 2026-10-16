@@ -25,7 +25,7 @@ Describe 'Save-FileMetaResult' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
             FileCount = 3
             Files     = @(
                 [pscustomobject]@{ Path = 'docs/widget.md'; Findings = @([pscustomobject]@{ Kind = 'Drift' }); Fixed = "---`ncatzc:`n---`n# Widget`n" }
-                [pscustomobject]@{ Path = 'docs/gadget.md'; Findings = @([pscustomobject]@{ Kind = 'Unowned'; Actual = 'catzc.derived.colour' }); Fixed = "unchanged`n" }
+                [pscustomobject]@{ Path = 'docs/gadget.md'; Findings = @([pscustomobject]@{ Kind = 'Unowned'; Actual = 'catzc.immutable.colour' }); Fixed = "unchanged`n" }
                 [pscustomobject]@{ Path = 'automation/Widget/Get-Cog.ps1'; Findings = @([pscustomobject]@{ Kind = 'UnownedHead'; Actual = 'catzc head.colour' }); Fixed = "unchanged`n" }
             )
         }

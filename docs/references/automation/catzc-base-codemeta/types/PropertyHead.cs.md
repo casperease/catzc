@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ae63f2f8bf8b
+    with_body_sha: "43bb55c0b666"
     path: docs/references/automation/catzc-base-codemeta/types/PropertyHead.cs.md
     folder: docs/references/automation/catzc-base-codemeta/types
     name: property-head-cs
@@ -25,6 +25,6 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `public string WithFacts(IDictionary derived)`, written with `//`.
 
 ```text
-The whole text again with the property written from `derived` in the order given and the authored config kept; nothing to write removes it
+The whole text again with the property written from the place facts and the edges in the order given and the authored config kept; nothing to write removes it
 (ADR-REPO-FILEMETA#8). A text that is no object, or whose property holds something foreign, comes back as it was.
 ```

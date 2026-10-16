@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3c30ae3e63b3"
+    with_body_sha: "46f3d3a6a209"
     path: docs/adr/repository/function-help.md
     folder: docs/adr/repository
     name: function-help
@@ -118,7 +118,7 @@ runs after the formatter and the meta head.
 ### How this is enforced
 
 - **`Format-Code`** checks the help through the `ps-help` step, and **`Test-Formatting`** fails any file it reports.
-- **`Test-FileMeta`** fails a head whose derived part differs from what the formatter would write.
+- **`Test-FileMeta`** fails a head whose imprinted parts differ from what the formatter would write.
 - **`PSProvideCommentHelp`** is off in the analyzer settings, because no function carries a comment-based help block.
 
 ## Consequences

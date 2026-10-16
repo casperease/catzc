@@ -80,11 +80,12 @@ Notes:
   key exists; the definitions and the globs may change, and a consumer extends the registry with a config fragment of its own.
 - `Catzc.Base.QualityGates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the shape a tool may rely on when it reads the
-  `catzc.derived` part of a head, written by Format-FileMeta in the carrier of the file (a comment head, or Markdown front matter). Every
-  key is optional except `path` and `kind`, and a fact a file has no value for is left out. Its schema, head.schema.json, lists the keys.
+  `catzc.immutable` and `catzc.edges` parts of a head, written by Format-FileMeta in the carrier of the file (a comment head, or Markdown
+  front matter). Every key is optional except `path` and `kind`, and a fact a file has no value for is left out. Its schema,
+  head.schema.json, lists the keys.
 - `Catzc.Base.QualityGates/head.schema.json`: Provided schema of a file's meta head, validated against the sample beside it
-  (ADR-REPO-CONTRACT#6): the keys of catzc.derived, which a tool may rely on. A fact a file has no value for is left out, so only path and
-  kind are required.
+  (ADR-REPO-CONTRACT#6): the keys of catzc.immutable (the place facts) and catzc.edges (the outgoing edges), which a tool may rely on. A
+  fact a file has no value for is left out, so only path and kind are required.
 - `Catzc.Tooling.Github/workflows/ci-automation.yml`: Depended-on fragment of .github/workflows/ci-automation.yml
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the keys GitHub Actions requires to run the
   workflow — the `on` events, and `jobs`, each job with the `runs-on` runner and its `steps`. A null value pins only that the key exists.

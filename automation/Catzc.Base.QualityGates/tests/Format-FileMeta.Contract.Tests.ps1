@@ -24,24 +24,35 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/Catzc.Base.QualityGates'
         $script:sample = Get-Content -LiteralPath (Join-Path $folder 'head.sample.yml') -Raw | ConvertFrom-Yaml -Ordered
         $script:schema = Get-Content -LiteralPath (Join-Path $folder 'head.schema.json') -Raw | ConvertFrom-Json -AsHashtable
-        $imprinted = (Get-Config -Config file-meta).Imprint() | ForEach-Object { $_.keys }
+        $registry = Get-Config -Config file-meta
         $composed = (Get-Config -Config generated-head).order
-        $script:written = @($imprinted + $composed | Sort-Object -Unique)
+        # The generated-file head holds place facts only, so its keys join the registry's immutable ones.
+        $script:writtenImmutable = @($registry.KeysOf('immutable') + $composed | Sort-Object -Unique)
+        $script:writtenEdges = @($registry.KeysOf('edges') | Sort-Object -Unique)
+        $script:parts = $script:schema['properties']['catzc']['properties']
     }
 
-    It 'lists in its schema exactly the keys the meta kinds and the generated-file head write' {
-        $listed = @($script:schema['properties']['catzc']['properties']['derived']['properties'].Keys | Sort-Object)
-        $listed | Should -Be $script:written
+    It 'lists in its schema exactly the place facts the meta kinds and the generated-file head write' {
+        $listed = @($script:parts['immutable']['properties'].Keys | Sort-Object)
+        $listed | Should -Be $script:writtenImmutable
     }
 
-    It 'holds a sample whose every key is one the code writes' {
-        foreach ($key in $script:sample['catzc']['derived'].Keys) {
-            $key | Should -BeIn $script:written
+    It 'lists in its schema exactly the edges the meta kinds write' {
+        $listed = @($script:parts['edges']['properties'].Keys | Sort-Object)
+        $listed | Should -Be $script:writtenEdges
+    }
+
+    It 'holds a sample whose every key is one the code writes, in the part the code writes it' {
+        foreach ($key in $script:sample['catzc']['immutable'].Keys) {
+            $key | Should -BeIn $script:writtenImmutable
+        }
+        foreach ($key in $script:sample['catzc']['edges'].Keys) {
+            $key | Should -BeIn $script:writtenEdges
         }
     }
 
     It 'binds a code file to nothing outside its own module and its docs section' {
-        $relatives = (Get-Config -Config file-meta).kinds | Where-Object id -eq 'relatives'
+        $relatives = (Get-Config -Config file-meta).kinds | Where-Object id -eq 'relative-edges'
         foreach ($relation in $relatives.settings['relations']) {
             foreach ($rule in $relation['rules']) {
                 foreach ($path in $rule['paths']) {
@@ -51,16 +62,18 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         }
     }
 
-    It 'names the relations the head may hold in its schema, and no more than the config declares' {
-        $relatives = (Get-Config -Config file-meta).kinds | Where-Object id -eq 'relatives'
+    It 'names the relations the head may hold as edges in its schema, and no more than the config declares' {
+        $relatives = (Get-Config -Config file-meta).kinds | Where-Object id -eq 'relative-edges'
         $declared = @($relatives.settings['relations'] | ForEach-Object { $_['name'] } | Sort-Object)
-        $listed = @($script:schema['properties']['catzc']['properties']['derived']['properties']['relatives']['properties'].Keys | Sort-Object)
-        $listed | Should -Be $declared
+        $declared | Should -Be @($relatives.keys | Sort-Object)
+        foreach ($name in $declared) {
+            $script:parts['edges']['properties'].Keys | Should -Contain $name
+        }
     }
 
     It 'requires the two keys no head is without' {
-        $script:schema['properties']['catzc']['properties']['derived']['required'] | Should -Be @('path', 'kind')
-        $script:sample['catzc']['derived'].Keys | Should -Contain 'path'
-        $script:sample['catzc']['derived'].Keys | Should -Contain 'kind'
+        $script:parts['immutable']['required'] | Should -Be @('path', 'kind')
+        $script:sample['catzc']['immutable'].Keys | Should -Contain 'path'
+        $script:sample['catzc']['immutable'].Keys | Should -Contain 'kind'
     }
 }

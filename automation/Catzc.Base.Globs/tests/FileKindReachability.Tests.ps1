@@ -1,13 +1,19 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1
+    folder: tests
+    name: file-kind-reachability-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
-    adrs:
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#2
 ---
 #>

@@ -1,20 +1,21 @@
 {
-  "$comment": "Provided schema of a file's meta head, validated against the sample beside it (ADR-REPO-CONTRACT#6): the keys of catzc.derived, which a tool may rely on. A fact a file has no value for is left out, so only path and kind are required.",
+  "$comment": "Provided schema of a file's meta head, validated against the sample beside it (ADR-REPO-CONTRACT#6): the keys of catzc.immutable (the place facts) and catzc.edges (the outgoing edges), which a tool may rely on. A fact a file has no value for is left out, so only path and kind are required.",
   "type": "object",
   "required": ["catzc"],
   "additionalProperties": false,
   "properties": {
     "catzc": {
       "type": "object",
-      "required": ["derived"],
+      "required": ["immutable"],
       "additionalProperties": false,
       "properties": {
         "config": { "type": "object" },
-        "derived": {
+        "immutable": {
           "type": "object",
           "required": ["path", "kind"],
           "additionalProperties": false,
           "properties": {
+            "with_body_sha": { "type": "string" },
             "path": { "type": "string" },
             "folder": { "type": "string" },
             "name": { "type": "string" },
@@ -28,19 +29,18 @@
             "moduletype": { "type": "string" },
             "catzc_bundle": { "type": "string" },
             "generator": { "type": "string" },
-            "body_sha": { "type": "string" },
-            "visibility": { "type": "string", "enum": ["public", "private"] },
-            "relatives": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "page": { "type": "string" },
-                "test": { "type": "string" }
-              }
-            },
+            "visibility": { "type": "string", "enum": ["public", "private"] }
+          }
+        },
+        "edges": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
             "defines": { "type": "array", "items": { "type": "string" } },
-            "adrs": { "type": "array", "items": { "type": "string" } },
-            "links": { "type": "array", "items": { "type": "string" } }
+            "cites": { "type": "array", "items": { "type": "string" } },
+            "links": { "type": "array", "items": { "type": "string" } },
+            "page": { "type": "string" },
+            "test": { "type": "string" }
           }
         }
       }

@@ -106,18 +106,5 @@ function Get-AdrCodesFileMetaFact {
             }
         }
     }
-    # TEMPORARY (one-time re-imprint, deleted with it): the codes a head held under the retired `derived.adrs` list.
-    if ($held -and $State.PSObject.Properties['LegacyAdrs']) {
-        foreach ($token in $State.LegacyAdrs) {
-            try {
-                foreach ($code in [Catzc.Base.Docs.AdrCodeForm]::Expand($token)) {
-                    [void] $codes.Add($code)
-                }
-            }
-            catch [System.FormatException] {
-                continue
-            }
-        }
-    }
     [ordered]@{ $Kind.keys[0] = [string[]] @([Catzc.Base.Docs.AdrCodeForm]::Minimize([string[]] @($codes), $map)) }
 }

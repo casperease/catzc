@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0de04e1f42fa"
+    with_body_sha: "6e6da64ae318"
     path: docs/references/automation/catzc-base-markdownmeta.md
     folder: docs/references/automation
     name: catzc-base-markdownmeta
@@ -34,12 +34,12 @@ config contributions. The registry of meta kinds, the processors and the `Format
 ### responsibility:1 — Reading a text's meta
 
 What a Markdown text says about its own meta block: whether it has front matter and a block, its body and the hash of that body, the keys
-directly under `catzc` and under `derived`, and the authored config lines as written. The hash drops the blank line that separates written
+directly under `catzc`, under `immutable` and the names of the edges under `edges`, and the authored config lines as written. The hash drops the blank line that separates written
 front matter from the body, so imprinting never changes the hash it records.
 
 ### responsibility:2 — Imprinting derived facts
 
-Returning a text with its `derived` part written from the facts given, in one canonical form and in the order given, so the same facts
+Returning a text with its `immutable` and `edges` parts written from the facts and edges given, in one canonical form and in the order given, so the same facts
 always give the same bytes. The authored `config` part and every other byte of the text are kept, and the line endings are the text's own.
 
 ### responsibility:3 — Leaving the meta out

@@ -57,8 +57,7 @@ function Invoke-FileMetaEngine {
         })
     $ownedImmutable = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.KeysOf('immutable')))
     $ownedEdges = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.KeysOf('edges')))
-    # TEMPORARY (one-time re-imprint, deleted with it): the retired `derived` section is read, its facts are rebuilt into the new parts.
-    $parts = 'immutable', 'edges', 'config', 'derived'
+    $parts = 'immutable', 'edges', 'config'
 
     $entries = foreach ($entry in $files) {
         $file = $entry.Path
