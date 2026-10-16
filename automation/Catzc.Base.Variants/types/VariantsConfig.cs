@@ -35,7 +35,7 @@ namespace Catzc.Base.Variants;
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
-    private static readonly string[] AllowedTrackKeys = { "places", "type", "vendor", "languages" };
+    private static readonly string[] AllowedTrackKeys = { "places", "type", "vendor", "languages", "execution_engines", "module_execution_engines" };
     private static readonly Regex CustomerName = new Regex("^[a-z][a-z0-9]+$");
     private static readonly Regex AspectName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
@@ -306,8 +306,60 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 else { languages.Add(language); }
             }
 
-            result.Add(new VariantTrack(name, places.ToArray(), trackType, vendor, languages.ToArray()));
+            List<string> engines = ReadEngines(string.Format("tracks['{0}'].execution_engines", name), Has(entry, "execution_engines") ? entry["execution_engines"] : null, errors);
+
+            Dictionary<string, string[]> moduleEngines = new Dictionary<string, string[]>(StringComparer.Ordinal);
+            if (Has(entry, "module_execution_engines"))
+            {
+                IDictionary overrides = entry["module_execution_engines"] as IDictionary;
+                if (overrides == null)
+                {
+                    errors.Add(string.Format("tracks['{0}']: module_execution_engines must be a map of module name -> list of execution engines", name));
+                }
+                else
+                {
+                    foreach (object moduleKey in overrides.Keys)
+                    {
+                        string module = Text(moduleKey);
+                        List<string> own = ReadEngines(string.Format("tracks['{0}'].module_execution_engines['{1}']", name, module), overrides[moduleKey], errors);
+                        if (own.Count == 0)
+                        {
+                            errors.Add(string.Format("tracks['{0}'].module_execution_engines['{1}'] must name at least one engine (drop the entry to take the track's)", name, module));
+                        }
+                        else if (engines.Count > 0 && own.SequenceEqual(engines))
+                        {
+                            errors.Add(string.Format("tracks['{0}'].module_execution_engines['{1}'] repeats the track's engines (an override differs from the track's list)", name, module));
+                        }
+                        else
+                        {
+                            moduleEngines[module] = own.ToArray();
+                        }
+                    }
+                }
+            }
+
+            result.Add(new VariantTrack(name, places.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines));
         }
         return result;
+    }
+
+    // A list of execution engines, each one of the closed set and named once. An absent list is empty: the choice is left open as auto.
+    private static List<string> ReadEngines(string where, object value, List<string> errors)
+    {
+        List<string> engines = new List<string>();
+        foreach (object item in Items(value))
+        {
+            string engine = Text(item);
+            if (!Catzc.Base.Engines.ExecutionEngines.Names.Contains(engine))
+            {
+                errors.Add(string.Format("{0}: unknown execution engine '{1}' (one of: {2})", where, engine, string.Join(", ", Catzc.Base.Engines.ExecutionEngines.Names)));
+            }
+            else if (engines.Contains(engine))
+            {
+                errors.Add(string.Format("{0}: duplicate execution engine '{1}'", where, engine));
+            }
+            else { engines.Add(engine); }
+        }
+        return engines;
     }
 }

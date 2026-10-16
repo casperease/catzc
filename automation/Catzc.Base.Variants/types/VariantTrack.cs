@@ -45,13 +45,34 @@ public sealed class VariantTrack
 
     public IReadOnlyList<string> languages { get; }
 
-    public VariantTrack(string name, string[] places, string type, string vendor, string[] languages)
+    // The execution engines the track's modules run under, a subset of the closed set; empty when the track leaves the choice open as auto.
+    public IReadOnlyList<string> execution_engines { get; }
+
+    // The modules whose engines differ from the track's: module name -> the engines it names. Empty when none differs.
+    public IReadOnlyDictionary<string, IReadOnlyList<string>> module_execution_engines { get; }
+
+    public VariantTrack(string name, string[] places, string type, string vendor, string[] languages, string[] executionEngines = null,
+        IDictionary<string, string[]> moduleExecutionEngines = null)
     {
+        this.execution_engines = executionEngines == null ? Array.Empty<string>() : (string[])executionEngines.Clone();
+        Dictionary<string, IReadOnlyList<string>> overrides = new Dictionary<string, IReadOnlyList<string>>(StringComparer.Ordinal);
+        if (moduleExecutionEngines != null)
+        {
+            foreach (KeyValuePair<string, string[]> pair in moduleExecutionEngines) { overrides[pair.Key] = (string[])pair.Value.Clone(); }
+        }
+        this.module_execution_engines = overrides;
         this.name = name;
         this.places = places == null ? Array.Empty<string>() : (string[])places.Clone();
         this.type = type;
         this.vendor = string.IsNullOrEmpty(vendor) ? null : vendor;
         this.languages = languages == null ? Array.Empty<string>() : (string[])languages.Clone();
+    }
+
+    // The engines a module of this track runs under: its own override when it names one, else the track's list (empty: auto).
+    public IReadOnlyList<string> EnginesOf(string module)
+    {
+        IReadOnlyList<string> own;
+        return module != null && module_execution_engines.TryGetValue(module, out own) ? own : execution_engines;
     }
 
     // The length of the longest place that contains a '/'-separated repository-relative path, or -1 when none does.
