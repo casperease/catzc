@@ -16,6 +16,7 @@ catzc:
     page: docs/references/automation/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
     cites:
       - ADR-AUTO-DEFAULT#6
+      - ADR-CONF-ADDRESSING#1
 ---
 #>
 

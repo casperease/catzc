@@ -397,8 +397,8 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-FILEMETA#13
     short:
-      The facts under the immutable part of a meta block: what the repository's own configuration makes of a file's location, such as its
-      path, kind, language, track and module, each read from a registry and never from the file's text.
+      The facts under the immutable part of a meta block, which are what the repository's own configuration makes of a file's location, such
+      as its path, kind, language, track and module, each read from a registry and never from the file's text.
     realized_by: { kind: prose-only }
     contrasts:
       edge: The place facts are properties of the file as a node, read from the repository's configuration; an edge is a named relation leaving the file, read from its text.

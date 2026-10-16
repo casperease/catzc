@@ -51,6 +51,8 @@ configs:
     type: Catzc.Base.Globs.FileKindsConfig
   module-types:
     type: Catzc.Base.Variants.ModuleTypesConfig
+  track-types:
+    type: Catzc.Base.Variants.TrackTypesConfig
   adrs:
     type: Catzc.Base.Docs.AdrsConfig
   adr-checks:

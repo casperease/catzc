@@ -1,3 +1,20 @@
+/*
+---
+catzc:
+  immutable:
+    path: automation/Catzc.Base.Variants/types/VendorEntry.cs
+    folder: types
+    name: vendor-entry
+    filetype: cs
+    kind: type
+    language: csharp
+    track: automation
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+---
+*/
+
 namespace Catzc.Base.Variants;
 
 // One vendor of the track-types registry: the platform or tool that reads a track's files, with its one-sentence definition.

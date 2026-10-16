@@ -918,6 +918,18 @@ The repository's conventions and decision records — its ADRs and the rules the
 | ------------- | ------------------------ |
 | `house rules` | domain rules / ADR rules |
 
+### edge
+
+One named relation under the edges part of a meta block, from the file to a rule code, a file or a URL, such as defines, cites, links, page
+or test, written on its source only.
+
+- **Defined by:** [ADR-REPO-FILEMETA#13](repository/file-meta.md#rule-adr-repo-filemeta13)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [place facts](#place-facts): An edge is a named relation leaving the file, read from its text; the place facts are properties of the
+    file as a node, read from the repository's configuration.
+
 ### facet
 
 One of several parallel views of, or checks on, the same thing, none above another — a build facet (types, load, parity, manifest) or a
@@ -1059,6 +1071,18 @@ files, with the files it applies to, the keys it owns and, for a gather kind, th
   - [kind](#kind): A kind is the role one file plays; a meta kind is a registry entry that says which derived fact goes into a head.
   - [meta block](#meta-block): The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block
     across files.
+
+### place facts
+
+The facts under the immutable part of a meta block, which are what the repository's own configuration makes of a file's location, such as
+its path, kind, language, track and module, each read from a registry and never from the file's text.
+
+- **Defined by:** [ADR-REPO-FILEMETA#13](repository/file-meta.md#rule-adr-repo-filemeta13)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [edge](#edge): The place facts are properties of the file as a node, read from the repository's configuration; an edge is a named
+    relation leaving the file, read from its text.
 
 ### provided contract
 

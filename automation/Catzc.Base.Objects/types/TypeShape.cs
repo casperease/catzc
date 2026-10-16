@@ -13,7 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    page: docs/references/automation/catzc-base-objects/types/TypeShape.cs.md
+    cites:
+      - ADR-AUTO-CACHE
+      - ADR-AUTO-TYPES#7
 ---
 */
 

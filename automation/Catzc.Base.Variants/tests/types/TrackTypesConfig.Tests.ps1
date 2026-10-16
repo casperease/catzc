@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    path: automation/Catzc.Base.Variants/tests/types/TrackTypesConfig.Tests.ps1
+    folder: tests/types
+    name: track-types-config-tests
+    filetype: ps1
+    kind: test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-DSGN-TRACKTYPE#1
+---
+#>
+
 Describe 'TrackTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACKTYPE#1' {
     BeforeAll {
         function script:New-Config {
