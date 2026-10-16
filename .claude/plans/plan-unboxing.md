@@ -61,6 +61,8 @@ with no new allocation, else it is reverted.
 ## Needed tests
 
 - automation/.compiled holds exactly one Catzc.Types.*.dll after the user commits it.
+- Gate findings a peer session reported in this work's files (2026-10-16 15:14), not fixed by anyone yet: a Test-Glossary finding and
+  Test-Markdownlint findings in the unboxing article; Test-Links bare citations in TypeShape.cs (Format-Links aligns them).
 - Test-ShippedTypes re-run in a fresh process: it flagged Catzc.Base.Variants TrackTypeEntry and VendorEntry ("does not resolve after
   import"); not part of this work; report only, fix nothing unless the user says so.
 

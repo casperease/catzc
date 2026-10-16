@@ -71,6 +71,11 @@ its plan, and reference-unboxing.md sits beside plan-unboxing. out/ holds README
 
 ## Pastes processed
 
+- 2026-10-16 15:14, tracks, track types and vendors: ADR-DSGN-TRACKTYPE and the code landed (verified: seven rules, VariantTrack with
+  places, type, vendor), the WorldMapBuilder link fix, four peer gate findings, the stale head.schema.json, two user choices. Landed in
+  plan-module-kinds-tracks (track model done, choices open), plan-unboxing (findings in its article and TypeShape.cs) and
+  plan-file-head-immutable-edges-classes (file-meta.md lint, stale contract). Its carried track-type draft is now marked superseded.
+
 - 2026-10-16 15:22, unboxing: P1 to P3 done, the commit step (Clear-ModuleTypeCache, one DLL), the five-file test scope, the
   Test-ShippedTypes flag, the optional ADR line, P4 and P5 unplanned until a go. Landed in plan-unboxing, together with findings F1 to
   F7 recovered from the deleted findings file (F8 and F9 were not read before deletion and are lost from this folder; the shipped

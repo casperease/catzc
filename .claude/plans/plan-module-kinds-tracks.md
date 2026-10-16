@@ -3,7 +3,7 @@ plan:
   status: active
   value: high
   reviewed: 2026-10-16
-  next: run out/prompt-module-model-1-prepare.md in a fresh, read-only session
+  next: run prompt-module-model-1-prepare.md (beside this file) in a fresh, read-only session; track types and vendors are landed
   targets: [automation/Catzc.Base.ModuleSystem, automation/Catzc.Base.Variants, automation/Catzc.Base.Globs/configs, docs/adr/automation, docs/adr/design]
 ---
 
@@ -29,6 +29,19 @@ one landing.
 - k8s plan Q1 to Q3, D1, uniqueness per track, namespace deferred: taken as recommended (section 6 of that draft).
 - Module-model Q-A to Q-G: recommendations stand as working decisions; the prepare prompt closes them read-only and drafts the ADR.
 
+## Done, and why: tracks, track types and vendors as ADRs and code (session report of 2026-10-16 15:14, verified in the tree)
+
+- ADR-DSGN-TRACKTYPE, docs/adr/design/track-types.md, seven rules; docs/adr/design/module-types.md alongside. VariantTrack carries
+  places (plural, so a track is a cluster of places), type (a track-types registry id) and vendor (the vendor that reads the track's
+  files, or none); VariantsConfig and Get-Track tests updated. The carried track-type draft below is superseded where the ADR speaks;
+  its Q1 to Q5 are answered by the ADR's rules, not by this file.
+- Format-Links aligned two bare citations in WorldMapBuilder.cs; WorldMapBuilder.Tests.ps1 passes (21). Test-Links was not rerun
+  there; its two findings in that file should be gone.
+- Left open by that session: the stale head.schema.json contract (the head gained tracktype and vendor; see
+  plan-file-head-immutable-edges-classes, which owns the contract); and two user choices: which vendored files stay with their users,
+  and whether the kits under .claude (agents, drawio) become separate tracks.
+- Peer-reported, unowned here: 3 Get-ModuleProtectionIdentity test failures (ModuleSystem), not from that session's changes.
+
 ## Needed docs
 
 - ADR-AUTO-MODULE, new (domain automation, recommended; LoadedModule provenance as one rule of it).
@@ -48,7 +61,9 @@ one landing.
 - [ ] Copy the two plans and two prompts to the scratchpad, then run the prepare prompt (check: its read-only report and ADR draft in out/).
 - [ ] Run the implement prompt (check: ModuleSystem and Variants tests; the two old getters gone).
 - [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean).
-- [ ] Track type in variants.yml and the head; answer track-type Q1 to Q5 first (check: Format-GeneratedFileHead and Variants tests).
+- [ ] Rerun Test-Links on WorldMapBuilder.cs (check: zero findings there).
+- [ ] User choices: vendored files staying with their users; .claude kits as separate tracks (recorded, left open).
+- [ ] Look at the 3 Get-ModuleProtectionIdentity failures when the module model touches ModuleSystem (check: that test file).
 - [ ] Tell plan-config-defaults and plan-layers-vocabulary-rename-contracts when implemented (their waits_on clears).
 
 ## Refs

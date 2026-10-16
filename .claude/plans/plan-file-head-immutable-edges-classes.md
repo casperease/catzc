@@ -82,6 +82,9 @@ approved list. That file continued out/continuation-prompt-markerless.md (marker
 - [ ] The visibility head key: undecided, and redundant with the kinds. asset kept as a top-level kind (matches ADR-AUTO-ASSETDEP; that
   match was not re-read).
 - Rule to keep from that session: peers edit the same tree, grep to confirm an edit still holds before building on it; no git writes.
+- [ ] Reported by the tracks session (15:14): Test-Markdownlint findings in docs/adr/repository/file-meta.md, and head.schema.json is
+  stale against the head keys tracktype and vendor that landed with ADR-DSGN-TRACKTYPE (the contract regeneration is step 6 of the
+  carried immutable and edges draft).
 
 ## Done, and why: head path split, module-type ids, catzc_bundle (2026-10-16)
 
