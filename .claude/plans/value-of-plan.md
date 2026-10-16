@@ -31,7 +31,7 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 | high        | plan-config-defaults                    | An existing rule (AUTO-DEFAULT#6) is broken and two defaults disagree today.                             | amend AUTO-DEFAULT#6, OVERLAY#1 #8, CONTRACT#6, CONF-LOADING; assert ladder                                                | VariantsConfig and five getters; overlay source-mode; defaults contract gate; audit of every typed config | decided; prompt written; Phase 2 waits on module model |
 | high        | plan-layers-vocabulary-rename-contracts | Settles six words and names the public API.                                                              | ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ADR-REPO-CMDCONTRACT new; glossary; ENGINE#4; four collisions                          | three terminology gates; guard rule; Test-Contracts; frozen P0 baseline                                   | Q1-Q11 decided; prompt written; waits on module model  |
 | high        | plan-module-kinds-tracks                | One Module replaces seven views; kind and role split; tracks typed.                                      | ADR-AUTO-MODULE new; DSGN-TRACK extended; glossary                                                                         | resolver tests; file-kinds by track; processor counts; track-type L0                                      | lands first; prepare prompt next                       |
-| medium-high | plan-file-head-immutable-edges-classes  | Head half moved; globs spelled seven times; the kinds registry work is done with four leftovers.         | FILEMETA rule 13; schema and sample; CODEMETA#2                                                                            | contract tests; clean re-imprint; selector tests; five gates on the registry work                         | ADR text edited; registry done, leftovers open         |
+| medium-high | plan-file-head-immutable-edges-classes  | Head shape settled; globs still spelled seven times; registry, formatting and path-split records with leftovers. | schema $comment decision; CODEMETA#2 note | selector tests; five gates on the registry work; contract regeneration | immutable and edges done and verified; classes open; $comment decision open |
 | medium      | plan-adr-link-cleanup-prose-to-pages    | Hygiene now, readable sources later.                                                                     | HELP#3 decision                                                                                                            | TryParse regression; five gates on usage code                                                             | paused on the plans plan                               |
 | medium      | plan-test-run-budget                    | 266 s against a 180 s roof; cache stamp needs an ADR decision.                                           | REPO-FORMAT stamp rule                                                                                                     | warm-cache and invalidation tests; two runs                                                               | two levers landed                                      |
 | medium      | plan-materialization-of-knowledge       | One word and one default for cache versus commit, which several plans lean on.                           | ADR-AUTO-MATERIAL new; glossary; sha-marker plan                                                                           | registry, glossary, link gates; resolver tests later                                                      | draft; 3 choices to confirm                            |
@@ -70,6 +70,23 @@ its plan, and reference-unboxing.md sits beside plan-unboxing. out/ holds README
   plan-unboxing; bounded enumeration is further along than its memory note said (everything built, only the gate run left).
 
 ## Pastes processed
+
+- 2026-10-16 15:35, materialization: the draft's parts, why it was not promoted (adrs.yml, glossary, dora-explains entry, regenerated
+  index; no unconfirmed rule recorded), the three choices as the session's own recommendations, no gates run, memory saved. Landed in
+  plan-materialization-of-knowledge; the three choices stay open.
+
+- 2026-10-16 15:35, config defaults: Q1 to Q7 are recommendations taken as decisions (the user did not restate them; confirm or change
+  is asked), the draft's rewrite, the amended .unordered contracts plan row, cross-plan notes, the dirty Get-Track files, Phase 1 can
+  start. Landed in plan-config-defaults.
+
+- 2026-10-16 15:33, bounded folder enumeration: three bad ADR test tags fixed, the level-2 gate not rerun so unconfirmed, the lesson
+  that a test citation names a real rule in ADR-<CODE>#<n> form, the prompt's rules, and the old draft wording left as is. Landed in
+  plan-bounded-folder-enumeration (its prompt and the gate section were already here).
+
+- 2026-10-16 15:03, immutable and edges: the move done and re-imprinted (verified: 0 derived heads, 1,722 immutable), glossary terms
+  place facts and edge, rule 13 reworded, nine findings gone by another session's hand, one "full suite" finding left in the unboxing
+  article, and the contract schema generator not built with its two reasons and the $comment decision for the user. Landed in
+  plan-file-head-immutable-edges-classes and plan-unboxing.
 
 - 2026-10-16 15:14, tracks, track types and vendors: ADR-DSGN-TRACKTYPE and the code landed (verified: seven rules, VariantTrack with
   places, type, vendor), the WorldMapBuilder link fix, four peer gate findings, the stale head.schema.json, two user choices. Landed in

@@ -9,12 +9,14 @@ plan:
 # The file head: immutable place facts plus declared edges, with globs spelled once as classes
 
 Two drafts. The first splits derived into immutable (place facts read from registries) and edges (defines, cites, links, page, test,
-fixed by the file's text). Its ADR text is edited; everything else is open. The second makes file-kind's ordered classes the only
-place a glob lives, and every other kind selects by class. It waited on the relatives work, which has landed, so it is free.
+fixed by the file's text). It is done, tested and re-imprinted across the repository (session report of 2026-10-16 15:03; verified: no
+head says derived, 1,722 say immutable). One decision from it is open: the contract schema's $comment. The second draft makes
+file-kind's ordered classes the only place a glob lives, and every other kind selects by class. It waited on the relatives work, which
+has landed, so it is free. This file also records the kinds registry, formatting and path-split work on the same head.
 
 ## Why its value is medium-high
 
-The head is the carrier every other plan writes into, and it is half moved. The same glob set is spelled in up to seven kinds today
+The head is the carrier every other plan writes into. Its shape is now settled; the same glob set is still spelled in up to seven kinds
 and each copy can drift. Below the module model plan because that plan decides what some head keys mean before this one writes them.
 
 ## Needed docs
@@ -32,9 +34,25 @@ and each copy can drift. Below the module model plan because that plan decides w
 
 ## Open steps
 
-- [ ] Steps 2 to 8 of the immutable and edges draft (check: Test-FileMeta clean on the tree; contract tests pass).
+- [ ] Decision (user): the contract schema's $comment, generated or hand-written. If generated, the registry first gains the list and
+  fixed-value shape of each key, then the generator (step 6 of the carried draft). Until then the schema stays hand-written and the
+  existing contract test guards its key sets.
 - [ ] Class selectors in file-meta.yml, one kind at a time (check: that kind's processor test; Test-FileMeta clean).
 - [ ] Update the memory note file-head-vocabulary (still says derived).
+
+## Done, and why: derived becomes immutable and edges (session report of 2026-10-16 15:03, verified in the tree)
+
+- The move itself: every head now has immutable (place facts) and, where the file declares relations, edges; re-imprinted repository-wide
+  so the body hashes are fresh. The carried immutable and edges draft below is superseded in its steps 1 to 5, 7 and 8.
+- Glossary: place facts and edge added to Catzc.Base.Docs/configs/glossary.yml, both defined by ADR-REPO-FILEMETA#13 and contrasting
+  each other; rule 13 reworded so the singular edge is the bolded term the gate looks for; the glossary page regenerated.
+- The nine earlier gate and scope findings are gone; that session did not fix them, so another session did.
+- One gate finding left after that round, not that session's: the phrase "full suite" in the unboxing article (see plan-unboxing).
+- Contract schema generator (step 6) not built, by reasoning rather than by omission: the existing contract test already compares the
+  schema's key sets against the registry, so a missing or extra key fails there; a generator would add only the value types, and it
+  meets two problems. Header clash: the schema's $comment must say what the contract pins (ADR-REPO-CONTRACT#9) while a generated head
+  would use the same property, and which wins is undecided. Registry gap: the registry does not say which keys are lists or have a
+  fixed value set, and the sample cannot be generated at all. The user's call is recorded as an open step above.
 
 ## Done, and why: the file-kinds registry work (session catzc-c1 and follow-up, 2026-10-16)
 

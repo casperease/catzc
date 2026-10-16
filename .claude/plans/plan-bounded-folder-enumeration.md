@@ -4,7 +4,7 @@ plan:
   class: feature
   value: medium
   reviewed: 2026-10-16
-  waits_on: the level-2 Test-Automation gate run, which the user runs
+  waits_on: a level-2 Test-Automation rerun to confirm the three test-tag fixes (unconfirmed as of 2026-10-16 15:33)
   targets: [automation/Catzc.Base.Folders, automation/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
 ---
 
@@ -26,11 +26,23 @@ wrong. The value is delivered; what is left is the proof at level 2.
 - The ADR draft once kept as out/h.md is carried below for the record; the real ADR is in docs/adr/pwsh and is the one living version.
 - The gate conflict found during formatting (a new .yml between Test-Comments and Test-FileMeta) belongs to the file-meta rollout; see
   plan-file-head-immutable-edges-classes.
+- Session report of 15:33: the level-2 gate failed on three bad ADR test tags; the three fixes and their reasons are in the carried
+  "Gate result and decision (2026-10-16)" section below. Lesson recorded there and in the memory note bounded-folder-enumeration: every
+  test citation needs the ADR-<CODE>#<n> form naming a real rule. The gate was not rerun, so the fix is unconfirmed. The old draft
+  sections still say Catzc.Base.Files and -IncludeVendor (the status line names -PruneVendor); the code and the later results win, by the
+  draft's own status line. Other plans mention ADR-AUTO-FAILFAST only in passing and were left alone by that session.
+
+## Rules to keep (from the prompt beside this file)
+
+- The user handles every commit and runs the full Test-Automation; a whole-suite run is asked for first. A level-2 rerun scoped to this
+  feature runs in the background under the time safeguard.
+- Peer sessions edit the same tree: re-read before editing, leave their work in progress alone.
 
 ## Open steps
 
-- [ ] The user runs the level-2 Test-Automation gate (check: its report in out/test-automation; per the draft's decision section).
-- [ ] On green, delete this plan and its prompt (the plans plan's rule).
+- [ ] Rerun the level-2 gate in the background; fix only findings in this feature, report the rest (check: its report in
+  out/test-automation shows the three tags accepted).
+- [ ] On green, the user runs the full suite in their own time; then delete this plan and its prompt (the plans plan's rule).
 
 ## Refs
 

@@ -10,7 +10,9 @@ plan:
 # Config defaults: declared once on the type, overridden by a repo fragment, pinned by a contract
 
 Pilot is variants (VariantsConfig). The model to copy is ContractsConfig: const defaults, constructor sets them, null means
-default, unknown keys rejected. All decisions are made (2026-10-16); a continuation prompt for a fresh session is written.
+default, unknown keys rejected. The decisions below are the session's recommendations taken as decisions (2026-10-16 15:35): the
+user's message did not restate answers to Q1 to Q7, the draft's provenance note says so, and the user is asked to confirm or change
+them. A continuation prompt for a fresh session is written. Phase 1 can start now; Phase 2 waits for the module model.
 
 ## Why its value is high
 
@@ -18,8 +20,13 @@ ADR-AUTO-DEFAULT#6 already rules the resolution order and says the type declares
 it in five getters, and the shipped variants.yml and the code disagree on have_customers today. A rule the tree breaks is worth
 more than a new rule. It generalises to every typed config in configs.yml.
 
-## Decided, and why
+## Decided as recommended, and why (Q1 to Q7; open for the user to confirm or change)
 
+- Q1 have_customers defaults to false; this repo's fragment sets all. Q2 tracks is required (throws when omitted or empty); aspects
+  defaults to a universal catch-all per track. Q3 the shipped variants.yml is deleted; a typed config with no file is built from an
+  empty map plus the fragment. Q4 a new contract asset kind, defaults. Q5 source mode reads this repo's own config fragments only.
+  Q6 .catzc/ is canonical and .cats/ is read as an alias. Q7 a required key is listed in a header comment of the generated contract
+  file, not given a value.
 - A default is declared once, on the config type, as constants; no getter restates it; Get-Variant loses -Default.
 - Every property has one posture: defaulted, empty-is-valid, or required (throws at construction naming the key and the fix).
 - Variants: ado_naming standard; git_workspace main-direct; have_customers false (this repo's fragment says all); aspects a per-track
@@ -33,6 +40,17 @@ more than a new rule. It generalises to every typed config in configs.yml.
   comment and omitted. A gate compares regenerated defaults to the file. Releasing freezes them (ADR-REPO-CONTRACT#3, #5).
 - Assert ladder: construct-time, load-time, cross-config, contract-time, repo-time; named in an ADR in Phase 5.
 - With the layers plan: the fragment root is resolver-based, so the pwsh rename changes the folder only (.catzc/pwsh/).
+
+## Done, and why (session report of 2026-10-16 15:35; nothing in code is built)
+
+- The draft rewritten with the decisions as section 6, the phases (Phase 2 split in two) and section 7 on interactions with other plans.
+- .unordered/15-10-2026/plan-contracts.md amended: an earlier plan had rejected "defaults as contract YAML"; that row now says the new
+  contract file is generated from the type, so it publishes the one declaration instead of adding a second (ADR-PRIN-ONELIVE).
+- The module-model draft says every new config key gets its default on the type and that this plan's Phase 2 waits for it (it still
+  edits variants.yml). The layers master and worklist note that variants.yml's data moves to the repo's .catzc/ fragment. The layer
+  model draft says ImporterConfig follows the same pattern. Memory config-defaults-plan.md written.
+- Dirty files to respect: Get-Track.ps1 and its test were already modified in the user's working tree; the next session tells the
+  user before editing them.
 
 ## Needed docs
 
@@ -50,7 +68,8 @@ more than a new rule. It generalises to every typed config in configs.yml.
 
 ## Open steps
 
-- [ ] Copy the plan and prompt to the scratchpad, paste out/prompt-config-defaults-continue.md into a fresh session (check: Phase 1 report).
+- [ ] User: confirm or change Q1 to Q7 (check: this section's heading loses "as recommended").
+- [ ] Copy the plan and prompt to the scratchpad, paste prompt-config-defaults-continue.md into a fresh session (check: Phase 1 report).
 - [ ] Phase 1 variants types carry defaults (check: VariantsConfig.Tests and getter tests pass; have_customers agrees).
 - [ ] Phase 2 repo fragment and source-mode overlay, after the module model is implemented (check: overlay root tests pass; shipped file gone).
 - [ ] Phase 3 generated defaults contract (check: Test-Contracts, Test-GeneratedFiles clean).

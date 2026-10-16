@@ -29,9 +29,17 @@ generated heads. One word and one default prevent each of them from inventing it
   (a guard is pinned on-demand, the default never picks commit for it); configure, don't program (per kind, in a config entry).
 - The word won over existence, residency and persistence (persistence is taken by the sha-marker plan's opt-out). It is the database term.
 
+## Session report of 2026-10-16 15:35, and why it stayed a draft
+
+- Written as a draft laid out like the earlier adr-draft files, not promoted; no gates or tests run. Held back because a new ADR needs an
+  adrs.yml entry, a glossary entry, a dora-explains.md entry and a regenerated index, and because a rule the user has not confirmed is
+  not recorded as a rule. The three open choices below are the session's own recommendations, taken for the draft only.
+- Memory entry materialization-of-knowledge-resources.md saved with its MEMORY.md pointer.
+
 ## Needed docs
 
-- ADR-AUTO-MATERIAL: the axis, the default, the guard exception, the loud fallback. Registered in adrs.yml and the index table.
+- ADR-AUTO-MATERIAL: the axis, the default, the guard exception, the loud fallback. Registered in adrs.yml, a dora-explains.md entry,
+  the index regenerated.
 - Glossary entry in the owning module's configs/glossary.yml, contrasting cache and persistence.
 - The sha-marker companion plan rewritten to say its marker is a commit-materialized resource.
 
