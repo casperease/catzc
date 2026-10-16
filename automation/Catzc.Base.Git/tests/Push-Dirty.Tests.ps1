@@ -44,6 +44,11 @@ Describe 'Push-Dirty' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Git -Times 1 -Exactly -ParameterFilter { $Command -eq 'git push origin main' }
     }
 
+    It 'commits with "..." when the message is empty or blank' {
+        Push-Dirty -Message '  '
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Git -Times 1 -Exactly -ParameterFilter { $Command -eq 'git commit -m "..."' }
+    }
+
     It 'commits with the given message' {
         Push-Dirty -Message 'Fix the widget'
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Git -Times 1 -Exactly -ParameterFilter { $Command -eq 'git commit -m "Fix the widget"' }

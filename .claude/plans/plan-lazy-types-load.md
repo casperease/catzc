@@ -69,7 +69,7 @@ uses a type should never pay the load or hold the shadow copy.
 
 ## Carried: out/plan-lazy-types-load.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: find the types DLL fast, load it only on first use
+### Plan: find the types DLL fast, load it only on first use
 
 ## Goal
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "840dcfca8845"
+    with_body_sha: b4143fcc3383
     repo_status: clean
     path: docs/references/automation/catzc-base-modulesystem.md
     folder: docs/references/automation
@@ -52,9 +52,9 @@ type-reference scanner — lives in [Catzc.Base.TypesSystem](catzc-base-typessys
 ### responsibility:1 — Function enumeration
 
 The primitive that answers "what functions exist": the full set of PowerShell functions the automation modules define, and — with
-`-NotUsedInternally` — which of them are never called by another. It builds on the on-disk module list that
-[Catzc.Base.TypesSystem](catzc-base-typessystem.md)'s `Get-AutomationModules` provides, and the dependency-edge computation in
-responsibility 2 traverses this function set to find call sites.
+`-NotUsedInternally` — which of them are never called by another. It builds on the module list that `Get-CatzcModule` provides (the modules
+of the code track, `Catzc.Base.Modules`), and the dependency-edge computation in responsibility 2 traverses this function set to find call
+sites.
 
 ### responsibility:2 — Dependency graph and integrity
 
@@ -77,10 +77,11 @@ file from its own folder — is inventoried from the code and covered by a test 
 
 ### responsibility:4 — Toolset model and copy
 
-The typed model of the modules and the copy built on it: the on-disk and in-session modules as typed objects by kind, named module profiles
-resolved to their dependency closure, and a deterministic copy of a selected subset of the toolset into a destination rooted like the
-repository — for testing in a temporary folder or vendoring the toolset as a package. Its configs name the extra file packages each module
-owns (`files.yml`), the module profiles (`profiles.yml`), and the publish targets for module-manifest artifacts (`artifacts.yml`).
+The module profiles and the copy built on them: named module profiles resolved to their dependency closure over the modules the
+`Catzc.Base.Modules` resolver (`Get-CatzcModule`) returns, and a deterministic copy of a selected subset of the toolset into a destination
+rooted like the repository — for testing in a temporary folder or vendoring the toolset as a package. Its configs name the extra file
+packages each module owns (`files.yml`), the module profiles (`profiles.yml`), and the publish targets for module-manifest artifacts
+(`artifacts.yml`).
 
 ### responsibility:5 — Importer and generated files
 
@@ -94,8 +95,8 @@ The vendored modules themselves are managed by [Catzc.Base.Vendor](catzc-base-ve
 ## What the module does
 
 The module holds the platform's knowledge of itself. Responsibility 1 enumerates the functions the modules define, responsibility 2 computes
-and checks what the code actually depends on, responsibility 3 checks the shape of the module tree, responsibility 4 models the modules and
-copies them, and responsibility 5 generates and commits the files that load them.
+and checks what the code actually depends on, responsibility 3 checks the shape of the module tree, responsibility 4 resolves the module
+profiles and copies the modules, and responsibility 5 generates and commits the files that load them.
 
 The dependency graph half of responsibility 2 deserves explicit explanation because `dependencies.yml` carries a `groups` schema. The file
 has two top-level sections. `groups:` is a map where each key is a group name and each value is a map of on-disk module names to the list of
@@ -136,7 +137,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                   | `ConvertTo-ModuleDependencyDiagram` |
 |                                                   | `Get-FunctionDependency`            |
 |                                                   | `Get-FunctionDependencyTree`        |
-|                                                   | `Get-ModuleTestOrder`               |
+|                                                   | `Get-ModuleOrder`                   |
 |                                                   | `Test-ModuleDependency`             |
 |                                                   | `Test-ModuleCycles`                 |
 |                                                   | `Test-FunctionDependency`           |
@@ -145,8 +146,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                   | `Test-CheckedInBinaries`            |
 |                                                   | `Get-InternalAssetDependency`       |
 |                                                   | `Test-InternalAssetDependency`      |
-| responsibility:4 — Toolset model and copy         | `Get-BaseModule`                    |
-|                                                   | `Get-ModuleProfile`                 |
+| responsibility:4 — Toolset model and copy         | `Get-ModuleProfile`                 |
 |                                                   | `Copy-Automation`                   |
 | config                                            | `files.yml`                         |
 |                                                   | `profiles.yml`                      |

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7412814e8bc8"
+#     with_body_sha: "5fb931916dee"
 #     repo_status: locked
 #     path: ".gitattributes"
 #     source:
@@ -52,6 +52,7 @@ automation/.compiled/** binary
 /.gitattributes text eol=lf
 /.gitignore     text eol=lf
 /importer.ps1   text eol=lf
+/automation/.internal/assets/Catzc.Types.csproj text eol=lf
 
 # Shell scripts run under bash or zsh, which read a carriage return as part of the command: every shell script is LF
 # everywhere, so a Windows checkout runs too (ADR-AUTO-ENGINE: the POSIX engines require LF). This also covers importer.sh.
@@ -78,6 +79,7 @@ automation/.compiled/** linguist-generated
 **/.gitkeep     linguist-generated
 /importer.ps1   linguist-generated
 /importer.sh    linguist-generated
+/automation/.internal/assets/Catzc.Types.csproj linguist-generated
 /.gitattributes linguist-generated
 /.gitignore     linguist-generated
 /docs/adr/index.md    linguist-generated

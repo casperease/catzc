@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "255118e09c14"
+    with_body_sha: "7b6680ecbd7c"
     repo_status: locked
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-TestAutomationTestPaths.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
@@ -28,6 +28,6 @@ Above `Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {`, written wit
 
 ```text
 Get-TestAutomationTestPaths over a fixture automation tree in $TestDrive (Get-RepositoryRoot and
-Get-ModuleTestOrder mocked): two modules with tests, one without, and one dot-prefixed infrastructure folder.
+Get-ModuleOrder mocked): two modules with tests, one without, and one dot-prefixed infrastructure folder.
 Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 ```

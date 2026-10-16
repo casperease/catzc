@@ -99,6 +99,10 @@ function Invoke-RootConfigGenerator {
             # The VS Code launch profiles, rendered from the vscode-launch registry (Catzc.Base.VSCode).
             New-VSCodeLaunch
         }
+        'New-VSCodeTasks' {
+            # The VS Code tasks, rendered from the vscode-tasks registry (Catzc.Base.VSCode).
+            New-VSCodeTasks
+        }
         'New-VSCodePipelineSchema' {
             New-VSCodePipelineSchema
         }

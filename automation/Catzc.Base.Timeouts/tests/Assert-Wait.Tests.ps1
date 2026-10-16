@@ -31,10 +31,17 @@ Describe 'Assert-Wait' -Tag 'L0', 'logic' {
             param([hashtable] $Arguments = @{}, [int] $SleepMs = 0)
 
             Mock Start-Sleep -ModuleName Catzc.Base.Timeouts -MockWith {
-                if ($SleepMs -gt 0) { Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds $SleepMs }
+                if ($SleepMs -gt 0) {
+                    Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds $SleepMs
+                }
             }.GetNewClosure()
             Assert-Wait @Arguments -InformationVariable iv -InformationAction SilentlyContinue
-            @($iv | ForEach-Object { if ($_.MessageData -is [string]) { $_.MessageData } else { $_.MessageData.Message } })
+            @($iv | ForEach-Object { if ($_.MessageData -is [string]) {
+                        $_.MessageData
+                    }
+                    else {
+                        $_.MessageData.Message
+                    } })
         }
     }
     AfterAll { $global:__PesterRunning = $true }
@@ -66,7 +73,7 @@ Describe 'Assert-Wait' -Tag 'L0', 'logic' {
             $lines = Get-WaitLine @{ Seconds = 0; Millisecs = 30 }
             $lines.Count | Should -Be 12
             $lines[0] | Should -BeLike '*standing at*'
-            @($lines | Where-Object { $_ -like '*tick *' }).Count | Should -Be 10
+            @($lines | Where-Object { $_ -like '*tick */10:*' }).Count | Should -Be 10
             $lines[-1] | Should -BeLike '*waited*'
             @($lines | Where-Object { $_ -like '*waited*' }).Count | Should -Be 1
         }
@@ -84,7 +91,8 @@ Describe 'Assert-Wait' -Tag 'L0', 'logic' {
 
         It 'writes the closing line yellow, as a warning line' {
             $lines = Get-WaitLine @{ Seconds = 0; Millisecs = 30 }
-            $lines[-1] | Should -BeLike ([Catzc.Base.Writers.Ansi]::Code([System.ConsoleColor]::Yellow) + '*')
+            # StartsWith, not -like: the escape sequence holds '[', a wildcard character.
+            $lines[-1].StartsWith([Catzc.Base.Writers.Ansi]::Code([System.ConsoleColor]::Yellow)) | Should -BeTrue
         }
 
         It 'tells the reader to remove the watchpoint once the block is bounded' {
@@ -118,7 +126,7 @@ Describe 'Assert-Wait' -Tag 'L0', 'logic' {
         It 'reports a late tick and still lets go, without throwing' {
             # Each tick is due about 1 ms apart but the sleep takes 20 ms: the thread was not running on schedule.
             $lines = Get-WaitLine @{ Seconds = 0; Millisecs = 10 } -SleepMs 20
-            $lines[-1] | Should -Match 'worst tick late (\d+) ms'
+            ($lines[-1] -match 'worst tick late (\d+) ms') | Should -BeTrue
             [int] $Matches[1] | Should -BeGreaterThan 10
         }
     }

@@ -53,6 +53,12 @@ files:
       - automation/Catzc.Base.VSCode/configs/vscode-launch.yml
     carrier: jsonc
     optIn: true
+  - target: .vscode/tasks.json
+    generator: New-VSCodeTasks
+    sources:
+      - automation/Catzc.Base.VSCode/configs/vscode-tasks.yml
+    carrier: jsonc
+    optIn: true
   - target: .vscode/azure-pipelines-schema.json
     generator: New-VSCodePipelineSchema
     sources:

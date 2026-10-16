@@ -31,7 +31,7 @@ catzc:
       condition), and it never forces: a push the server rejects because main moved is reported and left for you to integrate
       by hand, since rebasing would build the commit on a tip that may be a dirty HEAD.
     parameters:
-      Message: 'The commit message. Default: `...`.'
+      Message: 'The commit message. Empty or omitted: `...`.'
       DryRun: 'Report what would be committed and pushed, and change nothing.'
     outputs: |-
       [pscustomobject] With -DryRun: @{ Branch; HasChanges; Message }. Otherwise nothing — the outcome is reported.
@@ -45,12 +45,17 @@ catzc:
 function Push-Dirty {
     [CmdletBinding()]
     param(
-        [string] $Message = '...',
+        [string] $Message,
 
         [switch] $DryRun
     )
 
     Assert-Command git
+
+    # The one place the empty-message default lives: an empty editor field or no -Message commits as '...'.
+    if ([string]::IsNullOrWhiteSpace($Message)) {
+        $Message = '...'
+    }
 
     $branch = (Invoke-Executable 'git rev-parse --abbrev-ref HEAD' -PassThru -Silent).Output.Trim()
     if ($branch -eq 'HEAD') {

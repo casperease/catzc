@@ -103,6 +103,8 @@ configs:
     type: Catzc.Azure.DevOps.BuildValidation.BuildValidationConfig
   vscode-launch:
     type: Catzc.Base.VSCode.VscodeLaunchConfig
+  vscode-tasks:
+    type: Catzc.Base.VSCode.VscodeTasksConfig
   key-handler-bindings:
     type: Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig
   key-handler-supported:

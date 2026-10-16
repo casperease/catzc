@@ -1,0 +1,40 @@
+# ---
+# catzc:
+#   immutable:
+#     path: automation/Catzc.Base.VSCode/configs/vscode-tasks.yml
+#     folder: configs
+#     name: vscode-tasks
+#     filetype: yml
+#     kind: config
+#     language: yaml
+#     track: automation
+#     tracktype: modules
+#     module: Catzc.Base.VSCode
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     page: docs/references/automation/catzc-base-vscode/configs/vscode-tasks.yml.md
+# ---
+
+version: "2.0.0"
+tasks:
+  # Fast push (commit-lifecycle rule 11): commit everything with the typed message and push; an empty message becomes "...". Bind a key to it in your user keybindings.
+  - label: Push dirty
+    type: process
+    command: pwsh
+    args:
+      - -NoProfile
+      - -Command
+      - . ./importer.ps1; Push-Dirty -Message $env:COMMIT_MESSAGE
+    options:
+      env:
+        COMMIT_MESSAGE: ${input:commitMessage}
+    presentation:
+      reveal: always
+      panel: shared
+    problemMatcher: []
+inputs:
+  - id: commitMessage
+    type: promptString
+    description: Commit message (empty = ...)
+    default: ""

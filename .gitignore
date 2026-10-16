@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "369a71bda2fc"
+#     with_body_sha: cff0ec4642fe
 #     repo_status: locked
 #     path: ".gitignore"
 #     source:
@@ -52,6 +52,7 @@ automation/**/*.psd1
 /.vscode/settings.json
 /.vscode/extensions.json
 /.vscode/launch.json
+/.vscode/tasks.json
 /.vscode/azure-pipelines-schema.json
 /go.work
 /*/tests/*/go.mod

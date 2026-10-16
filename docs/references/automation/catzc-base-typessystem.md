@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: eeb3ed086f13
+    with_body_sha: "429f02453aac"
     repo_status: clean
     path: docs/references/automation/catzc-base-typessystem.md
     folder: docs/references/automation
@@ -27,12 +27,11 @@ catzc:
 
 The native C# type system's support layer: it keeps the single committed combined type assembly under `automation/.compiled/` clean,
 computes the cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) folds into its dependency
-integrity check, and owns the on-disk module enumeration the whole platform reads its module-name list from. It deliberately does **not**
-own the _runtime_ type compilation or loading — that is the importer's `Import-CSharpTypes` (in
-`automation/.internal/Catzc.Internal.Bootstrap.psm1`), and the namespace formatter `Format-Types` and the `Test-Formatting` gate that checks
-it live in [Catzc.Base.QualityGates](catzc-base-qualitygates.md). The one build it does drive is the editor-facing MSBuild of those same
-sources (`Invoke-BuildForVSCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile. The
-full type-system contract is [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
+integrity check. It deliberately does **not** own the _runtime_ type compilation or loading — that is the importer's `Import-CSharpTypes`
+(in `automation/.internal/Catzc.Internal.Bootstrap.psm1`), and the namespace formatter `Format-Types` and the `Test-Formatting` gate that
+checks it live in [Catzc.Base.QualityGates](catzc-base-qualitygates.md). The one build it does drive is the editor-facing MSBuild of those
+same sources (`Invoke-BuildForVSCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile.
+The full type-system contract is [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
 
 ## Responsibilities
 
@@ -40,10 +39,9 @@ full type-system contract is [native-csharp-types](../../adr/automation/BCL/nati
 | ---------------- | ------ | ------------------------------------------------------------------------------------------------ |
 | responsibility:1 | cache  | [Compiled type-assembly cache](#responsibility1--compiled-type-assembly-cache)                   |
 | responsibility:2 | graph  | [Cross-module type dependency analysis](#responsibility2--cross-module-type-dependency-analysis) |
-| responsibility:3 | list   | [Automation-module enumeration](#responsibility3--automation-module-enumeration)                 |
-| responsibility:4 | editor | [Editor type-project build](#responsibility4--editor-type-project-build)                         |
-| responsibility:5 | gate   | [Shipped-type coverage](#responsibility5--shipped-type-coverage)                                 |
-| responsibility:6 | hook   | [Agent hook build](#responsibility6--agent-hook-build)                                           |
+| responsibility:3 | editor | [Editor type-project build](#responsibility3--editor-type-project-build)                         |
+| responsibility:4 | gate   | [Shipped-type coverage](#responsibility4--shipped-type-coverage)                                 |
+| responsibility:5 | hook   | [Agent hook build](#responsibility5--agent-hook-build)                                           |
 
 ### responsibility:1 — Compiled type-assembly cache
 
@@ -69,16 +67,7 @@ reference, stripping comments, string literals, and each file's own namespace so
 [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) folds these edges into its integrity assertion, so the one declared graph in
 `dependencies.yml` governs C# type layering as well as PowerShell calls.
 
-### responsibility:3 — Automation-module enumeration
-
-The platform's single source of the automation-module name list. `Get-AutomationModules` enumerates the non-dot directories under
-`automation/` — the same set `Import-AllModules` loads — sorted ordinally. The C# type scan of responsibility 2 maps its references against
-this list; [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) validates the declared dependency graph against it and drives
-`Test-Automation`'s `-Modules` completer and validator from it. It lives here, below `Catzc.Base.ModuleSystem`, so the module-dependency
-checks that consume it depend on this module rather than the reverse — which is what keeps the graph acyclic once the C# type edges are
-folded in.
-
-### responsibility:4 — Editor type-project build
+### responsibility:3 — Editor type-project build
 
 The editor-facing build of the native type sources, kept separate from the runtime's `Add-Type` compile. `Invoke-BuildForVSCode` drives
 `dotnet build` over the committed IDE-only `Catzc.Types.csproj` (under `automation/.internal/assets/`, auto-loaded in the editor via the
@@ -88,13 +77,13 @@ which fails when the committed `.compiled` assembly is stale versus the sources,
 matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable` rather than the Tooling layer's `Invoke-Dotnet`, which this
 `Base` module must not depend on.
 
-### responsibility:5 — Shipped-type coverage
+### responsibility:4 — Shipped-type coverage
 
 Proving every shipped type is present in the session: each `<module>/types/<Name>.cs` under the loaded code root declares `<module>.<Name>`,
 so after import that full name must resolve. The quality gate lists every type that does not, in either run mode; how the files are written
 (their file-scoped namespace) is the concern of `Test-Formatting`.
 
-### responsibility:6 — Agent hook build
+### responsibility:5 — Agent hook build
 
 Publishing the one C# program the platform runs outside PowerShell: the Claude Code hook that holds every agent Bash call to the time
 safeguard ([fail-fast-with-asserts](../../adr/automation/fail-fast-with-asserts.md), `ADR-AUTO-FAILFAST#7`). It runs before every such call,
@@ -108,15 +97,14 @@ The module is the part of the native-type system that runs _outside_ the importe
 bootstrap pre-pass; what remains are the concerns this module owns. Responsibility 1 keeps the committed artifact tidy after every devbox
 import, so a type edit produces a clean single-file swap in `.compiled/` rather than an accumulating pile of stale assemblies.
 Responsibility 2 reconstructs the cross-module type references that a single combined assembly makes invisible to the compiler, handing them
-to `Catzc.Base.ModuleSystem` so the same layering contract polices both worlds. Responsibility 3 is the on-disk module enumeration both of
-those build on — and the platform's one source of module names besides.
+to `Catzc.Base.ModuleSystem` so the same layering contract polices both worlds. The module names the scan maps its references against come
+from the module resolver (`Get-CatzcModule`, `Catzc.Base.Modules`).
 
 The module sits in the `Base` group. It depends only on the layers below it in the group — `Catzc.Base.Repository` (repository root,
 pipeline detection), `Catzc.Base.Files` (file-lock detection), `Catzc.Base.Execution` (running `dotnet` for the editor build),
 `Catzc.Base.Writers` (console output), and `Catzc.Base.Asserts` — and is depended on by `Catzc.Base.ModuleSystem` and
-`Catzc.Base.QualityGates`, which call `Get-CSharpTypeDependency` and `Get-AutomationModules` from their integrity checks and completers.
-Placing the module enumeration and the C# edge scan here, below `Catzc.Base.ModuleSystem`, is what lets the module-dependency graph fold in
-the type edges without the two modules forming a cycle.
+`Catzc.Base.QualityGates`, which call `Get-CSharpTypeDependency` from their integrity checks. Placing the C# edge scan here, below
+`Catzc.Base.ModuleSystem`, is what lets the module-dependency graph fold in the type edges without the two modules forming a cycle.
 
 ## Division
 
@@ -128,7 +116,6 @@ The module's public functions, sorted into the responsibilities above.
 |                                                          | `Assert-LoadedTypesCurrent` |
 |                                                          | `Test-LoadedTypesCurrent`   |
 | responsibility:2 — Cross-module type dependency analysis | `Get-CSharpTypeDependency`  |
-| responsibility:3 — Automation-module enumeration         | `Get-AutomationModules`     |
-| responsibility:4 — Editor type-project build             | `Invoke-BuildForVSCode`     |
-| responsibility:5 — Shipped-type coverage                 | `Test-ShippedTypes`         |
-| responsibility:6 — Agent hook build                      | `Build-BashTimeoutHook`     |
+| responsibility:3 — Editor type-project build             | `Invoke-BuildForVSCode`     |
+| responsibility:4 — Shipped-type coverage                 | `Test-ShippedTypes`         |
+| responsibility:5 — Agent hook build                      | `Build-BashTimeoutHook`     |
