@@ -4,8 +4,12 @@
 # key exists; the definitions and the globs may change, and a consumer extends the registry with a config fragment of its own.
 kinds:
   comment-page:
+  contract-asset:
+  note:
   test:
   fixture:
+    subkinds:
+      asset:
   type:
   function:
     subkinds:
