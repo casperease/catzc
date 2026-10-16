@@ -59,8 +59,11 @@ drawio sessions; run-clear-output.ps1 was judged by reading, never run. Probe de
 
 ## Open steps (harvest)
 
-- [ ] Delete the probes, one approved batch at a time, oldest families first, skipping today's scripts (check: the family's probe
-  line in harvest-verdicts.md is gone from out/; nothing a plan names is gone).
+- [ ] Batch one approved 2026-10-16 (B5): 222 probes older than 14:57 listed in out/harvest-batch1.txt (audit-file-kinds.ps1 and
+  count-kinds.ps1, double-listed by the harvest, pulled back to rerun), 13 of today's kept in
+  harvest-batch1-kept-young.txt; the sandbox refused the planner's bulk delete, so the user runs out/delete-probes-batch1.ps1 (check:
+  the listed files are gone; nothing in harvest-keep.txt is).
+- [ ] Batch two, today's 13 probes, once their sessions are done (check: a yes, then the same).
 - [ ] The five tool candidates become open steps in their owning plans: run-head-batch and diff-one and probe-corpus and gates-module
   in the file-head and plans-program plans (QualityGates), tests-comments-rollout in the link cleanup plan (Docs).
 - [ ] Register the six out/ areas with their numbers in output-formats.yml (Q71); sessions under out/sessions/<session>/ (Q72);

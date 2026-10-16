@@ -191,7 +191,7 @@ The user delegated the remaining items; each takes the planner's sealed recommen
 | B2 | Azure leftovers: open until a deploy touches them | yes | two CAF lines stay open | ADR-AZ CAF naming and identity |
 | B3 | ADR-CATS in the principles domain | yes | docs/adr/principles/cats.md or similar | ADR-CATS |
 | B4 | locators rule in ADR-REPO-FOLDERS; PowerShell naming in ADR-REPO-VOCAB | yes | the two "to confirm" homes confirmed | ADR-REPO-FOLDERS; ADR-REPO-VOCAB |
-| B5 | first probe batch: not answered; stays open | open | no deletion without a yes | none (action) |
+| B5 | first probe batch: yes (user, 2026-10-16) | yes | 222 probes older than 14:57 go; 13 of today's kept; 2 rerun scripts the harvest double-listed were pulled out | none (action); the sandbox refused the bulk delete, so out/delete-probes-batch1.ps1 is for the user to run |
 
 ## After the round
 
