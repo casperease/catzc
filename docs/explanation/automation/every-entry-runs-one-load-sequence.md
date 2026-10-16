@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/automation/every-entry-runs-one-load-sequence.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "2fcdad285504"
     adrs:

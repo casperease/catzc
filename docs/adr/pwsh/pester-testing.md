@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/pester-testing.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "97dde284954c"
     defines:

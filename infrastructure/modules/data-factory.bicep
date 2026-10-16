@@ -2,8 +2,9 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/data-factory.bicep
-//     kind: bicep-module
+//     kind: template-module
 //     language: bicep
+//     filekind: bicep
 //     track: infrastructure
 // ---
 

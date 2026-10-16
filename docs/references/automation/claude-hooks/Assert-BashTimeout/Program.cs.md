@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "2276d83149dc"

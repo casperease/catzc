@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/index.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: e7e62cc95be3
     links:

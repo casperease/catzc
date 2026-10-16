@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pipelines/pipeline-variables.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "539e1e9a45a2"
     defines:

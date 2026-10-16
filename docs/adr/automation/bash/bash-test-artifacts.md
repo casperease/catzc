@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/bash/bash-test-artifacts.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "21cff11877fd"
     defines:

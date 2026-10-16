@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "8fc65b2c4d32"
     adrs:

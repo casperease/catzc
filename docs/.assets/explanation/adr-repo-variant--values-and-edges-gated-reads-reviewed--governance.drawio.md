@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "5af07de768ed"
     links:

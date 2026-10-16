@@ -10,8 +10,9 @@ tools: Bash, Read, Glob, Grep, Write, Edit
 catzc:
   derived:
     path: ".claude/agents/build-inspiration-module.md"
-    kind: claude-agent
+    kind: agent
     language: markdown
+    filekind: md
     track: ".claude"
     body_sha: "20813ca506bb"
     adrs:

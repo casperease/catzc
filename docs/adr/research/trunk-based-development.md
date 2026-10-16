@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/trunk-based-development.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "1b8bb45ab915"
     defines:

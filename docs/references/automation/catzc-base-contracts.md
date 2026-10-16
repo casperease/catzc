@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-contracts.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: "8b2e6e43bc08"
     adrs:

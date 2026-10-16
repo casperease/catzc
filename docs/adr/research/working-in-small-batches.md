@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/working-in-small-batches.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "9e7c3e8c16ec"
     defines:

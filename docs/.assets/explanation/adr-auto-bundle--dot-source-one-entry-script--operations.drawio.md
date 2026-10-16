@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "9c906cbf7c35"
     adrs:

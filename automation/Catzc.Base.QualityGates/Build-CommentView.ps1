@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Build-CommentView.ps1
-    kind: writer-function
+    kind: writer
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.QualityGates
     visibility: public

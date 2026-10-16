@@ -2,8 +2,9 @@
 // catzc:
 //   derived:
 //     path: infrastructure/templates/expedition/main.bicep
-//     kind: bicep-template
+//     kind: template
 //     language: bicep
+//     filekind: bicep
 //     track: infrastructure
 //     relatives:
 //       page: docs/references/infrastructure/templates/expedition/main.bicep.md

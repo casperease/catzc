@@ -4,6 +4,7 @@ catzc:
     path: docs/references/infrastructure/templates/expedition/options.yml.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: eb80f2153485

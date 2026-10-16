@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/expedition/configuration/test.yml
-#     kind: bicep-template-config
+#     kind: template-config
 #     language: yaml
+#     filekind: yml
 #     track: infrastructure
 #     relatives:
 #       page: docs/references/infrastructure/templates/expedition/configuration/test.yml.md

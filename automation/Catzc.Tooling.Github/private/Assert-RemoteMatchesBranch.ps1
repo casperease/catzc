@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/private/Assert-RemoteMatchesBranch.ps1
-    kind: automation-function
+    kind: function
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Tooling.Github
     visibility: private

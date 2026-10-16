@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
-    kind: gate-function
+    kind: gate
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.RootConfig
     visibility: public

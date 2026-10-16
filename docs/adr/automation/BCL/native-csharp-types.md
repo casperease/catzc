@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/BCL/native-csharp-types.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: a55d51dfadd7
     defines:

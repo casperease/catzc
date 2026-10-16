@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/internal/catzc-internal-loader.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: d748a59e3c95
     links:

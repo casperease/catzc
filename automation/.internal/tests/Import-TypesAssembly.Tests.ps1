@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.internal/tests/Import-TypesAssembly.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
+    module: Catzc.Internal.Tests
     relatives:
       page: docs/references/automation/internal/tests/Import-TypesAssembly.Tests.ps1.md
 ---

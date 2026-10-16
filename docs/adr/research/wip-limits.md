@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/wip-limits.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "1e022637106f"
     defines:

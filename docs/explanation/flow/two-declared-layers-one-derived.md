@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/two-declared-layers-one-derived.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: c84eb71f0891
     adrs:

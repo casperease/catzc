@@ -4,6 +4,7 @@ catzc:
     path: docs/references/caf/index.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: c74c37e86f75
     links:

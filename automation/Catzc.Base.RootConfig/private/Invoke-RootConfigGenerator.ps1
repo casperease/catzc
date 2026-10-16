@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
-    kind: automation-function
+    kind: function
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.RootConfig
     visibility: private

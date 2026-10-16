@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/uv-python-handler.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "53cadb758d1b"
     defines:

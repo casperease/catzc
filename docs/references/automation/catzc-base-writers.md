@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-writers.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: "1484afabb639"
     links:

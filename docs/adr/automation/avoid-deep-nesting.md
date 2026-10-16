@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/avoid-deep-nesting.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "35cf86a64cd4"
     defines:

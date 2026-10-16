@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/automation/one-commit-one-immutable-package.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "3f52daff5480"
     adrs:

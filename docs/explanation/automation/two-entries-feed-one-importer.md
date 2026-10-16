@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/automation/two-entries-feed-one-importer.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "52974b3a4619"
     adrs:

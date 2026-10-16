@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/managed-guids.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "94f06d40fd5a"
     defines:

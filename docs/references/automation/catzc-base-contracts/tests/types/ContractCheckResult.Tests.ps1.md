@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-contracts/tests/types/ContractCheckResult.Tests.ps1.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5ac0d6b72629"

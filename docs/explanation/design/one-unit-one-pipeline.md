@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/one-unit-one-pipeline.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: c392cf3de1a3
     adrs:

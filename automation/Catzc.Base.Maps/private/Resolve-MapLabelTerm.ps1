@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
-    kind: automation-function
+    kind: function
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Maps
     visibility: private

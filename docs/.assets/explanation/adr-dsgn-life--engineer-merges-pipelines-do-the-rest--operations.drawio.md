@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "0ba67eea298c"
     adrs:

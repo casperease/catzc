@@ -4,8 +4,9 @@ catzc:
     path: docs/adr/repository/file-meta.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
-    body_sha: a43a2c173b3a
+    body_sha: e668b131f513
     defines:
       - ADR-REPO-FILEMETA#{1-10}
     adrs:
@@ -103,12 +104,12 @@ meta-kind registry ([controlling-module-dependencies](../automation/controlling-
 A file the automation composes whole — a root-config copy, a generator's output, a `.gitkeep` — carries the **generated-from-source head**
 instead of an imprinted block. Its writer composes the content bare and writes the head through the one head function, in the carrier the
 file's class has: `path`, `kind` (`generated-from-source`, or `tracked-generated-from-source` when git tracks the file), `language` (the
-file language the languages registry lists for the file's extension, left out for a file it lists none for, as in every imprinted block
-too) and, when they exist, `generator` (the repository-relative path of the file that defines the command that composed the file) and `source` (the authored
-file or files it comes from). No writer hand-words a banner, and the drift check compares the head with the rest of the content. The
-imprint engine leaves these files alone ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A
-comment page is the one generated item whose block the engine imprints, and it names its writer the same way: the `generator` kind of the
-registry gives it the path of the comment exporter.
+file language the languages registry lists for the file's extension, left out for a file it lists none for, as in every imprinted block too)
+and, when they exist, `generator` (the repository-relative path of the file that defines the command that composed the file) and `source`
+(the authored file or files it comes from). No writer hand-words a banner, and the drift check compares the head with the rest of the
+content. The imprint engine leaves these files alone ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of
+them. A comment page is the one generated item whose block the engine imprints, and it names its writer the same way: the `generator` kind
+of the registry gives it the path of the comment exporter.
 
 - [Generated files](#generated-files)
 

@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/which-run-mode-rules-have-a-gate.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "6ae87099e7a9"
     adrs:

@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Languages
     relatives:

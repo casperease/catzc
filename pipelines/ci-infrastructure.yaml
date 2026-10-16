@@ -4,6 +4,7 @@
 #     path: pipelines/ci-infrastructure.yaml
 #     kind: pipeline
 #     language: pipeline-yaml
+#     filekind: yaml
 #     track: pipelines
 #     relatives:
 #       page: docs/references/pipelines/ci-infrastructure.yaml.md

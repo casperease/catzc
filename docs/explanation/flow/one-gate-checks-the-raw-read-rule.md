@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "214e0998f9bf"
     adrs:

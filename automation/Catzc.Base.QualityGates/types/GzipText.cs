@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/GzipText.cs
-    kind: csharp-type
+    kind: type
     language: csharp
+    filekind: cs
     track: automation
     module: Catzc.Base.QualityGates
     relatives:

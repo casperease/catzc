@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: c86fdd7aabd6
     adrs:

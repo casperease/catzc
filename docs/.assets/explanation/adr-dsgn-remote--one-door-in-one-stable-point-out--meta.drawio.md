@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "96353e592a57"
     adrs:

@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Tooling.KeyHandler
     relatives:

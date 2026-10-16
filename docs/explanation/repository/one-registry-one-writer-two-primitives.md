@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/repository/one-registry-one-writer-two-primitives.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "8ebc8a912f72"
     adrs:

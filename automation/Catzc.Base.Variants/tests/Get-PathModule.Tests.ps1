@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Variants
     relatives:
@@ -50,9 +51,32 @@ Describe 'Get-PathModule' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
         Get-PathModule $Path | Should -BeNullOrEmpty
     }
 
-    It 'places the infrastructure folders, whose names start with a dot, in no module' -ForEach @(
-        @{ Path = 'widgetry/.internal/Catzc.Internal.Loader.psm1' }
+    It 'places the other folders whose names start with a dot in no module' -ForEach @(
         @{ Path = 'widgetry/.vendor/Pester/Pester.psd1' }
+        @{ Path = 'widgetry/.scriptanalyzer/Rule.psm1' }
+        @{ Path = 'widgetry/.compiled/Catzc.Types.dll' }
+    ) {
+        Get-PathModule $Path | Should -BeNullOrEmpty
+    }
+
+    It 'names a psm1 file directly in .internal as the module it is' {
+        Get-PathModule 'widgetry/.internal/Catzc.Internal.Types.psm1' | Should -BeExactly 'Catzc.Internal.Types'
+    }
+
+    It 'places a file under a folder of .internal in the module Catzc.Internal plus the folder in PascalCase' -ForEach @(
+        @{ Path = 'widgetry/.internal/tests/Assert-Widget.Tests.ps1'; Module = 'Catzc.Internal.Tests' }
+        @{ Path = 'widgetry/.internal/assets/Import-Widget.ps1'; Module = 'Catzc.Internal.Assets' }
+        @{ Path = 'widgetry/.internal/assets/obj/Debug/gadget.cs'; Module = 'Catzc.Internal.Assets' }
+        @{ Path = 'widgetry\.internal\tests\Assert-Widget.Tests.ps1'; Module = 'Catzc.Internal.Tests' }
+        @{ Path = 'widgetry/.internal/test-kit/Part.ps1'; Module = 'Catzc.Internal.TestKit' }
+    ) {
+        Get-PathModule $Path | Should -BeExactly $Module
+    }
+
+    It 'places a file directly in .internal that is no psm1 in no module' -ForEach @(
+        @{ Path = 'widgetry/.internal/README.md' }
+        @{ Path = 'widgetry/.internal/Part.ps1' }
+        @{ Path = 'widgetry/.internal/' }
     ) {
         Get-PathModule $Path | Should -BeNullOrEmpty
     }

@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "80ce7c56c911"
     adrs:

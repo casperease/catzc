@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "1e2ef25ba7f1"
     links:

@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-execution/types/CliRunner.cs.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a48373545e11

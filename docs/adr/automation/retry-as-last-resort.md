@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/retry-as-last-resort.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: c8be4b47cb1e
     defines:

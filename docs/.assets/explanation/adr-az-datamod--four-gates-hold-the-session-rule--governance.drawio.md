@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "87a6f4ce8677"
     links:

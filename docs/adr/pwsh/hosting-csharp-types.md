@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/hosting-csharp-types.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "6fcb534e32be"
     defines:

@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Azure.Templates
     relatives:

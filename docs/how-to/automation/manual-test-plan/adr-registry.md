@@ -4,6 +4,7 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/adr-registry.md
     kind: how-to
     language: markdown
+    filekind: md
     track: docs
     body_sha: "9130e4758ce4"
     links:

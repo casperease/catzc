@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Asserts/Assert-NotNullOrWhitespace.ps1
-    kind: assert-function
+    kind: assert
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Asserts
     visibility: public

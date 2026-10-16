@@ -4,6 +4,7 @@ catzc:
     path: docs/how-to/getting-started/automation/vendor-a-module.md
     kind: how-to
     language: markdown
+    filekind: md
     track: docs
     body_sha: adca12471052
     links:

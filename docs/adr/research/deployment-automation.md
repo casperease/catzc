@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/deployment-automation.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "179a9dc40c85"
     defines:

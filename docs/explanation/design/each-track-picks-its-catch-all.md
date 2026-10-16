@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/each-track-picks-its-catch-all.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "87398671b7d3"
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-languages/configs/languages.yml.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: bc55e83376ef

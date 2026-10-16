@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/console-output-matters.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "62369ae583c9"
     defines:

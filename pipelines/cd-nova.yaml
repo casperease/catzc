@@ -4,6 +4,7 @@
 #     path: pipelines/cd-nova.yaml
 #     kind: pipeline
 #     language: pipeline-yaml
+#     filekind: yaml
 #     track: pipelines
 #     relatives:
 #       page: docs/references/pipelines/cd-nova.yaml.md

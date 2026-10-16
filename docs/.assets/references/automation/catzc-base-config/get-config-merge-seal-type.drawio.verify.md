@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.verify.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: e64cd3135583
     adrs:

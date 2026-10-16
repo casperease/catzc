@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Test-SourceConventions.ps1
-    kind: gate-function
+    kind: gate
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.QualityGates
     visibility: public

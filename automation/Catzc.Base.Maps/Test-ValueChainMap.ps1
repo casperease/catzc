@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/Test-ValueChainMap.ps1
-    kind: gate-function
+    kind: gate
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Maps
     visibility: public

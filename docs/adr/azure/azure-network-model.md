@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/azure-network-model.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: d2049d5d7120
     defines:

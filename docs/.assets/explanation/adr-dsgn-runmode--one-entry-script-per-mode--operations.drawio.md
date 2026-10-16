@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: cd85d597101c
     adrs:

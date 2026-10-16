@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "4e799212fbed"
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: f69ade07773a
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure/types/NetworkCidr.cs.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "39dc46804c48"

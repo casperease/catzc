@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Tooling.Inspiration
     relatives:

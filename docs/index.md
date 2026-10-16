@@ -4,6 +4,7 @@ catzc:
     path: docs/index.md
     kind: index
     language: markdown
+    filekind: md
     track: docs
     body_sha: b721d0354e1f
     links:

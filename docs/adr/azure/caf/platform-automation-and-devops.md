@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/caf/platform-automation-and-devops.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "357b29a93d56"
     defines:

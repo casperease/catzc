@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/python/index.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: daf24257c517
     links:

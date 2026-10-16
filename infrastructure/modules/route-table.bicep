@@ -2,8 +2,9 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/route-table.bicep
-//     kind: bicep-module
+//     kind: template-module
 //     language: bicep
+//     filekind: bicep
 //     track: infrastructure
 //     relatives:
 //       page: docs/references/infrastructure/modules/route-table.bicep.md

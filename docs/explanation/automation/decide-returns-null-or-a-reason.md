@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/automation/decide-returns-null-or-a-reason.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "9302c72f3cc8"
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/test-data-management.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: fca065d02994
     defines:

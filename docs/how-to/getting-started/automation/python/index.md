@@ -4,6 +4,7 @@ catzc:
     path: docs/how-to/getting-started/automation/python/index.md
     kind: how-to
     language: markdown
+    filekind: md
     track: docs
     body_sha: "76186ea3afc1"
 ---

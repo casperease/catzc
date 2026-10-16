@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/a-push-fires-only-touched-pipelines.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: bdee370f2672
     adrs:

@@ -5,6 +5,7 @@
 #     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
 #     kind: tracked-generated-from-source
 #     language: bash
+#     filekind: sh
 #     generator: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
 # ---
 

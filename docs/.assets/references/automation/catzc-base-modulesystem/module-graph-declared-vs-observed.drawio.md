@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "50e69fa2bb87"
     adrs:

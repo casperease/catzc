@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "9b66ab21863d"
     adrs:

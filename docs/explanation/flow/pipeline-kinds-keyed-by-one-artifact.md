@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "3af8354b998e"
     adrs:

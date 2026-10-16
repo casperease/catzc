@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: python/tests/catzc-base-repository/test_repository.py
-#     kind: python-test
+#     kind: test
 #     language: python
+#     filekind: py
 #     track: python
 # ---
 

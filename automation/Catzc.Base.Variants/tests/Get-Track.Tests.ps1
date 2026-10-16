@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Variants
     relatives:

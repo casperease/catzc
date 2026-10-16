@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: bash/tests/catzc-base-engines/cats.bats
-#     kind: shell-test
+#     kind: test
 #     language: bash
+#     filekind: bats
 #     track: bash
 # ---
 

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/caf/design-principles.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: b891f6ab0cc2
     defines:

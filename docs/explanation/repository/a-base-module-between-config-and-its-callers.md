@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/repository/a-base-module-between-config-and-its-callers.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: deb5fed9f5ce
     adrs:

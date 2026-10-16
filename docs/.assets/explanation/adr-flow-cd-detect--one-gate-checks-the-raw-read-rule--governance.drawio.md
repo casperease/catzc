@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "4cb4d72923c0"
     links:

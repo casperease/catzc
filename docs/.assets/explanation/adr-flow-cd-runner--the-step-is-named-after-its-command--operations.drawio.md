@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: e64ca424664c
     adrs:

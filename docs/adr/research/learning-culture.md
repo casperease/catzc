@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/learning-culture.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: acfd23004c4f
     defines:

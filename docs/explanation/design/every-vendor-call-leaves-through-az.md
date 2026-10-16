@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/every-vendor-call-leaves-through-az.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "53dfed796091"
     adrs:

@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.internal/tests/Write-LoadTime.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
+    module: Catzc.Internal.Tests
     adrs:
       - ADR-PWSH-CACHE#4
 ---

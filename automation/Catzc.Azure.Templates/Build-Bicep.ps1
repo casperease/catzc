@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Build-Bicep.ps1
-    kind: writer-function
+    kind: writer
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Azure.Templates
     visibility: public

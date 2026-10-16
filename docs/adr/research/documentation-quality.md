@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/documentation-quality.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: b8b7bf2ed828
     defines:

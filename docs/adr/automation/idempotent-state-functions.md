@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/idempotent-state-functions.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "5f53c1942c70"
     defines:

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/effective-in-enterprises.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "600c7ffc8192"
     defines:

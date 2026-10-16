@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/sync-from-the-last-certified-commit.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "951692dadb53"
     adrs:

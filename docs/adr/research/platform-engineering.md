@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/platform-engineering.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "026da3c7367a"
     defines:

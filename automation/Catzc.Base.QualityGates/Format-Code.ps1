@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Format-Code.ps1
-    kind: format-function
+    kind: formatter
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.QualityGates
     visibility: public

@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1
     kind: asset
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Environment
   config:

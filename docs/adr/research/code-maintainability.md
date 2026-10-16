@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/code-maintainability.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "226e53fa0afe"
     defines:

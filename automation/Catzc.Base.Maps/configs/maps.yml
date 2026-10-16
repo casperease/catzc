@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Maps/configs/maps.yml
-#     kind: yaml-config
+#     kind: config
 #     language: yaml
+#     filekind: yml
 #     track: automation
 #     module: Catzc.Base.Maps
 #     relatives:

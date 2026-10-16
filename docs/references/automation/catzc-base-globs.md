@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-globs.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: "4cee0d74457d"
     adrs:

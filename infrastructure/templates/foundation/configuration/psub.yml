@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/foundation/configuration/psub.yml
-#     kind: bicep-template-config
+#     kind: template-config
 #     language: yaml
+#     filekind: yml
 #     track: infrastructure
 # ---
 

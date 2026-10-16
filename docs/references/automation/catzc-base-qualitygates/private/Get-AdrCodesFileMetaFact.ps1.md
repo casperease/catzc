@@ -1,7 +1,19 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md
+    kind: comment-page
+    language: markdown
+    filekind: md
+    track: docs
+    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
+    body_sha: abdbe6ea4edf
+---
+
 # automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 

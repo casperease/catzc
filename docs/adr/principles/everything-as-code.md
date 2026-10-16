@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/principles/everything-as-code.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "791634cbbe6b"
     defines:

@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/out-of-band-deploy-is-adr-only.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: e936870e0c62
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "2d6f0e20cc67"
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure-templates.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: c62eb7ef9ecb
     links:

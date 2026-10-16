@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/pipelines/three-guarded-early-returns.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "5990b16fd351"
     adrs:

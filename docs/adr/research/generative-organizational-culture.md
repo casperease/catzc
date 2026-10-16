@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/generative-organizational-culture.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: e4535674c432
     defines:

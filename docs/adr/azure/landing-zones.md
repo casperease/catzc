@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/landing-zones.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: ddae9ec7174a
     defines:

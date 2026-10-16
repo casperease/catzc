@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "3b6e97a391d7"
     links:

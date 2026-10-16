@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-tooling-python.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: "91d4c2ecf7e8"
     links:

@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Variants/configs/variants.yml
-#     kind: yaml-config
+#     kind: config
 #     language: yaml
+#     filekind: yml
 #     track: automation
 #     module: Catzc.Base.Variants
 #     relatives:

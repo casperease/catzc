@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure-cli.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: fe36ba59a54c
     links:

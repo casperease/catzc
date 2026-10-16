@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/repository/agent-definitions.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: e4f338926673
     defines:

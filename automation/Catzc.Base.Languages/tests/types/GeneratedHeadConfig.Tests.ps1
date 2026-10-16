@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Languages
     relatives:
@@ -33,6 +34,6 @@ Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
     }
 
     It 'loads the shipped generated-head.yml' {
-        (Get-Config -Config generated-head).order | Should -Be @('path', 'source', 'kind', 'language', 'track', 'module', 'generator')
+        (Get-Config -Config generated-head).order | Should -Be @('path', 'source', 'kind', 'language', 'filekind', 'track', 'module', 'generator')
     }
 }

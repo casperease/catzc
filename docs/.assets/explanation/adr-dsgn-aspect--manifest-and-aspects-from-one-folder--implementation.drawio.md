@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: e210720832ca
     adrs:

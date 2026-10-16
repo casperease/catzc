@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/configuration/two-test-files-check-the-address-rules.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "054d69e70ec2"
     adrs:

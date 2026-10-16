@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/repository/uniform-formatting.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "67d57c0ab117"
     defines:

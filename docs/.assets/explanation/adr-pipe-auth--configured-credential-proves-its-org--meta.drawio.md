@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "136cc22ac14c"
     adrs:

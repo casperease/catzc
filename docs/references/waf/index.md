@@ -4,6 +4,7 @@ catzc:
     path: docs/references/waf/index.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: "1c89ab77c942"
     adrs:

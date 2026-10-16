@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "01d84cc2a780"
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pipelines/custom-template-discipline.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "215f3b3c5d76"
     defines:

@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-timeouts.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: c9314955e75e
     links:

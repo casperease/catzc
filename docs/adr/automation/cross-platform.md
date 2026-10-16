@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/cross-platform.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "5991ca784914"
     defines:

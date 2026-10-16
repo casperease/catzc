@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: e6e91ae8e081
     links:

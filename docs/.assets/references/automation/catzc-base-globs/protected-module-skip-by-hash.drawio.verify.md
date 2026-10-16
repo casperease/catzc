@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "38ab14dccb0d"
     adrs:

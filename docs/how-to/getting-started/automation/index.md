@@ -4,6 +4,7 @@ catzc:
     path: docs/how-to/getting-started/automation/index.md
     kind: how-to
     language: markdown
+    filekind: md
     track: docs
     body_sha: f1c4f850cec7
     links:

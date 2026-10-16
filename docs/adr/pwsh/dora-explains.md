@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/dora-explains.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: abe8285c6e7a
     links:

@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "59985dac2e0a"
     adrs:

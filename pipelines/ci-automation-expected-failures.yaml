@@ -4,6 +4,7 @@
 #     path: pipelines/ci-automation-expected-failures.yaml
 #     kind: pipeline
 #     language: pipeline-yaml
+#     filekind: yaml
 #     track: pipelines
 #     relatives:
 #       page: docs/references/pipelines/ci-automation-expected-failures.yaml.md

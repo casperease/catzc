@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "8073d5beee93"
     adrs:

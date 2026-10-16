@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/glyphs.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "9dcdf39c95c2"
     adrs:

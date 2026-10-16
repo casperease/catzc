@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "26b52e084a21"
     adrs:

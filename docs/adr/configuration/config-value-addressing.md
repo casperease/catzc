@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/configuration/config-value-addressing.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "0556ee64f476"
     defines:

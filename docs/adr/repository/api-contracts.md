@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/repository/api-contracts.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: cdee2333ea01
     defines:

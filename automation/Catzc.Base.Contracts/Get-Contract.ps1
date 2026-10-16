@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Get-Contract.ps1
-    kind: automation-function
+    kind: function
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Contracts
     visibility: public

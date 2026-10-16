@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/automation/index.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: ef9adf853ade
     links:

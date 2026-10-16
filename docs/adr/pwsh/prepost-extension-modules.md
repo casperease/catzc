@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/prepost-extension-modules.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: ddae042c3b46
     defines:

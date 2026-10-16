@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
-    kind: gate-function
+    kind: gate
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
     visibility: public

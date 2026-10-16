@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/range-per-context-then-diff-and-match.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "542681e87b34"
     adrs:

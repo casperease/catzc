@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/generated-head.yml
-#     kind: yaml-config
+#     kind: config
 #     language: yaml
+#     filekind: yml
 #     track: automation
 #     module: Catzc.Base.Languages
 # ---
@@ -14,6 +15,7 @@ keys:
   - source
   - kind
   - language
+  - filekind
   - track
   - module
   - generator

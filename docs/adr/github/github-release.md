@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/github/github-release.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: c7fbe67c5617
     defines:

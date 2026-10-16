@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure-cli/types/BicepState.cs.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: ec5ab3ee0a40

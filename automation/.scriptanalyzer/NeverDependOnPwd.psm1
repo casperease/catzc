@@ -5,6 +5,7 @@ catzc:
     path: automation/.scriptanalyzer/NeverDependOnPwd.psm1
     kind: analyzer-rule
     language: powershell
+    filekind: psm1
     track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md

@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: aef1ff000e95

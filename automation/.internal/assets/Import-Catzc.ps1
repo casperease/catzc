@@ -5,7 +5,9 @@ catzc:
     path: automation/.internal/assets/Import-Catzc.ps1
     kind: asset
     language: powershell
+    filekind: ps1
     track: automation
+    module: Catzc.Internal.Assets
   config:
     synopsis: Loads this Catzc build into the session — build mode's entry point.
     description: |-

@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Get-AdoPipelineDefinitions.ps1
-    kind: automation-function
+    kind: function
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Azure.DevOps
     visibility: public

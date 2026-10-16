@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Get-AutomationModules.ps1
-    kind: automation-function
+    kind: function
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.TypesSystem
     visibility: public

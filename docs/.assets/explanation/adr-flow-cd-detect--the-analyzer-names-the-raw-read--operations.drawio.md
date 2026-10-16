@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "4b09a878c2b8"
     links:

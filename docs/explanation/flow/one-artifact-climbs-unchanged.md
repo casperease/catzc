@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/one-artifact-climbs-unchanged.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: eefc2a1eb3c9
     adrs:

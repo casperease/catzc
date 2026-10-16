@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Timeouts/configs/timeouts.yml
-#     kind: yaml-config
+#     kind: config
 #     language: yaml
+#     filekind: yml
 #     track: automation
 #     module: Catzc.Base.Timeouts
 #     relatives:

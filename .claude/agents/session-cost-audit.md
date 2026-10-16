@@ -13,8 +13,9 @@ model: sonnet
 catzc:
   derived:
     path: ".claude/agents/session-cost-audit.md"
-    kind: claude-agent
+    kind: agent
     language: markdown
+    filekind: md
     track: ".claude"
     body_sha: "7344db67cc8b"
     adrs:

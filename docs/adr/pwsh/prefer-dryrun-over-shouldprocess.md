@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/prefer-dryrun-over-shouldprocess.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: b09ed58f0b41
     defines:

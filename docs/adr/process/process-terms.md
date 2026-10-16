@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/process/process-terms.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "85f093b7747b"
     defines:

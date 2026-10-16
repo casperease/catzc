@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/file-meta.yml
-#     kind: yaml-config
+#     kind: config
 #     language: yaml
+#     filekind: yml
 #     track: automation
 #     module: Catzc.Base.QualityGates
 #     relatives:
@@ -26,38 +27,37 @@ classes:
           "docs/references/**/*.bicep.md",
         ],
     }
-  - { class: pester-test, files: ["**/tests/**/*.Tests.ps1"] }
-  - { class: python-test, files: ["**/tests/**/*.py"] }
-  - { class: shell-test, files: ["**/tests/**/*.bats", "**/tests/**/*.sh"] }
-  - { class: go-test, files: ["**/tests/**/*.go"] }
-  - { class: test-asset, files: ["**/tests/**"] }
-  - { class: csharp-type, files: ["automation/**/types/*.cs"] }
-  # A function file is told by its role, from the folder and its verb, before it is told by its visibility.
-  - { class: gate-function, files: ["automation/Catzc.*/Test-*.ps1"] }
-  - { class: writer-function, files: ["automation/Catzc.*/Build-*.ps1", "automation/Catzc.*/New-*.ps1"] }
-  - { class: assert-function, files: ["automation/Catzc.*/Assert-*.ps1"] }
-  - { class: format-function, files: ["automation/Catzc.*/Format-*.ps1"] }
-  - { class: fact-function, files: ["automation/Catzc.*/private/Get-*FileMetaFact.ps1"] }
-  - { class: automation-function, files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"] }
-  - { class: analyzer-rule, files: ["automation/.scriptanalyzer/**"] }
-  - { class: internal-module, files: ["automation/.internal/*.psm1"] }
-  - { class: bicep-template, files: ["infrastructure/templates/**/*.bicep"] }
+  # A class names the role of a file and never its language, track or module: those are the keys language, track and module of its head.
   - {
-      class: bicep-template-config,
+      class: test,
+      files: ["**/tests/**/*.Tests.ps1", "**/tests/**/*.py", "**/tests/**/*.bats", "**/tests/**/*.sh", "**/tests/**/*.go"],
+    }
+  - { class: fixture, files: ["**/tests/**"] }
+  - { class: type, files: ["automation/**/types/*.cs"] }
+  # A function file is told by its role, from the folder and its verb, before it is told by its visibility.
+  - { class: gate, files: ["automation/Catzc.*/Test-*.ps1"] }
+  - { class: writer, files: ["automation/Catzc.*/Build-*.ps1", "automation/Catzc.*/New-*.ps1"] }
+  - { class: assert, files: ["automation/Catzc.*/Assert-*.ps1"] }
+  - { class: formatter, files: ["automation/Catzc.*/Format-*.ps1"] }
+  - { class: fact, files: ["automation/Catzc.*/private/Get-*FileMetaFact.ps1"] }
+  - { class: function, files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"] }
+  - { class: analyzer-rule, files: ["automation/.scriptanalyzer/**"] }
+  - { class: internal, files: ["automation/.internal/*.psm1"] }
+  - { class: template, files: ["infrastructure/templates/**/*.bicep"] }
+  - {
+      class: template-config,
       files: ["infrastructure/templates/**/configuration/**/*.yml", "infrastructure/templates/*/options.yml"],
     }
-  - { class: bicep-module, files: ["infrastructure/modules/*.bicep"] }
-  - { class: yaml-config, files: ["automation/**/configs/*.yml"] }
+  - { class: template-module, files: ["infrastructure/modules/*.bicep"] }
+  - { class: config, files: ["automation/**/configs/*.yml"] }
   - { class: pipeline-template, files: ["pipelines/*/*.yaml"] }
   - { class: pipeline, files: ["pipelines/*.yaml", ".github/workflows/*.yml"] }
-  - { class: claude-hook, files: [".claude/hooks/**"] }
+  - { class: hook, files: [".claude/hooks/**"] }
   - { class: asset, files: ["automation/**/assets/**"] }
-  - { class: python-script, files: ["**/*.py"] }
-  - { class: shell-script, files: ["**/*.sh"] }
-  - { class: powershell-script, files: ["**/*.ps1"] }
+  - { class: script, files: ["**/*.py", "**/*.sh", "**/*.ps1"] }
   - { class: drawio-kit, files: [".claude/drawio/**"] }
-  - { class: claude-agent, files: [".claude/agents/**"] }
-  - { class: claude-skill, files: [".claude/skills/**"] }
+  - { class: agent, files: [".claude/agents/**"] }
+  - { class: skill, files: [".claude/skills/**"] }
   - { class: adr, files: ["docs/adr/**"] }
   - { class: reference, files: ["docs/references/**"] }
   - { class: how-to, files: ["docs/how-to/**"] }
@@ -79,6 +79,10 @@ kinds:
   # The file language of the file, from the languages registry by its extension; a file no language lists carries none.
   file-language:
     keys: [language]
+
+  # The file kind of the file, the extension of its name, which tells the sorts of file inside one language apart (ps1 from psm1 and psd1).
+  file-extension:
+    keys: [filekind]
 
   # The track whose root folder holds the file, from the tracks registry; a root file, which no track holds, carries none.
   track:
@@ -102,7 +106,7 @@ kinds:
   # Whether a PowerShell function file is public or private, from the module's private folder.
   visibility:
     keys: [visibility]
-    select: [{ classes: ["*-function"] }]
+    select: [{ classes: [gate, writer, assert, formatter, fact, function] }]
 
   # The few files a file points at, as at most eight relations with fixed names; one is written only when its file exists.
   relatives:
@@ -113,12 +117,12 @@ kinds:
             - { paths: ["{page}"] }
         - name: test
           rules:
-            - { classes: [csharp-type], paths: ["automation/{module}/tests/types/{stem}.Tests.ps1"] }
-            - { classes: ["*-function"], paths: ["automation/{module}/tests/{stem}.Tests.ps1"] }
+            - { classes: [type], paths: ["automation/{module}/tests/types/{stem}.Tests.ps1"] }
+            - { classes: [gate, writer, assert, formatter, fact, function], paths: ["automation/{module}/tests/{stem}.Tests.ps1"] }
         - name: source
           rules:
-            - { classes: [pester-test], paths: ["automation/{module}/types/{stem}.cs"] }
-            - { classes: [pester-test], paths: ["automation/{module}/{stem}.ps1", "automation/{module}/private/{stem}.ps1"] }
+            - { classes: [test], paths: ["automation/{module}/types/{stem}.cs"] }
+            - { classes: [test], paths: ["automation/{module}/{stem}.ps1", "automation/{module}/private/{stem}.ps1"] }
 
   # The rules an ADR defines in its own rule headings, spelled as citations; they are no citation of the ADR, so adrs never lists them.
   adr-defines:
@@ -131,8 +135,8 @@ kinds:
     select:
       [
         { languages: [markdown] },
-        { classes: [csharp-type, "*-function", pester-test] },
-        { classes: [test-asset], languages: [powershell] },
+        { classes: [type, gate, writer, assert, formatter, fact, function] },
+        { classes: [test, fixture], languages: [powershell] },
       ]
 
   # Every link a Markdown file points out of itself, one spelling, sorted; a link that stays inside the file is not listed. Last: the longest key.

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/repository/inspiration.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "555677c00938"
     defines:

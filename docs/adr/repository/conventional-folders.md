@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/repository/conventional-folders.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "4830a266e06c"
     defines:

@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "923959505b90"
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure-devops.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: "05d82b8083b5"
     links:

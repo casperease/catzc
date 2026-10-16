@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/index.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: c91496ef0580
     links:

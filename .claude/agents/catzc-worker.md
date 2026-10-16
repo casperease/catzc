@@ -11,8 +11,9 @@ tools: Bash, Read, Glob, Grep, Write, Edit
 catzc:
   derived:
     path: ".claude/agents/catzc-worker.md"
-    kind: claude-agent
+    kind: agent
     language: markdown
+    filekind: md
     track: ".claude"
     body_sha: dd3204360d3a
     adrs:

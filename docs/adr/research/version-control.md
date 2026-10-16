@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/version-control.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "018c90c9fb6e"
     defines:

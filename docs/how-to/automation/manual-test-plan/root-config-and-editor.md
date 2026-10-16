@@ -4,6 +4,7 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/root-config-and-editor.md
     kind: how-to
     language: markdown
+    filekind: md
     track: docs
     body_sha: "134788ad7604"
     links:

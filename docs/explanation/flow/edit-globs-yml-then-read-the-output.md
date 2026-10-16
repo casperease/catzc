@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/edit-globs-yml-then-read-the-output.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "429a6f32246d"
     adrs:

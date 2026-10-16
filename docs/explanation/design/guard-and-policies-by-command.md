@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/guard-and-policies-by-command.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: b79c1fbb598e
     adrs:

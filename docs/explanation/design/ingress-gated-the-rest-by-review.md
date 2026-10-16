@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/ingress-gated-the-rest-by-review.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "38ff1b133ab0"
     adrs:

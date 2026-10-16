@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "395e9272a0b7"
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: bbaf0b40bf29
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "71d34610a4b4"
     adrs:

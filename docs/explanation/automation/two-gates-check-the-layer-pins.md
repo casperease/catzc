@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/automation/two-gates-check-the-layer-pins.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "969c7f84aaa7"
     adrs:

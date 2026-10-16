@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/caf/identity-and-access.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: e192bb608891
     defines:

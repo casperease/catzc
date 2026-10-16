@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/waf/operational-excellence.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: be1d73e111ce
     defines:

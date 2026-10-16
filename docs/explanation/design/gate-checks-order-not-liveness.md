@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/gate-checks-order-not-liveness.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "8bb9e4fa8e48"
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/azure/names-are-derived-never-typed.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "0665f1c4e736"
     adrs:

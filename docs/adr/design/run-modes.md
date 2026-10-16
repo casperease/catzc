@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/design/run-modes.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: feb2d9ae1bab
     defines:

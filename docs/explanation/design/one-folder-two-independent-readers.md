@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/one-folder-two-independent-readers.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "42f43edabf19"
     adrs:

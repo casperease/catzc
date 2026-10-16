@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ModuleNameFileMetaFact.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.QualityGates
     relatives:
@@ -42,9 +43,16 @@ Describe 'Get-ModuleNameFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' 
     It 'gives an empty value to a file placed in no module, so the key is left out of its head' -ForEach @(
         @{ Path = 'docs/gadget.md' }
         @{ Path = 'widgetry/Get-Gadget.ps1' }
-        @{ Path = 'widgetry/.internal/Catzc.Internal.Loader.psm1' }
+        @{ Path = 'widgetry/.vendor/Pester/Pester.psd1' }
         @{ Path = 'importer.ps1' }
     ) {
         (Get-Fact $Path)['module'] | Should -BeExactly ''
+    }
+
+    It 'names the module a file under .internal is, or is placed in' -ForEach @(
+        @{ Path = 'widgetry/.internal/Catzc.Internal.Loader.psm1'; Module = 'Catzc.Internal.Loader' }
+        @{ Path = 'widgetry/.internal/tests/Assert-Widget.Tests.ps1'; Module = 'Catzc.Internal.Tests' }
+    ) {
+        (Get-Fact $Path)['module'] | Should -BeExactly $Module
     }
 }

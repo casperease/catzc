@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/waf/performance-efficiency.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "5442f36725bb"
     defines:

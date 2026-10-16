@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "8b763afa2d5b"
     links:

@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: d4592a9826a0
     adrs:

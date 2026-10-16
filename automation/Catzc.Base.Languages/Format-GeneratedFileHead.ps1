@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
-    kind: format-function
+    kind: formatter
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Languages
     visibility: public
@@ -80,6 +81,10 @@ function Format-GeneratedFileHead {
     # A file no language lists, such as a dotfile, has none to name.
     if ($language) {
         $values['language'] = $language.name
+    }
+    $fileKind = Get-PathFileKind $relative
+    if ($fileKind) {
+        $values['filekind'] = $fileKind
     }
     # A root file is in no track, and a file outside automation is in no module.
     $track = Get-Track -Path $relative

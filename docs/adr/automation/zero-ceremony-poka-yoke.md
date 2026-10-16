@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/zero-ceremony-poka-yoke.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "203576ad0251"
     defines:

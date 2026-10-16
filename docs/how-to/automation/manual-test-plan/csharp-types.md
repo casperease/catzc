@@ -4,6 +4,7 @@ catzc:
     path: docs/how-to/automation/manual-test-plan/csharp-types.md
     kind: how-to
     language: markdown
+    filekind: md
     track: docs
     body_sha: "6880bc8382a3"
     links:

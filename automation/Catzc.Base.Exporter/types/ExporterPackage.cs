@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/types/ExporterPackage.cs
-    kind: csharp-type
+    kind: type
     language: csharp
+    filekind: cs
     track: automation
     module: Catzc.Base.Exporter
     relatives:

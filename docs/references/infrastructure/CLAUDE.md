@@ -4,6 +4,7 @@ catzc:
     path: docs/references/infrastructure/CLAUDE.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: "056458e98539"
     links:

@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "2419ee9792e2"
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/use-ps1-not-psm1.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: fa2e9b2b1535
     defines:

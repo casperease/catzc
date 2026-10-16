@@ -4,8 +4,9 @@ catzc:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
-    body_sha: dd2ec1253847
+    body_sha: eaee682470c8
     defines:
       - ADR-REPO-CODEMETA#{1-5}
     adrs:
@@ -40,14 +41,15 @@ delimiters a language uses is asked from the one place that knows each language'
 ### Rule ADR-REPO-CODEMETA:2
 
 A head holds only facts the repository can compute and that change when the file's place or tier changes: `path` (the repository-relative
-path), `kind` (the class of the file, a moniker of the file-kind registry entry that names its language and role: a `csharp-type`, a
-`pester-test`, a `gate-function`, an `automation-function`), `module` (the folder under `automation/`), for a PowerShell file `visibility`
-(`private` or `public`, from the folder), and `adrs`, the ADR codes that bind the file, sorted and without duplicates, each rule code
-`ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`. For a C# type file, a PowerShell function file and a PowerShell test
-file the head holds `adrs`: the formatter keeps every code the head lists and adds each code the file and its comment page cite that the ADR
-index registers, so a fixture code or a placeholder named in prose is no citation, and a code leaves the list only when a person deletes it
-from the head. It never holds a hash of the body, which would change on every edit and make every edit a two-hunk diff. The facts sit under
-`derived`, and a person's own keys, if any, sit under `config`, as in Markdown.
+path), `kind` (the class of the file, a moniker of the file-kind registry entry that names its role and never its language, track or module:
+a `type`, a `test`, a `gate`, a `function`), `language` (the file language, from the languages registry), `track` (the root concern that
+holds the file), `module` (the folder under `automation/`, when the file is placed in one), for a PowerShell file `visibility` (`private` or
+`public`, from the folder), and `adrs`, the ADR codes that bind the file, sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and
+each domain-level citation a bare `ADR-<CODE>`. For a C# type file, a PowerShell function file and a PowerShell test file the head holds
+`adrs`: the formatter keeps every code the head lists and adds each code the file and its comment page cite that the ADR index registers, so
+a fixture code or a placeholder named in prose is no citation, and a code leaves the list only when a person deletes it from the head. It
+never holds a hash of the body, which would change on every edit and make every edit a two-hunk diff. The facts sit under `derived`, and a
+person's own keys, if any, sit under `config`, as in Markdown.
 
 - [What the head holds](#what-the-head-holds)
 

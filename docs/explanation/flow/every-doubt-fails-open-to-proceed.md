@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/every-doubt-fails-open-to-proceed.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: ef6923670aa4
     adrs:

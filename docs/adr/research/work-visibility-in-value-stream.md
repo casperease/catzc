@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/work-visibility-in-value-stream.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "9bffc5515fba"
     defines:

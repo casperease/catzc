@@ -4,6 +4,7 @@ catzc:
     path: docs/how-to/getting-started/automation/run-tests-and-checks.md
     kind: how-to
     language: markdown
+    filekind: md
     track: docs
     body_sha: d917267d0225
     adrs:

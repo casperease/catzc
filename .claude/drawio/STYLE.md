@@ -4,6 +4,7 @@ catzc:
     path: ".claude/drawio/STYLE.md"
     kind: drawio-kit
     language: markdown
+    filekind: md
     track: ".claude"
     body_sha: "5cc03b54644d"
     adrs:

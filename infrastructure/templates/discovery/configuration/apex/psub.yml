@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/discovery/configuration/apex/psub.yml
-#     kind: bicep-template-config
+#     kind: template-config
 #     language: yaml
+#     filekind: yml
 #     track: infrastructure
 #     relatives:
 #       page: docs/references/infrastructure/templates/discovery/configuration/apex/psub.yml.md

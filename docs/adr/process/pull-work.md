@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/process/pull-work.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "8bff15b2a55a"
     defines:

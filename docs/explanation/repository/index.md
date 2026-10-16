@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/repository/index.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "029a80254290"
     links:

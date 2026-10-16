@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/proactive-failure-notification.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: f37383f96bac
     defines:

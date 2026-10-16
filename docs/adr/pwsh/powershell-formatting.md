@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/powershell-formatting.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "95065966d656"
     defines:

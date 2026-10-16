@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "37f8531166d7"
     adrs:

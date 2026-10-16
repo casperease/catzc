@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/caf/network-private-access.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: afa53038a9df
     defines:

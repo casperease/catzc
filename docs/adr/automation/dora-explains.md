@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/dora-explains.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "3627036d4752"
     links:

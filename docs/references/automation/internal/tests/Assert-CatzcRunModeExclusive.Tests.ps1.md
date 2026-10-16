@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e83f8ed9a3fd

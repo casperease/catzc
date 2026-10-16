@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1
-    kind: test-asset
+    kind: fixture
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.QualityGates
     relatives:

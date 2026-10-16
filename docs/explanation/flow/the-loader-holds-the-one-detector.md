@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/the-loader-holds-the-one-detector.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "8a2ef0492492"
     adrs:

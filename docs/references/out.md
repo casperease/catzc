@@ -4,6 +4,7 @@ catzc:
     path: docs/references/out.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: f36f8985dc86
     links:

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/azure-customer-model.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "3825cc41e801"
     defines:

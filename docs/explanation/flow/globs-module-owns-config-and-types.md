@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/globs-module-owns-config-and-types.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: acff02a4ee86
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "64e2072921aa"
     adrs:

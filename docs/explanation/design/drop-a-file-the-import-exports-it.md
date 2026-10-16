@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/drop-a-file-the-import-exports-it.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "652ba7de9c73"
     adrs:

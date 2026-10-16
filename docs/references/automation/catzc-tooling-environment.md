@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-tooling-environment.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: f7b6347487cd
     adrs:

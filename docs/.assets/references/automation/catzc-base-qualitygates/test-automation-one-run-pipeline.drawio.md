@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "3d8cf505cd81"
     adrs:

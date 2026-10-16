@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "0042054487f7"
     adrs:

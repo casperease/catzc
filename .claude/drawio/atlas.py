@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/atlas.py"
-#     kind: python-script
+#     kind: script
 #     language: python
+#     filekind: py
 #     track: ".claude"
 # ---
 

@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
-    kind: automation-function
+    kind: function
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Azure.Firewall
     visibility: public

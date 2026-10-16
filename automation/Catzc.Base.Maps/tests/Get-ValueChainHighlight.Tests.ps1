@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Maps
     relatives:

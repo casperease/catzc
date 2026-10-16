@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Azure.Templates/assets/PrePost.psm1
     kind: asset
     language: powershell
+    filekind: psm1
     track: automation
     module: Catzc.Azure.Templates
 ---

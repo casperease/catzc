@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/types/CliResult.cs
-    kind: csharp-type
+    kind: type
     language: csharp
+    filekind: cs
     track: automation
     module: Catzc.Base.Execution
     relatives:

@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/local-guard-and-server-policies.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: f8b79c407fcb
     adrs:

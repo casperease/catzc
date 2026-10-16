@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/minimaps/join.py"
-#     kind: python-script
+#     kind: script
 #     language: python
+#     filekind: py
 #     track: ".claude"
 # ---
 

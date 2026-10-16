@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "516e8f9171f2"
     adrs:

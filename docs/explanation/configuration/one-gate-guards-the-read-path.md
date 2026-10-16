@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/configuration/one-gate-guards-the-read-path.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: cd955d1c421d
     adrs:

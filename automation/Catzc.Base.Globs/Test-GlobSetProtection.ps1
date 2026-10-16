@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/Test-GlobSetProtection.ps1
-    kind: gate-function
+    kind: gate
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Globs
     visibility: public

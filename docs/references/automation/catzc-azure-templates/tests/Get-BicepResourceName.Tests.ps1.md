@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepResourceName.Tests.ps1.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "7133dfa979af"

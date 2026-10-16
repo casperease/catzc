@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/peers-in-a-layer-never-overlap.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: e6efd0ad79ce
     adrs:

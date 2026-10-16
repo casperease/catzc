@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-GeneratorFileMetaFact.ps1
-    kind: fact-function
+    kind: fact
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.QualityGates
     visibility: private

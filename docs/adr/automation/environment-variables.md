@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/environment-variables.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "1858e9dff417"
     defines:

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/prefer-az-cli.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "8d77f48a4cae"
     defines:

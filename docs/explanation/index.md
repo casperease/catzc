@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/index.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: f6e84604175e
     adrs:

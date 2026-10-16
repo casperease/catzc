@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-modulesystem.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: "840dcfca8845"
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-languages/types/PythonTestResult.cs.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8cbea2bb6980"

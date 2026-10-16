@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/design/module-aspects.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: ce9d5dbe10f2
     defines:

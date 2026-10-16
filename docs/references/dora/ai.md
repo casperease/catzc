@@ -4,6 +4,7 @@ catzc:
     path: docs/references/dora/ai.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: "4519db9d21f0"
     links:

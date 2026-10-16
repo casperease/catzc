@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/repository/function-help.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "3c30ae3e63b3"
     defines:

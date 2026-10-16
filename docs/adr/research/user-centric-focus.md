@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/user-centric-focus.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: f9bb86787adb
     defines:

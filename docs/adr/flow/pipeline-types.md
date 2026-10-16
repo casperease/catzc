@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/flow/pipeline-types.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: c03623e9b407
     defines:

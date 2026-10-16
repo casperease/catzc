@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "71b2d201b12f"
     adrs:

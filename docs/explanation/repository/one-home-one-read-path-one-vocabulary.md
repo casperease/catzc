@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "7272a8567547"
     adrs:

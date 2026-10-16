@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleTestOrder.ps1
-    kind: automation-function
+    kind: function
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
     visibility: public

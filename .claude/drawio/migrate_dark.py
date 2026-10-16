@@ -2,8 +2,9 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/migrate_dark.py"
-#     kind: python-script
+#     kind: script
 #     language: python
+#     filekind: py
 #     track: ".claude"
 # ---
 

@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.internal/tests/Get-TypesLoadPolicy.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
+    module: Catzc.Internal.Tests
 ---
 #>
 

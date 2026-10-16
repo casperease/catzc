@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/azure/the-session-is-the-deploy-target.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: d6736cd3c5ce
     adrs:

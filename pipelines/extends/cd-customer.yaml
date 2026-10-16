@@ -4,6 +4,7 @@
 #     path: pipelines/extends/cd-customer.yaml
 #     kind: pipeline-template
 #     language: pipeline-yaml
+#     filekind: yaml
 #     track: pipelines
 #     relatives:
 #       page: docs/references/pipelines/extends/cd-customer.yaml.md

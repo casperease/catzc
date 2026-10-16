@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/automation/what-gates-each-bundle-stage.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "72ee88959e72"
     adrs:

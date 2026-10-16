@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/types/BicepArtifacts.cs
-    kind: csharp-type
+    kind: type
     language: csharp
+    filekind: cs
     track: automation
     module: Catzc.Azure.Templates
     relatives:

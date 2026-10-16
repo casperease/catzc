@@ -2,8 +2,9 @@
 // catzc:
 //   derived:
 //     path: go/tests/catzc-base-repository/repository_test.go
-//     kind: go-test
+//     kind: test
 //     language: go
+//     filekind: go
 //     track: go
 // ---
 

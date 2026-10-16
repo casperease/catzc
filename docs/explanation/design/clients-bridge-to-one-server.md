@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/clients-bridge-to-one-server.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "67c27c50bf4b"
     adrs:

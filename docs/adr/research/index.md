@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/index.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "4479ff9ca781"
     links:

@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/types/BicepState.cs
-    kind: csharp-type
+    kind: type
     language: csharp
+    filekind: cs
     track: automation
     module: Catzc.Azure.Cli
     relatives:

@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
-    kind: csharp-type
+    kind: type
     language: csharp
+    filekind: cs
     track: automation
     module: Catzc.Base.RootConfig
     relatives:

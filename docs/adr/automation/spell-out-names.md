@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/spell-out-names.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "9a5905f33231"
     defines:

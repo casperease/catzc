@@ -4,6 +4,7 @@
 #     path: ".github/workflows/release-automation.yml"
 #     kind: pipeline
 #     language: yaml
+#     filekind: yml
 #     track: ".github"
 # ---
 

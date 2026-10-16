@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/sync-point-rules-are-adr-only.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "3cd7f3cab990"
     adrs:

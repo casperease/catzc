@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/one-scan-program-feeds-three-roles.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "1756066d4cce"
     adrs:

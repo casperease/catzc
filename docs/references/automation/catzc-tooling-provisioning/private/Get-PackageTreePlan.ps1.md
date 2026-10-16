@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: c3f8c35af49c

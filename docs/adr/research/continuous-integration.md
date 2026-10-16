@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/continuous-integration.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "6e3811077548"
     defines:

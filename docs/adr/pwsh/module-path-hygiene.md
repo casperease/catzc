@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/module-path-hygiene.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: ba9e66a45031
     defines:

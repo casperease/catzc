@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/what-keeps-the-platform-thin.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "03b1fe0ec1d7"
     adrs:

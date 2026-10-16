@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/types/GeneratedHeadConfig.cs
-    kind: csharp-type
+    kind: type
     language: csharp
+    filekind: cs
     track: automation
     module: Catzc.Base.Languages
     relatives:
@@ -24,7 +25,7 @@ namespace Catzc.Base.Languages;
 public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "generated-head configuration validation failed:\n";
-    private static readonly string[] Known = { "path", "source", "kind", "language", "track", "module", "generator" };
+    private static readonly string[] Known = { "path", "source", "kind", "language", "filekind", "track", "module", "generator" };
 
     // The head keys in writing order.
     public string[] order { get; }

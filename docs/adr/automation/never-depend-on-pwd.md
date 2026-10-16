@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/never-depend-on-pwd.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "0a928ba0ca1e"
     defines:

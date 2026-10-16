@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/tool-removal-lifecycle.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: dd151d99a6db
     defines:

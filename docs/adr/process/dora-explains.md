@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/process/dora-explains.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "084c203254f8"
     links:

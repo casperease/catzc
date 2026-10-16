@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "89e19e3c644b"

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/clear-and-communicated-ai-stance.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: b477e777a6cd
     defines:

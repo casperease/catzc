@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/azure/four-gates-hold-the-session-rule.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: e5aa0b7c93ca
     adrs:

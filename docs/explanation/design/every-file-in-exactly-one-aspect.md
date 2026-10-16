@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/every-file-in-exactly-one-aspect.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: edf4b6a5a7fa
     adrs:

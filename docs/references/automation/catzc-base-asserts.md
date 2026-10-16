@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-asserts.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: a5186cbe36ce
     links:

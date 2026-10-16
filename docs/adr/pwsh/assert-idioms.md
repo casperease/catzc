@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/assert-idioms.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "780f878a5b15"
     defines:

@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "4dc5921ea701"
     adrs:

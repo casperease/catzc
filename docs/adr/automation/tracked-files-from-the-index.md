@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/tracked-files-from-the-index.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "2f64cc7666e4"
     defines:

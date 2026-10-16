@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/pipelines/configured-credential-proves-its-org.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "6e7af59d401e"
     adrs:

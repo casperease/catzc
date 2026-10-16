@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Vendor/Assert-VendorModuleAvailable.ps1
-    kind: assert-function
+    kind: assert
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Vendor
     visibility: public

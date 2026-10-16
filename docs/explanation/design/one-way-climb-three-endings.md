@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/one-way-climb-three-endings.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "4316f5080e62"
     adrs:

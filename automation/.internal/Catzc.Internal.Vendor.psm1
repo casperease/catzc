@@ -3,9 +3,11 @@
 catzc:
   derived:
     path: automation/.internal/Catzc.Internal.Vendor.psm1
-    kind: internal-module
+    kind: internal
     language: powershell
+    filekind: psm1
     track: automation
+    module: Catzc.Internal.Vendor
     relatives:
       page: docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md
 ---

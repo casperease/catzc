@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/azure/azure-data-model.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "62bbc25cbfea"
     defines:

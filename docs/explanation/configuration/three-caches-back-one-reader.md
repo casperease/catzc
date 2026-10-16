@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/configuration/three-caches-back-one-reader.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: "9449ba4f8a11"
     adrs:

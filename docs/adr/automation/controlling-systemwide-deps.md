@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/controlling-systemwide-deps.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: f306aec32d72
     defines:

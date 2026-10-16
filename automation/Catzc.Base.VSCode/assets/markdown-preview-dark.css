@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
     kind: asset
     language: css
+    filekind: css
     track: automation
     module: Catzc.Base.VSCode
 ---

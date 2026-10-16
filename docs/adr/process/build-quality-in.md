@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/process/build-quality-in.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: df9bdb9dc6a2
     defines:

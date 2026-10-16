@@ -4,6 +4,7 @@ catzc:
     path: docs/references/automation/catzc-base-variants.md
     kind: reference
     language: markdown
+    filekind: md
     track: docs
     body_sha: f850a5c1b74e
     links:

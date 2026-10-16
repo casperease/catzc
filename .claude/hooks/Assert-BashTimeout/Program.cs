@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: ".claude/hooks/Assert-BashTimeout/Program.cs"
-    kind: claude-hook
+    kind: hook
     language: csharp
+    filekind: cs
     track: ".claude"
     relatives:
       page: docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md

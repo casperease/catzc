@@ -4,6 +4,7 @@ catzc:
     path: docs/references/infrastructure/templates/expedition/configuration/apex/prod.yml.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "85b062cfbaf8"

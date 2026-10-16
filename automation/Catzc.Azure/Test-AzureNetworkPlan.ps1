@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/Test-AzureNetworkPlan.ps1
-    kind: gate-function
+    kind: gate
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Azure
     visibility: public

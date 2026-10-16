@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.CodeMeta
     relatives:

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/automation/consumer-overlay.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: ff4554a3466b
     defines:

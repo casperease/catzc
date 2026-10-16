@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: dde41f84db25
     adrs:

@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/Get-WorldMap.ps1
-    kind: automation-function
+    kind: function
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Base.Maps
     visibility: public

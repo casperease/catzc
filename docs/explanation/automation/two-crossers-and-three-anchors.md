@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/automation/two-crossers-and-three-anchors.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: a93d455cb4f2
     adrs:

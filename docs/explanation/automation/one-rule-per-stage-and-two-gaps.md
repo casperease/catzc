@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: d24069d9bd3b
     adrs:

@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/research/customer-feedback.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "6d931cf1787f"
     defines:

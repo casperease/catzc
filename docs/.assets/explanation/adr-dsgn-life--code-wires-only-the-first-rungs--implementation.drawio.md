@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: f8d68fa2cf78
     adrs:

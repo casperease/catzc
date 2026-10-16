@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "5f9c5d88d4fb"
     links:

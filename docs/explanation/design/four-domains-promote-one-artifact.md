@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/design/four-domains-promote-one-artifact.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: dfa7b99511ce
     adrs:

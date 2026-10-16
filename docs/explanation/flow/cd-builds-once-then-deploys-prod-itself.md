@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: cda664cacc34
     adrs:

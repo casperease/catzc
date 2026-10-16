@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/no-gate-checks-rules-one-and-four.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: a85da9fc8bca
     adrs:

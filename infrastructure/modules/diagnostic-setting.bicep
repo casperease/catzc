@@ -2,8 +2,9 @@
 // catzc:
 //   derived:
 //     path: infrastructure/modules/diagnostic-setting.bicep
-//     kind: bicep-module
+//     kind: template-module
 //     language: bicep
+//     filekind: bicep
 //     track: infrastructure
 //     relatives:
 //       page: docs/references/infrastructure/modules/diagnostic-setting.bicep.md

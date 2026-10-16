@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/pwsh/working-directory-mechanics.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "215b77f1e4d2"
     defines:

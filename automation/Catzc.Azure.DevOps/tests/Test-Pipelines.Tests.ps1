@@ -3,8 +3,9 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-    kind: pester-test
+    kind: test
     language: powershell
+    filekind: ps1
     track: automation
     module: Catzc.Azure.DevOps
     relatives:

@@ -4,6 +4,7 @@ catzc:
     path: docs/references/pipelines/steps/invoke-automation.yaml.md
     kind: comment-page
     language: markdown
+    filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "16fc292a209a"

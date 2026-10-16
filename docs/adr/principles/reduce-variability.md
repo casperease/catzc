@@ -4,6 +4,7 @@ catzc:
     path: docs/adr/principles/reduce-variability.md
     kind: adr
     language: markdown
+    filekind: md
     track: docs
     body_sha: "6c7182f0738c"
     defines:

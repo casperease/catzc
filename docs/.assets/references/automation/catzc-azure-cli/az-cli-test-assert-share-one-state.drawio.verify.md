@@ -4,6 +4,7 @@ catzc:
     path: docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md
     kind: asset-description
     language: markdown
+    filekind: md
     track: docs
     body_sha: "4a8652767fed"
     adrs:

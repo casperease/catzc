@@ -4,6 +4,7 @@ catzc:
     path: docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
     kind: explanation
     language: markdown
+    filekind: md
     track: docs
     body_sha: ffbbf6cf0962
     adrs:
