@@ -47,40 +47,19 @@ function Get-RobotLineCount {
     [OutputType([pscustomobject])]
     param(
         [Parameter(Mandatory)]
-        [string] $Path
+        [string] $Path,
+
+        [ValidateNotNullOrEmpty()]
+        [string] $Key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey
     )
 
     Assert-PathExist $Path
 
-    $lines = [System.IO.File]::ReadAllLines($Path)
-    $end = -1
-    if ($lines.Count -gt 0 -and $lines[0].TrimEnd() -eq '---') {
-        for ($index = 1; $index -lt $lines.Count; $index++) {
-            if ($lines[$index].TrimEnd() -eq '---') {
-                $end = $index
-                break
-            }
-        }
-    }
+    $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($Path), $Key)
     # A line counts when it starts something of its own: a key, a heading, a step, a paragraph. A line that starts with
     # whitespace continues the line before it (the formatter's wrap at the repository width, or a folded YAML value) and
     # counts with it; a blank line and a comment line (`<!-- -->`) count as nothing.
-    $front = 0
-    if ($end -gt 0) {
-        for ($index = 1; $index -lt $end; $index++) {
-            if ($lines[$index] -cmatch '^catzc:\s*$') {
-                break
-            }
-            if ($lines[$index] -cmatch '^\S') {
-                $front++
-            }
-        }
-    }
-    $body = 0
-    for ($index = $end + 1; $index -lt $lines.Count; $index++) {
-        if ($lines[$index] -cmatch '^\S' -and $lines[$index] -cnotmatch '^<!--') {
-            $body++
-        }
-    }
+    $front = @($document.OtherFrontMatter | Where-Object { $_ -cmatch '^\S' }).Count
+    $body = @(($document.Body -split "`r?`n") | Where-Object { $_ -cmatch '^\S' -and $_ -cnotmatch '^<!--' }).Count
     [pscustomobject]@{ Body = $body; Capability = $front + $body }
 }

@@ -6,25 +6,28 @@ description:
 user-invocable: false
 allowed-tools: Bash, Read, Grep, Edit, Write
 paths: automation/**/tests/**
-metadata: { catzc: { model_floor: sonnet, needs: [pwsh] } }
-catzc:
-  immutable:
-    with_body_sha: facfd87cd418
-    path: ".claude/skills/test-speed/SKILL.md"
-    folder: skills/test-speed
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{13,19-22}
-      - ADR-PWSH-PESTER#9
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: facfd87cd418
+      path: ".claude/skills/test-speed/SKILL.md"
+      folder: skills/test-speed
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    edges:
+      cites:
+        - ADR-AUTO-TEST#{13,19-22}
+        - ADR-PWSH-PESTER#9
+    config:
+      model_floor: sonnet
+      needs: [pwsh]
 ---
 
 # test-speed

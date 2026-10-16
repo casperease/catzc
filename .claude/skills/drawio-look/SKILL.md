@@ -6,21 +6,24 @@ description:
 user-invocable: false
 allowed-tools: Read
 paths: docs/.assets/**/*.png, out/drawio/**, out/diagrams/**
-metadata: { catzc: { model_floor: haiku, needs: [] } }
-catzc:
-  immutable:
-    with_body_sha: f4f86ac0c87e
-    path: ".claude/skills/drawio-look/SKILL.md"
-    folder: skills/drawio-look
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: f4f86ac0c87e
+      path: ".claude/skills/drawio-look/SKILL.md"
+      folder: skills/drawio-look
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: haiku
+      needs: []
 ---
 
 # drawio-look

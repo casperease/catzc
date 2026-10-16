@@ -4,21 +4,24 @@ description: Check and repair the links of one markdown file; for plan-clear and
 user-invocable: false
 allowed-tools: Bash, Read, Edit
 paths: "**/*.md"
-metadata: { catzc: { model_floor: haiku, needs: [pwsh] } }
-catzc:
-  immutable:
-    with_body_sha: dbee73aac03f
-    path: ".claude/skills/md-links/SKILL.md"
-    folder: skills/md-links
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: dbee73aac03f
+      path: ".claude/skills/md-links/SKILL.md"
+      folder: skills/md-links
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: haiku
+      needs: [pwsh]
 ---
 
 # md-links

@@ -64,6 +64,7 @@ Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
             $doc.HasMetaBlock | Should -BeTrue
             $doc.CanHoldMetaBlock | Should -BeTrue
             $doc.MetaBlock | Should -Be @('catzc:', '  immutable:', '    kind: gadget', '  config:', '    floor: low')
+            $doc.OtherFrontMatter | Should -Be @('name: widget', 'metadata:', '  other: 1', '  last: 2', 'catzc:', '  immutable:', '    kind: decoy')
             $doc.ToText() | Should -BeExactly $script:nested
         }
 

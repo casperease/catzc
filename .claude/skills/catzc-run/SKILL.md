@@ -4,21 +4,24 @@ description:
   How to run a cats command or any shell call under the time safeguard; for every robot that runs pwsh; input is the command to run.
 user-invocable: false
 allowed-tools: Bash
-metadata: { catzc: { model_floor: haiku, needs: [pwsh] } }
-catzc:
-  immutable:
-    with_body_sha: "3cd594f44817"
-    path: ".claude/skills/catzc-run/SKILL.md"
-    folder: skills/catzc-run
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: "3cd594f44817"
+      path: ".claude/skills/catzc-run/SKILL.md"
+      folder: skills/catzc-run
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: haiku
+      needs: [pwsh]
 ---
 
 # catzc-run

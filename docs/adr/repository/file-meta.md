@@ -51,8 +51,11 @@ catzc:
 Every in-scope tracked file may carry one **meta block**: the facts the tooling owns about the file, written into the file's carrier. A
 Markdown file's carrier is the reserved front-matter key `catzc`, holding the file's place facts under `immutable`, its outgoing edges under
 `edges` ([ADR-REPO-FILEMETA#13](#rule-adr-repo-filemeta13)) and its authored config contributions under `config`
-([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1)). A code file's carrier is its
-meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta1)). The block is the only part of the file the tooling owns: every
+([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1)). The key sits at the top
+level, or, where another tool validates the top level of the front matter and leaves one key of its own free for foreign data, nests under
+that key at the key path the carrier registry declares (`key`, such as `metadata.catzc` for a capability); the block's own key is `catzc`
+either way, and a parent key written as a flow mapping or a scalar is the author's to open up, never rewritten. A code file's carrier is
+its meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta1)). The block is the only part of the file the tooling owns: every
 other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
 
 - [Decision](#decision)
@@ -246,9 +249,13 @@ catzc:
 
 A fact with no value, an empty list or an empty string, is the default of its key and is left out, so an absent key reads as the empty
 value. `name` belongs to the agent tooling and is untouched. A tool that reads front matter keeps working, because the reserved key is one
-extra top-level key it does not know. The parts never mix: `immutable` and `edges` are imprinted and rewritten, `config` is authored and
-kept. The code carrier, the form of a head in a C# or PowerShell file, is in [code-file-meta](code-file-meta.md). Which carrier each file
-class has, or why it has none, is one registry, `file-carriers.yml`, so a gap in the coverage is a visible entry.
+extra top-level key it does not know. A tool that rejects a top-level key it does not know, as an editor's skill validator does, still
+leaves one key free for foreign data, `metadata`, so for that file class the registry nests the block there (`key: metadata.catzc`): the
+block keeps its own key and its three parts, the tooling writes the parent key when the file lacks it and leaves every sibling under it
+alone, and a parent written as a flow mapping cannot take a nested block, which is a finding for the author, never a rewrite. The parts
+never mix: `immutable` and `edges` are imprinted and rewritten, `config` is authored and kept. The code carrier, the form of a head in a C#
+or PowerShell file, is in [code-file-meta](code-file-meta.md). Which carrier each file class has, or why it has none, is one registry,
+`file-carriers.yml`, so a gap in the coverage is a visible entry.
 
 ### The meta-kind registry
 

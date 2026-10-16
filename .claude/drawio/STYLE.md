@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9c9ed8571f76"
+    with_body_sha: "7f8f28dcd288"
     path: ".claude/drawio/STYLE.md"
     folder: drawio
     name: style
@@ -273,13 +273,13 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
 
 ## Fan-out: ADR-support drawings with three minimaps
 
-**Rebuilding a folder of slides.** The minimaps light the repository's citations of each slide's ADRs, so they drift whenever a citation,
-a map or `maps.yml` changes. `drawio_forward.py --all <folder>` rebuilds every slide of a folder in place in three stages that each fit
-the time safeguard, `--stage prepare` (optionally `--migrate` to the dark tokens; extracts the models and writes the slide list from the
-slides themselves), `--stage highlight` (the map processors once, then the minimaps and their sister `.md` files) and `--stage join` (the
-sidebars laid out, the minimaps embedded, the slides rebuilt), `--start`/`--end` slicing the per-slide stages. One slide goes through
-`drawio_forward.py <slide> --minimaps` instead. The diagram id a build embeds is a hash of the model, so a rebuild of an unchanged model
-is byte-identical.
+**Rebuilding a folder of slides.** The minimaps light the repository's citations of each slide's ADRs, so they drift whenever a citation, a
+map or `maps.yml` changes. `drawio_forward.py --all <folder>` rebuilds every slide of a folder in place in three stages that each fit the
+time safeguard, `--stage prepare` (optionally `--migrate` to the dark tokens; extracts the models and writes the slide list from the slides
+themselves), `--stage highlight` (the map processors once, then the minimaps and their sister `.md` files) and `--stage join` (the sidebars
+laid out, the minimaps embedded, the slides rebuilt), `--start`/`--end` slicing the per-slide stages. One slide goes through
+`drawio_forward.py <slide> --minimaps` instead. The diagram id a build embeds is a hash of the model, so a rebuild of an unchanged model is
+byte-identical.
 
 Every lens drawing is republished as an **explanation that supports its ADR(s)**: the committed slides in `docs/.assets/explanation/`, and
 the review waves under `out/diagrams/`. A sidebar carries three minimaps showing where the drawing sits: two views of the world map (where
@@ -322,10 +322,11 @@ colour. The axis titles are not printed on the minimap: the map key and the sist
 ### The sister `.md` of each minimap
 
 Every minimap PNG has a **sister `.md`** with the same stem, next to it in the minimap's own sub-folder (`grid/<stem>.grid.md`,
-`tree/<stem>.tree.md`, `chain/<stem>.chain.md`): one sub-folder per minimap, so each minimap's renderings and descriptions stand on their own
-beside the slides that embed them. `render.py` writes it in the same run, from the same data (`describe.py`), and never by hand. It opens with its path as the H1 (ADR-REPO-FORMAT#6),
-states once that every unlit cell is idle and why a cell holds nothing (no file of that track and file language; no ADR's value-chain
-concern lands there), expands the minimap's short codes under **Key**, and gives **every lit cell or lit group its reason**:
+`tree/<stem>.tree.md`, `chain/<stem>.chain.md`): one sub-folder per minimap, so each minimap's renderings and descriptions stand on their
+own beside the slides that embed them. `render.py` writes it in the same run, from the same data (`describe.py`), and never by hand. It
+opens with its path as the H1 (ADR-REPO-FORMAT#6), states once that every unlit cell is idle and why a cell holds nothing (no file of that
+track and file language; no ADR's value-chain concern lands there), expands the minimap's short codes under **Key**, and gives **every lit
+cell or lit group its reason**:
 
 - **World map:** the root folder names the track (ADR-DSGN-TRACK#1), or the file is a root file (#7); the extension names the file language
   (#6), or the file is an unlisted file (#8); then each lit file with the ADR code that selects it, its basis (the ADR's own file, only that
@@ -391,8 +392,8 @@ view adds its sections in `describe.py`'s `VIEWS`.
 - **Names:**
   - The drawing is `<adr>--<explanation>--<lens>.drawio.png`. `<adr>` is the main ADR code in lower case (`adr-flow-cd`). `<explanation>` is
     3–7 kebab words, ≤ 48 chars. `<lens>` is one of the five. The whole name is ≤ 90 chars.
-  - The minimaps are `grid/<same stem>.grid.png`, `tree/<same stem>.tree.png` and `chain/<same stem>.chain.png`, each with its sister
-    `.md` beside it, in one sub-folder per minimap under the drawing's folder.
+  - The minimaps are `grid/<same stem>.grid.png`, `tree/<same stem>.tree.png` and `chain/<same stem>.chain.png`, each with its sister `.md`
+    beside it, in one sub-folder per minimap under the drawing's folder.
 
 ### Who does what, and how to rerun
 

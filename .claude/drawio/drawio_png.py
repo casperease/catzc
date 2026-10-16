@@ -14,7 +14,7 @@
 #     moduletype: settings
 # ---
 
-# cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo segoeui segoeuib textbbox
+# cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo prel segoeui segoeuib textbbox
 """Build a .drawio.png from an mxGraphModel XML file, or re-render one from the model it already carries.
 
 usage: uv run --with pillow python drawio_png.py <model.xml | in.drawio.png> <out.drawio.png> [--name "Page-1"] [--page dark|model]
@@ -40,6 +40,7 @@ from urllib.parse import quote, unquote
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from PIL.PngImagePlugin import PngInfo
+
 
 def kit_defaults():
     """The kit's sensible defaults from drawio.yml beside this script: a two-level mapping read without a YAML library."""

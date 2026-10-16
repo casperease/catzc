@@ -4,21 +4,24 @@ description: Run a decision round over open plan questions; for plan-decide; inp
 user-invocable: false
 allowed-tools: Read, Grep, Edit, Write, AskUserQuestion
 paths: .claude/plans/**
-metadata: { catzc: { model_floor: sonnet, needs: [] } }
-catzc:
-  immutable:
-    with_body_sha: c2f499f94362
-    path: ".claude/skills/plan-decide/SKILL.md"
-    folder: skills/plan-decide
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: c2f499f94362
+      path: ".claude/skills/plan-decide/SKILL.md"
+      folder: skills/plan-decide
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: sonnet
+      needs: []
 ---
 
 # plan-decide

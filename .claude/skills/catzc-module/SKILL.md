@@ -6,27 +6,30 @@ description:
 user-invocable: false
 allowed-tools: Bash, Read, Glob, Grep, Write, Edit
 paths: automation/**
-metadata: { catzc: { model_floor: sonnet, needs: [pwsh] } }
-catzc:
-  immutable:
-    with_body_sha: "5a5badfb8c98"
-    path: ".claude/skills/catzc-module/SKILL.md"
-    folder: skills/catzc-module
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-PATH#{1,3}
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TYPES#8
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: "5a5badfb8c98"
+      path: ".claude/skills/catzc-module/SKILL.md"
+      folder: skills/catzc-module
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    edges:
+      cites:
+        - ADR-AUTO-DEFAULT#6
+        - ADR-AUTO-PATH#{1,3}
+        - ADR-AUTO-TEST#3
+        - ADR-AUTO-TYPES#8
+    config:
+      model_floor: sonnet
+      needs: [pwsh]
 ---
 
 # catzc-module

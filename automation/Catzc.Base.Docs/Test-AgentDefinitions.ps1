@@ -46,9 +46,9 @@ catzc:
           ([ADR-REPO-AGENTS#6](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents6));
         - an agent names no `model`, names `inherit`, or names a model below the highest `model_floor` of the
           capabilities it preloads ([ADR-REPO-AGENTS#7](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents7));
-        - a capability has more lines than roofs.capability_lines outside its catzc head, its `name` differs from
-          its folder, it is user-invocable, or it lacks `allowed-tools` or a `metadata.catzc.model_floor` of haiku,
-          sonnet or opus ([ADR-REPO-AGENTS#8](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents8));
+        - a capability has more lines than roofs.capability_lines outside its catzc head (nested at the key path its
+          carrier names, metadata.catzc), its `name` differs from its folder, it is user-invocable, or it lacks
+          `allowed-tools` or a `metadata.catzc.config.model_floor` of haiku, sonnet or opus ([ADR-REPO-AGENTS#8](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents8));
         - a `skills` name has no capability file, or a capability is preloaded by no agent
           ([ADR-REPO-AGENTS#9](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents9));
         - a capability file has no registry entry, an entry has no file, or an entry's citation or check resolves
@@ -93,9 +93,19 @@ function Test-AgentDefinitions {
             Get-ChildPath $skillsRoot -Depth 2 -File -Filter 'SKILL.md' | ForEach-Object { [string]$_ } | Sort-Object
         })
     $floors = @{}
+    # The carrier registry says where a capability's catzc head nests, under the file kind's class; the gate never fixes the key itself.
+    $carriers = Get-Config -Config file-carriers
+    $fileKinds = Get-Config -Config file-kinds
     foreach ($file in $capabilityFiles) {
         $name = [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($file))
         $relative = ".claude/skills/$name/SKILL.md"
+        $carrier = $carriers.Find($fileKinds.Resolve($relative).Class)
+        $key = if ($carrier -and $carrier.key) {
+            $carrier.key
+        }
+        else {
+            [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey
+        }
         try {
             $frontMatter = Get-AgentFrontMatter -Path $file
         }
@@ -115,19 +125,27 @@ function Test-AgentDefinitions {
         if (-not $frontMatter.Contains('allowed-tools') -or [string]::IsNullOrWhiteSpace([string]$frontMatter['allowed-tools'])) {
             $issues.Add("${relative}: front matter has no allowed-tools")
         }
+        # The floor is the author's one line in the catzc head's config part, beside the imprinted parts, so it survives every imprint.
         $floor = $null
-        if ($frontMatter.Contains('metadata') -and $frontMatter['metadata'] -is [System.Collections.IDictionary] -and
-            $frontMatter['metadata'].Contains('catzc') -and $frontMatter['metadata']['catzc'] -is [System.Collections.IDictionary] -and
-            $frontMatter['metadata']['catzc'].Contains('model_floor')) {
-            $floor = [string]$frontMatter['metadata']['catzc']['model_floor']
+        $authored = $frontMatter
+        foreach ($segment in @('metadata', 'catzc', 'config')) {
+            $authored = if ($authored -is [System.Collections.IDictionary] -and $authored.Contains($segment)) {
+                $authored[$segment]
+            }
+            else {
+                $null
+            }
+        }
+        if ($authored -is [System.Collections.IDictionary] -and $authored.Contains('model_floor')) {
+            $floor = [string]$authored['model_floor']
         }
         if (-not $floor -or -not $modelRank.ContainsKey($floor)) {
-            $issues.Add("${relative}: metadata.catzc.model_floor must be haiku, sonnet or opus")
+            $issues.Add("${relative}: metadata.catzc.config.model_floor must be haiku, sonnet or opus")
         }
         else {
             $floors[$name] = $floor
         }
-        $lines = Get-RobotLineCount -Path $file
+        $lines = Get-RobotLineCount -Path $file -Key $key
         if ($lines.Capability -gt $config.capability_lines) {
             $issues.Add("${relative}: has $($lines.Capability) lines outside its catzc head, the roof is $($config.capability_lines) (roofs.capability_lines)")
         }

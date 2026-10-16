@@ -6,21 +6,24 @@ description:
 user-invocable: false
 allowed-tools: Read, Grep, Glob
 paths: docs/adr/**
-metadata: { catzc: { model_floor: haiku, needs: [] } }
-catzc:
-  immutable:
-    with_body_sha: "81d72c2e3972"
-    path: ".claude/skills/adr-cite/SKILL.md"
-    folder: skills/adr-cite
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: "81d72c2e3972"
+      path: ".claude/skills/adr-cite/SKILL.md"
+      folder: skills/adr-cite
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: haiku
+      needs: []
 ---
 
 # adr-cite

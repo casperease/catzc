@@ -61,7 +61,18 @@ public sealed class MarkdownDocument
 
     public bool HasFrontMatter => frontMatter != null;
 
-    public int FrontMatterLineCount => frontMatter == null ? 0 : frontMatter.Count;
+    // The front-matter lines that are not the block's, as written: what the other tools that read the file own.
+    public IReadOnlyList<string> OtherFrontMatter
+    {
+        get
+        {
+            if (frontMatter == null) { return new string[0]; }
+            Location at = Locate();
+            var lines = new List<string>(frontMatter);
+            if (at.Found) { lines.RemoveRange(at.Start, at.End - at.Start); }
+            return lines;
+        }
+    }
 
     public bool HasMetaBlock => Locate().Found;
 

@@ -6,21 +6,24 @@ description:
 user-invocable: false
 allowed-tools: Artifact, ArtifactData, Read
 paths: out/diagrams/**, out/print-artifacts/**
-metadata: { catzc: { model_floor: haiku, needs: [uv] } }
-catzc:
-  immutable:
-    with_body_sha: c97c3be9f57e
-    path: ".claude/skills/artifact-publish/SKILL.md"
-    folder: skills/artifact-publish
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: c97c3be9f57e
+      path: ".claude/skills/artifact-publish/SKILL.md"
+      folder: skills/artifact-publish
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: haiku
+      needs: [uv]
 ---
 
 # artifact-publish

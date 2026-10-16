@@ -5,21 +5,24 @@ description:
   gate name with its paths, or a test file path.
 user-invocable: false
 allowed-tools: Bash, Read
-metadata: { catzc: { model_floor: haiku, needs: [pwsh] } }
-catzc:
-  immutable:
-    with_body_sha: "33747a7441f4"
-    path: ".claude/skills/catzc-check/SKILL.md"
-    folder: skills/catzc-check
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: "33747a7441f4"
+      path: ".claude/skills/catzc-check/SKILL.md"
+      folder: skills/catzc-check
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: haiku
+      needs: [pwsh]
 ---
 
 # catzc-check

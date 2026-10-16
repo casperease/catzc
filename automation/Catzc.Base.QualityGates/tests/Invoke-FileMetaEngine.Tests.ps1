@@ -29,10 +29,12 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
                     markdown   = @{ carrier = 'front-matter' }
                     json       = @{ carrier = 'property'; property = '//'; strip = @('GENERATED FILE') }
                     picture    = @{ files = @('**/*.pic'); carrier = 'sidecar'; sidecar = '{base}.md' }
+                    skill      = @{ files = @('docs/skills/**/SKILL.md'); carrier = 'front-matter'; key = 'metadata.catzc' }
                 }
             })
         $script:head = $carriers.Find('powershell')
         $script:front = $carriers.Find('markdown')
+        $script:nested = $carriers.Find('skill')
         $script:property = $carriers.Find('json')
         $script:sidecar = $carriers.Find('picture')
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
@@ -124,6 +126,25 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $markdown = $result.Files | Where-Object Path -EQ 'docs/widget.md'
         $markdown.Fixed | Should -BeLike "---`ncatzc:`n  immutable:`n    path: docs/widget.md*---*# Widget*"
         $markdown.Fixed | Should -Not -BeLike '*module:*' -Because 'the module kind lists automation/** only'
+    }
+
+    It 'nests a block at the key path its carrier names, keeps the authored config there, and reports a parent it cannot nest under' -Tag 'ADR-REPO-FILEMETA#1' {
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/skills/widget-spin')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/skills/widget-flow')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/skills/widget-spin/SKILL.md'), "---`nname: widget-spin`nmetadata:`n  catzc:`n    config:`n      floor: low`n---`n1. Spin.`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/skills/widget-flow/SKILL.md'), "---`nname: widget-flow`nmetadata: { catzc: { floor: low } }`n---`n1. Flow.`n")
+        $result = & $script:run @(
+            [pscustomobject]@{ Path = 'docs/skills/widget-spin/SKILL.md'; Carrier = $script:nested }
+            [pscustomobject]@{ Path = 'docs/skills/widget-flow/SKILL.md'; Carrier = $script:nested }
+        )
+        $spin = $result.Files | Where-Object Path -EQ 'docs/skills/widget-spin/SKILL.md'
+        $spin.Findings.Kind | Should -Be @('Drift')
+        $spin.Fixed | Should -BeLike "---`nname: widget-spin`nmetadata:`n  catzc:`n    immutable:`n      path: docs/skills/widget-spin/SKILL.md*    config:`n      floor: low`n---`n1. Spin.`n"
+        $spin.Fixed | Should -Not -BeLike "*`ncatzc:*" -Because 'the block lives at metadata.catzc and nowhere else'
+        $flow = $result.Files | Where-Object Path -EQ 'docs/skills/widget-flow/SKILL.md'
+        $flow.Findings.Kind | Should -Be @('Unowned')
+        $flow.Findings[0].Actual | Should -BeLike '*metadata.catzc holds a flow or scalar value*'
+        $flow.Fixed | Should -BeExactly "---`nname: widget-flow`nmetadata: { catzc: { floor: low } }`n---`n1. Flow.`n"
     }
 
     It 'imprints a JSON file''s block as its first property, and finds nothing to change once it is written' {

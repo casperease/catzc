@@ -5,9 +5,33 @@ plan:
   reviewed: 2026-10-16
   parent: plan-minimal-robots
   targets: [.claude/skills, automation/Catzc.Base.Docs/configs/capabilities.yml]
+catzc:
+  immutable:
+    with_body_sha: d401073f759a
+    path: ".claude/plans/plan-minimal-robots-capabilities.md"
+    folder: plans
+    name: plan-minimal-robots-capabilities
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-FAILFAST#7
+      - ADR-DSGN-VISUAL#4
+      - ADR-PRIN-NOWASTE#1
+      - ADR-PROC-BUILTIN#3
+      - ADR-REPO-AGENTS#4
+      - ADR-REPO-LINK#{1,5}
 ---
 
 # Minimal-Robots catalogue: the capabilities
+
+<!-- cspell:ignore filehead mxfile regen -->
 
 A capability is `.claude/skills/<name>/SKILL.md`: at most 10 lines outside the catzc head, mostly fixed front matter, one model floor,
 loaded only through a robot's `skills:` list. Two proposed by the user, eight recommended; the set may grow to 50 but never below the orphan
@@ -139,3 +163,10 @@ ADR-REPO-LINK#1, the drawio ones cite ADR-DSGN-VISUAL#4) and `checks` (`[]` for 
   plan.value (the last three by the planner session). Floors: sonnet for catzc.module, test.speed, drawio.waves and the plan.\* judging
   ones; haiku for the rest. Reserved and not built: adr.cite (its content went into catzc.module step 3). The gate's line count treats the
   two `---` delimiters and the catzc head as outside the roof (program Q2 as recommended).
+- 2026-10-16: the bulk slide regeneration folded into the kit as `drawio_forward.py --all <folder>` with stages `prepare` (optional
+  `--migrate`, model extraction, the slide list from the slides themselves), `highlight` (map processors once, minimaps and sister files)
+  and `join` (sidebars, embeds, rebuilt slides), `--start`/`--end` slicing the per-slide stages so each call fits the time safeguard; report
+  `out/drawio/<folder>/bulk.md`, same exit codes. `drawio_png.encode` now derives the diagram id from a hash of the model, so a rebuild of
+  an unchanged model is byte-identical, proven on a scratch folder of two slides plus the glyph sheet (skipped as it names no ADR): stage
+  all, status ok; join again, identical hashes. The session scripts `regen-explanation.py` and `relabel-subset.py` are deleted; the
+  capability names the bulk form and STYLE.md's fan-out section describes it.

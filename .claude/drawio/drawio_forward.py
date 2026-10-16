@@ -14,7 +14,7 @@
 #     moduletype: settings
 # ---
 
-# cspell:ignore mxfile minimaps
+# cspell:ignore mxfile minimaps pnginfo XMLMATCH
 """Fail-forward render of a .drawio.png: always a source copy and a result PNG, warnings forwarded, never a silent stop.
 
 usage: uv run --with pillow python drawio_forward.py <src.drawio.png> [<out_dir>] [--page dark|model]
@@ -49,14 +49,16 @@ import shutil
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
+import zlib
 from pathlib import Path
 
+from drawio_png import DEFAULTS, decode, encode, plain, render
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
-from drawio_png import DEFAULTS, decode, encode, plain, render
-
 PAGE_LINES = 66
+# A transport failure of any step becomes a warning and the artifacts still land: the exceptions the steps can raise.
+FORWARD = (OSError, ValueError, KeyError, AttributeError, RuntimeError, subprocess.SubprocessError, ET.ParseError, zlib.error)
 KIT = Path(__file__).resolve().parent
 REPO = KIT.parents[1]
 ADR_CODE = re.compile(r"ADR-[A-Z]+(?:-[A-Z]+)*")
@@ -96,7 +98,7 @@ def first_difference(a, b):
 
 def run(cmd, seconds):
     """One pipeline step; its failure is the caller's warning, with the tail of what it said."""
-    done = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, timeout=seconds)
+    done = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, timeout=seconds, check=False)
     if done.returncode != 0:
         tail = (done.stderr.strip() or done.stdout.strip()).splitlines()[-3:]
         raise RuntimeError(f"{Path(cmd[-1] if cmd[0] == 'pwsh' else cmd[2]).name} rc={done.returncode}: {' | '.join(tail)}")
@@ -160,7 +162,7 @@ def bulk(folder, stage, migrate, start, end):
                 models.joinpath(p.name.replace(".drawio.png", "") + ".model.xml").write_text(
                     decode(Image.open(p).text["mxfile"]).strip(), encoding="utf-8")
                 done += 1
-            except Exception as e:
+            except FORWARD as e:
                 warnings.append(f"W_PREPARE {p.name}: {e}")
         slides, skipped = [], []
         for p in pngs:
@@ -181,7 +183,7 @@ def bulk(folder, stage, migrate, start, end):
             run(["pwsh", "-NoProfile", "-File", str(KIT / "minimaps" / "highlights.ps1"), "-Slides", rel(slides_json), "-Data", rel(data)], 300)
             out = run([sys.executable, str(KIT / "minimaps" / "render.py"), "--slides", rel(slides_json), "--data", rel(data), "--target", rel(folder)], 120)
             print(f"minimaps {out.splitlines()[-1] if out else 'rendered'}")
-        except Exception as e:
+        except FORWARD as e:
             warnings.append(f"W_HIGHLIGHT {e}")
     if stage in ("join", "all"):
         try:
@@ -190,7 +192,7 @@ def bulk(folder, stage, migrate, start, end):
                 cmd += ["--end", str(end)]
             out = run(cmd, 340)
             print(f"joined {out.splitlines()[-1] if out else 'done'}")
-        except Exception as e:
+        except FORWARD as e:
             warnings.append(f"W_JOIN {e}")
     for w in warnings:
         print(f"warn {w}")
@@ -270,7 +272,7 @@ def main():
     try:
         chunk = Image.open(src).text["mxfile"]
         model = decode(chunk).strip()
-    except Exception as e:  # a transport failure is a warning, the source copy stands in for the result
+    except FORWARD as e:  # a transport failure is a warning, the source copy stands in for the result
         warnings.append(f"W_CHUNK no readable mxfile chunk in the source: {e}")
 
     if model is not None:
@@ -290,7 +292,7 @@ def main():
             back = decode(Image.open(result).text["mxfile"])
             if back != model:
                 warnings.append("W_ROUNDTRIP the result's embedded model differs from the source model")
-        except Exception as e:
+        except FORWARD as e:
             warnings.append(f"W_RENDER the model could not be rendered: {e}")
             shutil.copyfile(src, result)
     else:
@@ -307,7 +309,7 @@ def main():
                 given, embedded = canonical(xml_path.read_text(encoding="utf-8")), canonical(model)
                 if given != embedded:
                     warnings.append(f"W_XMLMATCH given model differs from the embedded one {first_difference(given, embedded)}")
-            except Exception as e:
+            except FORWARD as e:
                 warnings.append(f"W_XML the given model could not be read: {e}")
 
     if assert_path is not None:
@@ -331,7 +333,7 @@ def main():
             try:
                 joined = minimaps(src, name, model_file, out_dir)
                 print(f"slide {joined}")
-            except Exception as e:
+            except FORWARD as e:
                 warnings.append(f"W_MINIMAPS {e}")
 
     for w in warnings:

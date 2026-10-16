@@ -3,21 +3,24 @@ name: report-fixed
 description: The fixed end-of-run report every robot ends with; for every robot; input is what the run touched, ran and left undone.
 user-invocable: false
 allowed-tools: Read
-metadata: { catzc: { model_floor: haiku, needs: [] } }
-catzc:
-  immutable:
-    with_body_sha: "4619e469edcd"
-    path: ".claude/skills/report-fixed/SKILL.md"
-    folder: skills/report-fixed
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: "4619e469edcd"
+      path: ".claude/skills/report-fixed/SKILL.md"
+      folder: skills/report-fixed
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: haiku
+      needs: []
 ---
 
 # report-fixed

@@ -5,21 +5,24 @@ description:
   build-inspiration-module; input is the list of files the brief owns.
 user-invocable: false
 allowed-tools: Bash, Read
-metadata: { catzc: { model_floor: haiku, needs: [pwsh] } }
-catzc:
-  immutable:
-    with_body_sha: e801e8eb687f
-    path: ".claude/skills/catzc-verify/SKILL.md"
-    folder: skills/catzc-verify
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: e801e8eb687f
+      path: ".claude/skills/catzc-verify/SKILL.md"
+      folder: skills/catzc-verify
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: haiku
+      needs: [pwsh]
 ---
 
 # catzc-verify

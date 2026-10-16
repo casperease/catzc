@@ -5,21 +5,24 @@ description:
 user-invocable: false
 allowed-tools: Read, Grep
 paths: .claude/plans/**
-metadata: { catzc: { model_floor: sonnet, needs: [] } }
-catzc:
-  immutable:
-    with_body_sha: "9abf4bd088e2"
-    path: ".claude/skills/plan-value/SKILL.md"
-    folder: skills/plan-value
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: "9abf4bd088e2"
+      path: ".claude/skills/plan-value/SKILL.md"
+      folder: skills/plan-value
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: sonnet
+      needs: []
 ---
 
 # plan-value

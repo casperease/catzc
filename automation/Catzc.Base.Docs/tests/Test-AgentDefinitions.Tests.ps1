@@ -48,7 +48,7 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $script:widgetFile = @('---', 'name: widget', 'description: >', '  The standard agent. Do NOT use it for gadget work.', 'tools: Read, Edit', 'model: haiku', 'skills: [widget-spin]', '---', '', '# Widget')
         $script:gadgetFile = @('---', 'name: gadget', 'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read', 'model: haiku', '---', '', '# Gadget')
         $script:spinFile = @('---', 'name: widget-spin', 'description: Spin a widget; for widget; input is the widget.', 'user-invocable: false', 'allowed-tools: Read',
-            'metadata: { catzc: { model_floor: haiku, needs: [] } }', 'catzc:', '  immutable:', '    kind: capability', '---', '1. Spin it.', '2. Report.')
+            'metadata:', '  catzc:', '    immutable:', '      kind: capability', '    config:', '      model_floor: haiku', '      needs: []', '---', '1. Spin it.', '2. Report.')
         $script:claudeMd = "# Claude`n`n## Sub-agents`n`nEvery robot reads ADR-WI first.`n`n- **``widget``** — the standard agent.`n- **``gadget``** — the gadget agent.`n`n## Rules`n`n- **``gizmo``** — not an agent bullet.`n"
     }
 
@@ -102,13 +102,13 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
     }
 
     It 'reports a capability over its roof, with a wrong name, user-invocable, without allowed-tools or a floor' -Tag 'ADR-REPO-AGENTS#8' {
-        $over = @('---', 'name: widget-spun', 'description: Spin.', 'user-invocable: true', 'metadata: { catzc: { needs: [] } }', '---') + @(1..7 | ForEach-Object { "$_. step" })
+        $over = @('---', 'name: widget-spun', 'description: Spin.', 'user-invocable: true', 'metadata:', '  catzc:', '    config:', '      needs: []', '---') + @(1..7 | ForEach-Object { "$_. step" })
         Write-AgentFixture 'skills/widget-spin/SKILL.md' $over
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain ".claude/skills/widget-spin/SKILL.md: front-matter name 'widget-spun' must equal the folder name 'widget-spin'"
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: front matter must set user-invocable: false'
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: front matter has no allowed-tools'
-        $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: metadata.catzc.model_floor must be haiku, sonnet or opus'
+        $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: metadata.catzc.config.model_floor must be haiku, sonnet or opus'
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has 11 lines outside its catzc head, the roof is 10 (roofs.capability_lines)'
     }
 
@@ -144,7 +144,7 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
             @(1..19 | ForEach-Object { "$_. a step that the formatter"; "   wrapped onto a second line" })
         Write-AgentFixture 'agents/gadget.md' $wrapped
         $spin = @('---', 'name: widget-spin', 'description: Spin a widget; for widget; input is the widget.', 'user-invocable: false', 'allowed-tools: Read',
-            'metadata: { catzc: { model_floor: haiku, needs: [] } }', '---', '# widget-spin', '', '1. Spin it', '   with care.', '2. Report', '   the spin.', '3. Stop.', '4. Rest.')
+            'metadata:', '  catzc:', '    config:', '      model_floor: haiku', '      needs: []', '---', '# widget-spin', '', '1. Spin it', '   with care.', '2. Report', '   the spin.', '3. Stop.', '4. Rest.')
         Write-AgentFixture 'skills/widget-spin/SKILL.md' $spin
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -BeNullOrEmpty

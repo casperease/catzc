@@ -6,21 +6,24 @@ description:
 user-invocable: false
 allowed-tools: Agent, Bash, Read, Glob, Grep, Write, Edit
 paths: out/diagrams/**, .claude/drawio/**
-metadata: { catzc: { model_floor: sonnet, needs: [uv, pillow] } }
-catzc:
-  immutable:
-    with_body_sha: bc2ca7f3721f
-    path: ".claude/skills/drawio-waves/SKILL.md"
-    folder: skills/drawio-waves
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: bc2ca7f3721f
+      path: ".claude/skills/drawio-waves/SKILL.md"
+      folder: skills/drawio-waves
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: sonnet
+      needs: [uv, pillow]
 ---
 
 # drawio-waves

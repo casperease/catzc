@@ -91,8 +91,10 @@ A **capability** is one file `.claude/skills/<domain>-<job>/SKILL.md` (lowercase
 harness accepts in a skill name) that a robot preloads through its `skills` list: at most
 `roofs.capability_lines` lines outside its catzc head (10, the `---` delimiters excluded, lines counted as rule 6 counts them), with
 `name` equal to its folder,
-`user-invocable: false`, `allowed-tools`, and a `metadata.catzc.model_floor` of `haiku`, `sonnet` or `opus`, declared there once and
-nowhere else.
+`user-invocable: false`, `allowed-tools`, and a `metadata.catzc.config.model_floor` of `haiku`, `sonnet` or `opus`, declared there once and
+nowhere else. The catzc head of a capability nests under `metadata`, the one front-matter key the editors that validate a skill file leave
+free, at the key path the carrier registry declares ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)), and the floor is the
+author's line in that head's `config` part, so every imprint keeps it.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
@@ -152,8 +154,8 @@ costs no turn. A capability is written once and read by every robot that lists i
 the registry as settings, never as literals in the gate.
 
 A skill's own `model` key is a selection the harness honours only when the skill is invoked or forked, never when it is preloaded, so it
-cannot restrict the robot that loads it. The restriction is catzc data instead: the model floor in the capability's `metadata`, which
-the harness ignores and the gate enforces against the robot's `model`. The cheapest model that does the job is the default; a dearer one
+cannot restrict the robot that loads it. The restriction is catzc data instead: the model floor in the `config` part of the capability's
+catzc head, under `metadata`, which the harness ignores and the gate enforces against the robot's `model`. The cheapest model that does the job is the default; a dearer one
 needs its reason written down where the registry can show it, so a model choice is a decision and never a habit.
 
 ## Decision
@@ -179,7 +181,7 @@ know-how in capabilities under `.claude/skills/`, each registered in `capabiliti
   - a robot body over `roofs.agent_body_lines`, a front-matter key outside the robot set or out of the fixed order, a missing or
     inherited `model`, or a `model` below the floor of a preloaded capability (`Get-RobotLineCount` counts the lines);
   - a capability over `roofs.capability_lines`, with a `name` unlike its folder, user-invocable, without `allowed-tools` or a valid
-    `metadata.catzc.model_floor`, preloaded by no robot, or named in a `skills` list without a file;
+    `metadata.catzc.config.model_floor`, preloaded by no robot, or named in a `skills` list without a file;
   - a capability file with no `capabilities.yml` entry, an entry with no file, or an entry whose citation or check resolves to nothing.
 - **`capabilities.yml`** (in `Catzc.Base.Docs`) is the capability registry, read through `Get-Config -Config capabilities` and validated
   on load by `CapabilitiesConfig`, one `CapabilityEntry` per capability, with the same shape rules as `AgentsConfig`. The roofs are

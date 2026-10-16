@@ -390,7 +390,7 @@ concepts:
     defined_by: ADR-REPO-FILEMETA#1
     short:
       The facts the tooling owns about one tracked file, written into the file's carrier, which is the reserved front-matter key catzc of a
-      Markdown file or the meta head of a code file.
+      Markdown file, at the top level or nested at the key path its carrier declares, or the meta head of a code file.
     realized_by: { kind: prose-only }
     contrasts:
       meta kind: The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block across files.

@@ -7,21 +7,24 @@ description:
 user-invocable: false
 allowed-tools: Bash, Read
 paths: docs/.assets/**/*.drawio.png, out/drawio/**
-metadata: { catzc: { model_floor: haiku, needs: [uv, pillow, pwsh] } }
-catzc:
-  immutable:
-    with_body_sha: "0d127ffdd7b8"
-    path: ".claude/skills/drawio-renderer/SKILL.md"
-    folder: skills/drawio-renderer
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: "0d127ffdd7b8"
+      path: ".claude/skills/drawio-renderer/SKILL.md"
+      folder: skills/drawio-renderer
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: haiku
+      needs: [uv, pillow, pwsh]
 ---
 
 # drawio-renderer

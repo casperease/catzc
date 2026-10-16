@@ -4,21 +4,24 @@ description: Verdict rules for one plan file in .claude/plans; for plan-clear; i
 user-invocable: false
 allowed-tools: Read, Grep, Edit
 paths: .claude/plans/**
-metadata: { catzc: { model_floor: sonnet, needs: [] } }
-catzc:
-  immutable:
-    with_body_sha: ecc1dfef34ad
-    path: ".claude/skills/plan-shape/SKILL.md"
-    folder: skills/plan-shape
-    name: skill
-    filetype: md
-    kind: capability
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+metadata:
+  catzc:
+    immutable:
+      with_body_sha: ecc1dfef34ad
+      path: ".claude/skills/plan-shape/SKILL.md"
+      folder: skills/plan-shape
+      name: skill
+      filetype: md
+      kind: capability
+      language: markdown
+      track: ".claude"
+      tracktype: vendor-settings
+      vendor: claude
+      module: ".claude"
+      moduletype: settings
+    config:
+      model_floor: sonnet
+      needs: []
 ---
 
 # plan-shape
