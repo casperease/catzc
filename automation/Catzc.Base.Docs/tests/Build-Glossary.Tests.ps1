@@ -63,7 +63,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         Build-Glossary -Path $script:page -Silent | Out-Null
         $text = [System.IO.File]::ReadAllText($script:page)
 
-        $text | Should -BeLike "---`ncatzc:*kind: tracked-generated-from-source*generator: automation/Catzc.Base.Docs/Build-Glossary.ps1*---`n`n# docs/adr/glossary.md*"
+        $text | Should -BeLike "---`ncatzc:*kind: other*generator: automation/Catzc.Base.Docs/Build-Glossary.ps1*---`n`n# docs/adr/glossary.md*"
         $text.IndexOf('## repository') | Should -BeLessThan $text.IndexOf('## automation')
         $text | Should -Not -Match '## flow'   # a domain without concepts gets no section
         $text | Should -Match ([regex]::Escape('- **Defined by:** [ADR-TST-WIDGET#1](repository/widget-thing.md#rule-adr-tst-widget1)'))

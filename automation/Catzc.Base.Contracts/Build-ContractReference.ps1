@@ -162,7 +162,7 @@ function Build-ContractReference {
         }
 
         $path = Join-Path $RepositoryRoot "$pageFolder/$unit.md"
-        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$unit.md" -Generator Build-ContractReference -Source "contracts/$unit" -Tracked
+        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$unit.md" -Generator Build-ContractReference -Source "contracts/$unit" -FileKind (Get-FileKind "$pageFolder/$unit.md")
         $changed = Write-FileIfChanged $path $page -DryRun:$DryRun
         $results.Add([pscustomobject]@{
                 Unit = $unit; Path = "$pageFolder/$unit.md"; Changed = $changed; Removed = $false; DryRun = [bool] $DryRun

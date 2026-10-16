@@ -134,6 +134,7 @@ groups:
         Catzc.Base.Objects,
         Catzc.Base.Writers,
         Catzc.Base.Asserts,
+        Catzc.Base.Globs,
       ]
     Catzc.Base.QualityGates:
       [
@@ -198,6 +199,7 @@ groups:
         Catzc.Base.Docs,
         Catzc.Base.Languages,
         Catzc.Base.Folders,
+        Catzc.Base.Globs,
       ]
 
   AzureExt:

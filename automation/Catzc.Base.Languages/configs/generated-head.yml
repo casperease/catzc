@@ -14,6 +14,7 @@ keys:
   - path
   - source
   - kind
+  - subkind
   - language
   - filekind
   - track

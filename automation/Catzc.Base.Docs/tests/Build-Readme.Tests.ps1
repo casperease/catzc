@@ -60,7 +60,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
                 '---'
                 'catzc:'
                 '  derived:'
-                '    kind: tracked-generated-from-source'
+                '    kind: readme'
                 '---'
                 ''
                 '# Fixture Title'

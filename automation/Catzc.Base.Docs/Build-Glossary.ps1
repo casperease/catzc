@@ -159,7 +159,8 @@ function Build-Glossary {
         }
     }
 
-    $content = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path (ConvertTo-RepoRelativePath $Path) -Generator Build-Glossary -Tracked
+    $glossaryPath = ConvertTo-RepoRelativePath $Path
+    $content = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path $glossaryPath -Generator Build-Glossary -FileKind (Get-FileKind $glossaryPath)
     $changed = Write-FileIfChanged $Path $content -DryRun:$DryRun
 
     $relativePath = ConvertTo-RepoRelativePath $Path

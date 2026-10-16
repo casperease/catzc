@@ -26,14 +26,16 @@ Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
         { [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'kind'); widget = 1 }) } | Should -Throw '*unknown top-level key*'
     }
 
-    It 'declares both kinds once, and refuses two equal kinds' {
-        $config = [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'kind') })
-        $config.kind | Should -Be 'generated-from-source'
-        $config.tracked_kind | Should -Be 'tracked-generated-from-source'
-        { [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'kind'); kind = 'a'; tracked_kind = 'a' }) } | Should -Throw '*differ*'
+    It 'holds no kind of its own: the kind of a generated file is the role the file-kinds registry names' {
+        { [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'kind'); kind = 'generated-from-source' }) } | Should -Throw '*unknown top-level key*'
+        { [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'kind'); tracked_kind = 'tracked' }) } | Should -Throw '*unknown top-level key*'
+    }
+
+    It 'knows the subkind key' {
+        [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'kind', 'subkind') }).order | Should -Be @('path', 'kind', 'subkind')
     }
 
     It 'loads the shipped generated-head.yml' {
-        (Get-Config -Config generated-head).order | Should -Be @('path', 'source', 'kind', 'language', 'filekind', 'track', 'module', 'generator')
+        (Get-Config -Config generated-head).order | Should -Be @('path', 'source', 'kind', 'subkind', 'language', 'filekind', 'track', 'module', 'generator')
     }
 }

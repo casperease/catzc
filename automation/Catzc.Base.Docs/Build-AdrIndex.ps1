@@ -262,7 +262,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 
     $content = (& $reflow $preamble) + "`n`n" + ($sections -join "`n`n") + "`n`n" + (& $reflow $conventions) + "`n"
 
-    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -Source 'automation/Catzc.Base.Docs/configs/adrs.yml' -Tracked
+    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -Source 'automation/Catzc.Base.Docs/configs/adrs.yml' -FileKind (Get-FileKind 'docs/adr/index.md')
     $target = Resolve-RepoPath 'docs/adr/index.md'
     $changed = Write-FileIfChanged $target $content -DryRun:$DryRun
 

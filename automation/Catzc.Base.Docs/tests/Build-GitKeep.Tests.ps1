@@ -39,11 +39,11 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         Remove-FakeRepositoryRoot $script:fake
     }
 
-    It 'rewrites every managed .gitkeep to the generic source content under its own generated-from-source head' {
+    It 'rewrites every managed .gitkeep to the generic source content under its own generated head' {
         $report = @(Build-GitKeep -PassThru)
         ($report | Where-Object Path -EQ 'contracts/.gitkeep').Changed | Should -BeTrue
         $written = ([System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'contracts/.gitkeep')) -replace "`r", '')
-        $written | Should -BeLike "# ---`n# catzc:`n#   derived:`n#     path: contracts/.gitkeep`n#     source:*`n#     kind: tracked-generated-from-source`n#     track: contracts`n#     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1`n# ---`n`n*"
+        $written | Should -BeLike "# ---`n# catzc:`n#   derived:`n#     path: contracts/.gitkeep`n#     source:*`n#     kind: other`n#     track: contracts`n#     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1`n# ---`n`n*"
         $written | Should -BeLike ('*' + ($script:expected -replace "`r", '').TrimEnd("`n") + "`n")
     }
 
@@ -88,7 +88,7 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
         $written = [System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'widgets/.gitkeep'))
         $shipped.Trim() | Should -Not -BeNullOrEmpty
         ($written -replace "`r", '') | Should -BeLike ('*' + ($shipped -replace "`r", '').TrimEnd("`n") + "`n")
-        $written | Should -BeLike '*path: widgets/.gitkeep*kind: tracked-generated-from-source*'
+        $written | Should -BeLike '*path: widgets/.gitkeep*kind: other*'
     }
 }
 

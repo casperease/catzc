@@ -98,7 +98,7 @@ function Build-GitKeep {
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
     $ret = foreach ($keep in $found) {
-        $content = Format-GeneratedFileHead -Text $text -Path $keep -Carrier placeholder -Generator Build-GitKeep -Source $sourceRelative -Tracked
+        $content = Format-GeneratedFileHead -Text $text -Path $keep -Carrier placeholder -Generator Build-GitKeep -Source $sourceRelative -FileKind (Get-FileKind $keep)
         $changed = Write-FileIfChanged (Resolve-RepoPath $keep) $content -DryRun:$DryRun
 
         if ($changed -and -not $Silent) {

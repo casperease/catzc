@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
-    kind: tracked-generated-from-source
+    kind: reference
     language: markdown
     filekind: md
     track: docs

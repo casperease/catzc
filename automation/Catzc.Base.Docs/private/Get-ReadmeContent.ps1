@@ -19,8 +19,8 @@ catzc:
       are rebased from the source's folder to the README's (MarkdownLinkRebaser), so every link works where the README is
       opened; a line under the title links back to the source as the one place to edit
       ([ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)). The line goes after the
-      source's '# ' title when it opens with one, else at the top. The copy opens with its own meta block,
-      `kind: generated-from-source`, above both.
+      source's '# ' title when it opens with one, else at the top. The copy opens with its own meta block, whose `kind` is the one the
+      file-kinds registry names for the README, above both.
     parameters:
       Mapping: One readme.yml mapping as Get-ReadmeMappings returns it ({ folder; source }, repository-relative).
     outputs: '[string] The README''s content (LF line endings).'
@@ -45,7 +45,7 @@ function Get-ReadmeContent {
     $banner = "> Generated from [$($Mapping.source)]($sourceLink) — edit the source;"
 
     # The copy's own meta block says what it is, in the shape every meta block has, so a tool can tell it from an authored file.
-    $meta = "---`ncatzc:`n  derived:`n    kind: $((Get-Config -Config generated-head).tracked_kind)`n---`n`n"
+    $meta = "---`ncatzc:`n  derived:`n    kind: $((Get-FileKind "$($Mapping.folder)/README.md").kind)`n---`n`n"
 
     $lines = @($body -split "`n", 2)
     if (-not $lines[0].StartsWith('# ')) {

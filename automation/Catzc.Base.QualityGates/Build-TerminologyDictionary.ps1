@@ -105,7 +105,7 @@ function Build-TerminologyDictionary {
         else {
             ''
         }
-        $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Carrier word-list -Generator Build-TerminologyDictionary -Source 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
+        $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Carrier word-list -Generator Build-TerminologyDictionary -Source 'automation/Catzc.Base.QualityGates/configs/terminology.yml' -FileKind (Get-FileKind ".cspell/$category.txt")
 
         $dictPath = Join-Path $cspellDir "$category.txt"
 

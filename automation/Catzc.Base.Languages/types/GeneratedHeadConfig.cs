@@ -25,16 +25,10 @@ namespace Catzc.Base.Languages;
 public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "generated-head configuration validation failed:\n";
-    private static readonly string[] Known = { "path", "source", "kind", "language", "filekind", "track", "module", "generator" };
+    private static readonly string[] Known = { "path", "source", "kind", "subkind", "language", "filekind", "track", "module", "generator" };
 
     // The head keys in writing order.
     public string[] order { get; }
-
-    // The kind of a generated file that git does not track. Default: generated-from-source.
-    public string kind { get; }
-
-    // The kind of a generated file that git tracks, because a fresh clone or a reader needs it before any import. Default: tracked-generated-from-source.
-    public string tracked_kind { get; }
 
     public GeneratedHeadConfig(IDictionary raw)
     {
@@ -43,11 +37,8 @@ public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (object k in raw.Keys)
         {
             string name = k == null ? null : k.ToString();
-            if (name != "keys" && name != "kind" && name != "tracked_kind") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: keys, kind, tracked_kind)", k)); }
+            if (name != "keys") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: keys)", k)); }
         }
-        kind = OptStr(raw, "kind") ?? "generated-from-source";
-        tracked_kind = OptStr(raw, "tracked_kind") ?? "tracked-generated-from-source";
-        if (kind == tracked_kind) { errors.Add("kind and tracked_kind differ, so a reader tells a tracked file from an ignored one"); }
         string[] listed = StrArr(raw, "keys");
         foreach (string key in listed)
         {

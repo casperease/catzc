@@ -17,22 +17,23 @@ catzc:
   config:
     synopsis: Returns the text of a generated file with the meta head that says which generator or source wrote it.
     description: |-
-      The head is the one unified form of ADR-REPO-FILEMETA#7: kind generated-from-source, the file language, the track and the module when the file
-      has them, and the generator and the source when the file has them. The generator is written as the path of the file its command is defined in. The carrier is named by id, or found from the
-      file's language when no id is given.
+      The head is the one unified form of ADR-REPO-FILEMETA#7: the kind of the file by its role, and its subkind when it has one, as the
+      caller read them from the file-kinds registry; the file language, the file kind (extension), the track and the module when the file
+      has them; and the generator and the source when the file has them. The generator is written as the path of the file its command is
+      defined in. The carrier is named by id, or found from the file's language when no id is given.
     parameters:
       Text: The whole content the generator composed, without any head.
       Path: The repository-relative path the content is written to. It names the file in the head and finds its language.
       Carrier: 'The id of the file-carriers entry that says where the head goes. Default: the entry of the file language of Path.'
       Generator: The command that composed the content, when one did; the head names the path of its file.
       Source: The repository-relative authored file or files the content comes from, when it has any.
-      Tracked: The file is tracked by git, so it gets the tracked kind of generated-head.yml instead of the plain generated kind.
+      FileKind: 'The kind of Path by its role: what Get-FileKind returns for it (kind, and subkind when it has one). The caller reads it, since the registry lives in a module this one cannot depend on.'
       Carriers: 'The carrier registry. Default: the shipped file-carriers.yml.'
       Languages: 'The file-language registry. Default: the shipped languages.yml.'
       Head: 'The head keys in writing order. Default: the shipped generated-head.yml.'
     outputs: '[string] The text with the head written first.'
     examples:
-      - Format-GeneratedFileHead -Text $content -Path .gitignore -Carrier dotfile -Generator New-GitIgnore
+      - Format-GeneratedFileHead -Text $content -Path .gitignore -Carrier dotfile -Generator New-GitIgnore -FileKind (Get-FileKind .gitignore)
 ---
 #>
 
@@ -53,7 +54,8 @@ function Format-GeneratedFileHead {
 
         [string[]] $Source = @(),
 
-        [switch] $Tracked,
+        [Parameter(Mandatory)]
+        [object] $FileKind,
 
         [Catzc.Base.Languages.FileCarriersConfig] $Carriers = (Get-Config -Config file-carriers),
 
@@ -72,13 +74,10 @@ function Format-GeneratedFileHead {
     $entry = $Carriers.Find($id)
     Assert-NotNull $entry -ErrorText "Format-GeneratedFileHead: '$relative' names the carrier '$id', which file-carriers.yml does not declare."
 
-    $kind = if ($Tracked) {
-        $Head.tracked_kind
+    $values = @{ path = $relative; kind = $FileKind.kind }
+    if ($FileKind.subkind) {
+        $values['subkind'] = $FileKind.subkind
     }
-    else {
-        $Head.kind
-    }
-    $values = @{ path = $relative; kind = $kind }
     # A file no language lists, such as a dotfile, has none to name.
     if ($language) {
         $values['language'] = $language.name

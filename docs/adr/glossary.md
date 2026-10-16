@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/adr/glossary.md
-    kind: tracked-generated-from-source
+    kind: glossary
     language: markdown
     filekind: md
     track: docs

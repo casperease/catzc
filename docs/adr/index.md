@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml
-    kind: tracked-generated-from-source
+    kind: index
     language: markdown
     filekind: md
     track: docs

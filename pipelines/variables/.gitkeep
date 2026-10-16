@@ -3,7 +3,7 @@
 #   derived:
 #     path: pipelines/variables/.gitkeep
 #     source: automation/Catzc.Base.Docs/assets/gitkeep
-#     kind: tracked-generated-from-source
+#     kind: other
 #     track: pipelines
 #     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1
 # ---
