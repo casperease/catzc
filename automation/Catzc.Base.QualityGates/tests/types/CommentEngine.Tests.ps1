@@ -139,9 +139,9 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
     }
 
     It 'keeps a delimited block whole when it holds a kept head, as comment-based help does' -Tag 'ADR-REPO-COMMENTS#3' {
-        $help = "<#`n.SYNOPSIS`n    Gets a widget.`n.DESCRIPTION`n    Reads the widget from the gadget store first,`n    because the store is the one living copy.`n#>`nfunction Get-Widget { }`n"
+        $help = "<#`n.SYNOPSIS`n    Gets a widget.`n.DESCRIPTION`n    Reads the widget from the gadget store first,`n    because the store is the one living copy.`n#>`n" + 'function Get-Widget { }' + "`n"
         [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($help, '.ps1', 'powershell', $config).Count | Should -Be 0
-        $plain = "<#`n    Reads the widget from the gadget store first,`n    because the store is the one living copy.`n#>`nfunction Get-Widget { }`n"
+        $plain = "<#`n    Reads the widget from the gadget store first,`n    because the store is the one living copy.`n#>`n" + 'function Get-Widget { }' + "`n"
         [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($plain, '.ps1', 'powershell', $config).Count | Should -Be 1
     }
 

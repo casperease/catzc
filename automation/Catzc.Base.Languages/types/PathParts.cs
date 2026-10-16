@@ -27,7 +27,8 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
-// ADR-REPO-FILEMETA#11: a path under its module is an optional folder, a kebab-case name and a file type, and only that.
+// [ADR-REPO-FILEMETA#11](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta11): a path under its module is an optional folder, a
+// kebab-case name and a file type, and only that.
 public sealed class PathParts
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

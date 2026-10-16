@@ -40,7 +40,8 @@ public sealed class FileMetaKind
     static readonly Regex KeyPattern = new Regex("^[a-z][a-z0-9_]*$", RegexOptions.Compiled);
     static readonly string[] Allowed = { "direction", "section", "select", "keys", "processor", "target", "settings" };
 
-    // The parts of the meta block an imprint kind writes into: the place facts, or the outgoing edges (ADR-REPO-FILEMETA#13).
+    // The parts of the meta block an imprint kind writes into: the place facts, or the outgoing edges
+    // ([ADR-REPO-FILEMETA#13](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta13)).
     public const string DefaultSection = "immutable";
     public static readonly string[] Sections = { "immutable", "edges" };
 

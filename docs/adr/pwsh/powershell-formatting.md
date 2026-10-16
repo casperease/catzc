@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7f924fd38530"
+    with_body_sha: "8b6e4a3e998a"
     path: docs/adr/pwsh/powershell-formatting.md
     folder: docs/adr/pwsh
     name: powershell-formatting
@@ -175,8 +175,8 @@ $nodes = $ScriptBlockAst.FindAll($isCommand, $true)
 
 `Invoke-Formatter` throws "Operation is not valid due to the current state of the object" on a hashtable literal that sits on one line and
 holds an `if`/`else`, with or without a `$( )` around it. A hashtable on several lines, and an `if` without an `else`, are read without
-trouble. The throw comes out of the formatting pass's background job, so the quality gate fails for the whole tree before it reports a single file. Binding the
-value to a local first keeps the hashtable short and the `if`/`else` readable.
+trouble. The throw comes out of the formatting pass's background job, so the quality gate fails for the whole tree before it reports a
+single file. Binding the value to a local first keeps the hashtable short and the `if`/`else` readable.
 
 ```powershell
 # NO — an if/else inside a one-line hashtable; Invoke-Formatter throws and the formatting gate stops
