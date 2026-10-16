@@ -1,6 +1,7 @@
 ---
 catzc:
   immutable:
+    with_body_sha: "7c3699443d09"
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml
     kind: index

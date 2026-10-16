@@ -1,6 +1,7 @@
 ---
 catzc:
   immutable:
+    with_body_sha: e38b90b8d61d
     path: docs/adr/glossary.md
     kind: glossary
     language: markdown

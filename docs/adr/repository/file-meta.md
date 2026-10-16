@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "063e58e54d28"
+    with_body_sha: f01633ddcb63
     path: docs/adr/repository/file-meta.md
     folder: docs/adr/repository
     name: file-meta
@@ -119,7 +119,9 @@ class has. The head holds the same facts as an imprinted block, `path`, `kind` a
 file, which the writer reads and passes down), `language`, `filetype`, `track`, `module` and `moduletype` (the module-types registry's type
 of the module the file is placed in), each left out for a file that has none, and what only a composed file has: `generator` (the
 repository-relative path of the file that defines the command that composed the file) and `source` (the authored file or files it comes
-from). A generated file is told from an authored one by its `generator`, never by a kind of its own. No writer hand-words a banner, and the
+from). The head opens with `with_body_sha`, the hash of the content below it, whatever the file's language and carrier, so a tracked
+generated file says which text its writer composed and the drift check reads the stamp before the content. A generated file is told from
+an authored one by its `generator`, never by a kind of its own. No writer hand-words a banner, and the
 drift check compares the head with the rest of the content. The imprint engine leaves these files alone
 ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A comment page is the one generated item whose
 block the engine imprints, and it names its writer the same way: the `generator` kind of the registry gives it the path of the comment
@@ -192,8 +194,9 @@ the rest, each read from a registry and never from the file's text. `edges` hold
 named relation leaving the file to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `page` and `test`. Both parts are
 imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge until
 the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation, never
-for the type of its target. In a Markdown file `immutable` opens with `with_body_sha`, the hash of the body below the front matter, so the
-stamp says which text the edges were read from. A code file carries no hash
+for the type of its target. In a Markdown file, and in a generated file of any language
+([ADR-REPO-FILEMETA#7](#rule-adr-repo-filemeta7)), `immutable` opens with `with_body_sha`, the hash of the body below the head, so the stamp
+says which text the edges were read from or the writer composed. An authored code file carries no hash
 ([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). A kind of the registry names the part it writes, `immutable` by default
 and `edges` for a relation.
 

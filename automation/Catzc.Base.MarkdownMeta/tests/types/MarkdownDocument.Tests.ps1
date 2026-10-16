@@ -100,6 +100,8 @@ Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
         [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain).BodyHash() | Should -BeExactly $a
         [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain.Replace("`n", "`r`n")).BodyHash() | Should -BeExactly $a
         [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain + 'more').BodyHash() | Should -Not -BeExactly $a
+        [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($script:plain) | Should -BeExactly $a
+        [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf("`n`n" + $script:plain.Replace("`n", "`r`n")) | Should -BeExactly $a
     }
 
     It 'does not count the blank line after written front matter, so a second imprint records the same hash' {

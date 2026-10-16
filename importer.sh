@@ -1,6 +1,7 @@
 # ---
 # catzc:
 #   immutable:
+#     with_body_sha: b2f4855b8a9b
 #     path: importer.sh
 #     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
 #     kind: script

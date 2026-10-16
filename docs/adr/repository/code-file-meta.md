@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1d4d13847489"
+    with_body_sha: "204266cd8db0"
     path: docs/adr/repository/code-file-meta.md
     folder: docs/adr/repository
     name: code-file-meta
@@ -56,9 +56,10 @@ sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-l
 ([ADR-REPO-FILEMETA#10](file-meta.md#rule-adr-repo-filemeta10)). For a C# type file, a PowerShell function file and a PowerShell test file
 the head holds `cites`: the formatter keeps every code the head lists and adds each code the file and its comment page cite that the ADR
 index registers, so a fixture code or a placeholder named in prose is no citation, and a code leaves the list only when a person deletes it
-from the head. It never holds a hash of the body, which would change on every edit and make every edit a two-hunk diff. The facts sit under
-`immutable` and `edges`, and a person's own keys, if any, sit under `config`, as in Markdown
-([ADR-REPO-FILEMETA#13](file-meta.md#rule-adr-repo-filemeta13)).
+from the head. An authored code file never holds a hash of the body, which would change on every edit and make every edit a two-hunk diff; a
+generated one opens with it ([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)), since its writer rewrites the whole file and the
+stamp says which content it composed. The facts sit under `immutable` and `edges`, and a person's own keys, if any, sit under `config`, as
+in Markdown ([ADR-REPO-FILEMETA#13](file-meta.md#rule-adr-repo-filemeta13)).
 
 - [What the head holds](#what-the-head-holds)
 

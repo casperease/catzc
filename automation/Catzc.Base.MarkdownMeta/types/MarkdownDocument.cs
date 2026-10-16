@@ -122,9 +122,12 @@ public sealed class MarkdownDocument
     // The document as it was parsed.
     public string ToText() => WithMetaBlock(MetaBlock);
 
-    public string BodyHash()
+    public string BodyHash() => HashOf(Body);
+
+    // The one body hash: line endings and the blank line after a head never move it, so every carrier stamps the same value.
+    public static string HashOf(string body)
     {
-        byte[] bytes = Encoding.UTF8.GetBytes(Body.Replace("\r\n", "\n").TrimStart('\n'));
+        byte[] bytes = Encoding.UTF8.GetBytes((body ?? string.Empty).Replace("\r\n", "\n").TrimStart('\n'));
         using (SHA256 sha = SHA256.Create())
         {
             byte[] hash = sha.ComputeHash(bytes);

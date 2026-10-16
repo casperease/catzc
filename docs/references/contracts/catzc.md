@@ -1,6 +1,7 @@
 ---
 catzc:
   immutable:
+    with_body_sha: "46f74ef082ae"
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
     kind: reference

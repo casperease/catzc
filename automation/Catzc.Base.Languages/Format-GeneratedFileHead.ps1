@@ -24,7 +24,9 @@ catzc:
       The head is the one unified form of ADR-REPO-FILEMETA#7: the kind of the file by its role, and its subkind when it has one, as the
       caller read them from the file-kinds registry; the file language, the file type (extension), the track and the module when the file
       has them; and the generator and the source when the file has them. The generator is written as the path of the file its command is
-      defined in. The carrier is named by id, or found from the file's language when no id is given.
+      defined in. The head opens with the hash of the body below it, read through the carrier so a head already in the text never moves
+      it, and a tracked generated file of any language says which text its writer composed. The carrier is named by id, or found from the
+      file's language when no id is given.
     parameters:
       Text: The whole content the generator composed, without any head.
       Path: The repository-relative path the content is written to. It names the file in the head and finds its language.
@@ -113,6 +115,28 @@ function Format-GeneratedFileHead {
     elseif ($Source.Count -gt 1) {
         $values['source'] = [string[]] $Source
     }
+    # The body is what sits below the head the carrier holds, so a second run over the written file finds the same hash.
+    $body = switch ($entry.carrier) {
+        ([Catzc.Base.Languages.CarrierKind]::CommentHead) {
+            $state = Get-CodeMetaState -Text $Text -Form $entry.Form()
+            if ($state.HasHead) {
+                $state.Rest
+            }
+            else {
+                $Text
+            }
+        }
+        ([Catzc.Base.Languages.CarrierKind]::FrontMatter) {
+            (Get-MarkdownMetaState -Text $Text).Body
+        }
+        ([Catzc.Base.Languages.CarrierKind]::Property) {
+            Format-PropertyMetaHead -Text $Text -Property $entry.property -Strip $entry.strip -Immutable ([ordered]@{})
+        }
+        default {
+            $Text
+        }
+    }
+    $values['with_body_sha'] = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($body)
     $facts = [ordered]@{}
     foreach ($key in $Head.order) {
         if ($values.ContainsKey($key)) {

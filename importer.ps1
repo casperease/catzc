@@ -2,6 +2,7 @@
 ---
 catzc:
   immutable:
+    with_body_sha: f15af7ff56ff
     path: importer.ps1
     source: automation/.internal/Catzc.Internal.Importer.psm1
     kind: script
