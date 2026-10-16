@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/types/VariantsConfig.cs
+    folder: types
+    name: variants-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Variants
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md
       test: automation/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1

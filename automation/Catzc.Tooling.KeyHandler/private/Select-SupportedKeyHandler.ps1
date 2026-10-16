@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
+    folder: private
+    name: select-supported-key-handler
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder-module
-    bundle: full
+    moduletype: pwsh-folder
+    catzc_bundle: full
     visibility: private
     relatives:
       test: automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1

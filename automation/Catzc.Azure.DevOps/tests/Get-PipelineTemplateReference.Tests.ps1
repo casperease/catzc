@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
+    folder: tests
+    name: get-pipeline-template-reference-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-devops/tests/Get-PipelineTemplateReference.Tests.ps1.md
     adrs:

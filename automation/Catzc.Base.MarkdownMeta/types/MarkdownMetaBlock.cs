@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
+    folder: types
+    name: markdown-meta-block
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.MarkdownMeta
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
       test: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1

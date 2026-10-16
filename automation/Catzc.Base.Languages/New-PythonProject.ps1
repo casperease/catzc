@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/New-PythonProject.ps1
+    name: new-python-project
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md

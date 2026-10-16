@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/private/Test-ToolHomeProbe.ps1
+    folder: private
+    name: test-tool-home-probe
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1

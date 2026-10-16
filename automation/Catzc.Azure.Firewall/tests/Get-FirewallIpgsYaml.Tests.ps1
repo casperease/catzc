@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/tests/Get-FirewallIpgsYaml.Tests.ps1
+    folder: tests
+    name: get-firewall-ipgs-yaml-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

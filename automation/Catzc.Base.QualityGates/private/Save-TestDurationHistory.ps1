@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Save-TestDurationHistory.ps1
+    folder: private
+    name: save-test-duration-history
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Save-TestDurationHistory.Tests.ps1

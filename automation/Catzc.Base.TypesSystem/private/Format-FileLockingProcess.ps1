@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/private/Format-FileLockingProcess.ps1
+    folder: private
+    name: format-file-locking-process
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
   config:
     synopsis: Formats the processes holding a file as one human-readable phrase.

@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Format-FileMeta.ps1
+    name: format-file-meta
+    filetype: ps1
     kind: function
     subkind: formatter
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1
+    name: get-catzc-run-mode
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Repository
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/types/FileKindMatch.cs
+    folder: types
+    name: file-kind-match
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Globs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-REPO-FILEMETA#2
 ---

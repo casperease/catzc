@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
+    folder: types
+    name: key-handler-supported-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder-module
-    bundle: full
+    moduletype: pwsh-folder
+    catzc_bundle: full
     relatives:
       page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md
       test: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1

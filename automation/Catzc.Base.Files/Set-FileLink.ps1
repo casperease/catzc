@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/Set-FileLink.ps1
+    name: set-file-link
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Files
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-files/Set-FileLink.ps1.md

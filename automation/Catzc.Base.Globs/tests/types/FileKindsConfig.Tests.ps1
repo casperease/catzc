@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/types/FileKindsConfig.Tests.ps1
+    folder: tests/types
+    name: file-kinds-config-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-REPO-FILEMETA#2
 ---
@@ -74,6 +76,40 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
 
         It 'names every file other when no kind is declared' {
             (New-Config $null).Resolve('widgets/part.wdg').kind | Should -BeExactly 'other'
+        }
+    }
+
+    Context 'git attributes' {
+        It 'holds the attributes and the why of a kind and of a subkind, and none for an entry without git' {
+            $config = New-Config ([ordered]@{
+                    widget = [ordered]@{ definition = 'A widget.'; files = @('a/**'); git = @{ attributes = @('catzc-widget', 'eol=lf'); why = 'Widgets are data.' } }
+                    gadget = [ordered]@{
+                        definition = 'A gadget.'
+                        subkinds   = [ordered]@{ cog = [ordered]@{ definition = 'A cog.'; files = @('b/**'); git = @{ attributes = @('catzc-cog'); why = 'Cogs are data.' } } }
+                        files      = @('c/**')
+                    }
+                })
+            $widget = $config.kinds | Where-Object kind -eq 'widget'
+            $widget.gitAttributes | Should -Be @('catzc-widget', 'eol=lf')
+            $widget.gitWhy | Should -BeExactly 'Widgets are data.'
+            $gadget = $config.kinds | Where-Object kind -eq 'gadget'
+            @($gadget.gitAttributes).Count | Should -Be 0
+            $gadget.gitWhy | Should -BeNullOrEmpty
+            $gadget.subkinds[0].gitAttributes | Should -Be @('catzc-cog')
+            $gadget.subkinds[0].gitWhy | Should -BeExactly 'Cogs are data.'
+        }
+
+        It 'rejects <Name>' -ForEach @(
+            @{ Name = 'git that is no map'; Git = 'catzc-widget'; Message = '*git must be a map*' }
+            @{ Name = 'git with no attributes'; Git = @{ why = 'A why.' }; Message = '*git needs at least one attribute*' }
+            @{ Name = 'git with empty attributes'; Git = @{ attributes = @(); why = 'A why.' }; Message = '*git needs at least one attribute*' }
+            @{ Name = 'an attribute with whitespace'; Git = @{ attributes = @('eol = lf'); why = 'A why.' }; Message = '*one token without whitespace*' }
+            @{ Name = 'a blank attribute'; Git = @{ attributes = @(' '); why = 'A why.' }; Message = '*one token without whitespace*' }
+            @{ Name = 'git with no why'; Git = @{ attributes = @('catzc-widget') }; Message = '*git needs a why*' }
+            @{ Name = 'git with a blank why'; Git = @{ attributes = @('catzc-widget'); why = ' ' }; Message = '*git needs a why*' }
+            @{ Name = 'an unknown git key'; Git = @{ attributes = @('catzc-widget'); why = 'A why.'; nope = 1 }; Message = '*unknown git key ''nope''*' }
+        ) {
+            { New-Config ([ordered]@{ widget = [ordered]@{ definition = 'A widget.'; files = @('a/**'); git = $Git } }) } | Should -Throw $Message
         }
     }
 

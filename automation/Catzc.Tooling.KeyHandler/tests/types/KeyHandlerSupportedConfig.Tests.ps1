@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
+    folder: tests/types
+    name: key-handler-supported-config-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder-module
-    bundle: full
+    moduletype: pwsh-folder
+    catzc_bundle: full
 ---
 #>
 

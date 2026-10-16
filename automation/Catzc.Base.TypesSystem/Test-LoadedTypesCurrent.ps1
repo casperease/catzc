@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Test-LoadedTypesCurrent.ps1
+    name: test-loaded-types-current
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.TypesSystem/tests/Test-LoadedTypesCurrent.Tests.ps1

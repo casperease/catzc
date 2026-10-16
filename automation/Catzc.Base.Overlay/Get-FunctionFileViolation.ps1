@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1
+    name: get-function-file-violation
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Overlay/tests/Get-FunctionFileViolation.Tests.ps1

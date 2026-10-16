@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs
+    folder: types
+    name: pipeline-env-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-devops/types/PipelineEnvConfig.cs.md
       test: automation/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
+    folder: tests
+    name: glob-set-independence-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md
     adrs:

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Test-IsWslSession.Tests.ps1
+    folder: tests
+    name: test-is-wsl-session-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

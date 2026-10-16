@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/CommentBlock.cs
+    folder: types
+    name: comment-block
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-AUTO-TYPES#9
 ---

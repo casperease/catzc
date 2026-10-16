@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
+    name: get-glob-set-trigger
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1

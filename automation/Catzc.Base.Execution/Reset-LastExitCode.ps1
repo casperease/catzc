@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/Reset-LastExitCode.ps1
+    name: reset-last-exit-code
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1

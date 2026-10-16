@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.L2.Tests.ps1
+    folder: tests
+    name: invoke-java-l2-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

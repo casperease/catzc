@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Get-ManagedGuids.ps1
+    name: get-managed-guids
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
   config:
     synopsis: Returns the managed-GUID registry entries — the named GUIDs the repository is allowed to carry.

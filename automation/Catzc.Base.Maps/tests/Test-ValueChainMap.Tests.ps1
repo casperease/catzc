@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+    folder: tests
+    name: test-value-chain-map-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
     adrs:

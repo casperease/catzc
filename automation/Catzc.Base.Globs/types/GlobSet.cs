@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/types/GlobSet.cs
+    folder: types
+    name: glob-set
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Globs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-globs/types/GlobSet.cs.md
       test: automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1

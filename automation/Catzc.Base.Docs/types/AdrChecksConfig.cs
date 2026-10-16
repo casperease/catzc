@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/types/AdrChecksConfig.cs
+    folder: types
+    name: adr-checks-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md
       test: automation/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1

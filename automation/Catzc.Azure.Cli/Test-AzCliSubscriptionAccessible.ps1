@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
+    name: test-az-cli-subscription-accessible
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.Cli/tests/Test-AzCliSubscriptionAccessible.Tests.ps1

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/types/FileKindsConfig.cs
+    folder: types
+    name: file-kinds-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Globs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-globs/types/FileKindsConfig.cs.md
       test: automation/Catzc.Base.Globs/tests/types/FileKindsConfig.Tests.ps1
@@ -73,13 +75,14 @@ public sealed class FileKindsConfig
         foreach (object key in entry.Keys)
         {
             string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-            if (name != "definition" && name != "files" && name != "subkinds")
+            if (name != "definition" && name != "files" && name != "subkinds" && name != "git")
             {
-                throw new ArgumentException(where + ": unknown key '" + name + "' (allowed: definition, files, subkinds)");
+                throw new ArgumentException(where + ": unknown key '" + name + "' (allowed: definition, files, subkinds, git)");
             }
         }
         string definition = Definition(where, entry);
         List<string> files = Files(where, entry, required: false);
+        Git(where, entry, out List<string> gitAttributes, out string gitWhy);
         var subkinds = new List<FileKindEntry>();
         if (entry.Contains("subkinds") && entry["subkinds"] != null)
         {
@@ -93,16 +96,43 @@ public sealed class FileKindsConfig
                 foreach (object key in subEntry.Keys)
                 {
                     string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                    if (name != "definition" && name != "files")
+                    if (name != "definition" && name != "files" && name != "git")
                     {
-                        throw new ArgumentException(subWhere + ": unknown key '" + name + "' (allowed: definition, files)");
+                        throw new ArgumentException(subWhere + ": unknown key '" + name + "' (allowed: definition, files, git)");
                     }
                 }
-                subkinds.Add(new FileKindEntry(kind, subkind, Definition(subWhere, subEntry), Files(subWhere, subEntry, required: true), new FileKindEntry[0]));
+                Git(subWhere, subEntry, out List<string> subAttributes, out string subWhy);
+                subkinds.Add(new FileKindEntry(kind, subkind, Definition(subWhere, subEntry), Files(subWhere, subEntry, required: true), new FileKindEntry[0], subAttributes, subWhy));
             }
         }
         if (files.Count == 0 && subkinds.Count == 0) { throw new ArgumentException(where + " needs globs in 'files', or subkinds that have them"); }
-        return new FileKindEntry(kind, null, definition, files, subkinds);
+        return new FileKindEntry(kind, null, definition, files, subkinds, gitAttributes, gitWhy);
+    }
+
+    // The git attributes the kind's files get in the generated .gitattributes, and why: both or neither.
+    static void Git(string where, IDictionary entry, out List<string> attributes, out string why)
+    {
+        attributes = new List<string>();
+        why = null;
+        if (!entry.Contains("git") || entry["git"] == null) { return; }
+        if (!(entry["git"] is IDictionary git)) { throw new ArgumentException(where + ": git must be a map of attributes and why"); }
+        foreach (object key in git.Keys)
+        {
+            string name = Convert.ToString(key, CultureInfo.InvariantCulture);
+            if (name != "attributes" && name != "why") { throw new ArgumentException(where + ": unknown git key '" + name + "' (allowed: attributes, why)"); }
+        }
+        if (git.Contains("attributes") && git["attributes"] is IEnumerable items && !(git["attributes"] is string))
+        {
+            foreach (object item in items) { attributes.Add(Convert.ToString(item, CultureInfo.InvariantCulture)); }
+        }
+        if (attributes.Count == 0) { throw new ArgumentException(where + ": git needs at least one attribute"); }
+        if (attributes.Any(a => string.IsNullOrWhiteSpace(a) || a.Any(char.IsWhiteSpace)))
+        {
+            throw new ArgumentException(where + ": a git attribute is one token without whitespace, such as catzc-fixture or eol=lf");
+        }
+        why = git.Contains("why") ? Convert.ToString(git["why"], CultureInfo.InvariantCulture) : null;
+        if (string.IsNullOrWhiteSpace(why)) { throw new ArgumentException(where + ": git needs a why, one sentence that says what the attributes do for these files"); }
+        why = why.Trim();
     }
 
     static string Definition(string where, IDictionary entry)

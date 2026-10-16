@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/Invoke-WithProgress.ps1
+    name: invoke-with-progress
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md

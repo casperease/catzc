@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/types/PdfNumber.cs
+    folder: types
+    name: pdf-number
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Maps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md
       test: automation/Catzc.Base.Maps/tests/types/PdfNumber.Tests.ps1

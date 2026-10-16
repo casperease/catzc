@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
+    folder: tests/types
+    name: output-retention-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Reports
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-REPO-OUTDIR#7
 ---

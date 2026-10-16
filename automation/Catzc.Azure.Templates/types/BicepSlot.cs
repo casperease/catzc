@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/types/BicepSlot.cs
+    folder: types
+    name: bicep-slot
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md
 ---

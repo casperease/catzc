@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/Build-Modules.ps1
+    name: build-modules
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Exporter
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md

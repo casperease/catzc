@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/types/GitIndex.cs
+    folder: types
+    name: git-index
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Git
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-git/types/GitIndex.cs.md
       test: automation/Catzc.Base.Git/tests/types/GitIndex.Tests.ps1

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Environment/Add-PermanentPath.ps1
+    name: add-permanent-path
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Environment
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md

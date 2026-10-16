@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs
+    folder: types
+    name: bicep-deployment-plan
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md
 ---

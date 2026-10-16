@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
+    name: save-verified-download
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Core
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1

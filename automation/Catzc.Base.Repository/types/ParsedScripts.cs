@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/types/ParsedScripts.cs
+    folder: types
+    name: parsed-scripts
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Repository
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       test: automation/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1
 ---

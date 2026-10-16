@@ -8,13 +8,14 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "483f44836461"
+    body_sha: "2c707e3bd300"
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/platform-bundle.md
       - docs/adr/index.md#automation
       - docs/explanation/automation/a-declared-allow-list-of-layers.md
+      - docs/explanation/automation/a-type-keyed-reflection-table-is-not-a-session-cache.md
       - docs/explanation/automation/build-then-place-with-one-command.md
       - docs/explanation/automation/build-verify-then-copy-the-folder.md
       - docs/explanation/automation/dot-source-one-entry-script.md
@@ -94,3 +95,4 @@ more ([native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)).
 | Article                                                                                                         |
 | --------------------------------------------------------------------------------------------------------------- |
 | [Unboxing is cheap, the type tests and crossings around it are not](unboxing-is-cheap-and-crossings-are-not.md) |
+| [A static table keyed by Type is not a session cache, so ADR-AUTO-CACHE does not govern it](a-type-keyed-reflection-table-is-not-a-session-cache.md) |

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Go.Tests.ps1
+    folder: tests
+    name: uninstall-go-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

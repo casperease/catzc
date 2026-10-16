@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Environment/Set-EnvironmentPath.ps1
+    name: set-environment-path
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Environment
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     adrs:
       - ADR-AUTO-CONSOLE#11

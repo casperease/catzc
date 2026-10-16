@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
+    folder: private
+    name: get-config-registry
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Config
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md

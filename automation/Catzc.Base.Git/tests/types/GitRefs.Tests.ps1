@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/types/GitRefs.Tests.ps1
+    folder: tests/types
+    name: git-refs-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Git
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

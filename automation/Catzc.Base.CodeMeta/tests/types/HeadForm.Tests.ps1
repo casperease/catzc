@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
+    folder: tests/types
+    name: head-form-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-REPO-CODEMETA#1
 ---

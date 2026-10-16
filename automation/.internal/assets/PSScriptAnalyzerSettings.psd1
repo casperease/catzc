@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
+    name: ps-script-analyzer-settings
+    filetype: psd1
     kind: asset
     language: powershell
-    filetype: psd1
     track: automation
     module: Catzc.Internal.Assets
-    moduletype: pwsh-folder-module
-    bundle: minimal
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
 ---
 #>
 

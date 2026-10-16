@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
+    folder: tests
+    name: assert-git-hub-purge-ready-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Github
-    moduletype: pwsh-folder-module
-    bundle: full
+    moduletype: pwsh-folder
+    catzc_bundle: full
     relatives:
       page: docs/references/automation/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md
 ---

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
+    folder: private
+    name: invoke-root-config-generator
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
@@ -59,6 +61,9 @@ function Invoke-RootConfigGenerator {
                     }
                 })
             New-GitIgnore -Inject @{ 'rootconfig-committed-false' = $ignoredCopies }
+        }
+        'New-GitAttributes' {
+            New-GitAttributes
         }
         'New-VSCodeSettings' {
             $config = Get-Config -Config rootconfig

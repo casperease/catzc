@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/Clear-Output.ps1
+    name: clear-output
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Reports
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     adrs:
       - ADR-AUTO-DRYRUN#1

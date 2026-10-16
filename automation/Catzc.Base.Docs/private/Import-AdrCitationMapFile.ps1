@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+    folder: private
+    name: import-adr-citation-map-file
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     adrs:
       - ADR-AUTO-FAILFAST

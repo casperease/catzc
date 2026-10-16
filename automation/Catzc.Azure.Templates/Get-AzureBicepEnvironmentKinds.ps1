@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
+    name: get-azure-bicep-environment-kinds
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.Templates/tests/Get-AzureBicepEnvironmentKinds.Tests.ps1

@@ -2,13 +2,15 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Azure.DevOps/configs/pipeline-env.yml
+#     folder: configs
+#     name: pipeline-env
+#     filetype: yml
 #     kind: config
 #     language: yaml
-#     filetype: yml
 #     track: automation
 #     module: Catzc.Azure.DevOps
-#     moduletype: pwsh-folder-module
-#     bundle: azure
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
 # ---
 
 # Build context

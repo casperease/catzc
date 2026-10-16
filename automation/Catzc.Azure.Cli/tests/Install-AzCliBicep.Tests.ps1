@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1
+    folder: tests
+    name: install-az-cli-bicep-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/private/Format-GitIgnoreSection.ps1
+    folder: private
+    name: format-git-ignore-section
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Git
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
   config:
     synopsis: Renders one gitignore section — its titled, explained comment block followed by its pattern lines.

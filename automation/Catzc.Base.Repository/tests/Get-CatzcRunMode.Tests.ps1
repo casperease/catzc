@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1
+    folder: tests
+    name: get-catzc-run-mode-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Repository
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

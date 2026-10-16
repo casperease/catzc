@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Assert-ManagedGuid.ps1
+    name: assert-managed-guid
+    filetype: ps1
     kind: function
     subkind: assert
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Assert-ManagedGuid.Tests.ps1

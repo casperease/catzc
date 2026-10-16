@@ -2,13 +2,15 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Reports/configs/output-formats.yml
+#     folder: configs
+#     name: output-formats
+#     filetype: yml
 #     kind: config
 #     language: yaml
-#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.Reports
-#     moduletype: pwsh-folder-module
-#     bundle: azure
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-reports/configs/output-formats.yml.md
 # ---

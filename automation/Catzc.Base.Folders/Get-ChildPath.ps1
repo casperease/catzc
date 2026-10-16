@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Folders/Get-ChildPath.ps1
+    name: get-child-path
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Folders
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1

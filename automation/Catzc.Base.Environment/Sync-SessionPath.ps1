@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Environment/Sync-SessionPath.ps1
+    name: sync-session-path
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Environment
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md

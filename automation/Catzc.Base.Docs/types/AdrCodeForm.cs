@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/types/AdrCodeForm.cs
+    folder: types
+    name: adr-code-form
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-docs/types/AdrCodeForm.cs.md
       test: automation/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1

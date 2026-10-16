@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Export-WorldMapPdf.Tests.ps1
+    folder: tests
+    name: export-world-map-pdf-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

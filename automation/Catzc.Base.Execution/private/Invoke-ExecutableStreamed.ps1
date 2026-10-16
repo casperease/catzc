@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/private/Invoke-ExecutableStreamed.ps1
+    folder: private
+    name: invoke-executable-streamed
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md

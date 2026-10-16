@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
+    folder: private
+    name: get-generator-path
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1

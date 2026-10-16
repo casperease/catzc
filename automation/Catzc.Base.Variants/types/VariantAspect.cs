@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/types/VariantAspect.cs
+    folder: types
+    name: variant-aspect
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Variants
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-variants/types/VariantAspect.cs.md
     adrs:

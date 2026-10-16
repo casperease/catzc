@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Get-Glossary.ps1
+    name: get-glossary
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md

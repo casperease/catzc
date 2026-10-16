@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
+    folder: tests
+    name: convert-from-bats-junit-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-languages/tests/ConvertFrom-BatsJunit.Tests.ps1.md
     adrs:

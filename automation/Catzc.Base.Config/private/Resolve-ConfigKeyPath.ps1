@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+    folder: private
+    name: resolve-config-key-path
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Config
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     adrs:
       - ADR-CONF-ADDRESSING#{2,4,5}

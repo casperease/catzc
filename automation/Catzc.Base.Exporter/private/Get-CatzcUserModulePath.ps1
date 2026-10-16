@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/private/Get-CatzcUserModulePath.ps1
+    folder: private
+    name: get-catzc-user-module-path
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Exporter
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
   config:
     synopsis: Returns the current user's PowerShell 7 module folder — where Install-Catzc -Scope CurrentUser places Catzc.

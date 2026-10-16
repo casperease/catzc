@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/Write-QualityGateReport.ps1
+    name: write-quality-gate-report
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Reports
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-reports/Write-QualityGateReport.ps1.md

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Get-Contract.ps1
+    name: get-contract
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1

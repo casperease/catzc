@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/tests/Get-AzCliConnectionState.Tests.ps1
+    folder: tests
+    name: get-az-cli-connection-state-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

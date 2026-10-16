@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleProfile.ps1
+    name: get-module-profile
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1

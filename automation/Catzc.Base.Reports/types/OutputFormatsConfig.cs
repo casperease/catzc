@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
+    folder: types
+    name: output-formats-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Reports
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-reports/types/OutputFormatsConfig.cs.md
       test: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1

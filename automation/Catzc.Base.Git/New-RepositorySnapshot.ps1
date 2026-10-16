@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/New-RepositorySnapshot.ps1
+    name: new-repository-snapshot
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Git
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md

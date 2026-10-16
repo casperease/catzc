@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Exit-TestRunLocation.Tests.ps1
+    folder: tests
+    name: exit-test-run-location-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

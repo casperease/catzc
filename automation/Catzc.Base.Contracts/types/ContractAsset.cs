@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/types/ContractAsset.cs
+    folder: types
+    name: contract-asset
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Contracts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-contracts/types/ContractAsset.cs.md
       test: automation/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1

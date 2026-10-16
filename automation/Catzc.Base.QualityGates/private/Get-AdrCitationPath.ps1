@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-AdrCitationPath.ps1
+    folder: private
+    name: get-adr-citation-path
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
   config:
     synopsis: Maps every ADR citation code to its ADR's repository-relative path.

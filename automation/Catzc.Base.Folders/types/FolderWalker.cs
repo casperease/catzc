@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Folders/types/FolderWalker.cs
+    folder: types
+    name: folder-walker
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Folders
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       test: automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
 ---

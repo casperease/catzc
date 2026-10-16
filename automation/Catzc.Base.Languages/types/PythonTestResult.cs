@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/types/PythonTestResult.cs
+    folder: types
+    name: python-test-result
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-languages/types/PythonTestResult.cs.md
       test: automation/Catzc.Base.Languages/tests/types/PythonTestResult.Tests.ps1

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
+    folder: private
+    name: get-firewall-markdown-columns
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md

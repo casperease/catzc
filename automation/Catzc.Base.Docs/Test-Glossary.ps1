@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Test-Glossary.ps1
+    name: test-glossary
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1

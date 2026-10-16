@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1
+    folder: private
+    name: get-logic-test-identity-finding
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md

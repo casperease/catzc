@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/private/Get-NetworkPlanViolations.ps1
+    folder: private
+    name: get-network-plan-violations
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     adrs:
       - ADR-AZ-NETWORK#{2,4,5}

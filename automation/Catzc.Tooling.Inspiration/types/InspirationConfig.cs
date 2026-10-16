@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
+    folder: types
+    name: inspiration-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder-module
-    bundle: full
+    moduletype: pwsh-folder
+    catzc_bundle: full
     relatives:
       page: docs/references/automation/catzc-tooling-inspiration/types/InspirationConfig.cs.md
       test: automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1

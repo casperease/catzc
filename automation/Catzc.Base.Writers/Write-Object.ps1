@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/Write-Object.ps1
+    name: write-object
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Writers
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Writers/tests/Write-Object.Tests.ps1

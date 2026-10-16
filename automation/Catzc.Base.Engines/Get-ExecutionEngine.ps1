@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1
+    name: get-execution-engine
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Engines
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Engines/tests/Get-ExecutionEngine.Tests.ps1

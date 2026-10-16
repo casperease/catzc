@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/New-Importer.ps1
+    name: new-importer
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md

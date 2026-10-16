@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/types/GitIgnoreSection.cs
+    folder: types
+    name: git-ignore-section
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Git
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-git/types/GitIgnoreSection.cs.md
       test: automation/Catzc.Base.Git/tests/types/GitIgnoreSection.Tests.ps1

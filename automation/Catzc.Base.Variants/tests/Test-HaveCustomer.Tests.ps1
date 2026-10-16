@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/Test-HaveCustomer.Tests.ps1
+    folder: tests
+    name: test-have-customer-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Variants
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

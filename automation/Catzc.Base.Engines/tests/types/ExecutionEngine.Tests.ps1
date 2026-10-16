@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
+    folder: tests/types
+    name: execution-engine-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Engines
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md
     adrs:

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
+    folder: tests/types
+    name: bicep-short-name-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
     adrs:

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/Invoke-Executable.ps1
+    name: invoke-executable
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md

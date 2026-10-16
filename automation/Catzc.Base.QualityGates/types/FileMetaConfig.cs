@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/FileMetaConfig.cs
+    folder: types
+    name: file-meta-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
       test: automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1

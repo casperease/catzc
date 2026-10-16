@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
+    name: get-inspiration
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder-module
-    bundle: full
+    moduletype: pwsh-folder
+    catzc_bundle: full
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1

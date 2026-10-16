@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/types/FunctionCall.cs
+    folder: types
+    name: function-call
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md
 ---

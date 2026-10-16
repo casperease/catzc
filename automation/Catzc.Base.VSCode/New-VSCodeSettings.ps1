@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.VSCode/New-VSCodeSettings.ps1
+    name: new-vs-code-settings
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.VSCode
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md

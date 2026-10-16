@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
+    name: assert-bicep-template
+    filetype: ps1
     kind: function
     subkind: assert
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/types/TimeoutExemptionsConfig.cs
+    folder: types
+    name: timeout-exemptions-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md
       test: automation/Catzc.Base.Timeouts/tests/types/TimeoutExemptionsConfig.Tests.ps1

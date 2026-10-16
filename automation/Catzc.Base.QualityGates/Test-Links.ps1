@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Test-Links.ps1
+    name: test-links
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1

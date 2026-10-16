@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
+    folder: tests
+    name: new-repository-snapshot-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Git
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md
 ---

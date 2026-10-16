@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Environment/Get-PermanentEnvironmentVariable.ps1
+    name: get-permanent-environment-variable
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Environment
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
   config:
     synopsis: Reads an environment variable from a persistent scope (the Windows registry for User/Machine).

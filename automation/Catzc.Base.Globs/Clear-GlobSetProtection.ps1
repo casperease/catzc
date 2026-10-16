@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/Clear-GlobSetProtection.ps1
+    name: clear-glob-set-protection
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     adrs:
       - ADR-REPO-PROTGLOB

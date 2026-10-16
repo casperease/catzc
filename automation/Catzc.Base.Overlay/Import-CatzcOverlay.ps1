@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/Import-CatzcOverlay.ps1
+    name: import-catzc-overlay
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1

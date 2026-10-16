@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Set-CurrentAzSubscription.ps1
+    name: set-current-az-subscription
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
   config:
     synopsis: Sets the Azure CLI's active subscription.

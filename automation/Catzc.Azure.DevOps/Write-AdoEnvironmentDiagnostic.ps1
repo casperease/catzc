@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Write-AdoEnvironmentDiagnostic.ps1
+    name: write-ado-environment-diagnostic
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
   config:
     synopsis: Displays whitelisted environment variables for pipeline diagnostics.

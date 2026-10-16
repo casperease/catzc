@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
+    folder: tests
+    name: get-executable-version-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
     adrs:

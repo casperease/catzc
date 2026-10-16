@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/CommentsConfig.cs
+    folder: types
+    name: comments-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md
       test: automation/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1

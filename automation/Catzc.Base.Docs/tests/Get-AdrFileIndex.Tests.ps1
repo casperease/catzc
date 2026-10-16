@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-AdrFileIndex.Tests.ps1
+    folder: tests
+    name: get-adr-file-index-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-docs/tests/Get-AdrFileIndex.Tests.ps1.md
     adrs:

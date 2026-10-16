@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+    name: assert-catzc-bundle
+    filetype: ps1
     kind: function
     subkind: assert
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Exporter
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md

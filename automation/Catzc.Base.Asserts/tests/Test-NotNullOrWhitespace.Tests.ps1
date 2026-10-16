@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Asserts/tests/Test-NotNullOrWhitespace.Tests.ps1
+    folder: tests
+    name: test-not-null-or-whitespace-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Asserts
-    moduletype: pwsh-folder-module
-    bundle: minimal
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
 ---
 #>
 

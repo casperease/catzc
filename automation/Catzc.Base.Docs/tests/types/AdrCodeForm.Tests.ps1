@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
+    folder: tests/types
+    name: adr-code-form-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-AUTO-TYPES#9
 ---

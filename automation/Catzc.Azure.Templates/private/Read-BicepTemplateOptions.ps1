@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/private/Read-BicepTemplateOptions.ps1
+    folder: private
+    name: read-bicep-template-options
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Azure.Templates/tests/Read-BicepTemplateOptions.Tests.ps1

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/types/SyntaxSearch.cs
+    folder: types
+    name: syntax-search
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Repository
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       test: automation/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
 ---

@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
+    name: test-generated-readmes
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
+    name: set-bicep-tracking-tag-set
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md

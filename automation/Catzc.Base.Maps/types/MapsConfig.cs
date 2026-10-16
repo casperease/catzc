@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/types/MapsConfig.cs
+    folder: types
+    name: maps-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Maps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-maps/types/MapsConfig.cs.md
       test: automation/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1

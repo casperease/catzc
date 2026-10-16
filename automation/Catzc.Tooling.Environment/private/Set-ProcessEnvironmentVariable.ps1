@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Environment/private/Set-ProcessEnvironmentVariable.ps1
+    folder: private
+    name: set-process-environment-variable
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Environment
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
   config:
     synopsis: Sets or removes a process-scope environment variable — the mockable I/O boundary for Write-EnvironmentSet.

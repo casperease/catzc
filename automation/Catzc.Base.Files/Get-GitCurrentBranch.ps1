@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/Get-GitCurrentBranch.ps1
+    name: get-git-current-branch
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Files
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Files/tests/Get-GitCurrentBranch.Tests.ps1

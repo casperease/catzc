@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/types/PdfFont.cs
+    folder: types
+    name: pdf-font
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Maps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-maps/types/PdfFont.cs.md
 ---

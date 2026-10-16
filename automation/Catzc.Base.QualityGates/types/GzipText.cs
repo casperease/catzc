@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/GzipText.cs
+    folder: types
+    name: gzip-text
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md
       test: automation/Catzc.Base.QualityGates/tests/types/GzipText.Tests.ps1

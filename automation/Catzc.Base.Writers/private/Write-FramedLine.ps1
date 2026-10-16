@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/private/Write-FramedLine.ps1
+    folder: private
+    name: write-framed-line
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Writers
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md

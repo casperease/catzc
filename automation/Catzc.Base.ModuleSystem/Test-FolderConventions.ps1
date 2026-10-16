@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
+    name: test-folder-conventions
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md

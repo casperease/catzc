@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/ConvertTo-ModuleDependencyDiagram.ps1
+    name: convert-to-module-dependency-diagram
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1

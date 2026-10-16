@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+    folder: private
+    name: assert-bundle-footprint
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Exporter
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md

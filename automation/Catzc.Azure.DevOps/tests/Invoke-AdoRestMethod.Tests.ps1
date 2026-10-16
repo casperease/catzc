@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Invoke-AdoRestMethod.Tests.ps1
+    folder: tests
+    name: invoke-ado-rest-method-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

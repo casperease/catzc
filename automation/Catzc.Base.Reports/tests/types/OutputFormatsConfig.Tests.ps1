@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
+    folder: tests/types
+    name: output-formats-config-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Reports
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-OUTFMT#{1,3,5}

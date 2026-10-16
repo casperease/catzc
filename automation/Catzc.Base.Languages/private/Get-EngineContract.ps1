@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/private/Get-EngineContract.ps1
+    folder: private
+    name: get-engine-contract
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md

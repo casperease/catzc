@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/private/Get-AdrDoraCoverageViolations.ps1
+    folder: private
+    name: get-adr-dora-coverage-violations
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1

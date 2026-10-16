@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
+    folder: tests
+    name: sync-session-path-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Environment
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md
 ---

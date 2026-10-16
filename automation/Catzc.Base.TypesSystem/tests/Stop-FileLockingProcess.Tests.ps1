@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Stop-FileLockingProcess.Tests.ps1
+    folder: tests
+    name: stop-file-locking-process-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

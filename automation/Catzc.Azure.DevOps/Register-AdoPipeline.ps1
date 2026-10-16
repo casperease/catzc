@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Register-AdoPipeline.ps1
+    name: register-ado-pipeline
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
   config:
     synopsis: Creates an Azure DevOps pipeline pointing to a YAML file.

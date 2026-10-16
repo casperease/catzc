@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
+    name: build-contract-reference
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1

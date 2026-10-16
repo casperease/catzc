@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/types/WinAnsi.cs
+    folder: types
+    name: win-ansi
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Maps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md
       test: automation/Catzc.Base.Maps/tests/types/WinAnsi.Tests.ps1

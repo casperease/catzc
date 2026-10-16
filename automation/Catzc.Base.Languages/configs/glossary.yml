@@ -2,13 +2,15 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/glossary.yml
+#     folder: configs
+#     name: glossary
+#     filetype: yml
 #     kind: config
 #     language: yaml
-#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.Languages
-#     moduletype: pwsh-folder-module
-#     bundle: azure
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-languages/configs/glossary.yml.md
 # ---

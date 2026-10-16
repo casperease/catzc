@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1
+    name: get-ado-yaml-files
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md

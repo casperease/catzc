@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/New-SyntheticHistory.ps1
+    name: new-synthetic-history
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Github
-    moduletype: pwsh-folder-module
-    bundle: full
+    moduletype: pwsh-folder
+    catzc_bundle: full
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/Get-FileLanguage.ps1
+    name: get-file-language
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1

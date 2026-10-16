@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1
+    folder: private
+    name: get-contract-dot-folder-findings
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md

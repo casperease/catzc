@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/Get-CatzcModulesRoot.ps1
+    name: get-catzc-modules-root
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Repository
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1

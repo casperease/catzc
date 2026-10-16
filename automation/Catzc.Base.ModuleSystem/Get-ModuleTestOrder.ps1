@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleTestOrder.ps1
+    name: get-module-test-order
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md

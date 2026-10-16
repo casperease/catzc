@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.VSCode/types/VscodeLaunchProfile.cs
+    folder: types
+    name: vscode-launch-profile
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.VSCode
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-vscode/types/VscodeLaunchProfile.cs.md
 ---

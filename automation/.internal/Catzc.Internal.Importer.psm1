@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/.internal/Catzc.Internal.Importer.psm1
+    name: catzc-internal-importer
+    filetype: psm1
     kind: module
     subkind: internal
     language: powershell
-    filetype: psm1
     track: automation
     module: Catzc.Internal.Importer
-    moduletype: pwsh-psm1-module
-    bundle: minimal
+    moduletype: pwsh-psm1
+    catzc_bundle: minimal
     relatives:
       page: docs/references/automation/internal/Catzc.Internal.Importer.psm1.md
 ---

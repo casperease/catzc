@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/Invoke-GoTest.ps1
+    name: invoke-go-test
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md

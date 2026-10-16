@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/.internal/assets/Import-ModuleFiles.ps1
+    name: import-module-files
+    filetype: ps1
     kind: asset
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Internal.Assets
-    moduletype: pwsh-folder-module
-    bundle: minimal
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
 ---
 #>
 

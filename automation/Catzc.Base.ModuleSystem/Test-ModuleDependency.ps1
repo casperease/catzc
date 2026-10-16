@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
+    name: test-module-dependency
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1

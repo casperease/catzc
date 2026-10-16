@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/types/CustomerConfig.cs
+    folder: types
+    name: customer-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Azure
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure/types/CustomerConfig.cs.md
       test: automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1

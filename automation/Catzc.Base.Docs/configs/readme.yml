@@ -2,13 +2,15 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Docs/configs/readme.yml
+#     folder: configs
+#     name: readme
+#     filetype: yml
 #     kind: config
 #     language: yaml
-#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.Docs
-#     moduletype: pwsh-folder-module
-#     bundle: azure
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-docs/configs/readme.yml.md
 # ---

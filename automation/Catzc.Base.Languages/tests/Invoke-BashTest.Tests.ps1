@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
+    folder: tests
+    name: invoke-bash-test-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md
     adrs:

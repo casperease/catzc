@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/assets/PrePost.psm1
+    folder: assets
+    name: pre-post
+    filetype: psm1
     kind: asset
     language: powershell
-    filetype: psm1
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

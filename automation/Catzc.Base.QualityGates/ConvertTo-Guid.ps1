@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/ConvertTo-Guid.ps1
+    name: convert-to-guid
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/ConvertTo-Guid.Tests.ps1

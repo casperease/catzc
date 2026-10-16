@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1
+    name: publish-contract-release
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md

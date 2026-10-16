@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBinding.cs
+    folder: types
+    name: key-handler-binding
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder-module
-    bundle: full
+    moduletype: pwsh-folder
+    catzc_bundle: full
     relatives:
       page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md
     adrs:

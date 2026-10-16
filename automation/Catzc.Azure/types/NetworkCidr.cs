@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/types/NetworkCidr.cs
+    folder: types
+    name: network-cidr
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Azure
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure/types/NetworkCidr.cs.md
     adrs:

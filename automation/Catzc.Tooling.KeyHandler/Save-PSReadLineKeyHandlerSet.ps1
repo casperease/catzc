@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/Save-PSReadLineKeyHandlerSet.ps1
+    name: save-ps-read-line-key-handler-set
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder-module
-    bundle: full
+    moduletype: pwsh-folder
+    catzc_bundle: full
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.KeyHandler/tests/Save-PSReadLineKeyHandlerSet.Tests.ps1

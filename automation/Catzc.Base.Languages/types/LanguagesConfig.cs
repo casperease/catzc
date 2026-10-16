@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/types/LanguagesConfig.cs
+    folder: types
+    name: languages-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
       test: automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1

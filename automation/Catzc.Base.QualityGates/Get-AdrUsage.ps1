@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Get-AdrUsage.ps1
+    name: get-adr-usage
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Get-AdrUsage.Tests.ps1

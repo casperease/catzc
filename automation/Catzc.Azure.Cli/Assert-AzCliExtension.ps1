@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Assert-AzCliExtension.ps1
+    name: assert-az-cli-extension
+    filetype: ps1
     kind: function
     subkind: assert
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
   config:
     synopsis: Asserts that an Azure CLI extension is installed, throwing with remediation if not.

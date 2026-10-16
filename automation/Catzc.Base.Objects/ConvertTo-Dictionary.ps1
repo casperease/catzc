@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/ConvertTo-Dictionary.ps1
+    name: convert-to-dictionary
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Objects
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md

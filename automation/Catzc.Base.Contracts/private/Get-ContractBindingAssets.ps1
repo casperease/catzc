@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/private/Get-ContractBindingAssets.ps1
+    folder: private
+    name: get-contract-binding-assets
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     adrs:
       - ADR-REPO-CONTRACT#{3,4}

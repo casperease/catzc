@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/Get-PropertyMetaState.ps1
+    name: get-property-meta-state
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     adrs:
       - ADR-REPO-FILEMETA#8

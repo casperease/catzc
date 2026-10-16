@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
+    folder: tests
+    name: assert-catzc-overlay-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-AUTO-OVERLAY
 ---

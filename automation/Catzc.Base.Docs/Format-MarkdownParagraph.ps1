@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1
+    name: format-markdown-paragraph
+    filetype: ps1
     kind: function
     subkind: formatter
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Docs/tests/Format-MarkdownParagraph.Tests.ps1

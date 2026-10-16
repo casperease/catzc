@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/Find-Executable.ps1
+    name: find-executable
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1

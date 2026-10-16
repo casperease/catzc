@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Build-CommentView.ps1
+    name: build-comment-view
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
+    name: resolve-catzc-build-version
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Exporter
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Exporter/tests/Resolve-CatzcBuildVersion.Tests.ps1

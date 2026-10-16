@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/Write-CmdletParameterSet.Tests.ps1
+    folder: tests
+    name: write-cmdlet-parameter-set-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Writers
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

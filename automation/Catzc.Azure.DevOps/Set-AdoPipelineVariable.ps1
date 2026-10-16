@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
+    name: set-ado-pipeline-variable
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1

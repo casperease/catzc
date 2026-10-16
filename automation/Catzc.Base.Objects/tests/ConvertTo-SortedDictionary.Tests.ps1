@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
+    folder: tests
+    name: convert-to-sorted-dictionary-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Objects
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

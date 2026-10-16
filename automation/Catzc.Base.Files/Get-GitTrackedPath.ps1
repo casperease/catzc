@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/Get-GitTrackedPath.ps1
+    name: get-git-tracked-path
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Files
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md

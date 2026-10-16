@@ -3,12 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/types/PathParts.Tests.ps1
+    folder: tests/types
+    name: path-parts-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-REPO-FILEMETA#11
 ---

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/tests/Get-GitIndexPath.Tests.ps1
+    folder: tests
+    name: get-git-index-path-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Files
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

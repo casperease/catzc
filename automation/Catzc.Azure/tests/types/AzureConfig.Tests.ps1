@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+    folder: tests/types
+    name: azure-config-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
     adrs:

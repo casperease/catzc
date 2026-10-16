@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/Get-GlobSetHash.ps1
+    name: get-glob-set-hash
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1

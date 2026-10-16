@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
+    folder: private
+    name: get-az-cli-bicep-state
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md

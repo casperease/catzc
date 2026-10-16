@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/Export-Catzc.ps1
+    name: export-catzc
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Exporter
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Exporter/tests/Export-Catzc.Tests.ps1

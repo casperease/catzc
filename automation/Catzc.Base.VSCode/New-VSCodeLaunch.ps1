@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
+    name: new-vs-code-launch
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.VSCode
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1

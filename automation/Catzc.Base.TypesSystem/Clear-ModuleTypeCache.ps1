@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
+    name: clear-module-type-cache
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1
+    name: reset-git-clean-fxd
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Git
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md

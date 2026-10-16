@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Invoke-BuildForVSCode.Tests.ps1
+    folder: tests
+    name: invoke-build-for-vs-code-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

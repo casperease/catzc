@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/Reset-GitHubRepository.ps1
+    name: reset-git-hub-repository
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Github
-    moduletype: pwsh-folder-module
-    bundle: full
+    moduletype: pwsh-folder
+    catzc_bundle: full
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1

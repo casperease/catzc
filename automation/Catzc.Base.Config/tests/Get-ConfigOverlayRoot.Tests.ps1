@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1
+    folder: tests
+    name: get-config-overlay-root-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Config
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

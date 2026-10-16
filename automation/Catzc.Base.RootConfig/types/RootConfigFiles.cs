@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+    folder: types
+    name: root-config-files
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md
       test: automation/Catzc.Base.RootConfig/tests/types/RootConfigFiles.Tests.ps1

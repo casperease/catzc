@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1
+    name: invoke-config-validator
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ConfigExtensions
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1

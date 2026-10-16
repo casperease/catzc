@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Format-Code.ps1
+    name: format-code
+    filetype: ps1
     kind: function
     subkind: formatter
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md

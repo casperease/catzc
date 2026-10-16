@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Build-Bicep.ps1
+    name: build-bicep
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
+    name: get-internal-asset-dependency
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md

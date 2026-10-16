@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Deploy-AzureResourceGroup.ps1
+    name: deploy-azure-resource-group
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1

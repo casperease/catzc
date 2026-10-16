@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1
+    folder: tests
+    name: get-contract-asset-note-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-contracts/tests/Get-ContractAssetNote.Tests.ps1.md
     adrs:

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/Copy-Object.ps1
+    name: copy-object
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Objects
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1

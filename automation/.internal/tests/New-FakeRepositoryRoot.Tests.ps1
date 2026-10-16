@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
+    name: new-fake-repository-root-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Internal.Tests
-    moduletype: pwsh-folder-module
-    bundle: minimal
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
     adrs:
       - ADR-DSGN-RUNMODE#4
 ---

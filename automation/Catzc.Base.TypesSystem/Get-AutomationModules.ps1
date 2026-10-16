@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Get-AutomationModules.ps1
+    name: get-automation-modules
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md

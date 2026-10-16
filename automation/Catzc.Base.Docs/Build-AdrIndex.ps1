@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Build-AdrIndex.ps1
+    name: build-adr-index
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md

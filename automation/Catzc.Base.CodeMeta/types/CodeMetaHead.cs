@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/types/CodeMetaHead.cs
+    folder: types
+    name: code-meta-head
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-codemeta/types/CodeMetaHead.cs.md
       test: automation/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1

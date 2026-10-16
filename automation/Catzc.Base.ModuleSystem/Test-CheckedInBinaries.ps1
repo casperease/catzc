@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
+    name: test-checked-in-binaries
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/EngineSetCheck.cs
+    folder: types
+    name: engine-set-check
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md
       test: automation/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1

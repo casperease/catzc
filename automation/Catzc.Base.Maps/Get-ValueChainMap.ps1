@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/Get-ValueChainMap.ps1
+    name: get-value-chain-map
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1

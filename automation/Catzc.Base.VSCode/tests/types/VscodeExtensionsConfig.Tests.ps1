@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.VSCode/tests/types/VscodeExtensionsConfig.Tests.ps1
+    folder: tests/types
+    name: vscode-extensions-config-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.VSCode
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

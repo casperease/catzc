@@ -2,13 +2,15 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Azure/configs/network.yml
+#     folder: configs
+#     name: network
+#     filetype: yml
 #     kind: config
 #     language: yaml
-#     filetype: yml
 #     track: automation
 #     module: Catzc.Azure
-#     moduletype: pwsh-folder-module
-#     bundle: azure
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-azure/configs/network.yml.md
 # ---

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
+    folder: private
+    name: expand-object-properties
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Objects
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md

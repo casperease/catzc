@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Test-AdrRegistry.ps1
+    name: test-adr-registry
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md

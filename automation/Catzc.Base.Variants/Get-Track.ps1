@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/Get-Track.ps1
+    name: get-track
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Variants
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1

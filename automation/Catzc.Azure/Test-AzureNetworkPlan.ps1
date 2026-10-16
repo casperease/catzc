@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/Test-AzureNetworkPlan.ps1
+    name: test-azure-network-plan
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1

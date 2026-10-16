@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/types/ProfilesConfig.cs
+    folder: types
+    name: profiles-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md
       test: automation/Catzc.Base.ModuleSystem/tests/types/ProfilesConfig.Tests.ps1

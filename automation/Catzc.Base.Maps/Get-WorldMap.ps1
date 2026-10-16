@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/Get-WorldMap.ps1
+    name: get-world-map
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Maps
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md

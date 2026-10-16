@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
+    folder: types
+    name: execution-engine
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Engines
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
       test: automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1

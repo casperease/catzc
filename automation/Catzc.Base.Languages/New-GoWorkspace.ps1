@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/New-GoWorkspace.ps1
+    name: new-go-workspace
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md

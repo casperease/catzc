@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/.internal/assets/Import-Catzc.ps1
+    name: import-catzc
+    filetype: ps1
     kind: asset
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Internal.Assets
-    moduletype: pwsh-folder-module
-    bundle: minimal
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
   config:
     synopsis: Loads this Catzc build into the session — build mode's entry point.
     description: |-

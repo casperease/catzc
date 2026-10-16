@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Vendor/Test-VendorModuleAvailable.ps1
+    name: test-vendor-module-available
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Vendor
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Vendor/tests/Test-VendorModuleAvailable.Tests.ps1

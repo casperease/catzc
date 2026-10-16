@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/Format-CodeMetaHead.ps1
+    name: format-code-meta-head
+    filetype: ps1
     kind: function
     subkind: formatter
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.CodeMeta/tests/Format-CodeMetaHead.Tests.ps1

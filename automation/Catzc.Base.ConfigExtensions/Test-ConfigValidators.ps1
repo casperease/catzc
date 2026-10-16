@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
+    name: test-config-validators
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ConfigExtensions
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1

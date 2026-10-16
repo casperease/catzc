@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/Get-AzureBicepMinVersion.ps1
+    name: get-azure-bicep-min-version
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1

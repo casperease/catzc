@@ -2,13 +2,14 @@
 # catzc:
 #   derived:
 #     path: automation/.internal/assets/types-load.yml
+#     name: types-load
+#     filetype: yml
 #     kind: asset
 #     language: yaml
-#     filetype: yml
 #     track: automation
 #     module: Catzc.Internal.Assets
-#     moduletype: pwsh-folder-module
-#     bundle: minimal
+#     moduletype: pwsh-folder
+#     catzc_bundle: minimal
 # ---
 
 # How the combined C# types assembly is loaded, one row per mode: <host>.<os>.<run mode>.

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1
+    name: convert-firewall-csv-to-yaml
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md

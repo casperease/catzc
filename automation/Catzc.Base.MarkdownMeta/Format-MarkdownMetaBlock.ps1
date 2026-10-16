@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1
+    name: format-markdown-meta-block
+    filetype: ps1
     kind: function
     subkind: formatter
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.MarkdownMeta
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.MarkdownMeta/tests/Format-MarkdownMetaBlock.Tests.ps1

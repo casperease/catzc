@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+    name: get-az-cli-session-subscription
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1

@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
+    folder: tests/types
+    name: folder-walk-config-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Folders
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
     adrs:

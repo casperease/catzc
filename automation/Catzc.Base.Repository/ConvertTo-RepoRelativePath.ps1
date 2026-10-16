@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+    name: convert-to-repo-relative-path
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Repository
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md

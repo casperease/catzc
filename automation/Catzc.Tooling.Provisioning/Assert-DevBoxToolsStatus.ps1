@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
+    name: assert-dev-box-tools-status
+    filetype: ps1
     kind: function
     subkind: assert
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1

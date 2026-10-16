@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
+    folder: tests
+    name: write-information-colored-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Writers
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md
 ---

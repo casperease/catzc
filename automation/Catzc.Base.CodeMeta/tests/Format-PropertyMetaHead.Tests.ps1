@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/tests/Format-PropertyMetaHead.Tests.ps1
+    folder: tests
+    name: format-property-meta-head-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-REPO-FILEMETA#3
 ---

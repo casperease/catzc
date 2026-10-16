@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Get-AzureNameOrderSet.ps1
+    name: get-azure-name-order-set
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.Templates/tests/Get-AzureNameOrderSet.Tests.ps1

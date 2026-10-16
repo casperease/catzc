@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/types/CsvExportRef.cs
+    folder: types
+    name: csv-export-ref
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
 ---

@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/Test-IsTimeoutExempt.ps1
+    name: test-is-timeout-exempt
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Timeouts/tests/Test-IsTimeoutExempt.Tests.ps1

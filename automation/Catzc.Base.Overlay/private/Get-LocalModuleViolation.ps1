@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/private/Get-LocalModuleViolation.ps1
+    folder: private
+    name: get-local-module-violation
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       page: docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md

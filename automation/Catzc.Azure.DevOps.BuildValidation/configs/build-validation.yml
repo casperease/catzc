@@ -2,13 +2,15 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+#     folder: configs
+#     name: build-validation
+#     filetype: yml
 #     kind: config
 #     language: yaml
-#     filetype: yml
 #     track: automation
 #     module: Catzc.Azure.DevOps.BuildValidation
-#     moduletype: pwsh-folder-module
-#     bundle: full
+#     moduletype: pwsh-folder
+#     catzc_bundle: full
 #     relatives:
 #       page: docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
 # ---

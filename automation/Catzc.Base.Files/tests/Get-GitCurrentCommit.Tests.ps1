@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/tests/Get-GitCurrentCommit.Tests.ps1
+    folder: tests
+    name: get-git-current-commit-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Files
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
 ---
 #>
 

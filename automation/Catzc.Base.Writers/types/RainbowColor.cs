@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/types/RainbowColor.cs
+    folder: types
+    name: rainbow-color
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Writers
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md
       test: automation/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1

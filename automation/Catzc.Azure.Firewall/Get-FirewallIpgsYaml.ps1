@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
+    name: get-firewall-ipgs-yaml
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md

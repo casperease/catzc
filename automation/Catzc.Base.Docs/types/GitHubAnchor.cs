@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/types/GitHubAnchor.cs
+    folder: types
+    name: git-hub-anchor
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md
       test: automation/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1

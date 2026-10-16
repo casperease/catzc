@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
+    folder: private
+    name: get-config-validator-name
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ConfigExtensions
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.ConfigExtensions/tests/Get-ConfigValidatorName.Tests.ps1

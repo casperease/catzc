@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/ConvertTo-AdrDomainDiagram.ps1
+    name: convert-to-adr-domain-diagram
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1

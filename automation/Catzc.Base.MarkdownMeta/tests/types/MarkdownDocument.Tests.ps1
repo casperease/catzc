@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownDocument.Tests.ps1
+    folder: tests/types
+    name: markdown-document-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.MarkdownMeta
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     adrs:
       - ADR-REPO-FILEMETA#1
 ---

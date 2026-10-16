@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
+    folder: private
+    name: get-root-config-targets
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.RootConfig/tests/Get-RootConfigTargets.Tests.ps1

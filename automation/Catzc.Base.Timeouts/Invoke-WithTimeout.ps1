@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/Invoke-WithTimeout.ps1
+    name: invoke-with-timeout
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Timeouts/tests/Invoke-WithTimeout.Tests.ps1

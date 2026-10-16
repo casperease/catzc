@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/Write-Message.ps1
+    name: write-message
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Writers
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-writers/Write-Message.ps1.md

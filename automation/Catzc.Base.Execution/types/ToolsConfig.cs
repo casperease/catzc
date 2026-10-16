@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/types/ToolsConfig.cs
+    folder: types
+    name: tools-config
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Execution
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-execution/types/ToolsConfig.cs.md
       test: automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1

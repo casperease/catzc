@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Config/Get-ConfigValue.ps1
+    name: get-config-value
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Config
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1

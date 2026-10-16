@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
+    folder: tests
+    name: resolve-tool-executable-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Execution
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md
     adrs:

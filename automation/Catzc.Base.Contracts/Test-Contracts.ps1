@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Test-Contracts.ps1
+    name: test-contracts
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Contracts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1

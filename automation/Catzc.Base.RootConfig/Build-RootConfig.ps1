@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
+    name: build-root-config
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md

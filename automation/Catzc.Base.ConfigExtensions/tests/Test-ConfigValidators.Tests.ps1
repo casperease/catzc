@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
+    folder: tests
+    name: test-config-validators-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.ConfigExtensions
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md
     adrs:

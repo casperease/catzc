@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
+    name: test-root-analyzer-settings
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1

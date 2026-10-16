@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/Write-FileIfChanged.ps1
+    name: write-file-if-changed
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Files
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md

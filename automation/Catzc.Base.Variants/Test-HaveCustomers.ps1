@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/Test-HaveCustomers.ps1
+    name: test-have-customers
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Variants
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md

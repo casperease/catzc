@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/private/Get-BicepKeyVaultReferenceViolations.ps1
+    folder: private
+    name: get-bicep-key-vault-reference-violations
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Templates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
   config:
     synopsis: Returns the ways an ARM Key Vault reference in a parameters file is not well-formed.

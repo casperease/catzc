@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/Get-FileLockingProcess.ps1
+    name: get-file-locking-process
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Files
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Files/tests/Get-FileLockingProcess.Tests.ps1

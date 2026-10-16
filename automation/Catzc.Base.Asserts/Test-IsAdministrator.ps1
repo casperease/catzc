@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Asserts/Test-IsAdministrator.ps1
+    name: test-is-administrator
+    filetype: ps1
     kind: function
     subkind: gate
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Asserts
-    moduletype: pwsh-folder-module
-    bundle: minimal
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
     visibility: public
   config:
     synopsis: Returns true if the current session is running as Administrator (Windows) or root (Linux/macOS).

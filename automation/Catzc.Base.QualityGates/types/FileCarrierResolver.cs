@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/FileCarrierResolver.cs
+    folder: types
+    name: file-carrier-resolver
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/types/FileCarrierResolver.cs.md
       test: automation/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1

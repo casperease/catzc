@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/types/Tenant.cs
+    folder: types
+    name: tenant
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Azure
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure/types/Tenant.cs.md
 ---

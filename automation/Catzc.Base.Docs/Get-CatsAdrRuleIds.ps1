@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1
+    name: get-cats-adr-rule-ids
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md

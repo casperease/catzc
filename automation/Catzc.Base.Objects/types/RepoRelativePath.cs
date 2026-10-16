@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/types/RepoRelativePath.cs
+    folder: types
+    name: repo-relative-path
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Objects
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md
       test: automation/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1

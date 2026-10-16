@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/types/ConsoleText.cs
+    folder: types
+    name: console-text
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Objects
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md
       test: automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1

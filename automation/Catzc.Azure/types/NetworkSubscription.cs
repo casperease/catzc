@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/types/NetworkSubscription.cs
+    folder: types
+    name: network-subscription
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Azure
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md
     adrs:

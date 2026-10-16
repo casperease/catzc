@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Asserts/tests/Assert-PathExist.Tests.ps1
+    folder: tests
+    name: assert-path-exist-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Asserts
-    moduletype: pwsh-folder-module
-    bundle: minimal
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
 ---
 #>
 

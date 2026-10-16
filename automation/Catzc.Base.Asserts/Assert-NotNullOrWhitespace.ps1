@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Asserts/Assert-NotNullOrWhitespace.ps1
+    name: assert-not-null-or-whitespace
+    filetype: ps1
     kind: function
     subkind: assert
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Asserts
-    moduletype: pwsh-folder-module
-    bundle: minimal
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
     visibility: public
     relatives:
       test: automation/Catzc.Base.Asserts/tests/Assert-NotNullOrWhitespace.Tests.ps1

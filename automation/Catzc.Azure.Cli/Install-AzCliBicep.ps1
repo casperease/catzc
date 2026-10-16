@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1
+    name: install-az-cli-bicep
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1

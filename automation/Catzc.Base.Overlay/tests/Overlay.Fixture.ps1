@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
+    folder: tests
+    name: overlay-fixture
+    filetype: ps1
     kind: fixture
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
     adrs:

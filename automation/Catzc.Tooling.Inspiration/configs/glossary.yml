@@ -2,13 +2,15 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Tooling.Inspiration/configs/glossary.yml
+#     folder: configs
+#     name: glossary
+#     filetype: yml
 #     kind: config
 #     language: yaml
-#     filetype: yml
 #     track: automation
 #     module: Catzc.Tooling.Inspiration
-#     moduletype: pwsh-folder-module
-#     bundle: full
+#     moduletype: pwsh-folder
+#     catzc_bundle: full
 #     relatives:
 #       page: docs/references/automation/catzc-tooling-inspiration/configs/glossary.yml.md
 # ---

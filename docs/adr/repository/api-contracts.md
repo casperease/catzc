@@ -351,8 +351,8 @@ CI, not in production. Everything outside `contracts/` is internal and follows o
 - **`Build-ContractReference`** writes the per-unit reference pages from the assets' header comments, and `Test-GeneratedFiles` fails when
   one is stale (ADR-REPO-CONTRACT#9).
 
-- **`.gitattributes`** marks every file in a version folder `catzc-contract`
-  ([ADR-REPO-ROOTCFG#1](generated-root-configs.md#rule-adr-repo-rootcfg1)), so the link and Markdown-title tools leave an asset as written:
+- **`.gitattributes`** marks every file in a version folder `catzc-contract`, generated from the `contract-asset` kind's `git` entry in
+  the file-kinds registry ([ADR-REPO-ROOTCFG#1](generated-root-configs.md#rule-adr-repo-rootcfg1)), so the link and Markdown-title tools leave an asset as written:
   its bytes are what its check compares (ADR-REPO-CONTRACT#6), and a released folder stays byte-for-byte frozen (ADR-REPO-CONTRACT#5).
 
 - **Code review** guards what the tests cannot phrase: that the boundary stays confined to `contracts/` (ADR-REPO-CONTRACT#1), that a

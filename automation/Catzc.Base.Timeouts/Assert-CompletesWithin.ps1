@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1
+    name: assert-completes-within
+    filetype: ps1
     kind: function
     subkind: assert
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Timeouts/tests/Assert-CompletesWithin.Tests.ps1

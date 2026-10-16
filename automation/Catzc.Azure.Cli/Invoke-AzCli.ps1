@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Invoke-AzCli.ps1
+    name: invoke-az-cli
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md

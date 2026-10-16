@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-FileMetaProcessors.Tests.ps1
+    folder: tests
+    name: test-file-meta-processors-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/Test-FileMetaProcessors.Tests.ps1.md
     adrs:
@@ -30,7 +32,7 @@ Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
         # The gate sees every processor function of the module, so each fixture registry also names the shipped ones.
         function script:Invoke-Gate {
             param($Kinds, [switch] $PassThru)
-            $all = [ordered]@{ 'file-path' = @{ keys = @('path') }; 'file-kind' = @{ keys = @('kind') }; 'file-language' = @{ keys = @('language') }; 'file-type' = @{ keys = @('filetype') }; track = @{}; generator = @{}; 'body-sha' = @{ keys = @('body_sha') }; 'adr-defines' = @{ keys = @('defines') }; 'adr-codes' = @{ keys = @('adrs') }; links = @{}; 'module-name' = @{ keys = @('module') }; 'module-type' = @{ keys = @('moduletype') }; bundle = @{}; visibility = @{ keys = @('visibility') }; relatives = @{} }
+            $all = [ordered]@{ 'file-path' = @{ keys = @('path') }; 'file-kind' = @{ keys = @('kind') }; 'file-language' = @{ keys = @('language') }; 'file-type' = @{ keys = @('filetype') }; track = @{}; generator = @{}; 'body-sha' = @{ keys = @('body_sha') }; 'adr-defines' = @{ keys = @('defines') }; 'adr-codes' = @{ keys = @('adrs') }; links = @{}; 'module-name' = @{ keys = @('module') }; 'module-type' = @{ keys = @('moduletype') }; 'catzc-bundle' = @{}; 'file-name' = @{ keys = @('folder', 'name') }; visibility = @{ keys = @('visibility') }; relatives = @{} }
             foreach ($id in $Kinds.Keys) {
                 $all[$id] = $Kinds[$id]
             }
@@ -73,9 +75,9 @@ Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
         $kinds = [ordered]@{ widget = @{} }
         $result = Invoke-Gate $kinds -PassThru
         $result.Subject | Should -Be 'file-meta-processors'
-        $result.KindCount | Should -Be 16
+        $result.KindCount | Should -Be 17
         $result.IssueCount | Should -Be 1
-        $result.ProcessorCount | Should -Be 17
+        $result.ProcessorCount | Should -Be 18
     }
 }
 

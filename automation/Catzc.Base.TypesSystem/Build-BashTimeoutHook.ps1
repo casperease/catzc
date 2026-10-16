@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1
+    name: build-bash-timeout-hook
+    filetype: ps1
     kind: function
     subkind: writer
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md

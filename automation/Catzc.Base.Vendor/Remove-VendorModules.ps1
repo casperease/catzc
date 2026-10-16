@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Vendor/Remove-VendorModules.ps1
+    name: remove-vendor-modules
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Vendor
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Vendor/tests/Remove-VendorModules.Tests.ps1

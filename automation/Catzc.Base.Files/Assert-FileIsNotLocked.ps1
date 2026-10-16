@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/Assert-FileIsNotLocked.ps1
+    name: assert-file-is-not-locked
+    filetype: ps1
     kind: function
     subkind: assert
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Files
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
   config:
     synopsis: Asserts that a file is free to open (not locked by another handle); throws otherwise.

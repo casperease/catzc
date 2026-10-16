@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Set-AzCliSubscription.ps1
+    name: set-az-cli-subscription
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure.Cli
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md

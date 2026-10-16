@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/.internal/tests/Import-Catzc.Tests.ps1
+    name: import-catzc-tests
+    filetype: ps1
     kind: test
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Internal.Tests
-    moduletype: pwsh-folder-module
-    bundle: minimal
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
     relatives:
       page: docs/references/automation/internal/tests/Import-Catzc.Tests.ps1.md
 ---

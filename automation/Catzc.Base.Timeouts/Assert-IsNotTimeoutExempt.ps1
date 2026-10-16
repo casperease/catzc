@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/Assert-IsNotTimeoutExempt.ps1
+    name: assert-is-not-timeout-exempt
+    filetype: ps1
     kind: function
     subkind: assert
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Timeouts/tests/Assert-IsNotTimeoutExempt.Tests.ps1

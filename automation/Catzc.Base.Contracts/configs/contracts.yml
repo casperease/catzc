@@ -2,13 +2,15 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Contracts/configs/contracts.yml
+#     folder: configs
+#     name: contracts
+#     filetype: yml
 #     kind: config
 #     language: yaml
-#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.Contracts
-#     moduletype: pwsh-folder-module
-#     bundle: azure
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-contracts/configs/contracts.yml.md
 # ---

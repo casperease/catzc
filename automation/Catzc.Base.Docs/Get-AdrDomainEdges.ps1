@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Get-AdrDomainEdges.ps1
+    name: get-adr-domain-edges
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Docs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Docs/tests/Get-AdrDomainEdges.Tests.ps1

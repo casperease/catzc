@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/Get-TimeoutSeconds.ps1
+    name: get-timeout-seconds
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Tests.ps1

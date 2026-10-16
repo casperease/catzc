@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/types/GitHistoryScan.cs
+    folder: types
+    name: git-history-scan
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Git
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     relatives:
       page: docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
       test: automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1

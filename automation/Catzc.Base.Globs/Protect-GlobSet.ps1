@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/Protect-GlobSet.ps1
+    name: protect-glob-set
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Globs
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md

@@ -3,14 +3,16 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-VisibilityFileMetaFact.ps1
+    folder: private
+    name: get-visibility-file-meta-fact
+    filetype: ps1
     kind: function
     subkind: fact
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/Get-VisibilityFileMetaFact.Tests.ps1

@@ -3,13 +3,14 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/Get-AzureSubscription.ps1
+    name: get-azure-subscription
+    filetype: ps1
     kind: function
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Azure
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       page: docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md

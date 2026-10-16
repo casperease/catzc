@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
+    name: assert-catzc-overlay
+    filetype: ps1
     kind: function
     subkind: assert
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Overlay
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1

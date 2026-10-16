@@ -3,13 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1
+    folder: assets
+    name: set-local-ps-module-path
+    filetype: ps1
     kind: asset
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Environment
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
   config:
     synopsis: Redirects PowerShell 7's user module path from a network share to a local directory.
     description: |-

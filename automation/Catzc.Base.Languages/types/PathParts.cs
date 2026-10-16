@@ -3,12 +3,17 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/types/PathParts.cs
+    folder: types
+    name: path-parts
+    filetype: cs
     kind: type
     language: csharp
-    filetype: cs
     track: automation
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
+    catzc_bundle: azure
+    relatives:
+      test: automation/Catzc.Base.Languages/tests/types/PathParts.Tests.ps1
     adrs:
       - ADR-REPO-FILEMETA#11
 ---

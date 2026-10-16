@@ -2,13 +2,15 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Globs/configs/file-kinds.yml
+#     folder: configs
+#     name: file-kinds
+#     filetype: yml
 #     kind: config
 #     language: yaml
-#     filetype: yml
 #     track: automation
 #     module: Catzc.Base.Globs
-#     moduletype: pwsh-folder-module
-#     bundle: azure
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
 #     relatives:
 #       page: docs/references/automation/catzc-base-globs/configs/file-kinds.yml.md
 # ---
@@ -24,6 +26,23 @@ kinds:
       - docs/references/**/*.yml.md
       - docs/references/**/*.yaml.md
       - docs/references/**/*.bicep.md
+  contract-asset:
+    definition: One file of a contract, whose bytes are what its contract check compares.
+    files: ["contracts/*/*/**"]
+    git:
+      attributes: [catzc-contract, text, eol=lf]
+      why:
+        contract assets are data on purpose — an asset's bytes are what its contract check compares, so the tools that rewrite or check
+        content (links, Markdown titles) leave them as written, and an empty presence asset stays empty. They check out with LF on every
+        platform, so a working copy's bytes match the frozen record's hashes (ADR-REPO-CONTRACT#5, ADR-REPO-CONTRACT#6).
+  note:
+    definition: A fragment frozen when it was committed, kept in the unordered track and no part of the system.
+    files: [".unordered/**"]
+    git:
+      attributes: [catzc-notes]
+      why:
+        the plans folder holds working notes, not product docs — the content tools (links, Markdown titles, source conventions) leave them
+        as written, like out/ and docs/notes for the spelling, lint and glossary scans.
   test:
     definition: A file that proves the behaviour of the code it sits beside.
     files:
@@ -38,6 +57,9 @@ kinds:
       asset:
         definition: A fixture kept verbatim in a test's assets folder, as the input the test reads.
         files: ["**/tests/**/assets/**"]
+        git:
+          attributes: [catzc-fixture]
+          why: test fixture trees are data on purpose — the link and Markdown-title tools leave them as written.
     files: ["**/tests/**"]
   type:
     definition: A compiled C# type that a module ships.

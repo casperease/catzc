@@ -3,14 +3,15 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
+    name: format-generated-file-head
+    filetype: ps1
     kind: function
     subkind: formatter
     language: powershell
-    filetype: ps1
     track: automation
     module: Catzc.Base.Languages
-    moduletype: pwsh-folder-module
-    bundle: azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
     relatives:
       test: automation/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
