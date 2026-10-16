@@ -108,11 +108,11 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 
 # Plan: automation becomes the terminology; the pwsh track gets its own name
 
-Master plan. Companions: [plan-layers-importer-vocabulary.md](plan-layers-vocabulary-rename-contracts.md) (the layer model, vocabulary, ADRs,
-importer mix), [plan-command-contracts.md](plan-layers-vocabulary-rename-contracts.md) (command contracts and the contract language),
-[plan-rename-worklist.md](plan-layers-vocabulary-rename-contracts.md) (the evidence: every use of the word, classified, with file:line). Existing plans this
-meets: `out/plan-module-model.md`, `out/plan-k8s-kinds.md`. Facts were read on 2026-10-16 by six read-only crawls; nothing is built or
-renamed yet.
+Master plan. Companions: [plan-layers-importer-vocabulary.md](plan-layers-vocabulary-rename-contracts.md) (the layer model, vocabulary,
+ADRs, importer mix), [plan-command-contracts.md](plan-layers-vocabulary-rename-contracts.md) (command contracts and the contract language),
+[plan-rename-worklist.md](plan-layers-vocabulary-rename-contracts.md) (the evidence: every use of the word, classified, with file:line).
+Existing plans this meets: `out/plan-module-model.md`, `out/plan-k8s-kinds.md`. Facts were read on 2026-10-16 by six read-only crawls;
+nothing is built or renamed yet.
 
 **Status 2026-10-16: all decisions are made (section 8).** Wherever this plan or a companion writes `<TRACK>`, read **`pwsh`**. The next
 step is the continuation prompt [prompt-automation-layers-continue.md](prompt-automation-layers-continue.md).
@@ -356,10 +356,11 @@ rendering any diagram unasked; the Azure DevOps and GitHub settings that live ou
 
 # Plan: the layer model (automation, language, engine, importer), its vocabulary and its ADRs
 
-Part 2 of the layers series. Master plan and the rename: [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md). Command
-contracts: [plan-command-contracts.md](plan-layers-vocabulary-rename-contracts.md). Evidence worklist: [plan-rename-worklist.md](plan-layers-vocabulary-rename-contracts.md).
-Related existing plans: `out/plan-module-model.md` (Module, language x engine axes, registration is placement), `out/plan-k8s-kinds.md`.
-Facts read on 2026-10-16 from the surveys `out/survey-*.md` (they may be wiped; this plan carries what it needs). Nothing here is built.
+Part 2 of the layers series. Master plan and the rename: [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md).
+Command contracts: [plan-command-contracts.md](plan-layers-vocabulary-rename-contracts.md). Evidence worklist:
+[plan-rename-worklist.md](plan-layers-vocabulary-rename-contracts.md). Related existing plans: `out/plan-module-model.md` (Module, language
+x engine axes, registration is placement), `out/plan-k8s-kinds.md`. Facts read on 2026-10-16 from the surveys `out/survey-*.md` (they may be
+wiped; this plan carries what it needs). Nothing here is built.
 
 **Decided 2026-10-16:** `<TRACK>` = `pwsh`; Q-L1..Q-L5 are all accepted as recommended (section 6).
 
@@ -529,8 +530,8 @@ Phases (each a small, separately verified change; none requires the folder renam
 
 # Plan: command contracts and the contract language
 
-Part 3 of the layers series. Master plan: [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md). Layers and importer:
-[plan-layers-importer-vocabulary.md](plan-layers-vocabulary-rename-contracts.md). Facts below were read on 2026-10-16 (survey:
+Part 3 of the layers series. Master plan: [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md). Layers and
+importer: [plan-layers-importer-vocabulary.md](plan-layers-vocabulary-rename-contracts.md). Facts below were read on 2026-10-16 (survey:
 `out/survey-layers.md`, section 3-6); anything not read is marked **unverified**. Nothing here is built.
 
 **Decided 2026-10-16:** the design below is accepted as written; Q-C1..Q-C6 are all as recommended (section 6). The module folder is `pwsh/`
@@ -709,11 +710,11 @@ Each use is its own phase; none changes the contract file's shape.
 
 # Rename worklist: every use of "automation", classified, with its disposition
 
-Evidence appendix to [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md). Compiled on 2026-10-16 from six read-only surveys
-(`out/survey-rename-{code,adrs,docs,edges,vocab-generators}.md`, `out/survey-layers.md`); counts are matching lines or files from ripgrep
-and are approximate on class totals (classified by pattern), exact on the named definitions. `<TRACK>` is the new folder name: **`pwsh`**
-(Q1, decided 2026-10-16; the other decisions are in section 8 of the master plan). Re-measure after the funnel phase: its whole point is to
-shrink these numbers.
+Evidence appendix to [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md). Compiled on 2026-10-16 from six
+read-only surveys (`out/survey-rename-{code,adrs,docs,edges,vocab-generators}.md`, `out/survey-layers.md`); counts are matching lines or
+files from ripgrep and are approximate on class totals (classified by pattern), exact on the named definitions. `<TRACK>` is the new folder
+name: **`pwsh`** (Q1, decided 2026-10-16; the other decisions are in section 8 of the master plan). Re-measure after the funnel phase: its
+whole point is to shrink these numbers.
 
 ## 1. The senses of the word
 
