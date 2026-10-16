@@ -7,7 +7,7 @@ catzc:
     defines:
       - ADR-PWSH-DRYRUN#{1-5}
     adrs:
-      - ADR-AUTO-DRYRUN#*
+      - ADR-AUTO-DRYRUN#{1-4}
     links:
       - docs/adr/automation/dry-run.md
 ---

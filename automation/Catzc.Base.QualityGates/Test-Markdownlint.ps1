@@ -17,8 +17,8 @@ catzc:
     description: |-
       Runs markdownlint-cli2 over the repository's in-scope Markdown, applying the single root rule set at
       /.markdownlint.yml (auto-discovered by markdownlint-cli2). Excludes transient and out-of-scope trees
-      (out/, automation/.vendor/ and every other .vendor/ tree, node_modules/, docs/notes/) and the generated README copy-ins (**/README.md,
-      a derived artifact linted at its docs/ source instead) via negation globs — markdownlint-cli2 does not
+      (out/, automation/.vendor/ and every other .vendor/ tree, node_modules/, docs/notes/) and the generated README
+      copy-ins (**/README.md, a derived artifact linted at its docs/ source instead) via negation globs — markdownlint-cli2 does not
       apply .markdownlintignore to globs passed on the command line, so the exclusions are passed explicitly.
       The root .markdownlintignore mirrors these for the editor extension's benefit.
 

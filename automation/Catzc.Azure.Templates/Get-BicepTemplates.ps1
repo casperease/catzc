@@ -42,7 +42,8 @@ catzc:
         environments          — distinct env names across the slots (excluding 'default')
         subscriptions         — distinct resolved subscription names across the slots
         customers             — distinct customer names across the slots (the config subfolders)
-        slots                 — one per config file: { name (=config), environment, slot, subscription, customer } (slot/customer empty for a base / shared-platform slot)
+        slots                 — one per config file: { name (=config), environment, slot, subscription, customer }
+                                (slot/customer empty for a base / shared-platform slot)
         short_name            — the Azure id segment (2-5 alnum, globally unique). DERIVED from the folder name
                                 ([Catzc.Azure.Templates.BicepShortName]::Resolve) unless options.yml overrides it
         output_folder         — where Build-Bicep writes main.json + parameters.<subscription>.<slot>.json
@@ -50,7 +51,8 @@ catzc:
         deployment_target     — 'ResourceGroup' unless overridden by options.yml
         environment_kind      — 'standard' unless options.yml sets it; the env-class bit (standard|subscription, see
         [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md))
-        customer_deployment   — whether this is a customer template; defaults to the have_customers variant unless options.yml sets it
+        customer_deployment   — whether this is a customer template; defaults to the have_customers variant unless
+                                options.yml sets it
         prepost_module        — path to PrePost.psm1 if present (key omitted otherwise)
         resources             — extra files in resources/ if present (key omitted otherwise)
 

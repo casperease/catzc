@@ -45,7 +45,9 @@ catzc:
       TimeoutSeconds: The entry point's own limit (its [TimeLimit] through Get-TimeoutSeconds -Command); no default here.
       Output: 'Pester output verbosity: Detailed, Normal, Minimal or Diagnostic (Test-Automation''s -Output).'
       PassThru: Return the aggregated per-test rows and the shard descriptors (Test-Automation's -PassThru).
-      EnforceTimings: Fail the run when a test is over its time limit; by default over-limit tests are only reported (Test-Automation's -EnforceTimings).
+      EnforceTimings: |-
+        Fail the run when a test is over its time limit; by default over-limit tests are only reported
+        (Test-Automation's -EnforceTimings).
       Rule: Narrows the run to the tests that cite these ADR rules (Test-Automation's -Rule).
       Suite: A test suite's name, when -Modules was resolved from one (Test-Automation -Suite); the context block names it.
       OutputFolder: Report base; empty resolves to <out>/<entry point in lowercase>.

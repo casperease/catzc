@@ -40,7 +40,9 @@ catzc:
         The managed tool per test language and the executable per engine other than pwsh the run's source session
         located (Get-LanguageTestExecutable: @{ go = <path>; python = <uv path>; <engine> = <path> }), handed to the
         language bridge; an empty entry means there is none.
-    outputs: '[object] A PesterConfiguration, the configured, ready-to-invoke configuration, typed object because Pester is vendored and loads later.'
+    outputs: |-
+      [object] A PesterConfiguration, the configured, ready-to-invoke configuration, typed object because Pester is
+      vendored and loads later.
 ---
 #>
 

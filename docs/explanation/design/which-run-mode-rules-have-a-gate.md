@@ -6,7 +6,7 @@ catzc:
     body_sha: "6ae87099e7a9"
     adrs:
       - ADR-AUTO-ASSETDEP#1
-      - ADR-DSGN-RUNMODE#*
+      - ADR-DSGN-RUNMODE#{1-7}
     links:
       - docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md
       - docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png

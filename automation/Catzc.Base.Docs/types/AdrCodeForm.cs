@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Docs;
@@ -25,54 +24,26 @@ namespace Catzc.Base.Docs;
 //
 //   ADR-X-Y#5                one rule
 //   ADR-X-Y#{1,3-5,9}        a group: numbers and ranges (a range is a run of three or more)
-//   ADR-X-Y#*                every rule the registry declares for the code
-//   ADR-X-*                  every rule of every code under the prefix (at least two codes)
-//   ADR-X-Y                  a bare code: a domain citation, never grouped or globbed
+//   ADR-X-Y                  a bare code: a domain citation, never grouped
 //
-// Groups and ranges need no registry; a glob is relative to one, so Minimize without a registry never globs and Expand of a glob needs one.
+// The form is a pure function of the citations: it reads no registry, so a head written in it never changes meaning when an ADR gains a rule.
 public static class AdrCodeForm
 {
-    // The grouped and glob spellings after a code, for a scanner that already matches the code itself.
-    public const string SuffixPattern = @"(?:-\*|#(?:\*|\d+|\{[0-9,\-]*\}))";
-
     const int MaxRange = 10000;
 
     static readonly Regex Token = new Regex(
-        @"^(?<code>ADR-[A-Z]+(?:-[A-Z]+)*?)(?:(?<glob>-\*)|#(?<rules>\*|[0-9]+|\{[^{}]*\}))?\z",
+        @"^(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:#(?<rules>[0-9]+|\{[^{}]*\}))?\z",
         RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
     // Every citation one token names, ascending. Throws FormatException on a malformed token.
-    public static IReadOnlyList<string> Expand(string token, AdrCitationMap registry = null)
+    public static IReadOnlyList<string> Expand(string token)
     {
         if (token == null) { throw new ArgumentNullException(nameof(token)); }
         Match match = Token.Match(token);
-        if (!match.Success) { throw new FormatException("'" + token + "' is no ADR citation, group, or glob."); }
+        if (!match.Success) { throw new FormatException("'" + token + "' is no ADR citation or group."); }
         string code = match.Groups["code"].Value;
-
-        if (match.Groups["glob"].Success)
-        {
-            RequireRegistry(token, registry);
-            string prefix = code + "-";
-            var found = new SortedSet<string>(StringComparer.Ordinal);
-            foreach (string registered in registry.Codes)
-            {
-                if (!registered.StartsWith(prefix, StringComparison.Ordinal)) { continue; }
-                foreach (int rule in registry.RulesOf(registered)) { found.Add(Cite(registered, rule)); }
-            }
-            if (found.Count == 0) { throw new FormatException("'" + token + "' matches no registered rule."); }
-            return Sorted(found);
-        }
-
         if (!match.Groups["rules"].Success) { return new[] { code }; }
         string spec = match.Groups["rules"].Value;
-
-        if (spec == "*")
-        {
-            RequireRegistry(token, registry);
-            IReadOnlyList<int> all = registry.RulesOf(code);
-            if (all.Count == 0) { throw new FormatException("'" + token + "' matches no registered rule."); }
-            return all.Select(rule => Cite(code, rule)).ToList();
-        }
 
         var rules = new SortedSet<int>();
         if (spec[0] == '{')
@@ -102,19 +73,21 @@ public static class AdrCodeForm
     }
 
     // The union of every token's citations: ascending by code, a bare code before its rules, rules numerically.
-    public static IReadOnlyList<string> ExpandAll(string[] tokens, AdrCitationMap registry = null)
+    public static IReadOnlyList<string> ExpandAll(string[] tokens)
     {
         if (tokens == null) { throw new ArgumentNullException(nameof(tokens)); }
         var union = new HashSet<string>(StringComparer.Ordinal);
         foreach (string token in tokens)
         {
-            foreach (string citation in Expand(token, registry)) { union.Add(citation); }
+            foreach (string citation in Expand(token)) { union.Add(citation); }
         }
-        return Sorted(union);
+        var list = new List<string>(union);
+        list.Sort(Compare);
+        return list;
     }
 
     // The fewest tokens that name exactly the citations given. Each input is a bare code or a single rule; duplicates collapse.
-    public static IReadOnlyList<string> Minimize(string[] citations, AdrCitationMap registry = null)
+    public static IReadOnlyList<string> Minimize(string[] citations)
     {
         if (citations == null) { throw new ArgumentNullException(nameof(citations)); }
         var bare = new SortedSet<string>(StringComparer.Ordinal);
@@ -124,12 +97,12 @@ public static class AdrCodeForm
             if (citation == null) { throw new ArgumentException("A citation is never null.", nameof(citations)); }
             IReadOnlyList<string> one = Expand(citation);
             int hash = citation.IndexOf('#');
-            if (hash < 0 || one.Count != 1)
+            if (hash < 0)
             {
-                if (hash >= 0 || citation.Contains("*")) { throw new FormatException("'" + citation + "' is no single citation."); }
                 bare.Add(citation);
                 continue;
             }
+            if (one.Count != 1) { throw new FormatException("'" + citation + "' is no single citation."); }
             string code = citation.Substring(0, hash);
             if (!rulesByCode.TryGetValue(code, out SortedSet<int> set))
             {
@@ -140,41 +113,9 @@ public static class AdrCodeForm
         }
 
         var tokens = new List<string>(bare);
-        var covered = new HashSet<string>(StringComparer.Ordinal);
-        if (registry != null)
-        {
-            foreach (string prefix in PrefixGlobs(rulesByCode, registry, covered)) { tokens.Add(prefix + "-*"); }
-        }
-        foreach (KeyValuePair<string, SortedSet<int>> entry in rulesByCode)
-        {
-            if (covered.Contains(entry.Key)) { continue; }
-            bool wholeAdr = registry != null && registry.RulesOf(entry.Key).Count >= 2 && entry.Value.SetEquals(registry.RulesOf(entry.Key));
-            tokens.Add(wholeAdr ? entry.Key + "#*" : Group(entry.Key, entry.Value));
-        }
+        foreach (KeyValuePair<string, SortedSet<int>> entry in rulesByCode) { tokens.Add(Group(entry.Key, entry.Value)); }
         tokens.Sort(StringComparer.Ordinal);
         return tokens;
-    }
-
-    // The shortest prefixes whose every registered rule, over at least two codes, is in the set; the codes they cover are recorded.
-    static List<string> PrefixGlobs(SortedDictionary<string, SortedSet<int>> rulesByCode, AdrCitationMap registry, HashSet<string> covered)
-    {
-        var globs = new List<string>();
-        foreach (string code in rulesByCode.Keys)
-        {
-            if (covered.Contains(code)) { continue; }
-            string[] segments = code.Split('-');
-            for (int length = 2; length < segments.Length; length++)
-            {
-                string prefix = string.Join("-", segments, 0, length);
-                var under = registry.Codes.Where(c => c.StartsWith(prefix + "-", StringComparison.Ordinal) && registry.RulesOf(c).Count > 0).ToList();
-                bool whole = under.Count >= 2 && under.All(c => rulesByCode.TryGetValue(c, out SortedSet<int> have) && have.SetEquals(registry.RulesOf(c)));
-                if (!whole) { continue; }
-                globs.Add(prefix);
-                foreach (string c in under) { covered.Add(c); }
-                break;
-            }
-        }
-        return globs;
     }
 
     static string Group(string code, SortedSet<int> rules)
@@ -208,19 +149,7 @@ public static class AdrCodeForm
         return value;
     }
 
-    static void RequireRegistry(string token, AdrCitationMap registry)
-    {
-        if (registry == null) { throw new InvalidOperationException("'" + token + "' is a glob, which needs the ADR registry to expand."); }
-    }
-
     static string Cite(string code, int rule) => code + "#" + rule.ToString(CultureInfo.InvariantCulture);
-
-    static IReadOnlyList<string> Sorted(IEnumerable<string> citations)
-    {
-        var list = new List<string>(citations);
-        list.Sort(Compare);
-        return list;
-    }
 
     static int Compare(string left, string right)
     {

@@ -47,11 +47,9 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $codes | Should -Be @('ADR-GADGET#{4-6,9}')
     }
 
-    It 'writes every rule of a code as #*, and every rule under a prefix as the prefix glob' {
+    It 'writes every rule of a code as a range, never as a star, so the list does not move when the ADR gains a rule' {
         $all = (1..30 | ForEach-Object { "ADR-GADGET#$_" }) -join ' '
-        (Get-Codes "$all`n") | Should -Be @('ADR-GADGET#*')
-        $both = $all + ' ' + ((1..30 | ForEach-Object { "ADR-WIDGET-PART#$_" }) -join ' ')
-        (Get-Codes "$both`n") | Should -Be @('ADR-GADGET#*', 'ADR-WIDGET-PART#*')
+        (Get-Codes "$all`n") | Should -Be @('ADR-GADGET#{1-30}')
     }
 
     It 'reads a wildcard or a group in body text as a mention, never a citation' {
@@ -153,9 +151,9 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
             (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#4', 'ADR-HEAD#1', 'ADR-WIDGET#2')
         }
 
-        It 'reads a group, #*, and a prefix glob the head holds, and writes each back in the minimal form' -Tag 'ADR-REPO-CODEMETA#2' {
-            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET#{2,4-6}`n      - ADR-WIDGET-*`n---`n*/`n`nclass Widget {}`n"
-            (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#{2,4-6}', 'ADR-WIDGET-PART#*')
+        It 'reads a group the head holds and writes it back in the minimal form' -Tag 'ADR-REPO-CODEMETA#2' {
+            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET#{2,4-6}`n---`n*/`n`nclass Widget {}`n"
+            (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#{2,4-6}')
         }
 
         It 'merges a head group with the rules the text cites into one range' -Tag 'ADR-REPO-CODEMETA#2' {
@@ -163,7 +161,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
             (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#{2-4}')
         }
 
-        It 'drops a head token that is malformed or a glob over nothing, keeping the rest' -Tag 'ADR-REPO-CODEMETA#2' {
+        It 'drops a head token that is malformed or a glob, keeping the rest' -Tag 'ADR-REPO-CODEMETA#2' {
             $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-GADGET#{5-3}`n      - ADR-NOPE-*`n      - ADR-GADGET#7`n---`n*/`n`nclass Widget {}`n"
             (Get-HeldCodes $text) | Should -Be @('ADR-GADGET#7')
         }

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/file-meta.md
     kind: adr
-    body_sha: c7fd3fd9e109
+    body_sha: f3f3b5059218
     defines:
       - ADR-REPO-FILEMETA#{1-10}
     adrs:
@@ -47,12 +47,12 @@ the tooling owns: every other front-matter key belongs to the tool that reads it
 
 A **meta kind** is one entry of the meta-kind registry (`file-meta.yml`), validated by its own C# type, with every default declared once on
 that type ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)). An entry names the kind's id, its direction
-(`imprint` writes derived facts into the file, `gather` reads config contributions out of it), the files it applies to, the keys it
-owns and their order, and, for a gather kind, the config it feeds. Globs live in one place: the registry's ordered `classes`, where a file is
-the first class whose globs match it, or `other`. A kind selects files by class and language (`select`, entries of `classes` with at most
-one `*` and `languages` from the file-language registry) and never by glob, and a kind that selects nothing applies to every file, such as
-the path. A setting that names files does so by class too, and defaults to the classes its kind selects. The carrier registry decides
-which files carry a block at all. Which kinds exist is data, never a list inside an engine.
+(`imprint` writes derived facts into the file, `gather` reads config contributions out of it), the files it applies to, the keys it owns and
+their order, and, for a gather kind, the config it feeds. Globs live in one place: the registry's ordered `classes`, where a file is the
+first class whose globs match it, or `other`. A kind selects files by class and language (`select`, entries of `classes` with at most one
+`*` and `languages` from the file-language registry) and never by glob, and a kind that selects nothing applies to every file, such as the
+path. A setting that names files does so by class too, and defaults to the classes its kind selects. The carrier registry decides which
+files carry a block at all. Which kinds exist is data, never a list inside an engine.
 
 - [The meta-kind registry](#the-meta-kind-registry)
 
@@ -77,8 +77,8 @@ function and a function no kind names. A new kind is a registry entry and a func
 
 ### Rule ADR-REPO-FILEMETA:5
 
-The scope of a kind is the files it selects, less the files `.gitattributes` marks `linguist-vendored`, `linguist-generated`, `catzc-fixture` or
-`catzc-contract`, and those it marks `-catzc-meta`. For Markdown the globs match the file class of the Markdown title
+The scope of a kind is the files it selects, less the files `.gitattributes` marks `linguist-vendored`, `linguist-generated`,
+`catzc-fixture` or `catzc-contract`, and those it marks `-catzc-meta`. For Markdown the globs match the file class of the Markdown title
 ([ADR-REPO-FORMAT#6](uniform-formatting.md#rule-adr-repo-format6)). A new exception is declared in the `.gitattributes` source, never in a
 list of the gate's own. A `derived` key an author wrote is a finding the author fixes, never overwritten silently, and a `config` part is
 validated against its kind and kept as written.
@@ -185,10 +185,10 @@ it has none, is one registry, `file-carriers.yml`, so a gap in the coverage is a
 
 `Kinds are data`
 
-The registry says what exists; the engine knows no kind by name. An entry is small: an id, a direction, the classes and languages it selects,
-keys and their order, and a target config for a gather kind. The globs are written once, in the ordered classes, so a set of files is
-spelled in one place however many kinds read it. Adding a kind adds an entry, so the list of kinds is reviewed as data, in one file. One registry serves
-every carrier, so there is one list of kinds to keep in step and one place a reader looks.
+The registry says what exists; the engine knows no kind by name. An entry is small: an id, a direction, the classes and languages it
+selects, keys and their order, and a target config for a gather kind. The globs are written once, in the ordered classes, so a set of files
+is spelled in one place however many kinds read it. Adding a kind adds an entry, so the list of kinds is reviewed as data, in one file. One
+registry serves every carrier, so there is one list of kinds to keep in step and one place a reader looks.
 
 ### Imprinted, never hand-edited
 

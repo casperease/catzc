@@ -26,7 +26,9 @@ catzc:
       in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
     parameters:
       AutomationRoot: Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
-      ParsedScripts: The call's shared parse of each script; the session cache of the result stays, this only spares a second parse of a file within one build.
+      ParsedScripts: |-
+        The call's shared parse of each script; the session cache of the result stays, this only spares a second
+        parse of a file within one build.
     examples:
       - Get-FunctionDependency
       - Get-FunctionDependency | Where-Object CrossModule

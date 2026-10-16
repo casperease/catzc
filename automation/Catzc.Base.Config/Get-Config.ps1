@@ -17,8 +17,9 @@ catzc:
     description: |-
       The single reader for any module's internal config (configs/<name>.yml). Existence is discovered by
       scanning <module>/configs/ under the loaded code root, Get-CatzcModulesRoot (cached, via
-      Resolve-ConfigEntry); -Module disambiguates the rare case of the same config name in two modules. The parsed config (ConvertFrom-Yaml -Ordered) is cached per resolved
-      path for the session (re-run the importer to clear) and the same reference is returned on repeat calls.
+      Resolve-ConfigEntry); -Module disambiguates the rare case of the same config name in two modules. The parsed
+      config (ConvertFrom-Yaml -Ordered) is cached per resolved path for the session (re-run the importer to clear)
+      and the same reference is returned on repeat calls.
 
       A config registered in configs/configs.yml (`<name>: { type: <C# FQN> }`) is constructed as
       [type]::new($dict), which maps and validates it; every shipped config is registered (Test-ShippedConfigs).

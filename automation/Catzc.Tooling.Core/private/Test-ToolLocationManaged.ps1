@@ -19,9 +19,9 @@ catzc:
       are both winget layouts (%LOCALAPPDATA%\Microsoft\WinGet\Packages for portable packages and
       %LOCALAPPDATA%\Programs for installer packages such as OpenJDK) plus uv's standalone bin
       (%USERPROFILE%\.local\bin). An MSYS2-package tool (msys2_url) is owned on Windows inside the tree it installs into
-      (Get-ScriptInstallDir over its windows_install_dir), and wherever the system puts it elsewhere. Machine-scope / Program Files installs, and npm/pip tools whose global bin sits
-      outside the platform root, read as unmanaged here — an acceptable false "foreign" for an advisory message,
-      never a gate.
+      (Get-ScriptInstallDir over its windows_install_dir), and wherever the system puts it elsewhere. Machine-scope /
+      Program Files installs, and npm/pip tools whose global bin sits outside the platform root, read as unmanaged
+      here — an acceptable false "foreign" for an advisory message, never a gate.
     parameters:
       Config: The tool's ToolConfig (from Get-ToolConfig).
       Location: The resolved on-disk path of the tool's command — (Get-Command <command>).Source.

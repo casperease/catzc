@@ -28,7 +28,8 @@ catzc:
     parameters:
       Path: The file to check.
       RelativePath: The file's name as the messages should show it (a repository- or overlay-relative path).
-      ParsedScripts: The call's shared parse of each script; a caller checking many files passes one so a file is parsed once.
+      ParsedScripts: |-
+        The call's shared parse of each script; a caller checking many files passes one so a file is parsed once.
     outputs: '[string] One message per violation; nothing when the file passes.'
     examples:
       - Get-FunctionFileViolation -Path ./automation/Catzc.Base.Widget/Get-Widget.ps1 -RelativePath automation/Catzc.Base.Widget/Get-Widget.ps1

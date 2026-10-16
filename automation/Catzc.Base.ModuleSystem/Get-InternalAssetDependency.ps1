@@ -45,7 +45,9 @@ catzc:
       Violation: |-
         Return the call sites whose -ChildPath or -Module is not a string literal ({ Module; Function; File; Line;
         Expression; Reason }) instead of the inventory, and do not throw.
-      ParsedScripts: The call's shared parse of each script; a caller running several checks over the same files passes one so a file is parsed once.
+      ParsedScripts: |-
+        The call's shared parse of each script; a caller running several checks over the same files passes one so a
+        file is parsed once.
     outputs: |-
       [pscustomobject] One record per call site: Module, Function, ChildPath, File, Line (with -Violation, one
       record per violating call site instead).

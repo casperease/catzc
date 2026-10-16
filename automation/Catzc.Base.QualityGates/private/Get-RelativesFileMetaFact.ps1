@@ -14,11 +14,12 @@ catzc:
   config:
     synopsis: 'The relatives meta kind''s fact: the few files a file points at, under fixed names, each only when it exists.'
     description: |-
-      The kind's `relations` setting lists at most eight relations, each a name and rules; a rule applies to the files whose class its `classes` names
-      (to every file when it names none) and names candidate `paths`, and the first candidate that exists on disk becomes the relation's value. A path takes the tokens `{module}` (the
-      second folder of the path, the module under automation), `{name}` (the file name without its last extension), `{stem}` (the name without a
-      trailing `.Tests`) and `{page}` (the file's comment page from comments.yml). A relation no rule fills is left out, so a file with no
-      relatives carries no key.
+      The kind's `relations` setting lists at most eight relations, each a name and rules; a rule applies to the
+      files whose class its `classes` names (to every file when it names none) and names candidate `paths`, and the
+      first candidate that exists on disk becomes the relation's value. A path takes the tokens `{module}` (the second
+      folder of the path, the module under automation), `{name}` (the file name without its last extension), `{stem}`
+      (the name without a trailing `.Tests`) and `{page}` (the file's comment page from comments.yml). A relation no
+      rule fills is left out, so a file with no relatives carries no key.
     parameters:
       State: What the file's carrier reader returned.
       Path: The file's repository-relative path.

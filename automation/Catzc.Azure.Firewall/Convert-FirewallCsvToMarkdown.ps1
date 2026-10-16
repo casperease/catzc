@@ -33,8 +33,8 @@ catzc:
       MarkdownPath: Output Markdown path (Path set).
       RuleNameColumn: CSV column used as the rule name / first table column. Default 'Name'.
       CompositeColumns: |-
-        Ordered map of output column -> candidate CSV fields. Drives column order and which fields each cell pulls from; a composite cell lists
-        every populated candidate.
+        Ordered map of output column -> candidate CSV fields. Drives column order and which fields each cell pulls
+        from; a composite cell lists every populated candidate.
       ProtocolPortColumnName: Which composite column pairs protocols with ports (and is rendered unsorted). Default 'Protocol/Port'.
       IpGroupColumns: Fields whose values are IP-group resource IDs, trimmed to the simple name. NOT for CIDRs.
       AdditionalColumns: Extra single-field columns appended after the composites. Default the rule collection group and priority.
@@ -46,7 +46,9 @@ catzc:
         Not present in the export, so it's supplied here. Unlisted groups sort last.
       DoNotCutIpgNames: Keep full IP-group resource IDs instead of trimming to the simple name.
       SourceName: H1 title. Defaults to the CSV's own filename.
-      GeneratedAt: CSV generation time in UTC, from the filename and supplied by Get-FirewallCsv. When omitted, the preamble shows only the conversion time.
+      GeneratedAt: |-
+        CSV generation time in UTC, from the filename and supplied by Get-FirewallCsv. When omitted, the preamble
+        shows only the conversion time.
       InputObject: A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
       OutputFolder: |-
         Where the .md goes in Object mode; the file is named <original-name>.md.

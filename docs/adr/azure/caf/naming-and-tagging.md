@@ -9,7 +9,7 @@ catzc:
     adrs:
       - ADR-AZ-DATAMOD#{5,9-11}
       - ADR-AZ-LZ#{1,3,4,6}
-      - ADR-AZ-NAMING#*
+      - ADR-AZ-NAMING#{1-8}
       - ADR-AZ-WAFCO#3
       - ADR-AZ-WAFSE#3
       - ADR-REPO-VARIANT#4

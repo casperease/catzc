@@ -6,7 +6,7 @@ catzc:
     body_sha: "03b1fe0ec1d7"
     adrs:
       - ADR-AZ-CLI#{1-3}
-      - ADR-DSGN-THINPLAT#*
+      - ADR-DSGN-THINPLAT#{1-5}
     links:
       - docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.md
       - docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png

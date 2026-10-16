@@ -19,9 +19,10 @@ catzc:
       In the module's Go test folder, <root>/tests/<module-in-kebab>/ (Catzc.Base.Repository -> catzc-base-repository;
       the Go root is go.yml's `root`, by default go/ when the repository has one, else .go/), runs three go commands
       from inside that folder, so ./... expands below the module root whatever the root's name, through
-      Invoke-Executable, each inside its time safeguard (the `go` entry of timeouts.yml). It runs the managed go by its path, located from its tools.yml entry by Resolve-ToolExecutable
-      (Catzc.Base.Execution), and never a bare go off PATH; it throws with "Run Install-Go" when no go is found or the
-      one found does not match the tools.yml pin:
+      Invoke-Executable, each inside its time safeguard (the `go` entry of timeouts.yml). It runs the managed go by
+      its path, located from its tools.yml entry by Resolve-ToolExecutable (Catzc.Base.Execution), and never a bare go
+      off PATH; it throws with "Run Install-Go" when no go is found or the one found does not match the tools.yml
+      pin:
 
         go mod download                fetches the declared dependencies and records go.sum;
         go vet ./...                   type-checks and vets the test packages;

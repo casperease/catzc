@@ -9,7 +9,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#41
       - ADR-AZ-DATAMOD#{2,9,10}
-      - ADR-AZ-LZ#*
+      - ADR-AZ-LZ#{1-7}
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test41
       - docs/adr/azure/azure-data-model.md

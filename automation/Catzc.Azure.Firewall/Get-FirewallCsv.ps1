@@ -39,7 +39,9 @@ catzc:
         ('application' matches ...ApplicationRules..., 'network' matches ...NetworkRules...).
         Which rule type(s) to fetch: 'application', 'network', or both (the default when omitted). The type
         word is also used as the case-insensitive name filter for selecting the blob.
-      TimestampPattern: Regex capturing the timestamp substring in the filename (UTC), the source of truth for generation time. Default '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}'.
+      TimestampPattern: |-
+        Regex capturing the timestamp substring in the filename (UTC), the source of truth for generation time.
+        Default '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}'.
       TimestampFormat: '.NET ParseExact format for the captured timestamp, interpreted as UTC. Default ''dd-MM-yyyy-HH-mm''.'
     examples:
       - Get-FirewallCsv -SubscriptionId $sub -StorageAccountName stfwexports -ContainerName rule-exports
