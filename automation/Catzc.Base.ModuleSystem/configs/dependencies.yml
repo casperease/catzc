@@ -80,6 +80,7 @@ groups:
     Catzc.Base.Globs:
       [
         Catzc.Base.Languages,
+        Catzc.Base.Modules,
         Catzc.Base.Variants,
         Catzc.Base.Config,
         Catzc.Base.Objects,
@@ -92,6 +93,7 @@ groups:
       ]
     Catzc.Base.TypesSystem:
       [
+        Catzc.Base.Modules,
         Catzc.Base.Repository,
         Catzc.Base.Files,
         Catzc.Base.Execution,
@@ -103,6 +105,7 @@ groups:
     Catzc.Base.ModuleSystem:
       [
         Catzc.Base.TypesSystem,
+        Catzc.Base.Modules,
         Catzc.Base.Globs,
         Catzc.Base.Variants,
         Catzc.Base.Repository,
@@ -149,6 +152,7 @@ groups:
         Catzc.Base.Engines,
         Catzc.Base.Timeouts,
         Catzc.Base.ModuleSystem,
+        Catzc.Base.Modules,
         Catzc.Base.TypesSystem,
         Catzc.Base.Config,
         Catzc.Base.Docs,
@@ -189,6 +193,7 @@ groups:
         Catzc.Base.Files,
         Catzc.Base.Globs,
         Catzc.Base.Languages,
+        Catzc.Base.Modules,
         Catzc.Base.Variants,
         Catzc.Base.Config,
         Catzc.Base.Objects,

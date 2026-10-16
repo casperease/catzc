@@ -109,7 +109,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
                 return $false
             }
             $relative = $File.Substring($Track.PlaceLengthOf($File) + 1)
-            if ($null -eq $script:aspectTracks -or -not $script:aspectTracks.ContainsKey($Track.name)) {
+            if ($Track.type -ne 'modules' -and ($null -eq $script:aspectTracks -or -not $script:aspectTracks.ContainsKey($Track.name))) {
                 return $true
             }
             $slash = $relative.IndexOf('/')

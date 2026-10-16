@@ -82,6 +82,23 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         (Build-Glossary -Path $script:page -DryRun -PassThru -Silent).Changed | Should -BeFalse
     }
 
+    It 'records the inputs stamp in the head and renders nothing again while the inputs are unchanged' {
+        Remove-Item $script:page -ErrorAction Ignore
+        Build-Glossary -Path $script:page -Silent | Out-Null
+        [System.IO.File]::ReadAllText($script:page) | Should -Match 'with_inputs_sha: "?[0-9a-f]{64}'
+        Build-Glossary -Path $script:page -Silent | Out-Null
+        Should -Invoke Get-Glossary -ModuleName Catzc.Base.Docs -Times 1 -Exactly -Scope It
+    }
+
+    It 'renders again when the page carries a different inputs stamp' {
+        Remove-Item $script:page -ErrorAction Ignore
+        Build-Glossary -Path $script:page -Silent | Out-Null
+        $stale = [System.IO.File]::ReadAllText($script:page) -replace 'with_inputs_sha: "?[0-9a-f]{64}"?', ('with_inputs_sha: ' + ('0' * 64))
+        [System.IO.File]::WriteAllText($script:page, $stale)
+        Build-Glossary -Path $script:page -Silent | Out-Null
+        Should -Invoke Get-Glossary -ModuleName Catzc.Base.Docs -Times 2 -Exactly -Scope It
+    }
+
     It 'reports drift without writing under -DryRun' -Tag 'ADR-REPO-VOCAB#1' {
         Build-Glossary -Path $script:page -Silent | Out-Null
         [System.IO.File]::WriteAllText($script:page, 'stale')

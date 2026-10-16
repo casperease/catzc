@@ -27,10 +27,11 @@ catzc:
       Copies a deterministic subset of this repository's automation toolset into a destination, rooted like the
       repository root — for testing in a tmp folder, or vendoring the toolset as a package.
     description: |-
-      The source is always this repository (Get-RepositoryRoot). What to copy is chosen off the typed module
-      model (Get-BaseModule):
+      The source is always this repository (Get-RepositoryRoot). What to copy is chosen off the module
+      resolver (Get-CatzcModule) and the profile closure (Get-ModuleProfile):
 
-        -ModuleNames      which disk modules to copy (named + hidden folders). Default: all.
+        -ModuleNames      which modules to copy (the code track's modules and its infrastructure folders). Default: all
+                          (the `full` profile).
         -ExcludePackages  a global list of package names to drop. A package is a named group of extra file
                           artifacts a module owns (configs/files.yml) — e.g. the repository module's
                           'root_configs' and 'gitignore', or the types module's 'csproj'. Default: none.
@@ -54,7 +55,7 @@ catzc:
       [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md).
     parameters:
       Destination: The target root the selected paths are mirrored into (created if missing).
-      ModuleNames: 'Disk module names to copy (named + hidden). Default: all ((Get-BaseModule).Name).'
+      ModuleNames: 'Module names to copy (modules + infrastructure folders). Default: all (Get-ModuleProfile -Name full).'
       ModuleProfile: |-
         A named module profile from configs/profiles.yml (minimal, azure, …), resolved to its dependency closure +
         infrastructure via Get-ModuleProfile. Alternative to -ModuleNames.
@@ -77,8 +78,8 @@ function Copy-Automation {
         [string] $Destination,
 
         [Parameter(ParameterSetName = 'Modules')]
-        [ArgumentCompleter({ (Get-BaseModule).Name })]
-        [ValidateScript({ $_ -in (Get-BaseModule).Name })]
+        [ArgumentCompleter({ Get-ModuleProfile -Name full })]
+        [ValidateScript({ $_ -in (Get-ModuleProfile -Name full) })]
         [string[]] $ModuleNames,
 
         [Parameter(Mandatory, ParameterSetName = 'ModuleProfile')]
@@ -86,8 +87,8 @@ function Copy-Automation {
         [ValidateScript({ $_ -in (Get-Config -Config profiles).profiles.Keys })]
         [string] $ModuleProfile,
 
-        [ArgumentCompleter({ (Get-BaseModule).Packages.Name })]
-        [ValidateScript({ $_ -in (Get-BaseModule).Packages.Name })]
+        [ArgumentCompleter({ (Get-Config -Config files).modules.Values.packages.Keys })]
+        [ValidateScript({ $_ -in (Get-Config -Config files).modules.Values.packages.Keys })]
         [string[]] $ExcludePackages = @(),
 
         [switch] $EmptyDestination,
@@ -109,18 +110,29 @@ function Copy-Automation {
         $ModuleNames
     }
     else {
-        (Get-BaseModule).Name
+        Get-ModuleProfile -Name full
     }
 
-    # Repository-root-relative sources: each selected module's folder + its packages' paths (minus excluded).
+    # Repository-root-relative sources: each selected module's folder + its packages' paths (minus excluded). A module's folder is
+    # the root the resolver gives it; an infrastructure folder (.internal, .compiled, .vendor) sits in the code track's first place.
+    $codePlace = @(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]
+    $moduleRoots = @{}
+    foreach ($module in Get-CatzcModule -TrackType modules) {
+        $moduleRoots[$module.name] = $module.root
+    }
+    $bindings = (Get-Config -Config files).modules
     $relatives = [System.Collections.Generic.List[string]]::new()
-    foreach ($module in (Get-BaseModule | Where-Object { $_.Name -in $selected })) {
-        $relatives.Add($module.RelativePath)
-        foreach ($package in $module.Packages) {
-            if ($package.Name -in $ExcludePackages) {
+    foreach ($name in $selected) {
+        $relatives.Add($moduleRoots.ContainsKey($name) ? $moduleRoots[$name] : "$codePlace/$name")
+        if (-not $bindings.Contains($name)) {
+            continue
+        }
+        $packages = $bindings[$name].packages
+        foreach ($packageName in $packages.Keys) {
+            if ($packageName -in $ExcludePackages) {
                 continue
             }
-            foreach ($path in $package.Paths) {
+            foreach ($path in $packages[$packageName]) {
                 $relatives.Add([string] $path)
             }
         }

@@ -58,7 +58,7 @@ catzc:
         Every test must carry exactly one tier tag (L0-L3) and one category tag (logic|integrity); tests
         missing a tag are reported before the run (see Get-TestTagViolations).
       Modules: |-
-        One or more automation module names to test (tab-completes from Get-AutomationModules). Only the named
+        One or more automation module names to test (tab-completes from Get-CatzcModule -TrackType modules). Only the named
         modules' tests/ folders run; dot-prefixed infrastructure (.internal, .scriptanalyzer) is excluded.
         Empty (the default) runs every module plus that infrastructure. Composes with -Level and -Category.
       Category: |-
@@ -144,8 +144,8 @@ function Test-Automation {
         [Alias('Level')]
         [int] $MaxLevel = 3,
 
-        [ArgumentCompleter({ Get-AutomationModules })]
-        [ValidateScript({ $_ -in (Get-AutomationModules) })]
+        [ArgumentCompleter({ (Get-CatzcModule -TrackType modules).name })]
+        [ValidateScript({ $_ -in (Get-CatzcModule -TrackType modules).name })]
         [string[]] $Modules = @(),
 
         [ValidateSet('Logic', 'Integrity', 'Both')]

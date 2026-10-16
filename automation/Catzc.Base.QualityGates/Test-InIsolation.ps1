@@ -29,7 +29,7 @@ catzc:
         Process   (default, TRUE isolation) — run Pester in a child `pwsh -NoProfile`:
                   `. <sandbox>/importer.ps1 -SkipJanitors` (the optimized initializer — janitors skipped, the
                   committed .compiled reused) then Invoke-Pester over the sandbox's tests. A clean session, so
-                  Get-BaseModule -Kind residue inside it is empty by construction. Launched via Invoke-Executable.
+                  no residue from an earlier run is present in it by construction. Launched via Invoke-Executable.
 
         InProcess (fast) — point $env:RepositoryRoot at the sandbox and Invoke-Pester the sandbox's test files in
                   THIS session, using the already-loaded modules (no re-import, no process spin-up). The dev

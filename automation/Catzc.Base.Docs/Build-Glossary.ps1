@@ -59,6 +59,20 @@ function Build-Glossary {
         [switch] $PassThru
     )
 
+    # Every input of the page: the glossary sources, the domain order, the ADR files the defining rules link into, and the code that renders.
+    # An unchanged stamp means the page on disk was written from exactly these, so nothing is read or rendered. -PassThru wants the concept count, so it renders.
+    $inputsSha = Get-InputStamp -Path @(
+        @(Get-Config -Config glossary -ListOwners | ForEach-Object Path)
+        (Resolve-RepoPath 'automation/Catzc.Base.Docs/configs/adrs.yml')
+        (Resolve-RepoPath 'docs/adr')
+        (Resolve-RepoPath 'automation/Catzc.Base.Docs/Build-Glossary.ps1')
+        (Resolve-RepoPath 'automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1')
+        (Resolve-RepoPath 'automation/Catzc.Base.Docs/types')
+    ) -Exclude $Path, (Resolve-RepoPath 'docs/adr/index.md')
+    if (-not $PassThru -and (Test-GeneratedFileCurrent -Path $Path -InputsSha $inputsSha)) {
+        return ConvertTo-RepoRelativePath $Path
+    }
+
     $entries = Get-Glossary
     $citations = Get-AdrCitationMap
     $relationLabels = [ordered]@{ kind_of = 'Kind of'; part_of = 'Part of'; selected_by = 'Selected by' }
@@ -164,7 +178,7 @@ function Build-Glossary {
     }
 
     $glossaryPath = ConvertTo-RepoRelativePath $Path
-    $content = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path $glossaryPath -Generator Build-Glossary -FileKind (Get-FileKind $glossaryPath)
+    $content = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path $glossaryPath -Generator Build-Glossary -InputsSha $inputsSha -FileKind (Get-FileKind $glossaryPath)
     $changed = Write-FileIfChanged $Path $content -DryRun:$DryRun
 
     $relativePath = ConvertTo-RepoRelativePath $Path

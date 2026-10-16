@@ -62,6 +62,6 @@ Describe 'Measure-SpellOutIdentifiers' -Tag 'L0', 'logic' {
     }
 
     It 'accepts a spelled-out function noun' {
-        Test-SpellOut 'function Get-ModuleTestOrder { }' | Should -BeNullOrEmpty
+        Test-SpellOut 'function Get-ModuleOrder { }' | Should -BeNullOrEmpty
     }
 }

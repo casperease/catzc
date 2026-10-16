@@ -27,7 +27,7 @@ catzc:
       network-backed repos, see effective-in-enterprises). A module's Go and Python test folders (<root>/tests/<module
       in kebab case>/, Get-LanguageTestFolders) belong to that module and follow its tests folder; a module with only
       such tests is included by them. A test folder that matches no catzc module throws, naming the folder. Module tests
-      come FOUNDATION-FIRST (Get-ModuleTestOrder — a topological sort of the declared dependency graph), so a broken
+      come FOUNDATION-FIRST (Get-ModuleOrder — a topological sort of the declared dependency graph), so a broken
       base module's failures surface before the dependents that cascade from it; dot-prefixed infrastructure
       (.internal, .scriptanalyzer) follows, ordinally. Best-effort on the order: if the graph cannot be sorted (a
       malformed or cyclic dependencies.yml, which its OWN tests then report), it falls back to the ordinal
@@ -48,7 +48,8 @@ function Get-TestAutomationTestPaths {
         [string[]] $Modules = @()
     )
 
-    $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
+    $codePlace = @(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]
+    $automationRoot = Join-Path (Get-RepositoryRoot) $codePlace
     $allDirs = [System.IO.Directory]::GetDirectories($automationRoot)
     [Array]::Sort($allDirs)
 
@@ -87,10 +88,10 @@ function Get-TestAutomationTestPaths {
     }
 
     $moduleOrder = try {
-        Get-ModuleTestOrder
+        Get-ModuleOrder
     }
     catch {
-        Write-Verbose "Get-ModuleTestOrder failed ($_); falling back to ordinal module order."
+        Write-Verbose "Get-ModuleOrder failed ($_); falling back to ordinal module order."
         $ordinal = [string[]]@($moduleTestsByName.Keys)
         [Array]::Sort($ordinal, [System.StringComparer]::Ordinal)
         $ordinal

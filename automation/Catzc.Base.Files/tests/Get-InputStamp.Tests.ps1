@@ -68,6 +68,15 @@ Describe 'Get-InputStamp' -Tag 'L0', 'logic' {
         Get-InputStamp $widget | Should -Not -BeExactly $before
     }
 
+    It '-Exclude leaves a file out of a folder, so writing it does not change the stamp' {
+        $output = Join-Path $gadgets 'out.md'
+        [System.IO.File]::WriteAllText($output, 'one')
+        $before = Get-InputStamp $gadgets -Exclude $output
+        [System.IO.File]::WriteAllText($output, 'a longer output')
+        Get-InputStamp $gadgets -Exclude $output | Should -BeExactly $before
+        Get-InputStamp $gadgets | Should -Not -BeExactly $before
+    }
+
     It '-Salt is folded into the stamp' {
         Get-InputStamp $widget -Salt 'x' | Should -Not -BeExactly (Get-InputStamp $widget -Salt 'y')
     }

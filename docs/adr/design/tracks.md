@@ -196,8 +196,8 @@ active work: the running session's scratch lives in `out/`, and an active plan i
 
 ### Rule ADR-DSGN-TRACK:18
 
-A track has one **primary language** by default: the one file language its tech-stack (ADR-DSGN-TRACK#3) names unless the track declares more
-(ADR-DSGN-TRACK#6). A second file language enters a track by being declared there, never by being tolerated, so a track's declared languages
+A track has one **primary language** by default: the first file language its tech-stack (ADR-DSGN-TRACK#3) declares, the one a track with
+a single language is written in (ADR-DSGN-TRACK#6). A second file language enters a track by being declared there, never by being tolerated, so a track's declared languages
 read as one primary language and the few others it admits on purpose.
 
 - [What a track is](#what-a-track-is)

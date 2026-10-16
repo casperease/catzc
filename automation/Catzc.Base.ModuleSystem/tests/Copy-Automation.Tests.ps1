@@ -38,24 +38,25 @@ Describe 'Copy-Automation' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.ModuleSystem { }
         # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
         Mock Assert-SourceTree -ModuleName Catzc.Base.ModuleSystem { }
-        Mock Get-BaseModule -ModuleName Catzc.Base.ModuleSystem {
-            @(
-                [Catzc.Base.ModuleSystem.DiskModule]::new('Catzc.Base.Alpha', 'automation/Catzc.Base.Alpha', $false, @())
-                [Catzc.Base.ModuleSystem.DiskModule]::new('.vendor', 'automation/.vendor', $true, @())
-                [Catzc.Base.ModuleSystem.DiskModule]::new('.internal', 'automation/.internal', $true,
-                    @([Catzc.Base.ModuleSystem.ModulePackage]::new('entrypoint', [string[]] @('importer.ps1'))))
-                [Catzc.Base.ModuleSystem.DiskModule]::new('Catzc.Base.Repository', 'automation/Catzc.Base.Repository', $false,
-                    @(
-                        [Catzc.Base.ModuleSystem.ModulePackage]::new('root_configs', [string[]] @('.editorconfig'))
-                        [Catzc.Base.ModuleSystem.ModulePackage]::new('gitignore', [string[]] @('.gitignore'))
-                    ))
-            )
+        Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
+            'Catzc.Base.Alpha', 'Catzc.Base.Repository' | ForEach-Object {
+                [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'automation', "automation/$_", 'folder', $null, $null, $null, $null)
+            }
         }
-
-        Mock Get-Config -ModuleName Catzc.Base.ModuleSystem {
-            [pscustomobject]@{ profiles = [ordered]@{ demo = @('Catzc.Base.Alpha') } }
+        Mock Get-Track -ModuleName Catzc.Base.ModuleSystem { [Catzc.Base.Variants.VariantTrack]::new('widgets', @('automation'), 'modules', $null, @()) }
+        Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'files' } {
+            [Catzc.Base.ModuleSystem.FilesConfig]::new([ordered]@{ modules = [ordered]@{
+                        '.internal'             = [ordered]@{ packages = [ordered]@{ entrypoint = @('importer.ps1') } }
+                        'Catzc.Base.Repository' = [ordered]@{ packages = [ordered]@{ root_configs = @('.editorconfig'); gitignore = @('.gitignore') } }
+                    } })
+        }
+        Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'profiles' } {
+            [pscustomobject]@{ profiles = [ordered]@{ demo = @('Catzc.Base.Alpha'); full = @() } }
         }
         Mock Get-ModuleProfile -ModuleName Catzc.Base.ModuleSystem { @('Catzc.Base.Alpha') }
+        Mock Get-ModuleProfile -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Name -eq 'full' } {
+            @('.internal', '.vendor', 'Catzc.Base.Alpha', 'Catzc.Base.Repository')
+        }
 
         $script:newDest = { Join-Path $script:fake.Root ('_dest_' + [guid]::NewGuid().ToString('N')) }
     }

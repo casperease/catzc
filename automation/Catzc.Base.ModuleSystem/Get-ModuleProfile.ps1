@@ -65,7 +65,7 @@ function Get-ModuleProfile {
         Get-ModuleDependencyClosure -Module $seed
     }
     else {
-        [string[]] @((Get-BaseModule -Kind named).Name)
+        [string[]] @((Get-CatzcModule -TrackType modules).name)
     }
 
     $result = [System.Collections.Generic.List[string]]::new()

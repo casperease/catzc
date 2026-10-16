@@ -19,7 +19,7 @@ catzc:
   config:
     synopsis: |-
       Builds the declared module -> dependency-set map from configs/dependencies.yml (the edges of the declared
-      graph), shared by Get-ModuleTestOrder (topological order) and Get-ModuleDependencyClosure (subset closure).
+      graph), shared by Get-ModuleOrder (topological order) and Get-ModuleDependencyClosure (subset closure).
     description: |-
       Returns a hashtable: module name -> [HashSet[string]] of the modules it is declared to depend on. Edges:
 
@@ -30,7 +30,7 @@ catzc:
 
       Only modules in -Module are kept as keys/targets, so the map is closed over the requested set.
     parameters:
-      Module: The module set to build the map over. Defaults to all on-disk modules (Get-AutomationModules).
+      Module: The module set to build the map over. Defaults to the modules of the code track (Get-CatzcModule).
     examples:
       - |-
         $dependencyMap = Get-ModuleDependencyMap
@@ -41,7 +41,7 @@ catzc:
 function Get-ModuleDependencyMap {
     [OutputType([hashtable])]
     param(
-        [string[]] $Module = (Get-AutomationModules)
+        [string[]] $Module = (Get-CatzcModule -TrackType modules).name
     )
 
     $groups = Get-ModuleGroupConfig        # group -> (member -> [members it may depend on])

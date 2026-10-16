@@ -92,8 +92,8 @@ YAML-interop rule scoped to config-mirroring types, not a repository-wide naming
 ### Rule ADR-AUTO-TYPES:9
 
 The platform's internal fixed model is authored as native C# types — not loose dictionaries or ad-hoc objects. A first-class concept the
-platform's own logic **selects on, branches on, or pins as a parameter or return type at a call site** (for example `BaseModule` and its
-kinds, `CliResult`) is a C# type, so its shape is fixed, discoverable, and validated at construction. Loose dictionaries remain right for
+platform's own logic **selects on, branches on, or pins as a parameter or return type at a call site** (for example `Module`,
+`CliResult`) is a C# type, so its shape is fixed, discoverable, and validated at construction. Loose dictionaries remain right for
 config-shaped data crossing a boundary (a parsed `.yml`, a splat) — but the moment the code acts on the shape as a first-class concept, it
 is a type.
 
@@ -357,11 +357,12 @@ rest is fine as a dictionary or a plain object. **Model data** — a first-class
 different: the moment code selects on it, branches on its kind, or pins it as a parameter/return type at a call site, its shape is part of
 the design and must be fixed, discoverable, and enforced. That is a native C# type.
 
-`BaseModule` (and its `named`/`hidden`/`imported`/`residue` kinds) is the example: `Get-BaseModule` returns `[BaseModule]`,
-`Copy-Automation` filters modules and packages off it, and callers type against it — so it is a C# hierarchy, not a bag of hashtables that
-every call site re-interprets. A loose dictionary here would push the shape into scattered string-keys with no single definition and no
-construction-time check — the opposite of a fixed model. Config that _feeds_ the model (the `files.yml` package bindings) crosses the
-boundary through its own config type, `FilesConfig`, which validates it at load; the model `Get-BaseModule` builds from it is typed too.
+`Module` is the example: `Get-CatzcModule` returns `[Module]`, `Copy-Automation`, the globset derivation and the folder checks read their
+module list off it, and callers type against it — so it is a C# type, not a bag of hashtables that every call site re-interprets. A loose
+dictionary here would push the shape into scattered string-keys with no single definition and no construction-time check — the opposite of
+a fixed model. Config that _feeds_ the model (the layout in `languages.yml`, the tracks in `variants.yml`) crosses the boundary through
+its own config type, `LanguagesConfig` or `VariantsConfig`, which validates it at load; the model `Get-CatzcModule` builds from it is typed
+too.
 
 ### Console-ready rendering
 

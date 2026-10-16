@@ -46,6 +46,11 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
+        Mock Get-CatzcModule -ModuleName Catzc.Base.QualityGates -ParameterFilter { $TrackType -contains 'modules' } {
+            foreach ($name in 'Catzc.Widget', 'Catzc.Gadget.Parts', '.internal') {
+                [Catzc.Base.Modules.Module]::new($name, 'widgets', 'widget-folder', 'widgetry', "widgetry/$name", 'folder', $null, $null, $null, $null)
+            }
+        }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'go' } {
             [Catzc.Base.Languages.GoConfig]::new([ordered]@{})
         }

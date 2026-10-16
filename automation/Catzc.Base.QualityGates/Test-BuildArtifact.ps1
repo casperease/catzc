@@ -73,7 +73,7 @@ function Test-BuildArtifact {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [ArgumentCompleter({ Get-AutomationModules })]
+        [ArgumentCompleter({ (Get-CatzcModule -TrackType modules).name })]
         [string[]] $Module = @(),
 
         [string] $ModuleProfile,

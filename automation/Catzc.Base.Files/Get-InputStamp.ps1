@@ -27,12 +27,13 @@ catzc:
       costs one enumeration however large the inputs are.
 
       A touched-but-identical file changes the stamp and costs one redundant rebuild; it never hides a real change, so a
-      generator that skips on an equal stamp (Test-InputStamp) can only be too eager to rebuild, never too late. The
+      generator that skips on an equal stamp (Test-GeneratedFileCurrent) can only be too eager to rebuild, never too late. The
       caller passes absolute paths; a path is held as given, so the same inputs reached by another spelling stamp
       differently.
     parameters:
       Path: The input files and folders to fingerprint.
       Filter: A file-name filter applied inside folders (for example `*.md`). Defaults to every file.
+      Exclude: Files left out of the stamp, by path. A generator names its own output when that sits inside an input folder.
       Salt: Extra text folded into the stamp, for an input that is not a file (a setting, a version).
     outputs: '[string] A 64-character lowercase SHA-256 hex string.'
     examples:
@@ -49,20 +50,31 @@ function Get-InputStamp {
 
         [string] $Filter = '*',
 
+        [string[]] $Exclude = @(),
+
         [string] $Salt = ''
     )
 
+    # A generator's own output often sits inside an input folder; leaving it out keeps its write from changing the stamp it was built under.
+    $excluded = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($entry in $Exclude) {
+        [void] $excluded.Add([System.IO.Path]::GetFullPath($entry))
+    }
     $lines = [System.Collections.Generic.List[string]]::new()
     foreach ($entry in $Path) {
         if ([System.IO.File]::Exists($entry)) {
             $info = [System.IO.FileInfo]::new($entry)
-            $lines.Add("$($info.FullName)|$($info.Length)|$($info.LastWriteTimeUtc.Ticks)")
+            if (-not $excluded.Contains($info.FullName)) {
+                $lines.Add("$($info.FullName)|$($info.Length)|$($info.LastWriteTimeUtc.Ticks)")
+            }
         }
         elseif ([System.IO.Directory]::Exists($entry)) {
             $options = [System.IO.EnumerationOptions]::new()
             $options.RecurseSubdirectories = $true
             foreach ($info in [System.IO.DirectoryInfo]::new($entry).EnumerateFiles($Filter, $options)) {
-                $lines.Add("$($info.FullName)|$($info.Length)|$($info.LastWriteTimeUtc.Ticks)")
+                if (-not $excluded.Contains($info.FullName)) {
+                    $lines.Add("$($info.FullName)|$($info.Length)|$($info.LastWriteTimeUtc.Ticks)")
+                }
             }
         }
         else {

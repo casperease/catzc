@@ -34,7 +34,7 @@ Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
-        Mock Get-ModuleTestOrder -ModuleName Catzc.Base.QualityGates { @('Catzc.Widget', 'Catzc.Gizmo', 'Catzc.Gadget') }
+        Mock Get-ModuleOrder -ModuleName Catzc.Base.QualityGates { @('Catzc.Widget', 'Catzc.Gizmo', 'Catzc.Gadget') }
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {}
     }
 
@@ -64,7 +64,7 @@ Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
         }
 
         It 'keeps the language test folders with their modules in the ordinal fallback order' {
-            Mock Get-ModuleTestOrder -ModuleName Catzc.Base.QualityGates { throw 'Cycle in the widget graph' }
+            Mock Get-ModuleOrder -ModuleName Catzc.Base.QualityGates { throw 'Cycle in the widget graph' }
             $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
             $paths | Should -Be @((Get-FixtureTests 'Catzc.Gadget'), $script:gizmoGo, (Get-FixtureTests 'Catzc.Widget'), $script:widgetGo, $script:widgetPython, (Get-FixtureTests '.internal'))
         }
@@ -81,7 +81,7 @@ Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     }
 
     It 'falls back to the ordinal module order when the dependency order cannot be computed' {
-        Mock Get-ModuleTestOrder -ModuleName Catzc.Base.QualityGates { throw 'Cycle in the widget graph' }
+        Mock Get-ModuleOrder -ModuleName Catzc.Base.QualityGates { throw 'Cycle in the widget graph' }
         $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
         $paths | Should -Be @((Get-FixtureTests 'Catzc.Gadget'), (Get-FixtureTests 'Catzc.Widget'), (Get-FixtureTests '.internal'))
     }

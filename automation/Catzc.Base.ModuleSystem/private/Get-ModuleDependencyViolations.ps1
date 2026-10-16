@@ -51,7 +51,7 @@ function Get-ModuleDependencyViolations {
 
     $declared = Get-ModuleDependencyConfig
     $groups = Get-ModuleGroupConfig
-    $modules = Get-AutomationModules
+    $modules = (Get-CatzcModule -TrackType modules).name
     $edges = Get-ModuleDependency
 
     $violations = [System.Collections.Generic.List[string]]::new()

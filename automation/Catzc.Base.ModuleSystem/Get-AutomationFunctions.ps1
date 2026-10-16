@@ -21,7 +21,7 @@ catzc:
   config:
     synopsis: Lists all exported automation functions.
     description: |-
-      Enumerates all non-dot-prefixed module folders under the automation root,
+      Takes the modules of the code track from the resolver (Get-CatzcModule),
       finds the matching loaded modules, and returns their exported functions.
 
       With -NotUsedInternally, filters to functions that are never called by
@@ -51,7 +51,7 @@ function Get-AutomationFunctions {
     }
 
     # [System.IO] enumeration ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9))
-    $moduleNames = Get-AutomationModules -AutomationRoot $AutomationRoot
+    $moduleNames = (Get-CatzcModule -TrackType modules).name
 
     $modules = Get-Module | Where-Object { $_.Name -in $moduleNames }
 

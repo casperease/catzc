@@ -32,17 +32,19 @@ catzc:
 ### Rule ADR-DSGN-ASPECT:1
 
 Every module (and, at track granularity, every delivery package) **partitions** its tracked files into named **aspects** that are pairwise
-**disjoint** and jointly **exhaustive** — a true partition, no file in two aspects and no file in none. The aspect set is the `aspects`
-repo-wide variant (`Catzc.Base.Variants`): an ordered first-match ("fallthrough") classification, defaulting to `live` then `tests` — the
-prod-going artifacts (`live`, what ships) and the means to verify them (`tests`).
+**disjoint** and jointly **exhaustive** — a true partition, no file in two aspects and no file in none. The aspect set is an ordered first-match
+("fallthrough") classification, `live` then `tests` for a code track — the prod-going artifacts (`live`, what ships) and the means to
+verify them (`tests`). A code track derives it from its module layout; any other track declares it in the `aspects` repo-wide variant
+(`Catzc.Base.Variants`).
 
 - [Context](#context)
 - [Decision](#decision)
 
 ### Rule ADR-DSGN-ASPECT:2
 
-Aspects are **auto-derived** from folder conventions, never hand-declared. `live` is a **closed** convention (folder-scoped patterns —
-`*.ps1`, `private/**`, `types/**`, `configs/**`, `assets/**` — that never reach `tests/`, and are what the builder ships); the **last**
+Aspects are **auto-derived** from folder conventions, never hand-declared. `live` is a **closed** convention (the folder-scoped patterns of the
+layout's live rows — `*.ps1`, `private/**`, `types/**`, `configs/**`, `assets/**` — that never reach `tests/`, and are what the builder
+ships); the **last**
 aspect is the `**` catch-all remainder. Ordered first-match makes the partition disjoint and exhaustive _by construction_:
 `AspectPartition.Compile` gives aspect _k_ the leaf scan program `+ (its own patterns) − (every earlier aspect's patterns)`, all prefixed by
 the unit root.
@@ -51,7 +53,7 @@ the unit root.
 
 ### Rule ADR-DSGN-ASPECT:3
 
-Which aspect is the catch-all remainder is each **track's** call, declared in its `aspects` entry. A **code** track (`automation`) keeps
+Which aspect is the catch-all remainder is each **track's** call. A **code** track (`automation`) keeps
 `live` closed and declares the non-live `tests` last, so a stray or unclassified file lands on the verification side and can **never
 silently ship** (default-deny). A **deployment** track (`infrastructure`) declares `live` last, because everything under a template deploys,
 and only an explicit `tests/` folder is non-live. The `VariantsConfig` config type enforces the structure at load: the last aspect is the

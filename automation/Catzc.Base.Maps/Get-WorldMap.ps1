@@ -69,11 +69,10 @@ function Get-WorldMap {
 
     $aspects = [ordered]@{}
     $configured = (Get-Config -Config variants).aspects
-    if ($null -ne $configured) {
-        foreach ($track in $tracks) {
-            if ($configured.ContainsKey($track.name)) {
-                $aspects[$track.name] = @(Get-Aspect -Track $track.name)
-            }
+    foreach ($track in $tracks) {
+        # A code track derives its aspects from the layout; any other track has them only when variants.yml declares them.
+        if ($track.type -ceq 'modules' -or ($null -ne $configured -and $configured.ContainsKey($track.name))) {
+            $aspects[$track.name] = @(Get-Aspect -Track $track.name)
         }
     }
 

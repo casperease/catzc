@@ -18,7 +18,9 @@ catzc:
 
 Describe 'Get-AutomationFunctions' -Tag 'L0', 'logic' {
     BeforeEach {
-        Mock Get-AutomationModules -ModuleName Catzc.Base.ModuleSystem { @('Catzc.Base.Widget') }
+        Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
+            [Catzc.Base.Modules.Module]::new('Catzc.Base.Widget', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Catzc.Base.Widget', 'folder', $null, $null, $null, $null)
+        }
         Mock Get-Module -ModuleName Catzc.Base.ModuleSystem {
             @(
                 [pscustomobject]@{ Name = 'Catzc.Base.Widget'; ExportedFunctions = @{ 'Get-Gadget' = $null; 'Set-Gadget' = $null } }
@@ -36,12 +38,9 @@ Describe 'Get-AutomationFunctions' -Tag 'L0', 'logic' {
         $functions.Module | Should -Not -Contain 'Foreign.Module'
     }
 
-    It 'defaults the module list to the loaded code root' {
-        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.ModuleSystem { 'C:/widget/build/Catzc/6.6.666' }
+    It 'takes the module list from the resolver, for the code track' {
         Get-AutomationFunctions | Out-Null
-        Should -Invoke Get-AutomationModules -ModuleName Catzc.Base.ModuleSystem -ParameterFilter {
-            $AutomationRoot -eq 'C:/widget/build/Catzc/6.6.666'
-        }
+        Should -Invoke Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $TrackType -contains 'modules' }
     }
 
     It 'with -NotUsedInternally drops the functions another automation function calls' {

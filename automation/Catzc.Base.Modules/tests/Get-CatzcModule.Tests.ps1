@@ -23,10 +23,12 @@ catzc:
 
 Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
     BeforeAll {
+        $script:first = [Catzc.Base.Engines.ExecutionEngines]::Names[0]
+        $script:second = [Catzc.Base.Engines.ExecutionEngines]::Names[1]
         $script:tracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{
                     widgets = [ordered]@{ places = @('widgetry'); type = 'widget-works'; languages = @('widget-script', 'widget-data')
-                        execution_engines = @('pwsh'); module_execution_engines = [ordered]@{ Gadget = @('pwsh', 'bash') } }
+                        execution_engines = @($script:first); module_execution_engines = [ordered]@{ Gadget = @($script:first, $script:second) } }
                     gizmos  = [ordered]@{ places = @('gizmo'); type = 'gizmo-shelf'; languages = @('gizmo-script') }
                     notes   = [ordered]@{ places = @('notes'); type = 'note-pile'; languages = @('widget-data') }
                 }
@@ -93,8 +95,8 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
     }
 
     It 'takes the engines of the track, and a module''s own override when it names one' -Tag 'ADR-AUTO-MODULE#4' {
-        (Get-CatzcModule -Name Sprocket -RepositoryRoot $script:root).engines | Should -Be @('pwsh')
-        (Get-CatzcModule -Name Gadget -RepositoryRoot $script:root).engines | Should -Be @('pwsh', 'bash')
+        (Get-CatzcModule -Name Sprocket -RepositoryRoot $script:root).engines | Should -Be @($script:first)
+        (Get-CatzcModule -Name Gadget -RepositoryRoot $script:root).engines | Should -Be @($script:first, $script:second)
         @((Get-CatzcModule -Name Doodad -RepositoryRoot $script:root).engines) | Should -HaveCount 0
     }
 
@@ -118,6 +120,9 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
 
     It 'filters by track and by name, and returns nothing for a name no module has' {
         (Get-CatzcModule -Track gizmos -RepositoryRoot $script:root).name | Should -Be @('Doodad')
+        (Get-CatzcModule -TrackType gizmo-shelf -RepositoryRoot $script:root).name | Should -Be @('Doodad')
+        (Get-CatzcModule -TrackType widget-works, gizmo-shelf -RepositoryRoot $script:root).name | Should -Be @('Gadget', 'Sprocket', 'Doodad')
+        @(Get-CatzcModule -TrackType note-pile -RepositoryRoot $script:root) | Should -HaveCount 0
         (Get-CatzcModule -Name Sprocket, Doodad -RepositoryRoot $script:root).name | Should -Be @('Sprocket', 'Doodad')
         @(Get-CatzcModule -Name Nonesuch -RepositoryRoot $script:root) | Should -HaveCount 0
     }

@@ -32,11 +32,8 @@ Describe 'Get-ModuleProfile' -Tag 'L0', 'logic' {
             @('Catzc.Azure.Cli', 'Catzc.Base.Asserts')
         }
         # Used only for the empty-seed (full) path: every named module.
-        Mock Get-BaseModule -ModuleName Catzc.Base.ModuleSystem {
-            @(
-                [pscustomobject]@{ Name = 'Catzc.Alpha' }
-                [pscustomobject]@{ Name = 'Catzc.Beta' }
-            )
+        Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
+            'Catzc.Alpha', 'Catzc.Beta' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) }
         }
     }
 
@@ -75,7 +72,7 @@ Describe 'Get-ModuleProfile — real profiles.yml' -Tag 'L2', 'integrity' {
     It 'every shipped profile resolves to a non-empty, on-disk module set' {
         $names = @((Get-Config -Config profiles).profiles.Keys)
         $names.Count | Should -BeGreaterThan 0
-        $allowed = @((Get-BaseModule).Name) + @('.internal', '.compiled', '.vendor') | Select-Object -Unique
+        $allowed = @((Get-CatzcModule -TrackType modules).name) + @('.internal', '.compiled', '.vendor') | Select-Object -Unique
         $violations = foreach ($name in $names) {
             $resolved = Get-ModuleProfile -Name $name
             if (@($resolved).Count -eq 0) {

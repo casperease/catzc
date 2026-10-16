@@ -27,6 +27,14 @@ Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
 
         function New-TypeModule {
             param([string] $Module, [hashtable] $Files)
+            # The resolver names the modules; the fixture's module folders under $root stand in for the code track.
+            $fixtureRoot = $root
+            Mock Get-CatzcModule -ModuleName Catzc.Base.TypesSystem -MockWith {
+                foreach ($dir in [System.IO.Directory]::EnumerateDirectories($fixtureRoot)) {
+                    $moduleName = [System.IO.Path]::GetFileName($dir)
+                    [Catzc.Base.Modules.Module]::new($moduleName, 'widgets', 'widget-folder', 'widgetry', "widgetry/$moduleName", 'folder', $null, $null, $null, $null)
+                }
+            }.GetNewClosure()
             $td = Join-Path $root "$Module/types"
             [System.IO.Directory]::CreateDirectory($td) | Out-Null
             foreach ($name in $Files.Keys) {

@@ -71,7 +71,7 @@ function Test-CatzcBuild {
     [CmdletBinding()]
     [Catzc.Base.Timeouts.TimeLimit(360, Pipeline = 3600)]
     param(
-        [ArgumentCompleter({ Get-AutomationModules })]
+        [ArgumentCompleter({ (Get-CatzcModule -TrackType modules).name })]
         [string[]] $Module = @(),
 
         [string] $ModuleProfile,

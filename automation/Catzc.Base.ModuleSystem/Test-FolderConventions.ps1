@@ -57,25 +57,25 @@ function Test-FolderConventions {
         [switch] $PassThru
     )
 
-    $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
-    $allowedModuleSubdirs = @('private', 'tests', 'assets', 'types', 'configs')
+    # The conventional module folders are the layout's (ADR-AUTO-MODULE#2); the modules are the resolver's.
+    $allowedModuleSubdirs = @((Get-Config -Config languages).LayoutFolders())
+    $allowedText = $allowedModuleSubdirs -join ', '
     $kebabYml = '^[a-z0-9]+(-[a-z0-9]+)*\.yml$'
 
     $issues = [System.Collections.Generic.List[string]]::new()
     $moduleCount = 0
     $functionOwners = @{}
 
-    foreach ($moduleDirectory in ([System.IO.Directory]::EnumerateDirectories($automationRoot) | Sort-Object)) {
-        $module = [System.IO.Path]::GetFileName($moduleDirectory)
-        if ($module -match '^\.') {
-            continue
-        }
+    $repositoryRoot = Get-RepositoryRoot
+    foreach ($resolved in Get-CatzcModule -TrackType modules -RepositoryRoot $repositoryRoot) {
+        $module = $resolved.name
+        $moduleDirectory = Join-Path $repositoryRoot $resolved.root
         $moduleCount++
 
         foreach ($subdirectory in ([System.IO.Directory]::EnumerateDirectories($moduleDirectory) | Sort-Object)) {
             $name = [System.IO.Path]::GetFileName($subdirectory)
             if ($name -notin $allowedModuleSubdirs) {
-                $issues.Add("$module/${name}: not a conventional module folder (private, tests, assets, types, configs)")
+                $issues.Add("$module/${name}: not a conventional module folder ($allowedText)")
             }
         }
 

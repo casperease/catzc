@@ -71,11 +71,8 @@ function Get-LanguageTestFolders {
     )
 
     $modulesByKebab = @{}
-    $automationRoot = [System.IO.Path]::Combine($repositoryRoot, 'automation')
-    if ([System.IO.Directory]::Exists($automationRoot)) {
-        foreach ($module in (Get-AutomationModules -AutomationRoot $automationRoot)) {
-            $modulesByKebab[$module.ToLowerInvariant().Replace('.', '-')] = $module
-        }
+    foreach ($module in (Get-CatzcModule -TrackType modules).name) {
+        $modulesByKebab[$module.ToLowerInvariant().Replace('.', '-')] = $module
     }
 
     $unmatched = [System.Collections.Generic.List[string]]::new()

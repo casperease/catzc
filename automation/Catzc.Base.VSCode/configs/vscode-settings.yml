@@ -113,6 +113,13 @@ settings:
   # A click in the Source Control pane opens the file on disk; the diff stays on the right-click menu as "Open Changes".
   git.openDiffOnClick: false
 
+  # Trunk-based fast push: Commit takes the text field, never opens COMMIT_EDITMSG, stages everything when nothing is staged, and pushes.
+  git.useEditorAsCommitInput: false
+  git.enableSmartCommit: true
+  git.suggestSmartCommit: false
+  git.smartCommitChanges: all
+  git.postCommitCommand: push
+
   prettier.documentSelectors:
     - "**/*.yaml"
 

@@ -30,7 +30,7 @@ catzc:
 
       Detection, made precise so Catzc.Azure is not confused with Catzc.Azure.Templates:
 
-        1. The known module names (Get-AutomationModules) are also the known namespaces.
+        1. The known module names (Get-CatzcModule -TrackType modules) are also the known namespaces.
         2. Comments, string/char literals, and the file's own file-scoped namespace declaration are stripped
            first, so a token in a comment — or the module's own "namespace <module>;" line — never becomes an edge.
         3. Every dotted identifier is mapped to its LONGEST known-module-name prefix
@@ -58,7 +58,7 @@ function Get-CSharpTypeDependency {
     Assert-SourceTree
     Assert-PathExist $AutomationRoot -PathType Container
 
-    $modules = @(Get-AutomationModules -AutomationRoot $AutomationRoot)
+    $modules = @((Get-CatzcModule -TrackType modules).name)
     # Longest module name first, so 'Catzc.Azure.Templates.Foo' maps to Catzc.Azure.Templates, not Catzc.Azure.
     $byLength = @($modules | Sort-Object -Property Length -Descending)
 
