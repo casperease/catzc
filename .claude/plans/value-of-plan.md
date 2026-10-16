@@ -71,6 +71,22 @@ its plan, and reference-unboxing.md sits beside plan-unboxing. out/ holds README
 
 ## Pastes processed
 
+- 2026-10-16 15:22, unboxing: P1 to P3 done, the commit step (Clear-ModuleTypeCache, one DLL), the five-file test scope, the
+  Test-ShippedTypes flag, the optional ADR line, P4 and P5 unplanned until a go. Landed in plan-unboxing, together with findings F1 to
+  F7 recovered from the deleted findings file (F8 and F9 were not read before deletion and are lost from this folder; the shipped
+  article and reference-unboxing.md beside the plan are where to look).
+
+- 2026-10-16 15:22 (arrived after the deletion round), head path split: three changes done and tested (module-type ids, catzc_bundle
+  key, path split into folder, name, filetype), four optional leftovers (spelling gate and coined word, the user's gate runs, whether
+  generated heads carry folder and name, a glossary entry) and a prompt. Landed in plan-file-head-immutable-edges-classes and
+  prompt-head-path-split-continue.md. Its out/ plan had been deleted on the approved list; its leftovers are restored here.
+
+- 2026-10-16 15:22 (arrived after the deletion round), file kinds and formatting follow-up: formatter crash fix and its analyzer rule,
+  help-text outputs, cleared peer findings, five kind changes and the reachability test as done; five leftovers (Test-Formatting and the
+  .compiled question, six Test-Comments findings in peers' files, the untracked page, the reachability gap decision, the visibility key)
+  and a prompt cut mid-sentence. Landed in plan-file-head-immutable-edges-classes and prompt-file-kinds-and-formatting-continue.md. Its
+  out/ plan had been deleted on the approved list as a record of landed work; its open items are restored here.
+
 - 2026-10-16 15:23 (arrived after absorption), ADR links and plans: done list, not-done list, the untrimmed-plans note, the
   continuation prompt and three open decisions. Everything but five details was already carried; the details (GroupBy, ledger columns,
   the narrow fixes at lines 62 and 63, the Test-Formatting failure's origin, the paste-after-clear line) landed in

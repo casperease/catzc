@@ -53,7 +53,60 @@ the approved list before this paste arrived. One kinds registry drives file head
 - Glob-list migration: comments.yml exclude keyed by kind; the other lists stay on purpose (they say where something applies).
 - Generated .gitattributes classes and the glossary-scan fix: done and verified (paste).
 
-## Open leftovers from that work (checks and questions, left open)
+## Done, and why: formatter crash rule and kinds tuning (catzc-c1 follow-up, 2026-10-16)
+
+Reconstructed from the continuation paste of 15:22 and my earlier read of out/plan-file-kinds-and-formatting.md, deleted today on the
+approved list. That file continued out/continuation-prompt-markerless.md (markerless comments, done and verified, also deleted today).
+
+- Formatter crash: Invoke-Formatter throws "Operation is not valid due to the current state of the object" on a one-line hashtable
+  literal holding an if/else, with or without a subexpression; one such file stopped Format-Code and Test-Formatting for the whole tree.
+  Fixed in Get-FileExtensionFileMetaFact, Get-ModuleNameFileMetaFact and Get-FileTypeFileMetaFact by binding the value first.
+- Rule against it: Measure-NoOneLineHashtableIfElse in automation/.scriptanalyzer, ADR-PWSH-FORMAT#10 with its "One-line hashtables"
+  section in docs/adr/pwsh/powershell-formatting.md, a CatzcRules entry, the analyzer-adr-map mapping, a fixture line and rule id in
+  CustomRuleWiring.Tests.ps1, and NoOneLineHashtableIfElse.Tests.ps1. 27 tests passed; Test-AnalyzerAdrMap, Test-FileMeta, Test-Links clean.
+- Help text: Get-AdrUsage, Get-AdrUsageRow and Group-AdrUsage outputs say pscustomobject, matching their OutputType.
+- Peer findings cleared: Test-Links on output-formats.yml; dora-explains.md "the test suite" is now "all tests"; Test-Glossary clean.
+- File kinds tuned: drawio-kit precedes script (it was hidden by it); fixture/asset is fixture/input; skill removed; diagram is a new
+  kind; asset-description narrowed to .md. FileKindReachability.Tests.ps1 requires every kind to claim a file. 94 kind tests passed.
+
+## Open leftovers from that follow-up (left open)
+
+- [ ] Test-Formatting not re-run since those edits; last run flagged only the compiled types .json under automation/.compiled. Check
+  whether Format-Code should skip that folder and fix it only if the ADR says so.
+- [ ] Test-Comments: 6 findings, all in other sessions' files: PropertyHead.cs.md section 1, MarkdownMetaBlock.cs.md sections 1 and 2,
+  file-meta.yml.md section 5 (orphan sections, the code line under a moved comment changed), PathParts.cs:67 and ModulePlace.cs:68
+  (a 2-line comment still in the file, Export-Comments). Owners decide; left alone unless asked.
+- [ ] Untracked page Get-AutomationSourceFiles.ps1.md, restored from git history; staging it is the user's git call.
+- [ ] Reachability test gap: it proves each kind claims a file, not that a kind is not mostly shadowed by an earlier one (how drawio-kit
+  hid). Strengthening it needs the intended overlaps written down: the user's decision, before anything is written.
+- [ ] The visibility head key: undecided, and redundant with the kinds. asset kept as a top-level kind (matches ADR-AUTO-ASSETDEP; that
+  match was not re-read).
+- Rule to keep from that session: peers edit the same tree, grep to confirm an edit still holds before building on it; no git writes.
+
+## Done, and why: head path split, module-type ids, catzc_bundle (2026-10-16)
+
+Reconstructed from the continuation paste of 15:22 and my earlier read of out/plan-head-path-split.md, deleted today on the approved
+list. Request: module type ids lose the redundant -module suffix; the head key bundle takes the catzc bundler's own name; path is split
+into asserted parts. Decisions: key catzc_bundle (kind id catzc-bundle; key names allow no hyphen); exporter bundles full, azure and
+minimal unchanged; path stays; new keys folder, name, filetype (subkind keeps its file-kinds meaning); no legacy alias ("we need no l...",
+ADR-PRIN-ONELIVE).
+
+- Module type ids: pwsh-folder, pwsh-psm1, python, go, bash, bicep, pipeline, settings (module-types.yml, Get-PathModule tests,
+  Format-GeneratedFileHead test, docs and comments).
+- Variants: ModulePlace.TailOf, PathModule.tail, ModuleTypesConfig.Resolve passes the tail; test added.
+- Languages: new PathParts type (folder, name, filetype; asserts the parts rebuild the path as kebab); Get-PathFileType delegates to it.
+- QualityGates: Get-FileNameFileMetaFact (kind file-name) with test; Get-BundleFileMetaFact renamed Get-CatzcBundleFileMetaFact with
+  test; file-meta.yml kind order; Test-FileMetaProcessors fixture and counts (17 kinds, 18 processors).
+- Contracts: head.schema.json and head.sample.yml. ADR docs/adr/repository/file-meta.md rules 11 and 12.
+
+## Open leftovers from the path split (all optional, left open)
+
+- [ ] Spelling gate: run it; add catzc_bundle to the coined words only if it flags it.
+- [ ] Test-FileMeta gate and the full Test-Automation: the user's runs.
+- [ ] Decision: do generated-file heads also carry folder and name? Today they do not.
+- [ ] Glossary: no entry for the renamed key.
+
+## Open leftovers from the registry work (checks and questions, left open)
 
 - [ ] Checks not run since its last edits: Test-Spelling, Test-FileMeta, Test-Glossary, Test-Contracts, Test-GeneratedFiles, one by one
   in the background with scripts under out/; report what is that work's. Not the full Test-Automation. Last known findings, none from
@@ -71,6 +124,8 @@ the approved list before this paste arrived. One kinds registry drives file head
 
 - carried below in order: the immutable and edges draft, the class selectors draft (formerly out/)
 - prompt-file-kinds-registry-continue.md (beside this file; its reading list names a deleted out/ plan, this file holds that state)
+- prompt-file-kinds-and-formatting-continue.md (beside this file; same, and its pasted text is cut mid-sentence)
+- prompt-head-path-split-continue.md (beside this file; same)
 - docs/adr/repository/file-meta.md
 
 ## Carried: out/plan-file-meta-immutable-edges.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
