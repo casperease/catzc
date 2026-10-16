@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "56206c2344ed"
+    with_body_sha: "0a1e6f35b439"
     repo_status: locked
     path: docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md
     folder: docs/references/automation/catzc-base-vscode/configs
@@ -223,4 +223,14 @@ Above `cSpell.enabled: true`, written with `#`.
 ```text
 Spell checking — the single repo dictionary lives in /cspell.yml (auto-discovered by Code Spell
 Checker; the extension is recommended in .vscode/extensions.json).
+```
+
+## comment:18
+
+Above `files.exclude:`, written with `#`.
+
+```text
+Ignored paths that have no '!' exception, hidden everywhere (explorer, search, quick open). The globs with exceptions (README.md,
+*.psd1, *.pdf) stay visible, because files.exclude would hide the tracked files too. explorer.excludeGitIgnore is not set: it would hide
+the generated settings folders (.vscode and the root config copies), which are ignored on purpose and still wanted in the explorer.
 ```
