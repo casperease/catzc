@@ -28,17 +28,17 @@ catzc:
       The stamp depends on what the inputs say, never on when they were written: a path under -Root is named relative to
       it with '/' separators, and a file's content is hashed with its carriage returns removed. A clone, a snapshot, a
       CRLF checkout and a touched-but-identical file all stamp the same, so a generator can write the stamp into the file
-      it generates and every checkout agrees with it (Test-GeneratedFileCurrent). The cost is one read and hash of each
-      input; a few megabytes of text take milliseconds.
+      it generates and every checkout agrees with it (Test-GeneratedFileCurrent). The work is done by the compiled
+      Catzc.Base.Files.InputStamp, which hashes the files in parallel: a few megabytes of text take milliseconds.
     parameters:
       Path: The input files and folders to fingerprint.
-      Root: 'The folder paths are named relative to. Default: the repository root. A path outside it is named in full.'
       Filter: A file-name filter applied inside folders (for example `*.md`). Defaults to every file.
       Exclude: 'Wildcard patterns for files left out of the stamp, matched against the full path with ''/'' separators (for example `*/README.md`). A generator names its own output, and the generated pages beside its inputs, so writing them does not change the stamp.'
+      Root: 'The folder paths are named relative to. Default: the repository root. A path outside it is named in full.'
       Salt: Extra text folded into the stamp, for an input that is not a file (a setting, a version).
     outputs: '[string] A 64-character lowercase SHA-256 hex string.'
     examples:
-      - Get-InputStamp -Path $glossaryPaths, (Resolve-RepoPath 'docs/adr') -Filter '*.md'
+      - Get-InputStamp -Path $glossaryPaths, (Resolve-RepoPath 'docs/adr') -Exclude '*/README.md'
 ---
 #>
 
@@ -58,63 +58,5 @@ function Get-InputStamp {
         [string] $Salt = ''
     )
 
-    $rootFull = [System.IO.Path]::GetFullPath($Root).TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar
-
-    # A generator's own output, and every generated page beside its inputs, is left out by pattern: a write of it must not change the stamp it was built under.
-    $skip = [System.Management.Automation.WildcardPattern[]] @($Exclude | ForEach-Object {
-            [System.Management.Automation.WildcardPattern]::new(($_ -replace '\\', '/'), [System.Management.Automation.WildcardOptions]::IgnoreCase)
-        })
-
-    $files = [System.Collections.Generic.List[string]]::new()
-    $missing = [System.Collections.Generic.List[string]]::new()
-    $options = [System.IO.EnumerationOptions]::new()
-    $options.RecurseSubdirectories = $true
-    foreach ($entry in $Path) {
-        $full = [System.IO.Path]::GetFullPath($entry)
-        if ([System.IO.File]::Exists($full)) {
-            $files.Add($full)
-        }
-        elseif ([System.IO.Directory]::Exists($full)) {
-            foreach ($file in [System.IO.Directory]::EnumerateFiles($full, $Filter, $options)) {
-                $files.Add($file)
-            }
-        }
-        else {
-            $missing.Add($full)
-        }
-    }
-
-    $lines = [System.Collections.Generic.List[string]]::new()
-    $sha = [System.Security.Cryptography.SHA256]::Create()
-    $utf8 = [System.Text.Encoding]::UTF8
-    foreach ($file in $files) {
-        $slashed = $file.Replace('\', '/')
-        $isSkipped = $false
-        foreach ($pattern in $skip) {
-            if ($pattern.IsMatch($slashed)) {
-                $isSkipped = $true
-                break
-            }
-        }
-        if ($isSkipped) {
-            continue
-        }
-        $relative = if ($file.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase)) {
-            $slashed.Substring($rootFull.Length)
-        }
-        else {
-            $slashed
-        }
-        $content = [System.IO.File]::ReadAllText($file).Replace("`r", '')
-        $lines.Add($relative + '|' + [System.Convert]::ToHexString($sha.ComputeHash($utf8.GetBytes($content))))
-    }
-    foreach ($file in $missing) {
-        $slashed = $file.Replace('\', '/')
-        $lines.Add(($(if ($file.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase)) { $slashed.Substring($rootFull.Length) } else { $slashed })) + '|missing')
-    }
-
-    $sorted = $lines.ToArray()
-    [System.Array]::Sort($sorted, [System.StringComparer]::Ordinal)
-    $text = ($sorted -join "`n") + "`n#salt:$Salt"
-    [System.Convert]::ToHexString($sha.ComputeHash($utf8.GetBytes($text))).ToLowerInvariant()
+    [Catzc.Base.Files.InputStamp]::Compute($Path, $Filter, $Exclude, $Root, $Salt)
 }
