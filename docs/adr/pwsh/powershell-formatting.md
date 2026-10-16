@@ -103,7 +103,7 @@ The simple expressions [ADR-AUTO-NONEST#5](../automation/avoid-deep-nesting.md#r
 
 A hashtable literal that holds an `if`/`else` is written on several lines, or its value is bound to a local first, never written on one
 line. PSScriptAnalyzer's `Invoke-Formatter` throws on the one-line form, and because `Format-Code` and `Test-Formatting` format every file
-in one pass, one such file stops the formatting quality gate for the whole tree instead of failing a single file. The custom
+in one pass, one such file stops the quality gate's formatting pass for the whole tree instead of failing a single file. The custom
 `Measure-NoOneLineHashtableIfElse` rule flags it.
 
 - [One-line hashtables](#one-line-hashtables)
@@ -175,7 +175,7 @@ $nodes = $ScriptBlockAst.FindAll($isCommand, $true)
 
 `Invoke-Formatter` throws "Operation is not valid due to the current state of the object" on a hashtable literal that sits on one line and
 holds an `if`/`else`, with or without a `$( )` around it. A hashtable on several lines, and an `if` without an `else`, are read without
-trouble. The throw comes out of the formatting pass's background job, so the whole quality gate fails before it reports a single file. Binding the
+trouble. The throw comes out of the formatting pass's background job, so the quality gate fails for the whole tree before it reports a single file. Binding the
 value to a local first keeps the hashtable short and the `if`/`else` readable.
 
 ```powershell

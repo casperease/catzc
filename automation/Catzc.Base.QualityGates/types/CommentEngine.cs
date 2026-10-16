@@ -345,15 +345,15 @@ public static class CommentEngine
         return new Placement
         {
             Number = number,
-            Anchor = match.Groups["span"].Success ? Unspan(match.Groups["span"].Value) : null,
+            Anchor = match.Groups["span"].Success ? StripSpan(match.Groups["span"].Value) : null,
             Occurrence = match.Groups["occurrence"].Success ? int.Parse(match.Groups["occurrence"].Value, CultureInfo.InvariantCulture) : 1,
-            Marker = Unspan(match.Groups["marker"].Value),
+            Marker = StripSpan(match.Groups["marker"].Value),
             Lines = section.Lines,
         };
     }
 
     // The inverse of CommentBlock.CodeSpan: the text inside the fence, less the pad a leading or trailing backtick needed.
-    static string Unspan(string span)
+    static string StripSpan(string span)
     {
         int fence = 0;
         while (fence < span.Length && span[fence] == '`') { fence++; }
