@@ -26,6 +26,7 @@ concepts:
         whichever commit is built.
       track:
         A track is a root concern, one root folder; a deployable-unit is what ships, composed from a whole track or a reduced part of one.
+      bundle: A bundle is one build of the toolset; a deployable-unit is what ships from the mono-repository, whichever way it is built.
   release candidate:
     key: release_candidate
     domain: flow
@@ -89,6 +90,8 @@ concepts:
         it.
       value-chain concern:
         A value-chain concern is where along delivery a decision acts; a track is a root concern, the root folder where files live.
+      kind: A kind is the role a file plays, wherever it lives; a track is the root folder the file lives in.
+      module type: A module type is the sort of module found at a place; a track is a root folder and the concern it holds.
   root file:
     key: root_file
     domain: design
@@ -115,6 +118,8 @@ concepts:
       unlisted file:
         An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file language is a registered
         kind of text, named by its extensions.
+      kind: A kind is the role a file plays, what it is for; a file language is the kind of text it holds.
+      file type: A file type is the single extension of one file; a file language groups the extensions of one kind of text.
   unlisted file:
     key: unlisted_file
     domain: design

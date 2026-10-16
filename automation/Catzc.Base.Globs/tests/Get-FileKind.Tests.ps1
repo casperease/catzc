@@ -27,6 +27,8 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Path = 'automation/.internal/Catzc.Internal.Types.psm1'; Class = 'module/internal' }
         @{ Path = 'automation/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1'; Class = 'test' }
         @{ Path = 'automation/Catzc.Base.Globs/types/FileKindsConfig.cs'; Class = 'type' }
+        @{ Path = 'automation/Catzc.Azure.Cli/tests/assets/config/azure.yml'; Class = 'fixture/asset' }
+        @{ Path = 'automation/Catzc.Azure.Cli/tests/data/sample.yml'; Class = 'fixture' }
         @{ Path = 'automation/Catzc.Base.Globs/configs/file-kinds.yml'; Class = 'config' }
         @{ Path = '.claude/drawio/contact_sheet.py'; Class = 'script' }
         @{ Path = 'docs/adr/index.md'; Class = 'index' }

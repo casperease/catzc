@@ -45,5 +45,11 @@ function Get-FileTypeFileMetaFact {
     )
 
     $fileType = Get-PathFileType $Path
-    [ordered]@{ $Kind.keys[0] = $(if ($fileType) { $fileType } else { '' }) }
+    $value = if ($fileType) {
+        $fileType
+    }
+    else {
+        ''
+    }
+    [ordered]@{ $Kind.keys[0] = $value }
 }

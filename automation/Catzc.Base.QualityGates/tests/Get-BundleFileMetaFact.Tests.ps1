@@ -42,7 +42,12 @@ Describe 'Get-BundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
             })
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'exporter' } { $script:exporter }
         Mock Get-ModuleProfile -ModuleName Catzc.Base.QualityGates {
-            if ($Name -eq 'minimal') { @('Widget.Core', '.internal') } else { @('Widget.Core', 'Widget.Extra', '.internal') }
+            if ($Name -eq 'minimal') {
+                @('Widget.Core', '.internal')
+            }
+            else {
+                @('Widget.Core', 'Widget.Extra', '.internal')
+            }
         }
         Mock Get-Track -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ name = 'automation'; root = 'widgetry' } }
     }

@@ -119,6 +119,8 @@ What ships — a whole track or a reduced composition — bound one-to-one to it
 - **Realized by:** config-key `automation/Catzc.Base.Globs/configs/globs.yml`
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
+  - [bundle](#bundle): A bundle is one build of the toolset; a deployable-unit is what ships from the mono-repository, whichever way it is
+    built.
   - [release candidate](#release-candidate): A release candidate is one commit's tagged, immutable build of a deployable-unit; a
     deployable-unit is the composition that ships, whichever commit is built.
   - [track](#track): A track is a root concern, one root folder; a deployable-unit is what ships, composed from a whole track or a reduced
@@ -133,6 +135,8 @@ set of them.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
+  - [file type](#file-type): A file type is the single extension of one file; a file language groups the extensions of one kind of text.
+  - [kind](#kind): A kind is the role a file plays, what it is for; a file language is the kind of text it holds.
   - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; a file language is the
     kind of text one file holds.
   - [track](#track): A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it
@@ -208,6 +212,8 @@ A named repository root concern — one root folder, named by it, classified cor
     the root concern itself, one root folder.
   - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the root folder
     the file lives in, and its tech-stack is a set of file languages.
+  - [kind](#kind): A kind is the role a file plays, wherever it lives; a track is the root folder the file lives in.
+  - [module type](#module-type): A module type is the sort of module found at a place; a track is a root folder and the concern it holds.
   - [root file](#root-file): A root file is a tracked file no track holds, at the repository root or under out/; a track is a root folder
     and every file under it.
   - [value-chain concern](#value-chain-concern): A value-chain concern is where along delivery a decision acts; a track is a root concern,
@@ -849,6 +855,7 @@ The extension of a file's name, which tells the sorts of file inside one languag
   - [file language](#file-language): A file language groups the extensions of one kind of text; a file type is the single extension of one
     file.
   - [kind](#kind): A kind is the role a file plays; a file type is how its name ends.
+  - [subkind](#subkind): A subkind is a narrower role, whatever the name; a file type is how a file's name ends.
 
 ### imprint step
 
@@ -882,8 +889,10 @@ language, track or module.
 - **Contrasts:**
   - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a kind is what the file is
     for.
+  - [file type](#file-type): A file type is how a file's name ends; a kind is the role the file plays.
   - [meta kind](#meta-kind): A meta kind is a registry entry that says which derived fact goes into a head; a kind is the role one file
     plays.
+  - [subkind](#subkind): A subkind is one narrower role under a kind, and a file has at most one; a kind is the role itself.
   - [track](#track): A track is the root folder a file lives in; a kind is the role it plays, wherever it lives.
 
 ### language zone
@@ -959,6 +968,7 @@ files, with the files it applies to, the keys it owns and, for a gather kind, th
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
+  - [kind](#kind): A kind is the role one file plays; a meta kind is a registry entry that says which derived fact goes into a head.
   - [meta block](#meta-block): The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block
     across files.
 
@@ -1026,6 +1036,7 @@ The narrowing of a kind, such as a gate among the functions, written under its k
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
+  - [file type](#file-type): A file type is how a file's name ends; a subkind is a narrower role, whatever the name.
   - [kind](#kind): A kind is the role a file plays; a subkind is one narrower role under it, and a file has at most one.
 
 ### workstream

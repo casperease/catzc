@@ -19,8 +19,8 @@ catzc:
       The one scope Export-Comments, Build-CommentView and Test-Comments share, so the converter, the
       view and the gate can never disagree. It starts from the files Get-LinkScope lists (the tracked files, or the
       given -Path, minus every file the content tools leave as written) and keeps a file when its file language is one
-      comments.yml names, comments.yml maps it to a page, and no comments.yml exclude glob matches it (tests and assets by
-      default) ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+      comments.yml names, comments.yml maps it to a page, and its file kind is none that comments.yml excludes (tests, their
+      fixtures and assets by default) ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
     parameters:
       RepositoryRoot: The repository root the paths are relative to.
       Path: Optional files or folders to limit the scope to.
@@ -69,12 +69,13 @@ function Get-CommentScope {
 
     # The registry's own ForPath, once: a function call per file costs more than the lookup, and the language test is cheaper than the globs.
     $languageRegistry = Get-Config -Config languages
+    $fileKinds = Get-Config -Config file-kinds
     foreach ($file in $candidates) {
         $language = $languageRegistry.ForPath($file)
         if (-not $language -or -not $languages.Contains($language.name)) {
             continue
         }
-        if ($config.IsExcluded($file)) {
+        if ($config.IsExcluded($fileKinds.Resolve($file).Class)) {
             continue
         }
         $page = $config.PageFor($file)

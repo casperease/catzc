@@ -6,7 +6,7 @@ catzc:
     language: markdown
     filetype: md
     track: docs
-    body_sha: "45c1cf629bc4"
+    body_sha: "483f44836461"
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/controlling-module-dependencies.md
@@ -89,6 +89,6 @@ One declared allow-list says what may depend on what, and the declared graph for
 Reading a value out of an object costs a few nanoseconds, and the type tests, reflection lookups and PowerShell crossings around it cost
 more ([native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)).
 
-| Article |
-| ------- |
+| Article                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------- |
 | [Unboxing is cheap, the type tests and crossings around it are not](unboxing-is-cheap-and-crossings-are-not.md) |

@@ -23,15 +23,15 @@ Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
         }
 
         $script:config = New-Config ([ordered]@{
-                'widget-folder'  = [ordered]@{
+                'widget-folder' = [ordered]@{
                     definition = 'A widget that is a folder.'
                     places     = @(
                         @{ root = 'widgetry'; name = 'folder' }
                         @{ root = 'widgetry/.core'; name = 'folder'; prefix = 'Widget.Core.' }
                     )
                 }
-                'widget-file'    = [ordered]@{ definition = 'A widget that is one file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg' }) }
-                'widget-tool'    = [ordered]@{ definition = 'A tool dot-folder.'; places = @(@{ root = '.gizmo/deep'; name = 'root' }, @{ root = '.gizmo'; name = 'root' }) }
+                'widget-file'   = [ordered]@{ definition = 'A widget that is one file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg' }) }
+                'widget-tool'   = [ordered]@{ definition = 'A tool dot-folder.'; places = @(@{ root = '.gizmo/deep'; name = 'root' }, @{ root = '.gizmo'; name = 'root' }) }
             })
     }
 

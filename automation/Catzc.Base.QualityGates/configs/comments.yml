@@ -47,6 +47,7 @@ pages:
     docs: docs/references/automation/internal
 
 exclude:
-  "**/assets/**": an asset is copied or published verbatim elsewhere, where a page of this repository would be foreign
+  asset: an asset is copied or published verbatim elsewhere, where a page of this repository would be foreign
+  fixture/asset: a test's asset is the input the test reads, verbatim
 
 view: out/annotated

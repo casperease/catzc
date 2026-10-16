@@ -37,6 +37,7 @@ $checks = @(
     'NoUnsafeFirstIndex'
     'NoBareCacheEntryRead'
     'NoUnboundedEnumeration'
+    'NoOneLineHashtableIfElse'
 )
 
 $script:measures = $null

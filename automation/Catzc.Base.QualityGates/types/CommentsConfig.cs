@@ -27,6 +27,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
@@ -38,9 +39,12 @@ public sealed class CommentsConfig
 
     public static readonly IReadOnlyDictionary<string, string> DefaultExclude = new Dictionary<string, string>(StringComparer.Ordinal)
     {
-        ["**/tests/**"] = "a test's prose is its own subject",
-        ["**/assets/**"] = "an asset is copied or published verbatim elsewhere, where a page of this repository would be foreign",
+        ["test"] = "a test's prose is its own subject",
+        ["fixture"] = "a test's fixture is a test's own subject",
+        ["asset"] = "an asset is copied or published verbatim elsewhere, where a page of this repository would be foreign",
     };
+
+    static readonly Regex KindPattern = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*(/[a-z][a-z0-9]*(-[a-z0-9]+)*)?$", RegexOptions.Compiled);
 
     public const int DefaultMinLines = 2;
     public const string DefaultView = "out/annotated";
@@ -68,8 +72,6 @@ public sealed class CommentsConfig
     public IReadOnlyList<CommentPageMap> pages { get; }
     public IReadOnlyDictionary<string, string> exclude { get; }
     public string view { get; }
-
-    readonly List<Catzc.Base.Globs.GlobPattern> excludeGlobs = new List<Catzc.Base.Globs.GlobPattern>();
 
     public CommentsConfig(IDictionary raw)
     {
@@ -166,18 +168,23 @@ public sealed class CommentsConfig
             {
                 if (!(raw["exclude"] is IDictionary excludeRaw))
                 {
-                    throw new ArgumentException(name + ": exclude must be a map of glob to the reason its files keep their comments");
+                    throw new ArgumentException(name + ": exclude must be a map of file kind to the reason its files keep their comments");
                 }
                 excludeMap = new Dictionary<string, string>(StringComparer.Ordinal);
                 foreach (DictionaryEntry entry in excludeRaw)
                 {
-                    string glob = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
+                    string kind = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
                     string reason = Convert.ToString(entry.Value, CultureInfo.InvariantCulture);
+                    if (kind == null || !KindPattern.IsMatch(kind))
+                    {
+                        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                            "{0}: exclude '{1}' is not a file kind (a kind of the file-kinds registry, or kind/subkind)", name, kind));
+                    }
                     if (string.IsNullOrWhiteSpace(reason))
                     {
-                        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: exclude '{1}' needs a reason", name, glob));
+                        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: exclude '{1}' needs a reason", name, kind));
                     }
-                    excludeMap[glob] = reason.Trim();
+                    excludeMap[kind] = reason.Trim();
                 }
             }
 
@@ -197,25 +204,11 @@ public sealed class CommentsConfig
         keep_run = keepRunLists;
         pages = pageMaps;
         exclude = excludeMap;
-        foreach (string glob in excludeMap.Keys)
-        {
-            try
-            {
-                excludeGlobs.Add(new Catzc.Base.Globs.GlobPattern(glob));
-            }
-            catch (ArgumentException e)
-            {
-                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: exclude '{1}' is not a valid glob: {2}", name, glob, e.Message), e);
-            }
-        }
     }
 
-    // True when an exclude glob matches the repository-relative, '/'-separated path: the file keeps its comments.
-    public bool IsExcluded(string repoRelativePath)
-    {
-        string path = repoRelativePath?.Replace('\\', '/');
-        return !string.IsNullOrEmpty(path) && excludeGlobs.Any(glob => glob.Matches(path));
-    }
+    // True when the file's class, its kind or kind/subkind from the file-kinds registry, is one the exclude map names: the file keeps its comments.
+    public bool IsExcluded(string fileClass) =>
+        !string.IsNullOrEmpty(fileClass) && exclude.Keys.Any(kind => FileSelector.ClassMatches(kind, fileClass));
 
     // The comment heads that never move in a language's files; empty for a language the config does not name.
     public IReadOnlyList<string> KeepFor(string language) =>

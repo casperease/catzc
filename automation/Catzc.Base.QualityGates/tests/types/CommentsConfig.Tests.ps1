@@ -32,18 +32,31 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.pages.Count | Should -Be 4
         $config.pages[0].source | Should -Be 'automation/*'
         $config.view | Should -Be 'out/annotated'
-        $config.IsExcluded('automation/Catzc.Widget/tests/Get-Widget.Tests.ps1') | Should -BeTrue
-        $config.IsExcluded('automation/Catzc.Widget/assets/root/widget.yml') | Should -BeTrue
-        $config.IsExcluded('automation/Catzc.Widget/Get-Widget.ps1') | Should -BeFalse
+        $config.IsExcluded('test') | Should -BeTrue
+        $config.IsExcluded('fixture') | Should -BeTrue
+        $config.IsExcluded('asset') | Should -BeTrue
+        $config.IsExcluded('function') | Should -BeFalse
+        $config.IsExcluded('function/gate') | Should -BeFalse
     }
 
-    It 'replaces the exclude map when given, and rejects one without a reason or with a bad glob' -Tag 'ADR-REPO-COMMENTS#3' {
-        $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ 'automation/*/gadgets/**' = 'gadgets are generated' } })
-        $config.IsExcluded('automation/Catzc.Widget/gadgets/one.ps1') | Should -BeTrue
-        $config.IsExcluded('automation/Catzc.Widget/tests/Get-Widget.Tests.ps1') | Should -BeFalse
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ '**/gadgets/**' = '' } }) } | Should -Throw '*needs a reason*'
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ '/gadgets' = 'rooted' } }) } | Should -Throw '*not a valid glob*'
+    It 'replaces the exclude map when given, by file kind, and rejects one without a reason or that names no kind' -Tag 'ADR-REPO-COMMENTS#3' {
+        $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ gadget = 'gadgets are generated'; 'widget/cog' = 'cogs are generated' } })
+        $config.IsExcluded('gadget') | Should -BeTrue
+        $config.IsExcluded('gadget/part') | Should -BeTrue
+        $config.IsExcluded('widget/cog') | Should -BeTrue
+        $config.IsExcluded('widget') | Should -BeFalse
+        $config.IsExcluded('widget/spring') | Should -BeFalse
+        $config.IsExcluded('test') | Should -BeFalse
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ gadget = '' } }) } | Should -Throw '*needs a reason*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ '**/gadgets/**' = 'a glob' } }) } | Should -Throw '*is not a file kind*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ Gadget = 'upper case' } }) } | Should -Throw '*is not a file kind*'
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = 'gadgets' }) } | Should -Throw '*exclude must be a map*'
+    }
+
+    It 'excludes nothing for an empty or missing class' {
+        $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
+        $config.IsExcluded('') | Should -BeFalse
+        $config.IsExcluded($null) | Should -BeFalse
     }
 
     It 'maps a file to its comment page: the extension stays, the module folder is kebab-cased' -Tag 'ADR-REPO-COMMENTS#3' {

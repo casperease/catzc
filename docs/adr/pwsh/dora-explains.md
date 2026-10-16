@@ -385,7 +385,7 @@ the ADRs themselves; this file carries only their DORA rationale.
   from eroding as the tree grows.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one walk with one set of rules replaces many
   hand-written loops.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — fast, bounded listings keep the test suite under its time
+- [Test automation](../../references/dora/capabilities.md#test-automation) — fast, bounded listings keep all tests under their time
   roofs.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 

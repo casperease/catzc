@@ -34,6 +34,10 @@ kinds:
       - "**/tests/**/*.go"
   fixture:
     definition: A supporting file of a test that is no test itself, such as sample data.
+    subkinds:
+      asset:
+        definition: A fixture kept verbatim in a test's assets folder, as the input the test reads.
+        files: ["**/tests/**/assets/**"]
     files: ["**/tests/**"]
   type:
     definition: A compiled C# type that a module ships.

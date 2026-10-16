@@ -379,6 +379,7 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       meta block: The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block across files.
+      kind: A kind is the role one file plays; a meta kind is a registry entry that says which derived fact goes into a head.
   meta head:
     key: meta_head
     domain: repository
@@ -401,6 +402,8 @@ concepts:
       meta kind: A meta kind is a registry entry that says which derived fact goes into a head; a kind is the role one file plays.
       file language: A file language is the kind of text a file holds, named by its extension; a kind is what the file is for.
       track: A track is the root folder a file lives in; a kind is the role it plays, wherever it lives.
+      subkind: A subkind is one narrower role under a kind, and a file has at most one; a kind is the role itself.
+      file type: A file type is how a file's name ends; a kind is the role the file plays.
   subkind:
     key: file_subkind
     domain: repository
@@ -409,6 +412,7 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       kind: A kind is the role a file plays; a subkind is one narrower role under it, and a file has at most one.
+      file type: A file type is how a file's name ends; a subkind is a narrower role, whatever the name.
   file type:
     key: file_type
     domain: repository
@@ -418,6 +422,7 @@ concepts:
     contrasts:
       file language: A file language groups the extensions of one kind of text; a file type is the single extension of one file.
       kind: A kind is the role a file plays; a file type is how its name ends.
+      subkind: A subkind is a narrower role, whatever the name; a file type is how a file's name ends.
   module type:
     key: module_type
     domain: repository
@@ -435,7 +440,9 @@ concepts:
     short: The toolset's build, one installable, versioned Catzc package of one named bundle, built from a profile of the exporter registry.
     realized_by: { kind: prose-only }
     contrasts:
-      deployable-unit: A deployable-unit is what ships from the mono-repository, composed from a whole track or part of one; a bundle is one build of the toolset.
+      deployable-unit:
+        A deployable-unit is what ships from the mono-repository, composed from a whole track or part of one; a bundle is one build of the
+        toolset.
   imprint step:
     key: imprint_step
     domain: repository

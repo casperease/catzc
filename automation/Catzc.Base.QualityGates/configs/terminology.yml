@@ -1196,7 +1196,8 @@ terms:
     - term: filetype
       meaning: "coined noun 'filetype' — the head key naming a file's extension, which tells the sorts of file inside one language apart"
     - term: moduletype
-      meaning: "coined noun 'moduletype' — the head key naming the module type of the module a file is placed in (the module-types registry)"
+      meaning:
+        "coined noun 'moduletype' — the head key naming the module type of the module a file is placed in (the module-types registry)"
     - term: foldered
       meaning: "coined adjective 'foldered'"
     - term: globset

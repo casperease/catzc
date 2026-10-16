@@ -7,13 +7,13 @@ catzc:
     filetype: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b505866de60a
+    body_sha: "1ee93ea7b2dd"
 ---
 
 # automation/Catzc.Base.Variants/types/ModulePlace.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
