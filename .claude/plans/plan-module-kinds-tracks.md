@@ -27,7 +27,15 @@ one landing.
   tracks.<t>.engines joins variants.yml and VariantTrack; aspects shrinks. If both plans touch VariantsConfig.cs or VariantTrack.cs,
   this plan owns the file and the config defaults plan edits after it.
 - k8s plan Q1 to Q3, D1, uniqueness per track, namespace deferred: taken as recommended (section 6 of that draft).
-- Module-model Q-A to Q-G: recommendations stand as working decisions; the prepare prompt closes them read-only and drafts the ADR.
+- Module-model Q-A to Q-G decided by the user in the questionnaire round of 2026-10-16 (Q27 to Q33): languages modelled generally and
+  forbidden by the track's declared languages, the GO, PY and BASH ADRs unchanged; engines per track with a per-module override; the
+  resolver is Get-CatzcModule, a new name; LoadedModule is one rule of ADR-AUTO-MODULE; the ADR's domain is automation; layout lives
+  under each language in languages.yml; an unplaced file inside a module folder is a finding.
+- Tracks (Q34, Q35): every vendored file lives in the vendor track, none beside its user; the .claude kits stay inside the holder
+  track, the user not minding modules in vendor folders as long as their front matter is processed and formatted; and a track has one
+  primary language by default, a rule for ADR-DSGN-TRACK.
+- Q36 namespace is planned after kinds land; Q37 the module-model session looks at the three Get-ModuleProtectionIdentity failures
+  first; Q38 layers P1 runs beside the module model, code phases wait.
 
 ## Done, and why: tracks, track types and vendors as ADRs and code (session report of 2026-10-16 15:14, verified in the tree)
 
@@ -62,8 +70,9 @@ one landing.
 - [ ] Run the implement prompt (check: ModuleSystem and Variants tests; the two old getters gone).
 - [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean).
 - [ ] Rerun Test-Links on WorldMapBuilder.cs (check: zero findings there).
-- [ ] User choices: vendored files staying with their users; .claude kits as separate tracks (recorded, left open).
-- [ ] Look at the 3 Get-ModuleProtectionIdentity failures when the module model touches ModuleSystem (check: that test file).
+- [ ] Look at the 3 Get-ModuleProtectionIdentity failures first in the module-model session (check: that test file).
+- [ ] ADR-DSGN-TRACK gains the rule that a track has one primary language by default (check: Test-AdrRegistry, Test-Links).
+- [ ] Namespace follow-up after kinds land (check: a decided section here).
 - [ ] Tell plan-config-defaults and plan-layers-vocabulary-rename-contracts when implemented (their waits_on clears).
 
 ## Refs

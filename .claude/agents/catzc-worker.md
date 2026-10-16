@@ -5,7 +5,7 @@ description: >
   functions, a rename across a named set of files, a doc sweep, or one phase of a plan in `out/plan-*.md`. It edits only the files the brief
   says it owns, verifies every file before the next, never edits a coordinator-owned shared file (it asks for the entry instead), and ends
   with a fixed report. Reach for it whenever work is delegated to a sub-agent and no specialised agent fits. Do NOT use it for draw.io
-  diagrams (`drawio-diagram-waves`, `write-drawio-files`), for publishing review artifacts (`print-artifacts`), for the inspiration module
+  diagrams (`drawio-diagram-waves`, `write-drawio-files`, `drawio-png`), for publishing review artifacts (`print-artifacts`), for the inspiration module
   (`build-inspiration-module`), for auditing what a session cost (`session-cost-audit`), for cleaning the plans (`plan-clear`), for landing
   a continuation paste in the plans (`plan-intake`), for a decision round over the plans (`plan-decide`), or for making tests faster
   (`test-optimization`).

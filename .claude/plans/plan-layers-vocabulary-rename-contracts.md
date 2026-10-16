@@ -35,6 +35,12 @@ public API by naming which of the 439 public functions are contracted. Every lat
 - Q11 bash, python and go stay test-artifact languages; the importer throws NotImplemented for any other configured language.
 - Layer plan Q-L1 to Q-L5 as recommended. Late rename at P6: ci-automation, ci-automation-expected-failures and the globset; the user
   re-points the Azure DevOps and GitHub bindings outside git.
+- Questionnaire round 2026-10-16 (Q22 to Q26, Q38): the user names the quiet window for P4 and runs the move; P8 diagrams are out of
+  this plan (render nothing unasked); the session proposes the command-contract pilot list for approval (the cats entry point's
+  commands the likely answer); the externally bound pipeline names are re-pointed the same day as P6; the planner re-points the
+  prompts' out/ paths; P1 (docs and glossary) runs beside the module model, code phases wait.
+- The cats and catzc names are ruled by a new ADR-CATS (plan-adr-cats); the glossary terms for cats, catzc, pwsh and automation
+  wait for it.
 
 ## Done, and why
 
@@ -70,7 +76,7 @@ public API by naming which of the 439 public functions are contracted. Every lat
 3. P1 doctrine and vocabulary, docs and glossary only.
 4. P2 funnel: one bootstrap constant, about 45 sites onto Get-CatzcModulesRoot and Get-Track, S4 identifiers renamed, guard rule.
 5. P3 docs classified page by page, then stop and report. P4 (the folder move, git mv) waits for the user's explicit go, in a quiet window.
-6. P5, P6, P7 beside P2 and P3 but never inside P4, P8 diagrams only on an explicit go.
+6. P5, P6, P7 beside P2 and P3 but never inside P4. P8 is dropped (Q23).
 
 ## Open steps
 

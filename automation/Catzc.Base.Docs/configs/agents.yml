@@ -39,6 +39,11 @@ agents:
     supported_by: [ADR-DSGN-VISUAL#1, ADR-DSGN-VISUAL#4, ADR-REPO-FOLDERS#5]
     checks: [Test-CheckedInBinaries, Test-Links]
 
+  # Re-renders a given .drawio.png's model to out/drawio and reports raster-versus-model and source-versus-diagram differences.
+  - name: drawio-png
+    supported_by: [ADR-DSGN-VISUAL#4, ADR-REPO-FOLDERS#5]
+    checks: [Test-CheckedInBinaries]
+
   # Changes labels and styles inside existing docs/.assets/ diagrams so they match the decisions they draw.
   - name: write-drawio-files
     supported_by: [ADR-DSGN-VISUAL#4, ADR-REPO-FOLDERS#5]

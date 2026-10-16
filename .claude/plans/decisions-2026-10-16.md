@@ -71,3 +71,15 @@ two to ten words. Results move into the owning plans after the round.
 | Q55 | exclude .unordered rows from ledger   | yes       | ledger shrinks by 274 rows                     | Q09 deletes those plans anyway                             |
 | Q56 | relax ADR-REPO-HELP#3                 | yes       | in-sentence citations allowed; bare lines reported | explored: the sentence says which claim a code backs; the head stays the derived complete set; 0 edits |
 | Q57 | sample-then-stop review               | yes       | about 400 rows reviewed instead of 4,500       | stop when the sample shows the pattern                     |
+| Q58 | TryParse regression test now          | yes       | oversized rule number covered by a test        |                                                            |
+| Q59 | five gates on the usage code now      | yes       | Get-AdrUsage and helpers gate-clean            |                                                            |
+| Q60 | Phase 2 thresholds measured           | yes       | long is what the data says, no fixed count     |                                                            |
+| Q61 | per-engine cache stamps               | yes       | a pin edit reformats one engine, not all       | invalidation test proves each declared input               |
+| Q62 | config conventions test left, report-only | yes   | 0.77 s line stays a report                     |                                                            |
+| Q63 | snapshot test left                    | yes       | 15 s test unchanged; scheduling is the lever   |                                                            |
+| Q64 | slow files after two full runs        | yes       | test-optimization starts on the new balance    |                                                            |
+| Q65 | report-only until under budget        | yes       | EnforceTimings on once the run is under 180 s  |                                                            |
+
+## Folded into the plans
+
+- 2026-10-16: Q01 to Q57 folded (plan-plans-body-sha-landing-zone, plan-config-defaults, plan-layers-vocabulary-rename-contracts, plan-module-kinds-tracks, plan-file-head-immutable-edges-classes, plan-adr-link-cleanup-prose-to-pages, new plan-adr-cats). Q51 checked: the memory note's only "derived" is the English verb, not the old block name; nothing to fix.

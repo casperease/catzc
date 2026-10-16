@@ -19,8 +19,9 @@ every other plan.
 
 ## Needed docs
 
-- ADR-REPO-PLANS, new: one topic per file, head with status, targets, refs; no inline links; 150 lines (a setting); open steps
-  are checkboxes naming their check; present tense; reviewed stamped by the cleaner; no open step means deleted.
+- ADR-REPO-PLANS, new: one topic per file, head with status, value, reviewed, targets; no inline links; a shape rule (head, value,
+  decided, done, open steps; carried text below) in place of a line roof; open steps are checkboxes naming their check; present
+  tense; reviewed stamped by the cleaner; no open step means deleted and one index line kept; plans authored in .claude/plans.
 - Stable locators rule (user, 2026-10-16), for ADR-REPO-PLANS and generalised in the repository domain's naming rules: a file name
   is a stable semantic locator and never encodes an order, rank or priority. Sorting is an overlay, an index or a head key, and the
   delivered default sort is the semantic name order. Reason: a rank prefix forces renames whenever a rank moves, which breaks every
@@ -35,23 +36,36 @@ every other plan.
 - Format-GeneratedFileHead writes body_sha; Test-GeneratedFiles compares head and hash; Get-BodyShaFileMetaFact scoped to the
   generated class; the 264 diagram text files and 2 compiled files gain heads.
 - Import-RepositoryWithHistory: two temporary repositories; log preserved; taken name refused; nothing outside the address touched.
-- Test-Plans gate on this folder; Publish-Plan rejects a draft that breaks a rule; Get-PlanCandidate lists drafts by age.
-- plan-cleaner agent registered in agents.yml and kept by Test-AgentDefinitions.
+- Test-Plans gate on this folder, checking the shape rule and the stable-name rule.
+- The plan-clear agent (exists) registered in agents.yml and kept by Test-AgentDefinitions; its registry entry gains the
+  ADR-REPO-PLANS rule once that exists.
 
 ## Open steps
 
 - [ ] Phase 0 policy: file-meta.yml body-sha selects the generated class (check: Test-FileMeta clean after one Format-FileMeta run).
 - [ ] Binding audit of about 27 .unordered references, read-only (check: list with a keep or go verdict per file).
 - [ ] Phase 1 terms and the import tool (check: its Pester file passes; Test-Glossary clean).
-- [ ] Phase 2 rules, gate, cleaner, promotion (check: Test-Plans passes on this folder).
-- [ ] Triage the 20 plans in .unordered/15-10-2026 and the done drafts in out/ (check: the lists in value-of-plan.md are empty).
+- [ ] Phase 2 rules and gate; the cleaner exists (check: Test-Plans passes on this folder).
+- [ ] Delete the 20 plans in .unordered/15-10-2026, decided Q09; the user runs or approves the deletion (check: the folder is empty).
 - [ ] Retire the old .unordered wording, then update CLAUDE.md (check: Test-Links, Test-Terminology clean).
 
-## Open questions
+## Decided in the questionnaire round of 2026-10-16 (decisions-2026-10-16.md, Q01 to Q12)
 
-1. History move: git subtree add or git filter-repo. The tool's contract does not depend on it.
-2. Does the import take a branch or ref, or always the default branch?
-3. Does the sorting how-to live in docs/how-to beside the other guides?
+- Q01 the history move is decided at the first real import; the tool's contract does not depend on it.
+- Q02 Import-RepositoryWithHistory takes an optional -Ref; the default is the source's default branch; explicit wins.
+- Q03 the sorting how-to lives in docs/how-to.
+- Q04 no line roof: a shape rule instead (head, value, decided, done, open steps; carried text allowed below). Test-Plans checks
+  sections, never a line count.
+- Q05 the stable-locators rule is repository-wide: ADR-REPO-PLANS plus a naming rule in the repository domain.
+- Q06 both a Test-Plans gate and a cleaner agent, gate first. The cleaner exists since 2026-10-16 as the plan-clear agent with the
+  plan.shape capability (plan-minimal-robots-agents); the gate is still to build.
+- Q07 plans are authored directly in .claude/plans; Publish-Plan and Get-PlanCandidate are dropped from this plan; out/ holds no drafts.
+- Q08 a done plan is deleted and the index keeps one "deleted, why" line.
+- Q09 the 20 finished plans in .unordered/15-10-2026 are deleted now (a deletion the user runs or approves; git keeps them).
+- Q10 body-sha Phase 0 goes now.
+- Q11 carried drafts stay until their data is in the tree, then the cleaner trims.
+- Q12 continuation prompts stay files beside their plans.
+- Robots: the planner's own method is now the plan-intake and plan-decide agents with plan.intake, plan.decide and plan.value.
 
 ## Refs
 

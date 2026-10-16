@@ -31,7 +31,11 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
 
 ## Open steps
 
-- [ ] Answer: exclude .unordered from the ledger; relax HELP#3; sample-then-stop review instead of 35 chunks.
+- Decided 2026-10-16 (Q55 to Q57): .unordered rows are excluded from the ledger (274 rows; those plans are deleted anyway);
+  ADR-REPO-HELP#3 is relaxed so a citation inside a help sentence is allowed and only a bare citation line is reported (the sentence is
+  where the why lives; the head stays the derived complete set; 0 edits); the review is sample-then-stop.
+- [ ] Amend ADR-REPO-HELP#3 and its gate accordingly (check: Test-Links, Test-AdrRegistry clean; the gate still reports a bare line).
+- [ ] Rebuild the ledger without .unordered rows (check: row count about 4,900).
 - [ ] Add the TryParse regression test (check: its Pester file).
 - [ ] Run the five gates on the usage code (check: each clean).
 - [ ] Step 1.3 apply and 1.4 verify, one slice at a time (check: Test-Links clean).

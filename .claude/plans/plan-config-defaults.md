@@ -3,7 +3,7 @@ plan:
   status: active
   value: high
   reviewed: 2026-10-16
-  waits_on: plan-module-kinds-tracks implemented before Phase 2 (variants.yml and VariantTrack.cs are shared)
+  waits_on: plan-module-kinds-tracks implemented before Phase 1 (VariantsConfig.cs, variants.yml and VariantTrack.cs are shared); plan-adr-cats for the folder names
   targets: [automation/Catzc.Base.Variants, automation/Catzc.Base.Overlay, automation/Catzc.Base.Contracts, automation/Catzc.Base.Config, .catzc, docs/adr/automation]
 ---
 
@@ -20,7 +20,11 @@ ADR-AUTO-DEFAULT#6 already rules the resolution order and says the type declares
 it in five getters, and the shipped variants.yml and the code disagree on have_customers today. A rule the tree breaks is worth
 more than a new rule. It generalises to every typed config in configs.yml.
 
-## Decided as recommended, and why (Q1 to Q7; open for the user to confirm or change)
+## Decided, and why (Q1 to Q7 confirmed by the user in the questionnaire round of 2026-10-16, Q13 to Q21; Q6 reframed)
+
+- Q6 is reframed: .catzc and .cats are not canonical and alias. cats and catzc, their distinction and their cross-purpose use are a
+  core product principle to be ruled by a new ADR-CATS (plan-adr-cats); the overlay and fragment folder names follow from it.
+- Q20 Phase 1 waits for the module model too (shared VariantsConfig.cs); Q21 the assert ladder is a section in ADR-AUTO-FAILFAST.
 
 - Q1 have_customers defaults to false; this repo's fragment sets all. Q2 tracks is required (throws when omitted or empty); aspects
   defaults to a universal catch-all per track. Q3 the shipped variants.yml is deleted; a typed config with no file is built from an
@@ -68,7 +72,7 @@ more than a new rule. It generalises to every typed config in configs.yml.
 
 ## Open steps
 
-- [ ] User: confirm or change Q1 to Q7 (check: this section's heading loses "as recommended").
+- [ ] ADR-CATS names the consumer overlay and this repo's fragment folders (check: plan-adr-cats decided section).
 - [ ] Copy the plan and prompt to the scratchpad, paste prompt-config-defaults-continue.md into a fresh session (check: Phase 1 report).
 - [ ] Phase 1 variants types carry defaults (check: VariantsConfig.Tests and getter tests pass; have_customers agrees).
 - [ ] Phase 2 repo fragment and source-mode overlay, after the module model is implemented (check: overlay root tests pass; shipped file gone).

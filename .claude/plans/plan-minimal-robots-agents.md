@@ -37,10 +37,8 @@ skills: [<capability>, ...]
 - **Tools.** Bash, Read, Glob, Grep, Write. `disallowedTools: Edit` (it writes to `out/` only).
 - **Skills.** drawio.renderer, drawio.look, catzc.run, report.fixed.
 - **Registry.** `supported_by: [ADR-DSGN-VISUAL#4, ADR-REPO-FOLDERS#5]`, `checks: [Test-CheckedInBinaries]`.
-- **Body draft (14 lines).** Job line; 1. resolve each given address against `$env:RepositoryRoot`, stop with a one-line ask if one
-  is missing; 2. read the markdown sources and list the labels they imply; 3. run drawio.renderer on the PNG; 4. read the source
-  PNG and the `out/` PNG and list what differs (missing, extra, mislabelled cells, colour off the dark tokens); 5. compare the labels
-  against step 2; 6. report with the `out/` link. Report line.
+- **Built 2026-10-16** as `.claude/agents/drawio-png.md` (6-step body, 8 body lines), registered, listed in CLAUDE.md, named in
+  catzc-worker's Do NOT clause; gate green. Only drawio.renderer exists of its four skills; the other three wait for Phase 4.
 - **Open.** Does this robot also become the maker inside drawio-diagram-waves (plan-minimal-robots Q5)? Recommended yes.
 
 ## Proposed robot 2: plan-clear

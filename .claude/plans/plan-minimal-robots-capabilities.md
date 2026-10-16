@@ -27,27 +27,37 @@ metadata: { catzc: { model_floor: haiku | sonnet | opus, needs: [<tool>, ...] } 
 The body is the remaining lines: numbered steps, each one action. `model_floor` is the lowest model that performs the steps reliably; the
 gate holds every loading robot at or above it (program rule 2).
 
-## Proposed capability 1: drawio.renderer
+## Proposed capability 1: drawio.renderer (built 2026-10-16)
 
-Given a repository address of a `.drawio.png`, new or existing, runs the cats transformation and tells what the raster hides.
+Given a repository address of a `.drawio.png`, new or existing, runs the cats transformation and tells what the raster hides. Built as
+`.claude/skills/drawio.renderer/SKILL.md` (10 lines, floor haiku, needs uv and pillow) and proven on
+`docs/.assets/commits-quality/commit-lifecycle-states.drawio.png`. Contract settled 2026-10-16 with the user: **fail-forward**. The
+deterministic kit script `.claude/drawio/drawio_forward.py` always delivers a byte copy of the source PNG and a result PNG (the
+re-render, or the source again when no model reads), plus the decoded model and a `render.md` report; `--xml` asserts a given model
+matches the embedded one 100 percent after canonicalisation; `--assert` checks a page (66 lines) of text, line by line, against the
+cell labels. Exit 0 clean, 2 warnings with every artifact delivered, 3 no source. Proven on four runs (clean, planted missing phrase,
+mismatching XML, missing source) with the expected exit each time. AI-bound remainder: none by default; a look at the two PNGs or a
+parameter ("change this colour") only on the user's ask. Findings on the real diagram: `out/drawio/commit-lifecycle-states.compare.md`.
+The file as built:
 
 ```markdown
 ---
 name: drawio.renderer
-description: Re-render the model embedded in a given .drawio.png to out/ and list raster-versus-model differences; for drawio-png.
+description: Fail-forward render of a given .drawio.png, always a source copy and a result PNG in out/drawio, model XML and a page of asserted text checked when given; for drawio-png; input is the PNG's repository path, optional model XML path, optional asserted-text path.
 user-invocable: false
 allowed-tools: Bash, Read
+paths: docs/.assets/**/*.drawio.png, out/drawio/**
 metadata: { catzc: { model_floor: haiku, needs: [uv, pillow] } }
 ---
 
-1. Read the given PNG with the Read tool and note the cells, labels and colours the raster shows.
-2. Background Bash: `timeout 60 uv run --with pillow python .claude/drawio/drawio_png.py <in> out/drawio/<name>.drawio.png`.
-3. Read the out/ PNG; list each difference (missing, extra, mislabelled, mis-coloured cell); end with the out/ path as a link.
+1. Deterministic, background Bash, absolute paths: `timeout 60 uv run --with pillow python <repo>/.claude/drawio/drawio_forward.py <src> <repo>/out/drawio [--xml <model>] [--assert <text.md>]`; exit 0 clean, 2 warnings with every artifact still delivered, 3 no source, 124 the safeguard.
+2. Forward the `src`, `result`, `model`, `report` paths and every `warn` line verbatim; never retry, never edit the source, never judge a warning away.
+3. AI-bound remainder: none by default; only when the user asks for a look, Read the source copy and the result PNG and list what differs, or execute the parameter the user gave ("change this colour") through write-drawio-files.
 ```
 
-That is 10 lines outside the catzc head: 7 of front matter, 3 of body. The Pillow renderer is the kit's own; the draw.io CLI cannot
-rasterise in the agent's Bash context (memory, drawio-diagrams-and-cli), so `needs` names uv and pillow, not drawio. Floor haiku: step 1 is
-vision, which haiku has; step 3 is a diff of two lists. Registry: `supported_by: [ADR-DSGN-VISUAL#4]`, `checks: [Test-CheckedInBinaries]`.
+That is 10 lines outside the catzc head: 8 of front matter, 3 of body. The Pillow renderer is the kit's own; the draw.io CLI cannot
+rasterise in the agent's Bash context (memory, drawio-diagrams-and-cli), so `needs` names uv and pillow, not drawio. Floor haiku: steps 1
+and 2 are parameter execution and verbatim forwarding. Registry: `supported_by: [ADR-DSGN-VISUAL#4]`, `checks: [Test-CheckedInBinaries]`.
 
 ## Proposed capability 2: plan.shape (built 2026-10-16)
 

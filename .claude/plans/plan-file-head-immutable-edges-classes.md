@@ -34,11 +34,21 @@ and each copy can drift. Below the module model plan because that plan decides w
 
 ## Open steps
 
-- [ ] Decision (user): the contract schema's $comment, generated or hand-written. If generated, the registry first gains the list and
-  fixed-value shape of each key, then the generator (step 6 of the carried draft). Until then the schema stays hand-written and the
-  existing contract test guards its key sets.
-- [ ] Class selectors in file-meta.yml, one kind at a time (check: that kind's processor test; Test-FileMeta clean).
-- [ ] Update the memory note file-head-vocabulary (still says derived).
+- [ ] Class selectors in file-meta.yml, one kind at a time, go now (Q50) (check: that kind's processor test; Test-FileMeta clean).
+- [ ] Write the intended kind overlaps and strengthen FileKindReachability (Q41) (check: a shadowed kind fails the kinds tests).
+- [ ] Add note as a glossary term (Q53) (check: Test-Glossary clean).
+- [ ] Re-read ADR-AUTO-ASSETDEP and confirm or move the asset kind (Q54) (check: the kinds tests).
+- [ ] Naming rule: prose may say PowerShell; identifiers use only pwsh (engine, folder) or powershell (language id) (Q45) (check:
+  Test-Terminology, once the rule has a home).
+- [ ] Read the formatting ADR on automation/.compiled and follow it (Q47) (check: Test-Formatting clean or the ADR amended).
+
+## Decided in the questionnaire round of 2026-10-16 (Q39 to Q54)
+
+- Q39 the contract schema and sample stay hand-written; no generator; the key-set test guards them. Q40 not applicable.
+- Q42 the visibility head key stays. Q43 generated heads stay minimal (path only). Q44 no glossary term for catzc_bundle.
+- Q46 the module-types.yml typo is fixed by the next session that holds the file (user-approved). Q48 owners fix the six comment
+  findings. Q49 in-use and untracked files are out of scope for plans; the untracked page line below is context only.
+- Q51 the planner fixes the memory note. Q52 this stays one plan for the whole head.
 
 ## Done, and why: derived becomes immutable and edges (session report of 2026-10-16 15:03, verified in the tree)
 
