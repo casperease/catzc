@@ -277,6 +277,22 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.LivePatterns() | Should -Be @('assets/**')
         }
 
+        It 'places a file by the root row of its extension or by the row that names its folder, and places none it does not know' -Tag 'ADR-AUTO-MODULE#2' {
+            $config = & $script:one ([ordered]@{ extensions = @('.wdg', '.wdx'); layout = @(
+                        [ordered]@{ folder = '.'; role = 'public-widget'; extensions = @('.wdg') }
+                        [ordered]@{ folder = 'inner'; role = 'private-widget' }
+                    )
+                })
+            $config.PlaceOf('Gadget.wdg').role | Should -Be 'public-widget'
+            $config.PlaceOf('inner/deep/Gadget.txt').role | Should -Be 'private-widget'
+            $config.PlaceOf('assets/a/b.bin').role | Should -Be 'asset'
+            $config.PlaceOf('tests/Gadget.Tests.wdg').live | Should -BeFalse
+            $config.PlaceOf('Gadget.wdx') | Should -BeNullOrEmpty
+            $config.PlaceOf('NOTES') | Should -BeNullOrEmpty
+            $config.PlaceOf('stray/Gadget.wdg') | Should -BeNullOrEmpty
+            $config.PlaceOf('') | Should -BeNullOrEmpty
+        }
+
         It 'throws on a folder named twice, within a language, across languages and against a shared row' -Tag 'ADR-AUTO-MODULE#2' {
             $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @(
                             [ordered]@{ folder = 'inner'; role = 'a' }

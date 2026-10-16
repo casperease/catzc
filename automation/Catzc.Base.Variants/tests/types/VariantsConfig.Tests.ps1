@@ -217,7 +217,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
                         } }) } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*unknown execution engine 'fish'*"
             $err.Exception.Message | Should -BeLike "*duplicate execution engine 'pwsh'*"
-            $err.Exception.Message | Should -BeLike "*module_execution_engines['A'] must name at least one engine*"
+            $err.Exception.Message | Should -Match ([regex]::Escape("module_execution_engines['A'] must name at least one engine"))
             { & $script:make ([ordered]@{ tracks = [ordered]@{
                             widget = [ordered]@{ places = @('widget'); type = 'widget-works'; execution_engines = @('pwsh', 'bash'); module_execution_engines = [ordered]@{ A = @('pwsh', 'bash') } }
                         } }) } | Should -Throw "*repeats the track's engines*"
