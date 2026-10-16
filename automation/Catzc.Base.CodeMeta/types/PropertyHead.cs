@@ -22,13 +22,16 @@ catzc:
 ---
 */
 
-// Reads and writes a JSON file's meta block, kept as the text of one ignored top-level property, as pure text work on strings.
+// Reads and writes a file's meta block, kept as the text of one property, as pure text work on strings. A JSON file keeps it as an ignored
+// top-level member. An XML file whose root is an MSBuild project keeps it as a CDATA property of a labelled first PropertyGroup, because
+// an XML comment cannot hold the `---` fence and a loader may refuse a processing instruction.
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Catzc.Base.MarkdownMeta;
 
 namespace Catzc.Base.CodeMeta;
@@ -68,6 +71,22 @@ public sealed class PropertyHead
         Foreign = foreign;
     }
 
+    // The label of the PropertyGroup that holds an XML project's block.
+    const string GroupLabel = "catzc";
+
+    readonly bool isXml;
+    readonly int regionStart;
+    readonly int regionEnd;
+
+    // An XML project: where the block goes (just after the root's opening tag) and the region the block occupies now, or -1 when it has none.
+    PropertyHead(string property, string text, string newLine, int insertAt, int regionStart, int regionEnd, IReadOnlyList<string> metaBlock, bool foreign)
+        : this(property, text, newLine, new List<Member>(), insertAt, -1, regionStart, metaBlock, foreign)
+    {
+        isXml = true;
+        this.regionStart = regionStart;
+        this.regionEnd = regionEnd;
+    }
+
     // The head of a text that is no JSON object: nothing is found and nothing is ever written.
     static PropertyHead NotAnObject(string property, string text, string newLine) =>
         new PropertyHead(property, text, newLine, new List<Member>(), -1, -1, -1, new string[0], false);
@@ -104,6 +123,9 @@ public sealed class PropertyHead
         string newLine = text.Contains("\r\n") ? "\r\n" : "\n";
         var members = new List<Member>();
         int open = text.StartsWith("﻿", StringComparison.Ordinal) ? 1 : 0;
+        int firstNonSpace = open;
+        while (firstNonSpace < text.Length && char.IsWhiteSpace(text[firstNonSpace])) { firstNonSpace++; }
+        if (firstNonSpace < text.Length && text[firstNonSpace] == '<') { return ParseXml(text, property, newLine, firstNonSpace); }
         open = SkipSpace(text, open);
         if (open >= text.Length || text[open] != '{') { return NotAnObject(property, text, newLine); }
         int position = open + 1;
@@ -149,9 +171,81 @@ public sealed class PropertyHead
         return new PropertyHead(property, text, newLine, members, open, close, headIndex, block, foreign);
     }
 
+    // Finds the block of an XML project: the first PropertyGroup labelled catzc, holding one CDATA property named for the block.
+    static PropertyHead ParseXml(string text, string property, string newLine, int start)
+    {
+        int i = start;
+        while (i < text.Length)
+        {
+            if (char.IsWhiteSpace(text[i])) { i++; continue; }
+            if (string.CompareOrdinal(text, i, "<?", 0, 2) == 0)
+            {
+                int end = text.IndexOf("?>", i + 2, StringComparison.Ordinal);
+                if (end < 0) { return NotAnObject(property, text, newLine); }
+                i = end + 2;
+                continue;
+            }
+            if (string.CompareOrdinal(text, i, "<!--", 0, 4) == 0)
+            {
+                int end = text.IndexOf("-->", i + 4, StringComparison.Ordinal);
+                if (end < 0) { return NotAnObject(property, text, newLine); }
+                i = end + 3;
+                continue;
+            }
+            break;
+        }
+        if (i + 1 >= text.Length || text[i] != '<' || !char.IsLetter(text[i + 1])) { return NotAnObject(property, text, newLine); }
+        char quote = '\0';
+        int tagEnd = -1;
+        for (int j = i + 1; j < text.Length; j++)
+        {
+            char c = text[j];
+            if (quote != '\0') { if (c == quote) { quote = '\0'; } continue; }
+            if (c == '"' || c == '\'') { quote = c; continue; }
+            if (c == '>') { tagEnd = j; break; }
+        }
+        // A root that never closes its opening tag, or closes it itself, has no place for a property group.
+        if (tagEnd < 0 || text[tagEnd - 1] == '/') { return NotAnObject(property, text, newLine); }
+        int insertAt = tagEnd + 1;
+
+        string name = Regex.Escape(property);
+        Match found = Regex.Match(text, "(\\r?\\n[ \\t]*)<PropertyGroup Label=\"" + GroupLabel + "\">\\s*<" + name + "><!\\[CDATA\\[(.*?)\\]\\]></" + name + ">\\s*</PropertyGroup>", RegexOptions.Singleline);
+        IReadOnlyList<string> block = new string[0];
+        bool foreign = false;
+        int regionStart = -1;
+        int regionEnd = -1;
+        if (found.Success)
+        {
+            regionStart = found.Index;
+            regionEnd = found.Index + found.Length;
+            string[] lines = found.Groups[2].Value.Replace("\r\n", "\n").Split('\n');
+            if (lines[0] == MarkdownDocument.MetaKey + ":") { block = lines; }
+            else { foreign = true; }
+        }
+        else if (Regex.IsMatch(text, "<" + name + "[\\s>/]"))
+        {
+            foreign = true;
+        }
+        return new PropertyHead(property, text, newLine, insertAt, regionStart, regionEnd, block, foreign);
+    }
+
+    string WithFactsXml(IDictionary immutable, IDictionary edges)
+    {
+        IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
+        IReadOnlyList<string> block = MarkdownMetaBlock.Render(immutable, edges, config);
+        if (block.Count == 0) { return regionStart >= 0 ? text.Remove(regionStart, regionEnd - regionStart) : text; }
+        string group = newLine + "  <PropertyGroup Label=\"" + GroupLabel + "\">"
+            + newLine + "    <" + Property + "><![CDATA[" + string.Join("\n", block) + "]]></" + Property + ">"
+            + newLine + "  </PropertyGroup>";
+        return regionStart >= 0
+            ? text.Substring(0, regionStart) + group + text.Substring(regionEnd)
+            : text.Substring(0, open) + group + text.Substring(open);
+    }
+
     public string WithFacts(IDictionary immutable, IDictionary edges)
     {
         if (!IsObject || Foreign) { return text; }
+        if (isXml) { return WithFactsXml(immutable, edges); }
         IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
         IReadOnlyList<string> block = MarkdownMetaBlock.Render(immutable, edges, config);
         if (block.Count == 0) { return headIndex >= 0 ? Without(headIndex) : text; }

@@ -48,9 +48,15 @@ authored one. The states only git knows are computed by `Get-RepoStatus` and nev
 4. **ADR-REPO-FILEMETA#7 and the glossary.** Rule 7 lists the head's facts and does not name `repo_status`; add it with `locked`. Add the
    terms to the glossary sources only if a rule bolds them.
 
-## Open questions
+## Decisions
 
-- **Key spelling.** The key is `repo_status` (snake case like `catzc_bundle`), not the `repo-status` first asked for. Confirm.
-- **Position.** The key follows `with_body_sha`, and opens a code head, which has no hash. Putting it above the hash would change
-  ADR-REPO-FILEMETA#7 and #13 and the Markdown block formatter. Confirm.
-- **`ready`.** Treated as tracked, unchanged and no upstream to compare with. Confirm that reading.
+Answered at the user's request; the user can overturn any of them.
+
+- **Key spelling: `repo_status`.** Every sibling key is snake case (`catzc_bundle`, `with_body_sha`, `with_inputs_sha`); only the registry
+  kind id is hyphenated, as every kind id is. One spelling per layer keeps the head readable and the key list in
+  `GeneratedHeadConfig` uniform.
+- **Position: right after the hash stamps.** The stamps open a block so a drift check reads them before the content; `repo_status` is a
+  place fact and belongs with the place facts. It opens a code head, which has no hash. Moving it above the hash would re-stamp the
+  3,792 tracked files that already carry it and rewrite ADR-REPO-FILEMETA#7 and #13.
+- **`ready`: tracked, unchanged, and no upstream to compare with.** With an upstream the answer is `committed` or `pushed`, which say more,
+  so `ready` marks the case git cannot answer. It is computed, never stored.
