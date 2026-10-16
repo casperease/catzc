@@ -25,10 +25,10 @@ catzc:
 `Verification: Declared graph orders and closes; observed graph is checked (source lens, Catzc.Base.ModuleSystem)`
 
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's numbers is reused without a re-grep. Several had
-moved (`Get-ModuleDependencyConfig.ps1:19` is now `:13`, `Get-ModuleTestOrder.ps1:30` is now `:23`, `Get-ModuleProfile.ps1:50` is now `:45`,
-`Copy-Automation.ps1:87` is now `:68`, `Get-FunctionDependency.ps1:68` is now `:63`, `Test-ModuleCycles.ps1:30` is now `:26`).
-`condense-comments` may move them again, so re-grep before landing. Paths are relative to `automation/Catzc.Base.ModuleSystem/` unless they
-start with `automation/` or `docs/`.
+moved (`Get-ModuleDependencyConfig.ps1:19` is now `:13`, `Get-ModuleTestOrder.ps1:30` is now `Get-ModuleOrder.ps1:56`,
+`Get-ModuleProfile.ps1:50` is now `:45`, `Copy-Automation.ps1:87` is now `:68`, `Get-FunctionDependency.ps1:68` is now `:63`,
+`Test-ModuleCycles.ps1:30` is now `:26`). `condense-comments` may move them again, so re-grep before landing. Paths are relative to
+`automation/Catzc.Base.ModuleSystem/` unless they start with `automation/` or `docs/`.
 
 ## Boxes
 
@@ -37,7 +37,7 @@ start with `automation/` or `docs/`.
 | B1  | `dependencies.yml` is the declared graph, `groups:` and `modules:` (file)           | `configs/dependencies.yml:1,4`                                               | confirmed |
 | B2  | `Get-ModuleDependencyConfig` is private and returns the `modules:` section          | `private/Get-ModuleDependencyConfig.ps1:10,13`                               | confirmed |
 | B3  | `Get-ModuleDependencyMap` is private and expands groups to member modules           | `private/Get-ModuleDependencyMap.ps1:14,24-27,55-63`                         | confirmed |
-| B4  | `Get-ModuleTestOrder` is public and topologically sorts the map (Kahn)              | `Get-ModuleTestOrder.ps1:12,23,25-62`                                        | confirmed |
+| B4  | `Get-ModuleOrder` is public and topologically sorts the map (Kahn)                  | `Get-ModuleOrder.ps1:47,56,58-93`                                            | confirmed |
 | B5  | `Get-TestAutomationTestPaths` is private in `Catzc.Base.QualityGates`               | `automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1` | confirmed |
 | B6  | `Get-ModuleDependencyClosure` is private, breadth-first over the map                | `private/Get-ModuleDependencyClosure.ps1:14,21,30-39`                        | confirmed |
 | B7  | `Get-FunctionDependency` is public and parses every `.ps1` into an AST              | `Get-FunctionDependency.ps1:17,63`                                           | confirmed |
@@ -51,8 +51,8 @@ start with `automation/` or `docs/`.
 | --- | --------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------- |
 | E1  | `dependencies.yml` → `Get-ModuleDependencyConfig`               | `private/Get-ModuleDependencyConfig.ps1:13` (`Get-Config -Config dependencies`) | confirmed |
 | E2  | `Get-ModuleDependencyConfig` → `Get-ModuleDependencyMap`        | `private/Get-ModuleDependencyMap.ps1:21`                                        | confirmed |
-| E3  | `Get-ModuleDependencyMap` → `Get-ModuleTestOrder`               | `Get-ModuleTestOrder.ps1:23`                                                    | confirmed |
-| E4  | `Get-ModuleTestOrder` → `Get-TestAutomationTestPaths`           | `automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1:63` | confirmed |
+| E3  | `Get-ModuleDependencyMap` → `Get-ModuleOrder`                   | `Get-ModuleOrder.ps1:56`                                                        | confirmed |
+| E4  | `Get-ModuleOrder` → `Get-TestAutomationTestPaths`               | `automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1:92` | confirmed |
 | E5  | `Get-ModuleDependencyMap` → `Get-ModuleDependencyClosure`       | `private/Get-ModuleDependencyClosure.ps1:21`                                    | confirmed |
 | E6  | `Get-FunctionDependency` → `Get-ModuleDependency`               | `Get-ModuleDependency.ps1:31` (when nothing is piped in)                        | confirmed |
 | E7  | `Get-ModuleDependency` → `Get-ModuleDependencyViolations`       | `private/Get-ModuleDependencyViolations.ps1:19`                                 | confirmed |
@@ -65,7 +65,7 @@ start with `automation/` or `docs/`.
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- | ------------ |
 | C1  | The map adds group-internal layering and per-module allowed deps, a group expanded to members                                              | `private/Get-ModuleDependencyMap.ps1:36-46,48-69`                                                                     | confirmed    |
 | C2  | The map also reads the groups through `Get-ModuleGroupConfig` (cut)                                                                        | `private/Get-ModuleDependencyMap.ps1:20`; `private/Get-ModuleGroupConfig.ps1:14`                                      | confirmed    |
-| C3  | `Get-ModuleTestOrder` throws on a cycle in the declared graph                                                                              | `Get-ModuleTestOrder.ps1:64-67`                                                                                       | confirmed    |
+| C3  | `Get-ModuleOrder` throws on a cycle in the declared graph                                                                                  | `Get-ModuleOrder.ps1:95-98`                                                                                           | confirmed    |
 | C4  | `Get-TestAutomationTestPaths` catches that throw and falls back to ordinal order, verbose only                                             | `automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1:62-70`                                    | confirmed    |
 | C5  | Integrity "fails fast" (ADR-AUTO-DEPM#4); the test-order fallback swallows the declared-graph throw                                        | `docs/adr/automation/controlling-module-dependencies.md:33`; `Get-TestAutomationTestPaths.ps1:65-69`                  | contradicted |
 | C6  | The closure closes the profiles: `Get-ModuleProfile` calls it (cut), and `Copy-Automation` and `Test-InIsolation` call `Get-ModuleProfile` | `Get-ModuleProfile.ps1:45`; `Copy-Automation.ps1:68`; `automation/Catzc.Base.QualityGates/Test-InIsolation.ps1:71,74` | confirmed    |
@@ -91,8 +91,8 @@ validates at load.
 
 ## Drift
 
-- ADR-AUTO-DEPM#4 says integrity "fails fast". `Get-TestAutomationTestPaths.ps1:62-70` catches any `Get-ModuleTestOrder` throw (a
-  declared-graph cycle, or a `dependencies.yml` that fails to load) and continues in ordinal order with only a `Write-Verbose`.
+- ADR-AUTO-DEPM#4 says integrity "fails fast". `Get-TestAutomationTestPaths.ps1:91-99` catches any `Get-ModuleOrder` throw (a declared-graph
+  cycle, or a `dependencies.yml` that fails to load) and continues in ordinal order with only a `Write-Verbose`.
 - ADR-AUTO-DEPM governs the graph, but the drawn code never cites it; its comments cite only the cache, test and Pester rules.
 - The group expansion of the allow-list is written twice: `Get-ModuleDependencyMap.ps1:24-27,55-63` and
   `Get-ModuleDependencyViolations.ps1:24-58`. Not an ADR drift; flagged for the lead.

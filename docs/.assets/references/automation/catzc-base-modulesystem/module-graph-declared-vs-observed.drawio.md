@@ -46,7 +46,7 @@ every function. The observed graph is checked twice: for cycles on its own, and 
 2. **`Get-ModuleDependencyMap`** builds one map, module to the set of modules it is declared to depend on. It adds each group's internal
    layering, then each module's allowed dependencies, expanding a dependency on a group to every member of the group. It also reads the
    groups through `Get-ModuleGroupConfig`, which is cut from the drawing.
-3. **`Get-ModuleTestOrder`** sorts the map topologically, foundation first, with an ordinal tie-break so the order is stable. A cycle in the
+3. **`Get-ModuleOrder`** sorts the map topologically, foundation first, with an ordinal tie-break so the order is stable. A cycle in the
    declared graph throws.
 4. **`Get-TestAutomationTestPaths`**, in `Catzc.Base.QualityGates`, orders the test folders by that sort. When the sort throws, it catches
    the error and falls back to ordinal module order, writing only a verbose line (see the last section).
@@ -67,7 +67,7 @@ every function. The observed graph is checked twice: for cycles on its own, and 
 ## Reading path
 
 Start at `dependencies.yml` in the DECLARED GRAPH band and follow the flow right through `Get-ModuleDependencyConfig` and
-`Get-ModuleDependencyMap` to `Get-ModuleTestOrder`, and on into `Get-TestAutomationTestPaths` inside the `Catzc.Base.QualityGates` frame. A
+`Get-ModuleDependencyMap` to `Get-ModuleOrder`, and on into `Get-TestAutomationTestPaths` inside the `Catzc.Base.QualityGates` frame. A
 second edge drops from the map and runs right to `Get-ModuleDependencyClosure` on the band's lower row. In the OBSERVED GRAPH band, start at
 `Get-FunctionDependency` and follow the flow right to `Get-ModuleDependency`, which feeds `Get-ModuleDependencyViolations` to its right and,
 through a drop below it, the `Test-ModuleCycles` gate. The one edge between the bands leaves `Get-ModuleDependencyConfig`, runs right in the
@@ -80,7 +80,7 @@ gap between the bands and enters `Get-ModuleDependencyViolations` from above.
 | `dependencies.yml`               | file           | DECLARED GRAPH                                  | 1      |
 | `Get-ModuleDependencyConfig`     | private helper | DECLARED GRAPH                                  | —      |
 | `Get-ModuleDependencyMap`        | private helper | DECLARED GRAPH                                  | 2      |
-| `Get-ModuleTestOrder`            | code unit      | DECLARED GRAPH                                  | 3      |
+| `Get-ModuleOrder`                | code unit      | DECLARED GRAPH                                  | 3      |
 | `Get-TestAutomationTestPaths`    | private helper | DECLARED GRAPH, `Catzc.Base.QualityGates` frame | 4      |
 | `Get-ModuleDependencyClosure`    | private helper | DECLARED GRAPH                                  | 5      |
 | `Get-FunctionDependency`         | code unit      | OBSERVED GRAPH                                  | 6      |
@@ -100,8 +100,8 @@ caller's call site.
 | ---------------------------- | -------------------------------- | ----------------------------------------------------------------- |
 | `dependencies.yml`           | `Get-ModuleDependencyConfig`     | `private/Get-ModuleDependencyConfig.ps1` (`Get-Config`)           |
 | `Get-ModuleDependencyConfig` | `Get-ModuleDependencyMap`        | `private/Get-ModuleDependencyMap.ps1`                             |
-| `Get-ModuleDependencyMap`    | `Get-ModuleTestOrder`            | `Get-ModuleTestOrder.ps1`                                         |
-| `Get-ModuleTestOrder`        | `Get-TestAutomationTestPaths`    | `Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1` |
+| `Get-ModuleDependencyMap`    | `Get-ModuleOrder`                | `Get-ModuleOrder.ps1`                                             |
+| `Get-ModuleOrder`            | `Get-TestAutomationTestPaths`    | `Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1` |
 | `Get-ModuleDependencyMap`    | `Get-ModuleDependencyClosure`    | `private/Get-ModuleDependencyClosure.ps1`                         |
 | `Get-FunctionDependency`     | `Get-ModuleDependency`           | `Get-ModuleDependency.ps1`, when nothing is piped in              |
 | `Get-ModuleDependency`       | `Get-ModuleDependencyViolations` | `private/Get-ModuleDependencyViolations.ps1`                      |
@@ -132,9 +132,9 @@ Source-lens slides carry no minimaps.
 ## Where the code and the ADR differ
 
 - **The test-order fallback swallows a fail-fast error.** ADR-AUTO-DEPM#4 says the integrity of the declared graph fails fast.
-  `Get-TestAutomationTestPaths` catches any throw from `Get-ModuleTestOrder`, a cycle or a `dependencies.yml` that does not load, and
-  carries on in ordinal module order with only a verbose line. The ADR's load-time validation should stop a cyclic declaration first; that
-  part is ADR-only on this slide.
+  `Get-TestAutomationTestPaths` catches any throw from `Get-ModuleOrder`, a cycle or a `dependencies.yml` that does not load, and carries on
+  in ordinal module order with only a verbose line. The ADR's load-time validation should stop a cyclic declaration first; that part is
+  ADR-only on this slide.
 - **The drawn code never cites ADR-AUTO-DEPM**, the ADR that governs this graph, so it is missing from the Supports chips.
 - The allow-list's group expansion is written twice, in `Get-ModuleDependencyMap` and in `Get-ModuleDependencyViolations`. That is not an
   ADR drift, but the two must stay in step.
