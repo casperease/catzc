@@ -3,7 +3,7 @@ plan:
   status: open
   value: medium
   reviewed: 2026-10-16
-  blocked_on: Q1, Q2, Q3 and Q5 are unanswered; the code is built on their recommendations until the user answers
+  blocked_on: nothing; Q1-Q5 are answered below, and the open steps are the config move, a green Test-Automation file and the first measured run
   targets:
     [
       automation/Catzc.Base.Timeouts,
@@ -81,9 +81,13 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 
 ## Open questions
 
-- **Q1.** Defaults 1 s and 1 ms: declared once on `TimeoutsConfig` (devbox tight, pipeline may differ, like every limit) or literals in the
-  `param` block? Recommendation: on the config type. Read ADR-AUTO-DEFAULT#6 first. **Built with literals 1 and 1 in the `param` block**
-  (the request's own wording); moving them to `TimeoutsConfig` stays open, and `Assert-Wait.Tests.ps1` pins the 1.001 s total either way.
+- **Q1. Answered 2026-10-17 at the user's request: on the config type.** The defaults 1 s and 1 ms are declared once on `TimeoutsConfig`,
+  as a `wait` map with `seconds` and `millisecs`, one pair and not keyed by environment (a watchpoint is a diagnostic; a pipeline run of
+  one is the rare case). The `param` block reads them from `Get-Config -Config timeouts` and restates no number. Why:
+  [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6) declares a sensible default exactly once, on the
+  setting's config type, and ADR-AUTO-DEFAULT#2 pulls defaults from configuration. Projected outcome: `timeouts.yml` may set `wait`, a
+  fresh checkout behaves as the type says, and `Assert-Wait.Tests.ps1` still pins a 1.001 s total. The literals now in `Assert-Wait.ps1`
+  are replaced in the same change (ADR-PRIN-ONELIVE).
 - **Q2.** Reading of the request: it really waits and measures its own ticks (not a threshold on time since a start mark); `Millisecs` adds
   to `Seconds` (not a tick interval); the closing warning always fires. Recommendation: as drafted.
 - **Q3.** Is "complete startup time" the whole span with Bootstrap included? The writers do not exist before `Import-AllModules`, and a

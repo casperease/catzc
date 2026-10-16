@@ -135,4 +135,52 @@ Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
         $once | Should -BeLike '*"//": "catzc:*'
         $once | Should -BeLike '*"name": "widget" // trailing*'
     }
+
+    Context 'an XML project' {
+        BeforeAll {
+            $script:project = "<!-- widget project -->~<Project Sdk=`"Widget.Sdk`">~~  <PropertyGroup>~    <Gadget>1</Gadget>~  </PropertyGroup>~</Project>~"
+            $script:project = $script:project -replace '~', "`n"
+        }
+
+        It 'imprints a labelled first property group and a second run changes nothing' {
+            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($script:project, 'CatzcMeta').WithFacts($script:facts, $script:none)
+            $once | Should -BeLike '*<Project Sdk="Widget.Sdk">*<PropertyGroup Label="catzc">*<CatzcMeta><![[]CDATA[[]catzc:*immutable:*path: a/b.json*kind: other]]></CatzcMeta>*<Gadget>1</Gadget>*'
+            ([xml] $once).Project.PropertyGroup[0].CatzcMeta | Should -Be "catzc:`n  immutable:`n    path: a/b.json`n    kind: other"
+            [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, 'CatzcMeta').WithFacts($script:facts, $script:none) | Should -BeExactly $once
+        }
+
+        It 'reads back the keys of the block it wrote' {
+            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($script:project, 'CatzcMeta').WithFacts($script:facts, $script:none)
+            $head = [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, 'CatzcMeta')
+            $head.IsObject | Should -BeTrue
+            $head.HasHead | Should -BeTrue
+            $head.Foreign | Should -BeFalse
+            @($head.ImmutableKeys) | Should -Be @('path', 'kind')
+        }
+
+        It 'removes the block when there are no facts and gives the original text back' {
+            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($script:project, 'CatzcMeta').WithFacts($script:facts, $script:none)
+            [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, 'CatzcMeta').WithFacts($script:none, $script:none) | Should -BeExactly $script:project
+        }
+
+        It 'leaves a foreign property of that name alone and says so' {
+            $text = $script:project -replace '<Gadget>1</Gadget>', '<CatzcMeta>mine</CatzcMeta>'
+            $head = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, 'CatzcMeta')
+            $head.Foreign | Should -BeTrue
+            $head.WithFacts($script:facts, $script:none) | Should -BeExactly $text
+        }
+
+        It 'places the block after a prolog and a comment before the root' {
+            $text = "<?xml version=`"1.0`"?>`n" + $script:project
+            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, 'CatzcMeta').WithFacts($script:facts, $script:none)
+            $once | Should -BeLike "<?xml version=`"1.0`"?>*<!-- widget project -->*<Project Sdk=`"Widget.Sdk`">*<PropertyGroup Label=`"catzc`">*"
+            { [xml] $once } | Should -Not -Throw
+        }
+
+        It 'follows the line end of the file' {
+            $text = $script:project -replace "`n", "`r`n"
+            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, 'CatzcMeta').WithFacts($script:facts, $script:none)
+            $once | Should -BeLike "*`r`n  <PropertyGroup Label=`"catzc`">`r`n    <CatzcMeta>*</CatzcMeta>`r`n  </PropertyGroup>*"
+        }
+    }
 }
