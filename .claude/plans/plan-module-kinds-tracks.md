@@ -95,13 +95,13 @@ one landing.
 
 # Plan: Module as the generalized, ADR-backed meta model
 
-Part of [plan-k8s-kinds.md](plan-k8s-kinds.md) (kinds are tracks; `Module` is a kind). That plan said "Module is a kind inside the
+Part of [plan-k8s-kinds.md](plan-module-kinds-tracks.md) (kinds are tracks; `Module` is a kind). That plan said "Module is a kind inside the
 `automation` track". This plan refines it: `Module` is the repository's central concern, so it gets one generic C# definition that every
 track instantiates, and one ADR that backs it. The decisions of the k8s plan (no `modules` track, kind unique per track) still hold.
 
 Nothing here is built yet. Facts below were read from the tree on 2026-10-16; items I did not read are marked **unverified**.
 
-**Sequencing with the rename (decided 2026-10-16, [plan-automation-layers-rename.md](plan-automation-layers-rename.md) Q8):** this plan lands **first**, while
+**Sequencing with the rename (decided 2026-10-16, [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md) Q8):** this plan lands **first**, while
 the track and folder are still called `automation`; the text below keeps that name on purpose. The rename plan then renames the track and folder to `pwsh` in
 its phase P4, so everything this plan builds must resolve the track root through the one resolver (no `'automation'` literal in new code) and name the
 track by its key, never by a path string.
@@ -367,7 +367,7 @@ Goal: the things catzc talks about get the names Kubernetes already gave their c
 `ConfigMap`, …), so a reader who knows k8s reads a catzc head or config without a translation table. Kubernetes is the source of the
 _vocabulary_ only; catzc's own ADRs decide every meaning (CLAUDE.md "Inspiration" rule: an idea to weigh, never an authority).
 
-**Sequencing with the rename (decided 2026-10-16, [plan-automation-layers-rename.md](plan-automation-layers-rename.md)):** the track now called
+**Sequencing with the rename (decided 2026-10-16, [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md)):** the track now called
 `automation` is renamed to `pwsh` (folder, track key, overlay `.catzc/pwsh/`, outputs `out/pwsh/`) after the module-model plan lands. This plan keeps the
 name `automation` in its text; new code and data it adds must take the track key from the registry, not a literal, so the rename stays a data edit.
 
