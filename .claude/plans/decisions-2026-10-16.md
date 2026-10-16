@@ -79,6 +79,26 @@ two to ten words. Results move into the owning plans after the round.
 | Q63 | snapshot test left                    | yes       | 15 s test unchanged; scheduling is the lever   |                                                            |
 | Q64 | slow files after two full runs        | yes       | test-optimization starts on the new balance    |                                                            |
 | Q65 | report-only until under budget        | yes       | EnforceTimings on once the run is under 180 s  |                                                            |
+| Q66 | scoped sha = deployable-module globs  | partly    | commit key reuses the globset patterns         | user: "scoped shas should basically be our deployable module glob patterns we can make config variants for"; the key's scope is a globset, variants configurable |
+| Q67 | declared per resource kind, explicit pins | yes   | one config entry per kind, one default         |                                                            |
+| Q68 | loud fallback on a dirty tree         | yes       | one announced line, never silent               |                                                            |
+| Q69 | own ADR-AUTO-MATERIAL                 | yes       | a new ADR beside ADR-AUTO-CACHE                |                                                            |
+| Q70 | write ADR-AUTO-MATERIAL now           | yes       | ADR, glossary, dora-explains entry, index      |                                                            |
+| Q71 | accept the six out/ areas             | yes       | output-formats.yml gains the areas and numbers |                                                            |
+| Q72 | out/sessions/<session>/               | yes       | session scratch named by session               |                                                            |
+| Q73 | never prune time-safeguard.log        | yes       | the log keeps every denial                     | tuning evidence                                            |
+| Q74 | only Clear-Output prunes              | yes       | the importer never deletes                     |                                                            |
+| Q75 | Sonnet catzc-worker harvests scripts  | yes       | a verdict per unreferenced out/ script         | launched 2026-10-16 in the background; writes out/harvest-verdicts.md |
+| Q76 | delete the 27 .bak files now          | yes       | out/ loses its backups; git has the files      | done 2026-10-16                                            |
+| Q77 | a yes per batch for probe deletions   | yes       | each probe deletion batch is approved          |                                                            |
+| Q78 | verify the step loop, then add        | yes       | comments step on top of the landed loop        |                                                            |
+| Q79 | imprint step with one ADR sentence    | yes       | a step may write the page as a second file     |                                                            |
+| Q80 | pages for ours, .vendor excluded      | yes       | .scriptanalyzer and .internal get comment pages |                                                           |
+| Q81 | loader guard if no bypass             | yes       | deferred load via Import-ModuleFiles           | bypasses become eagerTypes config entries                  |
+| Q82 | manifest committed with the DLL       | yes       | a bundle needs no compile                      |                                                            |
+| Q83 | lazy types Phase 1 now                | yes       | metadata-only verification lands first         | independent of the module model                            |
+| Q84 | next session reruns the level-2 gate  | yes       | tag fixes confirmed in the background          |                                                            |
+| Q85 | delete the bounded plan on green      | yes       | one feature plan gone when its gate is green   |                                                            |
 
 ## Folded into the plans
 

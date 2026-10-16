@@ -17,7 +17,9 @@
 # cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo segoeui segoeuib textbbox
 """Build a .drawio.png from an mxGraphModel XML file, or re-render one from the model it already carries.
 
-usage: uv run --with pillow python drawio_png.py <model.xml | in.drawio.png> <out.drawio.png> [--name "Page-1"]
+usage: uv run --with pillow python drawio_png.py <model.xml | in.drawio.png> <out.drawio.png> [--name "Page-1"] [--page dark|model]
+
+`--page` overrides the `renderer.page` default of drawio.yml beside this script for one run.
 
 The PNG carries the diagram as a draw.io `mxfile` tEXt chunk (compressed the way draw.io writes it), so draw.io opens
 and re-renders it. The raster is a Pillow preview (boxes, text, straight edges): the headless draw.io CLI cannot render
@@ -39,6 +41,23 @@ from urllib.parse import quote, unquote
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
+def kit_defaults():
+    """The kit's sensible defaults from drawio.yml beside this script: a two-level mapping read without a YAML library."""
+    out, section = {}, None
+    for raw in (Path(__file__).with_name("drawio.yml")).read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].rstrip()
+        if not line.strip():
+            continue
+        if not line.startswith(" "):
+            section = line.rstrip(":").strip()
+            out[section] = {}
+        else:
+            key, value = line.strip().split(":", 1)
+            out[section][key.strip()] = value.strip()
+    return out
+
+
+DEFAULTS = kit_defaults()
 BACKGROUND = "#1E2430"  # the dark page every rendered output sits on (.claude/drawio/STYLE.md, dark-theme tokens)
 INK = "#CDD3DC"  # text that sets no fontColor: light grey on the dark page
 LINE = "#AAB4C3"  # an edge or outline that sets no strokeColor: quiet ink
@@ -179,7 +198,10 @@ def decode(chunk):
     return unquote(zlib.decompress(base64.b64decode(inner), -15).decode())
 
 
-def render(root):
+def render(root, page=None):
+    page = page or DEFAULTS["renderer"]["page"]
+    if page not in ("dark", "model"):
+        raise SystemExit(f"page must be dark or model, got {page}")
     cells = {c.get("id"): c for c in root.iter("mxCell")}
 
     def own(c):  # a vertex's geometry relative to its parent, or None for edges and the two root cells
@@ -210,10 +232,14 @@ def render(root):
     miny = min(v[1] for v in geo.values()) - 20
     maxx = max(v[0] + v[2] for v in geo.values()) + 20
     maxy = max(v[1] + v[3] for v in geo.values()) + 20
-    # Every rendered output sits on the dark page, painted first behind everything, so a dark- or light-mode viewer
-    # shows the same page. A model's own background wins only when it is a real colour, not white or the retired light page.
+    # page dark (the drawio.yml default): every rendered output sits on the dark page, painted first behind everything, so a
+    # dark- or light-mode viewer shows the same page, and a model's own background wins only when it is a real colour, not
+    # white or the retired light page. page model: the model's own background as draw.io would paint it, white included.
     model_bg = color(root.get("background"), BACKGROUND)
-    bg = BACKGROUND if model_bg.lower() in ("#ffffff", "#fff", "#e6ecf2") else model_bg
+    if page == "model":
+        bg = model_bg
+    else:
+        bg = BACKGROUND if model_bg.lower() in ("#ffffff", "#fff", "#e6ecf2") else model_bg
     img = Image.new("RGBA", (int(maxx - minx), int(maxy - miny)), bg)  # RGBA so each shadow composites onto what is under it
     d = ImageDraw.Draw(img)
     off = lambda x, y: (x - minx, y - miny)
@@ -304,10 +330,14 @@ def arrow(d, a, b, ink):
 
 def main():
     args = sys.argv[1:]
-    name = "Page-1"
+    name, page = "Page-1", None
     if "--name" in args:
         i = args.index("--name")
         name = args[i + 1]
+        del args[i:i + 2]
+    if "--page" in args:
+        i = args.index("--page")
+        page = args[i + 1]
         del args[i:i + 2]
     src, dst = args
     if src.lower().endswith(".png"):
@@ -325,13 +355,13 @@ def main():
     dup = {i for i in ids if ids.count(i) > 1}
     if dup:
         raise SystemExit(f"duplicate cell ids: {sorted(dup)}")
-    img = render(root).convert("RGB")
+    img = render(root, page).convert("RGB")
     info = PngInfo()
     info.add_text("mxfile", encode(model, name))
     img.save(dst, "PNG", pnginfo=info)
     back = decode(Image.open(dst).text["mxfile"])
     assert back == model, "round-trip mismatch"
-    print(f"ok {dst} {img.size[0]}x{img.size[1]} cells={len(ids)}")
+    print(f"ok {dst} {img.size[0]}x{img.size[1]} cells={len(ids)} page={page or DEFAULTS['renderer']['page']}")
 
 
 if __name__ == "__main__":

@@ -14,21 +14,29 @@
 #     moduletype: settings
 # ---
 
-# cspell:ignore mxfile
+# cspell:ignore mxfile minimaps
 """Fail-forward render of a .drawio.png: always a source copy and a result PNG, warnings forwarded, never a silent stop.
 
-usage: uv run --with pillow python drawio_forward.py <src.drawio.png> <out_dir> [--xml <model.xml | file.drawio>]
-                                                     [--assert <text.md>]
+usage: uv run --with pillow python drawio_forward.py <src.drawio.png> [<out_dir>] [--page dark|model]
+                                                     [--xml <model.xml | file.drawio>] [--assert <text.md>] [--minimaps]
 
-Deterministic. Writes into <out_dir>: <name>.src.drawio.png (a byte copy of the source), <name>.out.drawio.png (the raster
-re-rendered from the embedded model, or the source copy again when no model can be read), <name>.model.xml (the decoded
-model, when one exists) and <name>.render.md (the report). With --xml the given model must match the embedded one
-100 percent after canonicalisation. With --assert every non-empty, non-heading line of the text file (a page, 66 lines)
-must appear in some cell label, whitespace-folded and case-folded. Exit 0: clean. Exit 2: transport or assertion
-warnings, every artifact still delivered. Exit 3: no source file, nothing to forward. Prints one line per artifact
-(`src`, `result`, `model`, `report`), one per warning (`warn`), then `status`.
+Deterministic. <out_dir> defaults to renderer.out and --page to renderer.page of drawio.yml beside this script. Writes
+into <out_dir>: <name>.src.drawio.png (a byte copy of the source), <name>.out.drawio.png (the raster re-rendered from
+the embedded model on the chosen page, or the source copy again when no model can be read), <name>.model.xml (the
+decoded model, when one exists) and <name>.render.md (the report). With --xml the given model must match the embedded
+one 100 percent after canonicalisation. With --assert every non-empty, non-heading line of the text file (a page, 66
+lines) must appear in some cell label, whitespace-folded and case-folded. With --minimaps the slide's three minimaps are
+regenerated from the map processors (minimaps/highlights.ps1, render.py, join.py) into <out_dir>/<name>/, the slide
+list derived from the slide itself: id and stem from the file name, lens from the last `--` segment, ADR codes from the
+sister <name>.drawio.md, the model from <name>.model.xml; the joined slide is <out_dir>/<name>/<name>.drawio.png.
+Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still delivered. Exit 3: no source file,
+nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`, `slide`), one per warning (`warn`),
+then `status`.
 """
+import json
+import re
 import shutil
+import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -36,9 +44,12 @@ from pathlib import Path
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
-from drawio_png import decode, encode, plain, render
+from drawio_png import DEFAULTS, decode, encode, plain, render
 
 PAGE_LINES = 66
+KIT = Path(__file__).resolve().parent
+REPO = KIT.parents[1]
+ADR_CODE = re.compile(r"ADR-[A-Z]+(?:-[A-Z]+)*")
 
 
 def normalise(text):
@@ -73,18 +84,63 @@ def first_difference(a, b):
     return f"lengths differ: {len(a)} vs {len(b)}"
 
 
+def run(cmd, seconds):
+    """One pipeline step; its failure is the caller's warning, with the tail of what it said."""
+    done = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, timeout=seconds)
+    if done.returncode != 0:
+        tail = (done.stderr.strip() or done.stdout.strip()).splitlines()[-3:]
+        raise RuntimeError(f"{Path(cmd[-1] if cmd[0] == 'pwsh' else cmd[2]).name} rc={done.returncode}: {' | '.join(tail)}")
+    return done.stdout.strip()
+
+
+def minimaps(src, name, model_file, out_dir):
+    """Regenerate the slide's three minimaps and the joined slide into out_dir/name; returns the joined slide path."""
+    sister = src.with_name(f"{name}.drawio.md")
+    if not sister.is_file():
+        raise RuntimeError(f"no sister {sister.name} to read the slide's ADR codes from")
+    text = sister.read_text(encoding="utf-8")
+    head = text[3:].split("\n---", 1)[0] if text.startswith("---") else ""
+    cites = head.split("cites:", 1)[1].split("links:", 1)[0] if "cites:" in head else ""
+    adrs = sorted(set(ADR_CODE.findall(cites)))
+    if not adrs:
+        raise RuntimeError(f"{sister.name} cites no ADR code in its head")
+    target = out_dir / name
+    data = target / "minimaps-data"
+    target.mkdir(parents=True, exist_ok=True)
+    slides = target / "slides.json"
+    slide = {"id": name, "stem": name, "lens": name.rsplit("--", 1)[-1], "adrs": adrs, "xml": str(model_file.resolve())}
+    slides.write_text(json.dumps({"slides": [slide]}, indent=1) + "\n", encoding="utf-8")
+    rel = lambda p: str(p.resolve().relative_to(REPO)).replace("\\", "/")
+    run(["pwsh", "-NoProfile", "-File", str(KIT / "minimaps" / "highlights.ps1"), "-Slides", rel(slides), "-Data", rel(data)], 240)
+    run([sys.executable, str(KIT / "minimaps" / "render.py"), "--slides", rel(slides), "--data", rel(data), "--target", rel(target)], 60)
+    run([sys.executable, str(KIT / "minimaps" / "join.py"), "--slides", rel(slides), "--data", rel(data), "--target", rel(target)], 60)
+    joined = target / f"{name}.drawio.png"
+    if not joined.is_file():
+        raise RuntimeError("join.py ended without the joined slide")
+    return joined
+
+
 def main():
     args = sys.argv[1:]
     xml_path = assert_path = root = None
-    if "--xml" in args:
-        i = args.index("--xml")
-        xml_path = Path(args[i + 1])
-        del args[i:i + 2]
-    if "--assert" in args:
-        i = args.index("--assert")
-        assert_path = Path(args[i + 1])
-        del args[i:i + 2]
-    src, out_dir = Path(args[0]), Path(args[1])
+    page, want_minimaps = None, False
+    for flag in ("--xml", "--assert", "--page"):
+        if flag in args:
+            i = args.index(flag)
+            value = args[i + 1]
+            del args[i:i + 2]
+            if flag == "--xml":
+                xml_path = Path(value)
+            elif flag == "--assert":
+                assert_path = Path(value)
+            else:
+                page = value
+    if "--minimaps" in args:
+        args.remove("--minimaps")
+        want_minimaps = True
+    src = Path(args[0])
+    out_dir = Path(args[1]) if len(args) > 1 else REPO / DEFAULTS["renderer"]["out"]
+    page = page or DEFAULTS["renderer"]["page"]
     if not src.is_file():
         print(f"warn E_SOURCE no such file: {src}")
         print("status error")
@@ -97,6 +153,7 @@ def main():
     report = out_dir / f"{name}.render.md"
     warnings = []
     cells = 0
+    joined = None
     shutil.copyfile(src, src_copy)
     print(f"src {src_copy}")
 
@@ -117,7 +174,7 @@ def main():
             dup = sorted({i for i in ids if ids.count(i) > 1})
             if dup:
                 warnings.append(f"W_IDS duplicate cell ids: {dup}")
-            img = render(root).convert("RGB")
+            img = render(root, page).convert("RGB")
             info = PngInfo()
             info.add_text("mxfile", encode(model, name))
             img.save(result, "PNG", pnginfo=info)
@@ -147,7 +204,7 @@ def main():
     if assert_path is not None:
         if not assert_path.is_file():
             warnings.append(f"W_ASSERT no such text file: {assert_path}")
-        elif model is None:
+        elif root is None:
             warnings.append("W_ASSERT a text file was given but the source carries no model to assert against")
         else:
             phrases = [normalise(line) for line in assert_path.read_text(encoding="utf-8").splitlines()]
@@ -155,9 +212,18 @@ def main():
             if len(phrases) > PAGE_LINES:
                 warnings.append(f"W_PAGE {len(phrases)} asserted lines, a page is {PAGE_LINES}; all were checked")
             labels = " | ".join(normalise(plain(c.get("value") or "")) for c in root.iter("mxCell"))
-            missing = [p for p in phrases if p not in labels]
-            for p in missing:
+            for p in [p for p in phrases if p not in labels]:
                 warnings.append(f"W_TEXT asserted text not in any cell label: {p!r}")
+
+    if want_minimaps:
+        if model is None:
+            warnings.append("W_MINIMAPS no model to build the slide from")
+        else:
+            try:
+                joined = minimaps(src, name, model_file, out_dir)
+                print(f"slide {joined}")
+            except Exception as e:
+                warnings.append(f"W_MINIMAPS {e}")
 
     for w in warnings:
         print(f"warn {w}")
@@ -167,8 +233,9 @@ def main():
         "",
         f"- source: `{src}`",
         f"- source copy: `{src_copy}`",
-        f"- result: `{result}`",
+        f"- result: `{result}` (page {page})",
         f"- model: `{model_file}`" if model is not None else "- model: none",
+        f"- slide with minimaps: `{joined}`" if joined is not None else "- slide with minimaps: not requested" if not want_minimaps else "- slide with minimaps: failed, see warnings",
         f"- cells: {cells}",
         f"- status: {status}",
     ] + [f"- warning: {w}" for w in warnings]
