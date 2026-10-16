@@ -38,10 +38,17 @@ public sealed class FileMetaKind
 
     static readonly Regex IdPattern = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$", RegexOptions.Compiled);
     static readonly Regex KeyPattern = new Regex("^[a-z][a-z0-9_]*$", RegexOptions.Compiled);
-    static readonly string[] Allowed = { "direction", "select", "keys", "processor", "target", "settings" };
+    static readonly string[] Allowed = { "direction", "section", "select", "keys", "processor", "target", "settings" };
+
+    // The parts of the meta block an imprint kind writes into: the place facts, or the outgoing edges (ADR-REPO-FILEMETA#13).
+    public const string DefaultSection = "immutable";
+    public static readonly string[] Sections = { "immutable", "edges" };
 
     public string id { get; }
     public FileMetaDirection direction { get; }
+
+    // The part of the block the kind's keys are written under; only an imprint kind has one.
+    public string section { get; }
 
     // The files the kind applies to: one that any entry selects. With no select, every file (FileSelector.Any).
     public IReadOnlyList<FileSelector> select { get; }
@@ -67,6 +74,7 @@ public sealed class FileMetaKind
         var keyList = new List<string> { id.Replace('-', '_') };
         string explicitProcessor = null;
         string targetConfig = null;
+        string sectionName = DefaultSection;
         var settingMap = new Dictionary<string, object>(StringComparer.Ordinal);
 
         if (raw != null)
@@ -89,6 +97,15 @@ public sealed class FileMetaKind
                         "{0}: direction '{1}' is not one of: {2}", where, value, string.Join(", ", Enum.GetNames(typeof(FileMetaDirection))).ToLowerInvariant()));
                 }
                 direction = parsed;
+            }
+            if (Has(raw, "section"))
+            {
+                sectionName = Convert.ToString(raw["section"], CultureInfo.InvariantCulture);
+                if (!Sections.Contains(sectionName))
+                {
+                    throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                        "{0}: section '{1}' is not one of: {2}", where, sectionName, string.Join(", ", Sections)));
+                }
             }
             if (Has(raw, "select"))
             {
@@ -120,12 +137,17 @@ public sealed class FileMetaKind
         {
             throw new ArgumentException(where + ": only a gather kind has a 'target'");
         }
+        if (direction == FileMetaDirection.Gather && sectionName != DefaultSection)
+        {
+            throw new ArgumentException(where + ": only an imprint kind has a 'section'");
+        }
         if (explicitProcessor != null && string.IsNullOrWhiteSpace(explicitProcessor))
         {
             throw new ArgumentException(where + ": processor is empty; omit it to take the function the kind's id names");
         }
 
         select = selectList;
+        section = sectionName;
         keys = keyList;
         target = targetConfig;
         settings = settingMap;

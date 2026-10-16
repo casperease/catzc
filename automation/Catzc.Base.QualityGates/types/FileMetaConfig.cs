@@ -67,7 +67,7 @@ public sealed class FileMetaConfig
             }
         }
 
-        // A derived key belongs to one imprint kind, so two kinds never write the same key.
+        // A key belongs to one imprint kind, so two kinds never write the same key.
         var owner = new Dictionary<string, string>(StringComparer.Ordinal);
         foreach (FileMetaKind kind in list.Where(k => k.direction == FileMetaDirection.Imprint))
         {
@@ -76,7 +76,7 @@ public sealed class FileMetaConfig
                 if (owner.TryGetValue(key, out string first))
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "file-meta config: derived key '{0}' is owned by both '{1}' and '{2}'", key, first, kind.id));
+                        "file-meta config: key '{0}' is owned by both '{1}' and '{2}'", key, first, kind.id));
                 }
                 owner[key] = kind.id;
             }
@@ -92,6 +92,10 @@ public sealed class FileMetaConfig
 
     // The imprint kinds in registry order: the order their facts are written.
     public IReadOnlyList<FileMetaKind> Imprint() => kinds.Where(k => k.direction == FileMetaDirection.Imprint).ToList();
+
+    // The keys the imprint kinds write under one part of the block, `immutable` or `edges`.
+    public IReadOnlyList<string> KeysOf(string section) =>
+        Imprint().Where(k => k.section == section).SelectMany(k => k.keys).ToList();
 
     // The gather kinds that feed one config.
     public IReadOnlyList<FileMetaKind> GatherFor(string config) =>
