@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5dccdb8ff1e9"
     path: docs/adr/pipelines/pipeline-naming-and-placement.md
     folder: docs/adr/pipelines
     name: pipeline-naming-and-placement
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "5dccdb8ff1e9"
+  edges:
     defines:
       - ADR-PIPE-NAME#{1-7}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#35
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test35

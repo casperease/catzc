@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6ae55e8a8db1"
     path: docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleProfile.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: get-module-profile-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6ae55e8a8db1"
 ---
 
 # automation/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1

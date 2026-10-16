@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestRunLockHolder.ps1
     folder: private
     name: get-test-run-lock-holder
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md
   config:
     synopsis: Reads the test-run lock record and describes who holds the working folder.
     description: |-

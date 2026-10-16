@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/Invoke-Pip.ps1
     name: invoke-pip
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Python/tests/Invoke-Pip.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Python/tests/Invoke-Pip.Tests.ps1
   config:
     synopsis: Runs pip through uv (`uv pip`).
     description: |-

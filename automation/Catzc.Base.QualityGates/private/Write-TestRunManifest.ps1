@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestRunManifest.ps1
     folder: private
     name: write-test-run-manifest
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Write-TestRunManifest.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Write-TestRunManifest.Tests.ps1
   config:
     synopsis: Writes a run directory's run.json — the atomic, self-describing record of a Test-Automation run's state.
     description: |-

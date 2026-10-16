@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9744f69b3d1f"
     path: docs/references/infrastructure/templates/expedition/configuration/dev.yml.md
     folder: docs/references/infrastructure/templates/expedition/configuration
     name: dev-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9744f69b3d1f"
 ---
 
 # infrastructure/templates/expedition/configuration/dev.yml

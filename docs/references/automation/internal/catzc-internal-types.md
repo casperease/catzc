@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "81f4203494e3"
     path: docs/references/automation/internal/catzc-internal-types.md
     folder: docs/references/automation/internal
     name: catzc-internal-types
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "81f4203494e3"
+  edges:
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/caching.md

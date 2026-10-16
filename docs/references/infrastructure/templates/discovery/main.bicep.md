@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "239f47e44093"
     path: docs/references/infrastructure/templates/discovery/main.bicep.md
     folder: docs/references/infrastructure/templates/discovery
     name: main-bicep
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "239f47e44093"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-NETWORK#1
 ---
 

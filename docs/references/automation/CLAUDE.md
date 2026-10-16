@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ae7fdacb19ff
     path: docs/references/automation/CLAUDE.md
     folder: docs/references/automation
     name: claude
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: ae7fdacb19ff
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FORMAT#6
     links:
       - ".claude/CLAUDE.md#time-safeguard"

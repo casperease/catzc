@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestOptOutExclusion.ps1
     folder: private
     name: get-test-opt-out-exclusion
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestOptOutExclusion.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestOptOutExclusion.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#31
   config:
     synopsis: Lists the tests a test run's opt-out tag removes from a run, so the exclusion is visible, never silent.

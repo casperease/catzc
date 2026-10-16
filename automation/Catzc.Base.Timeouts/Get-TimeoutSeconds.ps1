@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/Get-TimeoutSeconds.ps1
     name: get-timeout-seconds
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Tests.ps1
+    cites:
       - ADR-PWSH-ASSERT#1
   config:
     synopsis: Returns how many seconds a call may run before its time safeguard stops it.

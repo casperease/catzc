@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dbac6d937338
     path: docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
     folder: docs/references/automation/catzc-azure-devops-buildvalidation/configs
     name: build-validation-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: dbac6d937338
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CUSTOMER#3
       - ADR-FLOW-CD-TYPE#4
 ---

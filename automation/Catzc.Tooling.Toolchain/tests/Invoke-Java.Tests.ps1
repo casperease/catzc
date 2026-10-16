@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.Tests.ps1
     folder: tests
     name: invoke-java-tests

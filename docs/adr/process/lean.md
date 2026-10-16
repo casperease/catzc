@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0b8c763416c5"
     path: docs/adr/process/lean.md
     folder: docs/adr/process
     name: lean
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "0b8c763416c5"
+  edges:
     defines:
       - ADR-PROC-LEAN#{1-5}
     links:

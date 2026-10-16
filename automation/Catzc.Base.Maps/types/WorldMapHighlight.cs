@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/WorldMapHighlight.cs
     folder: types
     name: world-map-highlight
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md
-      test: automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md
+    test: automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#1
       - ADR-THES-ONETRUTH#3
 ---

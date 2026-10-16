@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d748a59e3c95
     path: docs/references/automation/internal/catzc-internal-loader.md
     folder: docs/references/automation/internal
     name: catzc-internal-loader
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: d748a59e3c95
+  edges:
     links:
       - docs/adr/automation/caching.md
       - docs/adr/flow/pipeline-detection.md

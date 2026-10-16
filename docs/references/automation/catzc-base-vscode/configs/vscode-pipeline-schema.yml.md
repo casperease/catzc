@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "74006b1741eb"
     path: docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md
     folder: docs/references/automation/catzc-base-vscode/configs
     name: vscode-pipeline-schema-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "74006b1741eb"
 ---
 
 # automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml

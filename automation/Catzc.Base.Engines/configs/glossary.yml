@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Engines/configs/glossary.yml
 #     folder: configs
 #     name: glossary
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Engines
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-engines/configs/glossary.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-engines/configs/glossary.yml.md
 # ---
 
 concepts:

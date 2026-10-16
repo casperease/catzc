@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c2da6a7a9882
     path: docs/explanation/configuration/one-reader-one-cache-per-session.md
     folder: docs/explanation/configuration
     name: one-reader-one-cache-per-session
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: c2da6a7a9882
-    adrs:
+  edges:
+    cites:
       - ADR-CONF-LOADING#{1,3}
     links:
       - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.md

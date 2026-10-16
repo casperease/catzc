@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9bf82ab7df6b"
     path: docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-one-reverse-lookup-feeds-every-module-architecture-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "9bf82ab7df6b"
+  edges:
     links:
       - docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
       - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md

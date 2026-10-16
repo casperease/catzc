@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/tests/Remove-RepositorySnapshot.Tests.ps1
     folder: tests
     name: remove-repository-snapshot-tests

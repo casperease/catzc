@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: baabc049a1b4
     path: docs/references/automation/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md
     folder: docs/references/automation/catzc-base-contracts/tests
     name: get-contract-freeze-findings-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: baabc049a1b4
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-REPO-CONTRACT#5
 ---

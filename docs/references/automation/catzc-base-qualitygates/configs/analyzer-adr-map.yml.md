@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "44eac6826be0"
     path: docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: analyzer-adr-map-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "44eac6826be0"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CUSTOMER#3
 ---
 

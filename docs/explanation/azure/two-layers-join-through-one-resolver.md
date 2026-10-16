@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0b8ebf5deb43"
     path: docs/explanation/azure/two-layers-join-through-one-resolver.md
     folder: docs/explanation/azure
     name: two-layers-join-through-one-resolver
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "0b8ebf5deb43"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CUSTOMER#2
       - ADR-AZ-DATAMOD#{1,3,8}
     links:

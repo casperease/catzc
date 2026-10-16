@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "54bd6341713f"
     path: docs/explanation/configuration/an-address-is-a-read-only-walk.md
     folder: docs/explanation/configuration
     name: an-address-is-a-read-only-walk
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "54bd6341713f"
-    adrs:
+  edges:
+    cites:
       - ADR-CONF-ADDRESSING#{1,4,5}
     links:
       - docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.md

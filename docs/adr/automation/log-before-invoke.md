@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2c0702674ab9"
     path: docs/adr/automation/log-before-invoke.md
     folder: docs/adr/automation
     name: log-before-invoke
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "2c0702674ab9"
+  edges:
     defines:
       - ADR-AUTO-PRELOG#{1,2,4,5}
-    adrs:
+    cites:
       - ADR-AUTO-CONSOLE#3
     links:
       - docs/adr/automation/console-output-matters.md#rule-adr-auto-console3

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Format-TierRange.ps1
     folder: private
     name: format-tier-range
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Format-TierRange.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Format-TierRange.Tests.ps1
   config:
     synopsis: 'Formats a tier range the way a test run names it: ''L2'' for one tier, ''L0-L2'' for a range.'
     parameters:

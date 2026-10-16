@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0a096ffd23ff"
     path: docs/references/automation/catzc-base-qualitygates/tests/types/SentenceGuid.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: sentence-guid-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0a096ffd23ff"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/types/ModuleTypesConfig.cs
     folder: types
     name: module-types-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Variants
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-variants/types/ModuleTypesConfig.cs.md
-      test: automation/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-variants/types/ModuleTypesConfig.cs.md
+    test: automation/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#3
 ---
 */

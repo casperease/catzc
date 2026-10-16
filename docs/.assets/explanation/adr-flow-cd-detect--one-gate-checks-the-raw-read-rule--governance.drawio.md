@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4cb4d72923c0"
     path: docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-one-gate-checks-the-raw-read-rule-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "4cb4d72923c0"
+  edges:
     links:
       - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
       - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md

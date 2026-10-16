@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/types/PSTypeAliasAttribute.cs
     folder: types
     name: ps-type-alias-attribute
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Objects
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md
+  edges:
+    page: docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md
 ---
 */
 

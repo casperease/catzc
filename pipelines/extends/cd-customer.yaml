@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: pipelines/extends/cd-customer.yaml
 #     folder: extends
 #     name: cd-customer
@@ -10,8 +10,8 @@
 #     track: pipelines
 #     module: pipelines
 #     moduletype: pipeline
-#     relatives:
-#       page: docs/references/pipelines/extends/cd-customer.yaml.md
+#   edges:
+#     page: docs/references/pipelines/extends/cd-customer.yaml.md
 # ---
 
 parameters:

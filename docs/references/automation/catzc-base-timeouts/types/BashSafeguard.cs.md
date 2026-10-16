@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f61e2a4e3bac
     path: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: bash-safeguard-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f61e2a4e3bac
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-FAILFAST#7
 ---
 

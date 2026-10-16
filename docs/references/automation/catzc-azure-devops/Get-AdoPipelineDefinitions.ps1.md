@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ad282d62831d
     path: docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md
     folder: docs/references/automation/catzc-azure-devops
     name: get-ado-pipeline-definitions-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ad282d62831d
 ---
 
 # automation/Catzc.Azure.DevOps/Get-AdoPipelineDefinitions.ps1

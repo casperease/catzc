@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0934c24a5d75"
     path: docs/adr/flow/pipeline-detection.md
     folder: docs/adr/flow
     name: pipeline-detection
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "0934c24a5d75"
+  edges:
     defines:
       - ADR-FLOW-CD-DETECT#{1-5}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bdee370f2672
     path: docs/explanation/design/a-push-fires-only-touched-pipelines.md
     folder: docs/explanation/design
     name: a-push-fires-only-touched-pipelines
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: bdee370f2672
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{4,5}
     links:
       - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md

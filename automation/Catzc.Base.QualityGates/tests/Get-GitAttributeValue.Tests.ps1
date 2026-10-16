@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Get-GitAttributeValue.Tests.ps1
     folder: tests
     name: get-git-attribute-value-tests

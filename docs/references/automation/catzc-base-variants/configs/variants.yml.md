@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bb802cc658de
     path: docs/references/automation/catzc-base-variants/configs/variants.yml.md
     folder: docs/references/automation/catzc-base-variants/configs
     name: variants-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: bb802cc658de
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{2,6}
 ---
 

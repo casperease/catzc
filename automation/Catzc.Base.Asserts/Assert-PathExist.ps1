@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Assert-PathExist.ps1
     name: assert-path-exist
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md
-      test: automation/Catzc.Base.Asserts/tests/Assert-PathExist.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md
+    test: automation/Catzc.Base.Asserts/tests/Assert-PathExist.Tests.ps1
   config:
     synopsis: Asserts that a filesystem path exists.
     parameters:

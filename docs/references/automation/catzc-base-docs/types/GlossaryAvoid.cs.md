@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "93e86afe9fa8"
     path: docs/references/automation/catzc-base-docs/types/GlossaryAvoid.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-avoid-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "93e86afe9fa8"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-VOCAB#5
 ---

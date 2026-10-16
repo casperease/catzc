@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4ed873adc971"
     path: docs/how-to/automation/manual-test-plan/pipelines-and-globs.md
     folder: docs/how-to/automation/manual-test-plan
     name: pipelines-and-globs
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "4ed873adc971"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#10
     links:
       - docs/how-to/automation/manual-test-plan.md

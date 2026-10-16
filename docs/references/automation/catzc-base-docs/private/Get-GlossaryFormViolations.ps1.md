@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d2cf80b84c52
     path: docs/references/automation/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md
     folder: docs/references/automation/catzc-base-docs/private
     name: get-glossary-form-violations-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d2cf80b84c52
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossaryFormViolations.ps1

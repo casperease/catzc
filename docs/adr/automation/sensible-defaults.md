@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d10e7f217e23
     path: docs/adr/automation/sensible-defaults.md
     folder: docs/adr/automation
     name: sensible-defaults
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d10e7f217e23
+  edges:
     defines:
       - ADR-AUTO-DEFAULT#{1,2,5,6}
-    adrs:
+    cites:
       - ADR-PWSH-PARAM#4
     links:
       - docs/adr/automation/consumer-overlay.md#rule-adr-auto-overlay4

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: infrastructure/templates/foundation/configuration/apex/psub.yml
 #     folder: configuration/apex
 #     name: psub

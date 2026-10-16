@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/types/ConnectionState.cs
     folder: types
     name: connection-state
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.Cli
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md
+  edges:
+    page: docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md
 ---
 */
 

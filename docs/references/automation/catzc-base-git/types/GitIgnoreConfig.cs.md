@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "27428b771eb8"
     path: docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-ignore-config-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "27428b771eb8"
 ---
 
 # automation/Catzc.Base.Git/types/GitIgnoreConfig.cs

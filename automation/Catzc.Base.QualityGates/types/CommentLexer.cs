@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/CommentLexer.cs
     folder: types
     name: comment-lexer
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/CommentLexer.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/CommentLexer.Tests.ps1
+    cites:
       - ADR-REPO-LINK#{1,6}
 ---
 */

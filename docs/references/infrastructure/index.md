@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "61c35cdfedaa"
     path: docs/references/infrastructure/index.md
     folder: docs/references/infrastructure
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "61c35cdfedaa"
+  edges:
     links:
       - docs/adr/azure/
       - docs/references/infrastructure/discovery.md

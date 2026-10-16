@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a1f49dcfadfd
     path: docs/references/automation/catzc-base-qualitygates/types/FormatResult.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: format-result-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a1f49dcfadfd
 ---
 
 # automation/Catzc.Base.QualityGates/types/FormatResult.cs

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "76442505190b"
     path: docs/references/pipelines/cd-apex.yaml.md
     folder: docs/references/pipelines
     name: cd-apex-yaml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "76442505190b"
 ---
 
 # pipelines/cd-apex.yaml

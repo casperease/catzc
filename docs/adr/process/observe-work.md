@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "352ee47a842a"
     path: docs/adr/process/observe-work.md
     folder: docs/adr/process
     name: observe-work
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "352ee47a842a"
+  edges:
     defines:
       - ADR-PROC-OBSERVEWIP#{1-4}
     links:

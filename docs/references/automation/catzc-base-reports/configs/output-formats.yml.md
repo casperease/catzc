@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5dab92069aae"
     path: docs/references/automation/catzc-base-reports/configs/output-formats.yml.md
     folder: docs/references/automation/catzc-base-reports/configs
     name: output-formats-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5dab92069aae"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-OUTDIR#10
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ed6c00018bbd
     path: docs/references/automation/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md
     folder: docs/references/automation/catzc-base-docs/private
     name: get-cats-adr-index-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ed6c00018bbd
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-CACHE#4
 ---
 

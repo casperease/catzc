@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/tests/Import-CSharpTypes.Tests.ps1
     name: import-c-sharp-types-tests
     filetype: ps1
@@ -11,9 +11,9 @@ catzc:
     module: Catzc.Internal.Tests
     moduletype: pwsh-folder
     catzc_bundle: minimal
-    relatives:
-      page: docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md
+    cites:
       - ADR-PWSH-PESTER#9
 ---
 #>

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestTagViolations.ps1
     folder: private
     name: get-test-tag-violations
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
+    cites:
       - ADR-PWSH-ERROR#3
   config:
     synopsis: Lists every Pester test that is missing — or ambiguous on — a required tag axis.

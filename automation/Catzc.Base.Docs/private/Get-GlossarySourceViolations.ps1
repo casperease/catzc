@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1
     folder: private
     name: get-glossary-source-violations
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
+    cites:
       - ADR-REPO-VOCAB
   config:
     synopsis: Lists the glossary facts that span more than one source (check G1, cross-source) — one message per violation.

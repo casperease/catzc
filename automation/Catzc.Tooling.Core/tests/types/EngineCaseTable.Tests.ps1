@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1
     folder: tests/types
     name: engine-case-table-tests

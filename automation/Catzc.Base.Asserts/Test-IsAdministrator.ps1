@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Test-IsAdministrator.ps1
     name: test-is-administrator
     filetype: ps1

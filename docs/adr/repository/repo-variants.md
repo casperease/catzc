@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: aacdd93c1006
     path: docs/adr/repository/repo-variants.md
     folder: docs/adr/repository
     name: repo-variants
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: aacdd93c1006
+  edges:
     defines:
       - ADR-REPO-VARIANT#{1-6}
-    adrs:
+    cites:
       - ADR-AUTO-CACHE#6
       - ADR-CONF-LOADING#1
       - ADR-PWSH-CACHE#1

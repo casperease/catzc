@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Reports/types/OutputRetention.cs
     folder: types
     name: output-retention
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Reports
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      test: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
 ---
 */
 

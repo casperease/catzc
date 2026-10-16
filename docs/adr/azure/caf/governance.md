@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ff679b35f782
     path: docs/adr/azure/caf/governance.md
     folder: docs/adr/azure/caf
     name: governance
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: ff679b35f782
+  edges:
     defines:
       - ADR-AZ-CAFGOV#{1-10}
-    adrs:
+    cites:
       - ADR-AZ-DATAMOD#{9,11}
       - ADR-AZ-LZ#{1,3,4}
       - ADR-AZ-WAFCO#3

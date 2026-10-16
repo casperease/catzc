@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1bd5d0ba42ef"
     path: docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md
     folder: docs/references/automation/catzc-base-typessystem
     name: invoke-build-for-vs-code-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1bd5d0ba42ef"
 ---
 
 # automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1

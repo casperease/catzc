@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-HelpHeadFinding.ps1
     folder: private
     name: get-help-head-finding
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-HelpHeadFinding.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-HelpHeadFinding.Tests.ps1
+    cites:
       - ADR-REPO-HELP#4
   config:
     synopsis: Lists what is wrong with the help a PowerShell file keeps in the config part of its meta head.

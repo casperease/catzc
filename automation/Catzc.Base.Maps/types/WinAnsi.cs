@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/WinAnsi.cs
     folder: types
     name: win-ansi
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md
-      test: automation/Catzc.Base.Maps/tests/types/WinAnsi.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md
+    test: automation/Catzc.Base.Maps/tests/types/WinAnsi.Tests.ps1
 ---
 */
 

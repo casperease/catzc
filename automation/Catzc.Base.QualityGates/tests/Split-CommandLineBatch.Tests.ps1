@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Split-CommandLineBatch.Tests.ps1
     folder: tests
     name: split-command-line-batch-tests

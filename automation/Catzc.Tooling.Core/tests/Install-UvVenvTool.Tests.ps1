@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
     folder: tests
     name: install-uv-venv-tool-tests

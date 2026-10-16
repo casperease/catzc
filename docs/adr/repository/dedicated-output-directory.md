@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f8ee280ed047
     path: docs/adr/repository/dedicated-output-directory.md
     folder: docs/adr/repository
     name: dedicated-output-directory
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: f8ee280ed047
+  edges:
     defines:
       - ADR-REPO-OUTDIR#{1-12}
-    adrs:
+    cites:
       - ADR-AUTO-SPELL#5
     links:
       - docs/adr/automation/platform-bundle.md

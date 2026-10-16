@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/tests/Clear-CompiledType.Tests.ps1
     name: clear-compiled-type-tests
     filetype: ps1

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c74c37e86f75
     path: docs/references/caf/index.md
     folder: docs/references/caf
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: c74c37e86f75
+  edges:
     links:
       - docs/adr/azure/caf/
       - docs/adr/azure/caf/billing-and-tenant.md

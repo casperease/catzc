@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "326fb76ea4e5"
     path: docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-one-rule-per-stage-and-two-gaps-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "326fb76ea4e5"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
       - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md

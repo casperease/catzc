@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b9035752a1df
     path: docs/adr/repository/protected-globs.md
     folder: docs/adr/repository
     name: protected-globs
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b9035752a1df
+  edges:
     defines:
       - ADR-REPO-PROTGLOB#{1-9}
     links:

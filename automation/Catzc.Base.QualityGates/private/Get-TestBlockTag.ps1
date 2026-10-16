@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestBlockTag.ps1
     folder: private
     name: get-test-block-tag
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestBlockTag.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-TestBlockTag.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1
   config:
     synopsis: Resolves the tags of one axis for a Pester test — nearest contributing block wins.
     description: |-

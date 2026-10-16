@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Get-AdrDefinedRule.Tests.ps1
     folder: tests
     name: get-adr-defined-rule-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#5
 ---
 #>

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "94297987628a"
     path: docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-thinplat-what-keeps-the-platform-thin-governance-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "94297987628a"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.chain.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2d21112dd130"
     path: docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-a-bad-coordinate-stops-discovery-operations-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "2d21112dd130"
+  edges:
     links:
       - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
       - docs/explanation/azure/a-bad-coordinate-stops-discovery.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b721d0354e1f
     path: docs/index.md
     folder: docs
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: index
     language: markdown
     track: docs
-    body_sha: b721d0354e1f
+  edges:
     links:
       - docs/adr/automation/avoid-deep-nesting.md
       - docs/adr/automation/caching.md

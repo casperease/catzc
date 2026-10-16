@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Exporter/configs/exporter.yml
 #     folder: configs
 #     name: exporter
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Exporter
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-exporter/configs/exporter.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-exporter/configs/exporter.yml.md
 # ---
 
 direct_install_version: 6.6.666

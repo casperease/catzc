@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d914df52e6db
     path: docs/adr/pwsh/cross-platform-powershell.md
     folder: docs/adr/pwsh
     name: cross-platform-powershell
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d914df52e6db
+  edges:
     defines:
       - ADR-PWSH-XPLAT#{1-4,6-10}
-    adrs:
+    cites:
       - ADR-AUTO-DEPS#5
       - ADR-AUTO-PARITY#1
       - ADR-AUTO-PATH#4

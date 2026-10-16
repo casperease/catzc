@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/route-table.bicep
 //     name: route-table
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: route-table
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/route-table.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/route-table.bicep.md
 // ---
 
 @description('Route table name (1-80 characters, unique within the resource group).')

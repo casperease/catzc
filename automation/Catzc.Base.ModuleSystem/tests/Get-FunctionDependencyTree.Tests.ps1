@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependencyTree.Tests.ps1
     folder: tests
     name: get-function-dependency-tree-tests

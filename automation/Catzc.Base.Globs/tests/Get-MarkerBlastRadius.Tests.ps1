@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1
     folder: tests
     name: get-marker-blast-radius-tests

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "900ad440bd3c"
     path: docs/references/automation/catzc-base-config.md
     folder: docs/references/automation
     name: catzc-base-config
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "900ad440bd3c"
+  edges:
     links:
       - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
       - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.png

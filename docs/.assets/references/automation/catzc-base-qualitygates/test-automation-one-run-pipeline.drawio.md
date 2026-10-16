@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3d8cf505cd81"
     path: docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
     folder: docs/.assets/references/automation/catzc-base-qualitygates
     name: test-automation-one-run-pipeline-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "3d8cf505cd81"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{13,26,30}
       - ADR-REPO-PROTGLOB#9
     links:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/tests/Invoke-GitCommit.Tests.ps1
     folder: tests
     name: invoke-git-commit-tests

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ce56bccfd0a0
     path: docs/adr/repository/api-contracts.md
     folder: docs/adr/repository
     name: api-contracts
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: cdee2333ea01
+  edges:
     defines:
       - ADR-REPO-CONTRACT#{1-10}
-    adrs:
+    cites:
       - ADR-AUTO-BUNDLE#7
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-ONELIVE#7

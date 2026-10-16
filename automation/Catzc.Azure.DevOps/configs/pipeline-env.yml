@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Azure.DevOps/configs/pipeline-env.yml
 #     folder: configs
 #     name: pipeline-env

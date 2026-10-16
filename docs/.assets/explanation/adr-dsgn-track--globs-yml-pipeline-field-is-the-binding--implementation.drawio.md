@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4cf8ead86ed1"
     path: docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-track-globs-yml-pipeline-field-is-the-binding-implementation-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "4cf8ead86ed1"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.chain.md

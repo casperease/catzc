@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/ValueChainReason.cs
     folder: types
     name: value-chain-reason
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/ValueChainReason.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/ValueChainReason.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#{14,15}
 ---

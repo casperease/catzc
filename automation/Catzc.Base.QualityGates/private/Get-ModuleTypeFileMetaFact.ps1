@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-ModuleTypeFileMetaFact.ps1
     folder: private
     name: get-module-type-file-meta-fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#3
   config:
     synopsis: 'The module-type meta kind''s fact: the type of the module a file is placed in, from the module-types registry.'

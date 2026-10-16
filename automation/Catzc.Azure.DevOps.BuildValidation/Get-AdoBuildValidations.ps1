@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
     name: get-ado-build-validations
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Get-AdoBuildValidations.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Get-AdoBuildValidations.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS
       - ADR-FLOW-CD-TYPE#4
   config:

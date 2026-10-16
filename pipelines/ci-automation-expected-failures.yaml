@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: pipelines/ci-automation-expected-failures.yaml
 #     name: ci-automation-expected-failures
 #     filetype: yaml
@@ -9,8 +9,8 @@
 #     track: pipelines
 #     module: pipelines
 #     moduletype: pipeline
-#     relatives:
-#       page: docs/references/pipelines/ci-automation-expected-failures.yaml.md
+#   edges:
+#     page: docs/references/pipelines/ci-automation-expected-failures.yaml.md
 # ---
 
 trigger:

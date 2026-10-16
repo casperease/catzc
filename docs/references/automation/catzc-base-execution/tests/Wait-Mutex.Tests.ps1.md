@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8db48b00db88"
     path: docs/references/automation/catzc-base-execution/tests/Wait-Mutex.Tests.ps1.md
     folder: docs/references/automation/catzc-base-execution/tests
     name: wait-mutex-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8db48b00db88"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#3
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
     folder: tests/types
     name: syntax-search-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Repository
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-repository/tests/types/SyntaxSearch.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-repository/tests/types/SyntaxSearch.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
 ---
 #>

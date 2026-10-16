@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Maps/configs/maps.yml
 #     folder: configs
 #     name: maps
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Maps
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-maps/configs/maps.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-maps/configs/maps.yml.md
 # ---
 
 {}

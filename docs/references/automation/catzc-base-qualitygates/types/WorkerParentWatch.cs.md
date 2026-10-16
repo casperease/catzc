@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "42518164a2ae"
     path: docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: worker-parent-watch-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "42518164a2ae"
 ---
 
 # automation/Catzc.Base.QualityGates/types/WorkerParentWatch.cs

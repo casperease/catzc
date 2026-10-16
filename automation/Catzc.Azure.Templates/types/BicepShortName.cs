@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/types/BicepShortName.cs
     folder: types
     name: bicep-short-name
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Azure.Templates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md
-      test: automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md
+    test: automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#9
       - ADR-AZ-NAMING
 ---

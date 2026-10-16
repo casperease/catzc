@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a0b4332cbb1e
     path: docs/adr/repository/generated-readmes.md
     folder: docs/adr/repository
     name: generated-readmes
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: a0b4332cbb1e
+  edges:
     defines:
       - ADR-REPO-README#{1-7}
-    adrs:
+    cites:
       - ADR-PWSH-MANIFEST#3
       - ADR-REPO-FILEMETA#1
     links:

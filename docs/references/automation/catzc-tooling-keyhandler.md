@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0ac4c274fd5e"
     path: docs/references/automation/catzc-tooling-keyhandler.md
     folder: docs/references/automation
     name: catzc-tooling-keyhandler
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "0ac4c274fd5e"
+  edges:
     links:
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/automation/dry-run.md

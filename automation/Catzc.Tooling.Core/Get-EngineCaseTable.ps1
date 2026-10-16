@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
     name: get-engine-case-table
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE#1
   config:
     synopsis: 'Loads a per-engine fixture table: one row per case and execution engine (ExecutionEngines), validated.'

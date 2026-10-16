@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c3f8c35af49c
     path: docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/private
     name: get-package-tree-plan-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c3f8c35af49c
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ENUM#3
 ---
 

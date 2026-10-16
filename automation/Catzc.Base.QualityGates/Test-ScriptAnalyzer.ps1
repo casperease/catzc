@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1
     name: test-script-analyzer
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
+    cites:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-NOPWD#1
       - ADR-AUTO-TEST#35

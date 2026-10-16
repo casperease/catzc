@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/tests/ConvertFrom-GoTestJson.Tests.ps1
     folder: tests
     name: convert-from-go-test-json-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-languages/tests/ConvertFrom-GoTestJson.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-languages/tests/ConvertFrom-GoTestJson.Tests.ps1.md
 ---
 #>
 

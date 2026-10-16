@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "67d57c0ab117"
     path: docs/adr/repository/uniform-formatting.md
     folder: docs/adr/repository
     name: uniform-formatting
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "67d57c0ab117"
+  edges:
     defines:
       - ADR-REPO-FORMAT#{1-9}
-    adrs:
+    cites:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-CODEMETA#4
       - ADR-REPO-COMMENTS#5

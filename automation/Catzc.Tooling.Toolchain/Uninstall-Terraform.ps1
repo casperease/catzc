@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Uninstall-Terraform.ps1
     name: uninstall-terraform
     filetype: ps1

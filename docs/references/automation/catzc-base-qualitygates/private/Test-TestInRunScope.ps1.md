@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "217da252795b"
     path: docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: test-test-in-run-scope-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "217da252795b"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Test-TestInRunScope.ps1

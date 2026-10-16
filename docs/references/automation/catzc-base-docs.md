@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: eaf719a948db
     path: docs/references/automation/catzc-base-docs.md
     folder: docs/references/automation
     name: catzc-base-docs
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: eaf719a948db
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test35

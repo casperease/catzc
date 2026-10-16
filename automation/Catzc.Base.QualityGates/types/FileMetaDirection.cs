@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/FileMetaDirection.cs
     folder: types
     name: file-meta-direction
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/FileMetaDirection.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/FileMetaDirection.cs.md
+    cites:
       - ADR-REPO-FILEMETA#2
 ---
 */

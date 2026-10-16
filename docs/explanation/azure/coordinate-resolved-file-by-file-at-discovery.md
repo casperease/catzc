@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5676684496e7"
     path: docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
     folder: docs/explanation/azure
     name: coordinate-resolved-file-by-file-at-discovery
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "5676684496e7"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CUSTOMER#{2,6}
       - ADR-AZ-DATAMOD#{2,3,8}
     links:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/private/Get-EngineContract.ps1
     folder: private
     name: get-engine-contract
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md
-      test: automation/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md
+    test: automation/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE
       - ADR-AUTO-GO#3
       - ADR-AUTO-PY#3

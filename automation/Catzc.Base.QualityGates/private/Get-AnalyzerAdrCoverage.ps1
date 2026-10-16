@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-AnalyzerAdrCoverage.ps1
     folder: private
     name: get-analyzer-adr-coverage
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
+    cites:
       - ADR-AUTO-NOPWD#1
   config:
     synopsis: |-

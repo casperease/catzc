@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/types/ToolsConfig.cs
     folder: types
     name: tools-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Execution
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-execution/types/ToolsConfig.cs.md
-      test: automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-execution/types/ToolsConfig.cs.md
+    test: automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
+    cites:
       - ADR-AUTO-DEPS#4
 ---
 */

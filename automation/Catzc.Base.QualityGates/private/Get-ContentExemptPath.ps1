@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
     folder: private
     name: get-content-exempt-path
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-ContentExemptPath.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-ContentExemptPath.Tests.ps1
+    cites:
       - ADR-REPO-CONTRACT#6
       - ADR-REPO-ROOTCFG#1
   config:

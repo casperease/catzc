@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Azure/configs/azure.yml
 #     folder: configs
 #     name: azure
@@ -11,8 +11,8 @@
 #     module: Catzc.Azure
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-azure/configs/azure.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-azure/configs/azure.yml.md
 # ---
 
 # yaml-language-server: $schema=.not-azure-schema.json

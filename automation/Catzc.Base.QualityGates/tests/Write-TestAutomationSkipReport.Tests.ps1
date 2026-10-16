@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationSkipReport.Tests.ps1
     folder: tests
     name: write-test-automation-skip-report-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationSkipReport.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationSkipReport.Tests.ps1.md
 ---
 #>
 

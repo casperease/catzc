@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs
     folder: types
     name: code-link-rewriter
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
+    cites:
       - ADR-REPO-LINK#{3,9}
 ---
 */

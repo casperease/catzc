@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-AzureBicepDeploymentModes.ps1
     name: get-azure-bicep-deployment-modes
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Get-AzureBicepDeploymentModes.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Get-AzureBicepDeploymentModes.Tests.ps1
   config:
     synopsis: Returns the supported bicep deployment modes.
     description: |-

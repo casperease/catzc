@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e7e62cc95be3
     path: docs/adr/pwsh/index.md
     folder: docs/adr/pwsh
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: e7e62cc95be3
+  edges:
     links:
       - docs/adr/automation/execution-engines.md
       - docs/adr/index.md

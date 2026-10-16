@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: aee9df2ea8f2
     path: docs/adr/flow/pipeline-runner-pattern.md
     folder: docs/adr/flow
     name: pipeline-runner-pattern
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: aee9df2ea8f2
+  edges:
     defines:
       - ADR-FLOW-CD-RUNNER#{1-4}
 ---

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d7792a0fc3a0
     path: docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
     folder: docs/how-to/getting-started/automation/BCL
     name: add-a-dotnet-type
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: d7792a0fc3a0
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

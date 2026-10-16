@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3d782a172b8f"
     path: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Register-AdoBuildValidation.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-devops-buildvalidation/tests
     name: register-ado-build-validation-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3d782a172b8f"
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1484afabb639"
     path: docs/references/automation/catzc-base-writers.md
     folder: docs/references/automation
     name: catzc-base-writers
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "1484afabb639"
+  edges:
     links:
       - docs/adr/automation/console-output-matters.md
       - docs/references/automation/catzc-base-asserts.md

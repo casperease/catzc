@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3f52daff5480"
     path: docs/explanation/automation/one-commit-one-immutable-package.md
     folder: docs/explanation/automation
     name: one-commit-one-immutable-package
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "3f52daff5480"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-BUNDLE#{1,5,6}
       - ADR-DSGN-RUNMODE#7
     links:

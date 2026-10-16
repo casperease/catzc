@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1f468b4b3f2b"
     path: docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-two-test-files-check-the-address-rules-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "1f468b4b3f2b"
+  edges:
     links:
       - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
       - docs/explanation/configuration/two-test-files-check-the-address-rules.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dff933650ecc
     path: docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: remove-linux-tool-install-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: dff933650ecc
 ---
 
 # automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "60145a2c5c62"
     path: docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: artifact-ref-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "60145a2c5c62"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PATH#10
 ---
 

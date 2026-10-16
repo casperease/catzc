@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1
     folder: automation/.scriptanalyzer
     name: test-analyzed-file-is-test

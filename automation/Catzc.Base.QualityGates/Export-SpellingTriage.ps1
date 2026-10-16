@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
     name: export-spelling-triage
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
+    cites:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-SPELL#{5-7}
   config:

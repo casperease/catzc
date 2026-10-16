@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "47c2defbc4e4"
     path: docs/references/automation/catzc-base-maps/types/PdfPage.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: pdf-page-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "47c2defbc4e4"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-TYPES#1
 ---
 

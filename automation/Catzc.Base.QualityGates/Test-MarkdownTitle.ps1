@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-MarkdownTitle.ps1
     name: test-markdown-title
     filetype: ps1
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-REPO-FORMAT#{6,7}
   config:

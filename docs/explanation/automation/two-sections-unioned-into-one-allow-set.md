@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: be83854e0e86
     path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
     folder: docs/explanation/automation
     name: two-sections-unioned-into-one-allow-set
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: be83854e0e86
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEPM#{2-4}
     links:
       - docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md

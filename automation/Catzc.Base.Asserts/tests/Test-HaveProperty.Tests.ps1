@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1
     folder: tests
     name: test-have-property-tests

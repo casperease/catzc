@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "826b49ff232f"
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-globs-asks-loader-for-context-and-git-for-diff-architecture-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "826b49ff232f"
+  edges:
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
       - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md

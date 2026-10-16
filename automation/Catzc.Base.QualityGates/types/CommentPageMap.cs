@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/CommentPageMap.cs
     folder: types
     name: comment-page-map
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-README#7

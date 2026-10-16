@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/Get-AdoNaming.ps1
     name: get-ado-naming
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Variants/tests/Get-AdoNaming.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Variants/tests/Get-AdoNaming.Tests.ps1
   config:
     synopsis: Returns the active Azure resource-name component order for this repo ('standard' or 'classic').
     description: |-

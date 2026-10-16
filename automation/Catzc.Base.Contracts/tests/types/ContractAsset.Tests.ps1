@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
     folder: tests/types
     name: contract-asset-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Contracts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md
+    cites:
       - ADR-AUTO-PATH#{1,2}
       - ADR-REPO-CONTRACT#{2,6}
 ---

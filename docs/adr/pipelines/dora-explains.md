@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "25ebce541ef8"
     path: docs/adr/pipelines/dora-explains.md
     folder: docs/adr/pipelines
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "25ebce541ef8"
+  edges:
     links:
       - docs/adr/pipelines/custom-template-discipline.md
       - docs/adr/pipelines/dual-authentication.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c40dc2238d5f
     path: docs/explanation/design/code-wires-only-the-first-rungs.md
     folder: docs/explanation/design
     name: code-wires-only-the-first-rungs
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: c40dc2238d5f
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#8
     links:
       - docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.md

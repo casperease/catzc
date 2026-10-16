@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fa7dfa339f20
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-FixtureIdentityTokens.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-fixture-identity-tokens-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fa7dfa339f20
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

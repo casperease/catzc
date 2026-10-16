@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ec5ab3ee0a40
     path: docs/references/automation/catzc-azure-cli/types/BicepState.cs.md
     folder: docs/references/automation/catzc-azure-cli/types
     name: bicep-state-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ec5ab3ee0a40
 ---
 
 # automation/Catzc.Azure.Cli/types/BicepState.cs

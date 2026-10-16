@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6b5b0f557acf"
     path: docs/adr/automation/devbox-pipeline-parity.md
     folder: docs/adr/automation
     name: devbox-pipeline-parity
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "6b5b0f557acf"
+  edges:
     defines:
       - ADR-AUTO-PARITY#{1-4}
     links:

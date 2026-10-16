@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4a5ce799dba2"
     path: docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: test-analyzer-adr-map-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4a5ce799dba2"
 ---
 
 # automation/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1

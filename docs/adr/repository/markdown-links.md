@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "275963ff5695"
     path: docs/adr/repository/markdown-links.md
     folder: docs/adr/repository
     name: markdown-links
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "275963ff5695"
+  edges:
     defines:
       - ADR-REPO-LINK#{1-8}
-    adrs:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-ERROR#3
     links:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-AgentFrontMatter.ps1
     folder: private
     name: get-agent-front-matter
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-AgentFrontMatter.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-AgentFrontMatter.Tests.ps1
+    cites:
       - ADR-REPO-AGENTS#1
   config:
     synopsis: Parses the YAML front matter of one sub-agent definition file.

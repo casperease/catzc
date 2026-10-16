@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "357b29a93d56"
     path: docs/adr/azure/caf/platform-automation-and-devops.md
     folder: docs/adr/azure/caf
     name: platform-automation-and-devops
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "357b29a93d56"
+  edges:
     defines:
       - ADR-AZ-CAFDEVOPS#{1-37}
-    adrs:
+    cites:
       - ADR-AUTO-DEPS#1
       - ADR-AUTO-TEST#33
       - ADR-AZ-CAFGOV#{1,4,6}

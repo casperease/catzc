@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Assert-NotNull.ps1
     name: assert-not-null
     filetype: ps1

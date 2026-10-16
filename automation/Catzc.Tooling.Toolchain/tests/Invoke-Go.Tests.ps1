@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Go.Tests.ps1
     folder: tests
     name: invoke-go-tests

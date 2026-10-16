@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/FileMetaConfig.cs
     folder: types
     name: file-meta-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
+    cites:
       - ADR-CONF-LOADING#4
       - ADR-REPO-FILEMETA#2
 ---

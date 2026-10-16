@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/private/Format-GitIgnoreSection.ps1
     folder: private
     name: format-git-ignore-section

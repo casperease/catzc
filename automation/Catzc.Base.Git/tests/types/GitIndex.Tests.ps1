@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/tests/types/GitIndex.Tests.ps1
     folder: tests/types
     name: git-index-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Git
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-git/tests/types/GitIndex.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-git/tests/types/GitIndex.Tests.ps1.md
 ---
 #>
 

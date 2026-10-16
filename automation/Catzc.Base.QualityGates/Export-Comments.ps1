@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     name: export-comments
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
+    cites:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
   config:

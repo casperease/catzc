@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/ConvertTo-TestRunManifestEntry.Tests.ps1
     folder: tests
     name: convert-to-test-run-manifest-entry-tests

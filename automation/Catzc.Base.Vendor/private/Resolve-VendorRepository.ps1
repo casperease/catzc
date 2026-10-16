@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1
     folder: private
     name: resolve-vendor-repository
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
   config:
     synopsis: Resolves the PSResourceRepository name the vendor functions download from and validate against.
     description: |-

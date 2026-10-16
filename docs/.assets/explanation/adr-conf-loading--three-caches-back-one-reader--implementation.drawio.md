@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a994f364f2e6
     path: docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-loading-three-caches-back-one-reader-implementation-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: a994f364f2e6
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.chain.md

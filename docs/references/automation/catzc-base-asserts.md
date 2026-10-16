@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a5186cbe36ce
     path: docs/references/automation/catzc-base-asserts.md
     folder: docs/references/automation
     name: catzc-base-asserts
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: a5186cbe36ce
+  edges:
     links:
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/pwsh/error-handling.md

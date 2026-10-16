@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b779f54fa075
     path: docs/adr/research/test-automation.md
     folder: docs/adr/research
     name: test-automation
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b779f54fa075
+  edges:
     defines:
       - ADR-DORA-TESTAUTO#{1-5}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#{8,22,24}
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test1

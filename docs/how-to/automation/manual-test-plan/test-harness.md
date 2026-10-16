@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "405dd3ce034b"
     path: docs/how-to/automation/manual-test-plan/test-harness.md
     folder: docs/how-to/automation/manual-test-plan
     name: test-harness
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "405dd3ce034b"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#25
     links:
       - docs/how-to/automation/manual-test-plan.md

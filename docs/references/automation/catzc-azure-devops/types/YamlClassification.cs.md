@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7d506feeec53"
     path: docs/references/automation/catzc-azure-devops/types/YamlClassification.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: yaml-classification-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "7d506feeec53"
 ---
 
 # automation/Catzc.Azure.DevOps/types/YamlClassification.cs

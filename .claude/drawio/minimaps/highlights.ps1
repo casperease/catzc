@@ -1,12 +1,12 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: ".claude/drawio/minimaps/highlights.ps1"
     folder: drawio/minimaps
     name: highlights
     filetype: ps1
-    kind: script
+    kind: drawio-kit
     language: powershell
     track: ".claude"
     module: ".claude"

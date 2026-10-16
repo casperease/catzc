@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1
     folder: tests
     name: install-az-cli-bicep-tests

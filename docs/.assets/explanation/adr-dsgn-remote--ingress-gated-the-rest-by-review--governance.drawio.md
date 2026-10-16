@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "64e2072921aa"
     path: docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-remote-ingress-gated-the-rest-by-review-governance-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "64e2072921aa"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.md

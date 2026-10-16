@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/Get-GitWorkspace.ps1
     name: get-git-workspace
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Variants/tests/Get-GitWorkspace.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Variants/tests/Get-GitWorkspace.Tests.ps1
   config:
     synopsis: Returns the repo's git workspace mode ('main-direct' or 'main-via-pr').
     description: |-

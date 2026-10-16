@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a2a9963d9de6
     path: docs/references/automation/BCL/types-system.md
     folder: docs/references/automation/BCL
     name: types-system
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: a2a9963d9de6
+  edges:
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/caching.md#rule-adr-auto-cache8

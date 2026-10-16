@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
     folder: assets
     name: markdown-preview-dark

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Split-CachedFile.ps1
     folder: private
     name: split-cached-file
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Split-CachedFile.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Split-CachedFile.Tests.ps1
+    cites:
       - ADR-AUTO-CACHE#10
   config:
     synopsis: Splits a quality check's files into those its result cache already knows are clean and those to check.

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
     folder: tests
     name: uninstall-node-js-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Tooling.Node
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-REMOVE#{4,5}
 ---
 #>

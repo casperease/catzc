@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "55be044ddcaf"
     path: docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Dotnet.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: uninstall-dotnet-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "55be044ddcaf"
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1

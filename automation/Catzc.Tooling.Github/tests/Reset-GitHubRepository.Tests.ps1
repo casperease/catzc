@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
     folder: tests
     name: reset-git-hub-repository-tests

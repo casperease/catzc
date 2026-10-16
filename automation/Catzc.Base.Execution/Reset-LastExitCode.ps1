@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/Reset-LastExitCode.ps1
     name: reset-last-exit-code
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
   config:
     synopsis: Removes the global $LASTEXITCODE variable.
     examples:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d07547ca561f
     path: docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-one-home-one-read-path-one-vocabulary-meta-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: d07547ca561f
+  edges:
     links:
       - docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
       - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md

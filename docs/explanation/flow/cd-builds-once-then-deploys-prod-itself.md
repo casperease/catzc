@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cda664cacc34
     path: docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
     folder: docs/explanation/flow
     name: cd-builds-once-then-deploys-prod-itself
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: cda664cacc34
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD#{3-5,12}
     links:
       - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
     folder: private
     name: convert-to-contract-note-markdown
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
+    cites:
       - ADR-REPO-LINK#{2,3}
   config:
     synopsis: Turns a contract asset's note into the markdown text of its list item on a generated page.

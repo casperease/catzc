@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.QualityGates/configs/guids.yml
 #     folder: configs
 #     name: guids
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.QualityGates
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md
 # ---
 
 # cspell:ignore oilzstgq

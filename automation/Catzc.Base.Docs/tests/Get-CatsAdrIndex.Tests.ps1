@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Get-CatsAdrIndex.Tests.ps1
     folder: tests
     name: get-cats-adr-index-tests

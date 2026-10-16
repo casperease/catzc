@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
     folder: tests/types
     name: file-carriers-config-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-CODEMETA#{1,3}
       - ADR-REPO-FILEMETA#1

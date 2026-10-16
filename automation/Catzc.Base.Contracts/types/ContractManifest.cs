@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/types/ContractManifest.cs
     folder: types
     name: contract-manifest
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Contracts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-contracts/types/ContractManifest.cs.md
-      test: automation/Catzc.Base.Contracts/tests/types/ContractManifest.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-contracts/types/ContractManifest.cs.md
+    test: automation/Catzc.Base.Contracts/tests/types/ContractManifest.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-CONTRACT#7
 ---

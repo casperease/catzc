@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d38451e453fd
     path: docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: comments-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d38451e453fd
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1

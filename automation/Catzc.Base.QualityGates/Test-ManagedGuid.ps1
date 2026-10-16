@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-ManagedGuid.ps1
     name: test-managed-guid
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Test-ManagedGuid.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Test-ManagedGuid.Tests.ps1
   config:
     synopsis: Answers whether a GUID is registered in the managed-GUID registry (configs/guids.yml).
     description: |-

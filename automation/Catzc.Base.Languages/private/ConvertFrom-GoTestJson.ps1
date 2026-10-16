@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/private/ConvertFrom-GoTestJson.ps1
     folder: private
     name: convert-from-go-test-json
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Languages/tests/ConvertFrom-GoTestJson.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Languages/tests/ConvertFrom-GoTestJson.Tests.ps1
   config:
     synopsis: Turns a `go test -json` event stream (the test2json format) into one GoTestResult per top-level Go test.
     description: |-

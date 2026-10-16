@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "90add94c66ec"
     path: docs/references/automation/catzc-base-typessystem/tests/Assert-LoadedTypesCurrent.Tests.ps1.md
     folder: docs/references/automation/catzc-base-typessystem/tests
     name: assert-loaded-types-current-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "90add94c66ec"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{3,6}
       - ADR-AUTO-TYPES#15
 ---

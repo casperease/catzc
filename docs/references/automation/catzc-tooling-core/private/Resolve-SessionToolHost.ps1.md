@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "58feae1a33aa"
     path: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md
     folder: docs/references/automation/catzc-tooling-core/private
     name: resolve-session-tool-host-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "58feae1a33aa"
 ---
 
 # automation/Catzc.Tooling.Core/private/Resolve-SessionToolHost.ps1

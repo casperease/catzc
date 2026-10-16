@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5b821d9f79a8"
     path: docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: new-importer-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5b821d9f79a8"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#11
       - ADR-PWSH-ANNOUNCE#6
 ---

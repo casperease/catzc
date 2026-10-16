@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Exit-TestRunLocation.ps1
     folder: private
     name: exit-test-run-location
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Exit-TestRunLocation.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Exit-TestRunLocation.Tests.ps1
+    cites:
       - ADR-AUTO-CACHE#10
   config:
     synopsis: Releases a test run's location claimed by Enter-TestRunLocation.

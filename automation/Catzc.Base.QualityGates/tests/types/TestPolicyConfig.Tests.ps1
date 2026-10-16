@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/types/TestPolicyConfig.Tests.ps1
     folder: tests/types
     name: test-policy-config-tests

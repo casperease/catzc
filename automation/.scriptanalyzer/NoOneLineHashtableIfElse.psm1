@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/NoOneLineHashtableIfElse.psm1
     folder: automation/.scriptanalyzer
     name: no-one-line-hashtable-if-else

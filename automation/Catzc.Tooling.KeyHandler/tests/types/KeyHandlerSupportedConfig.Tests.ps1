@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
     folder: tests/types
     name: key-handler-supported-config-tests

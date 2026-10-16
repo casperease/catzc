@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5ffe1a51b035"
     path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
     folder: docs/explanation/design
     name: bind-to-one-cli-delegate-the-rest
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "5ffe1a51b035"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-THINPLAT#{1-3,5}
     links:
       - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md

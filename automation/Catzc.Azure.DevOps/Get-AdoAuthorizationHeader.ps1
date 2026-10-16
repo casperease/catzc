@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
     name: get-ado-authorization-header
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md
-      test: automation/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md
+    test: automation/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
   config:
     synopsis: Returns an Authorization header for Azure DevOps REST API calls.
     description: |-

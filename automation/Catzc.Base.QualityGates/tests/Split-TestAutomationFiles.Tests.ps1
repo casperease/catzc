@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
     folder: tests
     name: split-test-automation-files-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#26
 ---
 #>

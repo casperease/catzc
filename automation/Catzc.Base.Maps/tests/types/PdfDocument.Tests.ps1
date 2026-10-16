@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/tests/types/PdfDocument.Tests.ps1
     folder: tests/types
     name: pdf-document-tests

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1bb977ab38e6"
     path: docs/adr/azure/caf/network-connectivity.md
     folder: docs/adr/azure/caf
     name: network-connectivity
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "1bb977ab38e6"
+  edges:
     defines:
       - ADR-AZ-CAFNETCON#{1-62}
-    adrs:
+    cites:
       - ADR-AZ-CAFSEC#{41,42}
       - ADR-AZ-DATAMOD#11
       - ADR-AZ-LZ#{1-6}

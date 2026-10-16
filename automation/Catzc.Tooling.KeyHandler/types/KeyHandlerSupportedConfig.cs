@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
     folder: types
     name: key-handler-supported-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Tooling.KeyHandler
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md
-      test: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md
+    test: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 */

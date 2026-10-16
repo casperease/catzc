@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/tests/Write-CallStack.Tests.ps1
     folder: tests
     name: write-call-stack-tests

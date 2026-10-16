@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "53dfed796091"
     path: docs/explanation/design/every-vendor-call-leaves-through-az.md
     folder: docs/explanation/design
     name: every-vendor-call-leaves-through-az
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "53dfed796091"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CLI#{1-3}
       - ADR-DSGN-THINPLAT#{1-3}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "676371d54e14"
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepResourceGroupName.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: get-bicep-resource-group-name-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "676371d54e14"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{4,19}
 ---
 

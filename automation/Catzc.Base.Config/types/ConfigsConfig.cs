@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/types/ConfigsConfig.cs
     folder: types
     name: configs-config
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Config
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-config/types/ConfigsConfig.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-config/types/ConfigsConfig.cs.md
+    cites:
       - ADR-AUTO-OVERLAY
 ---
 */

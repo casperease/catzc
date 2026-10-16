@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "214e0998f9bf"
     path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
     folder: docs/explanation/flow
     name: one-gate-checks-the-raw-read-rule
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "214e0998f9bf"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PARITY#3
       - ADR-FLOW-CD-DETECT
     links:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
     folder: tests/types
     name: execution-engine-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Engines
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md
+    cites:
       - ADR-AUTO-ENGINE
 ---
 #>

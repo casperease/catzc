@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9230a7e17988"
     path: docs/adr/research/teams-empowered-to-choose-tools.md
     folder: docs/adr/research
     name: teams-empowered-to-choose-tools
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "9230a7e17988"
+  edges:
     defines:
       - ADR-DORA-TOOLCHOICE#{1-4}
     links:

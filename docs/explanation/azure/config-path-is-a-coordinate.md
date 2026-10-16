@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2356399464e7"
     path: docs/explanation/azure/config-path-is-a-coordinate.md
     folder: docs/explanation/azure
     name: config-path-is-a-coordinate
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "2356399464e7"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CUSTOMER#6
       - ADR-AZ-DATAMOD#{1-3}
     links:

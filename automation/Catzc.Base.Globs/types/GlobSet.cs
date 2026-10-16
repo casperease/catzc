@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/types/GlobSet.cs
     folder: types
     name: glob-set
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Globs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-globs/types/GlobSet.cs.md
-      test: automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-globs/types/GlobSet.cs.md
+    test: automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS
       - ADR-REPO-PROTGLOB
 ---

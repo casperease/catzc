@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/GuidsConfig.cs
     folder: types
     name: guids-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/GuidsConfig.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/GuidsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/GuidsConfig.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/GuidsConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 */

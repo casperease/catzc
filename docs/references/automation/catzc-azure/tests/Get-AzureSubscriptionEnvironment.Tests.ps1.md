@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b7cc3a7f4b16
     path: docs/references/automation/catzc-azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1.md
     folder: docs/references/automation/catzc-azure/tests
     name: get-azure-subscription-environment-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b7cc3a7f4b16
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{4,19}
 ---
 

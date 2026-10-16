@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "78ccf8b2ed35"
     path: docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: markdown-link-rebaser-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "78ccf8b2ed35"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-README#6
 ---
 

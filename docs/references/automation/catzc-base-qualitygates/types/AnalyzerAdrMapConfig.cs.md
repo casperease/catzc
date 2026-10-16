@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1de4d513ed81"
     path: docs/references/automation/catzc-base-qualitygates/types/AnalyzerAdrMapConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: analyzer-adr-map-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1de4d513ed81"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
 ---

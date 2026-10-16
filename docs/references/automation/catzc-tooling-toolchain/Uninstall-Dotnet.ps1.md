@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5d8227c874a1"
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: uninstall-dotnet-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5d8227c874a1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#5
 ---

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "09c4f4bb90bf"
     path: docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: time-limit-attribute-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "09c4f4bb90bf"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ASSERT#1
 ---
 

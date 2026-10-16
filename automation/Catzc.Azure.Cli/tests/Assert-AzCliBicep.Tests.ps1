@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/tests/Assert-AzCliBicep.Tests.ps1
     folder: tests
     name: assert-az-cli-bicep-tests

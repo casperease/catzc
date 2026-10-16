@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a8739bf864a8
     path: docs/references/infrastructure/templates/foundation/options.yml.md
     folder: docs/references/infrastructure/templates/foundation
     name: options-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a8739bf864a8
 ---
 
 # infrastructure/templates/foundation/options.yml

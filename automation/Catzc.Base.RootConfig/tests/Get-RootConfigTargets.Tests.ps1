@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.RootConfig/tests/Get-RootConfigTargets.Tests.ps1
     folder: tests
     name: get-root-config-targets-tests

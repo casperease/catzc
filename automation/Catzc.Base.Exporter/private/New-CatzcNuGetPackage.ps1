@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
     folder: private
     name: new-catzc-nu-get-package
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
+    cites:
       - ADR-AUTO-BUNDLE#6
       - ADR-GH-RELEASE
   config:

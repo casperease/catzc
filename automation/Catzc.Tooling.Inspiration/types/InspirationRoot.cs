@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
     folder: types
     name: inspiration-root
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Tooling.Inspiration
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md
-      test: automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md
+    test: automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
+    cites:
       - ADR-AUTO-PATH#{3,6,11}
 ---
 */

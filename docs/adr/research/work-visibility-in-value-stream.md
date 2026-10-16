@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9bffc5515fba"
     path: docs/adr/research/work-visibility-in-value-stream.md
     folder: docs/adr/research
     name: work-visibility-in-value-stream
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "9bffc5515fba"
+  edges:
     defines:
       - ADR-DORA-WORKVIS#{1-5}
     links:

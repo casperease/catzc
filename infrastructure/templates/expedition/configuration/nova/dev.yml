@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: infrastructure/templates/expedition/configuration/nova/dev.yml
 #     folder: configuration/nova
 #     name: dev
@@ -11,8 +11,8 @@
 #     track: infrastructure
 #     module: expedition
 #     moduletype: bicep
-#     relatives:
-#       page: docs/references/infrastructure/templates/expedition/configuration/nova/dev.yml.md
+#   edges:
+#     page: docs/references/infrastructure/templates/expedition/configuration/nova/dev.yml.md
 # ---
 
 ParametersFile:

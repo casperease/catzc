@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a64cb3b45c41
     path: docs/references/automation/internal/Catzc.Internal.Importer.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-importer-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a64cb3b45c41
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#11
       - ADR-DSGN-RUNMODE#5
       - ADR-PWSH-ANNOUNCE#{6,9}

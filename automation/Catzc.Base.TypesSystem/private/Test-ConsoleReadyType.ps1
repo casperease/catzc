@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/private/Test-ConsoleReadyType.ps1
     folder: private
     name: test-console-ready-type
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
   config:
     synopsis: Whether a shipped C# type renders as one readable line in pwsh, rather than as its full name.
     description: |-

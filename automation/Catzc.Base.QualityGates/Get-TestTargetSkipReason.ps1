@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1
     name: get-test-target-skip-reason
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#{8,41}
   config:
     synopsis: Says why an L4 test must skip against its target environment, or nothing when it may run.

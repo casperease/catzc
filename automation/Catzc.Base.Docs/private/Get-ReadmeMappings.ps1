@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
     folder: private
     name: get-readme-mappings
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md
-      test: automation/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md
+    test: automation/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
+    cites:
       - ADR-PWSH-PESTER#9
       - ADR-REPO-README
   config:

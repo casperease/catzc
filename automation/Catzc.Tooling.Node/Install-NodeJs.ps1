@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Node/Install-NodeJs.ps1
     name: install-node-js
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md
   config:
     synopsis: Installs Node.js via the platform package manager.
     description: |-

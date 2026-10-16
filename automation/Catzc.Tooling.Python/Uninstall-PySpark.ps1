@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/Uninstall-PySpark.ps1
     name: uninstall-py-spark
     filetype: ps1

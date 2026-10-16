@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fd534558e021
     path: docs/references/automation/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md
     folder: docs/references/automation/catzc-base-typessystem/tests
     name: clear-module-type-cache-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fd534558e021
 ---
 
 # automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1

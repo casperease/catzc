@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
     name: sync-ado-build-validations
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
   config:
     synopsis: Registers every build-validation branch policy declared in build-validation.yml. Idempotent.
     description: |-

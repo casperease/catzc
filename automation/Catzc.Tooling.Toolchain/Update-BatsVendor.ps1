@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Update-BatsVendor.ps1
     name: update-bats-vendor
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/Update-BatsVendor.ps1.md
-      test: automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/Update-BatsVendor.ps1.md
+    test: automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
+    cites:
       - ADR-AUTO-BASH
   config:
     synopsis: Refreshes the vendored bats-core test runner from the release bash.yml pins.

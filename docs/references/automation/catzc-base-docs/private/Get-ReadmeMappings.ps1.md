@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "26f05cbbd5fc"
     path: docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md
     folder: docs/references/automation/catzc-base-docs/private
     name: get-readme-mappings-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "26f05cbbd5fc"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#9
 ---
 

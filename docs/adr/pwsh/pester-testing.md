@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "97dde284954c"
     path: docs/adr/pwsh/pester-testing.md
     folder: docs/adr/pwsh
     name: pester-testing
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "97dde284954c"
+  edges:
     defines:
       - ADR-PWSH-PESTER#{1-20}
-    adrs:
+    cites:
       - ADR-AUTO-BASH#5
       - ADR-AUTO-GO#7
       - ADR-AUTO-PY#7

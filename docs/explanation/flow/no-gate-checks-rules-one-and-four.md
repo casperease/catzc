@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a85da9fc8bca
     path: docs/explanation/flow/no-gate-checks-rules-one-and-four.md
     folder: docs/explanation/flow
     name: no-gate-checks-rules-one-and-four
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: a85da9fc8bca
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-RUNNER
       - ADR-PIPE-NAME#4
     links:

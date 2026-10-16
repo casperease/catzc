@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "542681e87b34"
     path: docs/explanation/flow/range-per-context-then-diff-and-match.md
     folder: docs/explanation/flow
     name: range-per-context-then-diff-and-match
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "542681e87b34"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-DETECT#1
       - ADR-FLOW-CD-GLOBS#9
     links:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
     folder: private
     name: resolve-bicep-parameter-addresses
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
+    cites:
       - ADR-AZ-DATAMOD#10
       - ADR-CONF-ADDRESSING#{1,3}
   config:

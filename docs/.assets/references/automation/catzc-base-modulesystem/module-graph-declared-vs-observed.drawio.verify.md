@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9443abfdc337"
     path: docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
     folder: docs/.assets/references/automation/catzc-base-modulesystem
     name: module-graph-declared-vs-observed-drawio-verify
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "9443abfdc337"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#2
       - ADR-AUTO-DEPM#4
       - ADR-AUTO-TEST#4

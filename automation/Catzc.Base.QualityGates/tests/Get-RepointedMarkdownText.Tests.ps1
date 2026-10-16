@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Get-RepointedMarkdownText.Tests.ps1
     folder: tests
     name: get-repointed-markdown-text-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FORMAT#7
 ---
 #>

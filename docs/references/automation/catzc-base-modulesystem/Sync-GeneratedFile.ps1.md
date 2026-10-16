@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "407e748d1a27"
     path: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: sync-generated-file-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "407e748d1a27"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#8
 ---
 

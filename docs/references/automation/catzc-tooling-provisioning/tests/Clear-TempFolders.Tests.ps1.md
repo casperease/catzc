@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "273798cd91e7"
     path: docs/references/automation/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: clear-temp-folders-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "273798cd91e7"
 ---
 
 # automation/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1

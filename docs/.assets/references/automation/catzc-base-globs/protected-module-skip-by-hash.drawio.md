@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7c84eae1bb10"
     path: docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
     folder: docs/.assets/references/automation/catzc-base-globs
     name: protected-module-skip-by-hash-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "7c84eae1bb10"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-DETECT#1
       - ADR-FLOW-CD-GLOBS#5
       - ADR-PWSH-CACHE#4

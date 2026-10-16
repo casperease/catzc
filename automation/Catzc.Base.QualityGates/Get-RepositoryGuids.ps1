@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Get-RepositoryGuids.ps1
     name: get-repository-guids
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
   config:
     synopsis: Scans every tracked text file for GUID literals and returns one record per occurrence.
     description: |-

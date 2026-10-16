@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8061b764a8d1"
     path: docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
     folder: docs/.assets/references/automation/catzc-azure-templates
     name: bicep-template-is-a-folder-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "8061b764a8d1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#9
       - ADR-AZ-DATAMOD#10
       - ADR-AZ-NAMING#2

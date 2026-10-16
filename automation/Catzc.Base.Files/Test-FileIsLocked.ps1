@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/Test-FileIsLocked.ps1
     name: test-file-is-locked
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Files/tests/Test-FileIsLocked.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Files/tests/Test-FileIsLocked.Tests.ps1
   config:
     synopsis: Tests whether a file is held open by another handle (locked).
     description: |-

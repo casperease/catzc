@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/types/CarrierKind.cs
     folder: types
     name: carrier-kind
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md
+    cites:
       - ADR-REPO-FILEMETA#1
 ---
 */

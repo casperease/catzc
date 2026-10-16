@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
     folder: tests
     name: get-file-language-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
+    cites:
       - ADR-DSGN-TRACK#{1,3,6}
 ---
 #>

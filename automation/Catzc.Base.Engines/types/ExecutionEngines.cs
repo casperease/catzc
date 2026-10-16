@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Engines/types/ExecutionEngines.cs
     folder: types
     name: execution-engines
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Engines
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-engines/types/ExecutionEngines.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-engines/types/ExecutionEngines.cs.md
+    cites:
       - ADR-AUTO-ENGINE
 ---
 */

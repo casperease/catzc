@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "936cd8ed35f6"
     path: docs/references/automation/catzc-base-maps/configs/maps.yml.md
     folder: docs/references/automation/catzc-base-maps/configs
     name: maps-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "936cd8ed35f6"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-DSGN-TRACK#{7,8,13,16}
       - ADR-REPO-OUTDIR#2

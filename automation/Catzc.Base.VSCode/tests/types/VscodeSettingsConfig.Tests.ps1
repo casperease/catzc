@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/tests/types/VscodeSettingsConfig.Tests.ps1
     folder: tests/types
     name: vscode-settings-config-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.VSCode
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-vscode/tests/types/VscodeSettingsConfig.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-vscode/tests/types/VscodeSettingsConfig.Tests.ps1.md
 ---
 #>
 

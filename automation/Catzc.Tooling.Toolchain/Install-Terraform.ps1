@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Install-Terraform.ps1
     name: install-terraform
     filetype: ps1

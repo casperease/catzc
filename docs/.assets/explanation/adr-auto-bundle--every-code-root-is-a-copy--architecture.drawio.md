@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4e799212fbed"
     path: docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-every-code-root-is-a-copy-architecture-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "4e799212fbed"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.chain.md

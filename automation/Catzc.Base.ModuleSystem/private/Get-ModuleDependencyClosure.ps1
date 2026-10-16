@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyClosure.ps1
     folder: private
     name: get-module-dependency-closure
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyClosure.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyClosure.Tests.ps1
   config:
     synopsis: |-
       Returns the transitive declared-dependency closure of a set of modules — the seeds plus every module they

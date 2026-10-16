@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e9ca16ab63b7
     path: docs/adr/thesis/dora-explains.md
     folder: docs/adr/thesis
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: e9ca16ab63b7
+  edges:
     links:
       - docs/adr/thesis/one-source-of-truth.md
       - docs/references/dora/capabilities.md#streamlining-change-approval

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/Get-AzureCustomers.ps1
     name: get-azure-customers
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1
+    cites:
       - ADR-AZ-CUSTOMER
   config:
     synopsis: Returns the customer keys defined in configs/customer.yml.

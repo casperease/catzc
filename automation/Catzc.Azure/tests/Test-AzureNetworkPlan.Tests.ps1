@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
     folder: tests
     name: test-azure-network-plan-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Azure
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-AZ-NETWORK#{2,4,5}
 ---

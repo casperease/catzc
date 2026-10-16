@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/templates/expedition/main.bicep
 //     name: main
 //     filetype: bicep
@@ -9,8 +9,8 @@
 //     track: infrastructure
 //     module: expedition
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/templates/expedition/main.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/templates/expedition/main.bicep.md
 // ---
 
 @description('Azure region. Defaults to the resource group location; it must match the region of the network.')

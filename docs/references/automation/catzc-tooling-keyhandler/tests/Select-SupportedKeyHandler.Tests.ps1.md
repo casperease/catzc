@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "357bdd78420d"
     path: docs/references/automation/catzc-tooling-keyhandler/tests/Select-SupportedKeyHandler.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-keyhandler/tests
     name: select-supported-key-handler-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "357bdd78420d"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{3,22}
 ---
 

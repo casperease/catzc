@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2049fc81e20a"
     path: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md
     folder: docs/references/automation/catzc-azure-firewall/private
     name: get-firewall-markdown-columns-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2049fc81e20a"
 ---
 
 # automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1

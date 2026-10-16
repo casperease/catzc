@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: afb136929daa
     path: docs/references/automation/catzc-base-qualitygates/types/LinkEngineResult.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: link-engine-result-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: afb136929daa
 ---
 
 # automation/Catzc.Base.QualityGates/types/LinkEngineResult.cs

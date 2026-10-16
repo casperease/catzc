@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "75f2fa107539"
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: install-shellcheck-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "75f2fa107539"
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Install-Shellcheck.Tests.ps1

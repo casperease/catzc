@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
     name: new-vs-code-pipeline-schema
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md
-      test: automation/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md
+    test: automation/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
+    cites:
       - ADR-REPO-ROOTCFG
   config:
     synopsis: |-

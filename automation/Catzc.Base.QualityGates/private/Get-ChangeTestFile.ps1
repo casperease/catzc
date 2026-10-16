@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-ChangeTestFile.ps1
     folder: private
     name: get-change-test-file
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-ChangeTestFile.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-ChangeTestFile.Tests.ps1
+    cites:
       - ADR-PWSH-ONEFUNC
   config:
     synopsis: Maps changed repository paths to the test files that cover them.

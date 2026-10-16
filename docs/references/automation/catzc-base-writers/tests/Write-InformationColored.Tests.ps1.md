@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "713185b89500"
     path: docs/references/automation/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md
     folder: docs/references/automation/catzc-base-writers/tests
     name: write-information-colored-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "713185b89500"
 ---
 
 # automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1

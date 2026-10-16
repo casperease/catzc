@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fe36ba59a54c
     path: docs/references/automation/catzc-azure-cli.md
     folder: docs/references/automation
     name: catzc-azure-cli
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: fe36ba59a54c
+  edges:
     links:
       - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
       - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c11a569779b3
     path: docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: test-python-lint-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c11a569779b3
 ---
 
 # automation/Catzc.Base.QualityGates/Test-PythonLint.ps1

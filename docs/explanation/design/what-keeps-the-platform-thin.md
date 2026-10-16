@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "03b1fe0ec1d7"
     path: docs/explanation/design/what-keeps-the-platform-thin.md
     folder: docs/explanation/design
     name: what-keeps-the-platform-thin
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "03b1fe0ec1d7"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CLI#{1-3}
       - ADR-DSGN-THINPLAT
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c7fbe67c5617
     path: docs/adr/github/github-release.md
     folder: docs/adr/github
     name: github-release
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: c7fbe67c5617
+  edges:
     defines:
       - ADR-GH-RELEASE#{1-5}
     links:

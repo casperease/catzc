@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fd4f00055329
     path: docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
     folder: docs/explanation/automation
     name: a-shell-call-carries-its-limit-or-is-denied
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: fd4f00055329
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-FAILFAST#7
     links:
       - docs/.assets/explanation/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.md

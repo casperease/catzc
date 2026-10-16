@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "770ca6eda0bb"
     path: docs/references/automation/scriptanalyzer/NoRawInformationStream.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-raw-information-stream-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "770ca6eda0bb"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

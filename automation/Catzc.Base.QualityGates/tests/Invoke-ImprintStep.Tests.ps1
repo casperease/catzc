@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
     folder: tests
     name: invoke-imprint-step-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/tests/Invoke-ImprintStep.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/tests/Invoke-ImprintStep.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-REPO-FORMAT#8
 ---
@@ -33,7 +33,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
     BeforeEach {
         $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'docs') -Force
         [System.IO.File]::WriteAllText($script:widget, "# Widget`n")
-        [System.IO.File]::WriteAllText($script:gadget, "---`ncatzc:`n  derived:`n    colour: red`n---`n# Gadget`n")
+        [System.IO.File]::WriteAllText($script:gadget, "---`ncatzc:`n  immutable:`n    colour: red`n---`n# Gadget`n")
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-carriers' } { $script:carriers }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
@@ -48,7 +48,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
             }
             $outcome.Changed | Should -Be @($script:widget)
             $outcome.Unfixable.Count | Should -Be 0
-            [System.IO.File]::ReadAllText($script:widget) | Should -BeLike "---`ncatzc:`n  derived:`n    path: docs/widget.md`n---*# Widget*"
+            [System.IO.File]::ReadAllText($script:widget) | Should -BeLike "---`ncatzc:`n  immutable:`n    path: docs/widget.md`n---*# Widget*"
         }
 
         It 'changes nothing under -DryRun, and still names the file it would change' {
@@ -67,7 +67,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
                 Invoke-ImprintStep -Step file-meta -File $File -RepositoryRoot $Root
             }
             $outcome.Changed.Count | Should -Be 0
-            $outcome.Unfixable[$script:gadget] | Should -BeLike '*a meta key no kind owns (catzc.derived.colour)*'
+            $outcome.Unfixable[$script:gadget] | Should -BeLike '*a meta key no kind owns (catzc.immutable.colour)*'
             [System.IO.File]::ReadAllText($script:gadget) | Should -BeExactly $before
         }
     }
@@ -95,7 +95,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         BeforeEach {
             $script:helpFile = Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'
             $null = New-Item -ItemType Directory -Path (Split-Path $script:helpFile) -Force
-            $head = @('<#', '---', 'catzc:', '  derived:', '    path: automation/Widget/Get-Gadget.ps1', '    kind: automation-function', '  config:', '    synopsis: Gets a gadget.', '    parameters:', '      Widget: The widget.', '    outputs: ''[string] The gadget.''', '---', '#>', '')
+            $head = @('<#', '---', 'catzc:', '  immutable:', '    path: automation/Widget/Get-Gadget.ps1', '    kind: automation-function', '  config:', '    synopsis: Gets a gadget.', '    parameters:', '      Widget: The widget.', '    outputs: ''[string] The gadget.''', '---', '#>', '')
             $function = @('function Get-Gadget {', '    [OutputType([string])]', '    param(', '        [string] $Widget', '    )', '}')
             $script:helpText = (($head + $function) -join "`n") + "`n"
             [System.IO.File]::WriteAllText($script:helpFile, $script:helpText)

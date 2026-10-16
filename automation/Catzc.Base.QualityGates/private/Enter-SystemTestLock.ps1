@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Enter-SystemTestLock.ps1
     folder: private
     name: enter-system-test-lock
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#{32,33}
   config:
     synopsis: Tries, without waiting, to take the user's system-test lock — the right to run L3 on this account.

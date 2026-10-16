@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/assets/PrePost.psm1
     folder: assets
     name: pre-post

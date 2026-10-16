@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0532a409c074"
     path: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: file-meta-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0532a409c074"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-FILEMETA#2
 ---

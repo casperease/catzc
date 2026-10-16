@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6e29c1e735c6"
     path: docs/references/automation/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: timeout-exemptions-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6e29c1e735c6"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TYPES#8

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
     folder: tests/types
     name: folder-walker-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Folders
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST
 ---

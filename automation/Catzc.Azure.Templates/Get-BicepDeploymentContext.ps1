@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
     name: get-bicep-deployment-context
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
+    cites:
       - ADR-AZ-DATAMOD
   config:
     synopsis: Composes the immutable deployment-context object Deploy-Bicep operates on.

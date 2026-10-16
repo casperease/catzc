@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a9bdca79fa5e
     path: docs/explanation/design/deploying-is-not-integrating.md
     folder: docs/explanation/design
     name: deploying-is-not-integrating
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: a9bdca79fa5e
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#{1,9}
       - ADR-DSGN-VISUAL#{4,13}
     links:

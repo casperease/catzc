@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/tests/Test-NotNullOrWhitespace.Tests.ps1
     folder: tests
     name: test-not-null-or-whitespace-tests

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/private/Get-DotnetInstallHolder.ps1
     folder: private
     name: get-dotnet-install-holder
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.Toolchain/tests/Get-DotnetInstallHolder.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Toolchain/tests/Get-DotnetInstallHolder.Tests.ps1
   config:
     synopsis: Lists the processes that hold a .NET install open.
     description: |-

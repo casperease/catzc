@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "71019547d333"
     path: docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-integrators-depend-on-an-occupant-architecture-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "71019547d333"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.chain.md

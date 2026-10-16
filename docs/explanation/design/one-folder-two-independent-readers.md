@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "42f43edabf19"
     path: docs/explanation/design/one-folder-two-independent-readers.md
     folder: docs/explanation/design
     name: one-folder-two-independent-readers
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "42f43edabf19"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-ASPECT#{1,2,4}
       - ADR-FLOW-CD-GLOBS#9
     links:

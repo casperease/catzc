@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cde1f722ed85
     path: docs/references/automation/catzc-base-qualitygates/types/LinkWrap.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: link-wrap-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: cde1f722ed85
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#8
 ---
 

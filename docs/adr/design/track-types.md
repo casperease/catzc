@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a7995a5f134e
     path: docs/adr/design/track-types.md
     folder: docs/adr/design
     name: track-types
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: a7995a5f134e
+  edges:
     defines:
       - ADR-DSGN-TRACKTYPE#{1-7}
-    adrs:
+    cites:
       - ADR-DSGN-MODTYPE#3
       - ADR-DSGN-TRACK#{1,3,5,6,11,17}
     links:

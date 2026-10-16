@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "303794990648"
     path: docs/references/automation/catzc-base-maps/types/CitationSite.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: citation-site-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "303794990648"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

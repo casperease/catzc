@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c62eb7ef9ecb
     path: docs/references/automation/catzc-azure-templates.md
     folder: docs/references/automation
     name: catzc-azure-templates
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: c62eb7ef9ecb
+  edges:
     links:
       - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
       - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png

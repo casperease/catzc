@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationWorkerSummary.Tests.ps1
     folder: tests
     name: write-test-automation-worker-summary-tests

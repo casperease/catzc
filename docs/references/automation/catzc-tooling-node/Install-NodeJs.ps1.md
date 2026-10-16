@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e46d2f670bbe
     path: docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md
     folder: docs/references/automation/catzc-tooling-node
     name: install-node-js-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e46d2f670bbe
 ---
 
 # automation/Catzc.Tooling.Node/Install-NodeJs.ps1

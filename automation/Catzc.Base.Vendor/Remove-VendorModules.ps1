@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Vendor/Remove-VendorModules.ps1
     name: remove-vendor-modules
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Vendor/tests/Remove-VendorModules.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Vendor/tests/Remove-VendorModules.Tests.ps1
+    cites:
       - ADR-DSGN-RUNMODE
   config:
     synopsis: Removes vendored modules from automation/.vendor, validating first that each is restorable from the source.

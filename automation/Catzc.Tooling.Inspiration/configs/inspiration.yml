@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Tooling.Inspiration/configs/inspiration.yml
 #     folder: configs
 #     name: inspiration
@@ -11,8 +11,8 @@
 #     module: Catzc.Tooling.Inspiration
 #     moduletype: pwsh-folder
 #     catzc_bundle: full
-#     relatives:
-#       page: docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
 # ---
 
 {}

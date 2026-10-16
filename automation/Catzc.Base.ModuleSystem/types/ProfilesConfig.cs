@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/types/ProfilesConfig.cs
     folder: types
     name: profiles-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md
-      test: automation/Catzc.Base.ModuleSystem/tests/types/ProfilesConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md
+    test: automation/Catzc.Base.ModuleSystem/tests/types/ProfilesConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 */

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
     name: get-azure-resource-type-set
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1
+    cites:
       - ADR-AZ-NAMING
   config:
     synopsis: Returns the Azure resource-type registry used by Get-AzureResourceName.

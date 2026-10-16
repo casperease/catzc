@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1
     name: get-execution-engine
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Engines/tests/Get-ExecutionEngine.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Engines/tests/Get-ExecutionEngine.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE
   config:
     synopsis: Returns the repository's execution engines, or one by name.

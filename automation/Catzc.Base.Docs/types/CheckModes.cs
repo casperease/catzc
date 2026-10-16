@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/CheckModes.cs
     folder: types
     name: check-modes
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/CheckModes.cs.md
-      test: automation/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/CheckModes.cs.md
+    test: automation/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-ONELIVE#1
 ---

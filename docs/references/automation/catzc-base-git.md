@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: acb4f4fa1504
     path: docs/references/automation/catzc-base-git.md
     folder: docs/references/automation
     name: catzc-base-git
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: acb4f4fa1504
+  edges:
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test32
       - docs/adr/automation/tracked-files-from-the-index.md

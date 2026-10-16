@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml
 #     folder: configs
 #     name: key-handler-bindings
@@ -11,8 +11,8 @@
 #     module: Catzc.Tooling.KeyHandler
 #     moduletype: pwsh-folder
 #     catzc_bundle: full
-#     relatives:
-#       page: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-bindings.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-bindings.yml.md
 # ---
 
 - key: Enter

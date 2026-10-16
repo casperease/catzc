@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1be7d8fdbd51"
     path: docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-callers-value-else-config-else-default-meta-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "1be7d8fdbd51"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
       - docs/explanation/automation/callers-value-else-config-else-default.md

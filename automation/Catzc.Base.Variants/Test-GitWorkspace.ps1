@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/Test-GitWorkspace.ps1
     name: test-git-workspace
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Variants/tests/Test-GitWorkspace.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Variants/tests/Test-GitWorkspace.Tests.ps1
   config:
     synopsis: Tests whether the repo's git workspace mode (the `git_workspace` variant) is the one named.
     description: |-

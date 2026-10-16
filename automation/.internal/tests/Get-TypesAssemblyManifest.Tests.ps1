@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/tests/Get-TypesAssemblyManifest.Tests.ps1
     name: get-types-assembly-manifest-tests
     filetype: ps1

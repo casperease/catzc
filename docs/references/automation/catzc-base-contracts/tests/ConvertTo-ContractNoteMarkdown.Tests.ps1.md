@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0e1dbe878436"
     path: docs/references/automation/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md
     folder: docs/references/automation/catzc-base-contracts/tests
     name: convert-to-contract-note-markdown-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0e1dbe878436"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-REPO-LINK#{2,3}
 ---

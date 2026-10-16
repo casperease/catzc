@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1
     name: reset-git-clean-fxd
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md
-      test: automation/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md
+    test: automation/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
+    cites:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-OUTDIR#10
   config:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "215b77f1e4d2"
     path: docs/adr/pwsh/working-directory-mechanics.md
     folder: docs/adr/pwsh
     name: working-directory-mechanics
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "215b77f1e4d2"
+  edges:
     defines:
       - ADR-PWSH-PWD#{1-7}
-    adrs:
+    cites:
       - ADR-AUTO-ASSETDEP#{1,2}
       - ADR-AUTO-NOPWD
     links:

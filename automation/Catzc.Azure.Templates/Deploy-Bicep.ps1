@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Deploy-Bicep.ps1
     name: deploy-bicep
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md
-      test: automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md
+    test: automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
+    cites:
       - ADR-AUTO-DRYRUN
       - ADR-AZ-DATAMOD
       - ADR-PWSH-DRYRUN#1

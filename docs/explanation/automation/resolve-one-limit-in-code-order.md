@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f02beea63479
     path: docs/explanation/automation/resolve-one-limit-in-code-order.md
     folder: docs/explanation/automation
     name: resolve-one-limit-in-code-order
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: f02beea63479
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:

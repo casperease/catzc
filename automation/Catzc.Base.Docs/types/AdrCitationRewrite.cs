@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/AdrCitationRewrite.cs
     folder: types
     name: adr-citation-rewrite
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/AdrCitationRewrite.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/AdrCitationRewrite.cs.md
+    cites:
       - ADR-AUTO-TYPES#9
 ---
 */

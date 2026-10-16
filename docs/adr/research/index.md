@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4479ff9ca781"
     path: docs/adr/research/index.md
     folder: docs/adr/research
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "4479ff9ca781"
+  edges:
     links:
       - docs/adr/index.md
       - docs/adr/research/ai-accessible-internal-data.md

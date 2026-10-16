@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
     folder: types
     name: spelling-oracle
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
+    cites:
       - ADR-AUTO-SPELL
       - ADR-AUTO-TYPES#9
 ---

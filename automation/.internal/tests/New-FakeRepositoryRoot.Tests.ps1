@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
     name: new-fake-repository-root-tests
     filetype: ps1
@@ -11,7 +11,8 @@ catzc:
     module: Catzc.Internal.Tests
     moduletype: pwsh-folder
     catzc_bundle: minimal
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-RUNMODE#4
 ---
 #>

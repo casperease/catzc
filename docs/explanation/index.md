@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dfa35480f290
     path: docs/explanation/index.md
     folder: docs/explanation
     name: index
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: dfa35480f290
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,12,16}
     links:
       - docs/.assets/explanation/glyphs.drawio.md

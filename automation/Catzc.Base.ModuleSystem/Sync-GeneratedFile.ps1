@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
     name: sync-generated-file
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
-      test: automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
+    test: automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
+    cites:
       - ADR-AUTO-CACHE#8
       - ADR-AUTO-TYPES#13
       - ADR-DSGN-RUNMODE

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/WorldMapGridLayout.cs
     folder: types
     name: world-map-grid-layout
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#{7,8}
 ---

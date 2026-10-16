@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Connect-AzCli.ps1
     name: connect-az-cli
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md
   config:
     synopsis: Logs in to Azure CLI.
     description: Skips login if already authenticated. Use -Force to re-authenticate.

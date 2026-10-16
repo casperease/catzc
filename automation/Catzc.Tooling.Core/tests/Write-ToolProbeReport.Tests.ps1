@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
     folder: tests
     name: write-tool-probe-report-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Tooling.Core
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/tests/Write-ToolProbeReport.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-core/tests/Write-ToolProbeReport.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
 ---
 #>

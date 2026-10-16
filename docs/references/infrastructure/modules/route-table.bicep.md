@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "81e9bb4c7e5a"
     path: docs/references/infrastructure/modules/route-table.bicep.md
     folder: docs/references/infrastructure/modules
     name: route-table-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "81e9bb4c7e5a"
 ---
 
 # infrastructure/modules/route-table.bicep

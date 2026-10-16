@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "36b69a7948bf"
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationVerdict.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-test-automation-verdict-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "36b69a7948bf"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-XPLAT#6
 ---
 

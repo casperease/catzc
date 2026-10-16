@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cdfb0a2d31e2
     path: docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md
     folder: docs/references/automation/catzc-base-writers/private
     name: write-information-colored-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: cdfb0a2d31e2
 ---
 
 # automation/Catzc.Base.Writers/private/Write-InformationColored.ps1

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b0131730897a
     path: docs/adr/pwsh/bounded-enumeration.md
     folder: docs/adr/pwsh
     name: bounded-enumeration
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b0131730897a
+  edges:
     defines:
       - ADR-PWSH-ENUM#{1-6}
-    adrs:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TRACKED#1
       - ADR-PWSH-PARAM#4

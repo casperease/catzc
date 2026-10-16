@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Install-AzCli.ps1
     name: install-az-cli
     filetype: ps1

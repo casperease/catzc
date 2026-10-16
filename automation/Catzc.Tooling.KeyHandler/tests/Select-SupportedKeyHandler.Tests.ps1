@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
     folder: tests
     name: select-supported-key-handler-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Tooling.KeyHandler
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-tooling-keyhandler/tests/Select-SupportedKeyHandler.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-keyhandler/tests/Select-SupportedKeyHandler.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#{3,22}
 ---
 #>

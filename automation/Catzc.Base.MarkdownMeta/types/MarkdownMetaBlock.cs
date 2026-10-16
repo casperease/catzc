@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
     folder: types
     name: markdown-meta-block
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.MarkdownMeta
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
-      test: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
+    test: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#1
 ---
 */

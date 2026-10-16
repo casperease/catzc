@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestRunFailures.ps1
     folder: private
     name: write-test-run-failures
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Write-TestRunFailures.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Write-TestRunFailures.Tests.ps1
   config:
     synopsis: |-
       Writes every failure of a finished test run to the console: each failed test with its message, and each test

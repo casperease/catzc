@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "99844aa323bc"
     path: docs/how-to/getting-started/automation/powershell/index.md
     folder: docs/how-to/getting-started/automation/powershell
     name: index
@@ -8,7 +9,6 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "99844aa323bc"
 ---
 
 # PowerShell how-to guides

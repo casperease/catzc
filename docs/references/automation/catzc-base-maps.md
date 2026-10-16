@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f9b41c1bf06e
     path: docs/references/automation/catzc-base-maps.md
     folder: docs/references/automation
     name: catzc-base-maps
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: f9b41c1bf06e
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{3,13,15}
     links:
       - docs/adr/design/tracks.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "17f911199a56"
     path: docs/references/infrastructure/modules/subnet.bicep.md
     folder: docs/references/infrastructure/modules
     name: subnet-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "17f911199a56"
 ---
 
 # infrastructure/modules/subnet.bicep

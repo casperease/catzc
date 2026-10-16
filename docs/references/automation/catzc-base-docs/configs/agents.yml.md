@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c176ac54b88e
     path: docs/references/automation/catzc-base-docs/configs/agents.yml.md
     folder: docs/references/automation/catzc-base-docs/configs
     name: agents-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c176ac54b88e
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-AGENTS#4
 ---
 

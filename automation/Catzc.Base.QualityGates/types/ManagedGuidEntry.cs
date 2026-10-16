@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/ManagedGuidEntry.cs
     folder: types
     name: managed-guid-entry
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/ManagedGuidEntry.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/ManagedGuidEntry.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 */

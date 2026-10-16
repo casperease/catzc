@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1
     name: assert-completes-within
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Timeouts/tests/Assert-CompletesWithin.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Timeouts/tests/Assert-CompletesWithin.Tests.ps1
   config:
     synopsis: Asserts that a script block finishes within a time limit; past it the work is stopped and the assert throws.
     description: |-

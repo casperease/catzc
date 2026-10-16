@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1
     folder: private
     name: get-logic-test-identity-finding
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-LogicTestIdentityFinding.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-LogicTestIdentityFinding.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#1
       - ADR-PWSH-FORMAT#6
       - ADR-REPO-LANG

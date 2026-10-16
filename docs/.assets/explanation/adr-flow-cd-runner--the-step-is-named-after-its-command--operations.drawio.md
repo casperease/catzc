@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e64ca424664c
     path: docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-runner-the-step-is-named-after-its-command-operations-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: e64ca424664c
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.chain.md

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Update-ResultCache.ps1
     folder: private
     name: update-result-cache
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#10
   config:
     synopsis: 'Records a quality check''s verdicts in its result cache: the checked files it found clean, and no others.'

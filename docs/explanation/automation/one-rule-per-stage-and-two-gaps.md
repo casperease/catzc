@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d24069d9bd3b
     path: docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
     folder: docs/explanation/automation
     name: one-rule-per-stage-and-two-gaps
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: d24069d9bd3b
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:

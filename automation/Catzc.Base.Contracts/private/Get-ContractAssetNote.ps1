@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Get-ContractAssetNote.ps1
     folder: private
     name: get-contract-asset-note
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1
+    cites:
       - ADR-REPO-CONTRACT#6
   config:
     synopsis: 'Reads a contract asset''s note: the header comment its file carries, as one line of text.'

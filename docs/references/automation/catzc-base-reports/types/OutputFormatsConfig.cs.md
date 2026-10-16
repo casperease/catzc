@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8d1262066552"
     path: docs/references/automation/catzc-base-reports/types/OutputFormatsConfig.cs.md
     folder: docs/references/automation/catzc-base-reports/types
     name: output-formats-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8d1262066552"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-OUTFMT#1
 ---

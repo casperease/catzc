@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9e788ffe9315"
     path: docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-drift-is-gated-generation-is-adr-only-governance-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "9e788ffe9315"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/tests/Import-Catzc.Tests.ps1
     name: import-catzc-tests
     filetype: ps1
@@ -11,8 +11,8 @@ catzc:
     module: Catzc.Internal.Tests
     moduletype: pwsh-folder
     catzc_bundle: minimal
-    relatives:
-      page: docs/references/automation/internal/tests/Import-Catzc.Tests.ps1.md
+  edges:
+    page: docs/references/automation/internal/tests/Import-Catzc.Tests.ps1.md
 ---
 #>
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8dc4c1a40d09"
     path: docs/references/automation/catzc-azure/configs/customer.yml.md
     folder: docs/references/automation/catzc-azure/configs
     name: customer-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8dc4c1a40d09"
 ---
 
 # automation/Catzc.Azure/configs/customer.yml

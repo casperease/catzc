@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "37f8531166d7"
     path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
     folder: docs/explanation/flow
     name: drift-is-gated-generation-is-adr-only
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "37f8531166d7"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#{1,4,6,8}
     links:

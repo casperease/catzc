@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8b2e6e43bc08"
     path: docs/references/automation/catzc-base-contracts.md
     folder: docs/references/automation
     name: catzc-base-contracts
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "8b2e6e43bc08"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CONTRACT#{3,5,9}
     links:
       - docs/adr/repository/api-contracts.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3f04bc386939"
     path: docs/references/automation/catzc-base-languages/types/GoWorkspaceFile.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: go-workspace-file-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3f04bc386939"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/AdrCitationMap.cs
     folder: types
     name: adr-citation-map
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md
+    cites:
       - ADR-AUTO
       - ADR-PWSH-ERROR
       - ADR-REPO-LINK#3

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/tests/Remove-Dotnet.Tests.ps1
     folder: tests
     name: remove-dotnet-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Tooling.Toolchain
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-REMOVE#{3,7}
 ---
 #>

@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/vm.bicep
 //     name: vm
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: vm
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/vm.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/vm.bicep.md
 // ---
 
 @description('VM name. Also used as the Windows computer name, so keep it <= 15 chars.')

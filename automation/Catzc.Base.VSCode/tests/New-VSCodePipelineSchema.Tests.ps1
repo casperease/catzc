@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
     folder: tests
     name: new-vs-code-pipeline-schema-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.VSCode
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-vscode/tests/New-VSCodePipelineSchema.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-vscode/tests/New-VSCodePipelineSchema.Tests.ps1.md
+    cites:
       - ADR-PWSH-PESTER#2
 ---
 #>

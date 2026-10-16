@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "640b239cd646"
     path: docs/explanation/design/get-aspect-names-the-remainder.md
     folder: docs/explanation/design
     name: get-aspect-names-the-remainder
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "640b239cd646"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-ASPECT#3
       - ADR-REPO-VARIANT#{1,2}
     links:

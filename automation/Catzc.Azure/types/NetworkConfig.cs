@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/types/NetworkConfig.cs
     folder: types
     name: network-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Azure
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
-      test: automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
+    test: automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-NETWORK
 ---

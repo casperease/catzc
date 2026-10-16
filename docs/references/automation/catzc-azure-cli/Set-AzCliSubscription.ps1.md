@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "901ddbb93e94"
     path: docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md
     folder: docs/references/automation/catzc-azure-cli
     name: set-az-cli-subscription-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "901ddbb93e94"
 ---
 
 # automation/Catzc.Azure.Cli/Set-AzCliSubscription.ps1

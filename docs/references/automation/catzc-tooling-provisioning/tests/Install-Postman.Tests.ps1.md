@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "23ae3abed73c"
     path: docs/references/automation/catzc-tooling-provisioning/tests/Install-Postman.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: install-postman-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "23ae3abed73c"
 ---
 
 # automation/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1

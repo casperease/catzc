@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/FileCarrierResolver.cs
     folder: types
     name: file-carrier-resolver
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/FileCarrierResolver.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/FileCarrierResolver.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#5
 ---
 */

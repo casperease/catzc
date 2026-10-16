@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Select-TestShardAssignment.ps1
     folder: private
     name: select-test-shard-assignment
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Select-TestShardAssignment.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Select-TestShardAssignment.Tests.ps1
   config:
     synopsis: |-
       Assigns a run's parallel test files to worker shards by their measured duration, longest first, so the shards

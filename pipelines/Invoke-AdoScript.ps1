@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: pipelines/Invoke-AdoScript.ps1
     name: invoke-ado-script
     filetype: ps1

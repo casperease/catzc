@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
     folder: tests
     name: test-glossary-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
+    cites:
       - ADR-AUTO-FAILFAST
       - ADR-AUTO-TEST#{19,20,35}
       - ADR-REPO-VOCAB#{1-3,5,6}

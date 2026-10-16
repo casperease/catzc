@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c8f5d7858cb5
     path: docs/explanation/azure/read-the-session-guard-then-pick-slot.md
     folder: docs/explanation/azure
     name: read-the-session-guard-then-pick-slot
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: c8f5d7858cb5
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-DATAMOD#{4,5,7}
     links:
       - docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4cee0d74457d"
     path: docs/references/automation/catzc-base-globs.md
     folder: docs/references/automation
     name: catzc-base-globs
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "4cee0d74457d"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
     links:
       - docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md

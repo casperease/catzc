@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e0aa789e446d
     path: docs/adr/github/dora-explains.md
     folder: docs/adr/github
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: e0aa789e446d
+  edges:
     links:
       - docs/adr/github/github-release.md
       - docs/references/dora/capabilities.md#continuous-delivery

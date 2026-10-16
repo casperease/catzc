@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: go/tests/catzc-base-repository/repository_test.go
 //     folder: tests/catzc-base-repository
 //     name: repository-test

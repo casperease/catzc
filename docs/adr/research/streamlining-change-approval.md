@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ab4ed1a741a8
     path: docs/adr/research/streamlining-change-approval.md
     folder: docs/adr/research
     name: streamlining-change-approval
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: ab4ed1a741a8
+  edges:
     defines:
       - ADR-DORA-APPROVAL#{1-5}
     links:

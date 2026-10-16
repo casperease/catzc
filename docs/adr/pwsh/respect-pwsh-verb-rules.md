@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "06c7a83a306a"
     path: docs/adr/pwsh/respect-pwsh-verb-rules.md
     folder: docs/adr/pwsh
     name: respect-pwsh-verb-rules
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "06c7a83a306a"
+  edges:
     defines:
       - ADR-PWSH-VERBS#{1-7}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#35
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test35

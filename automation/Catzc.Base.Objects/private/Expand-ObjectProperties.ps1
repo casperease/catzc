@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
     folder: private
     name: expand-object-properties
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md
   config:
     synopsis: Recursively flattens a nested object into dot-notation key/value pairs.
     description: |-

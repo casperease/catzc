@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/ConvertTo-AdrDomainDiagram.ps1
     name: convert-to-adr-domain-diagram
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1
   config:
     synopsis: Renders ADR domain dependency edges to PlantUML, Mermaid, or a Markdown table.
     description: |-

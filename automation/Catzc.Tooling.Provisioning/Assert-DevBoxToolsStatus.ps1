@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
     name: assert-dev-box-tools-status
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
   config:
     synopsis: Asserts all tools are available at the correct version.
     description: |-

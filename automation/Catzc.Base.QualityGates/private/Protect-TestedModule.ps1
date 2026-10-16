@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Protect-TestedModule.ps1
     folder: private
     name: protect-tested-module
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-PROTGLOB#{4,9}
   config:
     synopsis: Promotes protection for every candidate unit that came back green from a Test-Automation run.

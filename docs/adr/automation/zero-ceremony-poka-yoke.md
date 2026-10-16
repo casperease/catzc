@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "203576ad0251"
     path: docs/adr/automation/zero-ceremony-poka-yoke.md
     folder: docs/adr/automation
     name: zero-ceremony-poka-yoke
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "203576ad0251"
+  edges:
     defines:
       - ADR-AUTO-ZERO#{1-3}
-    adrs:
+    cites:
       - ADR-AUTO-EXTEND#4
       - ADR-PWSH-MANIFEST#9
     links:

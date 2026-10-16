@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1a89156b60a6"
     path: docs/explanation/automation/three-tests-prove-the-hook.md
     folder: docs/explanation/automation
     name: three-tests-prove-the-hook
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "1a89156b60a6"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:

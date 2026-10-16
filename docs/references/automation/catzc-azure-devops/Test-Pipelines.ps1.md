@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ac2c3a26550c
     path: docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md
     folder: docs/references/automation/catzc-azure-devops
     name: test-pipelines-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ac2c3a26550c
-    adrs:
+  edges:
+    cites:
       - ADR-PIPE-NAME#{1-4,6}
 ---
 

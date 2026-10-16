@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "17736e91a36c"
     path: docs/references/automation/catzc-azure-devops/types/AdoConfig.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: ado-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "17736e91a36c"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

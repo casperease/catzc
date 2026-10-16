@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d7426312d2bd
     path: docs/references/automation/catzc-azure-devops/tests/Set-AdoPipelineVariable.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-devops/tests
     name: set-ado-pipeline-variable-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d7426312d2bd
 ---
 
 # automation/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1

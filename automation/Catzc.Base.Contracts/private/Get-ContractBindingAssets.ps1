@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Get-ContractBindingAssets.ps1
     folder: private
     name: get-contract-binding-assets
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CONTRACT#{3,4}
   config:
     synopsis: |-

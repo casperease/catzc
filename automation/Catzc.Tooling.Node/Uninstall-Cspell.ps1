@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Node/Uninstall-Cspell.ps1
     name: uninstall-cspell
     filetype: ps1

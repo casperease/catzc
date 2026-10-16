@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Vendor/tests/Assert-VendorModuleAvailable.Tests.ps1
     folder: tests
     name: assert-vendor-module-available-tests

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e46532d94541
     path: docs/references/automation/catzc-base-globs/types/GlobSet.cs.md
     folder: docs/references/automation/catzc-base-globs/types
     name: glob-set-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e46532d94541
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{4,5,7,8,10}
 ---
 

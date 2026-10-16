@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: afde8913f925
     path: docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
     folder: docs/explanation/design
     name: deploy-and-integrate-share-only-the-topic
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: afde8913f925
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#{1,9}
       - ADR-DSGN-VISUAL#{4,13}
     links:

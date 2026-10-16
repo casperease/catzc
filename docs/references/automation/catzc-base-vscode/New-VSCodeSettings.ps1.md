@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e126a3782264
     path: docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md
     folder: docs/references/automation/catzc-base-vscode
     name: new-vs-code-settings-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e126a3782264
 ---
 
 # automation/Catzc.Base.VSCode/New-VSCodeSettings.ps1

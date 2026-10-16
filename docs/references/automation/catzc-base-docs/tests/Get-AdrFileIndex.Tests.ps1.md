@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7bb7b36068a1"
     path: docs/references/automation/catzc-base-docs/tests/Get-AdrFileIndex.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-adr-file-index-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "7bb7b36068a1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

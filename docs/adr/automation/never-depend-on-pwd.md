@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0a928ba0ca1e"
     path: docs/adr/automation/never-depend-on-pwd.md
     folder: docs/adr/automation
     name: never-depend-on-pwd
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "0a928ba0ca1e"
+  edges:
     defines:
       - ADR-AUTO-NOPWD#{1,4,6}
-    adrs:
+    cites:
       - ADR-PWSH-PWD#{1,4-6}
     links:
       - docs/adr/automation/internal-asset-dependencies.md

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-ReportModeFinding.ps1
     folder: private
     name: write-report-mode-finding
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Write-ReportModeFinding.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Write-ReportModeFinding.Tests.ps1
+    cites:
       - ADR-PRIN-CONFIG#4
   config:
     synopsis: 'Prints the findings of a source check in report mode: every finding, then its count, and never a failure.'

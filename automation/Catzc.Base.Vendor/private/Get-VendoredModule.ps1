@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Vendor/private/Get-VendoredModule.ps1
     folder: private
     name: get-vendored-module

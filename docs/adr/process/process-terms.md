@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "85f093b7747b"
     path: docs/adr/process/process-terms.md
     folder: docs/adr/process
     name: process-terms
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "85f093b7747b"
+  edges:
     defines:
       - ADR-PROC-LEANTERMS#{1-5}
     links:

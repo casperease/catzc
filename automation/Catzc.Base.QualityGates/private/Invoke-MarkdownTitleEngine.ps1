@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Invoke-MarkdownTitleEngine.ps1
     folder: private
     name: invoke-markdown-title-engine

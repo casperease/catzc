@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Assert-True.ps1
     name: assert-true
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Asserts/tests/Assert-True.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Asserts/tests/Assert-True.Tests.ps1
   config:
     synopsis: Asserts that a value is boolean $true.
     parameters:

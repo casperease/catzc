@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7e821d6725bb"
     path: docs/adr/process/inspect-and-adapt.md
     folder: docs/adr/process
     name: inspect-and-adapt
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "7e821d6725bb"
+  edges:
     defines:
       - ADR-PROC-KAIZEN#{1-4}
     links:

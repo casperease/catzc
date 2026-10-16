@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/tests/Get-AzureSubscriptionCustomer.Tests.ps1
     folder: tests
     name: get-azure-subscription-customer-tests

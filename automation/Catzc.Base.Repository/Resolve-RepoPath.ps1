@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/Resolve-RepoPath.ps1
     name: resolve-repo-path
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Repository/tests/Resolve-RepoPath.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Repository/tests/Resolve-RepoPath.Tests.ps1
+    cites:
       - ADR-AUTO-PATH
   config:
     synopsis: Resolves a (possibly repo-relative or out/-anchored) path to an absolute one — never against $PWD.

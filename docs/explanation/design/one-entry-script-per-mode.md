@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c24eef1948d2
     path: docs/explanation/design/one-entry-script-per-mode.md
     folder: docs/explanation/design
     name: one-entry-script-per-mode
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: c24eef1948d2
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-RUNMODE#{1,2,5,7}
     links:
       - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md

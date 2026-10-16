@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
     folder: private
     name: get-firewall-markdown-columns
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md
-      test: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownColumns.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md
+    test: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownColumns.Tests.ps1
   config:
     synopsis: Builds the ordered, validated Markdown column descriptors for Convert-FirewallCsvToMarkdown.
     description: |-

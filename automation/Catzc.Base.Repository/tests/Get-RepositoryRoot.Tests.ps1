@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/tests/Get-RepositoryRoot.Tests.ps1
     folder: tests
     name: get-repository-root-tests

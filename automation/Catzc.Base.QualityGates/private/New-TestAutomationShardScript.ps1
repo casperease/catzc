@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/New-TestAutomationShardScript.ps1
     folder: private
     name: new-test-automation-shard-script
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
+    cites:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-TEST#{25,30}
   config:

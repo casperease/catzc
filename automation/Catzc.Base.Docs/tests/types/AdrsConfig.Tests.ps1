@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     folder: tests/types
     name: adrs-config-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md
+    cites:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#{14,15}
       - ADR-REPO-LANG

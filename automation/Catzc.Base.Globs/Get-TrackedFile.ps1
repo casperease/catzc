@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Get-TrackedFile.ps1
     name: get-tracked-file
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+    cites:
       - ADR-AUTO-TRACKED#1
       - ADR-FLOW-CD-GLOBS#4
   config:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b84f310f3209
     path: docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md
     folder: docs/references/infrastructure/templates/expedition/configuration/apex
     name: dev-blu-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b84f310f3209
 ---
 
 # infrastructure/templates/expedition/configuration/apex/dev-blu.yml

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.CodeMeta/Get-CodeMetaState.ps1
     name: get-code-meta-state
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.CodeMeta/tests/Get-CodeMetaState.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.CodeMeta/tests/Get-CodeMetaState.Tests.ps1
+    cites:
       - ADR-REPO-CODEMETA#1
   config:
     synopsis: Reads what a code text says about its own meta head, without changing it.

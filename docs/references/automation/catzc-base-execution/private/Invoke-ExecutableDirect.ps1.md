@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "51fea29caf1c"
     path: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md
     folder: docs/references/automation/catzc-base-execution/private
     name: invoke-executable-direct-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "51fea29caf1c"
 ---
 
 # automation/Catzc.Base.Execution/private/Invoke-ExecutableDirect.ps1

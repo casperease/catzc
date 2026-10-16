@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6d931cf1787f"
     path: docs/adr/research/customer-feedback.md
     folder: docs/adr/research
     name: customer-feedback
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "6d931cf1787f"
+  edges:
     defines:
       - ADR-DORA-FEEDBACK#{1-5}
     links:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Tests.ps1
     folder: tests
     name: get-timeout-seconds-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Timeouts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ASSERT#1
 ---
 #>

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: eb6450f21ef8
     path: docs/references/automation/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: get-tools-status-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: eb6450f21ef8
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

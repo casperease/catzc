@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c91496ef0580
     path: docs/explanation/flow/index.md
     folder: docs/explanation/flow
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: c91496ef0580
+  edges:
     links:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
       - docs/adr/flow/durable-sha-globs.md

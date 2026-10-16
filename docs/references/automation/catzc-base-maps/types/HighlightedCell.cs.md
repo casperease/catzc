@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4360f996ecaf"
     path: docs/references/automation/catzc-base-maps/types/HighlightedCell.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: highlighted-cell-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4360f996ecaf"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

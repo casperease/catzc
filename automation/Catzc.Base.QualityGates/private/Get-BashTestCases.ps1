@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-BashTestCases.ps1
     folder: private
     name: get-bash-test-cases
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-BashTestCases.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-BashTestCases.Tests.ps1
   config:
     synopsis: Lists the Bash tests a Bash test folder declares, read from its .bats files without running bats.
     description: |-

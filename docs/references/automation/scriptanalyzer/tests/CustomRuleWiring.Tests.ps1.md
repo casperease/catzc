@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "34e26fb9f40d"
     path: docs/references/automation/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: custom-rule-wiring-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "34e26fb9f40d"
 ---
 
 # automation/.scriptanalyzer/tests/CustomRuleWiring.Tests.ps1

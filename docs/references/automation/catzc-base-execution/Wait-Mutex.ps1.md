@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "415ecb69f278"
     path: docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md
     folder: docs/references/automation/catzc-base-execution
     name: wait-mutex-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "415ecb69f278"
 ---
 
 # automation/Catzc.Base.Execution/Wait-Mutex.ps1

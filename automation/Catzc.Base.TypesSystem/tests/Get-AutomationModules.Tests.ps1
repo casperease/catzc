@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/tests/Get-AutomationModules.Tests.ps1
     folder: tests
     name: get-automation-modules-tests

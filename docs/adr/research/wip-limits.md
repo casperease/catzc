@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1e022637106f"
     path: docs/adr/research/wip-limits.md
     folder: docs/adr/research
     name: wip-limits
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "1e022637106f"
+  edges:
     defines:
       - ADR-DORA-WIP#{1-5}
     links:

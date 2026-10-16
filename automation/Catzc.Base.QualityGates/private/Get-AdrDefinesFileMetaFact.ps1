@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-AdrDefinesFileMetaFact.ps1
     folder: private
     name: get-adr-defines-file-meta-fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-AdrDefinesFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-AdrDefinesFileMetaFact.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#3
   config:
     synopsis: 'The adr-defines meta kind''s fact: the rules an ADR defines itself, spelled as citations.'

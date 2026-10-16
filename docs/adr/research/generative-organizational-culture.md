@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e4535674c432
     path: docs/adr/research/generative-organizational-culture.md
     folder: docs/adr/research
     name: generative-organizational-culture
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: e4535674c432
+  edges:
     defines:
       - ADR-DORA-CULTURE#{1-5}
     links:

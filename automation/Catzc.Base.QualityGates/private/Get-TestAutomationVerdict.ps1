@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestAutomationVerdict.ps1
     folder: private
     name: get-test-automation-verdict
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationVerdict.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationVerdict.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationVerdict.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationVerdict.Tests.ps1
+    cites:
       - ADR-AUTO-XPLAT#6
   config:
     synopsis: Derives a completed run's verdict — the Passed/Failed result and its one-line reason — from the run facts.

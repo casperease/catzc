@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
     folder: types
     name: dependencies-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
-      test: automation/Catzc.Base.ModuleSystem/tests/types/DependenciesConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
+    test: automation/Catzc.Base.ModuleSystem/tests/types/DependenciesConfig.Tests.ps1
+    cites:
       - ADR-AUTO-DEPM
       - ADR-AUTO-TYPES#8
 ---

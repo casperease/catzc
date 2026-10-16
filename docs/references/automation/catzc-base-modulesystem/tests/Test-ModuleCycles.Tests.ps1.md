@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bcdc87ff2f5d
     path: docs/references/automation/catzc-base-modulesystem/tests/Test-ModuleCycles.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: test-module-cycles-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: bcdc87ff2f5d
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

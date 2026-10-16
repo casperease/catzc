@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.QualityGates/configs/source-conventions.yml
 #     folder: configs
 #     name: source-conventions
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.QualityGates
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md
 # ---
 
 engine_set:

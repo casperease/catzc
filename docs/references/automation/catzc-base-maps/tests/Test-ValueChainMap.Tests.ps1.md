@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c7880f07478b
     path: docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
     folder: docs/references/automation/catzc-base-maps/tests
     name: test-value-chain-map-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c7880f07478b
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{3,35}
       - ADR-DSGN-TRACK#{14-16}
 ---

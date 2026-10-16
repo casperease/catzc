@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/types/ExecutableProbe.cs
     folder: types
     name: executable-probe
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Execution
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
-      test: automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
+    test: automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
 ---
 */
 

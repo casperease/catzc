@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "179a9dc40c85"
     path: docs/adr/research/deployment-automation.md
     folder: docs/adr/research
     name: deployment-automation
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "179a9dc40c85"
+  edges:
     defines:
       - ADR-DORA-DEPLOY#{1-5}
     links:

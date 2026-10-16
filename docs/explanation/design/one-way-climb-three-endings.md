@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4316f5080e62"
     path: docs/explanation/design/one-way-climb-three-endings.md
     folder: docs/explanation/design
     name: one-way-climb-three-endings
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "4316f5080e62"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#{1-4,8}
       - ADR-DSGN-VISUAL#14
     links:

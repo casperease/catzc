@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1
     folder: automation/.scriptanalyzer/tests
     name: test-analyzed-file-is-test-tests
@@ -9,8 +9,8 @@ catzc:
     kind: test
     language: powershell
     track: automation
-    relatives:
-      page: docs/references/automation/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md
+  edges:
+    page: docs/references/automation/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md
 ---
 #>
 

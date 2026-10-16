@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: be996c2a037b
     path: docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md
     folder: docs/references/automation/catzc-azure-templates/types
     name: bicep-deployment-plan-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: be996c2a037b
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs

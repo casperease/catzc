@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "866785be0f66"
     path: docs/references/automation/catzc-base-docs/configs/readme.yml.md
     folder: docs/references/automation/catzc-base-docs/configs
     name: readme-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "866785be0f66"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-README#6
 ---
 

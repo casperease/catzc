@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0d5279858354"
     path: docs/references/infrastructure/modules/log-analytics.bicep.md
     folder: docs/references/infrastructure/modules
     name: log-analytics-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0d5279858354"
 ---
 
 # infrastructure/modules/log-analytics.bicep

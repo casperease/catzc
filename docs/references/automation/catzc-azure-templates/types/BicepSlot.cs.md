@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3bd38a56a6d1"
     path: docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md
     folder: docs/references/automation/catzc-azure-templates/types
     name: bicep-slot-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3bd38a56a6d1"
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepSlot.cs

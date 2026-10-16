@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7060edf12b1c"
     path: docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: build-adr-index-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "7060edf12b1c"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FORMAT#5
 ---
 

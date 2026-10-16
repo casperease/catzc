@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-FileTypeFileMetaFact.ps1
     folder: private
     name: get-file-type-file-meta-fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#6
   config:
     synopsis: 'The file-type meta kind''s fact: the file type of the file, the extension of its name.'

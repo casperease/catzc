@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Set-AzCliSubscription.ps1
     name: set-az-cli-subscription
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md
   config:
     synopsis: Sets the active Azure CLI subscription.
     description: Skips if the requested subscription is already active.

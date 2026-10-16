@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1
     folder: tests
     name: get-azure-bicep-min-version-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Azure
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#{4,19}
 ---
 #>

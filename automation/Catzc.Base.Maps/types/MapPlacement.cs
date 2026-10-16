@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/MapPlacement.cs
     folder: types
     name: map-placement
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 */

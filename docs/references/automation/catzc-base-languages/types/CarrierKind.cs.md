@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d531d05fa3d2
     path: docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: carrier-kind-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d531d05fa3d2
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#1
 ---
 

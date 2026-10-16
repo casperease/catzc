@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "824d978cfa10"
     path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
     folder: docs/explanation/flow
     name: globs-asks-loader-for-context-and-git-for-diff
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "824d978cfa10"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-DETECT#1
       - ADR-FLOW-CD-GLOBS#{1,9}
     links:

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Git/configs/gitignore.yml
 #     folder: configs
 #     name: gitignore
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Git
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-git/configs/gitignore.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-git/configs/gitignore.yml.md
 # ---
 
 sections:

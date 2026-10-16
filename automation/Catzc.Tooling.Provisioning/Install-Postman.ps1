@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Install-Postman.ps1
     name: install-postman
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md
-      test: automation/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md
+    test: automation/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1
   config:
     synopsis: Installs the Postman desktop app (user-space, no admin required).
     description: |-

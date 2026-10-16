@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "043e7da02e27"
     path: docs/references/infrastructure/modules/resource-group.bicep.md
     folder: docs/references/infrastructure/modules
     name: resource-group-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "043e7da02e27"
 ---
 
 # infrastructure/modules/resource-group.bicep

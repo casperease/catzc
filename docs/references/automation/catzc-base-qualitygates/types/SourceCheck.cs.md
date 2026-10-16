@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ef2e495b535e
     path: docs/references/automation/catzc-base-qualitygates/types/SourceCheck.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: source-check-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ef2e495b535e
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-CONFIG#4

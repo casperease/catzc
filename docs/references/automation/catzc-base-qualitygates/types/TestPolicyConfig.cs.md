@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bd7dd2508428
     path: docs/references/automation/catzc-base-qualitygates/types/TestPolicyConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: test-policy-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: bd7dd2508428
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#41
       - ADR-AUTO-TYPES#8

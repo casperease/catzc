@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a8a7e26ddae5
     path: docs/references/automation/catzc-base-objects/types/ConsoleDisplayAttribute.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: console-display-attribute-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a8a7e26ddae5
 ---
 
 # automation/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs

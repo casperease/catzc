@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-GlossaryPhrasingViolations.ps1
     folder: private
     name: get-glossary-phrasing-violations
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md
-      test: automation/Catzc.Base.Docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md
+    test: automation/Catzc.Base.Docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1
+    cites:
       - ADR-REPO-VOCAB#{2,5}
   config:
     synopsis: Lists the uses of avoided phrasings within each glossary source's scope (check G4) — one message per use.

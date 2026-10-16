@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a6fb6e2726f3
     path: docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: copy-automation-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a6fb6e2726f3
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ENUM#{1,3}
 ---
 

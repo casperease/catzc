@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.MarkdownMeta/tests/Remove-MarkdownFrontMatter.Tests.ps1
     folder: tests
     name: remove-markdown-front-matter-tests
@@ -12,14 +12,15 @@ catzc:
     module: Catzc.Base.MarkdownMeta
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#1
 ---
 #>
 
 Describe 'Remove-MarkdownFrontMatter' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
     It 'returns the text from its first body line, dropping the blank line after written front matter' {
-        Remove-MarkdownFrontMatter -Text "---`ncatzc:`n  derived:`n    kind: gadget`n---`n`n# docs/widget.md`n`nbody`n" |
+        Remove-MarkdownFrontMatter -Text "---`ncatzc:`n  immutable:`n    kind: gadget`n---`n`n# docs/widget.md`n`nbody`n" |
             Should -BeExactly "# docs/widget.md`n`nbody`n"
     }
 

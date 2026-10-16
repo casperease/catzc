@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Reports/configs/output-formats.yml
 #     folder: configs
 #     name: output-formats
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Reports
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-reports/configs/output-formats.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-reports/configs/output-formats.yml.md
 # ---
 
 # The area sets how long a format's files stay (OutputFormat's area defaults); keep and max_age override it, and Clear-Output applies it.

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-FixtureIdentityTokens.ps1
     folder: private
     name: get-fixture-identity-tokens
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1
+    cites:
       - ADR-REPO-LANG
   config:
     synopsis: |-

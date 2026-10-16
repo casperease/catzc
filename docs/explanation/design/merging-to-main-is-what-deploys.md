@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f0db1a761e05
     path: docs/explanation/design/merging-to-main-is-what-deploys.md
     folder: docs/explanation/design
     name: merging-to-main-is-what-deploys
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: f0db1a761e05
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#9
     links:
       - docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.md

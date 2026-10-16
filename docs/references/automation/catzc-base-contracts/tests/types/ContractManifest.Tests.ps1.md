@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d33c5b3a68b2
     path: docs/references/automation/catzc-base-contracts/tests/types/ContractManifest.Tests.ps1.md
     folder: docs/references/automation/catzc-base-contracts/tests/types
     name: contract-manifest-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d33c5b3a68b2
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CONTRACT#7
 ---
 

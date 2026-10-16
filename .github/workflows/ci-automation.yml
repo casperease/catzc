@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: ".github/workflows/ci-automation.yml"
 #     name: ci-automation
 #     filetype: yml

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "99dad272ffc3"
     path: docs/references/automation/catzc-base-qualitygates/tests/Build-TerminologyDictionary.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: build-terminology-dictionary-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "99dad272ffc3"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1

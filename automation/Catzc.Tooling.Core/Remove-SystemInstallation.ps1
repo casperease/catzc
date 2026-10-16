@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
     name: remove-system-installation
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#33
   config:
     synopsis: Removes an installation directory and cleans it from system PATH.

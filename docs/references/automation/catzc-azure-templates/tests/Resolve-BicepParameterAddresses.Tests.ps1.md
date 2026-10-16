@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8e91c2ada132"
     path: docs/references/automation/catzc-azure-templates/tests/Resolve-BicepParameterAddresses.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: resolve-bicep-parameter-addresses-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8e91c2ada132"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Exporter/tests/Resolve-CatzcBuildVersion.Tests.ps1
     folder: tests
     name: resolve-catzc-build-version-tests

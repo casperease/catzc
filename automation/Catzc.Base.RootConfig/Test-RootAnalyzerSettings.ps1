@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
     name: test-root-analyzer-settings
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-REPO-ROOTCFG
   config:

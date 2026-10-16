@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/New-GoWorkspace.ps1
     name: new-go-workspace
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md
-      test: automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md
+    test: automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
+    cites:
       - ADR-CONF-ADDRESSING
       - ADR-REPO-ROOTCFG
   config:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-FilePathFileMetaFact.ps1
     folder: private
     name: get-file-path-file-meta-fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-FilePathFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-FilePathFileMetaFact.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#3
       - ADR-REPO-FORMAT#6
   config:

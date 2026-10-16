@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "306d60263b29"
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-terminology-corpus-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "306d60263b29"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#9
 ---
 

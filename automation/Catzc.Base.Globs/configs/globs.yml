@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Globs/configs/globs.yml
 #     folder: configs
 #     name: globs
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Globs
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-globs/configs/globs.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-globs/configs/globs.yml.md
 # ---
 
 globsets:

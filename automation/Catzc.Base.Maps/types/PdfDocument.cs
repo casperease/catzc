@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/PdfDocument.cs
     folder: types
     name: pdf-document
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/PdfDocument.cs.md
-      test: automation/Catzc.Base.Maps/tests/types/PdfDocument.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/PdfDocument.cs.md
+    test: automation/Catzc.Base.Maps/tests/types/PdfDocument.Tests.ps1
+    cites:
       - ADR-PWSH-TYPES#1
 ---
 */

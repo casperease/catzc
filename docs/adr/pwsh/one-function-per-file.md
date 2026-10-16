@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d121b8193149
     path: docs/adr/pwsh/one-function-per-file.md
     folder: docs/adr/pwsh
     name: one-function-per-file
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d121b8193149
+  edges:
     defines:
       - ADR-PWSH-ONEFUNC#{1-3}
-    adrs:
+    cites:
       - ADR-AUTO-EXTEND#4
       - ADR-PWSH-USEPS#1
     links:

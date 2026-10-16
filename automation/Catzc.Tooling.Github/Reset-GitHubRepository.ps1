@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/Reset-GitHubRepository.ps1
     name: reset-git-hub-repository
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
   config:
     synopsis: |-
       Hard-purges a GitHub repository — deletes it, recreates it (optionally under a

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6aff4baacf3c"
     path: docs/references/automation/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: update-bats-vendor-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6aff4baacf3c"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-ENUM#3
 ---

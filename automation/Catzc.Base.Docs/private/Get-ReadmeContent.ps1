@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-ReadmeContent.ps1
     folder: private
     name: get-readme-content
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-README#6
   config:
     synopsis: 'Composes a generated README: its source article, links rebased to the README''s folder, under a line naming the source.'
@@ -49,7 +50,7 @@ function Get-ReadmeContent {
     $banner = "> Generated from [$($Mapping.source)]($sourceLink) — edit the source;"
 
     # The copy's own meta block says what it is, in the shape every meta block has, so a tool can tell it from an authored file.
-    $meta = "---`ncatzc:`n  derived:`n    kind: $((Get-FileKind "$($Mapping.folder)/README.md").kind)`n---`n`n"
+    $meta = "---`ncatzc:`n  immutable:`n    kind: $((Get-FileKind "$($Mapping.folder)/README.md").kind)`n---`n`n"
 
     $lines = @($body -split "`n", 2)
     if (-not $lines[0].StartsWith('# ')) {

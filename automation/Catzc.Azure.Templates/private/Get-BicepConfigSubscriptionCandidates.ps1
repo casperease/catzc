@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
     folder: private
     name: get-bicep-config-subscription-candidates
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
+    cites:
       - ADR-AZ-DATAMOD
   config:
     synopsis: Returns the subscriptions a config coordinate (customer?, environment) can resolve to.

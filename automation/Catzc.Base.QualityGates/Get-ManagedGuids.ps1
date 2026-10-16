@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Get-ManagedGuids.ps1
     name: get-managed-guids
     filetype: ps1

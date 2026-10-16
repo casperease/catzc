@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8718d4d83b07"
     path: docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md
     folder: docs/references/automation/catzc-azure-templates
     name: set-bicep-tracking-tag-set-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8718d4d83b07"
 ---
 
 # automation/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1

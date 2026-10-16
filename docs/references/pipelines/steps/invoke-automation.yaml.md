@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "16fc292a209a"
     path: docs/references/pipelines/steps/invoke-automation.yaml.md
     folder: docs/references/pipelines/steps
     name: invoke-automation-yaml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "16fc292a209a"
 ---
 
 # pipelines/steps/invoke-automation.yaml

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/MapsConfig.cs
     folder: types
     name: maps-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/MapsConfig.cs.md
-      test: automation/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/MapsConfig.cs.md
+    test: automation/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-REPO-OUTDIR#2

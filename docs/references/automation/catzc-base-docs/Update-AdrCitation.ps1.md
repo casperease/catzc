@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "34bd7cce88d8"
     path: docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: update-adr-citation-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "34bd7cce88d8"
 ---
 
 # automation/Catzc.Base.Docs/Update-AdrCitation.ps1

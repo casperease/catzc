@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/private/Install-PipTool.ps1
     folder: private
     name: install-pip-tool
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md
-      test: automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md
+    test: automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
+    cites:
       - ADR-AUTO-UVPY#2
   config:
     synopsis: Installs a Python-library tool into the uv-managed Python via `uv pip`.

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/New-PesterRunConfiguration.ps1
     folder: private
     name: new-pester-run-configuration
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/New-PesterRunConfiguration.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/New-PesterRunConfiguration.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#25
   config:
     synopsis: |-

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "559999cbc1c1"
     path: docs/references/automation/catzc-azure-devops/configs/identity-tokens.yml.md
     folder: docs/references/automation/catzc-azure-devops/configs
     name: identity-tokens-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "559999cbc1c1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

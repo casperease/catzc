@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7aba34771d45"
     path: docs/adr/automation/internal-asset-dependencies.md
     folder: docs/adr/automation
     name: internal-asset-dependencies
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "7aba34771d45"
+  edges:
     defines:
       - ADR-AUTO-ASSETDEP#{1-5}
-    adrs:
+    cites:
       - ADR-AUTO-NOPWD#1
       - ADR-AUTO-TEST#1
       - ADR-PWSH-PWD#{4,7}

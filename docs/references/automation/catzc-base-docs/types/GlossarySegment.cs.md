@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "954aeb4113e5"
     path: docs/references/automation/catzc-base-docs/types/GlossarySegment.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-segment-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "954aeb4113e5"
 ---
 
 # automation/Catzc.Base.Docs/types/GlossarySegment.cs

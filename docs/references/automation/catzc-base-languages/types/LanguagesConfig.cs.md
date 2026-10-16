@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "98b2238f79a4"
     path: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: languages-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "98b2238f79a4"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#6

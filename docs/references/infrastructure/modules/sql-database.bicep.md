@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4c2b0eba9568"
     path: docs/references/infrastructure/modules/sql-database.bicep.md
     folder: docs/references/infrastructure/modules
     name: sql-database-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4c2b0eba9568"
 ---
 
 # infrastructure/modules/sql-database.bicep

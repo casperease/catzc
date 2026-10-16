@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c603138d451b
     path: docs/explanation/design/where-code-loads-from-decides-the-mode.md
     folder: docs/explanation/design
     name: where-code-loads-from-decides-the-mode
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: c603138d451b
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-RUNMODE#{1,2,4,5}
     links:
       - docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "15269ce699bd"
     path: docs/references/automation/catzc-tooling-core.md
     folder: docs/references/automation
     name: catzc-tooling-core
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "15269ce699bd"
+  edges:
     links:
       - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
       - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8bff15b2a55a"
     path: docs/adr/process/pull-work.md
     folder: docs/adr/process
     name: pull-work
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "8bff15b2a55a"
+  edges:
     defines:
       - ADR-PROC-PULLWORK#{1-4}
     links:

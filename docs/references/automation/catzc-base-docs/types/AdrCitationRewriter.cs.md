@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: efbe38d34e1f
     path: docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-citation-rewriter-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: efbe38d34e1f
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#2
 ---
 

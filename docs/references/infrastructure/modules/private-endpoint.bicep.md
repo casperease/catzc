@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "308ec18c7d76"
     path: docs/references/infrastructure/modules/private-endpoint.bicep.md
     folder: docs/references/infrastructure/modules
     name: private-endpoint-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "308ec18c7d76"
 ---
 
 # infrastructure/modules/private-endpoint.bicep

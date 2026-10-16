@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationHeader.ps1
     folder: private
     name: write-test-automation-header
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationHeader.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationHeader.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#30
   config:
     synopsis: Writes the opening banner for a Test-Automation run — the framed header that brackets the run's output.

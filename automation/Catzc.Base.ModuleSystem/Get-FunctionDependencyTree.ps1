@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Get-FunctionDependencyTree.ps1
     name: get-function-dependency-tree
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependencyTree.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependencyTree.Tests.ps1
   config:
     synopsis: Returns the transitive closure of all functions that a given function depends on.
     description: |-

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a2e9acb9e01c
     path: docs/references/automation/catzc-tooling-inspiration/tests/Get-Inspiration.Shipped.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-inspiration/tests
     name: get-inspiration-shipped-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a2e9acb9e01c
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-INSPIRE#1
 ---
 

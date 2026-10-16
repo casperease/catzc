@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
     folder: types
     name: engine-case-table
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Tooling.Core
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md
-      test: automation/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md
+    test: automation/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE#1
 ---
 */

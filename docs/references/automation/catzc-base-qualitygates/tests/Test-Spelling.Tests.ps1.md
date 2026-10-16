@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b6e27572ebcf
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Spelling.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-spelling-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b6e27572ebcf
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{8,14}
 ---
 

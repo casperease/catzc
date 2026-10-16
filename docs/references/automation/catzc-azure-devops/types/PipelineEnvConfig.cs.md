@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e0a40c517c57
     path: docs/references/automation/catzc-azure-devops/types/PipelineEnvConfig.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: pipeline-env-config-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e0a40c517c57
 ---
 
 # automation/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs

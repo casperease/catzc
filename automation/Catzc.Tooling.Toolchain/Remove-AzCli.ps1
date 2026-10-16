@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Remove-AzCli.ps1
     name: remove-az-cli
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md
-      test: automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md
+    test: automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
+    cites:
       - ADR-AUTO-REMOVE
   config:
     synopsis: Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.

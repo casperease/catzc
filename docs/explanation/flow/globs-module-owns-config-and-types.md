@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: acff02a4ee86
     path: docs/explanation/flow/globs-module-owns-config-and-types.md
     folder: docs/explanation/flow
     name: globs-module-owns-config-and-types
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: acff02a4ee86
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{1,5,6,9}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md

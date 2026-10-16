@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1756066d4cce"
     path: docs/explanation/flow/one-scan-program-feeds-three-roles.md
     folder: docs/explanation/flow
     name: one-scan-program-feeds-three-roles
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "1756066d4cce"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{4-6,9}
       - ADR-REPO-PROTGLOB#5
     links:

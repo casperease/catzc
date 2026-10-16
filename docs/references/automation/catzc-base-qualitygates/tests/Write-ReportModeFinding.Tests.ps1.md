@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "28ab2e5a3605"
     path: docs/references/automation/catzc-base-qualitygates/tests/Write-ReportModeFinding.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: write-report-mode-finding-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "28ab2e5a3605"
-    adrs:
+  edges:
+    cites:
       - ADR-PRIN-CONFIG#4
 ---
 

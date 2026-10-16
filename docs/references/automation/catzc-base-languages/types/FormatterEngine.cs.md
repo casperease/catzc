@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "42255bc55bec"
     path: docs/references/automation/catzc-base-languages/types/FormatterEngine.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: formatter-engine-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "42255bc55bec"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FORMAT#8
 ---

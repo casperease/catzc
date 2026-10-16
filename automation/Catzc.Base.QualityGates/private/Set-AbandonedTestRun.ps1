@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Set-AbandonedTestRun.ps1
     folder: private
     name: set-abandoned-test-run
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Set-AbandonedTestRun.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Set-AbandonedTestRun.Tests.ps1
   config:
     synopsis: Marks every run under a report folder that says 'running' but whose owning process is gone as 'abandoned'.
     description: |-

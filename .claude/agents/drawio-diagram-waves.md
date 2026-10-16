@@ -8,7 +8,8 @@ description: >
   `write-drawio-files`.
 tools: Agent, Bash, Read, Glob, Grep, Write, Edit
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3c31582376b4"
     path: ".claude/agents/drawio-diagram-waves.md"
     folder: agents
     name: drawio-diagram-waves
@@ -18,8 +19,8 @@ catzc:
     track: ".claude"
     module: ".claude"
     moduletype: settings
-    body_sha: "3c31582376b4"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-VISUAL#4
     links:
       - ".claude/CLAUDE.md#time-safeguard"

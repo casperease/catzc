@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b6cb5e31021f
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-language-test-executable-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b6cb5e31021f
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ENGINE#1
 ---
 

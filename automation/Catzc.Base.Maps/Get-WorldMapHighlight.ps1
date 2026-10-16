@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
     name: get-world-map-highlight
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#{1,3}
       - ADR-FLOW-CD
       - ADR-THES-ONETRUTH#3

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: infrastructure/templates/expedition/configuration/dev.yml
 #     folder: configuration
 #     name: dev
@@ -11,8 +11,8 @@
 #     track: infrastructure
 #     module: expedition
 #     moduletype: bicep
-#     relatives:
-#       page: docs/references/infrastructure/templates/expedition/configuration/dev.yml.md
+#   edges:
+#     page: docs/references/infrastructure/templates/expedition/configuration/dev.yml.md
 # ---
 
 ParametersFile:

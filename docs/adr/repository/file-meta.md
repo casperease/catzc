@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ac33ef39622c
     path: docs/adr/repository/file-meta.md
     folder: docs/adr/repository
     name: file-meta
@@ -8,15 +9,16 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "70aac12bc0d5"
+  edges:
     defines:
-      - ADR-REPO-FILEMETA#{1-12}
-    adrs:
+      - ADR-REPO-FILEMETA#{1-13}
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
       - ADR-CONF-LOADING#5
       - ADR-DSGN-MODTYPE#2
       - ADR-DSGN-TRACKTYPE#6
+      - ADR-REPO-CODEMETA#2
       - ADR-REPO-COMMENTS#1
       - ADR-REPO-FORMAT#{5,6}
       - ADR-REPO-LINK#4
@@ -32,6 +34,7 @@ catzc:
       - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype6
       - docs/adr/repository/code-file-meta.md
       - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1
+      - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta2
       - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1
       - docs/adr/repository/markdown-links.md#rule-adr-repo-link4
       - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5

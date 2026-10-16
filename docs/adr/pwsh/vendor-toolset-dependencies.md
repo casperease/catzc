@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6eefb77c0042"
     path: docs/adr/pwsh/vendor-toolset-dependencies.md
     folder: docs/adr/pwsh
     name: vendor-toolset-dependencies
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "6eefb77c0042"
+  edges:
     defines:
       - ADR-PWSH-VENDOR#{1,3-8}
-    adrs:
+    cites:
       - ADR-AUTO-DEPM#8
     links:
       - docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm8

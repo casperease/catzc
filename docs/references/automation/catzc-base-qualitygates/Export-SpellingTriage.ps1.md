@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e6fad7eb5a6c
     path: docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: export-spelling-triage-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e6fad7eb5a6c
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-SPELL#{6,7}
 ---
 

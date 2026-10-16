@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6ae87099e7a9"
     path: docs/explanation/design/which-run-mode-rules-have-a-gate.md
     folder: docs/explanation/design
     name: which-run-mode-rules-have-a-gate
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "6ae87099e7a9"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ASSETDEP#1
       - ADR-DSGN-RUNMODE
     links:

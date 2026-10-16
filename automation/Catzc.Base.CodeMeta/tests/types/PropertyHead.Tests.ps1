@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.CodeMeta/tests/types/PropertyHead.Tests.ps1
     folder: tests/types
     name: property-head-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.CodeMeta
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#3
 ---
 #>

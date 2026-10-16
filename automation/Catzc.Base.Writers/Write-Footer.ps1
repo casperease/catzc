@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/Write-Footer.ps1
     name: write-footer
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Writers/tests/Write-Footer.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Writers/tests/Write-Footer.Tests.ps1
   config:
     synopsis: Writes a closing footer line in a chosen style.
     description: |-

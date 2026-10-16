@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/key-vault.bicep
 //     name: key-vault
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: key-vault
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/key-vault.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/key-vault.bicep.md
 // ---
 
 @description('Key vault name (3-24 alphanumeric/hyphen, starts with a letter, globally unique).')

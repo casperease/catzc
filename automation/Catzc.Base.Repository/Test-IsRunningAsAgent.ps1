@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/Test-IsRunningAsAgent.ps1
     name: test-is-running-as-agent
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Repository/tests/Test-IsRunningAsAgent.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Repository/tests/Test-IsRunningAsAgent.Tests.ps1
   config:
     synopsis: Returns true if the current session is driven by an AI coding agent rather than a person.
     description: |-

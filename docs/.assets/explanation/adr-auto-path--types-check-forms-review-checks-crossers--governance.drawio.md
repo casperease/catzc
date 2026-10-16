@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "802bc5ecd360"
     path: docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-types-check-forms-review-checks-crossers-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "802bc5ecd360"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
       - docs/explanation/automation/types-check-forms-review-checks-crossers.md

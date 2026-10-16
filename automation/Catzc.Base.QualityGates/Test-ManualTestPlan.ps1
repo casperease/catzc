@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-ManualTestPlan.ps1
     name: test-manual-test-plan
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Test-ManualTestPlan.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Test-ManualTestPlan.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#{16,35}
   config:
     synopsis: 'Quality gate: the manual test plan lists every integrity check, once.'

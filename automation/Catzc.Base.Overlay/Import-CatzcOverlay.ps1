@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Overlay/Import-CatzcOverlay.ps1
     name: import-catzc-overlay
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
+    cites:
       - ADR-AUTO-OVERLAY
   config:
     synopsis: Applies the consumer overlay's function overrides to the loaded bundle, after checking the whole overlay.

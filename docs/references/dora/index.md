@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3cfd89b51712"
     path: docs/references/dora/index.md
     folder: docs/references/dora
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "3cfd89b51712"
+  edges:
     links:
       - docs/adr/research/index.md
       - docs/references/dora/ai.md

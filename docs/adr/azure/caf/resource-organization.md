@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e19e260878a6
     path: docs/adr/azure/caf/resource-organization.md
     folder: docs/adr/azure/caf
     name: resource-organization
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: e19e260878a6
+  edges:
     defines:
       - ADR-AZ-CAFRESORG#{1-35}
-    adrs:
+    cites:
       - ADR-AZ-CUSTOMER#{2,4}
       - ADR-AZ-DATAMOD#{1-3,8,9,11}
       - ADR-AZ-LZ

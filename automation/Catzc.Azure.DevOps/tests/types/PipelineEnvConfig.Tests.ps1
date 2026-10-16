@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1
     folder: tests/types
     name: pipeline-env-config-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.DevOps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-devops/tests/types/PipelineEnvConfig.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-devops/tests/types/PipelineEnvConfig.Tests.ps1.md
 ---
 #>
 

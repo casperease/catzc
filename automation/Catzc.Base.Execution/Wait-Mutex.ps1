@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/Wait-Mutex.ps1
     name: wait-mutex
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md
-      test: automation/Catzc.Base.Execution/tests/Wait-Mutex.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md
+    test: automation/Catzc.Base.Execution/tests/Wait-Mutex.Tests.ps1
+    cites:
       - ADR-AUTO-CONSOLE#{8,10}
       - ADR-PWSH-ANNOUNCE#1
   config:

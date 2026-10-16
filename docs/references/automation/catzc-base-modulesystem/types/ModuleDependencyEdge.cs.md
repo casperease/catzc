@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7a82bbac5334"
     path: docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: module-dependency-edge-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "7a82bbac5334"
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ModuleDependencyEdge.cs

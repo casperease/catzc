@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/New-PythonProject.ps1
     name: new-python-project
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md
-      test: automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md
+    test: automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
+    cites:
       - ADR-AUTO-PY
       - ADR-CONF-ADDRESSING
   config:

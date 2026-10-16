@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f80f37c01327
     path: docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: uninstall-java-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f80f37c01327
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ENV#4
 ---
 

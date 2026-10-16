@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/vnet-peering.bicep
 //     name: vnet-peering
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: vnet-peering
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/vnet-peering.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/vnet-peering.bicep.md
 // ---
 
 @description('Name of the existing local virtual network (in the deployment resource group).')

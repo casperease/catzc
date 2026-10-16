@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "855319b6f7ee"
     path: docs/references/automation/catzc-base-languages.md
     folder: docs/references/automation
     name: catzc-base-languages
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "855319b6f7ee"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#1
     links:
       - docs/adr/automation/bash/bash-test-artifacts.md

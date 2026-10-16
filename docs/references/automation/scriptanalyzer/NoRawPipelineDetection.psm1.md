@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: eedf6f528a1f
     path: docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-raw-pipeline-detection-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: eedf6f528a1f
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

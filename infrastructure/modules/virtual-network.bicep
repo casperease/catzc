@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/virtual-network.bicep
 //     name: virtual-network
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: virtual-network
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/virtual-network.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/virtual-network.bicep.md
 // ---
 
 @description('A subnet of the virtual network.')

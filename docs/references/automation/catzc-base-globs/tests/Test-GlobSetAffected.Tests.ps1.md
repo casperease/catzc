@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "34ee83c679f3"
     path: docs/references/automation/catzc-base-globs/tests/Test-GlobSetAffected.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: test-glob-set-affected-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "34ee83c679f3"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-REPO-PROTGLOB#5
 ---

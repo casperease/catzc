@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/Get-Glossary.ps1
     name: get-glossary
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md
-      test: automation/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md
+    test: automation/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
+    cites:
       - ADR-PWSH-CACHE
       - ADR-REPO-VOCAB#2
   config:

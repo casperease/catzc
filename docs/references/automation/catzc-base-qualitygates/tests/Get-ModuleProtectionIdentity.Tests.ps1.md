@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1f64d06bb315"
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-module-protection-identity-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1f64d06bb315"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-PROTGLOB#8
 ---
 

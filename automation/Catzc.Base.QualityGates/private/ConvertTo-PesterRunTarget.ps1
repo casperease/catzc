@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/ConvertTo-PesterRunTarget.ps1
     folder: private
     name: convert-to-pester-run-target
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/ConvertTo-PesterRunTarget.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/ConvertTo-PesterRunTarget.Tests.ps1
   config:
     synopsis: Splits a run's paths into the Pester run paths and the language bridge containers.
     description: |-

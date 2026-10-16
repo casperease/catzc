@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "395e9272a0b7"
     path: docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-track-one-unit-one-pipeline-meta-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "395e9272a0b7"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.chain.md

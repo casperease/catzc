@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "629338942465"
     path: docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-output-root-first-then-repo-root-implementation-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "629338942465"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
       - docs/explanation/automation/output-root-first-then-repo-root.md

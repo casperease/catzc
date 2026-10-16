@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
     folder: private
     name: resolve-inspiration-root
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
+    cites:
       - ADR-AUTO-PATH#{3,6,11}
   config:
     synopsis: Resolves an inspiration's stored root to its binding form, a normalized absolute path.

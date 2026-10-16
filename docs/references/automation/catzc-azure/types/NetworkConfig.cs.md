@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0ddf1598fb36"
     path: docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: network-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0ddf1598fb36"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-NETWORK#{2,5,6}
 ---

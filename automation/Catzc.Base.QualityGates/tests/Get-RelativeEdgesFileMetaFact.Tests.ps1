@@ -1,10 +1,10 @@
 <#
 ---
 catzc:
-  derived:
-    path: automation/Catzc.Base.QualityGates/tests/Get-RelativesFileMetaFact.Tests.ps1
+  immutable:
+    path: automation/Catzc.Base.QualityGates/tests/Get-RelativeEdgesFileMetaFact.Tests.ps1
     folder: tests
-    name: get-relatives-file-meta-fact-tests
+    name: get-relative-edges-file-meta-fact-tests
     filetype: ps1
     kind: test
     language: powershell
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#10
 ---

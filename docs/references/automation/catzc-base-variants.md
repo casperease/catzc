@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f850a5c1b74e
     path: docs/references/automation/catzc-base-variants.md
     folder: docs/references/automation
     name: catzc-base-variants
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: f850a5c1b74e
+  edges:
     links:
       - docs/adr/automation/caching.md
       - docs/adr/azure/azure-naming-standard.md

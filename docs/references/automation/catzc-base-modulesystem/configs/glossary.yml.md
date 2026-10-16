@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1faa3800d85f"
     path: docs/references/automation/catzc-base-modulesystem/configs/glossary.yml.md
     folder: docs/references/automation/catzc-base-modulesystem/configs
     name: glossary-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1faa3800d85f"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-VOCAB#2
 ---
 

@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/templates/discovery/main.bicep
 //     name: main
 //     filetype: bicep
@@ -9,8 +9,8 @@
 //     track: infrastructure
 //     module: discovery
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/templates/discovery/main.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/templates/discovery/main.bicep.md
 // ---
 
 targetScope = 'subscription'

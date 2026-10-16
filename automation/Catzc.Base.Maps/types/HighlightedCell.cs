@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/HighlightedCell.cs
     folder: types
     name: highlighted-cell
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/HighlightedCell.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/HighlightedCell.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 */

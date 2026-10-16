@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Sync-SessionTools.ps1
     name: sync-session-tools
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
   config:
     synopsis: |-
       Reconciles the current session's PATH to the tools that are actually present, and reports any running from

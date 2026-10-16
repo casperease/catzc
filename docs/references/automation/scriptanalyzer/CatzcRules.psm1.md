@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "675d40d989f6"
     path: docs/references/automation/scriptanalyzer/CatzcRules.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: catzc-rules-psm1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "675d40d989f6"
 ---
 
 # automation/.scriptanalyzer/CatzcRules.psm1

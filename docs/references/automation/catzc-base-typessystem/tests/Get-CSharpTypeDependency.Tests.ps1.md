@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "22bbbd8dfd28"
     path: docs/references/automation/catzc-base-typessystem/tests/Get-CSharpTypeDependency.Tests.ps1.md
     folder: docs/references/automation/catzc-base-typessystem/tests
     name: get-c-sharp-type-dependency-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "22bbbd8dfd28"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#9
 ---
 

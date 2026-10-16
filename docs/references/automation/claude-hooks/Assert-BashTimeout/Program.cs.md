@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2276d83149dc"
     path: docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md
     folder: docs/references/automation/claude-hooks/Assert-BashTimeout
     name: program-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2276d83149dc"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-FAILFAST#7
 ---
 

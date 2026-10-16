@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b79c1fbb598e
     path: docs/explanation/design/guard-and-policies-by-command.md
     folder: docs/explanation/design
     name: guard-and-policies-by-command
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: b79c1fbb598e
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-REMOTE#{2,4}
       - ADR-REPO-VARIANT#6
     links:

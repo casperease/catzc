@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ace32f65632c
     path: docs/references/automation/catzc-azure-devops/tests/Get-PipelineTemplateReference.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-devops/tests
     name: get-pipeline-template-reference-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ace32f65632c
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#4
 ---
 

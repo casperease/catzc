@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/types/Tenant.cs
     folder: types
     name: tenant
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure/types/Tenant.cs.md
+  edges:
+    page: docs/references/automation/catzc-azure/types/Tenant.cs.md
 ---
 */
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0556ee64f476"
     path: docs/adr/configuration/config-value-addressing.md
     folder: docs/adr/configuration
     name: config-value-addressing
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "0556ee64f476"
+  edges:
     defines:
       - ADR-CONF-ADDRESSING#{1-5}
-    adrs:
+    cites:
       - ADR-AUTO-ENVVAR#7
       - ADR-CONF-LOADING#{1-3}
     links:

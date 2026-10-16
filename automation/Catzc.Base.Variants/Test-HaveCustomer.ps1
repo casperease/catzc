@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/Test-HaveCustomer.ps1
     name: test-have-customer
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Variants/tests/Test-HaveCustomer.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Variants/tests/Test-HaveCustomer.Tests.ps1
   config:
     synopsis: Tests whether one named customer is enabled for the repo (singular cover over Test-HaveCustomers).
     description: |-

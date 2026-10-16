@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7e3f927bebba"
     path: docs/references/automation/catzc-tooling-node.md
     folder: docs/references/automation
     name: catzc-tooling-node
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "7e3f927bebba"
+  edges:
     links:
       - docs/adr/automation/controlling-systemwide-deps.md
       - docs/adr/automation/cross-platform.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "66cc733e57c8"
     path: docs/references/automation/catzc-base-modulesystem/types/SessionModule.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: session-module-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "66cc733e57c8"
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/SessionModule.cs

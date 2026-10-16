@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6a4f057957d1"
     path: docs/references/automation/catzc-base-qualitygates/types/FileMetaDirection.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: file-meta-direction-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6a4f057957d1"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#2
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fceb6a0a7cef
     path: docs/references/automation/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: resolve-adr-link-target-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fceb6a0a7cef
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-REPO-LINK#2
 ---

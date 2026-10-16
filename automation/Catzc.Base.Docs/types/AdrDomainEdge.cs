@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/AdrDomainEdge.cs
     folder: types
     name: adr-domain-edge
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/AdrDomainEdge.cs.md
-      test: automation/Catzc.Base.Docs/tests/types/AdrDomainEdge.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/AdrDomainEdge.cs.md
+    test: automation/Catzc.Base.Docs/tests/types/AdrDomainEdge.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#9
 ---
 */

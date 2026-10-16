@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/types/BashSafeguard.cs
     folder: types
     name: bash-safeguard
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Timeouts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
-      test: automation/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
+    test: automation/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
+    cites:
       - ADR-AUTO-FAILFAST#7
 ---
 */

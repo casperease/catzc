@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c6e0e1792463
     path: docs/adr/flow/durable-sha-globs.md
     folder: docs/adr/flow
     name: durable-sha-globs
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: c6e0e1792463
+  edges:
     defines:
       - ADR-FLOW-CD-GLOBS#{1-10}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-DSGN-TRACK#5
       - ADR-REPO-PROTGLOB#7

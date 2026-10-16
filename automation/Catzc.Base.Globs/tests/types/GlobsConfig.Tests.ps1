@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
     folder: tests/types
     name: globs-config-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Globs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#{3,37}
       - ADR-DSGN-TRACK#5
       - ADR-FLOW-CD-GLOBS#{4,7,8}

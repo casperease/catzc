@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleTestOrder.Tests.ps1
     folder: tests
     name: get-module-test-order-tests

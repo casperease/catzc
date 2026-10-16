@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "89e19e3c644b"
     path: docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
     folder: docs/references/automation/catzc-base-overlay/tests
     name: overlay-fixture-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "89e19e3c644b"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

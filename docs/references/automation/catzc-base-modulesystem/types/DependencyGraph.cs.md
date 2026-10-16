@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fc366001814c
     path: docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: dependency-graph-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fc366001814c
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEPM#4
 ---
 

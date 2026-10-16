@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/types/FormatterEngine.cs
     folder: types
     name: formatter-engine
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-languages/types/FormatterEngine.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/types/FormatterEngine.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FORMAT#8
 ---

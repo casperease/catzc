@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "086315865188"
     path: docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md
     folder: docs/references/automation/catzc-base-files
     name: write-file-if-changed-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "086315865188"
 ---
 
 # automation/Catzc.Base.Files/Write-FileIfChanged.ps1

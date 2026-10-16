@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "05d82b8083b5"
     path: docs/references/automation/catzc-azure-devops.md
     folder: docs/references/automation
     name: catzc-azure-devops
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "05d82b8083b5"
+  edges:
     links:
       - docs/adr/pipelines/dual-authentication.md
       - docs/adr/pipelines/pipeline-naming-and-placement.md

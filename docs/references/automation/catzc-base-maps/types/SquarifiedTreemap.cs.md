@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "726fe6f1b591"
     path: docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: squarified-treemap-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "726fe6f1b591"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-TYPES#1
 ---
 

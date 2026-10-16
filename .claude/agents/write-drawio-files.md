@@ -12,7 +12,8 @@ description: >
 tools: Bash, Read, Glob, Grep, Write
 model: haiku
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dc56e6631c20
     path: ".claude/agents/write-drawio-files.md"
     folder: agents
     name: write-drawio-files
@@ -22,7 +23,7 @@ catzc:
     track: ".claude"
     module: ".claude"
     moduletype: settings
-    body_sha: dc56e6631c20
+  edges:
     links:
       - ".claude/CLAUDE.md#time-safeguard"
       - ".claude/drawio/STYLE.md"

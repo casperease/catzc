@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Get-AzCliConnectionState.ps1
     name: get-az-cli-connection-state
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Cli/tests/Get-AzCliConnectionState.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.Cli/tests/Get-AzCliConnectionState.Tests.ps1
   config:
     synopsis: Returns the az CLI session's connection state relative to a given subscription and/or tenant.
     description: |-

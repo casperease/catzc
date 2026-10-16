@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5f49b3c80d14"
     path: docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: yaml-file-record-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5f49b3c80d14"
 ---
 
 # automation/Catzc.Azure.DevOps/types/YamlFileRecord.cs

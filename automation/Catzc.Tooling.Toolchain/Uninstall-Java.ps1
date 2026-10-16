@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Uninstall-Java.ps1
     name: uninstall-java
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md
-      test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md
+    test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
+    cites:
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#{4,5}

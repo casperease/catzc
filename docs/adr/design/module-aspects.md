@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ce9d5dbe10f2
     path: docs/adr/design/module-aspects.md
     folder: docs/adr/design
     name: module-aspects
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: ce9d5dbe10f2
+  edges:
     defines:
       - ADR-DSGN-ASPECT#{1-5}
-    adrs:
+    cites:
       - ADR-FLOW-CD-GLOBS#{4,5,7}
     links:
       - docs/adr/automation/platform-bundle.md

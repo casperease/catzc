@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3fbd2c7014b2"
     path: docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-pipe-auth-what-you-set-decides-the-credential-operations-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "3fbd2c7014b2"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "65c651bc9bfc"
     path: docs/references/automation/internal/tests/Test-IsRunningInPipeline.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: test-is-running-in-pipeline-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "65c651bc9bfc"
 ---
 
 # automation/.internal/tests/Test-IsRunningInPipeline.Tests.ps1

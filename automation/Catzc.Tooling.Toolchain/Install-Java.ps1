@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Install-Java.ps1
     name: install-java
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md
-      test: automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md
+    test: automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
+    cites:
       - ADR-AUTO-CONSOLE#11
   config:
     synopsis: Installs Microsoft OpenJDK via the platform package manager.

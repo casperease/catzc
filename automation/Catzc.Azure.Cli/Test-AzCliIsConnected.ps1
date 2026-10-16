@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Test-AzCliIsConnected.ps1
     name: test-az-cli-is-connected
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Cli/tests/Test-AzCliIsConnected.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.Cli/tests/Test-AzCliIsConnected.Tests.ps1
   config:
     synopsis: Tests whether the active az CLI session is logged into the named tenant + subscription.
     description: |-

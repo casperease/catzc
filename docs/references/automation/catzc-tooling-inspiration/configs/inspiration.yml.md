@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "10cb072ee225"
     path: docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
     folder: docs/references/automation/catzc-tooling-inspiration/configs
     name: inspiration-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "10cb072ee225"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-PATH#11
 ---

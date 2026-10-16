@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestLevelTag.ps1
     folder: private
     name: get-test-level-tag
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestLevelTag.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestLevelTag.Tests.ps1
   config:
     synopsis: Resolves a Pester test's integration tier (L0 to L4, [Catzc.Base.Timeouts.TestTiers]) from its block hierarchy.
     description: |-

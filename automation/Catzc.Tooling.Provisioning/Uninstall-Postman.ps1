@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Uninstall-Postman.ps1
     name: uninstall-postman
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1
   config:
     synopsis: Uninstalls the Postman desktop app.
     description: |-

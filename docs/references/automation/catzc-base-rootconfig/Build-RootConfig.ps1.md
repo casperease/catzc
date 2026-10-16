@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: db6cee771e6d
     path: docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md
     folder: docs/references/automation/catzc-base-rootconfig
     name: build-root-config-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: db6cee771e6d
 ---
 
 # automation/Catzc.Base.RootConfig/Build-RootConfig.ps1

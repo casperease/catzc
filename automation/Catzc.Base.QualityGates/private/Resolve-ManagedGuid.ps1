@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Resolve-ManagedGuid.ps1
     folder: private
     name: resolve-managed-guid

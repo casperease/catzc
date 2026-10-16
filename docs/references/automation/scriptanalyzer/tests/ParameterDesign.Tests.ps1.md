@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a7ac33cc0ebc
     path: docs/references/automation/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: parameter-design-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a7ac33cc0ebc
 ---
 
 # automation/.scriptanalyzer/tests/ParameterDesign.Tests.ps1

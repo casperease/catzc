@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestExcludeTag.ps1
     folder: private
     name: get-test-exclude-tag
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
   config:
     synopsis: |-
       Computes the Pester ExcludeTag list for a tier range + category — shared by Test-Automation and

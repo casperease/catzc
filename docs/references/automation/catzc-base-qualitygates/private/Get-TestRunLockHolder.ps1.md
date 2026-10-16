@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bff1eea7aa5d
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-test-run-lock-holder-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: bff1eea7aa5d
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestRunLockHolder.ps1

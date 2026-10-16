@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/tests/Get-GitWorkspace.Tests.ps1
     folder: tests
     name: get-git-workspace-tests

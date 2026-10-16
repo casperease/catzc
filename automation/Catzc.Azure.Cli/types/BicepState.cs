@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/types/BicepState.cs
     folder: types
     name: bicep-state
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.Cli
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-cli/types/BicepState.cs.md
+  edges:
+    page: docs/references/automation/catzc-azure-cli/types/BicepState.cs.md
 ---
 */
 

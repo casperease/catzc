@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "433a23513767"
     path: docs/references/automation/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-adr-rule-set-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "433a23513767"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{3,35}
 ---
 

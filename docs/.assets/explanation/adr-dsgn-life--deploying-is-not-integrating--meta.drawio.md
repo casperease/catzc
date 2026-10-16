@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "001a6fa44750"
     path: docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-deploying-is-not-integrating-meta-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "001a6fa44750"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md

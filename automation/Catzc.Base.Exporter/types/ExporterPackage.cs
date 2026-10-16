@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Exporter/types/ExporterPackage.cs
     folder: types
     name: exporter-package
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Exporter
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-exporter/types/ExporterPackage.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-exporter/types/ExporterPackage.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 */

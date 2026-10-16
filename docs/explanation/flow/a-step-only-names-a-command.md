@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "01018e7b150d"
     path: docs/explanation/flow/a-step-only-names-a-command.md
     folder: docs/explanation/flow
     name: a-step-only-names-a-command
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "01018e7b150d"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-RUNNER#{1,4}
     links:
       - docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md

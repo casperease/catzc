@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0f2f92a434c5"
     path: docs/references/pipelines/cd-shared.yaml.md
     folder: docs/references/pipelines
     name: cd-shared-yaml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0f2f92a434c5"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-LZ#7
 ---
 

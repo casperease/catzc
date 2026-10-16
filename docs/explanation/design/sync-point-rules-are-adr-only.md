@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3cd7f3cab990"
     path: docs/explanation/design/sync-point-rules-are-adr-only.md
     folder: docs/explanation/design
     name: sync-point-rules-are-adr-only
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "3cd7f3cab990"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#{2,5-8}
       - ADR-FLOW-CD#{5,9,11}
     links:

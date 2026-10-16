@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationWorkerSummary.ps1
     folder: private
     name: write-test-automation-worker-summary
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationWorkerSummary.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationWorkerSummary.Tests.ps1
   config:
     synopsis: Writes the end-of-run worker table — one row per worker, on the run's wall-clock timeline.
     description: |-

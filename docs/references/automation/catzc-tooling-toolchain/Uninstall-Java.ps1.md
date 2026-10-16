@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "059a1111bc79"
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: uninstall-java-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "059a1111bc79"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#5

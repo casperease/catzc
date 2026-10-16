@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2569b8f983c4"
     path: docs/references/automation/catzc-tooling-core/tests/Remove-MacToolInstall.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: remove-mac-tool-install-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2569b8f983c4"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

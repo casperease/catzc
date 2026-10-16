@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
     folder: tests/types
     name: dictionary-record-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Objects
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TYPES#9
 ---

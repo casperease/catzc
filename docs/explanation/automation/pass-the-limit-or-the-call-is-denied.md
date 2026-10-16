@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "951dcc6dc22d"
     path: docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
     folder: docs/explanation/automation
     name: pass-the-limit-or-the-call-is-denied
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "951dcc6dc22d"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-FAILFAST#7
     links:
       - docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.md

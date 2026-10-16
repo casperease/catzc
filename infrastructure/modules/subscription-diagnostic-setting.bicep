@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/subscription-diagnostic-setting.bicep
 //     name: subscription-diagnostic-setting
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: subscription-diagnostic-setting
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md
 // ---
 
 targetScope = 'subscription'

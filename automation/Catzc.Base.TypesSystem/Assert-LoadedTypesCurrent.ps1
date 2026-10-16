@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1
     name: assert-loaded-types-current
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1
+    cites:
       - ADR-AUTO-FAILFAST#3
       - ADR-AUTO-TYPES#7
   config:

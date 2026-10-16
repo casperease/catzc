@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Get-ToolVersion.ps1
     name: get-tool-version
     filetype: ps1

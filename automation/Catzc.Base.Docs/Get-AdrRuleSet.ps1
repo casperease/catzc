@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/Get-AdrRuleSet.ps1
     name: get-adr-rule-set
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
   config:
     synopsis: The flat set of ADR rule-sets declared in adrs.yml — one typed record per ADR.
     description: |-

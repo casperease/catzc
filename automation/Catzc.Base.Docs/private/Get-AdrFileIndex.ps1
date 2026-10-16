@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-AdrFileIndex.ps1
     folder: private
     name: get-adr-file-index
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-AdrFileIndex.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-AdrFileIndex.Tests.ps1
   config:
     synopsis: Indexes the markdown files under docs/adr/ by "<domain folder>/<slug>", and maps each rule set to its one ADR file.
     description: |-

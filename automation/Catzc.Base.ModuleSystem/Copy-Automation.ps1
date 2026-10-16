@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1
     name: copy-automation
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md
-      test: automation/Catzc.Base.ModuleSystem/tests/Copy-Automation.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md
+    test: automation/Catzc.Base.ModuleSystem/tests/Copy-Automation.Tests.ps1
+    cites:
       - ADR-AUTO-PATH
       - ADR-AUTO-TYPES#9
       - ADR-CONF-LOADING

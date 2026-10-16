@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "684327842a48"
     path: docs/references/automation/catzc-base-qualitygates/types/GuidsConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: guids-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "684327842a48"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/private/Get-BicepParameterEntryViolations.ps1
     folder: private
     name: get-bicep-parameter-entry-violations
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md
   config:
     synopsis: |-
       Returns the violations of one parameters-file entry against its declaration in the template's compiled

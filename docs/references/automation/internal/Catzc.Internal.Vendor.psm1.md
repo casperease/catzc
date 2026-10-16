@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "778706f0dcc0"
     path: docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-vendor-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "778706f0dcc0"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#11
       - ADR-PWSH-ANNOUNCE#6
       - ADR-PWSH-ENUM#6

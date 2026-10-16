@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "51d044bb6625"
     path: docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-one-resolver-every-consumer-but-the-hook-architecture-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "51d044bb6625"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png
       - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md

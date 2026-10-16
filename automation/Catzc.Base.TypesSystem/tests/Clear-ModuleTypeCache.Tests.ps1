@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
     folder: tests
     name: clear-module-type-cache-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.TypesSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md
 ---
 #>
 

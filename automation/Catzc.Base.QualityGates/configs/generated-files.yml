@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.QualityGates/configs/generated-files.yml
 #     folder: configs
 #     name: generated-files
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.QualityGates
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-qualitygates/configs/generated-files.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-qualitygates/configs/generated-files.yml.md
 # ---
 
 writers:

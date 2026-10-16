@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0042054487f7"
     path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
     folder: docs/explanation/repository
     name: values-and-edges-gated-reads-reviewed
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "0042054487f7"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEPM#4
       - ADR-AUTO-TEST#35
       - ADR-REPO-VARIANT

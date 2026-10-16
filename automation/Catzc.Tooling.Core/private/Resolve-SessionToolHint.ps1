@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/private/Resolve-SessionToolHint.ps1
     folder: private
     name: resolve-session-tool-hint
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHint.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHint.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHint.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHint.Tests.ps1
   config:
     synopsis: Points the current session at a tool installed outside the installer layer, using its declared hints.
     description: |-

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "45b7d6cf4781"
     path: docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-naming-names-are-derived-never-typed-operations-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "45b7d6cf4781"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.chain.md

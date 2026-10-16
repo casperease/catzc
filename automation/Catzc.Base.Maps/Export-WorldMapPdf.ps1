@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/Export-WorldMapPdf.ps1
     name: export-world-map-pdf
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Maps/tests/Export-WorldMapPdf.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Maps/tests/Export-WorldMapPdf.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#{3,7,8}
       - ADR-REPO-OUTDIR#2
   config:

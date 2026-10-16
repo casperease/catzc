@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d2002bdd788b
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-catzc-build-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d2002bdd788b
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1

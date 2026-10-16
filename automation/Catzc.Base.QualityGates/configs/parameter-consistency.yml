@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.QualityGates/configs/parameter-consistency.yml
 #     folder: configs
 #     name: parameter-consistency
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.QualityGates
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md
 # ---
 
 exempt:

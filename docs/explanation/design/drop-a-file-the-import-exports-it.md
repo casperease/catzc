@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "652ba7de9c73"
     path: docs/explanation/design/drop-a-file-the-import-exports-it.md
     folder: docs/explanation/design
     name: drop-a-file-the-import-exports-it
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "652ba7de9c73"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-ASPECT#{1,2}
       - ADR-REPO-FOLDERS#10
     links:

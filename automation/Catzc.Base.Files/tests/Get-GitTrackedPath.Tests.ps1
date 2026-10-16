@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1
     folder: tests
     name: get-git-tracked-path-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Files
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md
 ---
 #>
 

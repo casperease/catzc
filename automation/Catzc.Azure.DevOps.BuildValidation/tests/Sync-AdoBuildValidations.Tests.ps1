@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
     folder: tests
     name: sync-ado-build-validations-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.DevOps.BuildValidation
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Sync-AdoBuildValidations.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Sync-AdoBuildValidations.Tests.ps1.md
 ---
 #>
 

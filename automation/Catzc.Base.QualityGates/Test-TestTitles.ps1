@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-TestTitles.ps1
     name: test-test-titles
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Test-TestTitles.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Test-TestTitles.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#{25,35}
   config:
     synopsis: 'Quality gate: no test title carries an angle-bracket template token unless its block is data-driven.'

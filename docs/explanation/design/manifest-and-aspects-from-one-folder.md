@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "13b42c260a6c"
     path: docs/explanation/design/manifest-and-aspects-from-one-folder.md
     folder: docs/explanation/design
     name: manifest-and-aspects-from-one-folder
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "13b42c260a6c"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-ASPECT#{1,2}
       - ADR-PWSH-MANIFEST#3
     links:

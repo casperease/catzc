@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestRunLocationEntry.ps1
     folder: private
     name: get-test-run-location-entry
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestRunLocationEntry.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestRunLocationEntry.Tests.ps1
+    cites:
       - ADR-AUTO-NOPWD
       - ADR-AUTO-TEST#30
   config:

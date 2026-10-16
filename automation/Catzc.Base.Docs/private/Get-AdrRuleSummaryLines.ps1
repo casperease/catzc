@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-AdrRuleSummaryLines.ps1
     folder: private
     name: get-adr-rule-summary-lines
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-AdrRuleSummaryLines.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-AdrRuleSummaryLines.Tests.ps1
+    cites:
       - ADR-REPO-LINK#5
   config:
     synopsis: Returns every line of every rule summary in one ADR file, with its line number and the rule's citation.

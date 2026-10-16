@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "979297fc6825"
     path: docs/references/automation/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-github/tests
     name: assert-git-hub-purge-ready-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "979297fc6825"
 ---
 
 # automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1

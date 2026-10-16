@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "41b9b8e4da41"
     path: docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-naming-lookup-form-check-render-in-order-implementation-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "41b9b8e4da41"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.chain.md

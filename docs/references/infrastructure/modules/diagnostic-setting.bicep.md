@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d3aa109a893d
     path: docs/references/infrastructure/modules/diagnostic-setting.bicep.md
     folder: docs/references/infrastructure/modules
     name: diagnostic-setting-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d3aa109a893d
 ---
 
 # infrastructure/modules/diagnostic-setting.bicep

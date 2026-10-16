@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "791634cbbe6b"
     path: docs/adr/principles/everything-as-code.md
     folder: docs/adr/principles
     name: everything-as-code
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "791634cbbe6b"
+  edges:
     defines:
       - ADR-PRIN-EAC#{1-3}
-    adrs:
+    cites:
       - ADR-THES-ONETRUTH#2
     links:
       - docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth2

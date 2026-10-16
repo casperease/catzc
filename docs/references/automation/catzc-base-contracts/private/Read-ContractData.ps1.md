@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2adefb665c7d"
     path: docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md
     folder: docs/references/automation/catzc-base-contracts/private
     name: read-contract-data-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2adefb665c7d"
 ---
 
 # automation/Catzc.Base.Contracts/private/Read-ContractData.ps1

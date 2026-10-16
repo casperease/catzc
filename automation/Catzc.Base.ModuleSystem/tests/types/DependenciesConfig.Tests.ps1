@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/tests/types/DependenciesConfig.Tests.ps1
     folder: tests/types
     name: dependencies-config-tests

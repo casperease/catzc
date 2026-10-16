@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-AdrCitationGraphViolations.ps1
     folder: private
     name: get-adr-citation-graph-violations
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
   config:
     synopsis: Lists every rule-summary citation that leaves its domain for a domain the registry does not declare it depends on.
     description: |-

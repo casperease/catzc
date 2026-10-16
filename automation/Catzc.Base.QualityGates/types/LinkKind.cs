@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/LinkKind.cs
     folder: types
     name: link-kind
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/LinkKind.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/LinkKind.cs.md
+    cites:
       - ADR-REPO-LINK#1
 ---
 */

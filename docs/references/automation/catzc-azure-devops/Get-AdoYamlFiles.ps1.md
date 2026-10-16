@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3790294fa343"
     path: docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md
     folder: docs/references/automation/catzc-azure-devops
     name: get-ado-yaml-files-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3790294fa343"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#9
 ---
 

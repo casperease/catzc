@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7e60f250283d"
     path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
     folder: docs/explanation/repository
     name: import-materialises-two-gates-name-the-fix
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "7e60f250283d"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-ROOTCFG#{4,6}
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md

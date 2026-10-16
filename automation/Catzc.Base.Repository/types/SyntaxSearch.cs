@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/types/SyntaxSearch.cs
     folder: types
     name: syntax-search
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Repository
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      test: automation/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
 ---
 */
 

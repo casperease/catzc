@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Install-Zsh.ps1
     name: install-zsh
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md
-      test: automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md
+    test: automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
+    cites:
       - ADR-AUTO-ENTERP
       - ADR-AUTO-IDEM#1
       - ADR-AUTO-PKGMGR#{5,6}

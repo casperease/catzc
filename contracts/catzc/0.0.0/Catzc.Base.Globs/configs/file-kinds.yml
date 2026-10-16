@@ -9,7 +9,7 @@ kinds:
   test:
   fixture:
     subkinds:
-      asset:
+      input:
   type:
   function:
     subkinds:
@@ -31,10 +31,9 @@ kinds:
   pipeline:
   hook:
   asset:
-  script:
   drawio-kit:
+  script:
   agent:
-  skill:
   index:
   glossary:
   adr:

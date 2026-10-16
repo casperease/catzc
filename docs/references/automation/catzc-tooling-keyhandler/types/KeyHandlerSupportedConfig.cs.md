@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "22c1658729e5"
     path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md
     folder: docs/references/automation/catzc-tooling-keyhandler/types
     name: key-handler-supported-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "22c1658729e5"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

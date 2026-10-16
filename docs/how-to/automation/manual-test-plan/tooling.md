@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "714072254ede"
     path: docs/how-to/automation/manual-test-plan/tooling.md
     folder: docs/how-to/automation/manual-test-plan
     name: tooling
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "714072254ede"
+  edges:
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---

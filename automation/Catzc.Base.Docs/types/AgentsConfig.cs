@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/AgentsConfig.cs
     folder: types
     name: agents-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md
-      test: automation/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md
+    test: automation/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-CONF-LOADING#4
       - ADR-REPO-AGENTS#{2,4}

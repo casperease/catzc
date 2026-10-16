@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "53cadb758d1b"
     path: docs/adr/automation/uv-python-handler.md
     folder: docs/adr/automation
     name: uv-python-handler
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "53cadb758d1b"
+  edges:
     defines:
       - ADR-AUTO-UVPY#{1-5}
     links:

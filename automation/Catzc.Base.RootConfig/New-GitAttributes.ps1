@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    path: automation/Catzc.Base.RootConfig/New-GitAttributes.ps1
+    name: new-git-attributes
+    filetype: ps1
+    kind: function
+    subkind: writer
+    language: powershell
+    track: automation
+    module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: automation/Catzc.Base.RootConfig/tests/New-GitAttributes.Tests.ps1
+---
+#>
+
 function New-GitAttributes {
     [CmdletBinding()]
     [OutputType([string])]

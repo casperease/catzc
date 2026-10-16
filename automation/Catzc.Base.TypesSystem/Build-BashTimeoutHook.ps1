@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1
     name: build-bash-timeout-hook
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
-      test: automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
+    test: automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1
+    cites:
       - ADR-AUTO-FAILFAST#7
       - ADR-DSGN-RUNMODE
   config:

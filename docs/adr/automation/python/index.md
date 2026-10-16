@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: daf24257c517
     path: docs/adr/automation/python/index.md
     folder: docs/adr/automation/python
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: daf24257c517
+  edges:
     links:
       - docs/adr/automation/python/python-test-artifacts.md
       - docs/adr/automation/uv-python-handler.md

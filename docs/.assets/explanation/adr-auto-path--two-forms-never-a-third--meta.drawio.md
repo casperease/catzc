@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "66e15f5bbc4d"
     path: docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-two-forms-never-a-third-meta-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "66e15f5bbc4d"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.png
       - docs/explanation/automation/two-forms-never-a-third.md

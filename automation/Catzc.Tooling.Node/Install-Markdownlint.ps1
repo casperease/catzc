@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Node/Install-Markdownlint.ps1
     name: install-markdownlint
     filetype: ps1

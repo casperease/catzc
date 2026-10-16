@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/tests/types/PathParts.Tests.ps1
     folder: tests/types
     name: path-parts-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#11
 ---
 #>

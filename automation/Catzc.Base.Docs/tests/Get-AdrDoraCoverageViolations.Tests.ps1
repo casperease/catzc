@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
     folder: tests
     name: get-adr-dora-coverage-violations-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#{3,35}
       - ADR-PRIN-CONFIG#4
 ---

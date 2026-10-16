@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c7c9f77db18d
     path: docs/references/automation/catzc-base-docs/tests/Format-MarkdownParagraph.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: format-markdown-paragraph-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c7c9f77db18d
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FORMAT#5
 ---
 

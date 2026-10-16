@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Environment/Get-PermanentEnvironmentVariable.ps1
     name: get-permanent-environment-variable
     filetype: ps1

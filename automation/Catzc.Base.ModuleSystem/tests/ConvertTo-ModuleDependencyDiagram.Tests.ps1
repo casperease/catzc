@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
     folder: tests
     name: convert-to-module-dependency-diagram-tests

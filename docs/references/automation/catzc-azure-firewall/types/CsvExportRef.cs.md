@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "47f1aab341e7"
     path: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
     folder: docs/references/automation/catzc-azure-firewall/types
     name: csv-export-ref-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "47f1aab341e7"
 ---
 
 # automation/Catzc.Azure.Firewall/types/CsvExportRef.cs

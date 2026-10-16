@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "321027a9c381"
     path: docs/references/automation/catzc-base-globs/types/DurableHash.cs.md
     folder: docs/references/automation/catzc-base-globs/types
     name: durable-hash-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "321027a9c381"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#5
 ---
 

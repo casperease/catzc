@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-LinkScope.ps1
     folder: private
     name: get-link-scope
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-LinkScope.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-LinkScope.Tests.ps1
   config:
     synopsis: Lists the repository-relative files the link engine reads.
     description: |-

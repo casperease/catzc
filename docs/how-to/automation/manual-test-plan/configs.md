@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7f55509dde8a"
     path: docs/how-to/automation/manual-test-plan/configs.md
     folder: docs/how-to/automation/manual-test-plan
     name: configs
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "7f55509dde8a"
-    adrs:
+  edges:
+    cites:
       - ADR-CONF-LOADING#{4,5}
       - ADR-REPO-CONTRACT#8
       - ADR-REPO-FILEMETA#{1,5}

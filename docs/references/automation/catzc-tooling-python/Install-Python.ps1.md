@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "734ffe400d0f"
     path: docs/references/automation/catzc-tooling-python/Install-Python.ps1.md
     folder: docs/references/automation/catzc-tooling-python
     name: install-python-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "734ffe400d0f"
 ---
 
 # automation/Catzc.Tooling.Python/Install-Python.ps1

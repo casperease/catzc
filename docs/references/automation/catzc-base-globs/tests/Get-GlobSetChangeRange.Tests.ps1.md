@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3446e1beca76"
     path: docs/references/automation/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: get-glob-set-change-range-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3446e1beca76"
 ---
 
 # automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1

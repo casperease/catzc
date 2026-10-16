@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1dd29ba69af6"
     path: docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md
     folder: docs/references/automation/catzc-tooling-core/private
     name: test-tool-location-managed-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1dd29ba69af6"
 ---
 
 # automation/Catzc.Tooling.Core/private/Test-ToolLocationManaged.ps1

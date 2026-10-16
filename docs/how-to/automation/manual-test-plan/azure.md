@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "14551fbb8311"
     path: docs/how-to/automation/manual-test-plan/azure.md
     folder: docs/how-to/automation/manual-test-plan
     name: azure
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "14551fbb8311"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#37
       - ADR-AZ-DATAMOD#9
       - ADR-AZ-NETWORK#2

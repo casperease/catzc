@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
     folder: tests/types
     name: executable-probe-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Execution
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
 ---
 #>

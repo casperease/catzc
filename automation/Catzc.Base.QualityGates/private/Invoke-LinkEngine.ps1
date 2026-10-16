@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Invoke-LinkEngine.ps1
     folder: private
     name: invoke-link-engine

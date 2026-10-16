@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-FileNameFileMetaFact.ps1
     folder: private
     name: get-file-name-file-meta-fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-FileNameFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-FileNameFileMetaFact.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#11
   config:
     synopsis: 'The file-name meta kind''s facts: the folder of the file under its module, and its name in kebab case.'

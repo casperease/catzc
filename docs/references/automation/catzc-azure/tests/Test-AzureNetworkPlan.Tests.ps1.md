@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "828f1cd57b2e"
     path: docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md
     folder: docs/references/automation/catzc-azure/tests
     name: test-azure-network-plan-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "828f1cd57b2e"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

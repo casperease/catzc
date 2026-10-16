@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4b1749882fd0"
     path: docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-remote-clients-bridge-to-one-server-architecture-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "4b1749882fd0"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.chain.md

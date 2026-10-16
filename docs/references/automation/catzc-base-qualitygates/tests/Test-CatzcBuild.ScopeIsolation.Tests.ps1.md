@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "375dc0021c56"
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-catzc-build-scope-isolation-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "375dc0021c56"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-RUNMODE#3
 ---
 

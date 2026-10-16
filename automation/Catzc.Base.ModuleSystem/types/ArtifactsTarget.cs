@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/types/ArtifactsTarget.cs
     folder: types
     name: artifacts-target
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/types/ArtifactsTarget.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/types/ArtifactsTarget.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 */

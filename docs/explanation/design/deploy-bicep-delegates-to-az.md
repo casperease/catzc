@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: df7b0bc977d6
     path: docs/explanation/design/deploy-bicep-delegates-to-az.md
     folder: docs/explanation/design
     name: deploy-bicep-delegates-to-az
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: df7b0bc977d6
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CLI#1
       - ADR-DSGN-THINPLAT#{2,3}
     links:

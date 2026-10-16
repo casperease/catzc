@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
     folder: tests
     name: install-uv-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Tooling.Toolchain
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md
+    cites:
       - ADR-PWSH-ENV#4
 ---
 #>

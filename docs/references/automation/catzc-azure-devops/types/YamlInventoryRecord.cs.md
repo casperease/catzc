@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "81fc4f9ebc94"
     path: docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: yaml-inventory-record-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "81fc4f9ebc94"
 ---
 
 # automation/Catzc.Azure.DevOps/types/YamlInventoryRecord.cs

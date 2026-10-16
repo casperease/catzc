@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Get-ContractAssetKind.ps1
     folder: private
     name: get-contract-asset-kind
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Contracts/tests/Get-ContractAssetKind.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Contracts/tests/Get-ContractAssetKind.Tests.ps1
+    cites:
       - ADR-REPO-CONTRACT#6
   config:
     synopsis: Picks a contract asset's kind from its file name alone.

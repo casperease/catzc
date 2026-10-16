@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a8f85abfe3b2
     path: docs/explanation/automation/rule-and-gate-per-load-stage.md
     folder: docs/explanation/automation
     name: rule-and-gate-per-load-stage
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: a8f85abfe3b2
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-BUNDLE#{2,3,8}
       - ADR-AUTO-TYPES#13
       - ADR-DSGN-RUNMODE#{1,5}

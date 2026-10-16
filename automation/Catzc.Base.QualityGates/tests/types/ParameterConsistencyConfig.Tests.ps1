@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1
     folder: tests/types
     name: parameter-consistency-config-tests

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: abdbe6ea4edf
     path: docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-adr-codes-file-meta-fact-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: abdbe6ea4edf
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1

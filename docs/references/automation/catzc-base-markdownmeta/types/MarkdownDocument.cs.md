@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "743d2e0f83bb"
     path: docs/references/automation/catzc-base-markdownmeta/types/MarkdownDocument.cs.md
     folder: docs/references/automation/catzc-base-markdownmeta/types
     name: markdown-document-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "743d2e0f83bb"
 ---
 
 # automation/Catzc.Base.MarkdownMeta/types/MarkdownDocument.cs

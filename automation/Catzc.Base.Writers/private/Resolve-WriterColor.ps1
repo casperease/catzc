@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/private/Resolve-WriterColor.ps1
     folder: private
     name: resolve-writer-color
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md
   config:
     synopsis: |-
       Normalises a writer's -ForegroundColor argument into a colour plan — a plain ConsoleColor or a rainbow

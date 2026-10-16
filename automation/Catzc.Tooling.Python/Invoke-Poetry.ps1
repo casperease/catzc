@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/Invoke-Poetry.ps1
     name: invoke-poetry
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Python/tests/Invoke-Poetry.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Python/tests/Invoke-Poetry.Tests.ps1
   config:
     synopsis: Runs poetry with the given arguments.
     description: |-

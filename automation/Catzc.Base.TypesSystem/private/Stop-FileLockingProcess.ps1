@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/private/Stop-FileLockingProcess.ps1
     folder: private
     name: stop-file-locking-process
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.TypesSystem/tests/Stop-FileLockingProcess.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.TypesSystem/tests/Stop-FileLockingProcess.Tests.ps1
   config:
     synopsis: Stops the processes holding a file open, so the file can be deleted — the type-cache kill switch.
     description: |-

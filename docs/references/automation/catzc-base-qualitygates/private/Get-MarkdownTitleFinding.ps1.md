@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4a419dac15d2"
     path: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-markdown-title-finding-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4a419dac15d2"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-MarkdownTitleFinding.ps1

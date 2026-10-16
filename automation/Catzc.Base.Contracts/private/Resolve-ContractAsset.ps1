@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Resolve-ContractAsset.ps1
     folder: private
     name: resolve-contract-asset
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ZERO
       - ADR-REPO-CONTRACT#{2,6,7}
   config:

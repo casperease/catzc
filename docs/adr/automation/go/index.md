@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "57d973bedb2e"
     path: docs/adr/automation/go/index.md
     folder: docs/adr/automation/go
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "57d973bedb2e"
+  edges:
     links:
       - docs/adr/automation/go/go-test-artifacts.md
 ---

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "30a3f172e440"
     path: docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: link-engine-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "30a3f172e440"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#{1,5,6,8}
 ---
 

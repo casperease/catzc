@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ad60190f05ae
     path: docs/references/automation/catzc-azure-cli/types/SubscriptionAccessState.cs.md
     folder: docs/references/automation/catzc-azure-cli/types
     name: subscription-access-state-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ad60190f05ae
 ---
 
 # automation/Catzc.Azure.Cli/types/SubscriptionAccessState.cs

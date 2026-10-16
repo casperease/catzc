@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3377702bc161"
     path: docs/references/automation/catzc-base-writers/types/Ansi.cs.md
     folder: docs/references/automation/catzc-base-writers/types
     name: ansi-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3377702bc161"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#7
 ---
 

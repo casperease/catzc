@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "21766fca03aa"
     path: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: test-tiers-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "21766fca03aa"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{13,41}
 ---
 

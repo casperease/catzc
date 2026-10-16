@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/Get-AdrDomainEdges.ps1
     name: get-adr-domain-edges
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-AdrDomainEdges.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-AdrDomainEdges.Tests.ps1
   config:
     synopsis: The ADR domain dependency graph as From/To edges — one per declared `depends_on` link.
     description: |-

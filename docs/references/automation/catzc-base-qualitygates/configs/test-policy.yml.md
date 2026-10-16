@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "874b9cb93d7c"
     path: docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: test-policy-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "874b9cb93d7c"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#41
 ---

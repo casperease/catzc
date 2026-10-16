@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2b0e5e2da4c1"
     path: docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-sync-from-the-last-certified-commit-meta-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "2b0e5e2da4c1"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md

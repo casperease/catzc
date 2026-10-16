@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cad79f0bad20
     path: docs/references/automation/catzc-base-maps/types/MapCell.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: map-cell-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: cad79f0bad20
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#{1,3,6}
 ---

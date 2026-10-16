@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c0c1a863ef8c
     path: docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-scan-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c0c1a863ef8c
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryScan.cs

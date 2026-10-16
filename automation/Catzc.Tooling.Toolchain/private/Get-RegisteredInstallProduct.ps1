@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/private/Get-RegisteredInstallProduct.ps1
     folder: private
     name: get-registered-install-product
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
+    cites:
       - ADR-AUTO-REMOVE#7
   config:
     synopsis: Lists the Windows-registered products (Apps & features entries) that own an install folder.

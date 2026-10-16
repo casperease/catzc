@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "89494fa95a45"
     path: docs/references/automation/catzc-tooling-toolchain.md
     folder: docs/references/automation
     name: catzc-tooling-toolchain
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "89494fa95a45"
+  edges:
     links:
       - docs/adr/automation/bash/bash-test-artifacts.md
       - docs/adr/automation/cross-platform.md

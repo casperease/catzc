@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Get-BaseModule.ps1
     name: get-base-module
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.ModuleSystem/tests/Get-BaseModule.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.ModuleSystem/tests/Get-BaseModule.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-RUNMODE
   config:

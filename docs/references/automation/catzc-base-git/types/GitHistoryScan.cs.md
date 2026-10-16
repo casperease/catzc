@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c61e96b1f0f9
     path: docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-history-scan-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c61e96b1f0f9
 ---
 
 # automation/Catzc.Base.Git/types/GitHistoryScan.cs

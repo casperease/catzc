@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/Get-ContractCheckResults.ps1
     name: get-contract-check-results
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1
+    cites:
       - ADR-PWSH-VERBS#{2,6}
       - ADR-REPO-CONTRACT#{4,6}
   config:

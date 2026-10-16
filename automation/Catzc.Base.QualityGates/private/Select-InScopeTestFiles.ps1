@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Select-InScopeTestFiles.ps1
     folder: private
     name: select-in-scope-test-files
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Select-InScopeTestFiles.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Select-InScopeTestFiles.Tests.ps1
   config:
     synopsis: Keeps the test files with a test inside the run's tier and category scope, and returns the dropped files' tests.
     description: |-

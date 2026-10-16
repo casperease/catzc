@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Get-HelpHeadFinding.Tests.ps1
     folder: tests
     name: get-help-head-finding-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-HELP#{3,4}
 ---
 #>
@@ -30,7 +31,7 @@ Describe 'Get-HelpHeadFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP#4' {
         # A head with the given config lines, over a function with one parameter and a declared output type.
         $script:file = {
             param([string[]] $Config)
-            $head = @('<#', '---', 'catzc:', '  derived:', '    path: automation/Catzc.Widget/Get-Gadget.ps1', '    kind: automation-function')
+            $head = @('<#', '---', 'catzc:', '  immutable:', '    path: automation/Catzc.Widget/Get-Gadget.ps1', '    kind: automation-function')
             if ($Config) {
                 $head += '  config:'
                 $head += $Config

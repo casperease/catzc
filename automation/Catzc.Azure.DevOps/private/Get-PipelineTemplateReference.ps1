@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1
     folder: private
     name: get-pipeline-template-reference
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
+    cites:
       - ADR-PIPE-NAME#4
   config:
     synopsis: |-

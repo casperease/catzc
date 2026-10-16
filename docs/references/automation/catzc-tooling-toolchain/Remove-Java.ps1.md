@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4fef1899bf76"
     path: docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: remove-java-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4fef1899bf76"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-REMOVE#{3,6}
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c6d4ff513794
     path: docs/references/infrastructure/templates/discovery/configuration/nova/nsub.yml.md
     folder: docs/references/infrastructure/templates/discovery/configuration/nova
     name: nsub-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c6d4ff513794
 ---
 
 # infrastructure/templates/discovery/configuration/nova/nsub.yml

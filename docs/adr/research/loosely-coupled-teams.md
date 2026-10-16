@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "24f01e1c2517"
     path: docs/adr/research/loosely-coupled-teams.md
     folder: docs/adr/research
     name: loosely-coupled-teams
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "24f01e1c2517"
+  edges:
     defines:
       - ADR-DORA-LOOSETEAMS#{1-5}
     links:

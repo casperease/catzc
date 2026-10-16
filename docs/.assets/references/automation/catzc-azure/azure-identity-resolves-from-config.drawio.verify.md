@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e410849b57ff
     path: docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
     folder: docs/.assets/references/automation/catzc-azure
     name: azure-identity-resolves-from-config-drawio-verify
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: e410849b57ff
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#2

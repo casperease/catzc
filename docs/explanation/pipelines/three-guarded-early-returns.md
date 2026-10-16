@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5990b16fd351"
     path: docs/explanation/pipelines/three-guarded-early-returns.md
     folder: docs/explanation/pipelines
     name: three-guarded-early-returns
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "5990b16fd351"
-    adrs:
+  edges:
+    cites:
       - ADR-PIPE-AUTH#{1-3,5}
     links:
       - docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.md

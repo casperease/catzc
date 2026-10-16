@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0a0e9b77f768"
     path: docs/references/automation/catzc-base-docs/types/AdrDomain.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-domain-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0a0e9b77f768"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#{14,15}
 ---

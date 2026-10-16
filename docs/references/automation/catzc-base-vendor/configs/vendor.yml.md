@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6c4b6dc89aff"
     path: docs/references/automation/catzc-base-vendor/configs/vendor.yml.md
     folder: docs/references/automation/catzc-base-vendor/configs
     name: vendor-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6c4b6dc89aff"
 ---
 
 # automation/Catzc.Base.Vendor/configs/vendor.yml

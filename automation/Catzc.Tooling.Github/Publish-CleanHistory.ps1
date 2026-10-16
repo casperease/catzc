@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/Publish-CleanHistory.ps1
     name: publish-clean-history
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Github/tests/Publish-CleanHistory.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Github/tests/Publish-CleanHistory.Tests.ps1
   config:
     synopsis: |-
       Publishes a verified local history to a brand-new, empty GitHub repository,

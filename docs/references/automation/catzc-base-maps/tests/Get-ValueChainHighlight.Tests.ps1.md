@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "913ff8db05c8"
     path: docs/references/automation/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md
     folder: docs/references/automation/catzc-base-maps/tests
     name: get-value-chain-highlight-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "913ff8db05c8"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-DSGN-TRACK#{12,16}
 ---

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1
     folder: private
     name: test-glob-list-equal
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-XPLAT
       - ADR-FLOW-CD-GLOBS#2
   config:

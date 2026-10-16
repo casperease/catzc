@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0c8dd0e6f9a5"
     path: docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md
     folder: docs/references/automation/catzc-azure-templates/private
     name: get-bicep-parameter-entry-violations-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0c8dd0e6f9a5"
 ---
 
 # automation/Catzc.Azure.Templates/private/Get-BicepParameterEntryViolations.ps1

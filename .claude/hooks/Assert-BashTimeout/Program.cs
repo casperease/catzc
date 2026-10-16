@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: ".claude/hooks/Assert-BashTimeout/Program.cs"
     folder: hooks/Assert-BashTimeout
     name: program
@@ -11,8 +11,8 @@ catzc:
     track: ".claude"
     module: ".claude"
     moduletype: settings
-    relatives:
-      page: docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md
+  edges:
+    page: docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md
 ---
 */
 

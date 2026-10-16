@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
     folder: tests
     name: install-uv-tool-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Tooling.Core
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/tests/Install-UvTool.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-core/tests/Install-UvTool.Tests.ps1.md
 ---
 #>
 

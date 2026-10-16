@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c35f0c02b784
     path: docs/adr/automation/go/go-test-artifacts.md
     folder: docs/adr/automation/go
     name: go-test-artifacts
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: c35f0c02b784
+  edges:
     defines:
       - ADR-AUTO-GO#{1-8}
-    adrs:
+    cites:
       - ADR-AUTO-DEPS#3
       - ADR-AUTO-ENGINE#4
       - ADR-AUTO-TEST#{8,9,13,30,42}

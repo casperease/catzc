@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "579b684d51ca"
     path: docs/references/automation/catzc-tooling-core/tests/Get-ToolInstallOrder.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: get-tool-install-order-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "579b684d51ca"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{3,17}
       - ADR-PWSH-PESTER#{2,3}
 ---

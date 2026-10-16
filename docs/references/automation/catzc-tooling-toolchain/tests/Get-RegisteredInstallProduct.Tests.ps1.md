@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "01b867c5c5f4"
     path: docs/references/automation/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: get-registered-install-product-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "01b867c5c5f4"
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1

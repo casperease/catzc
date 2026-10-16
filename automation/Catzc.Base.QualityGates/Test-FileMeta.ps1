@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-FileMeta.ps1
     name: test-file-meta
     filetype: ps1
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
   config:
     synopsis: 'The file meta quality gate: fails on any in-scope file whose meta block differs from what Format-FileMeta would write.'

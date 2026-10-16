@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/types/CliRunner.cs
     folder: types
     name: cli-runner
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Execution
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-execution/types/CliRunner.cs.md
-      test: automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-execution/types/CliRunner.cs.md
+    test: automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
 ---
 */
 

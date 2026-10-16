@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8a43d969f52d"
     path: docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-depm-undeclared-edge-fails-with-one-line-operations-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "8a43d969f52d"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.chain.md

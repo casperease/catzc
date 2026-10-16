@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "012b985164f7"
     path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md
     folder: docs/references/automation/catzc-tooling-keyhandler/types
     name: key-handler-bindings-config-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "012b985164f7"
 ---
 
 # automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs

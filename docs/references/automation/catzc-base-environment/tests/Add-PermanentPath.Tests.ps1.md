@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: df07bc970c5f
     path: docs/references/automation/catzc-base-environment/tests/Add-PermanentPath.Tests.ps1.md
     folder: docs/references/automation/catzc-base-environment/tests
     name: add-permanent-path-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: df07bc970c5f
 ---
 
 # automation/Catzc.Base.Environment/tests/Add-PermanentPath.Tests.ps1

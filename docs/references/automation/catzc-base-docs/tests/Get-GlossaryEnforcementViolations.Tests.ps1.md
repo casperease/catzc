@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5d3e4a6d0386"
     path: docs/references/automation/catzc-base-docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-glossary-enforcement-violations-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5d3e4a6d0386"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#4
 ---

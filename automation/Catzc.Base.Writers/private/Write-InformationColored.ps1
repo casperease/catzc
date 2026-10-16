@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/private/Write-InformationColored.ps1
     folder: private
     name: write-information-colored
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md
-      test: automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md
+    test: automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
+    cites:
       - ADR-AUTO-CONSOLE#8
       - ADR-PWSH-ANNOUNCE#1
   config:

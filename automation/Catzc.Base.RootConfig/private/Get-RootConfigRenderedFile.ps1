@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
     folder: private
     name: get-root-config-rendered-file
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
+    cites:
       - ADR-REPO-ROOTCFG
   config:
     synopsis: Renders a generator entry of the root-config registry into one { Target; Content } record per file.

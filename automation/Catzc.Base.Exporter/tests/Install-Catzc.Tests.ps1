@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
     folder: tests
     name: install-catzc-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Exporter
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
 ---
 #>

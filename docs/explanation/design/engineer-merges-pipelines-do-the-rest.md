@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d4592a9826a0
     path: docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
     folder: docs/explanation/design
     name: engineer-merges-pipelines-do-the-rest
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: d4592a9826a0
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PARITY#2
       - ADR-DSGN-LIFE#{1,8}
       - ADR-FLOW-CD#8

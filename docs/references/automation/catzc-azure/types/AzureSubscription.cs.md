@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a29cb678bfb3
     path: docs/references/automation/catzc-azure/types/AzureSubscription.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: azure-subscription-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a29cb678bfb3
 ---
 
 # automation/Catzc.Azure/types/AzureSubscription.cs

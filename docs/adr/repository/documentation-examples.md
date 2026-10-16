@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2524bd0104f1"
     path: docs/adr/repository/documentation-examples.md
     folder: docs/adr/repository
     name: documentation-examples
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "2524bd0104f1"
+  edges:
     defines:
       - ADR-REPO-EXAMPLE#{1,2}
     links:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/Get-PathModule.ps1
     name: get-path-module
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#3
   config:
     synopsis: Returns the module a repository-relative path is placed in, and its module type, when it is placed in one.

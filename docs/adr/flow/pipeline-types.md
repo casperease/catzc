@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c03623e9b407
     path: docs/adr/flow/pipeline-types.md
     folder: docs/adr/flow
     name: pipeline-types
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: c03623e9b407
+  edges:
     defines:
       - ADR-FLOW-CD-TYPE#{1-14}
-    adrs:
+    cites:
       - ADR-FLOW-CD#{9,11,13}
     links:
       - docs/adr/automation/idempotent-state-functions.md

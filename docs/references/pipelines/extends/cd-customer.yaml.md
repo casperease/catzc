@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: db19b4249f72
     path: docs/references/pipelines/extends/cd-customer.yaml.md
     folder: docs/references/pipelines/extends
     name: cd-customer-yaml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: db19b4249f72
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-LZ#7
 ---
 

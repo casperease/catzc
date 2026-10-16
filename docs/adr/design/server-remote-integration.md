@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "52541bcc7cdf"
     path: docs/adr/design/server-remote-integration.md
     folder: docs/adr/design
     name: server-remote-integration
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "52541bcc7cdf"
+  edges:
     defines:
       - ADR-DSGN-REMOTE#{1-4}
-    adrs:
+    cites:
       - ADR-DSGN-LIFE#{1,6,7}
       - ADR-PRIN-ONELIVE#4
       - ADR-REPO-VARIANT#6

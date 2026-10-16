@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/New-TestRunFinalManifest.ps1
     folder: private
     name: new-test-run-final-manifest
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/New-TestRunFinalManifest.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/New-TestRunFinalManifest.Tests.ps1
   config:
     synopsis: Builds a test run's terminal run.json record.
     description: |-

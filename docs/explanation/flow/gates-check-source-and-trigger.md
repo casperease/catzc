@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "162cf941ab68"
     path: docs/explanation/flow/gates-check-source-and-trigger.md
     folder: docs/explanation/flow
     name: gates-check-source-and-trigger
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "162cf941ab68"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS
       - ADR-REPO-PROTGLOB#5

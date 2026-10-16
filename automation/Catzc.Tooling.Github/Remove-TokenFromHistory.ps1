@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
     name: remove-token-from-history
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Github/tests/Remove-TokenFromHistory.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Github/tests/Remove-TokenFromHistory.Tests.ps1
   config:
     synopsis: |-
       Scrubs a token from a git history's blob content and commit messages with

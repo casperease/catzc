@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c24894c6fcd5
     path: docs/adr/automation/path-representation.md
     folder: docs/adr/automation
     name: path-representation
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: c24894c6fcd5
+  edges:
     defines:
       - ADR-AUTO-PATH#{1-11}
-    adrs:
+    cites:
       - ADR-PWSH-XPLAT#10
     links:
       - docs/adr/automation/never-depend-on-pwd.md

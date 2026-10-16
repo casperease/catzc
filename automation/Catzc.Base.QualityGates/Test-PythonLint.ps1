@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-PythonLint.ps1
     name: test-python-lint
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
+    cites:
       - ADR-AUTO-PY#8
   config:
     synopsis: 'Quality gate: lints every Python file the repository holds with ruff.'

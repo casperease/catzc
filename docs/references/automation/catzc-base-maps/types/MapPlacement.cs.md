@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8cd67c187a87"
     path: docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: map-placement-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8cd67c187a87"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

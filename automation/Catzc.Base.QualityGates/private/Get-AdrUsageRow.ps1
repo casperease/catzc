@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-AdrUsageRow.ps1
     folder: private
     name: get-adr-usage-row
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-AdrUsageRow.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-AdrUsageRow.Tests.ps1
   config:
     synopsis: The ADR citations one file's meta head holds, as rows of code and rule.
     description: |-

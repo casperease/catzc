@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: aef1ff000e95
     path: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md
     folder: docs/references/automation/catzc-azure-firewall
     name: convert-firewall-csv-to-yaml-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: aef1ff000e95
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PARAM#4
 ---
 

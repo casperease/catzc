@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "945a8dd38e53"
     path: docs/adr/azure/waf/security.md
     folder: docs/adr/azure/waf
     name: security
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "945a8dd38e53"
+  edges:
     defines:
       - ADR-AZ-WAFSE#{1-12}
-    adrs:
+    cites:
       - ADR-AUTO-ENVVAR#7
       - ADR-AUTO-GUIDS#{1,4}
       - ADR-AUTO-TEST#3

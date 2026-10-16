@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-ParameterTypeConflict.ps1
     folder: private
     name: get-parameter-type-conflict
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-ParameterTypeConflict.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-ParameterTypeConflict.Tests.ps1
   config:
     synopsis: Finds the parameter names that carry more than one type across the given function files.
     description: |-

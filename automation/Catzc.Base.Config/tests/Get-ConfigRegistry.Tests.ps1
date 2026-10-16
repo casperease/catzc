@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
     folder: tests
     name: get-config-registry-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Config
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md
+    cites:
       - ADR-AUTO-ASSETDEP#3
       - ADR-PWSH-PESTER#{3,4}
 ---

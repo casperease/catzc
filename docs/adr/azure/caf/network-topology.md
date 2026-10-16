@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d686931f9aad
     path: docs/adr/azure/caf/network-topology.md
     folder: docs/adr/azure/caf
     name: network-topology
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d686931f9aad
+  edges:
     defines:
       - ADR-AZ-CAFNETTOP#{1-65}
-    adrs:
+    cites:
       - ADR-AZ-CAFMGMT#4
       - ADR-AZ-DATAMOD#9
       - ADR-AZ-LZ#{1-4,7}

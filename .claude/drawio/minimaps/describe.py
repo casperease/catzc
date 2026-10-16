@@ -1,11 +1,11 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: ".claude/drawio/minimaps/describe.py"
 #     folder: drawio/minimaps
 #     name: describe
 #     filetype: py
-#     kind: script
+#     kind: drawio-kit
 #     language: python
 #     track: ".claude"
 #     module: ".claude"

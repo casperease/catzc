@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "30924884b291"
     path: docs/explanation/automation/a-declared-allow-list-of-layers.md
     folder: docs/explanation/automation
     name: a-declared-allow-list-of-layers
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "30924884b291"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEPM#{1,3-5}
     links:
       - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md

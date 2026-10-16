@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bfee8c5bb34b
     path: docs/adr/research/well-being.md
     folder: docs/adr/research
     name: well-being
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: bfee8c5bb34b
+  edges:
     defines:
       - ADR-DORA-WELLBEING#{1-4}
     links:

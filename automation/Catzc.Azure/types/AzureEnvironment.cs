@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/types/AzureEnvironment.cs
     folder: types
     name: azure-environment
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md
+  edges:
+    page: docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md
 ---
 */
 

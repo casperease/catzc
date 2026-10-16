@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "104a6465f2e7"
     path: docs/references/automation/catzc-base-docs/types/AdrNeutralityCheck.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-neutrality-check-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "104a6465f2e7"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TYPES#8
 ---

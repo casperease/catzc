@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d6736cd3c5ce
     path: docs/explanation/azure/the-session-is-the-deploy-target.md
     folder: docs/explanation/azure
     name: the-session-is-the-deploy-target
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: d6736cd3c5ce
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-DATAMOD#7
     links:
       - docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.md

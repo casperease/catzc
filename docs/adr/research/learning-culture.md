@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: acfd23004c4f
     path: docs/adr/research/learning-culture.md
     folder: docs/adr/research
     name: learning-culture
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: acfd23004c4f
+  edges:
     defines:
       - ADR-DORA-LEARNING#{1-5}
     links:

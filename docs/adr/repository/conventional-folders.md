@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4830a266e06c"
     path: docs/adr/repository/conventional-folders.md
     folder: docs/adr/repository
     name: conventional-folders
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "4830a266e06c"
+  edges:
     defines:
       - ADR-REPO-FOLDERS#{1-11}
-    adrs:
+    cites:
       - ADR-REPO-CONTRACT#{2,10}
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

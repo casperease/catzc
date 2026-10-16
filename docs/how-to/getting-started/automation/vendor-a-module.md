@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: adca12471052
     path: docs/how-to/getting-started/automation/vendor-a-module.md
     folder: docs/how-to/getting-started/automation
     name: vendor-a-module
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: adca12471052
+  edges:
     links:
       - docs/adr/azure/prefer-az-cli.md
       - docs/adr/pwsh/vendor-toolset-dependencies.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "36c57ab09b8e"
     path: docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-which-rung-gates-exist-in-code-governance-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "36c57ab09b8e"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md

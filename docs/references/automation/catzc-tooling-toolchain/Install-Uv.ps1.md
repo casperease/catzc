@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "23522969bf24"
     path: docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: install-uv-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "23522969bf24"
 ---
 
 # automation/Catzc.Tooling.Toolchain/Install-Uv.ps1

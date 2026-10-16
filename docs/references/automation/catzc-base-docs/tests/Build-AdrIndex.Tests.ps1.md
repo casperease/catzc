@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2f44623e1bb4"
     path: docs/references/automation/catzc-base-docs/tests/Build-AdrIndex.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: build-adr-index-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2f44623e1bb4"
 ---
 
 # automation/Catzc.Base.Docs/tests/Build-AdrIndex.Tests.ps1

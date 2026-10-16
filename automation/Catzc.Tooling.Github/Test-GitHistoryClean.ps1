@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/Test-GitHistoryClean.ps1
     name: test-git-history-clean
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
   config:
     synopsis: |-
       Tests whether a token is absent from a git history across all three surfaces

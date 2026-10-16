@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Folders/types/FolderWalker.cs
     folder: types
     name: folder-walker
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Folders
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      test: automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
 ---
 */
 

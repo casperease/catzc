@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: abd4fae2272b
     path: docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md
     folder: docs/references/automation/catzc-base-exporter
     name: build-modules-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: abd4fae2272b
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DRYRUN#2
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "544d6c9551d1"
     path: docs/references/automation/catzc-tooling-keyhandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-keyhandler/tests
     name: import-ps-read-line-key-handler-set-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "544d6c9551d1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

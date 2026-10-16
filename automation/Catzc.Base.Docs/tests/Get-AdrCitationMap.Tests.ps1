@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Get-AdrCitationMap.Tests.ps1
     folder: tests
     name: get-adr-citation-map-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-REPO-LINK#{3,5}
 ---

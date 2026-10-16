@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b1f6ecea8d5e
     path: docs/adr/principles/poka-yoke.md
     folder: docs/adr/principles
     name: poka-yoke
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b1f6ecea8d5e
+  edges:
     defines:
       - ADR-PRIN-POKAYOKE#{1-5}
 ---

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/Uninstall-Poetry.ps1
     name: uninstall-poetry
     filetype: ps1

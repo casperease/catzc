@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8cedc41c9bd5"
     path: docs/how-to/getting-started/automation/add-a-deployable-unit.md
     folder: docs/how-to/getting-started/automation
     name: add-a-deployable-unit
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "8cedc41c9bd5"
+  edges:
     links:
       - docs/adr/flow/durable-sha-globs.md
       - docs/adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger

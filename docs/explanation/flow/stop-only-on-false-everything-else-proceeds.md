@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4eb015514f04"
     path: docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
     folder: docs/explanation/flow
     name: stop-only-on-false-everything-else-proceeds
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "4eb015514f04"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#9
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md

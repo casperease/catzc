@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Read-ContractData.ps1
     folder: private
     name: read-contract-data
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md
+    cites:
       - ADR-REPO-CONTRACT#6
   config:
     synopsis: Reads and parses a JSON or YAML file for a contract check, throwing a finding-ready message when it cannot.

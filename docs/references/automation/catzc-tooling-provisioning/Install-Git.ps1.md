@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "94d6ec65ac3b"
     path: docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: install-git-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "94d6ec65ac3b"
 ---
 
 # automation/Catzc.Tooling.Provisioning/Install-Git.ps1

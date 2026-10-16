@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "96d4a2de82c7"
     path: docs/references/automation/catzc-base-docs/configs/adrs.yml.md
     folder: docs/references/automation/catzc-base-docs/configs
     name: adrs-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "96d4a2de82c7"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{14,15}
 ---
 

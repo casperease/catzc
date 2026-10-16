@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Install-Git.ps1
     name: install-git
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md
-      test: automation/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md
+    test: automation/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
   config:
     synopsis: Installs Git (user-space on Windows, package manager elsewhere).
     description: |-

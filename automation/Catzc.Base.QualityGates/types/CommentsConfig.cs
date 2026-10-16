@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/CommentsConfig.cs
     folder: types
     name: comments-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-CONFIG#1

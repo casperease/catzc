@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c84eb71f0891
     path: docs/explanation/flow/two-declared-layers-one-derived.md
     folder: docs/explanation/flow
     name: two-declared-layers-one-derived
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: c84eb71f0891
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{7,8,10}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.md

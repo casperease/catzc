@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationArtifacts.ps1
     folder: private
     name: write-test-automation-artifacts
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md
   config:
     synopsis: Writes a run's report artifacts and the skip report — best-effort, never masking the run outcome.
     description: |-

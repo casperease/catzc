@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c7171ef4d460
     path: docs/references/automation/catzc-base-files.md
     folder: docs/references/automation
     name: catzc-base-files
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: c7171ef4d460
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TRACKED#9
     links:
       - docs/adr/automation/open-closed-architecture.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "600c7ffc8192"
     path: docs/adr/automation/effective-in-enterprises.md
     folder: docs/adr/automation
     name: effective-in-enterprises
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "600c7ffc8192"
+  edges:
     defines:
       - ADR-AUTO-ENTERP#4
     links:

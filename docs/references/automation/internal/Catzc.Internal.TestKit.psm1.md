@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bf00f776e752
     path: docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-test-kit-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: bf00f776e752
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-RUNMODE#4
 ---
 

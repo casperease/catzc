@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/types/GitHistoryScan.cs
     folder: types
     name: git-history-scan
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Git
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
-      test: automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
+    test: automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
+    cites:
       - ADR-AUTO-TRACKED
 ---
 */

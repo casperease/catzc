@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/ParameterDesign.psm1
     folder: automation/.scriptanalyzer
     name: parameter-design
@@ -9,8 +9,8 @@ catzc:
     kind: analyzer-rule
     language: powershell
     track: automation
-    relatives:
-      page: docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md
+  edges:
+    page: docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md
 ---
 #>
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-BicepTemplate.ps1
     name: get-bicep-template
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/Get-BicepTemplate.ps1.md
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplate.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-azure-templates/Get-BicepTemplate.ps1.md
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplate.Tests.ps1
   config:
     synopsis: Returns the descriptor for a single bicep template by name.
     parameters:

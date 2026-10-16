@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1
     folder: tests
     name: build-bash-timeout-hook-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.TypesSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-typessystem/tests/Build-BashTimeoutHook.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-typessystem/tests/Build-BashTimeoutHook.Tests.ps1.md
 ---
 #>
 

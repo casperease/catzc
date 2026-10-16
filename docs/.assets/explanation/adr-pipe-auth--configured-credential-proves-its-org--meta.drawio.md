@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "136cc22ac14c"
     path: docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-pipe-auth-configured-credential-proves-its-org-meta-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "136cc22ac14c"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.chain.md

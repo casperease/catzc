@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Overlay/private/Get-LocalModuleViolation.ps1
     folder: private
     name: get-local-module-violation
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md
+    cites:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-ENUM#3
   config:

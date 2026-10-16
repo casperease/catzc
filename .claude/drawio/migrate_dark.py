@@ -1,11 +1,11 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: ".claude/drawio/migrate_dark.py"
 #     folder: drawio
 #     name: migrate-dark
 #     filetype: py
-#     kind: script
+#     kind: drawio-kit
 #     language: python
 #     track: ".claude"
 #     module: ".claude"

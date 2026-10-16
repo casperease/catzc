@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
     folder: tests
     name: merge-config-fragment-tests

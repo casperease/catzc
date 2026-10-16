@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "63acd364cda0"
     path: docs/how-to/automation/manual-test-plan.md
     folder: docs/how-to/automation
     name: manual-test-plan
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "63acd364cda0"
+  edges:
     links:
       - docs/how-to/automation/manual-test-plan/adr-registry.md
       - docs/how-to/automation/manual-test-plan/azure.md

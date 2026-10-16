@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/types/AzureSubscription.cs
     folder: types
     name: azure-subscription
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure/types/AzureSubscription.cs.md
+  edges:
+    page: docs/references/automation/catzc-azure/types/AzureSubscription.cs.md
 ---
 */
 

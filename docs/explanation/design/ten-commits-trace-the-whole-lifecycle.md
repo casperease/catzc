@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "923959505b90"
     path: docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md
     folder: docs/explanation/design
     name: ten-commits-trace-the-whole-lifecycle
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "923959505b90"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#{1,2,5-8,10}
       - ADR-DSGN-VISUAL#{12,13}
       - ADR-FLOW-CD#9

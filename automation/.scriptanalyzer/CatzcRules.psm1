@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/CatzcRules.psm1
     folder: automation/.scriptanalyzer
     name: catzc-rules
@@ -9,8 +9,8 @@ catzc:
     kind: analyzer-rule
     language: powershell
     track: automation
-    relatives:
-      page: docs/references/automation/scriptanalyzer/CatzcRules.psm1.md
+  edges:
+    page: docs/references/automation/scriptanalyzer/CatzcRules.psm1.md
 ---
 #>
 

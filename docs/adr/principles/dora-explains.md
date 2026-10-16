@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d8b8633941e4
     path: docs/adr/principles/dora-explains.md
     folder: docs/adr/principles
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d8b8633941e4
+  edges:
     links:
       - docs/adr/principles/configure-not-program.md
       - docs/adr/principles/everything-as-code.md

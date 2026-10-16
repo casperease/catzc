@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: df9bdb9dc6a2
     path: docs/adr/process/build-quality-in.md
     folder: docs/adr/process
     name: build-quality-in
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: df9bdb9dc6a2
+  edges:
     defines:
       - ADR-PROC-BUILTIN#{1-4}
     links:

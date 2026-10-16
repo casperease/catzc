@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "018c90c9fb6e"
     path: docs/adr/research/version-control.md
     folder: docs/adr/research
     name: version-control
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "018c90c9fb6e"
+  edges:
     defines:
       - ADR-DORA-VCS#{1-4}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "87a6f4ce8677"
     path: docs/.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-four-gates-hold-the-session-rule-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "87a6f4ce8677"
+  edges:
     links:
       - docs/.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png
       - docs/explanation/azure/four-gates-hold-the-session-rule.md

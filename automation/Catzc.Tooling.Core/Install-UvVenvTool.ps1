@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Install-UvVenvTool.ps1
     name: install-uv-venv-tool
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
   config:
     synopsis: Installs a CLI into a dedicated uv venv.
     description: |-

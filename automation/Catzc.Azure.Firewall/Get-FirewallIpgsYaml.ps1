@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
     name: get-firewall-ipgs-yaml
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md
-      test: automation/Catzc.Azure.Firewall/tests/Get-FirewallIpgsYaml.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md
+    test: automation/Catzc.Azure.Firewall/tests/Get-FirewallIpgsYaml.Tests.ps1
   config:
     synopsis: Enumerates the IP Groups across one or more (subscription, resource group) targets into a single YAML.
     description: |-

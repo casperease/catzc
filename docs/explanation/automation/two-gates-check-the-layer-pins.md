@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "969c7f84aaa7"
     path: docs/explanation/automation/two-gates-check-the-layer-pins.md
     folder: docs/explanation/automation
     name: two-gates-check-the-layer-pins
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "969c7f84aaa7"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEPM#{1-6}
       - ADR-AUTO-TEST#35
     links:

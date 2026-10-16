@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
     folder: tests
     name: import-catzc-overlay-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Overlay
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-overlay/tests/Import-CatzcOverlay.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-overlay/tests/Import-CatzcOverlay.Tests.ps1.md
 ---
 #>
 

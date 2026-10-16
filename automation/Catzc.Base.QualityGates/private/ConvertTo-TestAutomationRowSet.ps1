@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/ConvertTo-TestAutomationRowSet.ps1
     folder: private
     name: convert-to-test-automation-row-set
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1
   config:
     synopsis: Reduces a live Pester run object to plain per-test rows that survive a process boundary.
     description: |-

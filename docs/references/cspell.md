@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8d46afba173c"
     path: docs/references/cspell.md
     folder: docs/references
     name: cspell
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "8d46afba173c"
+  edges:
     links:
       - automation/Catzc.Base.QualityGates/configs/terminology.yml
       - docs/adr/automation/spell-out-names.md

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/private/Invoke-ExecutableDirect.ps1
     folder: private
     name: invoke-executable-direct
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md
   config:
     synopsis: Runs a CLI command directly with no output capture or stream separation.
     description: |-

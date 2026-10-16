@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2e95f6eef7c2"
     path: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md
     folder: docs/references/automation/catzc-base-execution/private
     name: invoke-executable-streamed-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2e95f6eef7c2"
 ---
 
 # automation/Catzc.Base.Execution/private/Invoke-ExecutableStreamed.ps1

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "054d69e70ec2"
     path: docs/explanation/configuration/two-test-files-check-the-address-rules.md
     folder: docs/explanation/configuration
     name: two-test-files-check-the-address-rules
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "054d69e70ec2"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ENVVAR#7
       - ADR-CONF-ADDRESSING
     links:

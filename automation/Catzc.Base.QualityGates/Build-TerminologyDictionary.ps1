@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
     name: build-terminology-dictionary
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1
+    cites:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-SPELL
       - ADR-REPO-OUTDIR#8

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: eaa67b4c30f1
     path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/private
     name: get-module-dependency-violations-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: eaa67b4c30f1
 ---
 
 # automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyViolations.ps1

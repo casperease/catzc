@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
     name: get-c-sharp-type-dependency
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md
-      test: automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md
+    test: automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
+    cites:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-PESTER#9
   config:

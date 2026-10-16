@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1
     folder: tests
     name: get-cats-adr-rule-ids-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/tests/Get-CatsAdrRuleIds.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-docs/tests/Get-CatsAdrRuleIds.Tests.ps1.md
 ---
 #>
 

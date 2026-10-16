@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6571b4f09ece"
     path: docs/references/automation/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: get-changed-file-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6571b4f09ece"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#4
 ---
 

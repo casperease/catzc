@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
     folder: private
     name: invoke-root-config-generator
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
+    cites:
       - ADR-AUTO-GO#6
       - ADR-AUTO-PY#4
       - ADR-REPO-FORMAT#8

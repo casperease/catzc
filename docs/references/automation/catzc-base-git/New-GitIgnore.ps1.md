@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2916e7b4f989"
     path: docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md
     folder: docs/references/automation/catzc-base-git
     name: new-git-ignore-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2916e7b4f989"
 ---
 
 # automation/Catzc.Base.Git/New-GitIgnore.ps1

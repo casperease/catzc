@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1580340ea555"
     path: docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-build-then-place-with-one-command-operations-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "1580340ea555"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.chain.md

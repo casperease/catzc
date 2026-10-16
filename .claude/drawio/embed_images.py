@@ -1,11 +1,11 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: ".claude/drawio/embed_images.py"
 #     folder: drawio
 #     name: embed-images
 #     filetype: py
-#     kind: script
+#     kind: drawio-kit
 #     language: python
 #     track: ".claude"
 #     module: ".claude"

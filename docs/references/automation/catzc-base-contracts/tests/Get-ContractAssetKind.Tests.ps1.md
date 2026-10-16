@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "020f965966ab"
     path: docs/references/automation/catzc-base-contracts/tests/Get-ContractAssetKind.Tests.ps1.md
     folder: docs/references/automation/catzc-base-contracts/tests
     name: get-contract-asset-kind-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "020f965966ab"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CONTRACT#6
 ---
 

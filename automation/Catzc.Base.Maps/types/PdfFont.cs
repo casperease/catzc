@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/PdfFont.cs
     folder: types
     name: pdf-font
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/PdfFont.cs.md
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/PdfFont.cs.md
 ---
 */
 

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/types/GitIgnorePattern.cs
     folder: types
     name: git-ignore-pattern
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Git
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-git/types/GitIgnorePattern.cs.md
-      test: automation/Catzc.Base.Git/tests/types/GitIgnorePattern.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-git/types/GitIgnorePattern.cs.md
+    test: automation/Catzc.Base.Git/tests/types/GitIgnorePattern.Tests.ps1
 ---
 */
 

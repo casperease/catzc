@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b7e23c06a752
     path: docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
     folder: docs/explanation/flow
     name: apex-thirteen-rules-seven-includes-six-excludes
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: b7e23c06a752
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{4,6,8}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md

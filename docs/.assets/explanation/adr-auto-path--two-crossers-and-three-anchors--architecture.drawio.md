@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "90ce96d04619"
     path: docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-path-two-crossers-and-three-anchors-architecture-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "90ce96d04619"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
       - docs/explanation/automation/two-crossers-and-three-anchors.md

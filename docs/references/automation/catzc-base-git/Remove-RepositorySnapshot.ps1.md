@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "14c9b5750d9a"
     path: docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md
     folder: docs/references/automation/catzc-base-git
     name: remove-repository-snapshot-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "14c9b5750d9a"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ENUM#3
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
     folder: private
     name: get-package-tree-plan
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md
-      test: automation/Catzc.Tooling.Provisioning/tests/Get-PackageTreePlan.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md
+    test: automation/Catzc.Tooling.Provisioning/tests/Get-PackageTreePlan.Tests.ps1
+    cites:
       - ADR-AUTO-REMOVE#2
       - ADR-PWSH-ENUM#3
   config:

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
     folder: types
     name: vscode-settings-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.VSCode
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-vscode/types/VscodeSettingsConfig.cs.md
-      test: automation/Catzc.Base.VSCode/tests/types/VscodeSettingsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-vscode/types/VscodeSettingsConfig.cs.md
+    test: automation/Catzc.Base.VSCode/tests/types/VscodeSettingsConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-ROOTCFG
 ---

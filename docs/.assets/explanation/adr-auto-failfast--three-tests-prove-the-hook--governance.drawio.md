@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0842b420d8eb"
     path: docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-three-tests-prove-the-hook-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "0842b420d8eb"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png
       - docs/explanation/automation/three-tests-prove-the-hook.md

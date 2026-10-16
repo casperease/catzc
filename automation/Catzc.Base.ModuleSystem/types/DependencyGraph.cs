@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
     folder: types
     name: dependency-graph
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
+    cites:
       - ADR-AUTO-DEPM#4
 ---
 */

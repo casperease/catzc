@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a090a16238c9
     path: docs/references/automation/catzc-tooling-provisioning.md
     folder: docs/references/automation
     name: catzc-tooling-provisioning
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: a090a16238c9
+  edges:
     links:
       - docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
       - docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/GitHubAnchor.cs
     folder: types
     name: git-hub-anchor
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md
-      test: automation/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md
+    test: automation/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1
+    cites:
       - ADR-REPO-LINK#2
 ---
 */

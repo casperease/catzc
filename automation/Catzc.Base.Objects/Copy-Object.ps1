@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/Copy-Object.ps1
     name: copy-object
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
   config:
     synopsis: Deep clones a PowerShell object.
     description: |-

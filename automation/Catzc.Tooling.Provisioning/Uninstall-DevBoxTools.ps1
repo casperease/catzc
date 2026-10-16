@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Uninstall-DevBoxTools.ps1
     name: uninstall-dev-box-tools
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md
-      test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-DevBoxTools.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md
+    test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-DevBoxTools.Tests.ps1
   config:
     synopsis: Removes all tools installed by Install-DevBoxTools.
     description: |-

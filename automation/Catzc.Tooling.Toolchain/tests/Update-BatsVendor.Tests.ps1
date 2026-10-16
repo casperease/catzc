@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
     folder: tests
     name: update-bats-vendor-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Tooling.Toolchain
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-ENUM#3
 ---

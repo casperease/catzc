@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6beaf551316d"
     path: docs/references/automation/catzc-base-reports/types/OutputPattern.cs.md
     folder: docs/references/automation/catzc-base-reports/types
     name: output-pattern-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6beaf551316d"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-OUTFMT#1
 ---
 

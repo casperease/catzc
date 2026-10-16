@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1
     folder: private
     name: get-adr-codes-file-meta-fact
@@ -14,10 +14,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
+    cites:
       - ADR-REPO-LINK#5
   config:
     synopsis: 'The adr-codes meta kind''s fact: the ADR citations the file and its comment page make, sorted and without duplicates.'

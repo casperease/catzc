@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/GlossaryProse.cs
     folder: types
     name: glossary-prose
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md
+    cites:
       - ADR-REPO-FORMAT#6
       - ADR-REPO-VOCAB#5
 ---

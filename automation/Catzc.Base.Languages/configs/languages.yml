@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Languages/configs/languages.yml
 #     folder: configs
 #     name: languages
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Languages
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-languages/configs/languages.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-languages/configs/languages.yml.md
 # ---
 
 engines:

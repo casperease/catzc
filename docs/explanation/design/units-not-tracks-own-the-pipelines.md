@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fac580a0ca23
     path: docs/explanation/design/units-not-tracks-own-the-pipelines.md
     folder: docs/explanation/design
     name: units-not-tracks-own-the-pipelines
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: fac580a0ca23
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{2-5}
     links:
       - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.md

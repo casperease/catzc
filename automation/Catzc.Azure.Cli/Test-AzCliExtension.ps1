@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Test-AzCliExtension.ps1
     name: test-az-cli-extension
     filetype: ps1

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
     folder: private
     name: get-build-validation-path-filter
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS
       - ADR-FLOW-CD-TYPE#4
   config:

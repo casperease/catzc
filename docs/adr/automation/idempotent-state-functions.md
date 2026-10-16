@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5f53c1942c70"
     path: docs/adr/automation/idempotent-state-functions.md
     folder: docs/adr/automation
     name: idempotent-state-functions
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "5f53c1942c70"
+  edges:
     defines:
       - ADR-AUTO-IDEM#{1-5}
     links:

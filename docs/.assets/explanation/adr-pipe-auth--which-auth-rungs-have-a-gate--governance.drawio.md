@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4dc5921ea701"
     path: docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-pipe-auth-which-auth-rungs-have-a-gate-governance-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "4dc5921ea701"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.chain.md

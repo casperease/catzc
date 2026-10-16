@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/.internal/assets/types-load.yml
 #     name: types-load
 #     filetype: yml

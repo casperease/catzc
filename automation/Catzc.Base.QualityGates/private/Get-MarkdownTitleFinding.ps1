@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-MarkdownTitleFinding.ps1
     folder: private
     name: get-markdown-title-finding
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-MarkdownTitleFinding.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-MarkdownTitleFinding.Tests.ps1
   config:
     synopsis: Checks one Markdown file's title and returns the fixed text.
     description: |-

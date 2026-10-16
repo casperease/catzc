@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d6159c1acf1b
     path: docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: world-map-pdf-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d6159c1acf1b
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{3,7,8}
 ---
 

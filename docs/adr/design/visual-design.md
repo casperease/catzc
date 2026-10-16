@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9af99e4e5cbf"
     path: docs/adr/design/visual-design.md
     folder: docs/adr/design
     name: visual-design
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "9af99e4e5cbf"
+  edges:
     defines:
       - ADR-DSGN-VISUAL#{1-14}
-    adrs:
+    cites:
       - ADR-DSGN-LIFE#{1,5}
       - ADR-FLOW-CD#{9-11}
     links:

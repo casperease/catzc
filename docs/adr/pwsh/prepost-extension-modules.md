@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ddae042c3b46
     path: docs/adr/pwsh/prepost-extension-modules.md
     folder: docs/adr/pwsh
     name: prepost-extension-modules
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: ddae042c3b46
+  edges:
     defines:
       - ADR-PWSH-PREPOST#{2-6}
-    adrs:
+    cites:
       - ADR-PWSH-USEPS#2
     links:
       - docs/adr/pwsh/use-ps1-not-psm1.md

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
     name: resolve-catzc-build-version
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Exporter/tests/Resolve-CatzcBuildVersion.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Exporter/tests/Resolve-CatzcBuildVersion.Tests.ps1
+    cites:
       - ADR-AUTO-BUNDLE#7
       - ADR-PWSH-ERROR#2
   config:

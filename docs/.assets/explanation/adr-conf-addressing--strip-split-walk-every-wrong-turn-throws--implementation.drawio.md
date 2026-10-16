@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7add060779b0"
     path: docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-strip-split-walk-every-wrong-turn-throws-implementation-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "7add060779b0"
+  edges:
     links:
       - docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png
       - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md

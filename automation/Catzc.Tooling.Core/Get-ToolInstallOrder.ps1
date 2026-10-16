@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Get-ToolInstallOrder.ps1
     name: get-tool-install-order
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
   config:
     synopsis: Returns tool names from tools.yml in dependency-safe install order.
     description: |-

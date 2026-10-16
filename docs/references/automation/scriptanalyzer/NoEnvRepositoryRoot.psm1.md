@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1bf36336d5bd"
     path: docs/references/automation/scriptanalyzer/NoEnvRepositoryRoot.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-env-repository-root-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1bf36336d5bd"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

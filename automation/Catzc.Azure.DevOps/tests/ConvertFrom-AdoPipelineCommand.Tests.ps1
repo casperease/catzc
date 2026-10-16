@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/tests/ConvertFrom-AdoPipelineCommand.Tests.ps1
     folder: tests
     name: convert-from-ado-pipeline-command-tests

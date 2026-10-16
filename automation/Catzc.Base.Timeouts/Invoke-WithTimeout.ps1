@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/Invoke-WithTimeout.ps1
     name: invoke-with-timeout
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Timeouts/tests/Invoke-WithTimeout.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Timeouts/tests/Invoke-WithTimeout.Tests.ps1
   config:
     synopsis: 'Runs a script block inside a time safeguard: past its limit it is stopped and the call throws.'
     description: |-

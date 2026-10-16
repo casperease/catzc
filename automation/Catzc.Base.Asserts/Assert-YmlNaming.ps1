@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Assert-YmlNaming.ps1
     name: assert-yml-naming
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Asserts/tests/Assert-YmlNaming.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Asserts/tests/Assert-YmlNaming.Tests.ps1
   config:
     synopsis: Validates that all property keys in a parsed YAML object use snake_case.
     description: |-

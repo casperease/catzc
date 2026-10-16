@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e619b9b777fc
     path: docs/references/automation/catzc-azure-devops/configs/ado.yml.md
     folder: docs/references/automation/catzc-azure-devops/configs
     name: ado-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e619b9b777fc
 ---
 
 # automation/Catzc.Azure.DevOps/configs/ado.yml

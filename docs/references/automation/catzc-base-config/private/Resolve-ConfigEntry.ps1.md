@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "073e2a661522"
     path: docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
     folder: docs/references/automation/catzc-base-config/private
     name: resolve-config-entry-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "073e2a661522"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-CACHE#4
 ---
 

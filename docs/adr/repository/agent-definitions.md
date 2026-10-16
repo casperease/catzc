@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e4f338926673
     path: docs/adr/repository/agent-definitions.md
     folder: docs/adr/repository
     name: agent-definitions
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: e4f338926673
+  edges:
     defines:
       - ADR-REPO-AGENTS#{1-5}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-REPO-LINK#5
     links:

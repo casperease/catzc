@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/types/TimeLimitAttribute.cs
     folder: types
     name: time-limit-attribute
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Timeouts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md
-      test: automation/Catzc.Base.Timeouts/tests/types/TimeLimitAttribute.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md
+    test: automation/Catzc.Base.Timeouts/tests/types/TimeLimitAttribute.Tests.ps1
+    cites:
       - ADR-PWSH-ASSERT#1
 ---
 */

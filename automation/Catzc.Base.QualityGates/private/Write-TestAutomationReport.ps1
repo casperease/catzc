@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationReport.ps1
     folder: private
     name: write-test-automation-report
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationReport.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationReport.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#44
   config:
     synopsis: Renders a human-readable run report (summary.md + tests.csv) from the run's row set.

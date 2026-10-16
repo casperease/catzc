@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Get-ContractVersionAsset.ps1
     folder: private
     name: get-contract-version-asset
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-contracts/private/Get-ContractVersionAsset.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-contracts/private/Get-ContractVersionAsset.ps1.md
+    cites:
       - ADR-PWSH-ENUM#3
       - ADR-REPO-CONTRACT#{2,5,7}
   config:

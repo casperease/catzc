@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "93aa42840473"
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-InIsolation.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-in-isolation-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "93aa42840473"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ASSETDEP#3
 ---
 

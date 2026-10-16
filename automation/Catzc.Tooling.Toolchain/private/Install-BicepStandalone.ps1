@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/private/Install-BicepStandalone.ps1
     folder: private
     name: install-bicep-standalone
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
+    cites:
       - ADR-AUTO-PKGMGR
   config:
     synopsis: 'Installs the Bicep CLI on Linux: the newest release at the pinned version, verified, into ~/.local/bin.'

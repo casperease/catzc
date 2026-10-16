@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "721b082d9d0e"
     path: docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-prose-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "721b082d9d0e"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FORMAT#6
       - ADR-REPO-VOCAB#5
 ---

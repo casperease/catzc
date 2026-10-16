@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
     folder: tests
     name: assert-tool-version-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Tooling.Core
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
 ---
 #>

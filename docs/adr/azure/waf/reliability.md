@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8fe3ab1c81d6"
     path: docs/adr/azure/waf/reliability.md
     folder: docs/adr/azure/waf
     name: reliability
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "8fe3ab1c81d6"
+  edges:
     defines:
       - ADR-AZ-WAFRE#{1-10}
-    adrs:
+    cites:
       - ADR-AZ-DATAMOD#{6,9}
       - ADR-AZ-LZ
       - ADR-AZ-NETWORK#{3,5}

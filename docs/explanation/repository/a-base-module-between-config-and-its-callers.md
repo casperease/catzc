@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: deb5fed9f5ce
     path: docs/explanation/repository/a-base-module-between-config-and-its-callers.md
     folder: docs/explanation/repository
     name: a-base-module-between-config-and-its-callers
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: deb5fed9f5ce
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEPM#1
       - ADR-CONF-LOADING#1
       - ADR-REPO-VARIANT#{1,3}

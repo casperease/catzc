@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/Write-Message.ps1
     name: write-message
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-writers/Write-Message.ps1.md
-      test: automation/Catzc.Base.Writers/tests/Write-Message.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-writers/Write-Message.ps1.md
+    test: automation/Catzc.Base.Writers/tests/Write-Message.Tests.ps1
+    cites:
       - ADR-AUTO-CONSOLE#{7,8}
   config:
     synopsis: Writes a status message with calling function name prefix.

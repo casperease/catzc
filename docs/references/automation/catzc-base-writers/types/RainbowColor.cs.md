@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9aff26768daf"
     path: docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md
     folder: docs/references/automation/catzc-base-writers/types
     name: rainbow-color-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9aff26768daf"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#7
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
     folder: private
     name: get-firewall-markdown-table
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md
-      test: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownTable.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md
+    test: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownTable.Tests.ps1
   config:
     synopsis: Renders the Markdown rule table (header + rows) for Convert-FirewallCsvToMarkdown.
     description: |-

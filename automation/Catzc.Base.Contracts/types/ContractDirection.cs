@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/types/ContractDirection.cs
     folder: types
     name: contract-direction
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Contracts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-contracts/types/ContractDirection.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-contracts/types/ContractDirection.cs.md
+    cites:
       - ADR-REPO-CONTRACT#{1,7}
 ---
 */

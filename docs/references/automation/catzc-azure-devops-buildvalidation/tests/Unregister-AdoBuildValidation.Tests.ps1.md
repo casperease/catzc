@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9b1995a20422"
     path: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Unregister-AdoBuildValidation.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-devops-buildvalidation/tests
     name: unregister-ado-build-validation-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9b1995a20422"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-IDEM#2
 ---
 

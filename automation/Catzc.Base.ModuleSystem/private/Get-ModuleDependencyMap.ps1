@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyMap.ps1
     folder: private
     name: get-module-dependency-map
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md
   config:
     synopsis: |-
       Builds the declared module -> dependency-set map from configs/dependencies.yml (the edges of the declared

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/Get-Config.ps1
     name: get-config
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-config/Get-Config.ps1.md
-      test: automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-config/Get-Config.ps1.md
+    test: automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1
+    cites:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-CACHE#4
   config:

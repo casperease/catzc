@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
     folder: tests
     name: test-pipelines-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Azure.DevOps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-devops/tests/Test-Pipelines.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-devops/tests/Test-Pipelines.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-PIPE-NAME
       - ADR-PWSH-PESTER#2

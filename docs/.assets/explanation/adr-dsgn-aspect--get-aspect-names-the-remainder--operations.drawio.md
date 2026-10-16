@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8b763afa2d5b"
     path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-get-aspect-names-the-remainder-operations-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "8b763afa2d5b"
+  edges:
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
       - docs/explanation/design/get-aspect-names-the-remainder.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4426264fdb44"
     path: docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md
     folder: docs/references/automation/catzc-base-writers/private
     name: resolve-writer-color-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4426264fdb44"
 ---
 
 # automation/Catzc.Base.Writers/private/Resolve-WriterColor.ps1

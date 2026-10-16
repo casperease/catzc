@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "76d14f1b2920"
     path: docs/references/automation/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-bare-cache-entry-read-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "76d14f1b2920"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-CACHE#4
 ---
 

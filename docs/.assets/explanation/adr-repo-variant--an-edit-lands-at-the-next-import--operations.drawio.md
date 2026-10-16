@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a3c5cb84627d
     path: docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-an-edit-lands-at-the-next-import-operations-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: a3c5cb84627d
+  edges:
     links:
       - docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png
       - docs/explanation/repository/an-edit-lands-at-the-next-import.md

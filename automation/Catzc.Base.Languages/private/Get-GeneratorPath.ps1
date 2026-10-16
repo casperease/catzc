@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
     folder: private
     name: get-generator-path
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#7
   config:
     synopsis: Returns the repository-relative path of the file a generator command is defined in.

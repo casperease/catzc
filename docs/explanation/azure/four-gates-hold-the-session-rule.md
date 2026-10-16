@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e5aa0b7c93ca
     path: docs/explanation/azure/four-gates-hold-the-session-rule.md
     folder: docs/explanation/azure
     name: four-gates-hold-the-session-rule
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: e5aa0b7c93ca
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-DATAMOD#{4,5,7}
       - ADR-AZ-NAMING#8
     links:

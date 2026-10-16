@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Exporter/Install-Catzc.ps1
     name: install-catzc
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md
-      test: automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md
+    test: automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
+    cites:
       - ADR-AUTO-BUNDLE#6
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-ENGINE#2

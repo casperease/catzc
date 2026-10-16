@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Invoke-TestFile.ps1
     name: invoke-test-file
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
+    cites:
       - ADR-AUTO-NOPWD
       - ADR-AUTO-TEST#{25,32-34,41}
       - ADR-PWSH-ASSERT#1

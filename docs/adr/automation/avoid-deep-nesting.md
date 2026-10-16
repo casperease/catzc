@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "35cf86a64cd4"
     path: docs/adr/automation/avoid-deep-nesting.md
     folder: docs/adr/automation
     name: avoid-deep-nesting
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "35cf86a64cd4"
+  edges:
     defines:
       - ADR-AUTO-NONEST#{1-5}
-    adrs:
+    cites:
       - ADR-PWSH-FORMAT#{8,9}
     links:
       - docs/adr/automation/fail-fast-with-asserts.md

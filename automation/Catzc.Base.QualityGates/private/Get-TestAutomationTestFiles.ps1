@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestFiles.ps1
     folder: private
     name: get-test-automation-test-files
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestFiles.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestFiles.Tests.ps1
   config:
     synopsis: Lists a run's test files, path by path in the given order, each tests folder's files in ordinal order.
     description: |-

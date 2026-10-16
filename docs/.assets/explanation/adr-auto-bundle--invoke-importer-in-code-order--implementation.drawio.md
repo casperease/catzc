@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0b78b1119135"
     path: docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-invoke-importer-in-code-order-implementation-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "0b78b1119135"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.chain.md

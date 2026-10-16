@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/PesterRunner.cs
     folder: types
     name: pester-runner
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
 ---
 */
 

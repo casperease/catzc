@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/Get-AdoRepositoryName.ps1
     name: get-ado-repository-name
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.DevOps/tests/Get-AdoRepositoryName.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.DevOps/tests/Get-AdoRepositoryName.Tests.ps1
+    cites:
       - ADR-PWSH-PARAM#4
   config:
     synopsis: 'The Azure DevOps repository this checkout is: the sensible default for every -RepositoryName.'

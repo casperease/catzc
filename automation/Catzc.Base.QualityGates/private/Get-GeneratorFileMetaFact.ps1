@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-GeneratorFileMetaFact.ps1
     folder: private
     name: get-generator-file-meta-fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-GeneratorFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-GeneratorFileMetaFact.Tests.ps1
+    cites:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#7
   config:

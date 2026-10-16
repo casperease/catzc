@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1
     folder: tests/types
     name: citation-scanner-tests

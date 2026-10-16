@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e2acd9025c38
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: install-dotnet-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e2acd9025c38
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ASSETDEP#3
 ---
 

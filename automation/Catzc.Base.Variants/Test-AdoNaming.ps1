@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/Test-AdoNaming.ps1
     name: test-ado-naming
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Variants/tests/Test-AdoNaming.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Variants/tests/Test-AdoNaming.Tests.ps1
   config:
     synopsis: Tests whether the repo's Azure resource-name order (the `ado_naming` variant) is the one named.
     description: |-

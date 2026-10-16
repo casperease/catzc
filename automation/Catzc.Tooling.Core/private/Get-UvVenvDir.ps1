@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/private/Get-UvVenvDir.ps1
     folder: private
     name: get-uv-venv-dir

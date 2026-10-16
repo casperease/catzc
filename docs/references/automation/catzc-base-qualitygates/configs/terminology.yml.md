@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "43ca183e1145"
     path: docs/references/automation/catzc-base-qualitygates/configs/terminology.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: terminology-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "43ca183e1145"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-SPELL#{5,8}
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0c1d71f47fcd"
     path: docs/explanation/flow/overlap-gated-for-units-and-modules.md
     folder: docs/explanation/flow
     name: overlap-gated-for-units-and-modules
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "0c1d71f47fcd"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-PROTGLOB#7

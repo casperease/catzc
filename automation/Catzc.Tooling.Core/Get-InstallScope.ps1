@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Get-InstallScope.ps1
     name: get-install-scope
     filetype: ps1

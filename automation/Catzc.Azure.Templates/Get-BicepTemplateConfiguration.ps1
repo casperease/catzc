@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
     name: get-bicep-template-configuration
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
+    cites:
       - ADR-AZ-DATAMOD
   config:
     synopsis: Loads a template's per-slot config and returns the ordered dictionary.

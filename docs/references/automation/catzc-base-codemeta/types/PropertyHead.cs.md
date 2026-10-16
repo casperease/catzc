@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ae63f2f8bf8b
     path: docs/references/automation/catzc-base-codemeta/types/PropertyHead.cs.md
     folder: docs/references/automation/catzc-base-codemeta/types
     name: property-head-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ae63f2f8bf8b
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#8
 ---
 

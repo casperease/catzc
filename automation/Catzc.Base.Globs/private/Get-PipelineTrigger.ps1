@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
     folder: private
     name: get-pipeline-trigger
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS
   config:
     synopsis: Reads a pipeline or workflow YAML's trigger path filters — the actual, on-disk trigger globs.

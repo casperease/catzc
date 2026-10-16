@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/tests/Assert-IsNotTimeoutExempt.Tests.ps1
     folder: tests
     name: assert-is-not-timeout-exempt-tests

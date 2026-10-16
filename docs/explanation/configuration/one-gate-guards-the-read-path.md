@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cd955d1c421d
     path: docs/explanation/configuration/one-gate-guards-the-read-path.md
     folder: docs/explanation/configuration
     name: one-gate-guards-the-read-path
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: cd955d1c421d
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-CONF-ADDRESSING
       - ADR-CONF-LOADING

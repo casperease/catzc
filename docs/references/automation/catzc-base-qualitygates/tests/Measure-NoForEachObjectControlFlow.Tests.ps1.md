@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "82807f113be5"
     path: docs/references/automation/catzc-base-qualitygates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: measure-no-for-each-object-control-flow-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "82807f113be5"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1

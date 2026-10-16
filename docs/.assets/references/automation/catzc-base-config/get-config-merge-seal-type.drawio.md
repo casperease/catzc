@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "41345f139c1c"
     path: docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
     folder: docs/.assets/references/automation/catzc-base-config
     name: get-config-merge-seal-type-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "41345f139c1c"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-OVERLAY#7
       - ADR-PWSH-CACHE#4

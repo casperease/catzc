@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-RepointedMarkdownText.ps1
     folder: private
     name: get-repointed-markdown-text
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-RepointedMarkdownText.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-RepointedMarkdownText.Tests.ps1
+    cites:
       - ADR-REPO-FORMAT#7
   config:
     synopsis: 'Re-points a Markdown file''s #fragment links at headings whose anchor changed, and returns the text.'

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8ba93717158a"
     path: docs/adr/pwsh/dora-explains.md
     folder: docs/adr/pwsh
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "8ba93717158a"
+  edges:
     links:
       - docs/adr/pwsh/announce-state-changes.md
       - docs/adr/pwsh/assert-idioms.md

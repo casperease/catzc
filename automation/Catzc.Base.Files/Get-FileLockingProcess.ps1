@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/Get-FileLockingProcess.ps1
     name: get-file-locking-process
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Files/tests/Get-FileLockingProcess.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Files/tests/Get-FileLockingProcess.Tests.ps1
   config:
     synopsis: Lists the processes that hold a file open (lock it).
     description: |-

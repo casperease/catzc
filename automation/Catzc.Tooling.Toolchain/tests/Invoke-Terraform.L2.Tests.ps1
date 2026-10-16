@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.L2.Tests.ps1
     folder: tests
     name: invoke-terraform-l2-tests

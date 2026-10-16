@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
     folder: private
     name: get-live-identity-tokens
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-LiveIdentityTokens.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-LiveIdentityTokens.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-CONF-LOADING
       - ADR-REPO-LANG

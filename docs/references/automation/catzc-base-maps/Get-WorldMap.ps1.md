@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8e15113ab7f9"
     path: docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
     folder: docs/references/automation/catzc-base-maps
     name: get-world-map-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8e15113ab7f9"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-CACHE#4
 ---
 

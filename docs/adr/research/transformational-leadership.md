@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7ebd59f1084e"
     path: docs/adr/research/transformational-leadership.md
     folder: docs/adr/research
     name: transformational-leadership
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "7ebd59f1084e"
+  edges:
     defines:
       - ADR-DORA-LEADERSHIP#{1-5}
     links:

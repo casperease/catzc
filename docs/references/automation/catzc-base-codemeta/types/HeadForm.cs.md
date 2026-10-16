@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4fc7c7757669"
     path: docs/references/automation/catzc-base-codemeta/types/HeadForm.cs.md
     folder: docs/references/automation/catzc-base-codemeta/types
     name: head-form-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4fc7c7757669"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CODEMETA#1
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "39dc46804c48"
     path: docs/references/automation/catzc-azure/types/NetworkCidr.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: network-cidr-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "39dc46804c48"
 ---
 
 # automation/Catzc.Azure/types/NetworkCidr.cs

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "053bd80fdbac"
     path: docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
     folder: docs/.assets/references/automation/catzc-azure-templates
     name: bicep-deploy-one-immutable-context-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "053bd80fdbac"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-DATAMOD#4
       - ADR-PWSH-DRYRUN#1
       - ADR-PWSH-ERROR#8

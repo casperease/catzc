@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs
     folder: types
     name: identity-tokens-config
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/IdentityTokensConfig.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/IdentityTokensConfig.Tests.ps1
 ---
 */
 

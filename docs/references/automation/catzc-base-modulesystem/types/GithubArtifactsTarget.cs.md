@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: baeb591df959
     path: docs/references/automation/catzc-base-modulesystem/types/GithubArtifactsTarget.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: github-artifacts-target-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: baeb591df959
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/GithubArtifactsTarget.cs

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1
     folder: tests
     name: test-tool-home-probe-tests

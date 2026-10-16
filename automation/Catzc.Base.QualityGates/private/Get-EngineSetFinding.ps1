@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-EngineSetFinding.ps1
     folder: private
     name: get-engine-set-finding
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-EngineSetFinding.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-EngineSetFinding.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE#1
   config:
     synopsis: Lists every place one file restates the engine set instead of reading it from the model.

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d790814a2975
     path: docs/adr/thesis/one-source-of-truth.md
     folder: docs/adr/thesis
     name: one-source-of-truth
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d790814a2975
+  edges:
     defines:
       - ADR-THES-ONETRUTH#{1-6}
-    adrs:
+    cites:
       - ADR-FLOW-CD#14
       - ADR-PRIN-EAC
     links:

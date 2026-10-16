@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
     name: get-bicep-deployment-name
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
+    cites:
       - ADR-FLOW-CD-DETECT#1
   config:
     synopsis: Builds an ARM deployment name for a bicep template.

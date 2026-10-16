@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-LinkLineLimit.ps1
     folder: private
     name: get-link-line-limit
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
   config:
     synopsis: Resolves the per-extension comment line limits the link aligner wraps to.

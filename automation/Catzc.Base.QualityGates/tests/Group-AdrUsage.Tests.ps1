@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Group-AdrUsage.Tests.ps1
     folder: tests
     name: group-adr-usage-tests

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "676e97f3373f"
     path: docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-guid-scan-files-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "676e97f3373f"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1

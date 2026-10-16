@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a6fa15cd4af2
     path: docs/references/automation/catzc-azure-devops/tests/types/PipelineEnvConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-devops/tests/types
     name: pipeline-env-config-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a6fa15cd4af2
 ---
 
 # automation/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1

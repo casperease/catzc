@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7e0fe1021a9b"
     path: docs/adr/pwsh/announce-state-changes.md
     folder: docs/adr/pwsh
     name: announce-state-changes
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "7e0fe1021a9b"
+  edges:
     defines:
       - ADR-PWSH-ANNOUNCE#{1,4-11}
-    adrs:
+    cites:
       - ADR-AUTO-CONSOLE#{4,5,8,11,12}
       - ADR-AUTO-PRELOG#{2,4,5}
     links:

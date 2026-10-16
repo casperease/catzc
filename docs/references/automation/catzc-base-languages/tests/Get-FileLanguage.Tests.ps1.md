@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8ea95b0c48c2"
     path: docs/references/automation/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: get-file-language-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8ea95b0c48c2"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#3
 ---
 

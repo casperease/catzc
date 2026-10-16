@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cf8d14cd3095
     path: docs/references/dora/publications.md
     folder: docs/references/dora
     name: publications
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: cf8d14cd3095
+  edges:
     links:
       - docs/references/dora/ai.md#ai-capabilities-model
       - "https://cloud.google.com/resources/content/dora-roi-of-ai-assisted-software-development"

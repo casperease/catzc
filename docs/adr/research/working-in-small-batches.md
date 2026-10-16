@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9e7c3e8c16ec"
     path: docs/adr/research/working-in-small-batches.md
     folder: docs/adr/research
     name: working-in-small-batches
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "9e7c3e8c16ec"
+  edges:
     defines:
       - ADR-DORA-SMALLBATCH#{1-6}
     links:

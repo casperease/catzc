@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/types/DurableHash.cs
     folder: types
     name: durable-hash
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Globs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-globs/types/DurableHash.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-globs/types/DurableHash.cs.md
+    cites:
       - ADR-FLOW-CD-GLOBS
 ---
 */

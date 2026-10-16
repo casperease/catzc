@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a9644e681721
     path: docs/references/infrastructure/modules/private-dns-zone.bicep.md
     folder: docs/references/infrastructure/modules
     name: private-dns-zone-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a9644e681721
 ---
 
 # infrastructure/modules/private-dns-zone.bicep

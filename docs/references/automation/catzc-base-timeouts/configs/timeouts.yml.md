@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5242912b6ef5"
     path: docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md
     folder: docs/references/automation/catzc-base-timeouts/configs
     name: timeouts-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5242912b6ef5"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ASSERT#1
 ---
 

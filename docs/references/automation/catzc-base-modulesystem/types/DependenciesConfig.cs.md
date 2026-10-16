@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "610774cd171a"
     path: docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: dependencies-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "610774cd171a"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

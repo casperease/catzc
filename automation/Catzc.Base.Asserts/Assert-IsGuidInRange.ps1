@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Assert-IsGuidInRange.ps1
     name: assert-is-guid-in-range
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Asserts/tests/Assert-IsGuidInRange.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Asserts/tests/Assert-IsGuidInRange.Tests.ps1
   config:
     synopsis: Asserts that a GUID lies inside an inclusive GUID range.
     description: The throwing form of Test-IsGuidInRange, which defines the ordering.

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fe3b340399ec
     path: docs/how-to/automation/manual-test-plan/static-analysis.md
     folder: docs/how-to/automation/manual-test-plan
     name: static-analysis
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: fe3b340399ec
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-BASH#6
       - ADR-AUTO-PY#8
       - ADR-PRIN-CONFIG#{2,4}

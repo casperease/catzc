@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "499e30733666"
     path: docs/references/infrastructure/discovery.md
     folder: docs/references/infrastructure
     name: discovery
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "499e30733666"
+  edges:
     links:
       - docs/adr/azure/azure-data-model.md
       - docs/adr/azure/azure-network-model.md

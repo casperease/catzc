@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b1e38c2ae347
     path: docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-remote-guard-and-policies-by-command-operations-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: b1e38c2ae347
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.chain.md

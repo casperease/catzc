@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Assert-HaveProperty.ps1
     name: assert-have-property
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Asserts/tests/Assert-HaveProperty.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Asserts/tests/Assert-HaveProperty.Tests.ps1
   config:
     synopsis: Asserts that an object has a named property, or a nested chain of properties.
     parameters:

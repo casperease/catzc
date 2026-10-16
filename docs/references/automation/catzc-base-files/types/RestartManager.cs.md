@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3fd02566ab4d"
     path: docs/references/automation/catzc-base-files/types/RestartManager.cs.md
     folder: docs/references/automation/catzc-base-files/types
     name: restart-manager-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3fd02566ab4d"
 ---
 
 # automation/Catzc.Base.Files/types/RestartManager.cs

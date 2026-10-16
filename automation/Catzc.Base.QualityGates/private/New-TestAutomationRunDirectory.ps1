@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/New-TestAutomationRunDirectory.ps1
     folder: private
     name: new-test-automation-run-directory
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/New-TestAutomationRunDirectory.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/New-TestAutomationRunDirectory.Tests.ps1
   config:
     synopsis: Creates and returns a fresh timestamped run directory under the report base.
     description: |-

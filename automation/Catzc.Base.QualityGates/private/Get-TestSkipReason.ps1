@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestSkipReason.ps1
     folder: private
     name: get-test-skip-reason
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestSkipReason.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestSkipReason.Tests.ps1
   config:
     synopsis: Extracts the human-readable reason a Pester test was skipped.
     description: |-

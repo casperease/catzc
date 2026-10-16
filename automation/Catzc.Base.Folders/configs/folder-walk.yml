@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Folders/configs/folder-walk.yml
 #     folder: configs
 #     name: folder-walk

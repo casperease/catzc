@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: db7980c5beb3
     path: docs/references/automation/catzc-base-qualitygates/configs/links.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: links-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: db7980c5beb3
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-PARAM#4
       - ADR-REPO-LINK#{5,8}

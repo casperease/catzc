@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: python/tests/catzc-base-repository/test_repository.py
 #     folder: tests/catzc-base-repository
 #     name: test-repository

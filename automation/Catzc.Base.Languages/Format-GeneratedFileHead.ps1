@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
     name: format-generated-file-head
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#7
   config:
     synopsis: Returns the text of a generated file with the meta head that says which generator or source wrote it.

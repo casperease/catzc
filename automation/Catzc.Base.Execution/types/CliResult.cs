@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/types/CliResult.cs
     folder: types
     name: cli-result
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Execution
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-execution/types/CliResult.cs.md
+  edges:
+    page: docs/references/automation/catzc-base-execution/types/CliResult.cs.md
 ---
 */
 

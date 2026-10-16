@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyViolations.ps1
     folder: private
     name: get-module-dependency-violations
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md
   config:
     synopsis: Collects conformance violations of the real code against the declared dependency graph.
     description: |-

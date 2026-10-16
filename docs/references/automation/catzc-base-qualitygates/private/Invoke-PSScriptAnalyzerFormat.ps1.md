@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ef90cd38beeb
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: invoke-ps-script-analyzer-format-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ef90cd38beeb
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#10
 ---
 

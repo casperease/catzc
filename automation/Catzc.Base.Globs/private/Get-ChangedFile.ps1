@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/private/Get-ChangedFile.ps1
     folder: private
     name: get-changed-file
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS#4
   config:
     synopsis: |-

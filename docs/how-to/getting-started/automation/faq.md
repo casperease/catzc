@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: abc05ae566cd
     path: docs/how-to/getting-started/automation/faq.md
     folder: docs/how-to/getting-started/automation
     name: faq
@@ -8,7 +9,6 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: abc05ae566cd
 ---
 
 # FAQ

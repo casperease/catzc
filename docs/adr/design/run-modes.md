@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: feb2d9ae1bab
     path: docs/adr/design/run-modes.md
     folder: docs/adr/design
     name: run-modes
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: feb2d9ae1bab
+  edges:
     defines:
       - ADR-DSGN-RUNMODE#{1-7}
     links:

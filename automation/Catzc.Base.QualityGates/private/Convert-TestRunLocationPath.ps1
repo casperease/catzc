@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Convert-TestRunLocationPath.ps1
     folder: private
     name: convert-test-run-location-path
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Convert-TestRunLocationPath.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Convert-TestRunLocationPath.Tests.ps1
   config:
     synopsis: Maps paths between a test run's working folder and the root of the location it runs in.
     description: |-

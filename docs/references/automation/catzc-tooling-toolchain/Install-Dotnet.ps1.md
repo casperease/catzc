@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "553b4f4cb70e"
     path: docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: install-dotnet-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "553b4f4cb70e"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-IDEM#1

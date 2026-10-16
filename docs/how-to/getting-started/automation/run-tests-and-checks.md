@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d917267d0225
     path: docs/how-to/getting-started/automation/run-tests-and-checks.md
     folder: docs/how-to/getting-started/automation
     name: run-tests-and-checks
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: d917267d0225
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#37
     links:
       - docs/adr/automation/retry-as-last-resort.md

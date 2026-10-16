@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/types/ModulePlace.cs
     folder: types
     name: module-place
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Variants
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-variants/types/ModulePlace.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-variants/types/ModulePlace.cs.md
+    cites:
       - ADR-DSGN-TRACK#3
 ---
 */

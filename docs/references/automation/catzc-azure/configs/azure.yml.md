@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "997ea952a44f"
     path: docs/references/automation/catzc-azure/configs/azure.yml.md
     folder: docs/references/automation/catzc-azure/configs
     name: azure-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "997ea952a44f"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-DATAMOD#11
 ---
 

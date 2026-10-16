@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ac19161945f2
     path: docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleDependencyClosure.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: get-module-dependency-closure-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ac19161945f2
 ---
 
 # automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyClosure.Tests.ps1

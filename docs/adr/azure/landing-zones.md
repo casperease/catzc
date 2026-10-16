@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ddae9ec7174a
     path: docs/adr/azure/landing-zones.md
     folder: docs/adr/azure
     name: landing-zones
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: ddae9ec7174a
+  edges:
     defines:
       - ADR-AZ-LZ#{1-7}
-    adrs:
+    cites:
       - ADR-AZ-DATAMOD#{9-11}
       - ADR-AZ-NETWORK#{1,5,6}
     links:

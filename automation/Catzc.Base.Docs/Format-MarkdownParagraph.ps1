@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1
     name: format-markdown-paragraph
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Format-MarkdownParagraph.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Format-MarkdownParagraph.Tests.ps1
+    cites:
       - ADR-REPO-FORMAT#5
   config:
     synopsis: Wraps one paragraph or list item of generated markdown at the 140-column prose width, the way Prettier fills it.

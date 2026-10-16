@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Docs/configs/adr-checks.yml
 #     folder: configs
 #     name: adr-checks
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Docs
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-docs/configs/adr-checks.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-docs/configs/adr-checks.yml.md
 # ---
 
 engine_neutrality:

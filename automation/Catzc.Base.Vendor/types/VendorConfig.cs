@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Vendor/types/VendorConfig.cs
     folder: types
     name: vendor-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Vendor
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md
-      test: automation/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md
+    test: automation/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-PWSH-VENDOR
 ---

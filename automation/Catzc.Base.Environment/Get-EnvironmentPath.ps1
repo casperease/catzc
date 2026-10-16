@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Environment/Get-EnvironmentPath.ps1
     name: get-environment-path
     filetype: ps1

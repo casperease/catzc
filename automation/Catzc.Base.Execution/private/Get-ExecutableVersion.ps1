@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/private/Get-ExecutableVersion.ps1
     folder: private
     name: get-executable-version
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-execution/private/Get-ExecutableVersion.ps1.md
-      test: automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-execution/private/Get-ExecutableVersion.ps1.md
+    test: automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
   config:
     synopsis: Runs one located executable's version command and returns the parsed version — the probe's only process start.
     description: |-

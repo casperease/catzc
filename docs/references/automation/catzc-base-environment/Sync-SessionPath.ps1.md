@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "25a228011c9c"
     path: docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md
     folder: docs/references/automation/catzc-base-environment
     name: sync-session-path-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "25a228011c9c"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#11
 ---
 

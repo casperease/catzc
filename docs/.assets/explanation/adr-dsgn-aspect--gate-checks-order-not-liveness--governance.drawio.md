@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a3332eead5c3
     path: docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-gate-checks-order-not-liveness-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: a3332eead5c3
+  edges:
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
       - docs/explanation/design/gate-checks-order-not-liveness.md

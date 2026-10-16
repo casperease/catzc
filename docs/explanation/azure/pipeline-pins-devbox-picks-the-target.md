@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f69ade07773a
     path: docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
     folder: docs/explanation/azure
     name: pipeline-pins-devbox-picks-the-target
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: f69ade07773a
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-DATAMOD#7
     links:
       - docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.md

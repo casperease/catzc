@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "514628fc27ea"
     path: docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
     folder: docs/explanation/pipelines
     name: which-auth-rungs-have-a-gate
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "514628fc27ea"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-DETECT#1
       - ADR-PIPE-AUTH
     links:

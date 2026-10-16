@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7e3a289fb0e4"
     path: docs/how-to/getting-started/automation/add-a-cli-tool.md
     folder: docs/how-to/getting-started/automation
     name: add-a-cli-tool
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "7e3a289fb0e4"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-UVPY#4
     links:
       - docs/adr/automation/controlling-systemwide-deps.md

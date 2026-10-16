@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Assert-TypeIs.ps1
     name: assert-type-is
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Asserts/tests/Assert-TypeIs.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Asserts/tests/Assert-TypeIs.Tests.ps1
   config:
     synopsis: Asserts that an object is a specific .NET type.
     parameters:

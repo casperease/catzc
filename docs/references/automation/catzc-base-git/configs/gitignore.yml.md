@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9b7ff39f1571"
     path: docs/references/automation/catzc-base-git/configs/gitignore.yml.md
     folder: docs/references/automation/catzc-base-git/configs
     name: gitignore-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9b7ff39f1571"
 ---
 
 # automation/Catzc.Base.Git/configs/gitignore.yml

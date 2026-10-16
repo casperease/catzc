@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2b0b2d9c8f9f"
     path: docs/adr/pwsh/idempotent-state-mechanics.md
     folder: docs/adr/pwsh
     name: idempotent-state-mechanics
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "2b0b2d9c8f9f"
+  edges:
     defines:
       - ADR-PWSH-IDEM#{1-6}
-    adrs:
+    cites:
       - ADR-AUTO-IDEM
       - ADR-AUTO-REMOVE#4
     links:

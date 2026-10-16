@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "38d8907aea0f"
     path: docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-resolve-one-limit-in-code-order-implementation-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "38d8907aea0f"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
       - docs/explanation/automation/resolve-one-limit-in-code-order.md

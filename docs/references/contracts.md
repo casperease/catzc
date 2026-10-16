@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b5678246da49
     path: docs/references/contracts.md
     folder: docs/references
     name: contracts
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: b5678246da49
+  edges:
     links:
       - docs/adr/principles/one-living-version.md
       - docs/adr/repository/api-contracts.md

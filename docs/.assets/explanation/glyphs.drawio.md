@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9dcdf39c95c2"
     path: docs/.assets/explanation/glyphs.drawio.md
     folder: docs/.assets/explanation
     name: glyphs-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "9dcdf39c95c2"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-VISUAL#4
     links:
       - docs/.assets/explanation/glyphs.drawio.png

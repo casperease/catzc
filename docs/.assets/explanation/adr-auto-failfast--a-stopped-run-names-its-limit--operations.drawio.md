@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "94cd0541af62"
     path: docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-a-stopped-run-names-its-limit-operations-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "94cd0541af62"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
       - docs/explanation/automation/a-stopped-run-names-its-limit.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "25b006c5662e"
     path: docs/references/automation/catzc-base-configextensions/tests/Invoke-ConfigValidator.Tests.ps1.md
     folder: docs/references/automation/catzc-base-configextensions/tests
     name: invoke-config-validator-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "25b006c5662e"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

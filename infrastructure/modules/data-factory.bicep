@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/data-factory.bicep
 //     name: data-factory
 //     filetype: bicep

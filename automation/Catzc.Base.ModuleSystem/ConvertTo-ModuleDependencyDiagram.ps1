@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/ConvertTo-ModuleDependencyDiagram.ps1
     name: convert-to-module-dependency-diagram
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
   config:
     synopsis: Renders module dependency edges to JSON, YAML, Markdown, or PlantUML.
     description: |-

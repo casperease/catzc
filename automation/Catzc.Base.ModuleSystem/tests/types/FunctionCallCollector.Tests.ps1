@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
     folder: tests/types
     name: function-call-collector-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/tests/types/FunctionCallCollector.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/tests/types/FunctionCallCollector.Tests.ps1.md
 ---
 #>
 

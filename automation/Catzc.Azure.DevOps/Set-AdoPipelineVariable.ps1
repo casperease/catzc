@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
     name: set-ado-pipeline-variable
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
+    cites:
       - ADR-PWSH-ANNOUNCE#1
   config:
     synopsis: 'Sets an Azure DevOps pipeline variable via the ##vso logging command.'

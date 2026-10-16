@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: df9202a23048
     path: docs/references/automation/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests/types
     name: aspect-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: df9202a23048
 ---
 
 # automation/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1

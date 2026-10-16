@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/private-endpoint.bicep
 //     name: private-endpoint
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: private-endpoint
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/private-endpoint.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/private-endpoint.bicep.md
 // ---
 
 @description('Private endpoint name (2-64 characters, unique within the resource group).')

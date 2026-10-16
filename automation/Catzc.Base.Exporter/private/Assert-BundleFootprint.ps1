@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
     folder: private
     name: assert-bundle-footprint
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
-      test: automation/Catzc.Base.Exporter/tests/Assert-BundleFootprint.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+    test: automation/Catzc.Base.Exporter/tests/Assert-BundleFootprint.Tests.ps1
+    cites:
       - ADR-AUTO-BUNDLE
       - ADR-PWSH-ENUM#3
   config:

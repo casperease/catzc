@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/MapsPin.cs
     folder: types
     name: maps-pin
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/MapsPin.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/MapsPin.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 */

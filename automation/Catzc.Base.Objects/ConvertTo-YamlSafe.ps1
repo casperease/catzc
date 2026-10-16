@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/ConvertTo-YamlSafe.ps1
     name: convert-to-yaml-safe
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Objects/tests/ConvertTo-YamlSafe.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Objects/tests/ConvertTo-YamlSafe.Tests.ps1
   config:
     synopsis: |-
       Recursively converts an object into a YAML-safe structure of ordered

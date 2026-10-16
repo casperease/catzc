@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1
     folder: private
     name: remove-uv-pip-or-stray-install
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md
+    cites:
       - ADR-AUTO-REMOVE#6
   config:
     synopsis: |-

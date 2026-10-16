@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "21cff11877fd"
     path: docs/adr/automation/bash/bash-test-artifacts.md
     folder: docs/adr/automation/bash
     name: bash-test-artifacts
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "21cff11877fd"
+  edges:
     defines:
       - ADR-AUTO-BASH#{1-6}
-    adrs:
+    cites:
       - ADR-AUTO-ENGINE#{4,6}
       - ADR-AUTO-GO#7
       - ADR-AUTO-PY#7

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: ".github/workflows/release-automation.yml"
 #     name: release-automation
 #     filetype: yml

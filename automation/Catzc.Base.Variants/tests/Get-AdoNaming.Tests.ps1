@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/tests/Get-AdoNaming.Tests.ps1
     folder: tests
     name: get-ado-naming-tests

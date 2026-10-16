@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "539e1e9a45a2"
     path: docs/adr/pipelines/pipeline-variables.md
     folder: docs/adr/pipelines
     name: pipeline-variables
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "539e1e9a45a2"
+  edges:
     defines:
       - ADR-PIPE-VAR#{1-6}
     links:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/tests/Write-ImporterMessage.Tests.ps1
     name: write-importer-message-tests
     filetype: ps1

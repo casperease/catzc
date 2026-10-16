@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "48e228b8e9c7"
     path: docs/references/automation/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: test-tool-requires-elevation-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "48e228b8e9c7"
 ---
 
 # automation/Catzc.Tooling.Core/tests/Test-ToolRequiresElevation.Tests.ps1

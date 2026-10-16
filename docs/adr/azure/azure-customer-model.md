@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3825cc41e801"
     path: docs/adr/azure/azure-customer-model.md
     folder: docs/adr/azure
     name: azure-customer-model
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "3825cc41e801"
+  edges:
     defines:
       - ADR-AZ-CUSTOMER#{1-6}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "774a05038bf6"
     path: docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md
     folder: docs/references/automation/catzc-tooling-core/private
     name: remove-uv-pip-or-stray-install-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "774a05038bf6"
 ---
 
 # automation/Catzc.Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1

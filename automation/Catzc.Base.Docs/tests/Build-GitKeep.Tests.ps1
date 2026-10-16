@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
     folder: tests
     name: build-git-keep-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md
+    cites:
       - ADR-AUTO-ASSETDEP#3
 ---
 #>
@@ -46,7 +46,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         $report = @(Build-GitKeep -PassThru)
         ($report | Where-Object Path -EQ 'contracts/.gitkeep').Changed | Should -BeTrue
         $written = ([System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'contracts/.gitkeep')) -replace "`r", '')
-        $written | Should -BeLike "# ---`n# catzc:`n#   derived:`n#     path: contracts/.gitkeep`n#     source:*`n#     kind: other`n#     track: contracts`n#     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1`n# ---`n`n*"
+        $written | Should -BeLike "# ---`n# catzc:`n#   immutable:`n#     path: contracts/.gitkeep`n#     source:*`n#     kind: other`n#     track: contracts`n#     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1`n# ---`n`n*"
         $written | Should -BeLike ('*' + ($script:expected -replace "`r", '').TrimEnd("`n") + "`n")
     }
 

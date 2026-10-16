@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f694fa908eab
     path: docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md
     folder: docs/references/automation/catzc-azure
     name: get-azure-subscription-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f694fa908eab
 ---
 
 # automation/Catzc.Azure/Get-AzureSubscription.ps1

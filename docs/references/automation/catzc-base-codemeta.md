@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "09a881a934b4"
     path: docs/references/automation/catzc-base-codemeta.md
     folder: docs/references/automation
     name: catzc-base-codemeta
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "09a881a934b4"
+  edges:
     links:
       - docs/adr/repository/code-file-meta.md
       - docs/references/automation/catzc-base-config.md

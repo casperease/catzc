@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Languages/configs/generated-head.yml
 #     folder: configs
 #     name: generated-head

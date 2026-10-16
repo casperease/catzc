@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-BicepTemplateSlots.ps1
     name: get-bicep-template-slots
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1
   config:
     synopsis: Returns a template's configured (non-base) slot discriminators as a flat string array.
     description: |-

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestRunLockRecord.ps1
     folder: private
     name: write-test-run-lock-record

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5991ca784914"
     path: docs/adr/automation/cross-platform.md
     folder: docs/adr/automation
     name: cross-platform
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "5991ca784914"
+  edges:
     defines:
       - ADR-AUTO-XPLAT#{3,6,7,9}
-    adrs:
+    cites:
       - ADR-AUTO-PARITY#1
       - ADR-PWSH-XPLAT#{2,4,6-8}
     links:

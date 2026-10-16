@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e6efd0ad79ce
     path: docs/explanation/flow/peers-in-a-layer-never-overlap.md
     folder: docs/explanation/flow
     name: peers-in-a-layer-never-overlap
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: e6efd0ad79ce
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{7,10}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.md

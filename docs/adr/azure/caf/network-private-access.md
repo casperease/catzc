@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: afa53038a9df
     path: docs/adr/azure/caf/network-private-access.md
     folder: docs/adr/azure/caf
     name: network-private-access
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: afa53038a9df
+  edges:
     defines:
       - ADR-AZ-CAFNETPRV#{1-13}
-    adrs:
+    cites:
       - ADR-AZ-CAFSEC#21
       - ADR-AZ-LZ#{2-4,7}
       - ADR-AZ-NETWORK#{1,5,6}

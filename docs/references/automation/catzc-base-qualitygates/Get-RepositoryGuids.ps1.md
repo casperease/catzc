@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5bb69339ffa7"
     path: docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: get-repository-guids-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5bb69339ffa7"
 ---
 
 # automation/Catzc.Base.QualityGates/Get-RepositoryGuids.ps1

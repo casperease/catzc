@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.CodeMeta/types/HeadAnchor.cs
     folder: types
     name: head-anchor
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.CodeMeta
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-codemeta/types/HeadAnchor.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-codemeta/types/HeadAnchor.cs.md
+    cites:
       - ADR-REPO-CODEMETA#1
 ---
 */

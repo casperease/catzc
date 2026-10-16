@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a55d51dfadd7
     path: docs/adr/automation/BCL/native-csharp-types.md
     folder: docs/adr/automation/BCL
     name: native-csharp-types
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: a55d51dfadd7
+  edges:
     defines:
       - ADR-AUTO-TYPES#{1-4,7-9,11-15}
-    adrs:
+    cites:
       - ADR-AUTO-CACHE#8
     links:
       - docs/adr/automation/caching.md#rule-adr-auto-cache8

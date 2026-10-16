@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e0c31651f0ea
     path: docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md
     folder: docs/references/automation/catzc-tooling-python/private
     name: install-pip-tool-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e0c31651f0ea
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-UVPY#2
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "311142b2a5ab"
     path: docs/adr/automation/open-closed-architecture.md
     folder: docs/adr/automation
     name: open-closed-architecture
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "311142b2a5ab"
+  edges:
     defines:
       - ADR-AUTO-EXTEND#{1,3-5}
     links:

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/types/DictionaryRecord.cs
     folder: types
     name: dictionary-record
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Objects
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
-      test: automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
+    test: automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
 ---
 */
 

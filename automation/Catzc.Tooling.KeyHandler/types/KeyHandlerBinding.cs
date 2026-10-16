@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBinding.cs
     folder: types
     name: key-handler-binding
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Tooling.KeyHandler
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 */

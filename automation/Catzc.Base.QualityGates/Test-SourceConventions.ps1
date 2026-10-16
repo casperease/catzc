@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-SourceConventions.ps1
     name: test-source-conventions
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#{3,35}
       - ADR-PWSH-PESTER#{5,9}

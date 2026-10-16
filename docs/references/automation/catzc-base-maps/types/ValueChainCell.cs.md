@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a7b54b309a80
     path: docs/references/automation/catzc-base-maps/types/ValueChainCell.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: value-chain-cell-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a7b54b309a80
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#{10,16}
 ---

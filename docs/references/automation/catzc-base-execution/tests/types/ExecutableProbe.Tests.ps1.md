@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b21f8884ff49
     path: docs/references/automation/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md
     folder: docs/references/automation/catzc-base-execution/tests/types
     name: executable-probe-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b21f8884ff49
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

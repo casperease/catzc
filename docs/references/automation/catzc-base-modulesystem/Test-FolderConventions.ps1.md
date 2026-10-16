@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e924b6ed9eff
     path: docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: test-folder-conventions-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e924b6ed9eff
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FOLDERS#4
 ---
 

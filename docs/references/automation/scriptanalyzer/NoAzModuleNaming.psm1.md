@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7e3550a9939c"
     path: docs/references/automation/scriptanalyzer/NoAzModuleNaming.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-az-module-naming-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "7e3550a9939c"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/Get-ValueChainMap.ps1
     name: get-value-chain-map
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#{14-16}
       - ADR-THES-ONETRUTH#3
   config:

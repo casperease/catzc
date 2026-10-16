@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0dbc26beb6af"
     path: docs/references/automation/catzc-base-docs/types/GlossaryRealization.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-realization-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0dbc26beb6af"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-VOCAB#{3,6}
 ---

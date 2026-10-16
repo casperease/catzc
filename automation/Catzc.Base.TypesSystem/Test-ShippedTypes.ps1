@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
     name: test-shipped-types
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#35
   config:
     synopsis: 'Quality gate: every shipped C# type resolves in the session as <module>.<basename>.'

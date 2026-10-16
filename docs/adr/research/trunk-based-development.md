@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1b8bb45ab915"
     path: docs/adr/research/trunk-based-development.md
     folder: docs/adr/research
     name: trunk-based-development
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "1b8bb45ab915"
+  edges:
     defines:
       - ADR-DORA-TRUNK#{1-5}
-    adrs:
+    cites:
       - ADR-DSGN-LIFE#6
       - ADR-FLOW-CD#2
       - ADR-PRIN-ONELIVE#4

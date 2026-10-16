@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Select-RuleTaggedFiles.ps1
     folder: private
     name: select-rule-tagged-files
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
   config:
     synopsis: The subset of test files that carry a test citing one of the given ADR rules — the -Rule work-list filter.
     description: |-

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "611dcf22acee"
     path: docs/references/automation/catzc-base-qualitygates/tests/Export-SpellingTriage.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: export-spelling-triage-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "611dcf22acee"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1

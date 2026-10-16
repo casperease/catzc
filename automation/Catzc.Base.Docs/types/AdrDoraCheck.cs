@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/AdrDoraCheck.cs
     folder: types
     name: adr-dora-check
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/AdrDoraCheck.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/AdrDoraCheck.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-CONFIG#4
 ---

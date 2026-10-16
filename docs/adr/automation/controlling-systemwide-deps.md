@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f306aec32d72
     path: docs/adr/automation/controlling-systemwide-deps.md
     folder: docs/adr/automation
     name: controlling-systemwide-deps
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: f306aec32d72
+  edges:
     defines:
       - ADR-AUTO-DEPS#{1-8}
-    adrs:
+    cites:
       - ADR-AUTO-PARITY#1
     links:
       - docs/adr/automation/controlling-module-dependencies.md

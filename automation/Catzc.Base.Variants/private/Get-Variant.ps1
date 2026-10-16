@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/private/Get-Variant.ps1
     folder: private
     name: get-variant
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE
   config:
     synopsis: Reads a single repo-wide variant from configs/variants.yml, or a default when the key is absent.

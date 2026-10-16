@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a0457d45a845
     path: docs/references/pipelines/cd-flux.yaml.md
     folder: docs/references/pipelines
     name: cd-flux-yaml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a0457d45a845
 ---
 
 # pipelines/cd-flux.yaml

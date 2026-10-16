@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ba817bcb8f65
     path: docs/explanation/flow/globs-projects-and-three-consumers-read.md
     folder: docs/explanation/flow
     name: globs-projects-and-three-consumers-read
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: ba817bcb8f65
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{6,8}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.md

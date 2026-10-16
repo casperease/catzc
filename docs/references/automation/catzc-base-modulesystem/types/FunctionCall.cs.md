@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "419ea8ddb7b7"
     path: docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: function-call-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "419ea8ddb7b7"
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/FunctionCall.cs

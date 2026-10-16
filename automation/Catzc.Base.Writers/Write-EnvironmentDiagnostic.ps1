@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/Write-EnvironmentDiagnostic.ps1
     name: write-environment-diagnostic
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Writers/tests/Write-EnvironmentDiagnostic.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Writers/tests/Write-EnvironmentDiagnostic.Tests.ps1
   config:
     synopsis: Displays all environment variables sorted by name.
     examples:

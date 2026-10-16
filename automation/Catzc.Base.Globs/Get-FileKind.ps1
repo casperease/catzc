@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Get-FileKind.ps1
     name: get-file-kind
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Globs/tests/Get-FileKind.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Globs/tests/Get-FileKind.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#2
   config:
     synopsis: Returns the kind of a file by its role, and its subkind when it has one, from the file-kinds registry.

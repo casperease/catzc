@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2f64cc7666e4"
     path: docs/adr/automation/tracked-files-from-the-index.md
     folder: docs/adr/automation
     name: tracked-files-from-the-index
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "2f64cc7666e4"
+  edges:
     defines:
       - ADR-AUTO-TRACKED#{1-11}
-    adrs:
+    cites:
       - ADR-AUTO-CACHE#9
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TEST#10

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Install-UvTool.ps1
     name: install-uv-tool
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
   config:
     synopsis: Installs a CLI as an isolated uv tool.
     description: |-

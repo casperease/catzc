@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/HelveticaMetrics.cs
     folder: types
     name: helvetica-metrics
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/HelveticaMetrics.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/HelveticaMetrics.cs.md
+    cites:
       - ADR-PWSH-TYPES#1
 ---
 */

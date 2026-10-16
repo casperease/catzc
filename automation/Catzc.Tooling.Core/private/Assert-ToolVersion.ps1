@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
     folder: private
     name: assert-tool-version
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
+    cites:
       - ADR-PWSH-CACHE#4
   config:
     synopsis: Asserts the installed version of a tool matches its locked version.

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/Test-RepositorySnapshot.ps1
     name: test-repository-snapshot
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Git/tests/Test-RepositorySnapshot.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Git/tests/Test-RepositorySnapshot.Tests.ps1
   config:
     synopsis: Returns true when a repository is a test-run snapshot made by New-RepositorySnapshot.
     description: |-

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/Assert-HaveCustomer.ps1
     name: assert-have-customer
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Variants/tests/Assert-HaveCustomer.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Variants/tests/Assert-HaveCustomer.Tests.ps1
   config:
     synopsis: Asserts one named customer is enabled for the repo, else throws (singular cover over Assert-HaveCustomers).
     description: |-

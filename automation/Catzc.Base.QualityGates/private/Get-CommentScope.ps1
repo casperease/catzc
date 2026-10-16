@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-CommentScope.ps1
     folder: private
     name: get-comment-scope
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-PRIN-CONFIG#1
   config:
     synopsis: Lists the files whose long comments live in a comment page, each with its file language and page.

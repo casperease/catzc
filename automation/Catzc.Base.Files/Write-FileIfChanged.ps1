@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/Write-FileIfChanged.ps1
     name: write-file-if-changed
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md
-      test: automation/Catzc.Base.Files/tests/Write-FileIfChanged.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md
+    test: automation/Catzc.Base.Files/tests/Write-FileIfChanged.Tests.ps1
+    cites:
       - ADR-AUTO-CACHE
       - ADR-AUTO-DRYRUN
       - ADR-PRIN-ONELIVE

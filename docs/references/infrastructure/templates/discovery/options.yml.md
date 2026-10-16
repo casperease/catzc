@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "51994793db3c"
     path: docs/references/infrastructure/templates/discovery/options.yml.md
     folder: docs/references/infrastructure/templates/discovery
     name: options-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "51994793db3c"
 ---
 
 # infrastructure/templates/discovery/options.yml

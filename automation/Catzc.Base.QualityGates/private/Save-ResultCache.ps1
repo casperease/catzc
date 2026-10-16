@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Save-ResultCache.ps1
     folder: private
     name: save-result-cache
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Save-ResultCache.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Save-ResultCache.Tests.ps1
+    cites:
       - ADR-AUTO-CACHE#10
   config:
     synopsis: |-

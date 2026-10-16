@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a8e691394734
     path: docs/references/automation/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: get-loaded-type-drift-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a8e691394734
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#12
 ---
 

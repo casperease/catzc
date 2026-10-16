@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "79cd3e151b0e"
     path: docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: ps-type-alias-attribute-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "79cd3e151b0e"
 ---
 
 # automation/Catzc.Base.Objects/types/PSTypeAliasAttribute.cs

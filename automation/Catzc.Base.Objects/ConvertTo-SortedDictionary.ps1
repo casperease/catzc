@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
     name: convert-to-sorted-dictionary
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
   config:
     synopsis: Recursively converts dictionaries to ordered form for stable output.
     description: |-

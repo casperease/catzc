@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/New-VSCodeSettings.ps1
     name: new-vs-code-settings
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md
-      test: automation/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md
+    test: automation/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
+    cites:
       - ADR-REPO-FORMAT#8
       - ADR-REPO-ROOTCFG
   config:

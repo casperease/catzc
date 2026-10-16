@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0152a66ffff2"
     path: docs/references/automation/catzc-tooling-toolchain/tests/Get-GoRelease.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: get-go-release-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0152a66ffff2"
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Get-GoRelease.Tests.ps1

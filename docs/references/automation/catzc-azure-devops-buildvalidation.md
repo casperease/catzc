@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "786214e1e4e5"
     path: docs/references/automation/catzc-azure-devops-buildvalidation.md
     folder: docs/references/automation
     name: catzc-azure-devops-buildvalidation
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "786214e1e4e5"
+  edges:
     links:
       - docs/adr/automation/idempotent-state-functions.md
       - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3

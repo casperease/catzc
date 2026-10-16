@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: infrastructure/templates/foundation/configuration/flux/nsub.yml
 #     folder: configuration/flux
 #     name: nsub

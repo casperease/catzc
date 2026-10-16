@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5137d2bb55de"
     path: docs/references/automation/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: test-agent-definitions-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5137d2bb55de"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

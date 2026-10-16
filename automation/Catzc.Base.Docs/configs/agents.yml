@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Docs/configs/agents.yml
 #     folder: configs
 #     name: agents
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Docs
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-docs/configs/agents.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-docs/configs/agents.yml.md
 # ---
 
 standard: catzc-worker

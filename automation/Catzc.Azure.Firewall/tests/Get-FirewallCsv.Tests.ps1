@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
     folder: tests
     name: get-firewall-csv-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.Firewall
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md
 ---
 #>
 

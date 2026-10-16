@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f1d34517b03b
     path: docs/references/automation/catzc-base-modulesystem/types/DiskModule.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: disk-module-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f1d34517b03b
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/DiskModule.cs

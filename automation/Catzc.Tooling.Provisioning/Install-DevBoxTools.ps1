@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Install-DevBoxTools.ps1
     name: install-dev-box-tools
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md
-      test: automation/Catzc.Tooling.Provisioning/tests/Install-DevBoxTools.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md
+    test: automation/Catzc.Tooling.Provisioning/tests/Install-DevBoxTools.Tests.ps1
   config:
     synopsis: Provisions the local development environment with all required tools.
     description: |-

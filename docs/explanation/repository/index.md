@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "029a80254290"
     path: docs/explanation/repository/index.md
     folder: docs/explanation/repository
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "029a80254290"
+  edges:
     links:
       - docs/adr/index.md#repository
       - docs/explanation/index.md

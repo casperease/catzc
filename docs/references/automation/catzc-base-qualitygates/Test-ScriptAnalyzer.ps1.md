@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9ceaaa05bf48"
     path: docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: test-script-analyzer-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9ceaaa05bf48"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-NOPWD#1
 ---

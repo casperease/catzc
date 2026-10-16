@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
     name: test-build-artifact
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#{24,35}
       - ADR-DSGN-RUNMODE#2
   config:

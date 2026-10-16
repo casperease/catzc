@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d67f851938cf
     path: docs/adr/pwsh/powershell-formatting.md
     folder: docs/adr/pwsh
     name: powershell-formatting
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d67f851938cf
+  edges:
     defines:
       - ADR-PWSH-FORMAT#{1-10}
-    adrs:
+    cites:
       - ADR-AUTO-NONEST#{3,5}
     links:
       - docs/adr/automation/avoid-deep-nesting.md

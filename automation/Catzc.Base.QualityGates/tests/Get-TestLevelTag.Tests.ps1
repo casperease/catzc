@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestLevelTag.Tests.ps1
     folder: tests
     name: get-test-level-tag-tests

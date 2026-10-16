@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/Get-OutputRoot.ps1
     name: get-output-root
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Repository/tests/Get-OutputRoot.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Repository/tests/Get-OutputRoot.Tests.ps1
   config:
     synopsis: Returns the path to the output directory for the current execution context.
     description: |-

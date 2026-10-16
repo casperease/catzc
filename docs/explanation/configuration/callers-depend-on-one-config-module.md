@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "68a60ba45051"
     path: docs/explanation/configuration/callers-depend-on-one-config-module.md
     folder: docs/explanation/configuration
     name: callers-depend-on-one-config-module
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "68a60ba45051"
-    adrs:
+  edges:
+    cites:
       - ADR-CONF-LOADING#{1-4,6}
     links:
       - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md

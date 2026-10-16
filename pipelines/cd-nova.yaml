@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: pipelines/cd-nova.yaml
 #     name: cd-nova
 #     filetype: yaml
@@ -9,8 +9,8 @@
 #     track: pipelines
 #     module: pipelines
 #     moduletype: pipeline
-#     relatives:
-#       page: docs/references/pipelines/cd-nova.yaml.md
+#   edges:
+#     page: docs/references/pipelines/cd-nova.yaml.md
 # ---
 
 trigger:

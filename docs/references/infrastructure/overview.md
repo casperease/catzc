@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6b593dbc30b7"
     path: docs/references/infrastructure/overview.md
     folder: docs/references/infrastructure
     name: overview
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "6b593dbc30b7"
+  edges:
     links:
       - docs/adr/azure/
       - docs/adr/azure/landing-zones.md

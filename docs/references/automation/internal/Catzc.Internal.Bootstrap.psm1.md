@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6b6fde003fd4"
     path: docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-bootstrap-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6b6fde003fd4"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-TYPES#15
       - ADR-PWSH-ANNOUNCE#6

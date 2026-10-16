@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.CodeMeta/Format-CodeMetaHead.ps1
     name: format-code-meta-head
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.CodeMeta/tests/Format-CodeMetaHead.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.CodeMeta/tests/Format-CodeMetaHead.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#3
   config:
     synopsis: Returns a code text with its meta head imprinted from the given facts.

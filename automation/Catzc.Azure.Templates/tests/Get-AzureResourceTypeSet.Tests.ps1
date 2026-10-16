@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1
     folder: tests
     name: get-azure-resource-type-set-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.Templates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/tests/Get-AzureResourceTypeSet.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-templates/tests/Get-AzureResourceTypeSet.Tests.ps1.md
 ---
 #>
 

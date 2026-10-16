@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Resolve-TestRunMaxLevel.ps1
     folder: private
     name: resolve-test-run-max-level
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Resolve-TestRunMaxLevel.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Resolve-TestRunMaxLevel.Tests.ps1
+    cites:
       - ADR-AUTO-CONSOLE#10
       - ADR-AUTO-TEST#{33,41}
   config:

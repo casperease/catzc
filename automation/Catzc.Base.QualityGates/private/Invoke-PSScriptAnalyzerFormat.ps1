@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat.ps1
     folder: private
     name: invoke-ps-script-analyzer-format
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md
+    cites:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#10
       - ADR-PRIN-CONFIG#2

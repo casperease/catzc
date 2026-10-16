@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1
     name: get-az-cli-subscription-access-state
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
-      test: automation/Catzc.Azure.Cli/tests/Get-AzCliSubscriptionAccessState.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
+    test: automation/Catzc.Azure.Cli/tests/Get-AzCliSubscriptionAccessState.Tests.ps1
+    cites:
       - ADR-AZ-CLI#1
   config:
     synopsis: Returns whether the current az CLI login can actually reach a given subscription.

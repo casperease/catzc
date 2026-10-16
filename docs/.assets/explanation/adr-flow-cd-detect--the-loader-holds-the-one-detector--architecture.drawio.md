@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e6e91ae8e081
     path: docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-the-loader-holds-the-one-detector-architecture-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: e6e91ae8e081
+  edges:
     links:
       - docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png
       - docs/explanation/flow/the-loader-holds-the-one-detector.md

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Test-TestInRunScope.Tests.ps1
     folder: tests
     name: test-test-in-run-scope-tests

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Resolve-TestRunMaxLevel.Tests.ps1
     folder: tests
     name: resolve-test-run-max-level-tests

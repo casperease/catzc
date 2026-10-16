@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: bash/tests/catzc-base-engines/cats.bats
 #     folder: tests/catzc-base-engines
 #     name: cats

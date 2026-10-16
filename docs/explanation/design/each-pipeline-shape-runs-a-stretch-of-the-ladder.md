@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cebebf5daac9
     path: docs/explanation/design/each-pipeline-shape-runs-a-stretch-of-the-ladder.md
     folder: docs/explanation/design
     name: each-pipeline-shape-runs-a-stretch-of-the-ladder
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: cebebf5daac9
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#{1,2,8}
       - ADR-FLOW-CD#{9,10}
     links:

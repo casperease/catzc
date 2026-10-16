@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/Test-FileIsNotLocked.ps1
     name: test-file-is-not-locked
     filetype: ps1

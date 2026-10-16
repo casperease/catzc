@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "65ea94e7734c"
     path: docs/references/automation/internal/Catzc.Internal.Types.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-types-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "65ea94e7734c"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#9
 ---
 

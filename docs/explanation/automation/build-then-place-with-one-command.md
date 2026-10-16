@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "996f53ad2447"
     path: docs/explanation/automation/build-then-place-with-one-command.md
     folder: docs/explanation/automation
     name: build-then-place-with-one-command
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "996f53ad2447"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-BUNDLE#{5-7}
     links:
       - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md

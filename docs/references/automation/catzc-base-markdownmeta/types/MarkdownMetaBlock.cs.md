@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "58550ab205cd"
     path: docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
     folder: docs/references/automation/catzc-base-markdownmeta/types
     name: markdown-meta-block-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "58550ab205cd"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#1
 ---
 

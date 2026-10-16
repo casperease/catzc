@@ -1,11 +1,11 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: ".claude/drawio/gallery.py"
 #     folder: drawio
 #     name: gallery
 #     filetype: py
-#     kind: script
+#     kind: drawio-kit
 #     language: python
 #     track: ".claude"
 #     module: ".claude"

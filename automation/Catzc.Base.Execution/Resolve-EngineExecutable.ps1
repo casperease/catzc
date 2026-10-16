@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/Resolve-EngineExecutable.ps1
     name: resolve-engine-executable
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE
   config:
     synopsis: Returns the full path of an execution engine's executable on this machine.

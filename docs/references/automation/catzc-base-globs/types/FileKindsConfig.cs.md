@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "532ddd6253c6"
     path: docs/references/automation/catzc-base-globs/types/FileKindsConfig.cs.md
     folder: docs/references/automation/catzc-base-globs/types
     name: file-kinds-config-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "532ddd6253c6"
 ---
 
 # automation/Catzc.Base.Globs/types/FileKindsConfig.cs

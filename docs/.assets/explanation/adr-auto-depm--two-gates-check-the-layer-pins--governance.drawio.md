@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4e5df40b50d5"
     path: docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-depm-two-gates-check-the-layer-pins-governance-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "4e5df40b50d5"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md

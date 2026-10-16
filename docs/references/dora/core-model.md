@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "523a0e9c4ca7"
     path: docs/references/dora/core-model.md
     folder: docs/references/dora
     name: core-model
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "523a0e9c4ca7"
+  edges:
     links:
       - docs/references/dora/capabilities.md
       - docs/references/dora/capabilities.md#code-maintainability

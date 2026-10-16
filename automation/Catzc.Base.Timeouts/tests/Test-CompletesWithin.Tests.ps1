@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/tests/Test-CompletesWithin.Tests.ps1
     folder: tests
     name: test-completes-within-tests

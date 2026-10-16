@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6daa3ce5b8fd"
     path: docs/references/automation/catzc-base-git/types/GitRefs.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-refs-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6daa3ce5b8fd"
 ---
 
 # automation/Catzc.Base.Git/types/GitRefs.cs

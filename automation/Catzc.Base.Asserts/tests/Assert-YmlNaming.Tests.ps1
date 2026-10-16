@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/tests/Assert-YmlNaming.Tests.ps1
     folder: tests
     name: assert-yml-naming-tests

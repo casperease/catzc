@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "54ad5d90da9a"
     path: docs/adr/configuration/module-config-loading.md
     folder: docs/adr/configuration
     name: module-config-loading
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "54ad5d90da9a"
+  edges:
     defines:
       - ADR-CONF-LOADING#{1-6}
-    adrs:
+    cites:
       - ADR-DSGN-TRACK#3
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

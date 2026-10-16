@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/diagnostic-setting.bicep
 //     name: diagnostic-setting
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: diagnostic-setting
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/diagnostic-setting.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/diagnostic-setting.bicep.md
 // ---
 
 @description('Kind of the target resource.')

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/tests/Publish-CleanHistory.Tests.ps1
     folder: tests
     name: publish-clean-history-tests

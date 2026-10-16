@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6a3a675c713e"
     path: docs/references/automation/catzc-tooling-core/tests/Write-ToolProbeReport.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: write-tool-probe-report-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6a3a675c713e"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f874447dd29b
     path: docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: uninstall-zsh-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f874447dd29b
 ---
 
 # automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1

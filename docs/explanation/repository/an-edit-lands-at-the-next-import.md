@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d1258477412c
     path: docs/explanation/repository/an-edit-lands-at-the-next-import.md
     folder: docs/explanation/repository
     name: an-edit-lands-at-the-next-import
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: d1258477412c
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#6
       - ADR-REPO-VARIANT#{1,2,5,6}
     links:

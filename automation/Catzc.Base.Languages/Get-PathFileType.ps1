@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/Get-PathFileType.ps1
     name: get-path-file-type
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#6
   config:
     synopsis: Returns the file type of a path, the extension of its file name without the dot.

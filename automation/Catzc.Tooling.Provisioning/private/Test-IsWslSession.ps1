@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/private/Test-IsWslSession.ps1
     folder: private
     name: test-is-wsl-session
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.Provisioning/tests/Test-IsWslSession.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Provisioning/tests/Test-IsWslSession.Tests.ps1
   config:
     synopsis: Tests whether the current session runs inside WSL (Windows Subsystem for Linux).
     description: |-

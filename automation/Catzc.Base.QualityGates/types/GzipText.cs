@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/GzipText.cs
     folder: types
     name: gzip-text
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/GzipText.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/GzipText.Tests.ps1
+    cites:
       - ADR-PWSH-TYPES#1
 ---
 */

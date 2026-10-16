@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/Write-CmdletParameterSet.ps1
     name: write-cmdlet-parameter-set
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Writers/tests/Write-CmdletParameterSet.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Writers/tests/Write-CmdletParameterSet.Tests.ps1
   config:
     synopsis: Writes all bound parameters of the calling function to the console.
     description: |-

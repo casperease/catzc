@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestRunContext.ps1
     folder: private
     name: write-test-run-context
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Write-TestRunContext.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Write-TestRunContext.Tests.ps1
   config:
     synopsis: 'Prints a test run''s context block under its banner: one line per fact.'
     description: |-

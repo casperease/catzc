@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d8b3dc66ab75
     path: docs/references/automation/catzc-azure.md
     folder: docs/references/automation
     name: catzc-azure
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: d8b3dc66ab75
+  edges:
     links:
       - docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
       - docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png

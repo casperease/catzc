@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
     folder: tests
     name: get-git-changed-path-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Files
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
 ---
 #>

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.ModuleSystem/configs/files.yml
 #     folder: configs
 #     name: files
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.ModuleSystem
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-modulesystem/configs/files.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-modulesystem/configs/files.yml.md
 # ---
 
 modules:

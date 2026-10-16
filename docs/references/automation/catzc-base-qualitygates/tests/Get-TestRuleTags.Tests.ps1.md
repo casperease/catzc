@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2b6b9c64aeea"
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-TestRuleTags.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-test-rule-tags-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2b6b9c64aeea"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1

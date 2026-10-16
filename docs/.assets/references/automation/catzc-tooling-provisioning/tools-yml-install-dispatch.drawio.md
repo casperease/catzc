@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "26b52e084a21"
     path: docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
     folder: docs/.assets/references/automation/catzc-tooling-provisioning
     name: tools-yml-install-dispatch-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "26b52e084a21"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-BASH#6
       - ADR-AUTO-DEPS#4
     links:

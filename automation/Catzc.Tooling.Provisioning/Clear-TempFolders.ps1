@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
     name: clear-temp-folders
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
-      test: automation/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
+    test: automation/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
+    cites:
       - ADR-AUTO-DRYRUN
   config:
     synopsis: Deletes the contents of the user's temp folder(s).

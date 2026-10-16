@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4fca178e7865"
     path: docs/references/automation/BCL/index.md
     folder: docs/references/automation/BCL
     name: index
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "4fca178e7865"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-TYPES#1
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
     folder: private
     name: get-uncovered-internal-asset-dependency
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
+    cites:
       - ADR-AUTO-ASSETDEP#{3,4}
       - ADR-AUTO-TEST#13
       - ADR-PWSH-PESTER#5

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
     name: test-internal-asset-dependency
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
+    cites:
       - ADR-AUTO-ASSETDEP#{2-4}
       - ADR-AUTO-TEST#35
   config:

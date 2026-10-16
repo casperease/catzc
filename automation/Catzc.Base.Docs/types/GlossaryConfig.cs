@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/GlossaryConfig.cs
     folder: types
     name: glossary-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/GlossaryConfig.cs.md
-      test: automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/GlossaryConfig.cs.md
+    test: automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
+    cites:
       - ADR-AZ-CUSTOMER#3
       - ADR-REPO-VOCAB
 ---

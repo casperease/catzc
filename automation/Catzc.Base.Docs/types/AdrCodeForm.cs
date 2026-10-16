@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/AdrCodeForm.cs
     folder: types
     name: adr-code-form
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/AdrCodeForm.cs.md
-      test: automation/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/AdrCodeForm.cs.md
+    test: automation/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
+    cites:
       - ADR-PWSH-TYPES#1
 ---
 */

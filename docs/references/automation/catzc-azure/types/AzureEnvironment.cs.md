@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7d07a5b10ff1"
     path: docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: azure-environment-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "7d07a5b10ff1"
 ---
 
 # automation/Catzc.Azure/types/AzureEnvironment.cs

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4e57cea0beba"
     path: docs/references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: get-glob-set-trigger-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4e57cea0beba"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#1
 ---
 

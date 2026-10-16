@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/Install-Python.ps1
     name: install-python
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-python/Install-Python.ps1.md
-      test: automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-python/Install-Python.ps1.md
+    test: automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
   config:
     synopsis: Provisions Python via uv.
     description: |-

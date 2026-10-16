@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
     folder: private
     name: select-supported-key-handler
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
+    cites:
       - ADR-AUTO-CACHE#5
       - ADR-AUTO-TEST
   config:

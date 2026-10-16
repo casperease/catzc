@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1aec4295f427"
     path: docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: test-function-dependency-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1aec4295f427"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#9
 ---
 

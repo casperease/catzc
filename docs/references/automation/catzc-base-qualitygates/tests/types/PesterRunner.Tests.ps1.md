@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "868ce4c635c7"
     path: docs/references/automation/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: pester-runner-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "868ce4c635c7"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1

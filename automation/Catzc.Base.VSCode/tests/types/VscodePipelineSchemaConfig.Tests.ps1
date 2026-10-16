@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/tests/types/VscodePipelineSchemaConfig.Tests.ps1
     folder: tests/types
     name: vscode-pipeline-schema-config-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.VSCode
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-vscode/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-vscode/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md
 ---
 #>
 

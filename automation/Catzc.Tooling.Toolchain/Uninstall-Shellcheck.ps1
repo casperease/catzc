@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Uninstall-Shellcheck.ps1
     name: uninstall-shellcheck
     filetype: ps1

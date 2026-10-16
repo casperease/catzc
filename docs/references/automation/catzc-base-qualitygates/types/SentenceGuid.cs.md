@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "51dd46d868f0"
     path: docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: sentence-guid-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "51dd46d868f0"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-TYPES#1
 ---
 

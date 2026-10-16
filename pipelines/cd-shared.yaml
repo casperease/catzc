@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: pipelines/cd-shared.yaml
 #     name: cd-shared
 #     filetype: yaml
@@ -9,8 +9,8 @@
 #     track: pipelines
 #     module: pipelines
 #     moduletype: pipeline
-#     relatives:
-#       page: docs/references/pipelines/cd-shared.yaml.md
+#   edges:
+#     page: docs/references/pipelines/cd-shared.yaml.md
 # ---
 
 trigger:

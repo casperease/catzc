@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2f9ea2451e97"
     path: docs/adr/research/team-experimentation.md
     folder: docs/adr/research
     name: team-experimentation
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "2f9ea2451e97"
+  edges:
     defines:
       - ADR-DORA-EXPERIMENT#{1-4}
     links:

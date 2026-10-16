@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Test-Command.ps1
     name: test-command
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Asserts/tests/Test-Command.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Asserts/tests/Test-Command.Tests.ps1
   config:
     synopsis: Tests whether a command exists in the current session.
     parameters:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dd151d99a6db
     path: docs/adr/automation/tool-removal-lifecycle.md
     folder: docs/adr/automation
     name: tool-removal-lifecycle
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: dd151d99a6db
+  edges:
     defines:
       - ADR-AUTO-REMOVE#{1-8}
-    adrs:
+    cites:
       - ADR-AUTO-DEPS#2
     links:
       - docs/adr/automation/controlling-systemwide-deps.md

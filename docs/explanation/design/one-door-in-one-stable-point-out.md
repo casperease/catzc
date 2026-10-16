@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bb7ec869f6ce
     path: docs/explanation/design/one-door-in-one-stable-point-out.md
     folder: docs/explanation/design
     name: one-door-in-one-stable-point-out
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: bb7ec869f6ce
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-REMOTE
     links:
       - docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.md

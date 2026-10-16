@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a414cc3c826a
     path: docs/explanation/automation/dot-source-one-entry-script.md
     folder: docs/explanation/automation
     name: dot-source-one-entry-script
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: a414cc3c826a
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-BUNDLE#{3,8}
     links:
       - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.md

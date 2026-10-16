@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2d9c7cb7bbe0"
     path: docs/references/automation/catzc-base-qualitygates/types/FileSelector.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: file-selector-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2d9c7cb7bbe0"
 ---
 
 # automation/Catzc.Base.QualityGates/types/FileSelector.cs

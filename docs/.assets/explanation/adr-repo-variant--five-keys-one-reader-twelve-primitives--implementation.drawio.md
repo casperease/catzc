@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "22fa3dc3233b"
     path: docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-five-keys-one-reader-twelve-primitives-implementation-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "22fa3dc3233b"
+  edges:
     links:
       - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
       - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md

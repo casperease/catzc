@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Get-ContractFreezeFindings.ps1
     folder: private
     name: get-contract-freeze-findings
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
+    cites:
       - ADR-REPO-CONTRACT#5
   config:
     synopsis: Checks that one released contract version folder still holds exactly what its release froze.

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/Get-AdoYamlInventory.ps1
     name: get-ado-yaml-inventory
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md
   config:
     synopsis: Combines YAML file scanning with ADO pipeline registration data.
     description: |-

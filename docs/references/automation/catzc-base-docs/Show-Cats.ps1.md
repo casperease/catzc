@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "862f59ab1f30"
     path: docs/references/automation/catzc-base-docs/Show-Cats.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: show-cats-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "862f59ab1f30"
 ---
 
 # automation/Catzc.Base.Docs/Show-Cats.ps1

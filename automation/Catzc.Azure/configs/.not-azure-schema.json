@@ -1,3 +1,3 @@
 {
-  "//": "catzc:\n  derived:\n    path: automation/Catzc.Azure/configs/.not-azure-schema.json\n    folder: configs\n    name: not-azure-schema\n    filetype: json\n    kind: other\n    language: json\n    track: automation\n    module: Catzc.Azure\n    moduletype: pwsh-folder\n    catzc_bundle: azure"
+  "//": "catzc:\n  immutable:\n    path: automation/Catzc.Azure/configs/.not-azure-schema.json\n    folder: configs\n    name: not-azure-schema\n    filetype: json\n    kind: other\n    language: json\n    track: automation\n    module: Catzc.Azure\n    moduletype: pwsh-folder\n    catzc_bundle: azure"
 }

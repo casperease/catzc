@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
     folder: tests
     name: convert-to-flat-setting-set-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Objects
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md
 ---
 #>
 

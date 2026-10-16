@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dafdffdecc9e
     path: docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md
     folder: docs/references/automation/catzc-azure-devops
     name: get-ado-yaml-inventory-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: dafdffdecc9e
 ---
 
 # automation/Catzc.Azure.DevOps/Get-AdoYamlInventory.ps1

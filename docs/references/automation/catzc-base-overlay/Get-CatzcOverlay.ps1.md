@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a6c28ba4602e
     path: docs/references/automation/catzc-base-overlay/Get-CatzcOverlay.ps1.md
     folder: docs/references/automation/catzc-base-overlay
     name: get-catzc-overlay-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a6c28ba4602e
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ENUM#3
 ---
 

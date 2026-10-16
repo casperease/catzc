@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/AdrsConfig.cs
     folder: types
     name: adrs-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md
-      test: automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md
+    test: automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#9
       - ADR-AZ-CUSTOMER#3

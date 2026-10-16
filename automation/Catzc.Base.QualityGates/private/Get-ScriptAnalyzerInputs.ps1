@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerInputs.ps1
     folder: private
     name: get-script-analyzer-inputs
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#10
   config:
     synopsis: Every file besides the analyzed file itself that decides a PSScriptAnalyzer verdict.

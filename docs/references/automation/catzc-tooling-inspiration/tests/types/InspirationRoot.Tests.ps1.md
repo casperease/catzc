@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "50b9f3095a47"
     path: docs/references/automation/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-inspiration/tests/types
     name: inspiration-root-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "50b9f3095a47"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-TEST#3
 ---

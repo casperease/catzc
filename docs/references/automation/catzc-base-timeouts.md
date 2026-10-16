@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c9314955e75e
     path: docs/references/automation/catzc-base-timeouts.md
     folder: docs/references/automation
     name: catzc-base-timeouts
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: c9314955e75e
+  edges:
     links:
       - docs/references/automation/catzc-base-config.md
       - docs/references/automation/catzc-base-execution.md

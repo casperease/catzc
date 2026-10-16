@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e192bb608891
     path: docs/adr/azure/caf/identity-and-access.md
     folder: docs/adr/azure/caf
     name: identity-and-access
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: e192bb608891
+  edges:
     defines:
       - ADR-AZ-CAFIAM#{1-68}
-    adrs:
+    cites:
       - ADR-AUTO-GUIDS#{1,4}
       - ADR-AZ-CAFGOV#6
       - ADR-AZ-CAFSEC#{3,7,13,15,16,22,25,26,28,29,34,37,38,43}

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1daecfe11995"
     path: docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-a-base-module-between-config-and-its-callers-architecture-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "1daecfe11995"
+  edges:
     links:
       - docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
       - docs/explanation/repository/a-base-module-between-config-and-its-callers.md

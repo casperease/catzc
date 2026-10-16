@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1
     name: get-cats-adr-rule-ids
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md
-      test: automation/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md
+    test: automation/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1
+    cites:
       - ADR-AUTO-CACHE
       - ADR-AUTO-NOPWD#1
       - ADR-PRIN-REDUCEVAR

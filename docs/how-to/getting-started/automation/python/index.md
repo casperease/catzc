@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "76186ea3afc1"
     path: docs/how-to/getting-started/automation/python/index.md
     folder: docs/how-to/getting-started/automation/python
     name: index
@@ -8,7 +9,6 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "76186ea3afc1"
 ---
 
 # Python how-to guides — reserved

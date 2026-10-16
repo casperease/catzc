@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationSkipReport.ps1
     folder: private
     name: write-test-automation-skip-report
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationSkipReport.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationSkipReport.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationSkipReport.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationSkipReport.Tests.ps1
   config:
     synopsis: Prints the end-of-run skip report — what was skipped or not run, and why.
     description: |-

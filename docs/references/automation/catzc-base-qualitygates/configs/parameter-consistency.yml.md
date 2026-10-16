@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2a5f985b2258"
     path: docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: parameter-consistency-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2a5f985b2258"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
 ---
 

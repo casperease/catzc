@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1
     folder: private
     name: get-language-test-outcomes
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestOutcomes.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestOutcomes.Tests.ps1
+    cites:
       - ADR-AUTO-BASH#2
       - ADR-AUTO-ENGINE
       - ADR-AUTO-GO#2

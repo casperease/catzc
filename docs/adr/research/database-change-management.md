@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d48de2b4f591
     path: docs/adr/research/database-change-management.md
     folder: docs/adr/research
     name: database-change-management
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d48de2b4f591
+  edges:
     defines:
       - ADR-DORA-DBCHANGE#{1-5}
     links:

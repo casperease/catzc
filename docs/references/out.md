@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f36f8985dc86
     path: docs/references/out.md
     folder: docs/references
     name: out
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: f36f8985dc86
+  edges:
     links:
       - docs/adr/automation/path-representation.md
       - docs/adr/repository/dedicated-output-directory.md

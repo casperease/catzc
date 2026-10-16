@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Node/Install-Cspell.ps1
     name: install-cspell
     filetype: ps1

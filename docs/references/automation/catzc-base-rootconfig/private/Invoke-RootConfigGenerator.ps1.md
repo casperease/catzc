@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: eff317802684
     path: docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
     folder: docs/references/automation/catzc-base-rootconfig/private
     name: invoke-root-config-generator-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: eff317802684
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-GO#6
       - ADR-AUTO-PY#4
       - ADR-REPO-FORMAT#8

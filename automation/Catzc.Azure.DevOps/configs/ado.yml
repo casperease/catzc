@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Azure.DevOps/configs/ado.yml
 #     folder: configs
 #     name: ado
@@ -11,8 +11,8 @@
 #     module: Catzc.Azure.DevOps
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-azure-devops/configs/ado.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-azure-devops/configs/ado.yml.md
 # ---
 
 # Azure DevOps organization URL (the REST API host).

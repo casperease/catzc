@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/AnnounceStateChange.psm1
     folder: automation/.scriptanalyzer
     name: announce-state-change
@@ -9,8 +9,8 @@ catzc:
     kind: analyzer-rule
     language: powershell
     track: automation
-    relatives:
-      page: docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md
+  edges:
+    page: docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md
 ---
 #>
 

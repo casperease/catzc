@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Uninstall-Uv.ps1
     name: uninstall-uv
     filetype: ps1

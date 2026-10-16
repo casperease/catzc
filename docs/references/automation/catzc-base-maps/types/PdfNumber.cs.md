@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fe8e0cbd60d9
     path: docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: pdf-number-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fe8e0cbd60d9
 ---
 
 # automation/Catzc.Base.Maps/types/PdfNumber.cs

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Invoke-ImprintStep.ps1
     folder: private
     name: invoke-imprint-step
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
+    cites:
       - ADR-PRIN-CONFIG#2
       - ADR-REPO-FORMAT#8
   config:

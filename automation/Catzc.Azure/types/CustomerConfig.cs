@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/types/CustomerConfig.cs
     folder: types
     name: customer-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Azure
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure/types/CustomerConfig.cs.md
-      test: automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure/types/CustomerConfig.cs.md
+    test: automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER
 ---

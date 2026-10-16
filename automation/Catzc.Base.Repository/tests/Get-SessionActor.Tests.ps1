@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/tests/Get-SessionActor.Tests.ps1
     folder: tests
     name: get-session-actor-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Repository
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#13
 ---
 #>

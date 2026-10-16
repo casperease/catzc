@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "773f2f646c1a"
     path: docs/adr/design/thin-platforms.md
     folder: docs/adr/design
     name: thin-platforms
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "773f2f646c1a"
+  edges:
     defines:
       - ADR-DSGN-THINPLAT#{1-5}
     links:

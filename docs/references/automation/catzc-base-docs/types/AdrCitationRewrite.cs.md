@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "23f8709d8390"
     path: docs/references/automation/catzc-base-docs/types/AdrCitationRewrite.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-citation-rewrite-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "23f8709d8390"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#9
 ---
 

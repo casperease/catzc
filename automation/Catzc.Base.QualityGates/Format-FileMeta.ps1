@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Format-FileMeta.ps1
     name: format-file-meta
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
+    cites:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-FILEMETA#3
       - ADR-REPO-FORMAT#9

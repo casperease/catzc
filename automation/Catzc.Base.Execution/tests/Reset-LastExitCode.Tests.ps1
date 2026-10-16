@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
     folder: tests
     name: reset-last-exit-code-tests

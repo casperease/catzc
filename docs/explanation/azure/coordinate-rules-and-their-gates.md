@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "57d23475251f"
     path: docs/explanation/azure/coordinate-rules-and-their-gates.md
     folder: docs/explanation/azure
     name: coordinate-rules-and-their-gates
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "57d23475251f"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CUSTOMER#{2,6}
       - ADR-AZ-DATAMOD#{1-3,5,8}
     links:

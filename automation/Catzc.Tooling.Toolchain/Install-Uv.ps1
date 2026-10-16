@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Install-Uv.ps1
     name: install-uv
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md
-      test: automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md
+    test: automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
   config:
     synopsis: Installs or upgrades uv, Astral's Python handler.
     description: |-

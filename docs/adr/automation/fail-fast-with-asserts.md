@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "64ab2812bb25"
     path: docs/adr/automation/fail-fast-with-asserts.md
     folder: docs/adr/automation
     name: fail-fast-with-asserts
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "64ab2812bb25"
+  edges:
     defines:
       - ADR-AUTO-FAILFAST#{1-7}
-    adrs:
+    cites:
       - ADR-AUTO-ENGINE#1
     links:
       - docs/adr/automation/execution-engines.md#rule-adr-auto-engine1

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ac40c5649ac6
     path: docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: assert-tool-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ac40c5649ac6
 ---
 
 # automation/Catzc.Tooling.Core/Assert-Tool.ps1

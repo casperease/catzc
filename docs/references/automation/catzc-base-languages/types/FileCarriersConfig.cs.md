@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4c24139142ab"
     path: docs/references/automation/catzc-base-languages/types/FileCarriersConfig.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: file-carriers-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4c24139142ab"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#1

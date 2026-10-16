@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/Test-AzureNetworkPlan.ps1
     name: test-azure-network-plan
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-AZ-NETWORK#{2,5}
   config:

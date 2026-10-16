@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/tests/Invoke-PySpark.L2.Tests.ps1
     folder: tests
     name: invoke-py-spark-l2-tests

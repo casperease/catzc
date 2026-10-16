@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1
     name: invoke-config-validator
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
   config:
     synopsis: Validates a parsed config with a PowerShell validator, run in the owning module's scope.
     description: |-

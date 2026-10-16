@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/tests/Test-IsGuidInRange.Tests.ps1
     folder: tests
     name: test-is-guid-in-range-tests

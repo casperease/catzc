@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
     folder: tests/types
     name: world-map-highlight-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{7,12}
 ---
 #>

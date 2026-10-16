@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.CodeMeta/types/CodeMetaHead.cs
     folder: types
     name: code-meta-head
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.CodeMeta
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-codemeta/types/CodeMetaHead.cs.md
-      test: automation/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-codemeta/types/CodeMetaHead.cs.md
+    test: automation/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1
+    cites:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-FILEMETA#6
 ---

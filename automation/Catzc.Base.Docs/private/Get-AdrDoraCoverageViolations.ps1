@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-AdrDoraCoverageViolations.ps1
     folder: private
     name: get-adr-dora-coverage-violations
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
   config:
     synopsis: Lists every rule set whose domain's DORA file has no section, or more than one, linking its ADR.
     description: |-

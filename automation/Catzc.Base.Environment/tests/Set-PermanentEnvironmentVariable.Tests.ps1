@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
     folder: tests
     name: set-permanent-environment-variable-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Environment
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#39
 ---
 #>

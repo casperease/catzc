@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "84344a460771"
     path: docs/references/automation/catzc-base-contracts/types/ContractManifest.cs.md
     folder: docs/references/automation/catzc-base-contracts/types
     name: contract-manifest-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "84344a460771"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-CONTRACT#7
 ---

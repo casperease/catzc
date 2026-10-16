@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1
     folder: private
     name: get-contract-file-hashes
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md
+    cites:
       - ADR-AUTO-PATH#2
       - ADR-PWSH-ENUM#3
       - ADR-REPO-CONTRACT#5

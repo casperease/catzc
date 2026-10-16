@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ff3a0e6a5507
     path: docs/references/automation/internal/tests/Import-TypesAssembly.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: import-types-assembly-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ff3a0e6a5507
 ---
 
 # automation/.internal/tests/Import-TypesAssembly.Tests.ps1

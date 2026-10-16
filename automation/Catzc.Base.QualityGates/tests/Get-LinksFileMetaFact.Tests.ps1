@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Get-LinksFileMetaFact.Tests.ps1
     folder: tests
     name: get-links-file-meta-fact-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#3
 ---
 #>
@@ -42,7 +43,7 @@ Describe 'Get-LinksFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     }
 
     It 'does not read a link from the front matter' {
-        $fact = Get-Links "---`ncatzc:`n  derived:`n    links:`n      - docs/gadget/spec.md`n---`nbody`n"
+        $fact = Get-Links "---`ncatzc:`n  edges:`n    links:`n      - docs/gadget/spec.md`n---`nbody`n"
         @($fact['links']).Count | Should -Be 0
     }
 }

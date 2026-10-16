@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3d08ae3bea80"
     path: docs/how-to/automation/manual-test-plan/repository-conventions.md
     folder: docs/how-to/automation/manual-test-plan
     name: repository-conventions
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "3d08ae3bea80"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{1,3,6,12,14-17}
       - ADR-REPO-CONTRACT#{2,4,5,9}
       - ADR-REPO-FILEMETA#4

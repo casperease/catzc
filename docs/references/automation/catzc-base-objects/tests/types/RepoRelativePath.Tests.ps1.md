@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "03f95758400c"
     path: docs/references/automation/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md
     folder: docs/references/automation/catzc-base-objects/tests/types
     name: repo-relative-path-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "03f95758400c"
 ---
 
 # automation/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1

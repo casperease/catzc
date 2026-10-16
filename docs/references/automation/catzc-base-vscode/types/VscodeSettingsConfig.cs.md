@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8df00d95ce3c"
     path: docs/references/automation/catzc-base-vscode/types/VscodeSettingsConfig.cs.md
     folder: docs/references/automation/catzc-base-vscode/types
     name: vscode-settings-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8df00d95ce3c"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

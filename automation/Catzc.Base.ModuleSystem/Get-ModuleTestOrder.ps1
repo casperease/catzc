@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleTestOrder.ps1
     name: get-module-test-order
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md
-      test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleTestOrder.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md
+    test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleTestOrder.Tests.ps1
   config:
     synopsis: |-
       Returns all automation module names in foundation-first order — a topological sort of the declared

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5dc751198321"
     path: docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md
     folder: docs/references/automation/catzc-tooling-node
     name: remove-node-js-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5dc751198321"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-REMOVE#{3,6}
 ---
 

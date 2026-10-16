@@ -11,7 +11,8 @@ description: >
 tools: Bash, Read, Glob, Grep, Write, Edit
 model: sonnet
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7344db67cc8b"
     path: ".claude/agents/session-cost-audit.md"
     folder: agents
     name: session-cost-audit
@@ -21,8 +22,8 @@ catzc:
     track: ".claude"
     module: ".claude"
     moduletype: settings
-    body_sha: "7344db67cc8b"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-FAILFAST#7
       - ADR-PRIN-NOWASTE#1
       - ADR-PROC-KAIZEN#2

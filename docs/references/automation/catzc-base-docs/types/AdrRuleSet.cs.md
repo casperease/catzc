@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d00114a8500f
     path: docs/references/automation/catzc-base-docs/types/AdrRuleSet.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-rule-set-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d00114a8500f
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#15
 ---

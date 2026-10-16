@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
     name: test-function-dependency
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
-      test: automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
+    test: automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-PESTER#9

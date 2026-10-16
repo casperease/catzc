@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4d573737a7ac"
     path: docs/references/automation/catzc-base-environment.md
     folder: docs/references/automation
     name: catzc-base-environment
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "4d573737a7ac"
+  edges:
     links:
       - docs/adr/automation/effective-in-enterprises.md
       - docs/adr/automation/environment-variables.md

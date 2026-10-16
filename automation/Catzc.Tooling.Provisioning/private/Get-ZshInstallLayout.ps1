@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
     folder: private
     name: get-zsh-install-layout
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
+    cites:
       - ADR-AUTO-ENTERP
   config:
     synopsis: |-

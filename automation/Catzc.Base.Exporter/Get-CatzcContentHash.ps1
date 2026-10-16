@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
     name: get-catzc-content-hash
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
-      test: automation/Catzc.Base.Exporter/tests/Get-CatzcContentHash.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
+    test: automation/Catzc.Base.Exporter/tests/Get-CatzcContentHash.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS#5
       - ADR-PWSH-ENUM#3
   config:

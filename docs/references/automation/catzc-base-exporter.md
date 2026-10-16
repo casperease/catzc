@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2bc4f4d07db0"
     path: docs/references/automation/catzc-base-exporter.md
     folder: docs/references/automation
     name: catzc-base-exporter
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "2bc4f4d07db0"
+  edges:
     links:
       - docs/adr/automation/platform-bundle.md
       - docs/adr/design/run-modes.md

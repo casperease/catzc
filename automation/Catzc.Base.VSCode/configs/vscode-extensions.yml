@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.VSCode/configs/vscode-extensions.yml
 #     folder: configs
 #     name: vscode-extensions
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.VSCode
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md
 # ---
 
 # cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp tomoki redhat Anson Levett iliazeus gopls

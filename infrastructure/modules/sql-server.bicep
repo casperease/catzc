@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/sql-server.bicep
 //     name: sql-server
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: sql-server
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/sql-server.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/sql-server.bicep.md
 // ---
 
 @description('SQL logical server name (1-63 lowercase, globally unique).')

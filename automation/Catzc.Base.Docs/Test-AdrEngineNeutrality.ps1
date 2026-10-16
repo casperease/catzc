@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
     name: test-adr-engine-neutrality
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#35
   config:

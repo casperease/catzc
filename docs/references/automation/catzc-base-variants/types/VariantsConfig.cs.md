@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "97ce2a4c3ad1"
     path: docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md
     folder: docs/references/automation/catzc-base-variants/types
     name: variants-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "97ce2a4c3ad1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#{1,2}
 ---

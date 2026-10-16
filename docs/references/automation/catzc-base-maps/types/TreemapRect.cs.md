@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "074f8a140c4b"
     path: docs/references/automation/catzc-base-maps/types/TreemapRect.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: treemap-rect-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "074f8a140c4b"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

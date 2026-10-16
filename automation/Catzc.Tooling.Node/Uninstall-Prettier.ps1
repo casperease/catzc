@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Node/Uninstall-Prettier.ps1
     name: uninstall-prettier
     filetype: ps1

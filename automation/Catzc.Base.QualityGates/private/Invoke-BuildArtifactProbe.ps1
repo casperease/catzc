@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Invoke-BuildArtifactProbe.ps1
     folder: private
     name: invoke-build-artifact-probe
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#30
   config:
     synopsis: Loads a build cold in a fresh pwsh and returns what that build-mode session observed.

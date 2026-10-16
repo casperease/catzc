@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
     folder: tests
     name: remove-system-installation-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Tooling.Core
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#33
 ---
 #>

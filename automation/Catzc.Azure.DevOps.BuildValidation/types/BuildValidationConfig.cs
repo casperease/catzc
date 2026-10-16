@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
     folder: types
     name: build-validation-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Azure.DevOps.BuildValidation
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md
-      test: automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md
+    test: automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-FLOW-CD-TYPE#4
 ---

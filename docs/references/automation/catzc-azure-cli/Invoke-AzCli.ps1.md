@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1c273f04597f"
     path: docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md
     folder: docs/references/automation/catzc-azure-cli
     name: invoke-az-cli-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1c273f04597f"
 ---
 
 # automation/Catzc.Azure.Cli/Invoke-AzCli.ps1

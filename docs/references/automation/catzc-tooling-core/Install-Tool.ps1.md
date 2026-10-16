@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9c67852ea30c"
     path: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: install-tool-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9c67852ea30c"
 ---
 
 # automation/Catzc.Tooling.Core/Install-Tool.ps1

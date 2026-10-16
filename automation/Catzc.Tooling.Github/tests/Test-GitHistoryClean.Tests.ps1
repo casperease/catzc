@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
     folder: tests
     name: test-git-history-clean-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Tooling.Github
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-tooling-github/tests/Test-GitHistoryClean.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-github/tests/Test-GitHistoryClean.Tests.ps1.md
 ---
 #>
 

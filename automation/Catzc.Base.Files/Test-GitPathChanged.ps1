@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/Test-GitPathChanged.ps1
     name: test-git-path-changed
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Files/tests/Test-GitPathChanged.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Files/tests/Test-GitPathChanged.Tests.ps1
   config:
     synopsis: Tests whether anything under the given repository paths differs from HEAD.
     description: |-

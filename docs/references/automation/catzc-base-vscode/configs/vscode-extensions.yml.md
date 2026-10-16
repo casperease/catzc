@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fb120ef392d2
     path: docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md
     folder: docs/references/automation/catzc-base-vscode/configs
     name: vscode-extensions-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fb120ef392d2
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FORMAT#8
       - ADR-REPO-LINK#3
 ---

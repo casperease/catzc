@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d8ad6b7aea2e
     path: docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain
     name: remove-az-cli-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d8ad6b7aea2e
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-REMOVE#{3,6}
 ---
 

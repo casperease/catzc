@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestRunContext.ps1
     folder: private
     name: get-test-run-context
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestRunContext.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestRunContext.Tests.ps1
   config:
     synopsis: 'Collects the facts that say what a test run is and where it runs: its context block.'
     description: |-

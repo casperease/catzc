@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-LinksFileMetaFact.ps1
     folder: private
     name: get-links-file-meta-fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-LinksFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-LinksFileMetaFact.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#3
   config:
     synopsis: 'The links meta kind''s fact: every link the file points at, in one spelling, sorted and without duplicates.'

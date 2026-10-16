@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4371dd8a56dc"
     path: docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md
     folder: docs/references/infrastructure/modules
     name: subscription-diagnostic-setting-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4371dd8a56dc"
 ---
 
 # infrastructure/modules/subscription-diagnostic-setting.bicep

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "28a999aad2ef"
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractVersionAsset.ps1.md
     folder: docs/references/automation/catzc-base-contracts/private
     name: get-contract-version-asset-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "28a999aad2ef"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ENUM#3
 ---
 

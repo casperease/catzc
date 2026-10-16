@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8df2176d3862"
     path: docs/references/automation/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md
     folder: docs/references/automation/catzc-base-objects/tests
     name: convert-to-flat-setting-set-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8df2176d3862"
 ---
 
 # automation/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1

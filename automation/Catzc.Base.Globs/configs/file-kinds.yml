@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Globs/configs/file-kinds.yml
 #     folder: configs
 #     name: file-kinds
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Globs
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-globs/configs/file-kinds.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-globs/configs/file-kinds.yml.md
 # ---
 
 kinds:
@@ -54,7 +54,7 @@ kinds:
   fixture:
     definition: A supporting file of a test that is no test itself, such as sample data.
     subkinds:
-      asset:
+      input:
         definition: A fixture kept verbatim in a test's assets folder, as the input the test reads.
         files: ["**/tests/**/assets/**"]
         git:
@@ -117,18 +117,15 @@ kinds:
   asset:
     definition: A file a module ships that is neither code nor config, such as the source of a root file.
     files: ["automation/**/assets/**"]
+  drawio-kit:
+    definition: The tooling that draws and renders the diagrams, its scripts included.
+    files: [".claude/drawio/**"]
   script:
     definition: A standalone script that is no function of a module.
     files: ["**/*.py", "**/*.sh", "**/*.ps1"]
-  drawio-kit:
-    definition: The tooling that draws and renders the diagrams.
-    files: [".claude/drawio/**"]
   agent:
     definition: The definition of a sub-agent.
     files: [".claude/agents/**"]
-  skill:
-    definition: The definition of a skill.
-    files: [".claude/skills/**"]
   index:
     definition: The entry page that lists and links what a folder holds.
     files: ["docs/index.md", "docs/adr/index.md"]

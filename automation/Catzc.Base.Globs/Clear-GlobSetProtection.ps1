@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Clear-GlobSetProtection.ps1
     name: clear-glob-set-protection
     filetype: ps1
@@ -12,7 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-PROTGLOB
   config:
     synopsis: Drops every recorded glob protection, forcing the next run of every protected scan to scan in full.

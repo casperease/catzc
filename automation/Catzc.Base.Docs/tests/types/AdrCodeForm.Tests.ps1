@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
     folder: tests/types
     name: adr-code-form-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#9
 ---
 #>

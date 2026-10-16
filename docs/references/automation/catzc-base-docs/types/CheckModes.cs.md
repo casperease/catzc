@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: aa661f311f91
     path: docs/references/automation/catzc-base-docs/types/CheckModes.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: check-modes-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: aa661f311f91
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-ONELIVE#1
 ---

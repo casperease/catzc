@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3735962b4882"
     path: docs/how-to/getting-started/automation/add-a-doc-chapter.md
     folder: docs/how-to/getting-started/automation
     name: add-a-doc-chapter
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "3735962b4882"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ERROR#3
     links:
       - docs/adr/index.md

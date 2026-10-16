@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/private/Write-FramedLine.ps1
     folder: private
     name: write-framed-line
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md
   config:
     synopsis: |-
       Emits an ordered set of header/footer lines through the writer chokepoint, applying a colour plan — a

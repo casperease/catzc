@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Get-ContractSampleFindings.ps1
     folder: private
     name: get-contract-sample-findings
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CONTRACT#6
   config:
     synopsis: Checks that a sample payload parses, and validates against the schema beside it when one exists; returns the findings.

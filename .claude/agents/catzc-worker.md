@@ -9,7 +9,8 @@ description: >
   (`build-inspiration-module`), for auditing what a session cost (`session-cost-audit`), or for making tests faster (`test-optimization`).
 tools: Bash, Read, Glob, Grep, Write, Edit
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dd3204360d3a
     path: ".claude/agents/catzc-worker.md"
     folder: agents
     name: catzc-worker
@@ -19,8 +20,8 @@ catzc:
     track: ".claude"
     module: ".claude"
     moduletype: settings
-    body_sha: dd3204360d3a
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
     links:
       - ".claude/CLAUDE.md"

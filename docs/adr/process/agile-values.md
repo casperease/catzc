@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "972c86b870f6"
     path: docs/adr/process/agile-values.md
     folder: docs/adr/process
     name: agile-values
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "972c86b870f6"
+  edges:
     defines:
       - ADR-PROC-VALUES#{1-4}
     links:

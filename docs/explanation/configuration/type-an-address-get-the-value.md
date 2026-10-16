@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5b750addd2a4"
     path: docs/explanation/configuration/type-an-address-get-the-value.md
     folder: docs/explanation/configuration
     name: type-an-address-get-the-value
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "5b750addd2a4"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ENVVAR#7
       - ADR-CONF-ADDRESSING#{1,3,4}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c2907f8ee136
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-PythonTestCases.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-python-test-cases-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c2907f8ee136
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

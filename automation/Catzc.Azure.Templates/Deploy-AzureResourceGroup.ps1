@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Deploy-AzureResourceGroup.ps1
     name: deploy-azure-resource-group
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
   config:
     synopsis: Idempotently ensures a resource group exists in a given subscription and region.
     description: |-

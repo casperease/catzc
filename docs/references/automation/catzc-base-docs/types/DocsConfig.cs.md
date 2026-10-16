@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ea3398a7b8bd
     path: docs/references/automation/catzc-base-docs/types/DocsConfig.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: docs-config-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ea3398a7b8bd
 ---
 
 # automation/Catzc.Base.Docs/types/DocsConfig.cs

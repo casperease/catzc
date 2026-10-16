@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dc667b4441d5
     path: docs/references/infrastructure/modules.md
     folder: docs/references/infrastructure
     name: modules
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: dc667b4441d5
+  edges:
     links:
       - docs/references/automation/catzc-azure-templates.md
 ---

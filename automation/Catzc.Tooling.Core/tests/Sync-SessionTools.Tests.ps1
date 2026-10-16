@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
     folder: tests
     name: sync-session-tools-tests

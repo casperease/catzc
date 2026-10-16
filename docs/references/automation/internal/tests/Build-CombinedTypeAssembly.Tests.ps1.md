@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f3308993ccf7
     path: docs/references/automation/internal/tests/Build-CombinedTypeAssembly.Tests.ps1.md
     folder: docs/references/automation/internal/tests
     name: build-combined-type-assembly-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f3308993ccf7
 ---
 
 # automation/.internal/tests/Build-CombinedTypeAssembly.Tests.ps1

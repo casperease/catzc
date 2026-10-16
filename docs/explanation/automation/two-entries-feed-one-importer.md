@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "52974b3a4619"
     path: docs/explanation/automation/two-entries-feed-one-importer.md
     folder: docs/explanation/automation
     name: two-entries-feed-one-importer
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "52974b3a4619"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-BUNDLE#{2,3}
     links:
       - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.md

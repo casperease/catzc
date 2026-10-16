@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Assert-PipelineCount.ps1
     name: assert-pipeline-count
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Asserts/tests/Assert-PipelineCount.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Asserts/tests/Assert-PipelineCount.Tests.ps1
   config:
     synopsis: Asserts the number of objects in the pipeline.
     description: |-

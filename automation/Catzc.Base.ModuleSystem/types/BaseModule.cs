@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/types/BaseModule.cs
     folder: types
     name: base-module
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md
+    cites:
       - ADR-AUTO-TYPES#9
 ---
 */

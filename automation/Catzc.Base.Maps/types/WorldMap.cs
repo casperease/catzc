@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/WorldMap.cs
     folder: types
     name: world-map
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/WorldMap.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/WorldMap.cs.md
+    cites:
       - ADR-DSGN-TRACK#{1,6}
       - ADR-THES-ONETRUTH#3
 ---

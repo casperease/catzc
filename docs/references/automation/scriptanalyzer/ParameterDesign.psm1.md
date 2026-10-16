@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8960d512cee8"
     path: docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: parameter-design-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8960d512cee8"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
       - ADR-PWSH-PARAM#4
 ---

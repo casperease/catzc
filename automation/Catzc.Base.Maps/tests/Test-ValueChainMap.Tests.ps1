@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
     folder: tests
     name: test-value-chain-map-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#{3,35}
       - ADR-DSGN-TRACK#{14-16}
 ---

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: da8f190cff2b
     path: docs/adr/repository/comments-in-docs.md
     folder: docs/adr/repository
     name: comments-in-docs
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: da8f190cff2b
+  edges:
     defines:
       - ADR-REPO-COMMENTS#{1-5}
-    adrs:
+    cites:
       - ADR-REPO-CODEMETA#{1,2}
       - ADR-REPO-FILEMETA#{1,10}
       - ADR-REPO-FORMAT#8

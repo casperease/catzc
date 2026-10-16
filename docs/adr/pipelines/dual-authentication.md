@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "245b02b1e15b"
     path: docs/adr/pipelines/dual-authentication.md
     folder: docs/adr/pipelines
     name: dual-authentication
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "245b02b1e15b"
+  edges:
     defines:
       - ADR-PIPE-AUTH#{1-7}
 ---

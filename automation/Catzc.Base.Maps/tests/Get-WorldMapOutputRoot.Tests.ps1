@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/tests/Get-WorldMapOutputRoot.Tests.ps1
     folder: tests
     name: get-world-map-output-root-tests

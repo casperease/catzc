@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Exporter/private/Get-CatzcUserModulePath.ps1
     folder: private
     name: get-catzc-user-module-path

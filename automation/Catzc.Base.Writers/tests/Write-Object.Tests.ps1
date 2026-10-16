@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/tests/Write-Object.Tests.ps1
     folder: tests
     name: write-object-tests

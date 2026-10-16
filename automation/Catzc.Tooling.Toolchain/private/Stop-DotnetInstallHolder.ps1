@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
     folder: private
     name: stop-dotnet-install-holder
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.Toolchain/tests/Stop-DotnetInstallHolder.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Tooling.Toolchain/tests/Stop-DotnetInstallHolder.Tests.ps1
+    cites:
       - ADR-PWSH-DRYRUN#1
   config:
     synopsis: Stops exactly the named processes that hold a .NET install open, then asserts the install is free.

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e957048a989c
     path: docs/references/infrastructure/modules/vm.bicep.md
     folder: docs/references/infrastructure/modules
     name: vm-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e957048a989c
 ---
 
 # infrastructure/modules/vm.bicep

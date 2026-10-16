@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Environment/Add-PermanentPath.ps1
     name: add-permanent-path
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md
-      test: automation/Catzc.Base.Environment/tests/Add-PermanentPath.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md
+    test: automation/Catzc.Base.Environment/tests/Add-PermanentPath.Tests.ps1
   config:
     synopsis: Adds a directory to PATH persistently and in the current session.
     description: |-

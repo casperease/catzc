@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dd3bde32dec4
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-LogicTestIdentity.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-logic-test-identity-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: dd3bde32dec4
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{1,3,35}
 ---
 

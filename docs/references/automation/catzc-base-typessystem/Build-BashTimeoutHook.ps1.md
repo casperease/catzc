@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6d30b15aacf1"
     path: docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
     folder: docs/references/automation/catzc-base-typessystem
     name: build-bash-timeout-hook-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6d30b15aacf1"
 ---
 
 # automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1

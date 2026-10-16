@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: adf3199054ab
     path: docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: repo-relative-path-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: adf3199054ab
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PATH#{3,5,8}
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Install-Dotnet.ps1
     name: install-dotnet
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
-      test: automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
+    test: automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
+    cites:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-IDEM#1

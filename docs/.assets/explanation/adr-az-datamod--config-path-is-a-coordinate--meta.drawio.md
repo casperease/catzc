@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bb5d153b74ef
     path: docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-config-path-is-a-coordinate-meta-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: bb5d153b74ef
+  edges:
     links:
       - docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
       - docs/explanation/azure/config-path-is-a-coordinate.md

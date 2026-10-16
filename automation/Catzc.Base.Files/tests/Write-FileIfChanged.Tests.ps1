@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/tests/Write-FileIfChanged.Tests.ps1
     folder: tests
     name: write-file-if-changed-tests

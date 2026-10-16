@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bbd9e1107b03
     path: docs/references/automation/catzc-azure/types/CustomerConfig.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: customer-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: bbd9e1107b03
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#{2,3}
 ---

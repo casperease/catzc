@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "64af90c568dc"
     path: docs/references/automation/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: pipeline-trigger-integrity-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "64af90c568dc"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#1
 ---
 

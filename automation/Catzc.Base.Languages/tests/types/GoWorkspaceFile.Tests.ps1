@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/tests/types/GoWorkspaceFile.Tests.ps1
     folder: tests/types
     name: go-workspace-file-tests

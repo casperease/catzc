@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0d9946f3b8a6"
     path: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleSubscription.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: build-bicep-sample-subscription-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0d9946f3b8a6"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{4,19,26}
       - ADR-PWSH-PESTER#2
 ---

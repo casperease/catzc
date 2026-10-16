@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
     name: set-bicep-tracking-tag-set
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md
-      test: automation/Catzc.Azure.Templates/tests/Set-BicepTrackingTagSet.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md
+    test: automation/Catzc.Azure.Templates/tests/Set-BicepTrackingTagSet.Tests.ps1
+    cites:
       - ADR-AUTO-DRYRUN
       - ADR-PWSH-DRYRUN#1
   config:

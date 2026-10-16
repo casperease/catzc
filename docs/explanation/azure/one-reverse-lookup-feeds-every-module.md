@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "516e8f9171f2"
     path: docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
     folder: docs/explanation/azure
     name: one-reverse-lookup-feeds-every-module
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "516e8f9171f2"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-DATAMOD#{4,7}
       - ADR-AZ-NAMING#8
     links:

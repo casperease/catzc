@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6d5a92f076c4"
     path: docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md
     folder: docs/references/automation/catzc-base-overlay/private
     name: get-local-module-violation-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6d5a92f076c4"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ENUM#3
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-FormatEngineStamp.ps1
     folder: private
     name: get-format-engine-stamp
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1
+    cites:
       - ADR-AUTO-CACHE#10
   config:
     synopsis: The fingerprint of everything besides a file's own bytes that decides what a formatter engine writes.

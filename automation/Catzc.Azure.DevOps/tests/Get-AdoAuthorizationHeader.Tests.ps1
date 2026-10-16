@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
     folder: tests
     name: get-ado-authorization-header-tests

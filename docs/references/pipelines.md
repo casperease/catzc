@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "377b5cfd38e4"
     path: docs/references/pipelines.md
     folder: docs/references
     name: pipelines
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "377b5cfd38e4"
+  edges:
     links:
       - docs/adr/azure/landing-zones.md
       - docs/adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger

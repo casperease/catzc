@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "63348807e13d"
     path: docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleDependency.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: get-module-dependency-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "63348807e13d"
 ---
 
 # automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1

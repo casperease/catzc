@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a9b615c0027f
     path: docs/adr/automation/caching.md
     folder: docs/adr/automation
     name: caching
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: a9b615c0027f
+  edges:
     defines:
       - ADR-AUTO-CACHE#{1,2,4-10}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#10
       - ADR-PWSH-CACHE#{1,5}
     links:

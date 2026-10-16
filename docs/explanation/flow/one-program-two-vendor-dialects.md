@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: db61cae23740
     path: docs/explanation/flow/one-program-two-vendor-dialects.md
     folder: docs/explanation/flow
     name: one-program-two-vendor-dialects
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: db61cae23740
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{4,6,8}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md

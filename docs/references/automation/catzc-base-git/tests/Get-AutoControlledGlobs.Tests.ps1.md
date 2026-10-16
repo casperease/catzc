@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6f452770e0e3"
     path: docs/references/automation/catzc-base-git/tests/Get-AutoControlledGlobs.Tests.ps1.md
     folder: docs/references/automation/catzc-base-git/tests
     name: get-auto-controlled-globs-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6f452770e0e3"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-OUTDIR#10
 ---
 

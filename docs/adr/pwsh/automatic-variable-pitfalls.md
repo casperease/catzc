@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6e7918d7cfad"
     path: docs/adr/pwsh/automatic-variable-pitfalls.md
     folder: docs/adr/pwsh
     name: automatic-variable-pitfalls
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "6e7918d7cfad"
+  edges:
     defines:
       - ADR-PWSH-AUTOVAR#{1-7}
     links:

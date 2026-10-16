@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1932fd9f0525"
     path: docs/explanation/repository/one-source-one-writer-one-boolean.md
     folder: docs/explanation/repository
     name: one-source-one-writer-one-boolean
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "1932fd9f0525"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-ROOTCFG#{1-4}
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.md

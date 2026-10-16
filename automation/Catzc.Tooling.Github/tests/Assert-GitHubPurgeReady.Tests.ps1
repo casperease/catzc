@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
     folder: tests
     name: assert-git-hub-purge-ready-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Tooling.Github
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md
 ---
 #>
 

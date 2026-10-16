@@ -1,11 +1,11 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: ".claude/drawio/minimaps/join.py"
 #     folder: drawio/minimaps
 #     name: join
 #     filetype: py
-#     kind: script
+#     kind: drawio-kit
 #     language: python
 #     track: ".claude"
 #     module: ".claude"

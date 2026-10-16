@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
     folder: tests
     name: assert-dev-box-tools-status-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Tooling.Provisioning
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md
 ---
 #>
 

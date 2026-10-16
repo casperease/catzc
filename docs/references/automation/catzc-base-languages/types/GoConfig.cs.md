@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "860c5428e23e"
     path: docs/references/automation/catzc-base-languages/types/GoConfig.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: go-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "860c5428e23e"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FOLDERS#4

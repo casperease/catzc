@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-GlossaryRuleStatements.ps1
     folder: private
     name: get-glossary-rule-statements
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1
+    cites:
       - ADR-REPO-VOCAB#{1,5}
   config:
     synopsis: Maps every indexed ADR rule id to the text of its normative summary that can define a term.

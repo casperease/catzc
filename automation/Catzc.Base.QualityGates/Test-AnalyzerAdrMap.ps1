@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
     name: test-analyzer-adr-map
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-FORMAT#7
   config:

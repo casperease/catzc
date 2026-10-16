@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
     folder: tests
     name: overlay-fixture
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Overlay
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
 ---
 #>

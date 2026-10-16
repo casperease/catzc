@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "47103cd2d19b"
     path: docs/adr/pwsh/avoid-using-semicolons.md
     folder: docs/adr/pwsh
     name: avoid-using-semicolons
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "47103cd2d19b"
+  edges:
     defines:
       - ADR-PWSH-NOSEMI#{1-4}
 ---

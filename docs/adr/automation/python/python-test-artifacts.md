@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a619bc4a2253
     path: docs/adr/automation/python/python-test-artifacts.md
     folder: docs/adr/automation/python
     name: python-test-artifacts
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: a619bc4a2253
+  edges:
     defines:
       - ADR-AUTO-PY#{1-8}
-    adrs:
+    cites:
       - ADR-AUTO-DEPS#3
       - ADR-AUTO-ENGINE#4
       - ADR-AUTO-GO#{3,6,7}

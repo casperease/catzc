@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8525e8f48664"
     path: docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: value-chain-map-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8525e8f48664"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{14-16}
       - ADR-THES-ONETRUTH#3
 ---

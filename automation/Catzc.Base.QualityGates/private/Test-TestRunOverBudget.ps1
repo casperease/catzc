@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
     folder: private
     name: test-test-run-over-budget
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1
+    cites:
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TEST#44
   config:

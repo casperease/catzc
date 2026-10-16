@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-BicepTemplateCustomers.ps1
     name: get-bicep-template-customers
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateCustomers.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateCustomers.Tests.ps1
   config:
     synopsis: Returns a template's configured customer names as a flat string array.
     description: |-

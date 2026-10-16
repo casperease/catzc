@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "810b6c72d9b8"
     path: docs/references/automation/catzc-base-rootconfig.md
     folder: docs/references/automation
     name: catzc-base-rootconfig
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "810b6c72d9b8"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-REPO-ROOTCFG#{6,7}
     links:

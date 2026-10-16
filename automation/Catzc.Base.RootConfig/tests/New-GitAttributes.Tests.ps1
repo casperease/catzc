@@ -1,3 +1,20 @@
+<#
+---
+catzc:
+  immutable:
+    path: automation/Catzc.Base.RootConfig/tests/New-GitAttributes.Tests.ps1
+    folder: tests
+    name: new-git-attributes-tests
+    filetype: ps1
+    kind: test
+    language: powershell
+    track: automation
+    module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+---
+#>
+
 Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:New-Registry {

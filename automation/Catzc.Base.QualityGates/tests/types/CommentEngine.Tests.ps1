@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
     folder: tests/types
     name: comment-engine-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-IDEM#1
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
@@ -210,11 +211,11 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
 
     It 'keeps a line-comment head that opens with its front matter fence, in each line marker' -Tag 'ADR-REPO-COMMENTS#3', 'ADR-REPO-CODEMETA#5' {
         $head = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = @{ yaml = @('# catzc:'); bicep = @('// catzc:') } })
-        $yaml = "# ---`n# catzc:`n#   derived:`n#     path: docs/widget.yml`n#     kind: config`n# ---`n`n# The widget registry, one entry per gadget,`n# read once per run.`ngadget: 1`n"
+        $yaml = "# ---`n# catzc:`n#   immutable:`n#     path: docs/widget.yml`n#     kind: config`n# ---`n`n# The widget registry, one entry per gadget,`n# read once per run.`ngadget: 1`n"
         $blocks = [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', $head)
         $blocks.Count | Should -Be 1
         $blocks[0].StartLine | Should -Be 7
-        $bicep = "// ---`n// catzc:`n//   derived:`n//     path: docs/widget.bicep`n// ---`n`nparam gadget string`n"
+        $bicep = "// ---`n// catzc:`n//   immutable:`n//     path: docs/widget.bicep`n// ---`n`nparam gadget string`n"
         [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($bicep, '.bicep', 'bicep', $head).Count | Should -Be 0
     }
 

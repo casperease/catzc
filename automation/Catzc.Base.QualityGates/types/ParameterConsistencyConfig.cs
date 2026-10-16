@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/ParameterConsistencyConfig.cs
     folder: types
     name: parameter-consistency-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-PWSH-PARAM

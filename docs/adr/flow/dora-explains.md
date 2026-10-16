@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "19287435b367"
     path: docs/adr/flow/dora-explains.md
     folder: docs/adr/flow
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "19287435b367"
+  edges:
     links:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
       - docs/adr/flow/durable-sha-globs.md

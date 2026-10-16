@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.CodeMeta/Format-PropertyMetaHead.ps1
     name: format-property-meta-head
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.CodeMeta/tests/Format-PropertyMetaHead.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.CodeMeta/tests/Format-PropertyMetaHead.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#8
   config:
     synopsis: Returns a JSON text with its meta property imprinted from the given facts.

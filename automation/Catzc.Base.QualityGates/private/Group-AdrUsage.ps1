@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Group-AdrUsage.ps1
     folder: private
     name: group-adr-usage
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Group-AdrUsage.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Group-AdrUsage.Tests.ps1
   config:
     synopsis: Groups ADR usage rows by the rule they cite or by the document that cites them.
     description: |-

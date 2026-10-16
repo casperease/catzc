@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "42bace4e3c90"
     path: docs/references/automation/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-folders/tests/types
     name: folder-walk-config-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "42bace4e3c90"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
 ---
 

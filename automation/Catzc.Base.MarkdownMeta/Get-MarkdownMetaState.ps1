@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
     name: get-markdown-meta-state
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.MarkdownMeta/tests/Get-MarkdownMetaState.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.MarkdownMeta/tests/Get-MarkdownMetaState.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#{1,3}
   config:
     synopsis: Reads what a Markdown text says about its own meta block, without changing it.

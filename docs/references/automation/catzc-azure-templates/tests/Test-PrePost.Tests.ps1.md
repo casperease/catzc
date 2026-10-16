@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e74c29a00d1a
     path: docs/references/automation/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: test-pre-post-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e74c29a00d1a
 ---
 
 # automation/Catzc.Azure.Templates/tests/Test-PrePost.Tests.ps1

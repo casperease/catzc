@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/Test-IsTimeoutExempt.ps1
     name: test-is-timeout-exempt
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Timeouts/tests/Test-IsTimeoutExempt.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Timeouts/tests/Test-IsTimeoutExempt.Tests.ps1
   config:
     synopsis: Tests whether a budget GUID is exempt from its normal time limit in this run environment.
     description: The boolean form of Get-TimeoutExemption, which defines the lookup.

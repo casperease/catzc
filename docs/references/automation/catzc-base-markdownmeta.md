@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0de04e1f42fa"
     path: docs/references/automation/catzc-base-markdownmeta.md
     folder: docs/references/automation
     name: catzc-base-markdownmeta
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "0de04e1f42fa"
+  edges:
     links:
       - docs/adr/repository/file-meta.md
       - docs/references/automation/catzc-base-config.md

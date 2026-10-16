@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6fdcf2867642"
     path: docs/references/automation/catzc-base-languages/types/GoTestResult.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: go-test-result-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6fdcf2867642"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TYPES#8
 ---

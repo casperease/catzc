@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bb19393e975b
     path: docs/references/infrastructure/_template.md
     folder: docs/references/infrastructure
     name: template
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: bb19393e975b
+  edges:
     links:
       - docs/references/infrastructure/modules.md
 ---

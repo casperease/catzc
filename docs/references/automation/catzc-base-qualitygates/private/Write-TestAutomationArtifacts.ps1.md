@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "63ae6bc9722b"
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: write-test-automation-artifacts-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "63ae6bc9722b"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestAutomationArtifacts.ps1

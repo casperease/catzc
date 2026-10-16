@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4d9cd07a82cf"
     path: docs/explanation/design/two-roots-one-importer-same-modules.md
     folder: docs/explanation/design
     name: two-roots-one-importer-same-modules
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "4d9cd07a82cf"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-RUNMODE#{1-3,7}
     links:
       - docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md

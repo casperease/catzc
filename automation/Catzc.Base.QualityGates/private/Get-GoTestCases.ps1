@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-GoTestCases.ps1
     folder: private
     name: get-go-test-cases
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-GoTestCases.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-GoTestCases.Tests.ps1
   config:
     synopsis: Lists the Go tests a Go test folder declares, read from its *_test.go files without running go.
     description: |-

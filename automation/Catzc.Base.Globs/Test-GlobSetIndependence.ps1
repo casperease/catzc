@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
     name: test-glob-set-independence
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md
-      test: automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md
+    test: automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-PROTGLOB#7

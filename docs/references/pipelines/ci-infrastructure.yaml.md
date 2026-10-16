@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f4fb119b9079
     path: docs/references/pipelines/ci-infrastructure.yaml.md
     folder: docs/references/pipelines
     name: ci-infrastructure-yaml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f4fb119b9079
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#37
       - ADR-AZ-DATAMOD#9
 ---

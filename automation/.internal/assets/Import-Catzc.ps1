@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/assets/Import-Catzc.ps1
     name: import-catzc
     filetype: ps1

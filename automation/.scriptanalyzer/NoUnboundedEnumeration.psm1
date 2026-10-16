@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/NoUnboundedEnumeration.psm1
     folder: automation/.scriptanalyzer
     name: no-unbounded-enumeration

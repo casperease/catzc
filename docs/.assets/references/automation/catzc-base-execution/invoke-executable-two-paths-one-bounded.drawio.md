@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4277d8fc37cc"
     path: docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
     folder: docs/.assets/references/automation/catzc-base-execution
     name: invoke-executable-two-paths-one-bounded-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "4277d8fc37cc"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-FAILFAST#7
       - ADR-PWSH-ASSERT#1

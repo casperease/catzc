@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5cad299b80d8"
     path: docs/references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: comment-page-map-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5cad299b80d8"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-README#7

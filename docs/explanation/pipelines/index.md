@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "57680316fafd"
     path: docs/explanation/pipelines/index.md
     folder: docs/explanation/pipelines
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "57680316fafd"
+  edges:
     links:
       - docs/adr/index.md#pipelines
       - docs/adr/pipelines/dual-authentication.md

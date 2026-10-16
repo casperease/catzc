@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/types/FileCarrier.cs
     folder: types
     name: file-carrier
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-languages/types/FileCarrier.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/types/FileCarrier.cs.md
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
 ---

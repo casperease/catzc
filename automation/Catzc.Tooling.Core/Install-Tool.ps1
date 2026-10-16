@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Install-Tool.ps1
     name: install-tool
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
+    cites:
       - ADR-AUTO-UVPY
   config:
     synopsis: Installs a tool using the platform package manager.

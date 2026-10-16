@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/Assert-HaveCustomers.ps1
     name: assert-have-customers
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Variants/tests/Assert-HaveCustomers.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Variants/tests/Assert-HaveCustomers.Tests.ps1
   config:
     synopsis: Asserts the repo has customer deployments enabled — for all customers, or for specific names — else throws.
     description: |-

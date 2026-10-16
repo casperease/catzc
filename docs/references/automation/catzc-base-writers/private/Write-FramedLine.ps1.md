@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e5d2921677eb
     path: docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md
     folder: docs/references/automation/catzc-base-writers/private
     name: write-framed-line-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e5d2921677eb
 ---
 
 # automation/Catzc.Base.Writers/private/Write-FramedLine.ps1

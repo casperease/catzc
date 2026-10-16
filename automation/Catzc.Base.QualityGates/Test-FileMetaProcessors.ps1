@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1
     name: test-file-meta-processors
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Test-FileMetaProcessors.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Test-FileMetaProcessors.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-REPO-FILEMETA#4
   config:

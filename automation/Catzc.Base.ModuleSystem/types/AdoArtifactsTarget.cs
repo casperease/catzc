@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/types/AdoArtifactsTarget.cs
     folder: types
     name: ado-artifacts-target
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/types/AdoArtifactsTarget.cs.md
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/types/AdoArtifactsTarget.cs.md
 ---
 */
 

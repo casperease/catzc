@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6c7182f0738c"
     path: docs/adr/principles/reduce-variability.md
     folder: docs/adr/principles
     name: reduce-variability
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "6c7182f0738c"
+  edges:
     defines:
       - ADR-PRIN-REDUCEVAR#{1-3}
 ---

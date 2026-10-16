@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-Spelling.ps1
     name: test-spelling
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
+    cites:
       - ADR-AUTO-CONSOLE#6
       - ADR-AUTO-TEST#35
       - ADR-REPO-README#7

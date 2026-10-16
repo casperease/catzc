@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Overlay/private/Get-OverlayContractViolation.ps1
     folder: private
     name: get-overlay-contract-violation
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-OVERLAY
   config:
     synopsis: Returns every way an override file breaks the contract of the function it replaces.

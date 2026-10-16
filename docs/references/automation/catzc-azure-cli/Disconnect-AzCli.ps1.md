@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2ef2e941d69b"
     path: docs/references/automation/catzc-azure-cli/Disconnect-AzCli.ps1.md
     folder: docs/references/automation/catzc-azure-cli
     name: disconnect-az-cli-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2ef2e941d69b"
 ---
 
 # automation/Catzc.Azure.Cli/Disconnect-AzCli.ps1

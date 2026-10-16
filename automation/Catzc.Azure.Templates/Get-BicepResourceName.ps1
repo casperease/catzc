@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-BicepResourceName.ps1
     name: get-bicep-resource-name
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
+    cites:
       - ADR-AZ-NAMING#8
   config:
     synopsis: Generates an Azure resource name for a template's slot from the naming standard.

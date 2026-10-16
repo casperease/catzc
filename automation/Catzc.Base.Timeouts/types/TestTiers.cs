@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/types/TestTiers.cs
     folder: types
     name: test-tiers
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Timeouts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
-      test: automation/Catzc.Base.Timeouts/tests/types/TestTiers.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
+    test: automation/Catzc.Base.Timeouts/tests/types/TestTiers.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#{13,41}
 ---
 */

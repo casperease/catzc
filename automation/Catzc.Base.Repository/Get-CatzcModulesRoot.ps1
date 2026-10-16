@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/Get-CatzcModulesRoot.ps1
     name: get-catzc-modules-root
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1
   config:
     synopsis: Returns the root of the catzc automation tree — the folder that holds the loaded modules.
     description: |-

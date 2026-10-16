@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "026da3c7367a"
     path: docs/adr/research/platform-engineering.md
     folder: docs/adr/research
     name: platform-engineering
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "026da3c7367a"
+  edges:
     defines:
       - ADR-DORA-PLATFORM#{1-5}
     links:

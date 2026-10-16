@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: abb8735bc8ea
     path: docs/references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: test-glossary-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: abb8735bc8ea
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{19,20}
 ---
 

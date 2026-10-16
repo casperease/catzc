@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: eb3eafc450df
     path: docs/references/automation/catzc-tooling-provisioning/types/ToolStatus.cs.md
     folder: docs/references/automation/catzc-tooling-provisioning/types
     name: tool-status-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: eb3eafc450df
 ---
 
 # automation/Catzc.Tooling.Provisioning/types/ToolStatus.cs

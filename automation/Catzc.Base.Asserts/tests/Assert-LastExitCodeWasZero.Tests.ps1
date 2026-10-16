@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/tests/Assert-LastExitCodeWasZero.Tests.ps1
     folder: tests
     name: assert-last-exit-code-was-zero-tests

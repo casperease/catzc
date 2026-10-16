@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a5d8d9ba4f36
     path: docs/explanation/pipelines/one-header-function-owns-precedence.md
     folder: docs/explanation/pipelines
     name: one-header-function-owns-precedence
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: a5d8d9ba4f36
-    adrs:
+  edges:
+    cites:
       - ADR-PIPE-AUTH#{1,2,4,6}
     links:
       - docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.md

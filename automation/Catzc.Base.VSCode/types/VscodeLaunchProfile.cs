@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/types/VscodeLaunchProfile.cs
     folder: types
     name: vscode-launch-profile
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.VSCode
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-vscode/types/VscodeLaunchProfile.cs.md
+  edges:
+    page: docs/references/automation/catzc-base-vscode/types/VscodeLaunchProfile.cs.md
 ---
 */
 

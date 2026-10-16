@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b88c19115ec1
     path: docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: test-logic-test-identity-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b88c19115ec1
 ---
 
 # automation/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1

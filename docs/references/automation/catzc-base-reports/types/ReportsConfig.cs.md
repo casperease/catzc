@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a4c5189a4f76
     path: docs/references/automation/catzc-base-reports/types/ReportsConfig.cs.md
     folder: docs/references/automation/catzc-base-reports/types
     name: reports-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a4c5189a4f76
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-AUTO-TYPES#8
 ---

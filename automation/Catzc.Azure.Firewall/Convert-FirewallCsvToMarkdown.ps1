@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
     name: convert-firewall-csv-to-markdown
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md
-      test: automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md
+    test: automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1
+    cites:
       - ADR-PWSH-PARAM#4
   config:
     synopsis: Renders an Azure Firewall rule-export CSV (application or network) as a Markdown document.

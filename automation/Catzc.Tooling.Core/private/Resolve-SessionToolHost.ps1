@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/private/Resolve-SessionToolHost.ps1
     folder: private
     name: resolve-session-tool-host
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHost.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHost.Tests.ps1
   config:
     synopsis: Points the current session at the best install home of a tool, chosen by its session_host_probes.
     description: |-

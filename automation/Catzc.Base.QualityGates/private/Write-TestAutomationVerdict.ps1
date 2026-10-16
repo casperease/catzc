@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
     folder: private
     name: write-test-automation-verdict
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationVerdict.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationVerdict.Tests.ps1
+    cites:
       - ADR-AUTO-CONSOLE#7
       - ADR-AUTO-FAILFAST
       - ADR-AUTO-XPLAT#6

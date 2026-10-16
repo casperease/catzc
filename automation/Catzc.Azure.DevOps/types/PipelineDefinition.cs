@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/types/PipelineDefinition.cs
     folder: types
     name: pipeline-definition
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.DevOps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-devops/types/PipelineDefinition.cs.md
+  edges:
+    page: docs/references/automation/catzc-azure-devops/types/PipelineDefinition.cs.md
 ---
 */
 

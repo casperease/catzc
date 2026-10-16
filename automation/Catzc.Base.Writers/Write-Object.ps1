@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/Write-Object.ps1
     name: write-object
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Writers/tests/Write-Object.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Writers/tests/Write-Object.Tests.ps1
   config:
     synopsis: Pretty-prints any object to the console with type info and smart formatting.
     description: |-

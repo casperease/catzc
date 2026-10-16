@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "10a3bd2e098c"
     path: docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md
     folder: docs/references/automation/catzc-base-docs
     name: get-cats-adr-rule-ids-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "10a3bd2e098c"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-CACHE#4
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Test-GlobSetProtection.ps1
     name: test-glob-set-protection
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-globs/Test-GlobSetProtection.ps1.md
-      test: automation/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-globs/Test-GlobSetProtection.ps1.md
+    test: automation/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
+    cites:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-PROTGLOB
   config:

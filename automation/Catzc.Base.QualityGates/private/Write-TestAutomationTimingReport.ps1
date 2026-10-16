@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationTimingReport.ps1
     folder: private
     name: write-test-automation-timing-report
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationTimingReport.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationTimingReport.Tests.ps1
   config:
     synopsis: Renders the over-limit timing section of a Test-Automation run and returns whether it fails the run.
     description: |-

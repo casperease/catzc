@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Assert-Tool.ps1
     name: assert-tool
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1
   config:
     synopsis: Asserts that a tool is installed and at the expected version.
     description: |-

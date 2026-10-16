@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6c2db7b08ae8"
     path: docs/references/automation/catzc-tooling-inspiration/types/Inspiration.cs.md
     folder: docs/references/automation/catzc-tooling-inspiration/types
     name: inspiration-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6c2db7b08ae8"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PATH#5
       - ADR-REPO-INSPIRE#1
 ---

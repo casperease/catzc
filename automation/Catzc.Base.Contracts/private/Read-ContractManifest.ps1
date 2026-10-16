@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Read-ContractManifest.ps1
     folder: private
     name: read-contract-manifest
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CONTRACT#7
   config:
     synopsis: Reads a version folder's contract.yml, the direction overrides of its assets.

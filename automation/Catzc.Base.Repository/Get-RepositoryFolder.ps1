@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/Get-RepositoryFolder.ps1
     name: get-repository-folder
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1
+    cites:
       - ADR-AUTO-PATH#7
   config:
     synopsis: Returns the full, normalized path to a folder relative to the repository root.

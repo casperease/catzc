@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "367138ea885f"
     path: docs/references/automation/catzc-base-globs/types/Aspect.cs.md
     folder: docs/references/automation/catzc-base-globs/types
     name: aspect-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "367138ea885f"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-ASPECT#5
       - ADR-FLOW-CD-GLOBS#4
 ---

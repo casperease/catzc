@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/private/Resolve-AdoYamlClassification.ps1
     folder: private
     name: resolve-ado-yaml-classification

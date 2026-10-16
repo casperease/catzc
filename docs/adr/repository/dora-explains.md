@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "25f6f76e79b8"
     path: docs/adr/repository/dora-explains.md
     folder: docs/adr/repository
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "25f6f76e79b8"
+  edges:
     links:
       - docs/adr/repository/agent-definitions.md
       - docs/adr/repository/api-contracts.md

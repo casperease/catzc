@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: eeb3ed086f13
     path: docs/references/automation/catzc-base-typessystem.md
     folder: docs/references/automation
     name: catzc-base-typessystem
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: eeb3ed086f13
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TYPES#15
     links:

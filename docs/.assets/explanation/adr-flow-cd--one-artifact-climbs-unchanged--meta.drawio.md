@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dde41f84db25
     path: docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-one-artifact-climbs-unchanged-meta-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: dde41f84db25
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.chain.md

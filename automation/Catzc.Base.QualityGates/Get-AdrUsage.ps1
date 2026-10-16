@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Get-AdrUsage.ps1
     name: get-adr-usage
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-AdrUsage.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-AdrUsage.Tests.ps1
   config:
     synopsis: Lists every ADR citation and ADR link the tracked files hold in their meta heads.
     description: |-

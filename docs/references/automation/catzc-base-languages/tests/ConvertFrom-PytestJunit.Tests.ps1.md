@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9302961a8d12"
     path: docs/references/automation/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: convert-from-pytest-junit-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9302961a8d12"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f944fad90de3
     path: docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md
     folder: docs/references/automation/catzc-azure-devops
     name: new-ado-pull-request-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f944fad90de3
 ---
 
 # automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1

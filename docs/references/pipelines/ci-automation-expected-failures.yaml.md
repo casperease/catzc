@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a6eff047f4dc
     path: docs/references/pipelines/ci-automation-expected-failures.yaml.md
     folder: docs/references/pipelines
     name: ci-automation-expected-failures-yaml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a6eff047f4dc
 ---
 
 # pipelines/ci-automation-expected-failures.yaml

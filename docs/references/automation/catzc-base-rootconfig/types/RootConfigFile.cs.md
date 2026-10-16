@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "634c3ccea400"
     path: docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md
     folder: docs/references/automation/catzc-base-rootconfig/types
     name: root-config-file-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "634c3ccea400"
 ---
 
 # automation/Catzc.Base.RootConfig/types/RootConfigFile.cs

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Invoke-Terraform.ps1
     name: invoke-terraform
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.Tests.ps1
   config:
     synopsis: Runs terraform with the given arguments.
     description: |-

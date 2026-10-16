@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
     folder: tests
     name: invoke-file-meta-engine-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CODEMETA#3
       - ADR-REPO-FILEMETA#3
 ---

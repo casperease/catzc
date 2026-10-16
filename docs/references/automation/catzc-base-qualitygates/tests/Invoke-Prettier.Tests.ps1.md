@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dd2622030779
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-Prettier.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: invoke-prettier-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: dd2622030779
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{3,6}
 ---
 

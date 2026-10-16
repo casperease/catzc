@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d3e87b42d1d4
     path: docs/references/automation/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: assert-tool-version-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d3e87b42d1d4
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

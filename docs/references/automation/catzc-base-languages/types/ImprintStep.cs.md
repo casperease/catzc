@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "57156afc1717"
     path: docs/references/automation/catzc-base-languages/types/ImprintStep.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: imprint-step-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "57156afc1717"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FORMAT#8
 ---
 

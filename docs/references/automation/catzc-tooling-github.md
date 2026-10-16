@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1191cdb94053"
     path: docs/references/automation/catzc-tooling-github.md
     folder: docs/references/automation
     name: catzc-tooling-github
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "1191cdb94053"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CONTRACT#{1-3,6}
     links:
       - docs/adr/repository/api-contracts.md#rule-adr-repo-contract1

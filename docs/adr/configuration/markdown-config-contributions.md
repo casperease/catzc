@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e8192d50ae2b
     path: docs/adr/configuration/markdown-config-contributions.md
     folder: docs/adr/configuration
     name: markdown-config-contributions
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: e8192d50ae2b
+  edges:
     defines:
       - ADR-CONF-MDCONTRIB#{1-7}
-    adrs:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#3
       - ADR-AUTO-OVERLAY#{4,7}

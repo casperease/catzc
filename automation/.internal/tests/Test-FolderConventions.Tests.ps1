@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/tests/Test-FolderConventions.Tests.ps1
     name: test-folder-conventions-tests
     filetype: ps1
@@ -11,9 +11,9 @@ catzc:
     module: Catzc.Internal.Tests
     moduletype: pwsh-folder
     catzc_bundle: minimal
-    relatives:
-      page: docs/references/automation/internal/tests/Test-FolderConventions.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/internal/tests/Test-FolderConventions.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#35
 ---
 #>

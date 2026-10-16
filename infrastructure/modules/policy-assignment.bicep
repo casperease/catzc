@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/policy-assignment.bicep
 //     name: policy-assignment
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: policy-assignment
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/policy-assignment.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/policy-assignment.bicep.md
 // ---
 
 targetScope = 'subscription'

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6880bc8382a3"
     path: docs/how-to/automation/manual-test-plan/csharp-types.md
     folder: docs/how-to/automation/manual-test-plan
     name: csharp-types
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "6880bc8382a3"
+  edges:
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---

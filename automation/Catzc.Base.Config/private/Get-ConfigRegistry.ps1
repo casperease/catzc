@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
     folder: private
     name: get-config-registry
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md
-      test: automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md
+    test: automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
+    cites:
       - ADR-AUTO-ASSETDEP#1
       - ADR-PWSH-CACHE#4
   config:

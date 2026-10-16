@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/Get-RunEnvironment.ps1
     name: get-run-environment
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Repository/tests/Get-RunEnvironment.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Repository/tests/Get-RunEnvironment.Tests.ps1
+    cites:
       - ADR-AUTO-PARITY
   config:
     synopsis: 'Returns where this session runs: Pipeline or Devbox.'

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-GlossaryDefinitionViolations.ps1
     folder: private
     name: get-glossary-definition-violations
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-GlossaryDefinitionViolations.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-GlossaryDefinitionViolations.Tests.ps1
+    cites:
       - ADR-REPO-VOCAB#1
   config:
     synopsis: Lists the glossary terms that a second ADR rule defines (check G3) — one message per violation.

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/Get-GitCurrentCommit.ps1
     name: get-git-current-commit
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Files/tests/Get-GitCurrentCommit.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Files/tests/Get-GitCurrentCommit.Tests.ps1
   config:
     synopsis: Returns the current git commit hash (full 40-char SHA).
     description: |-

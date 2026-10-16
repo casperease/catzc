@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9122ef6978ce"
     path: docs/references/automation/catzc-base-docs/types/GlossaryEntry.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-entry-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9122ef6978ce"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

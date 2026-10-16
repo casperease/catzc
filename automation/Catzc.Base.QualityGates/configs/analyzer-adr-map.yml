@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
 #     folder: configs
 #     name: analyzer-adr-map
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.QualityGates
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md
 # ---
 
 analyzers:

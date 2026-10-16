@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "83e8a7f21018"
     path: docs/references/automation/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-unbounded-enumeration-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "83e8a7f21018"
 ---
 
 # automation/.scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5964339922b7"
     path: docs/references/automation/catzc-base-docs/types/DocMapping.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: doc-mapping-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5964339922b7"
 ---
 
 # automation/Catzc.Base.Docs/types/DocMapping.cs

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "29db5acb5ef4"
     path: docs/references/automation/catzc-base-globs/configs/file-kinds.yml.md
     folder: docs/references/automation/catzc-base-globs/configs
     name: file-kinds-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "29db5acb5ef4"
 ---
 
 # automation/Catzc.Base.Globs/configs/file-kinds.yml

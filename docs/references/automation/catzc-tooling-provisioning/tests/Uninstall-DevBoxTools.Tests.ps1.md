@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "473684e50363"
     path: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-DevBoxTools.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: uninstall-dev-box-tools-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "473684e50363"
 ---
 
 # automation/Catzc.Tooling.Provisioning/tests/Uninstall-DevBoxTools.Tests.ps1

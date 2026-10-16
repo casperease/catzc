@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "787adf66f7bc"
     path: docs/references/infrastructure/templates/discovery/configuration/flux/nsub.yml.md
     folder: docs/references/infrastructure/templates/discovery/configuration/flux
     name: nsub-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "787adf66f7bc"
 ---
 
 # infrastructure/templates/discovery/configuration/flux/nsub.yml

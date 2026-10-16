@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b84d6ef800d8
     path: docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-one-program-two-vendor-dialects-meta-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: b84d6ef800d8
+  edges:
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
       - docs/explanation/flow/one-program-two-vendor-dialects.md

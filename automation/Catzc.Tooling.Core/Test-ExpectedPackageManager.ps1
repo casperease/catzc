@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Test-ExpectedPackageManager.ps1
     name: test-expected-package-manager
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
+    cites:
       - ADR-AUTO-REMOVE#3
   config:
     synopsis: Tests whether a tool is managed by the expected package manager.

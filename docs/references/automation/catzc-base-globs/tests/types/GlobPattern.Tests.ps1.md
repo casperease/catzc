@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "599c17e2bd4e"
     path: docs/references/automation/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests/types
     name: glob-pattern-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "599c17e2bd4e"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{2,3}
 ---
 

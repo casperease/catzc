@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Write-ReportModeFinding.Tests.ps1
     folder: tests
     name: write-report-mode-finding-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/tests/Write-ReportModeFinding.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/tests/Write-ReportModeFinding.Tests.ps1.md
+    cites:
       - ADR-PRIN-CONFIG#4
 ---
 #>

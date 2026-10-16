@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/tests/Get-GitIndexPath.Tests.ps1
     folder: tests
     name: get-git-index-path-tests

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Test-TestInRunScope.ps1
     folder: private
     name: test-test-in-run-scope
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Test-TestInRunScope.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Test-TestInRunScope.Tests.ps1
   config:
     synopsis: Whether a discovered test is inside a test run's tier and category scope.
     description: |-

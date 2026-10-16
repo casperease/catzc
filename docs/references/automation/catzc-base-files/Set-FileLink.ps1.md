@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c9af362980df
     path: docs/references/automation/catzc-base-files/Set-FileLink.ps1.md
     folder: docs/references/automation/catzc-base-files
     name: set-file-link-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c9af362980df
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-XPLAT#7
 ---
 

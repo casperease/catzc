@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
     folder: private
     name: get-auto-controlled-globs
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md
-      test: automation/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md
+    test: automation/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
+    cites:
       - ADR-CONF-LOADING#6
       - ADR-REPO-OUTDIR#{8,10}
   config:

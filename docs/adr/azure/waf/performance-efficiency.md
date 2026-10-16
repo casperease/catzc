@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5442f36725bb"
     path: docs/adr/azure/waf/performance-efficiency.md
     folder: docs/adr/azure/waf
     name: performance-efficiency
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "5442f36725bb"
+  edges:
     defines:
       - ADR-AZ-WAFPE#{1-12}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#41
       - ADR-AZ-DATAMOD#{2,9,10}
       - ADR-AZ-LZ

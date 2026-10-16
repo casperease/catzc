@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b2174730a4a1
     path: docs/references/automation/catzc-azure-firewall.md
     folder: docs/references/automation
     name: catzc-azure-firewall
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: b2174730a4a1
+  edges:
     links:
       - docs/adr/principles/everything-as-code.md
 ---

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "084c203254f8"
     path: docs/adr/process/dora-explains.md
     folder: docs/adr/process
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "084c203254f8"
+  edges:
     links:
       - docs/adr/process/agile-principles.md
       - docs/adr/process/agile-values.md

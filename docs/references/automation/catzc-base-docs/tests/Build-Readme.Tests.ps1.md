@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "40032377cc9d"
     path: docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: build-readme-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "40032377cc9d"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#2
 ---
 

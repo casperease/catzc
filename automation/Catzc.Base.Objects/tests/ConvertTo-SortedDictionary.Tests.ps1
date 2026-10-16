@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
     folder: tests
     name: convert-to-sorted-dictionary-tests

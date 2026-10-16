@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Test-Tool.ps1
     name: test-tool
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Test-Tool.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Test-Tool.Tests.ps1
   config:
     synopsis: Tests whether a tool is installed at the expected version.
     description: |-

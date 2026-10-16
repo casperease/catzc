@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/CitationScanner.cs
     folder: types
     name: citation-scanner
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md
-      test: automation/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md
+    test: automation/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1
+    cites:
       - ADR-REPO-LINK#3
 ---
 */

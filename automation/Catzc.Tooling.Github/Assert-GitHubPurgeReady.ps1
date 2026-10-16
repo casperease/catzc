@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/Assert-GitHubPurgeReady.ps1
     name: assert-git-hub-purge-ready
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
   config:
     synopsis: |-
       Asserts every precondition for a hard-purge of a GitHub repository is met,

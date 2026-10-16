@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d42f84b1340a
     path: docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
     folder: docs/references/automation/catzc-azure-templates
     name: get-azure-resource-name-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d42f84b1340a
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-NAMING#{4,6}
 ---
 

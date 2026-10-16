@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "05e637848678"
     path: docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-tests-pin-the-throw-and-fail-open-no-caller-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "05e637848678"
+  edges:
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
       - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md

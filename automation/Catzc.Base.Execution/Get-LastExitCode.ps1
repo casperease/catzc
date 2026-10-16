@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/Get-LastExitCode.ps1
     name: get-last-exit-code
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Execution/tests/Get-LastExitCode.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Execution/tests/Get-LastExitCode.Tests.ps1
   config:
     synopsis: Returns the current $LASTEXITCODE value, or warns if none exists.
     examples:

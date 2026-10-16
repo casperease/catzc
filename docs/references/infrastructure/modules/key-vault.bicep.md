@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d16317b818b8
     path: docs/references/infrastructure/modules/key-vault.bicep.md
     folder: docs/references/infrastructure/modules
     name: key-vault-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d16317b818b8
 ---
 
 # infrastructure/modules/key-vault.bicep

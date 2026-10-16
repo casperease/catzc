@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f37383f96bac
     path: docs/adr/research/proactive-failure-notification.md
     folder: docs/adr/research
     name: proactive-failure-notification
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: f37383f96bac
+  edges:
     defines:
       - ADR-DORA-FAILALERT#{1-5}
     links:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Enter-TestRunLocation.ps1
     folder: private
     name: enter-test-run-location
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Enter-TestRunLocation.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Enter-TestRunLocation.Tests.ps1
+    cites:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-ENGINE#2
       - ADR-AUTO-TEST#32

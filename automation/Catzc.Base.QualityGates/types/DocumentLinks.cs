@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/DocumentLinks.cs
     folder: types
     name: document-links
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/types/DocumentLinks.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/types/DocumentLinks.Tests.ps1
 ---
 */
 

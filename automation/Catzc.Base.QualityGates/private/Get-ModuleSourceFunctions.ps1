@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-ModuleSourceFunctions.ps1
     folder: private
     name: get-module-source-functions

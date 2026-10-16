@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
     folder: tests/types
     name: folder-walk-config-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Folders
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
+    cites:
       - ADR-AUTO-DEFAULT#6
 ---
 #>

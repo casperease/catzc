@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
     folder: private
     name: get-body-sha-file-meta-fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-BodyShaFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-BodyShaFileMetaFact.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#3
   config:
     synopsis: 'The body-sha meta kind''s fact: the hash of the file''s body below its front matter.'

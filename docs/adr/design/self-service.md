@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fd71bc64643a
     path: docs/adr/design/self-service.md
     folder: docs/adr/design
     name: self-service
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: fd71bc64643a
+  edges:
     defines:
       - ADR-DSGN-SELFSERV#{1-5}
     links:

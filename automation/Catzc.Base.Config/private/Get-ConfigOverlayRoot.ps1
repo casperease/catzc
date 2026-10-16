@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
     folder: private
     name: get-config-overlay-root
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
-      test: automation/Catzc.Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
+    test: automation/Catzc.Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1
+    cites:
       - ADR-PWSH-CACHE
   config:
     synopsis: Returns the consumer overlay root Get-Config merges fragments from, cached per pair of session anchors.

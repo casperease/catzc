@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b891f6ab0cc2
     path: docs/adr/azure/caf/design-principles.md
     folder: docs/adr/azure/caf
     name: design-principles
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b891f6ab0cc2
+  edges:
     defines:
       - ADR-AZ-CAFPRIN#{1-5}
-    adrs:
+    cites:
       - ADR-AZ-CLI#1
       - ADR-AZ-CUSTOMER#2
       - ADR-AZ-DATAMOD#{1-3,8,9,11}

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "87723a9fb3e1"
     path: docs/adr/azure/caf/naming-and-tagging.md
     folder: docs/adr/azure/caf
     name: naming-and-tagging
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "87723a9fb3e1"
+  edges:
     defines:
       - ADR-AZ-CAFNAME#{1-22}
-    adrs:
+    cites:
       - ADR-AZ-DATAMOD#{5,9-11}
       - ADR-AZ-LZ#{1,3,4,6}
       - ADR-AZ-NAMING

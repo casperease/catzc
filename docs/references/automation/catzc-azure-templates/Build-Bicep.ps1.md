@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8ea911595856"
     path: docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md
     folder: docs/references/automation/catzc-azure-templates
     name: build-bicep-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8ea911595856"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-DATAMOD#10
       - ADR-PWSH-ERROR#8
 ---

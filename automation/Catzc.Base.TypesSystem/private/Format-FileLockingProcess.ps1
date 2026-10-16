@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/private/Format-FileLockingProcess.ps1
     folder: private
     name: format-file-locking-process

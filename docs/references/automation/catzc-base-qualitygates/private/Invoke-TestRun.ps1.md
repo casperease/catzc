@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "99b7f70d0893"
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: invoke-test-run-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "99b7f70d0893"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{26,44}
       - ADR-PWSH-ANNOUNCE#6
       - ADR-REPO-PROTGLOB#9

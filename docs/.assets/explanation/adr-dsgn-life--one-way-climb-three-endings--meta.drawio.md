@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5371af829905"
     path: docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-one-way-climb-three-endings-meta-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "5371af829905"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.chain.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cdf657694cda
     path: docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: bounded-command-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: cdf657694cda
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ENGINE#2
 ---
 

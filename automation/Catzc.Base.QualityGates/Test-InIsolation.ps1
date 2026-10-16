@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-InIsolation.ps1
     name: test-in-isolation
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1
   config:
     synopsis: |-
       Copies a module profile into a tmp sandbox and runs its tests in isolation — a clean child pwsh (true

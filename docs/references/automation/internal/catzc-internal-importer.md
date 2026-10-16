@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e9a5cd44ce14
     path: docs/references/automation/internal/catzc-internal-importer.md
     folder: docs/references/automation/internal
     name: catzc-internal-importer
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: e9a5cd44ce14
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#13
     links:
       - docs/adr/principles/one-living-version.md

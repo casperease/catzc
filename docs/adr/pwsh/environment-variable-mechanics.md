@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f06f5693d22e
     path: docs/adr/pwsh/environment-variable-mechanics.md
     folder: docs/adr/pwsh
     name: environment-variable-mechanics
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: f06f5693d22e
+  edges:
     defines:
       - ADR-PWSH-ENV#{1-11}
-    adrs:
+    cites:
       - ADR-AUTO-ENVVAR
       - ADR-AUTO-NOPWD#6
       - ADR-FLOW-CD-DETECT#1

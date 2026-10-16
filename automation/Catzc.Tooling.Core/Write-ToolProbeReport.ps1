@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Write-ToolProbeReport.ps1
     name: write-tool-probe-report
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
+    cites:
       - ADR-PWSH-ANNOUNCE#7
   config:
     synopsis: 'Writes a compact table of tool existence checks: where each tool was found, its version, and the timings.'

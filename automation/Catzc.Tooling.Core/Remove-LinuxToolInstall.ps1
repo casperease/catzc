@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
     name: remove-linux-tool-install
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
+    cites:
       - ADR-AUTO-REMOVE#{6,7}
   config:
     synopsis: |-

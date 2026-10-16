@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
     folder: tests
     name: get-glossary-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#3
       - ADR-REPO-VOCAB#2

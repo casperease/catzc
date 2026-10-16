@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Format-Types.ps1
     name: format-types
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
+    cites:
       - ADR-PWSH-PESTER#9
   config:
     synopsis: Maintains the file-scoped namespace on each C# type source, derived from its module folder.

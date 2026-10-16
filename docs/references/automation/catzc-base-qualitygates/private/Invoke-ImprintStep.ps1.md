@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9c47b033b392"
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: invoke-imprint-step-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9c47b033b392"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-ImprintStep.ps1

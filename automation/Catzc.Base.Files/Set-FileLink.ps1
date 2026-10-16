@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/Set-FileLink.ps1
     name: set-file-link
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-files/Set-FileLink.ps1.md
-      test: automation/Catzc.Base.Files/tests/Set-FileLink.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-files/Set-FileLink.ps1.md
+    test: automation/Catzc.Base.Files/tests/Set-FileLink.Tests.ps1
+    cites:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-XPLAT#7
       - ADR-REPO-ROOTCFG

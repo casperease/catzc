@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ea64b39cbb52
     path: docs/explanation/design/same-deploy-bicep-on-both-sides.md
     folder: docs/explanation/design
     name: same-deploy-bicep-on-both-sides
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: ea64b39cbb52
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PARITY#3
       - ADR-DSGN-THINPLAT#{2,3}
     links:

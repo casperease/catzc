@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9130e4758ce4"
     path: docs/how-to/automation/manual-test-plan/adr-registry.md
     folder: docs/how-to/automation/manual-test-plan
     name: adr-registry
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "9130e4758ce4"
+  edges:
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---

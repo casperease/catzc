@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/tests/Get-AzureNameOrderSet.Tests.ps1
     folder: tests
     name: get-azure-name-order-set-tests

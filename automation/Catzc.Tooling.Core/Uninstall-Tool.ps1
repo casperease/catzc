@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Uninstall-Tool.ps1
     name: uninstall-tool
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md
   config:
     synopsis: Uninstalls a tool using the platform package manager.
     description: |-

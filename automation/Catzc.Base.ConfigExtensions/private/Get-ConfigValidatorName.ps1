@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
     folder: private
     name: get-config-validator-name
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.ConfigExtensions/tests/Get-ConfigValidatorName.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.ConfigExtensions/tests/Get-ConfigValidatorName.Tests.ps1
   config:
     synopsis: 'Returns the conventional PowerShell validator name for a config: Assert-<TitleCase(name)>Config.'
     description: |-

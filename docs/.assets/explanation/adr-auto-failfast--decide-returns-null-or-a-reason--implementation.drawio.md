@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5855147b5863"
     path: docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-decide-returns-null-or-a-reason-implementation-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "5855147b5863"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
       - docs/explanation/automation/decide-returns-null-or-a-reason.md

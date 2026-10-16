@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
     folder: tests
     name: register-ado-build-validation-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Azure.DevOps.BuildValidation
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Register-AdoBuildValidation.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Register-AdoBuildValidation.Tests.ps1.md
+    cites:
       - ADR-AUTO-DRYRUN
 ---
 #>

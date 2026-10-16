@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3a60c88cda4f"
     path: docs/references/automation/scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-unsafe-first-index-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3a60c88cda4f"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ERROR#8
 ---
 

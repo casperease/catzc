@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "03642fb25d9b"
     path: docs/how-to/getting-started/automation/go/index.md
     folder: docs/how-to/getting-started/automation/go
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "03642fb25d9b"
+  edges:
     links:
       - docs/adr/automation/go/go-test-artifacts.md
 ---

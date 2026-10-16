@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: infrastructure/templates/foundation/configuration/psub.yml
 #     folder: configuration
 #     name: psub

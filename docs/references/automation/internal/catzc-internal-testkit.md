@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "38e1998cf760"
     path: docs/references/automation/internal/catzc-internal-testkit.md
     folder: docs/references/automation/internal
     name: catzc-internal-testkit
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "38e1998cf760"
+  edges:
     links:
       - docs/adr/automation/test-automation.md
       - docs/adr/principles/one-living-version.md

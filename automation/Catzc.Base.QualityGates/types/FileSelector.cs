@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/FileSelector.cs
     folder: types
     name: file-selector
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/FileSelector.cs.md
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/FileSelector.cs.md
 ---
 */
 

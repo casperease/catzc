@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-PythonTestCases.ps1
     folder: private
     name: get-python-test-cases
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-PythonTestCases.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-PythonTestCases.Tests.ps1
   config:
     synopsis: Lists the Python tests a Python test folder declares, read from its test_*.py files without running Python.
     description: |-

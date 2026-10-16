@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/Get-WorldMapOutputRoot.ps1
     name: get-world-map-output-root
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Maps/tests/Get-WorldMapOutputRoot.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Maps/tests/Get-WorldMapOutputRoot.Tests.ps1
+    cites:
       - ADR-PWSH-PESTER#2
       - ADR-REPO-OUTDIR#2
   config:

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.ModuleSystem/configs/dependencies.yml
 #     folder: configs
 #     name: dependencies
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.ModuleSystem
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md
 # ---
 
 groups:

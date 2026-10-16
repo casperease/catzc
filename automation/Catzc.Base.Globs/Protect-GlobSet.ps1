@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Protect-GlobSet.ps1
     name: protect-glob-set
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md
+    cites:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-PROTGLOB
   config:

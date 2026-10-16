@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Remove-Java.ps1
     name: remove-java
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md
+    cites:
       - ADR-AUTO-REMOVE#{3,6}
   config:
     synopsis: Removes a manually installed Java JDK and cleans up system PATH.

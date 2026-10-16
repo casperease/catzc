@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
     folder: types
     name: timeouts-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Timeouts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md
-      test: automation/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md
+    test: automation/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TYPES#8

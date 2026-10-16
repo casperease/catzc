@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/private/Get-BicepResourceGroupName.ps1
     folder: private
     name: get-bicep-resource-group-name
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1
   config:
     synopsis: Derives a template slot's resource-group name from the Azure naming standard.
     description: |-

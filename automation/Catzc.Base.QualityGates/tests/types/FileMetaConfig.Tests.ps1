@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
     folder: tests/types
     name: file-meta-config-tests
@@ -12,11 +12,11 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md
+    cites:
       - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-FILEMETA#{2,4}
+      - ADR-REPO-FILEMETA#{2,4,13}
 ---
 #>
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "08911525b4a7"
     path: docs/explanation/flow/two-variables-read-in-one-place.md
     folder: docs/explanation/flow
     name: two-variables-read-in-one-place
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "08911525b4a7"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-DETECT#{1,4,5}
     links:
       - docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.md

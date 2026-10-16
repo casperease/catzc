@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/tests/types/VscodeExtensionsConfig.Tests.ps1
     folder: tests/types
     name: vscode-extensions-config-tests

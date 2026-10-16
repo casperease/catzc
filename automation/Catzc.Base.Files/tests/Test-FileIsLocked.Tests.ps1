@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/tests/Test-FileIsLocked.Tests.ps1
     folder: tests
     name: test-file-is-locked-tests

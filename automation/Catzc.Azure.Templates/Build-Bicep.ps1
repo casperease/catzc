@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Build-Bicep.ps1
     name: build-bicep
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md
-      test: automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md
+    test: automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
+    cites:
       - ADR-AZ-DATAMOD#10
       - ADR-PWSH-ERROR#8
       - ADR-PWSH-PREPOST

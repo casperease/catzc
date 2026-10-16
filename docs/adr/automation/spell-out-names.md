@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9a5905f33231"
     path: docs/adr/automation/spell-out-names.md
     folder: docs/adr/automation
     name: spell-out-names
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "9a5905f33231"
+  edges:
     defines:
       - ADR-AUTO-SPELL#{1-8}
-    adrs:
+    cites:
       - ADR-PWSH-NAMES#1
       - ADR-REPO-OUTDIR#5
     links:

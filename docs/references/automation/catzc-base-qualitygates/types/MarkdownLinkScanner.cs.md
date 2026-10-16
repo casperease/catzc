@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "70e6dc39258d"
     path: docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: markdown-link-scanner-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "70e6dc39258d"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#2
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "429a6f32246d"
     path: docs/explanation/flow/edit-globs-yml-then-read-the-output.md
     folder: docs/explanation/flow
     name: edit-globs-yml-then-read-the-output
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "429a6f32246d"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{5,6,9}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.md

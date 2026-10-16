@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9a3a343e530b"
     path: docs/adr/flow/cd-discipline-and-promotion-flow.md
     folder: docs/adr/flow
     name: cd-discipline-and-promotion-flow
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "9a3a343e530b"
+  edges:
     defines:
       - ADR-FLOW-CD#{1-14}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-DSGN-LIFE#{1,3-5}
       - ADR-FLOW-CD-TYPE#{3,4,8,11}

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1
     folder: tests
     name: get-config-integrity-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.Templates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/tests/Get-Config.Integrity.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-templates/tests/Get-Config.Integrity.Tests.ps1.md
 ---
 #>
 

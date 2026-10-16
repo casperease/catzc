@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/private/Resolve-DotnetRemovalTarget.ps1
     folder: private
     name: resolve-dotnet-removal-target
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PARAM#4
   config:
     synopsis: 'The .NET folder Remove-Dotnet evicts by default: the off-config install, never the managed one.'

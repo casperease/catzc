@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a58f4c2dca6d
     path: docs/references/automation/catzc-azure/types/AzureSubscriptionRecord.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: azure-subscription-record-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a58f4c2dca6d
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
 ---

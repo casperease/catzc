@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9a514dbf85a3"
     path: docs/explanation/azure/one-namer-assembles-every-name.md
     folder: docs/explanation/azure
     name: one-namer-assembles-every-name
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "9a514dbf85a3"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-NAMING#{1,4,5,8}
     links:
       - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.md

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/types/PythonConfig.cs
     folder: types
     name: python-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md
-      test: automation/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md
+    test: automation/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FOLDERS#7
 ---

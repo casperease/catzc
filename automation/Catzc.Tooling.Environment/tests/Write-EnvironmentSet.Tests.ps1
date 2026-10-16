@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
     folder: tests
     name: write-environment-set-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Tooling.Environment
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md
 ---
 #>
 

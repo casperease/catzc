@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "30e4288af2cd"
     path: docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-raw-console-write-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "30e4288af2cd"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

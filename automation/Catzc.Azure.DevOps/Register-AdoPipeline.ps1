@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/Register-AdoPipeline.ps1
     name: register-ado-pipeline
     filetype: ps1

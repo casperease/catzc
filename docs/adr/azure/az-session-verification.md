@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b86a677eda72
     path: docs/adr/azure/az-session-verification.md
     folder: docs/adr/azure
     name: az-session-verification
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b86a677eda72
+  edges:
     defines:
       - ADR-AZ-SESSION#{1-5}
     links:

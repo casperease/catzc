@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
     folder: private
     name: resolve-config-entry
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
+    cites:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-CACHE#4
   config:

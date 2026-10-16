@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e303a0153364
     path: docs/adr/repository/controlled-vocabulary.md
     folder: docs/adr/repository
     name: controlled-vocabulary
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: e303a0153364
+  edges:
     defines:
       - ADR-REPO-VOCAB#{1-8}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#9
     links:
       - docs/adr/automation/sensible-defaults.md

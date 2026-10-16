@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1
     name: invoke-ado-rest-method
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.DevOps/tests/Invoke-AdoRestMethod.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.DevOps/tests/Invoke-AdoRestMethod.Tests.ps1
   config:
     synopsis: Calls an Azure DevOps REST API endpoint with authentication and standard error handling.
     description: |-

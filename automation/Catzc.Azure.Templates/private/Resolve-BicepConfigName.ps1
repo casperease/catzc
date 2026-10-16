@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1
     folder: private
     name: resolve-bicep-config-name
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-DATAMOD#2
   config:
     synopsis: Parses a config / resource-group identity name into its (environment, slot) parts.

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestRunLocationSummary.Tests.ps1
     folder: tests
     name: get-test-run-location-summary-tests

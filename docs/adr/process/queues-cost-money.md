@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "620d1efbab2c"
     path: docs/adr/process/queues-cost-money.md
     folder: docs/adr/process
     name: queues-cost-money
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "620d1efbab2c"
+  edges:
     defines:
       - ADR-PROC-QUEUECOST#{1-5}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6ff54be76044"
     path: docs/references/automation/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md
     folder: docs/references/automation/catzc-base-execution/tests
     name: resolve-engine-executable-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6ff54be76044"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Inspiration/types/Inspiration.cs
     folder: types
     name: inspiration
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Tooling.Inspiration
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-tooling-inspiration/types/Inspiration.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-inspiration/types/Inspiration.cs.md
+    cites:
       - ADR-AUTO-PATH#5
       - ADR-REPO-INSPIRE#1
 ---

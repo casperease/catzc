@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "636ba4db748f"
     path: docs/references/automation/catzc-azure/types/Tenant.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: tenant-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "636ba4db748f"
 ---
 
 # automation/Catzc.Azure/types/Tenant.cs

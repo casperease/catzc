@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: eff1880109ad
     path: docs/references/automation/catzc-base-vscode.md
     folder: docs/references/automation
     name: catzc-base-vscode
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: eff1880109ad
+  edges:
     links:
       - docs/adr/repository/generated-root-configs.md
       - docs/references/automation/catzc-base-git.md

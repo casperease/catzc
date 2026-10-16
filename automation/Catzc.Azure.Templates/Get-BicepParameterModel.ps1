@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-BicepParameterModel.ps1
     name: get-bicep-parameter-model
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
   config:
     synopsis: |-
       Returns a template's Bicep parameter model: every parameter its compiled main.json declares, with type,

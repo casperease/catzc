@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6bf3086aa0e0"
     path: docs/references/automation/catzc-base-maps/types/MapsPin.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: maps-pin-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6bf3086aa0e0"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

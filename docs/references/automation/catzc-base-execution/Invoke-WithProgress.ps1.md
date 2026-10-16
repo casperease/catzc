@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "280a86e8851c"
     path: docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md
     folder: docs/references/automation/catzc-base-execution
     name: invoke-with-progress-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "280a86e8851c"
 ---
 
 # automation/Catzc.Base.Execution/Invoke-WithProgress.ps1

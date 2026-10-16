@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Split-TestAutomationFiles.ps1
     folder: private
     name: split-test-automation-files
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#{26,33}
   config:
     synopsis: 'Splits the run''s test files into the three execution phases: parallel, greedy, and serial.'

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/types/BoundedCommand.cs
     folder: types
     name: bounded-command
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Timeouts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md
-      test: automation/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md
+    test: automation/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE#2
 ---
 */

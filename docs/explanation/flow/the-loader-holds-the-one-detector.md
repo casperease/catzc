@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8a2ef0492492"
     path: docs/explanation/flow/the-loader-holds-the-one-detector.md
     folder: docs/explanation/flow
     name: the-loader-holds-the-one-detector
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "8a2ef0492492"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PARITY#3
       - ADR-FLOW-CD-DETECT#1
     links:

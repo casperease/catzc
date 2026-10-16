@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Vendor/tests/Test-VendorModuleAvailable.Tests.ps1
     folder: tests
     name: test-vendor-module-available-tests

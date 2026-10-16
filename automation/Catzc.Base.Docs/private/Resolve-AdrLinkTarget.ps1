@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Resolve-AdrLinkTarget.ps1
     folder: private
     name: resolve-adr-link-target
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Resolve-AdrLinkTarget.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Resolve-AdrLinkTarget.Tests.ps1
+    cites:
       - ADR-REPO-LINK#2
   config:
     synopsis: Resolves a markdown link's target, written in a file under docs/adr/, to its path under docs/adr/.

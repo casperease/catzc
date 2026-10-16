@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4511f151b87b"
     path: docs/adr/pwsh/dynamic-module-manifests.md
     folder: docs/adr/pwsh
     name: dynamic-module-manifests
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "4511f151b87b"
+  edges:
     defines:
       - ADR-PWSH-MANIFEST#{1-10}
-    adrs:
+    cites:
       - ADR-AUTO-DEPM#{1,2}
       - ADR-AUTO-EXTEND#{1,4}
       - ADR-AUTO-ZERO#{2,3}

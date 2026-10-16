@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "26e79173250c"
     path: docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
     folder: docs/.assets/references/automation/catzc-tooling-core
     name: invoke-tool-asserts-locked-version-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "26e79173250c"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEPS#3
       - ADR-AUTO-DRYRUN#2
       - ADR-CONF-LOADING#6

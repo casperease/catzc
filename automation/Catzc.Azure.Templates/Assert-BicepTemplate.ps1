@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
     name: assert-bicep-template
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md
-      test: automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md
+    test: automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
+    cites:
       - ADR-AZ-DATAMOD#9
   config:
     synopsis: |-

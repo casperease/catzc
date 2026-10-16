@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e041f22782a3
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-content-stamp-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e041f22782a3
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ContentStamp.ps1

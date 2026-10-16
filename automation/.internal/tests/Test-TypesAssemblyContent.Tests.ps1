@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/tests/Test-TypesAssemblyContent.Tests.ps1
     name: test-types-assembly-content-tests
     filetype: ps1

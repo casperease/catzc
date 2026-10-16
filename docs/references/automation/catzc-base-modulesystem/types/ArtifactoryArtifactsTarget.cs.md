@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d48edead58b7
     path: docs/references/automation/catzc-base-modulesystem/types/ArtifactoryArtifactsTarget.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: artifactory-artifacts-target-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d48edead58b7
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ArtifactoryArtifactsTarget.cs

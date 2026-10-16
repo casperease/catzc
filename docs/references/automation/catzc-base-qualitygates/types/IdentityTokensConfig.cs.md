@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8858db31548b"
     path: docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: identity-tokens-config-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8858db31548b"
 ---
 
 # automation/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs

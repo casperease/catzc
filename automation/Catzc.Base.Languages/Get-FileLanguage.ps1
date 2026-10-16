@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/Get-FileLanguage.ps1
     name: get-file-language
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#6
   config:
     synopsis: Returns the repository's file languages — all of them, the named ones, or the one a file is written in.

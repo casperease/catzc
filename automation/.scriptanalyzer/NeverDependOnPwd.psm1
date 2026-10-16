@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/NeverDependOnPwd.psm1
     folder: automation/.scriptanalyzer
     name: never-depend-on-pwd
@@ -9,8 +9,8 @@ catzc:
     kind: analyzer-rule
     language: powershell
     track: automation
-    relatives:
-      page: docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md
+  edges:
+    page: docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md
 ---
 #>
 

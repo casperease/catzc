@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: infrastructure/templates/discovery/configuration/apex/psub.yml
 #     folder: configuration/apex
 #     name: psub
@@ -11,8 +11,8 @@
 #     track: infrastructure
 #     module: discovery
 #     moduletype: bicep
-#     relatives:
-#       page: docs/references/infrastructure/templates/discovery/configuration/apex/psub.yml.md
+#   edges:
+#     page: docs/references/infrastructure/templates/discovery/configuration/apex/psub.yml.md
 # ---
 
 ParametersFile:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
     name: get-az-cli-session-subscription
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
+    cites:
       - ADR-AZ-SESSION
   config:
     synopsis: Resolves the az session's active subscription to its declared azure.yml identity.

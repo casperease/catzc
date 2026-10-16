@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: aaaf816e6238
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-TestRunContext.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-test-run-context-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: aaaf816e6238
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

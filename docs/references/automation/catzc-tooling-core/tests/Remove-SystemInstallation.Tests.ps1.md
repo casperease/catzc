@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ed256fbd2099
     path: docs/references/automation/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-core/tests
     name: remove-system-installation-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ed256fbd2099
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#33
 ---
 

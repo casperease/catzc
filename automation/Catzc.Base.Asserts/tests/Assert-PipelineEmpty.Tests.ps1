@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/tests/Assert-PipelineEmpty.Tests.ps1
     folder: tests
     name: assert-pipeline-empty-tests

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/tests/Get-Aspect.Tests.ps1
     folder: tests
     name: get-aspect-tests

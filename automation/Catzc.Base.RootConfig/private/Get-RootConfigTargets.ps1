@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
     folder: private
     name: get-root-config-targets
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.RootConfig/tests/Get-RootConfigTargets.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.RootConfig/tests/Get-RootConfigTargets.Tests.ps1
+    cites:
       - ADR-REPO-ROOTCFG
   config:
     synopsis: Resolves the rootconfig registry into the list of opted-in managed root files Build-RootConfig generates.

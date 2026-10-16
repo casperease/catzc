@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f7b6347487cd
     path: docs/references/automation/catzc-tooling-environment.md
     folder: docs/references/automation
     name: catzc-tooling-environment
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: f7b6347487cd
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ENVVAR#{1,7}
     links:
       - docs/adr/automation/cross-platform.md

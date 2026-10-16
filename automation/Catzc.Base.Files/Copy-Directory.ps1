@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/Copy-Directory.ps1
     name: copy-directory
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-files/Copy-Directory.ps1.md
-      test: automation/Catzc.Base.Files/tests/Copy-Directory.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-files/Copy-Directory.ps1.md
+    test: automation/Catzc.Base.Files/tests/Copy-Directory.Tests.ps1
+    cites:
       - ADR-PWSH-ENUM#3
   config:
     synopsis: Recursively copies the contents of a directory into a destination directory.

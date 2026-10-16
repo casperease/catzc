@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c8be4b47cb1e
     path: docs/adr/automation/retry-as-last-resort.md
     folder: docs/adr/automation
     name: retry-as-last-resort
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: c8be4b47cb1e
+  edges:
     defines:
       - ADR-AUTO-RETRY#{1-6}
     links:

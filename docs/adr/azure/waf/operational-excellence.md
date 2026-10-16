@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: be1d73e111ce
     path: docs/adr/azure/waf/operational-excellence.md
     folder: docs/adr/azure/waf
     name: operational-excellence
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: be1d73e111ce
+  edges:
     defines:
       - ADR-AZ-WAFOE#{1-11}
-    adrs:
+    cites:
       - ADR-AUTO-DEPS#1
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TEST#{33,35,41}

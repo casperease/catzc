@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-AutomationSourceFiles.ps1
     folder: private
     name: get-automation-source-files
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md
   config:
     synopsis: The canonical set of authored PowerShell files the analysis quality gates cover.
     description: Formatting covers a wider set (Format-Code); this set leaves out .vendor, .compiled and generated manifests.

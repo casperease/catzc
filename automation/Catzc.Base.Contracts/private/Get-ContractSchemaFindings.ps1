@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Get-ContractSchemaFindings.ps1
     folder: private
     name: get-contract-schema-findings
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CONTRACT#6
   config:
     synopsis: Validates one JSON or YAML file against a JSON Schema file, or checks the schema alone, and returns the findings.

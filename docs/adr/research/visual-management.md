@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c9c9dacd1070
     path: docs/adr/research/visual-management.md
     folder: docs/adr/research
     name: visual-management
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: c9c9dacd1070
+  edges:
     defines:
       - ADR-DORA-VISUAL#{1-5}
     links:

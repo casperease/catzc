@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Environment/Set-EnvironmentPath.ps1
     name: set-environment-path
     filetype: ps1
@@ -12,7 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#11
   config:
     synopsis: Writes the PATH environment variable at the scope given (the Windows registry for User/Machine).

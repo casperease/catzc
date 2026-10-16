@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d67e1218359f
     path: docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-only-automation-compiles-its-aspects-architecture-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: d67e1218359f
+  edges:
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png
       - docs/explanation/design/only-automation-compiles-its-aspects.md

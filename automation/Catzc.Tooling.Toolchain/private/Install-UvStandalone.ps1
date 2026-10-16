@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/private/Install-UvStandalone.ps1
     folder: private
     name: install-uv-standalone
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md
+    cites:
       - ADR-AUTO-PKGMGR
       - ADR-AUTO-UVPY
   config:

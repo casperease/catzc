@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e2cb090c3f31
     path: docs/references/automation/catzc-tooling-inspiration.md
     folder: docs/references/automation
     name: catzc-tooling-inspiration
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: e2cb090c3f31
+  edges:
     links:
       - docs/adr/automation/path-representation.md
       - docs/adr/automation/sensible-defaults.md

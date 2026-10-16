@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ef6923670aa4
     path: docs/explanation/flow/every-doubt-fails-open-to-proceed.md
     folder: docs/explanation/flow
     name: every-doubt-fails-open-to-proceed
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: ef6923670aa4
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#9
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.md

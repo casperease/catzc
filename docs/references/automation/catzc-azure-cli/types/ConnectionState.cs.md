@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cb92fdfe77f1
     path: docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md
     folder: docs/references/automation/catzc-azure-cli/types
     name: connection-state-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: cb92fdfe77f1
 ---
 
 # automation/Catzc.Azure.Cli/types/ConnectionState.cs

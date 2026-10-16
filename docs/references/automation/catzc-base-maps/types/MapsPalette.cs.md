@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0f6063ff4e0f"
     path: docs/references/automation/catzc-base-maps/types/MapsPalette.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: maps-palette-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0f6063ff4e0f"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
 ---

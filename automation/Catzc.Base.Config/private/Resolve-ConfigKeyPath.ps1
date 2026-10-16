@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
     folder: private
     name: resolve-config-key-path
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-CONF-ADDRESSING#{2,4,5}
   config:
     synopsis: Walks a key path into an already-loaded config node and returns the addressed node.

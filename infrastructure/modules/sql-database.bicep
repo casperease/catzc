@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/sql-database.bicep
 //     name: sql-database
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: sql-database
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/sql-database.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/sql-database.bicep.md
 // ---
 
 @description('Name of the existing SQL logical server that hosts this database.')

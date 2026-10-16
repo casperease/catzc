@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "05571cedbc19"
     path: docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md
     folder: docs/references/automation/catzc-base-languages
     name: invoke-bash-test-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "05571cedbc19"
 ---
 
 # automation/Catzc.Base.Languages/Invoke-BashTest.ps1

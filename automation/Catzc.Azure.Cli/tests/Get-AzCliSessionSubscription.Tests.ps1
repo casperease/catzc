@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
     folder: tests
     name: get-az-cli-session-subscription-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Azure.Cli
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md
+    cites:
       - ADR-PWSH-PESTER#3
 ---
 #>

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "21cbd7522c30"
     path: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: get-function-dependency-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "21cbd7522c30"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#{2,4-6}
       - ADR-AUTO-TEST#4
       - ADR-PWSH-CACHE#4

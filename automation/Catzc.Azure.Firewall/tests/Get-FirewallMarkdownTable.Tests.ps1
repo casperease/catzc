@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownTable.Tests.ps1
     folder: tests
     name: get-firewall-markdown-table-tests

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c1c1106a80c5
     path: docs/references/automation/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: assert-dev-box-tools-status-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c1c1106a80c5
 ---
 
 # automation/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1

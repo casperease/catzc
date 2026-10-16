@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Go.Tests.ps1
     folder: tests
     name: uninstall-go-tests

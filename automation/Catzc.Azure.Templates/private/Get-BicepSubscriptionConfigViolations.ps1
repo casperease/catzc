@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/private/Get-BicepSubscriptionConfigViolations.ps1
     folder: private
     name: get-bicep-subscription-config-violations
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1
+    cites:
       - ADR-AZ-DATAMOD#8
   config:
     synopsis: |-

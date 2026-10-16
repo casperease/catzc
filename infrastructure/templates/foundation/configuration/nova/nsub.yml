@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: infrastructure/templates/foundation/configuration/nova/nsub.yml
 #     folder: configuration/nova
 #     name: nsub

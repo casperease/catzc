@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3580a530afb4"
     path: docs/explanation/automation/invoke-importer-in-code-order.md
     folder: docs/explanation/automation
     name: invoke-importer-in-code-order
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "3580a530afb4"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-BUNDLE#{2,3,8}
     links:
       - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md

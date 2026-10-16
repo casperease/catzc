@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "558b77e45d42"
     path: docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-naming-how-each-naming-rule-is-held-governance-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "558b77e45d42"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md

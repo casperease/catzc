@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyConfig.ps1
     folder: private
     name: get-module-dependency-config

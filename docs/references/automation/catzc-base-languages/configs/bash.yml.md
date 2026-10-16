@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c68de2fbc2de
     path: docs/references/automation/catzc-base-languages/configs/bash.yml.md
     folder: docs/references/automation/catzc-base-languages/configs
     name: bash-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c68de2fbc2de
 ---
 
 # automation/Catzc.Base.Languages/configs/bash.yml

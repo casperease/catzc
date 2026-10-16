@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Variants/configs/module-types.yml
 #     folder: configs
 #     name: module-types
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Variants
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-variants/configs/module-types.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-variants/configs/module-types.yml.md
 # ---
 
 module_types:

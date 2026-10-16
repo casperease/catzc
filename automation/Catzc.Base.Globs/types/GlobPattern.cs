@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/types/GlobPattern.cs
     folder: types
     name: glob-pattern
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Globs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md
-      test: automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md
+    test: automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS
 ---
 */

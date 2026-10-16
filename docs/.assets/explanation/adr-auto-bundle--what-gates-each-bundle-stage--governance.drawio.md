@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8c792d1d34f4"
     path: docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-what-gates-each-bundle-stage-governance-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "8c792d1d34f4"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.md

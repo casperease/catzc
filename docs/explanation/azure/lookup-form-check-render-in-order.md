@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cd0312dc18af
     path: docs/explanation/azure/lookup-form-check-render-in-order.md
     folder: docs/explanation/azure
     name: lookup-form-check-render-in-order
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: cd0312dc18af
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-NAMING#{4-7}
     links:
       - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md

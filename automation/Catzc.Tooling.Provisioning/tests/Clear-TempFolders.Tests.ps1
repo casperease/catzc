@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
     folder: tests
     name: clear-temp-folders-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Tooling.Provisioning
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md
 ---
 #>
 

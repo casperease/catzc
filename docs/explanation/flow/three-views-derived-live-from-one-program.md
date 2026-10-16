@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1f77b803bb23"
     path: docs/explanation/flow/three-views-derived-live-from-one-program.md
     folder: docs/explanation/flow
     name: three-views-derived-live-from-one-program
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "1f77b803bb23"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{1,4,5,9}
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.md

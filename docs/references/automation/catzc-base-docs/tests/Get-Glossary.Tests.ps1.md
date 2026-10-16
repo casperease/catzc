@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "412bc13add97"
     path: docs/references/automation/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-glossary-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "412bc13add97"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#3
 ---

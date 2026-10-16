@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "77ac509bd65a"
     path: docs/references/automation/catzc-base-modulesystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: get-uncovered-internal-asset-dependency-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "77ac509bd65a"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ASSETDEP#{3,4}
       - ADR-AUTO-TEST#3
 ---

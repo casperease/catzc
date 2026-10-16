@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/types/BashTestResult.cs
     folder: types
     name: bash-test-result
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-languages/types/BashTestResult.cs.md
-      test: automation/Catzc.Base.Languages/tests/types/BashTestResult.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/types/BashTestResult.cs.md
+    test: automation/Catzc.Base.Languages/tests/types/BashTestResult.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TYPES#8
 ---

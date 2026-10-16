@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1
     folder: tests
     name: get-config-overlay-root-tests

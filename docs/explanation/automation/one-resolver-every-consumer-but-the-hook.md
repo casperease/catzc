@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6338c39818a8"
     path: docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
     folder: docs/explanation/automation
     name: one-resolver-every-consumer-but-the-hook
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "6338c39818a8"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:

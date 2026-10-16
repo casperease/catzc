@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4a6afd26888a"
     path: docs/references/automation/catzc-base-languages/types/BashConfig.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: bash-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4a6afd26888a"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FOLDERS#7
 ---

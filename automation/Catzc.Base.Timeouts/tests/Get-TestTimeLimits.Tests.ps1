@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/tests/Get-TestTimeLimits.Tests.ps1
     folder: tests
     name: get-test-time-limits-tests

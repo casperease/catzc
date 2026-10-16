@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/GlossaryAvoid.cs
     folder: types
     name: glossary-avoid
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/GlossaryAvoid.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/GlossaryAvoid.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-VOCAB#5
 ---

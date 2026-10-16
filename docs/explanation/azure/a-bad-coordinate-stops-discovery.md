@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: de5f24266b08
     path: docs/explanation/azure/a-bad-coordinate-stops-discovery.md
     folder: docs/explanation/azure
     name: a-bad-coordinate-stops-discovery
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: de5f24266b08
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CUSTOMER#6
       - ADR-AZ-DATAMOD#{3,8}
     links:

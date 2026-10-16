@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestRunFile.ps1
     folder: private
     name: get-test-run-file
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestRunFile.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestRunFile.Tests.ps1
   config:
     synopsis: 'Names the run file a discovered or executed Pester test belongs to: its test file, or its language test folder.'
     description: |-

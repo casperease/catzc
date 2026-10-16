@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "555677c00938"
     path: docs/adr/repository/inspiration.md
     folder: docs/adr/repository
     name: inspiration
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "555677c00938"
+  edges:
     defines:
       - ADR-REPO-INSPIRE#{1-5}
-    adrs:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-PATH#11
     links:

@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/types/NetworkEnvironment.cs
     folder: types
     name: network-environment
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Azure
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure/types/NetworkEnvironment.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure/types/NetworkEnvironment.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-NETWORK
 ---

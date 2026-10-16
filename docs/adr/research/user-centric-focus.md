@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f9bb86787adb
     path: docs/adr/research/user-centric-focus.md
     folder: docs/adr/research
     name: user-centric-focus
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: f9bb86787adb
+  edges:
     defines:
       - ADR-DORA-USERFOCUS#{1-5}
     links:

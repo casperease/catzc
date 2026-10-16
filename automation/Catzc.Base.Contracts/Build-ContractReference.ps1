@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
     name: build-contract-reference
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
+    cites:
       - ADR-REPO-CONTRACT#{2,5}
       - ADR-REPO-FORMAT#5
       - ADR-REPO-README#7

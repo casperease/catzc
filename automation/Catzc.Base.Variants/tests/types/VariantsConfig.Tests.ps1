@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
     folder: tests/types
     name: variants-config-tests

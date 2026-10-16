@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Assert-LastExitCodeWasZero.ps1
     name: assert-last-exit-code-was-zero
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Asserts/tests/Assert-LastExitCodeWasZero.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Asserts/tests/Assert-LastExitCodeWasZero.Tests.ps1
   config:
     synopsis: Asserts that $LASTEXITCODE is 0.
     description: |-

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "80eb6f98e58e"
     path: docs/references/automation/catzc-base-maps/types/MapsHighlight.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: maps-highlight-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "80eb6f98e58e"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
 ---

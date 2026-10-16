@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/GlossaryConcept.cs
     folder: types
     name: glossary-concept
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
+    cites:
       - ADR-AUTO-TEST#30
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3

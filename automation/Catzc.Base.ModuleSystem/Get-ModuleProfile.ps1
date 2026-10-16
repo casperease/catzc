@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleProfile.ps1
     name: get-module-profile
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1
   config:
     synopsis: |-
       Resolves a named profile (or an explicit seed list) to the full set of disk-module names to copy — the

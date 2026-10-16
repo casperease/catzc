@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4c8d25e5c86b"
     path: docs/adr/automation/test-automation.md
     folder: docs/adr/automation
     name: test-automation
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "4c8d25e5c86b"
+  edges:
     defines:
       - ADR-AUTO-TEST#{1,3,4,6-10,13-17,19-28,30-44}
-    adrs:
+    cites:
       - ADR-AUTO-BASH#5
       - ADR-AUTO-CACHE#5
       - ADR-AUTO-FAILFAST#7

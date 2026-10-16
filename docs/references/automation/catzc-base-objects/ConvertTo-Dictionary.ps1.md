@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6bd79eff9796"
     path: docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md
     folder: docs/references/automation/catzc-base-objects
     name: convert-to-dictionary-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6bd79eff9796"
 ---
 
 # automation/Catzc.Base.Objects/ConvertTo-Dictionary.ps1

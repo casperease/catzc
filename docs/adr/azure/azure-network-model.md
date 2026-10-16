@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d2049d5d7120
     path: docs/adr/azure/azure-network-model.md
     folder: docs/adr/azure
     name: azure-network-model
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d2049d5d7120
+  edges:
     defines:
       - ADR-AZ-NETWORK#{1-6}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-CONF-LOADING#4
     links:

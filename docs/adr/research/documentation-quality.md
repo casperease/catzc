@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b8b7bf2ed828
     path: docs/adr/research/documentation-quality.md
     folder: docs/adr/research
     name: documentation-quality
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b8b7bf2ed828
+  edges:
     defines:
       - ADR-DORA-DOCS#{1-5}
     links:

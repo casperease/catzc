@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/CommentEngine.cs
     folder: types
     name: comment-engine
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
+    cites:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-FORMAT#5

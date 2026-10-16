@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Get-ToolConfig.ps1
     name: get-tool-config
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1
   config:
     synopsis: Returns the locked configuration for a CLI tool as a validated ToolConfig.
     description: |-

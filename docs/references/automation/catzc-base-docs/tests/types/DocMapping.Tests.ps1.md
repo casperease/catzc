@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e86dddf45f2c
     path: docs/references/automation/catzc-base-docs/tests/types/DocMapping.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests/types
     name: doc-mapping-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e86dddf45f2c
 ---
 
 # automation/Catzc.Base.Docs/tests/types/DocMapping.Tests.ps1

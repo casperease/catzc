@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-CommittedTypesDrift.ps1
     folder: private
     name: get-committed-types-drift

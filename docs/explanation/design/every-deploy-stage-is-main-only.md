@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1dbd42896d00"
     path: docs/explanation/design/every-deploy-stage-is-main-only.md
     folder: docs/explanation/design
     name: every-deploy-stage-is-main-only
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "1dbd42896d00"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#9
     links:
       - docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.md

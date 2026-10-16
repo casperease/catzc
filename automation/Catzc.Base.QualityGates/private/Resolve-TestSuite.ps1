@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
     folder: private
     name: resolve-test-suite
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#37
       - ADR-FLOW-CD-GLOBS#7
   config:

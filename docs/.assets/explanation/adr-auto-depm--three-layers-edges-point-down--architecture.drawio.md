@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fd7dc97da17e
     path: docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-depm-three-layers-edges-point-down-architecture-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: fd7dc97da17e
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.chain.md

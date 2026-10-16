@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "38ff1b133ab0"
     path: docs/explanation/design/ingress-gated-the-rest-by-review.md
     folder: docs/explanation/design
     name: ingress-gated-the-rest-by-review
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "38ff1b133ab0"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#6
       - ADR-DSGN-REMOTE
       - ADR-REPO-VARIANT#6

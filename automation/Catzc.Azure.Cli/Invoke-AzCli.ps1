@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Invoke-AzCli.ps1
     name: invoke-az-cli
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md
-      test: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md
+    test: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.Tests.ps1
   config:
     synopsis: Runs az with the given arguments.
     description: |-

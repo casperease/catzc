@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ed0e85e37e08
     path: docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: code-link-rewriter-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: ed0e85e37e08
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#3
 ---
 

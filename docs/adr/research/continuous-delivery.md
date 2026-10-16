@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f32418cd25eb
     path: docs/adr/research/continuous-delivery.md
     folder: docs/adr/research
     name: continuous-delivery
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: f32418cd25eb
+  edges:
     defines:
       - ADR-DORA-CD#{1-5}
-    adrs:
+    cites:
       - ADR-FLOW-CD-TYPE#{3,4,8,10}
     links:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

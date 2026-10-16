@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1c89ab77c942"
     path: docs/references/waf/index.md
     folder: docs/references/waf
     name: index
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "1c89ab77c942"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-WAFRE#4
     links:
       - docs/adr/azure/landing-zones.md

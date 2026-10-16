@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/tests/types/Ansi.Tests.ps1
     folder: tests/types
     name: ansi-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Writers
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-writers/tests/types/Ansi.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-writers/tests/types/Ansi.Tests.ps1.md
+    cites:
       - ADR-AUTO-CONSOLE#7
 ---
 #>

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b4d3680b1e6f
     path: docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md
     folder: docs/references/automation/catzc-base-asserts
     name: assert-path-exist-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b4d3680b1e6f
 ---
 
 # automation/Catzc.Base.Asserts/Assert-PathExist.ps1

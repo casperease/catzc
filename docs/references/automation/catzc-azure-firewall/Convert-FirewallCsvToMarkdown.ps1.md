@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7df2ea282c64"
     path: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md
     folder: docs/references/automation/catzc-azure-firewall
     name: convert-firewall-csv-to-markdown-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "7df2ea282c64"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PARAM#4
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-LanguageTestExecutable.ps1
     folder: private
     name: get-language-test-executable
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestExecutable.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestExecutable.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE#{1,4}
       - ADR-AUTO-GO#7
       - ADR-AUTO-PY#7

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d0d37274d764
     path: docs/references/automation/catzc-base-modulesystem/configs/files.yml.md
     folder: docs/references/automation/catzc-base-modulesystem/configs
     name: files-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d0d37274d764
 ---
 
 # automation/Catzc.Base.ModuleSystem/configs/files.yml

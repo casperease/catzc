@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d566eadc0aa6
     path: docs/references/automation/catzc-base-codemeta/types/CodeMetaHead.cs.md
     folder: docs/references/automation/catzc-base-codemeta/types
     name: code-meta-head-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d566eadc0aa6
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-FILEMETA#6
 ---

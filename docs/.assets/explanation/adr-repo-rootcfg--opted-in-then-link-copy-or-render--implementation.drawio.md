@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4894e8cb3096"
     path: docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-rootcfg-opted-in-then-link-copy-or-render-implementation-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "4894e8cb3096"
+  edges:
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
       - docs/explanation/repository/opted-in-then-link-copy-or-render.md

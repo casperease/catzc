@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: be8fda485660
     path: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHint.ps1.md
     folder: docs/references/automation/catzc-tooling-core/private
     name: resolve-session-tool-hint-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: be8fda485660
 ---
 
 # automation/Catzc.Tooling.Core/private/Resolve-SessionToolHint.ps1

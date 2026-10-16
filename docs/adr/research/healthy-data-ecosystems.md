@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a3b588f4a9ca
     path: docs/adr/research/healthy-data-ecosystems.md
     folder: docs/adr/research
     name: healthy-data-ecosystems
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: a3b588f4a9ca
+  edges:
     defines:
       - ADR-DORA-DATAECO#{1-6}
-    adrs:
+    cites:
       - ADR-CONF-LOADING#4
     links:
       - docs/adr/azure/azure-data-model.md

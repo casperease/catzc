@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4e6f35ae6bb0"
     path: docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-life-sync-point-rules-are-adr-only-governance-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "4e6f35ae6bb0"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.chain.md

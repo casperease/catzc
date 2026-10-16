@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "082af78a09ca"
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Change.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: test-change-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "082af78a09ca"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

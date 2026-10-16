@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b8e8750cdd85
     path: docs/adr/pwsh/pwsh-engine.md
     folder: docs/adr/pwsh
     name: pwsh-engine
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b8e8750cdd85
+  edges:
     defines:
       - ADR-PWSH-ENGINE#{1-6}
-    adrs:
+    cites:
       - ADR-AUTO-BUNDLE#{3,8}
       - ADR-PWSH-ERROR#{1,2}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f34f60e47714
     path: docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
     folder: docs/.assets/references/automation/catzc-azure-cli
     name: az-cli-test-assert-share-one-state-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: f34f60e47714
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PRELOG#5
       - ADR-AZ-CLI#1
       - ADR-AZ-DATAMOD#4

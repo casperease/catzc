@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8319265c1cdf"
     path: docs/references/infrastructure/modules/policy-assignment.bicep.md
     folder: docs/references/infrastructure/modules
     name: policy-assignment-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8319265c1cdf"
 ---
 
 # infrastructure/modules/policy-assignment.bicep

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "43bd9672b6fc"
     path: docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: comment-lexer-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "43bd9672b6fc"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#{1,6}
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/Get-TimeoutExemption.ps1
     name: get-timeout-exemption
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Timeouts/tests/Get-TimeoutExemption.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Timeouts/tests/Get-TimeoutExemption.Tests.ps1
   config:
     synopsis: Returns the exemption that covers a budget GUID in this run environment, or nothing.
     description: |-

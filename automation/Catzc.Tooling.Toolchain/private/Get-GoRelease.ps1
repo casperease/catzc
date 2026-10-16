@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/private/Get-GoRelease.ps1
     folder: private
     name: get-go-release
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.Toolchain/tests/Get-GoRelease.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Toolchain/tests/Get-GoRelease.Tests.ps1
   config:
     synopsis: Resolves the official Go archive for a locked version from the go.dev release feed.
     description: |-

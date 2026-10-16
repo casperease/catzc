@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/tests/Test-PrePost.Tests.ps1
     folder: tests
     name: test-pre-post-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.Templates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md
 ---
 #>
 

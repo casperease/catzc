@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
     folder: private
     name: get-terminology-corpus
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md
+    cites:
       - ADR-AZ-DATAMOD
       - ADR-PWSH-PESTER#9
   config:

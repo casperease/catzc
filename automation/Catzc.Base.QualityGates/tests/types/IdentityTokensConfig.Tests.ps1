@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/types/IdentityTokensConfig.Tests.ps1
     folder: tests/types
     name: identity-tokens-config-tests

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Get-CatsAdrRules.Tests.ps1
     folder: tests
     name: get-cats-adr-rules-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-VOCAB#1
 ---
 #>

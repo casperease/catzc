@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "452e168524eb"
     path: docs/references/automation/catzc-base-writers/tests/types/Ansi.Tests.ps1.md
     folder: docs/references/automation/catzc-base-writers/tests/types
     name: ansi-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "452e168524eb"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CONSOLE#7
 ---
 

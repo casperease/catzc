@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8ebc8a912f72"
     path: docs/explanation/repository/one-registry-one-writer-two-primitives.md
     folder: docs/explanation/repository
     name: one-registry-one-writer-two-primitives
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "8ebc8a912f72"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-ROOTCFG#{2,4,7}
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.md

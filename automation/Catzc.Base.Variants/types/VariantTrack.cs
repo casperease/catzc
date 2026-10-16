@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/types/VariantTrack.cs
     folder: types
     name: variant-track
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Variants
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK
 ---

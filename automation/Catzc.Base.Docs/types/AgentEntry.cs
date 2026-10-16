@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/AgentEntry.cs
     folder: types
     name: agent-entry
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/AgentEntry.cs.md
-      test: automation/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/AgentEntry.cs.md
+    test: automation/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-AGENTS#2
 ---

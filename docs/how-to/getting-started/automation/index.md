@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f1c4f850cec7
     path: docs/how-to/getting-started/automation/index.md
     folder: docs/how-to/getting-started/automation
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: f1c4f850cec7
+  edges:
     links:
       - docs/adr/automation/caching.md
       - docs/adr/automation/zero-ceremony-poka-yoke.md

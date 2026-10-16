@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8ccffbfb5dbe"
     path: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
     folder: docs/references/automation/catzc-azure-devops-buildvalidation/types
     name: build-validation-entry-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8ccffbfb5dbe"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
       - ADR-FLOW-CD-TYPE#4

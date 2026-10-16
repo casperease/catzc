@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "473ce1b81231"
     path: docs/references/automation/catzc-base-docs/tests/types/GitHubAnchor.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests/types
     name: git-hub-anchor-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "473ce1b81231"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#2
 ---
 

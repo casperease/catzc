@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/private/Assert-RemoteMatchesBranch.ps1
     folder: private
     name: assert-remote-matches-branch

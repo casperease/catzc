@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "19d36db4ee84"
     path: docs/references/automation/catzc-base-qualitygates/types/LinkFindingType.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: link-finding-type-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "19d36db4ee84"
 ---
 
 # automation/Catzc.Base.QualityGates/types/LinkFindingType.cs

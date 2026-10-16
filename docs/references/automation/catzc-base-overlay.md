@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a4a0355391e6
     path: docs/references/automation/catzc-base-overlay.md
     folder: docs/references/automation
     name: catzc-base-overlay
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: a4a0355391e6
+  edges:
     links:
       - docs/adr/automation/consumer-overlay.md
       - docs/adr/automation/platform-bundle.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "55d1103e9a48"
     path: docs/references/automation/catzc-base-docs/types/AdrDoraCheck.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-dora-check-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "55d1103e9a48"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-CONFIG#4
 ---

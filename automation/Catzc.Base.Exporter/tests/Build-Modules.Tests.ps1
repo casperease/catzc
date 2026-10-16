@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1
     folder: tests
     name: build-modules-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Exporter
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md
 ---
 #>
 

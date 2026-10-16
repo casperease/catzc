@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/private/Find-WindowsGitCredentialManager.ps1
     folder: private
     name: find-windows-git-credential-manager
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.Provisioning/tests/Find-WindowsGitCredentialManager.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Provisioning/tests/Find-WindowsGitCredentialManager.Tests.ps1
   config:
     synopsis: Locates the Windows Git Credential Manager from inside a WSL session.
     description: |-

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/Remove-RepositorySnapshot.ps1
     name: remove-repository-snapshot
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md
-      test: automation/Catzc.Base.Git/tests/Remove-RepositorySnapshot.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md
+    test: automation/Catzc.Base.Git/tests/Remove-RepositorySnapshot.Tests.ps1
+    cites:
       - ADR-PWSH-ENUM#3
   config:
     synopsis: Deletes a repository snapshot made by New-RepositorySnapshot.

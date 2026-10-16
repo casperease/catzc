@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e7725350ff34
     path: docs/how-to/automation/manual-test-plan/module-system.md
     folder: docs/how-to/automation/manual-test-plan
     name: module-system
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: e7725350ff34
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ASSETDEP#{3,4}
     links:
       - docs/how-to/automation/manual-test-plan.md

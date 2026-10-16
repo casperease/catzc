@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4bb99ea1e724"
     path: docs/adr/automation/single-responsibility-functions.md
     folder: docs/adr/automation
     name: single-responsibility-functions
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "4bb99ea1e724"
+  edges:
     defines:
       - ADR-AUTO-ONEJOB#{1-6}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f7120001802a
     path: docs/references/automation/catzc-base-modulesystem/tests/Sync-GeneratedFile.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests
     name: sync-generated-file-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f7120001802a
 ---
 
 # automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1

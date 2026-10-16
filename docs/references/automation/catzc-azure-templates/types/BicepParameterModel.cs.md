@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4a11065400c0"
     path: docs/references/automation/catzc-azure-templates/types/BicepParameterModel.cs.md
     folder: docs/references/automation/catzc-azure-templates/types
     name: bicep-parameter-model-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4a11065400c0"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

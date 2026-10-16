@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Remove-Dotnet.ps1
     name: remove-dotnet
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md
-      test: automation/Catzc.Tooling.Toolchain/tests/Remove-Dotnet.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md
+    test: automation/Catzc.Tooling.Toolchain/tests/Remove-Dotnet.Tests.ps1
+    cites:
       - ADR-AUTO-REMOVE
   config:
     synopsis: Evicts an off-config .NET install — one the tooling's managed user-space install does not own.

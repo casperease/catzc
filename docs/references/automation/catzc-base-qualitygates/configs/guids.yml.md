@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fa34b9ef9840
     path: docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: guids-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fa34b9ef9840
 ---
 
 # automation/Catzc.Base.QualityGates/configs/guids.yml

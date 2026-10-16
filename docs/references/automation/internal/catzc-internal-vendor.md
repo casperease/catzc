@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: af35dd6b1d66
     path: docs/references/automation/internal/catzc-internal-vendor.md
     folder: docs/references/automation/internal
     name: catzc-internal-vendor
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: af35dd6b1d66
+  edges:
     links:
       - docs/adr/principles/one-living-version.md
       - docs/adr/pwsh/use-ps1-not-psm1.md

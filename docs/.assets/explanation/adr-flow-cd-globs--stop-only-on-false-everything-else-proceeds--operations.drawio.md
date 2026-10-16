@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0c50ac04051e"
     path: docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-stop-only-on-false-everything-else-proceeds-operations-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "0c50ac04051e"
+  edges:
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
       - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md

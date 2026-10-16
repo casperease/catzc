@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TestRunLocationSummary.ps1
     folder: private
     name: get-test-run-location-summary
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-TestRunLocationSummary.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-TestRunLocationSummary.Tests.ps1
   config:
     synopsis: Renders where a test run executed, for the report header and the run manifest.
     description: |-

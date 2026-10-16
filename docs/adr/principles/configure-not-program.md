@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dc551b9dd238
     path: docs/adr/principles/configure-not-program.md
     folder: docs/adr/principles
     name: configure-not-program
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: dc551b9dd238
+  edges:
     defines:
       - ADR-PRIN-CONFIG#{1-5}
-    adrs:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-CONF-LOADING#4
 ---

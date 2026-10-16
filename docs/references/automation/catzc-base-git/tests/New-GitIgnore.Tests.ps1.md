@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: faa62cb3951c
     path: docs/references/automation/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md
     folder: docs/references/automation/catzc-base-git/tests
     name: new-git-ignore-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: faa62cb3951c
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#2
 ---
 

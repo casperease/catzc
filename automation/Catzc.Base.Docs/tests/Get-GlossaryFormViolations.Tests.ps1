@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
     folder: tests
     name: get-glossary-form-violations-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/tests/Get-GlossaryFormViolations.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/tests/Get-GlossaryFormViolations.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#4
       - ADR-REPO-FILEMETA#1
@@ -83,7 +83,7 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
     }
 
     It 'reads no meta block in the front matter as prose, and still reads the rest of the front matter' -Tag 'ADR-REPO-VOCAB#8', 'ADR-REPO-FILEMETA#1' {
-        $text = @('---', 'catzc:', '  derived:', '    path: docs/explanation/pick-sprocket-widget.md', '    kind: explanation', 'note: a sprocket widget', '---', '', '# Alpha')
+        $text = @('---', 'catzc:', '  immutable:', '    path: docs/explanation/pick-sprocket-widget.md', '    kind: explanation', 'note: a sprocket widget', '---', '', '# Alpha')
         $found = & $script:scan @{ 'docs/alpha.md' = $text }
         $found | Should -Be @("docs/alpha.md:6 says `"sprocket widget`" — $script:tail")
     }

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9bb1164dfed1"
     path: docs/references/automation/catzc-base-exporter/types/ExporterBundle.cs.md
     folder: docs/references/automation/catzc-base-exporter/types
     name: exporter-bundle-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9bb1164dfed1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

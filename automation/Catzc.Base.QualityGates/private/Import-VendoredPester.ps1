@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Import-VendoredPester.ps1
     folder: private
     name: import-vendored-pester
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Import-VendoredPester.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Import-VendoredPester.Tests.ps1
+    cites:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#11
       - ADR-PWSH-VENDOR#5

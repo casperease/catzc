@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "207896489921"
     path: docs/references/automation/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md
     folder: docs/references/automation/catzc-base-exporter/tests
     name: new-catzc-nu-get-package-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "207896489921"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{3,20}
 ---
 

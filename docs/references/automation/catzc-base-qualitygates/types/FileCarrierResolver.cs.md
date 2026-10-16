@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5285ff57f091"
     path: docs/references/automation/catzc-base-qualitygates/types/FileCarrierResolver.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: file-carrier-resolver-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5285ff57f091"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#5
 ---
 

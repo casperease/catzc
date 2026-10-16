@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d97fcc2d48b2
     path: docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: sync-session-tools-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d97fcc2d48b2
 ---
 
 # automation/Catzc.Tooling.Core/Sync-SessionTools.ps1

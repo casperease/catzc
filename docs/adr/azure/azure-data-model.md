@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "62bbc25cbfea"
     path: docs/adr/azure/azure-data-model.md
     folder: docs/adr/azure
     name: azure-data-model
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "62bbc25cbfea"
+  edges:
     defines:
       - ADR-AZ-DATAMOD#{1-11}
     links:

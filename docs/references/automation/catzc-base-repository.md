@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: aa36a4ef1cbb
     path: docs/references/automation/catzc-base-repository.md
     folder: docs/references/automation
     name: catzc-base-repository
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: aa36a4ef1cbb
+  edges:
     links:
       - docs/adr/automation/never-depend-on-pwd.md
       - docs/adr/flow/pipeline-detection.md

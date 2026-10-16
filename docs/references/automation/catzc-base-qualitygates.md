@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9f8a3f50e4a6"
     path: docs/references/automation/catzc-base-qualitygates.md
     folder: docs/references/automation
     name: catzc-base-qualitygates
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "9f8a3f50e4a6"
+  edges:
     links:
       - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
       - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png

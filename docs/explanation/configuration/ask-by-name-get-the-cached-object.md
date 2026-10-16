@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "87242c08bfcf"
     path: docs/explanation/configuration/ask-by-name-get-the-cached-object.md
     folder: docs/explanation/configuration
     name: ask-by-name-get-the-cached-object
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "87242c08bfcf"
-    adrs:
+  edges:
+    cites:
       - ADR-CONF-ADDRESSING#4
       - ADR-CONF-LOADING#{1-4}
     links:

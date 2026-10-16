@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "964a8351c982"
     path: docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: console-text-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "964a8351c982"
 ---
 
 # automation/Catzc.Base.Objects/types/ConsoleText.cs

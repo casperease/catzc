@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b9a2bba9d334
     path: docs/adr/design/dora-explains.md
     folder: docs/adr/design
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b9a2bba9d334
+  edges:
     links:
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/module-aspects.md

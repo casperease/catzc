@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ce8375725233
     path: docs/explanation/flow/three-tasks-one-guard-one-runner.md
     folder: docs/explanation/flow
     name: three-tasks-one-guard-one-runner
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: ce8375725233
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-RUNNER#{1-3}
     links:
       - docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md

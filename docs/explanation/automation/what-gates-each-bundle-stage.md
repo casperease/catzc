@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "72ee88959e72"
     path: docs/explanation/automation/what-gates-each-bundle-stage.md
     folder: docs/explanation/automation
     name: what-gates-each-bundle-stage
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "72ee88959e72"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ASSETDEP#4
       - ADR-AUTO-BUNDLE#{1,5-7}
       - ADR-AUTO-TEST#{30,31}

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyEdges.Tests.ps1
     folder: tests
     name: get-module-dependency-edges-tests

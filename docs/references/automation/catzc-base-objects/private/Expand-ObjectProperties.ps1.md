@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a57eb9def1d6
     path: docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md
     folder: docs/references/automation/catzc-base-objects/private
     name: expand-object-properties-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a57eb9def1d6
 ---
 
 # automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1

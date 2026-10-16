@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/Invoke-PySpark.ps1
     name: invoke-py-spark
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Python/tests/Invoke-PySpark.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Python/tests/Invoke-PySpark.Tests.ps1
   config:
     synopsis: Runs pyspark with the given arguments.
     description: |-

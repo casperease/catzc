@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
     name: uninstall-zsh
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md
-      test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md
+    test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
+    cites:
       - ADR-AUTO-IDEM#2
       - ADR-AUTO-REMOVE#{2,6}
   config:

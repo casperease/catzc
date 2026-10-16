@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b477e777a6cd
     path: docs/adr/research/clear-and-communicated-ai-stance.md
     folder: docs/adr/research
     name: clear-and-communicated-ai-stance
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b477e777a6cd
+  edges:
     defines:
       - ADR-DORA-AISTANCE#{1-5}
     links:

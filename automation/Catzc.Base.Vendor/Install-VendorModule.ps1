@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Vendor/Install-VendorModule.ps1
     name: install-vendor-module
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md
-      test: automation/Catzc.Base.Vendor/tests/Install-VendorModule.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md
+    test: automation/Catzc.Base.Vendor/tests/Install-VendorModule.Tests.ps1
+    cites:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-VENDOR
   config:

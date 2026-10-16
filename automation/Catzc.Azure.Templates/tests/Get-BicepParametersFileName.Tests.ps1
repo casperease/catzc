@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepParametersFileName.Tests.ps1
     folder: tests
     name: get-bicep-parameters-file-name-tests

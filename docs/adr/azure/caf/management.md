@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5bb2b8a1cdb8"
     path: docs/adr/azure/caf/management.md
     folder: docs/adr/azure/caf
     name: management
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "5bb2b8a1cdb8"
+  edges:
     defines:
       - ADR-AZ-CAFMGMT#{1-22}
-    adrs:
+    cites:
       - ADR-AZ-CAFGOV#{4,6}
       - ADR-AZ-CAFPRIN#3
       - ADR-AZ-DATAMOD#{9,11}

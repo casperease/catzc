@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
     folder: tests
     name: test-source-conventions-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/tests/Test-SourceConventions.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/tests/Test-SourceConventions.Tests.ps1.md
+    cites:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#3
       - ADR-PRIN-CONFIG#4

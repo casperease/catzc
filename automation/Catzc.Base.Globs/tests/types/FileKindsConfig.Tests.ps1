@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/tests/types/FileKindsConfig.Tests.ps1
     folder: tests/types
     name: file-kinds-config-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Globs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#2
 ---
 #>

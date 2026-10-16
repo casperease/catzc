@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8073d5beee93"
     path: docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-bundle-one-commit-one-immutable-package-meta-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "8073d5beee93"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md

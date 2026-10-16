@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "47e98bc8fa99"
     path: docs/references/automation/internal/Catzc.Internal.Loader.psm1.md
     folder: docs/references/automation/internal
     name: catzc-internal-loader-psm1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "47e98bc8fa99"
 ---
 
 # automation/.internal/Catzc.Internal.Loader.psm1

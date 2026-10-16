@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
     folder: private
     name: merge-config-fragment
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
+    cites:
       - ADR-AUTO-OVERLAY
   config:
     synopsis: Merges a consumer overlay's config fragment onto a bundled config, key by key.

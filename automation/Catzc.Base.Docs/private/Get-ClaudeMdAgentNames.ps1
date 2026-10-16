@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-ClaudeMdAgentNames.ps1
     folder: private
     name: get-claude-md-agent-names
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-ClaudeMdAgentNames.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-ClaudeMdAgentNames.Tests.ps1
+    cites:
       - ADR-REPO-AGENTS#3
   config:
     synopsis: Lists the sub-agent names the `## Sub-agents` section of a CLAUDE.md file lists.

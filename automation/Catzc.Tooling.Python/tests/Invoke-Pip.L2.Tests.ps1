@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/tests/Invoke-Pip.L2.Tests.ps1
     folder: tests
     name: invoke-pip-l2-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Tooling.Python
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md
 ---
 #>
 

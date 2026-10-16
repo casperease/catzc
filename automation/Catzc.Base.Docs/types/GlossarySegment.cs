@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/types/GlossarySegment.cs
     folder: types
     name: glossary-segment
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/types/GlossarySegment.cs.md
+  edges:
+    page: docs/references/automation/catzc-base-docs/types/GlossarySegment.cs.md
 ---
 */
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Test-ShellScripts.ps1
     name: test-shell-scripts
     filetype: ps1
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
+    cites:
       - ADR-AUTO-BASH#6
       - ADR-AUTO-ENGINE#2
   config:

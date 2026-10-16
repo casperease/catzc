@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bade05ffcf7d
     path: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
     folder: docs/references/automation/catzc-base-objects/types
     name: dictionary-record-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: bade05ffcf7d
 ---
 
 # automation/Catzc.Base.Objects/types/DictionaryRecord.cs

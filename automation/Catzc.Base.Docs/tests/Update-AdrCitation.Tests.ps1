@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
     folder: tests
     name: update-adr-citation-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md
+    cites:
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-IDEM#1
       - ADR-AUTO-TEST#3

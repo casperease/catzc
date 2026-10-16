@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "60d42493606b"
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-parameter-type-conflict-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "60d42493606b"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ParameterTypeConflict.ps1

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
     name: test-az-cli-can-access
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Cli/tests/Test-AzCliCanAccess.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.Cli/tests/Test-AzCliCanAccess.Tests.ps1
+    cites:
       - ADR-AZ-CLI#1
       - ADR-AZ-DATAMOD
   config:

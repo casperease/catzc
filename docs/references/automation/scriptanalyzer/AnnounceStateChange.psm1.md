@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b09d0ac4a344
     path: docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: announce-state-change-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b09d0ac4a344
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

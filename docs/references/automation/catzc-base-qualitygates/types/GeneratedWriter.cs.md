@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5d0c08659752"
     path: docs/references/automation/catzc-base-qualitygates/types/GeneratedWriter.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: generated-writer-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5d0c08659752"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
 ---
 

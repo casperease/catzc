@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-AdrCitationPath.ps1
     folder: private
     name: get-adr-citation-path

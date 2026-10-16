@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Set-CSharpFileScopedNamespace.ps1
     folder: private
     name: set-c-sharp-file-scoped-namespace
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Set-CSharpFileScopedNamespace.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Set-CSharpFileScopedNamespace.Tests.ps1
   config:
     synopsis: Returns the C# source with a file-scoped `namespace <Namespace>;` line present and correct.
     description: |-

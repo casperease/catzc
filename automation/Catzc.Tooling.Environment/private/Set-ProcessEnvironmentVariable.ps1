@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Environment/private/Set-ProcessEnvironmentVariable.ps1
     folder: private
     name: set-process-environment-variable

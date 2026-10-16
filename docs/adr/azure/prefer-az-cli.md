@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8d77f48a4cae"
     path: docs/adr/azure/prefer-az-cli.md
     folder: docs/adr/azure
     name: prefer-az-cli
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "8d77f48a4cae"
+  edges:
     defines:
       - ADR-AZ-CLI#{1-6}
 ---

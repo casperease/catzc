@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e23eae1a88b8
     path: docs/references/automation/scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-raw-vso-command-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e23eae1a88b8
 ---
 
 # automation/.scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1

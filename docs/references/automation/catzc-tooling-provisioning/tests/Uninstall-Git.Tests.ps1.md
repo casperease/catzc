@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0bc324bddb8f"
     path: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Git.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: uninstall-git-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0bc324bddb8f"
 ---
 
 # automation/Catzc.Tooling.Provisioning/tests/Uninstall-Git.Tests.ps1

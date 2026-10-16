@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/tests/types/GitRefs.Tests.ps1
     folder: tests/types
     name: git-refs-tests

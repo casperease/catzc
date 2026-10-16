@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/tests/Copy-Directory.Tests.ps1
     folder: tests
     name: copy-directory-tests

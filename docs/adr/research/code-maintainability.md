@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "226e53fa0afe"
     path: docs/adr/research/code-maintainability.md
     folder: docs/adr/research
     name: code-maintainability
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "226e53fa0afe"
+  edges:
     defines:
       - ADR-DORA-MAINTAIN#{1-5}
     links:

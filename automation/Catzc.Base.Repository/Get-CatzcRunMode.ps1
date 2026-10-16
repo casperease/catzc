@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1
     name: get-catzc-run-mode
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1
+    cites:
       - ADR-DSGN-RUNMODE#4
   config:
     synopsis: 'Returns the run mode of the current session: ''source'' or ''build''.'

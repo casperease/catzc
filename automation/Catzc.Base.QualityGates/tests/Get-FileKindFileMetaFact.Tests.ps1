@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Get-FileKindFileMetaFact.Tests.ps1
     folder: tests
     name: get-file-kind-file-meta-fact-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#3
 ---

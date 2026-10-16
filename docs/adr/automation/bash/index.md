@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "22ad4883d6b9"
     path: docs/adr/automation/bash/index.md
     folder: docs/adr/automation/bash
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "22ad4883d6b9"
+  edges:
     links:
       - docs/adr/automation/bash/bash-test-artifacts.md
       - docs/adr/automation/execution-engines.md

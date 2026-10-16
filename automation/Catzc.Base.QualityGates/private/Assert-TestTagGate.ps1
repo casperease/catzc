@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Assert-TestTagGate.ps1
     folder: private
     name: assert-test-tag-gate
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#13
   config:
     synopsis: Fails the run when any discovered test is missing — or ambiguous on — a mandatory tag axis.

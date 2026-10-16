@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "601e36da99bb"
     path: docs/references/automation/catzc-base-qualitygates/tests/Enter-TestRunLocation.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: enter-test-run-location-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "601e36da99bb"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Enter-TestRunLocation.Tests.ps1

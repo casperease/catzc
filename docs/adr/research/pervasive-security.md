@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: aa1fb107b65d
     path: docs/adr/research/pervasive-security.md
     folder: docs/adr/research
     name: pervasive-security
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: aa1fb107b65d
+  edges:
     defines:
       - ADR-DORA-SECURITY#{1-5}
     links:

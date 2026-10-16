@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/PdfNumber.cs
     folder: types
     name: pdf-number
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md
-      test: automation/Catzc.Base.Maps/tests/types/PdfNumber.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md
+    test: automation/Catzc.Base.Maps/tests/types/PdfNumber.Tests.ps1
 ---
 */
 

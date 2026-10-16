@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/types/NetworkCidr.cs
     folder: types
     name: network-cidr
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Azure
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure/types/NetworkCidr.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure/types/NetworkCidr.cs.md
+    cites:
       - ADR-AZ-NETWORK
 ---
 */

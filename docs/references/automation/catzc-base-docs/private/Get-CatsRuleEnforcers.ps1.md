@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c1e0f8f84b93
     path: docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
     folder: docs/references/automation/catzc-base-docs/private
     name: get-cats-rule-enforcers-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c1e0f8f84b93
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-CACHE#4
 ---
 

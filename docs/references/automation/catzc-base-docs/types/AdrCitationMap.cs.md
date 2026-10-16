@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "399ecfd1d4c9"
     path: docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-citation-map-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "399ecfd1d4c9"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#3
 ---
 

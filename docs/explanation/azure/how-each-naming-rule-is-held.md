@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ee09541f42c4
     path: docs/explanation/azure/how-each-naming-rule-is-held.md
     folder: docs/explanation/azure
     name: how-each-naming-rule-is-held
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: ee09541f42c4
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-NAMING
     links:
       - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md

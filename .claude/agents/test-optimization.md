@@ -11,7 +11,8 @@ description: >
   failures that are not about speed.
 tools: Bash, Read, Glob, Grep, Write, Edit
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9665e0853812"
     path: ".claude/agents/test-optimization.md"
     folder: agents
     name: test-optimization
@@ -21,8 +22,8 @@ catzc:
     track: ".claude"
     module: ".claude"
     moduletype: settings
-    body_sha: "9665e0853812"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TEST#{13,19-23}
       - ADR-PRIN-NOWASTE#1

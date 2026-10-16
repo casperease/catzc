@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4140fa185b2a"
     path: docs/references/infrastructure/modules/budget.bicep.md
     folder: docs/references/infrastructure/modules
     name: budget-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4140fa185b2a"
 ---
 
 # infrastructure/modules/budget.bicep

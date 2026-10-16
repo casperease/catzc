@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0664fd3164c3"
     path: docs/adr/repository/generated-root-configs.md
     folder: docs/adr/repository
     name: generated-root-configs
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "0664fd3164c3"
+  edges:
     defines:
       - ADR-REPO-ROOTCFG#{1-8}
-    adrs:
+    cites:
       - ADR-REPO-FILEMETA#7
     links:
       - docs/adr/automation/caching.md#rule-adr-auto-cache6

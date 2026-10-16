@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/types/GeneratedHeadConfig.cs
     folder: types
     name: generated-head-config
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      test: automation/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
 ---
 */
 

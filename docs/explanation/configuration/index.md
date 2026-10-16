@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "606fa1843e29"
     path: docs/explanation/configuration/index.md
     folder: docs/explanation/configuration
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "606fa1843e29"
+  edges:
     links:
       - docs/adr/configuration/module-config-loading.md
       - docs/adr/index.md#configuration

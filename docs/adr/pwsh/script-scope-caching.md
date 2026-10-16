@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "58af15b8aa6f"
     path: docs/adr/pwsh/script-scope-caching.md
     folder: docs/adr/pwsh
     name: script-scope-caching
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "58af15b8aa6f"
+  edges:
     defines:
       - ADR-PWSH-CACHE#{1,2,4,5}
-    adrs:
+    cites:
       - ADR-AUTO-CACHE#{6,8}
       - ADR-PWSH-PESTER#3
     links:

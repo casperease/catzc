@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0aba2454ac45"
     path: docs/adr/research/flexible-infrastructure.md
     folder: docs/adr/research
     name: flexible-infrastructure
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "0aba2454ac45"
+  edges:
     defines:
       - ADR-DORA-FLEXINFRA#{1-5}
     links:

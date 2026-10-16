@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
     name: get-glob-set-trigger
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS#{1,4}
   config:
     synopsis: Projects a globset's scan program into vendor-native pipeline path filters — the no-start trigger.

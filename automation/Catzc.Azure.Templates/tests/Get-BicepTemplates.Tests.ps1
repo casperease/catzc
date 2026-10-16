@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
     folder: tests
     name: get-bicep-templates-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Azure.Templates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#{4,19}
 ---
 #>

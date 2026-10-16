@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/Measure-QualityGates.ps1
     name: measure-quality-gates
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/Measure-QualityGates.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Measure-QualityGates.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/Measure-QualityGates.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Measure-QualityGates.Tests.ps1
+    cites:
       - ADR-AUTO-CONSOLE#10
   config:
     synopsis: Times quality gates (or analyzer rules), to find what makes a check slow.

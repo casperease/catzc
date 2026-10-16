@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f14f3cd7ba21
     path: docs/references/automation/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: build-comment-view-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f14f3cd7ba21
-    adrs:
+  edges:
+    cites:
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-OUTDIR#1
 ---

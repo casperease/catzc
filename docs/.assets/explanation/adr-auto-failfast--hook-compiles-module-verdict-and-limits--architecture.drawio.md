@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5c930115f30b"
     path: docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-auto-failfast-hook-compiles-module-verdict-and-limits-architecture-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "5c930115f30b"
+  edges:
     links:
       - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
       - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md

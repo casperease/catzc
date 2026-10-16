@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs
     folder: types
     name: function-call-collector
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/types/FunctionCallCollector.cs.md
-      test: automation/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/types/FunctionCallCollector.cs.md
+    test: automation/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
 ---
 */
 

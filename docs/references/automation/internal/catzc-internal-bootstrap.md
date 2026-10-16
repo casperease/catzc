@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2b24078306c3"
     path: docs/references/automation/internal/catzc-internal-bootstrap.md
     folder: docs/references/automation/internal
     name: catzc-internal-bootstrap
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "2b24078306c3"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ANNOUNCE#6
       - ADR-REPO-FORMAT#1
     links:

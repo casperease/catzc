@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Firewall/Get-FirewallCsv.ps1
     name: get-firewall-csv
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md
-      test: automation/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md
+    test: automation/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
   config:
     synopsis: Downloads the newest firewall-rule CSV(s) from a blob container — one per requested rule type.
     description: |-

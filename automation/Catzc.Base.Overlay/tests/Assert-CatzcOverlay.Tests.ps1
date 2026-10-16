@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
     folder: tests
     name: assert-catzc-overlay-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Overlay
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-OVERLAY
 ---
 #>

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
     folder: tests
     name: get-world-map-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md
+    cites:
       - ADR-DSGN-TRACK#3
 ---
 #>

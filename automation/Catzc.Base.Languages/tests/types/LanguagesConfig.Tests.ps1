@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     folder: tests/types
     name: languages-config-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#{2,4}

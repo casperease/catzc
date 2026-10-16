@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Folders/Get-ChildPath.ps1
     name: get-child-path
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
   config:
     synopsis: Lists the files and folders below a folder, to a bounded depth, without loading the tree.
     description: |-

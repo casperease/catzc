@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "01d159efd894"
     path: docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md
     folder: docs/references/automation/catzc-base-exporter
     name: install-catzc-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "01d159efd894"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-ENGINE#2
       - ADR-PWSH-ENUM#3

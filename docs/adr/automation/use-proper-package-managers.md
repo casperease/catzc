@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7deec46cbb66"
     path: docs/adr/automation/use-proper-package-managers.md
     folder: docs/adr/automation
     name: use-proper-package-managers
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "7deec46cbb66"
+  edges:
     defines:
       - ADR-AUTO-PKGMGR#{1-6}
     links:

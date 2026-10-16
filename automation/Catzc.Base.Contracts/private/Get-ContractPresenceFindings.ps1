@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Get-ContractPresenceFindings.ps1
     folder: private
     name: get-contract-presence-findings
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CONTRACT#6
   config:
     synopsis: Checks that a contract asset's target file exists with the exact case of its path, and returns the findings.

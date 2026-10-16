@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8058b5d5a3d1"
     path: docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: terminology-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8058b5d5a3d1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-SPELL#{5,8}
 ---
 

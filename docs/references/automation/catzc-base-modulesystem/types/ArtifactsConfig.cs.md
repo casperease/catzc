@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fa69f67998f0
     path: docs/references/automation/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: artifacts-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fa69f67998f0
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#24
       - ADR-AUTO-TYPES#8
 ---

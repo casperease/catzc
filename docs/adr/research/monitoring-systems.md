@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6298028e02bd"
     path: docs/adr/research/monitoring-systems.md
     folder: docs/adr/research
     name: monitoring-systems
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "6298028e02bd"
+  edges:
     defines:
       - ADR-DORA-MONITOR#{1-5}
     links:

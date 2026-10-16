@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1b597cfd377d"
     path: docs/references/automation/catzc-base-engines.md
     folder: docs/references/automation
     name: catzc-base-engines
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "1b597cfd377d"
+  edges:
     links:
       - docs/adr/automation/execution-engines.md
       - docs/references/automation/catzc-base-execution.md

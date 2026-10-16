@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Contracts/configs/contracts.yml
 #     folder: configs
 #     name: contracts
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Contracts
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-contracts/configs/contracts.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-contracts/configs/contracts.yml.md
 # ---
 
 addressing: full-path

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/private/Get-ContractDataFormat.ps1
     folder: private
     name: get-contract-data-format
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-CONTRACT#6
   config:
     synopsis: 'Names the data format a contract check parses a file as, from its extension: Json, Yaml, or nothing.'

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3f70343d0bd1"
     path: docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md
     folder: docs/references/automation/catzc-base-files/types
     name: file-locking-process-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3f70343d0bd1"
 ---
 
 # automation/Catzc.Base.Files/types/FileLockingProcess.cs

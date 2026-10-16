@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/tests/Invoke-Pip.Tests.ps1
     folder: tests
     name: invoke-pip-tests

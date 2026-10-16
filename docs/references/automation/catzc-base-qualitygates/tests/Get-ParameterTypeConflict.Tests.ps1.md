@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "986b0981f70a"
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-ParameterTypeConflict.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-parameter-type-conflict-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "986b0981f70a"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
     folder: tests
     name: reset-git-clean-fxd-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Git
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-git/tests/Reset-GitCleanFxd.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-git/tests/Reset-GitCleanFxd.Tests.ps1.md
 ---
 #>
 

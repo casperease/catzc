@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
     folder: private
     name: get-bicep-parameters-file-name
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepParametersFileName.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepParametersFileName.Tests.ps1
+    cites:
       - ADR-AZ-DATAMOD
   config:
     synopsis: The build-artifact parameters filename for a (customer?, env, slot) config.

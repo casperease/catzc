@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0c7e93cf776e"
     path: docs/references/automation/catzc-base-qualitygates/types/IdentityTokenRule.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: identity-token-rule-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0c7e93cf776e"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

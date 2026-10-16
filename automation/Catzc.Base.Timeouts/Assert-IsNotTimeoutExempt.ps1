@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/Assert-IsNotTimeoutExempt.ps1
     name: assert-is-not-timeout-exempt
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Timeouts/tests/Assert-IsNotTimeoutExempt.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Timeouts/tests/Assert-IsNotTimeoutExempt.Tests.ps1
   config:
     synopsis: Asserts that a budget GUID runs under its normal time limit here, not an exemption.
     description: |-

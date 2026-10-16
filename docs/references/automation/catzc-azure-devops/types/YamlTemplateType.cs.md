@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3bc8ff8c6a25"
     path: docs/references/automation/catzc-azure-devops/types/YamlTemplateType.cs.md
     folder: docs/references/automation/catzc-azure-devops/types
     name: yaml-template-type-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3bc8ff8c6a25"
 ---
 
 # automation/Catzc.Azure.DevOps/types/YamlTemplateType.cs

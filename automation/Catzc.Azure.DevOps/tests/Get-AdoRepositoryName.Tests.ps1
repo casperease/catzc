@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.DevOps/tests/Get-AdoRepositoryName.Tests.ps1
     folder: tests
     name: get-ado-repository-name-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Azure.DevOps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PARAM#4
 ---
 #>

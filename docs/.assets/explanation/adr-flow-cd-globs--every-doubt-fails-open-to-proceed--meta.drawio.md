@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2bc46fc32fea"
     path: docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-every-doubt-fails-open-to-proceed-meta-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "2bc46fc32fea"
+  edges:
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
       - docs/explanation/flow/every-doubt-fails-open-to-proceed.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "219dcd43c022"
     path: docs/adr/design/module-types.md
     folder: docs/adr/design
     name: module-types
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "219dcd43c022"
+  edges:
     defines:
       - ADR-DSGN-MODTYPE#{1-4}
-    adrs:
+    cites:
       - ADR-DSGN-TRACK#3
       - ADR-DSGN-TRACKTYPE#4
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e114d85b13db
     path: docs/references/automation/scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-raw-pipeline-detection-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e114d85b13db
 ---
 
 # automation/.scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "33f95b5ebf1e"
     path: docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md
     folder: docs/references/automation/catzc-base-languages
     name: new-python-project-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "33f95b5ebf1e"
 ---
 
 # automation/Catzc.Base.Languages/New-PythonProject.ps1

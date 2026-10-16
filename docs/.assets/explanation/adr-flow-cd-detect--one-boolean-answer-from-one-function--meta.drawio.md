@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3b6e97a391d7"
     path: docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-one-boolean-answer-from-one-function-meta-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "3b6e97a391d7"
+  edges:
     links:
       - docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
       - docs/explanation/flow/one-boolean-answer-from-one-function.md

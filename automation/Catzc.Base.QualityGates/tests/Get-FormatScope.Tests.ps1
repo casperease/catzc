@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Get-FormatScope.Tests.ps1
     folder: tests
     name: get-format-scope-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/tests/Get-FormatScope.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/tests/Get-FormatScope.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-REPO-CONTRACT#5
 ---

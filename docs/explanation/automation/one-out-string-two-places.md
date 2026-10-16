@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4ce846b18cf7"
     path: docs/explanation/automation/one-out-string-two-places.md
     folder: docs/explanation/automation
     name: one-out-string-two-places
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "4ce846b18cf7"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PATH#{3,9}
     links:
       - docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.md

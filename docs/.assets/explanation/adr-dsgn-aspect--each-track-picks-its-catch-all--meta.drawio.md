@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1e2ef25ba7f1"
     path: docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-each-track-picks-its-catch-all-meta-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "1e2ef25ba7f1"
+  edges:
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
       - docs/explanation/design/each-track-picks-its-catch-all.md

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Vendor/configs/vendor.yml
 #     folder: configs
 #     name: vendor
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Vendor
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-vendor/configs/vendor.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-vendor/configs/vendor.yml.md
 # ---
 
 source: PSGallery

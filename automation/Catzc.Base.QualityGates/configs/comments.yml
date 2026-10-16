@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.QualityGates/configs/comments.yml
 #     folder: configs
 #     name: comments
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.QualityGates
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md
 # ---
 
 languages: [powershell, yaml, pipeline-yaml, csharp, bicep]
@@ -50,6 +50,6 @@ pages:
 
 exclude:
   asset: an asset is copied or published verbatim elsewhere, where a page of this repository would be foreign
-  fixture/asset: a test's asset is the input the test reads, verbatim
+  fixture/input: a test's input is read by the test, verbatim
 
 view: out/annotated

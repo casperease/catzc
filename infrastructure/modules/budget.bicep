@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/budget.bicep
 //     name: budget
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: budget
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/budget.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/budget.bicep.md
 // ---
 
 targetScope = 'subscription'

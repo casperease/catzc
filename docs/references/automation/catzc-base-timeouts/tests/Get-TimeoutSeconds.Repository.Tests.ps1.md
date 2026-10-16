@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2f1012a7ac60"
     path: docs/references/automation/catzc-base-timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1.md
     folder: docs/references/automation/catzc-base-timeouts/tests
     name: get-timeout-seconds-repository-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "2f1012a7ac60"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ASSERT#1
 ---
 

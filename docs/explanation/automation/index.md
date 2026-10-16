@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2c707e3bd300"
     path: docs/explanation/automation/index.md
     folder: docs/explanation/automation
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "2c707e3bd300"
+  edges:
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/controlling-module-dependencies.md

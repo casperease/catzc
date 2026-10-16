@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "63b48f8ba3ad"
     path: docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md
     folder: docs/references/automation/catzc-base-globs/tests
     name: get-pipeline-trigger-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "63b48f8ba3ad"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#1
 ---
 

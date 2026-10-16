@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7cab80b49b24"
     path: docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: install-uv-venv-tool-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "7cab80b49b24"
 ---
 
 # automation/Catzc.Tooling.Core/Install-UvVenvTool.ps1

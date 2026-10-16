@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Environment/Sync-SessionPath.ps1
     name: sync-session-path
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md
-      test: automation/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md
+    test: automation/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
+    cites:
       - ADR-AUTO-CONSOLE#11
   config:
     synopsis: Rebuilds the session PATH from the registry on Windows. No-op on Unix.

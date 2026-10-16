@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Azure/configs/customer.yml
 #     folder: configs
 #     name: customer
@@ -11,8 +11,8 @@
 #     module: Catzc.Azure
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-azure/configs/customer.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-azure/configs/customer.yml.md
 # ---
 
 customers:

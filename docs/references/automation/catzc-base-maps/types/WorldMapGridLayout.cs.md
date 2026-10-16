@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "076ae86c8b69"
     path: docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: world-map-grid-layout-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "076ae86c8b69"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#{7,8}
 ---

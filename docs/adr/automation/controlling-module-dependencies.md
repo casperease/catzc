@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d7e079d24e76
     path: docs/adr/automation/controlling-module-dependencies.md
     folder: docs/adr/automation
     name: controlling-module-dependencies
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d7e079d24e76
+  edges:
     defines:
       - ADR-AUTO-DEPM#{1-10}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#35
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

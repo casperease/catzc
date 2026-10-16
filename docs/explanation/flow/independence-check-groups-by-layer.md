@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2eeb3688d95b"
     path: docs/explanation/flow/independence-check-groups-by-layer.md
     folder: docs/explanation/flow
     name: independence-check-groups-by-layer
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "2eeb3688d95b"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-LINK#5
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "349056ff35c6"
     path: docs/adr/automation/dry-run.md
     folder: docs/adr/automation
     name: dry-run
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "349056ff35c6"
+  edges:
     defines:
       - ADR-AUTO-DRYRUN#{1-4}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7373a919820f"
     path: docs/adr/pwsh/parameter-design.md
     folder: docs/adr/pwsh
     name: parameter-design
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "7373a919820f"
+  edges:
     defines:
       - ADR-PWSH-PARAM#{1-4}
-    adrs:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-AUTOVAR#{6,7}
       - ADR-PWSH-PESTER#3

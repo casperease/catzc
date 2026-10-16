@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "66bfe3570d10"
     path: docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: install-zsh-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "66bfe3570d10"
 ---
 
 # automation/Catzc.Tooling.Provisioning/Install-Zsh.ps1

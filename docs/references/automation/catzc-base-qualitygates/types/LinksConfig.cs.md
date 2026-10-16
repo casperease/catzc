@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e7a24120f663
     path: docs/references/automation/catzc-base-qualitygates/types/LinksConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: links-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e7a24120f663
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-PWSH-PARAM#4

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/Write-CallStack.ps1
     name: write-call-stack
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Writers/tests/Write-CallStack.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Writers/tests/Write-CallStack.Tests.ps1
   config:
     synopsis: Writes the current call stack in red for debugging.
     examples:

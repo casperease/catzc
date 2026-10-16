@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/private/Test-ToolHomeProbe.ps1
     folder: private
     name: test-tool-home-probe
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1
   config:
     synopsis: Tests whether a tool's install home satisfies one session_host_probes entry at the locked version.
     description: |-

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: infrastructure/templates/discovery/options.yml
 #     name: options
 #     filetype: yml
@@ -10,8 +10,8 @@
 #     track: infrastructure
 #     module: discovery
 #     moduletype: bicep
-#     relatives:
-#       page: docs/references/infrastructure/templates/discovery/options.yml.md
+#   edges:
+#     page: docs/references/infrastructure/templates/discovery/options.yml.md
 # ---
 
 short_name: disco

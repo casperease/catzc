@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "780f878a5b15"
     path: docs/adr/pwsh/assert-idioms.md
     folder: docs/adr/pwsh
     name: assert-idioms
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "780f878a5b15"
+  edges:
     defines:
       - ADR-PWSH-ASSERT#{1-6}
-    adrs:
+    cites:
       - ADR-AUTO-FAILFAST#{1,2,4,5,7}
       - ADR-PWSH-AUTOVAR#2
       - ADR-PWSH-ERROR#3

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-GeneratedFileGenerator.ps1
     folder: private
     name: get-generated-file-generator
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
   config:
     synopsis: 'Lists every generator Test-GeneratedFiles can check: the registered writers, then the generators of the managed root files.'

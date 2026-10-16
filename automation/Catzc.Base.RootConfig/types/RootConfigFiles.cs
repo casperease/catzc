@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs
     folder: types
     name: root-config-files
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.RootConfig
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md
-      test: automation/Catzc.Base.RootConfig/tests/types/RootConfigFiles.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md
+    test: automation/Catzc.Base.RootConfig/tests/types/RootConfigFiles.Tests.ps1
+    cites:
       - ADR-CONF-LOADING
       - ADR-REPO-ROOTCFG
 ---

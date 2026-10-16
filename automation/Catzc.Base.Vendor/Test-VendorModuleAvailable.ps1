@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Vendor/Test-VendorModuleAvailable.ps1
     name: test-vendor-module-available
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Vendor/tests/Test-VendorModuleAvailable.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Vendor/tests/Test-VendorModuleAvailable.Tests.ps1
   config:
     synopsis: Tests whether a module (optionally at a specific version) is available from the configured vendor source.
     description: |-

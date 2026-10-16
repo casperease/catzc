@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3627036d4752"
     path: docs/adr/automation/dora-explains.md
     folder: docs/adr/automation
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "3627036d4752"
+  edges:
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/avoid-deep-nesting.md

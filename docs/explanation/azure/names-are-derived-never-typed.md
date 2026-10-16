@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0665f1c4e736"
     path: docs/explanation/azure/names-are-derived-never-typed.md
     folder: docs/explanation/azure
     name: names-are-derived-never-typed
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "0665f1c4e736"
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-NAMING#{1,5-8}
     links:
       - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md

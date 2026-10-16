@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7dd941bf5171"
     path: docs/references/automation/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md
     folder: docs/references/automation/catzc-base-engines/tests/types
     name: execution-engine-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "7dd941bf5171"
 ---
 
 # automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1

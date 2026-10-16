@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8517a21aee37"
     path: docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md
     folder: docs/references/automation/catzc-base-languages
     name: new-go-workspace-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8517a21aee37"
 ---
 
 # automation/Catzc.Base.Languages/New-GoWorkspace.ps1

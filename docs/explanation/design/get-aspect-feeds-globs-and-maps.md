@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "15139b8bcd1b"
     path: docs/explanation/design/get-aspect-feeds-globs-and-maps.md
     folder: docs/explanation/design
     name: get-aspect-feeds-globs-and-maps
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "15139b8bcd1b"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-ASPECT#{2-4}
       - ADR-DSGN-TRACK#3
       - ADR-FLOW-CD-GLOBS#4

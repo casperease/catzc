@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
     folder: private
     name: get-guid-scan-files
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
+    cites:
       - ADR-AUTO-TRACKED#1
       - ADR-FLOW-CD-GLOBS#4
   config:

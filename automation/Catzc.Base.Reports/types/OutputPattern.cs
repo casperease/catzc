@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Reports/types/OutputPattern.cs
     folder: types
     name: output-pattern
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Reports
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-reports/types/OutputPattern.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-reports/types/OutputPattern.cs.md
+    cites:
       - ADR-AUTO-TYPES#14
       - ADR-REPO-OUTFMT#1
 ---

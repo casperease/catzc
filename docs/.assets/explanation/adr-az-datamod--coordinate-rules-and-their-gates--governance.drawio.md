@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "88eb50a3a020"
     path: docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-coordinate-rules-and-their-gates-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "88eb50a3a020"
+  edges:
     links:
       - docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
       - docs/explanation/azure/coordinate-rules-and-their-gates.md

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Assert-PsModule.ps1
     name: assert-ps-module
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Asserts/tests/Assert-PsModule.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Asserts/tests/Assert-PsModule.Tests.ps1
   config:
     synopsis: Asserts that a PowerShell module is available.
     parameters:

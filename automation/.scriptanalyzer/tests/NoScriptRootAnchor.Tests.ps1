@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1
     folder: automation/.scriptanalyzer/tests
     name: no-script-root-anchor-tests
@@ -9,9 +9,9 @@ catzc:
     kind: test
     language: powershell
     track: automation
-    relatives:
-      page: docs/references/automation/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md
+    cites:
       - ADR-AUTO-ASSETDEP#1
 ---
 #>

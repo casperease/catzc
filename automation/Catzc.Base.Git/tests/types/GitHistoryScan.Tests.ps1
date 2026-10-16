@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
     folder: tests/types
     name: git-history-scan-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Git
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md
 ---
 #>
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3c30ae3e63b3"
     path: docs/adr/repository/function-help.md
     folder: docs/adr/repository
     name: function-help
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "3c30ae3e63b3"
+  edges:
     defines:
       - ADR-REPO-HELP#{1-5}
-    adrs:
+    cites:
       - ADR-REPO-CODEMETA#{1,2}
       - ADR-REPO-FORMAT#8
     links:

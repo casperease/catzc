@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c5f4b69adf8d
     path: docs/references/infrastructure/templates/discovery/configuration/nsub.yml.md
     folder: docs/references/infrastructure/templates/discovery/configuration
     name: nsub-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c5f4b69adf8d
 ---
 
 # infrastructure/templates/discovery/configuration/nsub.yml

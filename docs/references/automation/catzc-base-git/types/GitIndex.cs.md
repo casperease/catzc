@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "350e468ab517"
     path: docs/references/automation/catzc-base-git/types/GitIndex.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-index-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "350e468ab517"
 ---
 
 # automation/Catzc.Base.Git/types/GitIndex.cs

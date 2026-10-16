@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dedf00873437
     path: docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: network-subscription-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: dedf00873437
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

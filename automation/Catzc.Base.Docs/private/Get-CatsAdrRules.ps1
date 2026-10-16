@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-CatsAdrRules.ps1
     folder: private
     name: get-cats-adr-rules
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-CatsAdrRules.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-CatsAdrRules.Tests.ps1
+    cites:
       - ADR-REPO-VOCAB#1
   config:
     synopsis: Extracts the id, one-line summary, and normative statement of each rule in a single ADR file.

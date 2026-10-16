@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
     folder: tests
     name: install-git-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Tooling.Provisioning
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/tests/Install-Git.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/tests/Install-Git.Tests.ps1.md
 ---
 #>
 

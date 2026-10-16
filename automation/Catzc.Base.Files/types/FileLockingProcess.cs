@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/types/FileLockingProcess.cs
     folder: types
     name: file-locking-process
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Files
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md
+  edges:
+    page: docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md
 ---
 */
 

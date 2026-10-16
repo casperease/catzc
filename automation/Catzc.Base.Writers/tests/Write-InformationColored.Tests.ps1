@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
     folder: tests
     name: write-information-colored-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Writers
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md
 ---
 #>
 

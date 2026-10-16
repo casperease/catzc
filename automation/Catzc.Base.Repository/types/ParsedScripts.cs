@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/types/ParsedScripts.cs
     folder: types
     name: parsed-scripts
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Repository
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      test: automation/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1
 ---
 */
 

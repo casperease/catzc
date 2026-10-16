@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Install-Go.ps1
     name: install-go
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md
-      test: automation/Catzc.Tooling.Toolchain/tests/Install-Go.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md
+    test: automation/Catzc.Tooling.Toolchain/tests/Install-Go.Tests.ps1
   config:
     synopsis: Installs the Go toolchain from the official go.dev archive into a user-space home.
     description: |-

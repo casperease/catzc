@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0b52fefe80b6"
     path: docs/references/automation/catzc-base-docs/types/AgentEntry.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: agent-entry-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0b52fefe80b6"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-AGENTS#2
 ---

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3af8354b998e"
     path: docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
     folder: docs/explanation/flow
     name: pipeline-kinds-keyed-by-one-artifact
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "3af8354b998e"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD#{3-5,7,9,11}
     links:
       - docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.md

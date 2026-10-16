@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e90ca6e164da
     path: docs/references/automation/catzc-base-qualitygates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: measure-no-automatic-variable-misuse-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e90ca6e164da
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1

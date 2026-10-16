@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1
     name: import-ps-read-line-key-handler-set
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
   config:
     synopsis: Applies the captured Windows PSReadLine key bindings on Linux, filtered to Linux-supported functions.
     description: |-

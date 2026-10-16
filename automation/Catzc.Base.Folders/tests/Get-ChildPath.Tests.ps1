@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
     folder: tests
     name: get-child-path-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Folders
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST
       - ADR-PWSH-PARAM#4

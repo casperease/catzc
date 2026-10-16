@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/private/Get-GitIndexPath.ps1
     folder: private
     name: get-git-index-path
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Files/tests/Get-GitIndexPath.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Files/tests/Get-GitIndexPath.Tests.ps1
   config:
     synopsis: Returns the absolute path of the repository's git index file.
     description: |-

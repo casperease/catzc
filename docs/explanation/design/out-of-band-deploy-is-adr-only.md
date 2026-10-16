@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e936870e0c62
     path: docs/explanation/design/out-of-band-deploy-is-adr-only.md
     folder: docs/explanation/design
     name: out-of-band-deploy-is-adr-only
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: e936870e0c62
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#24
       - ADR-DSGN-LIFE#{1,9}
       - ADR-DSGN-VISUAL#{2,4,13}

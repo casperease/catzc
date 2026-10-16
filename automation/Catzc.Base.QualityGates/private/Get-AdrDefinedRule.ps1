@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-AdrDefinedRule.ps1
     folder: private
     name: get-adr-defined-rule
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-AdrDefinedRule.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-AdrDefinedRule.Tests.ps1
+    cites:
       - ADR-REPO-LINK#5
   config:
     synopsis: The rules a Markdown text defines in its own rule headings, spelled as citations.

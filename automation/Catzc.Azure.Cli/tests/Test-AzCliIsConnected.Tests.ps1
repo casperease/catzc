@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/tests/Test-AzCliIsConnected.Tests.ps1
     folder: tests
     name: test-az-cli-is-connected-tests

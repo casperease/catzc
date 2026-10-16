@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "624f9d0de2d1"
     path: docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-two-layers-join-through-one-resolver-architecture-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "624f9d0de2d1"
+  edges:
     links:
       - docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
       - docs/explanation/azure/two-layers-join-through-one-resolver.md

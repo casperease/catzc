@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3f293549ae3b"
     path: docs/references/automation/catzc-azure/types/AzureTenantRecord.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: azure-tenant-record-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3f293549ae3b"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

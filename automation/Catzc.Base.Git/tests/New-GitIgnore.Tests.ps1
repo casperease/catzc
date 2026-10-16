@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1
     folder: tests
     name: new-git-ignore-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Git
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md
+    cites:
       - ADR-PWSH-PESTER#2
 ---
 #>

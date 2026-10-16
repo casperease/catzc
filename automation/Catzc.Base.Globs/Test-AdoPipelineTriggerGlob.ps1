@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
     name: test-ado-pipeline-trigger-glob
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#1
   config:

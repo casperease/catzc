@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/ConvertTo-Dictionary.ps1
     name: convert-to-dictionary
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md
-      test: automation/Catzc.Base.Objects/tests/ConvertTo-Dictionary.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md
+    test: automation/Catzc.Base.Objects/tests/ConvertTo-Dictionary.Tests.ps1
   config:
     synopsis: |-
       Converts a typed object, PSCustomObject, or dictionary into a nested, mutable structure of ordered

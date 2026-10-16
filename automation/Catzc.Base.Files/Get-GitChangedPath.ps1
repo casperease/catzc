@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/Get-GitChangedPath.ps1
     name: get-git-changed-path
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
   config:
     synopsis: 'Returns the repository paths that differ from HEAD: what the working tree has changed.'
     description: |-

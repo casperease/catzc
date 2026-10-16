@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/types/ModuleDependencyFormat.cs
     folder: types
     name: module-dependency-format
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyFormat.cs.md
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyFormat.cs.md
 ---
 */
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
     name: save-verified-download
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
   config:
     synopsis: Downloads a file over HTTPS and verifies its SHA-256, rejecting a mismatch.
     description: |-

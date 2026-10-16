@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "951692dadb53"
     path: docs/explanation/design/sync-from-the-last-certified-commit.md
     folder: docs/explanation/design
     name: sync-from-the-last-certified-commit
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "951692dadb53"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#{6-8}
     links:
       - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md

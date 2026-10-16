@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1
     folder: private
     name: invoke-file-meta-engine
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#5
   config:
     synopsis: Computes the meta block of every in-scope file — the one place Format-FileMeta and Test-FileMeta share.

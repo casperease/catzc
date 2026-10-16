@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7c07bf7b6e67"
     path: docs/explanation/automation/build-verify-then-copy-the-folder.md
     folder: docs/explanation/automation
     name: build-verify-then-copy-the-folder
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "7c07bf7b6e67"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ASSETDEP#4
       - ADR-AUTO-BUNDLE#{1,5-7}
     links:

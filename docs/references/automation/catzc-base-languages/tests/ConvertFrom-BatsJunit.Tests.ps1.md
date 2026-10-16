@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "88ad9c04b391"
     path: docs/references/automation/catzc-base-languages/tests/ConvertFrom-BatsJunit.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: convert-from-bats-junit-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "88ad9c04b391"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
 ---
 

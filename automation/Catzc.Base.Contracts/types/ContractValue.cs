@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/types/ContractValue.cs
     folder: types
     name: contract-value
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Contracts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md
-      test: automation/Catzc.Base.Contracts/tests/types/ContractValue.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md
+    test: automation/Catzc.Base.Contracts/tests/types/ContractValue.Tests.ps1
+    cites:
       - ADR-REPO-CONTRACT#6
 ---
 */

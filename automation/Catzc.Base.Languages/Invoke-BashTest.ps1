@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/Invoke-BashTest.ps1
     name: invoke-bash-test
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md
-      test: automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md
+    test: automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
   config:
     synopsis: Runs a catzc module's Bash tests and returns one result per Bash test.
     description: |-

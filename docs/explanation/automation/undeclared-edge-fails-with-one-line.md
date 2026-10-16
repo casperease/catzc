@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: de8d7a0b63f5
     path: docs/explanation/automation/undeclared-edge-fails-with-one-line.md
     folder: docs/explanation/automation
     name: undeclared-edge-fails-with-one-line
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: de8d7a0b63f5
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEPM#{3-5}
     links:
       - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md

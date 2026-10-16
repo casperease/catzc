@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "43969d556544"
     path: docs/adr/azure/caf/billing-and-tenant.md
     folder: docs/adr/azure/caf
     name: billing-and-tenant
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "43969d556544"
+  edges:
     defines:
       - ADR-AZ-CAFBILL#{1-61}
-    adrs:
+    cites:
       - ADR-AZ-CAFGOV#{9,10}
       - ADR-AZ-CAFRESORG#{5,19}
       - ADR-AZ-CUSTOMER#2

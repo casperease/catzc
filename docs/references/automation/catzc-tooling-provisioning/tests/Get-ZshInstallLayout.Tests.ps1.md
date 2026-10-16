@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "49e2849deee3"
     path: docs/references/automation/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: get-zsh-install-layout-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "49e2849deee3"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{1,3}
 ---
 

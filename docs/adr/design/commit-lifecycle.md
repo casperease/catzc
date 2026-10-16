@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c0b1c05d5104
     path: docs/adr/design/commit-lifecycle.md
     folder: docs/adr/design
     name: commit-lifecycle
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: c0b1c05d5104
+  edges:
     defines:
       - ADR-DSGN-LIFE#{1-10}
-    adrs:
+    cites:
       - ADR-DSGN-VISUAL#{12,13}
       - ADR-FLOW-CD#{9,10,14}
     links:

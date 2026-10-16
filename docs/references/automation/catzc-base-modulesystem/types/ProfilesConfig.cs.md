@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "00f0c5f499f9"
     path: docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md
     folder: docs/references/automation/catzc-base-modulesystem/types
     name: profiles-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "00f0c5f499f9"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9f2c295bbc83"
     path: docs/adr/automation/execution-engines.md
     folder: docs/adr/automation
     name: execution-engines
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "9f2c295bbc83"
+  edges:
     defines:
       - ADR-AUTO-ENGINE#{1-7}
-    adrs:
+    cites:
       - ADR-AUTO-BASH#{3,6}
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-DEPS#3

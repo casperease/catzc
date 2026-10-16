@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fd68d24c241c
     path: docs/references/automation/catzc-base-globs/configs/globs.yml.md
     folder: docs/references/automation/catzc-base-globs/configs
     name: globs-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fd68d24c241c
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#5
       - ADR-FLOW-CD-GLOBS#{7,8,10}
       - ADR-REPO-PROTGLOB#{6,7}

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d7d834183993
     path: docs/adr/pwsh/identifier-names.md
     folder: docs/adr/pwsh
     name: identifier-names
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d7d834183993
+  edges:
     defines:
       - ADR-PWSH-NAMES#{1-6}
-    adrs:
+    cites:
       - ADR-AUTO-SPELL#{1,2,4,6,7}
     links:
       - docs/adr/automation/spell-out-names.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "08bdadd3ea73"
     path: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: spelling-oracle-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "08bdadd3ea73"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-SPELL#{2,6}
       - ADR-AUTO-TYPES#9
 ---

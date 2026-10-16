@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ff4554a3466b
     path: docs/adr/automation/consumer-overlay.md
     folder: docs/adr/automation
     name: consumer-overlay
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: ff4554a3466b
+  edges:
     defines:
       - ADR-AUTO-OVERLAY#{1-9}
     links:

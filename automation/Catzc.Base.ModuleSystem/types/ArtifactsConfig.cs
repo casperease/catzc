@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
     folder: types
     name: artifacts-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.ModuleSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
-      test: automation/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
+    test: automation/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#24
       - ADR-AUTO-TYPES#8
 ---

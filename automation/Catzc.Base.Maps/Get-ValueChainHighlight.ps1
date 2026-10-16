@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
     name: get-value-chain-highlight
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
+    cites:
       - ADR-AUTO-TEST
       - ADR-DSGN-TRACK#{3,12,16}
       - ADR-FLOW-CD

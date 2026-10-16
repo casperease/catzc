@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-TrackFileMetaFact.ps1
     folder: private
     name: get-track-file-meta-fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#1
   config:
     synopsis: 'The track meta kind''s fact: the track whose root folder holds the file.'

@@ -8,7 +8,8 @@ description: >
   "republish" the artifacts or diagrams. Do NOT use it to draw or edit diagrams (`drawio-diagram-waves`, `write-drawio-files`).
 tools: Bash, Read, Glob, Grep, Write, Artifact, ArtifactData
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a50534912aec
     path: ".claude/agents/print-artifacts.md"
     folder: agents
     name: print-artifacts
@@ -18,7 +19,7 @@ catzc:
     track: ".claude"
     module: ".claude"
     moduletype: settings
-    body_sha: a50534912aec
+  edges:
     links:
       - ".claude/CLAUDE.md#time-safeguard"
 ---

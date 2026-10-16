@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "254b38dd639b"
     path: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
     folder: docs/references/automation/catzc-base-timeouts/types
     name: pipeline-watchdog-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "254b38dd639b"
 ---
 
 # automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3b56749bfdc1"
     path: docs/references/automation/catzc-base-languages/configs/python.yml.md
     folder: docs/references/automation/catzc-base-languages/configs
     name: python-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3b56749bfdc1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
 ---
 

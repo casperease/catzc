@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3ec3199d26a6"
     path: docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: never-depend-on-pwd-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3ec3199d26a6"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Get-GlobSetFile.ps1
     name: get-glob-set-file
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS#{4,5}
   config:
     synopsis: Returns the tracked files a globset matches — the deployable unit's actual members.

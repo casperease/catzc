@@ -8,7 +8,8 @@ description: >
   to add an inspiration. Do NOT use it to read or summarise what an inspiration contains.
 tools: Bash, Read, Glob, Grep, Write, Edit
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "20813ca506bb"
     path: ".claude/agents/build-inspiration-module.md"
     folder: agents
     name: build-inspiration-module
@@ -18,8 +19,8 @@ catzc:
     track: ".claude"
     module: ".claude"
     moduletype: settings
-    body_sha: "20813ca506bb"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-PATH#{1,3}
       - ADR-AUTO-TEST#3

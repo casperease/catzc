@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/private/Get-BicepParameterViolations.ps1
     folder: private
     name: get-bicep-parameter-violations
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
   config:
     synopsis: Returns every violation of a template's rendered parameters files against its compiled parameter model.
     description: |-

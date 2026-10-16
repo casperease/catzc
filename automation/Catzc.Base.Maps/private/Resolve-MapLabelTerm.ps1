@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
     folder: private
     name: resolve-map-label-term
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#{13,16}
   config:
     synopsis: Returns the glossary term a printed map label names, or nothing when it names none.

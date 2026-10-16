@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6e9bebd9acdc"
     path: docs/explanation/flow/one-boolean-answer-from-one-function.md
     folder: docs/explanation/flow
     name: one-boolean-answer-from-one-function
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "6e9bebd9acdc"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PARITY#3
       - ADR-FLOW-CD-DETECT#{1,4}
     links:

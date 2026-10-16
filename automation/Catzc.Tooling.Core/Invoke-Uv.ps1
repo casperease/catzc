@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Invoke-Uv.ps1
     name: invoke-uv
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md
   config:
     synopsis: Runs uv with the given arguments.
     description: |-

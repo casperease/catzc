@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "71ad8910ee6f"
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: invoke-test-file-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "71ad8910ee6f"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{23,25,32,33}
 ---
 

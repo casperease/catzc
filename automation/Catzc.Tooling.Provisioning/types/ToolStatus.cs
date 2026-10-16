@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/types/ToolStatus.cs
     folder: types
     name: tool-status
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Tooling.Provisioning
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/types/ToolStatus.cs.md
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/types/ToolStatus.cs.md
 ---
 */
 

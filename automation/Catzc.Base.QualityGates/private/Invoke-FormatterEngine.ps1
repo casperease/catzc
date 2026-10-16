@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Invoke-FormatterEngine.ps1
     folder: private
     name: invoke-formatter-engine
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-PRIN-CONFIG#2
   config:
     synopsis: Runs one formatter engine over the given files and returns the files it changed.

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b6f057c53540
     path: docs/references/automation/catzc-base-exporter/types/ExporterPackage.cs.md
     folder: docs/references/automation/catzc-base-exporter/types
     name: exporter-package-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b6f057c53540
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

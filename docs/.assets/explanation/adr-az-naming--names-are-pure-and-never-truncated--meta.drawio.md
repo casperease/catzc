@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "192ccc156202"
     path: docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-naming-names-are-pure-and-never-truncated-meta-drawio
@@ -8,8 +9,8 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "192ccc156202"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{9,14-16}
     links:
       - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.chain.md

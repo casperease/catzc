@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e7f94588d30b
     path: docs/references/dora/metrics.md
     folder: docs/references/dora
     name: metrics
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: e7f94588d30b
+  edges:
     links:
       - docs/references/dora/capabilities.md#working-in-small-batches
       - docs/references/dora/core-model.md#reliability

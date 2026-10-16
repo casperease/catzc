@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e2f11e10d89e
     path: docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: build-terminology-dictionary-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: e2f11e10d89e
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-SPELL#6
       - ADR-REPO-OUTDIR#8
 ---

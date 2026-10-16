@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Write-TestOptOutExclusion.ps1
     folder: private
     name: write-test-opt-out-exclusion
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#31
   config:
     synopsis: Prints and records the tests a test run's opt-out tag excluded — the visible half of the opt-out rule.

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c2d0a9b81cc6
     path: docs/references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: adr-checks-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c2d0a9b81cc6
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#35
       - ADR-AUTO-TYPES#8

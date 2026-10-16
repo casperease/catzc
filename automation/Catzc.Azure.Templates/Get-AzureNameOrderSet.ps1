@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-AzureNameOrderSet.ps1
     name: get-azure-name-order-set
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Get-AzureNameOrderSet.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Get-AzureNameOrderSet.Tests.ps1
   config:
     synopsis: Returns the named component orders Get-AzureResourceName can assemble names in.
     description: |-

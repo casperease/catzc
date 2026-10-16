@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d621f7198d22
     path: docs/.assets/explanation/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-globs-range-per-context-then-diff-and-match-implementation-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: d621f7198d22
+  edges:
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
       - docs/explanation/flow/range-per-context-then-diff-and-match.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d1b3363cb76a
     path: docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
     folder: docs/references/automation/catzc-base-engines/types
     name: execution-engine-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d1b3363cb76a
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TYPES#8
 ---

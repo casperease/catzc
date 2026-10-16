@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1
     folder: private
     name: invoke-test-run
@@ -13,10 +13,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
-      test: automation/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
+    test: automation/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#{26,30,31,44}
       - ADR-PWSH-ANNOUNCE#6
       - ADR-PWSH-PARAM#4

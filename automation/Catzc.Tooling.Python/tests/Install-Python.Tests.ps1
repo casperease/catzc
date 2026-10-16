@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
     folder: tests
     name: install-python-tests

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5930dcf03e2c"
     path: docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: win-ansi-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5930dcf03e2c"
 ---
 
 # automation/Catzc.Base.Maps/types/WinAnsi.cs

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/Test-CompletesWithin.ps1
     name: test-completes-within
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Timeouts/tests/Test-CompletesWithin.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Timeouts/tests/Test-CompletesWithin.Tests.ps1
   config:
     synopsis: Tests whether a script block finishes within a time limit; past it the work is stopped.
     description: |-

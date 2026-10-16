@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "840dcfca8845"
     path: docs/references/automation/catzc-base-modulesystem.md
     folder: docs/references/automation
     name: catzc-base-modulesystem
@@ -8,8 +9,8 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "840dcfca8845"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
     links:
       - docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md

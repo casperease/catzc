@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3ec1338daf69"
     path: docs/adr/repository/domain-language-separation.md
     folder: docs/adr/repository
     name: domain-language-separation
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "3ec1338daf69"
+  edges:
     defines:
       - ADR-REPO-LANG#{1-7}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#{1,3}
     links:
       - docs/adr/automation/spell-out-names.md

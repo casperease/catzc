@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-ContentStamp.ps1
     folder: private
     name: get-content-stamp
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md
+    cites:
       - ADR-AUTO-CACHE#10
   config:
     synopsis: 'The fingerprint of a set of input files: one SHA-256 over a label and each file''s path and content hash.'

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-EnglishDictionaryDrift.ps1
     folder: private
     name: get-english-dictionary-drift

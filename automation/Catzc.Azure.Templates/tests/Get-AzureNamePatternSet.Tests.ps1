@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/tests/Get-AzureNamePatternSet.Tests.ps1
     folder: tests
     name: get-azure-name-pattern-set-tests

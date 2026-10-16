@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5d302e1d8b58"
     path: docs/references/automation/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md
     folder: docs/references/automation/catzc-base-environment/tests
     name: sync-session-path-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5d302e1d8b58"
 ---
 
 # automation/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1

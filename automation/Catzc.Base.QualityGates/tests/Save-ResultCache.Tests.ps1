@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Save-ResultCache.Tests.ps1
     folder: tests
     name: save-result-cache-tests

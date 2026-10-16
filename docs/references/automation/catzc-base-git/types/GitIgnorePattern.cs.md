@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3d4d7a256c9c"
     path: docs/references/automation/catzc-base-git/types/GitIgnorePattern.cs.md
     folder: docs/references/automation/catzc-base-git/types
     name: git-ignore-pattern-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3d4d7a256c9c"
 ---
 
 # automation/Catzc.Base.Git/types/GitIgnorePattern.cs

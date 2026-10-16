@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "153a0c001554"
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: install-java-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "153a0c001554"
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1

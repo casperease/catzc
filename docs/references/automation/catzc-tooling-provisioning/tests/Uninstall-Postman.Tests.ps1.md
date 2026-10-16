@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cf5a82df3f23
     path: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Postman.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: uninstall-postman-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: cf5a82df3f23
 ---
 
 # automation/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1

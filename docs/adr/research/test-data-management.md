@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fca065d02994
     path: docs/adr/research/test-data-management.md
     folder: docs/adr/research
     name: test-data-management
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: fca065d02994
+  edges:
     defines:
       - ADR-DORA-TESTDATA#{1-5}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#{3,6,9}
     links:
       - docs/adr/automation/test-automation.md

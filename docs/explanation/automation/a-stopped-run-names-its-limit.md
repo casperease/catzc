@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "877da7a37604"
     path: docs/explanation/automation/a-stopped-run-names-its-limit.md
     folder: docs/explanation/automation
     name: a-stopped-run-names-its-limit
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "877da7a37604"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:

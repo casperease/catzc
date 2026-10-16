@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/private/ConvertFrom-BatsJunit.ps1
     folder: private
     name: convert-from-bats-junit
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
   config:
     synopsis: Turns the bats JUnit report into one BashTestResult per Bash test.
     description: |-

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8dc664278599"
     path: docs/references/automation/scriptanalyzer/NoWriteErrorOrWarning.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-write-error-or-warning-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8dc664278599"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

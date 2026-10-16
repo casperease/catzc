@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dc4cf83cc6db
     path: docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md
     folder: docs/explanation/automation
     name: unboxing-is-cheap-and-crossings-are-not
@@ -8,7 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: dc4cf83cc6db
+  edges:
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/pwsh/bounded-enumeration.md

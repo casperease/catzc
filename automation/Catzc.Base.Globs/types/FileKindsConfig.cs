@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/types/FileKindsConfig.cs
     folder: types
     name: file-kinds-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Globs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-globs/types/FileKindsConfig.cs.md
-      test: automation/Catzc.Base.Globs/tests/types/FileKindsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-globs/types/FileKindsConfig.cs.md
+    test: automation/Catzc.Base.Globs/tests/types/FileKindsConfig.Tests.ps1
+    cites:
       - ADR-CONF-LOADING#4
       - ADR-REPO-FILEMETA#2
 ---

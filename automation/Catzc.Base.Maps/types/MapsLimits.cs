@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/MapsLimits.cs
     folder: types
     name: maps-limits
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/MapsLimits.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/MapsLimits.cs.md
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
 ---

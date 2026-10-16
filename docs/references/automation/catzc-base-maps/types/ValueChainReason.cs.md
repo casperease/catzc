@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "13bc199269bc"
     path: docs/references/automation/catzc-base-maps/types/ValueChainReason.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: value-chain-reason-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "13bc199269bc"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#{14,15}
 ---

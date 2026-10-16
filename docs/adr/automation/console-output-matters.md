@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "62369ae583c9"
     path: docs/adr/automation/console-output-matters.md
     folder: docs/adr/automation
     name: console-output-matters
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "62369ae583c9"
+  edges:
     defines:
       - ADR-AUTO-CONSOLE#{1,3-12}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a3f8ef2c85f5
     path: docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-conf-addressing-type-an-address-get-the-value-operations-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: a3f8ef2c85f5
+  edges:
     links:
       - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
       - docs/explanation/configuration/type-an-address-get-the-value.md

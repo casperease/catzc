@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1165f88f17f1"
     path: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Chocolatey.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning/tests
     name: uninstall-chocolatey-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1165f88f17f1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#33
 ---
 

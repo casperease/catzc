@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3c30ffb9e17f"
     path: docs/explanation/flow/the-analyzer-names-the-raw-read.md
     folder: docs/explanation/flow
     name: the-analyzer-names-the-raw-read
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "3c30ffb9e17f"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-PARITY#2
       - ADR-FLOW-CD-DETECT#{1,4}
     links:

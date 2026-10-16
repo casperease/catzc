@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/log-analytics.bicep
 //     name: log-analytics
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: log-analytics
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/log-analytics.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/log-analytics.bicep.md
 // ---
 
 @description('Log Analytics workspace name.')

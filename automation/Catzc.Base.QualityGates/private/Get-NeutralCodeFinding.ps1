@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-NeutralCodeFinding.ps1
     folder: private
     name: get-neutral-code-finding
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-WIDGET-GADGET
   config:

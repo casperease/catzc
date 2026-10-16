@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6fcb534e32be"
     path: docs/adr/pwsh/hosting-csharp-types.md
     folder: docs/adr/pwsh
     name: hosting-csharp-types
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "6fcb534e32be"
+  edges:
     defines:
       - ADR-PWSH-TYPES#{1-7}
-    adrs:
+    cites:
       - ADR-AUTO-TYPES#{2-4,7,9,14,15}
       - ADR-FLOW-CD-DETECT#1
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "40c40b9e5df1"
     path: docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md
     folder: docs/references/automation/catzc-azure-templates
     name: get-bicep-template-slots-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "40c40b9e5df1"
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepTemplateSlots.ps1

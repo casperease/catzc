@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "169dd915e433"
     path: docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md
     folder: docs/references/automation/catzc-tooling-provisioning
     name: install-dev-box-tools-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "169dd915e433"
 ---
 
 # automation/Catzc.Tooling.Provisioning/Install-DevBoxTools.ps1

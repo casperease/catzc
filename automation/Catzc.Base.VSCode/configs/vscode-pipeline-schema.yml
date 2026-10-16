@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
 #     folder: configs
 #     name: vscode-pipeline-schema
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.VSCode
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md
 # ---
 
 $schema: http://json-schema.org/draft-07/schema#

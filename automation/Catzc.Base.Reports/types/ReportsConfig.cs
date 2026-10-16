@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Reports/types/ReportsConfig.cs
     folder: types
     name: reports-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Reports
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-reports/types/ReportsConfig.cs.md
-      test: automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-reports/types/ReportsConfig.cs.md
+    test: automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-AUTO-TYPES#8
 ---

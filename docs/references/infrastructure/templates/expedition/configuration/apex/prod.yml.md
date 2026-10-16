@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "85b062cfbaf8"
     path: docs/references/infrastructure/templates/expedition/configuration/apex/prod.yml.md
     folder: docs/references/infrastructure/templates/expedition/configuration/apex
     name: prod-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "85b062cfbaf8"
 ---
 
 # infrastructure/templates/expedition/configuration/apex/prod.yml

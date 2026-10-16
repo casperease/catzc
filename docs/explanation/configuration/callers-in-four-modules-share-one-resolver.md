@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0851cc5cff01"
     path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
     folder: docs/explanation/configuration
     name: callers-in-four-modules-share-one-resolver
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "0851cc5cff01"
-    adrs:
+  edges:
+    cites:
       - ADR-CONF-ADDRESSING#{1-3}
     links:
       - docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.md

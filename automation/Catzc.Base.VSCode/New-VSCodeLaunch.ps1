@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
     name: new-vs-code-launch
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
+    cites:
       - ADR-REPO-ROOTCFG
   config:
     synopsis: |-

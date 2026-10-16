@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
     folder: private
     name: import-adr-citation-map-file
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-FAILFAST
   config:
     synopsis: Reads one tab-separated ADR map (a code map or a rule map) into one hashtable per row, keyed by the header.

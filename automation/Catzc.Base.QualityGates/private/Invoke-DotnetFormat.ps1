@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Invoke-DotnetFormat.ps1
     folder: private
     name: invoke-dotnet-format
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Invoke-DotnetFormat.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Invoke-DotnetFormat.Tests.ps1
+    cites:
       - ADR-PRIN-CONFIG#2
   config:
     synopsis: |-

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "056458e98539"
     path: docs/references/infrastructure/CLAUDE.md
     folder: docs/references/infrastructure
     name: claude
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "056458e98539"
+  edges:
     links:
       - ".claude/CLAUDE.md#time-safeguard"
       - docs/adr/repository/generated-readmes.md

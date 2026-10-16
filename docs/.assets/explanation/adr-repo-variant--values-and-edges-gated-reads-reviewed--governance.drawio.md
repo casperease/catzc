@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5af07de768ed"
     path: docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-variant-values-and-edges-gated-reads-reviewed-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "5af07de768ed"
+  edges:
     links:
       - docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
       - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md

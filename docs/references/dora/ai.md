@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4519db9d21f0"
     path: docs/references/dora/ai.md
     folder: docs/references/dora
     name: ai
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "4519db9d21f0"
+  edges:
     links:
       - docs/references/dora/capabilities.md#ai
       - docs/references/dora/capabilities.md#ai-accessible-internal-data

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Get-CurrentAzSubscription.ps1
     name: get-current-az-subscription
     filetype: ps1

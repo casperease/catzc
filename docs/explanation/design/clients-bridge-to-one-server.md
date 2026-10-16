@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "67c27c50bf4b"
     path: docs/explanation/design/clients-bridge-to-one-server.md
     folder: docs/explanation/design
     name: clients-bridge-to-one-server
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "67c27c50bf4b"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#{6,7}
       - ADR-DSGN-REMOTE#{1,2,4}
     links:

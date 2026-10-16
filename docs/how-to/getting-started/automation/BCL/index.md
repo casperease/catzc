@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f355f6d21e52
     path: docs/how-to/getting-started/automation/BCL/index.md
     folder: docs/how-to/getting-started/automation/BCL
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: f355f6d21e52
+  edges:
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md

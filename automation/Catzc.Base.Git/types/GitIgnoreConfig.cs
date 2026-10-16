@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Git/types/GitIgnoreConfig.cs
     folder: types
     name: git-ignore-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Git
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md
-      test: automation/Catzc.Base.Git/tests/types/GitIgnoreConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md
+    test: automation/Catzc.Base.Git/tests/types/GitIgnoreConfig.Tests.ps1
+    cites:
       - ADR-CONF-LOADING
       - ADR-REPO-ROOTCFG
 ---

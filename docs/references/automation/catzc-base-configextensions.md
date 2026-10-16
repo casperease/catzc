@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "72b0ca900c47"
     path: docs/references/automation/catzc-base-configextensions.md
     folder: docs/references/automation
     name: catzc-base-configextensions
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "72b0ca900c47"
+  edges:
     links:
       - docs/adr/configuration/module-config-loading.md
       - docs/references/automation/catzc-base-config.md

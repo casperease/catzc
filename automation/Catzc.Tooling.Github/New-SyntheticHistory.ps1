@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Github/New-SyntheticHistory.ps1
     name: new-synthetic-history
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
   config:
     synopsis: |-
       Rebuilds a repository's history as a fresh, backdated, single-author orphan

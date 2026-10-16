@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationHeader.Tests.ps1
     folder: tests
     name: write-test-automation-header-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationHeader.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationHeader.Tests.ps1.md
 ---
 #>
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
     folder: tests/types
     name: customer-config-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Azure
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-CUSTOMER#2
 ---
 #>

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Timeouts/configs/timeout-exemptions.yml
 #     folder: configs
 #     name: timeout-exemptions
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Timeouts
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-timeouts/configs/timeout-exemptions.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-timeouts/configs/timeout-exemptions.yml.md
 # ---
 
 exempt: []

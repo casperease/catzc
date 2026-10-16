@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ba9e66a45031
     path: docs/adr/pwsh/module-path-hygiene.md
     folder: docs/adr/pwsh
     name: module-path-hygiene
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: ba9e66a45031
+  edges:
     defines:
       - ADR-PWSH-MODPATH#{1-3}
     links:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "75f88b50d291"
     path: docs/references/automation/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md
     folder: docs/references/automation/catzc-base-languages/tests
     name: new-go-workspace-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "75f88b50d291"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#6
 ---
 

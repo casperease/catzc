@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Get-ToolCommandSuffix.ps1
     name: get-tool-command-suffix
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Core/tests/Get-ToolCommandSuffix.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Core/tests/Get-ToolCommandSuffix.Tests.ps1
   config:
     synopsis: Maps a snake_case tool key from tools.yml to its PascalCase command suffix.
     description: |-

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fe00a5aa2d65
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-FormatEngineStamp.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: get-format-engine-stamp-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fe00a5aa2d65
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-TEST#3
 ---

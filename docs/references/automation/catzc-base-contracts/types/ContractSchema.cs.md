@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0afe717d6ec7"
     path: docs/references/automation/catzc-base-contracts/types/ContractSchema.cs.md
     folder: docs/references/automation/catzc-base-contracts/types
     name: contract-schema-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0afe717d6ec7"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-TYPES#1
       - ADR-REPO-CONTRACT#6
 ---

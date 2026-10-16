@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c2b95f4a9247
     path: docs/adr/repository/output-formats.md
     folder: docs/adr/repository
     name: output-formats
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: c2b95f4a9247
+  edges:
     defines:
       - ADR-REPO-OUTFMT#{1-7}
-    adrs:
+    cites:
       - ADR-AUTO-PATH#10
     links:
       - docs/adr/automation/path-representation.md#rule-adr-auto-path10

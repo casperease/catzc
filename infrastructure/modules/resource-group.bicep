@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/resource-group.bicep
 //     name: resource-group
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: resource-group
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/resource-group.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/resource-group.bicep.md
 // ---
 
 targetScope = 'subscription'

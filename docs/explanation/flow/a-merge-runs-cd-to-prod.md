@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1c55ad0ec400"
     path: docs/explanation/flow/a-merge-runs-cd-to-prod.md
     folder: docs/explanation/flow
     name: a-merge-runs-cd-to-prod
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "1c55ad0ec400"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD#{5,6,9}
     links:
       - docs/.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a926a158f7d0
     path: docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md
     folder: docs/references/automation/catzc-base-files
     name: get-git-tracked-path-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a926a158f7d0
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#9
       - ADR-PWSH-CACHE#4
 ---

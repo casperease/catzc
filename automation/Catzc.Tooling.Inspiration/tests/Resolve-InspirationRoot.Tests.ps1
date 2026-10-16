@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
     folder: tests
     name: resolve-inspiration-root-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Tooling.Inspiration
     moduletype: pwsh-folder
     catzc_bundle: full
-    relatives:
-      page: docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
+    cites:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-TEST#3
 ---

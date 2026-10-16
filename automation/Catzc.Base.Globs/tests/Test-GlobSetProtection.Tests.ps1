@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
     folder: tests
     name: test-glob-set-protection-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Globs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-globs/tests/Test-GlobSetProtection.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-globs/tests/Test-GlobSetProtection.Tests.ps1.md
+    cites:
       - ADR-REPO-PROTGLOB
 ---
 #>

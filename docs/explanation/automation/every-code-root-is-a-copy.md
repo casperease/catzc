@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "746c77c76a50"
     path: docs/explanation/automation/every-code-root-is-a-copy.md
     folder: docs/explanation/automation
     name: every-code-root-is-a-copy
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "746c77c76a50"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-BUNDLE#{1-3,6}
       - ADR-DSGN-RUNMODE#7
     links:

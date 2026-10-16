@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.VSCode/New-VSCodeExtensions.ps1
     name: new-vs-code-extensions
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.VSCode/tests/New-VSCodeExtensions.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.VSCode/tests/New-VSCodeExtensions.Tests.ps1
+    cites:
       - ADR-REPO-FORMAT#8
       - ADR-REPO-ROOTCFG
   config:

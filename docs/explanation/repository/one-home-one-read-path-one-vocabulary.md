@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7272a8567547"
     path: docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
     folder: docs/explanation/repository
     name: one-home-one-read-path-one-vocabulary
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "7272a8567547"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#6
       - ADR-PWSH-CACHE#1
       - ADR-REPO-VARIANT#{1,2}

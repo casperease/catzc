@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-ChangeCheckPlan.ps1
     folder: private
     name: get-change-check-plan
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1
+    cites:
       - ADR-PRIN-CONFIG
   config:
     synopsis: Maps changed repository files to the quality gates that check them, by file language.

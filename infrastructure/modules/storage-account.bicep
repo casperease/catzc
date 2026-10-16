@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/storage-account.bicep
 //     name: storage-account
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: storage-account
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/storage-account.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/storage-account.bicep.md
 // ---
 
 @description('Storage account name (3-24 lowercase alphanumeric, globally unique).')

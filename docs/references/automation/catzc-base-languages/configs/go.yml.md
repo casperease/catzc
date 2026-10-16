@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1dfc696f8d7c"
     path: docs/references/automation/catzc-base-languages/configs/go.yml.md
     folder: docs/references/automation/catzc-base-languages/configs
     name: go-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1dfc696f8d7c"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
 ---
 

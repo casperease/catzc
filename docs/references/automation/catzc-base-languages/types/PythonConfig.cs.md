@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: caeab4608db0
     path: docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md
     folder: docs/references/automation/catzc-base-languages/types
     name: python-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: caeab4608db0
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FOLDERS#7
 ---

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/Get-AzureCustomer.ps1
     name: get-azure-customer
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1
   config:
     synopsis: Resolves a customer reference (its key OR its shortcode) to the canonical customer record.
     description: |-

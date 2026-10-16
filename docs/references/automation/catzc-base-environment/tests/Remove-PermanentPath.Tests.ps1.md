@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dcf2ae4f8a46
     path: docs/references/automation/catzc-base-environment/tests/Remove-PermanentPath.Tests.ps1.md
     folder: docs/references/automation/catzc-base-environment/tests
     name: remove-permanent-path-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: dcf2ae4f8a46
 ---
 
 # automation/Catzc.Base.Environment/tests/Remove-PermanentPath.Tests.ps1

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "443102464c52"
     path: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Sync-AdoBuildValidations.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-devops-buildvalidation/tests
     name: sync-ado-build-validations-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "443102464c52"
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1

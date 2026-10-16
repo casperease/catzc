@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b09ed58f0b41
     path: docs/adr/pwsh/prefer-dryrun-over-shouldprocess.md
     folder: docs/adr/pwsh
     name: prefer-dryrun-over-shouldprocess
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b09ed58f0b41
+  edges:
     defines:
       - ADR-PWSH-DRYRUN#{1-5}
-    adrs:
+    cites:
       - ADR-AUTO-DRYRUN
     links:
       - docs/adr/automation/dry-run.md

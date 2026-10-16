@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/private/Test-ToolLocationManaged.ps1
     folder: private
     name: test-tool-location-managed
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md
-      test: automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md
+    test: automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
   config:
     synopsis: 'Fast, subprocess-free check: does a resolved tool location belong to the installer layer?'
     description: |-

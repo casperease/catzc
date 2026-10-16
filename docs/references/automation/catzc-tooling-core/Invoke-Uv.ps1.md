@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b65c83c60830
     path: docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: invoke-uv-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b65c83c60830
 ---
 
 # automation/Catzc.Tooling.Core/Invoke-Uv.ps1

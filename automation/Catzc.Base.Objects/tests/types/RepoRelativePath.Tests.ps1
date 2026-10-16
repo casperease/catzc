@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1
     folder: tests/types
     name: repo-relative-path-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Objects
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md
 ---
 #>
 

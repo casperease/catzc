@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Execution/Find-Executable.ps1
     name: find-executable
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
+    cites:
       - ADR-PWSH-CACHE
   config:
     synopsis: Locates an executable without starting a process, then confirms its version once per session.

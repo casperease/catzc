@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ee060595c823
     path: docs/explanation/azure/index.md
     folder: docs/explanation/azure
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: ee060595c823
+  edges:
     links:
       - docs/adr/azure/azure-naming-standard.md
       - docs/adr/index.md#azure

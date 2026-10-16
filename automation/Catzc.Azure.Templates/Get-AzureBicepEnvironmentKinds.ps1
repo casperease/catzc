@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
     name: get-azure-bicep-environment-kinds
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Templates/tests/Get-AzureBicepEnvironmentKinds.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.Templates/tests/Get-AzureBicepEnvironmentKinds.Tests.ps1
+    cites:
       - ADR-AZ-DATAMOD
   config:
     synopsis: Returns the supported template environment kinds (which env class a template binds to).

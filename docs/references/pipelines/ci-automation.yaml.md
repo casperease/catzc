@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "77798bd827ed"
     path: docs/references/pipelines/ci-automation.yaml.md
     folder: docs/references/pipelines
     name: ci-automation-yaml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "77798bd827ed"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#1
 ---
 

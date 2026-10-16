@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fcb272ff0358
     path: docs/explanation/azure/names-are-pure-and-never-truncated.md
     folder: docs/explanation/azure
     name: names-are-pure-and-never-truncated
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: fcb272ff0358
-    adrs:
+  edges:
+    cites:
       - ADR-AZ-NAMING#{1,3,7,8}
     links:
       - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.md

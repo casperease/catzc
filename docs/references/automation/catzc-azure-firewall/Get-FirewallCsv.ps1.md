@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3c8efece77ee"
     path: docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md
     folder: docs/references/automation/catzc-azure-firewall
     name: get-firewall-csv-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3c8efece77ee"
 ---
 
 # automation/Catzc.Azure.Firewall/Get-FirewallCsv.ps1

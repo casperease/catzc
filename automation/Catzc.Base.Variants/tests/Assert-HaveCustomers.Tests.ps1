@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/tests/Assert-HaveCustomers.Tests.ps1
     folder: tests
     name: assert-have-customers-tests

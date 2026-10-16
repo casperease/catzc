@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "413a6f2fae83"
     path: docs/explanation/repository/three-gates-check-registry-drift-membership.md
     folder: docs/explanation/repository
     name: three-gates-check-registry-drift-membership
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "413a6f2fae83"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-REPO-ROOTCFG
     links:

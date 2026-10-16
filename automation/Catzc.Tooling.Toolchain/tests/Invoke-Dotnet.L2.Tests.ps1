@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Dotnet.L2.Tests.ps1
     folder: tests
     name: invoke-dotnet-l2-tests

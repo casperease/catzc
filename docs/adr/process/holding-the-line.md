@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d2cb16c40656
     path: docs/adr/process/holding-the-line.md
     folder: docs/adr/process
     name: holding-the-line
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d2cb16c40656
+  edges:
     defines:
       - ADR-PROC-ANDON#{1-4}
-    adrs:
+    cites:
       - ADR-PRIN-POKAYOKE#3
     links:
       - docs/adr/automation/devbox-pipeline-parity.md

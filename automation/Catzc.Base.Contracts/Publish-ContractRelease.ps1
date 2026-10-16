@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1
     name: publish-contract-release
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md
-      test: automation/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md
+    test: automation/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
+    cites:
       - ADR-AUTO-BUNDLE#7
       - ADR-AUTO-PATH#2
       - ADR-PWSH-ENUM#3

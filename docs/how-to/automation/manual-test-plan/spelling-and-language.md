@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cc05af7967c1
     path: docs/how-to/automation/manual-test-plan/spelling-and-language.md
     folder: docs/how-to/automation/manual-test-plan
     name: spelling-and-language
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: cc05af7967c1
+  edges:
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---

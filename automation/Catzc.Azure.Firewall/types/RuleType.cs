@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Firewall/types/RuleType.cs
     folder: types
     name: rule-type
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.Firewall
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-firewall/types/RuleType.cs.md
+  edges:
+    page: docs/references/automation/catzc-azure-firewall/types/RuleType.cs.md
 ---
 */
 

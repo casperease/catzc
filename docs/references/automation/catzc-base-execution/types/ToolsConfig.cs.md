@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "923aa57c6ad1"
     path: docs/references/automation/catzc-base-execution/types/ToolsConfig.cs.md
     folder: docs/references/automation/catzc-base-execution/types
     name: tools-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "923aa57c6ad1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEPS#4
 ---
 

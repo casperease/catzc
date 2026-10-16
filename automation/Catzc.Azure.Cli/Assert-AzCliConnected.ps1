@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Assert-AzCliConnected.ps1
     name: assert-az-cli-connected
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Cli/tests/Assert-AzCliConnected.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure.Cli/tests/Assert-AzCliConnected.Tests.ps1
   config:
     synopsis: Asserts the active az CLI session matches a given subscription and/or tenant.
     description: |-

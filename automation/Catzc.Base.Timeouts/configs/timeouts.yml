@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Timeouts/configs/timeouts.yml
 #     folder: configs
 #     name: timeouts
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Timeouts
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md
 # ---
 
 executables:

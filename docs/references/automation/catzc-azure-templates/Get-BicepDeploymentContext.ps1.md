@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f0356e833435
     path: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
     folder: docs/references/automation/catzc-azure-templates
     name: get-bicep-deployment-context-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f0356e833435
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1

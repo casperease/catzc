@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1
     folder: tests
     name: convert-firewall-csv-to-markdown-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.Firewall
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-azure-firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1.md
 ---
 #>
 

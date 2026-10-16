@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6517e456e94d"
     path: docs/references/automation/catzc-tooling-inspiration/types/InspirationConfig.cs.md
     folder: docs/references/automation/catzc-tooling-inspiration/types
     name: inspiration-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6517e456e94d"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
 ---

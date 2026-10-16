@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/Uninstall-Go.ps1
     name: uninstall-go
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Go.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Go.Tests.ps1
   config:
     synopsis: Uninstalls the Go toolchain installed by Install-Go.
     description: |-

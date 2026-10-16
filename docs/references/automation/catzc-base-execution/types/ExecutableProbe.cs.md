@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8457dfdf5b65"
     path: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
     folder: docs/references/automation/catzc-base-execution/types
     name: executable-probe-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8457dfdf5b65"
 ---
 
 # automation/Catzc.Base.Execution/types/ExecutableProbe.cs

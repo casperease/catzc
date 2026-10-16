@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: db59804939f1
     path: docs/explanation/flow/the-runner-is-the-only-seam.md
     folder: docs/explanation/flow
     name: the-runner-is-the-only-seam
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: db59804939f1
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-RUNNER#{1-3}
     links:
       - docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md

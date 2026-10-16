@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0ee78f503e58"
     path: docs/explanation/design/shims-set-roots-mode-read-back.md
     folder: docs/explanation/design
     name: shims-set-roots-mode-read-back
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "0ee78f503e58"
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-RUNMODE#{1,4,5,7}
     links:
       - docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.md

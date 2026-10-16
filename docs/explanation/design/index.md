@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8baab60578b3"
     path: docs/explanation/design/index.md
     folder: docs/explanation/design
     name: index
@@ -8,7 +9,7 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "8baab60578b3"
+  edges:
     links:
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/module-aspects.md

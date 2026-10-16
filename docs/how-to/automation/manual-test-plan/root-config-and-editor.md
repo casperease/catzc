@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "134788ad7604"
     path: docs/how-to/automation/manual-test-plan/root-config-and-editor.md
     folder: docs/how-to/automation/manual-test-plan
     name: root-config-and-editor
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "134788ad7604"
+  edges:
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---

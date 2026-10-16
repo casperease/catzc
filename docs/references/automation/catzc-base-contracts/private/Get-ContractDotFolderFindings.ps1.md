@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "268c6162b3b9"
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md
     folder: docs/references/automation/catzc-base-contracts/private
     name: get-contract-dot-folder-findings-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "268c6162b3b9"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-ENUM#3
 ---
 

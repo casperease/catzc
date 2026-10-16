@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleDependency.ps1
     name: get-module-dependency
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
   config:
     synopsis: Compiles a module-level dependency edge map from function-level dependencies.
     description: |-

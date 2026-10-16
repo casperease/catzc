@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a2fc2bb2cdea
     path: docs/references/automation/catzc-base-folders.md
     folder: docs/references/automation
     name: catzc-base-folders
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: a2fc2bb2cdea
+  edges:
     links:
       - docs/references/automation/catzc-base-files.md
       - docs/references/automation/catzc-base-git.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bf24a2013655
     path: docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: gzip-text-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: bf24a2013655
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-TYPES#1
 ---
 

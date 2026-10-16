@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: e9b85c942879
     path: docs/explanation/design/integrators-depend-on-an-occupant.md
     folder: docs/explanation/design
     name: integrators-depend-on-an-occupant
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: e9b85c942879
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-LIFE#{5-8}
       - ADR-DSGN-VISUAL#13
       - ADR-FLOW-CD#{9,11}

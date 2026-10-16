@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "73a0cb2d870c"
     path: docs/adr/azure/azure-naming-standard.md
     folder: docs/adr/azure
     name: azure-naming-standard
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "73a0cb2d870c"
+  edges:
     defines:
       - ADR-AZ-NAMING#{1-8}
     links:

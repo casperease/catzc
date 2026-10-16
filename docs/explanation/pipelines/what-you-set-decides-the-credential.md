@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a1d9fba083df
     path: docs/explanation/pipelines/what-you-set-decides-the-credential.md
     folder: docs/explanation/pipelines
     name: what-you-set-decides-the-credential
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: a1d9fba083df
-    adrs:
+  edges:
+    cites:
       - ADR-PIPE-AUTH#{1,2,5,6}
     links:
       - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/Invoke-GoTest.ps1
     name: invoke-go-test
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md
-      test: automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md
+    test: automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1
+    cites:
       - ADR-AUTO-ENGINE
       - ADR-AUTO-ENVVAR#1
       - ADR-AUTO-GO#6

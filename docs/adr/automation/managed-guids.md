@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "94f06d40fd5a"
     path: docs/adr/automation/managed-guids.md
     folder: docs/adr/automation
     name: managed-guids
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "94f06d40fd5a"
+  edges:
     defines:
       - ADR-AUTO-GUIDS#{1-6}
-    adrs:
+    cites:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#4
     links:

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/Get-AzureSubscriptionCustomer.ps1
     name: get-azure-subscription-customer
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure/tests/Get-AzureSubscriptionCustomer.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure/tests/Get-AzureSubscriptionCustomer.Tests.ps1
   config:
     synopsis: Returns the customer a subscription is bound to (its `customer` field), or '' if it has none.
     description: |-

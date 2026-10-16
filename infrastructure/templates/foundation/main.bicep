@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/templates/foundation/main.bicep
 //     name: main
 //     filetype: bicep
@@ -9,8 +9,8 @@
 //     track: infrastructure
 //     module: foundation
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/templates/foundation/main.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/templates/foundation/main.bicep.md
 // ---
 
 param location string = resourceGroup().location

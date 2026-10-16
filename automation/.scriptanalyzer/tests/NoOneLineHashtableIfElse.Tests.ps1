@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/tests/NoOneLineHashtableIfElse.Tests.ps1
     folder: automation/.scriptanalyzer/tests
     name: no-one-line-hashtable-if-else-tests
@@ -9,7 +9,8 @@ catzc:
     kind: test
     language: powershell
     track: automation
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#10
 ---
 #>

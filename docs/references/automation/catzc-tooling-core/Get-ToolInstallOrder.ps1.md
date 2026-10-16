@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4ada3e88778b"
     path: docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md
     folder: docs/references/automation/catzc-tooling-core
     name: get-tool-install-order-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4ada3e88778b"
 ---
 
 # automation/Catzc.Tooling.Core/Get-ToolInstallOrder.ps1

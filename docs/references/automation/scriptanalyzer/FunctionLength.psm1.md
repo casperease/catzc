@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1e2b8cb17f5c"
     path: docs/references/automation/scriptanalyzer/FunctionLength.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: function-length-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1e2b8cb17f5c"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

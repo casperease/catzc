@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
     folder: tests
     name: uninstall-zsh-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Tooling.Provisioning
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#{3,9}
 ---
 #>

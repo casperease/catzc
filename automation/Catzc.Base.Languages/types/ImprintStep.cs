@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/types/ImprintStep.cs
     folder: types
     name: imprint-step
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-languages/types/ImprintStep.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/types/ImprintStep.cs.md
+    cites:
       - ADR-REPO-FORMAT#8
 ---
 */

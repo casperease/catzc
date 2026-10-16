@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/tests/Import-AllModules.Tests.ps1
     name: import-all-modules-tests
     filetype: ps1
@@ -11,9 +11,9 @@ catzc:
     module: Catzc.Internal.Tests
     moduletype: pwsh-folder
     catzc_bundle: minimal
-    relatives:
-      page: docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md
+    cites:
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-TEST#26
 ---

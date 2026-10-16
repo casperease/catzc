@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: ccd45c8651f3
     path: docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-coordinate-resolved-file-by-file-at-discovery-implementation-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: ccd45c8651f3
+  edges:
     links:
       - docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png
       - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md

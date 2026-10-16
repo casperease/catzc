@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/private/Get-BicepKeyVaultReferenceViolations.ps1
     folder: private
     name: get-bicep-key-vault-reference-violations

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1858e9dff417"
     path: docs/adr/automation/environment-variables.md
     folder: docs/adr/automation
     name: environment-variables
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "1858e9dff417"
+  edges:
     defines:
       - ADR-AUTO-ENVVAR#{1-7}
-    adrs:
+    cites:
       - ADR-FLOW-CD-DETECT#1
     links:
       - docs/adr/automation/caching.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "433d62e959f7"
     path: docs/references/automation/scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-az-module-naming-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "433d62e959f7"
 ---
 
 # automation/.scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/private/Get-GlossarySources.ps1
     folder: private
     name: get-glossary-sources
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.Docs/tests/Get-GlossarySources.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Docs/tests/Get-GlossarySources.Tests.ps1
+    cites:
       - ADR-CONF-LOADING#1
       - ADR-REPO-VOCAB#{2,3}
   config:

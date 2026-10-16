@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6d37b6c9b1f7"
     path: docs/references/automation/catzc-base-vendor.md
     folder: docs/references/automation
     name: catzc-base-vendor
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "6d37b6c9b1f7"
+  edges:
     links:
       - docs/adr/pwsh/vendor-toolset-dependencies.md
       - docs/references/automation/catzc-base-config.md

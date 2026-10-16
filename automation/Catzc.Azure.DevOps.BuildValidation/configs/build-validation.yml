@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
 #     folder: configs
 #     name: build-validation
@@ -11,8 +11,8 @@
 #     module: Catzc.Azure.DevOps.BuildValidation
 #     moduletype: pwsh-folder
 #     catzc_bundle: full
-#     relatives:
-#       page: docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
 # ---
 
 branch: main

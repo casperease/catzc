@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: da96fc3b252a
     path: docs/adr/configuration/dora-explains.md
     folder: docs/adr/configuration
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: da96fc3b252a
+  edges:
     links:
       - docs/adr/configuration/config-value-addressing.md
       - docs/adr/configuration/markdown-config-contributions.md

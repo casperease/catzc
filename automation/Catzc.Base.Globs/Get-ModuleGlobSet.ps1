@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
     name: get-module-glob-set
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-      test: automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+    test: automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+    cites:
       - ADR-AUTO-BASH#2
       - ADR-AUTO-GO#2
       - ADR-AUTO-PY#2

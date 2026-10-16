@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: edf1d50add6a
     path: docs/explanation/design/only-automation-compiles-its-aspects.md
     folder: docs/explanation/design
     name: only-automation-compiles-its-aspects
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: edf1d50add6a
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-ASPECT#{2-4}
       - ADR-DSGN-TRACK#3
       - ADR-REPO-VARIANT#{1,2}

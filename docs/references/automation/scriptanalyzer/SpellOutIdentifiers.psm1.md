@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c0dfe28e1797
     path: docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: spell-out-identifiers-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c0dfe28e1797
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-SPELL#{4,6}
       - ADR-PWSH-FORMAT#6
 ---

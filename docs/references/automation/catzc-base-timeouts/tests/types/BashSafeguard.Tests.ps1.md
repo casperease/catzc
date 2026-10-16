@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6bf5ef464fc5"
     path: docs/references/automation/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md
     folder: docs/references/automation/catzc-base-timeouts/tests/types
     name: bash-safeguard-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "6bf5ef464fc5"
 ---
 
 # automation/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1

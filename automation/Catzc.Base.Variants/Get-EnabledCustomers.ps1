@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/Get-EnabledCustomers.ps1
     name: get-enabled-customers
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md
-      test: automation/Catzc.Base.Variants/tests/Get-EnabledCustomers.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md
+    test: automation/Catzc.Base.Variants/tests/Get-EnabledCustomers.Tests.ps1
   config:
     synopsis: Returns the repo's enabled-customer set from the `have_customers` variant.
     description: |-

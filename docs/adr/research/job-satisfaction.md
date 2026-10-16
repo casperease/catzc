@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b12564197b48
     path: docs/adr/research/job-satisfaction.md
     folder: docs/adr/research
     name: job-satisfaction
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b12564197b48
+  edges:
     defines:
       - ADR-DORA-JOBSAT#{1-6}
     links:

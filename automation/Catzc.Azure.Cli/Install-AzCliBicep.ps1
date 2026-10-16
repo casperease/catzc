@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1
     name: install-az-cli-bicep
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1
+    cites:
       - ADR-AZ-CLI#1
   config:
     synopsis: Installs (or upgrades) the Bicep CLI that az uses, to at least the configured minimum.

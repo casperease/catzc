@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "04f58188ca31"
     path: docs/adr/principles/reduce-waste.md
     folder: docs/adr/principles
     name: reduce-waste
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "04f58188ca31"
+  edges:
     defines:
       - ADR-PRIN-NOWASTE#{1-3}
 ---

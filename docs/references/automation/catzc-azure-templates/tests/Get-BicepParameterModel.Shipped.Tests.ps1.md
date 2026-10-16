@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "449c3741c093"
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: get-bicep-parameter-model-shipped-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "449c3741c093"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{8,17,19,26,37}
       - ADR-AZ-DATAMOD#9
       - ADR-PWSH-PESTER#2

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.CodeMeta/Get-PropertyMetaState.ps1
     name: get-property-meta-state
     filetype: ps1
@@ -12,7 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-FILEMETA#8
   config:
     synopsis: Reads what a JSON text says about its own meta property, without changing it.

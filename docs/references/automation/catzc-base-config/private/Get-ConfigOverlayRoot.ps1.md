@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: beba738f27a0
     path: docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
     folder: docs/references/automation/catzc-base-config/private
     name: get-config-overlay-root-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: beba738f27a0
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-CACHE#4
 ---
 

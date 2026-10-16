@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Docs/configs/readme.yml
 #     folder: configs
 #     name: readme
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Docs
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-docs/configs/readme.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-docs/configs/readme.yml.md
 # ---
 
 patterns:

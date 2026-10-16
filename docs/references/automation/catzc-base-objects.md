@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c375cfa7034b
     path: docs/references/automation/catzc-base-objects.md
     folder: docs/references/automation
     name: catzc-base-objects
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: c375cfa7034b
+  edges:
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/references/automation/catzc-base-asserts.md

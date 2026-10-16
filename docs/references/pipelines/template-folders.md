@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6cd17e0faa5f"
     path: docs/references/pipelines/template-folders.md
     folder: docs/references/pipelines
     name: template-folders
@@ -8,7 +9,7 @@ catzc:
     kind: reference
     language: markdown
     track: docs
-    body_sha: "6cd17e0faa5f"
+  edges:
     links:
       - docs/adr/pipelines/custom-template-discipline.md
       - docs/adr/pipelines/pipeline-naming-and-placement.md

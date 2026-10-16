@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3cf6047a9daf"
     path: docs/references/automation/catzc-azure-templates/tests/Get-AzureResourceTypeSet.Tests.ps1.md
     folder: docs/references/automation/catzc-azure-templates/tests
     name: get-azure-resource-type-set-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3cf6047a9daf"
 ---
 
 # automation/Catzc.Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1

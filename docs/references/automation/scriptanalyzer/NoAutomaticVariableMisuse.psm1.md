@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b7dcd603d49b
     path: docs/references/automation/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-automatic-variable-misuse-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b7dcd603d49b
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

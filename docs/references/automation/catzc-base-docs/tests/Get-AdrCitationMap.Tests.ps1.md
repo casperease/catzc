@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0182b28fdef1"
     path: docs/references/automation/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: get-adr-citation-map-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0182b28fdef1"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-REPO-LINK#3
 ---

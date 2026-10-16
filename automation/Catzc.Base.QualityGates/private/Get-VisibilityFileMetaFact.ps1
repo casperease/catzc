@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-VisibilityFileMetaFact.ps1
     folder: private
     name: get-visibility-file-meta-fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-VisibilityFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-VisibilityFileMetaFact.Tests.ps1
+    cites:
       - ADR-REPO-CODEMETA#2
   config:
     synopsis: 'The visibility meta kind''s fact: whether a module''s function file is public or private, from its folder.'

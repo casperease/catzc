@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c5c596323647
     path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.md
     folder: docs/.assets/explanation
     name: adr-dsgn-aspect-get-aspect-feeds-globs-and-maps-implementation-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: c5c596323647
+  edges:
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
       - docs/explanation/design/get-aspect-feeds-globs-and-maps.md

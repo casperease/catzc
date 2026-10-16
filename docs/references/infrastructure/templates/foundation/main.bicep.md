@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4b99c52504cc"
     path: docs/references/infrastructure/templates/foundation/main.bicep.md
     folder: docs/references/infrastructure/templates/foundation
     name: main-bicep
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4b99c52504cc"
 ---
 
 # infrastructure/templates/foundation/main.bicep

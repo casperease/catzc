@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6764f10936d7"
     path: docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-az-datamod-pipeline-pins-devbox-picks-the-target-operations-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "6764f10936d7"
+  edges:
     links:
       - docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png
       - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md

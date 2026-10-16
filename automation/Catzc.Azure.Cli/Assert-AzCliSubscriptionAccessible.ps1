@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
     name: assert-az-cli-subscription-accessible
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure.Cli/tests/Assert-AzCliSubscriptionAccessible.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Azure.Cli/tests/Assert-AzCliSubscriptionAccessible.Tests.ps1
+    cites:
       - ADR-AUTO-FAILFAST
       - ADR-AZ-CLI#1
   config:

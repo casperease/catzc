@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Writers/Write-Exception.ps1
     name: write-exception
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Writers/tests/Write-Exception.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Writers/tests/Write-Exception.Tests.ps1
   config:
     synopsis: Displays exception details for use in catch blocks.
     description: |-

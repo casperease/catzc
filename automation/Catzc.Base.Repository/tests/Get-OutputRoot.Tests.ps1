@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Repository/tests/Get-OutputRoot.Tests.ps1
     folder: tests
     name: get-output-root-tests

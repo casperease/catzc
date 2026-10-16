@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/subnet.bicep
 //     name: subnet
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: subnet
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/subnet.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/subnet.bicep.md
 // ---
 
 @description('Name of the existing virtual network (in the deployment resource group).')

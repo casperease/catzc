@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/tests/Get-DotnetInstallHolder.Tests.ps1
     folder: tests
     name: get-dotnet-install-holder-tests

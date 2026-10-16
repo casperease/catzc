@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8238d511e41c"
     path: docs/references/pipelines/cd-nova.yaml.md
     folder: docs/references/pipelines
     name: cd-nova-yaml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8238d511e41c"
 ---
 
 # pipelines/cd-nova.yaml

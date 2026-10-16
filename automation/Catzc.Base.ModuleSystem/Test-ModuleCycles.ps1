@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
     name: test-module-cycles
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#35
   config:
     synopsis: 'Quality gate: the real module-to-module call graph has no cycle.'

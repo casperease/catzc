@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
     folder: tests
     name: format-links-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/tests/Format-Links.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/tests/Format-Links.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PARAM#4
       - ADR-REPO-CODEMETA#2

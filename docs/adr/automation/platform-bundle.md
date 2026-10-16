@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4dacfa995a0b"
     path: docs/adr/automation/platform-bundle.md
     folder: docs/adr/automation
     name: platform-bundle
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "4dacfa995a0b"
+  edges:
     defines:
       - ADR-AUTO-BUNDLE#{1-3,5-8}
-    adrs:
+    cites:
       - ADR-FLOW-CD-GLOBS#5
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

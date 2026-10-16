@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
     folder: types
     name: pipeline-watchdog
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Timeouts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
-      test: automation/Catzc.Base.Timeouts/tests/types/PipelineWatchdog.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
+    test: automation/Catzc.Base.Timeouts/tests/types/PipelineWatchdog.Tests.ps1
 ---
 */
 

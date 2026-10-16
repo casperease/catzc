@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/nsg.bicep
 //     name: nsg
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: nsg
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/nsg.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/nsg.bicep.md
 // ---
 
 @description('Network security group name (1-80 characters, unique within the resource group).')

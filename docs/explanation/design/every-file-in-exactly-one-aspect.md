@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: edf4b6a5a7fa
     path: docs/explanation/design/every-file-in-exactly-one-aspect.md
     folder: docs/explanation/design
     name: every-file-in-exactly-one-aspect
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: edf4b6a5a7fa
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-ASPECT#{1,2,4,5}
       - ADR-FLOW-CD-GLOBS#9
     links:

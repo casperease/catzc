@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-ImprintStepFile.ps1
     folder: private
     name: get-imprint-step-file
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-ImprintStepFile.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-ImprintStepFile.Tests.ps1
+    cites:
       - ADR-REPO-FORMAT#8
   config:
     synopsis: Lists the files one imprint step may write, in its own scope.

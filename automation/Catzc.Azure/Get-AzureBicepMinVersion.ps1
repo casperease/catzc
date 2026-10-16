@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure/Get-AzureBicepMinVersion.ps1
     name: get-azure-bicep-min-version
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1
+  edges:
+    test: automation/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1
   config:
     synopsis: Returns the minimum required Bicep CLI version from azure.yml.
     description: |-

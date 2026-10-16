@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cbcfa138b727
     path: docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
     folder: docs/references/automation/catzc-base-docs/types
     name: glossary-concept-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: cbcfa138b727
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#30
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3

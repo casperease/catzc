@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d260d5b2df4e
     path: docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md
     folder: docs/references/automation/catzc-base-vendor
     name: install-vendor-module-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d260d5b2df4e
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-VENDOR#7
 ---
 

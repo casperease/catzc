@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHost.Tests.ps1
     folder: tests
     name: resolve-session-tool-host-tests

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
     folder: tests
     name: install-java-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Tooling.Toolchain
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md
 ---
 #>
 

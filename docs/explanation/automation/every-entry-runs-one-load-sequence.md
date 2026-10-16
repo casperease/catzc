@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2fcdad285504"
     path: docs/explanation/automation/every-entry-runs-one-load-sequence.md
     folder: docs/explanation/automation
     name: every-entry-runs-one-load-sequence
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "2fcdad285504"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-BUNDLE#{3,8}
       - ADR-DSGN-RUNMODE#5
     links:

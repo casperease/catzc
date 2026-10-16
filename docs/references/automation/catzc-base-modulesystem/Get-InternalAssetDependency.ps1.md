@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c7be191bd9d4
     path: docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem
     name: get-internal-asset-dependency-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: c7be191bd9d4
 ---
 
 # automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1

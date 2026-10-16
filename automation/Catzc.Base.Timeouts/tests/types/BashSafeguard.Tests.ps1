@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
     folder: tests/types
     name: bash-safeguard-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Timeouts
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md
 ---
 #>
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: cd7c8c4117e8
     path: docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.md
     folder: docs/.assets/explanation
     name: adr-repo-rootcfg-three-gates-check-registry-drift-membership-governance-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: cd7c8c4117e8
+  edges:
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png
       - docs/explanation/repository/three-gates-check-registry-drift-membership.md

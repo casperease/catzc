@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "359dd20fdbc4"
     path: docs/explanation/automation/callers-value-else-config-else-default.md
     folder: docs/explanation/automation
     name: callers-value-else-config-else-default
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "359dd20fdbc4"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:

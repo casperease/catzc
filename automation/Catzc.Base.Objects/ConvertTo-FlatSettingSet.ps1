@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Objects/ConvertTo-FlatSettingSet.ps1
     name: convert-to-flat-setting-set
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
   config:
     synopsis: Flattens a nested object into an ordered dictionary of dot-notation key/value pairs.
     description: |-

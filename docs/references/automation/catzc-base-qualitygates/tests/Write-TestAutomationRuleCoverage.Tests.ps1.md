@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "9c64673977d6"
     path: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationRuleCoverage.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: write-test-automation-rule-coverage-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "9c64673977d6"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1

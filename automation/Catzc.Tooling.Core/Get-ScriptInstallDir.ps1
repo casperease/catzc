@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Get-ScriptInstallDir.ps1
     name: get-script-install-dir
     filetype: ps1

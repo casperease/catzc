@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "1965e4d7647d"
     path: docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md
     folder: docs/references/automation/catzc-base-vscode
     name: new-vs-code-pipeline-schema-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "1965e4d7647d"
 ---
 
 # automation/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1

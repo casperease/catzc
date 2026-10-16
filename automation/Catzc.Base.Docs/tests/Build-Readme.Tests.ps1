@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
     folder: tests
     name: build-readme-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Docs
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md
+    cites:
       - ADR-PWSH-PESTER#2
       - ADR-REPO-README#6
 ---
@@ -62,7 +62,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         [System.IO.File]::ReadAllText($script:readme) | Should -BeExactly (@(
                 '---'
                 'catzc:'
-                '  derived:'
+                '  immutable:'
                 '    kind: readme'
                 '---'
                 ''
@@ -80,7 +80,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         Build-Readme | Out-Null
         $plain = [System.IO.File]::ReadAllText($script:readme)
         try {
-            $framed = "---`ncatzc:`n  derived:`n    kind: reference`n---`n`n" + $original
+            $framed = "---`ncatzc:`n  immutable:`n    kind: reference`n---`n`n" + $original
             [System.IO.File]::WriteAllText($script:source, $framed)
             Build-Readme | Out-Null
             [System.IO.File]::ReadAllText($script:readme) | Should -BeExactly $plain

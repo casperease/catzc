@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8d247d750dd4"
     path: docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: get-fixture-identity-tokens-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8d247d750dd4"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-FixtureIdentityTokens.ps1

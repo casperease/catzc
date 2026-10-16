@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
     name: get-inspiration
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-INSPIRE#{1,2}
   config:

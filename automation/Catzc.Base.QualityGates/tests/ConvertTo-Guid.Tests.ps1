@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/ConvertTo-Guid.Tests.ps1
     folder: tests
     name: convert-to-guid-tests

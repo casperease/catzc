@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d289b074815d
     path: docs/adr/pwsh/error-handling.md
     folder: docs/adr/pwsh
     name: error-handling
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: d289b074815d
+  edges:
     defines:
       - ADR-PWSH-ERROR#{1-3,5,7-11}
-    adrs:
+    cites:
       - ADR-AUTO-FAILFAST#4
       - ADR-AUTO-ONEJOB#6
       - ADR-AUTO-RETRY#{1,5,6}

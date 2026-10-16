@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6e3811077548"
     path: docs/adr/research/continuous-integration.md
     folder: docs/adr/research
     name: continuous-integration
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "6e3811077548"
+  edges:
     defines:
       - ADR-DORA-CI#{1-5}
     links:

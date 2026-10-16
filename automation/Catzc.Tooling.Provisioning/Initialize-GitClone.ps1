@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
     name: initialize-git-clone
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
-      test: automation/Catzc.Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
+    test: automation/Catzc.Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
+    cites:
       - ADR-AUTO-DRYRUN#2
   config:
     synopsis: Configures a fresh git clone with the local git settings this repository's workflow needs.

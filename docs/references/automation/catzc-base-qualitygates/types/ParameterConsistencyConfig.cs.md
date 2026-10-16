@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "273b36b97105"
     path: docs/references/automation/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: parameter-consistency-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "273b36b97105"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
 ---

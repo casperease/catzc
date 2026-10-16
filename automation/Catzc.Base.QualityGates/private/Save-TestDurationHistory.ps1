@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Save-TestDurationHistory.ps1
     folder: private
     name: save-test-duration-history
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Save-TestDurationHistory.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Save-TestDurationHistory.Tests.ps1
   config:
     synopsis: Merges a run's measured per-file durations into the test duration history.
     description: |-

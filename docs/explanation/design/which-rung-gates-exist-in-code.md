@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "086277112b92"
     path: docs/explanation/design/which-rung-gates-exist-in-code.md
     folder: docs/explanation/design
     name: which-rung-gates-exist-in-code
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "086277112b92"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#24
       - ADR-DSGN-LIFE#{1-6,8,9}
       - ADR-DSGN-VISUAL#4

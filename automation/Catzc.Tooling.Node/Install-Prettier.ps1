@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Node/Install-Prettier.ps1
     name: install-prettier
     filetype: ps1

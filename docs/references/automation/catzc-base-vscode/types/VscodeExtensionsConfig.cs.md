@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: d6badb5e299d
     path: docs/references/automation/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md
     folder: docs/references/automation/catzc-base-vscode/types
     name: vscode-extensions-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: d6badb5e299d
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

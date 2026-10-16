@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/types/BicepTemplate.cs
     folder: types
     name: bicep-template
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Azure.Templates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md
+    cites:
       - ADR-AZ-CUSTOMER
 ---
 */

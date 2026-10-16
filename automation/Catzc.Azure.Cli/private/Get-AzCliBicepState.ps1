@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
     folder: private
     name: get-az-cli-bicep-state
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      page: docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md
+    cites:
       - ADR-AUTO-PRELOG#5
   config:
     synopsis: Returns the Bicep CLI state relative to the configured minimum version.

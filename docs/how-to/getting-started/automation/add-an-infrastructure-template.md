@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7fb02af5197f"
     path: docs/how-to/getting-started/automation/add-an-infrastructure-template.md
     folder: docs/how-to/getting-started/automation
     name: add-an-infrastructure-template
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: "7fb02af5197f"
+  edges:
     links:
       - docs/adr/azure/azure-data-model.md
       - docs/adr/azure/azure-naming-standard.md

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "29e8bb3da3b6"
     path: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-bindings.yml.md
     folder: docs/references/automation/catzc-tooling-keyhandler/configs
     name: key-handler-bindings-yml
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "29e8bb3da3b6"
 ---
 
 # automation/Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml

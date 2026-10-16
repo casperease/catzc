@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: dcdde7c396ea
     path: docs/references/automation/catzc-base-qualitygates/tests/New-TestRunFinalManifest.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests
     name: new-test-run-final-manifest-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: dcdde7c396ea
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#32
 ---
 

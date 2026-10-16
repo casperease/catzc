@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bc55e83376ef
     path: docs/references/automation/catzc-base-languages/configs/languages.yml.md
     folder: docs/references/automation/catzc-base-languages/configs
     name: languages-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: bc55e83376ef
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-DSGN-TRACK#6
       - ADR-PIPE-NAME#6

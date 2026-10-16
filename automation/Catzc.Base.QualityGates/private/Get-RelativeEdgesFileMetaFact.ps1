@@ -1,10 +1,10 @@
 <#
 ---
 catzc:
-  derived:
-    path: automation/Catzc.Base.QualityGates/private/Get-RelativesFileMetaFact.ps1
+  immutable:
+    path: automation/Catzc.Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1
     folder: private
-    name: get-relatives-file-meta-fact
+    name: get-relative-edges-file-meta-fact
     filetype: ps1
     kind: function
     subkind: fact
@@ -14,9 +14,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-RelativesFileMetaFact.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-RelativeEdgesFileMetaFact.Tests.ps1
+    cites:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#10
   config:

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: fb1af72c9512
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Bicep.Tests.ps1.md
     folder: docs/references/automation/catzc-tooling-toolchain/tests
     name: install-bicep-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: fb1af72c9512
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Install-Bicep.Tests.ps1

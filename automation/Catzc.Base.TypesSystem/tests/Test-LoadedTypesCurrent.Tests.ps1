@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/tests/Test-LoadedTypesCurrent.Tests.ps1
     folder: tests
     name: test-loaded-types-current-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.TypesSystem
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-typessystem/tests/Test-LoadedTypesCurrent.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-typessystem/tests/Test-LoadedTypesCurrent.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#{3,6}
       - ADR-AUTO-TYPES#15
 ---

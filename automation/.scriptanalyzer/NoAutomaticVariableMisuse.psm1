@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.scriptanalyzer/NoAutomaticVariableMisuse.psm1
     folder: automation/.scriptanalyzer
     name: no-automatic-variable-misuse
@@ -9,8 +9,8 @@ catzc:
     kind: analyzer-rule
     language: powershell
     track: automation
-    relatives:
-      page: docs/references/automation/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md
+  edges:
+    page: docs/references/automation/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md
 ---
 #>
 

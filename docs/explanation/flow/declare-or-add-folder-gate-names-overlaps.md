@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: bbaf0b40bf29
     path: docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
     folder: docs/explanation/flow
     name: declare-or-add-folder-gate-names-overlaps
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: bbaf0b40bf29
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-LINK#5
     links:

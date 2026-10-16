@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4da7dff5c38b"
     path: docs/references/automation/catzc-base-contracts/configs/contracts.yml.md
     folder: docs/references/automation/catzc-base-contracts/configs
     name: contracts-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "4da7dff5c38b"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-PARAM#4
       - ADR-REPO-CONTRACT#{2,8,10}

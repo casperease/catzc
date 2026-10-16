@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Get-GlobSetHash.ps1
     name: get-glob-set-hash
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS#{5,9}
   config:
     synopsis: Computes a globset's durable SHA — the deployable unit's identity.

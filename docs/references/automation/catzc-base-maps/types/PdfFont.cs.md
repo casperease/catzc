@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a1851ba2c465
     path: docs/references/automation/catzc-base-maps/types/PdfFont.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: pdf-font-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a1851ba2c465
 ---
 
 # automation/Catzc.Base.Maps/types/PdfFont.cs

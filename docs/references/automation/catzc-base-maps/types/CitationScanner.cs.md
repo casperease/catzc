@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "19b1496bb479"
     path: docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: citation-scanner-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "19b1496bb479"
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#3
 ---
 

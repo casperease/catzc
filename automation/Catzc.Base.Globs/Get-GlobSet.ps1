@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Get-GlobSet.ps1
     name: get-glob-set
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS#1
   config:
     synopsis: Returns globsets from the globs.yml registry — all of them, or the named ones.

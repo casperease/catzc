@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a4747cdafc78
     path: docs/how-to/getting-started/automation/add-a-module.md
     folder: docs/how-to/getting-started/automation
     name: add-a-module
@@ -8,8 +9,8 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: a4747cdafc78
-    adrs:
+  edges:
+    cites:
       - ADR-CONF-LOADING#4
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

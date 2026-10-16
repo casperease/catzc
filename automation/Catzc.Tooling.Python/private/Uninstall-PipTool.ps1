@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Python/private/Uninstall-PipTool.ps1
     folder: private
     name: uninstall-pip-tool

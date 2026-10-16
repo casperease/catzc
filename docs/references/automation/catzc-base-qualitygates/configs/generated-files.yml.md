@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b2ac99e2051e
     path: docs/references/automation/catzc-base-qualitygates/configs/generated-files.yml.md
     folder: docs/references/automation/catzc-base-qualitygates/configs
     name: generated-files-yml
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: b2ac99e2051e
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#35
 ---
 

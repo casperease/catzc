@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c709a49d0a69
     path: docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
     folder: docs/explanation/design
     name: unit-to-pipeline-rule-is-review-only
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: c709a49d0a69
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#{1-6}
       - ADR-FLOW-CD-GLOBS#{7,8}
       - ADR-REPO-FOLDERS#{1,3}

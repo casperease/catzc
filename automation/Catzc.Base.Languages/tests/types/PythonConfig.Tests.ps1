@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1
     folder: tests/types
     name: python-config-tests

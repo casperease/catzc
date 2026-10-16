@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1
     folder: private
     name: invoke-python-workspace-tool
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Invoke-PythonWorkspaceTool.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Invoke-PythonWorkspaceTool.Tests.ps1
+    cites:
       - ADR-AUTO-PY#8
   config:
     synopsis: Runs a tool from the Python test workspace's pinned environment (ruff), against any .py files in the repository.

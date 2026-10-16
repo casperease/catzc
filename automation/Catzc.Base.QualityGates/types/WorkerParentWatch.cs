@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/types/WorkerParentWatch.cs
     folder: types
     name: worker-parent-watch
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.QualityGates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md
-      test: automation/Catzc.Base.QualityGates/tests/types/WorkerParentWatch.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/WorkerParentWatch.Tests.ps1
 ---
 */
 

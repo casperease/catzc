@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "19b4d0c959ec"
     path: docs/references/automation/catzc-base-maps/types/MapsLabels.cs.md
     folder: docs/references/automation/catzc-base-maps/types
     name: maps-labels-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "19b4d0c959ec"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#{7,8,16}

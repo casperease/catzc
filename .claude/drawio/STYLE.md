@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5cc03b54644d"
     path: ".claude/drawio/STYLE.md"
     folder: drawio
     name: style
@@ -10,8 +11,8 @@ catzc:
     track: ".claude"
     module: ".claude"
     moduletype: settings
-    body_sha: "5cc03b54644d"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEPM#1
       - ADR-DSGN-TRACK#{1,7-9,12,14-16}
       - ADR-DSGN-VISUAL#{4,13}

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
     folder: tests
     name: get-config-value-tests
@@ -12,9 +12,9 @@ catzc:
     module: Catzc.Base.Config
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
+    cites:
       - ADR-AUTO-TEST#14
       - ADR-CONF-ADDRESSING#{4,5}
       - ADR-CONF-LOADING#1

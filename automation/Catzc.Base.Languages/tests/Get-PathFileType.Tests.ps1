@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
     folder: tests
     name: get-path-file-type-tests
@@ -12,7 +12,8 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-TRACK#6
 ---
 #>

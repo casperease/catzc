@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "8f72f4b324da"
     path: docs/references/automation/catzc-base-qualitygates/tests/types/EngineSetCheck.Tests.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/tests/types
     name: engine-set-check-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "8f72f4b324da"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#3
 ---

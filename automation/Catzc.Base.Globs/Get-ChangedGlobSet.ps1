@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
     name: get-changed-glob-set
     filetype: ps1
@@ -12,9 +12,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
+    cites:
       - ADR-FLOW-CD-GLOBS#{1,4}
   config:
     synopsis: The globsets a diff touches — the computed area-of-control of a change.

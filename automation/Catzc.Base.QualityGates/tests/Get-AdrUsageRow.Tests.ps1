@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/tests/Get-AdrUsageRow.Tests.ps1
     folder: tests
     name: get-adr-usage-row-tests

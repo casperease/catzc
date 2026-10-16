@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b885ae6df735
     path: docs/adr/azure/waf/cost-optimization.md
     folder: docs/adr/azure/waf
     name: cost-optimization
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: b885ae6df735
+  edges:
     defines:
       - ADR-AZ-WAFCO#{1-14}
-    adrs:
+    cites:
       - ADR-AZ-DATAMOD#{2,9-11}
       - ADR-AZ-LZ#{1-5}
       - ADR-AZ-NAMING#1

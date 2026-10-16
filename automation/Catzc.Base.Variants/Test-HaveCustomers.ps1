@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Variants/Test-HaveCustomers.ps1
     name: test-have-customers
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md
-      test: automation/Catzc.Base.Variants/tests/Test-HaveCustomers.Tests.ps1
+  edges:
+    page: docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md
+    test: automation/Catzc.Base.Variants/tests/Test-HaveCustomers.Tests.ps1
   config:
     synopsis: Tests whether the repo has customer deployments enabled — for all customers, or for specific names.
     description: |-

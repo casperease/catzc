@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "873d0a9f0bde"
     path: docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates/private
     name: exit-test-run-location-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "873d0a9f0bde"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-CACHE#10
 ---
 

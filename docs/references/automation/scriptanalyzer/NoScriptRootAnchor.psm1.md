@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "5155ea43ddc4"
     path: docs/references/automation/scriptanalyzer/NoScriptRootAnchor.psm1.md
     folder: docs/references/automation/scriptanalyzer
     name: no-script-root-anchor-psm1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "5155ea43ddc4"
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-FORMAT#6
 ---
 

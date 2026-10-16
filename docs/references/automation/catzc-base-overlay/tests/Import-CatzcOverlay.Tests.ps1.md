@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "806ba38112f9"
     path: docs/references/automation/catzc-base-overlay/tests/Import-CatzcOverlay.Tests.ps1.md
     folder: docs/references/automation/catzc-base-overlay/tests
     name: import-catzc-overlay-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "806ba38112f9"
 ---
 
 # automation/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1

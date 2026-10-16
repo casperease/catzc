@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/Test-HaveProperty.ps1
     name: test-have-property
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1
   config:
     synopsis: Tests whether an object has a specific property, or a nested chain of properties.
     parameters:

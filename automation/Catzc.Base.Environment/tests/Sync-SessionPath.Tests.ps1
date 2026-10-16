@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
     folder: tests
     name: sync-session-path-tests
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Base.Environment
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md
+  edges:
+    page: docs/references/automation/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md
 ---
 #>
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "018849f8c800"
     path: docs/adr/azure/dora-explains.md
     folder: docs/adr/azure
     name: dora-explains
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "018849f8c800"
+  edges:
     links:
       - docs/adr/azure/az-session-verification.md
       - docs/adr/azure/azure-customer-model.md

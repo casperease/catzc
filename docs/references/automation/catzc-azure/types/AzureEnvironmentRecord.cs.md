@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "7e9638347b06"
     path: docs/references/automation/catzc-azure/types/AzureEnvironmentRecord.cs.md
     folder: docs/references/automation/catzc-azure/types
     name: azure-environment-record-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "7e9638347b06"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TYPES#8
 ---
 

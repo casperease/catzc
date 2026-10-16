@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-GitAttributeValue.ps1
     folder: private
     name: get-git-attribute-value
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-GitAttributeValue.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-GitAttributeValue.Tests.ps1
   config:
     synopsis: Reads the given .gitattributes attributes for many repository paths at once.
     description: |-

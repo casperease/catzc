@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
     folder: tests
     name: resolve-vendor-repository-tests

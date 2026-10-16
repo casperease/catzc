@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Files/Get-GitTrackedPath.ps1
     name: get-git-tracked-path
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md
-      test: automation/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md
+    test: automation/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1
+    cites:
       - ADR-AUTO-CACHE#9
       - ADR-AUTO-TRACKED
       - ADR-PWSH-CACHE#4

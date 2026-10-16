@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Save-FileMetaResult.ps1
     folder: private
     name: save-file-meta-result
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Save-FileMetaResult.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Save-FileMetaResult.Tests.ps1
+    cites:
       - ADR-REPO-FILEMETA#3
   config:
     synopsis: Writes the files an engine run found drifted, and names the findings no tool can repair.

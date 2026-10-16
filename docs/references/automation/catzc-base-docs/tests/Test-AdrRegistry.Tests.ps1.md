@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f550b3cdccd3
     path: docs/references/automation/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md
     folder: docs/references/automation/catzc-base-docs/tests
     name: test-adr-registry-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f550b3cdccd3
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-TEST#{3,35}
 ---
 

@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   derived:
+#   immutable:
 #     path: automation/Catzc.Base.Reports/configs/reports.yml
 #     folder: configs
 #     name: reports
@@ -11,8 +11,8 @@
 #     module: Catzc.Base.Reports
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
-#     relatives:
-#       page: docs/references/automation/catzc-base-reports/configs/reports.yml.md
+#   edges:
+#     page: docs/references/automation/catzc-base-reports/configs/reports.yml.md
 # ---
 
 {}

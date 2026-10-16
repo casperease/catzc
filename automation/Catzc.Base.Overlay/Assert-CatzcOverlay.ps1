@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
     name: assert-catzc-overlay
     filetype: ps1
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
+    cites:
       - ADR-AUTO-OVERLAY
   config:
     synopsis: Checks the consumer overlay against its rules and throws once, listing every violation.

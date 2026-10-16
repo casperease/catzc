@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Firewall/types/CsvExportRef.cs
     folder: types
     name: csv-export-ref
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.Firewall
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
+  edges:
+    page: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
 ---
 */
 

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "4b09a878c2b8"
     path: docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md
     folder: docs/.assets/explanation
     name: adr-flow-cd-detect-the-analyzer-names-the-raw-read-operations-drawio
@@ -8,7 +9,7 @@ catzc:
     kind: asset-description
     language: markdown
     track: docs
-    body_sha: "4b09a878c2b8"
+  edges:
     links:
       - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
       - docs/explanation/flow/the-analyzer-names-the-raw-read.md

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/.internal/Catzc.Internal.Vendor.psm1
     name: catzc-internal-vendor
     filetype: psm1
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Internal.Vendor
     moduletype: pwsh-psm1
     catzc_bundle: minimal
-    relatives:
-      page: docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md
+  edges:
+    page: docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md
 ---
 #>
 

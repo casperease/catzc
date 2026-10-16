@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: b6c4ef9f5ef7
     path: docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
     folder: docs/explanation/repository
     name: five-keys-one-reader-twelve-primitives
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: b6c4ef9f5ef7
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-VERBS#6
       - ADR-REPO-VARIANT#{1,2,4-6}
     links:

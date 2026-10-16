@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "6e7af59d401e"
     path: docs/explanation/pipelines/configured-credential-proves-its-org.md
     folder: docs/explanation/pipelines
     name: configured-credential-proves-its-org
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "6e7af59d401e"
-    adrs:
+  edges:
+    cites:
       - ADR-PIPE-AUTH#{1,2,5}
     links:
       - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md

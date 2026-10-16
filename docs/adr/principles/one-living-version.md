@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: c6a66d2338ab
     path: docs/adr/principles/one-living-version.md
     folder: docs/adr/principles
     name: one-living-version
@@ -8,10 +9,10 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: c6a66d2338ab
+  edges:
     defines:
       - ADR-PRIN-ONELIVE#{1-8}
-    adrs:
+    cites:
       - ADR-CONF-LOADING#4
       - ADR-REPO-CONTRACT#2
       - ADR-THES-ONETRUTH#4

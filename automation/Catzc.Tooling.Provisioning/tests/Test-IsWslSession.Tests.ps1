@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/tests/Test-IsWslSession.Tests.ps1
     folder: tests
     name: test-is-wsl-session-tests

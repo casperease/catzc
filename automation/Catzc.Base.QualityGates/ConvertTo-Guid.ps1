@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/ConvertTo-Guid.ps1
     name: convert-to-guid
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/ConvertTo-Guid.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/ConvertTo-Guid.Tests.ps1
   config:
     synopsis: Converts a sentence into a valid GUID whose hex digits best-effort spell the sentence.
     description: |-

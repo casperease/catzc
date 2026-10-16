@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Cli/Invoke-InSubscription.ps1
     name: invoke-in-subscription
     filetype: ps1

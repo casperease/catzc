@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a8ed9f652f1a
     path: docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md
     folder: docs/references/automation/catzc-base-qualitygates
     name: format-types-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a8ed9f652f1a
-    adrs:
+  edges:
+    cites:
       - ADR-PWSH-PESTER#9
 ---
 

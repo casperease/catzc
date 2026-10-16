@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/ValueChainMap.cs
     folder: types
     name: value-chain-map
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md
-      test: automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md
+    test: automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
+    cites:
       - ADR-DSGN-TRACK#{14-16}
       - ADR-THES-ONETRUTH#3
 ---

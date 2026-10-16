@@ -1,6 +1,6 @@
 // ---
 // catzc:
-//   derived:
+//   immutable:
 //     path: infrastructure/modules/private-dns-zone.bicep
 //     name: private-dns-zone
 //     filetype: bicep
@@ -10,8 +10,8 @@
 //     track: infrastructure
 //     module: private-dns-zone
 //     moduletype: bicep
-//     relatives:
-//       page: docs/references/infrastructure/modules/private-dns-zone.bicep.md
+//   edges:
+//     page: docs/references/infrastructure/modules/private-dns-zone.bicep.md
 // ---
 
 @description('Zone name, e.g. privatelink.database.windows.net.')

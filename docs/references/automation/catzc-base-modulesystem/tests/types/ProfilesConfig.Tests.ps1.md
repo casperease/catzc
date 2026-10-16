@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f5eb83d81bb9
     path: docs/references/automation/catzc-base-modulesystem/tests/types/ProfilesConfig.Tests.ps1.md
     folder: docs/references/automation/catzc-base-modulesystem/tests/types
     name: profiles-config-tests-ps1
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: f5eb83d81bb9
 ---
 
 # automation/Catzc.Base.ModuleSystem/tests/types/ProfilesConfig.Tests.ps1

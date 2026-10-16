@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-PythonCheckScope.ps1
     folder: private
     name: get-python-check-scope
@@ -13,9 +13,9 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    relatives:
-      test: automation/Catzc.Base.QualityGates/tests/Get-PythonCheckScope.Tests.ps1
-    adrs:
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/Get-PythonCheckScope.Tests.ps1
+    cites:
       - ADR-AUTO-PY#8
   config:
     synopsis: 'Lists what the Python checks read: every Python test folder, and every tracked .py file outside the Python root.'

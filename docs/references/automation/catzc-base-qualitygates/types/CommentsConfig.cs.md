@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "773b12d7fe2e"
     path: docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md
     folder: docs/references/automation/catzc-base-qualitygates/types
     name: comments-config-cs
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "773b12d7fe2e"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-CONFIG#1

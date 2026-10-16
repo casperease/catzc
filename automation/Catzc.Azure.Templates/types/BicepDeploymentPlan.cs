@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs
     folder: types
     name: bicep-deployment-plan
@@ -12,8 +12,8 @@ catzc:
     module: Catzc.Azure.Templates
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md
+  edges:
+    page: docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md
 ---
 */
 

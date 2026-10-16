@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Asserts/tests/Test-Command.Tests.ps1
     folder: tests
     name: test-command-tests

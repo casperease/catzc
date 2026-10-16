@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.ModuleSystem/Get-ModuleDependencyEdges.ps1
     name: get-module-dependency-edges
     filetype: ps1
@@ -12,8 +12,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyEdges.Tests.ps1
+  edges:
+    test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyEdges.Tests.ps1
   config:
     synopsis: Returns the module dependency graph as typed ModuleDependencyEdge objects.
     description: |-

@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "2678d113eea1"
     path: docs/explanation/flow/print-projection-then-drift-names-the-filter.md
     folder: docs/explanation/flow
     name: print-projection-then-drift-names-the-filter
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: "2678d113eea1"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-GLOBS#6
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md

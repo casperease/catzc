@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
     name: uninstall-chocolatey
     filetype: ps1
@@ -12,10 +12,10 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      page: docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md
-      test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md
+    test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
+    cites:
       - ADR-AUTO-TEST#33
   config:
     synopsis: Uninstalls Chocolatey from the current machine.

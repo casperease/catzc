@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: f8b79c407fcb
     path: docs/explanation/design/local-guard-and-server-policies.md
     folder: docs/explanation/design
     name: local-guard-and-server-policies
@@ -8,8 +9,8 @@ catzc:
     kind: explanation
     language: markdown
     track: docs
-    body_sha: f8b79c407fcb
-    adrs:
+  edges:
+    cites:
       - ADR-DSGN-REMOTE#{2,4}
       - ADR-REPO-VARIANT#6
     links:

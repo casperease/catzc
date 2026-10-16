@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a210ea69b439
     path: docs/how-to/getting-started/automation/debug-in-vscode.md
     folder: docs/how-to/getting-started/automation
     name: debug-in-vscode
@@ -8,7 +9,7 @@ catzc:
     kind: how-to
     language: markdown
     track: docs
-    body_sha: a210ea69b439
+  edges:
     links:
       - docs/adr/automation/effective-in-enterprises.md
       - docs/adr/pwsh/module-path-hygiene.md

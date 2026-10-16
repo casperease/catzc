@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "36f1bd3f320b"
     path: docs/adr/pwsh/prefer-foreach-over-foreach-object.md
     folder: docs/adr/pwsh
     name: prefer-foreach-over-foreach-object
@@ -8,7 +9,7 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: "36f1bd3f320b"
+  edges:
     defines:
       - ADR-PWSH-FOREACH#{1-4}
 ---

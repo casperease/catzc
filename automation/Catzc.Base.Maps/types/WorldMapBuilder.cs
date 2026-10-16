@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Maps/types/WorldMapBuilder.cs
     folder: types
     name: world-map-builder
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Maps
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md
-      test: automation/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md
+    test: automation/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1
+    cites:
       - ADR-AUTO-TYPES#4
       - ADR-DSGN-TRACK#{1,3,6}
 ---

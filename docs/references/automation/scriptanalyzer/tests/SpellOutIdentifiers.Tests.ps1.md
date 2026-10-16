@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "12bbcdbec0d0"
     path: docs/references/automation/scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: spell-out-identifiers-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "12bbcdbec0d0"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-SPELL#2
 ---
 

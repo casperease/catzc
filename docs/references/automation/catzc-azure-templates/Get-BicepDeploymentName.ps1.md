@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "3ed45472cd11"
     path: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
     folder: docs/references/automation/catzc-azure-templates
     name: get-bicep-deployment-name-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "3ed45472cd11"
-    adrs:
+  edges:
+    cites:
       - ADR-FLOW-CD-DETECT#1
 ---
 

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Tooling.Core/Test-ToolRequiresElevation.ps1
     name: test-tool-requires-elevation
     filetype: ps1
@@ -13,8 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-    relatives:
-      test: automation/Catzc.Tooling.Core/tests/Test-ToolRequiresElevation.Tests.ps1
+  edges:
+    test: automation/Catzc.Tooling.Core/tests/Test-ToolRequiresElevation.Tests.ps1
   config:
     synopsis: Tests whether installing (or uninstalling) a tool on the current platform requires elevation.
     description: |-

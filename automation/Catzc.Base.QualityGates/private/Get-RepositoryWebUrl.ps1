@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-RepositoryWebUrl.ps1
     folder: private
     name: get-repository-web-url
@@ -13,7 +13,8 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-    adrs:
+  edges:
+    cites:
       - ADR-REPO-LINK#7
   config:
     synopsis: Returns this repository's GitHub web URL (https://github.com/<owner>/<repo>), or $null when it has none.

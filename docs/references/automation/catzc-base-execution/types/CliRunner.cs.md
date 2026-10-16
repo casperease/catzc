@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: a48373545e11
     path: docs/references/automation/catzc-base-execution/types/CliRunner.cs.md
     folder: docs/references/automation/catzc-base-execution/types
     name: cli-runner-cs
@@ -9,7 +10,6 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: a48373545e11
 ---
 
 # automation/Catzc.Base.Execution/types/CliRunner.cs

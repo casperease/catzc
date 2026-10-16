@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.TypesSystem/tests/Invoke-BuildForVSCode.Tests.ps1
     folder: tests
     name: invoke-build-for-vs-code-tests

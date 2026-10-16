@@ -1,6 +1,7 @@
 ---
 catzc:
-  derived:
+  immutable:
+    with_body_sha: "0e88f38d96c5"
     path: docs/references/automation/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md
     folder: docs/references/automation/scriptanalyzer/tests
     name: no-env-repository-root-tests-ps1
@@ -9,8 +10,8 @@ catzc:
     language: markdown
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "0e88f38d96c5"
-    adrs:
+  edges:
+    cites:
       - ADR-AUTO-NOPWD#6
 ---
 

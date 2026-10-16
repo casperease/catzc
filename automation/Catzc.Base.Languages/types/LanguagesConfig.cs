@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/types/LanguagesConfig.cs
     folder: types
     name: languages-config
@@ -12,10 +12,10 @@ catzc:
     module: Catzc.Base.Languages
     moduletype: pwsh-folder
     catzc_bundle: azure
-    relatives:
-      page: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
-      test: automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
-    adrs:
+  edges:
+    page: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
+    test: automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
+    cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#6
