@@ -5,7 +5,7 @@ catzc:
     source: contracts/catzc
     kind: reference
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
 ---

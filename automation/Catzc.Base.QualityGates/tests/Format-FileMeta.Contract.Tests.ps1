@@ -35,6 +35,24 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         }
     }
 
+    It 'binds a code file to nothing outside its own module and its docs section' {
+        $relatives = (Get-Config -Config file-meta).kinds | Where-Object id -eq 'relatives'
+        foreach ($relation in $relatives.settings['relations']) {
+            foreach ($rule in $relation['rules']) {
+                foreach ($path in $rule['paths']) {
+                    $path | Should -Match '^\{page\}$|^[a-z]+/\{module\}/' -Because "the '$($relation['name'])' relation must stay in the file's own module or docs section"
+                }
+            }
+        }
+    }
+
+    It 'names the relations the head may hold in its schema, and no more than the config declares' {
+        $relatives = (Get-Config -Config file-meta).kinds | Where-Object id -eq 'relatives'
+        $declared = @($relatives.settings['relations'] | ForEach-Object { $_['name'] } | Sort-Object)
+        $listed = @($script:schema['properties']['catzc']['properties']['derived']['properties']['relatives']['properties'].Keys | Sort-Object)
+        $listed | Should -Be $declared
+    }
+
     It 'requires the two keys no head is without' {
         $script:schema['properties']['catzc']['properties']['derived']['required'] | Should -Be @('path', 'kind')
         $script:sample['catzc']['derived'].Keys | Should -Contain 'path'

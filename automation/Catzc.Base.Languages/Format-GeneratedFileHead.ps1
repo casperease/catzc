@@ -93,7 +93,8 @@ function Format-GeneratedFileHead {
     }
     $module = Get-PathModule $relative
     if ($module) {
-        $values['module'] = $module
+        $values['module'] = $module.name
+        $values['moduletype'] = $module.type
     }
     if ($Generator) {
         $values['generator'] = Get-GeneratorPath $Generator

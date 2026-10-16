@@ -15,9 +15,9 @@ catzc:
     adrs:
       - ADR-REPO-CODEMETA#2
   config:
-    synopsis: 'The module-name meta kind''s fact: the module a file is placed in, the folder under the automation track''s root.'
+    synopsis: 'The module-name meta kind''s fact: the name of the module a file is placed in, from the module-types registry.'
     description: |-
-      The module is the one Get-PathModule names for the path, from the root of the `automation` track in the `tracks` registry. A file
+      The module is the one Get-PathModule names for the path, by the places the module types of the module-types registry give. A file
       placed in no module gets an empty value, so the key is left out of its head.
     parameters:
       State: What the file's carrier reader returned.
@@ -44,7 +44,7 @@ function Get-ModuleNameFileMetaFact {
 
     $module = Get-PathModule $Path
     $value = if ($module) {
-        $module
+        $module.name
     }
     else {
         ''

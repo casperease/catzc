@@ -64,7 +64,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
 
     It 'names the track and, under automation, the module the file is placed in' {
         $text = Format-GeneratedFileHead -Text "body`n" -Path 'automation/Catzc.Base.Docs/gen.wdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeLike "*#     language: widget`n#     filetype: wdg`n#     track: automation`n#     module: Catzc.Base.Docs`n# ---*"
+        $text | Should -BeLike "*#     language: widget`n#     filetype: wdg`n#     track: automation`n#     module: Catzc.Base.Docs`n#     moduletype: pwsh-folder-module`n# ---*"
         $docs = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.wdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
         $docs | Should -Not -BeLike '*module:*'
     }

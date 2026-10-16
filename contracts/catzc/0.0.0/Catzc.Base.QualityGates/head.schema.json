@@ -23,6 +23,8 @@
             "filetype": { "type": "string" },
             "track": { "type": "string" },
             "module": { "type": "string" },
+            "moduletype": { "type": "string" },
+            "bundle": { "type": "string" },
             "generator": { "type": "string" },
             "body_sha": { "type": "string" },
             "visibility": { "type": "string", "enum": ["public", "private"] },
@@ -31,8 +33,7 @@
               "additionalProperties": false,
               "properties": {
                 "page": { "type": "string" },
-                "test": { "type": "string" },
-                "source": { "type": "string" }
+                "test": { "type": "string" }
               }
             },
             "defines": { "type": "array", "items": { "type": "string" } },

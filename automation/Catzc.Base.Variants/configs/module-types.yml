@@ -1,0 +1,51 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Variants/configs/module-types.yml
+#     kind: config
+# ---
+
+# The one definition of what a module is, by type: where modules of each type are placed, and how a path in a place names its module.
+# A place is a root folder and how a path under it names its module: `folder` is the first folder under the root (never a dot-prefixed one,
+# and with `prefix` put before its PascalCase), `file` is a file of the extension directly under the root, and `root` is the root folder
+# itself. Types are checked in the order written, places in the order of their type, and the first to place a path names its module. A
+# consumer extends this in a config fragment, which adds a type (checked after these) or replaces the places of one.
+module_types:
+  pwsh-folder-module:
+    definition: A PowerShell module that is a folder of function files under ex. automation, named by the folder.
+    places:
+      - { root: automation, name: folder }
+      - { root: automation/.internal, name: folder, prefix: Catzc.Internal. }
+  pwsh-psm1-module:
+    definition: A PowerShell module that is one psm1 file under automation/.internal, named by the file.
+    places:
+      - { root: automation/.internal, name: file, extension: psm1 }
+  python-module:
+    definition: A Python project, named by its track folder.
+    places:
+      - { root: python, name: root }
+  go-module:
+    definition: A Go project, named by its track folder.
+    places:
+      - { root: go, name: root }
+  bash-module:
+    definition: A Bash project, named by its track folder.
+    places:
+      - { root: bash, name: root }
+  bicep-module:
+    definition: A Bicep template folder, or one reusable Bicep module file, under infrastructure.
+    places:
+      - { root: infrastructure/templates, name: folder }
+      - { root: infrastructure/modules, name: file, extension: bicep }
+  pipeline-module:
+    definition: A set of pipeline definitions, named by the folder that holds them.
+    places:
+      - { root: .github/workflows, name: root }
+      - { root: pipelines, name: root }
+  settings-module:
+    definition: The settings of a tool the repository configures, named by the tool's dot-folder.
+    places:
+      - { root: .claude, name: root }
+      - { root: .github, name: root }
+      - { root: .cspell, name: root }
+      - { root: .vscode, name: root }

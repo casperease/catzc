@@ -5,6 +5,8 @@
 #     source: automation/Catzc.Base.Docs/assets/gitkeep
 #     kind: other
 #     track: ".cspell"
+#     module: ".cspell"
+#     moduletype: settings-module
 #     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1
 # ---
 

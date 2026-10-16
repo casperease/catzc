@@ -4,10 +4,6 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
     kind: test
-    language: powershell
-    filekind: ps1
-    track: automation
-    module: Catzc.Base.Variants
     relatives:
       source: automation/Catzc.Base.Variants/Get-PathModule.ps1
     adrs:
@@ -17,71 +13,84 @@ catzc:
 
 Describe 'Get-PathModule' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
     BeforeAll {
-        $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
-                tracks = [ordered]@{
-                    automation = [ordered]@{ root = 'widgetry'; class = 'core'; languages = @('widget-lang') }
-                    docs       = [ordered]@{ root = 'papers'; class = 'external-port' }
+        $script:types = [Catzc.Base.Variants.ModuleTypesConfig]::new(@{
+                module_types = [ordered]@{
+                    'widget-folder' = [ordered]@{
+                        definition = 'A widget folder.'
+                        places     = @(
+                            @{ root = 'widgetry'; name = 'folder' }
+                            @{ root = 'widgetry/.core'; name = 'folder'; prefix = 'Widget.Core.' }
+                        )
+                    }
+                    'widget-file'   = [ordered]@{ definition = 'A widget file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg' }) }
+                    'widget-tool'   = [ordered]@{ definition = 'A widget tool.'; places = @(@{ root = '.gizmo'; name = 'root' }) }
                 }
             })
-        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:fixture }
+        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'module-types' } { $script:types }
     }
 
-    It 'returns the folder under the automation track''s root, whatever the file''s depth' {
-        Get-PathModule 'widgetry/Catzc.Widget/Get-Gadget.ps1' | Should -BeExactly 'Catzc.Widget'
-        Get-PathModule 'widgetry/Catzc.Widget/private/Get-Sprocket.ps1' | Should -BeExactly 'Catzc.Widget'
-        Get-PathModule 'widgetry/Catzc.Widget/tests/types/Gadget.Tests.ps1' | Should -BeExactly 'Catzc.Widget'
+    It 'returns the module and its type for a file placed in one' {
+        $module = Get-PathModule 'widgetry/Gadget/private/Cog.ps1'
+        $module | Should -BeOfType [Catzc.Base.Variants.PathModule]
+        $module.name | Should -BeExactly 'Gadget'
+        $module.type | Should -BeExactly 'widget-folder'
     }
 
-    It 'reads the root from the track registry, not from the word automation' {
-        Get-PathModule 'automation/Catzc.Widget/Get-Gadget.ps1' | Should -BeNullOrEmpty
+    It 'names a module from a psm1-like single file and from a prefixed folder' {
+        (Get-PathModule 'widgetry/.core/Widget.Core.Kit.wdg').name | Should -BeExactly 'Widget.Core.Kit'
+        (Get-PathModule 'widgetry/.core/tests/Cog.ps1').name | Should -BeExactly 'Widget.Core.Tests'
+    }
+
+    It 'names a tool folder by itself' {
+        $module = Get-PathModule '.gizmo/settings.json'
+        $module.name | Should -BeExactly '.gizmo'
+        $module.type | Should -BeExactly 'widget-tool'
     }
 
     It 'accepts a backslash path' {
-        Get-PathModule 'widgetry\Catzc.Widget\Get-Gadget.ps1' | Should -BeExactly 'Catzc.Widget'
+        (Get-PathModule 'widgetry\Gadget\Cog.ps1').name | Should -BeExactly 'Gadget'
     }
 
-    It 'places a path outside the track, or a file directly in the root, in no module' -ForEach @(
-        @{ Path = 'papers/Catzc.Widget/guide.md' }
-        @{ Path = 'widgetry/Get-Gadget.ps1' }
-        @{ Path = 'widgetry' }
-        @{ Path = 'widgetry/' }
+    It 'places a path no module type places in no module, and returns nothing' -ForEach @(
+        @{ Path = 'papers/guide.md' }
+        @{ Path = 'widgetry/Cog.ps1' }
+        @{ Path = 'widgetry/.hidden/Cog.ps1' }
         @{ Path = 'importer.ps1' }
         @{ Path = '' }
     ) {
-        Get-PathModule $Path | Should -BeNullOrEmpty
+        @(Get-PathModule $Path).Count | Should -Be 0
     }
+}
 
-    It 'places the other folders whose names start with a dot in no module' -ForEach @(
-        @{ Path = 'widgetry/.vendor/Pester/Pester.psd1' }
-        @{ Path = 'widgetry/.scriptanalyzer/Rule.psm1' }
-        @{ Path = 'widgetry/.compiled/Catzc.Types.dll' }
+Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
+    It 'places a file in the module, and the module type, its folder names' -ForEach @(
+        @{ Path = 'automation/Catzc.Base.Variants/Get-Track.ps1'; Name = 'Catzc.Base.Variants'; Type = 'pwsh-folder-module' }
+        @{ Path = 'automation/.internal/Catzc.Internal.Types.psm1'; Name = 'Catzc.Internal.Types'; Type = 'pwsh-psm1-module' }
+        @{ Path = 'automation/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1'; Name = 'Catzc.Internal.Tests'; Type = 'pwsh-folder-module' }
+        @{ Path = 'automation/.internal/assets/obj/Debug/x.cs'; Name = 'Catzc.Internal.Assets'; Type = 'pwsh-folder-module' }
+        @{ Path = '.claude/agents/catzc-worker.md'; Name = '.claude'; Type = 'settings-module' }
+        @{ Path = '.github/README.md'; Name = '.github'; Type = 'settings-module' }
+        @{ Path = '.cspell/adr.txt'; Name = '.cspell'; Type = 'settings-module' }
+        @{ Path = '.github/workflows/ci-automation.yml'; Name = 'workflows'; Type = 'pipeline-module' }
+        @{ Path = 'pipelines/cd-apex.yaml'; Name = 'pipelines'; Type = 'pipeline-module' }
+        @{ Path = 'python/tests/catzc-base-repository/test_repository.py'; Name = 'python'; Type = 'python-module' }
+        @{ Path = 'go/tests/catzc-base-repository/repository_test.go'; Name = 'go'; Type = 'go-module' }
+        @{ Path = 'bash/tests/catzc-base-repository/repository.bats'; Name = 'bash'; Type = 'bash-module' }
+        @{ Path = 'infrastructure/templates/foundation/main.bicep'; Name = 'foundation'; Type = 'bicep-module' }
+        @{ Path = 'infrastructure/modules/storage.bicep'; Name = 'storage'; Type = 'bicep-module' }
     ) {
-        Get-PathModule $Path | Should -BeNullOrEmpty
+        $module = Get-PathModule $Path
+        $module.name | Should -BeExactly $Name
+        $module.type | Should -BeExactly $Type
     }
 
-    It 'names a psm1 file directly in .internal as the module it is' {
-        Get-PathModule 'widgetry/.internal/Catzc.Internal.Types.psm1' | Should -BeExactly 'Catzc.Internal.Types'
-    }
-
-    It 'places a file under a folder of .internal in the module Catzc.Internal plus the folder in PascalCase' -ForEach @(
-        @{ Path = 'widgetry/.internal/tests/Assert-Widget.Tests.ps1'; Module = 'Catzc.Internal.Tests' }
-        @{ Path = 'widgetry/.internal/assets/Import-Widget.ps1'; Module = 'Catzc.Internal.Assets' }
-        @{ Path = 'widgetry/.internal/assets/obj/Debug/gadget.cs'; Module = 'Catzc.Internal.Assets' }
-        @{ Path = 'widgetry\.internal\tests\Assert-Widget.Tests.ps1'; Module = 'Catzc.Internal.Tests' }
-        @{ Path = 'widgetry/.internal/test-kit/Part.ps1'; Module = 'Catzc.Internal.TestKit' }
+    It 'places a documentation page, a contract, and a root file in no module' -ForEach @(
+        @{ Path = 'docs/adr/index.md' }
+        @{ Path = 'contracts/catzc/0.0.0/contract.yml' }
+        @{ Path = 'importer.ps1' }
+        @{ Path = 'automation/.vendor/Pester/Pester.psd1' }
+        @{ Path = 'automation/.scriptanalyzer/Rule.psm1' }
     ) {
-        Get-PathModule $Path | Should -BeExactly $Module
-    }
-
-    It 'places a file directly in .internal that is no psm1 in no module' -ForEach @(
-        @{ Path = 'widgetry/.internal/README.md' }
-        @{ Path = 'widgetry/.internal/Part.ps1' }
-        @{ Path = 'widgetry/.internal/' }
-    ) {
-        Get-PathModule $Path | Should -BeNullOrEmpty
-    }
-
-    It 'does not take a root that only shares the prefix' {
-        Get-PathModule 'widgetry-extra/Catzc.Widget/Get-Gadget.ps1' | Should -BeNullOrEmpty
+        @(Get-PathModule $Path).Count | Should -Be 0
     }
 }

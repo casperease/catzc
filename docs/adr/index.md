@@ -5,7 +5,7 @@ catzc:
     source: automation/Catzc.Base.Docs/configs/adrs.yml
     kind: index
     language: markdown
-    filekind: md
+    filetype: md
     track: docs
     generator: automation/Catzc.Base.Docs/Build-AdrIndex.ps1
 ---

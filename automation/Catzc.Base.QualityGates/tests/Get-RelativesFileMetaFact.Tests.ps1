@@ -45,7 +45,7 @@ Describe 'Get-RelativesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#10',
                 param($Kind, $Path, $Root)
                 Mock Get-RepositoryRoot { $Root }
                 # The fixture modules live under widgets/, which is no track of the shipped registry; the resolver's own tests prove the real rule.
-                Mock Get-PathModule { (($Path -replace '\\', '/') -split '/')[1] }
+                Mock Get-PathModule { [pscustomobject]@{ name = (($Path -replace '\\', '/') -split '/')[1]; type = 'widget-folder' } }
                 Mock Get-Config { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }) }
                 (Get-RelativesFileMetaFact -State ([pscustomobject]@{}) -Path $Path -Kind $Kind)['relatives']
             }

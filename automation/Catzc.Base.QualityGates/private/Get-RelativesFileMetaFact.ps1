@@ -65,7 +65,7 @@ function Get-RelativesFileMetaFact {
     }
     $module = Get-PathModule $Path
     $tokens['{module}'] = $(if ($module) {
-            $module
+            $module.name
         }
         else {
             ''

@@ -11,6 +11,8 @@ catzc:
     filetype: ps1
     track: automation
     module: Catzc.Widget
+    moduletype: pwsh-folder-module
+    bundle: minimal
     visibility: public
     relatives:
       test: automation/Catzc.Widget/tests/Get-Gadget.Tests.ps1

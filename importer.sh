@@ -5,7 +5,7 @@
 #     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
 #     kind: script
 #     language: bash
-#     filekind: sh
+#     filetype: sh
 #     generator: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
 # ---
 

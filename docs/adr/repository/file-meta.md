@@ -104,7 +104,8 @@ meta-kind registry ([controlling-module-dependencies](../automation/controlling-
 A file the automation composes whole — a root-config copy, a generator's output, a `.gitkeep` — carries the **generated-file head** instead
 of an imprinted block. Its writer composes the content bare and writes the head through the one head function, in the carrier the file's
 class has. The head holds the same facts as an imprinted block, `path`, `kind` and `subkind` (the role the file-kinds registry names for the
-file, which the writer reads and passes down), `language`, `filetype`, `track` and `module`, each left out for a file that has none, and
+file, which the writer reads and passes down), `language`, `filetype`, `track`, `module` and `moduletype` (the module-types registry's type of the module the file is placed in), each left
+out for a file that has none, and
 what only a composed file has: `generator` (the repository-relative path of the file that defines the command that composed the file) and
 `source` (the authored file or files it comes from). A generated file is told from an authored one by its `generator`, never by a kind of
 its own. No writer hand-words a banner, and the drift check compares the head with the rest of the content. The imprint engine leaves these
@@ -136,11 +137,14 @@ stays inside the file, an anchor in it, the file itself or its own comment page,
 
 ### Rule ADR-REPO-FILEMETA:10
 
-The derived part of a code file points at its **relatives** in one map, `relatives`, of at most eight relations with fixed names: `page`
-(its comment page, [ADR-REPO-COMMENTS#1](comments-in-docs.md#rule-adr-repo-comments1)), `test` (the Pester file that tests it) and `source`
-(the file a test file tests). The relations and the rules that fill them are the `relatives` kind's settings in `file-meta.yml`, so a new
-relation is a registry entry, never a new mechanism. A relation holds a repository-relative path that exists on disk, and a relation with no
-file is left out. No file carries a pointer of its own in its code: the head is the one place a code file names its relatives.
+The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
+truly define a relationship. The derived part of a code file points at its **relatives** in one map, `relatives`, of at most two relations
+with fixed names: `page` (its comment page, [ADR-REPO-COMMENTS#1](comments-in-docs.md#rule-adr-repo-comments1)) and `test` (the Pester file
+that tests it). A relative stays inside the file's own module or its docs section, never in another module, so modules relate to each other
+by name and never through a file path (encapsulation), and only the code side points: a test or a page knows its code by its name, so no pair
+is recorded twice. The relations and the rules that fill them are the `relatives` kind's settings in `file-meta.yml`, so a new relation is a
+registry entry, never a new mechanism. A relation holds a repository-relative path that exists on disk, and a relation with no file is left
+out. No file carries a pointer of its own in its code: the head is the one place a code file names its relatives.
 
 - [Relatives](#relatives)
 

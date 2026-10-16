@@ -32,9 +32,17 @@ kinds:
   track:
     keys: [track]
 
-  # The module the file is placed in, the folder under the automation track's root; a file placed in no module carries none.
+  # The module the file is placed in, from the module-types registry; a file placed in no module carries none.
   module-name:
     keys: [module]
+
+  # The type of that module, from the module-types registry (pwsh-folder-module, settings-module, pipeline-module, …).
+  module-type:
+    keys: [moduletype]
+
+  # The smallest built bundle that holds the module, from the exporter registry; a file in no module of a bundle carries none.
+  bundle:
+    keys: [bundle]
 
   # The file that writes a generated comment page, so the head names its writer; the path is the setting, and the file must exist.
   generator:
@@ -52,7 +60,9 @@ kinds:
     keys: [visibility]
     select: [{ classes: [function] }]
 
-  # The few files a file points at, as at most eight relations with fixed names; one is written only when its file exists.
+  # The two files a code file is bound to by a relation that costs to derive and defines it: the page its comments live on, and the test
+  # that proves it. Each path stays in the file's own module or its docs section, never in another module, and only the code side points: a
+  # test or a page knows its code by its name, so no pair is recorded twice. One is written only when its file exists.
   relatives:
     settings:
       relations:
@@ -63,10 +73,6 @@ kinds:
           rules:
             - { classes: [type], paths: ["automation/{module}/tests/types/{stem}.Tests.ps1"] }
             - { classes: [function], paths: ["automation/{module}/tests/{stem}.Tests.ps1"] }
-        - name: source
-          rules:
-            - { classes: [test], paths: ["automation/{module}/types/{stem}.cs"] }
-            - { classes: [test], paths: ["automation/{module}/{stem}.ps1", "automation/{module}/private/{stem}.ps1"] }
 
   # The rules an ADR defines in its own rule headings, spelled as citations; they are no citation of the ADR, so adrs never lists them.
   adr-defines:

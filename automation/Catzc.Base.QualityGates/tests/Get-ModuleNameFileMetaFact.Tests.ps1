@@ -4,10 +4,6 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ModuleNameFileMetaFact.Tests.ps1
     kind: test
-    language: powershell
-    filekind: ps1
-    track: automation
-    module: Catzc.Base.QualityGates
     relatives:
       source: automation/Catzc.Base.QualityGates/private/Get-ModuleNameFileMetaFact.ps1
     adrs:
@@ -17,10 +13,19 @@ catzc:
 
 Describe 'Get-ModuleNameFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' {
     BeforeAll {
-        $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
-                tracks = [ordered]@{ automation = [ordered]@{ root = 'widgetry'; class = 'core'; languages = @('widget-lang') } }
+        $script:types = [Catzc.Base.Variants.ModuleTypesConfig]::new(@{
+                module_types = [ordered]@{
+                    'widget-folder' = [ordered]@{
+                        definition = 'A widget folder.'
+                        places     = @(
+                            @{ root = 'widgetry'; name = 'folder' }
+                            @{ root = 'widgetry/.core'; name = 'folder'; prefix = 'Widget.Core.' }
+                        )
+                    }
+                    'widget-file'   = [ordered]@{ definition = 'A widget file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg' }) }
+                }
             })
-        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:fixture }
+        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'module-types' } { $script:types }
 
         $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'module-name' = @{ keys = @('module') } } }).kinds[0]
 
@@ -33,11 +38,18 @@ Describe 'Get-ModuleNameFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' 
         }
     }
 
-    It 'returns the folder under the automation track''s root, whatever the file''s depth' {
+    It 'returns the name of the module the file is placed in, whatever the file''s depth' {
         @((Get-Fact 'widgetry/Catzc.Widget/Get-Gadget.ps1').Keys) | Should -Be @('module')
         (Get-Fact 'widgetry/Catzc.Widget/Get-Gadget.ps1')['module'] | Should -BeExactly 'Catzc.Widget'
         (Get-Fact 'widgetry/Catzc.Widget/private/Get-Sprocket.ps1')['module'] | Should -BeExactly 'Catzc.Widget'
         (Get-Fact 'widgetry/Catzc.Widget/tests/types/Gadget.Tests.ps1')['module'] | Should -BeExactly 'Catzc.Widget'
+    }
+
+    It 'names a single-file module by the file, and a prefixed folder by its PascalCase' -ForEach @(
+        @{ Path = 'widgetry/.core/Widget.Core.Loader.wdg'; Module = 'Widget.Core.Loader' }
+        @{ Path = 'widgetry/.core/tests/Assert-Widget.Tests.ps1'; Module = 'Widget.Core.Tests' }
+    ) {
+        (Get-Fact $Path)['module'] | Should -BeExactly $Module
     }
 
     It 'gives an empty value to a file placed in no module, so the key is left out of its head' -ForEach @(
@@ -47,12 +59,5 @@ Describe 'Get-ModuleNameFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' 
         @{ Path = 'importer.ps1' }
     ) {
         (Get-Fact $Path)['module'] | Should -BeExactly ''
-    }
-
-    It 'names the module a file under .internal is, or is placed in' -ForEach @(
-        @{ Path = 'widgetry/.internal/Catzc.Internal.Loader.psm1'; Module = 'Catzc.Internal.Loader' }
-        @{ Path = 'widgetry/.internal/tests/Assert-Widget.Tests.ps1'; Module = 'Catzc.Internal.Tests' }
-    ) {
-        (Get-Fact $Path)['module'] | Should -BeExactly $Module
     }
 }

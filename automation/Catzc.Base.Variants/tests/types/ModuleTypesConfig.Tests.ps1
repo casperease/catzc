@@ -1,0 +1,122 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
+    kind: test
+    relatives:
+      source: automation/Catzc.Base.Variants/types/ModuleTypesConfig.cs
+    adrs:
+      - ADR-DSGN-TRACK#3
+---
+#>
+
+Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
+    BeforeAll {
+        function script:New-Config {
+            param($Types)
+            [Catzc.Base.Variants.ModuleTypesConfig]::new([ordered]@{ module_types = $Types })
+        }
+
+        $script:config = New-Config ([ordered]@{
+                'widget-folder'  = [ordered]@{
+                    definition = 'A widget that is a folder.'
+                    places     = @(
+                        @{ root = 'widgetry'; name = 'folder' }
+                        @{ root = 'widgetry/.core'; name = 'folder'; prefix = 'Widget.Core.' }
+                    )
+                }
+                'widget-file'    = [ordered]@{ definition = 'A widget that is one file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg' }) }
+                'widget-tool'    = [ordered]@{ definition = 'A tool dot-folder.'; places = @(@{ root = '.gizmo/deep'; name = 'root' }, @{ root = '.gizmo'; name = 'root' }) }
+            })
+    }
+
+    Context 'Resolve' {
+        It 'names the first folder under a root, whatever the file''s depth, with its type' {
+            $module = $script:config.Resolve('widgetry/Gadget/private/Cog.ps1')
+            $module.name | Should -BeExactly 'Gadget'
+            $module.type | Should -BeExactly 'widget-folder'
+        }
+
+        It 'never takes a dot-prefixed folder as a module' {
+            $script:config.Resolve('widgetry/.hidden/Cog.ps1') | Should -BeNullOrEmpty
+        }
+
+        It 'puts the prefix before the PascalCase of the folder' -ForEach @(
+            @{ Path = 'widgetry/.core/tests/Cog.ps1'; Expected = 'Widget.Core.Tests' }
+            @{ Path = 'widgetry/.core/test-kit/Cog.ps1'; Expected = 'Widget.Core.TestKit' }
+        ) {
+            $script:config.Resolve($Path).name | Should -BeExactly $Expected
+        }
+
+        It 'names a file directly under a root by the file without its extension' {
+            $module = $script:config.Resolve('widgetry/.core/Widget.Core.Kit.wdg')
+            $module.name | Should -BeExactly 'Widget.Core.Kit'
+            $module.type | Should -BeExactly 'widget-file'
+        }
+
+        It 'places a file that is no module file, or sits in a folder of a file place, in no file module' -ForEach @(
+            @{ Path = 'widgetry/.core/Kit.txt' }
+            @{ Path = 'widgetry/.core/Kit.wdg.bak' }
+            @{ Path = 'widgetry/.core/.wdg' }
+        ) {
+            $module = $script:config.Resolve($Path)
+            ($null -eq $module -or $module.type -ne 'widget-file') | Should -BeTrue
+        }
+
+        It 'names the root folder itself, by its last segment, for a root place' {
+            $script:config.Resolve('.gizmo/deep/x/y.json').name | Should -BeExactly 'deep'
+            $script:config.Resolve('.gizmo/other.json').name | Should -BeExactly '.gizmo'
+            $script:config.Resolve('.gizmo').name | Should -BeExactly '.gizmo'
+        }
+
+        It 'takes the first place that names a path, in the order written' {
+            $script:config.Resolve('.gizmo/deep/z.json').name | Should -BeExactly 'deep'
+        }
+
+        It 'does not take a root that only shares a prefix' {
+            $script:config.Resolve('widgetry-extra/Gadget/Cog.ps1') | Should -BeNullOrEmpty
+            $script:config.Resolve('.gizmos/a.json') | Should -BeNullOrEmpty
+        }
+
+        It 'places a file directly in a folder root, and an empty path, in no module' {
+            $script:config.Resolve('widgetry/Cog.ps1') | Should -BeNullOrEmpty
+            $script:config.Resolve('') | Should -BeNullOrEmpty
+            $script:config.Resolve($null) | Should -BeNullOrEmpty
+        }
+
+        It 'reads a backslash path' {
+            $script:config.Resolve('widgetry\Gadget\Cog.ps1').name | Should -BeExactly 'Gadget'
+        }
+    }
+
+    Context 'validation' {
+        It 'rejects <Name>' -ForEach @(
+            @{ Name = 'a type with no definition'; Types = @{ 'widget-x' = @{ places = @(@{ root = 'a'; name = 'root' }) } }; Message = '*needs a definition*' }
+            @{ Name = 'a type with no place'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @() } }; Message = '*needs at least one place*' }
+            @{ Name = 'an upper-case type'; Types = @{ 'Widget' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'root' }) } }; Message = '*lowercase words joined by*' }
+            @{ Name = 'an unknown key on a type'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'root' }); nope = 1 } }; Message = '*unknown key ''nope''*' }
+            @{ Name = 'an unknown key on a place'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'root'; nope = 1 }) } }; Message = '*unknown place key ''nope''*' }
+            @{ Name = 'a place with no root'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ name = 'root' }) } }; Message = '*a place''s root is a repository-relative folder*' }
+            @{ Name = 'a root with a trailing slash'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a/'; name = 'root' }) } }; Message = '*a place''s root is a repository-relative folder*' }
+            @{ Name = 'a root with a backslash'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a\b'; name = 'root' }) } }; Message = '*a place''s root is a repository-relative folder*' }
+            @{ Name = 'a place naming no way to name'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'sideways' }) } }; Message = '*folder, file or root*' }
+            @{ Name = 'a file place with no extension'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'file' }) } }; Message = '*names the extension, without its dot*' }
+            @{ Name = 'a file place with a dotted extension'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'file'; extension = '.wdg' }) } }; Message = '*without its dot*' }
+            @{ Name = 'an extension on a folder place'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'folder'; extension = 'wdg' }) } }; Message = '*only a file place has an extension*' }
+            @{ Name = 'a prefix on a root place'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'root'; prefix = 'X.' }) } }; Message = '*only a folder place has a prefix*' }
+        ) {
+            { New-Config $Types } | Should -Throw $Message
+        }
+
+        It 'rejects an unknown top-level key and a module_types value that is no map' {
+            { [Catzc.Base.Variants.ModuleTypesConfig]::new(@{ types = @{} }) } | Should -Throw '*unknown key ''types''*'
+            { [Catzc.Base.Variants.ModuleTypesConfig]::new(@{ module_types = 'x' }) } | Should -Throw '*module_types must be a map*'
+            { [Catzc.Base.Variants.ModuleTypesConfig]::new($null) } | Should -Throw
+        }
+
+        It 'declares no module for an empty registry' {
+            (New-Config $null).Resolve('widgetry/Gadget/Cog.ps1') | Should -BeNullOrEmpty
+        }
+    }
+}

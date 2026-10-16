@@ -45,6 +45,8 @@ configs:
     type: Catzc.Base.Globs.GlobsConfig
   file-kinds:
     type: Catzc.Base.Globs.FileKindsConfig
+  module-types:
+    type: Catzc.Base.Variants.ModuleTypesConfig
   adrs:
     type: Catzc.Base.Docs.AdrsConfig
   adr-checks:
