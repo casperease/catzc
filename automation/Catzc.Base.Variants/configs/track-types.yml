@@ -1,0 +1,51 @@
+track_types:
+  modules:
+    definition: Deployable PowerShell and C# modules, collected into the bundles the repository delivers.
+    role: deployable
+    admits: [pwsh-folder, pwsh-psm1]
+  infrastructure:
+    definition: Deployable Bicep templates and reusable Bicep modules, delivered per customer and target.
+    role: deployable
+    admits: [bicep]
+  pipelines:
+    definition: The pipeline definitions of one platform for this repository, the platform being the track's vendor.
+    role: holder
+    admits: [pipeline]
+  vendor-settings:
+    definition: The settings of one tool the repository configures, the tool being the track's vendor.
+    role: holder
+    admits: [settings]
+  vendored-code:
+    definition: Code written by a third party that the repository keeps checked in and does not author.
+    role: holder
+    admits: [pwsh-folder, bash]
+  contracts:
+    definition: The repository's boundary contracts, in both directions.
+    role: holder
+    admits: []
+  documentation:
+    definition: The ADRs, references, guides and diagram assets for the repository's readers.
+    role: holder
+    admits: []
+  verification:
+    definition: Black-box test projects that verify the modules from outside and ship nothing.
+    role: holder
+    admits: [python, go, bash]
+  unordered:
+    definition: The frozen shelf of finished fragments that nothing reads or depends on.
+    role: holder
+    admits: []
+
+vendors:
+  azure:
+    definition: Microsoft Azure, which reads the Bicep templates and modules.
+  ado:
+    definition: Azure DevOps, which reads the pipeline definitions under pipelines.
+  github:
+    definition: GitHub, which reads the workflows and the repository settings under .github.
+  claude:
+    definition: Claude Code, which reads the settings, agents and hooks under .claude.
+  cspell:
+    definition: The cspell spell checker, which reads the dictionaries under .cspell.
+  vscode:
+    definition: Visual Studio Code, which reads the workspace settings under .vscode.

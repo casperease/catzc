@@ -45,8 +45,8 @@ public static class ConsoleText
     {
         if (self == null) { return "null"; }
         Type type = self.GetType();
-        ConsoleDisplayAttribute display = type.GetCustomAttribute<ConsoleDisplayAttribute>(true);
-        return display == null ? Render(self, DataProperties(type)) : ToConsoleString(self, display.Properties);
+        TypeShape.Shape shape = TypeShape.Of(type);
+        return shape.Display == null ? Render(self, shape.Console) : ToConsoleString(self, shape.Display);
     }
 
     // Renders the object over the named properties only, in the order given. An unknown name throws.
@@ -54,11 +54,12 @@ public static class ConsoleText
     {
         if (self == null) { return "null"; }
         Type type = self.GetType();
+        TypeShape.Shape shape = TypeShape.Of(type);
         List<PropertyInfo> selected = new List<PropertyInfo>();
         foreach (string name in properties ?? new string[0])
         {
-            PropertyInfo property = type.GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
-            if (!IsDataProperty(property))
+            PropertyInfo property = shape.ConsoleProperty(name);
+            if (property == null)
             {
                 throw new ArgumentException(
                     "ToConsoleString: '" + TypeName(type) + "' has no public readable property '" + name + "'");
@@ -152,33 +153,6 @@ public static class ConsoleText
     {
         if (!more) { return string.Empty; }
         return collection == null ? ", …" : ", … (+" + (collection.Count - MaxItems).ToString(CultureInfo.InvariantCulture) + ")";
-    }
-
-    private static IEnumerable<PropertyInfo> DataProperties(Type type)
-    {
-        foreach (PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
-        {
-            if (IsDataProperty(property)) { yield return property; }
-        }
-    }
-
-    private static bool IsDataProperty(PropertyInfo property)
-    {
-        return property != null
-            && property.CanRead
-            && property.GetGetMethod() != null
-            && property.GetIndexParameters().Length == 0
-            && property.DeclaringType != typeof(DictionaryRecord)
-            && !IsHidden(property);
-    }
-
-    private static bool IsHidden(PropertyInfo property)
-    {
-        foreach (object attribute in property.GetCustomAttributes(true))
-        {
-            if (attribute.GetType().FullName == "System.Management.Automation.HiddenAttribute") { return true; }
-        }
-        return false;
     }
 
     private static bool OverridesToString(Type type)

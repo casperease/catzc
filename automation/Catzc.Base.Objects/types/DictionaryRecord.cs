@@ -49,7 +49,7 @@ public abstract class DictionaryRecord
         get
         {
             List<string> keys = new List<string>();
-            foreach (PropertyInfo p in DataProps()) { if (p.GetValue(this) != null) { keys.Add(p.Name); } }
+            foreach (PropertyInfo p in TypeShape.Of(GetType()).Data) { if (p.GetValue(this) != null) { keys.Add(p.Name); } }
             return keys;
         }
     }
@@ -57,31 +57,11 @@ public abstract class DictionaryRecord
     public Hashtable ToHashtable()
     {
         Hashtable h = new Hashtable();
-        foreach (PropertyInfo p in DataProps()) { object v = p.GetValue(this); if (v != null) { h[p.Name] = v; } }
+        foreach (PropertyInfo p in TypeShape.Of(GetType()).Data) { object v = p.GetValue(this); if (v != null) { h[p.Name] = v; } }
         return h;
     }
 
-    private PropertyInfo GetProp(string key)
-    {
-        PropertyInfo p = GetType().GetProperty(key, BindingFlags.Public | BindingFlags.Instance);
-        return IsDataProp(p) ? p : null;
-    }
-
-    private IEnumerable<PropertyInfo> DataProps()
-    {
-        foreach (PropertyInfo p in GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
-        {
-            if (IsDataProp(p)) { yield return p; }
-        }
-    }
-
-    private static bool IsDataProp(PropertyInfo p)
-    {
-        return p != null
-            && p.CanRead
-            && p.GetIndexParameters().Length == 0
-            && p.DeclaringType != typeof(DictionaryRecord);
-    }
+    private PropertyInfo GetProp(string key) => TypeShape.Of(GetType()).DataProperty(key);
 
     // ---- protected dictionary-extraction helpers for derived constructors ----
 

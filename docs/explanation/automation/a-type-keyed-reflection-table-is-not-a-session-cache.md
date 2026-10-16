@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6de303bdf0d4"
+    with_body_sha: ffc326283435
     path: docs/explanation/automation/a-type-keyed-reflection-table-is-not-a-session-cache.md
     folder: docs/explanation/automation
     name: a-type-keyed-reflection-table-is-not-a-session-cache
@@ -82,7 +82,7 @@ from what the ADR and the type system define; the two are read here, and no rule
 - The ADR does not say that a static field in a type is outside it. This article reads its scope from the ADR's title, rules and examples,
   and the ADR is silent about type-level statics. If a reader holds that silence is not an exclusion, the one-sentence ADR addition is the
   fallback, and it is the user's decision.
-- The table does not exist yet. The `Shape` and its comment are a proposal in the unboxing change plan (step C-2).
+- The table is `TypeShape` in `Catzc.Base.Objects`, read by `DictionaryRecord` and `ConsoleText`; its comment names this reasoning.
 - Thread safety is by `ConcurrentDictionary.GetOrAdd`, which may run the factory twice for one key on a race. The factory is pure, so the
   duplicate is discarded and the answer is the same.
 - Retained memory of the table, one small `Shape` per type that is ever read through it, was not measured.

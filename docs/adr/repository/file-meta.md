@@ -187,7 +187,7 @@ the head never carries a list of its own. It also holds `tracktype` and `vendor`
 
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts**: what the
 repository's own configuration makes of the file's location, its `path` and the parts of it, its `kind`, `language`, `track`, `module` and
-the rest, each read from a registry and never from the file's text. `edges` holds the **outgoing edges**: what the file itself declares or
+the rest, each read from a registry and never from the file's text. `edges` holds the **edges** that leave it: what the file itself declares or
 points at, each a named relation to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `page` and `test`. Both parts are
 imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge until
 the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation, never
