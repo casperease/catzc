@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9443abfdc337"
+    with_body_sha: fd8cb828b4c0
     repo_status: clean
     path: docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
     folder: docs/.assets/references/automation/catzc-base-modulesystem
@@ -25,10 +25,9 @@ catzc:
 `Verification: Declared graph orders and closes; observed graph is checked (source lens, Catzc.Base.ModuleSystem)`
 
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's numbers is reused without a re-grep. Several had
-moved (`Get-ModuleDependencyConfig.ps1:19` is now `:13`, `Get-ModuleTestOrder.ps1:30` is now `Get-ModuleOrder.ps1:56`,
-`Get-ModuleProfile.ps1:50` is now `:45`, `Copy-Automation.ps1:87` is now `:68`, `Get-FunctionDependency.ps1:68` is now `:63`,
-`Test-ModuleCycles.ps1:30` is now `:26`). `condense-comments` may move them again, so re-grep before landing. Paths are relative to
-`automation/Catzc.Base.ModuleSystem/` unless they start with `automation/` or `docs/`.
+moved (`Get-ModuleDependencyConfig.ps1:19` is now `:13`, `Get-ModuleProfile.ps1:50` is now `:45`, `Copy-Automation.ps1:87` is now `:68`,
+`Get-FunctionDependency.ps1:68` is now `:63`, `Test-ModuleCycles.ps1:30` is now `:26`). `condense-comments` may move them again, so re-grep
+before landing. Paths are relative to `automation/Catzc.Base.ModuleSystem/` unless they start with `automation/` or `docs/`.
 
 ## Boxes
 
