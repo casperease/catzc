@@ -80,6 +80,21 @@ function Build-ContractReference {
     # Every page this writer emits carries this line; only a page carrying it is ever removed.
     $marker = '`Build-ContractReference` writes this page from'
 
+    # The assets, this module and the paragraph filler are the whole input: when every page this writer emitted already carries
+    # their stamp, nothing is read or written. A unit added or removed changes the assets, so its stamp moves and every page rebuilds.
+    $inputsSha = Get-InputStamp -Root $RepositoryRoot -Path @(
+        (Join-Path $RepositoryRoot 'contracts')
+        (Resolve-RepoPath 'automation/Catzc.Base.Contracts')
+        (Resolve-RepoPath 'automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1')
+    ) -Exclude '*/contracts/README.md', '*/Catzc.Base.Contracts/README.md', '*/Catzc.Base.Contracts/tests/*'
+    if (-not $PassThru -and [System.IO.Directory]::Exists((Join-Path $RepositoryRoot $pageFolder))) {
+        $emitted = @([System.IO.Directory]::GetFiles((Join-Path $RepositoryRoot $pageFolder), '*.md') |
+                Where-Object { [System.IO.File]::ReadAllText($_).Contains($marker) })
+        if ($emitted.Count -gt 0 -and -not @($emitted | Where-Object { -not (Test-GeneratedFileCurrent -Path $_ -InputsSha $inputsSha) })) {
+            return
+        }
+    }
+
     $assets = @(Get-Contract -Version '*' -RepositoryRoot $RepositoryRoot)
     $units = [string[]] @($assets | ForEach-Object { $_.Unit } | Select-Object -Unique)
     [System.Array]::Sort($units, [System.StringComparer]::Ordinal)
@@ -167,7 +182,7 @@ function Build-ContractReference {
         }
 
         $path = Join-Path $RepositoryRoot "$pageFolder/$unit.md"
-        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$unit.md" -Generator Build-ContractReference -Source "contracts/$unit" -FileKind (Get-FileKind "$pageFolder/$unit.md")
+        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$unit.md" -Generator Build-ContractReference -Source "contracts/$unit" -FileKind (Get-FileKind "$pageFolder/$unit.md") -InputsSha $inputsSha
         $changed = Write-FileIfChanged $path $page -DryRun:$DryRun
         $results.Add([pscustomobject]@{
                 Unit = $unit; Path = "$pageFolder/$unit.md"; Changed = $changed; Removed = $false; DryRun = [bool] $DryRun

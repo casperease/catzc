@@ -200,8 +200,11 @@ edge until the file's text changes. An edge is written on its source only, so th
 relation, never for the type of its target. In a Markdown file, and in a generated file of any language
 ([ADR-REPO-FILEMETA#7](#rule-adr-repo-filemeta7)), `immutable` opens with `with_body_sha`, the hash of the body below the head, so the stamp
 says which text the edges were read from or the writer composed. An authored code file carries no hash
-([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). A kind of the registry names the part it writes, `immutable` by default
-and `edges` for a relation.
+([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). Every block and every generated head also holds `repo_status`, the
+part of the file's repository status that the file itself decides: `locked` for a generated file, whose source is the truth and is edited
+instead, and `clean` for an authored one. The states only git knows, edited, staged, committed and pushed, and `ready` (tracked and
+unchanged) are never written into the file, since the write would change them; `Get-RepoStatus` computes them on demand from git, read-only.
+A kind of the registry names the part it writes, `immutable` by default and `edges` for a relation.
 
 - [Place facts and edges](#place-facts-and-edges)
 

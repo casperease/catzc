@@ -30,6 +30,8 @@ function Invoke-Importer {
         [switch] $AllowWarnings,
         [switch] $DiagnoseLoadTime,
 
+        [switch] $DiagnoseBlocking,
+
         [switch] $ClearCompiledTypes,
 
         [switch] $SkipJanitors,
@@ -149,8 +151,15 @@ function Invoke-Importer {
         if ($isConsoleSession) {
             $finalizerStart = $sw.Elapsed
         }
+        # The -DiagnoseBlocking watchpoints stand only where a writer exists (after the module import); each costs its full duration.
+        if ($DiagnoseBlocking) {
+            Assert-Wait
+        }
 
         Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot
+        if ($DiagnoseBlocking) {
+            Assert-Wait
+        }
 
         if ($Bundle) {
             Invoke-ConsumerOverlay -RepositoryRoot $repoRoot
@@ -166,6 +175,9 @@ function Invoke-Importer {
         if (-not $SkipJanitors) {
             Invoke-ImporterJanitors -CleanClone:$CleanClone -ShowStateChanges:$showStateChanges
         }
+        if ($DiagnoseBlocking) {
+            Assert-Wait
+        }
 
         if (-not $SkipJanitors -and $IsWindows) {
             $hasUncModulePath = ($env:PSModulePath -split [IO.Path]::PathSeparator) -match '^\\\\' | Select-Object -First 1
@@ -179,6 +191,9 @@ function Invoke-Importer {
                 Write-ImporterMessage "  & '$fixScript'" -ForegroundColor Cyan
                 Write-ImporterMessage ''
             }
+        }
+        if ($DiagnoseBlocking) {
+            Assert-Wait
         }
 
         Write-Verbose 'Removing Catzc.Internal.Bootstrap module'

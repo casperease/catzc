@@ -1,18 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: f15af7ff56ff
-    repo_status: locked
-    path: importer.ps1
-    source: automation/.internal/Catzc.Internal.Importer.psm1
-    kind: script
-    language: powershell
-    filetype: ps1
-    generator: automation/Catzc.Base.ModuleSystem/New-Importer.ps1
----
-#>
-
 # This shim carries only the importer's outer parameter form and delegates the whole load sequence to
 # Invoke-Importer in automation/.internal/Catzc.Internal.Importer.psm1 (the single living copy). It is
 # dot-sourced (. ./importer.ps1), so its $global:/$env: effects land in the caller's session.
@@ -22,6 +7,7 @@ param(
     [switch] $ExportPrivates,
     [switch] $AllowWarnings,
     [switch] $DiagnoseLoadTime,
+    [switch] $DiagnoseBlocking,
     [switch] $ClearCompiledTypes,
     [switch] $SkipJanitors,
     [switch] $CleanClone,

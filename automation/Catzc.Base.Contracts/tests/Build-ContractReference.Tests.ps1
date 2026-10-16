@@ -114,6 +114,14 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         @(Build-ContractReference -RepositoryRoot $script:root -DryRun -PassThru -Silent | Where-Object Changed) | Should -BeNullOrEmpty
     }
 
+    It 'skips the rebuild when every page carries the stamp of the unchanged inputs, and rebuilds when an asset changes' {
+        Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
+        Mock Get-Contract -ModuleName Catzc.Base.Contracts { throw 'rebuilt' }
+        { Build-ContractReference -RepositoryRoot $script:root -Silent } | Should -Not -Throw
+        Add-File 'contracts/widget/1.2.0/Catzc.Widget/.widget/extra.yml' "widget: 1`n"
+        { Build-ContractReference -RepositoryRoot $script:root -Silent } | Should -Throw 'rebuilt'
+    }
+
     It 'reports drift without writing under -DryRun' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         Add-File 'docs/references/contracts/widget.md' 'stale'
