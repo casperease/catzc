@@ -144,9 +144,12 @@ kinds:
   explanation:
     definition: A page that explains why something works as it does.
     files: ["docs/explanation/**"]
+  diagram:
+    definition: A diagram image of the documentation, drawn in the diagram editor or rendered from a description.
+    files: ["docs/.assets/**/*.png"]
   asset-description:
-    definition: The description that sits beside a diagram asset.
-    files: ["docs/.assets/**"]
+    definition: The description that sits beside a diagram.
+    files: ["docs/.assets/**/*.md"]
   readme:
     definition: The README of a folder.
     files: ["**/README.md"]

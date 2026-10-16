@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4483ffd5658b"
+    with_body_sha: "44ccc742c795"
     path: docs/adr/repository/uniform-formatting.md
     folder: docs/adr/repository
     name: uniform-formatting
@@ -115,10 +115,10 @@ carries its own meta block, whose `kind` marks it as a comment page. `Test-Forma
 
 ### Rule ADR-REPO-FORMAT:9
 
-The `immutable` and `edges` parts of a file's meta block ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)) are formatter output like the title:
-`Format-FileMeta` writes it in canonical form the file's formatter leaves unchanged, byte-identical on every run, and `Test-FileMeta` checks
-it, over the files the scope rule selects ([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). A hand edit to a derived value is
-overwritten.
+The `immutable` and `edges` parts of a file's meta block ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)) are formatter output
+like the title: `Format-FileMeta` writes it in canonical form the file's formatter leaves unchanged, byte-identical on every run, and
+`Test-FileMeta` checks it, over the files the scope rule selects ([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). A hand edit
+to a derived value is overwritten.
 
 - [File meta is imprinted](#file-meta-is-imprinted)
 
@@ -253,8 +253,8 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
   path H1), brings its headings into normal form (moving trailing reference groups out, quoting `dora-explains` paragraphs, and re-pointing
   every link to a heading whose anchor changed), and `Test-MarkdownTitle` checks both, including duplicate anchors and files with no title;
   an L1 test asserts the tracked tree has no finding.
-- **File meta** — `Format-FileMeta` imprints the `immutable` and `edges` parts of every in-scope file's meta block, and `Test-FileMeta` fails any file that
-  differs from what the formatter would write ([file-meta](file-meta.md)).
+- **File meta** — `Format-FileMeta` imprints the `immutable` and `edges` parts of every in-scope file's meta block, and `Test-FileMeta`
+  fails any file that differs from what the formatter would write ([file-meta](file-meta.md)).
 
 ## Consequences
 

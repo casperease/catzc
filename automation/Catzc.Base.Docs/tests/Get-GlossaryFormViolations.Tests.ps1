@@ -88,6 +88,13 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         $found | Should -Be @("docs/alpha.md:6 says `"sprocket widget`" — $script:tail")
     }
 
+    It 'reads no immutable block of a code head as prose, and still reads the rest of the head' -Tag 'ADR-REPO-VOCAB#8', 'ADR-REPO-FILEMETA#1' {
+        $text = @('<#', '---', 'catzc:', '  immutable:', '    path: automation/Catzc.Widget/Get-Widget.ps1', '    name: get-sprocket-widget', '    kind: function',
+            '  config:', '    synopsis: A sprocket widget.', '---', '#>', 'function Get-Widget { }')
+        $found = & $script:scan @{ 'automation/Catzc.Widget/Get-Widget.ps1' = $text }
+        $found | Should -Be @("automation/Catzc.Widget/Get-Widget.ps1:9 says `"sprocket widget`" — $script:tail")
+    }
+
     It 'exempts a mention in backticks or quotes, and never matches inside a longer word' -Tag 'ADR-REPO-VOCAB#8' {
         & $script:scan @{ 'docs/alpha.md' = @('Avoid `sprocket widget` and "sprocket widget"; a gadgetwidget, the widgetry.') } | Should -BeNullOrEmpty
     }

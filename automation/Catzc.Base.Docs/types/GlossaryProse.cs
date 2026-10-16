@@ -101,7 +101,7 @@ public static class GlossaryProse
         {
             if (token.Kind != TokenKind.Comment) { continue; }
             bool isHelp = token.Text.StartsWith("<#", StringComparison.Ordinal) && HelpKeyword.IsMatch(token.Text);
-            segments.Add(Segment(isHelp ? "help" : "comments", token.Extent.StartLineNumber, token.Text));
+            segments.Add(Segment(isHelp ? "help" : "comments", token.Extent.StartLineNumber, WithoutImmutableFacts(token.Text)));
         }
 
         List<Ast> carriers = new List<Ast>();
@@ -166,6 +166,24 @@ public static class GlossaryProse
             segments.Add(Segment("messages", line, text));
         }
         return segments.ToArray();
+    }
+
+    // A code head's `immutable:` block holds facts the engine computed from the file (its name, kind, module), not prose; blank its lines,
+    // as the Markdown reader blanks the meta block, and keep the line count so later lines keep their numbers.
+    static string WithoutImmutableFacts(string comment)
+    {
+        if (comment == null || !comment.Contains("\n  immutable:")) { return comment; }
+        string[] lines = comment.Split('\n');
+        bool inImmutable = false;
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string line = lines[i].TrimEnd('\r');
+            if (line == "  immutable:") { inImmutable = true; lines[i] = string.Empty; continue; }
+            if (!inImmutable) { continue; }
+            if (line.Length > 2 && line.StartsWith("   ", StringComparison.Ordinal)) { lines[i] = string.Empty; continue; }
+            if (line.Length > 0) { inImmutable = false; }
+        }
+        return string.Join("\n", lines);
     }
 
     static GlossarySegment Segment(string surface, int line, string text) =>

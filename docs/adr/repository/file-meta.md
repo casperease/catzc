@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ac33ef39622c
+    with_body_sha: "4bbe07489364"
     path: docs/adr/repository/file-meta.md
     folder: docs/adr/repository
     name: file-meta
@@ -50,8 +50,9 @@ catzc:
 Every in-scope tracked file may carry one **meta block**: the facts the tooling owns about the file, written into the file's carrier. A
 Markdown file's carrier is the reserved front-matter key `catzc`, holding the file's place facts under `immutable`, its outgoing edges under
 `edges` ([ADR-REPO-FILEMETA#13](#rule-adr-repo-filemeta13)) and its authored config contributions under `config`
-([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1)). A code file's carrier is its meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta1)). The block is the only part of the file
-the tooling owns: every other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
+([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1)). A code file's carrier is its
+meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta1)). The block is the only part of the file the tooling owns: every
+other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
 
 - [Decision](#decision)
 - [One block, two carriers](#one-block-two-carriers)
@@ -71,10 +72,10 @@ files carry a block at all. Which kinds exist is data, never a list inside an en
 
 ### Rule ADR-REPO-FILEMETA:3
 
-The `immutable` and `edges` parts are imprinted by `Format-FileMeta` and are byte-identical on every run: keys in the registry's order, values in canonical
-form, no timestamp and no run identifier. A hash is allowed only when it changes exactly when something a reader cares about changes. A
-second run changes no file. The output is stable under the formatter of the file's language, so the formatter and the imprint never undo
-each other ([ADR-REPO-FORMAT#5](uniform-formatting.md#rule-adr-repo-format5)).
+The `immutable` and `edges` parts are imprinted by `Format-FileMeta` and are byte-identical on every run: keys in the registry's order,
+values in canonical form, no timestamp and no run identifier. A hash is allowed only when it changes exactly when something a reader cares
+about changes. A second run changes no file. The output is stable under the formatter of the file's language, so the formatter and the
+imprint never undo each other ([ADR-REPO-FORMAT#5](uniform-formatting.md#rule-adr-repo-format5)).
 
 - [Imprinted, never hand-edited](#imprinted-never-hand-edited)
 
@@ -93,8 +94,8 @@ function and a function no kind names. A new kind is a registry entry and a func
 The scope of a kind is the files it selects, less the files `.gitattributes` marks `linguist-vendored`, `linguist-generated`,
 `catzc-fixture` or `catzc-contract`, and those it marks `-catzc-meta`. For Markdown the globs match the file class of the Markdown title
 ([ADR-REPO-FORMAT#6](uniform-formatting.md#rule-adr-repo-format6)). A new exception is declared in the `.gitattributes` source, never in a
-list of the gate's own. A key an author wrote under `immutable` or `edges` is a finding the author fixes, never overwritten silently, and a `config` part is
-validated against its kind and kept as written.
+list of the gate's own. A key an author wrote under `immutable` or `edges` is a finding the author fixes, never overwritten silently, and a
+`config` part is validated against its kind and kept as written.
 
 - [Scope](#scope)
 
@@ -139,22 +140,22 @@ without one is a visible finding, or an `exclude` entry of its carrier with the 
 The edges of a Markdown file say what the file defines and what it points at, and the two never mix. An ADR lists under the edge `defines`
 the rules its own headings declare, each spelled as a citation, `ADR-<CODE>#<n>`, and its edge `cites` lists only the registered rules it
 cites from elsewhere, so a rule's own text is never a citation of itself and a placeholder named in prose is none either. Every Markdown
-file lists under the edge `links` each link that leaves it, whatever its form (relative, repository-rooted, absolute URL, image, reference definition or
-autolink), spelled once as a repository-relative path with its anchor or as the absolute URL, sorted and without duplicates. A link that
-stays inside the file, an anchor in it, the file itself or its own comment page, is internal and is not listed.
+file lists under the edge `links` each link that leaves it, whatever its form (relative, repository-rooted, absolute URL, image, reference
+definition or autolink), spelled once as a repository-relative path with its anchor or as the absolute URL, sorted and without duplicates. A
+link that stays inside the file, an anchor in it, the file itself or its own comment page, is internal and is not listed.
 
 - [What a Markdown file defines and points at](#what-a-markdown-file-defines-and-points-at)
 
 ### Rule ADR-REPO-FILEMETA:10
 
 The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
-truly define a relationship. The edges of a code file point at its **relatives**, at most two edges
-with fixed names: `page` (its comment page, [ADR-REPO-COMMENTS#1](comments-in-docs.md#rule-adr-repo-comments1)) and `test` (the Pester file
-that tests it). A relative stays inside the file's own module or its docs section, never in another module, so modules relate to each other
-by name and never through a file path (encapsulation), and only the code side points: a test or a page knows its code by its name, so no
-pair is recorded twice. The edges and the rules that fill them are the `relative-edges` kind's settings in `file-meta.yml`, so a new edge
-is a registry entry, never a new mechanism. An edge holds a repository-relative path that exists on disk, and an edge with no file is
-left out. No file carries a pointer of its own in its code: the head is the one place a code file names its relatives.
+truly define a relationship. The edges of a code file point at its **relatives**, at most two edges with fixed names: `page` (its comment
+page, [ADR-REPO-COMMENTS#1](comments-in-docs.md#rule-adr-repo-comments1)) and `test` (the Pester file that tests it). A relative stays
+inside the file's own module or its docs section, never in another module, so modules relate to each other by name and never through a file
+path (encapsulation), and only the code side points: a test or a page knows its code by its name, so no pair is recorded twice. The edges
+and the rules that fill them are the `relative-edges` kind's settings in `file-meta.yml`, so a new edge is a registry entry, never a new
+mechanism. An edge holds a repository-relative path that exists on disk, and an edge with no file is left out. No file carries a pointer of
+its own in its code: the head is the one place a code file names its relatives.
 
 - [Relatives](#relatives)
 
@@ -188,12 +189,12 @@ A file is a node, and its meta block says two things about it, each in a part of
 repository's own configuration makes of the file's location, its `path` and the parts of it, its `kind`, `language`, `track`, `module` and
 the rest, each read from a registry and never from the file's text. `edges` holds the **outgoing edges**: what the file itself declares or
 points at, each a named relation to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `page` and `test`. Both parts are
-imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge
-until the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation,
-never for the type of its target. In a Markdown file `immutable` opens with `with_body_sha`, the hash of the body below the front matter,
-so the stamp says which text the edges were read from. A code file carries no hash
-([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). A kind of the registry names the part it writes, `immutable` by
-default and `edges` for a relation.
+imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge until
+the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation, never
+for the type of its target. In a Markdown file `immutable` opens with `with_body_sha`, the hash of the body below the front matter, so the
+stamp says which text the edges were read from. A code file carries no hash
+([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). A kind of the registry names the part it writes, `immutable` by default
+and `edges` for a relation.
 
 - [Place facts and edges](#place-facts-and-edges)
 
@@ -214,7 +215,8 @@ has comments.
 
 A file carries one meta block, with the carrier its kind of file has. For Markdown the carrier is one reserved front-matter key, `catzc`,
 with three parts: `immutable` and `edges`, written by the formatter, and `config`, written by the author. For code the carrier is the meta
-head, with the two imprinted parts only. Which kinds of fact and config exist is a registry. Who computes or reads each kind is a function a module ships.
+head, with the two imprinted parts only. Which kinds of fact and config exist is a registry. Who computes or reads each kind is a function a
+module ships.
 
 ### One block, two carriers
 
@@ -240,9 +242,9 @@ catzc:
 
 A fact with no value, an empty list or an empty string, is the default of its key and is left out, so an absent key reads as the empty
 value. `name` belongs to the agent tooling and is untouched. A tool that reads front matter keeps working, because the reserved key is one
-extra top-level key it does not know. The parts never mix: `immutable` and `edges` are imprinted and rewritten, `config` is authored and kept. The code
-carrier, the form of a head in a C# or PowerShell file, is in [code-file-meta](code-file-meta.md). Which carrier each file class has, or why
-it has none, is one registry, `file-carriers.yml`, so a gap in the coverage is a visible entry.
+extra top-level key it does not know. The parts never mix: `immutable` and `edges` are imprinted and rewritten, `config` is authored and
+kept. The code carrier, the form of a head in a C# or PowerShell file, is in [code-file-meta](code-file-meta.md). Which carrier each file
+class has, or why it has none, is one registry, `file-carriers.yml`, so a gap in the coverage is a visible entry.
 
 ### The meta-kind registry
 
@@ -257,8 +259,8 @@ registry serves every carrier, so there is one list of kinds to keep in step and
 
 `The formatter owns immutable and edges`
 
-An imprinted value is computed from the file and the repository, so a hand edit would only be overwritten, and a stale one would mislead. The
-formatter writes the part in a fixed order and form, and the check fails when the file differs from what the formatter would write. No
+An imprinted value is computed from the file and the repository, so a hand edit would only be overwritten, and a stale one would mislead.
+The formatter writes the part in a fixed order and form, and the check fails when the file differs from what the formatter would write. No
 timestamp is allowed, because a value that changes on every run makes every run a diff.
 
 ### Subscribing a kind
@@ -311,10 +313,10 @@ A file has two kinds of derived fact, and they answer different questions. Where
 that place: its folder, its name, its role, its language, its track and its module, all read from registries the repository configures, so
 the same file in another repository would carry other values. And what does this file itself say it is related to: the rules it declares,
 the rules it cites, the files it links, the page that holds its comments, the test that proves it, all read from the file and fixed by its
-text. The first is a property of the node, the second a set of directed, named edges leaving it. Keeping them apart lets a reader ask
-"which files are in this module" of one part and "which files point at this page" of the other, and lets the body hash sit at the head of
-the place facts as the stamp the edges were read under. An edge is named for the relation, so a new relation is a new name and a registry
-entry, and the target of an edge is spelled the same way wherever it is read.
+text. The first is a property of the node, the second a set of directed, named edges leaving it. Keeping them apart lets a reader ask "which
+files are in this module" of one part and "which files point at this page" of the other, and lets the body hash sit at the head of the place
+facts as the stamp the edges were read under. An edge is named for the relation, so a new relation is a new name and a registry entry, and
+the target of an edge is spelled the same way wherever it is read.
 
 ### What a Markdown file defines and points at
 
@@ -335,8 +337,8 @@ A code file has two companions a reader wants one step away, and both cost to fi
 that proves it. Writing each as a link in the code would put a pointer in every file and a line to keep in step with the companion. The head
 already holds derived facts, so the companions are two more edges, one fixed name per kind of companion, and no more than the ones that
 truly define a relationship, so the head stays a map of facts about its own file. A companion that the file's name already gives, such as
-the code a test covers, is not recorded from the test's side. The registry holds the list of edges and the path rule of each, and an
-edge whose file does not exist is not written, so an entry in the head is always a working pointer.
+the code a test covers, is not recorded from the test's side. The registry holds the list of edges and the path rule of each, and an edge
+whose file does not exist is not written, so an entry in the head is always a working pointer.
 
 ### File kinds
 

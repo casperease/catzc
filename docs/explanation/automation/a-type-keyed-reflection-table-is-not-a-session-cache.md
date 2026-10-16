@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "169938e5d4fb"
+    with_body_sha: "6de303bdf0d4"
     path: docs/explanation/automation/a-type-keyed-reflection-table-is-not-a-session-cache.md
     folder: docs/explanation/automation
     name: a-type-keyed-reflection-table-is-not-a-session-cache
@@ -49,15 +49,15 @@ from what the ADR and the type system define; the two are read here, and no rule
    ([script-scope-caching](../../adr/pwsh/script-scope-caching.md), `ADR-PWSH-CACHE#1`), and its one invalidation is re-running the importer
    (`ADR-AUTO-CACHE#6`).
 2. **What the table is.** A `ConcurrentDictionary<Type, Shape>` in a static class under a module's `types/`, filled by `GetOrAdd` on the
-   first use of a type. Its entries are the readable properties of a type, a name-to-property map, and the type's `[ConsoleDisplay]`
-   list: facts about a compiled type.
+   first use of a type. Its entries are the readable properties of a type, a name-to-property map, and the type's `[ConsoleDisplay]` list:
+   facts about a compiled type.
 3. **Its input is the assembly.** Every cached thing in the ADR is a pure function of files on disk that a person can change between
    sessions, or of runtime state. A `Type`'s metadata is a function of the loaded assembly, which is itself the rule-8 build named for the
    hash of every `types/*.cs`. The table caches nothing about the repository's content and nothing a person edits mid-session.
-4. **Its life is the process, and it cannot go stale.** A loaded assembly cannot be swapped in a running process; on a devbox a changed
-   type warns and the old types stay until restart, and in a pipeline the loader throws (`ADR-AUTO-TYPES#7`,
-   [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)). The key is the `Type` object itself, so a type from a
-   different assembly is a different key, and one type's metadata never changes. The cache cannot be wrong while the process lives.
+4. **Its life is the process, and it cannot go stale.** A loaded assembly cannot be swapped in a running process; on a devbox a changed type
+   warns and the old types stay until restart, and in a pipeline the loader throws (`ADR-AUTO-TYPES#7`,
+   [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)). The key is the `Type` object itself, so a type from a different
+   assembly is a different key, and one type's metadata never changes. The cache cannot be wrong while the process lives.
 5. **No invalidation, and no reach for the importer.** Re-running the importer discards module `$script:` state; it does not unload a type
    or a static field in a type. That is correct here: the entry would be rebuilt to the same answer. A new process starts with an empty
    table. This is the reason the ADR's rules 1, 2, 6, 9 and 10, which are about when a stored answer stops being true, do not apply.

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2c707e3bd300"
+    with_body_sha: "0bc338b64636"
     path: docs/explanation/automation/index.md
     folder: docs/explanation/automation
     name: index
@@ -93,7 +93,7 @@ One declared allow-list says what may depend on what, and the declared graph for
 Reading a value out of an object costs a few nanoseconds, and the type tests, reflection lookups and PowerShell crossings around it cost
 more ([native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)).
 
-| Article                                                                                                         |
-| --------------------------------------------------------------------------------------------------------------- |
-| [Unboxing is cheap, the type tests and crossings around it are not](unboxing-is-cheap-and-crossings-are-not.md) |
+| Article                                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Unboxing is cheap, the type tests and crossings around it are not](unboxing-is-cheap-and-crossings-are-not.md)                                      |
 | [A static table keyed by Type is not a session cache, so ADR-AUTO-CACHE does not govern it](a-type-keyed-reflection-table-is-not-a-session-cache.md) |
