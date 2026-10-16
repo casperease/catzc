@@ -147,7 +147,7 @@ canonical encoding of this lifecycle (they render the grammar of [ADR-DSGN-VISUA
 server as a single push from the client, carrying the text-field message or `...` when the field is empty. The push fast-forwards the
 server's main; a rejected push (main moved) stops and reports, and the client integrates by hand. A force push, an amend of a pushed
 commit, and an administrator's history change are not supported (ADR-DSGN-LIFE#2). In `main-via-pr` the push is refused locally while
-standing on main/master (ADR-REPO-VARIANT#6).
+standing on main/master, the `git_workspace` variant's one stop condition.
 
 - [Fast push to main](#fast-push-to-main)
 
