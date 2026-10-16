@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: d7792a0fc3a0
     adrs:
       - ADR-AUTO-TYPES#8

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Provisioning
     visibility: public
     relatives:

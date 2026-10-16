@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "4894e8cb3096"
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png

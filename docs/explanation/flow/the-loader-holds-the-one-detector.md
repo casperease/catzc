@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/the-loader-holds-the-one-detector.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "8a2ef0492492"
     adrs:
       - ADR-AUTO-PARITY#3

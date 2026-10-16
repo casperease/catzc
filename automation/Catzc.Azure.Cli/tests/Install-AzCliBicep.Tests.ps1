@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.Cli
     relatives:
       source: automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1
 ---

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/never-depend-on-pwd.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "0a928ba0ca1e"
     defines:
       - ADR-AUTO-NOPWD#{1,4,6}

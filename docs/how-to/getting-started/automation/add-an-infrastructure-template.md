@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/getting-started/automation/add-an-infrastructure-template.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: "7fb02af5197f"
     links:
       - docs/adr/azure/azure-data-model.md

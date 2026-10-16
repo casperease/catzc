@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/static-analysis.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: fe3b340399ec
     adrs:
       - ADR-AUTO-BASH#6

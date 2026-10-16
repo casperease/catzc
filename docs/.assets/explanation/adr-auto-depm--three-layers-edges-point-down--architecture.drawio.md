@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: fd7dc97da17e
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

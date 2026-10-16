@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Tooling.Inspiration
     relatives:
       page: docs/references/automation/catzc-tooling-inspiration/types/InspirationConfig.cs.md

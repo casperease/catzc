@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e0c31651f0ea
     adrs:

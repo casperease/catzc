@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "826b49ff232f"
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png

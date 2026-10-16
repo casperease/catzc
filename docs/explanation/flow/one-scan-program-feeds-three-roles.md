@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/one-scan-program-feeds-three-roles.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "1756066d4cce"
     adrs:
       - ADR-FLOW-CD-GLOBS#{4-6,9}

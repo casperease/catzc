@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/documentation-examples.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "2524bd0104f1"
     defines:
       - ADR-REPO-EXAMPLE#{1,2}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/out.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: f36f8985dc86
     links:
       - docs/adr/automation/path-representation.md

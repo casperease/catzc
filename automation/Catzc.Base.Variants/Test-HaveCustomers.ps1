@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/Test-HaveCustomers.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Variants
     visibility: public
     relatives:

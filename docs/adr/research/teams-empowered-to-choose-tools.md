@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/teams-empowered-to-choose-tools.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "9230a7e17988"
     defines:
       - ADR-DORA-TOOLCHOICE#{1-4}

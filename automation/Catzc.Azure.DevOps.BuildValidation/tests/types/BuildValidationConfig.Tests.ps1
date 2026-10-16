@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.DevOps.BuildValidation
     relatives:
       page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md
       source: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs

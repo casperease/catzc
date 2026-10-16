@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/flow/pipeline-types.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: c03623e9b407
     defines:
       - ADR-FLOW-CD-TYPE#{1-14}

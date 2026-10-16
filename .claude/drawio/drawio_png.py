@@ -3,6 +3,8 @@
 #   derived:
 #     path: ".claude/drawio/drawio_png.py"
 #     kind: python-script
+#     language: python
+#     track: ".claude"
 # ---
 
 # cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo segoeui segoeuib textbbox

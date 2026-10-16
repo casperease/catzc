@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/effective-in-enterprises.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "600c7ffc8192"
     defines:
       - ADR-AUTO-ENTERP#4

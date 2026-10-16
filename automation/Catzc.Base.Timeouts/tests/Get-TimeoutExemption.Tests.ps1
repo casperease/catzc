@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/Get-TimeoutExemption.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Timeouts
     relatives:
       source: automation/Catzc.Base.Timeouts/Get-TimeoutExemption.ps1
 ---

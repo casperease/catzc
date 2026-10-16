@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "46adf90a375a"
     adrs:
       - ADR-DSGN-TRACK#{4,5}

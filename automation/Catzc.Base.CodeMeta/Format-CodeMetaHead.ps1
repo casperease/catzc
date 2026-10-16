@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/Format-CodeMetaHead.ps1
     kind: format-function
+    language: powershell
+    track: automation
     module: Catzc.Base.CodeMeta
     visibility: public
     relatives:

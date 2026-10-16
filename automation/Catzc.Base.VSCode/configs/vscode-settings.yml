@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.VSCode/configs/vscode-settings.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.VSCode
 #     relatives:
 #       page: docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md
 # ---

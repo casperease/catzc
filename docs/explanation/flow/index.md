@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/index.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: c91496ef0580
     links:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/dora-explains.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "018849f8c800"
     links:
       - docs/adr/azure/az-session-verification.md

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownTable.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.Firewall
     relatives:
       source: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
 ---

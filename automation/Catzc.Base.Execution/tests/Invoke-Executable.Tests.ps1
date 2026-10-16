@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Execution
     relatives:
       page: docs/references/automation/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md
       source: automation/Catzc.Base.Execution/Invoke-Executable.ps1

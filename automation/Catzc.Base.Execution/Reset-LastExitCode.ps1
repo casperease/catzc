@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/Reset-LastExitCode.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Execution
     visibility: public
     relatives:

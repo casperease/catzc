@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.Templates
     relatives:
       page: docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md
     adrs:

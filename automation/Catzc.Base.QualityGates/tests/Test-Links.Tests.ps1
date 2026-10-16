@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.QualityGates
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/Test-Links.ps1

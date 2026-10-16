@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.QualityGates
     relatives:
       source: automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
     adrs:

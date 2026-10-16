@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/private/Format-FileLockingProcess.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.TypesSystem
     visibility: private
   config:

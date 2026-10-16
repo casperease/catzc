@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/cross-platform.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "5991ca784914"
     defines:
       - ADR-AUTO-XPLAT#{3,6,7,9}

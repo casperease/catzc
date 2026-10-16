@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/BCL/index.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "4fca178e7865"
     adrs:
       - ADR-PWSH-TYPES#1

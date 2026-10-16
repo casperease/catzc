@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/flexible-infrastructure.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "0aba2454ac45"
     defines:
       - ADR-DORA-FLEXINFRA#{1-5}

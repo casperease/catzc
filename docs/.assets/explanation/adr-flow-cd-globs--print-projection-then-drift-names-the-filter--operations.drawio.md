@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "5d810ac1cc08"
     links:
       - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png

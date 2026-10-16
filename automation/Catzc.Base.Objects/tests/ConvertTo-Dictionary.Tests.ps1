@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/ConvertTo-Dictionary.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Objects
     relatives:
       source: automation/Catzc.Base.Objects/ConvertTo-Dictionary.ps1
 ---

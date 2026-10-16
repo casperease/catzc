@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/types/TimeLimitAttribute.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Timeouts
     relatives:
       source: automation/Catzc.Base.Timeouts/types/TimeLimitAttribute.cs
     adrs:

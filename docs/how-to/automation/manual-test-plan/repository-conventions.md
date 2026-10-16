@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/repository-conventions.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: "3d08ae3bea80"
     adrs:
       - ADR-DSGN-TRACK#{1,3,6,12,14-17}

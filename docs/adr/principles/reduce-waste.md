@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/principles/reduce-waste.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "04f58188ca31"
     defines:
       - ADR-PRIN-NOWASTE#{1-3}

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/tests/Get-CatzcOverlayRoot.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Repository
     relatives:
       source: automation/Catzc.Base.Repository/Get-CatzcOverlayRoot.ps1
 ---

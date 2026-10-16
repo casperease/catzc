@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Environment/private/Set-ProcessEnvironmentVariable.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Environment
     visibility: private
   config:

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.TypesSystem
     relatives:
       page: docs/references/automation/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md
       source: automation/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1

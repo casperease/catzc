@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Environment
     visibility: public
     relatives:

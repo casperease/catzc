@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Config
     relatives:
       page: docs/references/automation/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md
       source: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1

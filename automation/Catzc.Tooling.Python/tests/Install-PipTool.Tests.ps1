@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Python
     relatives:
       page: docs/references/automation/catzc-tooling-python/tests/Install-PipTool.Tests.ps1.md
       source: automation/Catzc.Tooling.Python/private/Install-PipTool.ps1

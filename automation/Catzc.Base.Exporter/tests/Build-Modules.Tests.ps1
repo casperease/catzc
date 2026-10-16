@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Exporter
     relatives:
       page: docs/references/automation/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md
       source: automation/Catzc.Base.Exporter/Build-Modules.ps1

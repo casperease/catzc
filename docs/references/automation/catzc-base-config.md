@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-config.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "900ad440bd3c"
     links:
       - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md

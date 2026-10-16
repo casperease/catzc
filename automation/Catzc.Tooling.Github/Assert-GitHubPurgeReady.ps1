@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Github/Assert-GitHubPurgeReady.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Github
     visibility: public
     relatives:

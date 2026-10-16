@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Folders
     relatives:
       page: docs/references/automation/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
       source: automation/Catzc.Base.Folders/types/FolderWalkConfig.cs

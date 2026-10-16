@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "9443abfdc337"
     adrs:
       - ADR-AUTO-CACHE#2

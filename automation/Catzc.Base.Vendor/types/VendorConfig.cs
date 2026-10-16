@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Vendor/types/VendorConfig.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Vendor
     relatives:
       page: docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/execution-engines.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "9f2c295bbc83"
     defines:
       - ADR-AUTO-ENGINE#{1-7}

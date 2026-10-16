@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1
     kind: test-asset
+    language: powershell
+    track: automation
+    module: Catzc.Base.QualityGates
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md
     adrs:

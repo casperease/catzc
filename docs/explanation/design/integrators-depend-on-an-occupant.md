@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/integrators-depend-on-an-occupant.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: e9b85c942879
     adrs:
       - ADR-DSGN-LIFE#{5-8}

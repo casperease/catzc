@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/naming-and-tagging.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "87723a9fb3e1"
     defines:
       - ADR-AZ-CAFNAME#{1-22}

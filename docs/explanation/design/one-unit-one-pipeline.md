@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/one-unit-one-pipeline.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: c392cf3de1a3
     adrs:
       - ADR-DSGN-TRACK#{1,2,4,5}

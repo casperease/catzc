@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/environment-variables.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "1858e9dff417"
     defines:
       - ADR-AUTO-ENVVAR#{1-7}

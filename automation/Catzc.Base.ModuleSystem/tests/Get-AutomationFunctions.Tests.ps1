@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Get-AutomationFunctions.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.ModuleSystem
     relatives:
       source: automation/Catzc.Base.ModuleSystem/Get-AutomationFunctions.ps1
 ---

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Node
     relatives:
       source: automation/Catzc.Tooling.Node/Uninstall-NodeJs.ps1
     adrs:

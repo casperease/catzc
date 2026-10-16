@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/types/BashTestResult.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Languages
     relatives:
       source: automation/Catzc.Base.Languages/types/BashTestResult.cs
 ---

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/landing-zones.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: ddae9ec7174a
     defines:
       - ADR-AZ-LZ#{1-7}

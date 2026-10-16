@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pipelines/custom-template-discipline.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "215f3b3c5d76"
     defines:
       - ADR-PIPE-TEMPLATE#{1-7}

@@ -3,6 +3,8 @@
 #   derived:
 #     path: ".github/workflows/ci-automation.yml"
 #     kind: pipeline
+#     language: yaml
+#     track: ".github"
 # ---
 
 name: CI

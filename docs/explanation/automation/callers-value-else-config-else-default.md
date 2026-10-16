@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/callers-value-else-config-else-default.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "359dd20fdbc4"
     adrs:
       - ADR-AUTO-DEFAULT#6

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Folders
     relatives:
       source: automation/Catzc.Base.Folders/Get-ChildPath.ps1
     adrs:

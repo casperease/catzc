@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: b2174730a4a1
     links:
       - docs/adr/principles/everything-as-code.md

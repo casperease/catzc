@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "2d21112dd130"
     links:
       - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png

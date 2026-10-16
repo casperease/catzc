@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/generated-root-configs.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "0472e09c2f90"
     defines:
       - ADR-REPO-ROOTCFG#{1-8}

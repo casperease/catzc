@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Exit-TestRunLocation.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.QualityGates
     relatives:
       source: automation/Catzc.Base.QualityGates/private/Exit-TestRunLocation.ps1
 ---

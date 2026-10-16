@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: e2cb090c3f31
     links:
       - docs/adr/automation/path-representation.md

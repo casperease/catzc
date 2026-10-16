@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Test-PrePost.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.Templates
     relatives:
       page: docs/references/automation/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md
 ---

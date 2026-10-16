@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/principles/configure-not-program.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: dc551b9dd238
     defines:
       - ADR-PRIN-CONFIG#{1-5}

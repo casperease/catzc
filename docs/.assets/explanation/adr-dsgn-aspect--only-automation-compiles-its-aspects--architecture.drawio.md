@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: d67e1218359f
     links:
       - docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png

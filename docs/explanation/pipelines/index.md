@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/pipelines/index.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "57680316fafd"
     links:
       - docs/adr/index.md#pipelines

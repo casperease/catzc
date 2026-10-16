@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/streamlining-change-approval.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: ab4ed1a741a8
     defines:
       - ADR-DORA-APPROVAL#{1-5}

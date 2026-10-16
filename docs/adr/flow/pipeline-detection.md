@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/flow/pipeline-detection.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "0934c24a5d75"
     defines:
       - ADR-FLOW-CD-DETECT#{1-5}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "4ddf067c9039"
     adrs:
       - ADR-FLOW-CD#{2,3,5,9,11-13}

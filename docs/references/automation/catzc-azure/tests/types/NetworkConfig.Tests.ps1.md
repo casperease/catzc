@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6730189523e6"
     adrs:

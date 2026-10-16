@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Azure.DevOps/configs/identity-tokens.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Azure.DevOps
 #     relatives:
 #       page: docs/references/automation/catzc-azure-devops/configs/identity-tokens.yml.md
 # ---

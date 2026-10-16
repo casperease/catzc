@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "80ce7c56c911"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

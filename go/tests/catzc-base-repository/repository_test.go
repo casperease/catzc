@@ -3,6 +3,8 @@
 //   derived:
 //     path: go/tests/catzc-base-repository/repository_test.go
 //     kind: go-test
+//     language: go
+//     track: go
 // ---
 
 // Black-box tests of Catzc.Base.Repository: each test starts the engine as its own process the way the run's engine

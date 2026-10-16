@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/index.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: e7e62cc95be3
     links:
       - docs/adr/automation/execution-engines.md

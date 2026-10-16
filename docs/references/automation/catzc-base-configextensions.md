@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-configextensions.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "72b0ca900c47"
     links:
       - docs/adr/configuration/module-config-loading.md

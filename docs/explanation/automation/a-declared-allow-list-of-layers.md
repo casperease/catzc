@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/a-declared-allow-list-of-layers.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "30924884b291"
     adrs:
       - ADR-AUTO-DEPM#{1,3-5}

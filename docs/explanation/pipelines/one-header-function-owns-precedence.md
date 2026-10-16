@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/pipelines/one-header-function-owns-precedence.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: a5d8d9ba4f36
     adrs:
       - ADR-PIPE-AUTH#{1,2,4,6}

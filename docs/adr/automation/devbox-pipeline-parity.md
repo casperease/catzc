@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/devbox-pipeline-parity.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "6b5b0f557acf"
     defines:
       - ADR-AUTO-PARITY#{1-4}

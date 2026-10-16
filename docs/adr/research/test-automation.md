@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/test-automation.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: b779f54fa075
     defines:
       - ADR-DORA-TESTAUTO#{1-5}

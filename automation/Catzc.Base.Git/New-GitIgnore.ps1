@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Git/New-GitIgnore.ps1
     kind: writer-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Git
     visibility: public
     relatives:

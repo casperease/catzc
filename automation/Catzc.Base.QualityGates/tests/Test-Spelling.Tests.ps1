@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.QualityGates
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/Test-Spelling.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/Test-Spelling.ps1

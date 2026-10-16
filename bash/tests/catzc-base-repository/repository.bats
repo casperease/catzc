@@ -3,6 +3,8 @@
 #   derived:
 #     path: bash/tests/catzc-base-repository/repository.bats
 #     kind: shell-test
+#     language: bash
+#     track: bash
 # ---
 
 # Black-box tests of Catzc.Base.Repository, in Bash.

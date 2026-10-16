@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Languages
     visibility: private
     relatives:

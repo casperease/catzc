@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.Templates
     visibility: public
     relatives:

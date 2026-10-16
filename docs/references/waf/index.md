@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/waf/index.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "1c89ab77c942"
     adrs:
       - ADR-AZ-WAFRE#4

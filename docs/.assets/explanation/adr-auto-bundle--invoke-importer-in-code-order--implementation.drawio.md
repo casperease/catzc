@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "0b78b1119135"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

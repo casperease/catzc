@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/dora/core-model.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "523a0e9c4ca7"
     links:
       - docs/references/dora/capabilities.md

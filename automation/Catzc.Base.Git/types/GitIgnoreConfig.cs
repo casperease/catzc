@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Git/types/GitIgnoreConfig.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Git
     relatives:
       page: docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md

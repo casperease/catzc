@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/azure/names-are-pure-and-never-truncated.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: fcb272ff0358
     adrs:
       - ADR-AZ-NAMING#{1,3,7,8}

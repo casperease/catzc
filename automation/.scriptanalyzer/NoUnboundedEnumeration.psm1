@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/NoUnboundedEnumeration.psm1
     kind: analyzer-rule
+    language: powershell
+    track: automation
 ---
 #>
 

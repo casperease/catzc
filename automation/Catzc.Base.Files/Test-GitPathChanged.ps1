@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/Test-GitPathChanged.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Files
     visibility: public
     relatives:

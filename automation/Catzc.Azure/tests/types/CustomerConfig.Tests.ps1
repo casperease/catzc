@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure
     relatives:
       source: automation/Catzc.Azure/types/CustomerConfig.cs
     adrs:

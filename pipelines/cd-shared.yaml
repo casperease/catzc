@@ -3,6 +3,8 @@
 #   derived:
 #     path: pipelines/cd-shared.yaml
 #     kind: pipeline
+#     language: pipeline-yaml
+#     track: pipelines
 #     relatives:
 #       page: docs/references/pipelines/cd-shared.yaml.md
 # ---

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/infrastructure/index.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "61c35cdfedaa"
     links:
       - docs/adr/azure/

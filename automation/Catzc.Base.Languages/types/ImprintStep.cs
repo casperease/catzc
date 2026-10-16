@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/types/ImprintStep.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Languages
     relatives:
       page: docs/references/automation/catzc-base-languages/types/ImprintStep.cs.md

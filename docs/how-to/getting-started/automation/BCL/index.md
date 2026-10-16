@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/getting-started/automation/BCL/index.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: f355f6d21e52
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

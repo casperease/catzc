@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "4e0672f060ef"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

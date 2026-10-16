@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/index.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: f6e84604175e
     adrs:
       - ADR-DSGN-TRACK#{9,12,16}

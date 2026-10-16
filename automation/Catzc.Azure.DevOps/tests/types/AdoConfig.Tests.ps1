@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.DevOps
     relatives:
       source: automation/Catzc.Azure.DevOps/types/AdoConfig.cs
 ---

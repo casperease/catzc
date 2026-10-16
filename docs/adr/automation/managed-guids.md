@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/managed-guids.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "94f06d40fd5a"
     defines:
       - ADR-AUTO-GUIDS#{1-6}

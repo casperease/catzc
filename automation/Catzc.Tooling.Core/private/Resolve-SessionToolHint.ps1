@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/private/Resolve-SessionToolHint.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Core
     visibility: private
     relatives:

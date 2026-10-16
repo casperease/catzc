@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Vendor
     relatives:
       source: automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1
 ---

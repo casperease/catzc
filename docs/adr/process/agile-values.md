@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/agile-values.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "972c86b870f6"
     defines:
       - ADR-PROC-VALUES#{1-4}

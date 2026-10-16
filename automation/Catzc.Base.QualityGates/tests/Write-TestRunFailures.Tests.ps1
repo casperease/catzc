@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Write-TestRunFailures.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.QualityGates
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/Write-TestRunFailures.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/private/Write-TestRunFailures.ps1

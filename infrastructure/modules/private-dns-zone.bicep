@@ -3,6 +3,8 @@
 //   derived:
 //     path: infrastructure/modules/private-dns-zone.bicep
 //     kind: bicep-module
+//     language: bicep
+//     track: infrastructure
 //     relatives:
 //       page: docs/references/infrastructure/modules/private-dns-zone.bicep.md
 // ---

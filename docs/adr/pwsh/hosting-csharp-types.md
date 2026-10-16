@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/hosting-csharp-types.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "6fcb534e32be"
     defines:
       - ADR-PWSH-TYPES#{1-7}

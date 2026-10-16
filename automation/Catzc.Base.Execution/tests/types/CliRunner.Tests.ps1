@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Execution
     relatives:
       page: docs/references/automation/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md
       source: automation/Catzc.Base.Execution/types/CliRunner.cs

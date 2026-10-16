@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6bf5ef464fc5"
 ---

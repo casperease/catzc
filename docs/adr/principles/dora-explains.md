@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/principles/dora-explains.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d8b8633941e4
     links:
       - docs/adr/principles/configure-not-program.md

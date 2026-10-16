@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Languages
     relatives:
       page: docs/references/automation/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md
       source: automation/Catzc.Base.Languages/New-GoWorkspace.ps1

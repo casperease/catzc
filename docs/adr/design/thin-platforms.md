@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/design/thin-platforms.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "773f2f646c1a"
     defines:
       - ADR-DSGN-THINPLAT#{1-5}

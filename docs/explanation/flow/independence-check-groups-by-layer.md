@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/independence-check-groups-by-layer.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "2eeb3688d95b"
     adrs:
       - ADR-FLOW-CD-GLOBS#{7,10}

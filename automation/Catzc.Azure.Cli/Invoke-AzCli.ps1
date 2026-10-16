@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Invoke-AzCli.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.Cli
     visibility: public
     relatives:

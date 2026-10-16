@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/dedicated-output-directory.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: f8ee280ed047
     defines:
       - ADR-REPO-OUTDIR#{1-12}

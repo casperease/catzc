@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/FunctionCallCollector.cs.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: fc1ddbd83ee9
 ---

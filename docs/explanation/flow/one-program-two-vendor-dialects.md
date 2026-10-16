@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/one-program-two-vendor-dialects.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: db61cae23740
     adrs:
       - ADR-FLOW-CD-GLOBS#{4,6,8}

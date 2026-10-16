@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.TypesSystem
     visibility: public
     relatives:

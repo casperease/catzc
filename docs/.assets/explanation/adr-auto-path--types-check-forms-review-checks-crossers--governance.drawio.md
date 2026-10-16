@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "802bc5ecd360"
     links:
       - docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png

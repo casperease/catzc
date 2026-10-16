@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "0639c2f179a2"
     links:
       - docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png

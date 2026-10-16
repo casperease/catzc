@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Engines/configs/glossary.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Engines
 #     relatives:
 #       page: docs/references/automation/catzc-base-engines/configs/glossary.yml.md
 # ---

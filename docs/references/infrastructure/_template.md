@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/infrastructure/_template.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: bb19393e975b
     links:
       - docs/references/infrastructure/modules.md

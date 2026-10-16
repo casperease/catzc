@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.ConfigExtensions
     relatives:
       page: docs/references/automation/catzc-base-configextensions/tests/Invoke-ConfigValidator.Tests.ps1.md
       source: automation/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1

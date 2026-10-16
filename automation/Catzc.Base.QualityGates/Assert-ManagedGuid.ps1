@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Assert-ManagedGuid.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Base.QualityGates
     visibility: public
     relatives:

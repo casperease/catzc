@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Engines/tests/Get-ExecutionEngine.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Engines
     relatives:
       source: automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1
 ---

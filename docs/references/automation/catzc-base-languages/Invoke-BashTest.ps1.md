@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "05571cedbc19"
 ---

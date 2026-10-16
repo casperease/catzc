@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Exporter
     visibility: public
     relatives:

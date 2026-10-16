@@ -4,6 +4,8 @@ catzc:
   derived:
     path: pipelines/Invoke-AdoScript.ps1
     kind: powershell-script
+    language: powershell
+    track: pipelines
   config:
     synopsis: Universal pipeline entry point. Bootstraps the module system and executes a command.
     description: |-

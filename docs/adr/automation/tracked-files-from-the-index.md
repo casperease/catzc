@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/tracked-files-from-the-index.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "2f64cc7666e4"
     defines:
       - ADR-AUTO-TRACKED#{1-11}

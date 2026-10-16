@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Config
     visibility: private
     adrs:

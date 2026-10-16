@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Vendor/Install-VendorModule.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Vendor
     visibility: public
     relatives:

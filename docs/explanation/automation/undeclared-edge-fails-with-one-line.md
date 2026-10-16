@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/undeclared-edge-fails-with-one-line.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: de8d7a0b63f5
     adrs:
       - ADR-AUTO-DEPM#{3-5}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/flow/pipeline-runner-pattern.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: aee9df2ea8f2
     defines:
       - ADR-FLOW-CD-RUNNER#{1-4}

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Docs
     relatives:
       page: docs/references/automation/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md
       source: automation/Catzc.Base.Docs/Build-GitKeep.ps1
@@ -39,7 +42,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         $report = @(Build-GitKeep -PassThru)
         ($report | Where-Object Path -EQ 'contracts/.gitkeep').Changed | Should -BeTrue
         $written = ([System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'contracts/.gitkeep')) -replace "`r", '')
-        $written | Should -BeLike "# ---`n# catzc:`n#   derived:`n#     path: contracts/.gitkeep`n#     source:*`n#     kind: tracked-generated-from-source`n#     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1`n# ---`n`n*"
+        $written | Should -BeLike "# ---`n# catzc:`n#   derived:`n#     path: contracts/.gitkeep`n#     source:*`n#     kind: tracked-generated-from-source`n#     track: contracts`n#     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1`n# ---`n`n*"
         $written | Should -BeLike ('*' + ($script:expected -replace "`r", '').TrimEnd("`n") + "`n")
     }
 

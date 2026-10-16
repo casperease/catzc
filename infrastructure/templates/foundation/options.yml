@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/foundation/options.yml
 #     kind: bicep-template-config
+#     language: yaml
+#     track: infrastructure
 #     relatives:
 #       page: docs/references/infrastructure/templates/foundation/options.yml.md
 # ---

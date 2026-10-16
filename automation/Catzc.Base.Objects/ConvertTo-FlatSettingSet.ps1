@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/ConvertTo-FlatSettingSet.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Objects
     visibility: public
     relatives:

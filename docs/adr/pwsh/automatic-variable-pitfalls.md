@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/automatic-variable-pitfalls.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "6e7918d7cfad"
     defines:
       - ADR-PWSH-AUTOVAR#{1-7}

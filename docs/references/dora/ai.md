@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/dora/ai.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "4519db9d21f0"
     links:
       - docs/references/dora/capabilities.md#ai

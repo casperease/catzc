@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: dedf00873437
     adrs:

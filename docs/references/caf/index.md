@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/caf/index.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: c74c37e86f75
     links:
       - docs/adr/azure/caf/

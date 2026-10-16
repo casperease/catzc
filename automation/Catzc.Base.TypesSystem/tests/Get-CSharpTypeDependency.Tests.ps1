@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.TypesSystem
     relatives:
       page: docs/references/automation/catzc-base-typessystem/tests/Get-CSharpTypeDependency.Tests.ps1.md
       source: automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1

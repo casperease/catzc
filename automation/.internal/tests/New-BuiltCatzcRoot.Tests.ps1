@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
     relatives:
       page: docs/references/automation/internal/tests/New-BuiltCatzcRoot.Tests.ps1.md
     adrs:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/out-of-band-deploy-is-adr-only.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: e936870e0c62
     adrs:
       - ADR-AUTO-TEST#24

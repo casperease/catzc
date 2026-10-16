@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Azure.Templates/configs/glossary.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Azure.Templates
 #     relatives:
 #       page: docs/references/automation/catzc-azure-templates/configs/glossary.yml.md
 # ---

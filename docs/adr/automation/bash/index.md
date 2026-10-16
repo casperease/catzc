@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/bash/index.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "22ad4883d6b9"
     links:
       - docs/adr/automation/bash/bash-test-artifacts.md

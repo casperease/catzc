@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/the-analyzer-names-the-raw-read.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "3c30ffb9e17f"
     adrs:
       - ADR-AUTO-PARITY#2

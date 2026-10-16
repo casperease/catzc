@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "1580340ea555"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

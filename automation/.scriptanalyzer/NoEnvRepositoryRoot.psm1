@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/NoEnvRepositoryRoot.psm1
     kind: analyzer-rule
+    language: powershell
+    track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoEnvRepositoryRoot.psm1.md
 ---

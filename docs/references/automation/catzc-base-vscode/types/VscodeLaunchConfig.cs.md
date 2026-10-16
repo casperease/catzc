@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/types/VscodeLaunchConfig.cs.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "0b3199357c9a"
     adrs:

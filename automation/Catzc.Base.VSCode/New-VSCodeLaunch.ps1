@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
     kind: writer-function
+    language: powershell
+    track: automation
     module: Catzc.Base.VSCode
     visibility: public
     relatives:

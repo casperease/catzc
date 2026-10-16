@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/types/PdfDocument.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Maps
     relatives:
       source: automation/Catzc.Base.Maps/types/PdfDocument.cs
 ---

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Toolchain
     visibility: public
     relatives:

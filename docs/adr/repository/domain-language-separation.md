@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/domain-language-separation.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "3ec1338daf69"
     defines:
       - ADR-REPO-LANG#{1-7}

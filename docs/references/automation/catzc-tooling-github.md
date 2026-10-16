@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-github.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "1191cdb94053"
     adrs:
       - ADR-REPO-CONTRACT#{1-3,6}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: a3f8ef2c85f5
     links:
       - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png

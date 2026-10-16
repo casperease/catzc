@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Azure.DevOps.BuildValidation
     relatives:
       page: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md

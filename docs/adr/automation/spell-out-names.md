@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/spell-out-names.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "9a5905f33231"
     defines:
       - ADR-AUTO-SPELL#{1-8}

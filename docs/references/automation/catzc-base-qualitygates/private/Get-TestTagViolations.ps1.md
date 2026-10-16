@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: ef3e7676cfb1
 ---

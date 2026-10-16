@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Timeouts
     relatives:
       page: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md

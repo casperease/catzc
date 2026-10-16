@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
     kind: asset
+    language: css
+    track: automation
+    module: Catzc.Base.VSCode
 ---
 */
 

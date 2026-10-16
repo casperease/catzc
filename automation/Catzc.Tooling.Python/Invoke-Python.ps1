@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Python/Invoke-Python.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Python
     visibility: public
     relatives:

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md
     adrs:

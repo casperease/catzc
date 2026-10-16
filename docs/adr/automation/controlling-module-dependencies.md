@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/controlling-module-dependencies.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d7e079d24e76
     defines:
       - ADR-AUTO-DEPM#{1-10}

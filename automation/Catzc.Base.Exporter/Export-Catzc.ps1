@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/Export-Catzc.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Exporter
     visibility: public
     relatives:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: eeb3ed086f13
     adrs:
       - ADR-AUTO-FAILFAST#7

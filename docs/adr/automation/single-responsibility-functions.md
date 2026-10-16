@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/single-responsibility-functions.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "4bb99ea1e724"
     defines:
       - ADR-AUTO-ONEJOB#{1-6}

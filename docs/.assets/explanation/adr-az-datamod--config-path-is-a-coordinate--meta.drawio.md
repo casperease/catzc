@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: bb5d153b74ef
     links:
       - docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png

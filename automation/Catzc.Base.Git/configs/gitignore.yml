@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Git/configs/gitignore.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Git
 #     relatives:
 #       page: docs/references/automation/catzc-base-git/configs/gitignore.yml.md
 # ---

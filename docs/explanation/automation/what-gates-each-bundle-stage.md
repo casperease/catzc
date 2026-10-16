@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/what-gates-each-bundle-stage.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "72ee88959e72"
     adrs:
       - ADR-AUTO-ASSETDEP#4

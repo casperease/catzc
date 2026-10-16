@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/one-artifact-climbs-unchanged.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: eefc2a1eb3c9
     adrs:
       - ADR-FLOW-CD#{2,3,5,6,9,13}

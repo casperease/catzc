@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/private/Resolve-AdoYamlClassification.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.DevOps
     visibility: private
   config:

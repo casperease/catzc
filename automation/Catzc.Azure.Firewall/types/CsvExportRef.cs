@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/types/CsvExportRef.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Azure.Firewall
     relatives:
       page: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md

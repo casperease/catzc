@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Inspiration
     visibility: public
     relatives:

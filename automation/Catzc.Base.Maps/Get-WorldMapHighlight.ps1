@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Maps
     visibility: public
     relatives:

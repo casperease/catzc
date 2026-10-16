@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/dot-source-one-entry-script.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: a414cc3c826a
     adrs:
       - ADR-AUTO-BUNDLE#{3,8}

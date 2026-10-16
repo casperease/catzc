@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/tests/Write-ImporterMessage.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
 ---
 #>
 

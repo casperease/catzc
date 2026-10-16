@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "26b52e084a21"
     adrs:
       - ADR-AUTO-BASH#6

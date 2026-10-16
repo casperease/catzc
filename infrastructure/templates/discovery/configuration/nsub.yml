@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/discovery/configuration/nsub.yml
 #     kind: bicep-template-config
+#     language: yaml
+#     track: infrastructure
 #     relatives:
 #       page: docs/references/infrastructure/templates/discovery/configuration/nsub.yml.md
 # ---

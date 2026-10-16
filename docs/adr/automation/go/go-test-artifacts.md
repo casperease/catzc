@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/go/go-test-artifacts.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: c35f0c02b784
     defines:
       - ADR-AUTO-GO#{1-8}

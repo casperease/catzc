@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/types/CitationScanner.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Maps
     relatives:
       page: docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md

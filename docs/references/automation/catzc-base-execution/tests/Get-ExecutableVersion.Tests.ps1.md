@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "307cec29c5b2"
     adrs:

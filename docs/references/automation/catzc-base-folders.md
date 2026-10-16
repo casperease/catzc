@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-folders.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: a2fc2bb2cdea
     links:
       - docs/references/automation/catzc-base-files.md

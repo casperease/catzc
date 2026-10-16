@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "3a1c2a128456"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

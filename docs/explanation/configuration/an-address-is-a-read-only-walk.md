@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/configuration/an-address-is-a-read-only-walk.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "54bd6341713f"
     adrs:
       - ADR-CONF-ADDRESSING#{1,4,5}

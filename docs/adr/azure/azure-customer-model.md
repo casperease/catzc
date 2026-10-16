@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/azure-customer-model.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "3825cc41e801"
     defines:
       - ADR-AZ-CUSTOMER#{1-6}

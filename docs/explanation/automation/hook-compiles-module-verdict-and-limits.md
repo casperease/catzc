@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "334633557e7c"
     adrs:
       - ADR-AUTO-FAILFAST#7

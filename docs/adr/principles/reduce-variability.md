@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/principles/reduce-variability.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "6c7182f0738c"
     defines:
       - ADR-PRIN-REDUCEVAR#{1-3}

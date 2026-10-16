@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/private/Get-GlossaryDefinitionViolations.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Docs
     visibility: private
     relatives:

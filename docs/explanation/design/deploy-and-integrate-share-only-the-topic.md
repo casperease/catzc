@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: afde8913f925
     adrs:
       - ADR-DSGN-LIFE#{1,9}

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/Uninstall-Bicep.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Toolchain
     visibility: public
   config:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/design/server-remote-integration.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "52541bcc7cdf"
     defines:
       - ADR-DSGN-REMOTE#{1-4}

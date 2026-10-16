@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/Get-ToolVersion.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Core
     visibility: public
   config:

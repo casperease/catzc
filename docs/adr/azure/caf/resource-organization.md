@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/resource-organization.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: e19e260878a6
     defines:
       - ADR-AZ-CAFRESORG#{1-35}

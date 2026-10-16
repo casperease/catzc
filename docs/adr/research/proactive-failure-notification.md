@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/proactive-failure-notification.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: f37383f96bac
     defines:
       - ADR-DORA-FAILALERT#{1-5}

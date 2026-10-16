@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.MarkdownMeta
     relatives:
       source: automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
     adrs:

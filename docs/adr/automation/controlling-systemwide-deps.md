@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/controlling-systemwide-deps.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: f306aec32d72
     defines:
       - ADR-AUTO-DEPS#{1-8}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "9f1128c9dab7"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

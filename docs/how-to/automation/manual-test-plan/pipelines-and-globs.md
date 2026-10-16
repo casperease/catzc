@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/pipelines-and-globs.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: "4ed873adc971"
     adrs:
       - ADR-FLOW-CD-GLOBS#10

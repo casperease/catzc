@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pipelines/pipeline-variables.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "539e1e9a45a2"
     defines:
       - ADR-PIPE-VAR#{1-6}

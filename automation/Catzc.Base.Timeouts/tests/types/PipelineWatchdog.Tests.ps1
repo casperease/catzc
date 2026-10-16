@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/types/PipelineWatchdog.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Timeouts
     relatives:
       page: docs/references/automation/catzc-base-timeouts/tests/types/PipelineWatchdog.Tests.ps1.md
       source: automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs

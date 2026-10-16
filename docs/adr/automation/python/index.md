@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/python/index.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: daf24257c517
     links:
       - docs/adr/automation/python/python-test-artifacts.md

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/version-control.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "018c90c9fb6e"
     defines:
       - ADR-DORA-VCS#{1-4}

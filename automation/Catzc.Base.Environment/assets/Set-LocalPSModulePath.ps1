@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1
     kind: asset
+    language: powershell
+    track: automation
+    module: Catzc.Base.Environment
   config:
     synopsis: Redirects PowerShell 7's user module path from a network share to a local directory.
     description: |-

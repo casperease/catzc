@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/a-stopped-run-names-its-limit.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "877da7a37604"
     adrs:
       - ADR-AUTO-DEFAULT#6

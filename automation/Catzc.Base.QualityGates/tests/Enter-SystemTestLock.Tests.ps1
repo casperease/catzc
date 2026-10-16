@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.QualityGates
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/tests/Enter-SystemTestLock.Tests.ps1.md
       source: automation/Catzc.Base.QualityGates/private/Enter-SystemTestLock.ps1

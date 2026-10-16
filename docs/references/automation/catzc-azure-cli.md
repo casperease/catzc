@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: fe36ba59a54c
     links:
       - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md

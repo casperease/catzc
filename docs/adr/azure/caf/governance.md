@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/governance.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: ff679b35f782
     defines:
       - ADR-AZ-CAFGOV#{1-10}

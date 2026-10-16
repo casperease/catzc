@@ -3,6 +3,8 @@
 //   derived:
 //     path: infrastructure/modules/sql-server.bicep
 //     kind: bicep-module
+//     language: bicep
+//     track: infrastructure
 //     relatives:
 //       page: docs/references/infrastructure/modules/sql-server.bicep.md
 // ---

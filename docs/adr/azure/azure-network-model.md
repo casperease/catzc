@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/azure-network-model.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d2049d5d7120
     defines:
       - ADR-AZ-NETWORK#{1-6}

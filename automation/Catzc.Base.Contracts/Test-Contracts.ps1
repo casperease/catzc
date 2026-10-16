@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Test-Contracts.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Contracts
     visibility: public
     relatives:

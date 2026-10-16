@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/range-per-context-then-diff-and-match.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "542681e87b34"
     adrs:
       - ADR-FLOW-CD-DETECT#1

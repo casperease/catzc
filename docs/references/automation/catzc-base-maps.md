@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: f9b41c1bf06e
     adrs:
       - ADR-DSGN-TRACK#{3,13,15}

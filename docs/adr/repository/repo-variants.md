@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/repo-variants.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: aacdd93c1006
     defines:
       - ADR-REPO-VARIANT#{1-6}

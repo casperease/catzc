@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/network-connectivity.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "1bb977ab38e6"
     defines:
       - ADR-AZ-CAFNETCON#{1-62}

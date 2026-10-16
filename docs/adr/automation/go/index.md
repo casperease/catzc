@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/go/index.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "57d973bedb2e"
     links:
       - docs/adr/automation/go/go-test-artifacts.md

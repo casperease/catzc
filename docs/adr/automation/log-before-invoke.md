@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/log-before-invoke.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "2c0702674ab9"
     defines:
       - ADR-AUTO-PRELOG#{1,2,4,5}

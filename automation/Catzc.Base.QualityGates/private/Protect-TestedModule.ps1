@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Protect-TestedModule.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.QualityGates
     visibility: private
     adrs:

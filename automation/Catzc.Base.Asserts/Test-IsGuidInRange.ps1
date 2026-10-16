@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Asserts/Test-IsGuidInRange.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Asserts
     visibility: public
     relatives:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "89494fa95a45"
     links:
       - docs/adr/automation/bash/bash-test-artifacts.md

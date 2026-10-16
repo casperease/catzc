@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Reports/configs/output-formats.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Reports
 #     relatives:
 #       page: docs/references/automation/catzc-base-reports/configs/output-formats.yml.md
 # ---

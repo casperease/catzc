@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Maps
     relatives:
       page: docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
       source: automation/Catzc.Base.Maps/Test-WorldMap.ps1

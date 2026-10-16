@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Core
     relatives:
       page: docs/references/automation/catzc-tooling-core/tests/Get-ToolInstallOrder.Tests.ps1.md
       source: automation/Catzc.Tooling.Core/Get-ToolInstallOrder.ps1

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/prepost-extension-modules.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: ddae042c3b46
     defines:
       - ADR-PWSH-PREPOST#{2-6}

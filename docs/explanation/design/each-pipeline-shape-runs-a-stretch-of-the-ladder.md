@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/each-pipeline-shape-runs-a-stretch-of-the-ladder.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: cebebf5daac9
     adrs:
       - ADR-DSGN-LIFE#{1,2,8}

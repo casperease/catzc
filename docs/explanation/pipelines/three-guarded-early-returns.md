@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/pipelines/three-guarded-early-returns.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "5990b16fd351"
     adrs:
       - ADR-PIPE-AUTH#{1-3,5}

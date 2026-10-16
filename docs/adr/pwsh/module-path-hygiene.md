@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/module-path-hygiene.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: ba9e66a45031
     defines:
       - ADR-PWSH-MODPATH#{1-3}

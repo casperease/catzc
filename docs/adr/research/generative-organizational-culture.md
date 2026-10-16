@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/generative-organizational-culture.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: e4535674c432
     defines:
       - ADR-DORA-CULTURE#{1-5}

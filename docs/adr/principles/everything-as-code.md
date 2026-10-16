@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/principles/everything-as-code.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "791634cbbe6b"
     defines:
       - ADR-PRIN-EAC#{1-3}

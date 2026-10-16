@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.verify.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "01650c9e3e09"
     adrs:
       - ADR-PWSH-DRYRUN#1

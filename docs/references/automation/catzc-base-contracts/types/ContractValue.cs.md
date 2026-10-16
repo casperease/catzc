@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "6bb3c2144092"
     adrs:

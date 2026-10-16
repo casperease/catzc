@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/two-gates-check-the-layer-pins.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "969c7f84aaa7"
     adrs:
       - ADR-AUTO-DEPM#{1-6}

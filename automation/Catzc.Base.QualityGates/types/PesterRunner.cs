@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/PesterRunner.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.QualityGates
     relatives:
       page: docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/az-session-verification.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: b86a677eda72
     defines:
       - ADR-AZ-SESSION#{1-5}

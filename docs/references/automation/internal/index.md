@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/internal/index.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "552fcd9f3460"
     adrs:
       - ADR-PWSH-USEPS#2

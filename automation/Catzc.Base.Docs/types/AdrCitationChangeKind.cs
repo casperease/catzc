@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/types/AdrCitationChangeKind.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Docs
     relatives:
       page: docs/references/automation/catzc-base-docs/types/AdrCitationChangeKind.cs.md

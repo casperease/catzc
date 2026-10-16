@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/assert-idioms.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "780f878a5b15"
     defines:
       - ADR-PWSH-ASSERT#{1-6}

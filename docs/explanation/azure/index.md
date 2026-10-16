@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/azure/index.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: ee060595c823
     links:
       - docs/adr/azure/azure-naming-standard.md

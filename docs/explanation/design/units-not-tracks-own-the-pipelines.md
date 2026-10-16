@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/units-not-tracks-own-the-pipelines.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: fac580a0ca23
     adrs:
       - ADR-DSGN-TRACK#{2-5}

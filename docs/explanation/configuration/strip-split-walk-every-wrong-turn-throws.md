@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: d0b1eb6f0b40
     adrs:
       - ADR-CONF-ADDRESSING#{1,2,4}

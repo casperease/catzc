@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/azure/coordinate-rules-and-their-gates.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "57d23475251f"
     adrs:
       - ADR-AZ-CUSTOMER#{2,6}

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.DevOps.BuildValidation
     visibility: public
     relatives:

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/types/ParsedScripts.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Repository
     relatives:
       test: automation/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "0042054487f7"
     adrs:
       - ADR-AUTO-DEPM#4

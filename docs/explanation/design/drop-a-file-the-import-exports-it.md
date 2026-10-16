@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/drop-a-file-the-import-exports-it.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "652ba7de9c73"
     adrs:
       - ADR-DSGN-ASPECT#{1,2}

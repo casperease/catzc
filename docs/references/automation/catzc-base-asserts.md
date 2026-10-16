@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-asserts.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: a5186cbe36ce
     links:
       - docs/adr/automation/fail-fast-with-asserts.md

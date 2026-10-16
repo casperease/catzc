@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-repository.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: aa36a4ef1cbb
     links:
       - docs/adr/automation/never-depend-on-pwd.md

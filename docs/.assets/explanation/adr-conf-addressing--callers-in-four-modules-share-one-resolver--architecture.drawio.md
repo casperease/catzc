@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: f24e6f3172ef
     links:
       - docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png

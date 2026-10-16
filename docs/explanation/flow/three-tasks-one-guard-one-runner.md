@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/three-tasks-one-guard-one-runner.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: ce8375725233
     adrs:
       - ADR-FLOW-CD-RUNNER#{1-3}

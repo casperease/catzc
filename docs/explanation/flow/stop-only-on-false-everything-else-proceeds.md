@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "4eb015514f04"
     adrs:
       - ADR-FLOW-CD-GLOBS#9

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/vendor-toolset-dependencies.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "6eefb77c0042"
     defines:
       - ADR-PWSH-VENDOR#{1,3-8}

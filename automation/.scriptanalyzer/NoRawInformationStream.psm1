@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/NoRawInformationStream.psm1
     kind: analyzer-rule
+    language: powershell
+    track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/NoRawInformationStream.psm1.md
 ---

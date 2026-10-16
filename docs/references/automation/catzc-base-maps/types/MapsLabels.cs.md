@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/MapsLabels.cs.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "19b4d0c959ec"
     adrs:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "2bdf7837d79e"
     links:
       - docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/sensible-defaults.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d10e7f217e23
     defines:
       - ADR-AUTO-DEFAULT#{1,2,5,6}

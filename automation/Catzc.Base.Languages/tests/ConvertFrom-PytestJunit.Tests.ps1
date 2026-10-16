@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Languages
     relatives:
       page: docs/references/automation/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md
       source: automation/Catzc.Base.Languages/private/ConvertFrom-PytestJunit.ps1

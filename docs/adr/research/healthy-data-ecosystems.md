@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/healthy-data-ecosystems.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: a3b588f4a9ca
     defines:
       - ADR-DORA-DATAECO#{1-6}

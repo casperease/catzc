@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Reports/Clear-Output.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Reports
     visibility: public
     adrs:

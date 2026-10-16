@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/internal/catzc-internal-types.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "81f4203494e3"
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

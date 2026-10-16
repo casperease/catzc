@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/design/dora-explains.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: af0afde9a632
     links:
       - docs/adr/design/commit-lifecycle.md

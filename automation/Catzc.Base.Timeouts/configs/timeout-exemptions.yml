@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Timeouts/configs/timeout-exemptions.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Timeouts
 #     relatives:
 #       page: docs/references/automation/catzc-base-timeouts/configs/timeout-exemptions.yml.md
 # ---

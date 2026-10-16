@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/Get-GlobSetFile.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Globs
     visibility: public
     relatives:

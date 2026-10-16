@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Git
     visibility: private
     relatives:

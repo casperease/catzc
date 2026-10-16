@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Tooling.KeyHandler/configs/key-handler-supported.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Tooling.KeyHandler
 #     relatives:
 #       page: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md
 # ---

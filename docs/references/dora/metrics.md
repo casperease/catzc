@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/dora/metrics.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: e7f94588d30b
     links:
       - docs/references/dora/capabilities.md#working-in-small-batches

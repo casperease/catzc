@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/platform-automation-and-devops.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "357b29a93d56"
     defines:
       - ADR-AZ-CAFDEVOPS#{1-37}

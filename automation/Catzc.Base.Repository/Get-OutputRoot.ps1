@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/Get-OutputRoot.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Repository
     visibility: public
     relatives:

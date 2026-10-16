@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ContentExemptPath.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.QualityGates
     relatives:
       source: automation/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
     adrs:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/protected-globs.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: b9035752a1df
     defines:
       - ADR-REPO-PROTGLOB#{1-9}

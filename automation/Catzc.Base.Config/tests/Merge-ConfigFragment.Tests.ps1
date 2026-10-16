@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Config
     relatives:
       source: automation/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
 ---

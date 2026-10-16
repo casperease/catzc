@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "70d8d04228d6"
     adrs:

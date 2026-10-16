@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "516e8f9171f2"
     adrs:
       - ADR-AZ-DATAMOD#{4,7}

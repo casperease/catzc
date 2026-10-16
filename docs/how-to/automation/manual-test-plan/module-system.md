@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/module-system.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: e7725350ff34
     adrs:
       - ADR-AUTO-ASSETDEP#{3,4}

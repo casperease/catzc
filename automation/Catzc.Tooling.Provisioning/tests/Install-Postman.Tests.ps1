@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Provisioning
     relatives:
       page: docs/references/automation/catzc-tooling-provisioning/tests/Install-Postman.Tests.ps1.md
       source: automation/Catzc.Tooling.Provisioning/Install-Postman.ps1

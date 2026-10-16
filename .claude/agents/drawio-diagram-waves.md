@@ -11,6 +11,8 @@ catzc:
   derived:
     path: ".claude/agents/drawio-diagram-waves.md"
     kind: claude-agent
+    language: markdown
+    track: ".claude"
     body_sha: "3c31582376b4"
     adrs:
       - ADR-DSGN-VISUAL#4

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/private/Get-Variant.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Variants
     visibility: private
     adrs:

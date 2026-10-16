@@ -4,9 +4,10 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md
-      source: automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1
 ---
 #>
 

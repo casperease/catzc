@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure
     relatives:
       page: docs/references/automation/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md
       source: automation/Catzc.Azure/types/NetworkConfig.cs

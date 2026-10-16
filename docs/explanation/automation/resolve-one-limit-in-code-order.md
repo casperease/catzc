@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/resolve-one-limit-in-code-order.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: f02beea63479
     adrs:
       - ADR-AUTO-DEFAULT#6

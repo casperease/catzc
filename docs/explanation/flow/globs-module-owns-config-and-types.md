@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/globs-module-owns-config-and-types.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: acff02a4ee86
     adrs:
       - ADR-FLOW-CD-GLOBS#{1,5,6,9}

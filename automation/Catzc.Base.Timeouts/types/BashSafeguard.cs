@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/types/BashSafeguard.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Timeouts
     relatives:
       page: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md

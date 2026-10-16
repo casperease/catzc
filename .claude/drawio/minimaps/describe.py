@@ -3,6 +3,8 @@
 #   derived:
 #     path: ".claude/drawio/minimaps/describe.py"
 #     kind: python-script
+#     language: python
+#     track: ".claude"
 # ---
 
 # cspell:ignore minimaps

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/agent-definitions.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: e4f338926673
     defines:
       - ADR-REPO-AGENTS#{1-5}

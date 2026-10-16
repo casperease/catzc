@@ -11,6 +11,8 @@ catzc:
   derived:
     path: ".claude/agents/build-inspiration-module.md"
     kind: claude-agent
+    language: markdown
+    track: ".claude"
     body_sha: "20813ca506bb"
     adrs:
       - ADR-AUTO-DEFAULT#6

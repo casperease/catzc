@@ -3,6 +3,8 @@
 //   derived:
 //     path: infrastructure/templates/discovery/main.bicep
 //     kind: bicep-template
+//     language: bicep
+//     track: infrastructure
 //     relatives:
 //       page: docs/references/infrastructure/templates/discovery/main.bicep.md
 // ---

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/avoid-deep-nesting.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "35cf86a64cd4"
     defines:
       - ADR-AUTO-NONEST#{1-5}

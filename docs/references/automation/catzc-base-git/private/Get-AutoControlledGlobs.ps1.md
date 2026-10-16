@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: e4018128b6cc
     adrs:

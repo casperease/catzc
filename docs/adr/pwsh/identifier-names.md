@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/identifier-names.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d7d834183993
     defines:
       - ADR-PWSH-NAMES#{1-6}

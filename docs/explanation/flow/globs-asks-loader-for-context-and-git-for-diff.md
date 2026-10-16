@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "824d978cfa10"
     adrs:
       - ADR-FLOW-CD-DETECT#1

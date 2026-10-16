@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/design/module-aspects.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: ce9d5dbe10f2
     defines:
       - ADR-DSGN-ASPECT#{1-5}

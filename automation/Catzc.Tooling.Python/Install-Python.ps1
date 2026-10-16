@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Python/Install-Python.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Python
     visibility: public
     relatives:

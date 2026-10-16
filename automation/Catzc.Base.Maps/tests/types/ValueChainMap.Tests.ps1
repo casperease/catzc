@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Maps
     relatives:
       page: docs/references/automation/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md
       source: automation/Catzc.Base.Maps/types/ValueChainMap.cs

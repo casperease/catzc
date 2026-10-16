@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Core
     relatives:
       source: automation/Catzc.Tooling.Core/private/Test-ToolHomeProbe.ps1
 ---

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/dora/capabilities.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "90973063281e"
     links:
       - docs/adr/research/ai-accessible-internal-data.md

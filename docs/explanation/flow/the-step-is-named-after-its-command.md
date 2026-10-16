@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/the-step-is-named-after-its-command.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "3bbcac23132a"
     adrs:
       - ADR-FLOW-CD-RUNNER#{3,4}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/one-entry-script-per-mode.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: c24eef1948d2
     adrs:
       - ADR-DSGN-RUNMODE#{1,2,5,7}

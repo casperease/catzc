@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Tooling.Core
     relatives:
       page: docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md

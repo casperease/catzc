@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/learning-culture.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: acfd23004c4f
     defines:
       - ADR-DORA-LEARNING#{1-5}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/design/visual-design.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "9af99e4e5cbf"
     defines:
       - ADR-DSGN-VISUAL#{1-14}

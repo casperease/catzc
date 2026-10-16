@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/tests/New-VSCodeExtensions.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.VSCode
     relatives:
       page: docs/references/automation/catzc-base-vscode/tests/New-VSCodeExtensions.Tests.ps1.md
       source: automation/Catzc.Base.VSCode/New-VSCodeExtensions.ps1

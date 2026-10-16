@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Reports
     relatives:
       source: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
     adrs:

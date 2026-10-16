@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "41b9b8e4da41"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

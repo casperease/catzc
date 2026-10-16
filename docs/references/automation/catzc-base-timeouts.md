@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: c9314955e75e
     links:
       - docs/references/automation/catzc-base-config.md

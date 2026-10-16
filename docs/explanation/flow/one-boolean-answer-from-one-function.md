@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/one-boolean-answer-from-one-function.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "6e9bebd9acdc"
     adrs:
       - ADR-AUTO-PARITY#3

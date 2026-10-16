@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/error-handling.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d289b074815d
     defines:
       - ADR-PWSH-ERROR#{1-3,5,7-11}

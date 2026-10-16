@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/holding-the-line.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d2cb16c40656
     defines:
       - ADR-PROC-ANDON#{1-4}

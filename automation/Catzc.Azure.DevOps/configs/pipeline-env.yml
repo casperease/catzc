@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Azure.DevOps/configs/pipeline-env.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Azure.DevOps
 # ---
 
 # Build context

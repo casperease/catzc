@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/network-private-access.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: afa53038a9df
     defines:
       - ADR-AZ-CAFNETPRV#{1-13}

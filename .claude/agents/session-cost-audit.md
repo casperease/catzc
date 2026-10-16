@@ -14,6 +14,8 @@ catzc:
   derived:
     path: ".claude/agents/session-cost-audit.md"
     kind: claude-agent
+    language: markdown
+    track: ".claude"
     body_sha: "7344db67cc8b"
     adrs:
       - ADR-AUTO-FAILFAST#7

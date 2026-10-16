@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/one-commit-one-immutable-package.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "3f52daff5480"
     adrs:
       - ADR-AUTO-BUNDLE#{1,5,6}

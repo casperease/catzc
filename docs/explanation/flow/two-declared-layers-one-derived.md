@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/two-declared-layers-one-derived.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: c84eb71f0891
     adrs:
       - ADR-FLOW-CD-GLOBS#{7,8,10}

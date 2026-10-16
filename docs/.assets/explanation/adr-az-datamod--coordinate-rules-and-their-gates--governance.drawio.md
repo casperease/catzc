@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "88eb50a3a020"
     links:
       - docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png

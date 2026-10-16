@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/queues-cost-money.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "620d1efbab2c"
     defines:
       - ADR-PROC-QUEUECOST#{1-5}

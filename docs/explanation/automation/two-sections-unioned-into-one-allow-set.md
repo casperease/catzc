@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: be83854e0e86
     adrs:
       - ADR-AUTO-DEPM#{2-4}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: acb4f4fa1504
     links:
       - docs/adr/automation/test-automation.md#rule-adr-auto-test32

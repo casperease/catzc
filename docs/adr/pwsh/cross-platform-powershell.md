@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/cross-platform-powershell.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d914df52e6db
     defines:
       - ADR-PWSH-XPLAT#{1-4,6-10}

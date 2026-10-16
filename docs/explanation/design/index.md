@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/index.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "8baab60578b3"
     links:
       - docs/adr/design/commit-lifecycle.md

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/tests/Set-FileLink.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Files
     relatives:
       page: docs/references/automation/catzc-base-files/tests/Set-FileLink.Tests.ps1.md
       source: automation/Catzc.Base.Files/Set-FileLink.ps1

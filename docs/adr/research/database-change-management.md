@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/database-change-management.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d48de2b4f591
     defines:
       - ADR-DORA-DBCHANGE#{1-5}

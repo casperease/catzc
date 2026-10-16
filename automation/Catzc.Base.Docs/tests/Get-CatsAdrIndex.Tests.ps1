@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-CatsAdrIndex.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Docs
     relatives:
       source: automation/Catzc.Base.Docs/private/Get-CatsAdrIndex.ps1
 ---

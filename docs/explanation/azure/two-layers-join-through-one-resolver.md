@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/azure/two-layers-join-through-one-resolver.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "0b8ebf5deb43"
     adrs:
       - ADR-AZ-CUSTOMER#2

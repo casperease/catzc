@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
     kind: writer-function
+    language: powershell
+    track: automation
     module: Catzc.Base.RootConfig
     visibility: public
     relatives:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/agile.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d01d0860d047
     defines:
       - ADR-PROC-AGILE#{1-4}

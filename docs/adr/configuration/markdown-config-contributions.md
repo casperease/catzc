@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/configuration/markdown-config-contributions.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: e8192d50ae2b
     defines:
       - ADR-CONF-MDCONTRIB#{1-7}

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/types/MarkdownDocument.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.MarkdownMeta
     relatives:
       page: docs/references/automation/catzc-base-markdownmeta/types/MarkdownDocument.cs.md

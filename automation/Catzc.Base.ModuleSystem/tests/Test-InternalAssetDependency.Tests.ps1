@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.ModuleSystem
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/tests/Test-InternalAssetDependency.Tests.ps1.md
       source: automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1

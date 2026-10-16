@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/expedition/configuration/dev.yml
 #     kind: bicep-template-config
+#     language: yaml
+#     track: infrastructure
 #     relatives:
 #       page: docs/references/infrastructure/templates/expedition/configuration/dev.yml.md
 # ---

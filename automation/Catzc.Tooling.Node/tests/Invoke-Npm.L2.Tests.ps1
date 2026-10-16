@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Node/tests/Invoke-Npm.L2.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Node
 ---
 #>
 

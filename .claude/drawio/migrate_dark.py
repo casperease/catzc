@@ -3,6 +3,8 @@
 #   derived:
 #     path: ".claude/drawio/migrate_dark.py"
 #     kind: python-script
+#     language: python
+#     track: ".claude"
 # ---
 
 # cspell:ignore mxfile pnginfo IEND FAFAFA

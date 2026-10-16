@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.DevOps
     relatives:
       source: automation/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
 ---

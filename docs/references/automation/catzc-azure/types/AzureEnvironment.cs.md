@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "7d07a5b10ff1"
 ---

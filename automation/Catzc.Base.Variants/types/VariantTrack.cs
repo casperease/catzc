@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/types/VariantTrack.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Variants
     relatives:
       page: docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md

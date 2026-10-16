@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/build-verify-then-copy-the-folder.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "7c07bf7b6e67"
     adrs:
       - ADR-AUTO-ASSETDEP#4

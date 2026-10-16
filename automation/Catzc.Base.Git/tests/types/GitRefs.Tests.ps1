@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/types/GitRefs.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Git
     relatives:
       source: automation/Catzc.Base.Git/types/GitRefs.cs
 ---

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Toolchain
     relatives:
       source: automation/Catzc.Tooling.Toolchain/Invoke-Terraform.ps1
 ---

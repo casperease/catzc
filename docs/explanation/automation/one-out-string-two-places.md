@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/one-out-string-two-places.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "4ce846b18cf7"
     adrs:
       - ADR-AUTO-PATH#{3,9}

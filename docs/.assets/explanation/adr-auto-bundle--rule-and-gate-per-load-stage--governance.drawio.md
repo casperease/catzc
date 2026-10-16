@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: c793830b9f91
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

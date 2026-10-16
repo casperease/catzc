@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/main.bicep.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "239f47e44093"
     adrs:

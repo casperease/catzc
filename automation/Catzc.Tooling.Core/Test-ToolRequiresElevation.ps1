@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/Test-ToolRequiresElevation.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Core
     visibility: public
     relatives:

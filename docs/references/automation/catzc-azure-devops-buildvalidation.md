@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "786214e1e4e5"
     links:
       - docs/adr/automation/idempotent-state-functions.md

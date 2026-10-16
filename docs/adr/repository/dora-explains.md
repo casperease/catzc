@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/dora-explains.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "25f6f76e79b8"
     links:
       - docs/adr/repository/agent-definitions.md

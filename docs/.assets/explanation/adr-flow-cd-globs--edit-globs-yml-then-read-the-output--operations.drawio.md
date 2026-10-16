@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: cd40ba6dd4e8
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

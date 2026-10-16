@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Github/Test-GitHistoryClean.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Github
     visibility: public
     relatives:

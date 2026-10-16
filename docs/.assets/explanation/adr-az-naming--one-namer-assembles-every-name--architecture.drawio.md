@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: c8de989c7cd4
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

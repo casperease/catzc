@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/PdfFont.cs.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a1851ba2c465
 ---

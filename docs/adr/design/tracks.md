@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/design/tracks.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: ad1e63e6e8fd
     defines:
       - ADR-DSGN-TRACK#{1-17}

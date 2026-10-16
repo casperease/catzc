@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/one-source-one-writer-one-boolean.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "1932fd9f0525"
     adrs:
       - ADR-REPO-ROOTCFG#{1-4}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/process-terms.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "85f093b7747b"
     defines:
       - ADR-PROC-LEANTERMS#{1-5}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/code-wires-only-the-first-rungs.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: c40dc2238d5f
     adrs:
       - ADR-DSGN-LIFE#8

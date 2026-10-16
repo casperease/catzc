@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/FunctionLength.psm1
     kind: analyzer-rule
+    language: powershell
+    track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/FunctionLength.psm1.md
 ---

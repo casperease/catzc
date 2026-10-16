@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.Templates
     relatives:
       page: docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md
       source: automation/Catzc.Azure.Templates/Get-BicepParameterModel.ps1

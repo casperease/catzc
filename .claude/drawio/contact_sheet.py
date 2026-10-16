@@ -3,6 +3,8 @@
 #   derived:
 #     path: ".claude/drawio/contact_sheet.py"
 #     kind: python-script
+#     language: python
+#     track: ".claude"
 # ---
 
 # cspell:ignore textbbox arialbd

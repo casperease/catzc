@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/code-maintainability.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "226e53fa0afe"
     defines:
       - ADR-DORA-MAINTAIN#{1-5}

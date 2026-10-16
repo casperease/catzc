@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/assets/PrePost.psm1
     kind: asset
+    language: powershell
+    track: automation
+    module: Catzc.Azure.Templates
 ---
 #>
 

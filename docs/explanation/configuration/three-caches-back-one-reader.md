@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/configuration/three-caches-back-one-reader.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "9449ba4f8a11"
     adrs:
       - ADR-CONF-LOADING#{1-4}

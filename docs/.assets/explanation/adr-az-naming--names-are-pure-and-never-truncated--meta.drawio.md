@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "192ccc156202"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

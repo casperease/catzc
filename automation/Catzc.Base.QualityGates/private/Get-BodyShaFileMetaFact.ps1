@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
     kind: fact-function
+    language: powershell
+    track: automation
     module: Catzc.Base.QualityGates
     visibility: private
     relatives:

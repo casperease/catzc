@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/every-file-in-exactly-one-aspect.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: edf4b6a5a7fa
     adrs:
       - ADR-DSGN-ASPECT#{1,2,4,5}

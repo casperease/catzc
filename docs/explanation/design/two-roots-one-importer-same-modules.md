@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/two-roots-one-importer-same-modules.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "4d9cd07a82cf"
     adrs:
       - ADR-DSGN-RUNMODE#{1-3,7}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "923959505b90"
     adrs:
       - ADR-DSGN-LIFE#{1,2,5-8,10}

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-RelativesFileMetaFact.ps1
     kind: fact-function
+    language: powershell
+    track: automation
     module: Catzc.Base.QualityGates
     visibility: private
     relatives:
@@ -16,8 +18,8 @@ catzc:
     description: |-
       The kind's `relations` setting lists at most eight relations, each a name and rules; a rule applies to the
       files whose class its `classes` names (to every file when it names none) and names candidate `paths`, and the
-      first candidate that exists on disk becomes the relation's value. A path takes the tokens `{module}` (the second
-      folder of the path, the module under automation), `{name}` (the file name without its last extension), `{stem}`
+      first candidate that exists on disk becomes the relation's value. A path takes the tokens `{module}` (the module the
+      path is placed in, as Get-PathModule reads it), `{name}` (the file name without its last extension), `{stem}`
       (the name without a trailing `.Tests`) and `{page}` (the file's comment page from comments.yml). A relation no
       rule fills is left out, so a file with no relatives carries no key.
     parameters:
@@ -59,8 +61,8 @@ function Get-RelativesFileMetaFact {
         '{name}' = $name
         '{stem}' = $name -replace '\.Tests$', ''
     }
-    $moduleMatch = [regex]::Match($Path, '^[^/]+/(?<module>[^/]+)/')
-    $tokens['{module}'] = $moduleMatch.Groups['module'].Value
+    $module = Get-PathModule $Path
+    $tokens['{module}'] = $(if ($module) { $module } else { '' })
 
     $registry = if ($Kind.registry) {
         $Kind.registry

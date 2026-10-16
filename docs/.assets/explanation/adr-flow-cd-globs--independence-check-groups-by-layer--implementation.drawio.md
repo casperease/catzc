@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "7e147c963129"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

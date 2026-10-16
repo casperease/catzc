@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/configuration/callers-depend-on-one-config-module.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "68a60ba45051"
     adrs:
       - ADR-CONF-LOADING#{1-4,6}

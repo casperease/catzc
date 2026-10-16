@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "085640e8bc5c"
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png

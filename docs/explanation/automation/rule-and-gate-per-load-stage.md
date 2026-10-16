@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/rule-and-gate-per-load-stage.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: a8f85abfe3b2
     adrs:
       - ADR-AUTO-BUNDLE#{2,3,8}

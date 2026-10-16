@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
     kind: asset
+    language: powershell
+    track: automation
 ---
 #>
 

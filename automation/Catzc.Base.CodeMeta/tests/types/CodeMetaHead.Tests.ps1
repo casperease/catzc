@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.CodeMeta
     relatives:
       source: automation/Catzc.Base.CodeMeta/types/CodeMetaHead.cs
     adrs:

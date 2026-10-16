@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "15269ce699bd"
     links:
       - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md

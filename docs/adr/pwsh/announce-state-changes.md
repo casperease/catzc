@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/announce-state-changes.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "7e0fe1021a9b"
     defines:
       - ADR-PWSH-ANNOUNCE#{1,4-11}

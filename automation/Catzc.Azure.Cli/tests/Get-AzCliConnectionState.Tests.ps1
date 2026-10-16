@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Cli/tests/Get-AzCliConnectionState.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.Cli
     relatives:
       source: automation/Catzc.Azure.Cli/Get-AzCliConnectionState.ps1
 ---

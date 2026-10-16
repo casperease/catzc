@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Reports
     relatives:
       page: docs/references/automation/catzc-base-reports/types/OutputFormatsConfig.cs.md

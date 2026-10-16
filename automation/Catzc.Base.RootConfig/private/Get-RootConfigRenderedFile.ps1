@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.RootConfig
     visibility: private
     relatives:

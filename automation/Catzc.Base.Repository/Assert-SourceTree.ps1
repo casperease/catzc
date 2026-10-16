@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/Assert-SourceTree.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Repository
     visibility: public
     relatives:

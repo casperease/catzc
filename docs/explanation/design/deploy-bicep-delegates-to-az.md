@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/deploy-bicep-delegates-to-az.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: df7b0bc977d6
     adrs:
       - ADR-AZ-CLI#1

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Globs
     relatives:
       page: docs/references/automation/catzc-base-globs/tests/Test-GlobSetProtection.Tests.ps1.md
       source: automation/Catzc.Base.Globs/Test-GlobSetProtection.ps1

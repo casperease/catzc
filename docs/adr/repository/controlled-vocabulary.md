@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/controlled-vocabulary.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: e303a0153364
     defines:
       - ADR-REPO-VOCAB#{1-8}

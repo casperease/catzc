@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "37f8531166d7"
     adrs:
       - ADR-AUTO-TEST#35

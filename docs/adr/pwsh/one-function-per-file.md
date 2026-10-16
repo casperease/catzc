@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/one-function-per-file.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d121b8193149
     defines:
       - ADR-PWSH-ONEFUNC#{1-3}

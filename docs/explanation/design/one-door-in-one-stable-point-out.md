@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/one-door-in-one-stable-point-out.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: bb7ec869f6ce
     adrs:
       - ADR-DSGN-REMOTE

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Environment/tests/Remove-PermanentPath.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Environment
     relatives:
       page: docs/references/automation/catzc-base-environment/tests/Remove-PermanentPath.Tests.ps1.md
       source: automation/Catzc.Base.Environment/Remove-PermanentPath.ps1

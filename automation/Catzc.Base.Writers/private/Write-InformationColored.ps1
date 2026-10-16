@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Writers/private/Write-InformationColored.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Writers
     visibility: private
     relatives:

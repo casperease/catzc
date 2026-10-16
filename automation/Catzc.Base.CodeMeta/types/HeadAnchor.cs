@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/types/HeadAnchor.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.CodeMeta
     relatives:
       page: docs/references/automation/catzc-base-codemeta/types/HeadAnchor.cs.md

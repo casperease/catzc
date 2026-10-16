@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/output-formats.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: c2b95f4a9247
     defines:
       - ADR-REPO-OUTFMT#{1-7}

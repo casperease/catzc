@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/two-entries-feed-one-importer.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "52974b3a4619"
     adrs:
       - ADR-AUTO-BUNDLE#{2,3}

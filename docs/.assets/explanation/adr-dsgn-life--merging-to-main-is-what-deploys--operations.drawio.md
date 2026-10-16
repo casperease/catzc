@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "5df4d0f1f3f5"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/lean.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "0b8c763416c5"
     defines:
       - ADR-PROC-LEAN#{1-5}

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Overlay/private/Get-OverlayContractViolation.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Overlay
     visibility: private
     adrs:

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/Invoke-WithTimeout.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Timeouts
     visibility: public
     relatives:

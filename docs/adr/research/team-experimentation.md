@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/team-experimentation.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "2f9ea2451e97"
     defines:
       - ADR-DORA-EXPERIMENT#{1-4}

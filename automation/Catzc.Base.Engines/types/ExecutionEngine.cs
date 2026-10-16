@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Engines
     relatives:
       page: docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md

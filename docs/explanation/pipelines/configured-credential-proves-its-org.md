@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/pipelines/configured-credential-proves-its-org.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "6e7af59d401e"
     adrs:
       - ADR-PIPE-AUTH#{1,2,5}

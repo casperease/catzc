@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/flow/dora-explains.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "19287435b367"
     links:
       - docs/adr/flow/cd-discipline-and-promotion-flow.md

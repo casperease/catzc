@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.MarkdownMeta
     visibility: public
     relatives:

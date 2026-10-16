@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/spelling-and-language.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: cc05af7967c1
     links:
       - docs/how-to/automation/manual-test-plan.md

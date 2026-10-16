@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Test-AzCliExtension.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.Cli
     visibility: public
   config:

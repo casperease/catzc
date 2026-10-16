@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1
     kind: writer-function
+    language: powershell
+    track: automation
     module: Catzc.Base.TypesSystem
     visibility: public
     relatives:

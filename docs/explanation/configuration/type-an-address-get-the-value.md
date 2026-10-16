@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/configuration/type-an-address-get-the-value.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "5b750addd2a4"
     adrs:
       - ADR-AUTO-ENVVAR#7

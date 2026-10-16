@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/pipelines/cd-nova.yaml.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "8238d511e41c"
 ---

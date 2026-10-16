@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/work-visibility-in-value-stream.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "9bffc5515fba"
     defines:
       - ADR-DORA-WORKVIS#{1-5}

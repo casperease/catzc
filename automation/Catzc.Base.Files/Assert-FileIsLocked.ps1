@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/Assert-FileIsLocked.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Files
     visibility: public
     relatives:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/which-rung-gates-exist-in-code.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "086277112b92"
     adrs:
       - ADR-AUTO-TEST#24

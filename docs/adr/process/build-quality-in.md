@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/build-quality-in.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: df9bdb9dc6a2
     defines:
       - ADR-PROC-BUILTIN#{1-4}

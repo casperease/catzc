@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
     kind: test-asset
+    language: powershell
+    track: automation
+    module: Catzc.Base.Overlay
     relatives:
       page: docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
     adrs:

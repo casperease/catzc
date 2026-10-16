@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/configuration/module-config-loading.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "54ad5d90da9a"
     defines:
       - ADR-CONF-LOADING#{1-6}

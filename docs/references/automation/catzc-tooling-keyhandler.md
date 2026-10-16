@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "0ac4c274fd5e"
     links:
       - docs/adr/automation/devbox-pipeline-parity.md

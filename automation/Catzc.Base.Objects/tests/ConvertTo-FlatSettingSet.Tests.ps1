@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Objects
     relatives:
       page: docs/references/automation/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md
       source: automation/Catzc.Base.Objects/ConvertTo-FlatSettingSet.ps1

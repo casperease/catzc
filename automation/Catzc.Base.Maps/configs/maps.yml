@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Maps/configs/maps.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Maps
 #     relatives:
 #       page: docs/references/automation/catzc-base-maps/configs/maps.yml.md
 # ---

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: a6dfd9c0052f
     adrs:

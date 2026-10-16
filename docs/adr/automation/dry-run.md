@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/dry-run.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "349056ff35c6"
     defines:
       - ADR-AUTO-DRYRUN#{1-4}

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1
     kind: format-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Docs
     visibility: public
     relatives:

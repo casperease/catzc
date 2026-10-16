@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/flow/cd-discipline-and-promotion-flow.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "9a3a343e530b"
     defines:
       - ADR-FLOW-CD#{1-14}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/github/github-release.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: c7fbe67c5617
     defines:
       - ADR-GH-RELEASE#{1-5}

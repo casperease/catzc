@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/tests/Assert-BundleFootprint.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Exporter
     relatives:
       source: automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
 ---

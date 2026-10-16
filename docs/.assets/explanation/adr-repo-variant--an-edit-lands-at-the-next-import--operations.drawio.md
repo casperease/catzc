@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: a3c5cb84627d
     links:
       - docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png

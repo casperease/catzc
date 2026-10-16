@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/private/Get-ExecutableVersion.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Execution
     visibility: private
     relatives:

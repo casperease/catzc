@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/types/DurableHash.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Globs
     relatives:
       page: docs/references/automation/catzc-base-globs/types/DurableHash.cs.md

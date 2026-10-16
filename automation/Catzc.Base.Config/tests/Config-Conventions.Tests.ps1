@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Config
     relatives:
       page: docs/references/automation/catzc-base-config/tests/Config-Conventions.Tests.ps1.md
     adrs:

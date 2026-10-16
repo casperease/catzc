@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "4426264fdb44"
 ---

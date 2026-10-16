@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/two-variables-read-in-one-place.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "08911525b4a7"
     adrs:
       - ADR-FLOW-CD-DETECT#{1,4,5}

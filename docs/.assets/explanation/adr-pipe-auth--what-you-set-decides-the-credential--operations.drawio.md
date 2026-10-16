@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "3fbd2c7014b2"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

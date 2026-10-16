@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Asserts/Assert-PipelineCount.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Asserts
     visibility: public
     relatives:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "5371af829905"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

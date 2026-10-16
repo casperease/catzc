@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Config/Get-ConfigValue.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Config
     visibility: public
     relatives:

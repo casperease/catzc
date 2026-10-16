@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "5676684496e7"
     adrs:
       - ADR-AZ-CUSTOMER#{2,6}

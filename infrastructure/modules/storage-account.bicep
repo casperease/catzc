@@ -3,6 +3,8 @@
 //   derived:
 //     path: infrastructure/modules/storage-account.bicep
 //     kind: bicep-module
+//     language: bicep
+//     track: infrastructure
 //     relatives:
 //       page: docs/references/infrastructure/modules/storage-account.bicep.md
 // ---

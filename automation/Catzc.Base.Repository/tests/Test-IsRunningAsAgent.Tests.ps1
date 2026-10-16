@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/tests/Test-IsRunningAsAgent.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Repository
     relatives:
       source: automation/Catzc.Base.Repository/Test-IsRunningAsAgent.ps1
 ---

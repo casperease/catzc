@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "66e15f5bbc4d"
     links:
       - docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.png

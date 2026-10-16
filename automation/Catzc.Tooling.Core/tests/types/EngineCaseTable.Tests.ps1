@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Core
     relatives:
       source: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
 ---

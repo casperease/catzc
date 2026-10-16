@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/pull-work.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "8bff15b2a55a"
     defines:
       - ADR-PROC-PULLWORK#{1-4}

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.Firewall
     visibility: public
     relatives:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/index.md
     kind: index
+    language: markdown
+    track: docs
     body_sha: b721d0354e1f
     links:
       - docs/adr/automation/avoid-deep-nesting.md

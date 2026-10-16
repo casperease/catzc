@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Folders/types/FolderWalkConfig.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Folders
     relatives:
       test: automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1

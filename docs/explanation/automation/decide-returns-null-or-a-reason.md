@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/decide-returns-null-or-a-reason.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "9302c72f3cc8"
     adrs:
       - ADR-AUTO-FAILFAST#7

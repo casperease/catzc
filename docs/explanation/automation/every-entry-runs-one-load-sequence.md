@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/every-entry-runs-one-load-sequence.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "2fcdad285504"
     adrs:
       - ADR-AUTO-BUNDLE#{3,8}

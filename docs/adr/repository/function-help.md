@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/function-help.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "3c30ae3e63b3"
     defines:
       - ADR-REPO-HELP#{1-5}

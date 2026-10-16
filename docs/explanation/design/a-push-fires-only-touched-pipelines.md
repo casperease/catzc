@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/a-push-fires-only-touched-pipelines.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: bdee370f2672
     adrs:
       - ADR-DSGN-TRACK#{4,5}

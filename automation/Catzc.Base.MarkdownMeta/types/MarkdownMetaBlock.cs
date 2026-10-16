@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.MarkdownMeta
     relatives:
       page: docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
@@ -29,7 +31,7 @@ public static class MarkdownMetaBlock
 
     static readonly Regex PlainSafe = new Regex(@"^[A-Za-z_][A-Za-z0-9_./#@+-]*$", RegexOptions.Compiled);
 
-    // An ADR group (ADR-X#{1,3-5}): YAML reads its braces and comma as plain text inside a block scalar.
+    // An ADR group (ADR-<CODE>#{1,3-5}): YAML reads its braces and comma as plain text inside a block scalar.
     static readonly Regex AdrGrouped = new Regex(@"^ADR-[A-Z]+(?:-[A-Z]+)*#\{[0-9][0-9,\-]*\}$", RegexOptions.Compiled);
 
     static readonly HashSet<string> Reserved = new HashSet<string>(StringComparer.OrdinalIgnoreCase)

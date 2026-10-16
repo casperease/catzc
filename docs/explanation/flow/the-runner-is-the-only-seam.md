@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/the-runner-is-the-only-seam.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: db59804939f1
     adrs:
       - ADR-FLOW-CD-RUNNER#{1-3}

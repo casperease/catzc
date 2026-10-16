@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/getting-started/automation/debug-in-vscode.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: a210ea69b439
     links:
       - docs/adr/automation/effective-in-enterprises.md

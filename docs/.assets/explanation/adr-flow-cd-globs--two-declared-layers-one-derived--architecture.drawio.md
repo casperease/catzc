@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "449c92e6182d"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

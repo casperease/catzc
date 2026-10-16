@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Reports
     relatives:
       source: automation/Catzc.Base.Reports/types/OutputRetention.cs
     adrs:

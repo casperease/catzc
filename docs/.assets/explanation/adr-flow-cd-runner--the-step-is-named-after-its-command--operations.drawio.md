@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: e64ca424664c
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

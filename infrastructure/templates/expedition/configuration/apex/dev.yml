@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/expedition/configuration/apex/dev.yml
 #     kind: bicep-template-config
+#     language: yaml
+#     track: infrastructure
 #     relatives:
 #       page: docs/references/infrastructure/templates/expedition/configuration/apex/dev.yml.md
 # ---

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Environment
     relatives:
       page: docs/references/automation/catzc-base-environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1.md
       source: automation/Catzc.Base.Environment/Set-PermanentEnvironmentVariable.ps1

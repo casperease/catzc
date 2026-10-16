@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: e410849b57ff
     adrs:
       - ADR-AUTO-DEFAULT#6

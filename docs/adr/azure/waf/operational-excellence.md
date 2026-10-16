@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/waf/operational-excellence.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: be1d73e111ce
     defines:
       - ADR-AZ-WAFOE#{1-11}

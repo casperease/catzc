@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/caching.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: a9b615c0027f
     defines:
       - ADR-AUTO-CACHE#{1,2,4-10}

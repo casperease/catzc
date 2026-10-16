@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/azure/four-gates-hold-the-session-rule.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: e5aa0b7c93ca
     adrs:
       - ADR-AZ-DATAMOD#{4,5,7}

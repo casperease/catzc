@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/network-topology.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d686931f9aad
     defines:
       - ADR-AZ-CAFNETTOP#{1-65}

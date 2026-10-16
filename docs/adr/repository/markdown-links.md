@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/markdown-links.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "275963ff5695"
     defines:
       - ADR-REPO-LINK#{1-8}

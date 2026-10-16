@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.L2.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.Cli
     relatives:
       page: docs/references/automation/catzc-azure-cli/tests/Invoke-AzCli.L2.Tests.ps1.md
 ---

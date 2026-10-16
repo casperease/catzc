@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/gates-check-source-and-trigger.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "162cf941ab68"
     adrs:
       - ADR-AUTO-TEST#35

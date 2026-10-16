@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/a-base-module-between-config-and-its-callers.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: deb5fed9f5ce
     adrs:
       - ADR-AUTO-DEPM#1

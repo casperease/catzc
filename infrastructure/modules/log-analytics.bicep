@@ -3,6 +3,8 @@
 //   derived:
 //     path: infrastructure/modules/log-analytics.bicep
 //     kind: bicep-module
+//     language: bicep
+//     track: infrastructure
 //     relatives:
 //       page: docs/references/infrastructure/modules/log-analytics.bicep.md
 // ---

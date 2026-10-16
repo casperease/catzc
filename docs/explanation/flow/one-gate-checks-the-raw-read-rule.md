@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "214e0998f9bf"
     adrs:
       - ADR-AUTO-PARITY#3

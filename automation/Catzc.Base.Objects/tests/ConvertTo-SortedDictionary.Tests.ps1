@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Objects
     relatives:
       source: automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
 ---

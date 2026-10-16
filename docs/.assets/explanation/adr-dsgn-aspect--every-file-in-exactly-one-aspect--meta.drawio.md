@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "1a836a35d6de"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

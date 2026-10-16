@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Test-Pipelines.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.DevOps
     visibility: public
     relatives:

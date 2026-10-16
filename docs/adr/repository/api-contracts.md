@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/api-contracts.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: cdee2333ea01
     defines:
       - ADR-REPO-CONTRACT#{1-10}

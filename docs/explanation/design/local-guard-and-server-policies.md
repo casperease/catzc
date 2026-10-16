@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/local-guard-and-server-policies.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: f8b79c407fcb
     adrs:
       - ADR-DSGN-REMOTE#{2,4}

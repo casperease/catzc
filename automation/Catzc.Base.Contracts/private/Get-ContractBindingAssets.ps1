@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/private/Get-ContractBindingAssets.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Contracts
     visibility: private
     adrs:

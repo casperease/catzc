@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Tooling.Inspiration/configs/inspiration.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Tooling.Inspiration
 #     relatives:
 #       page: docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
 # ---

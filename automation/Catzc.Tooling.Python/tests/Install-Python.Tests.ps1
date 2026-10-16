@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Python
     relatives:
       source: automation/Catzc.Tooling.Python/Install-Python.ps1
 ---

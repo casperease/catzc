@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "8e73f3596ba0"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

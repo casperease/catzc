@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/types/ConsoleText.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Objects
     relatives:
       page: docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md

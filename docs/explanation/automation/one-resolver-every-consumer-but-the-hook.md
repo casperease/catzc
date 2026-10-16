@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "6338c39818a8"
     adrs:
       - ADR-AUTO-DEFAULT#6

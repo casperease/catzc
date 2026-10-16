@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Globs/configs/globs.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Globs
 #     relatives:
 #       page: docs/references/automation/catzc-base-globs/configs/globs.yml.md
 # ---

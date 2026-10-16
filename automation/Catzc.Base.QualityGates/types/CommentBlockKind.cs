@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/CommentBlockKind.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.QualityGates
     adrs:
       - ADR-PRIN-ONELIVE#1

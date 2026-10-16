@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/types/PythonTestResult.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Languages
     relatives:
       page: docs/references/automation/catzc-base-languages/types/PythonTestResult.cs.md

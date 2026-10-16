@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/infrastructure/modules.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: dc667b4441d5
     links:
       - docs/references/automation/catzc-azure-templates.md

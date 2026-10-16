@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/documentation-quality.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: b8b7bf2ed828
     defines:
       - ADR-DORA-DOCS#{1-5}

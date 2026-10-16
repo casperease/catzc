@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/working-directory-mechanics.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "215b77f1e4d2"
     defines:
       - ADR-PWSH-PWD#{1-7}

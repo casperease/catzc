@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/Test-WorldMap.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Maps
     visibility: public
     relatives:

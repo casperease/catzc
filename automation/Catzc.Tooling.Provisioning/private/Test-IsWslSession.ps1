@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/private/Test-IsWslSession.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Provisioning
     visibility: private
     relatives:

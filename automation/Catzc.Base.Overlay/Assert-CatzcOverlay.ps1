@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Overlay
     visibility: public
     relatives:

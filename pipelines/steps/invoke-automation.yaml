@@ -3,6 +3,8 @@
 #   derived:
 #     path: pipelines/steps/invoke-automation.yaml
 #     kind: pipeline-template
+#     language: pipeline-yaml
+#     track: pipelines
 #     relatives:
 #       page: docs/references/pipelines/steps/invoke-automation.yaml.md
 # ---

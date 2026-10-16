@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/design/commit-lifecycle.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: c0b1c05d5104
     defines:
       - ADR-DSGN-LIFE#{1-10}

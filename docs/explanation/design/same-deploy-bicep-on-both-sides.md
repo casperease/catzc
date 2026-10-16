@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/same-deploy-bicep-on-both-sides.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: ea64b39cbb52
     adrs:
       - ADR-AUTO-PARITY#3

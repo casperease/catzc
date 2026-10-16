@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/generated-head.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Languages
 # ---
 
 # The keys of the generated-file head in writing order; source follows path so no word before it reads as a qualifier of the glossary's source term.
@@ -10,4 +13,7 @@ keys:
   - path
   - source
   - kind
+  - language
+  - track
+  - module
   - generator

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/assets/Import-Catzc.ps1
     kind: asset
+    language: powershell
+    track: automation
   config:
     synopsis: Loads this Catzc build into the session — build mode's entry point.
     description: |-

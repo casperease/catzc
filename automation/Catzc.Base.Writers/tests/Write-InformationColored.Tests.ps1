@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Writers
     relatives:
       page: docs/references/automation/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md
       source: automation/Catzc.Base.Writers/private/Write-InformationColored.ps1

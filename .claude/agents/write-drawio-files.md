@@ -15,6 +15,8 @@ catzc:
   derived:
     path: ".claude/agents/write-drawio-files.md"
     kind: claude-agent
+    language: markdown
+    track: ".claude"
     body_sha: dc56e6631c20
     links:
       - ".claude/CLAUDE.md#time-safeguard"

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/dora-explains.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "3627036d4752"
     links:
       - docs/adr/automation/BCL/native-csharp-types.md

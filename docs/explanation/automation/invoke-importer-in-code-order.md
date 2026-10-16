@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/invoke-importer-in-code-order.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "3580a530afb4"
     adrs:
       - ADR-AUTO-BUNDLE#{2,3,8}

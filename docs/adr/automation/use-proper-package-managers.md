@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/use-proper-package-managers.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "7deec46cbb66"
     defines:
       - ADR-AUTO-PKGMGR#{1-6}

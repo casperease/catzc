@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/types/ContractManifest.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Contracts
     relatives:
       page: docs/references/automation/catzc-base-contracts/types/ContractManifest.cs.md

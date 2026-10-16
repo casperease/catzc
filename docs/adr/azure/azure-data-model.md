@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/azure-data-model.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "62bbc25cbfea"
     defines:
       - ADR-AZ-DATAMOD#{1-11}

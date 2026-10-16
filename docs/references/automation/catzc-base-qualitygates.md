@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "9f8a3f50e4a6"
     links:
       - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md

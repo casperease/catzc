@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.ConfigExtensions
     visibility: public
     relatives:

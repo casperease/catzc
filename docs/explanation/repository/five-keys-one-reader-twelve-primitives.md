@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: b6c4ef9f5ef7
     adrs:
       - ADR-PWSH-VERBS#6

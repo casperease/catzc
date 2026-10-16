@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/getting-started/automation/add-a-doc-chapter.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: "3735962b4882"
     adrs:
       - ADR-PWSH-ERROR#3

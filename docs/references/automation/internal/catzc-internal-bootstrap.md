@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/internal/catzc-internal-bootstrap.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "2b24078306c3"
     adrs:
       - ADR-PWSH-ANNOUNCE#6

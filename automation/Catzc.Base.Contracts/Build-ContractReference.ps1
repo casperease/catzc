@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
     kind: writer-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Contracts
     visibility: public
     relatives:

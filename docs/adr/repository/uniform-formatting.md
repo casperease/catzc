@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/uniform-formatting.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "67d57c0ab117"
     defines:
       - ADR-REPO-FORMAT#{1-9}

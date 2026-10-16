@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "38ab14dccb0d"
     adrs:
       - ADR-FLOW-CD-DETECT#1

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/fail-fast-with-asserts.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "64ab2812bb25"
     defines:
       - ADR-AUTO-FAILFAST#{1-7}

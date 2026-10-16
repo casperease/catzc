@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vendor.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "6d37b6c9b1f7"
     links:
       - docs/adr/pwsh/vendor-toolset-dependencies.md

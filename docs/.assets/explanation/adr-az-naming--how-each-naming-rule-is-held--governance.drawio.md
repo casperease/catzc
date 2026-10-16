@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "558b77e45d42"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

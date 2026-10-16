@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/types/BicepShortName.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Azure.Templates
     relatives:
       page: docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md

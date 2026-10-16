@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "5ffe1a51b035"
     adrs:
       - ADR-DSGN-THINPLAT#{1-3,5}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/platform-engineering.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "026da3c7367a"
     defines:
       - ADR-DORA-PLATFORM#{1-5}

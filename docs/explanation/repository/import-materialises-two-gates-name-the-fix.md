@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "7e60f250283d"
     adrs:
       - ADR-REPO-ROOTCFG#{4,6}

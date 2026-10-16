@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Objects
     relatives:
       page: docs/references/automation/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md
       source: automation/Catzc.Base.Objects/types/ConsoleText.cs

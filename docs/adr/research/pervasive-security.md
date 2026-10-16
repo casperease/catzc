@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/pervasive-security.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: aa1fb107b65d
     defines:
       - ADR-DORA-SECURITY#{1-5}

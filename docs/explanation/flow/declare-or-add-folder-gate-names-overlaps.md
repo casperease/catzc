@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: bbaf0b40bf29
     adrs:
       - ADR-FLOW-CD-GLOBS#{7,10}

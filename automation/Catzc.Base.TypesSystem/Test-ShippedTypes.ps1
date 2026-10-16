@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Base.TypesSystem
     visibility: public
     relatives:

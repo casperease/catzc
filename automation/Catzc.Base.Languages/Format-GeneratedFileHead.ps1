@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
     kind: format-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Languages
     visibility: public
     relatives:
@@ -13,8 +15,8 @@ catzc:
   config:
     synopsis: Returns the text of a generated file with the meta head that says which generator or source wrote it.
     description: |-
-      The head is the one unified form of ADR-REPO-FILEMETA#7: kind generated-from-source, and the generator and the source when the file has
-      them. The generator is written as the path of the file its command is defined in. The carrier is named by id, or found from the
+      The head is the one unified form of ADR-REPO-FILEMETA#7: kind generated-from-source, the file language, the track and the module when the file
+      has them, and the generator and the source when the file has them. The generator is written as the path of the file its command is defined in. The carrier is named by id, or found from the
       file's language when no id is given.
     parameters:
       Text: The whole content the generator composed, without any head.
@@ -59,9 +61,9 @@ function Format-GeneratedFileHead {
     )
 
     $relative = $Path -replace '\\', '/'
+    $language = $Languages.ForPath($relative)
     $id = $Carrier
     if (-not $id) {
-        $language = $Languages.ForPath($relative)
         Assert-NotNull $language -ErrorText "Format-GeneratedFileHead: '$relative' has no file language, so name its carrier (a file-carriers.yml id) with -Carrier."
         $id = $language.name
     }
@@ -75,6 +77,19 @@ function Format-GeneratedFileHead {
         $Head.kind
     }
     $values = @{ path = $relative; kind = $kind }
+    # A file no language lists, such as a dotfile, has none to name.
+    if ($language) {
+        $values['language'] = $language.name
+    }
+    # A root file is in no track, and a file outside automation is in no module.
+    $track = Get-Track -Path $relative
+    if ($track) {
+        $values['track'] = $track.name
+    }
+    $module = Get-PathModule $relative
+    if ($module) {
+        $values['module'] = $module
+    }
     if ($Generator) {
         $values['generator'] = Get-GeneratorPath $Generator
     }

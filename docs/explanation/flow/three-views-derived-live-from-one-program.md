@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/three-views-derived-live-from-one-program.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "1f77b803bb23"
     adrs:
       - ADR-FLOW-CD-GLOBS#{1,4,5,9}

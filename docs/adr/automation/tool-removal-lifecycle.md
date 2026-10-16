@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/tool-removal-lifecycle.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: dd151d99a6db
     defines:
       - ADR-AUTO-REMOVE#{1-8}

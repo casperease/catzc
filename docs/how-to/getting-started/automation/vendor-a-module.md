@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/getting-started/automation/vendor-a-module.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: adca12471052
     links:
       - docs/adr/azure/prefer-az-cli.md

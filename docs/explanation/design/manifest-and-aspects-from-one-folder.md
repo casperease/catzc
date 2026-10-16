@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/manifest-and-aspects-from-one-folder.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "13b42c260a6c"
     adrs:
       - ADR-DSGN-ASPECT#{1,2}

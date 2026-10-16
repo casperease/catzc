@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Environment/Remove-PermanentPath.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Environment
     visibility: public
     relatives:

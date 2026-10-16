@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/Test-CompletesWithin.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Timeouts
     relatives:
       source: automation/Catzc.Base.Timeouts/Test-CompletesWithin.ps1
 ---

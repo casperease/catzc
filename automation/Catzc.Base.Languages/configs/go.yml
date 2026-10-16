@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/go.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Languages
 #     relatives:
 #       page: docs/references/automation/catzc-base-languages/configs/go.yml.md
 # ---

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/customer-feedback.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "6d931cf1787f"
     defines:
       - ADR-DORA-FEEDBACK#{1-5}

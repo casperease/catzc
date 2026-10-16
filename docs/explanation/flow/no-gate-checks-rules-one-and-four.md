@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/no-gate-checks-rules-one-and-four.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: a85da9fc8bca
     adrs:
       - ADR-FLOW-CD-RUNNER

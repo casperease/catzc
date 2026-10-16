@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.VSCode
     relatives:
       page: docs/references/automation/catzc-base-vscode/types/VscodePipelineSchemaConfig.cs.md

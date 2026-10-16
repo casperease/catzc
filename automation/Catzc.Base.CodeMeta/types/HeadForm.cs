@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/types/HeadForm.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.CodeMeta
     relatives:
       page: docs/references/automation/catzc-base-codemeta/types/HeadForm.cs.md

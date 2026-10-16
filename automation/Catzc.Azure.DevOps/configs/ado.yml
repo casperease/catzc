@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Azure.DevOps/configs/ado.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Azure.DevOps
 #     relatives:
 #       page: docs/references/automation/catzc-azure-devops/configs/ado.yml.md
 # ---

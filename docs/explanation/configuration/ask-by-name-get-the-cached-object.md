@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/configuration/ask-by-name-get-the-cached-object.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "87242c08bfcf"
     adrs:
       - ADR-CONF-ADDRESSING#4

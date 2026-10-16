@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Objects
     relatives:
       source: automation/Catzc.Base.Objects/types/ArtifactRef.cs
     adrs:

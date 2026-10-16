@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "632b2688cc51"
     links:
       - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png

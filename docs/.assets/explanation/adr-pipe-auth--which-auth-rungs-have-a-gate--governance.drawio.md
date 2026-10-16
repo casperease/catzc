@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "4dc5921ea701"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

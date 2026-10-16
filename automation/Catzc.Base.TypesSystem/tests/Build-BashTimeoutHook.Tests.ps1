@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.TypesSystem
     relatives:
       page: docs/references/automation/catzc-base-typessystem/tests/Build-BashTimeoutHook.Tests.ps1.md
       source: automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1

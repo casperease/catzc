@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/configuration/one-reader-one-cache-per-session.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: c2da6a7a9882
     adrs:
       - ADR-CONF-LOADING#{1,3}

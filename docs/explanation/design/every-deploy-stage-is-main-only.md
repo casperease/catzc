@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/every-deploy-stage-is-main-only.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "1dbd42896d00"
     adrs:
       - ADR-DSGN-LIFE#9

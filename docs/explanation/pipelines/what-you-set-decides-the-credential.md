@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/pipelines/what-you-set-decides-the-credential.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: a1d9fba083df
     adrs:
       - ADR-PIPE-AUTH#{1,2,5,6}

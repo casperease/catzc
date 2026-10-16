@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/identity-and-access.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: e192bb608891
     defines:
       - ADR-AZ-CAFIAM#{1-68}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/getting-started/automation/add-a-cli-tool.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: "7e3a289fb0e4"
     adrs:
       - ADR-AUTO-UVPY#4

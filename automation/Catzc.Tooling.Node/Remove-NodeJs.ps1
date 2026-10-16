@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Node/Remove-NodeJs.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Node
     visibility: public
     relatives:

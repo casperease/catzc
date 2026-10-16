@@ -3,6 +3,8 @@
 #   derived:
 #     path: ".claude/drawio/gallery_pdf.py"
 #     kind: python-script
+#     language: python
+#     track: ".claude"
 # ---
 
 # cspell:ignore minimaps consola cour arialbd textlength

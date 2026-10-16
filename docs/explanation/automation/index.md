@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/index.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: ef9adf853ade
     links:
       - docs/adr/automation/controlling-module-dependencies.md

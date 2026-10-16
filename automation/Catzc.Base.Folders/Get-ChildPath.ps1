@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Folders/Get-ChildPath.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Folders
     visibility: public
     relatives:

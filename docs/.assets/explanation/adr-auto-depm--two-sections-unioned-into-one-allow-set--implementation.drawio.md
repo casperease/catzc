@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "71d34610a4b4"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

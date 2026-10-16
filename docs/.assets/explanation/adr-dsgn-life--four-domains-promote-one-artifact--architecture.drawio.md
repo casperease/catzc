@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "1bdb0ec3d12e"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

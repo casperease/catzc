@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/azure/names-are-derived-never-typed.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "0665f1c4e736"
     adrs:
       - ADR-AZ-NAMING#{1,5-8}

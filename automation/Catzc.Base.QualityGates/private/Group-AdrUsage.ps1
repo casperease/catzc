@@ -1,6 +1,15 @@
 <#
 ---
 catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/private/Group-AdrUsage.ps1
+    kind: automation-function
+    language: powershell
+    track: automation
+    module: Catzc.Base.QualityGates
+    visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Group-AdrUsage.Tests.ps1
   config:
     synopsis: Groups ADR usage rows by the rule they cite or by the document that cites them.
     description: |-

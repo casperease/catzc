@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/sync-from-the-last-certified-commit.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "951692dadb53"
     adrs:
       - ADR-DSGN-LIFE#{6-8}

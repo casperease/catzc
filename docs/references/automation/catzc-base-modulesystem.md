@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "840dcfca8845"
     adrs:
       - ADR-AUTO-TEST#35

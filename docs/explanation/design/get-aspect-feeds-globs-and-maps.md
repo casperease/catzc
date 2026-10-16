@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/get-aspect-feeds-globs-and-maps.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "15139b8bcd1b"
     adrs:
       - ADR-DSGN-ASPECT#{2-4}

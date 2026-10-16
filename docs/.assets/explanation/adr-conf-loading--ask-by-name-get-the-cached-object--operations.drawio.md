@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "4c4c1279b03a"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

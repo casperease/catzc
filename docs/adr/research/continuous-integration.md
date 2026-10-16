@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/continuous-integration.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "6e3811077548"
     defines:
       - ADR-DORA-CI#{1-5}

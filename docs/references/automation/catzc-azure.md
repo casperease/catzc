@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: d8b3dc66ab75
     links:
       - docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md

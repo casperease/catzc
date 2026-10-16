@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/types/SyntaxSearch.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Repository
     relatives:
       test: automation/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1

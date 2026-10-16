@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/Catzc.Internal.Vendor.psm1
     kind: internal-module
+    language: powershell
+    track: automation
     relatives:
       page: docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md
 ---

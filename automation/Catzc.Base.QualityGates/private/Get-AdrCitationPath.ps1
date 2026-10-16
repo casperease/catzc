@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-AdrCitationPath.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.QualityGates
     visibility: private
   config:

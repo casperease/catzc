@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: b1e38c2ae347
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: b7e23c06a752
     adrs:
       - ADR-FLOW-CD-GLOBS#{4,6,8}

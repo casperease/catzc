@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/glyphs.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "9dcdf39c95c2"
     adrs:
       - ADR-DSGN-VISUAL#4

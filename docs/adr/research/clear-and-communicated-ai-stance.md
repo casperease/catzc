@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/clear-and-communicated-ai-stance.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: b477e777a6cd
     defines:
       - ADR-DORA-AISTANCE#{1-5}

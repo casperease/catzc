@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/generated-readmes.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "7fe7b9ac6558"
     defines:
       - ADR-REPO-README#{1-7}

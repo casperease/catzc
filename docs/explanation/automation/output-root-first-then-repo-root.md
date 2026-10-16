@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/output-root-first-then-repo-root.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "9387b36c0e27"
     adrs:
       - ADR-AUTO-PATH#{4,5,9,10}

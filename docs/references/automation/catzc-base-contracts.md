@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "8b2e6e43bc08"
     adrs:
       - ADR-REPO-CONTRACT#{3,5,9}

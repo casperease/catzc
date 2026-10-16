@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Exporter/configs/exporter.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Exporter
 #     relatives:
 #       page: docs/references/automation/catzc-base-exporter/configs/exporter.yml.md
 # ---

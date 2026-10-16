@@ -3,6 +3,8 @@
 //   derived:
 //     path: infrastructure/modules/data-factory.bicep
 //     kind: bicep-module
+//     language: bicep
+//     track: infrastructure
 // ---
 
 @description('Data Factory name (3-24 lowercase alphanumeric, globally unique).')

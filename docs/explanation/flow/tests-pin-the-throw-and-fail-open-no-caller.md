@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: ffbbf6cf0962
     adrs:
       - ADR-AUTO-FAILFAST#4

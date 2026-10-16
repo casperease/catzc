@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/pwsh-engine.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: b8e8750cdd85
     defines:
       - ADR-PWSH-ENGINE#{1-6}

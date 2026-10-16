@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Globs
     visibility: public
     relatives:

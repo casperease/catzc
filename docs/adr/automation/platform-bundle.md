@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/platform-bundle.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "4dacfa995a0b"
     defines:
       - ADR-AUTO-BUNDLE#{1-3,5-8}

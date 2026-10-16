@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: d4592a9826a0
     adrs:
       - ADR-AUTO-PARITY#2

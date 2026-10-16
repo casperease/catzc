@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pipelines/pipeline-naming-and-placement.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "5dccdb8ff1e9"
     defines:
       - ADR-PIPE-NAME#{1-7}

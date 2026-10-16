@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/agile-principles.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d11206484097
     defines:
       - ADR-PRIN-PROCESS#{1-12}

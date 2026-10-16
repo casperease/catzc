@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Writers/types/Ansi.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Writers
     relatives:
       page: docs/references/automation/catzc-base-writers/types/Ansi.cs.md

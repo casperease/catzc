@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/peers-in-a-layer-never-overlap.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: e6efd0ad79ce
     adrs:
       - ADR-FLOW-CD-GLOBS#{7,10}

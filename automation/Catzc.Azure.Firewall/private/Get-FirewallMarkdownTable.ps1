@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.Firewall
     visibility: private
     relatives:

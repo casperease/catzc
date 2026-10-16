@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyClosure.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.ModuleSystem
     visibility: private
     relatives:

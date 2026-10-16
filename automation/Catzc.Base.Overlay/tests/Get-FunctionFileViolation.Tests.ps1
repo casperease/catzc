@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Get-FunctionFileViolation.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Overlay
     relatives:
       source: automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1
 ---

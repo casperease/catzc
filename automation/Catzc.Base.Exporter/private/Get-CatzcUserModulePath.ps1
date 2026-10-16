@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/private/Get-CatzcUserModulePath.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Exporter
     visibility: private
   config:

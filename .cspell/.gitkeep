@@ -4,6 +4,7 @@
 #     path: ".cspell/.gitkeep"
 #     source: automation/Catzc.Base.Docs/assets/gitkeep
 #     kind: tracked-generated-from-source
+#     track: ".cspell"
 #     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1
 # ---
 

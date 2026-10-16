@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Github
     visibility: public
     relatives:

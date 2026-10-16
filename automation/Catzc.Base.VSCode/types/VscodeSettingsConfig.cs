@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.VSCode
     relatives:
       page: docs/references/automation/catzc-base-vscode/types/VscodeSettingsConfig.cs.md

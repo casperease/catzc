@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/Build-Modules.ps1
     kind: writer-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Exporter
     visibility: public
     relatives:

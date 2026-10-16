@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/waf/security.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "945a8dd38e53"
     defines:
       - ADR-AZ-WAFSE#{1-12}

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/Save-PSReadLineKeyHandlerSet.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.KeyHandler
     visibility: public
     relatives:

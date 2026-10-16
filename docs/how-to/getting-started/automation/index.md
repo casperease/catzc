@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/getting-started/automation/index.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: f1c4f850cec7
     links:
       - docs/adr/automation/caching.md

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/build-then-place-with-one-command.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "996f53ad2447"
     adrs:
       - ADR-AUTO-BUNDLE#{5-7}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/ai-accessible-internal-data.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: a087c76d9705
     defines:
       - ADR-DORA-AIDATA#{1-5}

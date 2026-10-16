@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/prefer-az-cli.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "8d77f48a4cae"
     defines:
       - ADR-AZ-CLI#{1-6}

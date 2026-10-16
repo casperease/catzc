@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/dynamic-module-manifests.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "4511f151b87b"
     defines:
       - ADR-PWSH-MANIFEST#{1-10}

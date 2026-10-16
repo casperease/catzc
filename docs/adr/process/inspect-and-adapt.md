@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/inspect-and-adapt.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "7e821d6725bb"
     defines:
       - ADR-PROC-KAIZEN#{1-4}

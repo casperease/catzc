@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/waf/performance-efficiency.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "5442f36725bb"
     defines:
       - ADR-AZ-WAFPE#{1-12}

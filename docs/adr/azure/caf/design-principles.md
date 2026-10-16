@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/design-principles.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: b891f6ab0cc2
     defines:
       - ADR-AZ-CAFPRIN#{1-5}

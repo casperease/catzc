@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.ModuleSystem
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/tests/Sync-GeneratedFile.Tests.ps1.md
       source: automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1

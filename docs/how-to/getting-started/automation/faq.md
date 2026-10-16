@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/getting-started/automation/faq.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: abc05ae566cd
 ---
 

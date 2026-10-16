@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/guard-and-policies-by-command.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: b79c1fbb598e
     adrs:
       - ADR-DSGN-REMOTE#{2,4}

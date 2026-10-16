@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Reports/types/OutputRetention.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Reports
     relatives:
       test: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1

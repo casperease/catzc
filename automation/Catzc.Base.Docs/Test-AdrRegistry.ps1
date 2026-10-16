@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/Test-AdrRegistry.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Docs
     visibility: public
     relatives:

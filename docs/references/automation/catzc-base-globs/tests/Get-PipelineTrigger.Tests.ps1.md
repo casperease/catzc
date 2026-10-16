@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "63b48f8ba3ad"
     adrs:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: d24069d9bd3b
     adrs:
       - ADR-AUTO-DEFAULT#6

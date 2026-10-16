@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/tooling.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: "714072254ede"
     links:
       - docs/how-to/automation/manual-test-plan.md

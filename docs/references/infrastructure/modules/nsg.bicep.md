@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/infrastructure/modules/nsg.bicep.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5c9e3b705c1b"
 ---

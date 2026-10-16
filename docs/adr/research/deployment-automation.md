@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/deployment-automation.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "179a9dc40c85"
     defines:
       - ADR-DORA-DEPLOY#{1-5}

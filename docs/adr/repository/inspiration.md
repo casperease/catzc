@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/inspiration.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "555677c00938"
     defines:
       - ADR-REPO-INSPIRE#{1-5}

@@ -4,9 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1
     kind: fact-function
+    language: powershell
+    track: automation
     module: Catzc.Base.QualityGates
     visibility: private
     relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md
       test: automation/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
     adrs:
       - ADR-REPO-LINK#5
@@ -61,8 +64,6 @@ function Get-AdrCodesFileMetaFact {
     $fileClass = $registry.ClassOf($Path)
     $withDomain = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('domain_classes'), $fileClass)
     $map = Get-AdrCitationMap -RepositoryRoot $repositoryRoot
-    # Body text cites a rule as ADR-<CODE>#<n> only: a wildcard there is a mention of a family, never a citation. The group form is the
-    # head's own notation, read back below from the held list.
     $pattern = if ($withDomain) {
         '(?<![\w-])ADR-[A-Z]+(?:-[A-Z]+)*(?:#\d+|(?![\w#-]|:\d))'
     }

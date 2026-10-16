@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/pipelines/template-folders.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "6cd17e0faa5f"
     links:
       - docs/adr/pipelines/custom-template-discipline.md

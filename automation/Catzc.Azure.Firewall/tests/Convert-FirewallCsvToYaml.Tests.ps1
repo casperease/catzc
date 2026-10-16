@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.Firewall
     relatives:
       page: docs/references/automation/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md
       source: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/cspell.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "8d46afba173c"
     links:
       - automation/Catzc.Base.QualityGates/configs/terminology.yml

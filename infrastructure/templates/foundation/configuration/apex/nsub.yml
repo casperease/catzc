@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/foundation/configuration/apex/nsub.yml
 #     kind: bicep-template-config
+#     language: yaml
+#     track: infrastructure
 # ---
 
 # foundation, apex nonprod subscription (env nsub, customer apex).

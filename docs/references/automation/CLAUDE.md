@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/CLAUDE.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: ae7fdacb19ff
     adrs:
       - ADR-REPO-FORMAT#6

@@ -14,6 +14,8 @@ catzc:
   derived:
     path: ".claude/agents/test-optimization.md"
     kind: claude-agent
+    language: markdown
+    track: ".claude"
     body_sha: "9665e0853812"
     adrs:
       - ADR-AUTO-FAILFAST#7

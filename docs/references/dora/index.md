@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/dora/index.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "3cfd89b51712"
     links:
       - docs/adr/research/index.md

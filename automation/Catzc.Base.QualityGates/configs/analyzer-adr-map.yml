@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.QualityGates
 #     relatives:
 #       page: docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md
 # ---

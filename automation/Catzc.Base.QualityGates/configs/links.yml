@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/links.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.QualityGates
 #     relatives:
 #       page: docs/references/automation/catzc-base-qualitygates/configs/links.yml.md
 # ---

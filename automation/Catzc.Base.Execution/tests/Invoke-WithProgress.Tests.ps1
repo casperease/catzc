@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Invoke-WithProgress.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Execution
     relatives:
       source: automation/Catzc.Base.Execution/Invoke-WithProgress.ps1
 ---

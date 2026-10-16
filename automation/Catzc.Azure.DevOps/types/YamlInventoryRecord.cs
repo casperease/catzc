@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/types/YamlInventoryRecord.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Azure.DevOps
     relatives:
       page: docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md

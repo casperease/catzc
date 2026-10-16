@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/github/dora-explains.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: e0aa789e446d
     links:
       - docs/adr/github/github-release.md

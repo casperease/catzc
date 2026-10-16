@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/contracts.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: b5678246da49
     links:
       - docs/adr/principles/one-living-version.md

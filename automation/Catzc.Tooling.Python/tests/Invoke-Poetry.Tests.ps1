@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Python/tests/Invoke-Poetry.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Python
     relatives:
       source: automation/Catzc.Tooling.Python/Invoke-Poetry.ps1
 ---

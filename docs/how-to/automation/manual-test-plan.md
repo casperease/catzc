@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: "63acd364cda0"
     links:
       - docs/how-to/automation/manual-test-plan/adr-registry.md

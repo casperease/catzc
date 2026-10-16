@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/thesis/one-source-of-truth.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: d790814a2975
     defines:
       - ADR-THES-ONETRUTH#{1-6}

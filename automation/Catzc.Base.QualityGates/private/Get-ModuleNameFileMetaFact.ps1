@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-ModuleNameFileMetaFact.ps1
     kind: fact-function
+    language: powershell
+    track: automation
     module: Catzc.Base.QualityGates
     visibility: private
     relatives:
@@ -11,10 +13,10 @@ catzc:
     adrs:
       - ADR-REPO-CODEMETA#2
   config:
-    synopsis: 'The module-name meta kind''s fact: the module a file belongs to, the folder under the modules root.'
+    synopsis: 'The module-name meta kind''s fact: the module a file is placed in, the folder under the automation track''s root.'
     description: |-
-      The modules root is the kind's `root` setting, `automation` unless the registry says otherwise. A file outside any module is an error,
-      since the kind's globs should never select one.
+      The module is the one Get-PathModule names for the path, from the root of the `automation` track in the `tracks` registry. A file
+      placed in no module gets an empty value, so the key is left out of its head.
     parameters:
       State: What the file's carrier reader returned.
       Path: The file's repository-relative path.
@@ -38,13 +40,6 @@ function Get-ModuleNameFileMetaFact {
         [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
-    $root = if ($Kind.settings.ContainsKey('root')) {
-        "$($Kind.settings['root'])"
-    }
-    else {
-        'automation'
-    }
-    $match = [regex]::Match($Path, '^' + [regex]::Escape($root) + '/(?<module>[^/]+)/')
-    Assert-True $match.Success -ErrorText "file-meta config: kind '$($Kind.id)' applies to files under $root/<module>/, but selected '$Path'."
-    [ordered]@{ $Kind.keys[0] = $match.Groups['module'].Value }
+    $module = Get-PathModule $Path
+    [ordered]@{ $Kind.keys[0] = $(if ($module) { $module } else { '' }) }
 }

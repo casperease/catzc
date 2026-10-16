@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure/types/NetworkEnvironment.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Azure
     relatives:
       page: docs/references/automation/catzc-azure/types/NetworkEnvironment.cs.md

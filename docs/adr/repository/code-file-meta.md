@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: dd2ec1253847
     defines:
       - ADR-REPO-CODEMETA#{1-5}

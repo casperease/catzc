@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Base.TypesSystem
     visibility: public
     relatives:

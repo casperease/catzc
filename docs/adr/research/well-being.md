@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/well-being.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: bfee8c5bb34b
     defines:
       - ADR-DORA-WELLBEING#{1-4}

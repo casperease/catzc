@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/Assert-AdoNaming.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Variants
     visibility: public
     relatives:

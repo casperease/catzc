@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/waf/cost-optimization.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: b885ae6df735
     defines:
       - ADR-AZ-WAFCO#{1-14}

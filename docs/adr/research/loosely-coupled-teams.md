@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/loosely-coupled-teams.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "24f01e1c2517"
     defines:
       - ADR-DORA-LOOSETEAMS#{1-5}

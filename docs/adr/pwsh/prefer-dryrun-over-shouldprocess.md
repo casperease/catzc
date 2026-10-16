@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/prefer-dryrun-over-shouldprocess.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: b09ed58f0b41
     defines:
       - ADR-PWSH-DRYRUN#{1-5}

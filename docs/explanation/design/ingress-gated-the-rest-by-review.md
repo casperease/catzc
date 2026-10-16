@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/ingress-gated-the-rest-by-review.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "38ff1b133ab0"
     adrs:
       - ADR-DSGN-LIFE#6

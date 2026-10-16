@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/pipelines/ci-automation.yaml.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "77798bd827ed"
     adrs:

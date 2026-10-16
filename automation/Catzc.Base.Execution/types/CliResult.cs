@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/types/CliResult.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Execution
     relatives:
       page: docs/references/automation/catzc-base-execution/types/CliResult.cs.md

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/landing-zone-security.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: acf70e0b97e3
     defines:
       - ADR-AZ-CAFSEC#{1-45}

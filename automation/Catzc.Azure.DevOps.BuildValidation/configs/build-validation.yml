@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Azure.DevOps.BuildValidation
 #     relatives:
 #       page: docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
 # ---

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: c4ca1369b0fc
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

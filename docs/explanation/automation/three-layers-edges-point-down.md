@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/three-layers-edges-point-down.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: a9f5e8f8eb54
     adrs:
       - ADR-AUTO-DEPM#{1,3,4}

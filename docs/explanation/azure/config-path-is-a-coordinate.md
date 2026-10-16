@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/azure/config-path-is-a-coordinate.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "2356399464e7"
     adrs:
       - ADR-AZ-CUSTOMER#6

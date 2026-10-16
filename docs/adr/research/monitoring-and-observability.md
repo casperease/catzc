@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/monitoring-and-observability.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "8030049afc9c"
     defines:
       - ADR-DORA-OBSERV#{1-5}

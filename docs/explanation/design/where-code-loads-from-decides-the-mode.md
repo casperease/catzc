@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/where-code-loads-from-decides-the-mode.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: c603138d451b
     adrs:
       - ADR-DSGN-RUNMODE#{1,2,4,5}

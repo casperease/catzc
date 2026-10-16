@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/idempotent-state-functions.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "5f53c1942c70"
     defines:
       - ADR-AUTO-IDEM#{1-5}

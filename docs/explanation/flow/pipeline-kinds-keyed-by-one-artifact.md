@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "3af8354b998e"
     adrs:
       - ADR-FLOW-CD#{3-5,7,9,11}

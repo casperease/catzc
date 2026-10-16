@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "8a43d969f52d"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

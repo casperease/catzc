@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Folders
     relatives:
       source: automation/Catzc.Base.Folders/types/FolderWalker.cs
     adrs:

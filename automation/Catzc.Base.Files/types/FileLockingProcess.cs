@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/types/FileLockingProcess.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.Files
     relatives:
       page: docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md

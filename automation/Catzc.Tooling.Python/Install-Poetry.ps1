@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Python/Install-Poetry.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Python
     visibility: public
   config:

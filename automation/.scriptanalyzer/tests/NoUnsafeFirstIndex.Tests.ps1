@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1.md
     adrs:

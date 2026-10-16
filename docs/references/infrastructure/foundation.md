@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/infrastructure/foundation.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "827ea9e79c69"
     links:
       - docs/adr/azure/azure-data-model.md

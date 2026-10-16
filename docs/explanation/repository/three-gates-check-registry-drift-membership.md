@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/three-gates-check-registry-drift-membership.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "413a6f2fae83"
     adrs:
       - ADR-AUTO-TEST#35

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.DevOps
     visibility: public
     relatives:

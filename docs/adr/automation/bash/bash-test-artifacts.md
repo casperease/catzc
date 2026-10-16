@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/bash/bash-test-artifacts.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "21cff11877fd"
     defines:
       - ADR-AUTO-BASH#{1-6}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/opted-in-then-link-copy-or-render.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "439b2b02352f"
     adrs:
       - ADR-REPO-ROOTCFG#{2,4,5,7,8}

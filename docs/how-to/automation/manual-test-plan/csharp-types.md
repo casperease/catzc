@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/csharp-types.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: "6880bc8382a3"
     links:
       - docs/how-to/automation/manual-test-plan.md

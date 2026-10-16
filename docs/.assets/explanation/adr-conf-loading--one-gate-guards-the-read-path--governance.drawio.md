@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "02fdd027ee7f"
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

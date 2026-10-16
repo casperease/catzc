@@ -5,6 +5,7 @@ catzc:
     path: importer.ps1
     source: automation/.internal/Catzc.Internal.Importer.psm1
     kind: tracked-generated-from-source
+    language: powershell
     generator: automation/Catzc.Base.ModuleSystem/New-Importer.ps1
 ---
 #>

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/GeneratedFilesConfig.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.QualityGates
     relatives:
       test: automation/Catzc.Base.QualityGates/tests/types/GeneratedFilesConfig.Tests.ps1

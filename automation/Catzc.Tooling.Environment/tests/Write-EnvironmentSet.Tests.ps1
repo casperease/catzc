@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Environment
     relatives:
       page: docs/references/automation/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md
       source: automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/process/observe-work.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "352ee47a842a"
     defines:
       - ADR-PROC-OBSERVEWIP#{1-4}

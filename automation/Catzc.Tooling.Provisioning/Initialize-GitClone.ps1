@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Provisioning
     visibility: public
     relatives:

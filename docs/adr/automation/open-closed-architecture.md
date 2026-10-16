@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/open-closed-architecture.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "311142b2a5ab"
     defines:
       - ADR-AUTO-EXTEND#{1,3-5}

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Docs
     relatives:
       page: docs/references/automation/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md
       source: automation/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1

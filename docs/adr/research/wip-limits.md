@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/wip-limits.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "1e022637106f"
     defines:
       - ADR-DORA-WIP#{1-5}

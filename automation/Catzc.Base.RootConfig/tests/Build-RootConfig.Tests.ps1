@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.RootConfig
     relatives:
       page: docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md
       source: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
@@ -54,7 +57,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     It 'copies a source entry out under a generated-from-source head naming the source and Build-RootConfig as its generator' {
         Build-RootConfig | Out-Null
         $text = [System.IO.File]::ReadAllText($script:copyTarget)
-        $text | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: fixture.yml`n#     source: sources/fixture.yml`n#     kind: generated-from-source`n#     generator: automation/Catzc.Widget/Build-RootConfig.ps1`n# ---`n`nalpha: 1`nbeta: 2`n"
+        $text | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: fixture.yml`n#     source: sources/fixture.yml`n#     kind: generated-from-source`n#     language: yaml`n#     generator: automation/Catzc.Widget/Build-RootConfig.ps1`n# ---`n`nalpha: 1`nbeta: 2`n"
     }
 
     It 'renders a generator entry through the dispatch, under a head naming the generator and its sources' {

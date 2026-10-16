@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/which-run-mode-rules-have-a-gate.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "6ae87099e7a9"
     adrs:
       - ADR-AUTO-ASSETDEP#1

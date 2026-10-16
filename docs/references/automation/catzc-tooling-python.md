@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "91d4c2ecf7e8"
     links:
       - docs/adr/automation/controlling-systemwide-deps.md

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: cda664cacc34
     adrs:
       - ADR-FLOW-CD#{3-5,12}

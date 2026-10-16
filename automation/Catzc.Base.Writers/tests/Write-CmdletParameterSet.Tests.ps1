@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/Write-CmdletParameterSet.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Writers
     relatives:
       source: automation/Catzc.Base.Writers/Write-CmdletParameterSet.ps1
 ---

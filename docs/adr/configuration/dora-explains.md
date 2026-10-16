@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/configuration/dora-explains.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: da96fc3b252a
     links:
       - docs/adr/configuration/config-value-addressing.md

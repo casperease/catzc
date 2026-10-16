@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/one-registry-one-writer-two-primitives.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "8ebc8a912f72"
     adrs:
       - ADR-REPO-ROOTCFG#{2,4,7}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/configuration/one-gate-guards-the-read-path.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: cd955d1c421d
     adrs:
       - ADR-AUTO-TEST#35

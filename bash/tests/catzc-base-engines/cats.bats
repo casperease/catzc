@@ -3,6 +3,8 @@
 #   derived:
 #     path: bash/tests/catzc-base-engines/cats.bats
 #     kind: shell-test
+#     language: bash
+#     track: bash
 # ---
 
 # Black-box tests of the bash engine's entry, importer.sh, and its cats dispatcher (Catzc.Base.Engines).

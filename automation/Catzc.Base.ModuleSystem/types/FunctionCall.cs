@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/types/FunctionCall.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Base.ModuleSystem
     relatives:
       page: docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md

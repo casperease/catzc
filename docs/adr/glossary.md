@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/glossary.md
     kind: tracked-generated-from-source
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.Docs/Build-Glossary.ps1
 ---
 

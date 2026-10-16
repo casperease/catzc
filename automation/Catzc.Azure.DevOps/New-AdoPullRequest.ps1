@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
     kind: writer-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.DevOps
     visibility: public
     relatives:

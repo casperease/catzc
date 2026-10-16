@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Repository
     relatives:
       page: docs/references/automation/catzc-base-repository/tests/types/SyntaxSearch.Tests.ps1.md
       source: automation/Catzc.Base.Repository/types/SyntaxSearch.cs

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/azure/read-the-session-guard-then-pick-slot.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: c8f5d7858cb5
     adrs:
       - ADR-AZ-DATAMOD#{4,5,7}

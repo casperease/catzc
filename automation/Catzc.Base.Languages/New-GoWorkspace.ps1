@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/New-GoWorkspace.ps1
     kind: writer-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Languages
     visibility: public
     relatives:

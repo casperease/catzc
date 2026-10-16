@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Objects
     visibility: private
     relatives:

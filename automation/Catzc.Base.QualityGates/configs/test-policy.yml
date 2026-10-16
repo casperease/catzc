@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/test-policy.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.QualityGates
 #     relatives:
 #       page: docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md
 # ---

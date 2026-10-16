@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/python/python-test-artifacts.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: a619bc4a2253
     defines:
       - ADR-AUTO-PY#{1-8}

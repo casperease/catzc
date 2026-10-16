@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
     kind: gate-function
+    language: powershell
+    track: automation
     module: Catzc.Base.ModuleSystem
     visibility: public
     relatives:

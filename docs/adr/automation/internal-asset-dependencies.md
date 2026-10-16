@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/internal-asset-dependencies.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "7aba34771d45"
     defines:
       - ADR-AUTO-ASSETDEP#{1-5}

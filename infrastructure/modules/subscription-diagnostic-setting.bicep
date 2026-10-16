@@ -3,6 +3,8 @@
 //   derived:
 //     path: infrastructure/modules/subscription-diagnostic-setting.bicep
 //     kind: bicep-module
+//     language: bicep
+//     track: infrastructure
 //     relatives:
 //       page: docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md
 // ---

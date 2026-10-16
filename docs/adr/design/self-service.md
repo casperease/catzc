@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/design/self-service.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: fd71bc64643a
     defines:
       - ADR-DSGN-SELFSERV#{1-5}

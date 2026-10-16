@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: "5242912b6ef5"
     adrs:

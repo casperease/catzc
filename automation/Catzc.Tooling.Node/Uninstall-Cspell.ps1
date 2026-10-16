@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Node/Uninstall-Cspell.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Tooling.Node
     visibility: public
   config:

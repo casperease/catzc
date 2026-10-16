@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pipelines/dual-authentication.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "245b02b1e15b"
     defines:
       - ADR-PIPE-AUTH#{1-7}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/console-output-matters.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "62369ae583c9"
     defines:
       - ADR-AUTO-CONSOLE#{1,3-12}

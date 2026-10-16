@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Asserts/tests/Assert-PsModule.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Asserts
     relatives:
       source: automation/Catzc.Base.Asserts/Assert-PsModule.ps1
 ---

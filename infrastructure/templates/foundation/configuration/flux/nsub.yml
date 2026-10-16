@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/foundation/configuration/flux/nsub.yml
 #     kind: bicep-template-config
+#     language: yaml
+#     track: infrastructure
 # ---
 
 # foundation, flux nonprod subscription (env nsub, customer flux). flux is dev-only -> nonprod only.

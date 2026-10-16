@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/only-automation-compiles-its-aspects.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: edf1d50add6a
     adrs:
       - ADR-DSGN-ASPECT#{2-4}

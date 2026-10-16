@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "0851cc5cff01"
     adrs:
       - ADR-CONF-ADDRESSING#{1-3}

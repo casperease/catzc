@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/foundation/configuration/nsub.yml
 #     kind: bicep-template-config
+#     language: yaml
+#     track: infrastructure
 # ---
 
 # foundation, shared nonprod subscription (env nsub). One config file ⟷ one resource group.

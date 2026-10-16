@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/caf/billing-and-tenant.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "43969d556544"
     defines:
       - ADR-AZ-CAFBILL#{1-61}

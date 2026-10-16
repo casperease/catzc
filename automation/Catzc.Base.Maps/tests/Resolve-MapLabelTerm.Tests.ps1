@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Maps
     relatives:
       source: automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
 ---

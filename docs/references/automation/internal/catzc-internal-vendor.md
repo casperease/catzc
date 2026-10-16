@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/internal/catzc-internal-vendor.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: af35dd6b1d66
     links:
       - docs/adr/principles/one-living-version.md

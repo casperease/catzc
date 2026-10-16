@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: d07547ca561f
     links:
       - docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png

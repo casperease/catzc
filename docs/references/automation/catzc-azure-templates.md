@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: c62eb7ef9ecb
     links:
       - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md

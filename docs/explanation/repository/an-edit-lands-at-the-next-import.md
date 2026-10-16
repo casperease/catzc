@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/an-edit-lands-at-the-next-import.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: d1258477412c
     adrs:
       - ADR-AUTO-CACHE#6

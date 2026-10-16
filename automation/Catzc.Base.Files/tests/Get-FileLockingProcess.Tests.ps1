@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/tests/Get-FileLockingProcess.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Files
     relatives:
       source: automation/Catzc.Base.Files/Get-FileLockingProcess.ps1
 ---

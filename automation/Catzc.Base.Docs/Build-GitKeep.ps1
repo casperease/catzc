@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/Build-GitKeep.ps1
     kind: writer-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Docs
     visibility: public
     relatives:

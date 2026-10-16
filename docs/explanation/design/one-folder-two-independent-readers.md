@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/one-folder-two-independent-readers.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "42f43edabf19"
     adrs:
       - ADR-DSGN-ASPECT#{1,2,4}

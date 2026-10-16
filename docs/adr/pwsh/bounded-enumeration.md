@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/bounded-enumeration.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: b0131730897a
     defines:
       - ADR-PWSH-ENUM#{1-6}

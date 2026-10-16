@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/Assert-IsNotTimeoutExempt.ps1
     kind: assert-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Timeouts
     visibility: public
     relatives:

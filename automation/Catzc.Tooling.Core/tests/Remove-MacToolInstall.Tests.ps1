@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Core
     relatives:
       page: docs/references/automation/catzc-tooling-core/tests/Remove-MacToolInstall.Tests.ps1.md
       source: automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1

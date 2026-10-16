@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/consumer-overlay.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: ff4554a3466b
     defines:
       - ADR-AUTO-OVERLAY#{1-9}

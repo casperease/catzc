@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/New-AdoPullRequest.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Azure.DevOps
     relatives:
       page: docs/references/automation/catzc-azure-devops/tests/New-AdoPullRequest.Tests.ps1.md
       source: automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1

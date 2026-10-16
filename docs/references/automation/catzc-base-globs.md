@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "4cee0d74457d"
     adrs:
       - ADR-AUTO-TEST#35

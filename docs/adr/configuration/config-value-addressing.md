@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/configuration/config-value-addressing.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "0556ee64f476"
     defines:
       - ADR-CONF-ADDRESSING#{1-5}

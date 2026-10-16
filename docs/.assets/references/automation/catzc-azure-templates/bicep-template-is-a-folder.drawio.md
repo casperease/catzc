@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "8061b764a8d1"
     adrs:
       - ADR-AUTO-TYPES#9

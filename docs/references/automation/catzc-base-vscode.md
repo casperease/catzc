@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: eff1880109ad
     links:
       - docs/adr/repository/generated-root-configs.md

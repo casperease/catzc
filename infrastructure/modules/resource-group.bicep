@@ -3,6 +3,8 @@
 //   derived:
 //     path: infrastructure/modules/resource-group.bicep
 //     kind: bicep-module
+//     language: bicep
+//     track: infrastructure
 //     relatives:
 //       page: docs/references/infrastructure/modules/resource-group.bicep.md
 // ---

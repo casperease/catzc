@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/script-scope-caching.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "58af15b8aa6f"
     defines:
       - ADR-PWSH-CACHE#{1,2,4,5}

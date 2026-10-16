@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/repository/conventional-folders.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "4830a266e06c"
     defines:
       - ADR-REPO-FOLDERS#{1-11}

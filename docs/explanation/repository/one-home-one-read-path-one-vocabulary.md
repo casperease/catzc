@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "7272a8567547"
     adrs:
       - ADR-AUTO-CACHE#6

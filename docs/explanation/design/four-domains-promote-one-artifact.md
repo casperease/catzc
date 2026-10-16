@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/four-domains-promote-one-artifact.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: dfa7b99511ce
     adrs:
       - ADR-DSGN-LIFE#{5-8}

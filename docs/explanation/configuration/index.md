@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/configuration/index.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "606fa1843e29"
     links:
       - docs/adr/configuration/module-config-loading.md

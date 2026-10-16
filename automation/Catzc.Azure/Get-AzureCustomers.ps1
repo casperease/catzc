@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure/Get-AzureCustomers.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Azure
     visibility: public
     relatives:

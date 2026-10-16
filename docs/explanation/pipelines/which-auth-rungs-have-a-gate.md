@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "514628fc27ea"
     adrs:
       - ADR-FLOW-CD-DETECT#1

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/BCL/native-csharp-types.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: a55d51dfadd7
     defines:
       - ADR-AUTO-TYPES#{1-4,7-9,11-15}

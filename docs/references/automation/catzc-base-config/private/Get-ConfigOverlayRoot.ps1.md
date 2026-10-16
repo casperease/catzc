@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
     kind: comment-page
+    language: markdown
+    track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     body_sha: beba738f27a0
     adrs:

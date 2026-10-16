@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-RelativesFileMetaFact.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.QualityGates
     relatives:
       source: automation/Catzc.Base.QualityGates/private/Get-RelativesFileMetaFact.ps1
     adrs:
@@ -36,6 +39,8 @@ Describe 'Get-RelativesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#10',
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Kind = $Kind; Path = $Path; Root = $TestDrive } {
                 param($Kind, $Path, $Root)
                 Mock Get-RepositoryRoot { $Root }
+                # The fixture modules live under widgets/, which is no track of the shipped registry; the resolver's own tests prove the real rule.
+                Mock Get-PathModule { (($Path -replace '\\', '/') -split '/')[1] }
                 Mock Get-Config { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }) }
                 (Get-RelativesFileMetaFact -State ([pscustomobject]@{}) -Path $Path -Kind $Kind)['relatives']
             }

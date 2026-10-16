@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/types/ToolStatusKind.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Tooling.Provisioning
     relatives:
       page: docs/references/automation/catzc-tooling-provisioning/types/ToolStatusKind.cs.md

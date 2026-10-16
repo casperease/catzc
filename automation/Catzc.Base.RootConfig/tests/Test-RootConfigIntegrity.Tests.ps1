@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.RootConfig
     relatives:
       page: docs/references/automation/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md
     adrs:

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/working-in-small-batches.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "9e7c3e8c16ec"
     defines:
       - ADR-DORA-SMALLBATCH#{1-6}

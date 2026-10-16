@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/continuous-delivery.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: f32418cd25eb
     defines:
       - ADR-DORA-CD#{1-5}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "9e788ffe9315"
     adrs:
       - ADR-AUTO-TEST#35

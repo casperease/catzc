@@ -3,6 +3,8 @@
 #   derived:
 #     path: python/tests/catzc-base-repository/test_repository.py
 #     kind: python-test
+#     language: python
+#     track: python
 # ---
 
 """Black-box tests of Catzc.Base.Repository.

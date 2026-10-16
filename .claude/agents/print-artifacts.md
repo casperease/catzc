@@ -11,6 +11,8 @@ catzc:
   derived:
     path: ".claude/agents/print-artifacts.md"
     kind: claude-agent
+    language: markdown
+    track: ".claude"
     body_sha: a50534912aec
     links:
       - ".claude/CLAUDE.md#time-safeguard"

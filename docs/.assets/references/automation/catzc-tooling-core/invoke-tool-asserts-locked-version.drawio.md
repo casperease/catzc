@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: "26e79173250c"
     adrs:
       - ADR-AUTO-DEPS#3

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Overlay
     relatives:
       source: automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
     adrs:

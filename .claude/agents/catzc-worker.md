@@ -12,6 +12,8 @@ catzc:
   derived:
     path: ".claude/agents/catzc-worker.md"
     kind: claude-agent
+    language: markdown
+    track: ".claude"
     body_sha: dd3204360d3a
     adrs:
       - ADR-AUTO-TEST#3

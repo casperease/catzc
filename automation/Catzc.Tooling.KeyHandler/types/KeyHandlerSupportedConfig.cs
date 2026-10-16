@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
     kind: csharp-type
+    language: csharp
+    track: automation
     module: Catzc.Tooling.KeyHandler
     relatives:
       page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md

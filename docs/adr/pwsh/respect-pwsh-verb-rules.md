@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pwsh/respect-pwsh-verb-rules.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "06c7a83a306a"
     defines:
       - ADR-PWSH-VERBS#{1-7}

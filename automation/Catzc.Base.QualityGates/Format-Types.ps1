@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Format-Types.ps1
     kind: format-function
+    language: powershell
+    track: automation
     module: Catzc.Base.QualityGates
     visibility: public
     relatives:

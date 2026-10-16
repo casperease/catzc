@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/user-centric-focus.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: f9bb86787adb
     defines:
       - ADR-DORA-USERFOCUS#{1-5}

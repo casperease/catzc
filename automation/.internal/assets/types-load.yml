@@ -3,6 +3,8 @@
 #   derived:
 #     path: automation/.internal/assets/types-load.yml
 #     kind: asset
+#     language: yaml
+#     track: automation
 # ---
 
 # How the combined C# types assembly is loaded, one row per mode: <host>.<os>.<run mode>.

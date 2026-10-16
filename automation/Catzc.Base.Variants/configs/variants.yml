@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Variants/configs/variants.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Variants
 #     relatives:
 #       page: docs/references/automation/catzc-base-variants/configs/variants.yml.md
 # ---

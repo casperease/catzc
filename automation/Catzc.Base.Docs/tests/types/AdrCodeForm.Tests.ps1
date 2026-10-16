@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Docs
     relatives:
       source: automation/Catzc.Base.Docs/types/AdrCodeForm.cs
     adrs:
@@ -66,7 +69,7 @@ Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
             @{ Name = 'a lower-case code'; Token = 'adr-widget-gadget#1' }
             @{ Name = 'a rule with no code'; Token = '#1' }
             @{ Name = 'a bare #'; Token = 'ADR-WIDGET-GADGET#' }
-            @{ Name = 'the colon spelling'; Token = 'ADR-WIDGET-GADGET:1' }
+            @{ Name = 'the colon spelling'; Token = ('ADR-WIDGET-GADGET' + ':1') }
             @{ Name = 'a star rule'; Token = 'ADR-WIDGET-GADGET#*' }
             @{ Name = 'a prefix glob'; Token = 'ADR-WIDGET-*' }
             @{ Name = 'a trailing newline'; Token = "ADR-WIDGET-GADGET#1`n" }

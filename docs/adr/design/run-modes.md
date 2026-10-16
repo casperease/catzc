@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/design/run-modes.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: feb2d9ae1bab
     defines:
       - ADR-DSGN-RUNMODE#{1-7}

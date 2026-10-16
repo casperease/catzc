@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-AdrDomainEdges.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Docs
     relatives:
       page: docs/references/automation/catzc-base-docs/tests/Get-AdrDomainEdges.Tests.ps1.md
       source: automation/Catzc.Base.Docs/Get-AdrDomainEdges.ps1

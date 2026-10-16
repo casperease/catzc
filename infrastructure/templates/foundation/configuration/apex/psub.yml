@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/foundation/configuration/apex/psub.yml
 #     kind: bicep-template-config
+#     language: yaml
+#     track: infrastructure
 # ---
 
 # foundation, apex prod subscription (env psub, customer apex).

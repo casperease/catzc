@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Github
     relatives:
       source: automation/Catzc.Tooling.Github/New-SyntheticHistory.ps1
 ---

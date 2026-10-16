@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/two-crossers-and-three-anchors.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: a93d455cb4f2
     adrs:
       - ADR-AUTO-PATH#{4,7,9,10}

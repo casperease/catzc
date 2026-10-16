@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.KeyHandler
     relatives:
       page: docs/references/automation/catzc-tooling-keyhandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1.md
       source: automation/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1

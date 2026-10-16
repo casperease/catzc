@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/repository/index.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "029a80254290"
     links:
       - docs/adr/index.md#repository

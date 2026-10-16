@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/Invoke-GitCommit.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Files
     visibility: public
     relatives:

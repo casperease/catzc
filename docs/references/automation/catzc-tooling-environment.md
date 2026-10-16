@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-environment.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: f7b6347487cd
     adrs:
       - ADR-AUTO-ENVVAR#{1,7}

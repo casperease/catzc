@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/research/transformational-leadership.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "7ebd59f1084e"
     defines:
       - ADR-DORA-LEADERSHIP#{1-5}

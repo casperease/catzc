@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Toolchain
     relatives:
       page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md
       source: automation/Catzc.Tooling.Toolchain/Install-Uv.ps1

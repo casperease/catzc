@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "951dcc6dc22d"
     adrs:
       - ADR-AUTO-FAILFAST#7

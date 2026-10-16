@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/assets/Import-ModuleFiles.ps1
     kind: asset
+    language: powershell
+    track: automation
 ---
 #>
 

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/principles/one-living-version.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: c6a66d2338ab
     defines:
       - ADR-PRIN-ONELIVE#{1-8}

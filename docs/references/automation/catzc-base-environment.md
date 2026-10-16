@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-environment.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: "4d573737a7ac"
     links:
       - docs/adr/automation/effective-in-enterprises.md

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Get-Contract.Repository.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Base.Contracts
     relatives:
       page: docs/references/automation/catzc-base-contracts/tests/Get-Contract.Repository.Tests.ps1.md
     adrs:

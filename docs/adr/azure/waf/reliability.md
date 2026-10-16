@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/azure/waf/reliability.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "8fe3ab1c81d6"
     defines:
       - ADR-AZ-WAFRE#{1-10}

@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/internal/catzc-internal-importer.md
     kind: reference
+    language: markdown
+    track: docs
     body_sha: e9a5cd44ce14
     adrs:
       - ADR-AUTO-TYPES#13

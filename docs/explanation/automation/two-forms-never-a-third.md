@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/two-forms-never-a-third.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "77b17b73c674"
     adrs:
       - ADR-AUTO-PATH#{1-4,10}

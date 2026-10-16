@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/pipelines/dora-explains.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "25ebce541ef8"
     links:
       - docs/adr/pipelines/custom-template-discipline.md

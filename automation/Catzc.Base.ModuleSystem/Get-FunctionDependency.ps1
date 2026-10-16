@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.ModuleSystem
     visibility: public
     relatives:

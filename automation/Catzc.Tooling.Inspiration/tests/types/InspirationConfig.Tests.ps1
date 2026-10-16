@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
     kind: pester-test
+    language: powershell
+    track: automation
+    module: Catzc.Tooling.Inspiration
     relatives:
       page: docs/references/automation/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md
       source: automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs

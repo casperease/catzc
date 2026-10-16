@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/how-to/getting-started/automation/powershell/index.md
     kind: how-to
+    language: markdown
+    track: docs
     body_sha: "99844aa323bc"
 ---
 

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/private/Get-ChangedFile.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Base.Globs
     visibility: private
     relatives:

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
     kind: writer-function
+    language: powershell
+    track: automation
     module: Catzc.Base.QualityGates
     visibility: public
     relatives:

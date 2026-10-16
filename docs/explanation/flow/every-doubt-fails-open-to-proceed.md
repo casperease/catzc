@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/flow/every-doubt-fails-open-to-proceed.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: ef6923670aa4
     adrs:
       - ADR-FLOW-CD-GLOBS#9

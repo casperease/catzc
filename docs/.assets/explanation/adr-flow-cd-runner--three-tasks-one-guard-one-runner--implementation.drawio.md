@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md
     kind: asset-description
+    language: markdown
+    track: docs
     body_sha: f8a116b285b5
     adrs:
       - ADR-DSGN-TRACK#{9,14-16}

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1
     kind: automation-function
+    language: powershell
+    track: automation
     module: Catzc.Azure.Templates
     visibility: private
     adrs:

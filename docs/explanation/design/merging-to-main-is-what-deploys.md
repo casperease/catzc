@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/merging-to-main-is-what-deploys.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: f0db1a761e05
     adrs:
       - ADR-DSGN-LIFE#9

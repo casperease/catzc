@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/design/get-aspect-names-the-remainder.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: "640b239cd646"
     adrs:
       - ADR-DSGN-ASPECT#3

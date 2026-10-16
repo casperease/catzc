@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/explanation/automation/types-check-forms-review-checks-crossers.md
     kind: explanation
+    language: markdown
+    track: docs
     body_sha: b0cbf15d555a
     adrs:
       - ADR-AUTO-PATH#{1-4,6,7,9-11}

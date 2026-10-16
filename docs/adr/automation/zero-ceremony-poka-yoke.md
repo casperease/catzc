@@ -3,6 +3,8 @@ catzc:
   derived:
     path: docs/adr/automation/zero-ceremony-poka-yoke.md
     kind: adr
+    language: markdown
+    track: docs
     body_sha: "203576ad0251"
     defines:
       - ADR-AUTO-ZERO#{1-3}

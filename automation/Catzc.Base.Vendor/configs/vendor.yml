@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Vendor/configs/vendor.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.Vendor
 #     relatives:
 #       page: docs/references/automation/catzc-base-vendor/configs/vendor.yml.md
 # ---

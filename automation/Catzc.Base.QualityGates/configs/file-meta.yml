@@ -3,6 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/file-meta.yml
 #     kind: yaml-config
+#     language: yaml
+#     track: automation
+#     module: Catzc.Base.QualityGates
 #     relatives:
 #       page: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
 # ---
@@ -73,6 +76,18 @@ kinds:
   file-kind:
     keys: [kind]
 
+  # The file language of the file, from the languages registry by its extension; a file no language lists carries none.
+  file-language:
+    keys: [language]
+
+  # The track whose root folder holds the file, from the tracks registry; a root file, which no track holds, carries none.
+  track:
+    keys: [track]
+
+  # The module the file is placed in, the folder under the automation track's root; a file placed in no module carries none.
+  module-name:
+    keys: [module]
+
   # The file that writes a generated comment page, so the head names its writer; the path is the setting, and the file must exist.
   generator:
     select: [{ classes: [comment-page] }]
@@ -83,11 +98,6 @@ kinds:
   body-sha:
     keys: [body_sha]
     select: [{ languages: [markdown] }]
-
-  # The module a code file belongs to, the folder under automation.
-  module-name:
-    keys: [module]
-    select: [{ classes: [csharp-type, "*-function"] }]
 
   # Whether a PowerShell function file is public or private, from the module's private folder.
   visibility:
