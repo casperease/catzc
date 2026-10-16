@@ -3,7 +3,7 @@ plan:
   status: active
   value: medium-high
   reviewed: 2026-10-16
-  targets: [automation/Catzc.Base.QualityGates/configs/file-meta.yml, automation/Catzc.Base.QualityGates, contracts/catzc/0.0.0, docs/adr/repository/file-meta.md]
+  targets: [automation/Catzc.Base.QualityGates/configs/file-meta.yml, automation/Catzc.Base.QualityGates, automation/Catzc.Base.Globs/configs/file-kinds.yml, automation/Catzc.Base.Variants/configs/module-types.yml, contracts/catzc/0.0.0, docs/adr/repository/file-meta.md]
 ---
 
 # The file head: immutable place facts plus declared edges, with globs spelled once as classes
@@ -36,9 +36,41 @@ and each copy can drift. Below the module model plan because that plan decides w
 - [ ] Class selectors in file-meta.yml, one kind at a time (check: that kind's processor test; Test-FileMeta clean).
 - [ ] Update the memory note file-head-vocabulary (still says derived).
 
+## Done, and why: the file-kinds registry work (session catzc-c1 and follow-up, 2026-10-16)
+
+Reconstructed from the continuation paste of 15:22 and the first lines of out/plan-file-kinds-registry.md, which was deleted today on
+the approved list before this paste arrived. One kinds registry drives file heads, the contract and .gitattributes.
+
+- ADR code minimal form: Catzc.Base.Docs.AdrCodeForm (ADR-X#{1,3-5}, bare ADR-X is the whole ADR, no globs); 4,753 items became 1,685.
+- Head keys: path, folder, name, filetype, kind, subkind, language, track, module, moduletype, catzc_bundle, generator, body_sha;
+  generator names the generator file on every generated head; relatives is page plus test only.
+- File-kinds registry Catzc.Base.Globs/configs/file-kinds.yml (role-only kinds, subkinds, first match wins, fallback other, extendable by
+  a consumer fragment); Get-FileKind; selectors in file-meta.yml name kinds.
+- Module types Catzc.Base.Variants/configs/module-types.yml; Get-PathModule returns name and type.
+- Provided contract draft contracts/catzc/0.0.0: the file-kinds fragment (incl. contract-asset, note, fixture subkind), head.sample.yml,
+  head.schema.json, Format-FileMeta.Contract.Tests.ps1. Freezes at the first unit release.
+- Glossary concepts kind, subkind, file type, module type, bundle; ADR-REPO-FILEMETA#11 and #12.
+- Glob-list migration: comments.yml exclude keyed by kind; the other lists stay on purpose (they say where something applies).
+- Generated .gitattributes classes and the glossary-scan fix: done and verified (paste).
+
+## Open leftovers from that work (checks and questions, left open)
+
+- [ ] Checks not run since its last edits: Test-Spelling, Test-FileMeta, Test-Glossary, Test-Contracts, Test-GeneratedFiles, one by one
+  in the background with scripts under out/; report what is that work's. Not the full Test-Automation. Last known findings, none from
+  that work: Spelling 5 (Unspan x3, nfunction x2 in CommentEngine files), ScriptAnalyzer about 37 (mostly .internal), markdownlint about
+  39 (docs/explanation tables), Test-Formatting flagging .compiled/*.json.
+- [ ] PowerShell versus Powershell: open question for the user, where does the mismatch show. The census found one literal Powershell,
+  in the vendored dotnet-install.ps1:368; everything else is legitimate. Possibly powershell versus pwsh naming (language id, engine,
+  folder), which is a decision, not a typo. Then make it one form.
+- [ ] Typo: module-types.yml pwsh-folder definition reads "under ex. automation"; peer-edited file, left alone; message before touching.
+- [ ] Memory file-head-vocabulary.md was updated for the rename to immutable; one derived mention remains, stale or deliberate unchecked.
+- Not extended, by choice: glossary entries for individual kinds (only the concepts kind and subkind are terms); note becomes a term
+  only if the user wants it. contracts/.gitkeep resolves to other and is left alone.
+
 ## Refs
 
 - carried below in order: the immutable and edges draft, the class selectors draft (formerly out/)
+- prompt-file-kinds-registry-continue.md (beside this file; its reading list names a deleted out/ plan, this file holds that state)
 - docs/adr/repository/file-meta.md
 
 ## Carried: out/plan-file-meta-immutable-edges.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
