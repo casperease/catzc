@@ -13,19 +13,27 @@ catzc:
     tracktype: documentation
   edges:
     defines:
-      - ADR-DSGN-LIFE#{1-10}
+      - ADR-DSGN-LIFE#{1-12}
     cites:
+      - ADR-DSGN-REMOTE#{2,3,4}
       - ADR-DSGN-VISUAL#{12,13}
       - ADR-FLOW-CD#{9,10,14}
+      - ADR-REPO-VARIANT#6
     links:
       - docs/.assets/commits-quality/commit-lifecycle-states.drawio.png
       - docs/.assets/commits-quality/sync-point.drawio.png
+      - docs/adr/design/server-remote-integration.md
+      - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote2
+      - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote3
+      - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote4
       - docs/adr/design/visual-design.md
       - docs/adr/design/visual-design.md#rule-adr-dsgn-visual12
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd10
       - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
       - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9
+      - docs/adr/repository/repo-variants.md
+      - docs/adr/repository/repo-variants.md#rule-adr-repo-variant6
 ---
 
 # ADR: The commit lifecycle — states, environment occupancy, and the stable sync point
@@ -102,7 +110,8 @@ machine decides, up to and including the always-on environment.
 **The dirty HEAD is the latest commit on main and is not a source that is safe to sync or promote from.** HEAD is simply the newest commit;
 it may have _failed_ a downstream stage (for example, died in `main-UAT`). Such a commit is the **dirty HEAD**: it is the tip of main, but
 it must not be synced from and cannot be promoted downstream. Consumers who naively track HEAD are pointed instead at the stable `main-UAT`
-occupant (ADR-DSGN-LIFE#6). "Latest" and "safe to build on" are different questions, and the model keeps them separate.
+occupant (ADR-DSGN-LIFE#6). "Latest" and "safe to build on" are different questions, and the model keeps them separate. A newest commit that
+no stage has judged yet is _landed_, not dirty (ADR-DSGN-LIFE#12).
 
 - [The dirty HEAD](#the-dirty-head)
 
@@ -131,6 +140,24 @@ ending — discarded, retired, superseded, in-process, an environment's occupant
 canonical encoding of this lifecycle (they render the grammar of [ADR-DSGN-VISUAL#12](visual-design.md#rule-adr-dsgn-visual12)).
 
 - [One number, one story](#one-number-one-story)
+
+### Rule ADR-DSGN-LIFE:11
+
+**In `main-direct`, the client lands a commit by one fast push to main, and a push is never a history change.** Every commit reaches the
+server as a single push from the client, carrying the text-field message or `...` when the field is empty. The push fast-forwards the
+server's main; a rejected push (main moved) stops and reports, and the client integrates by hand. A force push, an amend of a pushed
+commit, and an administrator's history change are not supported (ADR-DSGN-LIFE#2). In `main-via-pr` the push is refused locally while
+standing on main/master (ADR-REPO-VARIANT#6).
+
+- [Fast push to main](#fast-push-to-main)
+
+### Rule ADR-DSGN-LIFE:12
+
+**A pushed head is _landed_ until a stage fails it; only a failed head is the dirty HEAD.** A head on main that no stage has verified yet is
+**landed** (grey, ADR-DSGN-LIFE#1). It becomes the dirty HEAD (ADR-DSGN-LIFE#7) only when a downstream stage fails it, and the repair is a
+successor commit that fixes forward, never a rewrite of the failed one.
+
+- [Landed, then dirty](#landed-then-dirty)
 
 ## The ladder
 
@@ -223,6 +250,27 @@ A single commit is hard to follow across stage-organised lanes, so each traced c
 thread. Because git is the only true left-to-right timeline (ADR-DSGN-VISUAL#12), the numbers restore both identity and chronology
 everywhere else: the same digit appears in each lane at its state-of-the-moment colour, and its final appearance is the verdict. The worked
 examples below are the canonical set.
+
+## Fast push to main
+
+`One push lands a commit`
+
+Integration here is continuous, so the cheapest landing wins: the client commits and pushes once, and the machine gates (BVT onward) judge
+the commit after it is on main, not before. That only works if a push can never damage what the server already holds, hence the two
+refusals: no force, no amend of a pushed commit. The one sanctioned failure is a rejected push, where another client landed first; the
+tooling stops and reports rather than rebasing, because rebasing builds the commit on the server's tip, which may be a dirty HEAD
+([ADR-DSGN-REMOTE#2](server-remote-integration.md#rule-adr-dsgn-remote2)). The shortcut belongs to the solo `main-direct` regime
+([ADR-REPO-VARIANT#6](../repository/repo-variants.md#rule-adr-repo-variant6)); once the repo is `main-via-pr`, the PR is the only ingress
+([ADR-DSGN-REMOTE#4](server-remote-integration.md#rule-adr-dsgn-remote4)).
+
+## Landed, then dirty
+
+`Landed is not yet wrong`
+
+Pushing before verifying means the tip of main is often a commit nobody has judged. Calling that commit "dirty" would claim a failure that
+has not happened, so the model names it _landed_ and keeps "dirty HEAD" for the commit a stage actually failed. The distinction matters
+for the response: a landed head waits for its gate; a dirty head gets a fix-forward commit, and consumers stay on the verified point
+meanwhile ([ADR-DSGN-REMOTE#3](server-remote-integration.md#rule-adr-dsgn-remote3)).
 
 ## Worked lifecycle examples
 

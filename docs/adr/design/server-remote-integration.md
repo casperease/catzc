@@ -58,8 +58,8 @@ answers the second.
 
 ### Rule ADR-DSGN-REMOTE:3
 
-**Integrating from verified avoids ever having to reconcile a rewritten or superseded tip.** A dirty HEAD is provisional: it may be fixed
-forward by a successor, superseded by a newer commit that overtakes it, or — where the failed tail is reconciled — cut back. A consumer that
+**Integrating from verified avoids ever having to reconcile a fixed or superseded tip.** A dirty HEAD is provisional: it may be fixed
+forward by a successor or superseded by a newer commit that overtakes it; history is never rewritten (ADR-DSGN-LIFE#2). A consumer that
 built on the verified point never has to negotiate any of that, because the verified history is stable and monotonic (ADR-DSGN-LIFE#1) and
 does not move under it. A consumer that built on the dirty tip inherits its instability and must reconcile when the tip is later fixed.
 Integrate from verified and the reconciliation problem does not exist.
@@ -122,7 +122,7 @@ never the raw HEAD.
 
 The verified history is monotonic and immutable: a commit that reached the verified point is a durable fact no later event un-makes
 (ADR-DSGN-LIFE#1, `ADR-PRIN-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by
-a newer commit that overtakes it, or, when the failed tail is reconciled, cut back. Whatever happens, the tip is subject to change while the
+a newer commit that overtakes it; it is never cut back. Whatever happens, the tip is subject to change while the
 verified point is not. So the choice of integration base is a choice between a stable anchor and a moving one. Building on the stable anchor
 means a later fix to the tip is simply the next thing you pull; building on the moving tip means that same fix can rewrite the ground under
 your work and force a reconciliation you did not need to have. Integrating from verified is what makes "the dirty HEAD got fixed later" a
@@ -155,8 +155,7 @@ is more than one author, the PR ingress is what keeps the mainline audited.
 
 ## Consequences
 
-- A dirty HEAD is a non-event downstream: consumers built on the verified point never reconcile a tip that is later fixed, superseded, or
-  cut back.
+- A dirty HEAD is a non-event downstream: consumers built on the verified point never reconcile a tip that is later fixed or superseded.
 - "What is on main" has one authority — the server remote — so local divergence and un-pushed commits are visibly _not yet_ integrated, not
   a competing truth.
 - The audit trail in `git log` is trustworthy as complete, because the PR is the only authenticated doorway into the protected mainline.
