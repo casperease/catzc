@@ -7,7 +7,7 @@ paths: .claude/plans/**
 metadata: { catzc: { model_floor: sonnet, needs: [] } }
 catzc:
   immutable:
-    with_body_sha: "14a11b7dd8ae"
+    with_body_sha: c2f499f94362
     path: ".claude/skills/plan-decide/SKILL.md"
     folder: skills/plan-decide
     name: skill
@@ -20,6 +20,12 @@ catzc:
     module: ".claude"
     moduletype: settings
 ---
-1. One questionnaire item per open question: one to five lines of context, the options, no links; items are numbered once and never renumbered.
-2. Ask four at a time; the first option is the recommendation and says so; a decision row records Q, Decision, Rec taken, Outcome (two to ten words), Note; a reframing answer is quoted where it carries a new rule.
-3. The user decides; nothing unanswered is decided by the agent; after the round each decision moves into its owning plan one file at a time and the decisions file stays until its decisions are in ADRs.
+
+# plan-decide
+
+1. One questionnaire item per open question: one to five lines of context, the options, no links; items are numbered once and never
+   renumbered.
+2. Ask four at a time; the first option is the recommendation and says so; a decision row records Q, Decision, Rec taken, Outcome (two to
+   ten words), Note; a reframing answer is quoted where it carries a new rule.
+3. The user decides; nothing unanswered is decided by the agent; after the round each decision moves into its owning plan one file at a time
+   and the decisions file stays until its decisions are in ADRs.

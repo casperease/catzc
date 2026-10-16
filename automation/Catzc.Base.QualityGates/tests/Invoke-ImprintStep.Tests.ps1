@@ -135,7 +135,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
     }
 
     Context 'the comments step' {
-        It 'hands the files to Export-Comments as repository-relative paths, and returns what it moved as absolute paths' {
+        It 'hands the files to Export-Comments as absolute paths, and returns what it moved as absolute paths' {
             $gadget = Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'
             $script:gadgetFile = $gadget
             Mock Export-Comments -ModuleName Catzc.Base.QualityGates { [string[]] @('automation/Widget/Get-Gadget.ps1') }
@@ -144,7 +144,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
                 Invoke-ImprintStep -Step comments -File $File -RepositoryRoot $Root -DryRun
             }
             Should -Invoke Export-Comments -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-                $DryRun -and ($Path -join '|') -eq 'automation/Widget/Get-Gadget.ps1'
+                $DryRun -and ($Path -join '|') -eq $script:gadgetFile
             }
             $outcome.Changed | Should -Be @($gadget)
             $outcome.Unfixable.Count | Should -Be 0

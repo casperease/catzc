@@ -68,8 +68,9 @@ step, and it resolves every `supported_by` citation to a real rule and every `ch
 
 ### Rule ADR-REPO-AGENTS:6
 
-A sub-agent is a **robot**: its file's body, everything after the front matter, has at most `roofs.agent_body_lines` non-blank lines
-(20, declared once on `AgentsConfig` and set in `agents.yml`); its front matter carries only the robot keys in their fixed order
+A sub-agent is a **robot**: its file's body, everything after the front matter, has at most `roofs.agent_body_lines` lines (20, declared
+once on `AgentsConfig` and set in `agents.yml`), a line being one that starts something of its own, so a wrapped continuation counts
+with the line it continues and a blank or comment line counts as nothing; its front matter carries only the robot keys in their fixed order
 (`name`, `description`, `tools`, `disallowedTools`, `model`, `effort`, `maxTurns`, `skills`, then the catzc head); and its body is one
 job line, numbered steps of one action each, and the report line. The contracts every robot reads first (`agents.yml` `contracts`, today
 `ADR-AI`) are named once, there and in `.claude/CLAUDE.md`, never in a file's front matter.
@@ -88,7 +89,8 @@ capability's steps reliably.
 
 A **capability** is one file `.claude/skills/<domain>-<job>/SKILL.md` (lowercase letters, digits and hyphens, the only characters the
 harness accepts in a skill name) that a robot preloads through its `skills` list: at most
-`roofs.capability_lines` lines outside its catzc head (10, the `---` delimiters excluded), with `name` equal to its folder,
+`roofs.capability_lines` lines outside its catzc head (10, the `---` delimiters excluded, lines counted as rule 6 counts them), with
+`name` equal to its folder,
 `user-invocable: false`, `allowed-tools`, and a `metadata.catzc.model_floor` of `haiku`, `sonnet` or `opus`, declared there once and
 nowhere else.
 

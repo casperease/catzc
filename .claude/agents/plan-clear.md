@@ -1,9 +1,9 @@
 ---
 name: plan-clear
 description: >
-  Use this agent to clean the plans in `.claude/plans/`: one plan file, or the whole folder when none is given. It gives a verdict per
-  plan rule (keep, trim, re-point, delete, intake), acts on the verdicts one file at a time, re-checks links, and reports. Do NOT use it
-  to write a new plan, to edit a file another session has dirty, or to delete a plan that still has an open step.
+  Use this agent to clean the plans in `.claude/plans/`: one plan file, or the whole folder when none is given. It gives a verdict per plan
+  rule (keep, trim, re-point, delete, intake), acts on the verdicts one file at a time, re-checks links, and reports. Do NOT use it to write
+  a new plan, to edit a file another session has dirty, or to delete a plan that still has an open step.
 tools: Bash, Read, Glob, Grep, Write, Edit
 disallowedTools: ""
 model: sonnet
@@ -12,7 +12,7 @@ maxTurns: 30
 skills: [plan-shape, md-links, catzc-run, catzc-check, git-readonly, report-fixed]
 catzc:
   immutable:
-    with_body_sha: f72fbd5619bf
+    with_body_sha: e6ce429d7643
     path: ".claude/agents/plan-clear.md"
     folder: agents
     name: plan-clear
@@ -25,6 +25,8 @@ catzc:
     module: ".claude"
     moduletype: settings
 ---
+
+# plan-clear
 
 Clean the given plan, or every `.claude/plans/plan-*.md` when none is given, to the plan-shape rules.
 

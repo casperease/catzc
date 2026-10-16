@@ -100,8 +100,8 @@ function Invoke-ImprintStep {
                 return $outcome
             }
             # The step writes a file and its comment page, so the page is a companion of the file, not a second subject of the step.
-            $relative = [string[]] @($File | ForEach-Object { [System.IO.Path]::GetRelativePath($root, $_) -replace '\\', '/' })
-            $moved = @(Export-Comments -Path $relative -RepositoryRoot $root -DryRun:$DryRun)
+            # The paths stay absolute: the link scope resolves a relative -Path against the current location, which is not the root.
+            $moved = @(Export-Comments -Path $File -RepositoryRoot $root -DryRun:$DryRun)
             $outcome.Changed = [string[]] @($moved | ForEach-Object { & $absolute $_ })
         }
         default {

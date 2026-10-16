@@ -232,16 +232,16 @@ function Test-AgentDefinitions {
     $ruleIds = [System.Collections.Generic.HashSet[string]]::new($ruleIdList, [System.StringComparer]::Ordinal)
     foreach ($entry in $config.agents) {
         if (-not $fileNames.Contains($entry.name)) {
-            $issues.Add("agents.yml: agent '$($entry.name)' has no file .claude/agents/$($entry.name).md")
+            $issues.Add("automation/Catzc.Base.Docs/configs/agents.yml: agent '$($entry.name)' has no file .claude/agents/$($entry.name).md")
         }
         foreach ($citation in $entry.supported_by) {
             if (-not $ruleIds.Contains($citation.Replace('#', ':'))) {
-                $issues.Add("agents.yml: agent '$($entry.name)' supported_by '$citation' names no ADR rule")
+                $issues.Add("automation/Catzc.Base.Docs/configs/agents.yml: agent '$($entry.name)' supported_by '$citation' names no ADR rule")
             }
         }
         foreach ($check in $entry.checks) {
             if (-not (Get-Command -Name $check -ErrorAction Ignore)) {
-                $issues.Add("agents.yml: agent '$($entry.name)' checks '$check' names no command")
+                $issues.Add("automation/Catzc.Base.Docs/configs/agents.yml: agent '$($entry.name)' checks '$check' names no command")
             }
         }
     }
@@ -250,16 +250,16 @@ function Test-AgentDefinitions {
     foreach ($entry in $capabilityConfig.capabilities) {
         [void]$registered.Add($entry.name)
         if (-not $capabilityNames.Contains($entry.name)) {
-            $issues.Add("capabilities.yml: capability '$($entry.name)' has no file .claude/skills/$($entry.name)/SKILL.md")
+            $issues.Add("automation/Catzc.Base.Docs/configs/capabilities.yml: capability '$($entry.name)' has no file .claude/skills/$($entry.name)/SKILL.md")
         }
         foreach ($citation in $entry.supported_by) {
             if (-not $ruleIds.Contains($citation.Replace('#', ':'))) {
-                $issues.Add("capabilities.yml: capability '$($entry.name)' supported_by '$citation' names no ADR rule")
+                $issues.Add("automation/Catzc.Base.Docs/configs/capabilities.yml: capability '$($entry.name)' supported_by '$citation' names no ADR rule")
             }
         }
         foreach ($check in $entry.checks) {
             if (-not (Get-Command -Name $check -ErrorAction Ignore)) {
-                $issues.Add("capabilities.yml: capability '$($entry.name)' checks '$check' names no command")
+                $issues.Add("automation/Catzc.Base.Docs/configs/capabilities.yml: capability '$($entry.name)' checks '$check' names no command")
             }
         }
     }

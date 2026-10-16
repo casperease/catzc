@@ -7,7 +7,7 @@ paths: .claude/plans/**
 metadata: { catzc: { model_floor: sonnet, needs: [] } }
 catzc:
   immutable:
-    with_body_sha: a5bcfb81ac16
+    with_body_sha: ecc1dfef34ad
     path: ".claude/skills/plan-shape/SKILL.md"
     folder: skills/plan-shape
     name: skill
@@ -20,6 +20,11 @@ catzc:
     module: ".claude"
     moduletype: settings
 ---
+
+# plan-shape
+
 1. Read the head: `plan:` with status, value, reviewed, targets; the name is `plan-<topic>.md`, no rank or order prefix.
-2. One verdict per rule, each with the line it rests on: keep; trim (carried text whose data is in the tree); re-point (`out/plan-x.md` for a sibling, relative links written from out/); delete (no open step); intake (a pasted item no plan holds).
-3. Act on one verdict at a time with Edit, re-read the file after each; never delete a plan that still has an open step, never drop a signal.
+2. One verdict per rule, each with the line it rests on: keep; trim (carried text whose data is in the tree); re-point (`out/plan-x.md` for
+   a sibling, relative links written from out/); delete (no open step); intake (a pasted item no plan holds).
+3. Act on one verdict at a time with Edit, re-read the file after each; never delete a plan that still has an open step, never drop a
+   signal.

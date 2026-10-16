@@ -124,9 +124,9 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $script:capabilities = New-CapabilitiesFixture @([ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE#9'); checks = @('Test-GadgetWidgetGizmo') })
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has no entry in capabilities.yml'
-        $issues | Should -Contain "capabilities.yml: capability 'gadget-turn' has no file .claude/skills/gadget-turn/SKILL.md"
-        $issues | Should -Contain "capabilities.yml: capability 'gadget-turn' supported_by 'ADR-WI-ONE#9' names no ADR rule"
-        $issues | Should -Contain "capabilities.yml: capability 'gadget-turn' checks 'Test-GadgetWidgetGizmo' names no command"
+        $issues | Should -Contain "automation/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' has no file .claude/skills/gadget-turn/SKILL.md"
+        $issues | Should -Contain "automation/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' supported_by 'ADR-WI-ONE#9' names no ADR rule"
+        $issues | Should -Contain "automation/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' checks 'Test-GadgetWidgetGizmo' names no command"
         $issues | Should -HaveCount 4
     }
 
@@ -139,12 +139,23 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $issues | Should -HaveCount 2
     }
 
+    It 'counts a wrapped continuation with its line and a comment line as nothing' -Tag 'ADR-REPO-AGENTS#6', 'ADR-REPO-AGENTS#8' {
+        $wrapped = @('---', 'name: gadget', 'description: >', '  The gadget agent.', '  Do NOT use it for widget work.', 'tools: Read', 'model: haiku', '---', '# gadget', '', '<!-- cspell:ignore gizmo -->') +
+            @(1..19 | ForEach-Object { "$_. a step that the formatter"; "   wrapped onto a second line" })
+        Write-AgentFixture 'agents/gadget.md' $wrapped
+        $spin = @('---', 'name: widget-spin', 'description: Spin a widget; for widget; input is the widget.', 'user-invocable: false', 'allowed-tools: Read',
+            'metadata: { catzc: { model_floor: haiku, needs: [] } }', '---', '# widget-spin', '', '1. Spin it', '   with care.', '2. Report', '   the spin.', '3. Stop.', '4. Rest.')
+        Write-AgentFixture 'skills/widget-spin/SKILL.md' $spin
+        $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
+        $issues | Should -BeNullOrEmpty
+    }
+
     It 'reports an agent file with no entry and an entry with no file' -Tag 'ADR-REPO-AGENTS#2' {
         Remove-Item -LiteralPath (Join-Path $TestDrive 'claude/agents/gadget.md')
         Write-AgentFixture 'agents/gizmo.md' @('---', 'name: gizmo', 'description: Gizmo. Do NOT use it.', 'tools: Read', '---')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain '.claude/agents/gizmo.md: has no entry in agents.yml'
-        $issues | Should -Contain "agents.yml: agent 'gadget' has no file .claude/agents/gadget.md"
+        $issues | Should -Contain "automation/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' has no file .claude/agents/gadget.md"
     }
 
     It 'reports front matter that is missing or does not parse' -Tag 'ADR-REPO-AGENTS#1' {
@@ -171,8 +182,8 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
             [ordered]@{ name = 'gadget'; supported_by = @('ADR-WI-ONE#9'); checks = @('Test-GadgetWidgetGizmo') }
         )
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Contain "agents.yml: agent 'gadget' supported_by 'ADR-WI-ONE#9' names no ADR rule"
-        $issues | Should -Contain "agents.yml: agent 'gadget' checks 'Test-GadgetWidgetGizmo' names no command"
+        $issues | Should -Contain "automation/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' supported_by 'ADR-WI-ONE#9' names no ADR rule"
+        $issues | Should -Contain "automation/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' checks 'Test-GadgetWidgetGizmo' names no command"
         $issues | Should -HaveCount 2
     }
 

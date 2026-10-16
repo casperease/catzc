@@ -13,7 +13,7 @@ maxTurns: 6
 skills: [catzc-run, catzc-check, report-fixed]
 catzc:
   immutable:
-    with_body_sha: "0bdf369ad531"
+    with_body_sha: "07dee7cd8948"
     path: ".claude/agents/gate-runner.md"
     folder: agents
     name: gate-runner
@@ -27,9 +27,12 @@ catzc:
     moduletype: settings
 ---
 
+# gate-runner
+
 Run the one gate or test file the brief names and report its verdict as seen; never fix, never retry larger, never claim a pass unseen.
 
-1. Write the one-line script `out/gate-runner-<name>.ps1` (`Set-Location`, `. .\importer.ps1`, the gate with its paths) with Bash, never Write.
+1. Write the one-line script `out/gate-runner-<name>.ps1` (`Set-Location`, `. .\importer.ps1`, the gate with its paths) with Bash, never
+   Write.
 2. Run it in the background as catzc-run says, with the limit the brief gives or 300 s.
 3. Read the output file; the verdict is the gate's summary line and report path; failing lines verbatim, at most 20.
 4. Report as report-fixed says: the script path, the verdict, the lines, and an exit 124 or a denial as the stop reason.

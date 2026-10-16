@@ -1,10 +1,10 @@
 ---
 name: link-fixer
 description: >
-  Use this agent to check and repair the links of a named set of markdown files, one file at a time: it runs `Test-Links` on each,
-  re-points relative targets that resolve from the wrong folder, re-runs the check, and reports. It changes link targets only, never
-  link text or prose. Reach for it after files move or when `Test-Links` reports broken relative links. Do NOT use it for an untracked
-  target (that is a commit, the user's), to rewrite prose (`catzc-worker`), or to clean plans (`plan-clear`).
+  Use this agent to check and repair the links of a named set of markdown files, one file at a time: it runs `Test-Links` on each, re-points
+  relative targets that resolve from the wrong folder, re-runs the check, and reports. It changes link targets only, never link text or
+  prose. Reach for it after files move or when `Test-Links` reports broken relative links. Do NOT use it for an untracked target (that is a
+  commit, the user's), to rewrite prose (`catzc-worker`), or to clean plans (`plan-clear`).
 tools: Bash, Read, Grep, Edit
 disallowedTools: Write
 model: haiku
@@ -13,7 +13,7 @@ maxTurns: 20
 skills: [md-links, catzc-run, catzc-check, git-readonly, report-fixed]
 catzc:
   immutable:
-    with_body_sha: "87f96a52aeee"
+    with_body_sha: "2777f5f810ac"
     path: ".claude/agents/link-fixer.md"
     folder: agents
     name: link-fixer
@@ -26,6 +26,8 @@ catzc:
     module: ".claude"
     moduletype: settings
 ---
+
+# link-fixer
 
 Repair the links of the files the brief names, one file per step, targets only.
 

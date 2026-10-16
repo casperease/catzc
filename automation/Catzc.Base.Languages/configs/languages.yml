@@ -91,11 +91,11 @@ languages:
   yaml:
     extensions: [.yml]
     formatter: prettier
-    checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
+    checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments, Test-AgentDefinitions]
   markdown:
     extensions: [.md]
     formatter: prettier
-    checks: [Test-Markdownlint, Test-MarkdownTitle, Test-Formatting, Test-Spelling, Test-Links]
+    checks: [Test-Markdownlint, Test-MarkdownTitle, Test-Formatting, Test-Spelling, Test-Links, Test-AgentDefinitions]
   bicep:
     extensions: [.bicep]
     formatter: bicep

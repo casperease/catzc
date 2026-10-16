@@ -139,3 +139,11 @@ The integrity test keeps running it over the real tree. Fixture agents and capab
   the `CapabilityEntry` name rule (at least one hyphen), rule 8, CLAUDE.md, the glossary short and the test fixtures follow. The three
   planner-session skills (plan-intake, plan-decide, plan-value) were renamed with the rest, the peers told. The hyphen made
   `catzc-gate` a "gate" family phrase for the glossary (ADR-REPO-VOCAB), so that capability is `catzc-check`.
+- 2026-10-16: `Test-AgentDefinitions` registered in `languages.yml` as a check of markdown and yaml, so `Test-Change` covers a changed
+  robot, capability or registry; its registry issues name the repo-relative registry path so Test-Change can attribute them. The
+  session script `out/mr-final.ps1` is thereby replaced by `Test-Change` and goes with the next out/ prune; `regen-explanation.py`
+  is the one worth folding into the kit as a bulk mode of `drawio_forward.py` (open step in the capabilities plan).
+- 2026-10-16: Test-Change over the robot files surfaced what the rewrite had dropped: every robot and capability carries an H1 title
+  (Test-MarkdownTitle, MD041) and is prettier-formatted at the repository width. The wrap made physical lines the wrong measure, so
+  the roofs count lines that start something of their own: a wrapped continuation counts with its line, a blank or comment line as
+  nothing (`Get-RobotLineCount`, rules 6 and 8, a test). Test-Change over all 33 files: 0 issues; gate 0; tests pass.
