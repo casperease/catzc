@@ -50,6 +50,9 @@ public sealed class FileCarrier
     // How many leading lines stay above the head when the anchor is AfterPreamble; zero otherwise.
     public int preamble_lines { get; }
 
+    // The front-matter key path that holds a front-matter carrier's block: catzc at the top level, or a dotted path nesting it under another tool's keys. Null for any other carrier.
+    public string key { get; }
+
     // The ignored top-level key that holds a property carrier's block (e.g. //). Null for any other carrier.
     public string property { get; }
 
@@ -66,8 +69,9 @@ public sealed class FileCarrier
     public IReadOnlyList<string> strip { get; }
 
     public FileCarrier(string id, string[] files, CarrierKind carrier, string line, string[] block, Catzc.Base.CodeMeta.HeadAnchor anchor,
-        int preambleLines, string property, string sidecar, string reason, IDictionary<string, string> exclude, string[] strip = null)
+        int preambleLines, string property, string sidecar, string reason, IDictionary<string, string> exclude, string[] strip = null, string key = null)
     {
+        this.key = key;
         this.strip = strip == null ? Array.Empty<string>() : (string[])strip.Clone();
         this.exclude = exclude == null ? new Dictionary<string, string>() : new Dictionary<string, string>(exclude);
         this.id = id;

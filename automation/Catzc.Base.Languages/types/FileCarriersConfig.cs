@@ -36,9 +36,12 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
 {
     public const Catzc.Base.CodeMeta.HeadAnchor DefaultAnchor = Catzc.Base.CodeMeta.HeadAnchor.Start;
 
+    // A front-matter block sits at the reserved top-level key unless the entry nests it under another tool's keys.
+    public const string DefaultKey = Catzc.Base.MarkdownMeta.MarkdownDocument.MetaKey;
+
     private const string Failed = "file-carriers config validation failed:\n";
     private static readonly string[] AllowedKeys = { "carriers" };
-    private static readonly string[] AllowedEntryKeys = { "files", "carrier", "line", "block", "anchor", "preamble_lines", "property", "sidecar", "reason", "exclude", "strip" };
+    private static readonly string[] AllowedEntryKeys = { "files", "carrier", "key", "line", "block", "anchor", "preamble_lines", "property", "sidecar", "reason", "exclude", "strip" };
     private static readonly Regex EntryId = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     // The file classes in declared order. Empty when the file declares none.
@@ -143,6 +146,7 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
         string line = Has(entry, "line") ? Text(entry["line"]) : null;
         string[] block = ReadStrings(id, "block", entry, errors);
         string[] strip = ReadStrings(id, "strip", entry, errors);
+        string keyPath = Has(entry, "key") ? Text(entry["key"]) : (carrier == CarrierKind.FrontMatter ? DefaultKey : null);
         string property = Has(entry, "property") ? Text(entry["property"]) : null;
         string sidecar = Has(entry, "sidecar") ? Text(entry["sidecar"]) : null;
         string reason = Has(entry, "reason") ? Text(entry["reason"]).Trim() : null;
@@ -164,13 +168,15 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
         Require(errors, id, carrier == CarrierKind.CommentHead || carrier == CarrierKind.Property || strip.Length == 0, "strip belongs to a comment-head or property carrier");
         Require(errors, id, strip.All(opener => opener.Length > 0 && opener.Trim() == opener), "strip lists the beginning of each old head, without surrounding spaces");
         Require(errors, id, anchor == Catzc.Base.CodeMeta.HeadAnchor.AfterPreamble ? preambleLines > 0 : preambleLines == 0, "preamble_lines is required, and only allowed, with anchor after-preamble");
+        Require(errors, id, carrier == CarrierKind.FrontMatter || keyPath == null, "key belongs to a front-matter carrier");
+        Require(errors, id, keyPath == null || Catzc.Base.MarkdownMeta.MarkdownDocument.IsKeyPath(keyPath), "key is a dotted path of plain keys ending in " + DefaultKey + " (e.g. metadata." + DefaultKey + ")");
         Require(errors, id, carrier == CarrierKind.Property ? !string.IsNullOrEmpty(property) : property == null, "property is required, and only allowed, for a property carrier");
         Require(errors, id, carrier == CarrierKind.Sidecar ? (sidecar != null && sidecar.Contains("{base}")) : sidecar == null, "sidecar is required, and only allowed, for a sidecar carrier, and names {base}");
         Require(errors, id, carrier == CarrierKind.None ? !string.IsNullOrEmpty(reason) : reason == null, "reason is required, and only allowed, when the carrier is none");
         Require(errors, id, carrier != CarrierKind.Sidecar || files.Length > 0, "a sidecar carrier selects its files with files");
         if (errors.Count > before) { return null; }
 
-        return new FileCarrier(id, files, carrier, line, block, anchor, preambleLines, property, sidecar, reason, exclude, strip);
+        return new FileCarrier(id, files, carrier, line, block, anchor, preambleLines, property, sidecar, reason, exclude, strip, keyPath);
     }
 
     // A map of glob to the reason its files carry no block, so a gap in the coverage is a visible, reviewed entry.

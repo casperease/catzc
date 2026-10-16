@@ -25,10 +25,12 @@ catzc:
       ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
     parameters:
       Text: The whole Markdown file as text.
+      Key: 'The front-matter key path of the block: catzc at the top level (the default), or a dotted path such as metadata.catzc where the carrier nests it under another tool''s keys.'
     outputs: |-
-      [pscustomobject] @{ HasFrontMatter; HasMetaBlock; Body; BodyHash; Sections; ImmutableKeys; EdgeKeys; ConfigLines } — Sections are the
-      keys directly under `catzc`, ImmutableKeys the keys under `immutable`, EdgeKeys the edge names under `edges`, and ConfigLines the
-      authored lines under `config`, as written.
+      [pscustomobject] @{ HasFrontMatter; HasMetaBlock; CanHoldMetaBlock; Body; BodyHash; Sections; ImmutableKeys; EdgeKeys; ConfigLines } —
+      CanHoldMetaBlock is false when a key above the block holds a flow or scalar value, Sections are the keys directly under `catzc`,
+      ImmutableKeys the keys under `immutable`, EdgeKeys the edge names under `edges`, and ConfigLines the authored lines under `config`, as
+      written.
     examples:
       - (Get-MarkdownMetaState -Text $text).BodyHash
 ---
@@ -40,19 +42,23 @@ function Get-MarkdownMetaState {
     param(
         [Parameter(Mandatory, Position = 0)]
         [AllowEmptyString()]
-        [string] $Text
+        [string] $Text,
+
+        [ValidateNotNullOrEmpty()]
+        [string] $Key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey
     )
 
-    $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Text)
+    $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Text, $Key)
     $block = $document.MetaBlock
     [pscustomobject]@{
-        HasFrontMatter = $document.HasFrontMatter
-        HasMetaBlock   = $document.HasMetaBlock
-        Body           = $document.Body
-        BodyHash       = $document.BodyHash()
-        Sections       = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::SectionKeys($block))
-        ImmutableKeys  = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ImmutableKeys($block))
-        EdgeKeys       = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::EdgeKeys($block))
-        ConfigLines    = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($block))
+        HasFrontMatter   = $document.HasFrontMatter
+        HasMetaBlock     = $document.HasMetaBlock
+        CanHoldMetaBlock = $document.CanHoldMetaBlock
+        Body             = $document.Body
+        BodyHash         = $document.BodyHash()
+        Sections         = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::SectionKeys($block))
+        ImmutableKeys    = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ImmutableKeys($block))
+        EdgeKeys         = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::EdgeKeys($block))
+        ConfigLines      = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($block))
     }
 }

@@ -32,6 +32,16 @@ sister <name>.drawio.md, the model from <name>.model.xml; the joined slide is <o
 Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still delivered. Exit 3: no source file,
 nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`, `slide`), one per warning (`warn`),
 then `status`.
+
+bulk:  uv run --with pillow python drawio_forward.py --all <folder> [--stage prepare|highlight|join|all] [--migrate]
+                                                      [--start A --end B]
+
+Rebuilds every <stem>.drawio.png of a folder in place with fresh minimaps, in stages that each fit the time safeguard:
+`prepare` (optionally migrates each slide to the dark tokens, extracts its model to out/drawio/<folder>/models/, and
+writes the slide list, skipping a sheet with no ADR code); `highlight` (the map processors once for every listed slide,
+then the three minimaps and their sister .md files into the folder); `join` (the sidebar laid out, the minimaps
+embedded, the slide rebuilt); `all` runs the three. --start/--end slice the per-slide stages. Same exit codes; the
+report is out/drawio/<folder>/bulk.md.
 """
 import json
 import re
@@ -128,8 +138,99 @@ def minimaps(src, name, model_file, out_dir):
     return joined
 
 
+def bulk(folder, stage, migrate, start, end):
+    """Rebuild a folder of slides in place, by stage; returns the exit code after printing the lines and the report."""
+    folder = folder.resolve()
+    work = REPO / DEFAULTS["renderer"]["out"] / folder.name
+    models, data, slides_json = work / "models", work / "data", work / "slides.json"
+    rel = lambda p: str(Path(p).resolve().relative_to(REPO)).replace("\\", "/")
+    pngs = sorted(folder.glob("*.drawio.png"))
+    warnings, counts = [], {}
+    if not pngs:
+        print(f"warn E_SOURCE no .drawio.png in {folder}")
+        print("status error")
+        return 3
+    if stage in ("prepare", "all"):
+        models.mkdir(parents=True, exist_ok=True)
+        done = 0
+        for p in pngs[start:end]:
+            try:
+                if migrate:
+                    run([sys.executable, str(KIT / "migrate_dark.py"), str(p), str(p)], 120)
+                models.joinpath(p.name.replace(".drawio.png", "") + ".model.xml").write_text(
+                    decode(Image.open(p).text["mxfile"]).strip(), encoding="utf-8")
+                done += 1
+            except Exception as e:
+                warnings.append(f"W_PREPARE {p.name}: {e}")
+        slides, skipped = [], []
+        for p in pngs:
+            stem = p.name.replace(".drawio.png", "")
+            model_file = models / f"{stem}.model.xml"
+            if not model_file.is_file():
+                continue
+            adrs = slide_adrs(stem, model_file.read_text(encoding="utf-8"))
+            if not adrs:
+                skipped.append(stem)
+                continue
+            slides.append({"id": stem, "stem": stem, "lens": stem.rsplit("--", 1)[-1], "adrs": adrs, "xml": rel(model_file)})
+        slides_json.write_text(json.dumps({"slides": slides}, indent=1) + "\n", encoding="utf-8")
+        counts.update(prepared=done, listed=len(slides), skipped=skipped)
+        print(f"slides {slides_json} listed={len(slides)} skipped={skipped}")
+    if stage in ("highlight", "all"):
+        try:
+            run(["pwsh", "-NoProfile", "-File", str(KIT / "minimaps" / "highlights.ps1"), "-Slides", rel(slides_json), "-Data", rel(data)], 300)
+            out = run([sys.executable, str(KIT / "minimaps" / "render.py"), "--slides", rel(slides_json), "--data", rel(data), "--target", rel(folder)], 120)
+            print(f"minimaps {out.splitlines()[-1] if out else 'rendered'}")
+        except Exception as e:
+            warnings.append(f"W_HIGHLIGHT {e}")
+    if stage in ("join", "all"):
+        try:
+            cmd = [sys.executable, str(KIT / "minimaps" / "join.py"), "--slides", rel(slides_json), "--data", rel(data), "--target", rel(folder), "--start", str(start)]
+            if end is not None:
+                cmd += ["--end", str(end)]
+            out = run(cmd, 340)
+            print(f"joined {out.splitlines()[-1] if out else 'done'}")
+        except Exception as e:
+            warnings.append(f"W_JOIN {e}")
+    for w in warnings:
+        print(f"warn {w}")
+    status = "ok" if not warnings else "warn"
+    work.mkdir(parents=True, exist_ok=True)
+    report = work / "bulk.md"
+    lines = [f"# {folder.name}: bulk rebuild, stage {stage}", "", f"- folder: `{folder}`", f"- slides on disk: {len(pngs)}",
+             f"- slice: {start}..{end if end is not None else len(pngs)}", f"- status: {status}"]
+    lines += [f"- {k}: {v}" for k, v in counts.items()] + [f"- warning: {w}" for w in warnings]
+    report.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"report {report}")
+    print(f"status {status}")
+    return 0 if not warnings else 2
+
+
 def main():
     args = sys.argv[1:]
+    if "--all" in args:
+        i = args.index("--all")
+        folder = Path(args[i + 1])
+        del args[i:i + 2]
+        stage, migrate, start, end = "all", False, 0, None
+        if "--stage" in args:
+            i = args.index("--stage")
+            stage = args[i + 1]
+            del args[i:i + 2]
+        if "--migrate" in args:
+            args.remove("--migrate")
+            migrate = True
+        if "--start" in args:
+            i = args.index("--start")
+            start = int(args[i + 1])
+            del args[i:i + 2]
+        if "--end" in args:
+            i = args.index("--end")
+            end = int(args[i + 1])
+            del args[i:i + 2]
+        if stage not in ("prepare", "highlight", "join", "all"):
+            raise SystemExit(f"stage must be prepare, highlight, join or all, got {stage}")
+        raise SystemExit(bulk(folder, stage, migrate, start, end))
     xml_path = assert_path = root = None
     page, want_minimaps = None, False
     for flag in ("--xml", "--assert", "--page"):

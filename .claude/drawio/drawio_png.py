@@ -28,11 +28,11 @@ the same file: the raster is redrawn from the embedded model and the two stay ho
 re-decodes the chunk and asserts the model round-trips.
 """
 import base64
+import hashlib
 import html
 import itertools
 import re
 import sys
-import uuid
 import xml.etree.ElementTree as ET
 import zlib
 from pathlib import Path
@@ -186,7 +186,7 @@ def encode(model_xml, name):
     raw = comp.compress(quote(model_xml, safe="!~*'()-_.").encode()) + comp.flush()
     inner = base64.b64encode(raw).decode()
     mxfile = (
-        f'<mxfile host="Electron" type="device"><diagram id="{uuid.uuid4().hex[:20]}" '
+        f'<mxfile host="Electron" type="device"><diagram id="{hashlib.sha1(model_xml.encode()).hexdigest()[:20]}" '
         f'name="{html.escape(name, quote=True)}">{inner}</diagram></mxfile>'
     )
     return quote(mxfile, safe="!~*'()-_.")

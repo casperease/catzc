@@ -127,6 +127,8 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
                     }
                 })
             $config.carriers.id | Should -Be @('widget', 'gadget', 'sprocket', 'cog')
+            $config.carriers[0].key | Should -Be 'catzc' -Because 'a front-matter block sits at the reserved top-level key unless the entry nests it'
+            $config.carriers[1].key | Should -BeNullOrEmpty
             $config.carriers[1].property | Should -Be '//'
             $config.carriers[2].sidecar | Should -Be '{base}.md'
             $config.carriers[2].files | Should -Be @('docs/*.png')
@@ -156,6 +158,13 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; block = @('/*', '*/') }) } | Should -Throw '*exactly one of line and block*'
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '# ' }) } | Should -Throw '*non-empty comment prefix without spaces*'
             { & $script:one ([ordered]@{ carrier = 'comment-head'; block = @('<!--') }) } | Should -Throw '*opening and the closing delimiter*'
+        }
+
+        It 'nests a front-matter block under a key path that ends in catzc' -Tag 'ADR-REPO-FILEMETA#1' {
+            $nested = & $script:one ([ordered]@{ files = @('.widget/skills/**/SKILL.md'); carrier = 'front-matter'; key = 'metadata.catzc' })
+            $nested.Find('widget').key | Should -Be 'metadata.catzc'
+            { & $script:one ([ordered]@{ carrier = 'front-matter'; key = 'metadata' }) } | Should -Throw '*key is a dotted path of plain keys ending in catzc*'
+            { & $script:one ([ordered]@{ carrier = 'property'; property = '//'; key = 'metadata.catzc' }) } | Should -Throw '*key belongs to a front-matter carrier*'
         }
 
         It 'keeps each key to the carrier that owns it' {

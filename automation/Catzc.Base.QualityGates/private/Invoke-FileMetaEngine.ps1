@@ -120,7 +120,11 @@ function Invoke-FileMetaEngine {
             }
         }
         else {
-            $state = Get-MarkdownMetaState -Text $text
+            $state = Get-MarkdownMetaState -Text $text -Key $entry.Carrier.key
+            # A parent key written as a flow mapping or a scalar is the author's to open up; the block cannot nest under it.
+            if (-not $state.CanHoldMetaBlock) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "a key above $($entry.Carrier.key) holds a flow or scalar value"; Expected = 'a block mapping the catzc block can nest under' })
+            }
             foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'immutable, edges or config' })
             }
@@ -142,7 +146,7 @@ function Invoke-FileMetaEngine {
                 Format-CodeMetaHead -Text $text -Form $form -Immutable $facts.Immutable -Edges $facts.Edges
             }
             else {
-                Format-MarkdownMetaBlock -Text $text -Immutable $facts.Immutable -Edges $facts.Edges
+                Format-MarkdownMetaBlock -Text $text -Immutable $facts.Immutable -Edges $facts.Edges -Key $entry.Carrier.key
             }
             if ($fixed -cne $text) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'Drift'; Actual = 'the meta block as written'; Expected = 'the imprinted meta block' })

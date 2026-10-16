@@ -28,6 +28,7 @@ catzc:
       Text: The whole Markdown file as text.
       Immutable: The place facts, an ordered dictionary of key to value; a value is a scalar.
       Edges: The outgoing edges, an ordered dictionary of edge name to value; a value is a scalar or a list of scalars.
+      Key: 'The front-matter key path of the block: catzc at the top level (the default), or a dotted path such as metadata.catzc where the carrier nests it under another tool''s keys; a parent key the text lacks is written, a parent that holds a flow or scalar value is an error.'
     outputs: '[string] the whole text, with the meta block replaced.'
     examples:
       - Format-MarkdownMetaBlock -Text $text -Immutable ([ordered]@{ with_body_sha = '3fa91c0d2b7e'; kind = 'adr' }) -Edges ([ordered]@{ cites = @('ADR-WIDGET#1') })
@@ -44,10 +45,13 @@ function Format-MarkdownMetaBlock {
 
         [System.Collections.IDictionary] $Immutable = [ordered]@{},
 
-        [System.Collections.IDictionary] $Edges = [ordered]@{}
+        [System.Collections.IDictionary] $Edges = [ordered]@{},
+
+        [ValidateNotNullOrEmpty()]
+        [string] $Key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey
     )
 
-    $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Text)
+    $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Text, $Key)
     $config = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($document.MetaBlock)
     $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($Immutable, $Edges, $config)
     $document.WithMetaBlock($block)

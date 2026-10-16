@@ -20,6 +20,9 @@ carriers:
   # Front matter is the Markdown convention, and the reserved catzc key is the block.
   markdown: { carrier: front-matter }
 
+  # An editor that reads skills validates the top level of a capability's front matter and leaves `metadata` free, so the block nests there.
+  capability: { files: [".claude/skills/**/SKILL.md"], carrier: front-matter, key: metadata.catzc }
+
   # A block-comment head at the top holding the same front matter a Markdown file has; a #Requires or help block may follow it.
   powershell: { carrier: comment-head, block: ["<#", "#>"] }
   csharp: { carrier: comment-head, block: ["/*", "*/"] }

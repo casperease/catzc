@@ -28,7 +28,7 @@ using System.Text;
 
 namespace Catzc.Base.MarkdownMeta;
 
-[Catzc.Base.Objects.ConsoleDisplay("HasFrontMatter", "HasMetaBlock", "NewLine")]
+[Catzc.Base.Objects.ConsoleDisplay("HasFrontMatter", "HasMetaBlock", "Key", "NewLine")]
 public sealed class MarkdownDocument
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -39,44 +39,60 @@ public sealed class MarkdownDocument
     readonly List<string> frontMatter;
     readonly string openingFence;
     readonly string closingFence;
+    readonly string[] path;
 
     // The fences are kept as written, with the line ending of the closing one, so an unchanged document reads back byte for byte.
-    MarkdownDocument(string newLine, List<string> frontMatter, string openingFence, string closingFence, string body)
+    MarkdownDocument(string newLine, List<string> frontMatter, string openingFence, string closingFence, string body, string[] path)
     {
         NewLine = newLine;
         this.frontMatter = frontMatter;
         this.openingFence = openingFence;
         this.closingFence = closingFence;
         Body = body;
+        this.path = path;
     }
 
     public string NewLine { get; }
 
     public string Body { get; }
 
+    // The key path of the block: the reserved key at the top level, or a dotted path that nests it under another tool's keys.
+    public string Key => string.Join(".", path);
+
     public bool HasFrontMatter => frontMatter != null;
 
-    public bool HasMetaBlock => FindMetaBlock(out _, out _);
+    public int FrontMatterLineCount => frontMatter == null ? 0 : frontMatter.Count;
 
-    // The lines of the meta block, the `catzc:` line included; empty when the file has none.
+    public bool HasMetaBlock => Locate().Found;
+
+    // False when a key above the block holds a flow or scalar value, which nothing can nest under.
+    public bool CanHoldMetaBlock => !Locate().Blocked;
+
+    // The lines of the meta block, the `catzc:` line included and the block's own indent removed; empty when the file has none.
     public IReadOnlyList<string> MetaBlock
     {
         get
         {
-            if (!FindMetaBlock(out int start, out int end)) { return new string[0]; }
-            return frontMatter.GetRange(start, end - start);
+            Location at = Locate();
+            if (!at.Found) { return new string[0]; }
+            var lines = new List<string>();
+            for (int i = at.Start; i < at.End; i++) { lines.Add(Dedent(frontMatter[i], at.Indent)); }
+            return lines;
         }
     }
 
-    // Splits a document into its YAML front matter lines and its body, byte for byte.
-    public static MarkdownDocument Parse(string text)
+    public static MarkdownDocument Parse(string text) => Parse(text, MetaKey);
+
+    // Splits a document into its YAML front matter lines and its body, byte for byte, and remembers where the block lives.
+    public static MarkdownDocument Parse(string text, string key)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }
+        string[] path = SplitKey(key);
         string newLine = text.Contains("\r\n") ? "\r\n" : "\n";
         List<(int Start, int Length, int Next)> lines = SplitLines(text);
         if (lines.Count == 0 || Content(text, lines[0]).TrimEnd() != "---")
         {
-            return new MarkdownDocument(newLine, null, null, null, text);
+            return new MarkdownDocument(newLine, null, null, null, text, path);
         }
         for (int i = 1; i < lines.Count; i++)
         {
@@ -85,9 +101,9 @@ public sealed class MarkdownDocument
             var inside = new List<string>();
             for (int j = 1; j < i; j++) { inside.Add(Content(text, lines[j])); }
             string closing = text.Substring(lines[i].Start, lines[i].Next - lines[i].Start);
-            return new MarkdownDocument(newLine, inside, Content(text, lines[0]), closing, text.Substring(lines[i].Next));
+            return new MarkdownDocument(newLine, inside, Content(text, lines[0]), closing, text.Substring(lines[i].Next), path);
         }
-        return new MarkdownDocument(newLine, null, null, null, text);
+        return new MarkdownDocument(newLine, null, null, null, text, path);
     }
 
     // The whole document again, with the meta block replaced by `block`; an empty block removes it. Nothing else changes.
@@ -98,20 +114,25 @@ public sealed class MarkdownDocument
         {
             if (remove) { return Body; }
             var created = new StringBuilder("---").Append(NewLine);
-            foreach (string line in block) { created.Append(line).Append(NewLine); }
+            foreach (string line in Nested(block, 0, 0)) { created.Append(line).Append(NewLine); }
             created.Append("---").Append(NewLine);
             if (Body.Length > 0) { created.Append(NewLine); }
             return created.Append(Body).ToString();
         }
         var lines = new List<string>(frontMatter);
-        if (FindMetaBlock(out int start, out int end))
+        Location at = Locate();
+        if (at.Found)
         {
-            lines.RemoveRange(start, end - start);
-            if (!remove) { lines.InsertRange(start, block); }
+            lines.RemoveRange(at.Start, at.End - at.Start);
+            if (!remove) { lines.InsertRange(at.Start, Indented(block, at.Indent)); }
         }
         else if (!remove)
         {
-            lines.AddRange(block);
+            if (at.Blocked)
+            {
+                throw new InvalidOperationException("The front-matter key '" + path[at.Depth - 1] + "' holds a flow or scalar value, so no meta block can nest under it at '" + Key + "'.");
+            }
+            lines.InsertRange(at.Insert, Nested(block, at.Depth, at.Indent));
         }
         if (lines.Count == 0 && remove) { return Body; }
         var text = new StringBuilder(openingFence).Append(NewLine);
@@ -137,29 +158,148 @@ public sealed class MarkdownDocument
         }
     }
 
-    // The meta block runs from its top-level `catzc:` line to the next top-level line, without the blank lines before that one.
-    bool FindMetaBlock(out int start, out int end)
+    // A key path is dotted plain keys and ends in the reserved key, because the block's own line is always `catzc:`.
+    public static bool IsKeyPath(string key)
     {
-        start = end = -1;
-        if (frontMatter == null) { return false; }
-        for (int i = 0; i < frontMatter.Count; i++)
+        if (string.IsNullOrEmpty(key)) { return false; }
+        string[] path = key.Split('.');
+        foreach (string segment in path)
+        {
+            if (segment.Length == 0 || segment.IndexOfAny(new[] { ' ', '\t', ':', '#', '"', '\'' }) >= 0) { return false; }
+        }
+        return path[path.Length - 1] == MetaKey;
+    }
+
+    static string[] SplitKey(string key)
+    {
+        if (!IsKeyPath(key))
+        {
+            throw new ArgumentException("A meta key path is dotted plain keys ending in '" + MetaKey + "', and '" + key + "' is not.", nameof(key));
+        }
+        return key.Split('.');
+    }
+
+    // Where the block is, or where it would go: the parents found along the key path, and the block's lines when the last key is there.
+    sealed class Location
+    {
+        public int Start = -1;
+        public int End = -1;
+        public int Depth;
+        public int Indent;
+        public int Insert;
+        public bool Blocked;
+        public bool Found => Start >= 0;
+    }
+
+    Location Locate()
+    {
+        var at = new Location();
+        if (frontMatter == null) { return at; }
+        int from = 0;
+        int to = frontMatter.Count;
+        at.Insert = to;
+        for (int k = 0; k < path.Length; k++)
+        {
+            bool last = k == path.Length - 1;
+            int line = FindKey(path[k], at.Indent, from, to, last, out bool holdsBlock);
+            if (line < 0) { return at; }
+            int subtreeEnd = SubtreeEnd(line, at.Indent, to);
+            if (last)
+            {
+                at.Start = line;
+                at.End = subtreeEnd;
+                return at;
+            }
+            at.Depth = k + 1;
+            if (!holdsBlock)
+            {
+                at.Blocked = true;
+                return at;
+            }
+            from = line + 1;
+            to = subtreeEnd;
+            at.Insert = subtreeEnd;
+            int child = FirstNonBlank(from, to);
+            at.Indent = child < 0 ? at.Indent + 2 : IndentOf(frontMatter[child]);
+        }
+        return at;
+    }
+
+    // The line in the window that writes `key:` at this indent; the block's own key must open a block, a parent is found either way.
+    int FindKey(string key, int indent, int from, int to, bool last, out bool holdsBlock)
+    {
+        holdsBlock = false;
+        for (int i = from; i < to; i++)
         {
             string line = frontMatter[i];
-            if (!line.StartsWith(MetaKey + ":", StringComparison.Ordinal)) { continue; }
-            string rest = line.Substring(MetaKey.Length + 1).Trim();
-            if (rest.Length > 0 && rest[0] != '#') { continue; }
-            start = i;
-            end = i + 1;
-            for (int j = i + 1; j < frontMatter.Count; j++)
-            {
-                string next = frontMatter[j];
-                if (next.Trim().Length == 0) { continue; }
-                if (next[0] != ' ' && next[0] != '\t') { break; }
-                end = j + 1;
-            }
-            return true;
+            if (line.Trim().Length == 0 || IndentOf(line) != indent) { continue; }
+            string body = line.Substring(indent);
+            if (!body.StartsWith(key + ":", StringComparison.Ordinal)) { continue; }
+            string rest = body.Substring(key.Length + 1).Trim();
+            holdsBlock = rest.Length == 0 || rest[0] == '#';
+            if (last && !holdsBlock) { continue; }
+            return i;
         }
-        return false;
+        return -1;
+    }
+
+    // One past the last non-blank line below `line` that is indented deeper than it.
+    int SubtreeEnd(int line, int indent, int to)
+    {
+        int end = line + 1;
+        for (int j = line + 1; j < to; j++)
+        {
+            string next = frontMatter[j];
+            if (next.Trim().Length == 0) { continue; }
+            if (IndentOf(next) <= indent) { break; }
+            end = j + 1;
+        }
+        return end;
+    }
+
+    int FirstNonBlank(int from, int to)
+    {
+        for (int i = from; i < to; i++)
+        {
+            if (frontMatter[i].Trim().Length > 0) { return i; }
+        }
+        return -1;
+    }
+
+    // The missing parent keys from `depth` on, each two spaces deeper, then the block under the last of them.
+    List<string> Nested(IReadOnlyList<string> block, int depth, int indent)
+    {
+        var lines = new List<string>();
+        for (int k = depth; k < path.Length - 1; k++)
+        {
+            lines.Add(new string(' ', indent) + path[k] + ":");
+            indent += 2;
+        }
+        lines.AddRange(Indented(block, indent));
+        return lines;
+    }
+
+    static List<string> Indented(IReadOnlyList<string> block, int indent)
+    {
+        var lines = new List<string>();
+        string prefix = new string(' ', indent);
+        foreach (string line in block) { lines.Add(line.Trim().Length == 0 ? line : prefix + line); }
+        return lines;
+    }
+
+    static string Dedent(string line, int indent)
+    {
+        if (line.Trim().Length == 0) { return line; }
+        int n = 0;
+        while (n < indent && n < line.Length && (line[n] == ' ' || line[n] == '\t')) { n++; }
+        return line.Substring(n);
+    }
+
+    static int IndentOf(string line)
+    {
+        int n = 0;
+        while (n < line.Length && (line[n] == ' ' || line[n] == '\t')) { n++; }
+        return n;
     }
 
     static List<(int Start, int Length, int Next)> SplitLines(string text)

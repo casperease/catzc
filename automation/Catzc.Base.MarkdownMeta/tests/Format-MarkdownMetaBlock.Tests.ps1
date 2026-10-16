@@ -43,6 +43,16 @@ Describe 'Format-MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         Format-MarkdownMetaBlock -Text $text | Should -BeExactly "---`nname: widget`n---`nbody`n"
     }
 
+    It 'nests the block at the key path the carrier names, and keeps its authored config there' -Tag 'ADR-REPO-FILEMETA#1' {
+        $text = "---`nname: widget`nmetadata:`n  catzc:`n    immutable:`n      kind: old`n    config:`n      floor: low`n---`nbody`n"
+        Format-MarkdownMetaBlock -Text $text -Immutable ([ordered]@{ kind = 'gadget' }) -Key 'metadata.catzc' |
+            Should -BeExactly "---`nname: widget`nmetadata:`n  catzc:`n    immutable:`n      kind: gadget`n    config:`n      floor: low`n---`nbody`n"
+        Format-MarkdownMetaBlock -Text "---`nname: widget`n---`nbody`n" -Immutable ([ordered]@{ kind = 'gadget' }) -Key 'metadata.catzc' |
+            Should -BeExactly "---`nname: widget`nmetadata:`n  catzc:`n    immutable:`n      kind: gadget`n---`nbody`n"
+        { Format-MarkdownMetaBlock -Text "---`nmetadata: { a: 1 }`n---`nbody`n" -Immutable ([ordered]@{ kind = 'gadget' }) -Key 'metadata.catzc' } |
+            Should -Throw "*'metadata' holds a flow or scalar value*"
+    }
+
     It 'keeps CRLF line endings' {
         Format-MarkdownMetaBlock -Text "---`r`nname: widget`r`n---`r`nbody`r`n" -Immutable ([ordered]@{ kind = 'gadget' }) |
             Should -BeExactly "---`r`nname: widget`r`ncatzc:`r`n  immutable:`r`n    kind: gadget`r`n---`r`nbody`r`n"

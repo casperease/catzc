@@ -42,6 +42,18 @@ Describe 'Get-MarkdownMetaState' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
         $state.Body | Should -BeExactly "body`n"
     }
 
+    It 'reads a block nested at the key path the carrier names, and says when a parent cannot hold one' -Tag 'ADR-REPO-FILEMETA#1' {
+        $nested = Get-MarkdownMetaState -Text "---`nname: widget`nmetadata:`n  catzc:`n    immutable:`n      kind: gadget`n    config:`n      floor: low`n---`nbody`n" -Key 'metadata.catzc'
+        $nested.HasMetaBlock | Should -BeTrue
+        $nested.CanHoldMetaBlock | Should -BeTrue
+        $nested.Sections | Should -Be @('immutable', 'config')
+        $nested.ImmutableKeys | Should -Be @('kind')
+        $nested.ConfigLines | Should -Be @('    floor: low')
+        $flow = Get-MarkdownMetaState -Text "---`nname: widget`nmetadata: { catzc: { floor: low } }`n---`nbody`n" -Key 'metadata.catzc'
+        $flow.HasMetaBlock | Should -BeFalse
+        $flow.CanHoldMetaBlock | Should -BeFalse
+    }
+
     It 'does not count a key of another front matter field' {
         $state = Get-MarkdownMetaState -Text "---`nname: widget`ntools: Bash`n---`nbody`n"
         $state.HasFrontMatter | Should -BeTrue

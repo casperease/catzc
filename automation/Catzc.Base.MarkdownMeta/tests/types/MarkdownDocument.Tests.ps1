@@ -52,6 +52,63 @@ Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
         [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($text).HasMetaBlock | Should -BeFalse
     }
 
+    Context 'a block nested under another tool''s key' {
+        BeforeAll {
+            $script:nested = "---`nname: widget`nmetadata:`n  other: 1`n  catzc:`n    immutable:`n      kind: gadget`n    config:`n      floor: low`n  last: 2`ncatzc:`n  immutable:`n    kind: decoy`n---`nbody`n"
+            $script:block = [string[]] @('catzc:', '  immutable:', '    kind: widget')
+        }
+
+        It 'finds the block at its key path and returns its lines without the nesting indent' {
+            $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:nested, 'metadata.catzc')
+            $doc.Key | Should -Be 'metadata.catzc'
+            $doc.HasMetaBlock | Should -BeTrue
+            $doc.CanHoldMetaBlock | Should -BeTrue
+            $doc.MetaBlock | Should -Be @('catzc:', '  immutable:', '    kind: gadget', '  config:', '    floor: low')
+            $doc.ToText() | Should -BeExactly $script:nested
+        }
+
+        It 'replaces the block in place and leaves the parent''s other keys and a top-level catzc alone' {
+            $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:nested, 'metadata.catzc')
+            $doc.WithMetaBlock($script:block) |
+                Should -BeExactly "---`nname: widget`nmetadata:`n  other: 1`n  catzc:`n    immutable:`n      kind: widget`n  last: 2`ncatzc:`n  immutable:`n    kind: decoy`n---`nbody`n"
+            $doc.WithMetaBlock([string[]] @()) |
+                Should -BeExactly "---`nname: widget`nmetadata:`n  other: 1`n  last: 2`ncatzc:`n  immutable:`n    kind: decoy`n---`nbody`n"
+        }
+
+        It 'appends the block below the parent''s last child, at the children''s indent' {
+            $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("---`nname: widget`nmetadata:`n    other: 1`n`ntools: Read`n---`nbody`n", 'metadata.catzc')
+            $doc.HasMetaBlock | Should -BeFalse
+            $doc.WithMetaBlock($script:block) |
+                Should -BeExactly "---`nname: widget`nmetadata:`n    other: 1`n    catzc:`n      immutable:`n        kind: widget`n`ntools: Read`n---`nbody`n"
+        }
+
+        It 'writes the parent keys it does not find, at the end of the front matter or above a body with none' {
+            $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("---`nname: widget`nmetadata:`n---`nbody`n", 'metadata.catzc')
+            $doc.WithMetaBlock($script:block) | Should -BeExactly "---`nname: widget`nmetadata:`n  catzc:`n    immutable:`n      kind: widget`n---`nbody`n"
+            $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("---`nname: widget`n---`nbody`n", 'a.b.catzc')
+            $doc.WithMetaBlock($script:block) | Should -BeExactly "---`nname: widget`na:`n  b:`n    catzc:`n      immutable:`n        kind: widget`n---`nbody`n"
+            $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("body`n", 'metadata.catzc')
+            $doc.WithMetaBlock($script:block) | Should -BeExactly "---`nmetadata:`n  catzc:`n    immutable:`n      kind: widget`n---`n`nbody`n"
+        }
+
+        It 'cannot nest under a parent that holds a flow mapping or a scalar, and says which key' {
+            $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("---`nname: widget`nmetadata: { catzc: { floor: low } }`n---`nbody`n", 'metadata.catzc')
+            $doc.HasMetaBlock | Should -BeFalse
+            $doc.CanHoldMetaBlock | Should -BeFalse
+            { $doc.WithMetaBlock($script:block) } | Should -Throw "*'metadata' holds a flow or scalar value*metadata.catzc*"
+            $doc.WithMetaBlock([string[]] @()) | Should -BeExactly "---`nname: widget`nmetadata: { catzc: { floor: low } }`n---`nbody`n"
+        }
+
+        It 'reads a key path as dotted plain keys that end in catzc' {
+            [Catzc.Base.MarkdownMeta.MarkdownDocument]::IsKeyPath('metadata.catzc') | Should -BeTrue
+            [Catzc.Base.MarkdownMeta.MarkdownDocument]::IsKeyPath('catzc') | Should -BeTrue
+            foreach ($bad in @('', 'metadata', 'metadata.', '.catzc', 'meta data.catzc', 'a:b.catzc')) {
+                [Catzc.Base.MarkdownMeta.MarkdownDocument]::IsKeyPath($bad) | Should -BeFalse -Because "'$bad' is no key path"
+            }
+            { [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse('body', 'metadata') } | Should -Throw "*ending in 'catzc'*"
+        }
+    }
+
     It 'reads an unchanged document back byte for byte' -ForEach @(
         @{ Text = "---`nname: widget`ncatzc:`n  immutable:`n    kind: gadget`n---`nbody`n" }
         @{ Text = "---`r`nname: widget`r`n---`r`nbody`r`n" }

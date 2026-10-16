@@ -59,6 +59,28 @@ settings:
     editor.tabSize: 4
     editor.insertSpaces: true
 
+  # Git state on the open file: changed = dark grey, staged = green (explorer, tab title, gutter, right-hand ruler, minimap).
+  git.decorations.enabled: true
+  workbench.editor.decorations.colors: true
+  workbench.editor.decorations.badges: true
+  scm.diffDecorations: all
+  scm.diffDecorationsGutterVisibility: always
+  workbench.colorCustomizations:
+    gitDecoration.modifiedResourceForeground: "#7a7a7a"
+    gitDecoration.stageModifiedResourceForeground: "#3fb950"
+    gitDecoration.addedResourceForeground: "#3fb950"
+    gitDecoration.stageDeletedResourceForeground: "#3fb950"
+    editorGutter.modifiedBackground: "#7a7a7a"
+    editorGutter.addedBackground: "#3fb950"
+    editorOverviewRuler.modifiedForeground: "#7a7a7a"
+    editorOverviewRuler.addedForeground: "#3fb950"
+    minimapGutter.modifiedBackground: "#7a7a7a"
+    minimapGutter.addedBackground: "#3fb950"
+    diffEditor.insertedLineBackground: "#8080801f"
+    diffEditor.insertedTextBackground: "#80808033"
+    diffEditor.removedLineBackground: "#8080801f"
+    diffEditor.removedTextBackground: "#80808033"
+
   search.exclude:
     automation/.vendor: true
     automation/**/*.psd1: true

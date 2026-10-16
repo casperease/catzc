@@ -127,7 +127,7 @@ function Format-GeneratedFileHead {
             }
         }
         ([Catzc.Base.Languages.CarrierKind]::FrontMatter) {
-            (Get-MarkdownMetaState -Text $Text).Body
+            (Get-MarkdownMetaState -Text $Text -Key $entry.key).Body
         }
         ([Catzc.Base.Languages.CarrierKind]::Property) {
             Format-PropertyMetaHead -Text $Text -Property $entry.property -Strip $entry.strip -Immutable ([ordered]@{})
@@ -149,7 +149,7 @@ function Format-GeneratedFileHead {
             Format-CodeMetaHead -Text $Text -Form $entry.Form() -Immutable $facts
         }
         ([Catzc.Base.Languages.CarrierKind]::FrontMatter) {
-            Format-MarkdownMetaBlock -Text $Text -Immutable $facts
+            Format-MarkdownMetaBlock -Text $Text -Immutable $facts -Key $entry.key
         }
         ([Catzc.Base.Languages.CarrierKind]::Property) {
             Format-PropertyMetaHead -Text $Text -Property $entry.property -Strip $entry.strip -Immutable $facts
