@@ -39,15 +39,15 @@ The group holds the files of .unordered; each sits in its world-map cell and is 
 The group holds the files of automation/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1][4], in the cell automation × powershell: selected by [ADR-FLOW-CD-DETECT][1]: the
-  file cites it at line 19 (header) and line 25 (header).
+  file cites it at line 20 (header) and line 26 (header).
 - [automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1][5], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 19 (header).
+  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 20 (header).
 
 ### adr/flow (docs/adr/flow, 2 lit files)
 
 The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
 
-- [docs/adr/flow/dora-explains.md][6], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 80
+- [docs/adr/flow/dora-explains.md][6], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 81
   (text).
 - [docs/adr/flow/pipeline-detection.md][1], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the ADR's own file.
 
@@ -56,47 +56,47 @@ The group holds the files of docs/adr/flow; each sits in its world-map cell and 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
 - [docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md][7], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 16 (text) and line 32 (text).
+  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 17 (text) and line 33 (text).
 - [docs/references/automation/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md][8], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 26 (text).
+  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 27 (text).
 
 ### Az.Templates (automation/Catzc.Azure.Templates, 1 lit file)
 
 The group holds the files of automation/Catzc.Azure.Templates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1][9], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 20 (header).
+  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 21 (header).
 
 ### Docs (automation/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][10], in the cell automation × yaml: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it
-  at line 116 (text).
+  at line 117 (text).
 
 ### QualityGates (automation/Catzc.Base.QualityGates, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][11], in the cell automation × yaml: selected by [ADR-FLOW-CD-DETECT][1]:
-  the file cites it at line 29 (text).
+  the file cites it at line 30 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][12], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 126 (text).
+- [docs/adr/index.md][12], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 129 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][13], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-DETECT][1]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1` line 20
-  (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 116 (text), `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 19
-  (header), `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 25 (header),
-  `automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1` line 19 (header) and
-  `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 29 (text).
+  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1` line 21
+  (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 117 (text), `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 20
+  (header), `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 26 (header),
+  `automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1` line 20 (header) and
+  `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 30 (text).
 
 ## Keywords
 

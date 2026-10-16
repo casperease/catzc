@@ -36,57 +36,57 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
 - [docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md][3], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]:
-  the file cites it at line 16 (text) and line 40 (text).
+  the file cites it at line 17 (text) and line 41 (text).
 - [docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md][4], in the cell docs × markdown: selected by
-  [ADR-AUTO-ENVVAR][1]: the file cites it at line 16 (text) and line 49 (text).
+  [ADR-AUTO-ENVVAR][1]: the file cites it at line 17 (text) and line 50 (text).
 - [docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md][5], in the cell docs × markdown: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 27 (text).
+  [ADR-CONF-ADDRESSING][2]: the file cites it at line 28 (text).
 - [docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md][6], in the cell docs × markdown: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 27 (text).
+  [ADR-CONF-ADDRESSING][2]: the file cites it at line 28 (text).
 - [docs/references/automation/catzc-tooling-environment.md][7], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file
-  cites it at line 15 (text), line 27 (text), line 53 (text), line 54 (text) and line 54 (text).
+  cites it at line 16 (text), line 28 (text), line 54 (text), line 55 (text) and line 55 (text).
 
 ### Languages (automation/Catzc.Base.Languages, 4 lit files)
 
 The group holds the files of automation/Catzc.Base.Languages; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Languages/Invoke-GoTest.ps1][8], in the cell automation × powershell: selected by [ADR-AUTO-ENVVAR][1]: the file
-  cites it at line 21 (header).
+  cites it at line 22 (header).
 - [automation/Catzc.Base.Languages/Invoke-PythonTest.ps1][9], in the cell automation × powershell: selected by [ADR-AUTO-ENVVAR][1]: the
-  file cites it at line 21 (header).
+  file cites it at line 22 (header).
 - [automation/Catzc.Base.Languages/New-GoWorkspace.ps1][10], in the cell automation × powershell: selected by [ADR-CONF-ADDRESSING][2]: the
-  file cites it at line 21 (header).
+  file cites it at line 22 (header).
 - [automation/Catzc.Base.Languages/New-PythonProject.ps1][11], in the cell automation × powershell: selected by [ADR-CONF-ADDRESSING][2]:
-  the file cites it at line 22 (header).
+  the file cites it at line 23 (header).
 
 ### .claude (3 lit files)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-bounded-folder-enumeration.md][12], in the cell .claude × markdown: selected by [ADR-CONF-ADDRESSING][2]: the file
-  cites it at line 200 (text).
+  cites it at line 29 (text) and line 304 (text).
 - [.claude/plans/plan-layers-vocabulary-rename-contracts.md][13], in the cell .claude × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file
-  cites it at line 437 (text), line 458 (text) and line 659 (text).
+  cites it at line 504 (text), line 526 (text) and line 734 (text).
 - [.claude/plans/prompt-bounded-folder-enumeration-continue.md][14], in the cell .claude × markdown: selected by [ADR-CONF-ADDRESSING][2]:
-  the file cites it at line 17 (text).
+  the file cites it at line 20 (text) and line 41 (text).
 
 ### Config (automation/Catzc.Base.Config, 3 lit files)
 
 The group holds the files of automation/Catzc.Base.Config; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Config/Get-ConfigValue.ps1][15], in the cell automation × powershell: selected by [ADR-AUTO-ENVVAR][1]: the file
-  cites it at line 19 (header) and line 45 (header); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 20 (header), line 37
-  (header), line 40 (header) and line 43 (header).
+  cites it at line 20 (header) and line 46 (header); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 21 (header), line 38
+  (header), line 41 (header) and line 44 (header).
 - [automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1][16], in the cell automation × powershell: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 19 (header), line 29 (header), line 31 (header) and line 36 (header).
+  [ADR-CONF-ADDRESSING][2]: the file cites it at line 20 (header), line 30 (header), line 32 (header) and line 37 (header).
 - [automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][17], in the cell automation × powershell: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 20 (header), line 61 (text) and line 90 (text).
+  [ADR-CONF-ADDRESSING][2]: the file cites it at line 21 (header), line 62 (text) and line 91 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
 
 The group holds the files of docs/adr/automation; each sits in its world-map cell and is lit by:
 
-- [docs/adr/automation/dora-explains.md][18], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 431
+- [docs/adr/automation/dora-explains.md][18], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 433
   (text).
 - [docs/adr/automation/environment-variables.md][1], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the ADR's own file.
 
@@ -97,7 +97,7 @@ The group holds the files of docs/adr/configuration; each sits in its world-map 
 - [docs/adr/configuration/config-value-addressing.md][2], in the cell docs × markdown: selected by [ADR-CONF-ADDRESSING][2]: the ADR's own
   file.
 - [docs/adr/configuration/dora-explains.md][19], in the cell docs × markdown: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at
-  line 52 (text).
+  line 53 (text).
 
 ### .unordered (1 lit file)
 
@@ -111,70 +111,70 @@ The group holds the files of .unordered; each sits in its world-map cell and is 
 The group holds the files of automation/Catzc.Azure.Templates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1][21], in the cell automation × powershell: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 21 (header), line 29 (header) and line 34 (header).
+  [ADR-CONF-ADDRESSING][2]: the file cites it at line 22 (header), line 30 (header) and line 35 (header).
 
 ### Docs (automation/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][22], in the cell automation × yaml: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at
-  line 154 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 221 (text).
+  line 155 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 223 (text).
 
 ### Folders (automation/Catzc.Base.Folders, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Folders; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][23], in the cell automation × powershell: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 20 (header) and line 77 (text).
+  [ADR-CONF-ADDRESSING][2]: the file cites it at line 21 (header) and line 78 (text).
 
 ### QualityGates (automation/Catzc.Base.QualityGates, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][24], in the cell automation × yaml: selected by [ADR-AUTO-ENVVAR][1]: the
-  file cites it at line 604 (text).
+  file cites it at line 605 (text).
 
 ### Tool.Environment (automation/Catzc.Tooling.Environment, 1 lit file)
 
 The group holds the files of automation/Catzc.Tooling.Environment; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1][25], in the cell automation × powershell: selected by
-  [ADR-AUTO-ENVVAR][1]: the file cites it at line 20 (header) and line 51 (header).
+  [ADR-AUTO-ENVVAR][1]: the file cites it at line 21 (header) and line 52 (header).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][26], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 163 (text); selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 227 (text).
+- [docs/adr/index.md][26], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 166 (text); selected by
+  [ADR-CONF-ADDRESSING][2]: the file cites it at line 231 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][27], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-ENVVAR][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 19 (header),
-  `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 45 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 154 (text),
-  `automation/Catzc.Base.Languages/Invoke-GoTest.ps1` line 21 (header), `automation/Catzc.Base.Languages/Invoke-PythonTest.ps1` line 21
-  (header), `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 604 (text),
-  `automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1` line 20 (header) and
-  `automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1` line 51 (header); selected by [ADR-CONF-ADDRESSING][2]: a pipeline that
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 20 (header),
+  `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 46 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 155 (text),
+  `automation/Catzc.Base.Languages/Invoke-GoTest.ps1` line 22 (header), `automation/Catzc.Base.Languages/Invoke-PythonTest.ps1` line 22
+  (header), `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 605 (text),
+  `automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1` line 21 (header) and
+  `automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1` line 52 (header); selected by [ADR-CONF-ADDRESSING][2]: a pipeline that
   cites nothing itself carries its globset's citations, which cite it at
-  `automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1` line 21 (header),
-  `automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1` line 29 (header),
-  `automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1` line 34 (header),
-  `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 20 (header), `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 37 (header),
-  `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 40 (header), `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 43 (header),
-  `automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1` line 19 (header),
-  `automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1` line 29 (header),
-  `automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1` line 31 (header),
-  `automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1` line 36 (header),
-  `automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 20 (header),
-  `automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 61 (text),
-  `automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 90 (text), `automation/Catzc.Base.Docs/configs/adrs.yml` line 221
-  (text), `automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 20 (header),
-  `automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 77 (text),
-  `automation/Catzc.Base.Languages/New-GoWorkspace.ps1` line 21 (header) and `automation/Catzc.Base.Languages/New-PythonProject.ps1` line 22
+  `automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1` line 22 (header),
+  `automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1` line 30 (header),
+  `automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1` line 35 (header),
+  `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 21 (header), `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 38 (header),
+  `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 41 (header), `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 44 (header),
+  `automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1` line 20 (header),
+  `automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1` line 30 (header),
+  `automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1` line 32 (header),
+  `automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1` line 37 (header),
+  `automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 21 (header),
+  `automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 62 (text),
+  `automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 91 (text), `automation/Catzc.Base.Docs/configs/adrs.yml` line 223
+  (text), `automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 21 (header),
+  `automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 78 (text),
+  `automation/Catzc.Base.Languages/New-GoWorkspace.ps1` line 22 (header) and `automation/Catzc.Base.Languages/New-PythonProject.ps1` line 23
   (header).
 
 ## Keywords

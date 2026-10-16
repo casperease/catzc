@@ -35,21 +35,21 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
 - [docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][3], in the cell docs × markdown: selected
-  by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 17 (text) and line 31 (text).
-- [docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md][4], in the cell docs × markdown:
-  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 17 (text) and line 32 (text).
-- [docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][5], in the cell docs × markdown: selected
   by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 18 (text) and line 32 (text).
+- [docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md][4], in the cell docs × markdown:
+  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 18 (text) and line 33 (text).
+- [docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][5], in the cell docs × markdown: selected
+  by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 19 (text) and line 33 (text).
 - [docs/references/automation/catzc-base-docs/configs/adrs.yml.md][6], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file
-  cites it at line 57 (text).
+  cites it at line 58 (text).
 - [docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md][7], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the
-  file cites it at line 49 (text), line 50 (text), line 78 (text) and line 79 (text).
+  file cites it at line 50 (text), line 51 (text), line 79 (text) and line 80 (text).
 - [docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md][8], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]:
-  the file cites it at line 19 (text) and line 56 (text).
+  the file cites it at line 20 (text) and line 57 (text).
 - [docs/references/pipelines/cd-shared.yaml.md][9], in the cell docs × markdown: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at
-  line 30 (text).
+  line 31 (text).
 - [docs/references/pipelines/ci-infrastructure.yaml.md][10], in the cell docs × markdown: selected by [ADR-FLOW-CD-TYPE][2]: the file cites
-  it at line 31 (text).
+  it at line 32 (text).
 
 ### .unordered (5 lit files)
 
@@ -72,45 +72,45 @@ The group holds the files of .unordered; each sits in its world-map cell and is 
 The group holds the files of automation/Catzc.Azure.DevOps.BuildValidation; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1][16], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 20 (header) and line 26 (header).
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 21 (header) and line 27 (header).
 - [automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1][17], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 22 (header) and line 30 (header).
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 23 (header) and line 31 (header).
 - [automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1][18], in the cell automation × powershell:
-  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 20 (header) and line 31 (header).
+  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 21 (header) and line 32 (header).
 - [automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs][19], in the cell automation × csharp: selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 21 (text).
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 22 (text).
 - [automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs][20], in the cell automation × csharp: selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 21 (text).
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 22 (text).
 
 ### Docs (automation/Catzc.Base.Docs, 3 lit files)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][21], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites it at line
-  114 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 117 (text).
+  115 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 118 (text).
 - [automation/Catzc.Base.Docs/types/AdrsConfig.cs][22], in the cell automation × csharp: selected by [ADR-FLOW-CD][1]: the file cites it at
-  line 25 (text).
+  line 26 (text).
 - [automation/Catzc.Base.Docs/types/GlossaryConcept.cs][23], in the cell automation × csharp: selected by [ADR-FLOW-CD][1]: the file cites
-  it at line 22 (text).
+  it at line 23 (text).
 
 ### Maps (automation/Catzc.Base.Maps, 3 lit files)
 
 The group holds the files of automation/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1][24], in the cell automation × powershell: selected by [ADR-FLOW-CD][1]: the file
-  cites it at line 21 (header) and line 40 (header).
+  cites it at line 22 (header) and line 41 (header).
 - [automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1][25], in the cell automation × powershell: selected by [ADR-FLOW-CD][1]: the file
-  cites it at line 20 (header) and line 48 (header).
+  cites it at line 21 (header) and line 49 (header).
 - [automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][26], in the cell automation × powershell: selected by [ADR-FLOW-CD][1]:
-  the file cites it at line 19 (header), line 92 (text) and line 93 (text).
+  the file cites it at line 20 (header), line 93 (text) and line 94 (text).
 
 ### adr/flow (docs/adr/flow, 3 lit files)
 
 The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
 
 - [docs/adr/flow/cd-discipline-and-promotion-flow.md][1], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the ADR's own file.
-- [docs/adr/flow/dora-explains.md][27], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 42 (text);
-  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 98 (text).
+- [docs/adr/flow/dora-explains.md][27], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 43 (text);
+  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 99 (text).
 - [docs/adr/flow/pipeline-types.md][2], in the cell docs × markdown: selected by [ADR-FLOW-CD-TYPE][2]: the ADR's own file.
 
 ### .claude (2 lit files)
@@ -119,71 +119,71 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 
 - [.claude/CLAUDE.md][28], in the cell .claude × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 50 (text).
 - [.claude/plans/plan-module-kinds-tracks.md][29], in the cell .claude × markdown: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at
-  line 419 (text) and line 422 (text).
+  line 555 (text) and line 558 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][30], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 397 (text) and line 410
+- [docs/adr/glossary.md][30], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 415 (text) and line 428
   (text).
-- [docs/adr/index.md][31], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 124 (text); selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 127 (text).
+- [docs/adr/index.md][31], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 127 (text); selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 130 (text).
 
 ### Az.DevOps (automation/Catzc.Azure.DevOps, 1 lit file)
 
 The group holds the files of automation/Catzc.Azure.DevOps; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1][32], in the cell automation × powershell: selected by [ADR-FLOW-CD-TYPE][2]: the
-  file cites it at line 21 (header) and line 25 (header).
+  file cites it at line 22 (header) and line 26 (header).
 
 ### Az.Templates (automation/Catzc.Azure.Templates, 1 lit file)
 
 The group holds the files of automation/Catzc.Azure.Templates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1][33], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 22 (header).
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 23 (header).
 
 ### ModuleSystem (automation/Catzc.Base.ModuleSystem, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][34], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites
-  it at line 37 (text).
+  it at line 38 (text).
 
 ### QualityGates (automation/Catzc.Base.QualityGates, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.QualityGates/configs/glossary.yml][35], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites
-  it at line 76 (text).
+  it at line 77 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][36], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 114 (text),
-  `automation/Catzc.Base.Docs/types/AdrsConfig.cs` line 25 (text), `automation/Catzc.Base.Docs/types/GlossaryConcept.cs` line 22 (text),
-  `automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1` line 21 (header), `automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1` line
-  40 (header), `automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1` line 20 (header),
-  `automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1` line 48 (header),
-  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 92 (text),
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 115 (text),
+  `automation/Catzc.Base.Docs/types/AdrsConfig.cs` line 26 (text), `automation/Catzc.Base.Docs/types/GlossaryConcept.cs` line 23 (text),
+  `automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1` line 22 (header), `automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1` line
+  41 (header), `automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1` line 21 (header),
+  `automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1` line 49 (header),
+  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 20 (header),
   `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 93 (text),
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 37 (text) and `automation/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 76 (text); selected by [ADR-FLOW-CD-TYPE][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
-  `automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1` line 20 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1` line 26 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1` line 22 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1` line 30 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1` line 20 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1` line 31 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs` line 21 (text),
-  `automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs` line 21 (text),
-  `automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1` line 21 (header), `automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1` line 25
-  (header), `automation/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1` line 22 (header) and
-  `automation/Catzc.Base.Docs/configs/adrs.yml` line 117 (text).
+  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 94 (text),
+  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 38 (text) and `automation/Catzc.Base.QualityGates/configs/glossary.yml`
+  line 77 (text); selected by [ADR-FLOW-CD-TYPE][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
+  `automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1` line 21 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1` line 27 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1` line 23 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1` line 31 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1` line 21 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1` line 32 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs` line 22 (text),
+  `automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs` line 22 (text),
+  `automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1` line 22 (header), `automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1` line 26
+  (header), `automation/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1` line 23 (header) and
+  `automation/Catzc.Base.Docs/configs/adrs.yml` line 118 (text).
 
 ## Keywords
 

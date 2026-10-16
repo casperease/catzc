@@ -15,9 +15,9 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .unordered × markdown: 2 lit of 20 files
-- automation × powershell: 3 lit of 1563 files
-- automation × yaml: 2 lit of 107 files
-- docs × markdown: 5 lit of 1985 files
+- automation × powershell: 3 lit of 1579 files
+- automation × yaml: 2 lit of 109 files
+- docs × markdown: 5 lit of 2165 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
@@ -44,11 +44,11 @@ markdown ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1][7]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 20
+- [automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1][7]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 21
   (header).
-- [automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1][8]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 19 (header)
-  and line 25 (header).
-- [automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1][9]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 19
+- [automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1][8]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 20 (header)
+  and line 26 (header).
+- [automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1][9]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 20
   (header).
 
 ### automation × yaml (2 lit files)
@@ -56,8 +56,8 @@ powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][10]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 116 (text).
-- [automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][11]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 29
+- [automation/Catzc.Base.Docs/configs/adrs.yml][10]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 117 (text).
+- [automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][11]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 30
   (text).
 
 ### docs × markdown (5 lit files)
@@ -65,13 +65,13 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/flow/dora-explains.md][12]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 80 (text).
+- [docs/adr/flow/dora-explains.md][12]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 81 (text).
 - [docs/adr/flow/pipeline-detection.md][1]: selected by [ADR-FLOW-CD-DETECT][1]: the ADR's own file.
-- [docs/adr/index.md][13]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 126 (text).
+- [docs/adr/index.md][13]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 129 (text).
 - [docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md][14]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites
-  it at line 16 (text) and line 32 (text).
+  it at line 17 (text) and line 33 (text).
 - [docs/references/automation/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md][15]: selected by [ADR-FLOW-CD-DETECT][1]: the file
-  cites it at line 26 (text).
+  cites it at line 27 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -79,11 +79,11 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][16]: selected by [ADR-FLOW-CD-DETECT][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1` line 20 (header),
-  `automation/Catzc.Base.Docs/configs/adrs.yml` line 116 (text), `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 25 (header),
-  `automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1` line 19 (header) and
-  `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 29 (text).
+  citations, which cite it at `automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1` line 21 (header),
+  `automation/Catzc.Base.Docs/configs/adrs.yml` line 117 (text), `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 26 (header),
+  `automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1` line 20 (header) and
+  `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 30 (text).
 
 ## Keywords
 

@@ -15,11 +15,11 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (237 of the 288 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 3 lit of 51 files
+- .claude × markdown: 3 lit of 71 files
 - .unordered × markdown: 5 lit of 20 files
-- automation × powershell: 3 lit of 1563 files
-- automation × yaml: 3 lit of 107 files
-- docs × markdown: 10 lit of 1985 files
+- automation × powershell: 3 lit of 1579 files
+- automation × yaml: 3 lit of 109 files
+- docs × markdown: 10 lit of 2165 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
@@ -39,9 +39,9 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [.claude/CLAUDE.md][6]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 51 (text).
-- [.claude/plans/plan-adr-link-cleanup-prose-to-pages.md][7]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 258 (text).
-- [.claude/plans/prompt-adr-links-and-plans-continue.md][8]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 52 (text) and line 52
-  (text).
+- [.claude/plans/plan-adr-link-cleanup-prose-to-pages.md][7]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 299 (text).
+- [.claude/plans/prompt-adr-links-and-plans-continue.md][8]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 19 (text), line 75
+  (text) and line 75 (text).
 
 ### .unordered × markdown (5 lit files)
 
@@ -61,23 +61,23 @@ markdown ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [automation/Catzc.Azure.DevOps/Test-Pipelines.ps1][14]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 22 (header), line 27
-  (header), line 34 (header), line 37 (header), line 41 (header), line 44 (header), line 46 (header), line 51 (header), line 114 (text),
-  line 119 (text), line 126 (text), line 131 (text), line 134 (text), line 138 (text), line 141 (text) and line 148 (text).
+- [automation/Catzc.Azure.DevOps/Test-Pipelines.ps1][14]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 23 (header), line 28
+  (header), line 35 (header), line 38 (header), line 42 (header), line 45 (header), line 47 (header), line 52 (header), line 115 (text),
+  line 120 (text), line 127 (text), line 132 (text), line 135 (text), line 139 (text), line 142 (text) and line 149 (text).
 - [automation/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1][15]: selected by [ADR-PIPE-NAME][2]: the file cites it at line
-  20 (header).
-- [automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1][16]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 20 (header),
-  line 71 (text), line 72 (text), line 81 (text), line 84 (text), line 88 (text), line 96 (text), line 98 (text), line 101 (text), line 103
-  (text), line 106 (text), line 108 (text), line 111 (text), line 113 (text), line 116 (text), line 118 (text), line 126 (text), line 129
-  (text), line 140 (text) and line 145 (text).
+  21 (header).
+- [automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1][16]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 21 (header),
+  line 72 (text), line 73 (text), line 82 (text), line 85 (text), line 89 (text), line 97 (text), line 99 (text), line 102 (text), line 104
+  (text), line 107 (text), line 109 (text), line 112 (text), line 114 (text), line 117 (text), line 119 (text), line 127 (text), line 130
+  (text), line 141 (text) and line 146 (text).
 
 ### automation × yaml (3 lit files)
 
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][17]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 115 (text); selected by
-  [ADR-PIPE-NAME][2]: the file cites it at line 237 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][17]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 116 (text); selected by
+  [ADR-PIPE-NAME][2]: the file cites it at line 239 (text).
 - [automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][18]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 9
   (header).
 - [automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml][19]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 8 (header).
@@ -87,19 +87,19 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [docs/adr/flow/dora-explains.md][20]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 62 (text).
+- [docs/adr/flow/dora-explains.md][20]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 63 (text).
 - [docs/adr/flow/pipeline-runner-pattern.md][1]: selected by [ADR-FLOW-CD-RUNNER][1]: the ADR's own file.
-- [docs/adr/index.md][21]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 125 (text); selected by [ADR-PIPE-NAME][2]: the
-  file cites it at line 242 (text).
-- [docs/adr/pipelines/dora-explains.md][22]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 73 (text).
+- [docs/adr/index.md][21]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 128 (text); selected by [ADR-PIPE-NAME][2]: the
+  file cites it at line 246 (text).
+- [docs/adr/pipelines/dora-explains.md][22]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 74 (text).
 - [docs/adr/pipelines/pipeline-naming-and-placement.md][2]: selected by [ADR-PIPE-NAME][2]: the ADR's own file.
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][23]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 33 (text).
-- [docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md][24]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 16
-  (text), line 29 (text), line 39 (text), line 49 (text), line 58 (text), line 67 (text) and line 76 (text).
+- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][23]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 34 (text).
+- [docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md][24]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 17
+  (text), line 30 (text), line 40 (text), line 50 (text), line 59 (text), line 68 (text) and line 77 (text).
 - [docs/references/automation/catzc-base-languages/configs/languages.yml.md][25]: selected by [ADR-PIPE-NAME][2]: the file cites it at line
-  18 (text) and line 67 (text).
-- [docs/references/pipelines/extends/cd-customer.yaml.md][26]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 31 (text).
-- [docs/references/pipelines/steps/invoke-automation.yaml.md][27]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 43 (text).
+  19 (text) and line 68 (text).
+- [docs/references/pipelines/extends/cd-customer.yaml.md][26]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 32 (text).
+- [docs/references/pipelines/steps/invoke-automation.yaml.md][27]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 44 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -107,37 +107,37 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][28]: selected by [ADR-FLOW-CD-RUNNER][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 115 (text); selected by [ADR-PIPE-NAME][2]: a pipeline that
-  cites nothing itself carries its globset's citations, which cite it at `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 22
-  (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 27 (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 34
-  (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 37 (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 41
-  (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 44 (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 46
-  (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 51 (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 114
-  (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 119 (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 126
-  (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 131 (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 134
-  (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 138 (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 141
-  (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 148 (text),
-  `automation/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1` line 20 (header),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 20 (header),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 71 (text),
+  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 116 (text); selected by [ADR-PIPE-NAME][2]: a pipeline that
+  cites nothing itself carries its globset's citations, which cite it at `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 23
+  (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 28 (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 35
+  (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 38 (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 42
+  (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 45 (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 47
+  (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 52 (header), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 115
+  (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 120 (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 127
+  (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 132 (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 135
+  (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 139 (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 142
+  (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 149 (text),
+  `automation/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1` line 21 (header),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 21 (header),
   `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 72 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 81 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 84 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 88 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 96 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 98 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 101 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 103 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 106 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 108 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 111 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 113 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 116 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 118 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 126 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 129 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 140 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 145 (text), `automation/Catzc.Base.Docs/configs/adrs.yml` line 237
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 73 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 82 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 85 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 89 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 97 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 99 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 102 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 104 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 107 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 109 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 112 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 114 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 117 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 119 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 127 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 130 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 141 (text),
+  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 146 (text), `automation/Catzc.Base.Docs/configs/adrs.yml` line 239
   (text), `automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml` line 9 (header) and
   `automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml` line 8 (header).
 

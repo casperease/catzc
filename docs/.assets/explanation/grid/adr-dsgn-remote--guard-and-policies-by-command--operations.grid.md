@@ -15,8 +15,8 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .unordered × markdown: 2 lit of 20 files
-- automation × yaml: 1 lit of 107 files
-- docs × markdown: 3 lit of 1985 files
+- automation × yaml: 1 lit of 109 files
+- docs × markdown: 3 lit of 2165 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
@@ -42,16 +42,16 @@ markdown ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][7]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 96 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][7]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 97 (text).
 
 ### docs × markdown (3 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/design/dora-explains.md][8]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 142 (text).
+- [docs/adr/design/dora-explains.md][8]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 143 (text).
 - [docs/adr/design/server-remote-integration.md][1]: selected by [ADR-DSGN-REMOTE][1]: the ADR's own file.
-- [docs/adr/index.md][9]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 108 (text).
+- [docs/adr/index.md][9]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 111 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -59,7 +59,7 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][10]: selected by [ADR-DSGN-REMOTE][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 96 (text).
+  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 97 (text).
 
 ## Keywords
 

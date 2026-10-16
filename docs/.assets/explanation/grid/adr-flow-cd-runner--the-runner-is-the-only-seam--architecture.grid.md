@@ -14,10 +14,10 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (237 of the 288 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 1 lit of 51 files
+- .claude × markdown: 1 lit of 71 files
 - .unordered × markdown: 5 lit of 20 files
-- automation × yaml: 1 lit of 107 files
-- docs × markdown: 4 lit of 1985 files
+- automation × yaml: 1 lit of 109 files
+- docs × markdown: 4 lit of 2165 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
@@ -55,17 +55,17 @@ markdown ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][11]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 115 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][11]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 116 (text).
 
 ### docs × markdown (4 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/flow/dora-explains.md][12]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 62 (text).
+- [docs/adr/flow/dora-explains.md][12]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 63 (text).
 - [docs/adr/flow/pipeline-runner-pattern.md][1]: selected by [ADR-FLOW-CD-RUNNER][1]: the ADR's own file.
-- [docs/adr/index.md][13]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 125 (text).
-- [docs/references/pipelines/steps/invoke-automation.yaml.md][14]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 43 (text).
+- [docs/adr/index.md][13]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 128 (text).
+- [docs/references/pipelines/steps/invoke-automation.yaml.md][14]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 44 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -73,7 +73,7 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][15]: selected by [ADR-FLOW-CD-RUNNER][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 115 (text).
+  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 116 (text).
 
 ## Keywords
 

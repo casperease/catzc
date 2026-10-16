@@ -46,48 +46,48 @@ The group holds the files of .unordered; each sits in its world-map cell and is 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][7], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites it at line
-  114 (text).
+  115 (text).
 - [automation/Catzc.Base.Docs/types/AdrsConfig.cs][8], in the cell automation × csharp: selected by [ADR-FLOW-CD][1]: the file cites it at
-  line 25 (text).
+  line 26 (text).
 - [automation/Catzc.Base.Docs/types/GlossaryConcept.cs][9], in the cell automation × csharp: selected by [ADR-FLOW-CD][1]: the file cites it
-  at line 22 (text).
+  at line 23 (text).
 
 ### Maps (automation/Catzc.Base.Maps, 3 lit files)
 
 The group holds the files of automation/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1][10], in the cell automation × powershell: selected by [ADR-FLOW-CD][1]: the file
-  cites it at line 21 (header) and line 40 (header).
+  cites it at line 22 (header) and line 41 (header).
 - [automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1][11], in the cell automation × powershell: selected by [ADR-FLOW-CD][1]: the file
-  cites it at line 20 (header) and line 48 (header).
+  cites it at line 21 (header) and line 49 (header).
 - [automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][12], in the cell automation × powershell: selected by [ADR-FLOW-CD][1]:
-  the file cites it at line 19 (header), line 92 (text) and line 93 (text).
+  the file cites it at line 20 (header), line 93 (text) and line 94 (text).
 
 ### docs (docs/ outside docs/adr/, 3 lit files)
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
 - [docs/references/automation/catzc-base-docs/configs/adrs.yml.md][13], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file
-  cites it at line 57 (text).
+  cites it at line 58 (text).
 - [docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md][14], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the
-  file cites it at line 49 (text), line 50 (text), line 78 (text) and line 79 (text).
+  file cites it at line 50 (text), line 51 (text), line 79 (text) and line 80 (text).
 - [docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md][15], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]:
-  the file cites it at line 19 (text) and line 56 (text).
+  the file cites it at line 20 (text) and line 57 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][16], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 397 (text) and line 410
+- [docs/adr/glossary.md][16], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 415 (text) and line 428
   (text).
-- [docs/adr/index.md][17], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 124 (text).
+- [docs/adr/index.md][17], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 127 (text).
 
 ### adr/flow (docs/adr/flow, 2 lit files)
 
 The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
 
 - [docs/adr/flow/cd-discipline-and-promotion-flow.md][1], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the ADR's own file.
-- [docs/adr/flow/dora-explains.md][18], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 42 (text).
+- [docs/adr/flow/dora-explains.md][18], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 43 (text).
 
 ### .claude (1 lit file)
 
@@ -100,30 +100,30 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][20], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites
-  it at line 37 (text).
+  it at line 38 (text).
 
 ### QualityGates (automation/Catzc.Base.QualityGates, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.QualityGates/configs/glossary.yml][21], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites
-  it at line 76 (text).
+  it at line 77 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][22], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 114 (text),
-  `automation/Catzc.Base.Docs/types/AdrsConfig.cs` line 25 (text), `automation/Catzc.Base.Docs/types/GlossaryConcept.cs` line 22 (text),
-  `automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1` line 21 (header), `automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1` line
-  40 (header), `automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1` line 20 (header),
-  `automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1` line 48 (header),
-  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 92 (text),
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 115 (text),
+  `automation/Catzc.Base.Docs/types/AdrsConfig.cs` line 26 (text), `automation/Catzc.Base.Docs/types/GlossaryConcept.cs` line 23 (text),
+  `automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1` line 22 (header), `automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1` line
+  41 (header), `automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1` line 21 (header),
+  `automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1` line 49 (header),
+  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 20 (header),
   `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 93 (text),
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 37 (text) and `automation/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 76 (text).
+  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 94 (text),
+  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 38 (text) and `automation/Catzc.Base.QualityGates/configs/glossary.yml`
+  line 77 (text).
 
 ## Keywords
 

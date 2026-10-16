@@ -34,179 +34,179 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 The group holds the files of automation/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Globs/Get-ChangedGlobSet.ps1][3], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
-  cites it at line 19 (header) and line 25 (header).
+  cites it at line 20 (header) and line 26 (header).
 - [automation/Catzc.Base.Globs/Get-GlobSet.ps1][4], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
-  it at line 19 (header) and line 24 (header).
+  it at line 20 (header) and line 25 (header).
 - [automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1][5], in the cell automation × powershell: selected by [ADR-FLOW-CD-DETECT][1]: the
-  file cites it at line 19 (header) and line 25 (header).
-- [automation/Catzc.Base.Globs/Get-GlobSetFile.ps1][6], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
-  cites it at line 19 (header), line 24 (header) and line 27 (header).
-- [automation/Catzc.Base.Globs/Get-GlobSetHash.ps1][7], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
-  cites it at line 19 (header) and line 27 (header).
-- [automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1][8], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
-  cites it at line 19 (header) and line 24 (header).
-- [automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1][9], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the
   file cites it at line 20 (header) and line 26 (header).
-- [automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1][10], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
-  cites it at line 25 (header).
-- [automation/Catzc.Base.Globs/Get-TrackedFile.ps1][11], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [automation/Catzc.Base.Globs/Get-GlobSetFile.ps1][6], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+  cites it at line 20 (header), line 25 (header) and line 28 (header).
+- [automation/Catzc.Base.Globs/Get-GlobSetHash.ps1][7], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+  cites it at line 20 (header) and line 28 (header).
+- [automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1][8], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 20 (header) and line 25 (header).
+- [automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1][9], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the
+  file cites it at line 21 (header) and line 27 (header).
+- [automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1][10], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+  cites it at line 26 (header).
+- [automation/Catzc.Base.Globs/Get-TrackedFile.ps1][11], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+  cites it at line 21 (header) and line 26 (header).
 - [automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1][12], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 22 (header).
 - [automation/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1][13], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 22 (header).
 - [automation/Catzc.Base.Globs/Test-GlobSetAffected.ps1][14], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the
-  file cites it at line 21 (header) and line 32 (header).
+  file cites it at line 22 (header) and line 33 (header).
 - [automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1][15], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]:
-  the file cites it at line 22 (header), line 35 (header) and line 94 (text).
+  the file cites it at line 23 (header), line 36 (header) and line 95 (text).
 - [automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1][16], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header) and line 27 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 22 (header) and line 28 (header).
 - [automation/Catzc.Base.Globs/private/Get-ChangedFile.ps1][17], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]:
-  the file cites it at line 20 (header) and line 27 (header).
+  the file cites it at line 21 (header) and line 28 (header).
 - [automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1][18], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]:
-  the file cites it at line 20 (header) and line 25 (header).
+  the file cites it at line 21 (header) and line 26 (header).
 - [automation/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1][19], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header) and line 26 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header) and line 27 (header).
 - [automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1][20], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]:
-  the file cites it at line 20 (header) and line 30 (header).
+  the file cites it at line 21 (header) and line 31 (header).
 - [automation/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1][21], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header).
 - [automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1][22], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header).
 - [automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1][23], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 19 (header).
+  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 20 (header).
 - [automation/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1][24], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header).
 - [automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1][25], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header).
 - [automation/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1][26], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header).
 - [automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1][27], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header).
 - [automation/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1][28], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header).
 - [automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1][29], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header).
 - [automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1][30], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header), line 24 (text) and line 26 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header), line 25 (text) and line 27 (text).
 - [automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1][31], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header).
 - [automation/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1][32], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header).
-- [automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1][33], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header).
+- [automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1][33], in the cell automation × powershell: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header).
 - [automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1][34], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header) and line 80 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header) and line 81 (text).
 - [automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1][35], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]:
-  the file cites it at line 19 (header) and line 31 (text).
+  the file cites it at line 20 (header) and line 32 (text).
 - [automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][36], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header), line 77 (text), line 90 (text), line 101 (text) and line 113 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 22 (header), line 78 (text), line 91 (text), line 102 (text) and line 114 (text).
 - [automation/Catzc.Base.Globs/types/Aspect.cs][37], in the cell automation × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
-  at line 21 (text).
+  at line 22 (text).
 - [automation/Catzc.Base.Globs/types/DurableHash.cs][38], in the cell automation × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file
-  cites it at line 19 (text).
+  cites it at line 20 (text).
 - [automation/Catzc.Base.Globs/types/GlobPattern.cs][39], in the cell automation × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file
-  cites it at line 20 (text), line 46 (text), line 50 (text), line 54 (text), line 66 (text), line 70 (text) and line 79 (text).
+  cites it at line 21 (text), line 47 (text), line 51 (text), line 55 (text), line 67 (text), line 71 (text) and line 80 (text).
 - [automation/Catzc.Base.Globs/types/GlobSet.cs][40], in the cell automation × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
-  at line 20 (text) and line 78 (text).
+  at line 21 (text) and line 79 (text).
 - [automation/Catzc.Base.Globs/types/GlobsConfig.cs][41], in the cell automation × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file
-  cites it at line 20 (text), line 97 (text), line 160 (text), line 164 (text) and line 178 (text).
+  cites it at line 21 (text), line 98 (text), line 161 (text), line 165 (text) and line 179 (text).
 
 ### docs (docs/ outside docs/adr/, 36 lit files)
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
 - [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][42], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the
-  file cites it at line 15 (text) and line 35 (text).
+  file cites it at line 16 (text) and line 36 (text).
 - [docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][43], in the cell docs × markdown:
-  selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 28 (text).
+  selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 29 (text).
 - [docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][44], in the cell docs × markdown: selected
-  by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 34 (text).
+  by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 35 (text).
 - [docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md][45], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 16 (text) and line 32 (text).
+  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 17 (text) and line 33 (text).
 - [docs/references/automation/catzc-base-globs.md][46], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
-  at line 50 (text).
+  at line 51 (text).
 - [docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md][47], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (text), line 34 (text), line 37 (text) and line 85 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (text), line 35 (text), line 38 (text) and line 86 (text).
 - [docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md][48], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text), line 30 (text) and line 40 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text), line 31 (text) and line 41 (text).
 - [docs/references/automation/catzc-base-globs/configs/globs.yml.md][49], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]:
-  the file cites it at line 17 (text), line 32 (text), line 37 (text), line 45 (text), line 47 (text), line 61 (text), line 91 (text) and
-  line 105 (text).
+  the file cites it at line 18 (text), line 33 (text), line 38 (text), line 46 (text), line 48 (text), line 62 (text), line 92 (text) and
+  line 106 (text).
 - [docs/references/automation/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md][50], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text) and line 31 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md][51], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 31 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md][52], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 26 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md][53], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text), line 30 (text) and line 31 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md][54], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text) and line 31 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md][55], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text) and line 30 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md][56], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text) and line 30 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md][57], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text) and line 30 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md][58], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text) and line 29 (text).
-- [docs/references/automation/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md][59], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text) and line 30 (text).
-- [docs/references/automation/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md][60], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 31 (text).
-- [docs/references/automation/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md][61], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text) and line 31 (text).
-- [docs/references/automation/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md][62], in the cell docs × markdown: selected by
   [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 32 (text).
+- [docs/references/automation/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md][51], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 18 (text) and line 32 (text).
+- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md][52], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 27 (text).
+- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md][53], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text), line 31 (text) and line 32 (text).
+- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md][54], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 32 (text).
+- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md][55], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 31 (text).
+- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md][56], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 31 (text).
+- [docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md][57], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 31 (text).
+- [docs/references/automation/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md][58], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 30 (text).
+- [docs/references/automation/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md][59], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 31 (text).
+- [docs/references/automation/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md][60], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 18 (text) and line 32 (text).
+- [docs/references/automation/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md][61], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 32 (text).
+- [docs/references/automation/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md][62], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 18 (text) and line 33 (text).
 - [docs/references/automation/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md][63], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text), line 29 (text) and line 31 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text), line 30 (text) and line 32 (text).
 - [docs/references/automation/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md][64], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text), line 30 (text) and line 32 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text), line 31 (text) and line 33 (text).
 - [docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md][65], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text), line 33 (text), line 35 (text) and line 44 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 18 (text), line 34 (text), line 36 (text) and line 45 (text).
 - [docs/references/automation/catzc-base-globs/types/Aspect.cs.md][66], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the
-  file cites it at line 17 (text) and line 38 (text).
+  file cites it at line 18 (text) and line 39 (text).
 - [docs/references/automation/catzc-base-globs/types/DurableHash.cs.md][67], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text), line 29 (text) and line 35 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text), line 30 (text) and line 36 (text).
 - [docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md][68], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text), line 35 (text), line 36 (text) and line 37 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text), line 36 (text), line 37 (text) and line 38 (text).
 - [docs/references/automation/catzc-base-globs/types/GlobSet.cs.md][69], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]:
-  the file cites it at line 16 (text), line 31 (text), line 33 (text), line 34 (text), line 40 (text), line 43 (text), line 45 (text), line
-  48 (text), line 56 (text), line 65 (text), line 83 (text), line 100 (text), line 110 (text), line 134 (text) and line 142 (text).
+  the file cites it at line 17 (text), line 32 (text), line 34 (text), line 35 (text), line 41 (text), line 44 (text), line 46 (text), line
+  49 (text), line 57 (text), line 66 (text), line 84 (text), line 101 (text), line 111 (text), line 135 (text) and line 143 (text).
 - [docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md][70], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text), line 31 (text), line 35 (text), line 38 (text) and line 57 (text).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text), line 32 (text), line 36 (text), line 39 (text) and line 58 (text).
 - [docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][71], in the cell docs × markdown:
-  selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text) and line 69 (text).
+  selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (text) and line 70 (text).
 - [docs/references/pipelines/cd-apex.yaml.md][72], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
-  line 46 (text).
+  line 47 (text).
 - [docs/references/pipelines/cd-flux.yaml.md][73], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
-  line 45 (text).
+  line 46 (text).
 - [docs/references/pipelines/cd-nova.yaml.md][74], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
-  line 45 (text).
+  line 46 (text).
 - [docs/references/pipelines/cd-shared.yaml.md][75], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
-  line 40 (text).
+  line 41 (text).
 - [docs/references/pipelines/ci-automation.yaml.md][76], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
-  at line 30 (text).
+  at line 31 (text).
 - [docs/references/pipelines/ci-infrastructure.yaml.md][77], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
-  it at line 32 (text).
+  it at line 33 (text).
 
 ### QualityGates (automation/Catzc.Base.QualityGates, 6 lit files)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.QualityGates/Test-Automation.ps1][78], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the
-  file cites it at line 22 (header) and line 101 (header).
+  file cites it at line 23 (header) and line 102 (header).
 - [automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][79], in the cell automation × yaml: selected by [ADR-FLOW-CD-DETECT][1]:
-  the file cites it at line 29 (text).
+  the file cites it at line 30 (text).
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][80], in the cell automation × yaml: selected by [ADR-FLOW-CD-GLOBS][2]: the
-  file cites it at line 1211 (text).
+  file cites it at line 1212 (text).
 - [automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1][81], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header) and line 27 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 22 (header) and line 28 (header).
 - [automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1][82], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 22 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 23 (header).
 - [automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1][83], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header) and line 30 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 22 (header) and line 31 (header).
 
 ### .unordered (5 lit files)
 
@@ -228,20 +228,20 @@ The group holds the files of .unordered; each sits in its world-map cell and is 
 The group holds the files of automation/Catzc.Azure.DevOps.BuildValidation; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1][89], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header) and line 29 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header) and line 30 (header).
 - [automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1][90], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header) and line 27 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 22 (header) and line 28 (header).
 - [automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1][91], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header) and line 25 (header).
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 21 (header) and line 26 (header).
 - [automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1][92], in the cell automation × powershell:
-  selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19 (header) and line 27 (header).
+  selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20 (header) and line 28 (header).
 
 ### adr/flow (docs/adr/flow, 3 lit files)
 
 The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
 
-- [docs/adr/flow/dora-explains.md][93], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 80
-  (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 123 (text).
+- [docs/adr/flow/dora-explains.md][93], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 81
+  (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 124 (text).
 - [docs/adr/flow/durable-sha-globs.md][2], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the ADR's own file.
 - [docs/adr/flow/pipeline-detection.md][1], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the ADR's own file.
 
@@ -250,115 +250,115 @@ The group holds the files of docs/adr/flow; each sits in its world-map cell and 
 The group holds the files of .github; each sits in its world-map cell and is lit by:
 
 - [.github/workflows/ci-automation.yml][94], in the cell github-workflows × yaml: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
-  line 19 (body comment) (a passing mention only).
+  line 20 (body comment) (a passing mention only).
 
 ### Az.Templates (automation/Catzc.Azure.Templates, 1 lit file)
 
 The group holds the files of automation/Catzc.Azure.Templates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1][95], in the cell automation × powershell: selected by
-  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 20 (header).
+  [ADR-FLOW-CD-DETECT][1]: the file cites it at line 21 (header).
 
 ### Docs (automation/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][96], in the cell automation × yaml: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it
-  at line 116 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 118 (text).
+  at line 117 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 119 (text).
 
 ### Exporter (automation/Catzc.Base.Exporter, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Exporter; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1][97], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][2]:
-  the file cites it at line 20 (header) and line 26 (header).
+  the file cites it at line 21 (header) and line 27 (header).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][98], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 126 (text); selected
-  by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 128 (text).
+- [docs/adr/index.md][98], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 129 (text); selected
+  by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 131 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][99], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-DETECT][1]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1` line 20
-  (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 116 (text), `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 19
-  (header), `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 25 (header),
-  `automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1` line 19 (header) and
-  `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 29 (text); selected by [ADR-FLOW-CD-GLOBS][2]: a pipeline that
+  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1` line 21
+  (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 117 (text), `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 20
+  (header), `automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1` line 26 (header),
+  `automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1` line 20 (header) and
+  `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 30 (text); selected by [ADR-FLOW-CD-GLOBS][2]: a pipeline that
   cites nothing itself carries its globset's citations, which cite it at
-  `automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1` line 19 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1` line 29 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1` line 21 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1` line 27 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1` line 20 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1` line 25 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1` line 19 (header),
-  `automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1` line 27 (header),
-  `automation/Catzc.Base.Docs/configs/adrs.yml` line 118 (text), `automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1` line 20 (header),
-  `automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1` line 26 (header), `automation/Catzc.Base.Globs/Get-ChangedGlobSet.ps1` line 19
-  (header), `automation/Catzc.Base.Globs/Get-ChangedGlobSet.ps1` line 25 (header), `automation/Catzc.Base.Globs/Get-GlobSet.ps1` line 19
-  (header), `automation/Catzc.Base.Globs/Get-GlobSet.ps1` line 24 (header), `automation/Catzc.Base.Globs/Get-GlobSetFile.ps1` line 19
-  (header), `automation/Catzc.Base.Globs/Get-GlobSetFile.ps1` line 24 (header), `automation/Catzc.Base.Globs/Get-GlobSetFile.ps1` line 27
-  (header), `automation/Catzc.Base.Globs/Get-GlobSetHash.ps1` line 19 (header), `automation/Catzc.Base.Globs/Get-GlobSetHash.ps1` line 27
-  (header), `automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1` line 19 (header), `automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1` line
-  24 (header), `automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1` line 20 (header),
-  `automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1` line 26 (header), `automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1` line 25
-  (header), `automation/Catzc.Base.Globs/Get-TrackedFile.ps1` line 20 (header), `automation/Catzc.Base.Globs/Get-TrackedFile.ps1` line 25
-  (header), `automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1` line 21 (header),
-  `automation/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1` line 21 (header), `automation/Catzc.Base.Globs/Test-GlobSetAffected.ps1`
-  line 21 (header), `automation/Catzc.Base.Globs/Test-GlobSetAffected.ps1` line 32 (header),
-  `automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1` line 22 (header), `automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1`
-  line 35 (header), `automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1` line 94 (text),
-  `automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1` line 21 (header),
-  `automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1` line 27 (header), `automation/Catzc.Base.Globs/private/Get-ChangedFile.ps1`
-  line 20 (header), `automation/Catzc.Base.Globs/private/Get-ChangedFile.ps1` line 27 (header),
-  `automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1` line 20 (header), `automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1`
-  line 25 (header), `automation/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1` line 20 (header),
-  `automation/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1` line 26 (header),
-  `automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1` line 20 (header),
-  `automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1` line 30 (header),
-  `automation/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1` line 20 (header),
-  `automation/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 24 (text),
-  `automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 26 (text),
-  `automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1` line 20 (header),
-  `automation/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1` line 20 (header),
-  `automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1` line 19 (header),
-  `automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1` line 80 (text),
-  `automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1` line 19 (header), `automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1`
-  line 31 (text), `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 21 (header),
-  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 77 (text),
-  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 90 (text),
-  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 101 (text),
-  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 113 (text), `automation/Catzc.Base.Globs/types/Aspect.cs` line 21
-  (text), `automation/Catzc.Base.Globs/types/DurableHash.cs` line 19 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 20
-  (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 46 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 50
-  (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 54 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 66
-  (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 70 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 79
-  (text), `automation/Catzc.Base.Globs/types/GlobSet.cs` line 20 (text), `automation/Catzc.Base.Globs/types/GlobSet.cs` line 78 (text),
-  `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 20 (text), `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 97 (text),
-  `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 160 (text), `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 164 (text),
-  `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 178 (text), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 22
-  (header), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 101 (header),
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1211 (text),
-  `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 21 (header),
-  `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 27 (header),
-  `automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1` line 22 (header),
-  `automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1` line 21 (header) and
-  `automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1` line 30 (header).
+  `automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1` line 20 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1` line 30 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1` line 22 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1` line 28 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1` line 21 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1` line 26 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1` line 20 (header),
+  `automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1` line 28 (header),
+  `automation/Catzc.Base.Docs/configs/adrs.yml` line 119 (text), `automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1` line 21 (header),
+  `automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1` line 27 (header), `automation/Catzc.Base.Globs/Get-ChangedGlobSet.ps1` line 20
+  (header), `automation/Catzc.Base.Globs/Get-ChangedGlobSet.ps1` line 26 (header), `automation/Catzc.Base.Globs/Get-GlobSet.ps1` line 20
+  (header), `automation/Catzc.Base.Globs/Get-GlobSet.ps1` line 25 (header), `automation/Catzc.Base.Globs/Get-GlobSetFile.ps1` line 20
+  (header), `automation/Catzc.Base.Globs/Get-GlobSetFile.ps1` line 25 (header), `automation/Catzc.Base.Globs/Get-GlobSetFile.ps1` line 28
+  (header), `automation/Catzc.Base.Globs/Get-GlobSetHash.ps1` line 20 (header), `automation/Catzc.Base.Globs/Get-GlobSetHash.ps1` line 28
+  (header), `automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1` line 20 (header), `automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1` line
+  25 (header), `automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1` line 21 (header),
+  `automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1` line 27 (header), `automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1` line 26
+  (header), `automation/Catzc.Base.Globs/Get-TrackedFile.ps1` line 21 (header), `automation/Catzc.Base.Globs/Get-TrackedFile.ps1` line 26
+  (header), `automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1` line 22 (header),
+  `automation/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1` line 22 (header), `automation/Catzc.Base.Globs/Test-GlobSetAffected.ps1`
+  line 22 (header), `automation/Catzc.Base.Globs/Test-GlobSetAffected.ps1` line 33 (header),
+  `automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1` line 23 (header), `automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1`
+  line 36 (header), `automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1` line 95 (text),
+  `automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1` line 22 (header),
+  `automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1` line 28 (header), `automation/Catzc.Base.Globs/private/Get-ChangedFile.ps1`
+  line 21 (header), `automation/Catzc.Base.Globs/private/Get-ChangedFile.ps1` line 28 (header),
+  `automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1` line 21 (header), `automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1`
+  line 26 (header), `automation/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1` line 21 (header),
+  `automation/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1` line 27 (header),
+  `automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1` line 21 (header),
+  `automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1` line 31 (header),
+  `automation/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1` line 21 (header),
+  `automation/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 25 (text),
+  `automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 27 (text),
+  `automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1` line 21 (header),
+  `automation/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1` line 21 (header),
+  `automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1` line 81 (text),
+  `automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1` line 20 (header), `automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1`
+  line 32 (text), `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 22 (header),
+  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 78 (text),
+  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 91 (text),
+  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 102 (text),
+  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 114 (text), `automation/Catzc.Base.Globs/types/Aspect.cs` line 22
+  (text), `automation/Catzc.Base.Globs/types/DurableHash.cs` line 20 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 21
+  (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 47 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 51
+  (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 55 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 67
+  (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 71 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 80
+  (text), `automation/Catzc.Base.Globs/types/GlobSet.cs` line 21 (text), `automation/Catzc.Base.Globs/types/GlobSet.cs` line 79 (text),
+  `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 21 (text), `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 98 (text),
+  `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 161 (text), `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 165 (text),
+  `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 179 (text), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 23
+  (header), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 102 (header),
+  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1212 (text),
+  `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 22 (header),
+  `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 28 (header),
+  `automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1` line 23 (header),
+  `automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1` line 22 (header) and
+  `automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1` line 31 (header).
 
 ## Keywords
 

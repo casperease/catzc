@@ -14,12 +14,12 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (237 of the 288 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 4 lit of 51 files
+- .claude × markdown: 4 lit of 71 files
 - .unordered × markdown: 4 lit of 20 files
-- automation × csharp: 2 lit of 272 files
-- automation × powershell: 9 lit of 1563 files
-- automation × yaml: 2 lit of 107 files
-- docs × markdown: 8 lit of 1985 files
+- automation × csharp: 2 lit of 274 files
+- automation × powershell: 9 lit of 1579 files
+- automation × yaml: 2 lit of 109 files
+- docs × markdown: 8 lit of 2165 files
 - github-workflows × yaml: 1 lit of 2 files, touched
 - pipelines × pipeline-yaml: 1 lit of 9 files
 - Root files × powershell: 1 lit of 1 file
@@ -41,11 +41,11 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [.claude/plans/plan-format-step-moves-comments.md][5]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 94 (text).
-- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][6]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 401 (text),
-  line 458 (text) and line 797 (text).
-- [.claude/plans/plan-module-kinds-tracks.md][7]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 241 (text).
-- [.claude/plans/prompt-module-model-1-prepare.md][8]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 19 (text).
+- [.claude/plans/plan-format-step-moves-comments.md][5]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 120 (text).
+- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][6]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 25 (text), line
+  464 (text), line 526 (text) and line 891 (text).
+- [.claude/plans/plan-module-kinds-tracks.md][7]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 348 (text).
+- [.claude/plans/prompt-module-model-1-prepare.md][8]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 42 (text).
 
 ### .unordered × markdown (4 lit files)
 
@@ -64,56 +64,56 @@ markdown ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.cs` names the file language csharp
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Exporter/types/ExporterBundle.cs][13]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 19 (text).
-- [automation/Catzc.Base.Exporter/types/ExporterConfig.cs][14]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 20 (text).
+- [automation/Catzc.Base.Exporter/types/ExporterBundle.cs][13]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 20 (text).
+- [automation/Catzc.Base.Exporter/types/ExporterConfig.cs][14]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 21 (text).
 
 ### automation × powershell (9 lit files)
 
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/.internal/assets/Import-Catzc.ps1][15]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 19 (header).
-- [automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1][16]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 20 (header)
-  and line 35 (header).
-- [automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1][17]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 21 (header) and
-  line 28 (header).
-- [automation/Catzc.Base.Exporter/Build-Modules.ps1][18]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 21 (header), line 26
-  (header) and line 72 (text).
-- [automation/Catzc.Base.Exporter/Export-Catzc.ps1][19]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 19 (header) and line 25
+- [automation/.internal/assets/Import-Catzc.ps1][15]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 20 (header).
+- [automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1][16]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 21 (header)
+  and line 36 (header).
+- [automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1][17]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 22 (header) and
+  line 29 (header).
+- [automation/Catzc.Base.Exporter/Build-Modules.ps1][18]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 22 (header), line 27
+  (header) and line 73 (text).
+- [automation/Catzc.Base.Exporter/Export-Catzc.ps1][19]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 20 (header) and line 26
   (header).
-- [automation/Catzc.Base.Exporter/Install-Catzc.ps1][20]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 20 (header) and line
-  28 (header).
-- [automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1][21]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 19
-  (header) and line 27 (header).
-- [automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1][22]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 21
-  (header) and line 27 (header).
-- [automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1][23]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 20
-  (header) and line 25 (header).
+- [automation/Catzc.Base.Exporter/Install-Catzc.ps1][20]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 21 (header) and line
+  29 (header).
+- [automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1][21]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 20
+  (header) and line 28 (header).
+- [automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1][22]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 22
+  (header) and line 28 (header).
+- [automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1][23]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 21
+  (header) and line 26 (header).
 
 ### automation × yaml (2 lit files)
 
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][24]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 157 (text).
-- [automation/Catzc.Base.Docs/configs/glossary.yml][25]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 464 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][24]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 158 (text).
+- [automation/Catzc.Base.Docs/configs/glossary.yml][25]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 490 (text).
 
 ### docs × markdown (8 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/automation/dora-explains.md][26]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 485 (text).
+- [docs/adr/automation/dora-explains.md][26]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 487 (text).
 - [docs/adr/automation/platform-bundle.md][1]: selected by [ADR-AUTO-BUNDLE][1]: the ADR's own file.
-- [docs/adr/glossary.md][27]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 483 (text).
-- [docs/adr/index.md][28]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 166 (text).
+- [docs/adr/glossary.md][27]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 501 (text).
+- [docs/adr/index.md][28]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 169 (text).
 - [docs/references/automation/catzc-base-exporter/configs/exporter.yml.md][29]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line
-  32 (text).
+  33 (text).
 - [docs/references/automation/catzc-base-exporter/types/ExporterBundle.cs.md][30]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
-  line 31 (text).
+  line 32 (text).
 - [docs/references/automation/catzc-base-exporter/types/ExporterConfig.cs.md][31]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
-  line 30 (text).
-- [docs/references/automation/internal/Catzc.Internal.Builder.psm1.md][32]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 33
+  line 31 (text).
+- [docs/references/automation/internal/Catzc.Internal.Builder.psm1.md][32]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 34
   (text).
 
 ### github-workflows × yaml (1 lit file, touched)
@@ -121,7 +121,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 Placed: the root folder `.github/` names the track github-workflows ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language
 yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [.github/workflows/ci-automation.yml][33]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 63 (body comment) (a passing
+- [.github/workflows/ci-automation.yml][33]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 64 (body comment) (a passing
   mention only).
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -130,22 +130,22 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][34]: selected by [ADR-AUTO-BUNDLE][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/.internal/assets/Import-Catzc.ps1` line 19 (header),
-  `automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1` line 20 (header),
-  `automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1` line 35 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 157
-  (text), `automation/Catzc.Base.Docs/configs/glossary.yml` line 464 (text), `automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1` line 21
-  (header), `automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1` line 28 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1`
-  line 21 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1` line 26 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1`
-  line 72 (text), `automation/Catzc.Base.Exporter/Export-Catzc.ps1` line 19 (header), `automation/Catzc.Base.Exporter/Export-Catzc.ps1` line
-  25 (header), `automation/Catzc.Base.Exporter/Install-Catzc.ps1` line 20 (header), `automation/Catzc.Base.Exporter/Install-Catzc.ps1` line
-  28 (header), `automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1` line 19 (header),
-  `automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1` line 27 (header),
-  `automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1` line 21 (header),
-  `automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1` line 27 (header),
-  `automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1` line 20 (header),
-  `automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1` line 25 (header),
-  `automation/Catzc.Base.Exporter/types/ExporterBundle.cs` line 19 (text) and `automation/Catzc.Base.Exporter/types/ExporterConfig.cs` line
-  20 (text).
+  citations, which cite it at `automation/.internal/assets/Import-Catzc.ps1` line 20 (header),
+  `automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1` line 21 (header),
+  `automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1` line 36 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 158
+  (text), `automation/Catzc.Base.Docs/configs/glossary.yml` line 490 (text), `automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1` line 22
+  (header), `automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1` line 29 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1`
+  line 22 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1` line 27 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1`
+  line 73 (text), `automation/Catzc.Base.Exporter/Export-Catzc.ps1` line 20 (header), `automation/Catzc.Base.Exporter/Export-Catzc.ps1` line
+  26 (header), `automation/Catzc.Base.Exporter/Install-Catzc.ps1` line 21 (header), `automation/Catzc.Base.Exporter/Install-Catzc.ps1` line
+  29 (header), `automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1` line 20 (header),
+  `automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1` line 28 (header),
+  `automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1` line 22 (header),
+  `automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1` line 28 (header),
+  `automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1` line 21 (header),
+  `automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1` line 26 (header),
+  `automation/Catzc.Base.Exporter/types/ExporterBundle.cs` line 20 (text) and `automation/Catzc.Base.Exporter/types/ExporterConfig.cs` line
+  21 (text).
 
 ### Root files × powershell (1 lit file)
 
@@ -153,7 +153,7 @@ Placed: each file sits directly in the repository root, so it is a root file ([A
 language powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [importer.ps1][36]: selected by [ADR-AUTO-BUNDLE][1]: a root file carries the citations of its owner module's files (files.yml), which
-  cite it at `automation/.internal/assets/Import-Catzc.ps1` line 19 (header).
+  cite it at `automation/.internal/assets/Import-Catzc.ps1` line 20 (header).
 
 ## Keywords
 

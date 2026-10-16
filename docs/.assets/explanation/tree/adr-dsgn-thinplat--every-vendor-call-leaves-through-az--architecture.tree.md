@@ -31,21 +31,21 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 The group holds the files of automation/Catzc.Azure.Cli; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Azure.Cli/Assert-AzCliBicep.ps1][3], in the cell automation × powershell: selected by [ADR-AZ-CLI][1]: the file cites it
-  at line 21 (header) and line 31 (header).
+  at line 22 (header) and line 32 (header).
 - [automation/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1][4], in the cell automation × powershell: selected by [ADR-AZ-CLI][1]: the file
-  cites it at line 20 (header) and line 35 (header).
+  cites it at line 21 (header) and line 36 (header).
 - [automation/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1][5], in the cell automation × powershell: selected by [ADR-AZ-CLI][1]:
-  the file cites it at line 21 (header) and line 34 (header).
+  the file cites it at line 22 (header) and line 35 (header).
 - [automation/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1][6], in the cell automation × powershell: selected by [ADR-AZ-CLI][1]:
-  the file cites it at line 20 (header) and line 40 (header).
+  the file cites it at line 21 (header) and line 41 (header).
 - [automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1][7], in the cell automation × powershell: selected by [ADR-AZ-CLI][1]: the file cites
-  it at line 19 (header) and line 29 (header).
+  it at line 20 (header) and line 30 (header).
 - [automation/Catzc.Azure.Cli/Test-AzCliBicep.ps1][8], in the cell automation × powershell: selected by [ADR-AZ-CLI][1]: the file cites it
-  at line 21 (header) and line 34 (header).
+  at line 22 (header) and line 35 (header).
 - [automation/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1][9], in the cell automation × powershell: selected by [ADR-AZ-CLI][1]: the file cites
-  it at line 20 (header) and line 34 (header).
+  it at line 21 (header) and line 35 (header).
 - [automation/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1][10], in the cell automation × powershell: selected by [ADR-AZ-CLI][1]:
-  the file cites it at line 20 (header) and line 32 (header).
+  the file cites it at line 21 (header) and line 33 (header).
 
 ### .unordered (2 lit files)
 
@@ -61,22 +61,22 @@ The group holds the files of .unordered; each sits in its world-map cell and is 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][13], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the
-  file cites it at line 25 (text).
+  file cites it at line 26 (text).
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][14], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file
-  cites it at line 580 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 670 (text).
+  cites it at line 581 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 671 (text).
 
 ### adr/azure (docs/adr/azure, 2 lit files)
 
 The group holds the files of docs/adr/azure; each sits in its world-map cell and is lit by:
 
-- [docs/adr/azure/dora-explains.md][15], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line 125 (text).
+- [docs/adr/azure/dora-explains.md][15], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line 126 (text).
 - [docs/adr/azure/prefer-az-cli.md][1], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the ADR's own file.
 
 ### adr/dsgn (docs/adr/design, 2 lit files)
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
-- [docs/adr/design/dora-explains.md][16], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 66
+- [docs/adr/design/dora-explains.md][16], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 67
   (text).
 - [docs/adr/design/thin-platforms.md][2], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][2]: the ADR's own file.
 
@@ -85,43 +85,43 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-adr-link-cleanup-prose-to-pages.md][17], in the cell .claude × markdown: selected by [ADR-AZ-CLI][1]: the file cites
-  it at line 137 (text).
+  it at line 178 (text).
 
 ### Docs (automation/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][18], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file cites it at line
-  270 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 92 (text).
+  272 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 93 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][19], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line 273 (text); selected by
-  [ADR-DSGN-THINPLAT][2]: the file cites it at line 104 (text).
+- [docs/adr/index.md][19], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line 277 (text); selected by
+  [ADR-DSGN-THINPLAT][2]: the file cites it at line 107 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][20], in the cell pipelines × pipeline-yaml: selected by [ADR-AZ-CLI][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Azure.Cli/Assert-AzCliBicep.ps1` line 21 (header),
-  `automation/Catzc.Azure.Cli/Assert-AzCliBicep.ps1` line 31 (header), `automation/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1` line 20
-  (header), `automation/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1` line 35 (header),
-  `automation/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1` line 21 (header),
-  `automation/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1` line 34 (header),
-  `automation/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1` line 20 (header),
-  `automation/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1` line 40 (header), `automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1`
-  line 19 (header), `automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1` line 29 (header), `automation/Catzc.Azure.Cli/Test-AzCliBicep.ps1`
-  line 21 (header), `automation/Catzc.Azure.Cli/Test-AzCliBicep.ps1` line 34 (header), `automation/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1`
-  line 20 (header), `automation/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1` line 34 (header),
-  `automation/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1` line 20 (header),
-  `automation/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1` line 32 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 270
-  (text), `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 25 (text) and
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 580 (text); selected by [ADR-DSGN-THINPLAT][2]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 92 (text) and
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 670 (text).
+  itself carries its globset's citations, which cite it at `automation/Catzc.Azure.Cli/Assert-AzCliBicep.ps1` line 22 (header),
+  `automation/Catzc.Azure.Cli/Assert-AzCliBicep.ps1` line 32 (header), `automation/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1` line 21
+  (header), `automation/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1` line 36 (header),
+  `automation/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1` line 22 (header),
+  `automation/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1` line 35 (header),
+  `automation/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1` line 21 (header),
+  `automation/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1` line 41 (header), `automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1`
+  line 20 (header), `automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1` line 30 (header), `automation/Catzc.Azure.Cli/Test-AzCliBicep.ps1`
+  line 22 (header), `automation/Catzc.Azure.Cli/Test-AzCliBicep.ps1` line 35 (header), `automation/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1`
+  line 21 (header), `automation/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1` line 35 (header),
+  `automation/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1` line 21 (header),
+  `automation/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1` line 33 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 272
+  (text), `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 26 (text) and
+  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 581 (text); selected by [ADR-DSGN-THINPLAT][2]: a pipeline that cites
+  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 93 (text) and
+  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 671 (text).
 
 ## Keywords
 

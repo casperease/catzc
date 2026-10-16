@@ -36,23 +36,23 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 The group holds the files of automation/Catzc.Base.Exporter; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1][3], in the cell automation × powershell: selected by [ADR-AUTO-BUNDLE][1]: the
-  file cites it at line 21 (header) and line 28 (header).
+  file cites it at line 22 (header) and line 29 (header).
 - [automation/Catzc.Base.Exporter/Build-Modules.ps1][4], in the cell automation × powershell: selected by [ADR-AUTO-BUNDLE][1]: the file
-  cites it at line 21 (header), line 26 (header) and line 72 (text).
+  cites it at line 22 (header), line 27 (header) and line 73 (text).
 - [automation/Catzc.Base.Exporter/Export-Catzc.ps1][5], in the cell automation × powershell: selected by [ADR-AUTO-BUNDLE][1]: the file
-  cites it at line 19 (header) and line 25 (header).
+  cites it at line 20 (header) and line 26 (header).
 - [automation/Catzc.Base.Exporter/Install-Catzc.ps1][6], in the cell automation × powershell: selected by [ADR-AUTO-BUNDLE][1]: the file
-  cites it at line 20 (header) and line 28 (header).
+  cites it at line 21 (header) and line 29 (header).
 - [automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1][7], in the cell automation × powershell: selected by [ADR-AUTO-BUNDLE][1]:
-  the file cites it at line 19 (header) and line 27 (header).
+  the file cites it at line 20 (header) and line 28 (header).
 - [automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1][8], in the cell automation × powershell: selected by
-  [ADR-AUTO-BUNDLE][1]: the file cites it at line 21 (header) and line 27 (header).
+  [ADR-AUTO-BUNDLE][1]: the file cites it at line 22 (header) and line 28 (header).
 - [automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1][9], in the cell automation × powershell: selected by
-  [ADR-AUTO-BUNDLE][1]: the file cites it at line 20 (header) and line 25 (header).
+  [ADR-AUTO-BUNDLE][1]: the file cites it at line 21 (header) and line 26 (header).
 - [automation/Catzc.Base.Exporter/types/ExporterBundle.cs][10], in the cell automation × csharp: selected by [ADR-AUTO-BUNDLE][1]: the file
-  cites it at line 19 (text).
-- [automation/Catzc.Base.Exporter/types/ExporterConfig.cs][11], in the cell automation × csharp: selected by [ADR-AUTO-BUNDLE][1]: the file
   cites it at line 20 (text).
+- [automation/Catzc.Base.Exporter/types/ExporterConfig.cs][11], in the cell automation × csharp: selected by [ADR-AUTO-BUNDLE][1]: the file
+  cites it at line 21 (text).
 
 ### .unordered (5 lit files)
 
@@ -74,59 +74,59 @@ The group holds the files of .unordered; each sits in its world-map cell and is 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-format-step-moves-comments.md][17], in the cell .claude × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites
-  it at line 94 (text).
+  it at line 120 (text).
 - [.claude/plans/plan-layers-vocabulary-rename-contracts.md][18], in the cell .claude × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file
-  cites it at line 401 (text), line 458 (text) and line 797 (text).
+  cites it at line 25 (text), line 464 (text), line 526 (text) and line 891 (text).
 - [.claude/plans/plan-module-kinds-tracks.md][19], in the cell .claude × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
-  line 241 (text); selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 180 (text), line 238 (text), line 250 (text) and line 290
-  (text).
+  line 348 (text); selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 40 (text), line 178 (text), line 287 (text), line 345
+  (text), line 361 (text) and line 403 (text).
 - [.claude/plans/prompt-module-model-1-prepare.md][20], in the cell .claude × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it
-  at line 19 (text); selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 20 (text).
+  at line 42 (text); selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 43 (text).
 
 ### docs (docs/ outside docs/adr/, 4 lit files)
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
 - [docs/references/automation/catzc-base-exporter/configs/exporter.yml.md][21], in the cell docs × markdown: selected by
-  [ADR-AUTO-BUNDLE][1]: the file cites it at line 32 (text).
+  [ADR-AUTO-BUNDLE][1]: the file cites it at line 33 (text).
 - [docs/references/automation/catzc-base-exporter/types/ExporterBundle.cs.md][22], in the cell docs × markdown: selected by
-  [ADR-AUTO-BUNDLE][1]: the file cites it at line 31 (text).
+  [ADR-AUTO-BUNDLE][1]: the file cites it at line 32 (text).
 - [docs/references/automation/catzc-base-exporter/types/ExporterConfig.cs.md][23], in the cell docs × markdown: selected by
-  [ADR-AUTO-BUNDLE][1]: the file cites it at line 30 (text).
+  [ADR-AUTO-BUNDLE][1]: the file cites it at line 31 (text).
 - [docs/references/automation/internal/Catzc.Internal.Builder.psm1.md][24], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]:
-  the file cites it at line 33 (text).
+  the file cites it at line 34 (text).
 
 ### .internal (automation/.internal, 2 lit files)
 
 The group holds the files of automation/.internal; each sits in its world-map cell and is lit by:
 
 - [automation/.internal/assets/Import-Catzc.ps1][25], in the cell automation × powershell: selected by [ADR-AUTO-BUNDLE][1]: the file cites
-  it at line 19 (header).
+  it at line 20 (header).
 - [automation/.internal/assets/Import-ModuleFiles.ps1][26], in the cell automation × powershell: selected by [ADR-PWSH-MANIFEST][2]: the
-  file cites it at line 18 (header).
+  file cites it at line 19 (header).
 
 ### Docs (automation/Catzc.Base.Docs, 2 lit files)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][27], in the cell automation × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
-  line 157 (text); selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 184 (text).
+  line 158 (text); selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 186 (text).
 - [automation/Catzc.Base.Docs/configs/glossary.yml][28], in the cell automation × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it
-  at line 464 (text).
+  at line 490 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][29], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 483 (text).
-- [docs/adr/index.md][30], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 166 (text); selected by
-  [ADR-PWSH-MANIFEST][2]: the file cites it at line 191 (text).
+- [docs/adr/glossary.md][29], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 501 (text).
+- [docs/adr/index.md][30], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 169 (text); selected by
+  [ADR-PWSH-MANIFEST][2]: the file cites it at line 195 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
 
 The group holds the files of docs/adr/automation; each sits in its world-map cell and is lit by:
 
-- [docs/adr/automation/dora-explains.md][31], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 485
+- [docs/adr/automation/dora-explains.md][31], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 487
   (text).
 - [docs/adr/automation/platform-bundle.md][1], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the ADR's own file.
 
@@ -134,7 +134,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 
 The group holds the files of docs/adr/pwsh; each sits in its world-map cell and is lit by:
 
-- [docs/adr/pwsh/dora-explains.md][32], in the cell docs × markdown: selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 115
+- [docs/adr/pwsh/dora-explains.md][32], in the cell docs × markdown: selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 116
   (text).
 - [docs/adr/pwsh/dynamic-module-manifests.md][2], in the cell docs × markdown: selected by [ADR-PWSH-MANIFEST][2]: the ADR's own file.
 
@@ -143,55 +143,55 @@ The group holds the files of docs/adr/pwsh; each sits in its world-map cell and 
 The group holds the files of Root files; each sits in its world-map cell and is lit by:
 
 - [importer.ps1][33], in the cell Root files × powershell: selected by [ADR-AUTO-BUNDLE][1]: a root file carries the citations of its owner
-  module's files (files.yml), which cite it at `automation/.internal/assets/Import-Catzc.ps1` line 19 (header); selected by
+  module's files (files.yml), which cite it at `automation/.internal/assets/Import-Catzc.ps1` line 20 (header); selected by
   [ADR-PWSH-MANIFEST][2]: a root file carries the citations of its owner module's files (files.yml), which cite it at
-  `automation/.internal/assets/Import-ModuleFiles.ps1` line 18 (header).
+  `automation/.internal/assets/Import-ModuleFiles.ps1` line 19 (header).
 
 ### .github (1 lit file)
 
 The group holds the files of .github; each sits in its world-map cell and is lit by:
 
 - [.github/workflows/ci-automation.yml][34], in the cell github-workflows × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
-  line 63 (body comment) (a passing mention only).
+  line 64 (body comment) (a passing mention only).
 
 ### Contracts (automation/Catzc.Base.Contracts, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Contracts; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1][35], in the cell automation × powershell: selected by [ADR-AUTO-BUNDLE][1]:
-  the file cites it at line 20 (header) and line 35 (header).
+  the file cites it at line 21 (header) and line 36 (header).
 
 ### Overlay (automation/Catzc.Base.Overlay, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Overlay; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1][36], in the cell automation × powershell: selected by
-  [ADR-PWSH-MANIFEST][2]: the file cites it at line 21 (header) and line 28 (header).
+  [ADR-PWSH-MANIFEST][2]: the file cites it at line 22 (header) and line 29 (header).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][37], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-BUNDLE][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/.internal/assets/Import-Catzc.ps1` line 19 (header),
-  `automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1` line 20 (header),
-  `automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1` line 35 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 157
-  (text), `automation/Catzc.Base.Docs/configs/glossary.yml` line 464 (text), `automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1` line 21
-  (header), `automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1` line 28 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1`
-  line 21 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1` line 26 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1`
-  line 72 (text), `automation/Catzc.Base.Exporter/Export-Catzc.ps1` line 19 (header), `automation/Catzc.Base.Exporter/Export-Catzc.ps1` line
-  25 (header), `automation/Catzc.Base.Exporter/Install-Catzc.ps1` line 20 (header), `automation/Catzc.Base.Exporter/Install-Catzc.ps1` line
-  28 (header), `automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1` line 19 (header),
-  `automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1` line 27 (header),
-  `automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1` line 21 (header),
-  `automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1` line 27 (header),
-  `automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1` line 20 (header),
-  `automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1` line 25 (header),
-  `automation/Catzc.Base.Exporter/types/ExporterBundle.cs` line 19 (text) and `automation/Catzc.Base.Exporter/types/ExporterConfig.cs` line
-  20 (text); selected by [ADR-PWSH-MANIFEST][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
-  `automation/.internal/assets/Import-ModuleFiles.ps1` line 18 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 184 (text),
-  `automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1` line 21 (header) and
-  `automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1` line 28 (header).
+  itself carries its globset's citations, which cite it at `automation/.internal/assets/Import-Catzc.ps1` line 20 (header),
+  `automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1` line 21 (header),
+  `automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1` line 36 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 158
+  (text), `automation/Catzc.Base.Docs/configs/glossary.yml` line 490 (text), `automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1` line 22
+  (header), `automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1` line 29 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1`
+  line 22 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1` line 27 (header), `automation/Catzc.Base.Exporter/Build-Modules.ps1`
+  line 73 (text), `automation/Catzc.Base.Exporter/Export-Catzc.ps1` line 20 (header), `automation/Catzc.Base.Exporter/Export-Catzc.ps1` line
+  26 (header), `automation/Catzc.Base.Exporter/Install-Catzc.ps1` line 21 (header), `automation/Catzc.Base.Exporter/Install-Catzc.ps1` line
+  29 (header), `automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1` line 20 (header),
+  `automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1` line 28 (header),
+  `automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1` line 22 (header),
+  `automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1` line 28 (header),
+  `automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1` line 21 (header),
+  `automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1` line 26 (header),
+  `automation/Catzc.Base.Exporter/types/ExporterBundle.cs` line 20 (text) and `automation/Catzc.Base.Exporter/types/ExporterConfig.cs` line
+  21 (text); selected by [ADR-PWSH-MANIFEST][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
+  `automation/.internal/assets/Import-ModuleFiles.ps1` line 19 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 186 (text),
+  `automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1` line 22 (header) and
+  `automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1` line 29 (header).
 
 ## Keywords
 

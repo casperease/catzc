@@ -35,7 +35,7 @@ The group holds the files of .unordered; each sits in its world-map cell and is 
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
-- [docs/adr/design/dora-explains.md][4], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 66
+- [docs/adr/design/dora-explains.md][4], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 67
   (text).
 - [docs/adr/design/thin-platforms.md][1], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][1]: the ADR's own file.
 
@@ -44,28 +44,28 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][5], in the cell automation × yaml: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at
-  line 92 (text).
+  line 93 (text).
 
 ### QualityGates (automation/Catzc.Base.QualityGates, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][6], in the cell automation × yaml: selected by [ADR-DSGN-THINPLAT][1]: the
-  file cites it at line 670 (text).
+  file cites it at line 671 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][7], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 104 (text).
+- [docs/adr/index.md][7], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 107 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][8], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-THINPLAT][1]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 92 (text) and
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 670 (text).
+  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 93 (text) and
+  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 671 (text).
 
 ## Keywords
 

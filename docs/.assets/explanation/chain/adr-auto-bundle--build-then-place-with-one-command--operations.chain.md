@@ -14,7 +14,7 @@ CLOUD) with the 5 value-chain concerns (build, quality-control, release, deploy,
 is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (5 of the 25 cells
 hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
 
-- AUTO × build: 1 lit of 5 ADRs
+- AUTO × build: 1 lit of 6 ADRs
 - AUTO × release: 1 lit of 3 ADRs
 
 ## Key

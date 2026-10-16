@@ -38,7 +38,7 @@ The group holds the files of .unordered; each sits in its world-map cell and is 
 
 The group holds the files of docs/adr/repository; each sits in its world-map cell and is lit by:
 
-- [docs/adr/repository/dora-explains.md][4], in the cell docs × markdown: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 197
+- [docs/adr/repository/dora-explains.md][4], in the cell docs × markdown: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 198
   (text).
 - [docs/adr/repository/repo-variants.md][1], in the cell docs × markdown: selected by [ADR-REPO-VARIANT][1]: the ADR's own file.
 
@@ -47,53 +47,53 @@ The group holds the files of docs/adr/repository; each sits in its world-map cel
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
 - [docs/references/automation/catzc-base-variants/configs/variants.yml.md][5], in the cell docs × markdown: selected by
-  [ADR-REPO-VARIANT][1]: the file cites it at line 29 (text).
-- [docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md][6], in the cell docs × markdown: selected by
   [ADR-REPO-VARIANT][1]: the file cites it at line 30 (text).
+- [docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md][6], in the cell docs × markdown: selected by
+  [ADR-REPO-VARIANT][1]: the file cites it at line 31 (text).
 
 ### .claude (1 lit file)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-module-kinds-tracks.md][7], in the cell .claude × markdown: selected by [ADR-REPO-VARIANT][1]: the file cites it at
-  line 754 (text) and line 807 (text).
+  line 886 (text) and line 940 (text).
 
 ### Docs (automation/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][8], in the cell automation × yaml: selected by [ADR-REPO-VARIANT][1]: the file cites it at
-  line 314 (text).
+  line 316 (text).
 
 ### ModuleSystem (automation/Catzc.Base.ModuleSystem, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][9], in the cell automation × powershell: selected by [ADR-REPO-VARIANT][1]:
-  the file cites it at line 23 (header), line 51 (header) and line 124 (text).
+  the file cites it at line 24 (header), line 52 (header) and line 125 (text).
 
 ### Variants (automation/Catzc.Base.Variants, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Variants; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Variants/types/VariantsConfig.cs][10], in the cell automation × csharp: selected by [ADR-REPO-VARIANT][1]: the file
-  cites it at line 23 (text).
+  cites it at line 24 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][11], in the cell docs × markdown: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 316 (text).
+- [docs/adr/index.md][11], in the cell docs × markdown: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 320 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][12], in the cell pipelines × pipeline-yaml: selected by [ADR-REPO-VARIANT][1]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 314 (text),
-  `automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 23 (header), `automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1`
-  line 51 (header), `automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 124 (text) and
-  `automation/Catzc.Base.Variants/types/VariantsConfig.cs` line 23 (text).
+  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 316 (text),
+  `automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 24 (header), `automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1`
+  line 52 (header), `automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 125 (text) and
+  `automation/Catzc.Base.Variants/types/VariantsConfig.cs` line 24 (text).
 
 ## Keywords
 

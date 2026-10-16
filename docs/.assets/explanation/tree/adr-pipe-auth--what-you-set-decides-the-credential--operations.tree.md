@@ -36,7 +36,7 @@ The group holds the files of .unordered; each sits in its world-map cell and is 
 
 The group holds the files of docs/adr/pipelines; each sits in its world-map cell and is lit by:
 
-- [docs/adr/pipelines/dora-explains.md][5], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 39
+- [docs/adr/pipelines/dora-explains.md][5], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 40
   (text).
 - [docs/adr/pipelines/dual-authentication.md][1], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the ADR's own file.
 
@@ -45,20 +45,20 @@ The group holds the files of docs/adr/pipelines; each sits in its world-map cell
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][6], in the cell automation × yaml: selected by [ADR-PIPE-AUTH][1]: the file cites it at line
-  235 (text).
+  237 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][7], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 240 (text).
+- [docs/adr/index.md][7], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 244 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][8], in the cell pipelines × pipeline-yaml: selected by [ADR-PIPE-AUTH][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 235 (text).
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 237 (text).
 
 ## Keywords
 
