@@ -27,8 +27,6 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Modules;
 
-// A module of a deployable track as the one resolver returns it: identity only. Its needs and its place in the order are functions of
-// the declared graph over module names, not members of this type.
 public sealed class Module
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

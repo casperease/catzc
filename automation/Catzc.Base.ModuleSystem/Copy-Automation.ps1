@@ -114,8 +114,6 @@ function Copy-Automation {
         Get-ModuleProfile -Name full
     }
 
-    # Repository-root-relative sources: each selected module's folder + its packages' paths (minus excluded). A module's folder is
-    # the root the resolver gives it; an infrastructure folder (.internal, .compiled, .vendor) sits in the code track's first place.
     $codePlace = @(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]
     $moduleRoots = @{}
     foreach ($module in Get-CatzcModule -TrackType modules) {

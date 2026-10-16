@@ -40,3 +40,12 @@ A named whole-tree walk
 ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): every file the
 copy would write is checked for a conflict.
 ```
+
+## comment:3
+
+Above `$codePlace = @(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]`, written with `#`.
+
+```text
+Repository-root-relative sources: each selected module's folder + its packages' paths (minus excluded). A module's folder is
+the root the resolver gives it; an infrastructure folder (.internal, .compiled, .vendor) sits in the code track's first place.
+```
