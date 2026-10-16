@@ -68,7 +68,7 @@ function Build-Glossary {
         (Resolve-RepoPath 'automation/Catzc.Base.Docs/Build-Glossary.ps1')
         (Resolve-RepoPath 'automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1')
         (Resolve-RepoPath 'automation/Catzc.Base.Docs/types')
-    ) -Exclude $Path, (Resolve-RepoPath 'docs/adr/index.md')
+    ) -Exclude ([System.Management.Automation.WildcardPattern]::Escape($Path)), '*/docs/adr/index.md', '*/docs/adr/glossary.md', '*/README.md'
     if (-not $PassThru -and (Test-GeneratedFileCurrent -Path $Path -InputsSha $inputsSha)) {
         return ConvertTo-RepoRelativePath $Path
     }

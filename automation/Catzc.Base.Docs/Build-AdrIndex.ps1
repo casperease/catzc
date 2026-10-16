@@ -72,14 +72,14 @@ function Build-AdrIndex {
     )
 
     # Every input of the page: the registry, the ADR files the slugs resolve to, and the code that renders. An unchanged stamp means the page on
-    # disk was written from exactly these, so nothing is read or rendered. The two generated pages beside the ADRs are outputs, not inputs.
+    # disk was written from exactly these, so nothing is read or rendered. The generated pages beside the ADRs (the index, the glossary, the READMEs) are outputs, not inputs.
     $inputsSha = Get-InputStamp -Path @(
         (Resolve-RepoPath 'automation/Catzc.Base.Docs/configs/adrs.yml')
         (Resolve-RepoPath 'docs/adr')
         (Resolve-RepoPath 'automation/Catzc.Base.Docs/Build-AdrIndex.ps1')
         (Resolve-RepoPath 'automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1')
         (Resolve-RepoPath 'automation/Catzc.Base.Docs/types')
-    ) -Exclude (Resolve-RepoPath 'docs/adr/index.md'), (Resolve-RepoPath 'docs/adr/glossary.md')
+    ) -Exclude '*/docs/adr/index.md', '*/docs/adr/glossary.md', '*/README.md'
     $indexPath = Resolve-RepoPath 'docs/adr/index.md'
     if (-not $PassThru -and (Test-GeneratedFileCurrent -Path $indexPath -InputsSha $inputsSha)) {
         return ConvertTo-RepoRelativePath $indexPath
