@@ -11,7 +11,7 @@ plan:
 
 Three drafts: Module as the generalised, ADR-backed meta model (one C# definition every track instantiates); Kubernetes-style kind
 names where kinds are tracks' vocabulary and today's kind becomes role; tracks as on-disk clusters of module contents with a track
-type (deployable or holder). Nothing is built. Two prepare and two implement prompts for the first two sit in out/.
+type (deployable or holder). Nothing is built. Two prepare and two implement prompts for the first two sit beside this file.
 
 ## Why its value is high
 
@@ -56,6 +56,9 @@ one landing.
   plan-file-head-immutable-edges-classes, which owns the contract); and two user choices: which vendored files stay with their users,
   and whether the kits under .claude (agents, drawio) become separate tracks.
 - Peer-reported, unowned here: 3 Get-ModuleProtectionIdentity test failures (ModuleSystem), not from that session's changes.
+- 2026-10-16: the two module-model prompts and the two k8s prompts are rewritten on the Track-as-root premise (Module is a kind of the
+  deployable tracks; ADR-AUTO-MODULE sits under ADR-DSGN-TRACK and cites ADR-DSGN-TRACKTYPE and ADR-DSGN-MODTYPE). Test-Links is clean on
+  all four; they carry Q27 to Q38 and Q88. No prompt has been run yet.
 
 ## Needed docs
 
@@ -73,8 +76,6 @@ one landing.
 
 ## Open steps
 
-- [ ] Rewrite prompt-module-model-1-prepare.md and prompt-module-model-2-implement.md on the Track-as-root premise (check: neither
-  says Module is the central concern; both say ADR-AUTO-MODULE sits under ADR-DSGN-TRACK).
 - [ ] Copy the two plans and two prompts to the scratchpad, then run the prepare prompt (check: its read-only report and ADR draft in out/).
 - [ ] Run the implement prompt (check: ModuleSystem and Variants tests; the two old getters gone).
 - [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean).
@@ -82,7 +83,8 @@ one landing.
 - [ ] Look at the 3 Get-ModuleProtectionIdentity failures first in the module-model session (check: that test file).
 - [ ] ADR-DSGN-TRACK gains the rule that a track has one primary language by default (check: Test-AdrRegistry, Test-Links).
 - [ ] Namespace follow-up after kinds land (check: a decided section here).
-- [ ] Tell plan-config-defaults and plan-layers-vocabulary-rename-contracts when implemented (their waits_on clears).
+- [ ] Tell plan-config-defaults and plan-layers-vocabulary-rename-contracts when implemented (check: the waits_on line in both heads
+  is gone).
 
 ## Refs
 

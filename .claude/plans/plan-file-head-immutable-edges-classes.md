@@ -100,19 +100,22 @@ approved list. That file continued out/continuation-prompt-markerless.md (marker
 ## Open leftovers from that follow-up (left open)
 
 - [ ] Test-Formatting not re-run since those edits; last run flagged only the compiled types .json under automation/.compiled. Check
-  whether Format-Code should skip that folder and fix it only if the ADR says so.
-- [ ] Test-Comments: 6 findings, all in other sessions' files: PropertyHead.cs.md section 1, MarkdownMetaBlock.cs.md sections 1 and 2,
-  file-meta.yml.md section 5 (orphan sections, the code line under a moved comment changed), PathParts.cs:67 and ModulePlace.cs:68
-  (a 2-line comment still in the file, Export-Comments). Owners decide; left alone unless asked.
-- [ ] Untracked page Get-AutomationSourceFiles.ps1.md, restored from git history; staging it is the user's git call.
-- [ ] Reachability test gap: it proves each kind claims a file, not that a kind is not mostly shadowed by an earlier one (how drawio-kit
-  hid). Strengthening it needs the intended overlaps written down: the user's decision, before anything is written.
-- [ ] The visibility head key: undecided, and redundant with the kinds. asset kept as a top-level kind (matches ADR-AUTO-ASSETDEP; that
-  match was not re-read).
+  whether Format-Code should skip that folder and fix it only if the ADR says so (Q47; same step as above) (check: the Test-Formatting
+  report names no automation/.compiled file, or the ADR is amended).
+- Context, not a step (Q48, Q49): Test-Comments: 6 findings, all in other sessions' files: PropertyHead.cs.md section 1,
+  MarkdownMetaBlock.cs.md sections 1 and 2, file-meta.yml.md section 5 (orphan sections, the code line under a moved comment changed),
+  PathParts.cs:67 and ModulePlace.cs:68 (a 2-line comment still in the file, Export-Comments). The owners fix them.
+- Context, not a step (Q49): the untracked page Get-AutomationSourceFiles.ps1.md was restored from git history; staging it is the
+  user's git call.
+- Decided (Q41): the reachability test gap, a kind mostly shadowed by an earlier one (how drawio-kit hid), is the second open step
+  above: write the intended overlaps, then strengthen the test.
+- Decided (Q42, Q54): the visibility head key stays beside the kinds; asset stays a top-level kind, and the match with
+  ADR-AUTO-ASSETDEP is the fourth open step above.
 - Rule to keep from that session: peers edit the same tree, grep to confirm an edit still holds before building on it; no git writes.
 - [ ] Reported by the tracks session (15:14): Test-Markdownlint findings in docs/adr/repository/file-meta.md, and head.schema.json is
   stale against the head keys tracktype and vendor that landed with ADR-DSGN-TRACKTYPE (the contract regeneration is step 6 of the
-  carried immutable and edges draft).
+  carried immutable and edges draft; Q39 keeps the schema hand-written) (check: Test-Markdownlint clean on file-meta.md and
+  Format-FileMeta.Contract.Tests passes with the tracktype and vendor keys in head.schema.json and head.sample.yml).
 
 ## Done, and why: head path split, module-type ids, catzc_bundle (2026-10-16)
 
@@ -132,22 +135,25 @@ ADR-PRIN-ONELIVE).
 
 ## Open leftovers from the path split (all optional, left open)
 
-- [ ] Spelling gate: run it; add catzc_bundle to the coined words only if it flags it.
-- [ ] Test-FileMeta gate and the full Test-Automation: the user's runs.
-- [ ] Decision: do generated-file heads also carry folder and name? Today they do not.
-- [ ] Glossary: no entry for the renamed key.
+- [ ] Spelling gate: run it; add catzc_bundle to the coined words only if it flags it (check: the Test-Spelling report does not list
+  catzc_bundle).
+- [ ] Test-FileMeta gate and the full Test-Automation: the user's runs (check: the user's reports in out/ show no finding from the path
+  split).
+- Decided (Q43): generated-file heads stay minimal and do not carry folder and name.
+- Decided (Q44): no glossary entry for the renamed key catzc_bundle.
 
 ## Open leftovers from the registry work (checks and questions, left open)
 
 - [ ] Checks not run since its last edits: Test-Spelling, Test-FileMeta, Test-Glossary, Test-Contracts, Test-GeneratedFiles, one by one
   in the background with scripts under out/; report what is that work's. Not the full Test-Automation. Last known findings, none from
   that work: Spelling 5 (Unspan x3, nfunction x2 in CommentEngine files), ScriptAnalyzer about 37 (mostly .internal), markdownlint about
-  39 (docs/explanation tables), Test-Formatting flagging .compiled/*.json.
-- [ ] PowerShell versus Powershell: open question for the user, where does the mismatch show. The census found one literal Powershell,
-  in the vendored dotnet-install.ps1:368; everything else is legitimate. Possibly powershell versus pwsh naming (language id, engine,
-  folder), which is a decision, not a typo. Then make it one form.
-- [ ] Typo: module-types.yml pwsh-folder definition reads "under ex. automation"; peer-edited file, left alone; message before touching.
-- [ ] Memory file-head-vocabulary.md was updated for the rename to immutable; one derived mention remains, stale or deliberate unchecked.
+  39 (docs/explanation tables), Test-Formatting flagging .compiled/*.json (check: each of the five reports is read and its findings
+  are attributed to this work or to a peer).
+- Decided (Q45): PowerShell versus Powershell is the naming rule in the fifth open step above; the one literal Powershell is in the
+  vendored dotnet-install.ps1:368 and stays.
+- [ ] Typo: module-types.yml pwsh-folder definition reads "under ex. automation"; fixed by the next session that holds the file (Q46)
+  (check: a grep for "under ex." in module-types.yml finds nothing).
+- Done (Q51): the memory note file-head-vocabulary.md was checked; its one remaining "derived" is the English verb.
 - Not extended, by choice: glossary entries for individual kinds (only the concepts kind and subkind are terms); note becomes a term
   only if the user wants it. contracts/.gitkeep resolves to other and is left alone.
 

@@ -57,8 +57,6 @@ function Invoke-Importer {
     if ($isConsoleSession) {
         $sw = [Diagnostics.Stopwatch]::StartNew()
     }
-    $importSw = [Diagnostics.Stopwatch]::new()
-
     if ($DiagnoseLoadTime) {
         $script:diagSw = [Diagnostics.Stopwatch]::StartNew()
         # Collectors the Bootstrap loaders (incl. Import-CSharpTypes) append to, summarized at the end.
@@ -124,11 +122,12 @@ function Invoke-Importer {
             'internal modules Catzc.Internal.Loader, Catzc.Internal.Types, Catzc.Internal.Vendor') -StateChange
 
         # Load vendored dependencies first
-        $importSw.Start()
+        if ($isConsoleSession) {
+            $initializerEnd = $sw.Elapsed
+        }
         $vendorRoot = Join-Path $modulesRoot $vendorFolder
         Write-Verbose "Loading vendor modules from: $vendorRoot"
         Import-VendorModules -VendorRoot $vendorRoot -Lazy 'Pester', 'PSScriptAnalyzer' -DiagnoseLoadTime:$DiagnoseLoadTime
-        $importSw.Stop()
         if ($DiagnoseLoadTime) {
             Write-LoadTime 'Vendor modules loaded'
         }
@@ -136,8 +135,6 @@ function Invoke-Importer {
         if ($ClearCompiledTypes) {
             Clear-CompiledType -ModulesRoot $modulesRoot
         }
-
-        $importSw.Start()
 
         Write-Verbose "Discovering modules in: $modulesRoot"
         # An interactive dot-source is the only console host; a script, a test worker and a pipeline load the types at import.
@@ -148,7 +145,9 @@ function Invoke-Importer {
             'headless'
         }
         Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle -HostKind $hostKind
-        $importSw.Stop()
+        if ($isConsoleSession) {
+            $finalizerStart = $sw.Elapsed
+        }
 
         Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot
 
@@ -188,10 +187,13 @@ function Invoke-Importer {
             $writeMessage = Get-Command Write-Message -ErrorAction Ignore
             if ($writeMessage) {
                 $totalSeconds = [math]::Round($sw.Elapsed.TotalSeconds, 1)
-                $importSeconds = [math]::Round($importSw.Elapsed.TotalSeconds, 1)
-                $frameSeconds = [math]::Round($sw.Elapsed.TotalSeconds - $importSw.Elapsed.TotalSeconds, 1)
+                # The three parts sum to the total: the initializer is everything before the vendor import starts, the
+                # module import runs from there to the last module loaded, the finalizer is the rest (assert, overlay, janitors, cleanup).
+                $initializerSeconds = [math]::Round($initializerEnd.TotalSeconds, 1)
+                $importSeconds = [math]::Round(($finalizerStart - $initializerEnd).TotalSeconds, 1)
+                $finalizerSeconds = [math]::Round(($sw.Elapsed - $finalizerStart).TotalSeconds, 1)
                 # Run through its command info: a lookup by name is a first use and would load the pending types for a status line.
-                & $writeMessage "Loaded in $totalSeconds seconds (module import ${importSeconds}s, session initializer/finalizer ${frameSeconds}s)"
+                & $writeMessage "Loaded in $totalSeconds seconds (session initializer ${initializerSeconds}s, module import ${importSeconds}s, session finalizer ${finalizerSeconds}s)"
             }
         }
     }

@@ -51,7 +51,7 @@ by naming which of the 439 public functions are contracted. Every later plan spe
   session never re-asks.
 - The two companions each carry a "Decided 2026-10-16" line and their question sections are retitled as decisions.
 - The worklist fixes <TRACK> to pwsh. The module-model and k8s plans carry a sequencing note (see plan-module-kinds-tracks).
-- out/prompt-automation-layers-continue.md written: read order, final decisions, standing constraints, order of work, stop conditions,
+- prompt-automation-layers-continue.md (beside this file) written: read order, final decisions, standing constraints, order of work, stop conditions,
   report shape. The two module-model prompts and the other out/ plans were not touched; they do not mention this work.
 - The note was copied to the user's memory file.
 
@@ -86,8 +86,8 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 ## Open steps
 
 - [ ] Copy the prompt, the four plan files and the two module-model prompts into the session scratchpad before pasting (out/ was wiped
-      once).
-- [ ] Paste out/prompt-automation-layers-continue.md into a fresh session after the module-model prepare prompt (check: the session reports
+      once) (check: a listing of the scratchpad shows all of them).
+- [ ] Paste prompt-automation-layers-continue.md into a fresh session after the module-model prepare prompt (check: the session reports
       P0 green).
 - [ ] P1 (check: three terminology gates clean). P2 (check: guard rule gate). P3 (check: classification table, then stop).
 - [ ] P4 on the user's go (check: full baseline green again). P5 to P8 per the master plan.

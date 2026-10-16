@@ -11,7 +11,7 @@ plan:
 # Unboxing: P1 to P3 shipped; P4 and P5 wait for a go
 
 P1 to P3 are finished and the shipped article carries the figures. The continuation prompt beside this file (prompt-unboxing-continue.md)
-says what a fresh session checks first and what P4 and P5 would be. The long reference (reference-unboxing.md) sits beside it.
+says what a fresh session checks first and what P4 and P5 would be. The long reference is docs/explanation/automation/reference-unboxing.md.
 
 ## Why its value is low-medium
 
@@ -25,7 +25,7 @@ with no new allocation, else it is reverted.
 - P1 to P3 as above; 110 of 110 tests pass across ContractValue, ContractSchema, ContractFragment, DictionaryRecord and ConsoleText.
 - Get-CommentScope timed at 158 ms for its loop, under the 200 ms bar, so unchanged (no-go recorded).
 - Two earlier evidence files the prompt names, plan-unboxing-findings.md and analysis-boxing.md, were deleted from out/ on 2026-10-16
-  with the user's yes, as done work. Their findings live in the shipped article and in reference-unboxing.md beside this file. The
+  with the user's yes, as done work. Their findings live in the shipped article and in docs/explanation/automation/reference-unboxing.md. The
   benchmark scripts bench-unboxing.ps1, bench-unboxing.cs, bench-unboxing.log and run-unboxing-tests.ps1 stay in out/ as scripts.
 
 ## Findings carried from out/plan-unboxing-findings.md (deleted today; F1 to F7 recovered from a read before deletion, F8 and F9 not)
@@ -76,5 +76,5 @@ with no new allocation, else it is reverted.
 
 ## Refs
 
-- prompt-unboxing-continue.md, reference-unboxing.md (beside this file)
+- prompt-unboxing-continue.md (beside this file), docs/explanation/automation/reference-unboxing.md
 - docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md
