@@ -58,13 +58,13 @@ Every agent and every skill reads this first, at every start and after every cle
 
 ## Context
 
-Agents start cold on small models. Test runs are the largest cost of a session, and a mutating git command by an agent cannot be
-undone by the user. The time safeguard bounds every call; this contract bounds what a call is spent on.
+Agents start cold on small models. Test runs are the largest cost of a session, and a mutating git command by an agent cannot be undone by
+the user. The time safeguard bounds every call; this contract bounds what a call is spent on.
 
 ## Decision
 
-One short contract, named once: the top-level `contracts: [ADR-AI]` entry in agents.yml, which the agent gate reads, and the
-CLAUDE.md session-start line. No per-file key. It says what to do and names the ADR that owns the why; under 100 lines with its head.
+One short contract, named once: the top-level `contracts: [ADR-AI]` entry in agents.yml, which the agent gate reads, and the CLAUDE.md
+session-start line. No per-file key. It says what to do and names the ADR that owns the why; under 100 lines with its head.
 
 ## Consequences
 

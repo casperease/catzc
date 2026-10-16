@@ -3,21 +3,29 @@ plan:
   status: active
   value: medium-high
   reviewed: 2026-10-16
-  targets: [automation/Catzc.Base.QualityGates/configs/file-meta.yml, automation/Catzc.Base.QualityGates, automation/Catzc.Base.Globs/configs/file-kinds.yml, automation/Catzc.Base.Variants/configs/module-types.yml, contracts/catzc/0.0.0, docs/adr/repository/file-meta.md]
+  targets:
+    [
+      automation/Catzc.Base.QualityGates/configs/file-meta.yml,
+      automation/Catzc.Base.QualityGates,
+      automation/Catzc.Base.Globs/configs/file-kinds.yml,
+      automation/Catzc.Base.Variants/configs/module-types.yml,
+      contracts/catzc/0.0.0,
+      docs/adr/repository/file-meta.md,
+    ]
 ---
 
 # The file head: immutable place facts plus declared edges, with globs spelled once as classes
 
-Two drafts. The first splits derived into immutable (place facts read from registries) and edges (defines, cites, links, page, test,
-fixed by the file's text). It is done, tested and re-imprinted across the repository (session report of 2026-10-16 15:03; verified: no
-head says derived, 1,722 say immutable). One decision from it is open: the contract schema's $comment. The second draft makes
-file-kind's ordered classes the only place a glob lives, and every other kind selects by class. It waited on the relatives work, which
-has landed, so it is free. This file also records the kinds registry, formatting and path-split work on the same head.
+Two drafts. The first splits derived into immutable (place facts read from registries) and edges (defines, cites, links, page, test, fixed
+by the file's text). It is done, tested and re-imprinted across the repository (session report of 2026-10-16 15:03; verified: no head says
+derived, 1,722 say immutable). One decision from it is open: the contract schema's $comment. The second draft makes file-kind's ordered
+classes the only place a glob lives, and every other kind selects by class. It waited on the relatives work, which has landed, so it is
+free. This file also records the kinds registry, formatting and path-split work on the same head.
 
 ## Why its value is medium-high
 
-The head is the carrier every other plan writes into. Its shape is now settled; the same glob set is still spelled in up to seven kinds
-and each copy can drift. Below the module model plan because that plan decides what some head keys mean before this one writes them.
+The head is the carrier every other plan writes into. Its shape is now settled; the same glob set is still spelled in up to seven kinds and
+each copy can drift. Below the module model plan because that plan decides what some head keys mean before this one writes them.
 
 ## Needed docs
 
@@ -39,41 +47,41 @@ and each copy can drift. Below the module model plan because that plan decides w
 - [ ] Add note as a glossary term (Q53) (check: Test-Glossary clean).
 - [ ] Re-read ADR-AUTO-ASSETDEP and confirm or move the asset kind (Q54) (check: the kinds tests).
 - [ ] Naming rule: prose may say PowerShell; identifiers use only pwsh (engine, folder) or powershell (language id) (Q45) (check:
-  Test-Terminology, once the rule has a home).
+      Test-Terminology, once the rule has a home).
 - [ ] Read the formatting ADR on automation/.compiled and follow it (Q47) (check: Test-Formatting clean or the ADR amended).
 
 ## Decided in the questionnaire round of 2026-10-16 (Q39 to Q54)
 
 - Q39 the contract schema and sample stay hand-written; no generator; the key-set test guards them. Q40 not applicable.
 - Q42 the visibility head key stays. Q43 generated heads stay minimal (path only). Q44 no glossary term for catzc_bundle.
-- Q46 the module-types.yml typo is fixed by the next session that holds the file (user-approved). Q48 owners fix the six comment
-  findings. Q49 in-use and untracked files are out of scope for plans; the untracked page line below is context only.
+- Q46 the module-types.yml typo is fixed by the next session that holds the file (user-approved). Q48 owners fix the six comment findings.
+  Q49 in-use and untracked files are out of scope for plans; the untracked page line below is context only.
 - Q51 the planner fixes the memory note. Q52 this stays one plan for the whole head.
 
 ## Done, and why: derived becomes immutable and edges (session report of 2026-10-16 15:03, verified in the tree)
 
-- The move itself: every head now has immutable (place facts) and, where the file declares relations, edges; re-imprinted repository-wide
-  so the body hashes are fresh. The carried immutable and edges draft below is superseded in its steps 1 to 5, 7 and 8.
-- Glossary: place facts and edge added to Catzc.Base.Docs/configs/glossary.yml, both defined by ADR-REPO-FILEMETA#13 and contrasting
-  each other; rule 13 reworded so the singular edge is the bolded term the gate looks for; the glossary page regenerated.
+- The move itself: every head now has immutable (place facts) and, where the file declares relations, edges; re-imprinted repository-wide so
+  the body hashes are fresh. The carried immutable and edges draft below is superseded in its steps 1 to 5, 7 and 8.
+- Glossary: place facts and edge added to Catzc.Base.Docs/configs/glossary.yml, both defined by ADR-REPO-FILEMETA#13 and contrasting each
+  other; rule 13 reworded so the singular edge is the bolded term the gate looks for; the glossary page regenerated.
 - The nine earlier gate and scope findings are gone; that session did not fix them, so another session did.
 - One gate finding left after that round, not that session's: the phrase "full suite" in the unboxing article (see plan-unboxing).
 - Contract schema generator (step 6) not built, by reasoning rather than by omission: the existing contract test already compares the
-  schema's key sets against the registry, so a missing or extra key fails there; a generator would add only the value types, and it
-  meets two problems. Header clash: the schema's $comment must say what the contract pins (ADR-REPO-CONTRACT#9) while a generated head
-  would use the same property, and which wins is undecided. Registry gap: the registry does not say which keys are lists or have a
-  fixed value set, and the sample cannot be generated at all. The user's call is recorded as an open step above.
+  schema's key sets against the registry, so a missing or extra key fails there; a generator would add only the value types, and it meets
+  two problems. Header clash: the schema's $comment must say what the contract pins (ADR-REPO-CONTRACT#9) while a generated head would use
+  the same property, and which wins is undecided. Registry gap: the registry does not say which keys are lists or have a fixed value set,
+  and the sample cannot be generated at all. The user's call is recorded as an open step above.
 
 ## Done, and why: the file-kinds registry work (session catzc-c1 and follow-up, 2026-10-16)
 
-Reconstructed from the continuation paste of 15:22 and the first lines of out/plan-file-kinds-registry.md, which was deleted today on
-the approved list before this paste arrived. One kinds registry drives file heads, the contract and .gitattributes.
+Reconstructed from the continuation paste of 15:22 and the first lines of out/plan-file-kinds-registry.md, which was deleted today on the
+approved list before this paste arrived. One kinds registry drives file heads, the contract and .gitattributes.
 
 - ADR code minimal form: Catzc.Base.Docs.AdrCodeForm (ADR-X#{1,3-5}, bare ADR-X is the whole ADR, no globs); 4,753 items became 1,685.
-- Head keys: path, folder, name, filetype, kind, subkind, language, track, module, moduletype, catzc_bundle, generator, body_sha;
-  generator names the generator file on every generated head; relatives is page plus test only.
-- File-kinds registry Catzc.Base.Globs/configs/file-kinds.yml (role-only kinds, subkinds, first match wins, fallback other, extendable by
-  a consumer fragment); Get-FileKind; selectors in file-meta.yml name kinds.
+- Head keys: path, folder, name, filetype, kind, subkind, language, track, module, moduletype, catzc_bundle, generator, body_sha; generator
+  names the generator file on every generated head; relatives is page plus test only.
+- File-kinds registry Catzc.Base.Globs/configs/file-kinds.yml (role-only kinds, subkinds, first match wins, fallback other, extendable by a
+  consumer fragment); Get-FileKind; selectors in file-meta.yml name kinds.
 - Module types Catzc.Base.Variants/configs/module-types.yml; Get-PathModule returns name and type.
 - Provided contract draft contracts/catzc/0.0.0: the file-kinds fragment (incl. contract-asset, note, fixture subkind), head.sample.yml,
   head.schema.json, Format-FileMeta.Contract.Tests.ps1. Freezes at the first unit release.
@@ -86,76 +94,76 @@ the approved list before this paste arrived. One kinds registry drives file head
 Reconstructed from the continuation paste of 15:22 and my earlier read of out/plan-file-kinds-and-formatting.md, deleted today on the
 approved list. That file continued out/continuation-prompt-markerless.md (markerless comments, done and verified, also deleted today).
 
-- Formatter crash: Invoke-Formatter throws "Operation is not valid due to the current state of the object" on a one-line hashtable
-  literal holding an if/else, with or without a subexpression; one such file stopped Format-Code and Test-Formatting for the whole tree.
-  Fixed in Get-FileExtensionFileMetaFact, Get-ModuleNameFileMetaFact and Get-FileTypeFileMetaFact by binding the value first.
-- Rule against it: Measure-NoOneLineHashtableIfElse in automation/.scriptanalyzer, ADR-PWSH-FORMAT#10 with its "One-line hashtables"
-  section in docs/adr/pwsh/powershell-formatting.md, a CatzcRules entry, the analyzer-adr-map mapping, a fixture line and rule id in
+- Formatter crash: Invoke-Formatter throws "Operation is not valid due to the current state of the object" on a one-line hashtable literal
+  holding an if/else, with or without a subexpression; one such file stopped Format-Code and Test-Formatting for the whole tree. Fixed in
+  Get-FileExtensionFileMetaFact, Get-ModuleNameFileMetaFact and Get-FileTypeFileMetaFact by binding the value first.
+- Rule against it: Measure-NoOneLineHashtableIfElse in automation/.scriptanalyzer, ADR-PWSH-FORMAT#10 with its "One-line hashtables" section
+  in docs/adr/pwsh/powershell-formatting.md, a CatzcRules entry, the analyzer-adr-map mapping, a fixture line and rule id in
   CustomRuleWiring.Tests.ps1, and NoOneLineHashtableIfElse.Tests.ps1. 27 tests passed; Test-AnalyzerAdrMap, Test-FileMeta, Test-Links clean.
 - Help text: Get-AdrUsage, Get-AdrUsageRow and Group-AdrUsage outputs say pscustomobject, matching their OutputType.
 - Peer findings cleared: Test-Links on output-formats.yml; dora-explains.md "the test suite" is now "all tests"; Test-Glossary clean.
-- File kinds tuned: drawio-kit precedes script (it was hidden by it); fixture/asset is fixture/input; skill removed; diagram is a new
-  kind; asset-description narrowed to .md. FileKindReachability.Tests.ps1 requires every kind to claim a file. 94 kind tests passed.
+- File kinds tuned: drawio-kit precedes script (it was hidden by it); fixture/asset is fixture/input; skill removed; diagram is a new kind;
+  asset-description narrowed to .md. FileKindReachability.Tests.ps1 requires every kind to claim a file. 94 kind tests passed.
 
 ## Open leftovers from that follow-up (left open)
 
-- [ ] Test-Formatting not re-run since those edits; last run flagged only the compiled types .json under automation/.compiled. Check
-  whether Format-Code should skip that folder and fix it only if the ADR says so (Q47; same step as above) (check: the Test-Formatting
-  report names no automation/.compiled file, or the ADR is amended).
+- [ ] Test-Formatting not re-run since those edits; last run flagged only the compiled types .json under automation/.compiled. Check whether
+      Format-Code should skip that folder and fix it only if the ADR says so (Q47; same step as above) (check: the Test-Formatting report
+      names no automation/.compiled file, or the ADR is amended).
 - Context, not a step (Q48, Q49): Test-Comments: 6 findings, all in other sessions' files: PropertyHead.cs.md section 1,
   MarkdownMetaBlock.cs.md sections 1 and 2, file-meta.yml.md section 5 (orphan sections, the code line under a moved comment changed),
   PathParts.cs:67 and ModulePlace.cs:68 (a 2-line comment still in the file, Export-Comments). The owners fix them.
-- Context, not a step (Q49): the untracked page Get-AutomationSourceFiles.ps1.md was restored from git history; staging it is the
-  user's git call.
-- Decided (Q41): the reachability test gap, a kind mostly shadowed by an earlier one (how drawio-kit hid), is the second open step
-  above: write the intended overlaps, then strengthen the test.
-- Decided (Q42, Q54): the visibility head key stays beside the kinds; asset stays a top-level kind, and the match with
-  ADR-AUTO-ASSETDEP is the fourth open step above.
+- Context, not a step (Q49): the untracked page Get-AutomationSourceFiles.ps1.md was restored from git history; staging it is the user's git
+  call.
+- Decided (Q41): the reachability test gap, a kind mostly shadowed by an earlier one (how drawio-kit hid), is the second open step above:
+  write the intended overlaps, then strengthen the test.
+- Decided (Q42, Q54): the visibility head key stays beside the kinds; asset stays a top-level kind, and the match with ADR-AUTO-ASSETDEP is
+  the fourth open step above.
 - Rule to keep from that session: peers edit the same tree, grep to confirm an edit still holds before building on it; no git writes.
-- [ ] Reported by the tracks session (15:14): Test-Markdownlint findings in docs/adr/repository/file-meta.md, and head.schema.json is
-  stale against the head keys tracktype and vendor that landed with ADR-DSGN-TRACKTYPE (the contract regeneration is step 6 of the
-  carried immutable and edges draft; Q39 keeps the schema hand-written) (check: Test-Markdownlint clean on file-meta.md and
-  Format-FileMeta.Contract.Tests passes with the tracktype and vendor keys in head.schema.json and head.sample.yml).
+- [ ] Reported by the tracks session (15:14): Test-Markdownlint findings in docs/adr/repository/file-meta.md, and head.schema.json is stale
+      against the head keys tracktype and vendor that landed with ADR-DSGN-TRACKTYPE (the contract regeneration is step 6 of the carried
+      immutable and edges draft; Q39 keeps the schema hand-written) (check: Test-Markdownlint clean on file-meta.md and
+      Format-FileMeta.Contract.Tests passes with the tracktype and vendor keys in head.schema.json and head.sample.yml).
 
 ## Done, and why: head path split, module-type ids, catzc_bundle (2026-10-16)
 
-Reconstructed from the continuation paste of 15:22 and my earlier read of out/plan-head-path-split.md, deleted today on the approved
-list. Request: module type ids lose the redundant -module suffix; the head key bundle takes the catzc bundler's own name; path is split
-into asserted parts. Decisions: key catzc_bundle (kind id catzc-bundle; key names allow no hyphen); exporter bundles full, azure and
-minimal unchanged; path stays; new keys folder, name, filetype (subkind keeps its file-kinds meaning); no legacy alias ("we need no l...",
+Reconstructed from the continuation paste of 15:22 and my earlier read of out/plan-head-path-split.md, deleted today on the approved list.
+Request: module type ids lose the redundant -module suffix; the head key bundle takes the catzc bundler's own name; path is split into
+asserted parts. Decisions: key catzc_bundle (kind id catzc-bundle; key names allow no hyphen); exporter bundles full, azure and minimal
+unchanged; path stays; new keys folder, name, filetype (subkind keeps its file-kinds meaning); no legacy alias ("we need no l...",
 ADR-PRIN-ONELIVE).
 
 - Module type ids: pwsh-folder, pwsh-psm1, python, go, bash, bicep, pipeline, settings (module-types.yml, Get-PathModule tests,
   Format-GeneratedFileHead test, docs and comments).
 - Variants: ModulePlace.TailOf, PathModule.tail, ModuleTypesConfig.Resolve passes the tail; test added.
 - Languages: new PathParts type (folder, name, filetype; asserts the parts rebuild the path as kebab); Get-PathFileType delegates to it.
-- QualityGates: Get-FileNameFileMetaFact (kind file-name) with test; Get-BundleFileMetaFact renamed Get-CatzcBundleFileMetaFact with
-  test; file-meta.yml kind order; Test-FileMetaProcessors fixture and counts (17 kinds, 18 processors).
+- QualityGates: Get-FileNameFileMetaFact (kind file-name) with test; Get-BundleFileMetaFact renamed Get-CatzcBundleFileMetaFact with test;
+  file-meta.yml kind order; Test-FileMetaProcessors fixture and counts (17 kinds, 18 processors).
 - Contracts: head.schema.json and head.sample.yml. ADR docs/adr/repository/file-meta.md rules 11 and 12.
 
 ## Open leftovers from the path split (all optional, left open)
 
 - [ ] Spelling gate: run it; add catzc_bundle to the coined words only if it flags it (check: the Test-Spelling report does not list
-  catzc_bundle).
+      catzc_bundle).
 - [ ] Test-FileMeta gate and the full Test-Automation: the user's runs (check: the user's reports in out/ show no finding from the path
-  split).
+      split).
 - Decided (Q43): generated-file heads stay minimal and do not carry folder and name.
 - Decided (Q44): no glossary entry for the renamed key catzc_bundle.
 
 ## Open leftovers from the registry work (checks and questions, left open)
 
-- [ ] Checks not run since its last edits: Test-Spelling, Test-FileMeta, Test-Glossary, Test-Contracts, Test-GeneratedFiles, one by one
-  in the background with scripts under out/; report what is that work's. Not the full Test-Automation. Last known findings, none from
-  that work: Spelling 5 (Unspan x3, nfunction x2 in CommentEngine files), ScriptAnalyzer about 37 (mostly .internal), markdownlint about
-  39 (docs/explanation tables), Test-Formatting flagging .compiled/*.json (check: each of the five reports is read and its findings
-  are attributed to this work or to a peer).
-- Decided (Q45): PowerShell versus Powershell is the naming rule in the fifth open step above; the one literal Powershell is in the
-  vendored dotnet-install.ps1:368 and stays.
+- [ ] Checks not run since its last edits: Test-Spelling, Test-FileMeta, Test-Glossary, Test-Contracts, Test-GeneratedFiles, one by one in
+      the background with scripts under out/; report what is that work's. Not the full Test-Automation. Last known findings, none from that
+      work: Spelling 5 (Unspan x3, nfunction x2 in CommentEngine files), ScriptAnalyzer about 37 (mostly .internal), markdownlint about 39
+      (docs/explanation tables), Test-Formatting flagging .compiled/*.json (check: each of the five reports is read and its findings are
+      attributed to this work or to a peer).
+- Decided (Q45): PowerShell versus Powershell is the naming rule in the fifth open step above; the one literal Powershell is in the vendored
+  dotnet-install.ps1:368 and stays.
 - [ ] Typo: module-types.yml pwsh-folder definition reads "under ex. automation"; fixed by the next session that holds the file (Q46)
-  (check: a grep for "under ex." in module-types.yml finds nothing).
+      (check: a grep for "under ex." in module-types.yml finds nothing).
 - Done (Q51): the memory note file-head-vocabulary.md was checked; its one remaining "derived" is the English verb.
-- Not extended, by choice: glossary entries for individual kinds (only the concepts kind and subkind are terms); note becomes a term
-  only if the user wants it. contracts/.gitkeep resolves to other and is left alone.
+- Not extended, by choice: glossary entries for individual kinds (only the concepts kind and subkind are terms); note becomes a term only if
+  the user wants it. contracts/.gitkeep resolves to other and is left alone.
 
 ## Refs
 
@@ -200,57 +208,57 @@ catzc:
 
 ## Rename map (old -> new)
 
-| Old                                                                                                                                | New                                    |
-| ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| `derived:`                                                                                                                         | split into `immutable:` and `edges:`   |
-| `derived.body_sha` (value quoted)                                                                                                  | `immutable.with_body_sha` (first key)  |
-| `derived.path/folder/name/filetype/kind/subkind/language/track/module/moduletype/catzc_bundle/tracktype/vendor/visibility/generator/source` | `immutable.<same key>`                 |
-| `derived.defines`                                                                                                                  | `edges.defines`                        |
-| `derived.adrs`                                                                                                                     | `edges.cites`                          |
-| `derived.links`                                                                                                                    | `edges.links`                          |
-| `derived.relatives.page` / `.test`                                                                                                 | `edges.page` / `edges.test` (flat)     |
-| meta kind `relatives` (registry)                                                                                                   | `relative-edges`                       |
-| meta kinds `adr-defines`, `adr-codes`, `links`                                                                                     | keep ids; add `section: edges`         |
-| C# `MarkdownMetaBlock.DerivedKey`, `DerivedKeys`, `DerivedList`; `CodeMetaHead.DerivedKeys/DerivedList`; `PropertyHead.DerivedKeys` | `ImmutableKeys`, `EdgeKeys`, `EdgeList` (per part) |
-| state props `DerivedKeys`, `DerivedLists` in `Get-MarkdownMetaState`, `Get-CodeMetaState`, `Get-PropertyMetaState`                 | `ImmutableKeys`, `EdgeKeys`, `EdgeLists` |
+| Old                                                                                                                                         | New                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `derived:`                                                                                                                                  | split into `immutable:` and `edges:`               |
+| `derived.body_sha` (value quoted)                                                                                                           | `immutable.with_body_sha` (first key)              |
+| `derived.path/folder/name/filetype/kind/subkind/language/track/module/moduletype/catzc_bundle/tracktype/vendor/visibility/generator/source` | `immutable.<same key>`                             |
+| `derived.defines`                                                                                                                           | `edges.defines`                                    |
+| `derived.adrs`                                                                                                                              | `edges.cites`                                      |
+| `derived.links`                                                                                                                             | `edges.links`                                      |
+| `derived.relatives.page` / `.test`                                                                                                          | `edges.page` / `edges.test` (flat)                 |
+| meta kind `relatives` (registry)                                                                                                            | `relative-edges`                                   |
+| meta kinds `adr-defines`, `adr-codes`, `links`                                                                                              | keep ids; add `section: edges`                     |
+| C# `MarkdownMetaBlock.DerivedKey`, `DerivedKeys`, `DerivedList`; `CodeMetaHead.DerivedKeys/DerivedList`; `PropertyHead.DerivedKeys`         | `ImmutableKeys`, `EdgeKeys`, `EdgeList` (per part) |
+| state props `DerivedKeys`, `DerivedLists` in `Get-MarkdownMetaState`, `Get-CodeMetaState`, `Get-PropertyMetaState`                          | `ImmutableKeys`, `EdgeKeys`, `EdgeLists`           |
 
 Section order in the file: `immutable`, `edges`, `config`. Key order inside each part is the registry order. An empty edge is left out; an
 empty `edges` part is left out.
 
 Which kinds write where (`file-meta.yml`, new `section:` setting, default `immutable`):
 
-- `immutable`: file-path, file-name, file-type, file-kind, file-language, track, module-name, module-type, catzc-bundle, generator,
-  body-sha (key renamed `with_body_sha`, ordered first), visibility, plus `tracktype`/`vendor`/`source` where present.
+- `immutable`: file-path, file-name, file-type, file-kind, file-language, track, module-name, module-type, catzc-bundle, generator, body-sha
+  (key renamed `with_body_sha`, ordered first), visibility, plus `tracktype`/`vendor`/`source` where present.
 - `edges`: adr-defines, adr-codes (`cites`), links, relative-edges (`page`, `test`).
 
 ## Steps (one file at a time, each verified before the next)
 
-1. **ADRs** (done: `file-meta.md` rules 1, 3, 5, 9, 10, new rule 13, Decision, examples; `code-file-meta.md` rules 2, 3, examples).
-   Still to do: `markdown-config-contributions.md` (the `derived` mentions, 2), `controlled-vocabulary.md` / glossary sources
+1. **ADRs** (done: `file-meta.md` rules 1, 3, 5, 9, 10, new rule 13, Decision, examples; `code-file-meta.md` rules 2, 3, examples). Still to
+   do: `markdown-config-contributions.md` (the `derived` mentions, 2), `controlled-vocabulary.md` / glossary sources
    (`Catzc.Base.Docs/configs/glossary.yml`: add terms `place facts` and `edge`; reword `meta head` / `meta kind` / `imprint step` entries
    that say "derived fact"), `uniform-formatting.md` (`derived` mentions, 6), `comments-in-docs.md` if it names the part. Glossary,
    `adrs.yml` and `terminology.yml` are dirty from another session: ask before editing them.
 2. **Pure types** (`Catzc.Base.MarkdownMeta`, `Catzc.Base.CodeMeta`): `MarkdownMetaBlock` renders and parses three sections;
-   `KeysAt(block, 4, …)` becomes per-section; `CodeMetaHead`, `PropertyHead` follow. Update the type tests
-   (`MarkdownMetaBlock.Tests.ps1`, `CodeMetaHead.Tests.ps1`, `PropertyHead.Tests.ps1`) and `Get-*MetaState` tests. Fresh `pwsh` per C# edit.
+   `KeysAt(block, 4, …)` becomes per-section; `CodeMetaHead`, `PropertyHead` follow. Update the type tests (`MarkdownMetaBlock.Tests.ps1`,
+   `CodeMetaHead.Tests.ps1`, `PropertyHead.Tests.ps1`) and `Get-*MetaState` tests. Fresh `pwsh` per C# edit.
 3. **Registry** `Catzc.Base.QualityGates/configs/file-meta.yml` and its C# entry type: `section:` default declared once on the type;
-   `body-sha` key rename; `relatives` kind becomes `relative-edges` writing flat edges. Update `Test-FileMetaProcessors.Tests.ps1`
-   and the processor function names (`Get-<Kind>FileMetaFact` for the renamed kind).
-4. **Engine** (`Format-FileMeta`, `Test-FileMeta`, `Format-PropertyMetaHead`, `Format-CodeMetaHead`): write/compare the three parts;
-   a hand-written key under `immutable` or `edges` is a finding (rule 5).
+   `body-sha` key rename; `relatives` kind becomes `relative-edges` writing flat edges. Update `Test-FileMetaProcessors.Tests.ps1` and the
+   processor function names (`Get-<Kind>FileMetaFact` for the renamed kind).
+4. **Engine** (`Format-FileMeta`, `Test-FileMeta`, `Format-PropertyMetaHead`, `Format-CodeMetaHead`): write/compare the three parts; a
+   hand-written key under `immutable` or `edges` is a finding (rule 5).
 5. **Generated-file head** (`Invoke-RootConfigGenerator.ps1`, `rootconfig.yml`, the one head function): `derived` -> `immutable`
    (`generator`, `source` are place facts). Regenerate, no hand edit.
 6. **Contract** (the user's point, 2026-10-16: contracts are the type of the ADR documents, since an ADR defines a root concern as a
    contract, so the contract can be generated from it). `contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.schema.json` and
    `head.sample.yml` pin the `derived` shape by hand today, a second statement of what `file-meta.yml` and ADR-REPO-FILEMETA already say.
-   Make the draft (`0.0.0`, the only mutable folder, ADR-REPO-CONTRACT#5) a generated file: its writer composes the schema from the
-   registry (parts `immutable`/`edges`/`config`, each kind's keys by `section:`, array vs scalar by kind, `visibility` enum), writes the
-   `$comment` through the one head function with `generator` and `source` (the registry, ADR-REPO-FILEMETA#7), and the sample is composed
-   from the same data, so the schema, the sample and the registry cannot drift. Change the contract and every caller in the same change; no
-   second version (ADR-PRIN-ONELIVE); released `0.0.0` is not yet pinned, so no sanctioned back-compat folder is needed (ADR-REPO-CONTRACT#3).
-   Check `docs/references/contracts.md` (generated by `Build-ContractReference`). Questions: does the ADR itself name the contract
-   (a `contract:` edge from `file-meta.md` to the schema, via the `links` edge), and does the generated-head rule apply to a
-   contract asset the tests compare byte for byte (ADR-REPO-FILEMETA#5 exempts `catzc-contract`)? Decide before building the writer.
+   Make the draft (`0.0.0`, the only mutable folder, ADR-REPO-CONTRACT#5) a generated file: its writer composes the schema from the registry
+   (parts `immutable`/`edges`/`config`, each kind's keys by `section:`, array vs scalar by kind, `visibility` enum), writes the `$comment`
+   through the one head function with `generator` and `source` (the registry, ADR-REPO-FILEMETA#7), and the sample is composed from the same
+   data, so the schema, the sample and the registry cannot drift. Change the contract and every caller in the same change; no second version
+   (ADR-PRIN-ONELIVE); released `0.0.0` is not yet pinned, so no sanctioned back-compat folder is needed (ADR-REPO-CONTRACT#3). Check
+   `docs/references/contracts.md` (generated by `Build-ContractReference`). Questions: does the ADR itself name the contract (a `contract:`
+   edge from `file-meta.md` to the schema, via the `links` edge), and does the generated-head rule apply to a contract asset the tests
+   compare byte for byte (ADR-REPO-FILEMETA#5 exempts `catzc-contract`)? Decide before building the writer.
 7. **Agents and drawio kit** that read heads by text (`.claude/agents/*.md` heads, `.claude/drawio/STYLE.md`): they carry the block and are
    re-imprinted in step 8; check no tool there greps `derived:`.
 8. **Re-imprint** every in-scope file (about 1,750) with the tool, not a script sweep: `Format-FileMeta` for Markdown, `Format-Code` for
@@ -265,11 +273,11 @@ Done and verified (`out/run-meta-tests.ps1`): the three pure types, `Get-*MetaSt
 
 Done, tests being verified: registry `section:` on `FileMetaKind` / `KeysOf` on `FileMetaConfig`, `file-meta.yml` (kinds `body-sha` first,
 `relative-edges`, `section: edges` on adr-defines / adr-codes (`cites`) / links), `Get-FileMetaFact` (returns `@{ Immutable; Edges }`),
-`Invoke-FileMetaEngine`, `Format-GeneratedFileHead`, `Get-AdrCodesFileMetaFact`, `Get-AdrUsageRow`, `Get-RelativeEdgesFileMetaFact`
-(renamed from Relatives; file and test moved with plain `mv`, so the git index is stale for them).
+`Invoke-FileMetaEngine`, `Format-GeneratedFileHead`, `Get-AdrCodesFileMetaFact`, `Get-AdrUsageRow`, `Get-RelativeEdgesFileMetaFact` (renamed
+from Relatives; file and test moved with plain `mv`, so the git index is stale for them).
 
-Not done: contract (step 6), re-imprint (step 8), glossary / other ADR mentions, sweep (step 9), `MarkdownDocument` / `Remove-MarkdownFrontMatter`
-test fixtures that still spell `derived:` (opaque text, harmless).
+Not done: contract (step 6), re-imprint (step 8), glossary / other ADR mentions, sweep (step 9), `MarkdownDocument` /
+`Remove-MarkdownFrontMatter` test fixtures that still spell `derived:` (opaque text, harmless).
 
 Re-imprint trap: every file on disk still has `derived:`. The engine reports it as an unowned section and leaves the file alone, so the
 re-imprint needs the engine to treat `derived` as droppable for that one run (then delete that allowance in the same change).
@@ -279,7 +287,7 @@ re-imprint needs the engine to treat `derived` as droppable for that one run (th
 - `with_body_sha` is Markdown only (ADR-REPO-CODEMETA#2). Say so in the schema.
 - Code heads' `cites` stays add-only (`held_classes`); only its path changes.
 - The ADR's own heads (`file-meta.md`, `code-file-meta.md`) still show `derived:` until step 8 re-imprints them; the formatter owns them.
-- Name check: `immutable` for a part whose values move when a file moves is relative (fixed *for the file at its place and body*); rule 13
+- Name check: `immutable` for a part whose values move when a file moves is relative (fixed _for the file at its place and body_); rule 13
   says this in the text.
 
 ## Carried: out/plan-meta-class-selectors.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
@@ -293,21 +301,21 @@ session agrees or hands over.
 
 Globs are the only selector, so the same file sets are spelled again in every kind:
 
-| Glob set                                                         | Spelled in                                                                                  |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `automation/**/types/*.cs`                                       | `file-kind` (csharp-type), `module-name`, `relatives` (twice), `adr-codes` `files`, `domain_files`, `held_files` |
-| `automation/Catzc.*/*.ps1` + `automation/Catzc.*/private/*.ps1`  | `file-kind` (automation-function), `module-name`, `visibility`, `relatives`, `adr-codes` `files`, `domain_files`, `held_files` |
-| `**/*.md`                                                        | `body-sha`, `adr-codes`, `links`                                                            |
-| `docs/adr/**`                                                    | `file-kind` (adr), `adr-defines` (`docs/adr/**/*.md`)                                       |
+| Glob set                                                        | Spelled in                                                                                                                     |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `automation/**/types/*.cs`                                      | `file-kind` (csharp-type), `module-name`, `relatives` (twice), `adr-codes` `files`, `domain_files`, `held_files`               |
+| `automation/Catzc.*/*.ps1` + `automation/Catzc.*/private/*.ps1` | `file-kind` (automation-function), `module-name`, `visibility`, `relatives`, `adr-codes` `files`, `domain_files`, `held_files` |
+| `**/*.md`                                                       | `body-sha`, `adr-codes`, `links`                                                                                               |
+| `docs/adr/**`                                                   | `file-kind` (adr), `adr-defines` (`docs/adr/**/*.md`)                                                                          |
 
 Each copy can drift from the others. Adding a function class, such as a new `*-function` role, means editing up to seven lists.
 
 ## The model
 
-1. **Globs live in one place: `file-kind`'s ordered `classes`.** The first class whose glob matches a file is the file's class. The
-   order is the precedence, and `other` is the default class. This is how it works today.
-2. **Every other kind and setting selects by class, never by glob.** It uses `classes:`, and a class pattern may use one `*`
-   (`*-function`, `*-test`, `csharp-type`). Class names are short and stable, so the pattern stays simple.
+1. **Globs live in one place: `file-kind`'s ordered `classes`.** The first class whose glob matches a file is the file's class. The order is
+   the precedence, and `other` is the default class. This is how it works today.
+2. **Every other kind and setting selects by class, never by glob.** It uses `classes:`, and a class pattern may use one `*` (`*-function`,
+   `*-test`, `csharp-type`). Class names are short and stable, so the pattern stays simple.
 3. **Sensible defaults, declared once on `FileMetaKind`** (`ADR-AUTO-DEFAULT#6`):
    - With no `classes:`, a kind applies to every file the carriers give a head (`**`, today's `DefaultFiles`).
    - A setting that names files (today `domain_files`, `held_files`, a relative's `files`) becomes `*_classes`, and its default is the
@@ -340,7 +348,8 @@ adr-codes:
   # domain_classes and held_classes default to the kind's classes, so neither is written
 ```
 
-`relatives` keeps its `paths` templates and selects by class: `{ classes: [csharp-type], paths: ["automation/{module}/tests/types/{stem}.Tests.ps1"] }`.
+`relatives` keeps its `paths` templates and selects by class:
+`{ classes: [csharp-type], paths: ["automation/{module}/tests/types/{stem}.Tests.ps1"] }`.
 
 ## Where else the model applies
 
@@ -354,10 +363,10 @@ The first change stays inside `file-meta.yml`.
 
 ## Changes
 
-1. `FileMetaKind` (type): add `classes` and `languages`, declared with their defaults. A kind has `files`, or `classes`/`languages`,
-   never both. `files` goes away when no kind uses it (`ADR-PRIN-ONELIVE`).
-2. `Invoke-FileMetaEngine` / `Get-FileMetaFact`: compute the file's class once per file, which `file-kind` already does, and select kinds
-   by it.
+1. `FileMetaKind` (type): add `classes` and `languages`, declared with their defaults. A kind has `files`, or `classes`/`languages`, never
+   both. `files` goes away when no kind uses it (`ADR-PRIN-ONELIVE`).
+2. `Invoke-FileMetaEngine` / `Get-FileMetaFact`: compute the file's class once per file, which `file-kind` already does, and select kinds by
+   it.
 3. `Get-AdrCodesFileMetaFact`: read `domain_classes` / `held_classes` against the file's class.
 4. The `relatives` processor: a rule selects by `classes`.
 5. `file-meta.yml`: rewrite each kind to the new selectors. The glob count drops from about 30 to the class list alone.

@@ -142,8 +142,7 @@ on haiku first, and record in "Done, and why" whether it held.
   catzc.module, catzc.verify), drawio-diagram-waves (sonnet; drawio.waves, its makers are drawio-png robots, program Q5). The gate holds all
   of them; its two remaining issues are the peer-planned `contracts` key on plan-intake and plan-decide, with the user. Still to build:
   gate-runner, link-fixer, adr-reviewer, glossary-keeper (the recommended four) and the `Test-SlideDescriptions` idea.
-- 2026-10-16, Phase 4: the recommended four built and registered: gate-runner (haiku, 4 steps), link-fixer (haiku, 4 steps),
-  adr-reviewer (sonnet with a reason, 4 steps, loads the new `adr.cite`), glossary-keeper (haiku, 4 steps). Listed in CLAUDE.md and in
-  catzc-worker's Do NOT clause. Gate 0 over the real tree, tests pass, analyzer 0, generated files 0. The robot count is 15, the
-  capability count 18. Left in this plan: the `Test-SlideDescriptions` idea, and the first real brief for each robot (Phase 5's
-  measurement).
+- 2026-10-16, Phase 4: the recommended four built and registered: gate-runner (haiku, 4 steps), link-fixer (haiku, 4 steps), adr-reviewer
+  (sonnet with a reason, 4 steps, loads the new `adr.cite`), glossary-keeper (haiku, 4 steps). Listed in CLAUDE.md and in catzc-worker's Do
+  NOT clause. Gate 0 over the real tree, tests pass, analyzer 0, generated files 0. The robot count is 15, the capability count 18. Left in
+  this plan: the `Test-SlideDescriptions` idea, and the first real brief for each robot (Phase 5's measurement).

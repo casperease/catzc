@@ -51,8 +51,8 @@ by naming which of the 439 public functions are contracted. Every later plan spe
   session never re-asks.
 - The two companions each carry a "Decided 2026-10-16" line and their question sections are retitled as decisions.
 - The worklist fixes <TRACK> to pwsh. The module-model and k8s plans carry a sequencing note (see plan-module-kinds-tracks).
-- prompt-automation-layers-continue.md (beside this file) written: read order, final decisions, standing constraints, order of work, stop conditions,
-  report shape. The two module-model prompts and the other out/ plans were not touched; they do not mention this work.
+- prompt-automation-layers-continue.md (beside this file) written: read order, final decisions, standing constraints, order of work, stop
+  conditions, report shape. The two module-model prompts and the other out/ plans were not touched; they do not mention this work.
 - The note was copied to the user's memory file.
 
 ## Needed docs
@@ -85,10 +85,10 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 
 ## Open steps
 
-- [ ] Copy the prompt, the four plan files and the two module-model prompts into the session scratchpad before pasting (out/ was wiped
-      once) (check: a listing of the scratchpad shows all of them).
-- [ ] Paste prompt-automation-layers-continue.md into a fresh session after the module-model prepare prompt (check: the session reports
-      P0 green).
+- [ ] Copy the prompt, the four plan files and the two module-model prompts into the session scratchpad before pasting (out/ was wiped once)
+      (check: a listing of the scratchpad shows all of them).
+- [ ] Paste prompt-automation-layers-continue.md into a fresh session after the module-model prepare prompt (check: the session reports P0
+      green).
 - [ ] P1 (check: three terminology gates clean). P2 (check: guard rule gate). P3 (check: classification table, then stop).
 - [ ] P4 on the user's go (check: full baseline green again). P5 to P8 per the master plan.
 
@@ -765,23 +765,28 @@ Bootstrap constants (cannot be derived; read before any registry loads), to be r
 
 Data registries (the "single source" set; edit each file once, then regenerate):
 
-| Registry                 | Where                                                                                                                                                                                                             | Edit                                                                                                                                                                                                                                                                 |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ------------------ | ---------- |
-| track                    | `Catzc.Base.Variants/configs/variants.yml:23` (aspects), `:31` (`tracks.automation: {root: automation, class: core, languages: [...]}`)                                                                           | rename key and root together; the key is what every head's `track:` prints. After [plan-config-defaults.md](plan-config-defaults.md) Phase 2 the file no longer exists in `automation/`: the edit moves to `.catzc/<track>/Catzc.Base.Variants/configs/variants.yml` |
-| module placement         | `module-types.yml:18,20,21,25`                                                                                                                                                                                    | roots                                                                                                                                                                                                                                                                |
-| globset                  | `Catzc.Base.Globs/configs/globs.yml:17-22` (`automation`, `pipeline: ci-automation`)                                                                                                                              | key + include + pipeline (S6, late)                                                                                                                                                                                                                                  |
-| file kinds               | `file-kinds.yml:44,50,53,56,59,62,63,66,72,85,97`                                                                                                                                                                 | 11 globs                                                                                                                                                                                                                                                             |
-| comment pages            | `Catzc.Base.QualityGates/configs/comments.yml:36-47`; `CommentsConfig.cs:62,65` (second copy)                                                                                                                     | source -> docs mapping                                                                                                                                                                                                                                               |
-| readme mapping           | `Catzc.Base.Docs/configs/readme.yml:17-18`                                                                                                                                                                        | `glob: automation/*` -> `docs/references/automation/{kebab}.md`                                                                                                                                                                                                      |
-| file meta                | `file-meta.yml:57,77-78`                                                                                                                                                                                          | generator path, relatives patterns                                                                                                                                                                                                                                   |
-| contracts                | `Catzc.Base.Contracts/configs/contracts.yml:20`                                                                                                                                                                   | target root of `Catzc.Base.Globs`                                                                                                                                                                                                                                    |
-| root config              | `Catzc.Base.RootConfig/configs/rootconfig.yml:18-133` (about 40 source paths)                                                                                                                                     | source column                                                                                                                                                                                                                                                        |
-| gitignore / vscode       | `Catzc.Base.Git/configs/gitignore.yml:55,57,90,99,100`; `Catzc.Base.VSCode/configs/vscode-settings.yml:44,61-66`                                                                                                  | patterns                                                                                                                                                                                                                                                             |
-| languages                | `languages.yml:21-68` (tool config paths), `:79,103,115,120` (`adr_folder: automation/BCL                                                                                                                         | python                                                                                                                                                                                                                                                               | go  | bash` = S2, stays) | paths only |
-| reports                  | `Catzc.Base.Reports/configs/output-formats.yml:36,66,72` (`test-automation/`, S5 stays), `:77-101` (`automation/built`, `automation/packages`)                                                                    | build output folders (Q6)                                                                                                                                                                                                                                            |
-| other                    | `source-conventions.yml:18`, `links.yml` (18 per-file keys), `terminology.yml:36`, `build-validation.yml:18` (`globset: automation`), `exporter.yml:45` (`- automation` globset), QualityGates `glossary.yml:101` | patterns                                                                                                                                                                                                                                                             |
-| overlay                  | `Get-CatzcOverlayRoot.ps1:19,44` (`.catzc/automation`), `Get-Config.ps1:35` doc                                                                                                                                   | consumer-facing (Q5)                                                                                                                                                                                                                                                 |
-| ADR registry (S2, stays) | `adrs.yml:115-126,164-174`, `adr-checks.yml:17`, `AdrsConfig.cs:43`                                                                                                                                               | unchanged                                                                                                                                                                                                                                                            |
+| Registry | Where | Edit | | ------------------------ |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| --- | ------------------ | ---------- | | track | `Catzc.Base.Variants/configs/variants.yml:23` (aspects), `:31`
+(`tracks.automation: {root: automation, class: core, languages: [...]}`) | rename key and root together; the key is what every head's
+`track:` prints. After [plan-config-defaults.md](plan-config-defaults.md) Phase 2 the file no longer exists in `automation/`: the edit moves
+to `.catzc/<track>/Catzc.Base.Variants/configs/variants.yml` | | module placement | `module-types.yml:18,20,21,25` | roots | | globset |
+`Catzc.Base.Globs/configs/globs.yml:17-22` (`automation`, `pipeline: ci-automation`) | key + include + pipeline (S6, late) | | file kinds |
+`file-kinds.yml:44,50,53,56,59,62,63,66,72,85,97` | 11 globs | | comment pages | `Catzc.Base.QualityGates/configs/comments.yml:36-47`;
+`CommentsConfig.cs:62,65` (second copy) | source -> docs mapping | | readme mapping | `Catzc.Base.Docs/configs/readme.yml:17-18` |
+`glob: automation/*` -> `docs/references/automation/{kebab}.md` | | file meta | `file-meta.yml:57,77-78` | generator path, relatives
+patterns | | contracts | `Catzc.Base.Contracts/configs/contracts.yml:20` | target root of `Catzc.Base.Globs` | | root config |
+`Catzc.Base.RootConfig/configs/rootconfig.yml:18-133` (about 40 source paths) | source column | | gitignore / vscode |
+`Catzc.Base.Git/configs/gitignore.yml:55,57,90,99,100`; `Catzc.Base.VSCode/configs/vscode-settings.yml:44,61-66` | patterns | | languages |
+`languages.yml:21-68` (tool config paths), `:79,103,115,120`
+(`adr_folder: automation/BCL                                                                                                                         | python                                                                                                                                                                                                                                                               | go  | bash`
+= S2, stays) | paths only | | reports | `Catzc.Base.Reports/configs/output-formats.yml:36,66,72` (`test-automation/`, S5 stays), `:77-101`
+(`automation/built`, `automation/packages`) | build output folders (Q6) | | other | `source-conventions.yml:18`, `links.yml` (18 per-file
+keys), `terminology.yml:36`, `build-validation.yml:18` (`globset: automation`), `exporter.yml:45` (`- automation` globset), QualityGates
+`glossary.yml:101` | patterns | | overlay | `Get-CatzcOverlayRoot.ps1:19,44` (`.catzc/automation`), `Get-Config.ps1:35` doc |
+consumer-facing (Q5) | | ADR registry (S2, stays) | `adrs.yml:115-126,164-174`, `adr-checks.yml:17`, `AdrsConfig.cs:43` | unchanged |
 
 Keeping the track **key** `automation` while changing only `root` is possible (they are separate fields) and would make most heads
 unchanged, but leaves `track: automation` meaning "the pwsh track", which is the confusion being removed. Rename both.

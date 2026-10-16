@@ -51,9 +51,9 @@ It generalises to every typed config in configs.yml.
   module-shipped variants.yml is deleted. A registered type with no shipped file is built from an empty map plus the fragment.
 - The overlay reads this repo's own .catzc/ config fragments only, in source mode; function and asset overrides, local modules and local
   tests stay build-only. Canonical .catzc/; .cats/ is a read alias never written; both present is one error.
-- A generated contract contracts/catzc/0.0.0/\<Module>/configs/\<name>.yml publishes the type's full defaults: asset kind defaults, direction
-  provided by convention; defaulted keys show literals, empty-valid keys show empty, a required key is named in a header comment and
-  omitted. A gate compares regenerated defaults to the file. Releasing freezes them (ADR-REPO-CONTRACT#3, #5).
+- A generated contract contracts/catzc/0.0.0/\<Module>/configs/\<name>.yml publishes the type's full defaults: asset kind defaults,
+  direction provided by convention; defaulted keys show literals, empty-valid keys show empty, a required key is named in a header comment
+  and omitted. A gate compares regenerated defaults to the file. Releasing freezes them (ADR-REPO-CONTRACT#3, #5).
 - Assert ladder: construct-time, load-time, cross-config, contract-time, repo-time; named in an ADR in Phase 5.
 - With the layers plan: the fragment root is resolver-based, so the pwsh rename changes the folder only (.catzc/pwsh/).
 

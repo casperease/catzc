@@ -9,9 +9,9 @@ plan:
 
 # Materialization: when a knowledge resource comes into being and how long it holds
 
-A draft, not yet an ADR (suggested code ADR-AUTO-MATERIAL, next to ADR-AUTO-CACHE). Most information in cats exists only when asked
-for: a scan, a derived listing, a resolved config. Some can be frozen at commit and never change. Materialization names that axis so a
-reader knows whether a resource is probably warm or has to be made cold.
+A draft, not yet an ADR (suggested code ADR-AUTO-MATERIAL, next to ADR-AUTO-CACHE). Most information in cats exists only when asked for: a
+scan, a derived listing, a resolved config. Some can be frozen at commit and never change. Materialization names that axis so a reader knows
+whether a resource is probably warm or has to be made cold.
 
 ## Why its value is medium
 
@@ -23,32 +23,32 @@ generated heads. One word and one default prevent each of them from inventing it
 - on-demand: made when asked, holds until the call ends or the session cache entry; cold, a tool may have cached it.
 - commit: made at commit, keyed by the scoped sha of its inputs; never changes, the key is its identity; warm, invalidation is free.
 - default: resolved from context into one of the two, never a stored or displayed value (same shape as ADR-AUTO-DEFAULT#6 and the
-  assert-guard idea). Clean tree at a known sha with a commit copy present uses the copy; dirty tree or no copy computes on-demand and
-  says so; a millisecond-cheap resource never earns a commit copy.
-- Fit: ADR-AUTO-CACHE#5, #6, #9; ADR-PRIN-ONELIVE (one version per key); mono repo (scoped sha, not whole-repo sha); guards are controls
-  (a guard is pinned on-demand, the default never picks commit for it); configure, don't program (per kind, in a config entry).
+  assert-guard idea). Clean tree at a known sha with a commit copy present uses the copy; dirty tree or no copy computes on-demand and says
+  so; a millisecond-cheap resource never earns a commit copy.
+- Fit: ADR-AUTO-CACHE#5, #6, #9; ADR-PRIN-ONELIVE (one version per key); mono repo (scoped sha, not whole-repo sha); guards are controls (a
+  guard is pinned on-demand, the default never picks commit for it); configure, don't program (per kind, in a config entry).
 - The word won over existence, residency and persistence (persistence is taken by the sha-marker plan's opt-out). It is the database term.
 
 ## Session report of 2026-10-16 15:35, and why it stayed a draft
 
 - Written as a draft laid out like the earlier adr-draft files, not promoted; no gates or tests run. Held back because a new ADR needs an
-  adrs.yml entry, a glossary entry, a dora-explains.md entry and a regenerated index, and because a rule the user has not confirmed is
-  not recorded as a rule. The three open choices below are the session's own recommendations, taken for the draft only.
+  adrs.yml entry, a glossary entry, a dora-explains.md entry and a regenerated index, and because a rule the user has not confirmed is not
+  recorded as a rule. The three open choices below are the session's own recommendations, taken for the draft only.
 - Memory entry materialization-of-knowledge-resources.md saved with its MEMORY.md pointer.
 
 ## Decided in the questionnaire round of 2026-10-16 (Q66 to Q70, F7, S4)
 
-- The commit key is the scoped sha of a deployable-module globset (the patterns in globs.yml), with config variants possible; the
-  user's words: "scoped shas should basically be our deployable module glob patterns we can make config variants for".
-- Declared per resource kind with one default; an instance changes it only by an explicit pin. A commit resource on a dirty tree falls
-  back to on-demand with one announced line. Its own ADR, ADR-AUTO-MATERIAL, next to ADR-AUTO-CACHE, written now.
-- Scope (F7): generated tracked files and the analyzer cache become commit resources keyed by their globset; body_sha is that key's
-  visible form; on-demand stays the default for everything else.
+- The commit key is the scoped sha of a deployable-module globset (the patterns in globs.yml), with config variants possible; the user's
+  words: "scoped shas should basically be our deployable module glob patterns we can make config variants for".
+- Declared per resource kind with one default; an instance changes it only by an explicit pin. A commit resource on a dirty tree falls back
+  to on-demand with one announced line. Its own ADR, ADR-AUTO-MATERIAL, next to ADR-AUTO-CACHE, written now.
+- Scope (F7): generated tracked files and the analyzer cache become commit resources keyed by their globset; body_sha is that key's visible
+  form; on-demand stays the default for everything else.
 
 ## Needed docs
 
-- ADR-AUTO-MATERIAL: the axis, the default, the globset key, the guard exception, the loud fallback, the kinds that are commit
-  resources. Registered in adrs.yml, a dora-explains.md entry, the index regenerated.
+- ADR-AUTO-MATERIAL: the axis, the default, the globset key, the guard exception, the loud fallback, the kinds that are commit resources.
+  Registered in adrs.yml, a dora-explains.md entry, the index regenerated.
 - Glossary entry in the owning module's configs/glossary.yml, contrasting cache and persistence.
 - The sha-marker companion plan rewritten to say its marker is a commit-materialized resource.
 
@@ -78,8 +78,8 @@ open choices at the bottom are confirmed. The glossary term and the registry ent
 ## The idea
 
 Most information in catzc exists only when someone asks for it: a repo scan, a derived listing, a resolved config. Tools cache some of it.
-Some information can instead be frozen with a commit and never change. **Materialization** names when a knowledge resource comes into
-being and how long it holds. It tells a reader whether the resource is probably already there (warm) or has to be made (cold).
+Some information can instead be frozen with a commit and never change. **Materialization** names when a knowledge resource comes into being
+and how long it holds. It tells a reader whether the resource is probably already there (warm) or has to be made (cold).
 
 The word was chosen over "existence" (it says _whether_, not _when and how long_), "residency" (suggests location, not time), and
 "persistence" (already used by the sha-marker plan for its opt-out). It is the database term: a plain view is computed per query, a
@@ -89,15 +89,15 @@ materialized view is stored.
 
 Two real values and a default that resolves to one of them.
 
-| value         | comes into being                                       | holds until                                 | cache expectation                         |
-| ------------- | ------------------------------------------------------ | ------------------------------------------- | ----------------------------------------- |
-| **on-demand** | when asked (a scan, a computation)                     | the call ends, or the session cache entry   | cold; a tool may have cached it           |
-| **commit**    | at commit, keyed by the scoped sha of its inputs       | never changes: the key is its identity      | warm; invalidation is free                |
-| _(default)_   | resolved from context into on-demand or commit         | n/a                                         | n/a                                       |
+| value         | comes into being                                 | holds until                               | cache expectation               |
+| ------------- | ------------------------------------------------ | ----------------------------------------- | ------------------------------- |
+| **on-demand** | when asked (a scan, a computation)               | the call ends, or the session cache entry | cold; a tool may have cached it |
+| **commit**    | at commit, keyed by the scoped sha of its inputs | never changes: the key is its identity    | warm; invalidation is free      |
+| _(default)_   | resolved from context into on-demand or commit   | n/a                                       | n/a                             |
 
 `auto` is not a third peer. It means "not pinned, so resolve", the same shape as the one resolution order (`ADR-AUTO-DEFAULT#6`) and the
-assert-guard idea (determine from ambient context, pin with an explicit override). It is never a stored value. Displays hide it for the
-same reason they hide any default: only a pinned value is shown.
+assert-guard idea (determine from ambient context, pin with an explicit override). It is never a stored value. Displays hide it for the same
+reason they hide any default: only a pinned value is shown.
 
 ## How the default resolves
 
@@ -125,5 +125,6 @@ same reason they hide any default: only a pinned value is shown.
 ## Next steps
 
 - Confirm the three choices, then write the ADR (rules for the axis, the default, the guard exception, the loud fallback).
-- Add the glossary entry in the owning module's `configs/glossary.yml` (never the generated page), contrasting with "cache" and "persistence".
+- Add the glossary entry in the owning module's `configs/glossary.yml` (never the generated page), contrasting with "cache" and
+  "persistence".
 - Check the sha-marker companion plan for overlap: its marker is a commit-materialized resource.

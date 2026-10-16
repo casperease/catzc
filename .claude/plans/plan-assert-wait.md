@@ -4,14 +4,19 @@ plan:
   value: medium
   reviewed: 2026-10-16
   blocked_on: Q1-Q5 below are unanswered; steps 1-2 wait for Q2 and Q3
-  targets: [automation/Catzc.Base.Timeouts, automation/.internal/Catzc.Internal.Importer.psm1, automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1]
+  targets:
+    [
+      automation/Catzc.Base.Timeouts,
+      automation/.internal/Catzc.Internal.Importer.psm1,
+      automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1,
+    ]
 ---
 
 # Assert-Wait: a watchpoint for a suspected block
 
-`Assert-Wait` is one line you stand at a place where the thread or process may be blocked. It holds the calling thread for
-`-Seconds` + `-Millisecs` (default 1 s + 1 ms), writes a line per tick through `Write-Message`, ends with one `Write-Message -Warning`, and
-lets go. It stops nothing and throws on nothing. First uses: the startup of the importer and of `Test-Automation`.
+`Assert-Wait` is one line you stand at a place where the thread or process may be blocked. It holds the calling thread for `-Seconds` +
+`-Millisecs` (default 1 s + 1 ms), writes a line per tick through `Write-Message`, ends with one `Write-Message -Warning`, and lets go. It
+stops nothing and throws on nothing. First uses: the startup of the importer and of `Test-Automation`.
 
 ## Why its value is medium
 
@@ -22,11 +27,12 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 ## Contract (as drafted; Q1-Q3 confirm it)
 
 - `Assert-Wait [-Seconds <int>] [-Millisecs <int>]`, both `ValidateRange(0, ...)`; the total must be above zero (`Assert-True`).
-- Waits `Seconds + Millisecs` in ten evenly spaced ticks (a named constant, not a knob). Each tick line gives due, actual and lateness from a
-  `Stopwatch`; the opening line names `<file>:<line>` from `Get-PSCallStack` frame 1.
+- Waits `Seconds + Millisecs` in ten evenly spaced ticks (a named constant, not a knob). Each tick line gives due, actual and lateness from
+  a `Stopwatch`; the opening line names `<file>:<line>` from `Get-PSCallStack` frame 1.
 - Information stream always, never `-Verbose`-gated; silent under Pester like every writer.
-- The closing line is `Write-Message -Warning`, always, blocked or not: asked, measured, worst tick late, and "remove this watchpoint once the
-  block is bounded". It is not the `Write-Warning` cmdlet: the importer sets `$WarningPreference = 'Stop'`, so the cmdlet would terminate.
+- The closing line is `Write-Message -Warning`, always, blocked or not: asked, measured, worst tick late, and "remove this watchpoint once
+  the block is bounded". It is not the `Write-Warning` cmdlet: the importer sets `$WarningPreference = 'Stop'`, so the cmdlet would
+  terminate.
 - Returns nothing; throws only for invalid arguments, never caught (ADR-AUTO-FAILFAST#5).
 - Sees the calling thread's schedule only; a starved process shows as late ticks too. Telling thread from process apart (a second thread's
   heartbeat, as `Invoke-WithProgress` runs) is out of scope.
@@ -56,8 +62,8 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 
 - **Q1.** Defaults 1 s and 1 ms: declared once on `TimeoutsConfig` (devbox tight, pipeline may differ, like every limit) or literals in the
   `param` block? Recommendation: on the config type. Read ADR-AUTO-DEFAULT#6 first.
-- **Q2.** Reading of the request: it really waits and measures its own ticks (not a threshold on time since a start mark); `Millisecs` adds to
-  `Seconds` (not a tick interval); the closing warning always fires. Recommendation: as drafted.
+- **Q2.** Reading of the request: it really waits and measures its own ticks (not a threshold on time since a start mark); `Millisecs` adds
+  to `Seconds` (not a tick interval); the closing warning always fires. Recommendation: as drafted.
 - **Q3.** Is "complete startup time" the whole span with Bootstrap included? The writers do not exist before `Import-AllModules`, and a
   Bootstrap copy would be a second living version (ADR-PRIN-ONELIVE), so that span needs a different shape (a heartbeat thread started
   before the first module). Recommendation: v1 as in step 3, then decide once a run shows whether Bootstrap ever blocks.
@@ -71,17 +77,17 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
 
 - [ ] Answer Q1-Q5 (check: each recorded here with its outcome, then fold into the contract above).
 - [ ] If Q1 is config: add the default to `TimeoutsConfig.cs` and its test (check: `tests/types/TimeoutsConfig.Tests.ps1` passes).
-- [ ] Write `Assert-Wait.ps1`, add it to the `.psd1` export list and `CatzcFiles`, write its test (check: `Assert-Wait.Tests.ps1` passes, then
-      the module's tests).
+- [ ] Write `Assert-Wait.ps1`, add it to the `.psd1` export list and `CatzcFiles`, write its test (check: `Assert-Wait.Tests.ps1` passes,
+      then the module's tests).
 - [ ] Importer: the opt-in switch and four standing points, all after the writers load: after `Import-AllModules`, after
-      `Assert-CatzcRunModeExclusive`, after `Invoke-ImporterJanitors`, after the UNC `PSModulePath` check (check: `Invoke-Importer` tests pass;
-      a run with the switch shows four warnings).
+      `Assert-CatzcRunModeExclusive`, after `Invoke-ImporterJanitors`, after the UNC `PSModulePath` check (check: `Invoke-Importer` tests
+      pass; a run with the switch shows four warnings).
 - [ ] `Invoke-TestRun` (startup is everything before the workers launch): the same switch through `Test-Automation`, four points: after
       `Get-TestDiscovery`, after `Assert-TestTagGate`, after `Get-TestRunContext`, before `Invoke-TestAutomationWorkers` (check: the
       `Invoke-TestRun` and `Test-Automation` tests pass; a worker's own switch stays off).
 - [ ] Function help, then the ADR rules if Q5 says so (check: `Test-Links` and the ADR gates on the touched pages).
-- [ ] After the first measured run: replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check: no
-      `Assert-Wait` call left without a finding).
+- [ ] After the first measured run: replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check:
+      no `Assert-Wait` call left without a finding).
 
 ## Refs
 

@@ -70,8 +70,8 @@ capability reads the AI agent contract first, [ADR-AI](../docs/adr/repository/ai
   owns, verifying each file, and asking the coordinator for shared-file entries. Use it whenever work is delegated and no specialised agent
   fits.
 - **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves for the user to approve.
-- **`drawio-png`** — takes a `.drawio.png` address and its markdown pages, re-renders the embedded model to `out/drawio/`, and reports
-  what the raster hides or the sources say and the diagram lacks; lands nothing under `docs/`.
+- **`drawio-png`** — takes a `.drawio.png` address and its markdown pages, re-renders the embedded model to `out/drawio/`, and reports what
+  the raster hides or the sources say and the diagram lacks; lands nothing under `docs/`.
 - **`write-drawio-files`** — changes labels, text, or styles inside existing `.drawio.png` diagrams and re-renders the raster from the
   edited model, so the picture and the embedded XML stay honest to each other.
 - **`print-artifacts`** — republishes the diagram review artifact from the files on disk.
@@ -79,8 +79,8 @@ capability reads the AI agent contract first, [ADR-AI](../docs/adr/repository/ai
 - **`session-cost-audit`** — measures what a session cost and why, against `out/plan-session-cost.md`, and proposes the changes.
 - **`plan-clear`** — cleans the plans in `.claude/plans/` to the plan rules: a verdict per plan (keep, trim, re-point, delete, intake),
   acted on one file at a time, links re-checked.
-- **`plan-intake`** — lands a pasted continuation prompt in the plans: every item in exactly one plan, done claims checked against the
-  tree, open questions kept open.
+- **`plan-intake`** — lands a pasted continuation prompt in the plans: every item in exactly one plan, done claims checked against the tree,
+  open questions kept open.
 - **`plan-decide`** — runs a decision round over the plans' open questions: a questionnaire, four items per ask with the recommendation
   first, every answer recorded with its projected outcome, then folded into the plans.
 - **`gate-runner`** — runs one gate or test file in the background and brings its verdict back verbatim.

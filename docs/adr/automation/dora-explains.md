@@ -683,8 +683,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-AUTO-MODULE](module-model.md)
 
 > DORA's research ties maintainable code and loosely coupled teams to delivery performance. Resolving every module through its track with
-> one resolver, registering a module by where its files stand, and reading its languages, engines and order from declared data lets a
-> person add or move a module without touching a list, and keeps the facts a reviewer needs in one place.
+> one resolver, registering a module by where its files stand, and reading its languages, engines and order from declared data lets a person
+> add or move a module without touching a list, and keeps the facts a reviewer needs in one place.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a folder rule lives in the layout once, not in each
   command that walks a module.

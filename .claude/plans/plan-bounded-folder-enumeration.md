@@ -47,8 +47,8 @@ The value is delivered; what is left is the proof at level 2.
 
 - [ ] Rerun the level-2 gate in the background; fix only findings in this feature, report the rest (check: its report in out/test-automation
       shows the three tags accepted).
-- [ ] On green, the user runs the full suite in their own time; then delete this plan and its prompt (the plans plan's rule) (check:
-  the user's full-suite report shows no finding from this feature; both files are gone).
+- [ ] On green, the user runs the full suite in their own time; then delete this plan and its prompt (the plans plan's rule) (check: the
+      user's full-suite report shows no finding from this feature; both files are gone).
 
 ## Refs
 

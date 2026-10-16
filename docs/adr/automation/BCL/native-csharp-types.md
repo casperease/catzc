@@ -92,10 +92,9 @@ YAML-interop rule scoped to config-mirroring types, not a repository-wide naming
 ### Rule ADR-AUTO-TYPES:9
 
 The platform's internal fixed model is authored as native C# types — not loose dictionaries or ad-hoc objects. A first-class concept the
-platform's own logic **selects on, branches on, or pins as a parameter or return type at a call site** (for example `Module`,
-`CliResult`) is a C# type, so its shape is fixed, discoverable, and validated at construction. Loose dictionaries remain right for
-config-shaped data crossing a boundary (a parsed `.yml`, a splat) — but the moment the code acts on the shape as a first-class concept, it
-is a type.
+platform's own logic **selects on, branches on, or pins as a parameter or return type at a call site** (for example `Module`, `CliResult`)
+is a C# type, so its shape is fixed, discoverable, and validated at construction. Loose dictionaries remain right for config-shaped data
+crossing a boundary (a parsed `.yml`, a splat) — but the moment the code acts on the shape as a first-class concept, it is a type.
 
 - [A C# model type](#a-c-model-type)
 
@@ -359,10 +358,9 @@ the design and must be fixed, discoverable, and enforced. That is a native C# ty
 
 `Module` is the example: `Get-CatzcModule` returns `[Module]`, `Copy-Automation`, the globset derivation and the folder checks read their
 module list off it, and callers type against it — so it is a C# type, not a bag of hashtables that every call site re-interprets. A loose
-dictionary here would push the shape into scattered string-keys with no single definition and no construction-time check — the opposite of
-a fixed model. Config that _feeds_ the model (the layout in `languages.yml`, the tracks in `variants.yml`) crosses the boundary through
-its own config type, `LanguagesConfig` or `VariantsConfig`, which validates it at load; the model `Get-CatzcModule` builds from it is typed
-too.
+dictionary here would push the shape into scattered string-keys with no single definition and no construction-time check — the opposite of a
+fixed model. Config that _feeds_ the model (the layout in `languages.yml`, the tracks in `variants.yml`) crosses the boundary through its
+own config type, `LanguagesConfig` or `VariantsConfig`, which validates it at load; the model `Get-CatzcModule` builds from it is typed too.
 
 ### Console-ready rendering
 

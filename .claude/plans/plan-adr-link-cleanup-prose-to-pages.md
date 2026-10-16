@@ -31,13 +31,13 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
 
 ## Open steps
 
-- Decided 2026-10-16 (Q55 to Q57): .unordered rows are excluded from the ledger (274 rows; those plans are deleted anyway);
-  ADR-REPO-HELP#3 is relaxed so a citation inside a help sentence is allowed and only a bare citation line is reported (the sentence is
-  where the why lives; the head stays the derived complete set; 0 edits); the review is sample-then-stop.
+- Decided 2026-10-16 (Q55 to Q57): .unordered rows are excluded from the ledger (274 rows; those plans are deleted anyway); ADR-REPO-HELP#3
+  is relaxed so a citation inside a help sentence is allowed and only a bare citation line is reported (the sentence is where the why lives;
+  the head stays the derived complete set; 0 edits); the review is sample-then-stop.
 - [ ] Amend ADR-REPO-HELP#3 and its gate accordingly (check: Test-Links, Test-AdrRegistry clean; the gate still reports a bare line).
 - [ ] Q58 TryParse regression test; Q59 the five gates on the usage code (check: the test passes; the gates clean).
 - [ ] F8: every rule statement in the principles ADRs becomes bold, uniform with the other domains (check: Test-Glossary finds every
-  defining rule); the sampled review fixes patterns, not rows (Q57, Q60 measured thresholds).
+      defining rule); the sampled review fixes patterns, not rows (Q57, Q60 measured thresholds).
 - [ ] Rebuild the ledger without .unordered rows (check: row count about 4,900).
 - [ ] Add the TryParse regression test (check: its Pester file).
 - [ ] Run the five gates on the usage code (check: each clean).
@@ -78,13 +78,13 @@ links: the text Phase 2 moves is then already correct, and no link is fixed twic
 
 Governing rules: [ADR-REPO-LINK#3](../../docs/adr/repository/markdown-links.md#rule-adr-repo-link3) (the citation decides the link),
 [ADR-REPO-LINK#5](../../docs/adr/repository/markdown-links.md#rule-adr-repo-link5) (one spelling),
-[ADR-REPO-LINK#8](../../docs/adr/repository/markdown-links.md#rule-adr-repo-link8) (aligned by tool, never by hand), the **link granularity**
-convention in the [ADR index](../../docs/adr/index.md#authoring-conventions) (cite a rule when the sentence invokes one concrete rule, link the
-ADR when the context is general, and over-narrowing a general pointer is worse than leaving it doc-level),
+[ADR-REPO-LINK#8](../../docs/adr/repository/markdown-links.md#rule-adr-repo-link8) (aligned by tool, never by hand), the **link
+granularity** convention in the [ADR index](../../docs/adr/index.md#authoring-conventions) (cite a rule when the sentence invokes one
+concrete rule, link the ADR when the context is general, and over-narrowing a general pointer is worse than leaving it doc-level),
 [ADR-REPO-COMMENTS#1](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1) to
-[#5](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5) (a comment of more than one line moves verbatim to its page), and
-[ADR-PRIN-ONELIVE](../../docs/adr/principles/one-living-version.md) (change the text and every caller in the same change, leave no old spelling
-and no second copy).
+[#5](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5) (a comment of more than one line moves verbatim to its page),
+and [ADR-PRIN-ONELIVE](../../docs/adr/principles/one-living-version.md) (change the text and every caller in the same change, leave no old
+spelling and no second copy).
 
 Decisions already made by you: the ledger is an `out/` script, not a function; verdicts are sampled at 5% before edits start; Phase 1 is a
 one-time cleanup with no standing guard; the placeholder-code fix in `Get-AdrCodesFileMetaFact` comes after Phase 1; code comments are
@@ -202,8 +202,8 @@ citations of themselves.
   linked several times in one file.
 - Two kinds the plan did not name: 17 **section** links (to a heading of an ADR that is not a rule), which the review judges like the rest,
   and 685 **head-text** citations, in the `description` of PowerShell heads. D2 leaves that text in place, so those are reviewed for their
-  link only. [ADR-REPO-HELP#3](../../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of the help text,
-  so these 685 may also be findings against HELP#3 rather than links to tidy; the review decides.
+  link only. [ADR-REPO-HELP#3](../../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of the help
+  text, so these 685 may also be findings against HELP#3 rather than links to tidy; the review decides.
 
 ### Step 1.1: mechanical pre-pass (suggests, never decides)
 
@@ -260,9 +260,9 @@ keeps them. Result: 79 keep, 2 narrow, 7 hold, 0 widen, 0 merge, 0 retarget, 0 d
   specific rule.
 - **narrow (2):** prose that says "ADR-PIPE-NAME rules 1, 2, 3, 4 and 6" and "rule 4" cites specific rules without the `#n` spelling.
 - **hold (7), a decision for you:** the help text of `Test-Pipelines.ps1` carries citations, and
-  [ADR-REPO-HELP#3](../../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of help text. 685 head-text
-  rows in the ledger are in the same position, so this is a rule against practice, not seven rows. Either strip them (the derived `adrs`
-  already lists them) or relax HELP#3.
+  [ADR-REPO-HELP#3](../../docs/adr/repository/function-help.md#rule-adr-repo-help3) says a citation is never part of help text. 685
+  head-text rows in the ledger are in the same position, so this is a rule against practice, not seven rows. Either strip them (the derived
+  `adrs` already lists them) or relax HELP#3.
 - **Scope, a decision for you:** 6 rows come from `.unordered/` shelf plans. They are throwaway documents; exclude `.unordered/` from the
   ledger.
 - **Tool fixes the pilot forced:** the context of a list item or table row is now that item or row, and `LineText` holds the exact line, so
@@ -345,10 +345,11 @@ What the numbers say:
 
 ## The rule to settle first
 
-[ADR-REPO-COMMENTS#2](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments2) says a moved comment is a section of the page that
-holds its lines exactly and that the view puts back unchanged, and [#3](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3)
-puts every page under `docs/references/`. Sorting text into `docs/explanation/` therefore cannot be done by lifting a section out of a page,
-because the round-trip would no longer reproduce the file. Two ways to reconcile (decision D1):
+[ADR-REPO-COMMENTS#2](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments2) says a moved comment is a section of the page
+that holds its lines exactly and that the view puts back unchanged, and
+[#3](../../docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3) puts every page under `docs/references/`. Sorting text into
+`docs/explanation/` therefore cannot be done by lifting a section out of a page, because the round-trip would no longer reproduce the file.
+Two ways to reconcile (decision D1):
 
 - **(a) Keep the page lossless; write the explanation beside it.** The comment page stays the sister page and keeps its sections. A new
   `docs/explanation/<area>/<topic>.md` article carries the _why_ that several pages share, and the page's section links to it. No rule

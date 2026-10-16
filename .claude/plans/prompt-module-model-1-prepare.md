@@ -8,8 +8,8 @@ your scratchpad first (another session wiped `out/` once). Everything below the 
 ---
 
 You are preparing the Module-model work in `C:\projects\catzc` (PowerShell 7.4+ module system, "cats"). This session is **read-only on the
-code and docs trees**: it writes new files only under `out/`, and edits only the plan file this prompt names. Nothing is committed; the
-user commits.
+code and docs trees**: it writes new files only under `out/`, and edits only the plan file this prompt names. Nothing is committed; the user
+commits.
 
 ## 1. Read first
 
@@ -20,8 +20,8 @@ user commits.
    `ADR-DSGN-MODTYPE` (`design/module-types.md`), `ADR-DSGN-ASPECT` (`design/module-aspects.md`), `ADR-AUTO-DEPM`
    (`automation/controlling-module-dependencies.md`), `ADR-AUTO-ENGINE` (`automation/execution-engines.md`), `ADR-AUTO-BUNDLE`
    (`automation/platform-bundle.md`), `ADR-PWSH-MANIFEST` (`pwsh/dynamic-module-manifests.md`), `ADR-AUTO-TYPES`
-   (`automation/BCL/native-csharp-types.md`), `ADR-AUTO-DEFAULT`, `ADR-AUTO-ZERO`, `ADR-AUTO-EXTEND`, `ADR-PRIN-CONFIG`,
-   `ADR-PRIN-ONELIVE`, `ADR-REPO-VOCAB`. Never sweep the corpus.
+   (`automation/BCL/native-csharp-types.md`), `ADR-AUTO-DEFAULT`, `ADR-AUTO-ZERO`, `ADR-AUTO-EXTEND`, `ADR-PRIN-CONFIG`, `ADR-PRIN-ONELIVE`,
+   `ADR-REPO-VOCAB`. Never sweep the corpus.
 3. `.claude/plans/plan-module-kinds-tracks.md` (the plan this prepares; its carried section "plan-module-model" is the old draft, written
    with Module at the centre, and is corrected by this session) and, in the same file, the carried section "plan-k8s-kinds" (the sibling
    that consumes the kind vocabulary). Read the plan's "Decided, and why" first: it overrides the carried drafts.
@@ -36,15 +36,15 @@ user commits.
   them; do not redraft them.
 - **Registration is placement:** a module exists when correctly named language fragments sit in their semantic slots; the slots are one
   layout, config with sensible defaults (`ADR-AUTO-DEFAULT#6`). No registry, no descriptor.
-- Two axes: language and execution engine. Languages are modelled generally and forbidden by the track's declared languages; the GO, PY
-  and BASH ADRs stay unchanged and those remain test-artifact languages (Q27). Engines are declared per track with a per-module override
-  (Q28). A track has one primary language by default (Q35).
+- Two axes: language and execution engine. Languages are modelled generally and forbidden by the track's declared languages; the GO, PY and
+  BASH ADRs stay unchanged and those remain test-artifact languages (Q27). Engines are declared per track with a per-module override (Q28).
+  A track has one primary language by default (Q35).
 - The resolver is `Get-CatzcModule`, a new name; `Get-BaseModule` and `Get-AutomationModules` go (Q29). `LoadedModule` is one rule of
   `ADR-AUTO-MODULE` (Q30). The layout lives under each language in `languages.yml` (Q32). An unplaced file inside a module folder is a
   finding (Q33). Every vendored file lives in the vendor track (Q34); `node_modules` compares to `.vendor` (C1).
-- Sequencing: this plan lands first, while the folder is still `automation`; new code takes the track from the one resolver and never
-  spells a track root, so the later rename to `pwsh` stays a data edit (layers Q8). Every config key it adds declares its default once on
-  the type (plan-config-defaults); where both plans touch `VariantsConfig.cs` or `VariantTrack.cs`, this plan owns the file.
+- Sequencing: this plan lands first, while the folder is still `automation`; new code takes the track from the one resolver and never spells
+  a track root, so the later rename to `pwsh` stays a data edit (layers Q8). Every config key it adds declares its default once on the type
+  (plan-config-defaults); where both plans touch `VariantsConfig.cs` or `VariantTrack.cs`, this plan owns the file.
 - Look first at the three `Get-ModuleProtectionIdentity` failures in ModuleSystem (Q37). The `Test-ShippedTypes` flags on `TrackTypeEntry`
   and `VendorEntry` are this work's (Q88). The Kubernetes namespace is planned after kinds land (Q36).
 - One living version: no shims, no aliases, no old shape kept beside the new.
@@ -67,8 +67,8 @@ user commits.
 5. **The three protection-identity failures** (`out/module-model-protection-identity.md`): run the test file in the background, quote the
    failures, say whether they belong to this work.
 6. **Draft the ADR** (`out/draft-adr-auto-module.md`) following `docs/adr/index.md` authoring conventions (rules registry first, present
-   tense, no history, plain language, padded headings, links per `ADR-REPO-LINK`): the seven rules of the plan's section 4, restated
-   under `ADR-DSGN-TRACK` (Module as a kind of a deployable track, resolved through its track), plus the glossary entry text, the
+   tense, no history, plain language, padded headings, links per `ADR-REPO-LINK`): the seven rules of the plan's section 4, restated under
+   `ADR-DSGN-TRACK` (Module as a kind of a deployable track, resolved through its track), plus the glossary entry text, the
    `dora-explains.md` entry and the `adrs.yml` entry. Do not place it in `docs/` yet.
 7. **Update the plan** `.claude/plans/plan-module-kinds-tracks.md`: answer each open question of the carried module-model section with a
    recommendation grounded in what you read, mark each **unverified** item verified or still open, and correct any claim the reading
@@ -76,6 +76,6 @@ user commits.
 
 ## 4. Done when
 
-All seven files exist; the plan has no unverified item that steps 1 to 5 could settle; neither the ADR draft nor the plan says Module is
-the central concern, and the draft says `ADR-AUTO-MODULE` sits under `ADR-DSGN-TRACK`; a three-line summary lists the open choices that
-only the user can make. Do not start implementation. Tell the user the next prompt is `.claude/plans/prompt-module-model-2-implement.md`.
+All seven files exist; the plan has no unverified item that steps 1 to 5 could settle; neither the ADR draft nor the plan says Module is the
+central concern, and the draft says `ADR-AUTO-MODULE` sits under `ADR-DSGN-TRACK`; a three-line summary lists the open choices that only the
+user can make. Do not start implementation. Tell the user the next prompt is `.claude/plans/prompt-module-model-2-implement.md`.

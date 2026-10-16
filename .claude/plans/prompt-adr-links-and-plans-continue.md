@@ -2,22 +2,23 @@
 
 Paste this into a new session in `C:\projects\catzc`.
 
-Carried here from .claude/plans/prompt-adr-links-and-plans-continue.md on 2026-10-16. Where the text below names `.claude/plans/plan-adr-link-cleanup-prose-to-pages.md`
-read `plan-adr-link-cleanup-prose-to-pages.md` beside this file, and where it names `.claude/plans/plan-plans-body-sha-landing-zone.md` read
-`plan-plans-body-sha-landing-zone.md`; each carries its draft verbatim under a "Carried" heading. The ledger, its scripts and the analysis
-text stay in out/. The three open decisions it waits on are still open.
+Carried here from .claude/plans/prompt-adr-links-and-plans-continue.md on 2026-10-16. Where the text below names
+`.claude/plans/plan-adr-link-cleanup-prose-to-pages.md` read `plan-adr-link-cleanup-prose-to-pages.md` beside this file, and where it names
+`.claude/plans/plan-plans-body-sha-landing-zone.md` read `plan-plans-body-sha-landing-zone.md`; each carries its draft verbatim under a
+"Carried" heading. The ledger, its scripts and the analysis text stay in out/. The three open decisions it waits on are still open.
 
 ---
 
-Read `.claude/CLAUDE.md` and `docs/adr/index.md`, then `.claude/plans/plan-plans-body-sha-landing-zone.md` and `.claude/plans/plan-adr-link-cleanup-prose-to-pages.md` (each opens with a
-"Status at the end of the 2026-10-16 session" block).
+Read `.claude/CLAUDE.md` and `docs/adr/index.md`, then `.claude/plans/plan-plans-body-sha-landing-zone.md` and
+`.claude/plans/plan-adr-link-cleanup-prose-to-pages.md` (each opens with a "Status at the end of the 2026-10-16 session" block).
 
 ## Two plans, one order
 
-1. **`.claude/plans/plan-plans-body-sha-landing-zone.md`** (nothing started, all questions answered): Phase 0 the body-hash policy; Phase 1 `.unordered/` as an
-   import landing zone; Phase 2 tracked plans in `.claude/plans/` with a cleaner. Start with the two read-only audits: the `.unordered`
-   bindings (about 27 files) and the triage of the 20 plans in `.unordered/15-10-2026/`.
-2. **`.claude/plans/plan-adr-link-cleanup-prose-to-pages.md`** (paused): Steps 1.0 and 1.1 done, Step 1.2 piloted on one slice. It resumes after the plan move.
+1. **`.claude/plans/plan-plans-body-sha-landing-zone.md`** (nothing started, all questions answered): Phase 0 the body-hash policy; Phase 1
+   `.unordered/` as an import landing zone; Phase 2 tracked plans in `.claude/plans/` with a cleaner. Start with the two read-only audits:
+   the `.unordered` bindings (about 27 files) and the triage of the 20 plans in `.unordered/15-10-2026/`.
+2. **`.claude/plans/plan-adr-link-cleanup-prose-to-pages.md`** (paused): Steps 1.0 and 1.1 done, Step 1.2 piloted on one slice. It resumes
+   after the plan move.
 
 ## Decisions already made (do not re-ask)
 
@@ -25,9 +26,9 @@ Read `.claude/CLAUDE.md` and `docs/adr/index.md`, then `.claude/plans/plan-plans
   maintained, and a hand-added one is no finding.
 - A done plan is always deleted (planning agents can die at any time, so a plan must carry current state); the cleaner acts on its own
   verdict and runs no git command.
-- `.unordered/` becomes the import landing zone: an outside repository lands with its history at `.unordered/<name>`; sorting moves files
-  to modules with `git mv`; what remains is the unordered part. The landing name is an optional `-Name`, defaulting to the source's
-  kebab-case name, and a clash fails. How the history is moved is an open question: do not research it further.
+- `.unordered/` becomes the import landing zone: an outside repository lands with its history at `.unordered/<name>`; sorting moves files to
+  modules with `git mv`; what remains is the unordered part. The landing name is an optional `-Name`, defaulting to the source's kebab-case
+  name, and a clash fails. How the history is moved is an open question: do not research it further.
 - The user coordinates the file-meta changes with the peer session working on them; do not edit file-meta files without that.
 - ADR link cleanup: tests are out of scope, head `config:` text stays, only clear restatements are deleted, size thresholds come from data.
 
@@ -41,8 +42,8 @@ Read `.claude/CLAUDE.md` and `docs/adr/index.md`, then `.claude/plans/plan-plans
 
 - Built and passing: `Get-AdrUsage` (with `-GroupBy Rule|Document`), `Get-AdrUsageRow`, `Group-AdrUsage` and their tests (14 pass),
   `Test-FileMeta` clean for them. A `TryParse` fix sits in `Get-AdrCodesFileMetaFact`.
-- Not run on those files: `Test-Formatting`, `Test-Links`, `Test-Spelling`, `Test-Glossary`, `Test-ScriptAnalyzer`. The `TryParse` fix has no
-  regression test for an oversized rule number. An earlier `Test-Formatting` run failed on five files that another session was editing
+- Not run on those files: `Test-Formatting`, `Test-Links`, `Test-Spelling`, `Test-Glossary`, `Test-ScriptAnalyzer`. The `TryParse` fix has
+  no regression test for an oversized rule number. An earlier `Test-Formatting` run failed on five files that another session was editing
   (`AdrCodeForm.cs`, its test, `file-meta.yml`, a compiled JSON, and the fact function); run it again before relying on it.
 - Ledger and scripts under `out/`: `adr-link-ledger.csv` (5,203 rows), `build-adr-link-ledger.ps1`, `prepass-adr-link-ledger.ps1`,
   `refresh-ledger.ps1`, `apply-verdicts.ps1`, `verdicts/pipelines-overrides.csv`, `dump-slice.ps1`, `analyse-adr-link-ledger.ps1`,
@@ -63,5 +64,5 @@ tense, and deleted when done.
 
 ## Suggested first move
 
-Ask the user the three open questions above, then run the `.unordered` binding audit and the plan triage (both read-only, output to
-`out/`), and show the results before changing anything.
+Ask the user the three open questions above, then run the `.unordered` binding audit and the plan triage (both read-only, output to `out/`),
+and show the results before changing anything.

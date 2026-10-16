@@ -196,9 +196,9 @@ active work: the running session's scratch lives in `out/`, and an active plan i
 
 ### Rule ADR-DSGN-TRACK:18
 
-A track has one **primary language** by default: the first file language its tech-stack (ADR-DSGN-TRACK#3) declares, the one a track with
-a single language is written in (ADR-DSGN-TRACK#6). A second file language enters a track by being declared there, never by being tolerated, so a track's declared languages
-read as one primary language and the few others it admits on purpose.
+A track has one **primary language** by default: the first file language its tech-stack (ADR-DSGN-TRACK#3) declares, the one a track with a
+single language is written in (ADR-DSGN-TRACK#6). A second file language enters a track by being declared there, never by being tolerated,
+so a track's declared languages read as one primary language and the few others it admits on purpose.
 
 - [What a track is](#what-a-track-is)
 
@@ -324,14 +324,14 @@ value-chain forms keep each word to one meaning.
 ## Decision
 
 Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (ADR-DSGN-TRACK#1), each of one track type
-(ADR-DSGN-TRACK#2), including the unordered shelf that nothing defaults to (ADR-DSGN-TRACK#17), one tech-stack each (ADR-DSGN-TRACK#3) that defaults to one primary
-language (ADR-DSGN-TRACK#18), subscribable only via depms and globset projections (ADR-DSGN-TRACK#4), and shipped through deployable-units that bind pipelines 1-1
-(ADR-DSGN-TRACK#5). A tech-stack is a set of file languages, each named by its extension (ADR-DSGN-TRACK#6). The world map crosses the
-tracks with the file languages (ADR-DSGN-TRACK#9), with a row for the root files and a column for the unlisted files (ADR-DSGN-TRACK#7,
-ADR-DSGN-TRACK#8); its cells (ADR-DSGN-TRACK#10) mark the stack violations (ADR-DSGN-TRACK#11) and light for a highlight
-(ADR-DSGN-TRACK#12), and every label it prints names a defined term (ADR-DSGN-TRACK#13). Beside it, the value-chain map (ADR-DSGN-TRACK#16)
-crosses the value-chain stack (ADR-DSGN-TRACK#14) with the value-chain concerns (ADR-DSGN-TRACK#15), both declared per ADR domain in
-`adrs.yml`, with a per-ADR override of the concerns.
+(ADR-DSGN-TRACK#2), including the unordered shelf that nothing defaults to (ADR-DSGN-TRACK#17), one tech-stack each (ADR-DSGN-TRACK#3) that
+defaults to one primary language (ADR-DSGN-TRACK#18), subscribable only via depms and globset projections (ADR-DSGN-TRACK#4), and shipped
+through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK#5). A tech-stack is a set of file languages, each named by its extension
+(ADR-DSGN-TRACK#6). The world map crosses the tracks with the file languages (ADR-DSGN-TRACK#9), with a row for the root files and a column
+for the unlisted files (ADR-DSGN-TRACK#7, ADR-DSGN-TRACK#8); its cells (ADR-DSGN-TRACK#10) mark the stack violations (ADR-DSGN-TRACK#11) and
+light for a highlight (ADR-DSGN-TRACK#12), and every label it prints names a defined term (ADR-DSGN-TRACK#13). Beside it, the value-chain
+map (ADR-DSGN-TRACK#16) crosses the value-chain stack (ADR-DSGN-TRACK#14) with the value-chain concerns (ADR-DSGN-TRACK#15), both declared
+per ADR domain in `adrs.yml`, with a per-ADR override of the concerns.
 
 ### How this is enforced
 

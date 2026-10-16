@@ -5,9 +5,11 @@ Paste this into a fresh session.
 ---
 
 You are continuing the "unboxing" work in `C:\projects\catzc`. Read `docs/adr/index.md` first (cite ADR rules by code; say "domain rules" or
-"ADR rules", never "house rules"). Then read `.claude/plans/plan-unboxing.md (section: Findings carried)` (findings F1 to F9, priorities, the done and not-done list) and
-the Status table at the top of `.claude/plans/plan-unboxing.md`. The article is `docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md`;
-the evidence is `analysis-boxing.md (deleted 2026-10-16; its findings are in plan-unboxing.md)` (§4 and §6), `docs/explanation/automation/reference-unboxing.md`, `out/bench-unboxing.ps1` and `.cs`. Do not redo the analysis.
+"ADR rules", never "house rules"). Then read `.claude/plans/plan-unboxing.md (section: Findings carried)` (findings F1 to F9, priorities,
+the done and not-done list) and the Status table at the top of `.claude/plans/plan-unboxing.md`. The article is
+`docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md`; the evidence is
+`analysis-boxing.md (deleted 2026-10-16; its findings are in plan-unboxing.md)` (§4 and §6),
+`docs/explanation/automation/reference-unboxing.md`, `out/bench-unboxing.ps1` and `.cs`. Do not redo the analysis.
 
 **State.** P1, P2 and P3 are finished and the docs carry the shipped figures:
 

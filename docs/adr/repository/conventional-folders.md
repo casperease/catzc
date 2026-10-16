@@ -81,8 +81,8 @@ Documentation folders are markdown-only. `docs/` organizes its subfolders freely
 `.md` files — except the dot-prefixed `docs/.assets/`, which holds the binary diagram assets the markdown embeds and their companions: a
 diagram's `<name>.drawio.md` description (what it draws, in words), its `<name>.drawio.verify.md` record (each drawn claim, the `file:line`
 that backs it, and its status), and its minimap images in one sub-folder per minimap (`grid/<name>.grid.png`, `tree/<name>.tree.png`,
-`chain/<name>.chain.png`), each beside its own `.md` naming why every lit cell is lit. Each subfolder of `docs/adr/` is an ADR **domain**: a group of ADRs that `adrs.yml` declares with its role
-and the domains it depends on.
+`chain/<name>.chain.png`), each beside its own `.md` naming why every lit cell is lit. Each subfolder of `docs/adr/` is an ADR **domain**: a
+group of ADRs that `adrs.yml` declares with its role and the domains it depends on.
 
 - [Level 1: Repository root](#level-1-repository-root)
 

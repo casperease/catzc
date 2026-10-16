@@ -62,11 +62,11 @@ making for. The numbers come from a benchmark that compiles the repository's own
    `ContractValue.Unwrap` costs 5 ns for a raw value and 10 ns for a wrapped one, with no allocation. Making the wrap costs 46 ns and 152 B.
    The repository has one structural unwrap in first-party code; no first-party `.ps1` or `.psm1` calls `.BaseObject`, `AsPSObject` or
    `ArrayList`.
-4. **The type test around the unbox costs more than the unbox.** `ContractValue.Kind` used to classify a value by testing `IDictionary`
-   and `IList` before the scalar types. An interface test on a boxed primitive is slow, so `Kind(int)` took 37 ns against 9.5 ns for a
-   string, and `Equal(int, int)` took 107 ns. Testing the exact type first brought them to 11 ns and 17 ns, and `Equal(string, string)` from
-   64 ns to 25 ns. No byte is allocated in any of them: the whole gap was type tests and conversion-helper calls. The rule is to test the
-   exact type first.
+4. **The type test around the unbox costs more than the unbox.** `ContractValue.Kind` used to classify a value by testing `IDictionary` and
+   `IList` before the scalar types. An interface test on a boxed primitive is slow, so `Kind(int)` took 37 ns against 9.5 ns for a string,
+   and `Equal(int, int)` took 107 ns. Testing the exact type first brought them to 11 ns and 17 ns, and `Equal(string, string)` from 64 ns
+   to 25 ns. No byte is allocated in any of them: the whole gap was type tests and conversion-helper calls. The rule is to test the exact
+   type first.
 5. **The reflection lookup around the read costs more than the box.** `ConsoleText.ToConsoleString` on a five-property type took 2,074 ns
    and allocated 1,304 B. Its `GetCustomAttribute` lookup is 374 ns, its `GetCustomAttributes(true)` calls 223 ns and `GetProperties` 83 ns.
    The reads that really box, `GetValue` on five properties, are 95 ns and 72 B: about 5 % of the call. `DictionaryRecord.Contains` took 71
@@ -83,15 +83,15 @@ making for. The numbers come from a benchmark that compiles the repository's own
 
 ## Where in the repository
 
-| Place                                                 | What happens                                                                              | Worth changing?                |
-| ----------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------ |
-| `ContractValue`, `ContractSchema`, `ContractFragment` | `Kind` and `Equal` test interfaces before scalars; `MatchArray` calls `Equal` n x m times | Done: exact scalar types first |
+| Place                                                 | What happens                                                                              | Worth changing?                 |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------- |
+| `ContractValue`, `ContractSchema`, `ContractFragment` | `Kind` and `Equal` test interfaces before scalars; `MatchArray` calls `Equal` n x m times | Done: exact scalar types first  |
 | `DictionaryRecord`, `ConsoleText`                     | `GetProperty`, `GetProperties` and attribute lookups repeated on every call               | Done: one cached per-type table |
-| Config types reading raw YAML (`is bool`, `(int)`)    | One unbox per value, once per file, behind the `Get-Config` cache                         | No                             |
-| `Hashtable` storage in four config types              | Boxed values built once per config load                                                   | No                             |
-| 678 `string.Format` calls in 132 type files           | About 58 pass an int; nearly all run on an error path                                     | No                             |
-| `ContractSchema.Validate`                             | 7.6 us and 11 KB for 11 nodes: list building and LINQ, not boxes                          | Not here                       |
-| Internal `.psm1` modules                              | Bounded loops over about 250 type files and 60 modules, no unbox                          | No                             |
+| Config types reading raw YAML (`is bool`, `(int)`)    | One unbox per value, once per file, behind the `Get-Config` cache                         | No                              |
+| `Hashtable` storage in four config types              | Boxed values built once per config load                                                   | No                              |
+| 678 `string.Format` calls in 132 type files           | About 58 pass an int; nearly all run on an error path                                     | No                              |
+| `ContractSchema.Validate`                             | 7.6 us and 11 KB for 11 nodes: list building and LINQ, not boxes                          | Not here                        |
+| Internal `.psm1` modules                              | Bounded loops over about 250 type files and 60 modules, no unbox                          | No                              |
 
 ## Why it holds
 
@@ -106,8 +106,8 @@ making for. The numbers come from a benchmark that compiles the repository's own
 
 ## Where the article and the code differ
 
-- The faster `Kind`, `Equal` and the per-type table are in the types (`ContractValue`, `TypeShape`, `DictionaryRecord`, `ConsoleText`). Their
-  per-file tests pass; the full suite and the other contract test files were not run for this change.
+- The faster `Kind`, `Equal` and the per-type table are in the types (`ContractValue`, `TypeShape`, `DictionaryRecord`, `ConsoleText`).
+  Their per-file tests pass; the full suite and the other contract test files were not run for this change.
 - `Get-CommentScope` was timed: its per-file loop is 158 ms over 4,136 candidate files, under the 200 ms bar, so it is unchanged.
 - How PowerShell decides to hand a `PSObject` wrapper to an `object` parameter was not traced to its source. The existence of
   `ContractValue.Unwrap` shows that it happens; test with `-is [psobject]` before relying on either answer.

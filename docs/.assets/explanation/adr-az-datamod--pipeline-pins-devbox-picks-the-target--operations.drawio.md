@@ -90,10 +90,13 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-AZ-DATAMOD): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward
-renderer with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide,
-computes the highlights, draws the three minimaps and writes their sister descriptions, [world map](grid/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.grid.md),
-[tree](tree/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.tree.md) and [value-chain map](chain/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.chain.md), which hold the reason for every lit cell or group as of that build.
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions,
+[world map](grid/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.grid.md),
+[tree](tree/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.tree.md) and
+[value-chain map](chain/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.chain.md), which hold the reason for every lit
+cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-AZ-DATAMOD" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

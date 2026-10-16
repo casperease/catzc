@@ -54,8 +54,8 @@ Markdown file's carrier is the reserved front-matter key `catzc`, holding the fi
 ([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1)). The key sits at the top
 level, or, where another tool validates the top level of the front matter and leaves one key of its own free for foreign data, nests under
 that key at the key path the carrier registry declares (`key`, such as `metadata.catzc` for a capability); the block's own key is `catzc`
-either way, and a parent key written as a flow mapping or a scalar is the author's to open up, never rewritten. A code file's carrier is
-its meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta1)). The block is the only part of the file the tooling owns: every
+either way, and a parent key written as a flow mapping or a scalar is the author's to open up, never rewritten. A code file's carrier is its
+meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta1)). The block is the only part of the file the tooling owns: every
 other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
 
 - [Decision](#decision)
@@ -123,12 +123,11 @@ file, which the writer reads and passes down), `language`, `filetype`, `track`, 
 of the module the file is placed in), each left out for a file that has none, and what only a composed file has: `generator` (the
 repository-relative path of the file that defines the command that composed the file) and `source` (the authored file or files it comes
 from). The head opens with `with_body_sha`, the hash of the content below it, whatever the file's language and carrier, so a tracked
-generated file says which text its writer composed and the drift check reads the stamp before the content. A generated file is told from
-an authored one by its `generator`, never by a kind of its own. No writer hand-words a banner, and the
-drift check compares the head with the rest of the content. The imprint engine leaves these files alone
-([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A comment page is the one generated item whose
-block the engine imprints, and it names its writer the same way: the `generator` kind of the registry gives it the path of the comment
-exporter.
+generated file says which text its writer composed and the drift check reads the stamp before the content. A generated file is told from an
+authored one by its `generator`, never by a kind of its own. No writer hand-words a banner, and the drift check compares the head with the
+rest of the content. The imprint engine leaves these files alone ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns
+every byte of them. A comment page is the one generated item whose block the engine imprints, and it names its writer the same way: the
+`generator` kind of the registry gives it the path of the comment exporter.
 
 - [Generated files](#generated-files)
 
@@ -193,11 +192,11 @@ the head never carries a list of its own. It also holds `tracktype` and `vendor`
 
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts**: what the
 repository's own configuration makes of the file's location, its `path` and the parts of it, its `kind`, `language`, `track`, `module` and
-the rest, each read from a registry and never from the file's text. `edges` holds what the file itself declares or points at, each one an **edge**, a
-named relation leaving the file to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `page` and `test`. Both parts are
-imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge until
-the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation, never
-for the type of its target. In a Markdown file, and in a generated file of any language
+the rest, each read from a registry and never from the file's text. `edges` holds what the file itself declares or points at, each one an
+**edge**, a named relation leaving the file to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `page` and `test`. Both
+parts are imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an
+edge until the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the
+relation, never for the type of its target. In a Markdown file, and in a generated file of any language
 ([ADR-REPO-FILEMETA#7](#rule-adr-repo-filemeta7)), `immutable` opens with `with_body_sha`, the hash of the body below the head, so the stamp
 says which text the edges were read from or the writer composed. An authored code file carries no hash
 ([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). A kind of the registry names the part it writes, `immutable` by default

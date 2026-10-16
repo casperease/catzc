@@ -4,18 +4,23 @@ plan:
   value: low-medium
   reviewed: 2026-10-16
   blocked_on: verify whether the imprint step loop has landed since 2026-10-15
-  targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Languages/configs/languages.yml, automation/Catzc.Base.Docs/configs/comments.yml]
+  targets:
+    [
+      automation/Catzc.Base.QualityGates,
+      automation/Catzc.Base.Languages/configs/languages.yml,
+      automation/Catzc.Base.Docs/configs/comments.yml,
+    ]
 ---
 
 # The format command moves long comments to their pages
 
-Origin: a long rule header in automation/.scriptanalyzer stays in its file because comments.yml pages has automation/* which never
-matches a dot-folder, and nothing in Format-Code runs the move. Export-Comments is the only mover.
+Origin: a long rule header in automation/.scriptanalyzer stays in its file because comments.yml pages has automation/* which never matches a
+dot-folder, and nothing in Format-Code runs the move. Export-Comments is the only mover.
 
 ## Why its value is low-medium
 
-Small and local. Its value is that a long comment can no longer survive a format run. Whether the step loop exists now decides
-whether this is one entry or a build.
+Small and local. Its value is that a long comment can no longer survive a format run. Whether the step loop exists now decides whether this
+is one entry or a build.
 
 ## Needed docs
 
@@ -49,8 +54,8 @@ file because `.scriptanalyzer` has no comment page, and nothing in `Format-Code`
   `.vendor` are out of scope. `Format-Comments` reported 0 files and `Test-Comments` passed on the header.
 - `Export-Comments` is the only mover. `Format-Comments` fixes residues only (`ADR-REPO-COMMENTS#5`).
 - `Format-Code` (`ADR-REPO-FORMAT#8`) runs one formatter engine per language and then imprint steps. The closed step list is
-  `LanguagesConfig.cs` `StepNames = { "file-meta", "csharp-namespace" }`. In the working copy `languages.yml` lists no `imprint:`, `Format-Code`
-  has no step loop, and nothing calls a step. Another session is replacing the Markdown-meta code and is likely landing this.
+  `LanguagesConfig.cs` `StepNames = { "file-meta", "csharp-namespace" }`. In the working copy `languages.yml` lists no `imprint:`,
+  `Format-Code` has no step loop, and nothing calls a step. Another session is replacing the Markdown-meta code and is likely landing this.
 - A step is defined as writing a derived fact into the same file. A comment move also writes a second file, the page.
 
 ## Decisions (the user's)
@@ -64,8 +69,8 @@ file because `.scriptanalyzer` has no comment page, and nothing in `Format-Code`
 
 ## Steps (one file at a time, each verified before the next)
 
-1. Coordinate: check `git status` for `Format-Code.ps1`, `languages.yml`, `LanguagesConfig.cs`, `FileLanguage.cs` and message the other session
-   before touching a dirty one (`parallel-sessions-and-out-dir` memory).
+1. Coordinate: check `git status` for `Format-Code.ps1`, `languages.yml`, `LanguagesConfig.cs`, `FileLanguage.cs` and message the other
+   session before touching a dirty one (`parallel-sessions-and-out-dir` memory).
 2. Scope, config only: `comments.yml` `pages:` gets the `.scriptanalyzer` and `.internal` entries, `exclude:` gets `.vendor` with its reason
    (`ADR-PRIN-CONFIG#1`; defaults stay on `CommentsConfig`). Check the page-folder rule in the config type accepts a dot-prefixed source.
 3. Step name: add `comments` to `StepNames` in `LanguagesConfig.cs` (fresh `pwsh` to recompile) with a type test that it is a known step and
@@ -76,8 +81,8 @@ file because `.scriptanalyzer` has no comment page, and nothing in `Format-Code`
 6. Cache: a step that changes a page must not poison the format cache. Add the comment config and page set to the step's stamp
    (`ADR-AUTO-CACHE#10`) and test that a page edit and a `comments.yml` edit each invalidate it.
 7. `Test-Formatting` checks the same steps (`ADR-REPO-FORMAT#8`): it must report a file whose long comment is not yet moved. Test it.
-8. ADRs: one sentence each in `ADR-REPO-FORMAT#8` (a step may write the file's companion page) and `ADR-REPO-COMMENTS#5` (the format command runs
-   the move). Run `Update-AdrCitation` and the doc gates.
+8. ADRs: one sentence each in `ADR-REPO-FORMAT#8` (a step may write the file's companion page) and `ADR-REPO-COMMENTS#5` (the format command
+   runs the move). Run `Update-AdrCitation` and the doc gates.
 9. Migrate: `Export-Comments -DryRun -PassThru` over the two new folders, review the count, then run it. Then the `condense-comments` agent
    rewrites the provisional insight lines, file by file.
 
@@ -90,6 +95,6 @@ file because `.scriptanalyzer` has no comment page, and nothing in `Format-Code`
 ## Risks
 
 - The step loop is in flight in another session: building it twice breaks `ADR-PRIN-ONELIVE`. Step 1 comes first.
-- Moving `.internal` comments touches the loader and importer, which load before the module system. Their `Import` order and the
-  published bundle (`ADR-AUTO-BUNDLE`) must still work: run the build tests after step 9.
+- Moving `.internal` comments touches the loader and importer, which load before the module system. Their `Import` order and the published
+  bundle (`ADR-AUTO-BUNDLE`) must still work: run the build tests after step 9.
 - A format run that writes a page can fight a hand edit of that page; sections a person edited stay as edited (`ADR-REPO-COMMENTS#2`).
