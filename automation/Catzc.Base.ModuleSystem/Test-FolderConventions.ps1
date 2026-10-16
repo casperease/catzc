@@ -57,7 +57,7 @@ function Test-FolderConventions {
         [switch] $PassThru
     )
 
-    # The conventional module folders are the layout's (ADR-AUTO-MODULE#2); the modules are the resolver's.
+    # The conventional module folders are the layout's; the modules are the resolver's.
     $allowedModuleSubdirs = @((Get-Config -Config languages).LayoutFolders())
     $allowedText = $allowedModuleSubdirs -join ', '
     $kebabYml = '^[a-z0-9]+(-[a-z0-9]+)*\.yml$'

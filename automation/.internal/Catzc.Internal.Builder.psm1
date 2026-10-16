@@ -385,7 +385,7 @@ function Get-ModuleBuildPlan {
         [System.Array]::Sort($exports, [System.StringComparer]::Ordinal)
         $entries.Add([pscustomobject]@{ Path = "$name/$name$($script:mergedFileSuffix)"; Kind = 'Text'; Source = $null; Content = $merged.Content; Exports = $null })
         $entries.Add([pscustomobject]@{ Path = "$name/$name.psd1"; Kind = 'Manifest'; Source = $null; Content = $null; Exports = $exports })
-        # The folders a build copies verbatim are the layout's shipped rows (ADR-AUTO-MODULE#2).
+        # The folders a build copies verbatim are the layout's shipped rows.
         foreach ($folder in (Get-Config -Config languages).ShippedFolders()) {
             $copies = Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($moduleDirectory, $folder)) -TargetPath "$name/$folder" -SourceRoot $SourceRoot -Index $Index -IncludeUntracked:($folder -eq 'types')
             foreach ($copy in @($copies)) {

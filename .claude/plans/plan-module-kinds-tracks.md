@@ -83,8 +83,8 @@ one landing.
 ## Open steps
 
 - [x] Run the prepare prompt (check: its read-only report and ADR draft in out/: module-model-callers, -reading, -slots, -layering, -protection-identity, draft-adr-auto-module).
-- [ ] Settle the three open choices listed under "Corrections" (check: each answered in "Decided, and why"), then update the implement prompt for the layering result.
-- [ ] Run the implement prompt (check: ModuleSystem and Variants tests; the two old getters gone).
+- [x] Settle the three open choices listed under "Corrections": taken as recommended, user not yet confirmed (see "Decided, and why").
+- [x] Run the implement prompt, steps 1 to 9 (2026-10-16): ADR-AUTO-MODULE landed (6 rules; LoadedModule dropped with BaseModule, no caller used it), layout in languages.yml, Catzc.Base.Modules with Get-CatzcModule and Get-Aspect, execution_engines on the track, Get-ModuleOrder, old getters and types deleted, L1 integrity tests. Left: step 10 (infrastructure), generated READMEs and docs pages, Format-FileMeta heads of the new files.
 - [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean).
 - [ ] Rerun Test-Links on WorldMapBuilder.cs (check: zero findings there).
 - [x] Look at the 3 Get-ModuleProtectionIdentity failures (check: that test file): run 2026-10-16, 11 passed, 0 failed; the file is in QualityGates and isolated from tracks; nothing to fix (out/module-model-protection-identity.md). Run it again after the dependencies.yml edges land.

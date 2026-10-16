@@ -117,7 +117,7 @@ function Get-CatzcModule {
                         $files.Add($entry.Root.Substring($place.root.Length + 1))
                     }
                     else {
-                        # A whole module tree is listed on purpose (ADR-PWSH-ENUM#3): tests nest fixtures up to six levels below the module.
+                        # A whole module tree is listed on purpose, a named exception to the bounded walk: tests nest fixtures up to six levels below the module.
                         $prefixLength = $entry.Folder.TrimEnd('\', '/').Length + 1
                         foreach ($path in Get-ChildPath $entry.Folder -File -Depth 8) {
                             $files.Add($path.Substring($prefixLength).Replace('\', '/'))
