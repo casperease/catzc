@@ -67,13 +67,7 @@ function Get-ModuleGlobSet {
     [OutputType([Catzc.Base.Globs.GlobSet])]
     param(
         [ArgumentCompleter({
-                $root = Join-Path (Get-RepositoryRoot) 'automation'
-                $internal = Join-Path $root '.internal'
-                @([System.IO.Directory]::EnumerateDirectories($root) |
-                        ForEach-Object { [System.IO.Path]::GetFileName($_) } |
-                        Where-Object { -not $_.StartsWith('.') }) +
-                @([System.IO.Directory]::EnumerateFiles($internal, '*.psm1') |
-                        ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) }) +
+                @((Get-CatzcModule -Track (@(Get-Track).Where({ $_.type -ceq 'modules' })[0].name) -IncludeInternal).Where({ $_.shape -ceq 'file' -or $_.place -ceq (@(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]) }).name) +
                 [Catzc.Base.Globs.GlobsConfig]::ReservedNames
             })]
         [string[]] $Name
@@ -81,17 +75,19 @@ function Get-ModuleGlobSet {
 
     Assert-SourceTree
 
-    $automationRoot = [System.IO.Path]::Combine((Get-RepositoryRoot), 'automation')
+    # The code track is the track of the modules track type; its first place is the root every module and infra folder sits under.
+    $codeTrack = @(Get-Track).Where({ $_.type -ceq 'modules' })[0]
+    $codeRoot = $codeTrack.places[0]
     $config = Get-Config -Config globs
     $declaredNames = $config.Names
 
     # name -> GlobSet, both the kebab name and (for modules) the folder name as lookup keys
     $derived = [ordered]@{}
     $reserved = @{
-        'internal'       = 'automation/.internal/**'
-        'vendor'         = 'automation/.vendor/**'
-        'compiled'       = 'automation/.compiled/**'
-        'scriptanalyzer' = 'automation/.scriptanalyzer/**'
+        'internal'       = "$codeRoot/.internal/**"
+        'vendor'         = "$codeRoot/.vendor/**"
+        'compiled'       = "$codeRoot/.compiled/**"
+        'scriptanalyzer' = "$codeRoot/.scriptanalyzer/**"
     }
     foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {
         $set = [Catzc.Base.Globs.GlobSet]::new(
@@ -101,7 +97,7 @@ function Get-ModuleGlobSet {
     }
 
     $aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
-    foreach ($aspectDef in Get-Aspect -Track automation) {
+    foreach ($aspectDef in Get-Aspect -Track $codeTrack.name) {
         $aspectList.Add([Catzc.Base.Globs.Aspect]::new($aspectDef.Name, [string[]]$aspectDef.Patterns))
     }
     # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.
@@ -112,18 +108,17 @@ function Get-ModuleGlobSet {
 
     # The per-folder module globs, collected so 'module-leftovers' below can exclude every one of them.
     $moduleFolderGlobs = [System.Collections.Generic.List[string]]::new()
-    foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {
-        $moduleName = [System.IO.Path]::GetFileName($moduleDir)
-        if ($moduleName.StartsWith('.')) {
-            continue
-        }
+    $repositoryRoot = Get-RepositoryRoot
+    $codeModules = @(Get-CatzcModule -Track $codeTrack.name -IncludeInternal -RepositoryRoot $repositoryRoot)
+    foreach ($module in $codeModules.Where({ $_.shape -ceq 'folder' -and $_.place -ceq $codeRoot })) {
+        $moduleName = $module.name
         $kebab = $moduleName.ToLowerInvariant().Replace('.', '-')
         if ($kebab -in $declaredNames) {
             throw "Declared globset '$kebab' in globs.yml shadows the derived module '$moduleName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
         }
-        $moduleFolderGlobs.Add("automation/$moduleName/**")
+        $moduleFolderGlobs.Add("$($module.root)/**")
         $aspectSets = [System.Collections.Generic.List[Catzc.Base.Globs.GlobSet]]::new()
-        foreach ($compiled in [Catzc.Base.Globs.AspectPartition]::Compile($aspectList, "automation/$moduleName")) {
+        foreach ($compiled in [Catzc.Base.Globs.AspectPartition]::Compile($aspectList, $module.root)) {
             $aspectKebab = "$kebab-$($compiled.Name)"
             if ($aspectKebab -in $declaredNames) {
                 throw "Declared globset '$aspectKebab' in globs.yml shadows the derived aspect of module '$moduleName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
@@ -135,7 +130,7 @@ function Get-ModuleGlobSet {
                 $include += "$bashRoot/tests/$kebab/**"
             }
             $set = [Catzc.Base.Globs.GlobSet]::new(
-                $aspectKebab, "Derived module aspect - automation/$moduleName [$($compiled.Name)]", 'module',
+                $aspectKebab, "Derived module aspect - $($module.root) [$($compiled.Name)]", 'module',
                 $include, $compiled.Exclude, @(), @(), -1, $null)
             $derived[$aspectKebab] = $set
             $derived["$moduleName-$($compiled.Name)"] = $set
@@ -145,20 +140,17 @@ function Get-ModuleGlobSet {
         $moduleAspects[$moduleName] = $aspectSets
     }
 
-    $internalRoot = [System.IO.Path]::Combine($automationRoot, '.internal')
-    if ([System.IO.Directory]::Exists($internalRoot)) {
-        foreach ($internalFile in [System.IO.Directory]::EnumerateFiles($internalRoot, '*.psm1')) {
-            $internalName = [System.IO.Path]::GetFileNameWithoutExtension($internalFile)
-            $kebab = $internalName.ToLowerInvariant().Replace('.', '-')
-            if ($kebab -in $declaredNames) {
-                throw "Declared globset '$kebab' in globs.yml shadows the derived set of internal module '$internalName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
-            }
-            $set = [Catzc.Base.Globs.GlobSet]::new(
-                $kebab, "Derived internal-module scope - automation/.internal/$internalName.psm1", 'module',
-                @("automation/.internal/$internalName.psm1"), @(), @(), @(), -1, $null)
-            $derived[$kebab] = $set
-            $derived[$internalName] = $set
+    foreach ($module in $codeModules.Where({ $_.shape -ceq 'file' })) {
+        $internalName = $module.name
+        $kebab = $internalName.ToLowerInvariant().Replace('.', '-')
+        if ($kebab -in $declaredNames) {
+            throw "Declared globset '$kebab' in globs.yml shadows the derived set of internal module '$internalName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
         }
+        $set = [Catzc.Base.Globs.GlobSet]::new(
+            $kebab, "Derived internal-module scope - $($module.root)", 'module',
+            @($module.root), @(), @(), @(), -1, $null)
+        $derived[$kebab] = $set
+        $derived[$internalName] = $set
     }
 
     if ('module-leftovers' -in $declaredNames) {
@@ -167,8 +159,8 @@ function Get-ModuleGlobSet {
     $leftoverExcludes = @($moduleFolderGlobs) + @($reserved.Values)
     [System.Array]::Sort($leftoverExcludes, [System.StringComparer]::Ordinal)
     $derived['module-leftovers'] = [Catzc.Base.Globs.GlobSet]::new(
-        'module-leftovers', 'Derived module-space catch-all - automation/ files no module owns', 'module',
-        @('automation/**'), $leftoverExcludes, @(), @(), -1, $null)
+        'module-leftovers', "Derived module-space catch-all - $codeRoot/ files no module owns", 'module',
+        @("$codeRoot/**"), $leftoverExcludes, @(), @(), -1, $null)
 
     if (-not $PSBoundParameters.ContainsKey('Name')) {
         # every set once — module sets are keyed twice (kebab + folder), so de-duplicate by reference

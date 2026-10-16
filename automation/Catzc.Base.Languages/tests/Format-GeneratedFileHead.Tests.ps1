@@ -51,6 +51,14 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: `"9534a2e15c8b`"`n#     repo_status: locked`n#     path: docs/gen.wdg`n#     source: docs/widget.yml`n#     kind: widget`n#     language: widget`n#     filetype: wdg`n#     track: docs`n#     tracktype: documentation`n#     generator: automation/Catzc.Widget/New-Widget.ps1`n# ---`n`nwidget body`n"
     }
 
+    It 'writes the inputs stamp right after the body hash when given, and leaves it out otherwise' {
+        $stamp = 'f' * 64
+        $with = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -InputsSha $stamp -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
+        $with | Should -BeLike "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: *`n#     with_inputs_sha: *$stamp*`n#     repo_status: locked`n*"
+        $without = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
+        $without | Should -Not -BeLike '*with_inputs_sha*'
+    }
+
     It 'leaves the generator and the source out when the file has none, and lists several sources' {
         $bare = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.gdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
         $bare | Should -BeExactly "/*`n---`ncatzc:`n  immutable:`n    with_body_sha: `"9e2ec912af5d`"`n    repo_status: locked`n    path: docs/gen.gdg`n    kind: widget`n    language: gadget`n    filetype: gdg`n    track: docs`n    tracktype: documentation`n---`n*/`n`nbody`n"

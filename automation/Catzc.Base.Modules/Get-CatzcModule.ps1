@@ -31,7 +31,7 @@ catzc:
 
       A folder under a place is a module unless its name starts with a dot. The modules a nested place holds (the internal modules under
       the code track) are left out unless -IncludeInternal asks for them. Modules come in the track's declared order, then in ordinal order
-      of their names. A module is laid out, and its unplaced files are reported, only when its track's primary language (the first it
+      of their names. A module's languages are those of its live files (the layout marks tests and READMEs not live). A module is laid out, and its unplaced files are reported, only when its track's primary language (the first it
       declares) owns layout rows in languages.yml.
     parameters:
       Name: The module name(s) to return. A name no module has returns nothing for it.
@@ -67,21 +67,23 @@ function Get-CatzcModule {
     $trackTypes = Get-Config -Config track-types
     $moduleTypes = Get-Config -Config module-types
     $languages = Get-Config -Config languages
+    $byName = [System.Comparison[Catzc.Base.Modules.Module]] { param($a, $b) [string]::CompareOrdinal($a.name, $b.name) }
 
     $tracks = $Track ? @(Get-Track -Name $Track) : @(Get-Track)
-    $found = [System.Collections.Generic.List[Catzc.Base.Modules.Module]]::new()
     foreach ($trackEntry in $tracks) {
         $trackType = $trackTypes.TypeOf($trackEntry.type)
-        if ($null -eq $trackType -or $trackType.role -ne 'deployable') {
+        if ($null -eq $trackType -or $trackType.role -cne 'deployable') {
             continue
         }
 
-        $primary = $trackEntry.languages.Count -gt 0 ? $languages.languages.Where({ $_.name -ceq $trackEntry.languages[0] }, 'First') : @()
+        # A module is laid out when its track's primary language, the first it declares, owns layout rows.
+        $primary = $trackEntry.languages.Count -gt 0 ? @($languages.languages.Where({ $_.name -ceq $trackEntry.languages[0] })) : @()
         $laidOut = $primary.Count -gt 0 -and $primary[0].layout.Count -gt 0
 
-        foreach ($moduleType in $moduleTypes.types.Where({ $trackType.admits -contains $_.id })) {
+        $found = [System.Collections.Generic.List[Catzc.Base.Modules.Module]]::new()
+        foreach ($moduleType in $moduleTypes.types.Where({ $trackType.admits -ccontains $_.id })) {
             foreach ($place in $moduleType.places) {
-                $trackPlace = $trackEntry.places.Where({ $place.root -ceq $_ -or $place.root.StartsWith("$_/", [System.StringComparison]::Ordinal) }, 'First')
+                $trackPlace = @($trackEntry.places.Where({ $place.root -ceq $_ -or $place.root.StartsWith("$_/", [System.StringComparison]::Ordinal) }))
                 if ($trackPlace.Count -eq 0 -or ($place.root -cne $trackPlace[0] -and -not $IncludeInternal)) {
                     continue
                 }
@@ -97,49 +99,45 @@ function Get-CatzcModule {
                     continue
                 }
 
-                # One entry per module: the repository-relative root the place gives it, and what shape that root is.
-                $entries = switch ($place.name) {
-                    'root' { , @($place.root, 'root', $place.NameOf($place.root)) }
-                    'file' {
-                        foreach ($path in Get-ChildPath $directory -File -Depth 1 -Filter "*.$($place.extension)") {
-                            $leaf = [System.IO.Path]::GetFileName($path)
-                            , @("$($place.root)/$leaf", 'file', $place.NameOf("$($place.root)/$leaf"))
-                        }
-                    }
-                    default {
-                        foreach ($path in Get-ChildPath $directory -Directory -Depth 1) {
-                            $leaf = [System.IO.Path]::GetFileName($path)
-                            $moduleName = $place.NameOf("$($place.root)/$leaf/_")
-                            if ($moduleName) {
-                                , @("$($place.root)/$leaf", 'folder', $moduleName)
-                            }
-                        }
-                    }
-                }
-
-                foreach ($entry in $entries) {
-                    $moduleRoot, $shape, $moduleName = $entry
-                    if ($Name -and $Name -cnotcontains $moduleName) {
+                foreach ($entry in Get-PlaceModuleEntry -Place $place -Directory $directory) {
+                    if ($Name -and $Name -cnotcontains $entry.Name) {
                         continue
                     }
 
-                    $moduleDirectory = $shape -ceq 'file' ? $null : (Join-Path $directory ($shape -ceq 'root' ? '' : $moduleRoot.Substring($place.root.Length + 1)))
-                    # A whole module tree is listed on purpose (ADR-PWSH-ENUM#3): tests nest fixtures up to six levels below the module.
-                    $files = $shape -ceq 'file' ? @($moduleRoot.Substring($place.root.Length + 1)) : @(
-                        foreach ($path in Get-ChildPath $moduleDirectory -File -Depth 8) {
-                            $path.Substring($moduleDirectory.TrimEnd('\', '/').Length + 1).Replace('\', '/')
+                    $files = [System.Collections.Generic.List[string]]::new()
+                    if ($entry.Shape -ceq 'file') {
+                        $files.Add($entry.Root.Substring($place.root.Length + 1))
+                    }
+                    else {
+                        # A whole module tree is listed on purpose (ADR-PWSH-ENUM#3): tests nest fixtures up to six levels below the module.
+                        $prefixLength = $entry.Folder.TrimEnd('\', '/').Length + 1
+                        foreach ($path in Get-ChildPath $entry.Folder -File -Depth 8) {
+                            $files.Add($path.Substring($prefixLength).Replace('\', '/'))
                         }
-                    )
-                    $languageNames = @($files.ForEach({ $languages.ForPath($_) }).Where({ $_ }).name | Sort-Object -Unique -CaseSensitive)
-                    $unplaced = $laidOut -and $shape -ceq 'folder' ? @($files.Where({ $null -eq $languages.PlaceOf($_) })) : @()
+                    }
+
+                    $languageNames = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
+                    $unplaced = [System.Collections.Generic.List[string]]::new()
+                    foreach ($file in $files) {
+                        $row = $laidOut -and $entry.Shape -ceq 'folder' ? $languages.PlaceOf($file) : $null
+                        if ($laidOut -and $entry.Shape -ceq 'folder' -and $null -eq $row) {
+                            $unplaced.Add($file)
+                        }
+                        # The languages of a module are those of its live files: a test, or a README, is no second tech-stack.
+                        $language = $null -eq $row -or $row.live ? $languages.ForPath($file) : $null
+                        if ($language) {
+                            [void] $languageNames.Add($language.name)
+                        }
+                    }
 
                     $found.Add([Catzc.Base.Modules.Module]::new(
-                            $moduleName, $trackEntry.name, $moduleType.id, $place.root, $moduleRoot, $shape,
-                            [string[]]$files, [string[]]$languageNames, [string[]]$trackEntry.EnginesOf($moduleName), [string[]]$unplaced))
+                            $entry.Name, $trackEntry.name, $moduleType.id, $place.root, $entry.Root, $entry.Shape,
+                            $files.ToArray(), [string[]]$languageNames, [string[]]$trackEntry.EnginesOf($entry.Name), $unplaced.ToArray()))
                 }
             }
         }
-    }
 
-    $found | Sort-Object -Property @{ Expression = { $_.track } }, @{ Expression = { $_.name } }
+        $found.Sort($byName)
+        $found
+    }
 }

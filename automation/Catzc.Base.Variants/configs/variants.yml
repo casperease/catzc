@@ -22,10 +22,8 @@ git_workspace: main-direct
 
 have_customers: all
 
+# A code track's aspects are derived from the layout in languages.yml (Get-Aspect), so only the other deployable tracks declare theirs.
 aspects:
-  automation:
-    - live: ["*.ps1", "private/**", "types/**", "configs/**", "assets/**"]
-    - tests: ["**"]
   infrastructure:
     - tests: ["**/tests/**"]
     - live: ["**"]

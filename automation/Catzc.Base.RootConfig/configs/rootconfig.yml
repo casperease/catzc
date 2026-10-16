@@ -121,6 +121,11 @@ files:
     source: automation/Catzc.Base.RootConfig/assets/root/dotnet-tools.json
     copyAsLink: true
     optIn: true
+  - target: automation/.internal/assets/Catzc.Types.csproj
+    source: automation/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
+    carrier: msbuild-project
+    committed: true
+    optIn: true
   - target: catzc.sln
     source: automation/Catzc.Base.RootConfig/assets/root/catzc.sln
     copyAsLink: true

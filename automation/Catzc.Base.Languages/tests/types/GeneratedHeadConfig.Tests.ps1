@@ -38,7 +38,11 @@ Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
         [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'kind', 'subkind') }).order | Should -Be @('path', 'kind', 'subkind')
     }
 
+    It 'knows the inputs stamp key' {
+        [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('with_inputs_sha', 'path', 'kind') }).order | Should -Be @('with_inputs_sha', 'path', 'kind')
+    }
+
     It 'loads the shipped generated-head.yml' {
-        (Get-Config -Config generated-head).order | Should -Be @('with_body_sha', 'repo_status', 'path', 'source', 'kind', 'subkind', 'language', 'filetype', 'track', 'tracktype', 'vendor', 'module', 'moduletype', 'generator')
+        (Get-Config -Config generated-head).order | Should -Be @('with_body_sha', 'with_inputs_sha', 'repo_status', 'path', 'source', 'kind', 'subkind', 'language', 'filetype', 'track', 'tracktype', 'vendor', 'module', 'moduletype', 'generator')
     }
 }

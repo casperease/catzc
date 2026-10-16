@@ -29,7 +29,7 @@ reads a module's folders reads the layout, except the loader that runs before th
 
 ### Rule ADR-AUTO-MODULE:3
 
-A module's languages are the file languages of its files, and each must be one the track declares
+A module's languages are the file languages of its live files, and each must be one the track declares
 ([ADR-DSGN-TRACK#6](../design/tracks.md#rule-adr-dsgn-track6)); a file in another language is a stack violation
 ([ADR-DSGN-TRACK#11](../design/tracks.md#rule-adr-dsgn-track11)). Languages are modelled in general, whatever they are: a track admits a
 language by declaring it, and the Go, Python and Bash rules keep those languages to the test artifacts of the verification tracks. The

@@ -38,6 +38,9 @@ carriers:
   # XML carries no block, for the reason it states; HTML takes its block below the doctype, which must stay first.
   xml: { carrier: none, reason: "an XML comment may not contain '--', so the front matter fence would make the file invalid" }
   html: { carrier: comment-head, block: ["<!--", "-->"], anchor: after-prolog }
+  # A processing instruction may hold the fence the comment may not, and MSBuild reads a project that opens with one.
+  msbuild-project:
+    { files: ["automation/.internal/assets/Catzc.Types.csproj"], carrier: comment-head, block: ["<?catzc", "?>"], anchor: after-prolog }
   css: { carrier: comment-head, block: ["/*", "*/"] }
 
   # The byte order mark, a blank line and the format line stay first, and the head follows them.

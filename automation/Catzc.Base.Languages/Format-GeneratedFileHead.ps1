@@ -33,6 +33,7 @@ catzc:
       Carrier: 'The id of the file-carriers entry that says where the head goes. Default: the entry of the file language of Path.'
       Generator: The command that composed the content, when one did; the head names the path of its file.
       Source: The repository-relative authored file or files the content comes from, when it has any.
+      InputsSha: 'The stamp (Get-InputStamp) of every input the generator read, when it skips an unchanged build; the head carries it as with_inputs_sha, which Test-GeneratedFileCurrent compares. Default: none, and the key is left out.'
       FileKind: 'The kind of Path by its role: what Get-FileKind returns for it (kind, and subkind when it has one). The caller reads it, since the registry lives in a module this one cannot depend on.'
       Carriers: 'The carrier registry. Default: the shipped file-carriers.yml.'
       Languages: 'The file-language registry. Default: the shipped languages.yml.'
@@ -59,6 +60,8 @@ function Format-GeneratedFileHead {
         [string] $Generator,
 
         [string[]] $Source = @(),
+
+        [string] $InputsSha,
 
         [Parameter(Mandatory)]
         [object] $FileKind,
@@ -138,6 +141,9 @@ function Format-GeneratedFileHead {
         }
     }
     $values['with_body_sha'] = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($body)
+    if ($InputsSha) {
+        $values['with_inputs_sha'] = $InputsSha
+    }
     $facts = [ordered]@{}
     foreach ($key in $Head.order) {
         if ($values.ContainsKey($key)) {
