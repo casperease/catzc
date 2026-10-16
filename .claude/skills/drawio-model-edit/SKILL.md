@@ -14,9 +14,9 @@ catzc:
     filetype: md
     kind: capability
     language: markdown
-    track: ".claude"
+    track: "Claude"
     tracktype: vendor-settings
-    vendor: claude
+    vendor: anthropic
     module: ".claude"
     moduletype: settings
 ---
