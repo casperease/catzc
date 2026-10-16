@@ -6,9 +6,9 @@ catzc:
     language: markdown
     filetype: md
     track: docs
-    body_sha: "95065966d656"
+    body_sha: d67f851938cf
     defines:
-      - ADR-PWSH-FORMAT#{1-9}
+      - ADR-PWSH-FORMAT#{1-10}
     adrs:
       - ADR-AUTO-NONEST#{3,5}
     links:
@@ -98,10 +98,10 @@ The simple expressions [ADR-AUTO-NONEST#5](../automation/avoid-deep-nesting.md#r
 
 ### Rule ADR-PWSH-FORMAT:10
 
-A hashtable literal that holds an `if`/`else` is written on several lines, or its value is bound to a local first, never written on one line.
-PSScriptAnalyzer's `Invoke-Formatter` throws on the one-line form, and because `Format-Code` and `Test-Formatting` format every file in one
-pass, one such file stops the formatting gate for the whole tree instead of failing a single file. The custom `Measure-NoOneLineHashtableIfElse`
-rule flags it.
+A hashtable literal that holds an `if`/`else` is written on several lines, or its value is bound to a local first, never written on one
+line. PSScriptAnalyzer's `Invoke-Formatter` throws on the one-line form, and because `Format-Code` and `Test-Formatting` format every file
+in one pass, one such file stops the formatting gate for the whole tree instead of failing a single file. The custom
+`Measure-NoOneLineHashtableIfElse` rule flags it.
 
 - [One-line hashtables](#one-line-hashtables)
 

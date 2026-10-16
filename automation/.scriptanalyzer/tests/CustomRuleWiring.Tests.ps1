@@ -40,6 +40,7 @@ Write-Error 'widget'
 `$succeeded = `$?
 `$WidgetCount = 1
 1 | ForEach-Object { return }
+`$fact = @{ Name = if (`$widget) { `$widget } else { 'gadget' } }
 function Get-LongWidget {
 $longBody
 }
@@ -69,6 +70,7 @@ $longBody
         @{ Rule = 'Measure-VariableCasing' }
         @{ Rule = 'Measure-NoForEachObjectControlFlow' }
         @{ Rule = 'Measure-FunctionLength' }
+        @{ Rule = 'Measure-NoOneLineHashtableIfElse' }
     ) {
         $script:firedRules | Should -Contain $Rule
     }

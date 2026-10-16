@@ -6,7 +6,7 @@ catzc:
     language: markdown
     filetype: md
     track: docs
-    body_sha: abe8285c6e7a
+    body_sha: "8ba93717158a"
     links:
       - docs/adr/pwsh/announce-state-changes.md
       - docs/adr/pwsh/assert-idioms.md
@@ -385,8 +385,7 @@ the ADRs themselves; this file carries only their DORA rationale.
   from eroding as the tree grows.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one walk with one set of rules replaces many
   hand-written loops.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — fast, bounded listings keep all tests under their time
-  roofs.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — fast, bounded listings keep all tests under their time roofs.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Working-directory mechanics
