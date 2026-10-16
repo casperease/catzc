@@ -17,3 +17,52 @@ two to ten words. Results move into the owning plans after the round.
 | Q02 | optional -Ref, default branch default | yes       | one more parameter, one resolution order       | explicit wins                                              |
 | Q03 | docs/how-to                           | yes       | one new how-to page on sorting                 |                                                            |
 | Q04 | shape rule, no line roof              | yes       | Test-Plans checks sections, never a line count | head, value, decided, done, open steps; carried text below |
+| Q05 | repository-wide naming rule too       | yes       | no rank prefixes anywhere in the tree          | ADR-REPO-PLANS plus a repository-domain naming rule        |
+| Q06 | both, gate first                      | yes       | Test-Plans gate, then plan-cleaner agent       |                                                            |
+| Q07 | author directly in .claude/plans      | yes       | Publish-Plan and Get-PlanCandidate dropped     | out/ holds no plan drafts                                  |
+| Q08 | delete, index keeps one line          | yes       | index grows one line per finished plan         |                                                            |
+| Q09 | delete all 20 .unordered plans now    | yes       | .unordered empty, ready as landing zone        | git keeps them; a deletion the user runs or approves       |
+| Q10 | body-sha Phase 0 go now               | yes       | ADR edits stop being drift findings            | unblocks the link cleanup                                  |
+| Q11 | keep carried drafts until landed      | yes       | plans stay long until data is in the tree      | cleaner trims per plan                                     |
+| Q12 | prompts stay files                    | yes       | nine prompt files beside their plans           | header maps old out/ paths                                 |
+| Q13 | have_customers default false          | yes       | shipped and code defaults agree                | repo fragment says all                                     |
+| Q14 | tracks required, aspects catch-all    | yes       | a repo without tracks fails at construction    |                                                            |
+| Q15 | shipped variants.yml deleted          | yes       | type plus fragment is the whole config         | general rule for a type with no file                       |
+| Q16 | defaults as a fifth asset kind        | yes       | contracts/catzc gains generated defaults files | ADR-REPO-CONTRACT#6 amended                                |
+| Q17 | source mode reads own fragments only  | yes       | no function shadowing in source mode           |                                                            |
+| Q18 | reframed: two names, two audiences    | no        | alias idea dropped; folder question re-asked   | cats: friendly product form, root executor for bash and zsh, name for new and other-sourced modules, usable for pwsh in places; catzc: the inner repository namespace. Also answers part of Q105 |
+| Q19 | required key in a header comment      | yes       | generated defaults never show a fake value     |                                                            |
+| Q20 | Phase 1 after the module model        | yes       | config defaults waits entirely on module model | shared VariantsConfig.cs                                   |
+| Q18b | new ADR-CATS decides it              | no        | a new principle-level ADR; folder names follow | cats and catzc, their distinction and cross-purpose use, are a core high-level product principle controlled by ADR-CATS; the overlay folder question waits for it; a new plan item |
+| Q21 | section in ADR-AUTO-FAILFAST          | yes       | FAILFAST gains the five-rung ladder            |                                                            |
+| Q22 | the user names the P4 window          | yes       | folder move only on a named time               |                                                            |
+| Q23 | no diagrams in the layers plan        | yes       | P8 removed from the plan                       | render nothing unasked                                     |
+| Q24 | session proposes the pilot list       | yes       | pilot set approved before the first contract   | cats entry point commands the likely answer                |
+| Q25 | ci names re-pointed same day as P6    | yes       | no CI mismatch window                          | user re-points Azure DevOps and GitHub bindings            |
+| Q26 | planner re-points prompt paths now    | yes       | prompts read clean in a fresh session          | a planner task after the round                             |
+| Q27 | model languages generally             | yes       | language axis in the model, forbidden by track | ADR-AUTO-GO, PY, BASH unchanged                            |
+| Q28 | engines per track, module override    | yes       | tracks.<t>.engines plus rare module overrides  |                                                            |
+| Q29 | Get-CatzcModule                       | yes       | Get-BaseModule and Get-AutomationModules go    |                                                            |
+| Q30 | LoadedModule in ADR-AUTO-MODULE       | yes       | one ADR page for the module model              |                                                            |
+| Q31 | domain automation                     | yes       | docs/adr/automation/module-model.md or similar |                                                            |
+| Q32 | layout under languages.yml            | yes       | slots beside formatter and checks per language |                                                            |
+| Q33 | unplaced file is a finding            | yes       | a gate flags stray files in modules            |                                                            |
+| Q34 | all vendored files in the vendor track | no       | no vendored file beside its user                | the session's candidate list is not needed                 |
+| Q35 | kits stay; condition on front matter  | partly    | .claude kits stay in the holder track          | the user does not mind modules living in vendor folders as long as their front matter is processed and formatted; and a track has one primary language by default (a rule for ADR-DSGN-TRACK) |
+| Q36 | namespace planned after kinds land    | no        | a follow-up item in the module-kinds plan      |                                                            |
+| Q37 | module-model session looks first      | yes       | three failures owned by the module model work  |                                                            |
+| Q38 | layers P1 beside the module model     | yes       | docs-only layers work starts now               | code phases wait                                           |
+| Q39 | schema hand-written, no generator     | yes       | step 6 of the head draft dropped               | key-set test guards the schema                             |
+| Q40 | not applicable                        | yes       | no registry shape work                         | follows Q39                                                |
+| Q41 | write overlaps, strengthen the test   | yes       | a shadowed kind fails the kinds tests          | intended overlaps written in the test or registry          |
+| Q42 | keep the visibility key               | no        | visibility stays in heads beside kinds         |                                                            |
+| Q43 | generated heads stay minimal          | yes       | no folder or name on generated heads           |                                                            |
+| Q44 | no glossary term for catzc_bundle     | yes       | glossary unchanged                             |                                                            |
+| Q45 | prose PowerShell; ids pwsh or powershell | partly | one form per axis, written as a rule           | prose text may say PowerShell; identifiers use only pwsh (engine, folder) or powershell (language id) |
+| Q46 | fix the module-types.yml typo now     | no        | one-word edit in a peer's file, user-approved  | planner touches no code; the next session does it with this approval |
+| Q47 | read the formatting ADR, follow it    | yes       | .compiled handling decided by the ADR          |                                                            |
+| Q48 | owners fix the six comment findings   | yes       | findings stay until owners act                 |                                                            |
+| Q49 | out of scope: in-use files            | no        | plans drop every locked or in-use file item    | user: plans never concern themselves with locked or in-use files; that is for much later in the timeline. Saved as memory feedback. Q46 and Q48 are of the same kind and shrink to context lines |
+| Q50 | class selectors go now                | yes       | globs spelled once; kinds select by class      |                                                            |
+| Q51 | planner fixes the memory note         | yes       | file-head-vocabulary says immutable            | a planner task after the round                             |
+| Q52 | one plan for the head                 | yes       | file-head plan stays whole                     |                                                            |
