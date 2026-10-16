@@ -7,7 +7,7 @@ catzc:
     filekind: md
     track: docs
     generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    body_sha: "26c010fc3baf"
+    body_sha: e9d35d2769c6
     adrs:
       - ADR-CONF-LOADING#4
       - ADR-REPO-FILEMETA#2
@@ -26,4 +26,13 @@ Above `using System;`, written with `//`.
 The meta-kind registry (file-meta.yml): which kinds of derived fact and of config contribution exist is data, never a list in an engine.
 [ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
 [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4)
+```
+
+## comment:2
+
+Above `public bool Selects(FileMetaKind kind, string fileClass, string language) =>...`, written with `//`.
+
+```text
+True when the kind applies to the file, by the file's class (its kind, or kind/subkind, from the file-kinds registry) and its
+language (null when no language claims it).
 ```

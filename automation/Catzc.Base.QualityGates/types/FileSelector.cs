@@ -8,6 +8,8 @@ catzc:
     filekind: cs
     track: automation
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/FileSelector.cs.md
 ---
 */
 
@@ -79,8 +81,6 @@ public sealed class FileSelector
         (classes.Count == 0 || classes.Any(pattern => ClassMatches(pattern, fileClass)))
         && (languages.Count == 0 || (language != null && languages.Contains(language, StringComparer.Ordinal)));
 
-    // A class name, or a name with one '*' standing for any run of characters. A file's class is its kind, or kind/subkind; a pattern
-    // without a '/' names the kind, so it selects the kind whatever its subkind, and a pattern with one names a subkind.
     public static bool ClassMatches(string pattern, string fileClass)
     {
         if (pattern == null || fileClass == null) { return false; }

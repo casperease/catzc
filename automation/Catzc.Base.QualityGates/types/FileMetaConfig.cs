@@ -81,8 +81,6 @@ public sealed class FileMetaConfig
         foreach (FileMetaKind kind in list) { kind.registry = this; }
     }
 
-    // True when the kind applies to the file, by the file's class (its kind, or kind/subkind, from the file-kinds registry) and its
-    // language (null when no language claims it).
     public bool Selects(FileMetaKind kind, string fileClass, string language) => kind != null && kind.Selects(fileClass, language);
 
     // True when any imprint kind applies to the file: the file is in the meta scope.
