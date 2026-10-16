@@ -97,16 +97,18 @@ domains realise it.
 
 **Role:** `architecture` — **depends on:** `research`, `principles`, `process`.
 
-| Code                | ADR                                                              |
-| ------------------- | ---------------------------------------------------------------- |
-| `ADR-DSGN-TRACK`    | [tracks](design/tracks.md)                                       |
-| `ADR-DSGN-THINPLAT` | [thin-platforms](design/thin-platforms.md)                       |
-| `ADR-DSGN-SELFSERV` | [self-service](design/self-service.md)                           |
-| `ADR-DSGN-VISUAL`   | [visual-design](design/visual-design.md)                         |
-| `ADR-DSGN-LIFE`     | [commit-lifecycle](design/commit-lifecycle.md)                   |
-| `ADR-DSGN-REMOTE`   | [server-remote-integration](design/server-remote-integration.md) |
-| `ADR-DSGN-RUNMODE`  | [run-modes](design/run-modes.md)                                 |
-| `ADR-DSGN-ASPECT`   | [module-aspects](design/module-aspects.md)                       |
+| Code                 | ADR                                                              |
+| -------------------- | ---------------------------------------------------------------- |
+| `ADR-DSGN-TRACK`     | [tracks](design/tracks.md)                                       |
+| `ADR-DSGN-THINPLAT`  | [thin-platforms](design/thin-platforms.md)                       |
+| `ADR-DSGN-SELFSERV`  | [self-service](design/self-service.md)                           |
+| `ADR-DSGN-VISUAL`    | [visual-design](design/visual-design.md)                         |
+| `ADR-DSGN-LIFE`      | [commit-lifecycle](design/commit-lifecycle.md)                   |
+| `ADR-DSGN-REMOTE`    | [server-remote-integration](design/server-remote-integration.md) |
+| `ADR-DSGN-RUNMODE`   | [run-modes](design/run-modes.md)                                 |
+| `ADR-DSGN-TRACKTYPE` | [track-types](design/track-types.md)                             |
+| `ADR-DSGN-MODTYPE`   | [module-types](design/module-types.md)                           |
+| `ADR-DSGN-ASPECT`    | [module-aspects](design/module-aspects.md)                       |
 
 ### flow/
 

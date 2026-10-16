@@ -94,6 +94,8 @@ domains:
       commit-lifecycle: { external: ADR-DSGN-LIFE, concern: [quality-control, release, deploy] }
       server-remote-integration: { external: ADR-DSGN-REMOTE, concern: [build, quality-control] }
       run-modes: { external: ADR-DSGN-RUNMODE, terminology: runmode, concern: [automation, build] }
+      track-types: { external: ADR-DSGN-TRACKTYPE }
+      module-types: { external: ADR-DSGN-MODTYPE }
       module-aspects: { external: ADR-DSGN-ASPECT, concern: [automation, build] }
 
   flow:

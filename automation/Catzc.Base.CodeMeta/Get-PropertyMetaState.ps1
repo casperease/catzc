@@ -24,10 +24,11 @@ catzc:
       Property: The name of the ignored top-level property that holds the block (e.g. // or $comment).
       Strip: Beginnings of old values of the property that Format-PropertyMetaHead replaces instead of leaving as foreign.
     outputs: |-
-      [pscustomobject] @{ IsObject; HasHead; Foreign; Sections; DerivedKeys; ConfigLines } — Sections are the keys directly under `catzc`,
-      DerivedKeys the keys under `derived`, and ConfigLines the authored lines under `config`, as written.
+      [pscustomobject] @{ IsObject; HasHead; Foreign; Sections; ImmutableKeys; EdgeKeys; ConfigLines } — Sections are the keys directly under
+      `catzc`, ImmutableKeys the keys under `immutable`, EdgeKeys the edge names under `edges`, and ConfigLines the authored lines under
+      `config`, as written.
     examples:
-      - Get-PropertyMetaState -Text $text -Property '//' | Select-Object -ExpandProperty DerivedKeys
+      - Get-PropertyMetaState -Text $text -Property '//' | Select-Object -ExpandProperty ImmutableKeys
 ---
 #>
 
@@ -47,11 +48,12 @@ function Get-PropertyMetaState {
 
     $head = [Catzc.Base.CodeMeta.PropertyHead]::Parse($Text, $Property, $Strip)
     [pscustomobject]@{
-        IsObject    = $head.IsObject
-        HasHead     = $head.HasHead
-        Foreign     = $head.Foreign
-        Sections    = [string[]] @($head.Sections)
-        DerivedKeys = [string[]] @($head.DerivedKeys)
-        ConfigLines = [string[]] @($head.ConfigLines)
+        IsObject      = $head.IsObject
+        HasHead       = $head.HasHead
+        Foreign       = $head.Foreign
+        Sections      = [string[]] @($head.Sections)
+        ImmutableKeys = [string[]] @($head.ImmutableKeys)
+        EdgeKeys      = [string[]] @($head.EdgeKeys)
+        ConfigLines   = [string[]] @($head.ConfigLines)
     }
 }

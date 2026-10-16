@@ -25,8 +25,9 @@ catzc:
     parameters:
       Text: The whole Markdown file as text.
     outputs: |-
-      [pscustomobject] @{ HasFrontMatter; HasMetaBlock; Body; BodyHash; Sections; DerivedKeys; ConfigLines } — Sections are the keys
-      directly under `catzc`, DerivedKeys the keys under `derived`, and ConfigLines the authored lines under `config`, as written.
+      [pscustomobject] @{ HasFrontMatter; HasMetaBlock; Body; BodyHash; Sections; ImmutableKeys; EdgeKeys; ConfigLines } — Sections are the
+      keys directly under `catzc`, ImmutableKeys the keys under `immutable`, EdgeKeys the edge names under `edges`, and ConfigLines the
+      authored lines under `config`, as written.
     examples:
       - (Get-MarkdownMetaState -Text $text).BodyHash
 ---
@@ -49,7 +50,8 @@ function Get-MarkdownMetaState {
         Body           = $document.Body
         BodyHash       = $document.BodyHash()
         Sections       = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::SectionKeys($block))
-        DerivedKeys    = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedKeys($block))
+        ImmutableKeys  = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ImmutableKeys($block))
+        EdgeKeys       = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::EdgeKeys($block))
         ConfigLines    = [string[]] @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($block))
     }
 }

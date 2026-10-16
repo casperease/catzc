@@ -46,12 +46,14 @@ A head holds only facts the repository can compute and that change when the file
 path), `kind` (the class of the file, a moniker of the file-kind registry entry that names its role and never its language, track or module:
 a `type`, a `test`, a `gate`, a `function`), `language` (the file language, from the languages registry), `track` (the root concern that
 holds the file), `module` (the folder under `automation/`, when the file is placed in one), for a PowerShell file `visibility` (`private` or
-`public`, from the folder), and `adrs`, the ADR codes that bind the file, sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and
-each domain-level citation a bare `ADR-<CODE>`. For a C# type file, a PowerShell function file and a PowerShell test file the head holds
-`adrs`: the formatter keeps every code the head lists and adds each code the file and its comment page cite that the ADR index registers, so
+`public`, from the folder), all place facts under `immutable`, and the edges under `edges`: `cites`, the ADR codes that bind the file, sorted
+and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`, and `page` and `test`
+([ADR-REPO-FILEMETA#10](file-meta.md#rule-adr-repo-filemeta10)). For a C# type file, a PowerShell function file and a PowerShell test file
+the head holds `cites`: the formatter keeps every code the head lists and adds each code the file and its comment page cite that the ADR index registers, so
 a fixture code or a placeholder named in prose is no citation, and a code leaves the list only when a person deletes it from the head. It
-never holds a hash of the body, which would change on every edit and make every edit a two-hunk diff. The facts sit under `derived`, and a
-person's own keys, if any, sit under `config`, as in Markdown.
+never holds a hash of the body, which would change on every edit and make every edit a two-hunk diff. The facts sit under `immutable` and
+`edges`, and a person's own keys, if any, sit under `config`, as in Markdown
+([ADR-REPO-FILEMETA#13](file-meta.md#rule-adr-repo-filemeta13)).
 
 - [What the head holds](#what-the-head-holds)
 
@@ -62,7 +64,7 @@ The head is imprinted by the same engine, from the same registry, as a Markdown 
 registry entry that selects code files by their class, and its processor is a function found by convention. The scope is every tracked file
 whose language the carrier registry gives a comment head, tests and assets included, less the classes `.gitattributes` exempts
 ([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). Every such file carries `path` and `kind`; `module` and `visibility` stay
-with the C# type files and PowerShell function files their kinds name, and `adrs` goes to those and to the PowerShell test files, whose
+with the C# type files and PowerShell function files their kinds name, and the `cites` edge goes to those and to the PowerShell test files, whose
 prose moves to a comment page like any other file's.
 
 - [Scope](#scope)
@@ -108,10 +110,13 @@ Markdown. The head is small, because every key in it is a key that can drift.
 /*
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.Languages/types/FileLanguage.cs
     kind: type
     module: Catzc.Base.Languages
+  edges:
+    cites:
+      - ADR-AUTO-TYPES#1
 ---
 */
 
@@ -124,7 +129,7 @@ using System;
 <#
 ---
 catzc:
-  derived:
+  immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-WidgetFact.ps1
     kind: function
     module: Catzc.Base.QualityGates

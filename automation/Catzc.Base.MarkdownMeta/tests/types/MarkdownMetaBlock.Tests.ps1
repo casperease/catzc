@@ -18,38 +18,53 @@ catzc:
 #>
 
 Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
-    It 'renders the derived facts in the order given, one fixed form' {
-        $facts = [ordered]@{ kind = 'gadget'; body_sha = '3fa91c0d2b7e'; adrs = @('ADR-WIDGET-GADGET#2', 'ADR-WIDGET-GADGET#3'); count = 2; ok = $true }
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($facts, [string[]] @()) | Should -Be @(
+    BeforeAll {
+        $script:none = [string[]] @()
+        $script:block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]
+    }
+
+    It 'renders the place facts, then the edges, in the order given, one fixed form' {
+        $immutable = [ordered]@{ with_body_sha = '3fa91c0d2b7e'; kind = 'gadget'; count = 2; ok = $true }
+        $edges = [ordered]@{ cites = @('ADR-WIDGET-GADGET#2', 'ADR-WIDGET-GADGET#3'); page = 'docs/gadget.md' }
+        $script:block::Render($immutable, $edges, $script:none) | Should -Be @(
             'catzc:'
-            '  derived:'
+            '  immutable:'
+            '    with_body_sha: "3fa91c0d2b7e"'
             '    kind: gadget'
-            '    body_sha: "3fa91c0d2b7e"'
-            '    adrs:'
-            '      - ADR-WIDGET-GADGET#2'
-            '      - ADR-WIDGET-GADGET#3'
             '    count: 2'
             '    ok: true'
+            '  edges:'
+            '    cites:'
+            '      - ADR-WIDGET-GADGET#2'
+            '      - ADR-WIDGET-GADGET#3'
+            '    page: docs/gadget.md'
         )
     }
 
-    It 'leaves out a fact with no value, so its absence reads as the empty value' {
-        $facts = [ordered]@{ kind = 'gadget'; adrs = [string[]] @(); links = $null; title = '' }
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($facts, [string[]] @()) | Should -Be @('catzc:', '  derived:', '    kind: gadget')
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ adrs = [string[]] @() }, [string[]] @()).Count | Should -Be 0
+    It 'leaves out a fact or an edge with no value, so its absence reads as the empty value' {
+        $immutable = [ordered]@{ kind = 'gadget'; title = '' }
+        $edges = [ordered]@{ cites = [string[]] @(); links = $null }
+        $script:block::Render($immutable, $edges, $script:none) | Should -Be @('catzc:', '  immutable:', '    kind: gadget')
+        $script:block::Render([ordered]@{}, $edges, $script:none).Count | Should -Be 0
+    }
+
+    It 'leaves out the part that has nothing, and keeps the other' {
+        $script:block::Render([ordered]@{}, [ordered]@{ links = @('docs/gadget.md') }, $script:none) | Should -Be @(
+            'catzc:', '  edges:', '    links:', '      - docs/gadget.md'
+        )
     }
 
     It 'renders a map as indented slots, and leaves out an empty map' {
-        $facts = [ordered]@{ kind = 'gadget'; relatives = [ordered]@{ page = 'docs/gadget.md'; test = 'tests/gadget.Tests.ps1' } }
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($facts, [string[]] @()) | Should -Be @(
+        $immutable = [ordered]@{ kind = 'gadget'; slots = [ordered]@{ page = 'docs/gadget.md'; test = 'tests/gadget.Tests.ps1' } }
+        $script:block::Render($immutable, [ordered]@{}, $script:none) | Should -Be @(
             'catzc:'
-            '  derived:'
+            '  immutable:'
             '    kind: gadget'
-            '    relatives:'
+            '    slots:'
             '      page: docs/gadget.md'
             '      test: tests/gadget.Tests.ps1'
         )
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ relatives = [ordered]@{} }, [string[]] @()).Count | Should -Be 0
+        $script:block::Render([ordered]@{ slots = [ordered]@{} }, [ordered]@{}, $script:none).Count | Should -Be 0
     }
 
     It 'quotes a string that YAML would read as something else' -ForEach @(
@@ -71,51 +86,54 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Scalar($Text) | Should -BeExactly $Expected
     }
 
-    It 'reads a grouped ADR token back from a rendered list' {
-        $lines = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ adrs = [string[]] @('ADR-WIDGET-GADGET#{1,3-5}', 'ADR-WIDGET-LONE#2') }, [string[]] @())
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($lines, 'adrs') | Should -Be @('ADR-WIDGET-GADGET#{1,3-5}', 'ADR-WIDGET-LONE#2')
+    It 'reads a grouped ADR token back from a rendered list edge' {
+        $lines = $script:block::Render([ordered]@{}, [ordered]@{ cites = [string[]] @('ADR-WIDGET-GADGET#{1,3-5}', 'ADR-WIDGET-LONE#2') }, $script:none)
+        $script:block::EdgeList($lines, 'cites') | Should -Be @('ADR-WIDGET-GADGET#{1,3-5}', 'ADR-WIDGET-LONE#2')
     }
 
     It 'keeps the authored config lines exactly as written' {
         $config = [string[]] @('    gadgets:', '      widget: { gates: [Test-Widget] }')
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ kind = 'gadget' }, $config) | Should -Be @(
-            'catzc:', '  derived:', '    kind: gadget', '  config:', '    gadgets:', '      widget: { gates: [Test-Widget] }'
+        $script:block::Render([ordered]@{ kind = 'gadget' }, [ordered]@{}, $config) | Should -Be @(
+            'catzc:', '  immutable:', '    kind: gadget', '  config:', '    gadgets:', '      widget: { gates: [Test-Widget] }'
         )
     }
 
     It 'reads its own config lines back, so a second render is identical' {
         $config = [string[]] @('    gadgets:', '      widget: { gates: [Test-Widget] }')
-        $facts = [ordered]@{ kind = 'gadget'; body_sha = '3fa91c0d2b7e' }
-        $first = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($facts, $config)
-        $back = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($first)
+        $immutable = [ordered]@{ with_body_sha = '3fa91c0d2b7e'; kind = 'gadget' }
+        $edges = [ordered]@{ links = @('docs/gadget.md') }
+        $first = $script:block::Render($immutable, $edges, $config)
+        $back = $script:block::ConfigLines($first)
         $back | Should -Be $config
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($facts, $back) | Should -Be $first
+        $script:block::Render($immutable, $edges, $back) | Should -Be $first
     }
 
     It 'finds no config lines when the block has no config part' {
-        $block = [string[]] @('catzc:', '  derived:', '    kind: gadget')
-        @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($block)).Count | Should -Be 0
+        $lines = [string[]] @('catzc:', '  immutable:', '    kind: gadget')
+        @($script:block::ConfigLines($lines)).Count | Should -Be 0
     }
 
-    It 'lists the keys at the block''s first level and inside derived' {
-        $block = [string[]] @('catzc:', '  derived:', '    kind: gadget', '    "body_sha": x', '    adrs:', '      - ADR-WIDGET#1', '  config:', '    gadgets:', '  other: 2')
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::SectionKeys($block) | Should -Be @('derived', 'config', 'other')
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedKeys($block) | Should -Be @('kind', 'body_sha', 'adrs')
+    It 'lists the keys at the block''s first level, inside immutable and the names of the edges' {
+        $lines = [string[]] @('catzc:', '  immutable:', '    kind: gadget', '    "with_body_sha": x', '  edges:', '    cites:', '      - ADR-WIDGET#1', '    page: docs/gadget.md', '  config:', '    gadgets:', '  other: 2')
+        $script:block::SectionKeys($lines) | Should -Be @('immutable', 'edges', 'config', 'other')
+        $script:block::ImmutableKeys($lines) | Should -Be @('kind', 'with_body_sha')
+        $script:block::EdgeKeys($lines) | Should -Be @('cites', 'page')
     }
 
-    It 'reads the items of one derived list, and nothing for a scalar, a missing key or a config list' {
-        $block = [string[]] @('catzc:', '  derived:', '    kind: gadget', '    adrs:', '      - ADR-WIDGET#1', '      - "ADR-GADGET#2"', '    path: x', '  config:', '    adrs:', '      - ADR-OTHER#3')
-        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($block, 'adrs') | Should -Be @('ADR-WIDGET#1', 'ADR-GADGET#2')
-        @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($block, 'kind')).Count | Should -Be 0
-        @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($block, 'widgets')).Count | Should -Be 0
-        @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($null, 'adrs')).Count | Should -Be 0
+    It 'reads the items of one list edge, and nothing for a scalar edge, a missing edge, a place fact or a config list' {
+        $lines = [string[]] @('catzc:', '  immutable:', '    cites:', '      - ADR-PLACE#9', '  edges:', '    cites:', '      - ADR-WIDGET#1', '      - "ADR-GADGET#2"', '    page: x', '  config:', '    cites:', '      - ADR-OTHER#3')
+        $script:block::EdgeList($lines, 'cites') | Should -Be @('ADR-WIDGET#1', 'ADR-GADGET#2')
+        @($script:block::EdgeList($lines, 'page')).Count | Should -Be 0
+        @($script:block::EdgeList($lines, 'widgets')).Count | Should -Be 0
+        @($script:block::EdgeList($null, 'cites')).Count | Should -Be 0
     }
 
-    It 'renders no block when there are no facts and no config' {
-        @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{}, [string[]] @())).Count | Should -Be 0
+    It 'renders no block when there are no facts, no edges and no config' {
+        @($script:block::Render([ordered]@{}, [ordered]@{}, $script:none)).Count | Should -Be 0
     }
 
     It 'rejects an empty key' {
-        { [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ '' = 'widget' }, [string[]] @()) } | Should -Throw
+        { $script:block::Render([ordered]@{ '' = 'widget' }, [ordered]@{}, $script:none) } | Should -Throw
+        { $script:block::Render([ordered]@{}, [ordered]@{ '' = 'widget' }, $script:none) } | Should -Throw
     }
 }

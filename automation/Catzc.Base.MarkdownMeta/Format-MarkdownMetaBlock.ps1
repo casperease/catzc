@@ -20,15 +20,16 @@ catzc:
   config:
     synopsis: Returns a Markdown text with its meta block imprinted from the given facts.
     description: |-
-      The `derived` part is written from -Fact in the order given, one canonical form, so the same facts always give the same bytes.
-      The authored `config` part and every other byte of the text are kept as written. With no facts and no config lines the block is
-      removed. Pure: it reads no file and no config, and it returns the text rather than writing it.
+      The `immutable` and `edges` parts are written from -Immutable and -Edges in the order given, one canonical form, so the same facts
+      always give the same bytes. The authored `config` part and every other byte of the text are kept as written. With no facts, no
+      edges and no config lines the block is removed. Pure: it reads no file and no config, and it returns the text rather than writing it.
     parameters:
       Text: The whole Markdown file as text.
-      Fact: The derived facts, an ordered dictionary of key to value; a value is a scalar or a list of scalars.
+      Immutable: The place facts, an ordered dictionary of key to value; a value is a scalar.
+      Edges: The outgoing edges, an ordered dictionary of edge name to value; a value is a scalar or a list of scalars.
     outputs: '[string] the whole text, with the meta block replaced.'
     examples:
-      - Format-MarkdownMetaBlock -Text $text -Fact ([ordered]@{ kind = 'adr'; body_sha = '3fa91c0d2b7e' })
+      - Format-MarkdownMetaBlock -Text $text -Immutable ([ordered]@{ with_body_sha = '3fa91c0d2b7e'; kind = 'adr' }) -Edges ([ordered]@{ cites = @('ADR-WIDGET#1') })
 ---
 #>
 
@@ -40,11 +41,13 @@ function Format-MarkdownMetaBlock {
         [AllowEmptyString()]
         [string] $Text,
 
-        [System.Collections.IDictionary] $Fact = [ordered]@{}
+        [System.Collections.IDictionary] $Immutable = [ordered]@{},
+
+        [System.Collections.IDictionary] $Edges = [ordered]@{}
     )
 
     $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Text)
     $config = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($document.MetaBlock)
-    $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($Fact, $config)
+    $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($Immutable, $Edges, $config)
     $document.WithMetaBlock($block)
 }

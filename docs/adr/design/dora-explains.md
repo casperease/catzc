@@ -8,14 +8,16 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: af0afde9a632
+    body_sha: b9a2bba9d334
     links:
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/module-aspects.md
+      - docs/adr/design/module-types.md
       - docs/adr/design/run-modes.md
       - docs/adr/design/self-service.md
       - docs/adr/design/server-remote-integration.md
       - docs/adr/design/thin-platforms.md
+      - docs/adr/design/track-types.md
       - docs/adr/design/tracks.md
       - docs/adr/design/visual-design.md
       - docs/references/dora/capabilities.md#code-maintainability
@@ -166,6 +168,37 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Test automation](../../references/dora/capabilities.md#test-automation) — one body of tests proves the modules in both run modes.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one set of modules behind both modes, with no second
   copy to drift.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Track types
+
+`Track types — what a track owns, and where tracks are declared`
+
+[ADR-DSGN-TRACKTYPE](track-types.md)
+
+> DORA identifies loosely coupled teams and flexible infrastructure as drivers of delivery performance. Typing each track as deployable or
+> holder, and naming the vendor that reads it, keeps a platform change inside one track and lets a gate tell a deliverable from a vendor's
+> configuration without guessing.
+
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a vendor change touches one track and never re-keys
+  another vendor's.
+- [Teams empowered to choose tools](../../references/dora/capabilities.md#teams-empowered-to-choose-tools) — each tool's settings are a
+  track of their own, declared once.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Module types
+
+`Module types — what a module is placed as`
+
+[ADR-DSGN-MODTYPE](module-types.md)
+
+> DORA identifies code maintainability and version control as drivers of delivery performance. One registry that says what a module is, and
+> a track type that admits only the module types it should, keeps one tech-stack per track visible without reading the files.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one declared sort per module reduces guessing from
+  folder names.
+- [Version control](../../references/dora/capabilities.md#version-control) — the module and its type are read from the tracked tree, so
+  every checkout names the same units.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Module aspects

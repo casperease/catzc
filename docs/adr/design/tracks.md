@@ -8,16 +8,22 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: ad1e63e6e8fd
+    body_sha: c0dee1876fe4
     defines:
       - ADR-DSGN-TRACK#{1-17}
     adrs:
+      - ADR-DSGN-TRACKTYPE#{1,2,4,5}
       - ADR-REPO-VOCAB#1
     links:
       - docs/adr/automation/bash/bash-test-artifacts.md
       - docs/adr/automation/go/go-test-artifacts.md
       - docs/adr/automation/python/python-test-artifacts.md
       - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/design/track-types.md
+      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype1
+      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype2
+      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype4
+      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype5
       - docs/adr/design/visual-design.md
       - docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1
 ---
@@ -28,23 +34,23 @@ catzc:
 
 ### Rule ADR-DSGN-TRACK:1
 
-A **track** is a named repository root concern, mapped onto exactly one root folder and named by that folder: `automation`,
-`infrastructure`, `pipelines`, `docs`, `contracts`, `go`, `python`, `bash`, `.github`, `.cspell`, `.claude`, and `.unordered`. Every root
-folder git tracks a file under names a track, except `out/`, which holds gitignored output; a track never spans two roots, and a root never
-carries two tracks. Tracks are what this mono repository is composed of.
+A **track** is a named, on-disk cluster of module contents: the tracked files of one concern, selected by the **place** or places the track
+declares ([ADR-DSGN-TRACKTYPE#4](track-types.md#rule-adr-dsgn-tracktype4)). A place is a root folder (`automation`), a path inside one
+(`.github/workflows`, `automation/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track, found by
+the longest place that contains it ([ADR-DSGN-TRACKTYPE#5](track-types.md#rule-adr-dsgn-tracktype5)), or is a root file (ADR-DSGN-TRACK#7);
+`out/` holds gitignored output and is in none. Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
 
 ### Rule ADR-DSGN-TRACK:2
 
-Every track carries one classification from the taxonomy: **core** (defines the internal ports the other tracks rest on — `automation`),
-**external port** (the repository's boundary/configuration for one outside concern — `contracts` for its API consumers and the platforms
-that read its files, `docs` for its readers, and the dot-roots `.github`, `.cspell`, and `.claude` for the tools that read them), or
-**adapter** (adapts the core to a delivery target — `infrastructure`, with its Bicep modules and named templates, and `pipelines`, the
-delivery machines the deployable-units bind to), **unordered** (`.unordered`, ADR-DSGN-TRACK#17), or **verification**. A **verification
-track** is a test-only track: it verifies the core from outside, ships nothing, and is out of every bundle by construction, because it lies
-outside `automation/`, where the builder reads its modules. `go`, the Go black-box tests, is the first; a repository without a `go/` root
-keeps the same tests in the dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests, is the second, by the same
+Every track has exactly one **track type** ([ADR-DSGN-TRACKTYPE#1](track-types.md#rule-adr-dsgn-tracktype1)), stated once and carrying no
+second classification beside it: `modules` (`automation`, the core the other tracks rest on), `infrastructure`, `pipelines`,
+`vendor-settings`, `vendored-code`, `contracts`, `documentation`, `verification`, or `unordered` (`.unordered`, ADR-DSGN-TRACK#17). The
+type's role is deployable or holder ([ADR-DSGN-TRACKTYPE#2](track-types.md#rule-adr-dsgn-tracktype2)). A **verification track** is a
+test-only track: it verifies the core from outside, ships nothing, and is out of every bundle by construction, because it lies outside
+`automation/`, where the builder reads its modules. `go`, the Go black-box tests, is the first; a repository without a `go/` root keeps the
+same tests in the dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests, is the second, by the same
 convention: `.python` when the repository has no `python/` root. `bash`, the Bash black-box tests, is the third: `.bash` when the repository
 has no `bash/` root. Cross-cutting slices (e.g. the cats configs — every yml/config file across automation) are **scopes over tracks**, not
 tracks: they select through the roots rather than owning one.
@@ -90,7 +96,7 @@ it owns, so a file in a language outside that set is a second tech-stack inside 
 ### Rule ADR-DSGN-TRACK:7
 
 A **root file** is a tracked file that no track holds: a file at the repository root itself (`LICENSE`, `importer.ps1`, `.gitignore`), or a
-file under the one root folder that is not a track (`out/`). Root files belong to the repository as a whole, so the track-by-file-language
+file under the one root folder that no place names (`out/`). Root files belong to the repository as a whole, so the track-by-file-language
 map gives them their own row, never a track's.
 
 - [Root files and unlisted files](#root-files-and-unlisted-files)
@@ -114,9 +120,9 @@ so it is the same picture on every run of the same commit.
 ### Rule ADR-DSGN-TRACK:10
 
 A **cell** is one row crossed with one column of a map, the world map (ADR-DSGN-TRACK#9) or the value-chain map (ADR-DSGN-TRACK#16). A
-world-map cell holds the tracked files whose root folder names its row and whose extension names its column, and its file count is how many
-there are; a value-chain map cell holds the ADRs whose ADR domain declares its row and whose value-chain concerns include its column. Every
-row meets every column, so an empty cell is still a cell of the map.
+world-map cell holds the tracked files whose track names its row and whose extension names its column, and its file count is how many there
+are; a value-chain map cell holds the ADRs whose ADR domain declares its row and whose value-chain concerns include its column. Every row
+meets every column, so an empty cell is still a cell of the map.
 
 - [The world map](#the-world-map)
 
@@ -196,25 +202,27 @@ together, and the rules below keep them tied.
 
 ### What a track is
 
-The unit of "concern" in this repository is the root folder. `automation/` is the automation platform; `infrastructure/` is the IaC tree;
-`pipelines/` holds the delivery pipelines; `docs/` is the documentation; `contracts/` is the repository boundary's binding contracts, in
-both directions; each `.<foldername>` configures exactly one external system (the repository's boundary for that concern). `out/` is a root
-folder but not a concern: it holds the output every run writes, gitignored (`ADR-REPO-OUTDIR`). Naming the concept makes the mapping
-normative: the folder is the registration (the root folders and their conventions are `ADR-REPO-FOLDERS`), the folder name is the track
-name, and asking "which track does this file belong to?" always has exactly one answer. That single-answer property is what every consumer
-below builds on.
+The unit of "concern" in this repository is the cluster of module contents, and the root folder is its usual home. `automation/` is the
+automation platform; `infrastructure/` is the IaC tree; `pipelines/` holds the Azure DevOps pipelines and `.github/workflows` the GitHub
+ones; `docs/` is the documentation; `contracts/` is the repository boundary's binding contracts, in both directions; each `.<foldername>`
+configures exactly one external system (the repository's boundary for that concern); a `.vendor` folder holds third-party code. A place may
+be narrower than a root (`.github/workflows`) so that two tracks share a root without sharing a file. `out/` is a root folder but not a
+concern: it holds the output every run writes, gitignored (`ADR-REPO-OUTDIR`). Naming the concept makes the mapping normative: the declared
+places are the registration (the root folders and their conventions are `ADR-REPO-FOLDERS`), and asking "which track does this file belong
+to?" always has exactly one answer. That single-answer property is what every consumer below builds on.
 
 ### The taxonomy
 
-Tracks are not peers in role, only in shape. The **core** track defines the internal ports — `automation` is the engine, and every other
-track assumes it. **External ports** hold the repository's side of an outside contract: `contracts/` for consumers of this repo and the
-platforms that read it, `docs/` for its human readers (the ADRs, reference articles, and guides, partly generated by the core), the
-dot-roots (`.github/`, `.cspell/`, `.claude/`) for the tools that read them. **Adapters** turn the core's capabilities toward a delivery
-target — `infrastructure/` adapts to Azure through Bicep modules and named templates, and `pipelines/` adapts to Azure DevOps: each pipeline
-is a deployable-unit's delivery machine, and it runs the core through one runner script. **Verification** tracks test the core from outside
-and deliver nothing: `go/` holds black-box tests that start the engine as a process and assert on what it prints, so its files are never
-part of a deployable-unit's output, and no bundle can hold them. The three verification tracks have their own ADRs:
-[go-test-artifacts](../automation/go/go-test-artifacts.md), [python-test-artifacts](../automation/python/python-test-artifacts.md), and
+Tracks are not peers in role, only in shape, and the track type says which shape ([track-types](track-types.md)). The `modules` track
+defines the internal ports — `automation` is the engine, and every other track assumes it. The holders hold the repository's side of an
+outside contract: `contracts/` for consumers of this repo and the platforms that read it, `docs/` for its human readers (the ADRs, reference
+articles, and guides, partly generated by the core), and a `vendor-settings` track per tool (`.github/`, `.cspell/`, `.claude/`) for the
+tools that read them. `infrastructure/` adapts the core to Azure through Bicep modules and named templates, and the `pipelines` tracks adapt
+it to Azure DevOps and GitHub: each pipeline is a deployable-unit's delivery machine, and it runs the core through one runner script.
+**Verification** tracks test the core from outside and deliver nothing: `go/` holds black-box tests that start the engine as a process and
+assert on what it prints, so its files are never part of a deployable-unit's output, and no bundle can hold them. The three verification
+tracks have their own ADRs: [go-test-artifacts](../automation/go/go-test-artifacts.md),
+[python-test-artifacts](../automation/python/python-test-artifacts.md), and
 [bash-test-artifacts](../automation/bash/bash-test-artifacts.md). The taxonomy earns its keep in review: a proposed root that is none of
 these is probably a subfolder of an existing track, and a cross-cutting need (all config files, all markdown) is a **scope** — a globset
 selecting through tracks — not a new root.
@@ -281,10 +289,10 @@ label that names none.
 ### The unordered track
 
 A finished plan, an old sketch, or a note nobody owns has no place in the system, and deleting it loses what `git log` would keep. The
-unordered track is that place: a root folder that git tracks and the world map counts, so the root-folder rule (ADR-DSGN-TRACK#1) holds,
-with one property that sets it apart. It is a shelf, not a source: it has no tech-stack beyond the Markdown it holds, no consumer, and no
-default. Anything that quietly read from it would make the system depend on fragments that exist only because nobody deleted them, so the
-rule is stated as a prohibition, and every other track keeps its own reason to exist. Active plans never start here: they live in
+unordered track is that place: a root folder that git tracks and the world map counts, so the place rule (ADR-DSGN-TRACK#1) holds, with one
+property that sets it apart. It is a shelf, not a source: it has no tech-stack beyond the Markdown it holds, no consumer, and no default.
+Anything that quietly read from it would make the system depend on fragments that exist only because nobody deleted them, so the rule is
+stated as a prohibition, and every other track keeps its own reason to exist. Active plans never start here: they live in
 `out/plan-<topic>.md`, the gitignored output directory, and move to the unordered track only once they are done.
 
 ### The value-chain map
@@ -305,20 +313,22 @@ value-chain forms keep each word to one meaning.
 
 ## Decision
 
-Name the concept: repository root concerns are **tracks** — folder-named (ADR-DSGN-TRACK#1), classified core/port/adapter/verification, plus
-the unordered shelf that nothing defaults to (ADR-DSGN-TRACK#2, ADR-DSGN-TRACK#17), one tech-stack each (ADR-DSGN-TRACK#3), subscribable
-only via depms and globset projections (ADR-DSGN-TRACK#4), and shipped through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK#5).
-A tech-stack is a set of file languages, each named by its extension (ADR-DSGN-TRACK#6). The world map crosses the tracks with the file
-languages (ADR-DSGN-TRACK#9), with a row for the root files and a column for the unlisted files (ADR-DSGN-TRACK#7, ADR-DSGN-TRACK#8); its
-cells (ADR-DSGN-TRACK#10) mark the stack violations (ADR-DSGN-TRACK#11) and light for a highlight (ADR-DSGN-TRACK#12), and every label it
-prints names a defined term (ADR-DSGN-TRACK#13). Beside it, the value-chain map (ADR-DSGN-TRACK#16) crosses the value-chain stack
-(ADR-DSGN-TRACK#14) with the value-chain concerns (ADR-DSGN-TRACK#15), both declared per ADR domain in `adrs.yml`, with a per-ADR override
-of the concerns.
+Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (ADR-DSGN-TRACK#1), each of one track type
+(ADR-DSGN-TRACK#2), including the unordered shelf that nothing defaults to (ADR-DSGN-TRACK#17), one tech-stack each (ADR-DSGN-TRACK#3),
+subscribable only via depms and globset projections (ADR-DSGN-TRACK#4), and shipped through deployable-units that bind pipelines 1-1
+(ADR-DSGN-TRACK#5). A tech-stack is a set of file languages, each named by its extension (ADR-DSGN-TRACK#6). The world map crosses the
+tracks with the file languages (ADR-DSGN-TRACK#9), with a row for the root files and a column for the unlisted files (ADR-DSGN-TRACK#7,
+ADR-DSGN-TRACK#8); its cells (ADR-DSGN-TRACK#10) mark the stack violations (ADR-DSGN-TRACK#11) and light for a highlight
+(ADR-DSGN-TRACK#12), and every label it prints names a defined term (ADR-DSGN-TRACK#13). Beside it, the value-chain map (ADR-DSGN-TRACK#16)
+crosses the value-chain stack (ADR-DSGN-TRACK#14) with the value-chain concerns (ADR-DSGN-TRACK#15), both declared per ADR domain in
+`adrs.yml`, with a per-ADR override of the concerns.
 
 ### How this is enforced
 
 - **`ADR-REPO-FOLDERS`** (conventional folders) keeps the root inventory deliberate — a new root folder is a reviewed decision, and under
   this ADR it is the decision to open a track.
+- **[track-types](track-types.md)** declares each track's type, places and vendor once, and the config types fail the load on a track that
+  breaks them.
 - **The globset registry** (`Catzc.Base.Globs`, `ADR-FLOW-CD-GLOBS`) declares each track's file set; pipelines filter on its native
   projection and the drift quality gate fails a trigger that no longer matches, while the git-reflected report answers what a change
   touches.
@@ -329,7 +339,7 @@ of the concerns.
 - **`Catzc.Base.Docs.AdrsConfig`**, the type of `adrs.yml`, declares the rows of the value-chain stack and the value-chain concerns once, in
   order, and fails the load on an ADR domain without a row or a default, on a row or a value-chain concern outside them, and on an unknown
   key, so every ADR resolves to its row and one or more value-chain concerns (ADR-DSGN-TRACK#14, ADR-DSGN-TRACK#15).
-- **Code review** applies the taxonomy: a new root must name its classification and tech-stack; a cross-cutting need becomes a scope
+- **Code review** applies the taxonomy: a new track must name its type, its places and its tech-stack; a cross-cutting need becomes a scope
   globset, not a root.
 
 ## Consequences
@@ -338,7 +348,7 @@ of the concerns.
 - "Where along delivery does this decision act?" has a declared answer too: the value-chain map reads it from `adrs.yml`, and a new ADR
   inherits its ADR domain's default until it declares otherwise.
 - Pipelines, tests, and reviewers all read the same coordination surface, so a change's blast radius is the same fact everywhere.
-- Opening a concern is cheap and bounded: one root folder, one classification, one globset entry — and the rest of the repository is
+- Opening a concern is cheap and bounded: one track entry with its type and places, one globset entry — and the rest of the repository is
   untouched by construction.
 - The cost is discipline at the root: no drive-by root folders, no second stack smuggled into an existing track, and the registry has to
   stay curated as tracks grow.

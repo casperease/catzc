@@ -8,13 +8,15 @@ catzc:
     kind: adr
     language: markdown
     track: docs
-    body_sha: cb681e7a14fb
+    body_sha: "70aac12bc0d5"
     defines:
       - ADR-REPO-FILEMETA#{1-12}
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
       - ADR-CONF-LOADING#5
+      - ADR-DSGN-MODTYPE#2
+      - ADR-DSGN-TRACKTYPE#6
       - ADR-REPO-COMMENTS#1
       - ADR-REPO-FORMAT#{5,6}
       - ADR-REPO-LINK#4
@@ -25,6 +27,9 @@ catzc:
       - docs/adr/configuration/markdown-config-contributions.md
       - docs/adr/configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1
       - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5
+      - docs/adr/design/module-types.md
+      - docs/adr/design/module-types.md#rule-adr-dsgn-modtype2
+      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype6
       - docs/adr/repository/code-file-meta.md
       - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1
       - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1
@@ -40,9 +45,9 @@ catzc:
 ### Rule ADR-REPO-FILEMETA:1
 
 Every in-scope tracked file may carry one **meta block**: the facts the tooling owns about the file, written into the file's carrier. A
-Markdown file's carrier is the reserved front-matter key `catzc`, holding the file's derived facts under `derived` and its authored config
-contributions under `config` ([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1)).
-A code file's carrier is its meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta1)). The block is the only part of the file
+Markdown file's carrier is the reserved front-matter key `catzc`, holding the file's place facts under `immutable`, its outgoing edges under
+`edges` ([ADR-REPO-FILEMETA#13](#rule-adr-repo-filemeta13)) and its authored config contributions under `config`
+([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1)). A code file's carrier is its meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta1)). The block is the only part of the file
 the tooling owns: every other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
 
 - [Decision](#decision)
@@ -63,7 +68,7 @@ files carry a block at all. Which kinds exist is data, never a list inside an en
 
 ### Rule ADR-REPO-FILEMETA:3
 
-The `derived` part is imprinted by `Format-FileMeta` and is byte-identical on every run: keys in the registry's order, values in canonical
+The `immutable` and `edges` parts are imprinted by `Format-FileMeta` and are byte-identical on every run: keys in the registry's order, values in canonical
 form, no timestamp and no run identifier. A hash is allowed only when it changes exactly when something a reader cares about changes. A
 second run changes no file. The output is stable under the formatter of the file's language, so the formatter and the imprint never undo
 each other ([ADR-REPO-FORMAT#5](uniform-formatting.md#rule-adr-repo-format5)).
@@ -85,7 +90,7 @@ function and a function no kind names. A new kind is a registry entry and a func
 The scope of a kind is the files it selects, less the files `.gitattributes` marks `linguist-vendored`, `linguist-generated`,
 `catzc-fixture` or `catzc-contract`, and those it marks `-catzc-meta`. For Markdown the globs match the file class of the Markdown title
 ([ADR-REPO-FORMAT#6](uniform-formatting.md#rule-adr-repo-format6)). A new exception is declared in the `.gitattributes` source, never in a
-list of the gate's own. A `derived` key an author wrote is a finding the author fixes, never overwritten silently, and a `config` part is
+list of the gate's own. A key an author wrote under `immutable` or `edges` is a finding the author fixes, never overwritten silently, and a `config` part is
 validated against its kind and kept as written.
 
 - [Scope](#scope)
@@ -128,10 +133,10 @@ without one is a visible finding, or an `exclude` entry of its carrier with the 
 
 ### Rule ADR-REPO-FILEMETA:9
 
-The derived part of a Markdown file says what the file defines and what it points at, and the two never mix. An ADR lists under `defines`
-the rules its own headings declare, each spelled as a citation, `ADR-<CODE>#<n>`, and its `adrs` lists only the registered rules it cites
-from elsewhere, so a rule's own text is never a citation of itself and a placeholder named in prose is none either. Every Markdown file
-lists under `links` each link that leaves it, whatever its form (relative, repository-rooted, absolute URL, image, reference definition or
+The edges of a Markdown file say what the file defines and what it points at, and the two never mix. An ADR lists under the edge `defines`
+the rules its own headings declare, each spelled as a citation, `ADR-<CODE>#<n>`, and its edge `cites` lists only the registered rules it
+cites from elsewhere, so a rule's own text is never a citation of itself and a placeholder named in prose is none either. Every Markdown
+file lists under the edge `links` each link that leaves it, whatever its form (relative, repository-rooted, absolute URL, image, reference definition or
 autolink), spelled once as a repository-relative path with its anchor or as the absolute URL, sorted and without duplicates. A link that
 stays inside the file, an anchor in it, the file itself or its own comment page, is internal and is not listed.
 
@@ -140,12 +145,12 @@ stays inside the file, an anchor in it, the file itself or its own comment page,
 ### Rule ADR-REPO-FILEMETA:10
 
 The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
-truly define a relationship. The derived part of a code file points at its **relatives** in one map, `relatives`, of at most two relations
+truly define a relationship. The edges of a code file point at its **relatives**, at most two edges
 with fixed names: `page` (its comment page, [ADR-REPO-COMMENTS#1](comments-in-docs.md#rule-adr-repo-comments1)) and `test` (the Pester file
 that tests it). A relative stays inside the file's own module or its docs section, never in another module, so modules relate to each other
 by name and never through a file path (encapsulation), and only the code side points: a test or a page knows its code by its name, so no
-pair is recorded twice. The relations and the rules that fill them are the `relatives` kind's settings in `file-meta.yml`, so a new relation
-is a registry entry, never a new mechanism. A relation holds a repository-relative path that exists on disk, and a relation with no file is
+pair is recorded twice. The edges and the rules that fill them are the `relative-edges` kind's settings in `file-meta.yml`, so a new edge
+is a registry entry, never a new mechanism. An edge holds a repository-relative path that exists on disk, and an edge with no file is
 left out. No file carries a pointer of its own in its code: the head is the one place a code file names its relatives.
 
 - [Relatives](#relatives)
@@ -157,23 +162,37 @@ module, which are facts of their own. A **subkind** narrows a kind, such as a ga
 of the file's name, which tells the sorts of file inside one language apart. The path of a file under its module (the whole path for a file
 in no module) is made of exactly three parts, written as `folder` (optional, left out for a file directly in the module), `name` (the file's
 name without its file type, in kebab case) and `filetype`, and reading them asserts that they build the path back, so a path made of
-anything else stops the run. The kinds, their one-sentence definitions and the globs that
-select them are one registry, `file-kinds.yml`, local to catzc and global to every file: the first kind whose globs match a path names it, a
-path no kind selects is `other`, a meta kind selects files by their kind and subkind and never by glob, and a consumer extends the registry
-with a config fragment. A provided contract pins the kind and subkind names.
+anything else stops the run. The kinds, their one-sentence definitions and the globs that select them are one registry, `file-kinds.yml`,
+local to catzc and global to every file: the first kind whose globs match a path names it, a path no kind selects is `other`, a meta kind
+selects files by their kind and subkind and never by glob, and a consumer extends the registry with a config fragment. A provided contract
+pins the kind and subkind names.
 
 - [File kinds](#file-kinds)
 
 ### Rule ADR-REPO-FILEMETA:12
 
-A **module type** says what sort of module a file is placed in, and the module-types registry says where the modules of each type are found
-and how a path in that place names its module: a PowerShell module is a folder under automation or one psm1 file, a settings module is a
-tool's dot-folder, a pipeline module is the folder that holds pipelines, and a Python, Go or Bash module is its track folder. The head holds
-`module` and `moduletype` from the registry for a file placed in a module, and neither for a file placed in none, and it holds
+The head holds `module` and `moduletype` for a file placed in a module, as the module-types registry declares them
+([ADR-DSGN-MODTYPE#2](../design/module-types.md#rule-adr-dsgn-modtype2)), and neither for a file placed in none, and it holds
 `catzc_bundle`, the smallest bundle of the catzc exporter (the one bundler there is) that holds the module, from the exporter registry, so
-the head never carries a list of its own. A module type's name is the sort of module without the word module: `pwsh-folder`, `settings`.
+the head never carries a list of its own. It also holds `tracktype` and `vendor` from the track's declaration
+([ADR-DSGN-TRACKTYPE#6](../design/track-types.md#rule-adr-dsgn-tracktype6)).
 
 - [Module types](#module-types)
+
+### Rule ADR-REPO-FILEMETA:13
+
+A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts**: what the
+repository's own configuration makes of the file's location, its `path` and the parts of it, its `kind`, `language`, `track`, `module` and
+the rest, each read from a registry and never from the file's text. `edges` holds the **outgoing edges**: what the file itself declares or
+points at, each a named relation to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `page` and `test`. Both parts are
+imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge
+until the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation,
+never for the type of its target. In a Markdown file `immutable` opens with `with_body_sha`, the hash of the body below the front matter,
+so the stamp says which text the edges were read from. A code file carries no hash
+([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). A kind of the registry names the part it writes, `immutable` by
+default and `edges` for a relation.
+
+- [Place facts and edges](#place-facts-and-edges)
 
 ## Context
 
@@ -191,8 +210,8 @@ has comments.
 ## Decision
 
 A file carries one meta block, with the carrier its kind of file has. For Markdown the carrier is one reserved front-matter key, `catzc`,
-with two parts: `derived`, written by the formatter, and `config`, written by the author. For code the carrier is the meta head, with the
-derived part only. Which kinds of fact and config exist is a registry. Who computes or reads each kind is a function a module ships.
+with three parts: `immutable` and `edges`, written by the formatter, and `config`, written by the author. For code the carrier is the meta
+head, with the two imprinted parts only. Which kinds of fact and config exist is a registry. Who computes or reads each kind is a function a module ships.
 
 ### One block, two carriers
 
@@ -202,10 +221,13 @@ derived part only. Which kinds of fact and config exist is a registry. Who compu
 ---
 name: example-agent
 catzc:
-  derived:
+  immutable:
+    with_body_sha: 3fa91c0d2b7e
     path: .claude/agents/example-agent.md
     kind: claude-agent
-    body_sha: "3fa91c0d2b7e"
+  edges:
+    links:
+      - docs/adr/repository/agent-definitions.md
   config:
     agents:
       example-agent:
@@ -215,7 +237,7 @@ catzc:
 
 A fact with no value, an empty list or an empty string, is the default of its key and is left out, so an absent key reads as the empty
 value. `name` belongs to the agent tooling and is untouched. A tool that reads front matter keeps working, because the reserved key is one
-extra top-level key it does not know. The two parts never mix: `derived` is imprinted and rewritten, `config` is authored and kept. The code
+extra top-level key it does not know. The parts never mix: `immutable` and `edges` are imprinted and rewritten, `config` is authored and kept. The code
 carrier, the form of a head in a C# or PowerShell file, is in [code-file-meta](code-file-meta.md). Which carrier each file class has, or why
 it has none, is one registry, `file-carriers.yml`, so a gap in the coverage is a visible entry.
 
@@ -230,9 +252,9 @@ registry serves every carrier, so there is one list of kinds to keep in step and
 
 ### Imprinted, never hand-edited
 
-`The formatter owns derived`
+`The formatter owns immutable and edges`
 
-A derived value is computed from the file and the repository, so a hand edit would only be overwritten, and a stale one would mislead. The
+An imprinted value is computed from the file and the repository, so a hand edit would only be overwritten, and a stale one would mislead. The
 formatter writes the part in a fixed order and form, and the check fails when the file differs from what the formatter would write. No
 timestamp is allowed, because a value that changes on every run makes every run a diff.
 
@@ -278,15 +300,28 @@ JSON has no comment syntax, and a leading `//` block makes it invalid, so the bl
 holds the block as text, so one parser serves it as it serves a comment head, and a JSON Schema, whose `$comment` must be a string, takes
 the same form. A diagram is a binary picture, so its description beside it is the place a reader looks and the block lives there.
 
+### Place facts and edges
+
+`The node's place from the repository's configuration, the node's edges from its own text`
+
+A file has two kinds of derived fact, and they answer different questions. Where does the repository put this file, and what does it make of
+that place: its folder, its name, its role, its language, its track and its module, all read from registries the repository configures, so
+the same file in another repository would carry other values. And what does this file itself say it is related to: the rules it declares,
+the rules it cites, the files it links, the page that holds its comments, the test that proves it, all read from the file and fixed by its
+text. The first is a property of the node, the second a set of directed, named edges leaving it. Keeping them apart lets a reader ask
+"which files are in this module" of one part and "which files point at this page" of the other, and lets the body hash sit at the head of
+the place facts as the stamp the edges were read under. An edge is named for the relation, so a new relation is a new name and a registry
+entry, and the target of an edge is spelled the same way wherever it is read.
+
 ### What a Markdown file defines and points at
 
-`Declared rules, cited rules and outgoing links, each in its own key`
+`Declared rules, cited rules and outgoing links, each in its own edge`
 
 A rule an ADR declares and a rule it cites answer different questions: which decisions does this file own, and which decisions does it rest
 on. Listing both under one key would make every ADR depend on itself, so the declared rules have their own key and the citations leave them
 out. The links answer a third question, what the file points at, in a spelling that does not depend on where the link was written, so a
 reader or a tool can find every file that points at a given page without parsing Markdown. Code links in comments only ever point into the
-ADRs ([ADR-REPO-LINK#4](markdown-links.md#rule-adr-repo-link4)), which `adrs` already lists, so the key belongs to Markdown. A link that
+ADRs ([ADR-REPO-LINK#4](markdown-links.md#rule-adr-repo-link4)), which `cites` already lists, so the edge belongs to Markdown. A link that
 stays inside the file tells a reader nothing about where the file leads, so it is left out.
 
 ### Relatives
@@ -295,10 +330,10 @@ stays inside the file tells a reader nothing about where the file leads, so it i
 
 A code file has two companions a reader wants one step away, and both cost to find: the page that holds its moved comments, and the test
 that proves it. Writing each as a link in the code would put a pointer in every file and a line to keep in step with the companion. The head
-already holds derived facts, so the companions are one more, a map with a fixed name per kind of companion, and no more than the ones that
+already holds derived facts, so the companions are two more edges, one fixed name per kind of companion, and no more than the ones that
 truly define a relationship, so the head stays a map of facts about its own file. A companion that the file's name already gives, such as
-the code a test covers, is not recorded from the test's side. The registry holds the list of relations and the path rule of each, and a
-relation whose file does not exist is not written, so an entry in the head is always a working pointer.
+the code a test covers, is not recorded from the test's side. The registry holds the list of edges and the path rule of each, and an
+edge whose file does not exist is not written, so an entry in the head is always a working pointer.
 
 ### File kinds
 
@@ -315,15 +350,13 @@ with a config fragment instead of editing it. A provided contract pins the names
 
 `A module is placed by its type, and one registry says where`
 
-A module is not one thing in this repository: a PowerShell module is a folder or one file, a tool's settings are a dot-folder, the pipelines
-are a folder, and a Python, Go or Bash project is its track. Each is a module type, and the registry says per type where its modules are
-found and how a path in that place names its module, so `module` and `moduletype` are read from the registry and never guessed from a folder
-name. A file in no such place, such as a documentation page, has neither. The catzc bundle a module ships in is read from the exporter
+What a module is and how its type is declared are in [module-types](../design/module-types.md); the head only carries the result. A file in
+no module, such as a documentation page, has neither `module` nor `moduletype`. The catzc bundle a module ships in is read from the exporter
 registry, so the head says whether a module is in a built bundle without a second list.
 
 ### How this is enforced
 
-- **`Format-FileMeta`** imprints the `derived` part and `Test-FileMeta` fails any difference, in scope and in form.
+- **`Format-FileMeta`** imprints the `immutable` and `edges` parts and `Test-FileMeta` fails any difference, in scope and in form.
 - **`Test-FileMetaProcessors`** fails a kind without its function and a function without a kind.
 - **`Test-ModuleDependency`** keeps the layers apart ([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)).
 

@@ -66,11 +66,14 @@ public sealed class CodeMetaHead
     // The keys directly under `catzc`, as a Markdown meta block reads them.
     public IReadOnlyList<string> Sections => MarkdownMetaBlock.SectionKeys(metaBlock);
 
-    // The keys under `derived`.
-    public IReadOnlyList<string> DerivedKeys => MarkdownMetaBlock.DerivedKeys(metaBlock);
+    // The keys under `immutable`.
+    public IReadOnlyList<string> ImmutableKeys => MarkdownMetaBlock.ImmutableKeys(metaBlock);
 
-    // The items of one list under `derived`, as the head holds them.
-    public IReadOnlyList<string> DerivedList(string key) => MarkdownMetaBlock.DerivedList(metaBlock, key);
+    // The names of the edges under `edges`.
+    public IReadOnlyList<string> EdgeKeys => MarkdownMetaBlock.EdgeKeys(metaBlock);
+
+    // The items of one list edge, as the head holds them.
+    public IReadOnlyList<string> EdgeList(string key) => MarkdownMetaBlock.EdgeList(metaBlock, key);
 
     // The authored lines under `config`, as written.
     public IReadOnlyList<string> ConfigLines => MarkdownMetaBlock.ConfigLines(metaBlock);
@@ -114,11 +117,11 @@ public sealed class CodeMetaHead
         return new CodeMetaHead(form, newLine, before, rest, hasHead, block);
     }
 
-    // The whole text again with the head written from `derived` in the order given and the authored config kept; nothing to write removes the head.
-    public string WithFacts(IDictionary derived)
+    // The whole text again with the head written from the place facts and the edges in the order given and the authored config kept; nothing to write removes the head.
+    public string WithFacts(IDictionary immutable, IDictionary edges)
     {
         IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
-        IReadOnlyList<string> block = MarkdownMetaBlock.Render(derived, config);
+        IReadOnlyList<string> block = MarkdownMetaBlock.Render(immutable, edges, config);
         if (block.Count == 0) { return Before + Rest; }
         var text = new StringBuilder(Before);
         if (Before.Length > 0 && !Before.EndsWith("\n", StringComparison.Ordinal)) { text.Append(NewLine); }

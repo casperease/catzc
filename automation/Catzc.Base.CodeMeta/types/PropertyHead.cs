@@ -85,8 +85,11 @@ public sealed class PropertyHead
     // The keys directly under `catzc`, as a Markdown meta block reads them.
     public IReadOnlyList<string> Sections => MarkdownMetaBlock.SectionKeys(metaBlock);
 
-    // The keys under `derived`.
-    public IReadOnlyList<string> DerivedKeys => MarkdownMetaBlock.DerivedKeys(metaBlock);
+    // The keys under `immutable`.
+    public IReadOnlyList<string> ImmutableKeys => MarkdownMetaBlock.ImmutableKeys(metaBlock);
+
+    // The names of the edges under `edges`.
+    public IReadOnlyList<string> EdgeKeys => MarkdownMetaBlock.EdgeKeys(metaBlock);
 
     // The authored lines under `config`, as written.
     public IReadOnlyList<string> ConfigLines => MarkdownMetaBlock.ConfigLines(metaBlock);
@@ -144,11 +147,11 @@ public sealed class PropertyHead
         return new PropertyHead(property, text, newLine, members, open, close, headIndex, block, foreign);
     }
 
-    public string WithFacts(IDictionary derived)
+    public string WithFacts(IDictionary immutable, IDictionary edges)
     {
         if (!IsObject || Foreign) { return text; }
         IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
-        IReadOnlyList<string> block = MarkdownMetaBlock.Render(derived, config);
+        IReadOnlyList<string> block = MarkdownMetaBlock.Render(immutable, edges, config);
         if (block.Count == 0) { return headIndex >= 0 ? Without(headIndex) : text; }
         string indent = Indent();
         string member = Quote(Property) + ": " + Quote(string.Join("\n", block));

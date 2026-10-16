@@ -26,10 +26,11 @@ catzc:
       Text: The whole JSON file as text.
       Property: The name of the ignored top-level property that holds the block (e.g. // or $comment).
       Strip: Beginnings of old values of the property that are replaced.
-      Fact: The derived facts, an ordered dictionary of key to value; no facts removes the property.
+      Immutable: The place facts, an ordered dictionary of key to value.
+      Edges: The outgoing edges, an ordered dictionary of edge name to value; no facts and no edges removes the property.
     outputs: '[string] the whole text, with the property written first.'
     examples:
-      - Format-PropertyMetaHead -Text $text -Property '//' -Fact ([ordered]@{ path = 'widget/gadget.json'; kind = 'other' })
+      - Format-PropertyMetaHead -Text $text -Property '//' -Immutable ([ordered]@{ path = 'widget/gadget.json'; kind = 'other' })
 ---
 #>
 
@@ -46,8 +47,10 @@ function Format-PropertyMetaHead {
 
         [string[]] $Strip = @(),
 
-        [System.Collections.IDictionary] $Fact = [ordered]@{}
+        [System.Collections.IDictionary] $Immutable = [ordered]@{},
+
+        [System.Collections.IDictionary] $Edges = [ordered]@{}
     )
 
-    [Catzc.Base.CodeMeta.PropertyHead]::Parse($Text, $Property, $Strip).WithFacts($Fact)
+    [Catzc.Base.CodeMeta.PropertyHead]::Parse($Text, $Property, $Strip).WithFacts($Immutable, $Edges)
 }

@@ -403,7 +403,8 @@ concepts:
     contrasts:
       meta kind: A meta kind is a registry entry that says which derived fact goes into a head; a kind is the role one file plays.
       file language: A file language is the kind of text a file holds, named by its extension; a kind is what the file is for.
-      track: A track is the root folder a file lives in; a kind is the role it plays, wherever it lives.
+      track: A track is the cluster a file lives in; a kind is the role it plays, wherever it lives.
+      track type: A track type is the sort of cluster a file lives in; a kind is the role the file plays, wherever it lives.
       subkind: A subkind is one narrower role under a kind, and a file has at most one; a kind is the role itself.
       file type: A file type is how a file's name ends; a kind is the role the file plays.
   subkind:
@@ -427,14 +428,15 @@ concepts:
       subkind: A subkind is a narrower role, whatever the name; a file type is how a file's name ends.
   module type:
     key: module_type
-    domain: repository
-    defined_by: ADR-REPO-FILEMETA#12
+    domain: design
+    defined_by: ADR-DSGN-MODTYPE#2
     short:
-      What sort of module a file is placed in, named by the module-types registry, which says where modules of each type are found and how a
-      path in that place names its module.
+      The sort of module, named by the module-types registry, which says where modules of each type are found and how a path in that place
+      names its module.
     realized_by: { kind: prose-only }
     contrasts:
-      track: A track is a root folder and the concern it holds; a module type is the sort of module found at a place inside or across roots.
+      track: A track is the cluster of module contents and the concern it holds; a module type is the sort of module found at a place inside or across tracks.
+      track type: A track type is the sort of cluster a track is; a module type is the sort of module placed in it.
   bundle:
     key: bundle
     domain: automation

@@ -111,6 +111,17 @@ one row of the value-chain stack in one value-chain concern.
   - [world map](#world-map): The world map is a whole grid; a cell is one intersection of it, holding the files of one track in one file
     language.
 
+### deployable track
+
+A track whose type owns deployable-units — collections of its modules that the repository delivers through CI/CD.
+
+- **Defined by:** [ADR-DSGN-TRACKTYPE#2](design/track-types.md#rule-adr-dsgn-tracktype2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [deployable-unit](#deployable-unit): A deployable-unit is what ships; a deployable track is the track that owns it.
+  - [holder track](#holder-track): A holder track is itself a module and ships nothing of its own; a deployable track owns deployable-units.
+
 ### deployable-unit
 
 What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
@@ -121,10 +132,11 @@ What ships — a whole track or a reduced composition — bound one-to-one to it
 - **Contrasts:**
   - [bundle](#bundle): A bundle is one build of the toolset; a deployable-unit is what ships from the mono-repository, whichever way it is
     built.
+  - [deployable track](#deployable-track): A deployable track is the track that owns deployable-units; a deployable-unit is what ships.
   - [release candidate](#release-candidate): A release candidate is one commit's tagged, immutable build of a deployable-unit; a
     deployable-unit is the composition that ships, whichever commit is built.
-  - [track](#track): A track is a root concern, one root folder; a deployable-unit is what ships, composed from a whole track or a reduced
-    part of one.
+  - [track](#track): A track is a cluster of module contents; a deployable-unit is what ships, composed from a whole track or a reduced part
+    of one.
 
 ### file language
 
@@ -144,6 +156,17 @@ set of them.
   - [unlisted file](#unlisted-file): An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file
     language is a registered kind of text, named by its extensions.
 
+### holder track
+
+A track that is itself a module more than it owns modules — one vendor's, one tool's or one purpose's files, shipping nothing of its own.
+
+- **Defined by:** [ADR-DSGN-TRACKTYPE#2](design/track-types.md#rule-adr-dsgn-tracktype2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [deployable track](#deployable-track): A deployable track owns deployable-units delivered through CI/CD; a holder track holds files a
+    platform or tool reads.
+
 ### lit cell
 
 A cell a highlight selects — on the world map the cells of the files an ADR code or a file set names, on the value-chain map the cells an
@@ -156,6 +179,19 @@ ADR sits in.
   - [cell](#cell): A cell is any intersection of a map; a lit cell is one a highlight selects.
   - [stack violation](#stack-violation): A stack violation is a finding about a cell's files; a lit cell is a selection, made by a
     highlight, that never judges the cell.
+
+### module type
+
+The sort of module, named by the module-types registry, which says where modules of each type are found and how a path in that place names
+its module.
+
+- **Defined by:** [ADR-DSGN-MODTYPE#2](design/module-types.md#rule-adr-dsgn-modtype2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [track](#track): A track is the cluster of module contents and the concern it holds; a module type is the sort of module found at a
+    place inside or across tracks.
+  - [track type](#track-type): A track type is the sort of cluster a track is; a module type is the sort of module placed in it.
 
 ### occupant
 
@@ -173,6 +209,17 @@ The one commit an always-on environment holds, deployed there as its release can
 | `current occupant`  | occupant (the <environment> occupant) |
 | `current occupants` | occupants                             |
 | `resident commit`   | occupant                              |
+
+### place
+
+A path a track declares it covers — a root folder, a path inside one, or a tool's root folder; the longest place that contains a file names
+its track.
+
+- **Defined by:** [ADR-DSGN-TRACK#1](design/tracks.md#rule-adr-dsgn-track1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [track](#track): A track is the cluster of module contents; a place is one path the track covers.
 
 ### root file
 
@@ -202,24 +249,43 @@ A world-map cell holding a live file whose file language its track does not decl
 
 ### track
 
-A named repository root concern — one root folder, named by it, classified core, external port, adapter, or verification.
+A named, on-disk cluster of module contents — the tracked files of one concern, selected by the places the track declares, and of one track
+type.
 
 - **Defined by:** [ADR-DSGN-TRACK#1](design/tracks.md#rule-adr-dsgn-track1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
   - [deployable-unit](#deployable-unit): A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is
-    the root concern itself, one root folder.
-  - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the root folder
-    the file lives in, and its tech-stack is a set of file languages.
-  - [kind](#kind): A kind is the role a file plays, wherever it lives; a track is the root folder the file lives in.
-  - [module type](#module-type): A module type is the sort of module found at a place; a track is a root folder and the concern it holds.
-  - [root file](#root-file): A root file is a tracked file no track holds, at the repository root or under out/; a track is a root folder
-    and every file under it.
-  - [value-chain concern](#value-chain-concern): A value-chain concern is where along delivery a decision acts; a track is a root concern,
-    the root folder where files live.
-  - [verification track](#verification-track): A verification track is one class of track — test-only, shipping nothing; a track is any root
-    concern.
+    the cluster of module contents itself.
+  - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the cluster the
+    file lives in, and its tech-stack is a set of file languages.
+  - [kind](#kind): A kind is the role a file plays, wherever it lives; a track is the cluster the file lives in.
+  - [module type](#module-type): A module type is the sort of module found at a place; a track is a cluster of places and the concern it
+    holds.
+  - [place](#place): A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
+  - [root file](#root-file): A root file is a tracked file no track holds, at the repository root or under out/; a track is a cluster of
+    places and every file under them.
+  - [track type](#track-type): A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
+  - [value-chain concern](#value-chain-concern): A value-chain concern is where along delivery a decision acts; a track is a concern of the
+    repository, the cluster where files live.
+  - [verification track](#verification-track): A verification track is one type of track — test-only, shipping nothing; a track is any
+    cluster of module contents.
+
+### track type
+
+The sort of cluster a track is, one of a closed set — modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts,
+documentation, verification, or unordered.
+
+- **Defined by:** [ADR-DSGN-TRACKTYPE#1](design/track-types.md#rule-adr-dsgn-tracktype1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [kind](#kind): A kind is the role a file plays; a track type is the sort of cluster the file lives in.
+  - [module type](#module-type): A module type is the sort of module placed in a track; a track type is the sort of track, and admits module
+    types.
+  - [track](#track): A track is the named cluster of module contents; a track type is the sort it is, declared once for every track of that
+    sort.
 
 ### unlisted file
 
@@ -274,6 +340,27 @@ The ordered rows a decision sits on, from the axioms down to the vendor — PRIN
     value-chain stack orders decisions, not files.
   - [value-chain concern](#value-chain-concern): A value-chain concern is a column, where along delivery an ADR acts; the value-chain stack
     is the rows, how general the decision is.
+
+### vendor
+
+The platform or tool that reads a track's files, from a closed set declared once — never the third party that wrote them.
+
+- **Defined by:** [ADR-DSGN-TRACKTYPE#3](design/track-types.md#rule-adr-dsgn-tracktype3)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [vendored code](#vendored-code): Vendored code is written by a third party and the repository does not author it; a vendor is the
+    platform that reads a track's files.
+
+### vendored code
+
+Code written by a third party that the repository does not author, held in a track of its own nested under another track's root.
+
+- **Defined by:** [ADR-DSGN-TRACKTYPE#7](design/track-types.md#rule-adr-dsgn-tracktype7)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [vendor](#vendor): A vendor is the platform that reads a track's files; vendored code is code written by a third party.
 
 ### verification track
 
@@ -893,7 +980,8 @@ language, track or module.
   - [meta kind](#meta-kind): A meta kind is a registry entry that says which derived fact goes into a head; a kind is the role one file
     plays.
   - [subkind](#subkind): A subkind is one narrower role under a kind, and a file has at most one; a kind is the role itself.
-  - [track](#track): A track is the root folder a file lives in; a kind is the role it plays, wherever it lives.
+  - [track](#track): A track is the cluster a file lives in; a kind is the role it plays, wherever it lives.
+  - [track type](#track-type): A track type is the sort of cluster a file lives in; a kind is the role the file plays, wherever it lives.
 
 ### language zone
 
@@ -971,18 +1059,6 @@ files, with the files it applies to, the keys it owns and, for a gather kind, th
   - [kind](#kind): A kind is the role one file plays; a meta kind is a registry entry that says which derived fact goes into a head.
   - [meta block](#meta-block): The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block
     across files.
-
-### module type
-
-What sort of module a file is placed in, named by the module-types registry, which says where modules of each type are found and how a path
-in that place names its module.
-
-- **Defined by:** [ADR-REPO-FILEMETA#12](repository/file-meta.md#rule-adr-repo-filemeta12)
-- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
-- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
-- **Contrasts:**
-  - [track](#track): A track is a root folder and the concern it holds; a module type is the sort of module found at a place inside or
-    across roots.
 
 ### provided contract
 

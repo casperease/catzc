@@ -27,7 +27,8 @@ concepts:
         A release candidate is one commit's tagged, immutable build of a deployable-unit; a deployable-unit is the composition that ships,
         whichever commit is built.
       track:
-        A track is a root concern, one root folder; a deployable-unit is what ships, composed from a whole track or a reduced part of one.
+        A track is a cluster of module contents; a deployable-unit is what ships, composed from a whole track or a reduced part of one.
+      deployable track: A deployable track is the track that owns deployable-units; a deployable-unit is what ships.
       bundle: A bundle is one build of the toolset; a deployable-unit is what ships from the mono-repository, whichever way it is built.
   release candidate:
     key: release_candidate
@@ -77,23 +78,76 @@ concepts:
     key: track
     domain: design
     defined_by: ADR-DSGN-TRACK#1
-    short: A named repository root concern — one root folder, named by it, classified core, external port, adapter, or verification.
+    short: A named, on-disk cluster of module contents — the tracked files of one concern, selected by the places the track declares, and of one track type.
     realized_by: { kind: prose-only }
     contrasts:
-      verification track: A verification track is one class of track — test-only, shipping nothing; a track is any root concern.
+      verification track: A verification track is one type of track — test-only, shipping nothing; a track is any cluster of module contents.
       deployable-unit:
-        A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is the root concern itself, one root
-        folder.
+        A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is the cluster of module contents
+        itself.
       file language:
-        A file language is the kind of text a file holds, named by its extension; a track is the root folder the file lives in, and its
+        A file language is the kind of text a file holds, named by its extension; a track is the cluster the file lives in, and its
         tech-stack is a set of file languages.
       root file:
-        A root file is a tracked file no track holds, at the repository root or under out/; a track is a root folder and every file under
-        it.
+        A root file is a tracked file no track holds, at the repository root or under out/; a track is a cluster of places and every file
+        under them.
       value-chain concern:
-        A value-chain concern is where along delivery a decision acts; a track is a root concern, the root folder where files live.
-      kind: A kind is the role a file plays, wherever it lives; a track is the root folder the file lives in.
-      module type: A module type is the sort of module found at a place; a track is a root folder and the concern it holds.
+        A value-chain concern is where along delivery a decision acts; a track is a concern of the repository, the cluster where files live.
+      kind: A kind is the role a file plays, wherever it lives; a track is the cluster the file lives in.
+      module type: A module type is the sort of module found at a place; a track is a cluster of places and the concern it holds.
+      track type: A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
+      place: A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
+  track type:
+    key: track_type
+    domain: design
+    defined_by: ADR-DSGN-TRACKTYPE#1
+    short: The sort of cluster a track is, one of a closed set — modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts, documentation, verification, or unordered.
+    realized_by: { kind: prose-only }
+    contrasts:
+      track: A track is the named cluster of module contents; a track type is the sort it is, declared once for every track of that sort.
+      module type: A module type is the sort of module placed in a track; a track type is the sort of track, and admits module types.
+      kind: A kind is the role a file plays; a track type is the sort of cluster the file lives in.
+  deployable track:
+    key: deployable_track
+    domain: design
+    defined_by: ADR-DSGN-TRACKTYPE#2
+    short: A track whose type owns deployable-units — collections of its modules that the repository delivers through CI/CD.
+    realized_by: { kind: prose-only }
+    contrasts:
+      holder track: A holder track is itself a module and ships nothing of its own; a deployable track owns deployable-units.
+      deployable-unit: A deployable-unit is what ships; a deployable track is the track that owns it.
+  holder track:
+    key: holder_track
+    domain: design
+    defined_by: ADR-DSGN-TRACKTYPE#2
+    short: A track that is itself a module more than it owns modules — one vendor's, one tool's or one purpose's files, shipping nothing of its own.
+    realized_by: { kind: prose-only }
+    contrasts:
+      deployable track: A deployable track owns deployable-units delivered through CI/CD; a holder track holds files a platform or tool reads.
+  vendor:
+    key: vendor
+    domain: design
+    defined_by: ADR-DSGN-TRACKTYPE#3
+    short: The platform or tool that reads a track's files, from a closed set declared once — never the third party that wrote them.
+    realized_by: { kind: prose-only }
+    contrasts:
+      vendored code: Vendored code is written by a third party and the repository does not author it; a vendor is the platform that reads a track's files.
+  vendored code:
+    key: vendored_code
+    domain: design
+    defined_by: ADR-DSGN-TRACKTYPE#7
+    short: Code written by a third party that the repository does not author, held in a track of its own nested under another track's root.
+    realized_by: { kind: prose-only }
+    contrasts:
+      vendor: A vendor is the platform that reads a track's files; vendored code is code written by a third party.
+  place:
+    key: place
+    domain: design
+    defined_by: ADR-DSGN-TRACK#1
+    short: A path a track declares it covers — a root folder, a path inside one, or a tool's root folder; the longest place that contains a file names its track.
+    realized_by: { kind: prose-only }
+    contrasts:
+      track: A track is the cluster of module contents; a place is one path the track covers.
   root file:
     key: root_file
     domain: design
