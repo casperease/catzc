@@ -354,7 +354,7 @@ Six areas with retention numbers in the draft. Options: a) accept the table; b) 
 
 ### Q72 Session scratch placement
 
-Options: a) out/sessions/<session>/; b) flat out/scratch/. Decision:
+Options: a) out/sessions/<\session>/; b) flat out/scratch/. Decision:
 
 ### Q73 time-safeguard.log
 
@@ -630,3 +630,80 @@ one shared; c) leave open. Decision:
 The plans rules (short, current, checked, deleted when done) could be grounded in reduce waste, poka-yoke or one living version. Options: a)
 reduce waste, a stale plan is waste; b) poka-yoke, the gate makes a stale plan impossible; c) one living version, a plan is the one current
 statement of its topic; d) cite all three. Decision:
+
+## O. Minimal-Robots (plan-minimal-robots and its two catalogues)
+
+### Q127 Robot roof counting
+
+A robot's body is everything after the closing `---` of the front matter. The 20-line roof (`roofs.agent_body_lines`) can count the body
+only, or body plus front matter minus the catzc head. The front matter is fixed by rule 4; only `description` varies in length. Options:
+a) body only, and the gate caps `description` at 3 lines; b) body plus front matter minus the catzc head. Decision:
+
+### Q128 Capability roof
+
+A capability is at most N lines outside its catzc head, front matter and body together (`roofs.capability_lines`). The built
+drawio.renderer, with `paths:` and `needs:` set and a 3-step body, is 8 front-matter lines (delimiters included) plus 3 body lines, 11 by
+the plan's own count, though the plan says 10. Options: a) 10, the body shrinks when `paths:` is set; b) 12, so `paths:`, `needs:` and a
+3-step body fit together; c) count the body only, as for robots, with the front matter fixed by rule. Decision:
+
+### Q129 ADR home for capabilities
+
+The shape rules and the capabilities section need an ADR home. A capability is part of an agent's definition. Options: a) amend
+ADR-REPO-AGENTS with rules 6 to 12 and a Capabilities context section; b) a new ADR-REPO-CAPS beside it. Decision:
+
+### Q130 Capability name form
+
+The five built capabilities use dotted names, `<domain>.<job>`, which is a valid skill folder name. Options: a) dotted, and the gate
+enforces `^[a-z]+(\.[a-z-]+)+$` for capabilities and `^[a-z-]+$` for agents; b) hyphenated like agents. Decision:
+
+### Q131 drawio-diagram-waves in 20 lines
+
+The waves lead orchestrates up to 12 makers with the Agent tool; its scout, rank, make protocol does not fit 20 lines. Options: a) the
+protocol becomes the `drawio.waves` capability (floor sonnet), the makers become the drawio-png robot, the lead body is the loop; b) split
+into a lead robot and a maker robot, each under the roof; c) exempt the lead from the roof. Decision:
+
+### Q132 Effort and maxTurns as a cost brake
+
+Every built robot sets `effort` and `maxTurns`. Options: a) set both on every robot, the maxTurns per robot in the agents catalogue;
+b) leave both to the harness default; c) set `effort` only. Decision:
+
+### Q133 drawio-png and write-drawio-files
+
+drawio-png talks to the user and verifies one slide; write-drawio-files edits labels and styles in batch on a brief. Once drawio-png loads
+`drawio.model-edit` it could do both. Options: a) two jobs, two robots (ADR-REPO-AGENTS#4); b) drawio-png absorbs write-drawio-files.
+Decision:
+
+### Q134 adr-reviewer model
+
+adr-reviewer weighs a rule's prose against code; the catalogue says haiku misreads the ADR corpus. It is the one recommended robot above
+haiku. Options: a) sonnet from the start, with a `model_reason` in the registry; b) haiku first, promote on evidence. Decision:
+
+### Q135 Agent name form
+
+The user's "Drawio.png agent" was built as `drawio-png`: the file name is the agent name, lower case, hyphenated. Options: a) confirm;
+b) another form (say which). Decision:
+
+### Q136 Capability floors
+
+Every recommended capability sits at haiku; drawio.waves, test.speed and the plan.* ones sit at sonnet. Raising adr.cite to sonnet
+pushes catzc-worker to sonnet by the floor rule (it is proposed at sonnet anyway). Options: a) keep the floors as catalogued; b) raise
+adr.cite to sonnet. Decision:
+
+### Q137 report.fixed
+
+Every robot loads report.fixed, three lines that say what the fixed report contains. Options: a) keep it a capability, so the report shape
+is written once; b) fold its three lines into rule 7 and each robot body. Decision:
+
+### Q138 paths on capabilities
+
+`paths:` pins a skill's auto-activation to a file family and keeps the main session from loading it unasked. Options: a) set it on every
+capability about a file family (drawio.*, plan.*, md.links), off on report.fixed and catzc.run; b) on every capability; c) on none.
+Decision:
+
+### Q139 What lands next
+
+Phase 2 ran ahead of Phase 1 on the user's go. Today: four built robots preload capabilities that do not exist yet (catzc.run,
+report.fixed, git.readonly, md.links), so they run without them; the three plan robots and four plan capabilities carry no catzc head;
+drawio-png lists three skills where the catalogue says four; the gate checks none of the new shape. Options: a) build the four missing
+shared capabilities first so the built robots are whole, then Phase 1; b) Phase 1 now, the missing capabilities as its first targets;
+c) keep going on Phase 2 and 3 rewrites, Phase 1 later. Decision:
