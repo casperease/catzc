@@ -26,6 +26,7 @@ catzc:
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Variants;
@@ -250,29 +251,43 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
 
-            string root = Has(entry, "root") ? Text(entry["root"]) : "";
-            if (string.IsNullOrWhiteSpace(root))
+            List<string> places = new List<string>();
+            foreach (object item in Items(Has(entry, "places") ? entry["places"] : null))
             {
-                errors.Add(string.Format("tracks['{0}'] needs a non-empty root folder", name));
+                string place = Text(item);
+                if (!PlacePath.IsMatch(place) || place.Split('/').Any(s => s == "." || s == ".."))
+                {
+                    errors.Add(string.Format("tracks['{0}']: invalid place '{1}' (a repository-relative path with '/' separators, e.g. automation or .github/workflows)", name, place));
+                }
+                else if (place == "out" || place.StartsWith("out/", StringComparison.OrdinalIgnoreCase))
+                {
+                    errors.Add(string.Format("tracks['{0}']: place '{1}' is gitignored output, never a track (ADR-DSGN-TRACK#1)", name, place));
+                }
+                else if (placeOwner.ContainsKey(place))
+                {
+                    errors.Add(string.Format("tracks['{0}']: place '{1}' is already a place of track '{2}' (a place belongs to one track)", name, place, placeOwner[place]));
+                }
+                else
+                {
+                    placeOwner[place] = name;
+                    places.Add(place);
+                }
             }
-            else if (!RootFolder.IsMatch(root) || root == "." || root == "..")
+            if (places.Count == 0)
             {
-                errors.Add(string.Format("tracks['{0}']: invalid root '{1}' (one root folder segment, e.g. automation or .github)", name, root));
+                errors.Add(string.Format("tracks['{0}'] needs at least one place", name));
             }
-            else if (string.Equals(root, "out", StringComparison.OrdinalIgnoreCase))
-            {
-                errors.Add(string.Format("tracks['{0}']: root 'out' is gitignored output, never a track (ADR-DSGN-TRACK#1)", name));
-            }
-            else if (rootOwner.ContainsKey(root))
-            {
-                errors.Add(string.Format("tracks['{0}']: root '{1}' is already the root of track '{2}' (a root carries one track)", name, root, rootOwner[root]));
-            }
-            else { rootOwner[root] = name; }
 
-            string trackClass = Has(entry, "class") ? Text(entry["class"]) : "";
-            if (Array.IndexOf(VariantTrack.Classes, trackClass) < 0)
+            string trackType = Has(entry, "type") ? Text(entry["type"]) : "";
+            if (!TrackTypeName.IsMatch(trackType))
             {
-                errors.Add(string.Format("tracks['{0}']: invalid class '{1}' (valid: {2})", name, trackClass, string.Join(", ", VariantTrack.Classes)));
+                errors.Add(string.Format("tracks['{0}']: invalid type '{1}' (the id of a track type of the track-types registry)", name, trackType));
+            }
+
+            string vendor = Has(entry, "vendor") ? Text(entry["vendor"]) : "";
+            if (Has(entry, "vendor") && !TrackTypeName.IsMatch(vendor))
+            {
+                errors.Add(string.Format("tracks['{0}']: invalid vendor '{1}' (the id of a vendor of the track-types registry)", name, vendor));
             }
 
             List<string> languages = new List<string>();
@@ -290,7 +305,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 else { languages.Add(language); }
             }
 
-            result.Add(new VariantTrack(name, root, trackClass, languages.ToArray()));
+            result.Add(new VariantTrack(name, places.ToArray(), trackType, vendor, languages.ToArray()));
         }
         return result;
     }

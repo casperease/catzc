@@ -112,67 +112,75 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*duplicate aspect 'tests'*"
         }
 
-        It 'accepts tracks in declared order, with languages defaulting to none' {
+        It 'accepts tracks in declared order, with a vendor and languages optional' {
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
-                        widget    = [ordered]@{ root = 'widget'; class = 'core'; languages = @('widget-lang', 'gadget-lang') }
-                        '.gadget' = [ordered]@{ root = '.gadget'; class = 'external-port' }
+                        widget    = [ordered]@{ places = @('widget'); type = 'widget-works'; languages = @('widget-lang', 'gadget-lang') }
+                        '.gadget' = [ordered]@{ places = @('.gadget', '.gadget/deep'); type = 'gadget-shelf'; vendor = 'gizmo' }
                     }
                 })
             $config.tracks.name | Should -Be @('widget', '.gadget')
             $config.tracks[0] | Should -BeOfType [Catzc.Base.Variants.VariantTrack]
-            $config.tracks[0].root | Should -Be 'widget'
-            $config.tracks[0].class | Should -Be 'core'
+            $config.tracks[0].places | Should -Be @('widget')
+            $config.tracks[0].type | Should -Be 'widget-works'
+            $config.tracks[0].vendor | Should -BeNullOrEmpty
             $config.tracks[0].languages | Should -Be @('widget-lang', 'gadget-lang')
+            $config.tracks[1].places | Should -Be @('.gadget', '.gadget/deep')
+            $config.tracks[1].vendor | Should -Be 'gizmo'
             $config.tracks[1].languages.Count | Should -Be 0
         }
 
-        It 'accepts every class of the closed set' {
-            foreach ($class in [Catzc.Base.Variants.VariantTrack]::Classes) {
-                (& $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ root = 'widget'; class = $class } } })).tracks[0].class |
-                    Should -Be $class
-            }
+        It 'gives the length of the longest place that contains a path, and -1 when none does' -ForEach @(
+            @{ Path = 'widget/a/b.txt'; Length = 6 }
+            @{ Path = 'widget'; Length = 6 }
+            @{ Path = 'widget/deep/b.txt'; Length = 11 }
+            @{ Path = 'widgets/a.txt'; Length = -1 }
+            @{ Path = 'gadget/a.txt'; Length = -1 }
+        ) {
+            $config = & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget', 'widget/deep'); type = 'widget-works' } } })
+            $config.tracks[0].PlaceLengthOf($Path) | Should -Be $Length
         }
 
-        It 'throws on a class outside the closed set' {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ root = 'widget'; class = 'gizmo' } } }) } |
-                Should -Throw "*invalid class 'gizmo'*"
+        It 'throws on a missing or malformed type' {
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget') } } }) } | Should -Throw "*invalid type ''*"
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget'); type = 'Core' } } }) } | Should -Throw "*invalid type 'Core'*"
         }
 
-        It 'throws on a missing class' {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ root = 'widget' } } }) } | Should -Throw "*invalid class ''*"
+        It 'throws on a malformed vendor' {
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget'); type = 'widget-works'; vendor = 'Gizmo' } } }) } |
+                Should -Throw "*invalid vendor 'Gizmo'*"
         }
 
-        It 'throws on a root two tracks share' {
+        It 'throws on a place two tracks share' {
             $config = [ordered]@{ tracks = [ordered]@{
-                    widget = [ordered]@{ root = 'widget'; class = 'core' }
-                    gadget = [ordered]@{ root = 'widget'; class = 'adapter' }
+                    widget = [ordered]@{ places = @('widget'); type = 'widget-works' }
+                    gadget = [ordered]@{ places = @('widget'); type = 'gadget-shelf' }
                 }
             }
-            { & $script:make $config } | Should -Throw "*root 'widget' is already the root of track 'widget'*"
+            { & $script:make $config } | Should -Throw "*place 'widget' is already a place of track 'widget'*"
         }
 
-        It 'throws on an empty or missing root' {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ root = ''; class = 'core' } } }) } |
-                Should -Throw '*needs a non-empty root folder*'
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ class = 'core' } } }) } |
-                Should -Throw '*needs a non-empty root folder*'
+        It 'throws on an empty or missing places list' {
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @(); type = 'widget-works' } } }) } |
+                Should -Throw '*needs at least one place*'
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ type = 'widget-works' } } }) } |
+                Should -Throw '*needs at least one place*'
         }
 
-        It 'throws on a root that is not one folder segment' {
-            foreach ($root in 'widget/gadget', '..') {
-                { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ root = $root; class = 'core' } } }) } |
-                    Should -Throw '*invalid root*'
+        It 'throws on a place that is not a clean relative path' {
+            foreach ($place in 'widget/', '/widget', 'widget//gadget', '..', 'widget/../gadget') {
+                { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @($place); type = 'widget-works' } } }) } |
+                    Should -Throw '*invalid place*'
             }
         }
 
-        It 'throws on the out root (gitignored output, never a track)' {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ root = 'out'; class = 'core' } } }) } |
-                Should -Throw "*root 'out' is gitignored output*"
+        It 'throws on the out place (gitignored output, never a track)' {
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('out/deep'); type = 'widget-works' } } }) } |
+                Should -Throw "*place 'out/deep' is gitignored output*"
         }
 
         It 'throws on an unknown track key, a bad language name, and a duplicate language' {
             $config = [ordered]@{ tracks = [ordered]@{
-                    widget = [ordered]@{ root = 'widget'; class = 'core'; languages = @('Gadget', 'widget-lang', 'widget-lang'); colour = 'blue' }
+                    widget = [ordered]@{ places = @('widget'); type = 'widget-works'; languages = @('Gadget', 'widget-lang', 'widget-lang'); colour = 'blue' }
                 }
             }
             $err = { & $script:make $config } | Should -Throw -PassThru
@@ -181,10 +189,17 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*duplicate language 'widget-lang'*"
         }
 
+        It 'refuses the removed root and class keys' {
+            $err = { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget'); type = 'widget-works'; root = 'widget'; class = 'core' } } }) } |
+                Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*unknown key 'root'*"
+            $err.Exception.Message | Should -BeLike "*unknown key 'class'*"
+        }
+
         It 'throws when tracks is empty, not a map, or holds a non-map entry' {
             { & $script:make ([ordered]@{ tracks = [ordered]@{} }) } | Should -Throw '*at least one track*'
             { & $script:make ([ordered]@{ tracks = @('widget') }) } | Should -Throw '*invalid tracks*'
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = 'widget' } }) } | Should -Throw '*must be a mapping { root, class, languages }*'
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = 'widget' } }) } | Should -Throw '*must be a mapping { places, type, vendor, languages }*'
         }
 
         It 'reports every violation in one throw' {
