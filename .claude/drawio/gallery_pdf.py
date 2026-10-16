@@ -19,6 +19,11 @@
 """Write a gallery PDF: every diagram output as image pages, for readers without an HTML viewer.
 
 usage: uv run -q --with pillow python .claude/drawio/gallery_pdf.py [<slides-dir>]
+       uv run -q --with pillow python .claude/drawio/gallery_pdf.py --assets [<assets-dir>] [--no-text]
+
+Assets mode writes out/diagrams/assets-gallery.pdf: every PNG under <assets-dir> (default docs/.assets) in path order, captioned
+with its folder, each followed by its same-stem markdown companion (X.drawio.png -> X.drawio.md, X.chain.png -> X.chain.md) as a
+text page; --no-text leaves the text pages out (the full PDF with them is large).
 
 With no argument it reads out/diagrams/fan-out and writes out/diagrams/gallery.pdf. With a slides dir (e.g. out/diagrams/wave-5) it
 writes <slides-dir>/gallery.pdf.
@@ -158,19 +163,38 @@ def markdown_page(path, section):
     return caption(img, path, section)
 
 
-slides_dir = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "fan-out"
-target = (ROOT / "gallery.pdf") if len(sys.argv) == 1 else slides_dir / "gallery.pdf"
-items = [(p, "World map", page) for p in sorted(slides_dir.glob("world-map.*.png"))]
-if len(sys.argv) == 1:
-    items += [(p, "Lens sheet", page) for p in sorted(ROOT.glob("lenses/*/*.sheet.png"))]
-for p in sorted(slides_dir.rglob("*.drawio.png"), key=lambda q: q.name):
-    stem = p.name[: -len(".drawio.png")]
-    folder = p.parent
-    items.append((p, "Slide", page))
-    items += [(m, "Minimap", page) for m in (folder / f"{stem}.{view}.png" for view in ("grid", "tree", "chain")) if m.exists()]
-    items += [(m, label, markdown_page) for m, label in ((folder / f"{stem}.md", "Presentation"),
-                                                         (folder / f"{stem}.drawio.md", "Visual description"))
-              if m.exists()]
+def assets_items(assets_dir, with_text):
+    """Every PNG under the assets dir in path order, each followed by its same-stem markdown companion (X.drawio.png -> X.drawio.md)."""
+    items = []
+    for p in sorted(assets_dir.rglob("*.png")):
+        section = p.parent.relative_to(assets_dir).as_posix()
+        items.append((p, section if section != "." else assets_dir.name, page))
+        companion = p.with_suffix(".md")
+        if with_text and companion.exists():
+            items.append((companion, "Description", markdown_page))
+    return items
+
+
+args = [a for a in sys.argv[1:] if not a.startswith("--")]
+if "--assets" in sys.argv:
+    assets_dir = Path(args[0]) if args else Path("docs/.assets")
+    target = ROOT / "assets-gallery.pdf"
+    items = assets_items(assets_dir, "--no-text" not in sys.argv)
+else:
+    slides_dir = Path(args[0]) if args else ROOT / "fan-out"
+    target = (ROOT / "gallery.pdf") if not args else slides_dir / "gallery.pdf"
+    items = [(p, "World map", page) for p in sorted(slides_dir.glob("world-map.*.png"))]
+    if not args:
+        items += [(p, "Lens sheet", page) for p in sorted(ROOT.glob("lenses/*/*.sheet.png"))]
+    for p in sorted(slides_dir.rglob("*.drawio.png"), key=lambda q: q.name):
+        stem = p.name[: -len(".drawio.png")]
+        folder = p.parent
+        items.append((p, "Slide", page))
+        items += [(m, "Minimap", page) for m in (folder / f"{stem}.{view}.png" for view in ("grid", "tree", "chain")) if m.exists()]
+        items += [(m, label, markdown_page) for m, label in ((folder / f"{stem}.md", "Presentation"),
+                                                             (folder / f"{stem}.drawio.md", "Visual description"))
+                  if m.exists()]
+target.parent.mkdir(parents=True, exist_ok=True)
 pages = [render(p, s) for p, s, render in items]
 pages[0].save(target, "PDF", save_all=True, append_images=pages[1:], resolution=150)
 print(f"ok {target} pages={len(pages)}")
