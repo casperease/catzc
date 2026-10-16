@@ -197,6 +197,35 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*unknown key 'class'*"
         }
 
+        It 'reads a track''s execution engines and a module''s override, and leaves both empty when unnamed' -Tag 'ADR-AUTO-MODULE#4' {
+            $config = & $script:make ([ordered]@{ tracks = [ordered]@{
+                        widget = [ordered]@{ places = @('widget'); type = 'widget-works'; execution_engines = @('pwsh'); module_execution_engines = [ordered]@{ Widget_Gadget = @('pwsh', 'bash') } }
+                        gadget = [ordered]@{ places = @('gadget'); type = 'widget-works' }
+                    } })
+            $config.tracks[0].execution_engines | Should -Be @('pwsh')
+            $config.tracks[0].EnginesOf('Widget_Gadget') | Should -Be @('pwsh', 'bash')
+            $config.tracks[0].EnginesOf('Widget_Other') | Should -Be @('pwsh')
+            @($config.tracks[1].execution_engines) | Should -HaveCount 0
+            @($config.tracks[1].EnginesOf('Widget_Gadget')) | Should -HaveCount 0
+            @($config.tracks[1].module_execution_engines.Keys) | Should -HaveCount 0
+        }
+
+        It 'throws on an engine outside the closed set, a duplicate engine, and an override that is empty, repeats the track, or is not a map' -Tag 'ADR-AUTO-MODULE#4' {
+            $err = { & $script:make ([ordered]@{ tracks = [ordered]@{
+                            widget = [ordered]@{ places = @('widget'); type = 'widget-works'; execution_engines = @('pwsh', 'pwsh', 'fish')
+                                module_execution_engines = [ordered]@{ A = @(); B = @('pwsh', 'pwsh') } }
+                        } }) } | Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*unknown execution engine 'fish'*"
+            $err.Exception.Message | Should -BeLike "*duplicate execution engine 'pwsh'*"
+            $err.Exception.Message | Should -BeLike "*module_execution_engines['A'] must name at least one engine*"
+            { & $script:make ([ordered]@{ tracks = [ordered]@{
+                            widget = [ordered]@{ places = @('widget'); type = 'widget-works'; execution_engines = @('pwsh', 'bash'); module_execution_engines = [ordered]@{ A = @('pwsh', 'bash') } }
+                        } }) } | Should -Throw "*repeats the track's engines*"
+            { & $script:make ([ordered]@{ tracks = [ordered]@{
+                            widget = [ordered]@{ places = @('widget'); type = 'widget-works'; module_execution_engines = @('A') }
+                        } }) } | Should -Throw '*module_execution_engines must be a map*'
+        }
+
         It 'throws when tracks is empty, not a map, or holds a non-map entry' {
             { & $script:make ([ordered]@{ tracks = [ordered]@{} }) } | Should -Throw '*at least one track*'
             { & $script:make ([ordered]@{ tracks = @('widget') }) } | Should -Throw '*invalid tracks*'
