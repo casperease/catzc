@@ -26,7 +26,7 @@ catzc:
       A link from the editor's extensions folder into the repository is not the install: the editor would write the extension's files
       through the link into the working tree. Remove such a link first.
     parameters:
-      Name: The extension folder names to install. Default: every folder of .vscode that holds a package.json.
+      Name: 'The extension folder names to install. Default: every folder of .vscode that holds a package.json.'
     outputs: '[string[]] The .vsix files that were installed.'
     examples:
       - Install-VSCodeExtension
