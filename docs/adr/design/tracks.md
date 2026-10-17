@@ -187,10 +187,11 @@ column names are the value-chain concerns.
 
 ### Rule ADR-DSGN-TRACK:17
 
-The **unordered track** (`.unordered`, class `unordered`) holds fragments frozen at the moment they were committed, such as finished plans,
-and it is not part of the system. No command, default, glob, gate, generator, or agent reads, writes, or falls back to it unless a person
-names it, and nothing depends on a file in it, because the track may be emptied at any time and `git log` keeps its history. It holds no
-active work: the running session's scratch lives in `out/`, and an active plan is `out/plan-<topic>.md`.
+The **unordered track** (`.unordered`, class `unordered`) holds fragments frozen at the moment they were committed, such as finished plans;
+a **note** is one such fragment, the file kind of everything the track holds, and the track is not part of the system. No command, default,
+glob, gate, generator, or agent reads, writes, or falls back to it unless a person names it, and nothing depends on a file in it, because
+the track may be emptied at any time and `git log` keeps its history. It holds no active work: the running session's scratch lives in
+`out/`, and an active plan lives in `.claude/plans/` ([plans](../repository/plans.md)).
 
 - [The unordered track](#the-unordered-track)
 

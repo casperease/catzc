@@ -1,0 +1,32 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-THES-ONETRUTH#6
+  config:
+    pattern: table
+    deck: product-thesis
+    order: 7
+---
+
+# Service management follows delivery, never the reverse
+
+## Eyebrow
+
+ADR-THES-ONETRUTH#6 · Mechanics
+
+## Rows
+
+| Process       | Where it lives in cats                      |
+| ------------- | ------------------------------------------- |
+| Change record | The commit and its review                   |
+| Approval      | A step in the one change process            |
+| Audit         | The history, read through the query surface |
+
+## Body
+
+A process that keeps its own model of delivery recreates the disjoint store the thesis removes.
+
+## Notes
+
+Rule six. Change management, approvals and audit read the repository and act through its one change process.

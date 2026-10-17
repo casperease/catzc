@@ -27,6 +27,7 @@ catzc:
       - docs/explanation/glyphs.drawio.md
       - docs/explanation/pipelines/index.md
       - docs/explanation/repository/index.md
+      - docs/explanation/thesis/index.md
       - docs/how-to/getting-started/automation/index.md
       - docs/references/automation/index.md
 ---
@@ -93,3 +94,4 @@ The articles are grouped by the ADR domain of the decision they explain:
 - [Flow](flow/index.md) — promotion, the pipeline runner, and the globsets that trigger pipelines.
 - [Pipelines](pipelines/index.md) — how Azure DevOps calls prove their credentials.
 - [Repository](repository/index.md) — how managed root files and repository variants are kept in shape.
+- [Thesis](thesis/index.md) — the product thesis as a deck of slide files.

@@ -19,7 +19,7 @@
 
 module_types:
   pwsh-folder:
-    definition: A PowerShell module that is a folder of function files under ex. automation, named by the folder.
+    definition: A PowerShell module that is a folder of function files under the track folder, named by the folder.
     places:
       - { root: automation, name: folder }
       - { root: automation/.internal, name: folder, prefix: Catzc.Internal. }

@@ -68,10 +68,10 @@ that type ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto
 (`imprint` writes derived facts into the file, `gather` reads config contributions out of it), the files it applies to, the keys it owns and
 their order, and, for a gather kind, the config it feeds. Globs live in one place: the registry's ordered `classes`, where a file is the
 first class whose globs match it, or `other`; an earlier class that takes most of a later class's files does so on purpose, and the registry
-lists the pair in `overlaps`. A kind selects files by class and language (`select`, entries of `classes` with at most one
-`*` and `languages` from the file-language registry) and never by glob, and a kind that selects nothing applies to every file, such as the
-path. A setting that names files does so by class too, and defaults to the classes its kind selects. The carrier registry decides which
-files carry a block at all. Which kinds exist is data, never a list inside an engine.
+lists the pair in `overlaps`. A kind selects files by class and language (`select`, entries of `classes` with at most one `*` and
+`languages` from the file-language registry) and never by glob, and a kind that selects nothing applies to every file, such as the path. A
+setting that names files does so by class too, and defaults to the classes its kind selects. The carrier registry decides which files carry
+a block at all. Which kinds exist is data, never a list inside an engine.
 
 - [The meta-kind registry](#the-meta-kind-registry)
 
@@ -178,8 +178,7 @@ name without its file type, in kebab case) and `filetype`, and reading them asse
 anything else stops the run. The kinds, their one-sentence definitions and the globs that select them are one registry, `file-kinds.yml`,
 local to catzc and global to every file: the first kind whose globs match a path names it, a path no kind selects is `other`, an earlier
 kind that takes most of a later kind's files is an overlap the registry lists on purpose, a meta kind selects files by their kind and
-subkind and never by glob, and a consumer extends the registry with a config fragment. A provided contract
-pins the kind and subkind names.
+subkind and never by glob, and a consumer extends the registry with a config fragment. A provided contract pins the kind and subkind names.
 
 - [File kinds](#file-kinds)
 
@@ -381,8 +380,8 @@ registry, so the head says whether a module is in a built bundle without a secon
 
 - **`Format-FileMeta`** imprints the `immutable` and `edges` parts and `Test-FileMeta` fails any difference, in scope and in form.
 - **`Test-FileMetaProcessors`** fails a kind without its function and a function without a kind.
-- **`FileKindReachability.Tests.ps1`** (`Catzc.Base.Globs`) fails a kind no tracked file reaches, and a kind mostly shadowed by an earlier one
-  that the registry's `overlaps` does not pair it with (ADR-REPO-FILEMETA#2).
+- **`FileKindReachability.Tests.ps1`** (`Catzc.Base.Globs`) fails a kind no tracked file reaches, and a kind mostly shadowed by an earlier
+  one that the registry's `overlaps` does not pair it with (ADR-REPO-FILEMETA#2).
 - **`Test-ModuleDependency`** keeps the layers apart ([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)).
 
 ## Consequences
