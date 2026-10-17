@@ -1,10 +1,18 @@
 ---
 catzc:
+  immutable:
+    repo_status: clean
+    path: docs/explanation/thesis/product-thesis/eac.slide.md
+    folder: docs/explanation/thesis/product-thesis
+    name: eac-slide
+    filetype: md
+    kind: slide
+    language: markdown
+    track: docs
+    tracktype: documentation
   edges:
     cites:
-      - ADR-PRIN-EAC#1
-      - ADR-PRIN-EAC#2
-      - ADR-PRIN-EAC#3
+      - ADR-PRIN-EAC
   config:
     pattern: table
     deck: product-thesis

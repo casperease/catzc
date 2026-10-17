@@ -1,15 +1,15 @@
 ---
 catzc:
-  edges:
-    cites:
-      - ADR-PRIN-ONELIVE#1
-      - ADR-PRIN-ONELIVE#2
-      - ADR-PRIN-ONELIVE#3
-      - ADR-PRIN-ONELIVE#4
-      - ADR-PRIN-ONELIVE#5
-      - ADR-PRIN-ONELIVE#6
-      - ADR-PRIN-ONELIVE#7
-      - ADR-PRIN-ONELIVE#8
+  immutable:
+    repo_status: clean
+    path: docs/explanation/thesis/product-thesis/onelive.slide.md
+    folder: docs/explanation/thesis/product-thesis
+    name: onelive-slide
+    filetype: md
+    kind: slide
+    language: markdown
+    track: docs
+    tracktype: documentation
   config:
     pattern: tiles
     deck: product-thesis

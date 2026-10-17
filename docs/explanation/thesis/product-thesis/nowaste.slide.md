@@ -1,10 +1,18 @@
 ---
 catzc:
+  immutable:
+    repo_status: clean
+    path: docs/explanation/thesis/product-thesis/nowaste.slide.md
+    folder: docs/explanation/thesis/product-thesis
+    name: nowaste-slide
+    filetype: md
+    kind: slide
+    language: markdown
+    track: docs
+    tracktype: documentation
   edges:
     cites:
-      - ADR-PRIN-NOWASTE#1
-      - ADR-PRIN-NOWASTE#2
-      - ADR-PRIN-NOWASTE#3
+      - ADR-PRIN-NOWASTE
   config:
     pattern: table
     deck: product-thesis

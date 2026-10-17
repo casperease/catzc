@@ -2,8 +2,18 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Slides/private/Get-SlideFinding.ps1
+    folder: private
+    name: get-slide-finding
+    filetype: ps1
     kind: function
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
   config:
     synopsis: Renders one slide through its pattern and returns the rendered section with every fault found.
@@ -73,16 +83,20 @@ function Get-SlideFinding {
     }
 
     foreach ($cite in $Slide.Cites) {
-        $match = [regex]::Match($cite, '^(ADR-[A-Z0-9]+(?:-[A-Z0-9]+)*)#(?:(\d+)|\{(\d+)[^}]*\})$')
+        # A bare code names the whole ADR, so its first rule stands for it; #n and #{n-m} name rules, checked by their first number.
+        $match = [regex]::Match($cite, '^(ADR-[A-Z0-9]+(?:-[A-Z0-9]+)*)(?:#(?:(\d+)|\{(\d+)[^}]*\}))?$')
         if (-not $match.Success) {
-            $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites', "'$cite' is not a rule citation of the form ADR-NAME#n"))
+            $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites', "'$cite' is not a citation of the form ADR-NAME, ADR-NAME#n or ADR-NAME#{n-m}"))
             continue
         }
         $number = if ($match.Groups[2].Success) {
             $match.Groups[2].Value
         }
-        else {
+        elseif ($match.Groups[3].Success) {
             $match.Groups[3].Value
+        }
+        else {
+            '1'
         }
         if ($null -eq (Get-AdrRuleText -Code "$($match.Groups[1].Value)#$number" -RepositoryRoot $RepositoryRoot)) {
             $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites', "the ADR index knows no rule '$cite'"))

@@ -88,12 +88,13 @@ stay the durable record; task files and this master are derived from them and ca
   NoTrackRootLiteral guard.
 - T019 -> task019.md (open; P4 and P6 on the user's go, D10): P3 classification table and ADR wording drafts; P4 the flip by the user; P5
   retired-phrase guards; P6 pipeline names with the user's external re-pointing.
-- T020 -> task020.md (open; never inside the P4 window): command contracts C1 to C6: ADR-REPO-CMDCONTRACT, the Command asset kind and
-  checker, pilot contracts, reader, cats validation, public functions made internal.
-- T021 -> task021.md (open; after T007): class selectors one kind at a time with a zero-change dry-run proof, the overlaps list and the
-  strengthened reachability test, head.schema.json with tracktype and vendor.
-- T022 -> task022.md (open; D13 for one step): file head leftovers: note term, ASSETDEP reading, .compiled formatting, module-types.yml
-  typo, spelling, four gate reports attributed.
+- T020 -> task020.md (open; C1, C2 and C4 done 2026-10-17; C3 waits for the user's answer to the pilot list; C5 and C6 after it, never
+  inside the P4 window): command contracts: ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats
+  validation, public functions made internal.
+- T021 -> task021.md (done 2026-10-17; the `note` kind no tracked file reaches is the user's question): class selectors with a zero-change
+  dry-run proof, the overlaps list and the strengthened reachability test, head.schema.json with tracktype and vendor.
+- T022 -> task022.md (open; D13 for one step, the rest done 2026-10-17): file head leftovers: note term, ASSETDEP reading, .compiled
+  formatting, module-types.yml typo, spelling, four gate reports attributed.
 
 - T023 -> task023.md (open; D07 for one step): assets leftovers: gallery --assets lookup or retirement, the FileCarrierResolver test, the
   old folder removed, the skill line, both plans deleted.

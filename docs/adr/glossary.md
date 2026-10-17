@@ -63,7 +63,7 @@ One repository that several teams contribute to for one product, bounded into tr
 
 ### query surface
 
-The tooling's Get-\* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state is
+The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state is
 answered.
 
 - **Defined by:** [ADR-THES-ONETRUTH#3](thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)
@@ -111,7 +111,7 @@ The product's name to a person — the bash and zsh executor, and the word in pr
 
 ### catzc
 
-The source-level name of the system — the Catzc.\* module prefix, the C# namespaces, the type-accelerator prefix, and the product token in
+The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token in
 code and precise references.
 
 - **Defined by:** [ADR-CATS#1](principles/cats-and-catzc.md#rule-adr-cats1)
@@ -263,11 +263,11 @@ The one commit an always-on environment holds, deployed there as its release can
   - [release candidate](#release-candidate): A release candidate is the artifact, the same bytes wherever it is deployed; an occupant is the
     commit one environment holds.
 
-| Avoid               | Say instead                            |
-| ------------------- | -------------------------------------- |
-| `current occupant`  | occupant (the <\environment> occupant) |
-| `current occupants` | occupants                              |
-| `resident commit`   | occupant                               |
+| Avoid               | Say instead                           |
+| ------------------- | ------------------------------------- |
+| `current occupant`  | occupant (the <environment> occupant) |
+| `current occupants` | occupants                             |
+| `resident commit`   | occupant                              |
 
 ### place
 
@@ -730,7 +730,7 @@ tests; each is a member of the one generated uv workspace.
 
 ### quality gate
 
-A gate checking one property of the whole repository automatically — one Test-<\subject> function that reports through
+A gate checking one property of the whole repository automatically — one Test-<subject> function that reports through
 Write-QualityGateReport and throws once with every issue.
 
 - **Defined by:** [ADR-AUTO-TEST#35](automation/test-automation.md#rule-adr-auto-test35)
@@ -865,7 +865,7 @@ A Describe or Context in a test file — a named group of tests whose tags and s
 - **Part of:** [test file](#test-file)
 - **Contrasts:**
   - [test](#test): A test is one It that passes or fails; a test block groups tests and carries their shared tags and setup.
-  - [test file](#test-file): A test file is the \*.Tests.ps1 file; a test block is a Describe or Context inside it.
+  - [test file](#test-file): A test file is the *.Tests.ps1 file; a test block is a Describe or Context inside it.
 
 ## configuration
 
@@ -1019,7 +1019,7 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
 
 ### command contract
 
-A provided contract asset, <\module>/<\Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
+A provided contract asset, <module>/<Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
 contract language; a command is public exactly when one names it.
 
 - **Defined by:** [ADR-REPO-CMDCONTRACT#1](repository/command-contracts.md#rule-adr-repo-cmdcontract1)

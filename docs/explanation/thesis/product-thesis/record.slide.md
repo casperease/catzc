@@ -1,9 +1,18 @@
 ---
 catzc:
+  immutable:
+    repo_status: clean
+    path: docs/explanation/thesis/product-thesis/record.slide.md
+    folder: docs/explanation/thesis/product-thesis
+    name: record-slide
+    filetype: md
+    kind: slide
+    language: markdown
+    track: docs
+    tracktype: documentation
   edges:
     cites:
       - ADR-THES-ONETRUTH#2
-      - ADR-THES-ONETRUTH#3
   config:
     pattern: pair
     deck: product-thesis

@@ -1,7 +1,7 @@
 ---
 task:
   id: "021"
-  status: open
+  status: done
   plans: [plan-file-head-immutable-edges-classes]
   value: medium-high
   blocked_on: task007 first (it edits file-meta.yml too; one owner at a time)
@@ -27,6 +27,9 @@ catzc:
     vendor: claude
     module: ".claude"
     moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-FILEMETA#2
 ---
 
 # task021: class selectors in file-meta.yml, the reachability test, the head schema
@@ -71,8 +74,9 @@ kind overlaps are written down and FileKindReachability fails on a shadowed kind
    `Format-FileMeta.Contract.Tests` passes; Test-Contracts clean. Done 2026-10-17 (correction: the key-set test also wanted `with_inputs_sha`
    and `repo_status`, the generated-head keys, so four keys joined the schema and `repo_status` and `tracktype` the sample):
    `[Invoke-TestFile] Passed` (`out/test-file/20261017-193927-ff97c5`), `CONTRACTS issues=0`.
-10. Tick the class-selector, reachability and schema steps in `plan-file-head-immutable-edges-classes.md`. Check: grep `- [ ]` counts the
-    task022 leftovers only.
+10. [x] Tick the class-selector, reachability and schema steps in `plan-file-head-immutable-edges-classes.md`. Check: grep `- [ ]` counts
+    the task022 leftovers only. Done 2026-10-17: the three steps are ticked with their verdicts; the plan's open checkboxes are the two
+    D13 items (automation/.compiled formatting, Q47) and the user's own Test-FileMeta and Test-Automation runs.
 
 ## Report
 

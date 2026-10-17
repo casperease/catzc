@@ -1,5 +1,15 @@
 ---
 catzc:
+  immutable:
+    repo_status: clean
+    path: docs/explanation/thesis/product-thesis/principles.slide.md
+    folder: docs/explanation/thesis/product-thesis
+    name: principles-slide
+    filetype: md
+    kind: slide
+    language: markdown
+    track: docs
+    tracktype: documentation
   config:
     pattern: divider
     deck: product-thesis

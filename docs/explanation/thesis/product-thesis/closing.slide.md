@@ -1,5 +1,15 @@
 ---
 catzc:
+  immutable:
+    repo_status: clean
+    path: docs/explanation/thesis/product-thesis/closing.slide.md
+    folder: docs/explanation/thesis/product-thesis
+    name: closing-slide
+    filetype: md
+    kind: slide
+    language: markdown
+    track: docs
+    tracktype: documentation
   config:
     pattern: closing
     deck: product-thesis

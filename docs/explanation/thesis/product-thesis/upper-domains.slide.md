@@ -1,5 +1,15 @@
 ---
 catzc:
+  immutable:
+    repo_status: clean
+    path: docs/explanation/thesis/product-thesis/upper-domains.slide.md
+    folder: docs/explanation/thesis/product-thesis
+    name: upper-domains-slide
+    filetype: md
+    kind: slide
+    language: markdown
+    track: docs
+    tracktype: documentation
   config:
     pattern: tiles
     deck: product-thesis

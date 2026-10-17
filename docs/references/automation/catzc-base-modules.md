@@ -27,7 +27,7 @@ The one resolver of a module: for every deployable track it finds the modules th
 `Catzc.Base.Modules.Module` with its name, track, module type, place, root, shape, files, languages, engines and the files its layout does
 not place ([module-model](../../adr/automation/module-model.md), ADR-AUTO-MODULE#1 and #2). It also owns the aspect convention of a track,
 the ordered first-match classification that says which of a unit's files are live and which are not
-([module-aspects](../../adr/design/module-aspects.md)). It does not hold the dependency graph, the module order or the integrity gates;
+([module-aspects](../../adr/design/module-aspects.md)). It does not hold the dependency graph, the module order or the integrity tests;
 those read its module list and live in [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md). It does not declare the tracks, the layout or
 the module types either; it reads them from [Catzc.Base.Variants](catzc-base-variants.md) and
 [Catzc.Base.Languages](catzc-base-languages.md).

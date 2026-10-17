@@ -1,8 +1,15 @@
 ---
 catzc:
-  edges:
-    cites:
-      - ADR-THES-ONETRUTH#1
+  immutable:
+    repo_status: clean
+    path: docs/explanation/thesis/product-thesis/decision.slide.md
+    folder: docs/explanation/thesis/product-thesis
+    name: decision-slide
+    filetype: md
+    kind: slide
+    language: markdown
+    track: docs
+    tracktype: documentation
   config:
     pattern: statement
     deck: product-thesis

@@ -1,12 +1,18 @@
 ---
 catzc:
+  immutable:
+    repo_status: clean
+    path: docs/explanation/thesis/product-thesis/pokayoke.slide.md
+    folder: docs/explanation/thesis/product-thesis
+    name: pokayoke-slide
+    filetype: md
+    kind: slide
+    language: markdown
+    track: docs
+    tracktype: documentation
   edges:
     cites:
-      - ADR-PRIN-POKAYOKE#1
-      - ADR-PRIN-POKAYOKE#2
-      - ADR-PRIN-POKAYOKE#3
-      - ADR-PRIN-POKAYOKE#4
-      - ADR-PRIN-POKAYOKE#5
+      - ADR-PRIN-POKAYOKE
   config:
     pattern: table
     deck: product-thesis

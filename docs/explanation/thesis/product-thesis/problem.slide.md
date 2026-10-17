@@ -1,5 +1,15 @@
 ---
 catzc:
+  immutable:
+    repo_status: clean
+    path: docs/explanation/thesis/product-thesis/problem.slide.md
+    folder: docs/explanation/thesis/product-thesis
+    name: problem-slide
+    filetype: md
+    kind: slide
+    language: markdown
+    track: docs
+    tracktype: documentation
   edges:
     cites:
       - ADR-THES-ONETRUTH#1

@@ -2,8 +2,22 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
+    folder: tests
+    name: build-slide-deck-tests
+    filetype: ps1
     kind: test
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-AUTO-FAILFAST#1
+      - ADR-REPO-SLIDES#{1-4}
 ---
 #>
 
@@ -74,7 +88,7 @@ Notes for $Id.
         & $write 'decks/gadget-deck/two.slide.md' (& $slide 'two' 2 'The gadget rests' 'A gadget rests on the widget.')
         Mock Get-AdrRuleText -ModuleName Catzc.Base.Slides {
             param([string] $Code, [string] $RepositoryRoot)
-            if ($Code -eq 'ADR-WIDGET-GADGET#2') {
+            if ($Code -in 'ADR-WIDGET-GADGET#1', 'ADR-WIDGET-GADGET#2') {
                 'A widget spins when wound.'
             }
         }
@@ -131,8 +145,10 @@ Notes for $Id.
 
     It 'reports a quoted rule that differs from the registry, a cite the index does not know, and a section starting on no slide' -Tag 'ADR-REPO-SLIDES#4' {
         & $write 'decks/drift-deck/deck.md' "# Drift`n`n## Sections`n`n- nowhere: Starts on no slide.`n"
-        & $write 'decks/drift-deck/d.slide.md' ((& $slide 'd' 1 'D' 'A widget spins when it feels like it.' '    quotes: ADR-WIDGET-GADGET#2').Replace('cites: [ADR-WIDGET-GADGET#2]', 'cites: [ADR-WIDGET-GADGET#2, ADR-WIDGET-GADGET#9]'))
+        & $write 'decks/drift-deck/d.slide.md' ((& $slide 'd' 1 'D' 'A widget spins when it feels like it.' '    quotes: ADR-WIDGET-GADGET#2').Replace('cites: [ADR-WIDGET-GADGET#2]', 'cites: [ADR-WIDGET-GADGET#2, ADR-WIDGET-GADGET#9, ADR-WIDGET-GADGET, "ADR-WIDGET-GADGET#{1-2}", gadget]'))
         $faults = @((Build-SlideDeck -Deck 'decks/drift-deck' -Kit 'kit' -RepositoryRoot $root -PassThru).Faults | ForEach-Object ToString)
+        ($faults -join "`n") | Should -Not -Match "'ADR-WIDGET-GADGET'|'ADR-WIDGET-GADGET#\{1-2\}'"
+        $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': 'gadget' is not a citation of the form ADR-NAME, ADR-NAME#n or ADR-NAME#{n-m}"
         ($faults -join "`n") | Should -Match "d\.slide\.md: field 'body': quotes ADR-WIDGET-GADGET#2 but differs from the registry\."
         ($faults -join "`n") | Should -Match 'registry: A widget spins when wound\.'
         $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': the ADR index knows no rule 'ADR-WIDGET-GADGET#9'"
