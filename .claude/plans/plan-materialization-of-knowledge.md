@@ -7,7 +7,7 @@ plan:
   targets: [docs/adr/automation, automation/Catzc.Base.Docs/configs/glossary.yml, automation/Catzc.Base.Docs/configs/adrs.yml]
 catzc:
   immutable:
-    with_body_sha: "3abcb978480c"
+    with_body_sha: c0c774fa8f3e
     repo_status: clean
     path: ".claude/plans/plan-materialization-of-knowledge.md"
     folder: plans
@@ -84,7 +84,7 @@ generated heads. One word and one default prevent each of them from inventing it
 ## Refs
 
 - the ADR draft is carried below in full (formerly out/adr-draft-materialization.md)
-- docs/adr/automation/result-caching.md (ADR-AUTO-CACHE, path to verify)
+- docs/adr/automation/caching.md (ADR-AUTO-CACHE)
 - memory: materialization-of-knowledge-resources.md, sha-marker-companion-and-pipeline-types.md
 
 ## Carried: out/adr-draft-materialization.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
