@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e2fba49e7149
+    with_body_sha: a0fbc9d78cac
     repo_status: clean
     path: ".claude/plans/prompt-module-model-1-prepare.md"
     folder: plans
@@ -21,7 +21,7 @@ catzc:
 
 # .claude/plans/prompt-module-model-1-prepare.md
 
-`Prompt 1 of 2 for .claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model): close the missing work, read-only, and draft the ADR under ADR-DSGN-TRACK — paste as the first message of a fresh session`
+`Prompt 1 of 2 for plan-module-kinds-tracks: close the missing work, read-only, and draft the ADR; paste as the first message`
 
 Rewritten 2026-10-16 on the Track-as-root premise (Q98, F2, S2); the earlier text made Module the central concern. Copy it and the plan into
 your scratchpad first (another session wiped `out/` once). Everything below the rule is the prompt.

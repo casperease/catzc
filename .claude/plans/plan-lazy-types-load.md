@@ -13,7 +13,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: e3a3f1b47251
+    with_body_sha: "910903fe13ba"
     repo_status: clean
     path: ".claude/plans/plan-lazy-types-load.md"
     folder: plans
@@ -78,8 +78,8 @@ uses a type should never pay the load or hold the shadow copy.
   catzc command stays unresolved until `Initialize-Types` or a command runs; headless cells are eager, so that case is closed there.
 - Warm timings (2026-10-15): hash of 253 sources 155 ms, shadow copy + prune + `Add-Type` 41 ms, drift compare 38 ms, verify 1 ms; the cold
   path (1.3 s Roslyn) is unaffected by laziness.
-- Not shipped yet by Phase 3: the manifest could feed `Test-TypesAssemblyContent` instead of the DLL; `shadowCopy: false` on Unix was
-  built (`Import-TypesAssembly -ShadowCopy`) but the janitor and drift guard assumption of a shadow path is unconfirmed on Unix.
+- Not shipped yet by Phase 3: the manifest could feed `Test-TypesAssemblyContent` instead of the DLL; `shadowCopy: false` on Unix was built
+  (`Import-TypesAssembly -ShadowCopy`) but the janitor and drift guard assumption of a shadow path is unconfirmed on Unix.
 
 ## The 8 modes (host x os x run mode)
 
@@ -87,12 +87,12 @@ Only pwsh loads the C# DLL (`ADR-AUTO-ENGINE:1`); bash and zsh answer `load: nev
 (lookup-hook/none, none only with eager), `eagerTypes` (empty everywhere), `shadowCopy`. Config and defaults live in
 `automation/.internal/assets/types-load.yml`; flip a cell by editing its row, not code. Verification is metadata-only in all eight cells.
 
-| host | os | run mode | load | trigger | shadowCopy |
-| --- | --- | --- | --- | --- | --- |
-| console | windows | source, build | lazy | lookup-hook | true |
-| console | unix | source, build | lazy | lookup-hook | false |
-| headless | windows | source, build | eager | none | true |
-| headless | unix | source, build | eager | none | false |
+| host     | os      | run mode      | load  | trigger     | shadowCopy |
+| -------- | ------- | ------------- | ----- | ----------- | ---------- |
+| console  | windows | source, build | lazy  | lookup-hook | true       |
+| console  | unix    | source, build | lazy  | lookup-hook | false      |
+| headless | windows | source, build | eager | none        | true       |
+| headless | unix    | source, build | eager | none        | false      |
 
 Headless is eager so a pipeline fails at import on stale or missing types (`ADR-AUTO-TYPES#15`, `ADR-AUTO-FAILFAST`).
 

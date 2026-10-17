@@ -5,7 +5,7 @@ plan:
   reviewed: 2026-10-16
 catzc:
   immutable:
-    with_body_sha: cff6c699d3b3
+    with_body_sha: "3ec64a0f2298"
     repo_status: clean
     path: ".claude/plans/questionnaire-2026-10-16.md"
     folder: plans
@@ -35,7 +35,7 @@ move into the owning plans.
 
 ### Q01 History move for an import
 
-An outside repository is imported with its history to .unordered/<name>. git subtree add keeps the source's own paths nested under the
+An outside repository is imported with its history to `.unordered/<name>`. git subtree add keeps the source's own paths nested under the
 landing address with no rewrite; git filter-repo rewrites the paths under it first. The tool's contract does not depend on the choice.
 Options: a) subtree add; b) filter-repo; c) decide when the first import happens. Decision:
 

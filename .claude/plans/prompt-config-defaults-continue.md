@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8f7a1551fc25"
+    with_body_sha: c12cfe882c3d
     repo_status: clean
     path: ".claude/plans/prompt-config-defaults-continue.md"
     folder: plans
@@ -21,7 +21,7 @@ catzc:
 
 # .claude/plans/prompt-config-defaults-continue.md
 
-`Continuation prompt for the config-defaults work (coded defaults, repo fragment, generated defaults contract): paste as the first message of a fresh session`
+`Continuation prompt for the config-defaults work: paste as the first message of a fresh session`
 
 Written 2026-10-16. Copy this file and `.claude/plans/plan-config-defaults.md` into your scratchpad first (another session wiped `out/`
 once). Everything below the rule is the prompt.

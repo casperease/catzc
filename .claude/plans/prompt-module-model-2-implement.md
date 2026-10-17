@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f486d243f728
+    with_body_sha: "030b7b90274e"
     repo_status: clean
     path: ".claude/plans/prompt-module-model-2-implement.md"
     folder: plans
@@ -18,7 +18,7 @@ catzc:
 
 # .claude/plans/prompt-module-model-2-implement.md
 
-`Prompt 2 of 2 for .claude/plans/plan-module-kinds-tracks.md (carried section: plan-module-model): implement the Module kind of the deployable tracks, ADR first — paste as the first message of a fresh session, after prompt 1 has run`
+`Prompt 2 of 2 for plan-module-kinds-tracks: implement the Module kind, ADR first; paste as the first message, after prompt 1`
 
 Rewritten 2026-10-16 on the Track-as-root premise (Q98, F2, S2). Run only after `.claude/plans/prompt-module-model-1-prepare.md` produced
 its files and the user answered its open choices. Everything below the rule is the prompt.

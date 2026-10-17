@@ -5,7 +5,7 @@ plan:
   rule: value first, then needed docs and tests; job size never ranks
 catzc:
   immutable:
-    with_body_sha: dc12b247a546
+    with_body_sha: "0ed7ca622614"
     repo_status: clean
     path: ".claude/plans/value-of-plan.md"
     folder: plans
@@ -115,7 +115,7 @@ next:
   Landed in plan-config-defaults.
 
 - 2026-10-16 15:33, bounded folder enumeration: three bad ADR test tags fixed, the level-2 gate not rerun so unconfirmed, the lesson that a
-  test citation names a real rule in ADR-<CODE>#<n> form, the prompt's rules, and the old draft wording left as is. Landed in
+  test citation names a real rule in `ADR-<CODE>#<n>` form, the prompt's rules, and the old draft wording left as is. Landed in
   plan-bounded-folder-enumeration (its prompt and the gate section were already here).
 
 - 2026-10-16 15:03, immutable and edges: the move done and re-imprinted (verified: 0 derived heads, 1,722 immutable), glossary terms place

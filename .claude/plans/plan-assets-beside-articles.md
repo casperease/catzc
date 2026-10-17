@@ -4,14 +4,25 @@ plan:
   value: medium
   reviewed: 2026-10-17
   next: the pilot slide, sync-from-the-last-certified-commit, moved end to end
-  targets:
-    [
-      docs/.assets/explanation,
-      docs/.assets/references,
-      docs/explanation,
-      docs/references,
-      .claude/drawio,
-    ]
+  targets: [docs/.assets/explanation, docs/.assets/references, docs/explanation, docs/references, .claude/drawio]
+catzc:
+  immutable:
+    with_body_sha: "41bbddb211ab"
+    repo_status: clean
+    path: ".claude/plans/plan-assets-beside-articles.md"
+    folder: plans
+    name: plan-assets-beside-articles
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-FOLDERS#5
 ---
 
 # Diagram sidecars beside their articles; each docs tree owns its .assets
@@ -31,19 +42,19 @@ links. The target puts the description beside the article it describes and gives
 
 ## Done
 
-- Survey (2026-10-17): 149 descriptions in `docs/.assets/explanation`, 148 map to exactly one article by the middle name segment, no
-  article has two; `glyphs` has no article. 12 descriptions sit under `docs/.assets/references/automation/<module>/`. 641 links in 159 docs
-  files, plus 9 files outside docs (kit scripts, STYLE.md, two ADR or how-to pages, two test files), name the old paths.
+- Survey (2026-10-17): 149 descriptions in `docs/.assets/explanation`, 148 map to exactly one article by the middle name segment, no article
+  has two; `glyphs` has no article. 12 descriptions sit under `docs/.assets/references/automation/<module>/`. 641 links in 159 docs files,
+  plus 9 files outside docs (kit scripts, STYLE.md, two ADR or how-to pages, two test files), name the old paths.
 - The explanation family is moved (2026-10-17): 147 slides plus the glyph library; each description sits beside its article, the PNGs and
   the chain, grid and tree minimaps under `docs/explanation/.assets`. Links, heads and checks are clean (Test-FileMeta, Test-Links apart
   from untracked targets, Test-GeneratedFiles).
 - The reference family is moved (2026-10-17): 11 diagrams; each description sits in `docs/references/automation/<module>/`, the PNG and
   verification record under `docs/references/.assets/automation/<module>/`; a `reference-diagram` carrier class finds the description;
-  ADR-REPO-FOLDERS#5 and the conventional-folders text name the new layout. Invoke-FileMetaEngine checks that a file exists before it
-  looks for its sidecar, so an unstaged move raises no false finding.
+  ADR-REPO-FOLDERS#5 and the conventional-folders text name the new layout. Invoke-FileMetaEngine checks that a file exists before it looks
+  for its sidecar, so an unstaged move raises no false finding.
 - The kit works from the new locations (defaults, STYLE.md, migrate_dark.py): drawio_forward.py --minimaps on a moved slide ends ok; its
-  pages differ from the committed ones only by link depth in a scratch folder and by a file another session added since. The engine
-  carries a test for a file the working tree lost (2026-10-17).
+  pages differ from the committed ones only by link depth in a scratch folder and by a file another session added since. The engine carries
+  a test for a file the working tree lost (2026-10-17).
 - A sidecar carrier takes a `{stem}` token and one wildcard folder (`docs/explanation/*/{stem}.drawio.md`); the diagram and
   asset-description kinds come before the explanation and reference kinds; the generated-minimap marks in `.gitattributes` match any
   `.assets` under docs; the glyph library is listed in the carrier exclusions because it has no article.
@@ -52,10 +63,10 @@ links. The target puts the description beside the article it describes and gives
 
 - [ ] gallery_pdf.py `--assets` pairs a PNG with a description beside it, and the descriptions now sit beside the articles; teach it the
       lookup or retire the mode (check: the mode runs on docs/explanation/.assets and includes the descriptions, or is gone from STYLE.md).
-- [ ] The `FileCarrierResolver` shipped-registry test fails on its test-file exclusion line (the shipped powershell carrier lists no
-      `tests` exclude); fix the test or the carrier, whichever the head rules for test files say (check: that test file passes).
-- [ ] Remove `docs/.assets/explanation`, which holds only two gitignored PDFs now (check: the folder is gone). `docs/.assets/references`
-      is already gone.
+- [ ] The `FileCarrierResolver` shipped-registry test fails on its test-file exclusion line (the shipped powershell carrier lists no `tests`
+      exclude); fix the test or the carrier, whichever the head rules for test files say (check: that test file passes).
+- [ ] Remove `docs/.assets/explanation`, which holds only two gitignored PDFs now (check: the folder is gone). `docs/.assets/references` is
+      already gone.
 - [ ] Delete this plan when the steps are done (check: no file in .claude/plans names it).
 
 ## Refs

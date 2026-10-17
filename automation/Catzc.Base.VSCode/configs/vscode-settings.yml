@@ -131,6 +131,14 @@ settings:
     ./.vscode/any.schema.json:
       - "**/azure.yml"
 
+  # A compiled ARM template names Azure's schema in its $schema; the editor downloads it only from a trusted domain, and checks a template against the local depended-on copy (contracts/EXTERNAL-azure) without a download.
+  json.schemaDownload.trustedDomains:
+    https://schema.management.azure.com/: true
+  json.schemas:
+    - fileMatch:
+        - "**/main.json"
+      url: ./contracts/EXTERNAL-azure/0.0.0/Catzc.Azure.Templates/tests/assets/parameter-model/main.json.schema.json
+
   workbench.editorAssociations:
     "*.drawio.png": imagePreview.previewEditor
 

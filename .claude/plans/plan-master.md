@@ -5,13 +5,34 @@ plan:
   reviewed: 2026-10-17
   role: master
   targets: [.claude/plans]
+catzc:
+  immutable:
+    with_body_sha: "34c02ae6ae36"
+    repo_status: clean
+    path: ".claude/plans/plan-master.md"
+    folder: plans
+    name: plan-master
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-COMMENTS#5
+      - ADR-REPO-FORMAT#8
+      - ADR-REPO-HELP#3
 ---
 
 # Master: every open step of every plan, in one executable order
 
-This is the one long plan. It holds every open step of every `plan-*.md` in this folder, grouped into chunks and ordered for execution.
-A chunk is written out as `taskNNN.md`, a detailed step-by-step executable, and the chunk here shrinks to one pointer line. The source
-plans stay the durable record; task files and this master are derived from them and can be cleared at any time and rebuilt.
+This is the one long plan. It holds every open step of every `plan-*.md` in this folder, grouped into chunks and ordered for execution. A
+chunk is written out as `taskNNN.md`, a detailed step-by-step executable, and the chunk here shrinks to one pointer line. The source plans
+stay the durable record; task files and this master are derived from them and can be cleared at any time and rebuilt.
 
 ## Process (the planner's own rules)
 
@@ -95,11 +116,11 @@ plans stay the durable record; task files and this master are derived from them 
 
 ### T017 Layers P0 and P1 (plan-layers-vocabulary-rename-contracts, high; P1 may run beside the module model, Q38)
 
-- P0 baseline in the background: Test-GeneratedFiles, Test-Links, Test-Contracts, Test-WorldMap; the two checks on a copy (hook rebuild
-  edge fact). Check: the baseline report.
-- P1 doctrine: ADR-AUTO-LAYERS and ADR-AUTO-IMPORTER new; glossary automation, importer, command, bare engine, language, module, role,
-  run mode, layer, pwsh; the four term collisions; languages.yml engines renamed formatters; Test-AdrEngineNeutrality extended.
-  Check: Test-Glossary, Test-AdrRegistry, Test-Terminology clean (P1 stop).
+- P0 baseline in the background: Test-GeneratedFiles, Test-Links, Test-Contracts, Test-WorldMap; the two checks on a copy (hook rebuild edge
+  fact). Check: the baseline report.
+- P1 doctrine: ADR-AUTO-LAYERS and ADR-AUTO-IMPORTER new; glossary automation, importer, command, bare engine, language, module, role, run
+  mode, layer, pwsh; the four term collisions; languages.yml engines renamed formatters; Test-AdrEngineNeutrality extended. Check:
+  Test-Glossary, Test-AdrRegistry, Test-Terminology clean (P1 stop).
 
 ### T018 Layers P2 funnel (after T011)
 
@@ -116,8 +137,8 @@ plans stay the durable record; task files and this master are derived from them 
 ### T020 Command contracts (plan-layers-vocabulary-rename-contracts P5 to P7)
 
 - ADR-REPO-CMDCONTRACT new; <\Module>/<\Verb-Noun>.command.yml, grammar shape A, closed type set; the checker; Test-Contracts covers the
-  fifth asset kind (unknown suffix settled on a copy first); the pilot list proposed for approval (the cats entry point's commands).
-  Check: Test-Contracts; the pilot contracts validate.
+  fifth asset kind (unknown suffix settled on a copy first); the pilot list proposed for approval (the cats entry point's commands). Check:
+  Test-Contracts; the pilot contracts validate.
 - Public API (F6, S5): most of the 439 public functions become internal, after the pilot. Check: Test-Contracts on the frozen set.
 
 ### T021 File head: class selectors and the schema (plan-file-head-immutable-edges-classes, medium-high)
@@ -139,8 +160,8 @@ plans stay the durable record; task files and this master are derived from them 
 
 ### T023 Assets beside articles and the gallery PDF (plan-assets-beside-articles, plan-assets-gallery-pdf)
 
-- gallery_pdf.py --assets learns the beside-the-article lookup or the mode is retired from STYLE.md. Check: a run on docs/explanation/.assets
-  includes descriptions, or the mode is gone.
+- gallery_pdf.py --assets learns the beside-the-article lookup or the mode is retired from STYLE.md. Check: a run on
+  docs/explanation/.assets includes descriptions, or the mode is gone.
 - FileCarrierResolver shipped-registry test (test-file exclusion line). Check: that test passes.
 - Remove docs/.assets/explanation (two gitignored PDFs and an empty chain/ left). Check: the folder is gone.
 - .claude/skills/drawio-waves/SKILL.md names --assets (line 44 does not yet). Check: the line says --assets.
@@ -173,12 +194,13 @@ plans stay the durable record; task files and this master are derived from them 
 
 ### T027 ADR link cleanup (plan-adr-link-cleanup-prose-to-pages, medium; after T007 and T008)
 
-- ADR-REPO-HELP#3 relaxed and its gate (only a bare citation line reported). Check: Test-Links, Test-AdrRegistry; the gate reports a bare line.
+- ADR-REPO-HELP#3 relaxed and its gate (only a bare citation line reported). Check: Test-Links, Test-AdrRegistry; the gate reports a bare
+  line.
 - TryParse regression test (Q58); the five gates on the usage code (Q59). Check: the test passes; gates clean.
 - Ledger rebuilt without .unordered rows. Check: about 4,900 rows.
 - F8: every rule statement in the principles ADRs bold. Check: Test-Glossary finds every defining rule.
-- Steps 1.3 apply and 1.4 verify, one slice at a time; the two narrow fixes at no-gate-checks-rules-one-and-four.md lines 62 and 63.
-  Check: Test-Links clean.
+- Steps 1.3 apply and 1.4 verify, one slice at a time; the two narrow fixes at no-gate-checks-rules-one-and-four.md lines 62 and 63. Check:
+  Test-Links clean.
 - Phase 2 per D1, one file at a time. Check: Test-Comments, Test-FileMeta clean.
 
 ### T028 Output artifacts (plan-out-artifacts, medium; decided Q71 to Q74)
@@ -187,7 +209,8 @@ plans stay the durable record; task files and this master are derived from them 
   Check: config tests; Test-Links.
 - The prune, only in Clear-Output, keeps N newest per registered run area. Check: its Pester file.
 - ADR-REPO-OUTDIR amendments. Check: Test-AdrRegistry, Test-Links.
-- Batch one (222 probes) and batch two (13) deletions: the user runs out/delete-probes-batch1.ps1. Check: listed files gone, keep list intact.
+- Batch one (222 probes) and batch two (13) deletions: the user runs out/delete-probes-batch1.ps1. Check: listed files gone, keep list
+  intact.
 - The five tool candidates become open steps in their owning plans. Check: a grep finds each name in an open step.
 
 ### T029 Test run budget (plan-test-run-budget, medium)
@@ -202,8 +225,8 @@ plans stay the durable record; task files and this master are derived from them 
 
 - Verified 2026-10-17: languages.yml top-level imprint lists comments and file-meta, so the step loop exists and the comments step is wired;
   the first open step closes with that fact.
-- comments.yml pages gain automation/.scriptanalyzer and automation/.internal with reasons; exclude .vendor. Check: the config type accepts a
-  dot-prefixed source; Format-Code moves the long header; Test-Comments clean on the dot-folders.
+- comments.yml pages gain automation/.scriptanalyzer and automation/.internal with reasons; exclude .vendor. Check: the config type accepts
+  a dot-prefixed source; Format-Code moves the long header; Test-Comments clean on the dot-folders.
 - One sentence each in ADR-REPO-FORMAT#8 and ADR-REPO-COMMENTS#5 if missing. Check: Test-Links.
 
 ### T031 Skip unchanged generators (plan-skip-unchanged-generators, medium)

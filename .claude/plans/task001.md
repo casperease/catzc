@@ -6,6 +6,21 @@ task:
   value: medium
   blocked_on: nothing
   targets: [.claude/plans]
+catzc:
+  immutable:
+    with_body_sha: bfb6a46bbee2
+    repo_status: clean
+    path: ".claude/plans/task001.md"
+    folder: plans
+    name: task001
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task001: re-point the dangling links in six plan files
@@ -26,16 +41,19 @@ checked before the next. Only link targets change, never link text or prose (md-
 
 1. `plan-adr-link-cleanup-prose-to-pages.md`: 15 links (verdict lines 79-86, 205, 263, 308, 334, 348, 349, 420, 427; all
    `.claude/docs/adr/...` to `../../docs/adr/...`). Check: Test-Links reports 0 dangling.
-2. `plan-layers-vocabulary-rename-contracts.md`: 9 links (verdict lines 111-113, 359, 360, 532, 533, 712). Check: Test-Links reports 0 dangling.
+2. `plan-layers-vocabulary-rename-contracts.md`: 9 links (verdict lines 111-113, 359, 360, 532, 533, 712). Check: Test-Links reports 0
+   dangling.
 3. `plan-module-kinds-tracks.md`: 3 links (verdict lines 98, 104, 370). Check: Test-Links reports 0 dangling.
-4. `plan-config-defaults.md`: 3 sibling links (verdict lines 243, 247, 250) to the plans that now hold the text. Check: Test-Links reports 0 dangling.
-5. `plan-plans-body-sha-landing-zone.md`: 2 links (`file-meta.md`, `sensible-defaults.md` in the carried draft, written from out/).
-   Check: Test-Links reports 0 dangling.
+4. `plan-config-defaults.md`: 3 sibling links (verdict lines 243, 247, 250) to the plans that now hold the text. Check: Test-Links reports 0
+   dangling.
+5. `plan-plans-body-sha-landing-zone.md`: 2 links (`file-meta.md`, `sensible-defaults.md` in the carried draft, written from out/). Check:
+   Test-Links reports 0 dangling.
 6. `plan-materialization-of-knowledge.md`: the Refs line says the draft is carried below; confirm no `out/adr-draft-materialization.md` path
    remains as a link. Check: grep `out/adr-draft` finds only prose that says "formerly".
 7. `value-of-plan.md`: the two `out/` paths that name absent files (`out/prompt-*-continue.md`, `out/adr-draft-materialization.md`) in
    "Where the data lives now" and "Pastes processed" become the sibling names. Check: every named path exists (`ls` each).
-8. Record: in `plan-clear-actions.md` tick the re-point steps that are done, one checkbox per file. Check: the ticked lines name a 0-dangling run.
+8. Record: in `plan-clear-actions.md` tick the re-point steps that are done, one checkbox per file. Check: the ticked lines name a
+   0-dangling run.
 
 ## Report
 

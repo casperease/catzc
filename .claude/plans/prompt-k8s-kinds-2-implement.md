@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "77f13f223a6a"
+    with_body_sha: c2823aee9a89
     repo_status: clean
     path: ".claude/plans/prompt-k8s-kinds-2-implement.md"
     folder: plans
@@ -21,7 +21,7 @@ catzc:
 
 # .claude/plans/prompt-k8s-kinds-2-implement.md
 
-`Prompt 2 of 2 for .claude/plans/plan-module-kinds-tracks.md (carried section: plan-k8s-kinds): implement the kind/role split and the per-track kinds — paste as the first message of a fresh session`
+`Prompt 2 of 2 for plan-module-kinds-tracks (k8s kinds): implement the kind/role split and the per-track kinds; paste as the first message`
 
 Rewritten 2026-10-16 on the Track-as-root premise (Q98, F2, S2, Q99). Run only after `.claude/plans/prompt-k8s-kinds-1-prepare.md` produced
 its files **and** the Module kind (`.claude/plans/prompt-module-model-2-implement.md`) has landed, because the per-track kinds include

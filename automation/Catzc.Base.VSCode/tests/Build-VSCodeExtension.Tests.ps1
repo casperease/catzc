@@ -1,0 +1,80 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: automation/Catzc.Base.VSCode/tests/Build-VSCodeExtension.Tests.ps1
+    folder: tests
+    name: build-vs-code-extension-tests
+    filetype: ps1
+    kind: test
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.VSCode
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-PWSH-PESTER#2
+---
+#>
+
+Describe 'Build-VSCodeExtension' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:folder = Join-Path $TestDrive 'widget-ext'
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:folder 'lib') -Force
+        Set-Content -LiteralPath (Join-Path $script:folder 'package.json') -Value '{ "name": "widget-ext", "version": "1.2.3", "publisher": "acme", "displayName": "Widget <ext>", "engines": { "vscode": "^1.90.0" } }'
+        Set-Content -LiteralPath (Join-Path $script:folder 'extension.js') -Value 'module.exports = {};'
+        Set-Content -LiteralPath (Join-Path $script:folder 'lib/gadget.js') -Value 'module.exports = 1;'
+        $script:out = Join-Path $TestDrive 'vsix'
+        $script:vsix = Build-VSCodeExtension -Path $script:folder -OutputDirectory $script:out
+    }
+
+    It 'names the package for the extension and its version' {
+        $script:vsix | Should -Be (Join-Path (Resolve-Path $script:out).Path 'widget-ext-1.2.3.vsix')
+        Test-Path -LiteralPath $script:vsix | Should -BeTrue
+    }
+
+    It 'holds the folder under extension/ beside the two package parts' {
+        $zip = [System.IO.Compression.ZipFile]::OpenRead($script:vsix)
+        try {
+            $entries = @($zip.Entries.FullName | Sort-Object)
+        }
+        finally {
+            $zip.Dispose()
+        }
+        $entries | Should -Be @('[Content_Types].xml', 'extension.vsixmanifest', 'extension/extension.js', 'extension/lib/gadget.js', 'extension/package.json')
+    }
+
+    It 'writes a manifest that names the identity and the engine, escaped, as valid XML' {
+        $zip = [System.IO.Compression.ZipFile]::OpenRead($script:vsix)
+        try {
+            $reader = [System.IO.StreamReader]::new($zip.GetEntry('extension.vsixmanifest').Open())
+            $text = $reader.ReadToEnd()
+            $reader.Dispose()
+        }
+        finally {
+            $zip.Dispose()
+        }
+        $xml = [xml] $text
+        $xml.PackageManifest.Metadata.Identity.Id | Should -Be 'widget-ext'
+        $xml.PackageManifest.Metadata.Identity.Version | Should -Be '1.2.3'
+        $xml.PackageManifest.Metadata.Identity.Publisher | Should -Be 'acme'
+        $xml.PackageManifest.Metadata.DisplayName | Should -Be 'Widget <ext>'
+        $xml.PackageManifest.Installation.InstallationTarget.Version | Should -Be '^1.90.0'
+    }
+
+    It 'replaces a package of the same name' {
+        $again = Build-VSCodeExtension -Path $script:folder -OutputDirectory $script:out
+        $again | Should -Be $script:vsix
+        @(Get-ChildItem -LiteralPath $script:out -Filter *.vsix).Count | Should -Be 1
+    }
+
+    It 'refuses a folder whose package.json has no publisher' {
+        $broken = Join-Path $TestDrive 'gadget-ext'
+        $null = New-Item -ItemType Directory -Path $broken -Force
+        Set-Content -LiteralPath (Join-Path $broken 'package.json') -Value '{ "name": "gadget-ext", "version": "1.0.0" }'
+        { Build-VSCodeExtension -Path $broken -OutputDirectory $script:out } | Should -Throw "*no 'publisher'*"
+    }
+}
