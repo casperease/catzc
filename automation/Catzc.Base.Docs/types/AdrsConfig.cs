@@ -53,7 +53,12 @@ public sealed class AdrsConfig
 
     private static readonly string[] AllowedKeys = { "domains" };
     private static readonly string[] AllowedDomainKeys = { "code", "role", "description", "depends_on", "stack", "concern", "rulesets" };
-    private static readonly string[] AllowedRuleSetKeys = { "external", "code", "terminology", "concern" };
+    private static readonly string[] AllowedRuleSetKeys = { "external", "code", "terminology", "concern", "layer" };
+
+    // The five layers of the automation, and the one an ADR belongs to when its entry names none ([ADR-AUTO-LAYERS#6](/docs/adr/automation/layers.md#rule-adr-auto-layers6)).
+    private static readonly string[] LayerNames = { "automation", "contract", "language", "engine", "importer" };
+    public static readonly IReadOnlyList<string> Layers = LayerNames;
+    public const string DefaultLayer = "automation";
 
     public AdrsConfig(IDictionary raw)
     {
@@ -208,7 +213,21 @@ public sealed class AdrsConfig
                             : ParseConcerns(r["concern"], string.Format("ruleset '{0}/{1}'", name, slug), errors);
                     }
 
-                    AdrRuleSet one = new AdrRuleSet(name, role, slug, external, effective, code, terminology, stack, concerns, domainConcerns);
+                    string layer = DefaultLayer;
+                    if (r.Contains("layer"))
+                    {
+                        string named = r["layer"] == null ? null : r["layer"].ToString();
+                        if (named == null || Array.IndexOf(LayerNames, named) < 0)
+                        {
+                            errors.Add(string.Format("ruleset '{0}/{1}': layer '{2}' is not one of: {3}", name, slug, named, string.Join(", ", Layers)));
+                        }
+                        else
+                        {
+                            layer = named;
+                        }
+                    }
+
+                    AdrRuleSet one = new AdrRuleSet(name, role, slug, external, effective, code, terminology, stack, concerns, domainConcerns, layer);
                     ruleSets.Add(one);
                     allRuleSets.Add(one);
                 }

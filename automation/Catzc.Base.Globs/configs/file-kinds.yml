@@ -122,6 +122,9 @@ kinds:
   drawio-kit:
     definition: The tooling that draws and renders the diagrams, its scripts included.
     files: [".claude/drawio/**"]
+  slides-kit:
+    definition: The kit a deck is rendered from, its defaults, its style guide and its patterns.
+    files: [".claude/slides/**"]
   script:
     definition: A standalone script that is no function of a module.
     files: ["**/*.py", "**/*.sh", "**/*.ps1"]

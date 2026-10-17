@@ -1,0 +1,42 @@
+<!--
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: ".claude/slides/patterns/table.html"
+    folder: slides/patterns
+    name: table
+    filetype: html
+    kind: slides-kit
+    language: html
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+---
+-->
+
+<section
+    id="{{@id}}"
+    data-transition="fade"
+    style="background:{{@token.bg_deep}};color:{{@token.ink}};font-family:{{@face.text}};padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px"
+>
+    <p style="font-size:{{@scale.caption}}px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:{{@token.accent}}">
+        {{eyebrow}}
+    </p>
+    <h2 style="font-family:{{@face.display}};font-size:{{@scale.h2}}px;font-weight:400;line-height:1.1">{{title}}</h2>
+    <table data-field="rows" data-max="7" style="font-size:{{@scale.body}}px;color:{{@token.ink}};border:1px solid {{@token.bg_raised_2}}">
+        <tr data-item="header" style="background:{{@token.bg_raised}}">
+            <th style="text-align:left;padding:20px 28px;color:{{@token.accent}}">{{cell}}</th>
+        </tr>
+        <tr data-item style="background:{{@token.bg}}">
+            <td style="padding: 20px 28px">{{cell}}</td>
+        </tr>
+    </table>
+    <div data-field="body" data-optional data-max="1" data-max-words="50" style="display: flex; flex-direction: column; gap: 24px">
+        <p data-item style="font-size:{{@scale.body}}px;line-height:1.4;color:{{@token.ink_soft}};max-width:1600px">{{item}}</p>
+    </div>
+    <p style="position:absolute;left:128px;bottom:64px;font-size:{{@scale.caption}}px;color:{{@token.ink_muted}}">{{@page}}</p>
+    <aside>{{notes?}}</aside>
+</section>

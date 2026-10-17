@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: da12a5498e1c
-    with_inputs_sha: "9c5cfc07701869d879aa1e899576f73094c4dd8b0bbfd142d62702a903c7bfe0"
+    with_body_sha: d8ca0691b4ab
+    with_inputs_sha: bac3b4cd124a23ba911235aba378d2d70f5c821223c616ff76ea12ede8cb08f2
     repo_status: locked
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml
@@ -135,10 +135,11 @@ detect their context, and how globsets project into native trigger filters. The 
 ### automation/
 
 The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth, fail-fast
-assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, the module model, test automation, and the
-merged, installable build, stated for any execution engine. Language layers live in `BCL/` (native C# types) and `go/`, `python/`, and
-`bash/` (black-box test artifacts). It turns the research, principles, process, and design domains into enforced code; the pwsh domain
-realises it in PowerShell, and the pipelines, github, and azure domains build on it.
+assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, the module model, test automation, the
+merged, installable build, the five layers of the automation and the importer that decides a session's mix, stated for any execution engine.
+Language layers live in `BCL/` (native C# types) and `go/`, `python/`, and `bash/` (black-box test artifacts). It turns the research,
+principles, process, and design domains into enforced code; the pwsh domain realises it in PowerShell, and the pipelines, github, and azure
+domains build on it.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`.
 
@@ -180,6 +181,8 @@ realises it in PowerShell, and the pipelines, github, and azure domains build on
 | `ADR-AUTO-BASH`     | [bash-test-artifacts](automation/bash/bash-test-artifacts.md)                    |
 | `ADR-AUTO-ENGINE`   | [execution-engines](automation/execution-engines.md)                             |
 | `ADR-AUTO-MODULE`   | [module-model](automation/module-model.md)                                       |
+| `ADR-AUTO-LAYERS`   | [layers](automation/layers.md)                                                   |
+| `ADR-AUTO-IMPORTER` | [importer](automation/importer.md)                                               |
 
 ### pwsh/
 

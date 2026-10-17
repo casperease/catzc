@@ -1,0 +1,49 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: ".claude/slides/slides.yml"
+#     folder: slides
+#     name: slides
+#     filetype: yml
+#     kind: slides-kit
+#     language: yaml
+#     track: ".claude"
+#     tracktype: vendor-settings
+#     vendor: claude
+#     module: ".claude"
+#     moduletype: settings
+# ---
+
+# The slides kit's sensible defaults, declared once (ADR-REPO-SLIDES#2); a pattern reads them as {{@token.*}}, {{@face.*}}, {{@scale.*}}
+# and {{@layout.*}} placeholders, and a slide file never repeats them. Two-level mapping only: a section, then key: value.
+token:
+  bg: "#1B2A41" # the deck's base dark tone
+  bg_deep: "#14213A" # the second dark tone; patterns alternate the two so neighbouring slides read as different pages
+  bg_raised: "#2C3E5C" # raised blocks: cards, pills, table heads, the statement and divider slides
+  bg_raised_2: "#3D5178" # a block raised on a raised block
+  ink: "#F7F5F0" # headings and primary text
+  ink_soft: "#C9D1DC" # body text
+  ink_muted: "#8A96A8" # footers and page numbers
+  accent: "#E8A33D" # eyebrows, arrows, the one accent colour
+face:
+  display: "'Source Serif 4', Georgia, serif"
+  display_href: https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300..700&display=swap
+  text: "'IBM Plex Sans', Arial, sans-serif"
+  text_href: https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap
+scale: # the type scale in px; a pattern uses these seven sizes and no other
+  display: 120
+  h1: 96
+  h2: 72
+  h3: 44
+  body: 32
+  small: 28
+  caption: 24
+layout:
+  width: 1920
+  height: 1080
+  gutter: 128 # the margin on every side; 1664 x 824 inside
+  footer_bottom: 64 # the pinned page-number row; a slide with one pads 160 at the bottom
+render:
+  out: out/slides # Build-SlideDeck lands <deck>/project/… and <deck>.script.md here
+  patterns: .claude/slides/patterns # one <name>.html per pattern

@@ -37,6 +37,8 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Path = 'automation/Catzc.Base.Globs/configs/file-kinds.yml'; Class = 'config' }
         @{ Path = '.claude/drawio/contact_sheet.py'; Class = 'drawio-kit' }
         @{ Path = '.claude/drawio/STYLE.md'; Class = 'drawio-kit' }
+        @{ Path = '.claude/slides/patterns/rule.html'; Class = 'slides-kit' }
+        @{ Path = '.claude/slides/slides.yml'; Class = 'slides-kit' }
         @{ Path = 'tools/export.py'; Class = 'script' }
         @{ Path = 'docs/.assets/explanation/widget-flow.drawio.png'; Class = 'diagram' }
         @{ Path = 'docs/.assets/explanation/grid/widget-flow.grid.md'; Class = 'asset-description' }

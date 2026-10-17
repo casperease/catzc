@@ -218,4 +218,24 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
             { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*ruleset 'beta/thing-two': unknown key 'concerns'*"
         }
     }
+
+    Context 'the layer of the automation' -Tag 'ADR-AUTO-LAYERS#6' {
+        It 'declares the five layers and the default once, and gives a ruleset that names none the default' {
+            [Catzc.Base.Docs.AdrsConfig]::Layers | Should -Be @('automation', 'contract', 'language', 'engine', 'importer')
+            [Catzc.Base.Docs.AdrsConfig]::DefaultLayer | Should -Be 'automation'
+            $config = [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw))
+            ($config.RuleSets | Where-Object Slug -EQ 'thing-one').Layer | Should -Be 'automation'
+        }
+
+        It 'honours a named layer and throws on one outside the five' {
+            $raw = New-ValidRaw
+            $raw.domains.beta.rulesets['thing-two']['layer'] = 'engine'
+            $config = [Catzc.Base.Docs.AdrsConfig]::new($raw)
+            ($config.RuleSets | Where-Object Slug -EQ 'thing-two').Layer | Should -Be 'engine'
+
+            $raw = New-ValidRaw
+            $raw.domains.beta.rulesets['thing-two']['layer'] = 'folder'
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*ruleset 'beta/thing-two': layer 'folder' is not one of: automation, contract, language, engine, importer*"
+        }
+    }
 }

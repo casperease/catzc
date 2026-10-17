@@ -694,3 +694,35 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 - [Test automation](../../references/dora/capabilities.md#test-automation) — a module's tests run under the engines it names, from the
   declared data.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Layers
+
+`The layers of the automation — one word each for what, interface, how written, how run, how assembled`
+
+[ADR-AUTO-LAYERS](layers.md)
+
+> DORA ties loosely coupled teams and maintainable code to delivery performance, and both rest on a vocabulary that says which part of a
+> system a rule binds. Naming the five layers once, and recording an ADR's layer as data beside a stable code, lets a reader tell the doctrine
+> from one implementation of it without a folder move or a renumbered citation.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a rule that names its layer binds that layer and no
+  other, so the PowerShell code can change without the doctrine moving.
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a track named by its stack lets the team that owns
+  Bash or Python work beside the PowerShell track without sharing its name.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Importer
+
+`The importer decides the mix — one entry per engine, one choice of languages, engines and modules per session`
+
+[ADR-AUTO-IMPORTER](importer.md)
+
+> DORA's deployment automation and flexible infrastructure findings rest on one place that decides what a run consists of. An importer that
+> resolves the mix once, in the order every setting has, and hands one record to the test runner and the builder removes the three places
+> that each chose a part of it.
+
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — a session, a pipeline and a consumer load the same
+  mix from the same inputs, so what runs is decided by configuration, not by which script was entered.
+- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — a new language or engine is an entry and its
+  handlers, loaded or refused loudly at import, never a second loader.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

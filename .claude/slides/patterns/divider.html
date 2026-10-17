@@ -1,0 +1,34 @@
+<!--
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: ".claude/slides/patterns/divider.html"
+    folder: slides/patterns
+    name: divider
+    filetype: html
+    kind: slides-kit
+    language: html
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+---
+-->
+
+<section
+    id="{{@id}}"
+    data-transition="fade"
+    style="background:{{@token.bg_raised}};color:{{@token.ink}};font-family:{{@face.text}};padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:32px"
+>
+    <p style="font-size:{{@scale.caption}}px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:{{@token.accent}}">
+        {{eyebrow}}
+    </p>
+    <h1 style="font-family:{{@face.display}};font-size:{{@scale.h1}}px;font-weight:400;line-height:1.1">{{title}}</h1>
+    <div data-field="body" data-max="1" data-max-words="45" style="display: flex; flex-direction: column; gap: 24px">
+        <p data-item style="font-size:{{@scale.h3}}px;line-height:1.3;color:{{@token.ink_soft}};max-width:1500px">{{item}}</p>
+    </div>
+    <p style="position:absolute;left:128px;bottom:64px;font-size:{{@scale.caption}}px;color:{{@token.ink_muted}}">{{@page}}</p>
+    <aside>{{notes?}}</aside>
+</section>

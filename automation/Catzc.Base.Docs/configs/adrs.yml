@@ -125,15 +125,16 @@ domains:
     description: >-
       The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth,
       fail-fast assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, the module model, test
-      automation, and the merged, installable build, stated for any execution engine. Language layers live in `BCL/` (native C# types) and
-      `go/`, `python/`, and `bash/` (black-box test artifacts). It turns the research, principles, process, and design domains into enforced
-      code; the pwsh domain realises it in PowerShell, and the pipelines, github, and azure domains build on it.
+      automation, the merged, installable build, the five layers of the automation and the importer that decides a session's mix, stated
+      for any execution engine. Language layers live in `BCL/` (native C# types) and `go/`, `python/`, and `bash/` (black-box test
+      artifacts). It turns the research, principles, process, and design domains into enforced code; the pwsh domain realises it in
+      PowerShell, and the pipelines, github, and azure domains build on it.
     depends_on: [research, principles, process, design]
     stack: AUTO
     concern: [automation] # the module system: loading, configuration, globsets
     rulesets:
       devbox-pipeline-parity: { external: ADR-AUTO-PARITY }
-      uv-python-handler: { external: ADR-AUTO-UVPY, terminology: uvpy }
+      uv-python-handler: { external: ADR-AUTO-UVPY, terminology: uvpy, layer: language }
       log-before-invoke: { external: ADR-AUTO-PRELOG, terminology: prelog }
       retry-as-last-resort: { external: ADR-AUTO-RETRY }
       open-closed-architecture: { external: ADR-AUTO-EXTEND }
@@ -143,7 +144,7 @@ domains:
       test-automation: { external: ADR-AUTO-TEST, concern: [quality-control] }
       cross-platform: { external: ADR-AUTO-XPLAT, terminology: xplat }
       single-responsibility-functions: { external: ADR-AUTO-ONEJOB, terminology: onejob }
-      caching: { external: ADR-AUTO-CACHE }
+      caching: { external: ADR-AUTO-CACHE, layer: importer }
       tracked-files-from-the-index: { external: ADR-AUTO-TRACKED }
       sensible-defaults: { external: ADR-AUTO-DEFAULT }
       fail-fast-with-asserts: { external: ADR-AUTO-FAILFAST, terminology: failfast }
@@ -152,22 +153,24 @@ domains:
       effective-in-enterprises: { external: ADR-AUTO-ENTERP, terminology: enterp }
       controlling-systemwide-deps: { external: ADR-AUTO-DEPS, terminology: deps }
       tool-removal-lifecycle: { external: ADR-AUTO-REMOVE }
-      controlling-module-dependencies: { external: ADR-AUTO-DEPM, terminology: depm }
+      controlling-module-dependencies: { external: ADR-AUTO-DEPM, terminology: depm, layer: importer }
       environment-variables: { external: ADR-AUTO-ENVVAR, terminology: envvar }
       path-representation: { external: ADR-AUTO-PATH }
       managed-guids: { external: ADR-AUTO-GUIDS, terminology: guids }
-      platform-bundle: { external: ADR-AUTO-BUNDLE, concern: [build, release] }
-      consumer-overlay: { external: ADR-AUTO-OVERLAY, concern: [build, release] }
-      internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, terminology: assetdep, concern: [automation, build] }
+      platform-bundle: { external: ADR-AUTO-BUNDLE, concern: [build, release], layer: importer }
+      consumer-overlay: { external: ADR-AUTO-OVERLAY, concern: [build, release], layer: importer }
+      internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, terminology: assetdep, concern: [automation, build], layer: importer }
       console-output-matters: { external: ADR-AUTO-CONSOLE }
       spell-out-names: { external: ADR-AUTO-SPELL, concern: [quality-control] }
       dry-run: { external: ADR-AUTO-DRYRUN, terminology: dryrun }
-      native-csharp-types: { external: ADR-AUTO-TYPES, concern: [automation, build] }
-      go-test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control] }
-      python-test-artifacts: { external: ADR-AUTO-PY, concern: [quality-control] }
-      bash-test-artifacts: { external: ADR-AUTO-BASH, concern: [quality-control] }
-      execution-engines: { external: ADR-AUTO-ENGINE }
+      native-csharp-types: { external: ADR-AUTO-TYPES, concern: [automation, build], layer: language }
+      go-test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control], layer: language }
+      python-test-artifacts: { external: ADR-AUTO-PY, concern: [quality-control], layer: language }
+      bash-test-artifacts: { external: ADR-AUTO-BASH, concern: [quality-control], layer: language }
+      execution-engines: { external: ADR-AUTO-ENGINE, layer: engine }
       module-model: { external: ADR-AUTO-MODULE, concern: [automation, build, quality-control] }
+      layers: { external: ADR-AUTO-LAYERS }
+      importer: { external: ADR-AUTO-IMPORTER, layer: importer }
 
   pwsh:
     code: PWSH
