@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "96bf1b9085e2"
+    with_body_sha: ad365fe6e56b
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-thinplat-every-vendor-call-leaves-through-az-architecture-drawio
+    path: docs/explanation/design/every-vendor-call-leaves-through-az.drawio.md
+    folder: docs/explanation/design
+    name: every-vendor-call-leaves-through-az-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.tree.md
+      - docs/explanation/.assets/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.tree.md
       - docs/explanation/design/every-vendor-call-leaves-through-az.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

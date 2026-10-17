@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: da32502c3ff3
+    with_body_sha: "3b4e5f52ce1b"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-runmode-one-entry-script-per-mode-operations-drawio
+    path: docs/explanation/design/one-entry-script-per-mode.drawio.md
+    folder: docs/explanation/design
+    name: one-entry-script-per-mode-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-runmode--one-entry-script-per-mode--operations.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-runmode--one-entry-script-per-mode--operations.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-runmode--one-entry-script-per-mode--operations.tree.md
+      - docs/explanation/.assets/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-runmode--one-entry-script-per-mode--operations.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-runmode--one-entry-script-per-mode--operations.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-runmode--one-entry-script-per-mode--operations.tree.md
       - docs/explanation/design/one-entry-script-per-mode.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

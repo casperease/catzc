@@ -63,11 +63,16 @@ carriers:
     sidecar: "docs/explanation/*/{stem}.drawio.md"
     # The block of a diagram lives in the description beside its article; a diagram without one is listed with the reason, never skipped.
     exclude:
+      "docs/explanation/.assets/glyphs.drawio.png": "the glyph library has no article; its description sits beside the explanation index"
       "docs/.assets/azure/azure-name-assembly.drawio.png": "no description page has been written yet"
       "docs/.assets/commits-quality/10-commits-story.drawio.png": "no description page has been written yet"
       "docs/.assets/commits-quality/commit-lifecycle-states.drawio.png": "no description page has been written yet"
       "docs/.assets/commits-quality/state-changes.drawio.png": "no description page has been written yet"
       "docs/.assets/commits-quality/sync-point.drawio.png": "no description page has been written yet"
+  reference-diagram:
+    files: ["docs/references/.assets/**/*.drawio.png"]
+    carrier: sidecar
+    sidecar: "docs/references/automation/*/{stem}.drawio.md"
   dotfile:
     {
       files: ["**/.editorconfig", "**/.gitignore", "**/.gitattributes", "**/.prettierignore", "**/.markdownlintignore"],

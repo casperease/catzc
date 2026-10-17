@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: caffa246300c
+    with_body_sha: "2855c9ee80a6"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-runmode-which-run-mode-rules-have-a-gate-governance-drawio
+    path: docs/explanation/design/which-run-mode-rules-have-a-gate.drawio.md
+    folder: docs/explanation/design
+    name: which-run-mode-rules-have-a-gate-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.tree.md
+      - docs/explanation/.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.tree.md
       - docs/explanation/design/which-run-mode-rules-have-a-gate.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

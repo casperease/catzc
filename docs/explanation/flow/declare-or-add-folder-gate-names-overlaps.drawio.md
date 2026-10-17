@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e1de5e6f7672
+    with_body_sha: "71eb0a8f3b5e"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-declare-or-add-folder-gate-names-overlaps-operations-drawio
+    path: docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.drawio.md
+    folder: docs/explanation/flow
+    name: declare-or-add-folder-gate-names-overlaps-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.tree.md
       - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

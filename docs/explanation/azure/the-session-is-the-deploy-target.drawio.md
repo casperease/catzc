@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8e85fa99e5e2"
+    with_body_sha: "25b1d77d44db"
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-datamod-the-session-is-the-deploy-target-meta-drawio
+    path: docs/explanation/azure/the-session-is-the-deploy-target.drawio.md
+    folder: docs/explanation/azure
+    name: the-session-is-the-deploy-target-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-az-datamod--the-session-is-the-deploy-target--meta.chain.md
-      - docs/.assets/explanation/grid/adr-az-datamod--the-session-is-the-deploy-target--meta.grid.md
-      - docs/.assets/explanation/tree/adr-az-datamod--the-session-is-the-deploy-target--meta.tree.md
+      - docs/explanation/.assets/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-az-datamod--the-session-is-the-deploy-target--meta.chain.md
+      - docs/explanation/.assets/grid/adr-az-datamod--the-session-is-the-deploy-target--meta.grid.md
+      - docs/explanation/.assets/tree/adr-az-datamod--the-session-is-the-deploy-target--meta.tree.md
       - docs/explanation/azure/the-session-is-the-deploy-target.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

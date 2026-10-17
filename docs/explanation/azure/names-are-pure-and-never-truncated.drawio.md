@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1abbbb59293c"
+    with_body_sha: "4e38b6730f0b"
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-naming-names-are-pure-and-never-truncated-meta-drawio
+    path: docs/explanation/azure/names-are-pure-and-never-truncated.drawio.md
+    folder: docs/explanation/azure
+    name: names-are-pure-and-never-truncated-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-az-naming--names-are-pure-and-never-truncated--meta.chain.md
-      - docs/.assets/explanation/grid/adr-az-naming--names-are-pure-and-never-truncated--meta.grid.md
-      - docs/.assets/explanation/tree/adr-az-naming--names-are-pure-and-never-truncated--meta.tree.md
+      - docs/explanation/.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-az-naming--names-are-pure-and-never-truncated--meta.chain.md
+      - docs/explanation/.assets/grid/adr-az-naming--names-are-pure-and-never-truncated--meta.grid.md
+      - docs/explanation/.assets/tree/adr-az-naming--names-are-pure-and-never-truncated--meta.tree.md
       - docs/explanation/azure/names-are-pure-and-never-truncated.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

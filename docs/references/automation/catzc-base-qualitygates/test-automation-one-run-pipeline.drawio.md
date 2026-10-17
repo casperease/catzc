@@ -27,7 +27,7 @@ Glyphs: 2 code units, 7 private helpers, 1 gate, 3 named sets, 1 file; 8 flow ed
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](test-automation-one-run-pipeline.drawio.png) draws from the source of the `Catzc.Base.QualityGates`
+This describes what the [diagram](../../.assets/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png) draws from the source of the `Catzc.Base.QualityGates`
 module. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance

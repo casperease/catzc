@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8575c59222f7"
+    with_body_sha: c7d5cc477d6a
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-detect-two-variables-read-in-one-place-implementation-drawio
+    path: docs/explanation/flow/two-variables-read-in-one-place.drawio.md
+    folder: docs/explanation/flow
+    name: two-variables-read-in-one-place-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.tree.md
+      - docs/explanation/.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.tree.md
       - docs/explanation/flow/two-variables-read-in-one-place.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

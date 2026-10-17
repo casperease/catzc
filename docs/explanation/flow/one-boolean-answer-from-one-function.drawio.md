@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "440c8961d77a"
+    with_body_sha: "157da837d35e"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-detect-one-boolean-answer-from-one-function-meta-drawio
+    path: docs/explanation/flow/one-boolean-answer-from-one-function.drawio.md
+    folder: docs/explanation/flow
+    name: one-boolean-answer-from-one-function-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.tree.md
+      - docs/explanation/.assets/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.tree.md
       - docs/explanation/flow/one-boolean-answer-from-one-function.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

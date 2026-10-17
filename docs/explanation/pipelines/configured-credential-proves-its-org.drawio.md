@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ead7eeef9327
+    with_body_sha: "2af2a521817b"
     repo_status: clean
-    path: docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-pipe-auth-configured-credential-proves-its-org-meta-drawio
+    path: docs/explanation/pipelines/configured-credential-proves-its-org.drawio.md
+    folder: docs/explanation/pipelines
+    name: configured-credential-proves-its-org-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-pipe-auth--configured-credential-proves-its-org--meta.chain.md
-      - docs/.assets/explanation/grid/adr-pipe-auth--configured-credential-proves-its-org--meta.grid.md
-      - docs/.assets/explanation/tree/adr-pipe-auth--configured-credential-proves-its-org--meta.tree.md
+      - docs/explanation/.assets/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-pipe-auth--configured-credential-proves-its-org--meta.chain.md
+      - docs/explanation/.assets/grid/adr-pipe-auth--configured-credential-proves-its-org--meta.grid.md
+      - docs/explanation/.assets/tree/adr-pipe-auth--configured-credential-proves-its-org--meta.tree.md
       - docs/explanation/pipelines/configured-credential-proves-its-org.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

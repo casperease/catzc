@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "98e1b18f0355"
+    with_body_sha: "861d70fce3b3"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-code-wires-only-the-first-rungs-implementation-drawio
+    path: docs/explanation/design/code-wires-only-the-first-rungs.drawio.md
+    folder: docs/explanation/design
+    name: code-wires-only-the-first-rungs-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.tree.md
       - docs/explanation/design/code-wires-only-the-first-rungs.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

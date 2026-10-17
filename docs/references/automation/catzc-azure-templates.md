@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c62eb7ef9ecb
+    with_body_sha: "4bc5b02724ff"
     repo_status: clean
     path: docs/references/automation/catzc-azure-templates.md
     folder: docs/references/automation
@@ -13,17 +13,17 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
-      - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png
-      - docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
-      - docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png
       - docs/adr/azure/azure-data-model.md
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
       - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
       - docs/adr/azure/azure-naming-standard.md
       - docs/adr/configuration/config-value-addressing.md
       - docs/adr/pwsh/prepost-extension-modules.md
+      - docs/references/.assets/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png
+      - docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png
       - docs/references/automation/catzc-azure-cli.md
+      - docs/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
+      - docs/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
       - docs/references/automation/catzc-azure.md
 ---
 
@@ -114,12 +114,12 @@ The first diagram below draws template discovery and the build from the source. 
 only five derived defaults, under a strict schema. The build writes one parameters file per slot and then compiles the template once. The
 second diagram draws a deployment. It works on one immutable context (the plan, the artifacts and the environment), resolved from the live
 az session against `azure.yml`. A dry run stops at the what-if; otherwise the deployment is created. Each slide has a description:
-[template discovery](../../.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md) and
-[deployment](../../.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md).
+[template discovery](catzc-azure-templates/bicep-template-is-a-folder.drawio.md) and
+[deployment](catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md).
 
-![A template is a folder; options.yml overrides five defaults](../../.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png)
+![A template is a folder; options.yml overrides five defaults](../.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png)
 
-![One immutable context, resolved from the az session](../../.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png)
+![One immutable context, resolved from the az session](../.assets/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png)
 
 ## Division
 

@@ -28,7 +28,7 @@ Edges: 10 flow edges (two joined by buses), 1 failure path; 9 markers; 1 count c
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](tools-yml-install-dispatch.drawio.png) draws from the source of the `Catzc.Tooling.Provisioning` module.
+This describes what the [diagram](../../.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png) draws from the source of the `Catzc.Tooling.Provisioning` module.
 The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e06703574d92
+    with_body_sha: c57bd0ab9113
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-remote-ingress-gated-the-rest-by-review-governance-drawio
+    path: docs/explanation/design/ingress-gated-the-rest-by-review.drawio.md
+    folder: docs/explanation/design
+    name: ingress-gated-the-rest-by-review-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.tree.md
+      - docs/explanation/.assets/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.tree.md
       - docs/explanation/design/ingress-gated-the-rest-by-review.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

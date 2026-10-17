@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f070e7adfe99
+    with_body_sha: afb749621306
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-thinplat-what-keeps-the-platform-thin-governance-drawio
+    path: docs/explanation/design/what-keeps-the-platform-thin.drawio.md
+    folder: docs/explanation/design
+    name: what-keeps-the-platform-thin-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.tree.md
+      - docs/explanation/.assets/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.tree.md
       - docs/explanation/design/what-keeps-the-platform-thin.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

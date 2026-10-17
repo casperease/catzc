@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b54a68cb05a1
+    with_body_sha: "63cc5e4b3941"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-gates-check-source-and-trigger-governance-drawio
+    path: docs/explanation/flow/gates-check-source-and-trigger.drawio.md
+    folder: docs/explanation/flow
+    name: gates-check-source-and-trigger-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--gates-check-source-and-trigger--governance.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--gates-check-source-and-trigger--governance.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--gates-check-source-and-trigger--governance.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--gates-check-source-and-trigger--governance.tree.md
       - docs/explanation/flow/gates-check-source-and-trigger.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

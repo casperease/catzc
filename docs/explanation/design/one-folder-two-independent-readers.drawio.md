@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b2e7b20711d3
+    with_body_sha: "682c06f7a0e0"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-aspect-one-folder-two-independent-readers-architecture-drawio
+    path: docs/explanation/design/one-folder-two-independent-readers.drawio.md
+    folder: docs/explanation/design
+    name: one-folder-two-independent-readers-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.tree.md
+      - docs/explanation/.assets/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.tree.md
       - docs/explanation/design/one-folder-two-independent-readers.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

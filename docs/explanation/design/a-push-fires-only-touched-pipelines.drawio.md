@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8bb6bde49d63"
+    with_body_sha: ad83f6fadfc8
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-track-a-push-fires-only-touched-pipelines-operations-drawio
+    path: docs/explanation/design/a-push-fires-only-touched-pipelines.drawio.md
+    folder: docs/explanation/design
+    name: a-push-fires-only-touched-pipelines-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.tree.md
+      - docs/explanation/.assets/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.tree.md
       - docs/explanation/design/a-push-fires-only-touched-pipelines.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

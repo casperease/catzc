@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: beafed532027
+    with_body_sha: "19ba9e6a7cb8"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-aspect-gate-checks-order-not-liveness-governance-drawio
+    path: docs/explanation/design/gate-checks-order-not-liveness.drawio.md
+    folder: docs/explanation/design
+    name: gate-checks-order-not-liveness-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.tree.md
+      - docs/explanation/.assets/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.tree.md
       - docs/explanation/design/gate-checks-order-not-liveness.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

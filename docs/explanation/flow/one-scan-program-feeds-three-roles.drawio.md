@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "45d612b7aa84"
+    with_body_sha: ceb221edd20f
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-one-scan-program-feeds-three-roles-implementation-drawio
+    path: docs/explanation/flow/one-scan-program-feeds-three-roles.drawio.md
+    folder: docs/explanation/flow
+    name: one-scan-program-feeds-three-roles-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.tree.md
       - docs/explanation/flow/one-scan-program-feeds-three-roles.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

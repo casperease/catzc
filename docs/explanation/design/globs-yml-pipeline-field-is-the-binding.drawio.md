@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d1de97046db9
+    with_body_sha: a0ffd8272fe5
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-track-globs-yml-pipeline-field-is-the-binding-implementation-drawio
+    path: docs/explanation/design/globs-yml-pipeline-field-is-the-binding.drawio.md
+    folder: docs/explanation/design
+    name: globs-yml-pipeline-field-is-the-binding-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.tree.md
+      - docs/explanation/.assets/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.tree.md
       - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

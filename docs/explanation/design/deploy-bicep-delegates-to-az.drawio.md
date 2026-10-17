@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b84f30c7afcd
+    with_body_sha: "0ad8e82d388e"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-thinplat-deploy-bicep-delegates-to-az-implementation-drawio
+    path: docs/explanation/design/deploy-bicep-delegates-to-az.drawio.md
+    folder: docs/explanation/design
+    name: deploy-bicep-delegates-to-az-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.tree.md
+      - docs/explanation/.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.tree.md
       - docs/explanation/design/deploy-bicep-delegates-to-az.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

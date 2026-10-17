@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: eebc210adb34
+    with_body_sha: bbd488c4433d
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-datamod-two-layers-join-through-one-resolver-architecture-drawio
+    path: docs/explanation/azure/two-layers-join-through-one-resolver.drawio.md
+    folder: docs/explanation/azure
+    name: two-layers-join-through-one-resolver-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-az-datamod--two-layers-join-through-one-resolver--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-az-datamod--two-layers-join-through-one-resolver--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-az-datamod--two-layers-join-through-one-resolver--architecture.tree.md
+      - docs/explanation/.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-az-datamod--two-layers-join-through-one-resolver--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-az-datamod--two-layers-join-through-one-resolver--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-az-datamod--two-layers-join-through-one-resolver--architecture.tree.md
       - docs/explanation/azure/two-layers-join-through-one-resolver.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

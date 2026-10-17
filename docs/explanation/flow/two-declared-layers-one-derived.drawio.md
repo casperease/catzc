@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "901c5497834b"
+    with_body_sha: "2dcbafea0c0d"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-two-declared-layers-one-derived-architecture-drawio
+    path: docs/explanation/flow/two-declared-layers-one-derived.drawio.md
+    folder: docs/explanation/flow
+    name: two-declared-layers-one-derived-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.tree.md
       - docs/explanation/flow/two-declared-layers-one-derived.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

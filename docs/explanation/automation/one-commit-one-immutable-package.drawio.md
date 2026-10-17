@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "56c3b5b3a834"
+    with_body_sha: b8ea73e68695
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-bundle-one-commit-one-immutable-package-meta-drawio
+    path: docs/explanation/automation/one-commit-one-immutable-package.drawio.md
+    folder: docs/explanation/automation
+    name: one-commit-one-immutable-package-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md
-      - docs/.assets/explanation/grid/adr-auto-bundle--one-commit-one-immutable-package--meta.grid.md
-      - docs/.assets/explanation/tree/adr-auto-bundle--one-commit-one-immutable-package--meta.tree.md
+      - docs/explanation/.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md
+      - docs/explanation/.assets/grid/adr-auto-bundle--one-commit-one-immutable-package--meta.grid.md
+      - docs/explanation/.assets/tree/adr-auto-bundle--one-commit-one-immutable-package--meta.tree.md
       - docs/explanation/automation/one-commit-one-immutable-package.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

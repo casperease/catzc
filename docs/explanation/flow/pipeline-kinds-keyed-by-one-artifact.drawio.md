@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b1781bf61e7e
+    with_body_sha: "82cf2fe40d52"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-pipeline-kinds-keyed-by-one-artifact-architecture-drawio
+    path: docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.drawio.md
+    folder: docs/explanation/flow
+    name: pipeline-kinds-keyed-by-one-artifact-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.tree.md
+      - docs/explanation/.assets/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.tree.md
       - docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

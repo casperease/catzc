@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d5f70f8f8828
+    with_body_sha: cea3d28f5995
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-overlap-gated-for-units-and-modules-governance-drawio
+    path: docs/explanation/flow/overlap-gated-for-units-and-modules.drawio.md
+    folder: docs/explanation/flow
+    name: overlap-gated-for-units-and-modules-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.tree.md
       - docs/explanation/flow/overlap-gated-for-units-and-modules.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

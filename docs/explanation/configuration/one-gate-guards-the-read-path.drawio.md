@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a6b0071de2a1
+    with_body_sha: "08089590029e"
     repo_status: clean
-    path: docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-conf-loading-one-gate-guards-the-read-path-governance-drawio
+    path: docs/explanation/configuration/one-gate-guards-the-read-path.drawio.md
+    folder: docs/explanation/configuration
+    name: one-gate-guards-the-read-path-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-conf-loading--one-gate-guards-the-read-path--governance.chain.md
-      - docs/.assets/explanation/grid/adr-conf-loading--one-gate-guards-the-read-path--governance.grid.md
-      - docs/.assets/explanation/tree/adr-conf-loading--one-gate-guards-the-read-path--governance.tree.md
+      - docs/explanation/.assets/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-conf-loading--one-gate-guards-the-read-path--governance.chain.md
+      - docs/explanation/.assets/grid/adr-conf-loading--one-gate-guards-the-read-path--governance.grid.md
+      - docs/explanation/.assets/tree/adr-conf-loading--one-gate-guards-the-read-path--governance.tree.md
       - docs/explanation/configuration/one-gate-guards-the-read-path.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

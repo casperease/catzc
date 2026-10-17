@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5925a0616ee3"
+    with_body_sha: "89e2595172b8"
     repo_status: clean
-    path: docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-conf-addressing-two-test-files-check-the-address-rules-governance-drawio
+    path: docs/explanation/configuration/two-test-files-check-the-address-rules.drawio.md
+    folder: docs/explanation/configuration
+    name: two-test-files-check-the-address-rules-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-conf-addressing--two-test-files-check-the-address-rules--governance.chain.md
-      - docs/.assets/explanation/grid/adr-conf-addressing--two-test-files-check-the-address-rules--governance.grid.md
-      - docs/.assets/explanation/tree/adr-conf-addressing--two-test-files-check-the-address-rules--governance.tree.md
+      - docs/explanation/.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-conf-addressing--two-test-files-check-the-address-rules--governance.chain.md
+      - docs/explanation/.assets/grid/adr-conf-addressing--two-test-files-check-the-address-rules--governance.grid.md
+      - docs/explanation/.assets/tree/adr-conf-addressing--two-test-files-check-the-address-rules--governance.tree.md
       - docs/explanation/configuration/two-test-files-check-the-address-rules.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

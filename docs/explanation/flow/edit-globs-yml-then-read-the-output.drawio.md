@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a6af3544fa3c
+    with_body_sha: cfa6553eaa25
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-edit-globs-yml-then-read-the-output-operations-drawio
+    path: docs/explanation/flow/edit-globs-yml-then-read-the-output.drawio.md
+    folder: docs/explanation/flow
+    name: edit-globs-yml-then-read-the-output-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.tree.md
       - docs/explanation/flow/edit-globs-yml-then-read-the-output.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d34bce750a2c
+    with_body_sha: d358b226854b
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-failfast-one-rule-per-stage-and-two-gaps-governance-drawio
+    path: docs/explanation/automation/one-rule-per-stage-and-two-gaps.drawio.md
+    folder: docs/explanation/automation
+    name: one-rule-per-stage-and-two-gaps-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.chain.md
-      - docs/.assets/explanation/grid/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.grid.md
-      - docs/.assets/explanation/tree/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.tree.md
+      - docs/explanation/.assets/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.chain.md
+      - docs/explanation/.assets/grid/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.grid.md
+      - docs/explanation/.assets/tree/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.tree.md
       - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

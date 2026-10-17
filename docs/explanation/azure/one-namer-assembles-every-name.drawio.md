@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f7d4635c118e
+    with_body_sha: "72832b97fa5f"
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-naming-one-namer-assembles-every-name-architecture-drawio
+    path: docs/explanation/azure/one-namer-assembles-every-name.drawio.md
+    folder: docs/explanation/azure
+    name: one-namer-assembles-every-name-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-az-naming--one-namer-assembles-every-name--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-az-naming--one-namer-assembles-every-name--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-az-naming--one-namer-assembles-every-name--architecture.tree.md
+      - docs/explanation/.assets/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-az-naming--one-namer-assembles-every-name--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-az-naming--one-namer-assembles-every-name--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-az-naming--one-namer-assembles-every-name--architecture.tree.md
       - docs/explanation/azure/one-namer-assembles-every-name.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

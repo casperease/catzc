@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6a910ec148fe"
+    with_body_sha: "4655014679c8"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-merging-to-main-is-what-deploys-operations-drawio
+    path: docs/explanation/design/merging-to-main-is-what-deploys.drawio.md
+    folder: docs/explanation/design
+    name: merging-to-main-is-what-deploys-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--merging-to-main-is-what-deploys--operations.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--merging-to-main-is-what-deploys--operations.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--merging-to-main-is-what-deploys--operations.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--merging-to-main-is-what-deploys--operations.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--merging-to-main-is-what-deploys--operations.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--merging-to-main-is-what-deploys--operations.tree.md
       - docs/explanation/design/merging-to-main-is-what-deploys.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

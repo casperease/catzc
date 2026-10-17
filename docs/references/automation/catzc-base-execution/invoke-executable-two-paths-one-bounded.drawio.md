@@ -29,7 +29,7 @@ Glyphs: 2 code units, 1 code unit in a catzc module frame, 2 private helpers, 1 
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](invoke-executable-two-paths-one-bounded.drawio.png) draws from the source of the `Catzc.Base.Execution`
+This describes what the [diagram](../../.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png) draws from the source of the `Catzc.Base.Execution`
 module. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance

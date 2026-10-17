@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e5fd7df2273a
+    with_body_sha: "5a7bf3d9dfe1"
     repo_status: clean
-    path: docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-conf-addressing-an-address-is-a-read-only-walk-meta-drawio
+    path: docs/explanation/configuration/an-address-is-a-read-only-walk.drawio.md
+    folder: docs/explanation/configuration
+    name: an-address-is-a-read-only-walk-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-conf-addressing--an-address-is-a-read-only-walk--meta.chain.md
-      - docs/.assets/explanation/grid/adr-conf-addressing--an-address-is-a-read-only-walk--meta.grid.md
-      - docs/.assets/explanation/tree/adr-conf-addressing--an-address-is-a-read-only-walk--meta.tree.md
+      - docs/explanation/.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-conf-addressing--an-address-is-a-read-only-walk--meta.chain.md
+      - docs/explanation/.assets/grid/adr-conf-addressing--an-address-is-a-read-only-walk--meta.grid.md
+      - docs/explanation/.assets/tree/adr-conf-addressing--an-address-is-a-read-only-walk--meta.tree.md
       - docs/explanation/configuration/an-address-is-a-read-only-walk.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

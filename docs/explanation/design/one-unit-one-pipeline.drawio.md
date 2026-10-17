@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f7974f9dabcc
+    with_body_sha: "951f4e0b4a00"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-track-one-unit-one-pipeline-meta-drawio
+    path: docs/explanation/design/one-unit-one-pipeline.drawio.md
+    folder: docs/explanation/design
+    name: one-unit-one-pipeline-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-track--one-unit-one-pipeline--meta.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-track--one-unit-one-pipeline--meta.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-track--one-unit-one-pipeline--meta.tree.md
+      - docs/explanation/.assets/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-track--one-unit-one-pipeline--meta.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-track--one-unit-one-pipeline--meta.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-track--one-unit-one-pipeline--meta.tree.md
       - docs/explanation/design/one-unit-one-pipeline.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

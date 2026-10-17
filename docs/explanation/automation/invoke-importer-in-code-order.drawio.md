@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f7db6022a8fb
+    with_body_sha: b3b14fbf960a
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-bundle-invoke-importer-in-code-order-implementation-drawio
+    path: docs/explanation/automation/invoke-importer-in-code-order.drawio.md
+    folder: docs/explanation/automation
+    name: invoke-importer-in-code-order-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-bundle--invoke-importer-in-code-order--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-auto-bundle--invoke-importer-in-code-order--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-auto-bundle--invoke-importer-in-code-order--implementation.tree.md
+      - docs/explanation/.assets/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-bundle--invoke-importer-in-code-order--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-auto-bundle--invoke-importer-in-code-order--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-auto-bundle--invoke-importer-in-code-order--implementation.tree.md
       - docs/explanation/automation/invoke-importer-in-code-order.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

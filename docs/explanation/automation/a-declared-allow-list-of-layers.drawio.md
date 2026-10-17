@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: abae4702c678
+    with_body_sha: "7cd5c66ae2f9"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-depm-a-declared-allow-list-of-layers-meta-drawio
+    path: docs/explanation/automation/a-declared-allow-list-of-layers.drawio.md
+    folder: docs/explanation/automation
+    name: a-declared-allow-list-of-layers-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md
-      - docs/.assets/explanation/grid/adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md
-      - docs/.assets/explanation/tree/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md
+      - docs/explanation/.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md
+      - docs/explanation/.assets/grid/adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md
+      - docs/explanation/.assets/tree/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md
       - docs/explanation/automation/a-declared-allow-list-of-layers.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

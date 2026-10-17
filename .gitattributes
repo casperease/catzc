@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5fb931916dee"
+#     with_body_sha: d4110588212c
 #     repo_status: locked
 #     path: ".gitattributes"
 #     source:
@@ -110,9 +110,9 @@ automation/.compiled/** linguist-generated
 /contracts/** linguist-detectable=false
 # The minimap grid, tree and chain descriptions are rendered by .claude/drawio/minimaps/render.py from the slide and
 # its reasons: output, not authored prose — out of the statistics, and collapsed in pull-request diffs.
-/docs/.assets/**/*.grid.md  linguist-generated
-/docs/.assets/**/*.tree.md  linguist-generated
-/docs/.assets/**/*.chain.md linguist-generated
+/docs/**/.assets/**/*.grid.md  linguist-generated
+/docs/**/.assets/**/*.tree.md  linguist-generated
+/docs/**/.assets/**/*.chain.md linguist-generated
 
 # GitHub (linguist): the draw.io diagrams are documentation — the pictures the Markdown articles embed. They stay
 # binary (the *.png rule above: no line-ending conversion, since the editable XML rides inside the PNG), but their

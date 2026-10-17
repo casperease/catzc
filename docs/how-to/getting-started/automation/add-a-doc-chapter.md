@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3735962b4882"
+    with_body_sha: "9af19429156a"
     repo_status: clean
     path: docs/how-to/getting-started/automation/add-a-doc-chapter.md
     folder: docs/how-to/getting-started/automation
@@ -30,7 +30,7 @@ The repository has five kinds of prose, each with a home and a format:
 | **ADR**             | `docs/adr/<area>/`                    | A durable design decision and its rationale (the _why_)                          |
 | **Getting-started** | `docs/how-to/getting-started/<area>/` | A task-focused guide for onboarding and the common jobs (the _how_, like this)   |
 | **How-to**          | `docs/how-to/<area>/`                 | A standalone how-to article for one task (e.g. the manual test plan)             |
-| **Explanation**     | `docs/explanation/<adr-domain>/`      | How one part works and why, narrating one diagram in `docs/.assets/explanation/` |
+| **Explanation**     | `docs/explanation/<adr-domain>/`      | How one part works and why, narrating one diagram in `docs/explanation/.assets/` |
 | **Note**            | `docs/notes/**`                       | Freeform working notes, investigations, drafts                                   |
 
 All of `docs/` is **markdown only**, except `docs/.assets/`, which holds the diagram images and their `<name>.drawio.md` descriptions
@@ -73,9 +73,9 @@ to how-to churn).
 
 An explanation article narrates one diagram: how one part of cats works and why it holds.
 
-1. Put the diagram in `docs/.assets/explanation/<name>.drawio.png`, and its description, what it draws in words, beside it as
-   `<name>.drawio.md`.
-2. Create `docs/explanation/<adr-domain>/<kebab-title>.md`, in the folder of the ADR domain whose decision it explains.
+1. Put the diagram in `docs/explanation/.assets/<name>.drawio.png`, where `<name>` is `adr-<domain>-<code>--<kebab-title>--<lens>`.
+2. Create `docs/explanation/<adr-domain>/<kebab-title>.md`, in the folder of the ADR domain whose decision it explains, and its description,
+   what the diagram draws in words, beside it as `<kebab-title>.drawio.md`.
 3. After the title, open with a fenced `text` block that gives the overview: the finding in one line, then one line per numbered point of
    the diagram. Then a short opening paragraph, the image, a Walkthrough that narrates every numbered point in order, the ADR rules that
    make it hold, and links to the ADR, the asset description and the related articles.

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "05a433bb786c"
+    with_body_sha: "83bfde173d39"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-aspect-every-file-in-exactly-one-aspect-meta-drawio
+    path: docs/explanation/design/every-file-in-exactly-one-aspect.drawio.md
+    folder: docs/explanation/design
+    name: every-file-in-exactly-one-aspect-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.tree.md
+      - docs/explanation/.assets/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.tree.md
       - docs/explanation/design/every-file-in-exactly-one-aspect.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

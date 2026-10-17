@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6186b459eb4c"
+    with_body_sha: "8f4bc427df64"
     repo_status: locked
     path: docs/references/automation/catzc-base-modules/types/Module.cs.md
     folder: docs/references/automation/catzc-base-modules/types
@@ -16,8 +16,8 @@ catzc:
 
 # automation/Catzc.Base.Modules/types/Module.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1392e260a28e"
+    with_body_sha: "8af46d1156fa"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-remote-clients-bridge-to-one-server-architecture-drawio
+    path: docs/explanation/design/clients-bridge-to-one-server.drawio.md
+    folder: docs/explanation/design
+    name: clients-bridge-to-one-server-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-remote--clients-bridge-to-one-server--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-remote--clients-bridge-to-one-server--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-remote--clients-bridge-to-one-server--architecture.tree.md
+      - docs/explanation/.assets/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-remote--clients-bridge-to-one-server--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-remote--clients-bridge-to-one-server--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-remote--clients-bridge-to-one-server--architecture.tree.md
       - docs/explanation/design/clients-bridge-to-one-server.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

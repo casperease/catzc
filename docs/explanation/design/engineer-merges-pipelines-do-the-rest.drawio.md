@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c0bafd6a3aa9
+    with_body_sha: "0ed8d36d4bbf"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-engineer-merges-pipelines-do-the-rest-operations-drawio
+    path: docs/explanation/design/engineer-merges-pipelines-do-the-rest.drawio.md
+    folder: docs/explanation/design
+    name: engineer-merges-pipelines-do-the-rest-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.tree.md
       - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

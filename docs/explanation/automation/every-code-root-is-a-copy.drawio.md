@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "41bc4b4cdfc4"
+    with_body_sha: "33ab76404268"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-bundle-every-code-root-is-a-copy-architecture-drawio
+    path: docs/explanation/automation/every-code-root-is-a-copy.drawio.md
+    folder: docs/explanation/automation
+    name: every-code-root-is-a-copy-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-bundle--every-code-root-is-a-copy--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-auto-bundle--every-code-root-is-a-copy--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-auto-bundle--every-code-root-is-a-copy--architecture.tree.md
+      - docs/explanation/.assets/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-bundle--every-code-root-is-a-copy--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-auto-bundle--every-code-root-is-a-copy--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-auto-bundle--every-code-root-is-a-copy--architecture.tree.md
       - docs/explanation/automation/every-code-root-is-a-copy.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

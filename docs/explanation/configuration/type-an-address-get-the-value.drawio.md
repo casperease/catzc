@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d5923e74f01f
+    with_body_sha: "5385b90edfcc"
     repo_status: clean
-    path: docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-conf-addressing-type-an-address-get-the-value-operations-drawio
+    path: docs/explanation/configuration/type-an-address-get-the-value.drawio.md
+    folder: docs/explanation/configuration
+    name: type-an-address-get-the-value-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-conf-addressing--type-an-address-get-the-value--operations.chain.md
-      - docs/.assets/explanation/grid/adr-conf-addressing--type-an-address-get-the-value--operations.grid.md
-      - docs/.assets/explanation/tree/adr-conf-addressing--type-an-address-get-the-value--operations.tree.md
+      - docs/explanation/.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-conf-addressing--type-an-address-get-the-value--operations.chain.md
+      - docs/explanation/.assets/grid/adr-conf-addressing--type-an-address-get-the-value--operations.grid.md
+      - docs/explanation/.assets/tree/adr-conf-addressing--type-an-address-get-the-value--operations.tree.md
       - docs/explanation/configuration/type-an-address-get-the-value.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

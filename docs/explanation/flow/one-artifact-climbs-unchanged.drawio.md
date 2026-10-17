@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "02e8c0669f15"
+    with_body_sha: c35a8f0c01d9
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-one-artifact-climbs-unchanged-meta-drawio
+    path: docs/explanation/flow/one-artifact-climbs-unchanged.drawio.md
+    folder: docs/explanation/flow
+    name: one-artifact-climbs-unchanged-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd--one-artifact-climbs-unchanged--meta.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd--one-artifact-climbs-unchanged--meta.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd--one-artifact-climbs-unchanged--meta.tree.md
+      - docs/explanation/.assets/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd--one-artifact-climbs-unchanged--meta.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd--one-artifact-climbs-unchanged--meta.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd--one-artifact-climbs-unchanged--meta.tree.md
       - docs/explanation/flow/one-artifact-climbs-unchanged.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: efd4bf9bb21f
+    with_body_sha: "6c08474e398d"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-globs-module-owns-config-and-types-architecture-drawio
+    path: docs/explanation/flow/globs-module-owns-config-and-types.drawio.md
+    folder: docs/explanation/flow
+    name: globs-module-owns-config-and-types-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.tree.md
       - docs/explanation/flow/globs-module-owns-config-and-types.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

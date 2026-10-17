@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "37cd55ce8505"
+    with_body_sha: d06b5a915975
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-path-two-crossers-and-three-anchors-architecture-drawio
+    path: docs/explanation/automation/two-crossers-and-three-anchors.drawio.md
+    folder: docs/explanation/automation
+    name: two-crossers-and-three-anchors-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-path--two-crossers-and-three-anchors--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-auto-path--two-crossers-and-three-anchors--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-auto-path--two-crossers-and-three-anchors--architecture.tree.md
+      - docs/explanation/.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-path--two-crossers-and-three-anchors--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-auto-path--two-crossers-and-three-anchors--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-auto-path--two-crossers-and-three-anchors--architecture.tree.md
       - docs/explanation/automation/two-crossers-and-three-anchors.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bbb8ce2641e3
+    with_body_sha: c813ab85c1b3
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-every-deploy-stage-is-main-only-implementation-drawio
+    path: docs/explanation/design/every-deploy-stage-is-main-only.drawio.md
+    folder: docs/explanation/design
+    name: every-deploy-stage-is-main-only-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.tree.md
       - docs/explanation/design/every-deploy-stage-is-main-only.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

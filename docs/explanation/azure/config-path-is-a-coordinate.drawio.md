@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "60ce1bb6759f"
+    with_body_sha: "9977ae20d43e"
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-datamod-config-path-is-a-coordinate-meta-drawio
+    path: docs/explanation/azure/config-path-is-a-coordinate.drawio.md
+    folder: docs/explanation/azure
+    name: config-path-is-a-coordinate-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-az-datamod--config-path-is-a-coordinate--meta.chain.md
-      - docs/.assets/explanation/grid/adr-az-datamod--config-path-is-a-coordinate--meta.grid.md
-      - docs/.assets/explanation/tree/adr-az-datamod--config-path-is-a-coordinate--meta.tree.md
+      - docs/explanation/.assets/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-az-datamod--config-path-is-a-coordinate--meta.chain.md
+      - docs/explanation/.assets/grid/adr-az-datamod--config-path-is-a-coordinate--meta.grid.md
+      - docs/explanation/.assets/tree/adr-az-datamod--config-path-is-a-coordinate--meta.tree.md
       - docs/explanation/azure/config-path-is-a-coordinate.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

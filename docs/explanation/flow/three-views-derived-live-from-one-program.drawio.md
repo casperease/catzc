@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4cd115ae091b"
+    with_body_sha: b3dfcdbeedec
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-three-views-derived-live-from-one-program-meta-drawio
+    path: docs/explanation/flow/three-views-derived-live-from-one-program.drawio.md
+    folder: docs/explanation/flow
+    name: three-views-derived-live-from-one-program-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.tree.md
       - docs/explanation/flow/three-views-derived-live-from-one-program.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "130b132b473e"
+    with_body_sha: b32dc2c0042f
     repo_status: clean
-    path: docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-repo-variant-an-edit-lands-at-the-next-import-operations-drawio
+    path: docs/explanation/repository/an-edit-lands-at-the-next-import.drawio.md
+    folder: docs/explanation/repository
+    name: an-edit-lands-at-the-next-import-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-repo-variant--an-edit-lands-at-the-next-import--operations.chain.md
-      - docs/.assets/explanation/grid/adr-repo-variant--an-edit-lands-at-the-next-import--operations.grid.md
-      - docs/.assets/explanation/tree/adr-repo-variant--an-edit-lands-at-the-next-import--operations.tree.md
+      - docs/explanation/.assets/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-repo-variant--an-edit-lands-at-the-next-import--operations.chain.md
+      - docs/explanation/.assets/grid/adr-repo-variant--an-edit-lands-at-the-next-import--operations.grid.md
+      - docs/explanation/.assets/tree/adr-repo-variant--an-edit-lands-at-the-next-import--operations.tree.md
       - docs/explanation/repository/an-edit-lands-at-the-next-import.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

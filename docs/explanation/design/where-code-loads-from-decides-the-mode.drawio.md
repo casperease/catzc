@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "781a95ba963d"
+    with_body_sha: "76086db80ddf"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-runmode-where-code-loads-from-decides-the-mode-meta-drawio
+    path: docs/explanation/design/where-code-loads-from-decides-the-mode.drawio.md
+    folder: docs/explanation/design
+    name: where-code-loads-from-decides-the-mode-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.tree.md
+      - docs/explanation/.assets/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.tree.md
       - docs/explanation/design/where-code-loads-from-decides-the-mode.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "15269ce699bd"
+    with_body_sha: d5a5b3f5020f
     repo_status: clean
     path: docs/references/automation/catzc-tooling-core.md
     folder: docs/references/automation
@@ -13,15 +13,15 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
-      - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/controlling-systemwide-deps.md
       - docs/adr/automation/idempotent-state-functions.md
       - docs/adr/automation/use-proper-package-managers.md
       - docs/adr/automation/uv-python-handler.md
+      - docs/references/.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png
       - docs/references/automation/catzc-base-execution.md
       - docs/references/automation/catzc-base-objects.md
+      - docs/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
       - docs/references/automation/catzc-tooling-node.md
       - docs/references/automation/catzc-tooling-provisioning.md
       - docs/references/automation/catzc-tooling-python.md
@@ -119,9 +119,9 @@ module and only this module within the group. Core is the engine; they are the p
 
 The diagram below draws tool invocation from the source. Every tool wrapper asserts the locked version from `tools.yml` before it runs the
 tool. The assertion either probes for the executable or checks the command and reads its version. The query form shares the same pieces. Its
-[description](../../.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md) walks it step by step.
+[description](catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md) walks it step by step.
 
-![Each Invoke-Tool wrapper asserts the locked version before it runs](../../.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png)
+![Each Invoke-Tool wrapper asserts the locked version before it runs](../.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png)
 
 ## Division
 

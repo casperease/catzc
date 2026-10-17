@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "32a9d1e6316c"
+    with_body_sha: "97faf03409f9"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-failfast-pass-the-limit-or-the-call-is-denied-operations-drawio
+    path: docs/explanation/automation/pass-the-limit-or-the-call-is-denied.drawio.md
+    folder: docs/explanation/automation
+    name: pass-the-limit-or-the-call-is-denied-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.chain.md
-      - docs/.assets/explanation/grid/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.grid.md
-      - docs/.assets/explanation/tree/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.tree.md
+      - docs/explanation/.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.chain.md
+      - docs/explanation/.assets/grid/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.grid.md
+      - docs/explanation/.assets/tree/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.tree.md
       - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

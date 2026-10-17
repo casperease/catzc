@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ea2388ba017e
+    with_body_sha: "4f22c1f1818c"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-depm-three-layers-edges-point-down-architecture-drawio
+    path: docs/explanation/automation/three-layers-edges-point-down.drawio.md
+    folder: docs/explanation/automation
+    name: three-layers-edges-point-down-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-depm--three-layers-edges-point-down--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-auto-depm--three-layers-edges-point-down--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-auto-depm--three-layers-edges-point-down--architecture.tree.md
+      - docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-depm--three-layers-edges-point-down--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-auto-depm--three-layers-edges-point-down--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-auto-depm--three-layers-edges-point-down--architecture.tree.md
       - docs/explanation/automation/three-layers-edges-point-down.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

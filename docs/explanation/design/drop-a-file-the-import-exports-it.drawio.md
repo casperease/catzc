@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e59843bc81a4
+    with_body_sha: c563e6ce785a
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-aspect-drop-a-file-the-import-exports-it-operations-drawio
+    path: docs/explanation/design/drop-a-file-the-import-exports-it.drawio.md
+    folder: docs/explanation/design
+    name: drop-a-file-the-import-exports-it-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.tree.md
+      - docs/explanation/.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.tree.md
       - docs/explanation/design/drop-a-file-the-import-exports-it.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "857259d99c9d"
+    with_body_sha: c83f2894d54c
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-datamod-a-bad-coordinate-stops-discovery-operations-drawio
+    path: docs/explanation/azure/a-bad-coordinate-stops-discovery.drawio.md
+    folder: docs/explanation/azure
+    name: a-bad-coordinate-stops-discovery-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.chain.md
-      - docs/.assets/explanation/grid/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.grid.md
-      - docs/.assets/explanation/tree/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.tree.md
+      - docs/explanation/.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.chain.md
+      - docs/explanation/.assets/grid/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.grid.md
+      - docs/explanation/.assets/tree/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.tree.md
       - docs/explanation/azure/a-bad-coordinate-stops-discovery.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

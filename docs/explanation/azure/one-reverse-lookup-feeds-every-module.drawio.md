@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1fbf6457ddc1"
+    with_body_sha: b407925348ec
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-datamod-one-reverse-lookup-feeds-every-module-architecture-drawio
+    path: docs/explanation/azure/one-reverse-lookup-feeds-every-module.drawio.md
+    folder: docs/explanation/azure
+    name: one-reverse-lookup-feeds-every-module-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.tree.md
+      - docs/explanation/.assets/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.tree.md
       - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

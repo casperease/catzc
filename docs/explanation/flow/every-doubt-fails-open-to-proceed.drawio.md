@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b6cd66e16526
+    with_body_sha: b2afbbed6f88
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-every-doubt-fails-open-to-proceed-meta-drawio
+    path: docs/explanation/flow/every-doubt-fails-open-to-proceed.drawio.md
+    folder: docs/explanation/flow
+    name: every-doubt-fails-open-to-proceed-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.tree.md
       - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

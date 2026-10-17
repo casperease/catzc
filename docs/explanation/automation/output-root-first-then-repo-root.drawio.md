@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8cf65ab08fce"
+    with_body_sha: "366f19eeb2ae"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-path-output-root-first-then-repo-root-implementation-drawio
+    path: docs/explanation/automation/output-root-first-then-repo-root.drawio.md
+    folder: docs/explanation/automation
+    name: output-root-first-then-repo-root-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-path--output-root-first-then-repo-root--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-auto-path--output-root-first-then-repo-root--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-auto-path--output-root-first-then-repo-root--implementation.tree.md
+      - docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-path--output-root-first-then-repo-root--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-auto-path--output-root-first-then-repo-root--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-auto-path--output-root-first-then-repo-root--implementation.tree.md
       - docs/explanation/automation/output-root-first-then-repo-root.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

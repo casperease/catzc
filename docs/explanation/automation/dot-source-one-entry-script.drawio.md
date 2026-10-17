@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a022325de562
+    with_body_sha: "138e4729f0b1"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-bundle-dot-source-one-entry-script-operations-drawio
+    path: docs/explanation/automation/dot-source-one-entry-script.drawio.md
+    folder: docs/explanation/automation
+    name: dot-source-one-entry-script-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-bundle--dot-source-one-entry-script--operations.chain.md
-      - docs/.assets/explanation/grid/adr-auto-bundle--dot-source-one-entry-script--operations.grid.md
-      - docs/.assets/explanation/tree/adr-auto-bundle--dot-source-one-entry-script--operations.tree.md
+      - docs/explanation/.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-bundle--dot-source-one-entry-script--operations.chain.md
+      - docs/explanation/.assets/grid/adr-auto-bundle--dot-source-one-entry-script--operations.grid.md
+      - docs/explanation/.assets/tree/adr-auto-bundle--dot-source-one-entry-script--operations.tree.md
       - docs/explanation/automation/dot-source-one-entry-script.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

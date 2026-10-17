@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "170ab5715e58"
+    with_body_sha: d24fa4696f79
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-runmode-two-roots-one-importer-same-modules-architecture-drawio
+    path: docs/explanation/design/two-roots-one-importer-same-modules.drawio.md
+    folder: docs/explanation/design
+    name: two-roots-one-importer-same-modules-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.tree.md
+      - docs/explanation/.assets/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.tree.md
       - docs/explanation/design/two-roots-one-importer-same-modules.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

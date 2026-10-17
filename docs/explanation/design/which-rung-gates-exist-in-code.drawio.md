@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1246d13021d4"
+    with_body_sha: ca650935236d
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-which-rung-gates-exist-in-code-governance-drawio
+    path: docs/explanation/design/which-rung-gates-exist-in-code.drawio.md
+    folder: docs/explanation/design
+    name: which-rung-gates-exist-in-code-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--which-rung-gates-exist-in-code--governance.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--which-rung-gates-exist-in-code--governance.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--which-rung-gates-exist-in-code--governance.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--which-rung-gates-exist-in-code--governance.tree.md
       - docs/explanation/design/which-rung-gates-exist-in-code.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

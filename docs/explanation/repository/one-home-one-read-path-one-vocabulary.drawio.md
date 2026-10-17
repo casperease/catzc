@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "11f2d2ac1db2"
+    with_body_sha: "65ae253e1c12"
     repo_status: clean
-    path: docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-repo-variant-one-home-one-read-path-one-vocabulary-meta-drawio
+    path: docs/explanation/repository/one-home-one-read-path-one-vocabulary.drawio.md
+    folder: docs/explanation/repository
+    name: one-home-one-read-path-one-vocabulary-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.chain.md
-      - docs/.assets/explanation/grid/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.grid.md
-      - docs/.assets/explanation/tree/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.tree.md
+      - docs/explanation/.assets/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.chain.md
+      - docs/explanation/.assets/grid/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.grid.md
+      - docs/explanation/.assets/tree/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.tree.md
       - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

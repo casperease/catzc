@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b7fff471d4c0
+    with_body_sha: "0c6423ccfa12"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-deploying-is-not-integrating-meta-drawio
+    path: docs/explanation/design/deploying-is-not-integrating.drawio.md
+    folder: docs/explanation/design
+    name: deploying-is-not-integrating-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--deploying-is-not-integrating--meta.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--deploying-is-not-integrating--meta.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--deploying-is-not-integrating--meta.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--deploying-is-not-integrating--meta.tree.md
       - docs/explanation/design/deploying-is-not-integrating.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

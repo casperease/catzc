@@ -68,6 +68,11 @@ function Invoke-FileMetaEngine {
         $isProperty = $carrier -eq [Catzc.Base.Languages.CarrierKind]::Property
         $findings = [System.Collections.Generic.List[pscustomobject]]::new()
 
+        # A path the index lists but the working tree has lost, a deletion not yet staged, has nothing to imprint or to look beside.
+        if (-not [System.IO.File]::Exists((Join-Path $RepositoryRoot $file))) {
+            continue
+        }
+
         # A sidecar carrier keeps the block in the Markdown file beside the file, which is in scope on its own, so only its presence is checked.
         if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Sidecar) {
             $name = [System.IO.Path]::GetFileName($file)
@@ -94,10 +99,6 @@ function Invoke-FileMetaEngine {
             continue
         }
 
-        # A path the index lists but the working tree has lost, a deletion not yet staged, has nothing to imprint.
-        if (-not [System.IO.File]::Exists((Join-Path $RepositoryRoot $file))) {
-            continue
-        }
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $file))
 
         # A key no kind owns is the author's: report it and leave the file alone.

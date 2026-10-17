@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "14cd05630ac1"
+    with_body_sha: b3ba67383587
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-aspect-only-automation-compiles-its-aspects-architecture-drawio
+    path: docs/explanation/design/only-automation-compiles-its-aspects.drawio.md
+    folder: docs/explanation/design
+    name: only-automation-compiles-its-aspects-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.tree.md
+      - docs/explanation/.assets/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.tree.md
       - docs/explanation/design/only-automation-compiles-its-aspects.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

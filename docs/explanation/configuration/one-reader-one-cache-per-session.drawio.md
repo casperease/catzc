@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0f04d05075e4"
+    with_body_sha: "3b269f439997"
     repo_status: clean
-    path: docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-conf-loading-one-reader-one-cache-per-session-meta-drawio
+    path: docs/explanation/configuration/one-reader-one-cache-per-session.drawio.md
+    folder: docs/explanation/configuration
+    name: one-reader-one-cache-per-session-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-conf-loading--one-reader-one-cache-per-session--meta.chain.md
-      - docs/.assets/explanation/grid/adr-conf-loading--one-reader-one-cache-per-session--meta.grid.md
-      - docs/.assets/explanation/tree/adr-conf-loading--one-reader-one-cache-per-session--meta.tree.md
+      - docs/explanation/.assets/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-conf-loading--one-reader-one-cache-per-session--meta.chain.md
+      - docs/explanation/.assets/grid/adr-conf-loading--one-reader-one-cache-per-session--meta.grid.md
+      - docs/explanation/.assets/tree/adr-conf-loading--one-reader-one-cache-per-session--meta.tree.md
       - docs/explanation/configuration/one-reader-one-cache-per-session.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

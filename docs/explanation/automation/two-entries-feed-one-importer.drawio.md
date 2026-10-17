@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "83036034a2bd"
+    with_body_sha: "6551b1e5ca86"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-bundle-two-entries-feed-one-importer-architecture-drawio
+    path: docs/explanation/automation/two-entries-feed-one-importer.drawio.md
+    folder: docs/explanation/automation
+    name: two-entries-feed-one-importer-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-bundle--two-entries-feed-one-importer--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-auto-bundle--two-entries-feed-one-importer--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-auto-bundle--two-entries-feed-one-importer--architecture.tree.md
+      - docs/explanation/.assets/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-bundle--two-entries-feed-one-importer--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-auto-bundle--two-entries-feed-one-importer--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-auto-bundle--two-entries-feed-one-importer--architecture.tree.md
       - docs/explanation/automation/two-entries-feed-one-importer.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

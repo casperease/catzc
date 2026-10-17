@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "978c95aa6601"
+    with_body_sha: "75670e30441a"
     repo_status: clean
-    path: docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-conf-addressing-strip-split-walk-every-wrong-turn-throws-implementation-drawio
+    path: docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.drawio.md
+    folder: docs/explanation/configuration
+    name: strip-split-walk-every-wrong-turn-throws-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.tree.md
+      - docs/explanation/.assets/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.tree.md
       - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

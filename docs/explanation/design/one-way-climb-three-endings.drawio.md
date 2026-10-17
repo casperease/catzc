@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2a706d3273ba"
+    with_body_sha: e564928620d7
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-one-way-climb-three-endings-meta-drawio
+    path: docs/explanation/design/one-way-climb-three-endings.drawio.md
+    folder: docs/explanation/design
+    name: one-way-climb-three-endings-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--one-way-climb-three-endings--meta.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--one-way-climb-three-endings--meta.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--one-way-climb-three-endings--meta.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--one-way-climb-three-endings--meta.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--one-way-climb-three-endings--meta.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--one-way-climb-three-endings--meta.tree.md
       - docs/explanation/design/one-way-climb-three-endings.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

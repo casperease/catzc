@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d74a8a60f389
+    with_body_sha: "4356bd7c10e7"
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-naming-how-each-naming-rule-is-held-governance-drawio
+    path: docs/explanation/azure/how-each-naming-rule-is-held.drawio.md
+    folder: docs/explanation/azure
+    name: how-each-naming-rule-is-held-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md
-      - docs/.assets/explanation/grid/adr-az-naming--how-each-naming-rule-is-held--governance.grid.md
-      - docs/.assets/explanation/tree/adr-az-naming--how-each-naming-rule-is-held--governance.tree.md
+      - docs/explanation/.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md
+      - docs/explanation/.assets/grid/adr-az-naming--how-each-naming-rule-is-held--governance.grid.md
+      - docs/explanation/.assets/tree/adr-az-naming--how-each-naming-rule-is-held--governance.tree.md
       - docs/explanation/azure/how-each-naming-rule-is-held.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

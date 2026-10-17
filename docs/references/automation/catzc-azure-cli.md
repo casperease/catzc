@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fe36ba59a54c
+    with_body_sha: "1a24ce69a808"
     repo_status: clean
     path: docs/references/automation/catzc-azure-cli.md
     folder: docs/references/automation
@@ -13,9 +13,9 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
-      - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png
       - docs/adr/azure/az-session-verification.md
+      - docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png
+      - docs/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
       - docs/references/automation/catzc-azure.md
       - docs/references/automation/catzc-base-execution.md
       - docs/references/automation/catzc-tooling-core.md
@@ -116,10 +116,9 @@ version-locking dependency, not a reimplementation of tool management.
 
 The diagram below draws session verification from the source. Each of the three az checks (connection, subscription access and Bicep) has
 one state call that its query form and its throwing form share, so the two cannot drift. The config-aware wrappers add only the `azure.yml`
-lookup. Its [description](../../.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md) walks it step by
-step.
+lookup. Its [description](catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md) walks it step by step.
 
-![Three az checks: Test and Assert share one state call](../../.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png)
+![Three az checks: Test and Assert share one state call](../.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png)
 
 ## Division
 

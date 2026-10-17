@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "222732d69a7a"
+    with_body_sha: "00aebd64279c"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-runner-a-step-only-names-a-command-meta-drawio
+    path: docs/explanation/flow/a-step-only-names-a-command.drawio.md
+    folder: docs/explanation/flow
+    name: a-step-only-names-a-command-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-runner--a-step-only-names-a-command--meta.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-runner--a-step-only-names-a-command--meta.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-runner--a-step-only-names-a-command--meta.tree.md
+      - docs/explanation/.assets/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-runner--a-step-only-names-a-command--meta.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-runner--a-step-only-names-a-command--meta.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-runner--a-step-only-names-a-command--meta.tree.md
       - docs/explanation/flow/a-step-only-names-a-command.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

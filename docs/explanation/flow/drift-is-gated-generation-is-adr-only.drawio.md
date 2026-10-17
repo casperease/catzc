@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "90e4ff806034"
+    with_body_sha: "2395f5e65c7a"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-drift-is-gated-generation-is-adr-only-governance-drawio
+    path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.drawio.md
+    folder: docs/explanation/flow
+    name: drift-is-gated-generation-is-adr-only-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-AUTO-TEST#35
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.tree.md
       - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

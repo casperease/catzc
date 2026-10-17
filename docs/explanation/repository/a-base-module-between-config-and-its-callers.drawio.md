@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ceea7c0ef4bf
+    with_body_sha: df73db740431
     repo_status: clean
-    path: docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-repo-variant-a-base-module-between-config-and-its-callers-architecture-drawio
+    path: docs/explanation/repository/a-base-module-between-config-and-its-callers.drawio.md
+    folder: docs/explanation/repository
+    name: a-base-module-between-config-and-its-callers-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.tree.md
+      - docs/explanation/.assets/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.tree.md
       - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

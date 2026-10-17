@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d13e837b344e
+    with_body_sha: "64bf812618fb"
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-datamod-pipeline-pins-devbox-picks-the-target-operations-drawio
+    path: docs/explanation/azure/pipeline-pins-devbox-picks-the-target.drawio.md
+    folder: docs/explanation/azure
+    name: pipeline-pins-devbox-picks-the-target-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.chain.md
-      - docs/.assets/explanation/grid/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.grid.md
-      - docs/.assets/explanation/tree/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.tree.md
+      - docs/explanation/.assets/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.chain.md
+      - docs/explanation/.assets/grid/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.grid.md
+      - docs/explanation/.assets/tree/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.tree.md
       - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

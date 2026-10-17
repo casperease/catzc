@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "971dc80360d7"
+    with_body_sha: b0ed19e45fb8
     repo_status: clean
-    path: docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-repo-rootcfg-one-source-one-writer-one-boolean-meta-drawio
+    path: docs/explanation/repository/one-source-one-writer-one-boolean.drawio.md
+    folder: docs/explanation/repository
+    name: one-source-one-writer-one-boolean-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.chain.md
-      - docs/.assets/explanation/grid/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.grid.md
-      - docs/.assets/explanation/tree/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.tree.md
+      - docs/explanation/.assets/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.chain.md
+      - docs/explanation/.assets/grid/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.grid.md
+      - docs/explanation/.assets/tree/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.tree.md
       - docs/explanation/repository/one-source-one-writer-one-boolean.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

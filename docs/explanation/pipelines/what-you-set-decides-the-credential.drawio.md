@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a287ad086972
+    with_body_sha: "8569bbd72268"
     repo_status: clean
-    path: docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-pipe-auth-what-you-set-decides-the-credential-operations-drawio
+    path: docs/explanation/pipelines/what-you-set-decides-the-credential.drawio.md
+    folder: docs/explanation/pipelines
+    name: what-you-set-decides-the-credential-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md
-      - docs/.assets/explanation/grid/adr-pipe-auth--what-you-set-decides-the-credential--operations.grid.md
-      - docs/.assets/explanation/tree/adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md
+      - docs/explanation/.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md
+      - docs/explanation/.assets/grid/adr-pipe-auth--what-you-set-decides-the-credential--operations.grid.md
+      - docs/explanation/.assets/tree/adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md
       - docs/explanation/pipelines/what-you-set-decides-the-credential.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

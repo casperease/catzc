@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9684ad09663c"
+    with_body_sha: eb1557294baf
     repo_status: clean
-    path: docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-pipe-auth-which-auth-rungs-have-a-gate-governance-drawio
+    path: docs/explanation/pipelines/which-auth-rungs-have-a-gate.drawio.md
+    folder: docs/explanation/pipelines
+    name: which-auth-rungs-have-a-gate-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.chain.md
-      - docs/.assets/explanation/grid/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.grid.md
-      - docs/.assets/explanation/tree/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.tree.md
+      - docs/explanation/.assets/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.chain.md
+      - docs/explanation/.assets/grid/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.grid.md
+      - docs/explanation/.assets/tree/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.tree.md
       - docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

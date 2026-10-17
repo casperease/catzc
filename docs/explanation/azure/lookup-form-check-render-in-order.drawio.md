@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b6a26f53576c
+    with_body_sha: "9ce0f7f8a946"
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-naming-lookup-form-check-render-in-order-implementation-drawio
+    path: docs/explanation/azure/lookup-form-check-render-in-order.drawio.md
+    folder: docs/explanation/azure
+    name: lookup-form-check-render-in-order-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-az-naming--lookup-form-check-render-in-order--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-az-naming--lookup-form-check-render-in-order--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-az-naming--lookup-form-check-render-in-order--implementation.tree.md
+      - docs/explanation/.assets/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-az-naming--lookup-form-check-render-in-order--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-az-naming--lookup-form-check-render-in-order--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-az-naming--lookup-form-check-render-in-order--implementation.tree.md
       - docs/explanation/azure/lookup-form-check-render-in-order.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

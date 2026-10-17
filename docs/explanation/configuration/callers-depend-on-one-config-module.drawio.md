@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9de3a4eccd70"
+    with_body_sha: "216d83220cba"
     repo_status: clean
-    path: docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-conf-loading-callers-depend-on-one-config-module-architecture-drawio
+    path: docs/explanation/configuration/callers-depend-on-one-config-module.drawio.md
+    folder: docs/explanation/configuration
+    name: callers-depend-on-one-config-module-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-conf-loading--callers-depend-on-one-config-module--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-conf-loading--callers-depend-on-one-config-module--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-conf-loading--callers-depend-on-one-config-module--architecture.tree.md
+      - docs/explanation/.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-conf-loading--callers-depend-on-one-config-module--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-conf-loading--callers-depend-on-one-config-module--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-conf-loading--callers-depend-on-one-config-module--architecture.tree.md
       - docs/explanation/configuration/callers-depend-on-one-config-module.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

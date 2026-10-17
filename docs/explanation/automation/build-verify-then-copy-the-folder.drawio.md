@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a183ffcbaa0f
+    with_body_sha: "3ff9c2f84dd0"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-bundle-build-verify-then-copy-the-folder-implementation-drawio
+    path: docs/explanation/automation/build-verify-then-copy-the-folder.drawio.md
+    folder: docs/explanation/automation
+    name: build-verify-then-copy-the-folder-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.tree.md
+      - docs/explanation/.assets/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.tree.md
       - docs/explanation/automation/build-verify-then-copy-the-folder.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

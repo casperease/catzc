@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "345e0388f37c"
+    with_body_sha: "4c627ecf0703"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-failfast-three-tests-prove-the-hook-governance-drawio
+    path: docs/explanation/automation/three-tests-prove-the-hook.drawio.md
+    folder: docs/explanation/automation
+    name: three-tests-prove-the-hook-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-failfast--three-tests-prove-the-hook--governance.chain.md
-      - docs/.assets/explanation/grid/adr-auto-failfast--three-tests-prove-the-hook--governance.grid.md
-      - docs/.assets/explanation/tree/adr-auto-failfast--three-tests-prove-the-hook--governance.tree.md
+      - docs/explanation/.assets/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-failfast--three-tests-prove-the-hook--governance.chain.md
+      - docs/explanation/.assets/grid/adr-auto-failfast--three-tests-prove-the-hook--governance.grid.md
+      - docs/explanation/.assets/tree/adr-auto-failfast--three-tests-prove-the-hook--governance.tree.md
       - docs/explanation/automation/three-tests-prove-the-hook.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

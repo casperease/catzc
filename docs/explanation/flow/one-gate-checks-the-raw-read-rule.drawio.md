@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "54dda89d2fb0"
+    with_body_sha: "105abda331d9"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-detect-one-gate-checks-the-raw-read-rule-governance-drawio
+    path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.drawio.md
+    folder: docs/explanation/flow
+    name: one-gate-checks-the-raw-read-rule-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.tree.md
+      - docs/explanation/.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.tree.md
       - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

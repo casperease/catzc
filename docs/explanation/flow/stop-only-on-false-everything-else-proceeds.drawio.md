@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "27360ee2d11f"
+    with_body_sha: "144b62a7715c"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-stop-only-on-false-everything-else-proceeds-operations-drawio
+    path: docs/explanation/flow/stop-only-on-false-everything-else-proceeds.drawio.md
+    folder: docs/explanation/flow
+    name: stop-only-on-false-everything-else-proceeds-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.tree.md
       - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

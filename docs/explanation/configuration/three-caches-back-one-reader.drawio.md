@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ff4f8d2e0434
+    with_body_sha: "1538b5ea6f0d"
     repo_status: clean
-    path: docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-conf-loading-three-caches-back-one-reader-implementation-drawio
+    path: docs/explanation/configuration/three-caches-back-one-reader.drawio.md
+    folder: docs/explanation/configuration
+    name: three-caches-back-one-reader-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-conf-loading--three-caches-back-one-reader--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-conf-loading--three-caches-back-one-reader--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-conf-loading--three-caches-back-one-reader--implementation.tree.md
+      - docs/explanation/.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-conf-loading--three-caches-back-one-reader--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-conf-loading--three-caches-back-one-reader--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-conf-loading--three-caches-back-one-reader--implementation.tree.md
       - docs/explanation/configuration/three-caches-back-one-reader.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

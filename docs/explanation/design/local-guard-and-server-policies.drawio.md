@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f9a767ad3da8
+    with_body_sha: "368e059b98b1"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-remote-local-guard-and-server-policies-implementation-drawio
+    path: docs/explanation/design/local-guard-and-server-policies.drawio.md
+    folder: docs/explanation/design
+    name: local-guard-and-server-policies-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-remote--local-guard-and-server-policies--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-remote--local-guard-and-server-policies--implementation.tree.md
+      - docs/explanation/.assets/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-remote--local-guard-and-server-policies--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-remote--local-guard-and-server-policies--implementation.tree.md
       - docs/explanation/design/local-guard-and-server-policies.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

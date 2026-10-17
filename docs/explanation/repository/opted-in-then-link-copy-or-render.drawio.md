@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "48aca2f4c194"
+    with_body_sha: f2bb9f703444
     repo_status: clean
-    path: docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-repo-rootcfg-opted-in-then-link-copy-or-render-implementation-drawio
+    path: docs/explanation/repository/opted-in-then-link-copy-or-render.drawio.md
+    folder: docs/explanation/repository
+    name: opted-in-then-link-copy-or-render-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.tree.md
+      - docs/explanation/.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.tree.md
       - docs/explanation/repository/opted-in-then-link-copy-or-render.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

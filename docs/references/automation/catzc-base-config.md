@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "900ad440bd3c"
+    with_body_sha: b9b4a7acd7e8
     repo_status: clean
     path: docs/references/automation/catzc-base-config.md
     folder: docs/references/automation
@@ -13,12 +13,12 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
-      - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.png
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/configuration/config-value-addressing.md
       - docs/adr/configuration/module-config-loading.md
+      - docs/references/.assets/automation/catzc-base-config/get-config-merge-seal-type.drawio.png
       - docs/references/automation/catzc-base-asserts.md
+      - docs/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
       - docs/references/automation/catzc-base-configextensions.md
       - docs/references/automation/catzc-base-objects.md
       - docs/references/automation/catzc-base-repository.md
@@ -91,10 +91,9 @@ The module is a member of the `Base` group and depends on [Catzc.Base.Repository
 
 The diagram below draws one configuration read from the source. The name resolves to its config file, an overlay fragment is merged unless
 the configuration is sealed, and the registered type is built from the result. The cache key carries the fragment's timestamp, so an edited
-fragment is read again. Its [description](../../.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md) walks
-it step by step.
+fragment is read again. Its [description](catzc-base-config/get-config-merge-seal-type.drawio.md) walks it step by step.
 
-![Overlay merges unless sealed; the registered type builds it](../../.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.png)
+![Overlay merges unless sealed; the registered type builds it](../.assets/automation/catzc-base-config/get-config-merge-seal-type.drawio.png)
 
 ## Division
 

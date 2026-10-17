@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b4143fcc3383
+    with_body_sha: a432c020286b
     repo_status: clean
     path: docs/references/automation/catzc-base-modulesystem.md
     folder: docs/references/automation
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-AUTO-TEST#35
     links:
-      - docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
-      - docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/internal-asset-dependencies.md
       - docs/adr/automation/open-closed-architecture.md
       - docs/adr/automation/test-automation.md#rule-adr-auto-test35
       - docs/adr/repository/conventional-folders.md
+      - docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png
+      - docs/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
       - docs/references/automation/catzc-base-typessystem.md
       - docs/references/automation/catzc-base-vendor.md
 ---
@@ -120,10 +120,10 @@ runs against.
 
 The diagram below draws the two dependency graphs from the source. The declared graph in `dependencies.yml` orders the test run and closes
 each profile. The graph observed from the parsed code is checked against it for cycles and for undeclared edges. Its
-[description](../../.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md) walks it step by
-step, including the one place the test order falls back instead of failing.
+[description](catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md) walks it step by step, including the one place the test
+order falls back instead of failing.
 
-![Declared graph orders and closes; observed graph is checked](../../.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png)
+![Declared graph orders and closes; observed graph is checked](../.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png)
 
 ## Division
 

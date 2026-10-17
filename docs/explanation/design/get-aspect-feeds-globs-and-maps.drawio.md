@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "14fd75d30e74"
+    with_body_sha: "4fac48b7d78c"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-aspect-get-aspect-feeds-globs-and-maps-implementation-drawio
+    path: docs/explanation/design/get-aspect-feeds-globs-and-maps.drawio.md
+    folder: docs/explanation/design
+    name: get-aspect-feeds-globs-and-maps-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.tree.md
+      - docs/explanation/.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.tree.md
       - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "576176614b70"
+    with_body_sha: "20c9f5f75e94"
     repo_status: clean
-    path: docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-repo-rootcfg-three-gates-check-registry-drift-membership-governance-drawio
+    path: docs/explanation/repository/three-gates-check-registry-drift-membership.drawio.md
+    folder: docs/explanation/repository
+    name: three-gates-check-registry-drift-membership-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.chain.md
-      - docs/.assets/explanation/grid/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.grid.md
-      - docs/.assets/explanation/tree/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.tree.md
+      - docs/explanation/.assets/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.chain.md
+      - docs/explanation/.assets/grid/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.grid.md
+      - docs/explanation/.assets/tree/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.tree.md
       - docs/explanation/repository/three-gates-check-registry-drift-membership.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

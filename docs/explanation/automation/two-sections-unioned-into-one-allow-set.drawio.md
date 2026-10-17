@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e4daa7448399
+    with_body_sha: "3f65b0a31f6f"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-depm-two-sections-unioned-into-one-allow-set-implementation-drawio
+    path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.drawio.md
+    folder: docs/explanation/automation
+    name: two-sections-unioned-into-one-allow-set-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.md
+      - docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.md
       - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

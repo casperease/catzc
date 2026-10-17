@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e63447a1a2dc
+    with_body_sha: "760a7a84666f"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-bundle-rule-and-gate-per-load-stage-governance-drawio
+    path: docs/explanation/automation/rule-and-gate-per-load-stage.drawio.md
+    folder: docs/explanation/automation
+    name: rule-and-gate-per-load-stage-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md
-      - docs/.assets/explanation/grid/adr-auto-bundle--rule-and-gate-per-load-stage--governance.grid.md
-      - docs/.assets/explanation/tree/adr-auto-bundle--rule-and-gate-per-load-stage--governance.tree.md
+      - docs/explanation/.assets/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md
+      - docs/explanation/.assets/grid/adr-auto-bundle--rule-and-gate-per-load-stage--governance.grid.md
+      - docs/explanation/.assets/tree/adr-auto-bundle--rule-and-gate-per-load-stage--governance.tree.md
       - docs/explanation/automation/rule-and-gate-per-load-stage.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

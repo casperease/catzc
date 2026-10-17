@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "212468b2dba0"
+    with_body_sha: "647b2e37a4fa"
     repo_status: clean
-    path: docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-repo-variant-values-and-edges-gated-reads-reviewed-governance-drawio
+    path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.drawio.md
+    folder: docs/explanation/repository
+    name: values-and-edges-gated-reads-reviewed-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.chain.md
-      - docs/.assets/explanation/grid/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.grid.md
-      - docs/.assets/explanation/tree/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.tree.md
+      - docs/explanation/.assets/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.chain.md
+      - docs/explanation/.assets/grid/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.grid.md
+      - docs/explanation/.assets/tree/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.tree.md
       - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

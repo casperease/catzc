@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a090a16238c9
+    with_body_sha: "81d126cb008f"
     repo_status: clean
     path: docs/references/automation/catzc-tooling-provisioning.md
     folder: docs/references/automation
@@ -13,15 +13,15 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
-      - docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/controlling-systemwide-deps.md
       - docs/adr/automation/cross-platform.md
       - docs/adr/automation/dry-run.md
       - docs/adr/automation/idempotent-state-functions.md
+      - docs/references/.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png
       - docs/references/automation/catzc-tooling-core.md
       - docs/references/automation/catzc-tooling-node.md
+      - docs/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
       - docs/references/automation/catzc-tooling-python.md
       - docs/references/automation/catzc-tooling-toolchain.md
 ---
@@ -80,10 +80,10 @@ installers in a Generic repository and point at a private REST feed, or to pre-i
 
 The diagram below draws the devbox install from the source. `tools.yml` is the one locked list of tools. The install walks it in dependency
 order and dispatches each key by name to the install function whose name it derives, in whichever tooling module defines it. Keys the system
-provides are checked and skipped before the dispatch. Its
-[description](../../.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md) walks it step by step.
+provides are checked and skipped before the dispatch. Its [description](catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md)
+walks it step by step.
 
-![tools.yml is the one locked list; dispatch is by key name](../../.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png)
+![tools.yml is the one locked list; dispatch is by key name](../.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png)
 
 ## Division
 

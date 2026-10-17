@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7bffad2ffff9"
+    with_body_sha: "2aaad759c7a6"
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-datamod-read-the-session-guard-then-pick-slot-implementation-drawio
+    path: docs/explanation/azure/read-the-session-guard-then-pick-slot.drawio.md
+    folder: docs/explanation/azure
+    name: read-the-session-guard-then-pick-slot-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.tree.md
+      - docs/explanation/.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.tree.md
       - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cb651ff15133
+    with_body_sha: "608d9fa7f77f"
     repo_status: clean
-    path: docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-repo-rootcfg-import-materialises-two-gates-name-the-fix-operations-drawio
+    path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.drawio.md
+    folder: docs/explanation/repository
+    name: import-materialises-two-gates-name-the-fix-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.chain.md
-      - docs/.assets/explanation/grid/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.grid.md
-      - docs/.assets/explanation/tree/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.tree.md
+      - docs/explanation/.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.chain.md
+      - docs/explanation/.assets/grid/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.grid.md
+      - docs/explanation/.assets/tree/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.tree.md
       - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

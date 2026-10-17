@@ -20,7 +20,7 @@
 
 usage: uv run -q --with pillow python .claude/drawio/migrate_dark.py <in.drawio.png> <out.drawio.png>   (the same path migrates in place)
 
-The colour map is the light glyph sheet (docs/.assets/explanation/glyphs.drawio.png, the kit before the dark page) against the dark one
+The colour map is the light glyph sheet (docs/explanation/.assets/glyphs.drawio.png, the kit before the dark page) against the dark one
 (.claude/drawio/glyphs.xml) and the dark-theme tokens of STYLE.md (Canvas). Every fill, stroke, font and label-background colour of every
 cell style is mapped by its light value and its cell's shape; the page background and shadow follow STYLE.md; an edge or a neutral glyph
 without a font colour gets the ink. Embedded images (the minimaps) are left as they are. The script asserts that the migrated XML parses

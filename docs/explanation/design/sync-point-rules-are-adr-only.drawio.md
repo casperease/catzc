@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bf713710486d
+    with_body_sha: "1e9337285db8"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-sync-point-rules-are-adr-only-governance-drawio
+    path: docs/explanation/design/sync-point-rules-are-adr-only.drawio.md
+    folder: docs/explanation/design
+    name: sync-point-rules-are-adr-only-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--sync-point-rules-are-adr-only--governance.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--sync-point-rules-are-adr-only--governance.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--sync-point-rules-are-adr-only--governance.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--sync-point-rules-are-adr-only--governance.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--sync-point-rules-are-adr-only--governance.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--sync-point-rules-are-adr-only--governance.tree.md
       - docs/explanation/design/sync-point-rules-are-adr-only.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

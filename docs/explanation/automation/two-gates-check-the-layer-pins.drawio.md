@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6ef29334e98b"
+    with_body_sha: "98c58a149454"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-depm-two-gates-check-the-layer-pins-governance-drawio
+    path: docs/explanation/automation/two-gates-check-the-layer-pins.drawio.md
+    folder: docs/explanation/automation
+    name: two-gates-check-the-layer-pins-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md
-      - docs/.assets/explanation/grid/adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md
-      - docs/.assets/explanation/tree/adr-auto-depm--two-gates-check-the-layer-pins--governance.tree.md
+      - docs/explanation/.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md
+      - docs/explanation/.assets/grid/adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md
+      - docs/explanation/.assets/tree/adr-auto-depm--two-gates-check-the-layer-pins--governance.tree.md
       - docs/explanation/automation/two-gates-check-the-layer-pins.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

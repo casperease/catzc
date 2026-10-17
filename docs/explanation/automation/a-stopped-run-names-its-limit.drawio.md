@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "35b7a3496210"
+    with_body_sha: "67fd94169912"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-failfast-a-stopped-run-names-its-limit-operations-drawio
+    path: docs/explanation/automation/a-stopped-run-names-its-limit.drawio.md
+    folder: docs/explanation/automation
+    name: a-stopped-run-names-its-limit-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-failfast--a-stopped-run-names-its-limit--operations.chain.md
-      - docs/.assets/explanation/grid/adr-auto-failfast--a-stopped-run-names-its-limit--operations.grid.md
-      - docs/.assets/explanation/tree/adr-auto-failfast--a-stopped-run-names-its-limit--operations.tree.md
+      - docs/explanation/.assets/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-failfast--a-stopped-run-names-its-limit--operations.chain.md
+      - docs/explanation/.assets/grid/adr-auto-failfast--a-stopped-run-names-its-limit--operations.grid.md
+      - docs/explanation/.assets/tree/adr-auto-failfast--a-stopped-run-names-its-limit--operations.tree.md
       - docs/explanation/automation/a-stopped-run-names-its-limit.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

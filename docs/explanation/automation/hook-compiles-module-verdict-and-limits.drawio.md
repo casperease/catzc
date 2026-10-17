@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "51baaed94aef"
+    with_body_sha: "376dd5e1ff69"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-failfast-hook-compiles-module-verdict-and-limits-architecture-drawio
+    path: docs/explanation/automation/hook-compiles-module-verdict-and-limits.drawio.md
+    folder: docs/explanation/automation
+    name: hook-compiles-module-verdict-and-limits-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.tree.md
+      - docs/explanation/.assets/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.tree.md
       - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

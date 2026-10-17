@@ -34,36 +34,29 @@ links. The target puts the description beside the article it describes and gives
 - Survey (2026-10-17): 149 descriptions in `docs/.assets/explanation`, 148 map to exactly one article by the middle name segment, no
   article has two; `glyphs` has no article. 12 descriptions sit under `docs/.assets/references/automation/<module>/`. 641 links in 159 docs
   files, plus 9 files outside docs (kit scripts, STYLE.md, two ADR or how-to pages, two test files), name the old paths.
-- The kit reads the description from beside the PNG (drawio_forward.py derives the ADR codes from it; render.py and join.py default
-  `--target docs/.assets/explanation`).
+- The explanation family is moved (2026-10-17): 147 slides plus the glyph library; each description sits beside its article, the PNGs and
+  the chain, grid and tree minimaps under `docs/explanation/.assets`. Links, heads and checks are clean (Test-FileMeta, Test-Links apart
+  from untracked targets, Test-GeneratedFiles).
+- The reference family is moved (2026-10-17): 11 diagrams; each description sits in `docs/references/automation/<module>/`, the PNG and
+  verification record under `docs/references/.assets/automation/<module>/`; a `reference-diagram` carrier class finds the description;
+  ADR-REPO-FOLDERS#5 and the conventional-folders text name the new layout. Invoke-FileMetaEngine checks that a file exists before it
+  looks for its sidecar, so an unstaged move raises no false finding.
+- A sidecar carrier takes a `{stem}` token and one wildcard folder (`docs/explanation/*/{stem}.drawio.md`); the diagram and
+  asset-description kinds come before the explanation and reference kinds; the generated-minimap marks in `.gitattributes` match any
+  `.assets` under docs; the glyph library is listed in the carrier exclusions because it has no article.
 
 ## Open steps
 
-- [ ] Settle how the head of a diagram is found: `file-carriers.yml` gives the diagram class the carrier `sidecar: "{base}.md"`, the page
-      beside the PNG, and `file-kinds.yml` matches diagrams and descriptions by `docs/.assets/**`. The description now sits in the article
-      folder, so neither a `{base}` template nor those globs reach it, and `docs/explanation/**` would claim the descriptions and
-      minimaps as explanations. The pilot shows it: Format-FileMeta did not rewrite the moved description's head (it still names the old
-      path) and Test-FileMeta did not flag it. Needed: a sidecar resolver that finds `<article>.drawio.md` from the PNG name (middle name
-      segment, domain folder), kinds for `docs/explanation/**/*.drawio.md` and the two `.assets` folders that beat the explanation kind,
-      and a check that fails on a stale head (check: Test-FileMeta fails on the pilot description before the fix and passes after; the
-      Get-FileKind and FileCarrierResolver tests carry the new cases).
-- [ ] Pilot: the sync-from-the-last-certified-commit slide is moved (description beside the article, PNG and minimaps under
-      `docs/explanation/.assets`) and its links are re-pointed; finish it once the step above lands: refresh the description's head
-      (check: its head names `docs/explanation/design/sync-from-the-last-certified-commit.drawio.md`; Test-Links, Test-FileMeta and
-      Test-GeneratedFiles clean apart from untracked-target findings).
-- [ ] Teach the kit the new locations: the defaults of `minimaps/render.py` and `minimaps/join.py`, the drawio_forward.py text and the
-      explanation lines of STYLE.md are changed (the ADR codes come from the model's labels and file name, so a moved description does not
-      break the rebuild); left: the reference lines of STYLE.md, migrate_dark.py's path text, and gallery_pdf.py `--assets`, which pairs
-      a PNG with a description beside it (check: drawio_forward.py on the pilot slide with --minimaps writes the moved files with no diff).
-- [ ] Wave per domain folder, in this order: design, automation, flow, azure, repository, configuration, pipelines; each slide one move at
-      a time (check: after each domain, Test-Links and Test-FileMeta clean and no file in that domain names `.assets/explanation`).
-- [ ] The reference family: the 12 descriptions, PNGs and minimaps under `docs/.assets/references/automation/<module>/` to
-      `docs/references/` (check: Test-Links clean on the module pages; `docs/.assets/references` is gone).
-- [ ] Decide the `glyphs` slide, which has no article (check: a decided line here, then it moves or stays).
-- [ ] Re-point the paths outside docs: `docs/adr/repository/conventional-folders.md`, `docs/how-to/getting-started/automation/add-a-doc-chapter.md`,
-      `Get-FileKind.Tests.ps1`, `FileCarrierResolver.Tests.ps1`, and the file-kind and ignore patterns that match `docs/.assets/**`
-      (check: grep for `docs/.assets/(explanation|references)` finds nothing outside the two kept folders, and the two test files pass).
-- [ ] Remove the emptied `docs/.assets/explanation` and `docs/.assets/references` (check: both gone; Test-FileMeta clean).
+- [ ] Teach the kit the new locations: the defaults of `minimaps/render.py` and `minimaps/join.py`, the drawio_forward.py text, the
+      explanation lines of STYLE.md and migrate_dark.py are changed (the ADR codes come from the model's labels and file name, so a moved
+      description does not break the rebuild); left: the reference lines of STYLE.md, and gallery_pdf.py `--assets`, which pairs a PNG with
+      a description beside it (check: drawio_forward.py on a slide with --minimaps writes the moved files with no diff).
+- [ ] gallery_pdf.py `--assets` pairs a PNG with a description beside it, and the descriptions now sit beside the articles; teach it the
+      lookup or retire the mode (check: the mode runs on docs/explanation/.assets and includes the descriptions, or is gone from STYLE.md).
+- [ ] The `FileCarrierResolver` shipped-registry test fails on its test-file exclusion line (the shipped powershell carrier lists no
+      `tests` exclude); fix the test or the carrier, whichever the head rules for test files say (check: that test file passes).
+- [ ] Remove `docs/.assets/explanation`, which holds only two gitignored PDFs now (check: the folder is gone). `docs/.assets/references`
+      is already gone.
 - [ ] Delete this plan when the steps are done (check: no file in .claude/plans names it).
 
 ## Refs

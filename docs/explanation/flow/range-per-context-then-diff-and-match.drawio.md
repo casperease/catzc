@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5ba4dc00cc60"
+    with_body_sha: e484c42ec5f6
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-range-per-context-then-diff-and-match-implementation-drawio
+    path: docs/explanation/flow/range-per-context-then-diff-and-match.drawio.md
+    folder: docs/explanation/flow
+    name: range-per-context-then-diff-and-match-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.tree.md
       - docs/explanation/flow/range-per-context-then-diff-and-match.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

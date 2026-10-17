@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a6812f8c7b41
+    with_body_sha: b9d8baf6fbf8
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-runner-no-gate-checks-rules-one-and-four-governance-drawio
+    path: docs/explanation/flow/no-gate-checks-rules-one-and-four.drawio.md
+    folder: docs/explanation/flow
+    name: no-gate-checks-rules-one-and-four-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.tree.md
+      - docs/explanation/.assets/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.tree.md
       - docs/explanation/flow/no-gate-checks-rules-one-and-four.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

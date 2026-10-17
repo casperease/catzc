@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "88883acb6a99"
+    with_body_sha: "706ee63ba40a"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-a-merge-runs-cd-to-prod-operations-drawio
+    path: docs/explanation/flow/a-merge-runs-cd-to-prod.drawio.md
+    folder: docs/explanation/flow
+    name: a-merge-runs-cd-to-prod-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd--a-merge-runs-cd-to-prod--operations.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd--a-merge-runs-cd-to-prod--operations.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd--a-merge-runs-cd-to-prod--operations.tree.md
+      - docs/explanation/.assets/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd--a-merge-runs-cd-to-prod--operations.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd--a-merge-runs-cd-to-prod--operations.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd--a-merge-runs-cd-to-prod--operations.tree.md
       - docs/explanation/flow/a-merge-runs-cd-to-prod.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

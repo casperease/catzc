@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "11a4db20a6c0"
+    with_body_sha: "2975ea9f44dd"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-deploy-and-integrate-share-only-the-topic-architecture-drawio
+    path: docs/explanation/design/deploy-and-integrate-share-only-the-topic.drawio.md
+    folder: docs/explanation/design
+    name: deploy-and-integrate-share-only-the-topic-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.tree.md
       - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -198,6 +198,9 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
     It 'finds a stem sidecar in the one folder beside the article that holds it' {
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/pages/flow')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/pages/flow/gadget-spins.chart.md'), "# Gadget`n")
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/art')) | Out-Null
+        [System.IO.File]::WriteAllBytes((Join-Path $script:widgetRoot 'docs/art/adr-widget--gadget-spins--meta.chart'), [byte[]] @(1))
+        [System.IO.File]::WriteAllBytes((Join-Path $script:widgetRoot 'docs/art/adr-widget--sprocket-turns--meta.chart'), [byte[]] @(2))
         $result = & $script:run @(
             [pscustomobject]@{ Path = 'docs/art/adr-widget--gadget-spins--meta.chart'; Carrier = $script:stemSidecar }
             [pscustomobject]@{ Path = 'docs/art/adr-widget--sprocket-turns--meta.chart'; Carrier = $script:stemSidecar }

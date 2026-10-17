@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "56220d19c312"
+    with_body_sha: "2eb5c9d94f08"
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-datamod-coordinate-rules-and-their-gates-governance-drawio
+    path: docs/explanation/azure/coordinate-rules-and-their-gates.drawio.md
+    folder: docs/explanation/azure
+    name: coordinate-rules-and-their-gates-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-az-datamod--coordinate-rules-and-their-gates--governance.chain.md
-      - docs/.assets/explanation/grid/adr-az-datamod--coordinate-rules-and-their-gates--governance.grid.md
-      - docs/.assets/explanation/tree/adr-az-datamod--coordinate-rules-and-their-gates--governance.tree.md
+      - docs/explanation/.assets/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-az-datamod--coordinate-rules-and-their-gates--governance.chain.md
+      - docs/explanation/.assets/grid/adr-az-datamod--coordinate-rules-and-their-gates--governance.grid.md
+      - docs/explanation/.assets/tree/adr-az-datamod--coordinate-rules-and-their-gates--governance.tree.md
       - docs/explanation/azure/coordinate-rules-and-their-gates.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a7c298a51cf9
+    with_body_sha: "73166d39b128"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-remote-one-door-in-one-stable-point-out-meta-drawio
+    path: docs/explanation/design/one-door-in-one-stable-point-out.drawio.md
+    folder: docs/explanation/design
+    name: one-door-in-one-stable-point-out-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.tree.md
+      - docs/explanation/.assets/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.tree.md
       - docs/explanation/design/one-door-in-one-stable-point-out.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

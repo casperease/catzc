@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bc441aa1346f
+    with_body_sha: bcc1373e0dc9
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-failfast-one-resolver-every-consumer-but-the-hook-architecture-drawio
+    path: docs/explanation/automation/one-resolver-every-consumer-but-the-hook.drawio.md
+    folder: docs/explanation/automation
+    name: one-resolver-every-consumer-but-the-hook-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.tree.md
+      - docs/explanation/.assets/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.tree.md
       - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

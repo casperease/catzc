@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: eb9d6712142a
+    with_body_sha: ef8e9b233eca
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-aspect-get-aspect-names-the-remainder-operations-drawio
+    path: docs/explanation/design/get-aspect-names-the-remainder.drawio.md
+    folder: docs/explanation/design
+    name: get-aspect-names-the-remainder-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.tree.md
+      - docs/explanation/.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.tree.md
       - docs/explanation/design/get-aspect-names-the-remainder.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

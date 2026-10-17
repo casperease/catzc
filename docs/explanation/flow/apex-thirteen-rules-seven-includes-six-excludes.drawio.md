@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ba29d61485fc
+    with_body_sha: f05c02476e07
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-apex-thirteen-rules-seven-includes-six-excludes-implementation-drawio
+    path: docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.drawio.md
+    folder: docs/explanation/flow
+    name: apex-thirteen-rules-seven-includes-six-excludes-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.tree.md
       - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

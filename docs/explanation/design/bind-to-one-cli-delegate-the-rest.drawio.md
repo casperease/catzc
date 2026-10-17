@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7811511d3ec0"
+    with_body_sha: "7a60cf1ae17e"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-thinplat-bind-to-one-cli-delegate-the-rest-meta-drawio
+    path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.drawio.md
+    folder: docs/explanation/design
+    name: bind-to-one-cli-delegate-the-rest-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.tree.md
+      - docs/explanation/.assets/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.tree.md
       - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

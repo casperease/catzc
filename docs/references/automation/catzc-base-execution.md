@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2bdf7837d79e"
+    with_body_sha: "37a8ff49cc61"
     repo_status: clean
     path: docs/references/automation/catzc-base-execution.md
     folder: docs/references/automation
@@ -13,14 +13,14 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
-      - docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/execution-engines.md
       - docs/adr/automation/log-before-invoke.md
       - docs/adr/configuration/module-config-loading.md
       - docs/adr/pwsh/script-scope-caching.md
+      - docs/references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png
       - docs/references/automation/catzc-base-asserts.md
+      - docs/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
       - docs/references/automation/catzc-base-repository.md
       - docs/references/automation/catzc-base-writers.md
       - docs/references/automation/catzc-tooling-core.md
@@ -110,11 +110,10 @@ tooling modules read as well.
 
 The diagram below draws process invocation from the source. It has two paths. The default streamed path runs through the C# runner under the
 executable's time limit from `timeouts.yml`, and kills the process tree when the limit runs out. The direct path, for interactive use, hands
-the command to the console with no time limit. Its
-[description](../../.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md) walks it step by
-step.
+the command to the console with no time limit. Its [description](catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md)
+walks it step by step.
 
-![Invoke-Executable: only the streamed path is time-bounded](../../.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png)
+![Invoke-Executable: only the streamed path is time-bounded](../.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png)
 
 ## Division
 

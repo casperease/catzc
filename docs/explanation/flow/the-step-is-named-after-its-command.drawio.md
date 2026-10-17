@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c95322ec4b6a
+    with_body_sha: "04d75be6f717"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-runner-the-step-is-named-after-its-command-operations-drawio
+    path: docs/explanation/flow/the-step-is-named-after-its-command.drawio.md
+    folder: docs/explanation/flow
+    name: the-step-is-named-after-its-command-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.tree.md
+      - docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.tree.md
       - docs/explanation/flow/the-step-is-named-after-its-command.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

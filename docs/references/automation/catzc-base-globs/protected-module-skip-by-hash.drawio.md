@@ -29,7 +29,7 @@ Glyphs: 4 code units (1 in a catzc module frame), 3 private helpers, 1 C# type, 
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](protected-module-skip-by-hash.drawio.png) draws from the source of the `Catzc.Base.Globs` module and the
+This describes what the [diagram](../../.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png) draws from the source of the `Catzc.Base.Globs` module and the
 two `Catzc.Base.QualityGates` helpers that call it. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance

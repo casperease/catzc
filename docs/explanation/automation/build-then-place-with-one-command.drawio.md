@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cb72479dd951
+    with_body_sha: "298bc3b0ca5b"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-bundle-build-then-place-with-one-command-operations-drawio
+    path: docs/explanation/automation/build-then-place-with-one-command.drawio.md
+    folder: docs/explanation/automation
+    name: build-then-place-with-one-command-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-bundle--build-then-place-with-one-command--operations.chain.md
-      - docs/.assets/explanation/grid/adr-auto-bundle--build-then-place-with-one-command--operations.grid.md
-      - docs/.assets/explanation/tree/adr-auto-bundle--build-then-place-with-one-command--operations.tree.md
+      - docs/explanation/.assets/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-bundle--build-then-place-with-one-command--operations.chain.md
+      - docs/explanation/.assets/grid/adr-auto-bundle--build-then-place-with-one-command--operations.grid.md
+      - docs/explanation/.assets/tree/adr-auto-bundle--build-then-place-with-one-command--operations.tree.md
       - docs/explanation/automation/build-then-place-with-one-command.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "504a3df3a67d"
+    with_body_sha: "2fe345f4b04b"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-out-of-band-deploy-is-adr-only-governance-drawio
+    path: docs/explanation/design/out-of-band-deploy-is-adr-only.drawio.md
+    folder: docs/explanation/design
+    name: out-of-band-deploy-is-adr-only-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.tree.md
       - docs/explanation/design/out-of-band-deploy-is-adr-only.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

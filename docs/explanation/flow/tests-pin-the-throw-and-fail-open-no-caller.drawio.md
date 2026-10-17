@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0a297537dd0f"
+    with_body_sha: "3086927ad72b"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-tests-pin-the-throw-and-fail-open-no-caller-governance-drawio
+    path: docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.drawio.md
+    folder: docs/explanation/flow
+    name: tests-pin-the-throw-and-fail-open-no-caller-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.tree.md
       - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

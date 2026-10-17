@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "605a6ab968d9"
+    with_body_sha: "8db72de33e5e"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-depm-undeclared-edge-fails-with-one-line-operations-drawio
+    path: docs/explanation/automation/undeclared-edge-fails-with-one-line.drawio.md
+    folder: docs/explanation/automation
+    name: undeclared-edge-fails-with-one-line-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.chain.md
-      - docs/.assets/explanation/grid/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.md
-      - docs/.assets/explanation/tree/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.tree.md
+      - docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.chain.md
+      - docs/explanation/.assets/grid/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.md
+      - docs/explanation/.assets/tree/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.tree.md
       - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

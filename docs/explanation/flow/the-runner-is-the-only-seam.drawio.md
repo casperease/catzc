@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c18a289f87f2
+    with_body_sha: f8f6f9438d63
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-runner-the-runner-is-the-only-seam-architecture-drawio
+    path: docs/explanation/flow/the-runner-is-the-only-seam.drawio.md
+    folder: docs/explanation/flow
+    name: the-runner-is-the-only-seam-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.tree.md
+      - docs/explanation/.assets/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.tree.md
       - docs/explanation/flow/the-runner-is-the-only-seam.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2a4d54089ff1"
+    with_body_sha: dd11b722c71a
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-cd-builds-once-then-deploys-prod-itself-implementation-drawio
+    path: docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.drawio.md
+    folder: docs/explanation/flow
+    name: cd-builds-once-then-deploys-prod-itself-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.tree.md
+      - docs/explanation/.assets/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.tree.md
       - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

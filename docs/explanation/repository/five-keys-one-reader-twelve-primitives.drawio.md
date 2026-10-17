@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b7663d9bb0b4
+    with_body_sha: c7bb037b19da
     repo_status: clean
-    path: docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-repo-variant-five-keys-one-reader-twelve-primitives-implementation-drawio
+    path: docs/explanation/repository/five-keys-one-reader-twelve-primitives.drawio.md
+    folder: docs/explanation/repository
+    name: five-keys-one-reader-twelve-primitives-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.tree.md
+      - docs/explanation/.assets/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.tree.md
       - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "15b880aab661"
+    with_body_sha: e7f2505675db
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-path-types-check-forms-review-checks-crossers-governance-drawio
+    path: docs/explanation/automation/types-check-forms-review-checks-crossers.drawio.md
+    folder: docs/explanation/automation
+    name: types-check-forms-review-checks-crossers-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-path--types-check-forms-review-checks-crossers--governance.chain.md
-      - docs/.assets/explanation/grid/adr-auto-path--types-check-forms-review-checks-crossers--governance.grid.md
-      - docs/.assets/explanation/tree/adr-auto-path--types-check-forms-review-checks-crossers--governance.tree.md
+      - docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-path--types-check-forms-review-checks-crossers--governance.chain.md
+      - docs/explanation/.assets/grid/adr-auto-path--types-check-forms-review-checks-crossers--governance.grid.md
+      - docs/explanation/.assets/tree/adr-auto-path--types-check-forms-review-checks-crossers--governance.tree.md
       - docs/explanation/automation/types-check-forms-review-checks-crossers.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ecb307a3898f
+    with_body_sha: "0f1646073203"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-aspect-each-track-picks-its-catch-all-meta-drawio
+    path: docs/explanation/design/each-track-picks-its-catch-all.drawio.md
+    folder: docs/explanation/design
+    name: each-track-picks-its-catch-all-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.tree.md
+      - docs/explanation/.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.tree.md
       - docs/explanation/design/each-track-picks-its-catch-all.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

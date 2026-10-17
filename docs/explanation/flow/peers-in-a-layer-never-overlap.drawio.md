@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "20a6adddef91"
+    with_body_sha: "24a1725b2df9"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-peers-in-a-layer-never-overlap-meta-drawio
+    path: docs/explanation/flow/peers-in-a-layer-never-overlap.drawio.md
+    folder: docs/explanation/flow
+    name: peers-in-a-layer-never-overlap-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.tree.md
       - docs/explanation/flow/peers-in-a-layer-never-overlap.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

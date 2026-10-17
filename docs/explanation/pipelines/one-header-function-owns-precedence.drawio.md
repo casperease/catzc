@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "358508e4a3e7"
+    with_body_sha: "9a3ea4e58766"
     repo_status: clean
-    path: docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-pipe-auth-one-header-function-owns-precedence-architecture-drawio
+    path: docs/explanation/pipelines/one-header-function-owns-precedence.drawio.md
+    folder: docs/explanation/pipelines
+    name: one-header-function-owns-precedence-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-pipe-auth--one-header-function-owns-precedence--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-pipe-auth--one-header-function-owns-precedence--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-pipe-auth--one-header-function-owns-precedence--architecture.tree.md
+      - docs/explanation/.assets/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-pipe-auth--one-header-function-owns-precedence--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-pipe-auth--one-header-function-owns-precedence--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-pipe-auth--one-header-function-owns-precedence--architecture.tree.md
       - docs/explanation/pipelines/one-header-function-owns-precedence.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

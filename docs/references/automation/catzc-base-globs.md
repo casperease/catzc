@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4cee0d74457d"
+    with_body_sha: bec00ab5b970
     repo_status: clean
     path: docs/references/automation/catzc-base-globs.md
     folder: docs/references/automation
@@ -15,11 +15,11 @@ catzc:
     cites:
       - ADR-AUTO-TEST#35
     links:
-      - docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
-      - docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png
       - docs/adr/automation/test-automation.md#rule-adr-auto-test35
       - docs/adr/flow/durable-sha-globs.md
       - docs/adr/repository/protected-globs.md
+      - docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png
+      - docs/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
 ---
 
 # Catzc.Base.Globs
@@ -97,9 +97,9 @@ projection from outside (generated `paths:` registrations).
 The diagram below draws module protection from the source, as the test runner uses it. A module's tests are skipped only when its folded
 globset hash matches the hash recorded after its last green run in this session. The hash is held as pending before the workers run and
 promoted only after a green result. In a pipeline nothing is skipped. Its
-[description](../../.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md) walks it step by step.
+[description](catzc-base-globs/protected-module-skip-by-hash.drawio.md) walks it step by step.
 
-![Skip a module only if its folded hash matches its last green](../../.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png)
+![Skip a module only if its folded hash matches its last green](../.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png)
 
 ## Division
 

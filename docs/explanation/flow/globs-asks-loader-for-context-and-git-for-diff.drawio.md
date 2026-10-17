@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4cbba6f40d06"
+    with_body_sha: "6a3a8d294554"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-globs-asks-loader-for-context-and-git-for-diff-architecture-drawio
+    path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.drawio.md
+    folder: docs/explanation/flow
+    name: globs-asks-loader-for-context-and-git-for-diff-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.tree.md
       - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

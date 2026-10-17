@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d5994a350d2c
+    with_body_sha: "7ba015b34353"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-runner-three-tasks-one-guard-one-runner-implementation-drawio
+    path: docs/explanation/flow/three-tasks-one-guard-one-runner.drawio.md
+    folder: docs/explanation/flow
+    name: three-tasks-one-guard-one-runner-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.tree.md
+      - docs/explanation/.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.tree.md
       - docs/explanation/flow/three-tasks-one-guard-one-runner.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

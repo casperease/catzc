@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bd26177f6dd2
+    with_body_sha: "000a9a1c0a9d"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-runmode-shims-set-roots-mode-read-back-implementation-drawio
+    path: docs/explanation/design/shims-set-roots-mode-read-back.drawio.md
+    folder: docs/explanation/design
+    name: shims-set-roots-mode-read-back-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.tree.md
+      - docs/explanation/.assets/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.tree.md
       - docs/explanation/design/shims-set-roots-mode-read-back.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b42d58a0817b
+    with_body_sha: "10e0cf353bcb"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-remote-guard-and-policies-by-command-operations-drawio
+    path: docs/explanation/design/guard-and-policies-by-command.drawio.md
+    folder: docs/explanation/design
+    name: guard-and-policies-by-command-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-remote--guard-and-policies-by-command--operations.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-remote--guard-and-policies-by-command--operations.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-remote--guard-and-policies-by-command--operations.tree.md
+      - docs/explanation/.assets/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-remote--guard-and-policies-by-command--operations.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-remote--guard-and-policies-by-command--operations.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-remote--guard-and-policies-by-command--operations.tree.md
       - docs/explanation/design/guard-and-policies-by-command.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

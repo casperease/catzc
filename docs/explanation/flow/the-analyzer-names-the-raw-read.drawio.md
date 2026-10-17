@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d16a35aac546
+    with_body_sha: "67e9d0e94c36"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-detect-the-analyzer-names-the-raw-read-operations-drawio
+    path: docs/explanation/flow/the-analyzer-names-the-raw-read.drawio.md
+    folder: docs/explanation/flow
+    name: the-analyzer-names-the-raw-read-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.tree.md
+      - docs/explanation/.assets/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.tree.md
       - docs/explanation/flow/the-analyzer-names-the-raw-read.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

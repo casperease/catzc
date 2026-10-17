@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "697272e1f91d"
+    with_body_sha: c6f45ba94a38
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-one-program-two-vendor-dialects-meta-drawio
+    path: docs/explanation/flow/one-program-two-vendor-dialects.drawio.md
+    folder: docs/explanation/flow
+    name: one-program-two-vendor-dialects-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.tree.md
       - docs/explanation/flow/one-program-two-vendor-dialects.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

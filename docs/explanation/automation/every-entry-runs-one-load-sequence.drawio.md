@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "38bb9c83f6e8"
+    with_body_sha: "273c8f95d070"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-bundle-every-entry-runs-one-load-sequence-meta-drawio
+    path: docs/explanation/automation/every-entry-runs-one-load-sequence.drawio.md
+    folder: docs/explanation/automation
+    name: every-entry-runs-one-load-sequence-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.chain.md
-      - docs/.assets/explanation/grid/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.grid.md
-      - docs/.assets/explanation/tree/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.tree.md
+      - docs/explanation/.assets/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.chain.md
+      - docs/explanation/.assets/grid/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.grid.md
+      - docs/explanation/.assets/tree/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.tree.md
       - docs/explanation/automation/every-entry-runs-one-load-sequence.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

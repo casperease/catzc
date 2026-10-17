@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d0686e125b9f
+    with_body_sha: "2c27c83d30c3"
     repo_status: clean
-    path: docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-az-naming-names-are-derived-never-typed-operations-drawio
+    path: docs/explanation/azure/names-are-derived-never-typed.drawio.md
+    folder: docs/explanation/azure
+    name: names-are-derived-never-typed-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-az-naming--names-are-derived-never-typed--operations.chain.md
-      - docs/.assets/explanation/grid/adr-az-naming--names-are-derived-never-typed--operations.grid.md
-      - docs/.assets/explanation/tree/adr-az-naming--names-are-derived-never-typed--operations.tree.md
+      - docs/explanation/.assets/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-az-naming--names-are-derived-never-typed--operations.chain.md
+      - docs/explanation/.assets/grid/adr-az-naming--names-are-derived-never-typed--operations.grid.md
+      - docs/explanation/.assets/tree/adr-az-naming--names-are-derived-never-typed--operations.tree.md
       - docs/explanation/azure/names-are-derived-never-typed.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

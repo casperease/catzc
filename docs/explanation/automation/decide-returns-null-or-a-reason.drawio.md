@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f2e7fe93db77
+    with_body_sha: bceeedb9c714
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-failfast-decide-returns-null-or-a-reason-implementation-drawio
+    path: docs/explanation/automation/decide-returns-null-or-a-reason.drawio.md
+    folder: docs/explanation/automation
+    name: decide-returns-null-or-a-reason-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.tree.md
+      - docs/explanation/.assets/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.tree.md
       - docs/explanation/automation/decide-returns-null-or-a-reason.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

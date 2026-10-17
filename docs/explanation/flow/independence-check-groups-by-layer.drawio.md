@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "17e8460d6f9a"
+    with_body_sha: "32c84ccfcf14"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-independence-check-groups-by-layer-implementation-drawio
+    path: docs/explanation/flow/independence-check-groups-by-layer.drawio.md
+    folder: docs/explanation/flow
+    name: independence-check-groups-by-layer-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.tree.md
       - docs/explanation/flow/independence-check-groups-by-layer.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0f4e274371ab"
+    with_body_sha: f2a08900c060
     repo_status: clean
-    path: docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-conf-addressing-callers-in-four-modules-share-one-resolver-architecture-drawio
+    path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.drawio.md
+    folder: docs/explanation/configuration
+    name: callers-in-four-modules-share-one-resolver-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.tree.md
+      - docs/explanation/.assets/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.tree.md
       - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2c4625acfd45"
+    with_body_sha: "6112dcf887fa"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-four-domains-promote-one-artifact-architecture-drawio
+    path: docs/explanation/design/four-domains-promote-one-artifact.drawio.md
+    folder: docs/explanation/design
+    name: four-domains-promote-one-artifact-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--four-domains-promote-one-artifact--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--four-domains-promote-one-artifact--architecture.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--four-domains-promote-one-artifact--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--four-domains-promote-one-artifact--architecture.tree.md
       - docs/explanation/design/four-domains-promote-one-artifact.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

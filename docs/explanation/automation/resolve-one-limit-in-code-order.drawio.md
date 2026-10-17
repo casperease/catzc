@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d639a43578ce
+    with_body_sha: "3ef9ab3f9fc8"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-failfast-resolve-one-limit-in-code-order-implementation-drawio
+    path: docs/explanation/automation/resolve-one-limit-in-code-order.drawio.md
+    folder: docs/explanation/automation
+    name: resolve-one-limit-in-code-order-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.tree.md
+      - docs/explanation/.assets/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.tree.md
       - docs/explanation/automation/resolve-one-limit-in-code-order.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

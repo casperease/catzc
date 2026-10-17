@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c1af882eeb6b
+    with_body_sha: "779b2cdc17d0"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-failfast-callers-value-else-config-else-default-meta-drawio
+    path: docs/explanation/automation/callers-value-else-config-else-default.drawio.md
+    folder: docs/explanation/automation
+    name: callers-value-else-config-else-default-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-failfast--callers-value-else-config-else-default--meta.chain.md
-      - docs/.assets/explanation/grid/adr-auto-failfast--callers-value-else-config-else-default--meta.grid.md
-      - docs/.assets/explanation/tree/adr-auto-failfast--callers-value-else-config-else-default--meta.tree.md
+      - docs/explanation/.assets/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-failfast--callers-value-else-config-else-default--meta.chain.md
+      - docs/explanation/.assets/grid/adr-auto-failfast--callers-value-else-config-else-default--meta.grid.md
+      - docs/explanation/.assets/tree/adr-auto-failfast--callers-value-else-config-else-default--meta.tree.md
       - docs/explanation/automation/callers-value-else-config-else-default.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

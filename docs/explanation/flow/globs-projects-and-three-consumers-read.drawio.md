@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7a84c3df41b8"
+    with_body_sha: "3e46738a4ccf"
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-globs-projects-and-three-consumers-read-architecture-drawio
+    path: docs/explanation/flow/globs-projects-and-three-consumers-read.drawio.md
+    folder: docs/explanation/flow
+    name: globs-projects-and-three-consumers-read-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.tree.md
       - docs/explanation/flow/globs-projects-and-three-consumers-read.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

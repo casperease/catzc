@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fc08fc2e906d
+    with_body_sha: dda8b9e843a5
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-integrators-depend-on-an-occupant-architecture-drawio
+    path: docs/explanation/design/integrators-depend-on-an-occupant.drawio.md
+    folder: docs/explanation/design
+    name: integrators-depend-on-an-occupant-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.tree.md
       - docs/explanation/design/integrators-depend-on-an-occupant.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

@@ -30,7 +30,7 @@ Glyphs: 4 code units, 5 private helpers, 1 gate, 1 file, 1 catzc module frame; 9
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](module-graph-declared-vs-observed.drawio.png) draws from the source of the `Catzc.Base.ModuleSystem`
+This describes what the [diagram](../../.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png) draws from the source of the `Catzc.Base.ModuleSystem`
 module. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance

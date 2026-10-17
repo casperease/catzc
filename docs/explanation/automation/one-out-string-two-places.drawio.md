@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d56d70851118
+    with_body_sha: "40713a491829"
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-path-one-out-string-two-places-operations-drawio
+    path: docs/explanation/automation/one-out-string-two-places.drawio.md
+    folder: docs/explanation/automation
+    name: one-out-string-two-places-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-path--one-out-string-two-places--operations.chain.md
-      - docs/.assets/explanation/grid/adr-auto-path--one-out-string-two-places--operations.grid.md
-      - docs/.assets/explanation/tree/adr-auto-path--one-out-string-two-places--operations.tree.md
+      - docs/explanation/.assets/adr-auto-path--one-out-string-two-places--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-path--one-out-string-two-places--operations.chain.md
+      - docs/explanation/.assets/grid/adr-auto-path--one-out-string-two-places--operations.grid.md
+      - docs/explanation/.assets/tree/adr-auto-path--one-out-string-two-places--operations.tree.md
       - docs/explanation/automation/one-out-string-two-places.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

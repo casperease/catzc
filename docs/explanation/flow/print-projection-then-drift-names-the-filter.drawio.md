@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "81939292c545"
+    with_body_sha: d21adfba4a51
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-globs-print-projection-then-drift-names-the-filter-operations-drawio
+    path: docs/explanation/flow/print-projection-then-drift-names-the-filter.drawio.md
+    folder: docs/explanation/flow
+    name: print-projection-then-drift-names-the-filter-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.tree.md
+      - docs/explanation/.assets/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.tree.md
       - docs/explanation/flow/print-projection-then-drift-names-the-filter.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

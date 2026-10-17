@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d8b3dc66ab75
+    with_body_sha: b23983831e08
     repo_status: clean
     path: docs/references/automation/catzc-azure.md
     folder: docs/references/automation
@@ -13,11 +13,11 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
-      - docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png
       - docs/adr/azure/azure-data-model.md
       - docs/adr/azure/azure-network-model.md
+      - docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png
       - docs/references/automation/catzc-azure-templates.md
+      - docs/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
 ---
 
 # Catzc.Azure
@@ -83,10 +83,9 @@ what stop the two assets from drifting apart.
 
 The diagram below draws identity resolution from the source. Every Azure identity resolves from `azure.yml` and `customer.yml` through the
 configuration loader, each into its own registered type. The live az session is matched back to the declared subscriptions and must match
-exactly one. Its [description](../../.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md) walks it step
-by step.
+exactly one. Its [description](catzc-azure/azure-identity-resolves-from-config.drawio.md) walks it step by step.
 
-![Azure identities resolve from config; session must match one](../../.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png)
+![Azure identities resolve from config; session must match one](../.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png)
 
 ## Division
 

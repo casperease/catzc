@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e5638575f5f6
+    with_body_sha: f1369b41c460
     repo_status: clean
-    path: docs/.assets/explanation/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-auto-failfast-a-shell-call-carries-its-limit-or-is-denied-meta-drawio
+    path: docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.drawio.md
+    folder: docs/explanation/automation
+    name: a-shell-call-carries-its-limit-or-is-denied-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.chain.md
-      - docs/.assets/explanation/grid/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.grid.md
-      - docs/.assets/explanation/tree/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.tree.md
+      - docs/explanation/.assets/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.chain.md
+      - docs/explanation/.assets/grid/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.grid.md
+      - docs/explanation/.assets/tree/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.tree.md
       - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

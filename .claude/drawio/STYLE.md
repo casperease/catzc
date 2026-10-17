@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7f8f28dcd288"
+    with_body_sha: "249c0de6ad8c"
     repo_status: clean
     path: ".claude/drawio/STYLE.md"
     folder: drawio
@@ -230,9 +230,10 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
 - **Subtitle:** `Module <Name> · source lens`. The **Supports** chips name the ADRs the drawn code cites (ADR codes in its comments and
   error messages), found by grep, not guessed.
 - **Stem:** `<finding-slug>` (3–7 kebab words, ≤ 48 chars), with no ADR prefix and no lens suffix. It lands at
-  `docs/.assets/references/automation/<module-kebab>/<stem>.drawio.png` with `<stem>.drawio.md` and `<stem>.drawio.verify.md`. There is no
-  `docs/explanation/` article: the module's reference article embeds the slide under `## What the module does` with a one-paragraph lead-in,
-  and the `.drawio.md` carries the words (At a glance, Reading path, Glyphs, Edges, Legend, Where the code and the ADR differ).
+  `docs/references/.assets/automation/<module-kebab>/<stem>.drawio.png` with `<stem>.drawio.verify.md`, and its description at
+  `docs/references/automation/<module-kebab>/<stem>.drawio.md`. There is no `docs/explanation/` article: the module's reference article
+  embeds the slide under `## What the module does` with a one-paragraph lead-in, and the `.drawio.md` carries the words (At a glance,
+  Reading path, Glyphs, Edges, Legend, Where the code and the ADR differ).
 - **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`) and the Supports chips. With no
   minimaps the panel has room, so put one ADR code per line: two codes joined by `·` (about 40 characters) overflow the 240 px panel at 11
   px. Grow the `supports` cell's height to fit.

@@ -73,6 +73,7 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
         $shipped.For('docs/adr/index.md').id | Should -BeExactly 'markdown'
         $shipped.For('docs/.assets/explanation/x.drawio.png').id | Should -BeExactly 'diagram'
         $shipped.For('docs/explanation/.assets/adr-widget-flow--gadget-spins--meta.drawio.png').id | Should -BeExactly 'diagram'
+        $shipped.For('docs/references/.assets/automation/catzc-widget/gadget-spins.drawio.png').id | Should -BeExactly 'reference-diagram'
         $shipped.For('.gitignore').id | Should -BeExactly 'dotfile'
         $shipped.IsExcluded($shipped.For('automation/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1'), 'automation/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1') | Should -BeTrue
     }

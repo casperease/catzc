@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e608ed7093ea
+    with_body_sha: "42cf477b72c6"
     repo_status: clean
-    path: docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-conf-loading-ask-by-name-get-the-cached-object-operations-drawio
+    path: docs/explanation/configuration/ask-by-name-get-the-cached-object.drawio.md
+    folder: docs/explanation/configuration
+    name: ask-by-name-get-the-cached-object-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-conf-loading--ask-by-name-get-the-cached-object--operations.chain.md
-      - docs/.assets/explanation/grid/adr-conf-loading--ask-by-name-get-the-cached-object--operations.grid.md
-      - docs/.assets/explanation/tree/adr-conf-loading--ask-by-name-get-the-cached-object--operations.tree.md
+      - docs/explanation/.assets/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-conf-loading--ask-by-name-get-the-cached-object--operations.chain.md
+      - docs/explanation/.assets/grid/adr-conf-loading--ask-by-name-get-the-cached-object--operations.grid.md
+      - docs/explanation/.assets/tree/adr-conf-loading--ask-by-name-get-the-cached-object--operations.tree.md
       - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

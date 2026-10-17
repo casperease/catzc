@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cd65e0ec1f09
+    with_body_sha: e633dddfc0f5
     repo_status: clean
-    path: docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-flow-cd-ci-budget-is-the-only-quality-gate-governance-drawio
+    path: docs/explanation/flow/ci-budget-is-the-only-quality-gate.drawio.md
+    folder: docs/explanation/flow
+    name: ci-budget-is-the-only-quality-gate-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
-      - docs/.assets/explanation/chain/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.md
-      - docs/.assets/explanation/grid/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.grid.md
-      - docs/.assets/explanation/tree/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.tree.md
+      - docs/explanation/.assets/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
+      - docs/explanation/.assets/chain/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.md
+      - docs/explanation/.assets/grid/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.grid.md
+      - docs/explanation/.assets/tree/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.tree.md
       - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

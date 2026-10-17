@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "908116468cc3"
+    with_body_sha: "8dce3aaf047b"
     repo_status: clean
     path: docs/explanation/index.md
     folder: docs/explanation
@@ -15,17 +15,17 @@ catzc:
     cites:
       - ADR-DSGN-TRACK#{9,12,16}
     links:
-      - docs/.assets/explanation/glyphs.drawio.md
-      - docs/.assets/explanation/glyphs.drawio.png
       - docs/adr/design/tracks.md#rule-adr-dsgn-track12
       - docs/adr/design/tracks.md#rule-adr-dsgn-track16
       - docs/adr/design/tracks.md#rule-adr-dsgn-track9
       - docs/adr/index.md
+      - docs/explanation/.assets/glyphs.drawio.png
       - docs/explanation/automation/index.md
       - docs/explanation/azure/index.md
       - docs/explanation/configuration/index.md
       - docs/explanation/design/index.md
       - docs/explanation/flow/index.md
+      - docs/explanation/glyphs.drawio.md
       - docs/explanation/pipelines/index.md
       - docs/explanation/repository/index.md
       - docs/how-to/getting-started/automation/index.md
@@ -66,9 +66,9 @@ Each diagram is drawn five times, through five lenses, so the same idea can be r
 Every diagram uses the same glyphs. The shape says what kind of thing an element is, and the colour says whether it is structure (dark, with
 white text) or state and outcome (light). Every diagram also carries its own legend panel.
 
-![The glyph library: one kind, one shape, one colour, one legend phrase](../.assets/explanation/glyphs.drawio.png)
+![The glyph library: one kind, one shape, one colour, one legend phrase](.assets/glyphs.drawio.png)
 
-The glyph library is described element by element in [its asset description](../.assets/explanation/glyphs.drawio.md).
+The glyph library is described element by element in [its asset description](glyphs.drawio.md).
 
 The sidebar of every diagram places it on three maps, each drawn small as a minimap:
 
@@ -80,7 +80,7 @@ The sidebar of every diagram places it on three maps, each drawn small as a mini
 
 On each map, a **lit cell** ([ADR-DSGN-TRACK#12](../adr/design/tracks.md#rule-adr-dsgn-track12)) is one the diagram's ADR selects; a cell
 lit only by passing mentions is drawn lighter, and every other cell is idle. The map key below the minimaps names the four swatches, and
-each minimap's own description, in the minimap's sub-folder of `docs/.assets/explanation/` (`grid/`, `tree/`, `chain/`), gives the reason
+each minimap's own description, in the minimap's sub-folder of `docs/explanation/.assets/` (`grid/`, `tree/`, `chain/`), gives the reason
 for every lit cell.
 
 ## Domains

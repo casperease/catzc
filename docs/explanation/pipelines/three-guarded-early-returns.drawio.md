@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a5249f255284
+    with_body_sha: "580e45484597"
     repo_status: clean
-    path: docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-pipe-auth-three-guarded-early-returns-implementation-drawio
+    path: docs/explanation/pipelines/three-guarded-early-returns.drawio.md
+    folder: docs/explanation/pipelines
+    name: three-guarded-early-returns-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
-      - docs/.assets/explanation/chain/adr-pipe-auth--three-guarded-early-returns--implementation.chain.md
-      - docs/.assets/explanation/grid/adr-pipe-auth--three-guarded-early-returns--implementation.grid.md
-      - docs/.assets/explanation/tree/adr-pipe-auth--three-guarded-early-returns--implementation.tree.md
+      - docs/explanation/.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
+      - docs/explanation/.assets/chain/adr-pipe-auth--three-guarded-early-returns--implementation.chain.md
+      - docs/explanation/.assets/grid/adr-pipe-auth--three-guarded-early-returns--implementation.grid.md
+      - docs/explanation/.assets/tree/adr-pipe-auth--three-guarded-early-returns--implementation.tree.md
       - docs/explanation/pipelines/three-guarded-early-returns.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

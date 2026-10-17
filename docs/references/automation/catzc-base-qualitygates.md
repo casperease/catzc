@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9f8a3f50e4a6"
+    with_body_sha: "387a0d340de4"
     repo_status: clean
     path: docs/references/automation/catzc-base-qualitygates.md
     folder: docs/references/automation
@@ -13,8 +13,6 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
-      - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png
       - docs/adr/automation/bash/bash-test-artifacts.md
       - docs/adr/automation/go/go-test-artifacts.md
       - docs/adr/automation/managed-guids.md
@@ -25,8 +23,10 @@ catzc:
       - docs/adr/principles/configure-not-program.md
       - docs/adr/repository/comments-in-docs.md
       - docs/adr/repository/markdown-links.md
+      - docs/references/.assets/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png
       - docs/references/automation/catzc-base-languages.md
       - docs/references/automation/catzc-base-modulesystem.md
+      - docs/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
       - docs/references/automation/catzc-base-reports.md
 ---
 
@@ -144,9 +144,9 @@ reports, and assertions) this module composes. It does not depend on any feature
 The diagram below draws one test run of responsibility 1 from the source. Both kinds of run share one harness. It discovers the tests once
 and checks their tags before any run directory exists, then splits the files into the parallel, greedy and serial phases, drops the modules
 that are already protected, and derives one verdict. A `finally` stamps the run's `run.json` record on every exit from the run. Its
-[description](../../.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md) walks it step by step.
+[description](catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md) walks it step by step.
 
-![One discovery feeds three phases; finally stamps run.json](../../.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png)
+![One discovery feeds three phases; finally stamps run.json](../.assets/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png)
 
 ## Division
 

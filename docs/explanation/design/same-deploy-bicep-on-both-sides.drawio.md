@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: db6a5501d3f8
+    with_body_sha: e4fc2c6f1535
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-thinplat-same-deploy-bicep-on-both-sides-operations-drawio
+    path: docs/explanation/design/same-deploy-bicep-on-both-sides.drawio.md
+    folder: docs/explanation/design
+    name: same-deploy-bicep-on-both-sides-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.tree.md
+      - docs/explanation/.assets/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.tree.md
       - docs/explanation/design/same-deploy-bicep-on-both-sides.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md

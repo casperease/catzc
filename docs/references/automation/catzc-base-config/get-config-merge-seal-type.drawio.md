@@ -28,7 +28,7 @@ Glyphs: 1 code unit, 4 private helpers, 1 C# type, 2 files, 1 gate, 1 failure; 7
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](get-config-merge-seal-type.drawio.png) draws from the source of the `Catzc.Base.Config` module. The
+This describes what the [diagram](../../.assets/automation/catzc-base-config/get-config-merge-seal-type.drawio.png) draws from the source of the `Catzc.Base.Config` module. The
 module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance
@@ -121,7 +121,5 @@ the rules the drawn code cites. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 
-ADR-AUTO-OVERLAY says `Catzc.Base.Config` refuses a fragment of a sealed config through `ConfigsConfig.sealedConfigs`. `Get-Config` reads
-`overridable` from the registry entry itself; only `Assert-CatzcOverlay` in `Catzc.Base.Overlay` reads `sealedConfigs`. Both readers take
-the same declaration in `configs.yml`, as ADR-AUTO-OVERLAY#7 requires, so the behaviour matches and only the named mechanism differs. The
-sealed throw cites no rule code.
+`Get-Config` and `Assert-CatzcOverlay` both read the seal from `ConfigsConfig.sealedConfigs`, built from the one declaration in
+`configs.yml` that ADR-AUTO-OVERLAY#7 requires, so the code and the ADR agree. The sealed throw cites no rule code.
