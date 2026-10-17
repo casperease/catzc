@@ -46,4 +46,3 @@ layout:
   footer_bottom: 64 # the pinned page-number row; a slide with one pads 160 at the bottom
 render:
   out: out/slides # Build-SlideDeck lands <deck>/project/… and <deck>.script.md here
-  patterns: .claude/slides/patterns # one <name>.html per pattern

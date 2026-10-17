@@ -19,6 +19,7 @@ catzc:
     page: docs/references/automation/catzc-base-contracts/Build-ContractReference.ps1.md
     test: automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
     cites:
+      - ADR-REPO-CMDCONTRACT#5
       - ADR-REPO-CONTRACT#{2,5}
       - ADR-REPO-FORMAT#5
       - ADR-REPO-README#7
@@ -32,8 +33,10 @@ catzc:
       unit. The page has a section per version folder, the draft 0.0.0 first and then the released folders, newest
       first; each section is one table with a row per asset (its owning module, its path under the module, the
       repository-relative file it constrains — its target, under the module's target root; a sample payload has none —
-      its direction, marked when the version's
-      contract.yml sets it, and its kind), then a list of the notes, one item per asset that carries one.
+      its direction, marked when the version's contract.yml sets it, its kind, and its signature: the call interface a
+      command contract states, read by Get-CommandContract
+      ([ADR-REPO-CMDCONTRACT#5](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract5)); every other kind
+      has none), then a list of the notes, one item per asset that carries one.
 
       The note is the asset's header comment (Get-ContractAssetNote), so what an asset is for is written once, in the
       asset, and contracts/ holds only assets. A note's code links become relative markdown links and each address an
@@ -75,9 +78,10 @@ function Build-ContractReference {
 
     $pageFolder = 'docs/references/contracts'
     $adr = '../../adr/repository/api-contracts.md'
-    $kindText = @{ Presence = 'presence'; Fragment = 'fragment'; Schema = 'schema'; Sample = 'sample payload' }
+    $commandAdr = '../../adr/repository/command-contracts.md'
+    $kindText = @{ Presence = 'presence'; Fragment = 'fragment'; Schema = 'schema'; Sample = 'sample payload'; Command = 'command contract' }
     $directionText = @{ DependedOn = 'depended-on'; Provided = 'provided' }
-    $headers = @('Module', 'Asset', 'Target', 'Direction', 'Kind')
+    $headers = @('Module', 'Asset', 'Target', 'Direction', 'Kind', 'Signature')
     # Every page this writer emits carries this line; only a page carrying it is ever removed.
     $marker = '`Build-ContractReference` writes this page from'
 
@@ -101,6 +105,17 @@ function Build-ContractReference {
     $results = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($unit in $units) {
         $unitAssets = @($assets | Where-Object { $_.Unit -ceq $unit })
+        $signatures = @{}
+        if (@($unitAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command }).Count -gt 0) {
+            try {
+                foreach ($command in Get-CommandContract -Unit ([WildcardPattern]::Escape($unit)) -Version '*' -RepositoryRoot $RepositoryRoot) {
+                    $signatures[$command.asset.AssetPath] = $command.signature
+                }
+            }
+            catch {
+                Write-Verbose "Build-ContractReference: the command contracts of '$unit' do not all read, so the page shows no signature: $($_.Exception.Message)"
+            }
+        }
 
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add("# $pageFolder/$unit.md")
@@ -115,7 +130,13 @@ function Build-ContractReference {
         $lines.Add('')
         $lines.Add('A presence asset, a text fragment, and a JSON fragment or sample payload carry no note: a comment would change what they pin.')
         $lines.Add('')
-        $lines.Add("Layout, kinds, and directions: [api-contracts]($adr).")
+        foreach ($line in (Format-MarkdownParagraph -Text "A command contract's signature is the call interface its contract language states, as ``Get-CommandContract`` reads it; every other kind has none.")) {
+            $lines.Add($line)
+        }
+        $lines.Add('')
+        foreach ($line in (Format-MarkdownParagraph -Text "Layout, kinds, and directions: [api-contracts]($adr); command contracts: [command-contracts]($commandAdr).")) {
+            $lines.Add($line)
+        }
 
         # The draft first, then the released folders, newest first.
         $versions = [string[]] @($unitAssets | ForEach-Object { $_.Version } | Select-Object -Unique)
@@ -153,7 +174,16 @@ function Build-ContractReference {
                     }
                 }
                 $assetCell = "``$($asset.Path.Replace('|', '\|'))``"
-                $rows.Add([string[]] @("``$($asset.Module)``", $assetCell, $target, $direction, $kindText["$($asset.Kind)"]))
+                $signature = if ($signatures.ContainsKey($asset.AssetPath)) {
+                    "``$($signatures[$asset.AssetPath].Replace('|', '\|'))``"
+                }
+                elseif ($asset.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command) {
+                    'not readable (Test-Contracts reports it)'
+                }
+                else {
+                    'none'
+                }
+                $rows.Add([string[]] @("``$($asset.Module)``", $assetCell, $target, $direction, $kindText["$($asset.Kind)"], $signature))
             }
 
             # Aligned as Prettier aligns a table, so the page is formatter-stable.

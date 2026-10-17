@@ -56,7 +56,10 @@ function Get-ContractUnitAsset {
 
         [Parameter(Mandatory)]
         [AllowEmptyCollection()]
-        [System.Collections.IDictionary] $TargetRoot
+        [System.Collections.IDictionary] $TargetRoot,
+
+        [Parameter(Mandatory)]
+        [string] $RepositoryRoot
     )
 
     $stray = @([System.IO.Directory]::GetFiles($Folder) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
@@ -74,7 +77,7 @@ function Get-ContractUnitAsset {
     foreach ($versionFolder in $versionFolders) {
         $versionName = [System.IO.Path]::GetFileName($versionFolder)
         if (@($Version | Where-Object { $versionName -like $_ }).Count -gt 0) {
-            Get-ContractVersionAsset -Unit $Unit -Version $versionName -Folder $versionFolder -TargetRoot $TargetRoot
+            Get-ContractVersionAsset -Unit $Unit -Version $versionName -Folder $versionFolder -TargetRoot $TargetRoot -RepositoryRoot $RepositoryRoot
         }
     }
 }

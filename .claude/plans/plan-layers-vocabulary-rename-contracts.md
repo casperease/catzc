@@ -112,6 +112,24 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 - Known unrelated reds at the time: Test-Spelling 5, Test-Glossary 236 (G4 and G6, listed per file in plan-clear-actions), Test-Formatting
   on `.compiled/*.json`, Test-ScriptAnalyzer about 37, Test-Comments 11 (listed in plan-module-model-closeout).
 
+## P7 prepare (2026-10-17, task020)
+
+- C2 sizing, read from the module: `Get-ContractAssetKind` picks one of four kinds from the name alone, `Resolve-ContractAsset` derives
+  target and direction from the kind (a sample has no target and is provided; every other kind targets `<target root>/<path>` and is
+  depended-on), `Get-ContractCheckResult` switches on the kind and throws for a kind no check covers, and `ContractAsset`'s constructor
+  demands a target for every kind but Sample. A fifth kind touches those four places, and the command asset's target is the command's
+  source file under the module's root, which `Resolve-ContractAsset` cannot derive from a target root alone.
+- Unknown suffix, on a copy: a `Get-Thing.command.yml` under a unit's draft reads as `kind=Fragment direction=DependedOn
+  target=Get-Thing.command.yml`, and the check fails it with `the target 'Get-Thing.command.yml' does not exist: the repository root holds
+  no 'Get-Thing.command.yml'.` (`out/t020-unknown-suffix.ps1`). The kind lands before any asset.
+- Handlers by language (task011 step 3): the checks of a changed file are resolved through the registry, `languages.yml` `checks:`, and the
+  tests side still branches on the language, whose funnel follows D03. The command checker therefore registers nothing in `languages.yml`
+  in C2: it selects by the command's file language, builds the PowerShell checker, and throws NotImplemented for any other language; the
+  registry key for it is D03's scope.
+- Correction (C1, read from `ContractSchema`): the bounded JSON Schema subset has no `pattern` keyword and takes `additionalProperties` as a
+  boolean only, so a `command.schema.json` cannot hold the value grammar. The `ContractCommand` type is the one grammar (ADR-PRIN-ONELIVE),
+  a value that does not parse is a finding, and no schema asset is written in C2.
+
 ## Needed tests
 
 - Test-Glossary, Test-AdrRegistry, Test-Terminology clean on touched files (P1 stop).
@@ -147,6 +165,9 @@ by naming which of the 439 public functions are contracted. Every later plan spe
       reports no finding on the touched files (verdicts in task017).
 - [ ] P2 (check: guard rule gate). P3 (check: classification table, then stop).
 - [ ] P4 on the user's go (check: full baseline green again). P5 to P8 per the master plan.
+- [ ] P7 command contracts, task020: C1 the ADR, C2 the kind and checker, C4 the reader and the signature column landed 2026-10-17
+      (verdicts in task020). Open: C3 the pilot set, which waits for the user's answer to the proposed list in task020's report; C5 the
+      `cats` lookup and coercion; C6 the widening and the F6 narrowing (check: Test-Contracts clean on the pilot set; the bats file passes).
 - [ ] P6 also retires the old layer forms `automation`, `PowerShell` and `implementation` from the layer family and adds the avoid
       phrasings "the automation folder", "automation modules" and "the loader": 68 pages say "automation layer", "implementation layer" or
       "PowerShell layer" today (pipelines/custom-template-discipline.md 15, docs/index.md 13, the pwsh ADRs most of the rest), so the

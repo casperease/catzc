@@ -17,6 +17,7 @@ catzc:
     visibility: private
   edges:
     cites:
+      - ADR-REPO-CMDCONTRACT#4
       - ADR-REPO-CONTRACT#6
   config:
     synopsis: Checks one contract asset against the repository by its kind, and returns the result.
@@ -29,6 +30,9 @@ catzc:
         and uses the supported keywords only; the sample is not validated here, since its own check does that, so a
         defect gives one finding on one result;
       - Sample: the payload parses, and validates against the schema beside it (Get-ContractSampleFindings).
+      - Command: the command's file exists and declares the signature the contract states
+        (Get-ContractCommandFindings,
+        [ADR-REPO-CMDCONTRACT#4](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract4)).
       A failed check is findings on the result, never an exception.
     parameters:
       RepositoryRoot: The repository root the asset and its target are relative to.
@@ -77,6 +81,9 @@ function Get-ContractCheckResult {
             }
             ([Catzc.Base.Contracts.ContractAssetKind]::Sample) {
                 Get-ContractSampleFindings -RepositoryRoot $RepositoryRoot -Asset $Asset
+            }
+            ([Catzc.Base.Contracts.ContractAssetKind]::Command) {
+                Get-ContractCommandFindings -RepositoryRoot $RepositoryRoot -Asset $Asset
             }
             default {
                 throw [System.ArgumentException]::new("Get-ContractCheckResult: '$($Asset.AssetPath)' is of kind '$($Asset.Kind)', which no check covers.")

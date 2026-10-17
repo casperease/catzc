@@ -25,6 +25,8 @@
             "language": { "type": "string" },
             "filetype": { "type": "string" },
             "track": { "type": "string" },
+            "tracktype": { "type": "string" },
+            "vendor": { "type": "string" },
             "module": { "type": "string" },
             "moduletype": { "type": "string" },
             "catzc_bundle": { "type": "string" },

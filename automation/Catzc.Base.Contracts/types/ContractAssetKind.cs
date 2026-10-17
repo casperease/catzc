@@ -17,6 +17,7 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-contracts/types/ContractAssetKind.cs.md
     cites:
+      - ADR-REPO-CMDCONTRACT#1
       - ADR-REPO-CONTRACT#6
 ---
 */
@@ -29,4 +30,5 @@ public enum ContractAssetKind
     Fragment,
     Schema,
     Sample,
+    Command,
 }

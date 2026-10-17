@@ -19,6 +19,7 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT#{1,6}
       - ADR-AUTO-PATH#2
+      - ADR-REPO-CMDCONTRACT#3
       - ADR-REPO-CONTRACT
 ---
 #>
@@ -325,6 +326,36 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
 
         It 'rejects a mode that is not declared, naming the declared ones' -Tag 'ADR-REPO-CONTRACT#8' {
             { Get-Contract -RepositoryRoot $script:root -Addressing gadget } | Should -Throw '*full-path, manifest-glob, per-folder*'
+        }
+    }
+
+    Context 'a command contract' -Tag 'ADR-REPO-CMDCONTRACT#3' {
+        BeforeEach {
+            Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
+                [pscustomobject]@{ name = 'Catzc.Widget'; root = 'automation/Catzc.Widget'; languages = @('powershell') }
+            }
+        }
+
+        It 'targets the command file under the module root the one resolver gives, and is provided' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml' 'parameters:'
+            $asset = Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{}
+            $asset.Kind | Should -Be ([Catzc.Base.Contracts.ContractAssetKind]::Command)
+            $asset.Target | Should -Be 'automation/Catzc.Widget/Get-Widget.ps1'
+            $asset.Direction | Should -Be ([Catzc.Base.Contracts.ContractDirection]::Provided)
+            Should -Invoke -ModuleName Catzc.Base.Contracts Get-CatzcModule -Times 1 -Exactly
+        }
+
+        It 'resolves the module once for all its command contracts, and not at all without one' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml' 'parameters:'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/Set-Widget.command.yml' 'parameters:'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/gadget.yml'
+            @(Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{}).Count | Should -Be 3
+            Should -Invoke -ModuleName Catzc.Base.Contracts Get-CatzcModule -Times 1 -Exactly -ParameterFilter { $Name -eq 'Catzc.Widget' }
+        }
+
+        It 'throws on a command contract below a folder of the module' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/flows/Get-Widget.command.yml' 'parameters:'
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{} } | Should -Throw '*sits directly in its module folder*'
         }
     }
 }

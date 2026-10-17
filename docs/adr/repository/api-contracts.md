@@ -26,6 +26,7 @@ catzc:
       - docs/adr/automation/zero-ceremony-poka-yoke.md
       - docs/adr/principles/one-living-version.md
       - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive7
+      - docs/adr/repository/command-contracts.md
       - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders11
       - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4
       - docs/adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg1
@@ -105,13 +106,16 @@ A **contract asset** is one file under `contracts/<unit>/<version>/<module>/`, a
 fragment: the real file at the same path under its module's target root must exist and contain it — a key subset for YAML and JSON, the
 non-blank lines in order for any other text — and an empty fragment requires presence only. `<path>.schema.json` is a schema the real file
 at `<path>` validates against. `<name>.sample.<ext>` is a sample payload the owning module's tests produce or parse.
+`<Verb-Noun>.command.yml` is a command contract, the call interface of the command `Verb-Noun` of the module whose folder holds it
+([command-contracts](command-contracts.md)).
 
 - [The name picks the kind](#the-name-picks-the-kind)
 
 ### Rule ADR-REPO-CONTRACT:7
 
-A contract asset's direction comes by convention: an asset that constrains a real repository file is depended-on, and a sample payload is
-provided. A per-version `contract.yml`, at `contracts/<unit>/<version>/contract.yml`, overrides the direction of a single asset.
+A contract asset's direction comes by convention: an asset that constrains a real repository file is depended-on, and a sample payload or a
+command contract is provided. A per-version `contract.yml`, at `contracts/<unit>/<version>/contract.yml`, overrides the direction of a
+single asset.
 
 - [Direction by convention](#direction-by-convention)
 
@@ -203,6 +207,8 @@ contracts/
       Catzc.Azure.DevOps/                             # target root: the repository root, the default
         pipelines/ci-automation.yaml                  # fragment of pipelines/ci-automation.yaml: the keys Azure Pipelines reads
         rest/build-queue.sample.json                  # sample payload: the module produces or parses it
+      Catzc.Base.Widgets/
+        Get-Widget.command.yml                        # command contract: the call interface of Get-Widget
     1.0.0/                                            # frozen when the bundle 1.0.0 is released
 ```
 
@@ -289,7 +295,7 @@ version and trust it does not move underneath them.
 `Sensible defaults from the asset's own path`
 
 An asset declares nothing: its kind, its target, and its owning module all come from where it sits and what it is called, with its module's
-target root as the one declared folder ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). The four kinds are the four
+target root as the one declared folder ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). The five kinds are the five
 things a boundary can require:
 
 - **Presence** — an empty fragment: the real file at the same path under the target root must exist.
@@ -300,6 +306,8 @@ things a boundary can require:
   that shares its `<name>` with a sample payload beside it applies to that sample instead of a real file.
 - **Sample payload** — `<name>.sample.<ext>`: a payload the owning module's tests must produce or parse, validated against the schema beside
   it when one exists.
+- **Command contract** — `<Verb-Noun>.command.yml`: the call interface of the command the owning module exports under that name, compared
+  with the parse of the command's file ([command-contracts](command-contracts.md)).
 
 A fragment pins only what the outside party reads, so the rest of the file stays free to change under one living version.
 
@@ -308,10 +316,10 @@ A fragment pins only what the outside party reads, so the rest of the file stays
 `The convention decides, contract.yml overrides`
 
 An asset that constrains a real repository file — a fragment, presence, or a schema on that file's path — is depended-on, because an outside
-platform is what reads the file. A sample payload is provided, because it is a shape the repository hands to a consumer. The convention is
-right for most assets, so most version folders carry no `contract.yml`; the one at `contracts/<unit>/<version>/contract.yml` overrides a
-single asset's direction where the convention is wrong, such as a sample payload an outside platform requires of a call. It is part of the
-version folder, so it freezes with it.
+platform is what reads the file. A sample payload is provided, because it is a shape the repository hands to a consumer, and so is a command
+contract, because a command is what a consumer calls. The convention is right for most assets, so most version folders carry no
+`contract.yml`; the one at `contracts/<unit>/<version>/contract.yml` overrides a single asset's direction where the convention is wrong,
+such as a sample payload an outside platform requires of a call. It is part of the version folder, so it freezes with it.
 
 ### Addressing many files
 

@@ -10,6 +10,26 @@ catzc:
     language: markdown
     track: docs
     tracktype: documentation
+  edges:
+    defines:
+      - ADR-AUTO-LAYERS#{1-7}
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-ENGINE#{1,7}
+      - ADR-AUTO-MODULE#{1,3}
+      - ADR-DSGN-TRACK#3
+    links:
+      - docs/adr/automation/execution-engines.md
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine1
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine7
+      - docs/adr/automation/importer.md
+      - docs/adr/automation/module-model.md#rule-adr-auto-module1
+      - docs/adr/automation/module-model.md#rule-adr-auto-module3
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track3
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/pwsh-engine.md
+      - docs/adr/repository/api-contracts.md
 ---
 
 # ADR-AUTO-LAYERS: the layers of the automation

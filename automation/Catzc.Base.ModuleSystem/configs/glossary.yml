@@ -204,6 +204,9 @@ concepts:
       track: A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it lives.
       implementation language:
         An implementation language is a file language a command is written in; a file language is any language the registry names by extension.
+      contract language:
+        The contract language is a notation inside one YAML file, the one a command contract is written in; a file language is the kind of
+        text a whole file holds, named by its extension.
       language zone:
         A language zone is one of the design, test, and live registers of identities; a file language is the kind of text one file holds.
       unlisted file:

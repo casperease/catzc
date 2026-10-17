@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4524d69c06ba"
-    with_inputs_sha: "47b0568292ca6805c2dc00b030f8c1270bb7c7a65811282fe8cddbe67d6a5ff3"
+    with_body_sha: "9475a13a6e8e"
+    with_inputs_sha: c7090451dcc47b5f8ad20c253c11443ec8a85930eb6a4e5fbcb42c8779031d6d
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -179,6 +179,8 @@ set of them.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
+  - [contract language](#contract-language): The contract language is a notation inside one YAML file, the one a command contract is written
+    in; a file language is the kind of text a whole file holds, named by its extension.
   - [file type](#file-type): A file type is the single extension of one file; a file language groups the extensions of one kind of text.
   - [implementation language](#implementation-language): An implementation language is a file language a command is written in; a file
     language is any language the registry names by extension.
@@ -579,6 +581,9 @@ One public function of the module system, the unit a contract describes, written
 - **Defined by:** [ADR-AUTO-LAYERS#2](automation/layers.md#rule-adr-auto-layers2)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [command contract](#command-contract): A command contract is the asset that states a command's call interface at the boundary; the
+    command is the function that implements it.
 
 ### engine start environment
 
@@ -625,6 +630,8 @@ Bash, Python and Go.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
+  - [contract language](#contract-language): The contract language is the notation a command's call interface is stated in; an
+    implementation language is the file language the command's source is written in.
   - [file language](#file-language): A file language is any language the registry names by extension; an implementation language is one a
     command is written in.
 
@@ -1001,6 +1008,20 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
   - [markdown link](#markdown-link): A markdown link lives in a .md file and is relative to it; a code link lives in a comment of a
     non-markdown file and is repository-rooted.
 
+### command contract
+
+A provided contract asset, <module>/<Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
+contract language; a command is public exactly when one names it.
+
+- **Defined by:** [ADR-REPO-CMDCONTRACT#1](repository/command-contracts.md#rule-adr-repo-cmdcontract1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [command](#command): A command is the function that implements the interface; a command contract is the asset that states it at the
+    boundary.
+  - [contract asset](#contract-asset): A contract asset is any file of the five kinds; a command contract is the kind that states a
+    command's call interface and is compared with the command's source.
+
 ### comment page
 
 The Markdown page under docs/references that holds a file's long comments verbatim, one numbered section per comment.
@@ -1024,16 +1045,32 @@ owning module's tests.
 ### contract asset
 
 One file in an owning module's folder of a unit's contracts/ version folder, whose path names the real file it constrains and whose name
-picks its kind — a fragment, a schema, or a sample payload.
+picks its kind — a fragment, a schema, a sample payload, or a command contract.
 
 - **Defined by:** [ADR-REPO-CONTRACT#6](repository/api-contracts.md#rule-adr-repo-contract6)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
+  - [command contract](#command-contract): A command contract is the one asset kind that states a command's call interface and is compared
+    with the command's source; a contract asset is any file of the five kinds.
   - [contract](#contract): A contract is the binding interface at the repository boundary; a contract asset is one checked-in file that
     states part of it.
   - [published artifact](#published-artifact): A published artifact is a file one stage produces and a later stage consumes within a run; a
     contract asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release.
+
+### contract language
+
+The notation a command contract is written in — YAML with one string per parameter (type, mandatory, default, pipeline) and an output type,
+over a closed type set whose defaults are declared once on the ContractCommand type.
+
+- **Defined by:** [ADR-REPO-CMDCONTRACT#2](repository/command-contracts.md#rule-adr-repo-cmdcontract2)
+- **Realized by:** type `Catzc.Base.Contracts.ContractCommand`
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; the contract language is a
+    notation inside one YAML file, not a file language of its own.
+  - [implementation language](#implementation-language): An implementation language is the file language a command's source is written in;
+    the contract language is the notation its call interface is stated in.
 
 ### deck file
 
@@ -1041,7 +1078,7 @@ The `deck.md` of a deck folder — the deck's title and its sections, beside the
 
 - **Defined by:** [ADR-REPO-SLIDES#1](repository/slides-as-markdown.md#rule-adr-repo-slides1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
-- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Source:** `automation/Catzc.Base.Slides/configs/glossary.yml`
 - **Contrasts:**
   - [slide file](#slide-file): A slide file is one slide of a deck; the deck file names the deck and its sections and holds no slide.
 
@@ -1114,7 +1151,7 @@ One level-two heading of a slide file and the text under it, filled into the pla
 
 - **Defined by:** [ADR-REPO-SLIDES#1](repository/slides-as-markdown.md#rule-adr-repo-slides1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
-- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Source:** `automation/Catzc.Base.Slides/configs/glossary.yml`
 
 | Avoid               | Say instead |
 | ------------------- | ----------- |
@@ -1265,7 +1302,7 @@ required; the layout of one kind of slide.
 
 - **Defined by:** [ADR-REPO-SLIDES#2](repository/slides-as-markdown.md#rule-adr-repo-slides2)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
-- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Source:** `automation/Catzc.Base.Slides/configs/glossary.yml`
 
 ### place facts
 
@@ -1323,7 +1360,7 @@ heading a field, and its head names the pattern, the deck and the order.
 
 - **Defined by:** [ADR-REPO-SLIDES#1](repository/slides-as-markdown.md#rule-adr-repo-slides1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
-- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Source:** `automation/Catzc.Base.Slides/configs/glossary.yml`
 - **Contrasts:**
   - [deck file](#deck-file): The deck file names the deck's title and sections; a slide file is one slide of it.
 

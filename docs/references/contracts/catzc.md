@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "46f74ef082ae"
-    with_inputs_sha: c4f25d3e471274bf326f4c9cab6c8354bb82a6c79d921bfd29a3cc6fcf33bde4
+    with_body_sha: b72494a121aa
+    with_inputs_sha: "064fea968358f9a8c3bced3d7f3851c45e9af9bb69015a4ffae57ff6e91fa8ca"
     repo_status: locked
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
@@ -26,27 +26,31 @@ Each note is the asset's own header comment: the leading `#` lines of a YAML ass
 
 A presence asset, a text fragment, and a JSON fragment or sample payload carry no note: a comment would change what they pin.
 
-Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contracts.md).
+A command contract's signature is the call interface its contract language states, as `Get-CommandContract` reads it; every other kind has
+none.
+
+Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contracts.md); command contracts:
+[command-contracts](../../adr/repository/command-contracts.md).
 
 ## 0.0.0
 
 The draft: the one mutable version folder ([ADR-REPO-CONTRACT#5](../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
 
-| Module                    | Asset                                            | Target                                                          | Direction               | Kind           |
-| ------------------------- | ------------------------------------------------ | --------------------------------------------------------------- | ----------------------- | -------------- |
-| `Catzc.Azure.DevOps`      | `pipelines/cd-apex.yaml`                         | `pipelines/cd-apex.yaml`                                        | depended-on             | fragment       |
-| `Catzc.Azure.DevOps`      | `pipelines/cd-flux.yaml`                         | `pipelines/cd-flux.yaml`                                        | depended-on             | fragment       |
-| `Catzc.Azure.DevOps`      | `pipelines/cd-nova.yaml`                         | `pipelines/cd-nova.yaml`                                        | depended-on             | fragment       |
-| `Catzc.Azure.DevOps`      | `pipelines/cd-shared.yaml`                       | `pipelines/cd-shared.yaml`                                      | depended-on             | fragment       |
-| `Catzc.Azure.DevOps`      | `pipelines/ci-automation-expected-failures.yaml` | `pipelines/ci-automation-expected-failures.yaml`                | depended-on             | fragment       |
-| `Catzc.Azure.DevOps`      | `pipelines/ci-automation.yaml`                   | `pipelines/ci-automation.yaml`                                  | depended-on             | fragment       |
-| `Catzc.Azure.DevOps`      | `pipelines/ci-infrastructure.yaml`               | `pipelines/ci-infrastructure.yaml`                              | depended-on             | fragment       |
-| `Catzc.Base.Globs`        | `configs/file-kinds.yml`                         | `automation/Catzc.Base.Globs/configs/file-kinds.yml`            | provided (contract.yml) | fragment       |
-| `Catzc.Base.QualityGates` | `head.sample.yml`                                | none                                                            | provided                | sample payload |
-| `Catzc.Base.QualityGates` | `head.schema.json`                               | `contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.sample.yml` | provided                | schema         |
-| `Catzc.Tooling.Github`    | `README.md`                                      | `.github/README.md`                                             | depended-on             | presence       |
-| `Catzc.Tooling.Github`    | `workflows/ci-automation.yml`                    | `.github/workflows/ci-automation.yml`                           | depended-on             | fragment       |
-| `Catzc.Tooling.Github`    | `workflows/release-automation.yml`               | `.github/workflows/release-automation.yml`                      | depended-on             | fragment       |
+| Module                    | Asset                                            | Target                                                          | Direction               | Kind           | Signature |
+| ------------------------- | ------------------------------------------------ | --------------------------------------------------------------- | ----------------------- | -------------- | --------- |
+| `Catzc.Azure.DevOps`      | `pipelines/cd-apex.yaml`                         | `pipelines/cd-apex.yaml`                                        | depended-on             | fragment       | none      |
+| `Catzc.Azure.DevOps`      | `pipelines/cd-flux.yaml`                         | `pipelines/cd-flux.yaml`                                        | depended-on             | fragment       | none      |
+| `Catzc.Azure.DevOps`      | `pipelines/cd-nova.yaml`                         | `pipelines/cd-nova.yaml`                                        | depended-on             | fragment       | none      |
+| `Catzc.Azure.DevOps`      | `pipelines/cd-shared.yaml`                       | `pipelines/cd-shared.yaml`                                      | depended-on             | fragment       | none      |
+| `Catzc.Azure.DevOps`      | `pipelines/ci-automation-expected-failures.yaml` | `pipelines/ci-automation-expected-failures.yaml`                | depended-on             | fragment       | none      |
+| `Catzc.Azure.DevOps`      | `pipelines/ci-automation.yaml`                   | `pipelines/ci-automation.yaml`                                  | depended-on             | fragment       | none      |
+| `Catzc.Azure.DevOps`      | `pipelines/ci-infrastructure.yaml`               | `pipelines/ci-infrastructure.yaml`                              | depended-on             | fragment       | none      |
+| `Catzc.Base.Globs`        | `configs/file-kinds.yml`                         | `automation/Catzc.Base.Globs/configs/file-kinds.yml`            | provided (contract.yml) | fragment       | none      |
+| `Catzc.Base.QualityGates` | `head.sample.yml`                                | none                                                            | provided                | sample payload | none      |
+| `Catzc.Base.QualityGates` | `head.schema.json`                               | `contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.sample.yml` | provided                | schema         | none      |
+| `Catzc.Tooling.Github`    | `README.md`                                      | `.github/README.md`                                             | depended-on             | presence       | none      |
+| `Catzc.Tooling.Github`    | `workflows/ci-automation.yml`                    | `.github/workflows/ci-automation.yml`                           | depended-on             | fragment       | none      |
+| `Catzc.Tooling.Github`    | `workflows/release-automation.yml`               | `.github/workflows/release-automation.yml`                      | depended-on             | fragment       | none      |
 
 Notes:
 

@@ -20,7 +20,7 @@ catzc:
     cites:
       - ADR-AUTO-TEST#35
       - ADR-REPO-FOLDERS#12
-      - ADR-REPO-PLANS#{1,2,3,4,8}
+      - ADR-REPO-PLANS#{1-4,8}
   config:
     synopsis: 'Quality gate: holds every file of the plans folder to the plan rules.'
     description: |-

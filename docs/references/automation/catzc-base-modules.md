@@ -10,6 +10,15 @@ catzc:
     language: markdown
     track: docs
     tracktype: documentation
+  edges:
+    cites:
+      - ADR-AUTO-MODULE#1
+    links:
+      - docs/adr/automation/module-model.md
+      - docs/adr/design/module-aspects.md
+      - docs/references/automation/catzc-base-languages.md
+      - docs/references/automation/catzc-base-modulesystem.md
+      - docs/references/automation/catzc-base-variants.md
 ---
 
 # Catzc.Base.Modules

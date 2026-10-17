@@ -16,6 +16,7 @@ catzc:
       - docs/adr/repository/ai-agent-contract.md
       - docs/adr/repository/api-contracts.md
       - docs/adr/repository/code-file-meta.md
+      - docs/adr/repository/command-contracts.md
       - docs/adr/repository/comments-in-docs.md
       - docs/adr/repository/controlled-vocabulary.md
       - docs/adr/repository/conventional-folders.md
@@ -141,6 +142,24 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   tests on every build.
 - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — binding, tested contracts ensure external consumers
   stay deployable and unbroken across releases.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Command contracts
+
+`The call interface of a public command, stated once, proven from its source and read by every caller`
+
+[ADR-REPO-CMDCONTRACT](command-contracts.md)
+
+> DORA ties loosely coupled teams and test automation to delivery performance: a team changes what it owns freely when its boundary is
+> explicit and verified. A command contract makes the module system's boundary a checked file, so a caller in another language or shell
+> relies on a stated interface, and a signature change is caught where it is made rather than in the caller.
+
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — the public set is small and written down, so
+  everything else changes without coordination.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — every command contract is proven against the parse of its
+  command's file and resolved from every engine by generated tests.
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — a signature change that breaks a contract fails
+  the draft's or the frozen folder's check before it merges.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Generated READMEs

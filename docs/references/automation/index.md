@@ -48,6 +48,7 @@ catzc:
       - docs/references/automation/catzc-base-reports.md
       - docs/references/automation/catzc-base-repository.md
       - docs/references/automation/catzc-base-rootconfig.md
+      - docs/references/automation/catzc-base-slides.md
       - docs/references/automation/catzc-base-timeouts.md
       - docs/references/automation/catzc-base-typessystem.md
       - docs/references/automation/catzc-base-variants.md
@@ -120,6 +121,7 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Base.Exporter](catzc-base-exporter.md)                               | The installable-bundle exporter — bundle version and content-addressed identity                                                                              |
 | [Catzc.Base.Docs](catzc-base-docs.md)                                       | Generated module READMEs, copy-in from a docs source, gitignored                                                                                             |
 | [Catzc.Base.Contracts](catzc-base-contracts.md)                             | The repository's contracts made binding — asset listing, checking, the release freeze, and the contract reference                                            |
+| [Catzc.Base.Slides](catzc-base-slides.md)                                   | A deck rendered from one markdown file per slide through the kit's patterns, fail-forward, and the gate that checks every slide against the rules it quotes  |
 | [Catzc.Base.Maps](catzc-base-maps.md)                                       | The world map — every tracked file placed by track and file language, lit cells, the quality gate, and the PDFs                                              |
 | [Catzc.Base.Git](catzc-base-git.md)                                         | The declarative gitignore — explained sections in `gitignore.yml`, rendered by `New-GitIgnore`                                                               |
 | [Catzc.Base.VSCode](catzc-base-vscode.md)                                   | The declarative editor settings — `vscode-settings.yml` rendered into `.vscode/settings.json`                                                                |

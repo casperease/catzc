@@ -314,6 +314,7 @@ domains:
       output-formats: { external: ADR-REPO-OUTFMT, terminology: outfmt }
       uniform-formatting: { external: ADR-REPO-FORMAT, concern: [quality-control] }
       api-contracts: { external: ADR-REPO-CONTRACT, concern: [release] }
+      command-contracts: { external: ADR-REPO-CMDCONTRACT, concern: [release] }
       generated-readmes: { external: ADR-REPO-README }
       generated-root-configs: { external: ADR-REPO-ROOTCFG, terminology: rootcfg }
       documentation-examples: { external: ADR-REPO-EXAMPLE }

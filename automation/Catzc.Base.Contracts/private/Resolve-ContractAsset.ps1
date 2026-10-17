@@ -18,6 +18,7 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-ZERO
+      - ADR-REPO-CMDCONTRACT#3
       - ADR-REPO-CONTRACT#{2,6,7}
   config:
     synopsis: Derives one contract asset's facts from its name and place, and returns them as a ContractAsset.
@@ -29,9 +30,12 @@ catzc:
         `<path>.schema.json` constrains the real file at `<path>` under that root, unless a sample payload of the same
         `<name>` sits beside it (`<name>.sample.<ext>`), in which case it applies to that sample; a sample payload
         constrains no file ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)).
+      - A command contract `<Verb-Noun>.command.yml` constrains the command's file under the module's root,
+        `<CommandRoot>/<Verb-Noun>.ps1`
+        ([ADR-REPO-CMDCONTRACT#3](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract3)).
       - Direction, by convention ([ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)): an
-        asset that constrains a real repository file is DependedOn; a sample payload, and the schema that applies to it,
-        are Provided. An entry for `<module>/<path>` in -Override replaces the convention.
+        asset that constrains a real repository file is DependedOn; a sample payload, the schema that applies to it, and
+        a command contract are Provided. An entry for `<module>/<path>` in -Override replaces the convention.
     parameters:
       Unit: The deployable-unit folder name.
       Version: The unit's version folder name.
@@ -42,6 +46,10 @@ catzc:
         The module's target root, repository-relative; the empty path is the repository root. Default: ContractsConfig's
         DefaultTargetRoot, the repository root.
       Override: 'The version''s contract.yml direction overrides, keyed by `<module>/<path>`. Default: none.'
+      CommandRoot: |-
+        The module's root, repository-relative, where a command contract's command file sits as `<Verb-Noun>.ps1`
+        ([ADR-REPO-CMDCONTRACT#3](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract3)); a command
+        contract is Provided and sits directly in its module folder. Required for a command contract, unused otherwise.
     outputs: '[Catzc.Base.Contracts.ContractAsset]'
     examples:
       - Resolve-ContractAsset -Unit widget -Version 0.0.0 -Module Catzc.Widget -Path gadget.yml -File $file
@@ -71,7 +79,9 @@ function Resolve-ContractAsset {
         [AllowEmptyString()]
         [string] $TargetRoot = [Catzc.Base.Contracts.ContractsConfig]::DefaultTargetRoot,
 
-        [System.Collections.IDictionary] $Override = @{}
+        [System.Collections.IDictionary] $Override = @{},
+
+        [string] $CommandRoot
     )
 
     $name = [System.IO.Path]::GetFileName($File)
@@ -88,6 +98,16 @@ function Resolve-ContractAsset {
     $direction = [Catzc.Base.Contracts.ContractDirection]::DependedOn
     if ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Sample) {
         $target = $null
+        $direction = [Catzc.Base.Contracts.ContractDirection]::Provided
+    }
+    elseif ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command) {
+        if ($Path.Contains('/')) {
+            throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': a command contract sits directly in its module folder, since the folder names the owner and the file names the command (ADR-REPO-CMDCONTRACT#3)."
+        }
+        if (-not $CommandRoot) {
+            throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': a command contract needs its module's root to name the command's file; pass -CommandRoot (ADR-REPO-CMDCONTRACT#3)."
+        }
+        $target = "$CommandRoot/" + $name.Substring(0, $name.Length - '.command.yml'.Length) + '.ps1'
         $direction = [Catzc.Base.Contracts.ContractDirection]::Provided
     }
     elseif ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Schema) {

@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ced0823939ba
-    with_inputs_sha: c4f25d3e471274bf326f4c9cab6c8354bb82a6c79d921bfd29a3cc6fcf33bde4
+    with_body_sha: "6a564f6431b0"
+    with_inputs_sha: "064fea968358f9a8c3bced3d7f3851c45e9af9bb69015a4ffae57ff6e91fa8ca"
     repo_status: locked
     path: docs/references/contracts/EXTERNAL-azure.md
     source: contracts/EXTERNAL-azure
@@ -26,15 +26,19 @@ Each note is the asset's own header comment: the leading `#` lines of a YAML ass
 
 A presence asset, a text fragment, and a JSON fragment or sample payload carry no note: a comment would change what they pin.
 
-Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contracts.md).
+A command contract's signature is the call interface its contract language states, as `Get-CommandContract` reads it; every other kind has
+none.
+
+Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contracts.md); command contracts:
+[command-contracts](../../adr/repository/command-contracts.md).
 
 ## 0.0.0
 
 The draft: the one mutable version folder ([ADR-REPO-CONTRACT#5](../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
 
-| Module                  | Asset                                                | Target                                                                    | Direction   | Kind   |
-| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ----------- | ------ |
-| `Catzc.Azure.Templates` | `tests/assets/parameter-model/main.json.schema.json` | `automation/Catzc.Azure.Templates/tests/assets/parameter-model/main.json` | depended-on | schema |
+| Module                  | Asset                                                | Target                                                                    | Direction   | Kind   | Signature |
+| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ----------- | ------ | --------- |
+| `Catzc.Azure.Templates` | `tests/assets/parameter-model/main.json.schema.json` | `automation/Catzc.Azure.Templates/tests/assets/parameter-model/main.json` | depended-on | schema | none      |
 
 Notes:
 
@@ -48,9 +52,9 @@ Notes:
 
 Released, so frozen by its `.frozen` record ([ADR-REPO-CONTRACT#5](../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
 
-| Module                  | Asset                                                | Target                                                                    | Direction   | Kind   |
-| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ----------- | ------ |
-| `Catzc.Azure.Templates` | `tests/assets/parameter-model/main.json.schema.json` | `automation/Catzc.Azure.Templates/tests/assets/parameter-model/main.json` | depended-on | schema |
+| Module                  | Asset                                                | Target                                                                    | Direction   | Kind   | Signature |
+| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ----------- | ------ | --------- |
+| `Catzc.Azure.Templates` | `tests/assets/parameter-model/main.json.schema.json` | `automation/Catzc.Azure.Templates/tests/assets/parameter-model/main.json` | depended-on | schema | none      |
 
 Notes:
 

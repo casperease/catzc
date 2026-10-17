@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6d3e2ff44e46"
     repo_status: clean
     path: docs/adr/repository/function-help.md
     folder: docs/adr/repository

@@ -18,6 +18,7 @@ catzc:
     test: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1
     cites:
       - ADR-PWSH-VERBS#{2,6}
+      - ADR-REPO-CMDCONTRACT#4
       - ADR-REPO-CONTRACT#{4,6}
   config:
     synopsis: Checks contract assets against the real repository and returns one result per asset.
@@ -38,6 +39,9 @@ catzc:
         defect gives one finding, on one result.
       - Sample: the payload parses as JSON or YAML by its extension, and validates against the `<name>.schema.json` beside
         it when one exists.
+      - Command: the command's file exists under the module's root and its parsed signature declares what the
+        contract states, parameter by parameter and the output type
+        ([ADR-REPO-CMDCONTRACT#4](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract4)).
 
       The assets come from the pipeline (Get-Contract) or -Asset; with neither, every asset of every unit's draft, 0.0.0,
       is checked. A failed check is a result with Passed false, never an exception; only misuse throws (a null asset, a

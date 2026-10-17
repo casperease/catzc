@@ -301,11 +301,14 @@ concepts:
     defined_by: ADR-REPO-CONTRACT#6
     short:
       One file in an owning module's folder of a unit's contracts/ version folder, whose path names the real file it constrains and whose
-      name picks its kind — a fragment, a schema, or a sample payload.
+      name picks its kind — a fragment, a schema, a sample payload, or a command contract.
     realized_by: { kind: prose-only }
     contrasts:
       contract:
         A contract is the binding interface at the repository boundary; a contract asset is one checked-in file that states part of it.
+      command contract:
+        A command contract is the one asset kind that states a command's call interface and is compared with the command's source; a
+        contract asset is any file of the five kinds.
       published artifact:
         A published artifact is a file one stage produces and a later stage consumes within a run; a contract asset is a checked-in file
         that states what the repository boundary requires, frozen with its unit's release.
@@ -547,6 +550,38 @@ concepts:
     defined_by: ADR-AUTO-LAYERS#2
     short: One public function of the module system, the unit a contract describes, written in one implementation language.
     realized_by: { kind: prose-only }
+    contrasts:
+      command contract:
+        A command contract is the asset that states a command's call interface at the boundary; the command is the function that implements
+        it.
+  command contract:
+    key: command_contract
+    domain: repository
+    defined_by: ADR-REPO-CMDCONTRACT#1
+    short:
+      A provided contract asset, <module>/<Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in
+      the contract language; a command is public exactly when one names it.
+    realized_by: { kind: prose-only }
+    contrasts:
+      command: A command is the function that implements the interface; a command contract is the asset that states it at the boundary.
+      contract asset:
+        A contract asset is any file of the five kinds; a command contract is the kind that states a command's call interface and is
+        compared with the command's source.
+  contract language:
+    key: contract_language
+    domain: repository
+    defined_by: ADR-REPO-CMDCONTRACT#2
+    short:
+      The notation a command contract is written in — YAML with one string per parameter (type, mandatory, default, pipeline) and an output
+      type, over a closed type set whose defaults are declared once on the ContractCommand type.
+    realized_by: { kind: type, pattern: "Catzc.Base.Contracts.ContractCommand" }
+    contrasts:
+      implementation language:
+        An implementation language is the file language a command's source is written in; the contract language is the notation its call
+        interface is stated in.
+      file language:
+        A file language is the kind of text a file holds, named by its extension; the contract language is a notation inside one YAML file,
+        not a file language of its own.
   implementation language:
     key: implementation_language
     domain: automation
@@ -556,7 +591,11 @@ concepts:
       C#, Bash, Python and Go.
     realized_by: { kind: prose-only }
     contrasts:
-      file language: A file language is any language the registry names by extension; an implementation language is one a command is written in.
+      file language:
+        A file language is any language the registry names by extension; an implementation language is one a command is written in.
+      contract language:
+        The contract language is the notation a command's call interface is stated in; an implementation language is the file language the
+        command's source is written in.
     avoid:
       - { phrase: automation language, say: implementation language }
   pwsh:
@@ -575,37 +614,3 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       importer: The importer decides which modules, languages and engines a session loads; a run mode says where it reads the modules from.
-  slide file:
-    key: slide_file
-    domain: repository
-    defined_by: ADR-REPO-SLIDES#1
-    short:
-      One markdown file per slide, `<stem>.slide.md`, in a deck folder under docs/explanation; its level-one heading is the title, each
-      level-two heading a field, and its head names the pattern, the deck and the order.
-    realized_by: { kind: prose-only }
-    contrasts:
-      deck file: The deck file names the deck's title and sections; a slide file is one slide of it.
-  deck file:
-    key: deck_file
-    domain: repository
-    defined_by: ADR-REPO-SLIDES#1
-    short: The `deck.md` of a deck folder — the deck's title and its sections, beside the slide files it gathers.
-    realized_by: { kind: prose-only }
-    contrasts:
-      slide file: A slide file is one slide of a deck; the deck file names the deck and its sections and holds no slide.
-  field:
-    key: field
-    domain: repository
-    defined_by: ADR-REPO-SLIDES#1
-    short: One level-two heading of a slide file and the text under it, filled into the placeholder of the same name in the slide's pattern.
-    realized_by: { kind: prose-only }
-    avoid:
-      - { phrase: slot (of a slide), say: field }
-  pattern:
-    key: pattern
-    domain: repository
-    defined_by: ADR-REPO-SLIDES#2
-    short:
-      One `.claude/slides/patterns/<name>.html` file — a section in the slide format whose placeholders name the fields it takes and which
-      are required; the layout of one kind of slide.
-    realized_by: { kind: prose-only }

@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d8ca0691b4ab
-    with_inputs_sha: a5ec15b3d150bbc312fe2ee89b7896931dbedb200cba389b4d5794eed0e6a5c6
+    with_body_sha: "611c4f9901c8"
+    with_inputs_sha: "83232d541c91ae7ceecb6a7f1108552b664768a899f172b63cae463737e34358"
     repo_status: locked
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml
@@ -312,30 +312,31 @@ skips a repeated scan over an unchanged globset.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`, `configuration`.
 
-| Code                | ADR                                                                    |
-| ------------------- | ---------------------------------------------------------------------- |
-| `ADR-REPO-FOLDERS`  | [conventional-folders](repository/conventional-folders.md)             |
-| `ADR-REPO-OUTDIR`   | [dedicated-output-directory](repository/dedicated-output-directory.md) |
-| `ADR-REPO-OUTFMT`   | [output-formats](repository/output-formats.md)                         |
-| `ADR-REPO-FORMAT`   | [uniform-formatting](repository/uniform-formatting.md)                 |
-| `ADR-REPO-CONTRACT` | [api-contracts](repository/api-contracts.md)                           |
-| `ADR-REPO-README`   | [generated-readmes](repository/generated-readmes.md)                   |
-| `ADR-REPO-ROOTCFG`  | [generated-root-configs](repository/generated-root-configs.md)         |
-| `ADR-REPO-EXAMPLE`  | [documentation-examples](repository/documentation-examples.md)         |
-| `ADR-REPO-VARIANT`  | [repo-variants](repository/repo-variants.md)                           |
-| `ADR-REPO-LANG`     | [domain-language-separation](repository/domain-language-separation.md) |
-| `ADR-REPO-VOCAB`    | [controlled-vocabulary](repository/controlled-vocabulary.md)           |
-| `ADR-REPO-LINK`     | [markdown-links](repository/markdown-links.md)                         |
-| `ADR-REPO-COMMENTS` | [comments-in-docs](repository/comments-in-docs.md)                     |
-| `ADR-REPO-FILEMETA` | [file-meta](repository/file-meta.md)                                   |
-| `ADR-REPO-CODEMETA` | [code-file-meta](repository/code-file-meta.md)                         |
-| `ADR-REPO-HELP`     | [function-help](repository/function-help.md)                           |
-| `ADR-REPO-AGENTS`   | [agent-definitions](repository/agent-definitions.md)                   |
-| `ADR-AI`            | [ai-agent-contract](repository/ai-agent-contract.md)                   |
-| `ADR-REPO-INSPIRE`  | [inspiration](repository/inspiration.md)                               |
-| `ADR-REPO-PROTGLOB` | [protected-globs](repository/protected-globs.md)                       |
-| `ADR-REPO-PLANS`    | [plans](repository/plans.md)                                           |
-| `ADR-REPO-SLIDES`   | [slides-as-markdown](repository/slides-as-markdown.md)                 |
+| Code                   | ADR                                                                    |
+| ---------------------- | ---------------------------------------------------------------------- |
+| `ADR-REPO-FOLDERS`     | [conventional-folders](repository/conventional-folders.md)             |
+| `ADR-REPO-OUTDIR`      | [dedicated-output-directory](repository/dedicated-output-directory.md) |
+| `ADR-REPO-OUTFMT`      | [output-formats](repository/output-formats.md)                         |
+| `ADR-REPO-FORMAT`      | [uniform-formatting](repository/uniform-formatting.md)                 |
+| `ADR-REPO-CONTRACT`    | [api-contracts](repository/api-contracts.md)                           |
+| `ADR-REPO-CMDCONTRACT` | [command-contracts](repository/command-contracts.md)                   |
+| `ADR-REPO-README`      | [generated-readmes](repository/generated-readmes.md)                   |
+| `ADR-REPO-ROOTCFG`     | [generated-root-configs](repository/generated-root-configs.md)         |
+| `ADR-REPO-EXAMPLE`     | [documentation-examples](repository/documentation-examples.md)         |
+| `ADR-REPO-VARIANT`     | [repo-variants](repository/repo-variants.md)                           |
+| `ADR-REPO-LANG`        | [domain-language-separation](repository/domain-language-separation.md) |
+| `ADR-REPO-VOCAB`       | [controlled-vocabulary](repository/controlled-vocabulary.md)           |
+| `ADR-REPO-LINK`        | [markdown-links](repository/markdown-links.md)                         |
+| `ADR-REPO-COMMENTS`    | [comments-in-docs](repository/comments-in-docs.md)                     |
+| `ADR-REPO-FILEMETA`    | [file-meta](repository/file-meta.md)                                   |
+| `ADR-REPO-CODEMETA`    | [code-file-meta](repository/code-file-meta.md)                         |
+| `ADR-REPO-HELP`        | [function-help](repository/function-help.md)                           |
+| `ADR-REPO-AGENTS`      | [agent-definitions](repository/agent-definitions.md)                   |
+| `ADR-AI`               | [ai-agent-contract](repository/ai-agent-contract.md)                   |
+| `ADR-REPO-INSPIRE`     | [inspiration](repository/inspiration.md)                               |
+| `ADR-REPO-PROTGLOB`    | [protected-globs](repository/protected-globs.md)                       |
+| `ADR-REPO-PLANS`       | [plans](repository/plans.md)                                           |
+| `ADR-REPO-SLIDES`      | [slides-as-markdown](repository/slides-as-markdown.md)                 |
 
 ### research/
 

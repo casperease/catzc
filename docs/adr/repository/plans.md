@@ -10,6 +10,15 @@ catzc:
     language: markdown
     track: docs
     tracktype: documentation
+  edges:
+    defines:
+      - ADR-REPO-PLANS#{1-9}
+    cites:
+      - ADR-REPO-FOLDERS#12
+    links:
+      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive3
+      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive5
+      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders12
 ---
 
 # ADR-REPO-PLANS: plans that stay true

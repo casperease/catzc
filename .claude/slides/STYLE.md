@@ -78,6 +78,7 @@ catzc:
     pattern: rule
     deck: product-thesis
     order: 14
+    quotes: ADR-PRIN-EAC#2
 ---
 
 # If it can be diffed, it belongs in version control
@@ -112,11 +113,14 @@ person reads aloud; it is never a second copy of the body.
 - **Notes are the voice.** The notes say what the presenter adds, in plain English. A dialect, a joke or a performance is not kept in the
   tree.
 
+The head's `config` takes `pattern`, `deck` and `order`, and `quotes` when the body is one rule's text taken verbatim from its ADR: the
+render compares the body to the registry and reports any difference. A slide that paraphrases a rule carries no `quotes`.
+
 ## The deck folder
 
-`docs/explanation/<domain>/<deck>/` holds `deck.md`, the deck file (the title, one sentence per section with the slide it starts on, and the
-prose the deck is the visual of) and the slide files. The order is the `order` head key, never a prefix in the name; a gap or a duplicate is
-a render fault.
+`docs/explanation/<domain>/<deck>/` holds `deck.md`, the deck file, and the slide files. The deck file's level-one heading is the deck's
+title; its `## Sections` list has one item per section, `- <id of the first slide>: <one sentence>`; the prose the deck is the visual of
+follows under its own headings. The order is the `order` head key, never a prefix in the name; a gap or a duplicate is a render fault.
 
 ## Rendering and publishing
 

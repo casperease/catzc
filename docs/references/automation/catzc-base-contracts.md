@@ -19,6 +19,7 @@ catzc:
       - docs/adr/repository/api-contracts.md#rule-adr-repo-contract4
       - docs/adr/repository/api-contracts.md#rule-adr-repo-contract5
       - docs/adr/repository/api-contracts.md#rule-adr-repo-contract9
+      - docs/adr/repository/command-contracts.md
       - docs/references/automation/catzc-base-config.md
       - docs/references/automation/catzc-base-exporter.md
       - docs/references/automation/catzc-base-reports.md
@@ -68,7 +69,9 @@ Enumerating `contracts/<unit>/<version>/<module>/<path>` and deriving every fact
 owning module from the folders, the kind from the file name, the target from the path under the module placed under the module's target
 root, and the direction from the convention, which a version's `contract.yml` overrides for one asset. Nothing is registered per asset: a
 module's target root is one configured setting, the repository root by default. How one asset addresses many files is a configured setting
-with a sensible default; only the full-path mode is built, and selecting a declared mode that is not built throws.
+with a sensible default; only the full-path mode is built, and selecting a declared mode that is not built throws. A command contract, the
+asset that states a command's call interface, is listed the same way and read by the one reader of the contract language
+([command-contracts](../../adr/repository/command-contracts.md)): its parameters, output and one-line signature as a typed record.
 
 ### responsibility:4 — Release freezing
 
@@ -112,6 +115,7 @@ The module's public functions and configuration, sorted into the responsibilitie
 | responsibility:1 — Contract quality gate    | `Test-Contracts`           |
 | responsibility:2 — Per-asset checking       | `Get-ContractCheckResults` |
 | responsibility:3 — Asset listing            | `Get-Contract`             |
+|                                             | `Get-CommandContract`      |
 | config                                      | `contracts.yml`            |
 | responsibility:4 — Release freezing         | `Publish-ContractRelease`  |
 | responsibility:5 — Contract reference pages | `Build-ContractReference`  |

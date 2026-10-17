@@ -10,6 +10,16 @@ catzc:
     language: markdown
     track: docs
     tracktype: documentation
+  edges:
+    defines:
+      - ADR-CATS#{1-5}
+    cites:
+      - ADR-PRIN-ONELIVE#2
+    links:
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/principles/reduce-variability.md
+      - docs/adr/repository/api-contracts.md
+      - docs/adr/repository/controlled-vocabulary.md
 ---
 
 # ADR-CATS: cats and catzc

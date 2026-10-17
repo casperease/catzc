@@ -102,7 +102,7 @@ function Get-Contract {
         if (@($Unit | Where-Object { $unitName -like $_ }).Count -eq 0) {
             continue
         }
-        foreach ($asset in Get-ContractUnitAsset -Unit $unitName -Folder $unitFolder -Version $Version -TargetRoot $TargetRoot) {
+        foreach ($asset in Get-ContractUnitAsset -Unit $unitName -Folder $unitFolder -Version $Version -TargetRoot $TargetRoot -RepositoryRoot $RepositoryRoot) {
             $isModule = @($Module | Where-Object { $asset.Module -like $_ }).Count -gt 0
             $isPath = @($Path | Where-Object { $asset.Path -like $_ -or ($null -ne $asset.Target -and $asset.Target -like $_) }).Count -gt 0
             if ($isModule -and $isPath) {

@@ -20,6 +20,9 @@ catzc:
     vendor: claude
     module: ".claude"
     moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-PLANS#5
 ---
 
 # task036: the closing sweep

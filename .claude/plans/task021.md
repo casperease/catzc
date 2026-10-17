@@ -38,17 +38,20 @@ kind overlaps are written down and FileKindReachability fails on a shadowed kind
 
 ## Steps
 
-1. Proof baseline: `Format-FileMeta -DryRun` over the tree in the background; save the report under out/. Check: the report exists, zero
-   changes (if not, stop: the tree is not clean for this work).
-2. `FileMetaKind` type (`automation/Catzc.Base.QualityGates/types`): `classes` and `languages` with defaults; `files` together with
-   `classes` is rejected at construction naming the kind. L0 tests, widget/gadget. Fresh pwsh. Check: the type's tests pass.
-3. `Invoke-FileMetaEngine` and `Get-FileMetaFact`: the file's class is computed once per file (file-kind already does) and kinds are
-   selected by it. Check: their tests pass; `Test-FileMetaProcessors` counts unchanged.
-4. `file-meta.yml`, one kind per step: rewrite its `select:` to classes or languages; after each, `Format-FileMeta -DryRun` shows zero
-   changes. Check: that kind's processor test; the dry run.
-5. `Get-AdrCodesFileMetaFact` reads `domain_classes` and `held_classes` against the file's class; the `relatives` processor selects by
-   `classes`. Check: both tests pass.
-6. Remove `files` from the type and config when no kind uses it. Check: the type tests; Test-FileMeta clean.
+1. [x] Proof baseline: `Format-FileMeta -DryRun` over the tree in the background; save the report under out/. Check: the report exists,
+   zero changes (if not, stop: the tree is not clean for this work). Done 2026-10-17: the first dry run listed 13 files, every one a head
+   whose derived edges lagged a commit of the same day (the new ADRs, Test-Plans, PlansConfig, the modules and contracts articles,
+   function-help.md, task036.md), not a selector fault; `Format-FileMeta` over those 13 (`formatted 12 of 13`), then
+   `[Format-FileMeta] File meta: would format 0 of 4041 file(s).`, `DRYRUN changes=0` (`out/t021-dryrun-before.txt`).
+2. [x] `FileMetaKind` type: in the tree before this task (correction, 2026-10-17): the type has `select`, a list of `{ classes, languages }`
+   selectors (`FileSelector`), no `files` key at all, and its unknown-key check names the kind. Check: not rerun; nothing to change.
+3. [x] `Invoke-FileMetaEngine` and `Get-FileMetaFact`: in the tree before this task; kinds select by `FileMetaKind.Selects(class,
+   language)`. Check: not rerun; nothing to change.
+4. [x] `file-meta.yml`: every kind already selects by `classes` or `languages` or by nothing (every file); no kind spells `files`. The dry
+   run of step 1 is the proof (`changes=0`).
+5. [x] `Get-AdrCodesFileMetaFact` reads `domain_classes` and `held_classes` (the kind's `ClassSetting`); `relative-edges` rules select by
+   `classes`. In the tree before this task.
+6. [x] `files` is gone from the type and the config. In the tree before this task.
 7. `docs/adr/repository/file-meta.md` rule 2 and `docs/adr/repository/code-meta.md` rule 3: a kind selects by class; file-kind is the one
    glob list. Present tense. Also clear the Test-Markdownlint findings in file-meta.md. Check: Test-AdrRegistry, Test-Links,
    Test-Markdownlint clean.

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5711e06ead5a"
+    with_body_sha: c4e1461a163b
     repo_status: locked
     path: docs/references/automation/catzc-base-contracts/Build-ContractReference.ps1.md
     folder: docs/references/automation/catzc-base-contracts
@@ -26,4 +26,13 @@ Above `$inputsSha = Get-InputStamp -Root $RepositoryRoot -Path @(`, written with
 ```text
 The assets, this module and the paragraph filler are the whole input: when every page this writer emitted already carries
 their stamp, nothing is read or written. A unit added or removed changes the assets, so its stamp moves and every page rebuilds.
+```
+
+## comment:2
+
+Above `$signatures = @{}`, written with `#`.
+
+```text
+The signatures of the unit's command contracts, by asset path, from the one reader; a unit whose contracts do not all parse
+shows none, and Test-Contracts reports the asset.
 ```

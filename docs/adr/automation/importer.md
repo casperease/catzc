@@ -10,6 +10,34 @@ catzc:
     language: markdown
     track: docs
     tracktype: documentation
+  edges:
+    defines:
+      - ADR-AUTO-IMPORTER#{1-5}
+    cites:
+      - ADR-AUTO-BUNDLE#3
+      - ADR-AUTO-CACHE#6
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-ENGINE#{6,7}
+      - ADR-AUTO-EXTEND#3
+      - ADR-AUTO-LAYERS#4
+      - ADR-AUTO-MODULE#3
+      - ADR-AUTO-TYPES#7
+      - ADR-DSGN-RUNMODE#{1,4}
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types7
+      - docs/adr/automation/caching.md#rule-adr-auto-cache6
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine6
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine7
+      - docs/adr/automation/layers.md#rule-adr-auto-layers4
+      - docs/adr/automation/module-model.md#rule-adr-auto-module3
+      - docs/adr/automation/open-closed-architecture.md
+      - docs/adr/automation/open-closed-architecture.md#rule-adr-auto-extend3
+      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle3
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/design/run-modes.md#rule-adr-dsgn-runmode1
+      - docs/adr/design/run-modes.md#rule-adr-dsgn-runmode4
+      - docs/adr/repository/generated-root-configs.md
 ---
 
 # ADR-AUTO-IMPORTER: the importer decides the mix

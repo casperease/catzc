@@ -33,6 +33,12 @@ Describe 'Get-ContractAssetKind' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
         @{ Name = 'gadget.sample'; IsEmpty = $false; Kind = 'Fragment' }
         @{ Name = 'gadget.schema.yml'; IsEmpty = $false; Kind = 'Fragment' }
         @{ Name = 'gadget.SCHEMA.JSON'; IsEmpty = $false; Kind = 'Fragment' }
+        @{ Name = 'Get-Widget.command.yml'; IsEmpty = $false; Kind = 'Command' }
+        @{ Name = 'Get-Widget.command.yml'; IsEmpty = $true; Kind = 'Command' }
+        @{ Name = 'Get-Widget2.command.yml'; IsEmpty = $false; Kind = 'Command' }
+        @{ Name = 'widget.command.yml'; IsEmpty = $false; Kind = 'Fragment' }
+        @{ Name = 'Get-Widget.command.yaml'; IsEmpty = $false; Kind = 'Fragment' }
+        @{ Name = 'Get-Widget.Command.yml'; IsEmpty = $false; Kind = 'Fragment' }
     ) {
         $kind = InModuleScope Catzc.Base.Contracts -Parameters @{ Name = $Name; IsEmpty = $IsEmpty } {
             param($Name, $IsEmpty)

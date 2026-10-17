@@ -39,9 +39,12 @@ catzc:
       Version: The unit's version folder name.
       Folder: The version folder's absolute path.
       TargetRoot: The target roots, module name to repository-relative folder. A module it does not name takes the repository root.
+      RepositoryRoot: |-
+        The repository root, in which a module that holds a command contract is resolved to its root (Get-ContractCommandRoot),
+        once per module and only when the module folder holds one.
     outputs: '[Catzc.Base.Contracts.ContractAsset[]]'
     examples:
-      - Get-ContractVersionAsset -Unit widget -Version 0.0.0 -Folder $versionFolder -TargetRoot @{}
+      - Get-ContractVersionAsset -Unit widget -Version 0.0.0 -Folder $versionFolder -TargetRoot @{} -RepositoryRoot $root
 ---
 #>
 
@@ -60,7 +63,10 @@ function Get-ContractVersionAsset {
 
         [Parameter(Mandatory)]
         [AllowEmptyCollection()]
-        [System.Collections.IDictionary] $TargetRoot
+        [System.Collections.IDictionary] $TargetRoot,
+
+        [Parameter(Mandatory)]
+        [string] $RepositoryRoot
     )
 
     $stray = @([System.IO.Directory]::GetFiles($Folder) |
@@ -80,9 +86,14 @@ function Get-ContractVersionAsset {
         $files = [string[]] @(Get-ChildPath $moduleFolder -File -Depth 64 -Exclude @() -PruneVendor $false)
         $paths = [string[]] @($files | ForEach-Object { [System.IO.Path]::GetRelativePath($moduleFolder, $_) -replace '\\', '/' })
         [System.Array]::Sort($paths, [System.StringComparer]::Ordinal)
+        $commandRoot = $null
         foreach ($path in $paths) {
             $null = $used.Add("$module/$path")
-            Resolve-ContractAsset -Unit $Unit -Version $Version -Module $module -Path $path -File (Join-Path $moduleFolder $path) -TargetRoot $root -Override $override
+            $leaf = $path.Substring($path.LastIndexOf('/') + 1)
+            if (-not $commandRoot -and (Get-ContractAssetKind -Name $leaf) -eq [Catzc.Base.Contracts.ContractAssetKind]::Command) {
+                $commandRoot = Get-ContractCommandRoot -Module $module -RepositoryRoot $RepositoryRoot
+            }
+            Resolve-ContractAsset -Unit $Unit -Version $Version -Module $module -Path $path -File (Join-Path $moduleFolder $path) -TargetRoot $root -Override $override -CommandRoot $commandRoot
         }
     }
 
