@@ -63,7 +63,7 @@ internals. `CATZC_IMPORTER` names the entry `cats` loads into pwsh (ADR-AUTO-ENG
 build run — and `CATZC_REPOSITORY_ROOT` the repository root. `Invoke-BashTest` sets them for its bats run only and restores them afterwards
 (ADR-AUTO-ENGINE#4). A Bash test runs under the bash engine only.
 
-- [The black-box contract](#the-black-box-contract)
+- [The engine start environment](#the-engine-start-environment)
 
 ### Rule ADR-AUTO-BASH:4
 
@@ -116,7 +116,7 @@ folder per catzc module, named in kebab case, the convention shared with the Go 
 A Bash test is declared on one line, `@test "<name>" {`, so the bridge reads it from the source without running bats. Its name is free text,
 so the integrity marker is a prefix of the name, `integrity:`, decided in one place (the `BashTestResult` type).
 
-### The black-box contract
+### The engine start environment
 
 A Go or Python test starts the engine with arguments the runner hands it. A Bash test does what a Bash user does instead: it loads the
 engine's entry, `importer.sh`, and calls `cats`. The contract still comes from the runner, never from the test: `CATZC_ENGINE_ENTRY` is the

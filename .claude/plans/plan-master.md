@@ -81,8 +81,9 @@ stay the durable record; task files and this master are derived from them and ca
 - T016 -> task016.md (open; after T015): every typed config into a posture, the NoLiteralDefault analyzer rule, five ADR amendments, the
   assert ladder, three glossary terms.
 
-- T017 -> task017.md (open): layers P0 baseline and P1 doctrine: ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ten glossary terms, the four term
-  collisions, engines renamed formatters, Test-AdrEngineNeutrality.
+- T017 -> task017.md (done 2026-10-17): layers P0 baseline and P1 doctrine: ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, the layer key, seven
+  glossary terms (role waits for T012, module exists, the retired forms wait for P6), the four term collisions, engines renamed formatters,
+  Test-AdrEngineNeutrality extended.
 - T018 -> task018.md (open; after T011): layers P2 funnel: one bootstrap constant, about 45 sites onto the resolvers, S4 identifiers, the
   NoTrackRootLiteral guard.
 - T019 -> task019.md (open; P4 and P6 on the user's go, D10): P3 classification table and ADR wording drafts; P4 the flip by the user; P5

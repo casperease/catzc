@@ -29,7 +29,7 @@ catzc:
       - ADR-AUTO-TYPES#7
       - ADR-CATS#{1,2}
       - ADR-DSGN-RUNMODE#1
-      - ADR-DSGN-TRACK#{3,15,17}
+      - ADR-DSGN-TRACK#{1,3,15,17}
       - ADR-REPO-CONTRACT#{1-3,6-9}
     links:
       - ".claude/plans/plan-config-defaults.md"
@@ -95,6 +95,23 @@ by naming which of the 439 public functions are contracted. Every later plan spe
   ADR-AUTO-ENGINE#4, engines:); docs/references mirror follows the folder; Test-AdrEngineNeutrality extended so AUTO ADRs carry no pwsh
   syntax.
 
+## P0 baseline (2026-10-17, task017)
+
+- Test-GeneratedFiles: `[Write-QualityGateReport] No generated-files issues found.` (`out/test-generated-files/20261017-183227`).
+- Test-Contracts: `[Write-QualityGateReport] No contracts issues found.` (`out/test-contracts/20261017-183223`).
+- Test-Links: 2 issues (`out/test-links/20261017-183225`): one `[Untracked]` link from the automation index to the new, uncommitted
+  catzc-base-modules.md page, and one `[Citation]` in plans.yml, a bare `ADR-REPO-PLANS` in a comment, fixed in the same hour
+  (`out/test-links/20261017-183621` clean on the file).
+- Test-WorldMap: 2 issues outside this plan (`out/test-world-map/20261017-183226`): a stack violation, `.claude/drawio/drawio.yml` is a
+  yaml file in the `.claude` track whose languages are markdown only (ADR-DSGN-TRACK#3), and an undeclared root folder, `.vscode/` holds 3
+  tracked files and no track names it (ADR-DSGN-TRACK#1). Both are peers' work of the same day.
+- Edge fact, read from `Build-BashTimeoutHook` and the hook janitor of `Catzc.Internal.Importer.psm1`: a failed hook rebuild does not delete
+  the published binary. Nothing removes `.claude/hooks/bin/` before `dotnet publish`, which only overwrites its output when the build
+  succeeds, and the janitor wraps the build in try and catch and prints the failure in red. A Bash call stays available on the previous
+  binary; a missing `dotnet` throws before any write.
+- Known unrelated reds at the time: Test-Spelling 5, Test-Glossary 236 (G4 and G6, listed per file in plan-clear-actions), Test-Formatting
+  on `.compiled/*.json`, Test-ScriptAnalyzer about 37, Test-Comments 11 (listed in plan-module-model-closeout).
+
 ## Needed tests
 
 - Test-Glossary, Test-AdrRegistry, Test-Terminology clean on touched files (P1 stop).
@@ -116,12 +133,26 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 
 ## Open steps
 
-- [ ] Copy the prompt, the four plan files and the two module-model prompts into the session scratchpad before pasting (out/ was wiped once)
-      (check: a listing of the scratchpad shows all of them).
-- [ ] Paste prompt-automation-layers-continue.md into a fresh session after the module-model prepare prompt (check: the session reports P0
-      green).
-- [ ] P1 (check: three terminology gates clean). P2 (check: guard rule gate). P3 (check: classification table, then stop).
+- [x] The scratchpad copy and the paste of the continuation prompt are superseded: the task files of plan-master (task017 to task020) carry
+      this plan's phases, and the module model landed first (2026-10-17).
+- [x] P0 baseline and the two reads, recorded above (2026-10-17, task017).
+- [x] P1 doctrine and vocabulary. Done 2026-10-17 (task017): ADR-AUTO-LAYERS (7 rules) and ADR-AUTO-IMPORTER (5 rules) written,
+      registered with a `layer` key per automation ADR (AdrsConfig validates the five layers, default automation), dora-explains entries;
+      glossary terms automation, command, implementation language, pwsh (Docs), importer (ModuleSystem), run mode (Docs, bolded in
+      ADR-DSGN-RUNMODE#1), engine start environment (Engines, bolded in ADR-AUTO-ENGINE#4, avoid "black-box contract"), the layer family
+      gains contract, engine, importer and the code segment AUTO; the four collisions: tracks.md lines 65 and 227 reworded, ADR-AUTO-ENGINE#4
+      and its section renamed in the engine ADR and the three test-artifact ADRs, `languages.yml` `engines:` renamed `formatters:` with
+      LanguagesConfig, Format-Code, the root-config generator and their tests; Test-AdrEngineNeutrality gained the pipeline and item cmdlets
+      and the engine's common parameters as tokens. Check: Test-AdrRegistry, Test-AdrEngineNeutrality, Test-Terminology clean; Test-Glossary
+      reports no finding on the touched files (verdicts in task017).
+- [ ] P2 (check: guard rule gate). P3 (check: classification table, then stop).
 - [ ] P4 on the user's go (check: full baseline green again). P5 to P8 per the master plan.
+- [ ] P6 also retires the old layer forms `automation`, `PowerShell` and `implementation` from the layer family and adds the avoid
+      phrasings "the automation folder", "automation modules" and "the loader": 68 pages say "automation layer", "implementation layer" or
+      "PowerShell layer" today (pipelines/custom-template-discipline.md 15, docs/index.md 13, the pwsh ADRs most of the rest), so the
+      retirement waits for the flip (check: Test-Glossary clean after the rewording).
+- [ ] The ADR-AUTO-LAYERS rule 2 wording "the file languages its track declares" stands in for the `executable` flag of Q-L1, which is
+      a LanguagesConfig key and so P2 or L3 code, not P1 (check: the flag exists and rule 2 names it).
 
 ## Stop and ask when
 

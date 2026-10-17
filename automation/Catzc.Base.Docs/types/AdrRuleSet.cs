@@ -17,6 +17,7 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-docs/types/AdrRuleSet.cs.md
     cites:
+      - ADR-AUTO-LAYERS#6
       - ADR-AUTO-TYPES
       - ADR-DSGN-TRACK#15
 ---

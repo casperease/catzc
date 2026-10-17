@@ -92,7 +92,7 @@ function Invoke-RootConfigGenerator {
             New-VSCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting -LanguageFormatter $languageFormatter
         }
         'New-VSCodeExtensions' {
-            $engineExtension = @((Get-Config -Config languages).engines.Values | Where-Object vscode_extension | ForEach-Object vscode_extension)
+            $engineExtension = @((Get-Config -Config languages).formatters.Values | Where-Object vscode_extension | ForEach-Object vscode_extension)
             New-VSCodeExtensions -EngineExtension $engineExtension
         }
         'New-VSCodeLaunch' {

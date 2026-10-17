@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e45d06a25ba3
+    with_body_sha: "210a68586055"
     repo_status: locked
     path: docs/references/automation/catzc-base-languages/configs/languages.yml.md
     folder: docs/references/automation/catzc-base-languages/configs
@@ -28,7 +28,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `engines:`, written with `#`.
+Above `formatters:`, written with `#`.
 
 ```text
 The file-language registry — every file language the repository's tracked files are written in, each named by its
@@ -44,7 +44,7 @@ The editor reads the same entries: the root-config generator sets each language'
 engine's extension and recommends that extension, so Format Document and Format-Code run the same engine
 ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)).
 
-Per engine (engines:):
+Per formatter (formatters:):
   vscode_extension  the VS Code extension that runs the engine in the editor; omitted = the editor has none
   settings          the repository files whose content decides what the engine writes — its configuration and the
                     tool registry whose pin names its version; a change to one invalidates Format-Code's result cache

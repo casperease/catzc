@@ -96,7 +96,7 @@ Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
 
 Describe 'The shipped format engines'' keyed settings' -Tag 'L1', 'integrity', 'ADR-AUTO-CACHE#10' {
     It 'name a top-level key that exists in their file: <_>' -ForEach @('prettier', 'gofmt', 'ruff', 'dotnet-format', 'bicep') {
-        $entries = @((Get-Config -Config languages).engines[$_].settings | Where-Object { $_ -match '#' })
+        $entries = @((Get-Config -Config languages).formatters[$_].settings | Where-Object { $_ -match '#' })
         $entries.Count | Should -BeGreaterThan 0 -Because "engine $_ stamps the tools it runs, not the whole tool registry"
         foreach ($entry in $entries) {
             $relative, $key = $entry -split '#', 2
@@ -108,7 +108,7 @@ Describe 'The shipped format engines'' keyed settings' -Tag 'L1', 'integrity', '
     }
 
     It 'never lists the whole tool registry again for an engine' {
-        foreach ($engine in (Get-Config -Config languages).engines.Values) {
+        foreach ($engine in (Get-Config -Config languages).formatters.Values) {
             $engine.settings | Should -Not -Contain 'automation/Catzc.Base.Execution/configs/tools.yml'
         }
     }

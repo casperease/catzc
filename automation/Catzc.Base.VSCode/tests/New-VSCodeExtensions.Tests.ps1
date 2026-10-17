@@ -45,7 +45,7 @@ Describe 'New-VSCodeExtensions' -Tag 'L0', 'logic' {
 
 Describe 'New-VSCodeExtensions — real vscode-extensions.yml' -Tag 'L1', 'integrity' {
     It 'renders the shipped registry, with the engines'' extensions from languages.yml, to a non-empty, validated recommendation list' {
-        $engineExtension = @((Get-Config -Config languages).engines.Values | Where-Object vscode_extension | ForEach-Object vscode_extension)
+        $engineExtension = @((Get-Config -Config languages).formatters.Values | Where-Object vscode_extension | ForEach-Object vscode_extension)
         $text = New-VSCodeExtensions -EngineExtension $engineExtension
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         @($json.recommendations).Count | Should -BeGreaterThan 0

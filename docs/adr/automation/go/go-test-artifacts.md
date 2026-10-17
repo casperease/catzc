@@ -67,7 +67,7 @@ and exit codes, never on the engine's internals. The entry is the repository's i
 in a build run (ADR-AUTO-TEST#30); `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-GoTest` sets them for its go commands only and
 restores them afterwards, so the same Go test proves both run modes unchanged.
 
-- [The black-box contract](#the-black-box-contract)
+- [The engine start environment](#the-engine-start-environment)
 
 ### Rule ADR-AUTO-GO:4
 
@@ -147,7 +147,7 @@ no setting. Its `use` entries name every Go test module explicitly rather than b
 every go command runs inside the module folder, so a `./...` pattern expands below the module root and a dot in an ancestor folder changes
 nothing. Both layouts — `go/` and `.go/` — therefore load the same in every editor.
 
-### The black-box contract
+### The engine start environment
 
 A Go test knows two things about the engine, both from the environment: how to start it (`CATZC_ENGINE_EXECUTABLE` and the
 `CATZC_ENGINE_START` arguments) and the repository it works on (`CATZC_REPOSITORY_ROOT`). The start comes from the execution engine model

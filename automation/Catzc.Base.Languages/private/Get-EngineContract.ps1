@@ -24,7 +24,7 @@ catzc:
       - ADR-AUTO-PY#3
   config:
     synopsis: |-
-      Returns the black-box contract a test language's tests start the engine by: the environment variables a runner sets
+      Returns the engine start environment a test language's tests start the engine by: the environment variables a runner sets
       for its tool's commands.
     description: |-
       A Go or Python test starts the engine as a process and asserts on its output

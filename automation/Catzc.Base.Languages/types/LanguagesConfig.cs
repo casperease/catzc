@@ -39,7 +39,7 @@ namespace Catzc.Base.Languages;
 public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "engines", "imprint", "steps", "languages" };
+    private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "languages" };
     private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout" };
     private static readonly string[] AllowedLayoutKeys = { "folder", "role", "extensions", "live", "shipped" };
     private static readonly Regex LayoutFolder = new Regex("^(\\.|[a-z][a-z0-9]*(-[a-z0-9]+)*)$");
@@ -74,7 +74,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The file languages in declared order. Empty when the file declares none.
     public IReadOnlyList<FileLanguage> languages { get; }
 
-    public IReadOnlyDictionary<string, FormatterEngine> engines { get; }
+    public IReadOnlyDictionary<string, FormatterEngine> formatters { get; }
 
     // The one layout: every language's rows in declared order, then the shared rows. No folder is named twice.
     public IReadOnlyList<LayoutRow> layout { get; }
@@ -120,9 +120,9 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
 
-            if (raw.Contains("engines") && raw["engines"] != null)
+            if (raw.Contains("formatters") && raw["formatters"] != null)
             {
-                ReadEngines(raw["engines"], engineMap, errors);
+                ReadEngines(raw["formatters"], engineMap, errors);
             }
 
             if (raw.Contains("imprint") && raw["imprint"] != null)
@@ -192,7 +192,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             if (!stepMap.ContainsKey(step)) { stepMap[step] = new ImprintStep(step, null); }
         }
         languages = result;
-        engines = engineMap;
+        formatters = engineMap;
         imprint = globalSteps;
         steps = stepMap;
     }
@@ -288,7 +288,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (FileLanguage language in languages)
         {
             FormatterEngine engine;
-            if (language.formatter != null && engines.TryGetValue(language.formatter, out engine) && engine.vscode_extension != null)
+            if (language.formatter != null && formatters.TryGetValue(language.formatter, out engine) && engine.vscode_extension != null)
             {
                 result[language.vscode_language] = engine.vscode_extension;
             }
@@ -301,7 +301,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         IDictionary map = value as IDictionary;
         if (map == null)
         {
-            errors.Add("invalid engines (must be a map of engine -> { vscode_extension, settings })");
+            errors.Add("invalid formatters (must be a map of formatter -> { vscode_extension, settings })");
             return;
         }
         foreach (object nameKey in map.Keys)
@@ -309,27 +309,27 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             string name = Text(nameKey);
             if (Array.IndexOf(Engines, name) < 0)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "engines: unknown formatter engine '{0}' (one of: {1})", name, string.Join(", ", Engines)));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "formatters: unknown formatter engine '{0}' (one of: {1})", name, string.Join(", ", Engines)));
                 continue;
             }
             IDictionary entry = map[nameKey] as IDictionary;
             if (entry == null)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}'] must be a mapping {{ vscode_extension, settings }}", name));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "formatters['{0}'] must be a mapping {{ vscode_extension, settings }}", name));
                 continue;
             }
             foreach (object k in entry.Keys)
             {
                 if (Array.IndexOf(AllowedEngineKeys, Text(k)) < 0)
                 {
-                    errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}']: unknown key '{1}' (allowed: {2})", name, Text(k), string.Join(", ", AllowedEngineKeys)));
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "formatters['{0}']: unknown key '{1}' (allowed: {2})", name, Text(k), string.Join(", ", AllowedEngineKeys)));
                 }
             }
             int before = errors.Count;
             string extension = entry.Contains("vscode_extension") && entry["vscode_extension"] != null ? Text(entry["vscode_extension"]) : null;
             if (extension != null && !VscodeExtension.IsMatch(extension))
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}']: invalid vscode_extension '{1}' (a publisher.name extension id)", name, extension));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "formatters['{0}']: invalid vscode_extension '{1}' (a publisher.name extension id)", name, extension));
             }
             List<string> settings = new List<string>();
             if (entry.Contains("settings") && entry["settings"] != null)
@@ -337,7 +337,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
                 IList list = entry["settings"] as IList;
                 if (list == null)
                 {
-                    errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}']: invalid settings (a list of repository-relative files)", name));
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "formatters['{0}']: invalid settings (a list of repository-relative files)", name));
                 }
                 else
                 {
@@ -347,7 +347,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
                         bool dotSegment = Array.Exists(path.Split('/'), s => s == "." || s == "..");
                         if (!SettingsPath.IsMatch(path) || dotSegment)
                         {
-                            errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}']: invalid settings file '{1}' (a '/'-separated repository-relative path)", name, path));
+                            errors.Add(string.Format(CultureInfo.InvariantCulture, "formatters['{0}']: invalid settings file '{1}' (a '/'-separated repository-relative path)", name, path));
                         }
                         else
                         {

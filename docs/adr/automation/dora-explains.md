@@ -29,7 +29,9 @@ catzc:
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/automation/go/go-test-artifacts.md
       - docs/adr/automation/idempotent-state-functions.md
+      - docs/adr/automation/importer.md
       - docs/adr/automation/internal-asset-dependencies.md
+      - docs/adr/automation/layers.md
       - docs/adr/automation/log-before-invoke.md
       - docs/adr/automation/managed-guids.md
       - docs/adr/automation/module-model.md

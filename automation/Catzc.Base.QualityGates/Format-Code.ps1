@@ -126,8 +126,8 @@ function Format-Code {
     $verb = $DryRun ? 'Checking' : 'Formatting'
     foreach ($engineGroup in @($selected | Group-Object -Property formatter)) {
         $engine = $engineGroup.Name
-        $settings = if ($config.engines.ContainsKey($engine)) {
-            @($config.engines[$engine].settings)
+        $settings = if ($config.formatters.ContainsKey($engine)) {
+            @($config.formatters[$engine].settings)
         }
         else {
             @()

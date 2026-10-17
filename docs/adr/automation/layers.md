@@ -52,8 +52,7 @@ defaults ([ADR-AUTO-IMPORTER](importer.md)); no command, test runner or builder 
 ### Rule ADR-AUTO-LAYERS:5
 
 A public command's interface is stated at the repository boundary by its contract under `contracts/`, versioned with the unit that carries
-it ([ADR-REPO-CONTRACT#1](../repository/api-contracts.md#rule-adr-repo-contract1)); the command itself is the implementation of that
-contract in one language under one engine.
+it; the command itself is the implementation of that contract in one language under one engine.
 
 - [Five layers, one word each](#five-layers-one-word-each)
 

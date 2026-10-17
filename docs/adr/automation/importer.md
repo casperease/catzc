@@ -18,8 +18,8 @@ catzc:
 
 ### Rule ADR-AUTO-IMPORTER:1
 
-The **importer** is the one way catzc enters a session: per execution engine one entry at the repository root, `importer.ps1` for pwsh and
-`importer.sh` for the POSIX engines, both generated from one source and never hand-edited
+The **importer** is the one way catzc enters a session: per execution engine one entry at the repository root, the importer entry the
+engine model names, every entry generated from one source and never hand-edited
 ([ADR-AUTO-ENGINE#6](execution-engines.md#rule-adr-auto-engine6), [ADR-DSGN-RUNMODE#1](../design/run-modes.md#rule-adr-dsgn-runmode1)).
 
 - [One entry per engine](#one-entry-per-engine)
@@ -68,7 +68,7 @@ three parts of one thing. This ADR names the importer as the one that decides, a
 
 ### One entry per engine
 
-An engine reaches catzc through a script it can run: pwsh dot-sources `importer.ps1`, bash and zsh source `importer.sh`, which dispatches
+An engine reaches catzc through a script it can run: pwsh dot-sources `importer.ps1`, bash and zsh dot-source `importer.sh`, which dispatches
 to the `cats` command. Both are root configs written by a generator from one source, so a change to what the importer does is one edit, and
 `Test-GeneratedFiles` reports the drift when a copy is stale ([generated-root-configs](../repository/generated-root-configs.md)).
 

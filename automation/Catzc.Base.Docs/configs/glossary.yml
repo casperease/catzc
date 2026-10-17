@@ -149,14 +149,17 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-VOCAB#8
     short:
-      One stratum of a structure, always qualified — an implementation layer (language, PowerShell, installer, tooling) or a globset layer
-      (module, fileset).
+      One stratum of a structure, always qualified — one of the five layers of the automation (automation, contract, language, engine,
+      importer; ADR-AUTO-LAYERS#6), or a globset layer (module, fileset).
     realized_by: { kind: prose-only }
     forms:
       [
         implementation,
         automation,
+        contract,
         language,
+        engine,
+        importer,
         PowerShell,
         installer,
         config,
@@ -185,6 +188,7 @@ concepts:
         fileset,
         cross,
         ADR,
+        AUTO,
         shaping,
       ]
     verbs: true
@@ -527,6 +531,50 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       catzc: catzc is the source-level name every module, namespace and path carries; cats is the friendly form a person reads and says.
+  automation:
+    key: automation
+    domain: automation
+    defined_by: ADR-AUTO-LAYERS#1
+    short:
+      The abstract, the commands and behaviours the repository offers and the doctrine that governs them, independent of language, shell and
+      folder; the ADR domain, the value-chain row and the concern carry the name.
+    realized_by: { kind: prose-only }
+    contrasts:
+      importer: The importer brings a mix of languages, engines and modules into a session; automation is what the loaded modules offer.
+  command:
+    key: command
+    domain: automation
+    defined_by: ADR-AUTO-LAYERS#2
+    short: One public function of the module system, the unit a contract describes, written in one implementation language.
+    realized_by: { kind: prose-only }
+  implementation language:
+    key: implementation_language
+    domain: automation
+    defined_by: ADR-AUTO-LAYERS#2
+    short:
+      The file language a command's source is written in, one of the file languages its track declares, which are PowerShell with its hosted
+      C#, Bash, Python and Go.
+    realized_by: { kind: prose-only }
+    contrasts:
+      file language: A file language is any language the registry names by extension; an implementation language is one a command is written in.
+    avoid:
+      - { phrase: automation language, say: implementation language }
+  pwsh:
+    key: pwsh
+    domain: automation
+    defined_by: ADR-AUTO-LAYERS#3
+    short: The name of the PowerShell track and of the engine that runs it; the PowerShell product itself is called PowerShell in prose.
+    realized_by: { kind: prose-only }
+    contrasts:
+      execution engine: pwsh is one of the three execution engines, and the name the PowerShell track takes from it.
+  run mode:
+    key: run_mode
+    domain: design
+    defined_by: ADR-DSGN-RUNMODE#1
+    short: How the toolset is loaded, source mode from a repository root or build mode from a built package; exactly two exist.
+    realized_by: { kind: prose-only }
+    contrasts:
+      importer: The importer decides which modules, languages and engines a session loads; a run mode says where it reads the modules from.
   slide file:
     key: slide_file
     domain: repository

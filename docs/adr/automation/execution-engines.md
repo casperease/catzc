@@ -148,7 +148,7 @@ than from `PATH`, where an older or a second PowerShell may come first. The POSI
 system's shell. On Windows the bash engine is Git Bash's, and zsh is the MSYS2 package installed into Git Bash's tree in user space
 (`Install-Zsh`), so the POSIX engines share one runtime and one code path (ADR-AUTO-PARITY#1); elsewhere each is the system's own.
 
-### The black-box contract
+### The engine start environment
 
 A Go or Python test starts the engine as a process. A test that builds that start itself —
 `pwsh -NoProfile -Command ". '<entry>' *> $null; <command>"`, with PowerShell's quoting rule copied into Go and Python — runs under one
@@ -206,7 +206,7 @@ POSIX engines through `importer.sh` and its `cats` dispatcher (ADR-AUTO-ENGINE#6
 
 - **`ExecutionEngines`** (`Catzc.Base.Engines`) is the only place the engines are constructed; `Get-ExecutionEngine` returns them.
 - **`Resolve-EngineExecutable`** (`Catzc.Base.Execution`) locates an engine's executable by its model.
-- **`Get-EngineContract`** (`Catzc.Base.Languages`) builds the black-box contract `Invoke-GoTest`, `Invoke-PythonTest` and `Invoke-BashTest`
+- **`Get-EngineContract`** (`Catzc.Base.Languages`) builds the engine start environment `Invoke-GoTest`, `Invoke-PythonTest` and `Invoke-BashTest`
   set, and the language bridge runs every Go and Python test once per engine.
 - **`importer.sh`** is a generated root-config file (`Build-RootConfig`, drift-checked by `Test-GeneratedFiles`), and the Bash tests
   exercise its `cats` dispatcher in both run modes.

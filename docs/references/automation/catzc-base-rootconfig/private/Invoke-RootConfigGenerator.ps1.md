@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: eff317802684
+    with_body_sha: "78677833b1b1"
     repo_status: locked
     path: docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
     folder: docs/references/automation/catzc-base-rootconfig/private
@@ -87,7 +87,7 @@ Format-Code runs ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md
 
 ## comment:7
 
-Above `$engineExtension = @((Get-Config -Config languages).engines.Values |...`, written with `#`.
+Above `$engineExtension = @((Get-Config -Config languages).formatters.Values |...`, written with `#`.
 
 ```text
 The VS Code extension recommendations, rendered from the vscode-extensions registry

@@ -202,6 +202,8 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       track: A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it lives.
+      implementation language:
+        An implementation language is a file language a command is written in; a file language is any language the registry names by extension.
       language zone:
         A language zone is one of the design, test, and live registers of identities; a file language is the kind of text one file holds.
       unlisted file:
@@ -315,3 +317,14 @@ concepts:
       cell: A cell is any intersection of a map; a lit cell is one a highlight selects.
       stack violation:
         A stack violation is a finding about a cell's files; a lit cell is a selection, made by a highlight, that never judges the cell.
+  importer:
+    key: importer
+    domain: automation
+    defined_by: ADR-AUTO-IMPORTER#1
+    short:
+      The one way catzc enters a session, one entry per execution engine at the repository root, which decides the mix of languages, engines
+      and modules the session loads.
+    realized_by: { kind: prose-only }
+    contrasts:
+      automation: Automation is what the loaded modules offer; the importer is what brings a mix of languages, engines and modules into a session.
+      run mode: A run mode says where the importer reads the modules from; the importer decides which modules, languages and engines load.

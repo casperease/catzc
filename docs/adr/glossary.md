@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4a90daae71db"
-    with_inputs_sha: "5746801bc0b2d007d5c4b0b266ac33b7de3995fbfb5ca5a48c718453bb5e66d2"
+    with_body_sha: "4524d69c06ba"
+    with_inputs_sha: "47b0568292ca6805c2dc00b030f8c1270bb7c7a65811282fe8cddbe67d6a5ff3"
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -180,6 +180,8 @@ set of them.
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
   - [file type](#file-type): A file type is the single extension of one file; a file language groups the extensions of one kind of text.
+  - [implementation language](#implementation-language): An implementation language is a file language a command is written in; a file
+    language is any language the registry names by extension.
   - [kind](#kind): A kind is the role a file plays, what it is for; a file language is the kind of text it holds.
   - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; a file language is the
     kind of text one file holds.
@@ -278,6 +280,17 @@ A tracked file no track holds — at the repository root itself, or under out/ �
   - [track](#track): A track is a root folder and every file under it; a root file is a tracked file outside every track.
   - [unlisted file](#unlisted-file): An unlisted file is a tracked file outside every file language, whatever its track; a root file is one
     outside every track, whatever its file language.
+
+### run mode
+
+How the toolset is loaded, source mode from a repository root or build mode from a built package; exactly two exist.
+
+- **Defined by:** [ADR-DSGN-RUNMODE#1](design/run-modes.md#rule-adr-dsgn-runmode1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [importer](#importer): The importer decides which modules, languages and engines a session loads; a run mode says where it reads the
+    modules from.
 
 ### stack violation
 
@@ -502,6 +515,18 @@ System.Collections.Specialized.OrderedDictionary
   - [execution engine](#execution-engine): An execution engine is one of pwsh, bash and zsh; auto is a value that leaves the choice among
     them open.
 
+### automation
+
+The abstract, the commands and behaviours the repository offers and the doctrine that governs them, independent of language, shell and
+folder; the ADR domain, the value-chain row and the concern carry the name.
+
+- **Defined by:** [ADR-AUTO-LAYERS#1](automation/layers.md#rule-adr-auto-layers1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [importer](#importer): The importer brings a mix of languages, engines and modules into a session; automation is what the loaded modules
+    offer.
+
 ### bash test folder
 
 The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box `.bats`
@@ -547,6 +572,27 @@ A test's kind, logic or integrity — one mandatory tag saying whether it runs o
 | ----------------- | ------------------- |
 | `integrity suite` | the integrity tests |
 
+### command
+
+One public function of the module system, the unit a contract describes, written in one implementation language.
+
+- **Defined by:** [ADR-AUTO-LAYERS#2](automation/layers.md#rule-adr-auto-layers2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+
+### engine start environment
+
+The CATZC_ENGINE variables a test runner sets so a black-box test starts the engine from them and never from a hardcoded command, the
+engine's name, its executable, its importer entry and its start arguments.
+
+- **Defined by:** [ADR-AUTO-ENGINE#4](automation/execution-engines.md#rule-adr-auto-engine4)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Engines/configs/glossary.yml`
+
+| Avoid                | Say instead              |
+| -------------------- | ------------------------ |
+| `black-box contract` | engine start environment |
+
 ### execution engine
 
 System.Collections.Specialized.OrderedDictionary
@@ -558,6 +604,8 @@ System.Collections.Specialized.OrderedDictionary
   - [auto](#auto): auto is a value that leaves the engine open; an execution engine is the pwsh, bash or zsh it resolves to.
   - [posix engine](#posix-engine): A POSIX engine is an execution engine whose importer entry is importer.sh; an execution engine is any one
     of them, pwsh included.
+  - [pwsh](#pwsh): pwsh is one of the three execution engines and the name the PowerShell track takes from it; an execution engine is any of
+    the three.
 
 ### go test module
 
@@ -567,6 +615,36 @@ tests.
 - **Defined by:** [ADR-AUTO-GO#2](automation/go/go-test-artifacts.md#rule-adr-auto-go2)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Languages/configs/glossary.yml`
+
+### implementation language
+
+The file language a command's source is written in, one of the file languages its track declares, which are PowerShell with its hosted C#,
+Bash, Python and Go.
+
+- **Defined by:** [ADR-AUTO-LAYERS#2](automation/layers.md#rule-adr-auto-layers2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [file language](#file-language): A file language is any language the registry names by extension; an implementation language is one a
+    command is written in.
+
+| Avoid                 | Say instead             |
+| --------------------- | ----------------------- |
+| `automation language` | implementation language |
+
+### importer
+
+The one way catzc enters a session, one entry per execution engine at the repository root, which decides the mix of languages, engines and
+modules the session loads.
+
+- **Defined by:** [ADR-AUTO-IMPORTER#1](automation/importer.md#rule-adr-auto-importer1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [automation](#automation): Automation is what the loaded modules offer; the importer is what brings a mix of languages, engines and
+    modules into a session.
+  - [run mode](#run-mode): A run mode says where the importer reads the modules from; the importer decides which modules, languages and
+    engines load.
 
 ### layout
 
@@ -614,6 +692,16 @@ A file one stage produces and a later stage downloads and consumes — carried b
     its unit's release; a published artifact is a file one stage produces and a later stage consumes within a run.
   - [release candidate](#release-candidate): A release candidate is the tagged build that gets promoted; a published artifact is any file
     handed across a stage boundary.
+
+### pwsh
+
+The name of the PowerShell track and of the engine that runs it; the PowerShell product itself is called PowerShell in prose.
+
+- **Defined by:** [ADR-AUTO-LAYERS#3](automation/layers.md#rule-adr-auto-layers3)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [execution engine](#execution-engine): pwsh is one of the three execution engines, and the name the PowerShell track takes from it.
 
 ### python test folder
 
@@ -1099,17 +1187,18 @@ One of the three registers — design, test, live — each with its own terminol
 
 ### layer
 
-One stratum of a structure, always qualified — an implementation layer (language, PowerShell, installer, tooling) or a globset layer
-(module, fileset).
+One stratum of a structure, always qualified — one of the five layers of the automation (automation, contract, language, engine, importer;
+ADR-AUTO-LAYERS#6), or a globset layer (module, fileset).
 
 - **Defined by:** [ADR-REPO-VOCAB#8](repository/controlled-vocabulary.md#rule-adr-repo-vocab8)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
-- **Forms:** `implementation layer`, `automation layer`, `language layer`, `PowerShell layer`, `installer layer`, `config layer`,
-  `configuration layer`, `Azure layer`, `tooling layer`, `YAML layer`, `module layer`, `template layer`, `templating layer`, `vendor layer`,
-  `abstraction layer`, `analyzer layer`, `compatibility layer`, `mapping layer`, `serialization layer`, `base layer`, `design layer`,
-  `spelling layer`, `Pester layer`, `pip layer`, `path layer`, `support layer`, `doctrine layer`, `globset layer`, `fileset layer`,
-  `cross layer`, `ADR layer`, `shaping layer`, and the bare `layer`, with its verb forms
+- **Forms:** `implementation layer`, `automation layer`, `contract layer`, `language layer`, `engine layer`, `importer layer`,
+  `PowerShell layer`, `installer layer`, `config layer`, `configuration layer`, `Azure layer`, `tooling layer`, `YAML layer`,
+  `module layer`, `template layer`, `templating layer`, `vendor layer`, `abstraction layer`, `analyzer layer`, `compatibility layer`,
+  `mapping layer`, `serialization layer`, `base layer`, `design layer`, `spelling layer`, `Pester layer`, `pip layer`, `path layer`,
+  `support layer`, `doctrine layer`, `globset layer`, `fileset layer`, `cross layer`, `ADR layer`, `AUTO layer`, `shaping layer`, and the
+  bare `layer`, with its verb forms
 - **Contrasts:**
   - [facet](#facet): A facet is one of several parallel views of, or checks on, the same thing; a layer is one level of a stack.
 

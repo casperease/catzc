@@ -62,7 +62,7 @@ tracks: they select through the roots rather than owning one.
 ### Rule ADR-DSGN-TRACK:3
 
 A track owns one coherent **tech-stack**, and a new tech-stack opens a new track — never a subfolder inside an existing one. `automation`'s
-stack is deliberately intricate: PowerShell, with the C# types it hosts (ADR-PWSH-TYPES), packaged as PowerShell modules. `infrastructure`'s stack is
+stack is deliberately intricate: PowerShell, with the C# types it hosts, packaged as PowerShell modules. `infrastructure`'s stack is
 deliberately simple — Bicep plus PowerShell extension points and one configuration yml per subscription target — and rests on `automation`
 for context and execution. Future concerns follow the same shape: a `frontend` track for small front-apps, a `services` track for PaaS
 services and C# function apps.

@@ -1,7 +1,7 @@
 ---
 task:
   id: "017"
-  status: open
+  status: done
   plans: [plan-layers-vocabulary-rename-contracts]
   value: high
   blocked_on: "nothing (Q38: P1 runs beside the module model; code phases wait)"
@@ -30,6 +30,9 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-ENGINE#4
+      - ADR-DSGN-MODTYPE#1
+      - ADR-DSGN-RUNMODE#1
+      - ADR-REPO-VOCAB#8
 ---
 
 # task017: layers P0 baseline and P1 doctrine
@@ -39,7 +42,44 @@ named pwsh; ADR-AUTO-* codes are never re-coded; cats and catzc are ruled by ADR
 and glossary only, no path changes. Avoid-phrasings for the new meanings are added now; those retiring the old folder meaning wait for P6.
 Stop when Test-Glossary, Test-AdrRegistry and Test-Terminology are clean on the touched files.
 
-## Steps
+## Done (2026-10-17), with the corrections the tree forced and each check's verdict
+
+- Steps 1 and 2: the P0 baseline and the hook edge fact are a section of plan-layers-vocabulary-rename-contracts. Test-GeneratedFiles and
+  Test-Contracts pass; Test-Links had one `[Untracked]` and one bare citation in plans.yml, fixed; Test-WorldMap has two findings outside
+  this plan (a yaml file in the `.claude` track, an undeclared `.vscode/` root). A failed hook rebuild keeps the published binary.
+- Steps 3 and 4: `docs/adr/automation/layers.md` (ADR-AUTO-LAYERS, 7 rules) and `docs/adr/automation/importer.md` (ADR-AUTO-IMPORTER, 5
+  rules). Corrections: rule 2 does not name an `executable` flag, which does not exist yet (Q-L1 is a LanguagesConfig change for P2);
+  rule 5 cites no repository rule, because the citation graph forbids an automation ADR citing the repository domain, and the Context links
+  the api-contracts ADR instead; IMPORTER#1 names no `.ps1` file, since the engine-neutrality gate forbids it in a rule summary. Both files
+  are untracked, so their heads carry no imprint until the commit. Checks: `No links issues found.` and `No markdownlint issues found.`
+  (`out/test-links/20261017-185212`, `out/test-markdownlint/20261017-185212`).
+- Step 5: `adrs.yml` registers both; a `layer` key per automation ADR (language: UVPY, TYPES, GO, PY, BASH; engine: ENGINE; importer:
+  CACHE, DEPM, BUNDLE, OVERLAY, ASSETDEP, IMPORTER; the rest default to automation), validated by `AdrsConfig` against the five layers with
+  the default declared once, carried by `AdrRuleSet.Layer`; two tests. Checks: `[Invoke-TestFile] Passed (in-place)` AdrsConfig.Tests
+  (`out/test-file/20261017-184635-03a85b`); `No adr-registry issues found.` (`out/test-adr-registry/20261017-184929`); the index lists both.
+- Step 6: two dora-explains entries. Check: links clean in the run above.
+- Step 7, corrected: glossary terms automation, command, implementation language, pwsh (Docs), importer (ModuleSystem), run mode (Docs,
+  `**run mode**` bolded in ADR-DSGN-RUNMODE#1) and engine start environment (Engines) with reciprocal contrasts; `module` exists already
+  (ADR-DSGN-MODTYPE#1) and `role` waits for task012, whose ADR owns it, since a rule of ADR-AUTO-LAYERS bolding it would define a term the
+  layers do not own; `layer` keeps ADR-REPO-VOCAB#8 as its home, because a second rule bolding it would be a G3 finding, and gains the forms
+  contract, engine, importer and AUTO, the last because the code `ADR-AUTO-LAYERS` itself reads as a qualified use of the family. The
+  retired forms and the avoid phrasings of the old meanings wait for P6 (68 pages). Checks: Test-Glossary 221 issues, all pre-existing G4
+  and G6 in plan and other files, none on a touched file (`out/test-glossary/20261017-185303`); `No terminology issues found.`
+  (`out/test-terminology/20261017-185251`).
+- Step 8: tracks.md lines 65 and 227 reworded (the design domain may not cite ADR-PWSH-TYPES, so the stack is named in words); ADR-AUTO-ENGINE#4
+  and the sections "The black-box contract" of four ADRs are "The engine start environment", with the two remaining mentions in
+  Get-EngineContract's head and the Languages reference article; `languages.yml` `engines:` is `formatters:` with LanguagesConfig
+  (`formatters` property, messages), Format-Code, Invoke-RootConfigGenerator, their tests and their comment pages. Checks: `Passed`
+  LanguagesConfig.Tests, New-VSCodeExtensions.Tests, Get-FormatEngineStamp.Tests, Format-Code.Tests (`out/test-file/20261017-18463*`);
+  Build-RootConfig.Tests has eight failures, the four fixture-head ones plan-fast-push-followups owns and four "not a git checkout" ones
+  from a peer's in-progress Get-RepoStatus change dirty in the tree, none from this rename; `No comments issues found.`
+  (`out/test-comments/20261017-184638`, `-184928`, `-185248`).
+- Step 9: `adr-checks.yml` `pwsh-cmdlet` token gains the pipeline and item cmdlets, `common-parameter` the engine's common parameters
+  (`-Force` and `-PassThru` are catzc commands' own parameters and stay allowed). Check: `No adr-engine-neutrality issues found.`
+  (`out/test-adr-engine-neutrality/20261017-184927`).
+- Step 10: the plan's superseded steps and P0 and P1 ticked, two open steps added for P6's retirements and Q-L1's flag.
+
+## Steps, as planned
 
 1. P0 baseline, background scripts under out/, one gate each with the timeout prefix: Test-GeneratedFiles, Test-Links, Test-Contracts,
    Test-WorldMap. Record pass or fail lines in the plan under "P0 baseline (date)". Known unrelated reds stay listed (Test-Spelling 5,

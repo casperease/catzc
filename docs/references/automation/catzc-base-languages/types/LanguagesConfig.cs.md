@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0b767f7e71b1"
+    with_body_sha: "306cd86d4808"
     repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
     folder: docs/references/automation/catzc-base-languages/types
@@ -50,7 +50,7 @@ The sensible defaults are declared here, once
 file language, an omitted 'adr_folder' is none, and an omitted 'checks' is no quality gate.
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
-  - only 'engines' and 'languages' at the top; only 'extensions', 'formatter', 'no_formatter', 'vscode_language',
+  - only 'formatters' and 'languages' at the top; only 'extensions', 'formatter', 'no_formatter', 'vscode_language',
     'adr_folder' and 'checks' in a language entry; only 'vscode_extension' and 'settings' in an engine entry — an
     unknown key (a typo) fails at load;
   - 'checks' is a list of quality-gate command names (Test-<Noun>, e.g. Test-ScriptAnalyzer), each at most once: the
@@ -77,7 +77,7 @@ adapter and its name here land together
 
 ## comment:3
 
-Above `public IReadOnlyDictionary<string, FormatterEngine> engines { get; }`, written with `//`.
+Above `public IReadOnlyDictionary<string, FormatterEngine> formatters { get; }`, written with `//`.
 
 ```text
 The engines' own settings, by engine name: the VS Code extension that runs the same engine in the editor. An

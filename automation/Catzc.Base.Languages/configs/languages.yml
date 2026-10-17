@@ -17,7 +17,7 @@
 #     page: docs/references/automation/catzc-base-languages/configs/languages.yml.md
 # ---
 
-engines:
+formatters:
   # Prettier, for every language that names it; the extension reads the same .prettierrc.yml and .editorconfig.
   prettier:
     vscode_extension: esbenp.prettier-vscode

@@ -304,7 +304,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
 
     It 'every settings file an engine declares exists, so the cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE#10' {
         $root = Get-RepositoryRoot
-        foreach ($engine in (Get-Config -Config languages).engines.Values) {
+        foreach ($engine in (Get-Config -Config languages).formatters.Values) {
             foreach ($settingsFile in $engine.settings) {
                 # An entry may end in #key: the file is what must exist here, the key is checked by the stamp's own tests.
                 Join-Path $root ($settingsFile -split '#', 2)[0] | Should -Exist -Because "engines.$($engine.name).settings in languages.yml"

@@ -17,6 +17,7 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md
     cites:
+      - ADR-AUTO-LAYERS#6
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#{14,15}
       - ADR-REPO-LANG

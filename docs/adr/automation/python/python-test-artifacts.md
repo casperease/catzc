@@ -70,7 +70,7 @@ A Python test is a black-box test under the contract the Go tests follow (ADR-AU
 output and exit codes, never on the engine's internals; `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-PythonTest` sets them for
 its uv commands only and restores them afterwards.
 
-- [The black-box contract](#the-black-box-contract)
+- [The engine start environment](#the-engine-start-environment)
 
 ### Rule ADR-AUTO-PY:4
 
@@ -150,7 +150,7 @@ Under the root, `tests/<module>/` holds one Python test folder per catzc module,
 maps a folder to its module with no mapping file, shared with the Go test modules. A hyphen is no problem for Python here: the tests are
 collected by path, never imported as a package.
 
-### The black-box contract
+### The engine start environment
 
 A Python test knows what a Go test knows, from the same environment variables, and does what a Go test does: it starts the engine from the
 executable and start arguments the contract names ([execution-engines](../execution-engines.md)), puts its command in place of `{command}`,

@@ -20,6 +20,7 @@ catzc:
     cites:
       - ADR-AI
       - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-LAYERS#6
       - ADR-AUTO-TYPES#9
       - ADR-AZ-CUSTOMER#3
       - ADR-CONF-LOADING#4

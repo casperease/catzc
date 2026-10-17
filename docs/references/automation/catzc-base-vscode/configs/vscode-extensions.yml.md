@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fb120ef392d2
+    with_body_sha: "7ac511f16380"
     repo_status: locked
     path: docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md
     folder: docs/references/automation/catzc-base-vscode/configs
@@ -66,7 +66,7 @@ Above `- ms-python.python`, written with `#`.
 
 ```text
 The extensions that run the formatter engines — PowerShell, Go, Ruff, Prettier — are not listed here: the generator
-adds each engine's extension from languages.yml (`engines:`), the one place it is named
+adds each engine's extension from languages.yml (`formatters:`), the one place it is named
 ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)). They also carry the
 language services: the PowerShell extension's debugging, and gopls, which reads the repository-root go.work.
 The Python extension — for the Python tests under python/tests/: the settings generator points it at the generated

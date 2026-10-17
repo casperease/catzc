@@ -30,6 +30,17 @@ concepts:
       auto: auto is a value that leaves the engine open; an execution engine is the pwsh, bash or zsh it resolves to.
       posix engine:
         A POSIX engine is an execution engine whose importer entry is importer.sh; an execution engine is any one of them, pwsh included.
+      pwsh: pwsh is one of the three execution engines and the name the PowerShell track takes from it; an execution engine is any of the three.
+  engine start environment:
+    key: engine_start_environment
+    domain: automation
+    defined_by: ADR-AUTO-ENGINE#4
+    short:
+      The CATZC_ENGINE variables a test runner sets so a black-box test starts the engine from them and never from a hardcoded command, the
+      engine's name, its executable, its importer entry and its start arguments.
+    realized_by: { kind: prose-only }
+    avoid:
+      - { phrase: black-box contract, say: engine start environment }
   posix engine:
     key: posix_engines
     domain: automation

@@ -143,8 +143,8 @@ renderer as the generator of the `go.work` and `go.mod` targets — one record p
 result `L2` with its category. Python follows the same shape — a uv workspace root in place of `go.work`, a member `pyproject.toml` in place
 of each `go.mod` — with one environment and one lock for the whole workspace; the renderer is the generator of the workspace targets, and
 the same bridge calls the Python run. Bash needs no workspace: its runner is vendored, and the same bridge calls the Bash run under the bash
-engine. The black-box contract every run sets comes from one helper over the execution engine model, so the Go and Python tests run under
-either engine unchanged.
+engine. The engine start environment every run sets comes from one helper over the execution engine model, so the Go and Python tests run
+under either engine unchanged.
 
 ## Division
 

@@ -38,9 +38,10 @@ catzc:
 
 ### Rule ADR-DSGN-RUNMODE:1
 
-The toolset runs in exactly two modes. **Source mode** loads every module from `automation/<Module>/` in a repository root, entered by
-`importer.ps1`. **Build mode** loads the same modules from a built, installable `Catzc` package — each module's functions merged into one
-`<Module>.functions.ps1` — entered by the package's `Import-Catzc.ps1`, or by `Import-Module Catzc` for an installed package.
+A **run mode** is how the toolset is loaded, and there are exactly two. **Source mode** loads every module from `automation/<Module>/` in a
+repository root, entered by `importer.ps1`. **Build mode** loads the same modules from a built, installable `Catzc` package — each module's
+functions merged into one `<Module>.functions.ps1` — entered by the package's `Import-Catzc.ps1`, or by `Import-Module Catzc` for an
+installed package.
 
 - [Two modes, two entry points](#two-modes-two-entry-points)
 
