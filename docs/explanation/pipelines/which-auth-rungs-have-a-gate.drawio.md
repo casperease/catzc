@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: eb1557294baf
+    with_body_sha: "1f34d3eb60bf"
     repo_status: clean
     path: docs/explanation/pipelines/which-auth-rungs-have-a-gate.drawio.md
     folder: docs/explanation/pipelines

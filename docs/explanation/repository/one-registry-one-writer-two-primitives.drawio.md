@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e264c73eb4b9
+    with_body_sha: fbfc9617b2e2
     repo_status: clean
     path: docs/explanation/repository/one-registry-one-writer-two-primitives.drawio.md
     folder: docs/explanation/repository

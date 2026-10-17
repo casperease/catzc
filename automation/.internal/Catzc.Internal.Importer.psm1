@@ -203,8 +203,6 @@ function Invoke-Importer {
             $writeMessage = Get-Command Write-Message -ErrorAction Ignore
             if ($writeMessage) {
                 $totalSeconds = [math]::Round($sw.Elapsed.TotalSeconds, 1)
-                # The three parts sum to the total: the initializer is everything before the vendor import starts, the
-                # module import runs from there to the last module loaded, the finalizer is the rest (assert, overlay, janitors, cleanup).
                 $initializerSeconds = [math]::Round($initializerEnd.TotalSeconds, 1)
                 $importSeconds = [math]::Round(($finalizerStart - $initializerEnd).TotalSeconds, 1)
                 $finalizerSeconds = [math]::Round(($sw.Elapsed - $finalizerStart).TotalSeconds, 1)

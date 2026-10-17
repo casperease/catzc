@@ -15,6 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
+    page: docs/references/automation/catzc-base-languages/types/LayoutRow.cs.md
     cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-MODULE#2
@@ -35,8 +36,6 @@ public sealed class LayoutRow
     // The folder's name inside the module, or "." for the module root itself.
     public const string Root = ".";
 
-    // The rows no single file language owns, so every module has them: assets ship with the module, tests never do.
-    // A language's own rows (public functions at the root, `private/`, `types/`, `configs/`) are declared under it in languages.yml.
     public static IReadOnlyList<LayoutRow> Shared { get; } = new[]
     {
         new LayoutRow(null, "assets", "asset", null, true, true),

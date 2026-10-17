@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "647b2e37a4fa"
+    with_body_sha: "80253b3c17e1"
     repo_status: clean
     path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.drawio.md
     folder: docs/explanation/repository

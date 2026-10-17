@@ -146,8 +146,6 @@ public static class WorldMapBuilder
         return new WorldMap(trackNames.ToArray(), languageNames.ToArray(), placements.ToArray(), index);
     }
 
-    // The track with the longest place that contains a '/'-separated path
-    // ([ADR-DSGN-TRACKTYPE#5](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype5)), or null when no place does.
     private static Catzc.Base.Variants.VariantTrack TrackOf(string path, List<Catzc.Base.Variants.VariantTrack> trackList, out int placeLength)
     {
         Catzc.Base.Variants.VariantTrack best = null;
@@ -160,8 +158,6 @@ public static class WorldMapBuilder
         return best;
     }
 
-    // Track types whose files are never live: test-only projects and code written by a third party
-    // ([ADR-DSGN-TRACK#11](/docs/adr/design/tracks.md#rule-adr-dsgn-track11)).
     private static readonly string[] NeverLiveTypes = { "verification", "vendored-code" };
 
     // Is a file of a track in the track's live aspect?

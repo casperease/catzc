@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b3b14fbf960a
+    with_body_sha: f9b05fa7a456
     repo_status: clean
     path: docs/explanation/automation/invoke-importer-in-code-order.drawio.md
     folder: docs/explanation/automation

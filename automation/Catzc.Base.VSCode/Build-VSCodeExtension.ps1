@@ -49,7 +49,9 @@ function Build-VSCodeExtension {
     Assert-PathExist $manifestPath
     $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
     # The manifest is read under strict mode, so an absent field is looked up, never dotted.
-    $read = { param($Node, [string] $Field) if ($null -ne $Node -and $Node.PSObject.Properties[$Field]) { $Node.$Field } }
+    $read = { param($Node, [string] $Field) if ($null -ne $Node -and $Node.PSObject.Properties[$Field]) {
+            $Node.$Field
+        } }
     foreach ($field in 'name', 'version', 'publisher') {
         Assert-NotNull (& $read $manifest $field) -ErrorText "Build-VSCodeExtension: '$manifestPath' has no '$field'."
     }

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "48f2966c3237"
+    with_body_sha: "71c8b72d44d7"
     repo_status: clean
     path: docs/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
     folder: docs/references/automation/catzc-azure

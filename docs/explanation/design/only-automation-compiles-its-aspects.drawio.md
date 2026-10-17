@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b3ba67383587
+    with_body_sha: "2626e4844227"
     repo_status: clean
     path: docs/explanation/design/only-automation-compiles-its-aspects.drawio.md
     folder: docs/explanation/design

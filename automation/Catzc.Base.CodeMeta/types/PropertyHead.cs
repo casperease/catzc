@@ -22,10 +22,6 @@ catzc:
 ---
 */
 
-// Reads and writes a file's meta block, kept as the text of one property, as pure text work on strings. A JSON file keeps it as an ignored
-// top-level member. An XML file whose root is an MSBuild project keeps it as a CDATA property of a labelled first PropertyGroup, because
-// an XML comment cannot hold the `---` fence and a loader may refuse a processing instruction.
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

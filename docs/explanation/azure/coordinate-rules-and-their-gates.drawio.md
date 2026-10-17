@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2eb5c9d94f08"
+    with_body_sha: "1010f41d76cf"
     repo_status: clean
     path: docs/explanation/azure/coordinate-rules-and-their-gates.drawio.md
     folder: docs/explanation/azure

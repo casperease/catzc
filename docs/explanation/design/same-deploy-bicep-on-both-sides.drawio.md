@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e4fc2c6f1535
+    with_body_sha: "6273786b4fbd"
     repo_status: clean
     path: docs/explanation/design/same-deploy-bicep-on-both-sides.drawio.md
     folder: docs/explanation/design

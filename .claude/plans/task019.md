@@ -6,6 +6,21 @@ task:
   value: high
   blocked_on: P3 after task018; P4 and P6 on the user's explicit go (D10), in a quiet window with no peer-dirty files
   targets: [docs/explanation/automation, docs/how-to/automation, docs/references/automation, automation, .catzc, out, .github, pipelines]
+catzc:
+  immutable:
+    with_body_sha: "919a1b1f09e8"
+    repo_status: clean
+    path: ".claude/plans/task019.md"
+    folder: plans
+    name: task019
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task019: layers P3 classification, then the flip P4 and the pipeline names P6

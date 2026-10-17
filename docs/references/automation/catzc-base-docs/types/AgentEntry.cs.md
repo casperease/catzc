@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0b52fefe80b6"
+    with_body_sha: "633a6e87eee9"
     repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AgentEntry.cs.md
     folder: docs/references/automation/catzc-base-docs/types
@@ -15,7 +15,7 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TYPES#8
-      - ADR-REPO-AGENTS#2
+      - ADR-REPO-AGENTS#{2,7}
 ---
 
 # automation/Catzc.Base.Docs/types/AgentEntry.cs
@@ -42,4 +42,22 @@ Constructing an instance validates the entry, collecting every violation into on
     command names.
 Whether a citation names a real rule, a check names an existing command, and the agent file exists are
 filesystem and session facts, checked by the quality gate Test-AgentDefinitions, not on load.
+```
+
+## comment:2
+
+Above `public string model_reason { get; }`, written with `//`.
+
+```text
+Why the agent runs above the default model, when it does; null when it runs on the default
+([ADR-REPO-AGENTS#7](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents7)).
+```
+
+## comment:3
+
+Above `internal static IReadOnlyList<string> ReadList(IDictionary d, string key,...`, written with `//`.
+
+```text
+Reads a required list of distinct strings that each match the pattern, collecting every violation.
+Shared with CapabilityEntry, whose registry entries have the same two lists.
 ```

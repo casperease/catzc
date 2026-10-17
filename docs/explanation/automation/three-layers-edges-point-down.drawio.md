@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4f22c1f1818c"
+    with_body_sha: "51e8f580deff"
     repo_status: clean
     path: docs/explanation/automation/three-layers-edges-point-down.drawio.md
     folder: docs/explanation/automation

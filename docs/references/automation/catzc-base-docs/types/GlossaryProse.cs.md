@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "721b082d9d0e"
+    with_body_sha: ed3583c5fcaa
     repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md
     folder: docs/references/automation/catzc-base-docs/types
@@ -58,4 +58,13 @@ Above `bool inExpandable = false;`, written with `//`.
 ```text
 A string inside an expandable string's sub-expression is code, not message text: its parent string
 drops it with the rest of the sub-expression.
+```
+
+## comment:4
+
+Above `static string WithoutImmutableFacts(string comment)`, written with `//`.
+
+```text
+A code head's `immutable:` block holds facts the engine computed from the file (its name, kind, module), not prose; blank its lines,
+as the Markdown reader blanks the meta block, and keep the line count so later lines keep their numbers.
 ```

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c7d5cc477d6a
+    with_body_sha: ea1f1563e6f1
     repo_status: clean
     path: docs/explanation/flow/two-variables-read-in-one-place.drawio.md
     folder: docs/explanation/flow

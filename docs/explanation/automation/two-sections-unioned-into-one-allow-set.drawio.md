@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3f65b0a31f6f"
+    with_body_sha: "8a5cedda0a74"
     repo_status: clean
     path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.drawio.md
     folder: docs/explanation/automation

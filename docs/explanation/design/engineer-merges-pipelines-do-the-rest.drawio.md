@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0ed8d36d4bbf"
+    with_body_sha: "805cb10cedfb"
     repo_status: clean
     path: docs/explanation/design/engineer-merges-pipelines-do-the-rest.drawio.md
     folder: docs/explanation/design

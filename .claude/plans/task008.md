@@ -8,7 +8,7 @@ task:
   targets: [.unordered, automation, docs/adr/design/tracks.md, .gitattributes]
 catzc:
   immutable:
-    with_body_sha: "8dd7c7ef8c5b"
+    with_body_sha: c6150655682f
     repo_status: clean
     path: ".claude/plans/task008.md"
     folder: plans

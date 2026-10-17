@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "98b2238f79a4"
+    with_body_sha: "0b767f7e71b1"
     repo_status: locked
     path: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
     folder: docs/references/automation/catzc-base-languages/types
@@ -110,4 +110,23 @@ Above `string vscodeLanguage = name;`, written with `//`.
 ```text
 The VS Code language id defaults to the language's own name; an entry states it only where the editor's id
 differs (pipeline YAML is VS Code's azure-pipelines language).
+```
+
+## comment:7
+
+Above `public LayoutRow PlaceOf(string relativePath)`, written with `//`.
+
+```text
+The row of the layout that places a file, given its '/'-separated path relative to the module root, or null when no row does: a
+file at the root is placed by the root row of its extension, a file below a folder by the row that names the folder.
+```
+
+## comment:8
+
+Above `private static List<LayoutRow> ReadLayout(string name, List<string>...`, written with `//`.
+
+```text
+A language's layout rows: { folder, role, extensions, live, shipped }. A row at the module root ('.') lists the extensions it places,
+all among the language's own; any other row places every file in its folder. live and shipped default to true, the default every
+language row takes; only the shared tests row differs, and it is declared on LayoutRow.
 ```

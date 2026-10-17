@@ -14,6 +14,8 @@ catzc:
     module: Catzc.Base.Files
     moduletype: pwsh-folder
     catzc_bundle: azure
+  edges:
+    page: docs/references/automation/catzc-base-files/types/InputStamp.cs.md
 ---
 */
 
@@ -31,9 +33,6 @@ namespace Catzc.Base.Files;
 
 public static class InputStamp
 {
-    // A path under the root is named relative to it with '/' separators, a path outside it in full; a file's content is hashed with its
-    // carriage returns removed, so a clone, a snapshot, a CRLF checkout and a touch all stamp the same. An exclude is a wildcard
-    // (* and ?, a backtick escapes the next character) matched against the full path with '/' separators, ignoring case.
     public static string Compute(string[] paths, string filter, string[] excludes, string root, string salt)
     {
         string rootFull = Path.GetFullPath(root).TrimEnd('\\', '/') + Path.DirectorySeparatorChar;

@@ -16,7 +16,7 @@ task:
     ]
 catzc:
   immutable:
-    with_body_sha: "2fd192056706"
+    with_body_sha: "8ae3da327e89"
     repo_status: clean
     path: ".claude/plans/task005.md"
     folder: plans

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5a7bf3d9dfe1"
+    with_body_sha: "9ea6cc9a239c"
     repo_status: clean
     path: docs/explanation/configuration/an-address-is-a-read-only-walk.drawio.md
     folder: docs/explanation/configuration

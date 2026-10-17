@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04d75be6f717"
+    with_body_sha: dc001d315260
     repo_status: clean
     path: docs/explanation/flow/the-step-is-named-after-its-command.drawio.md
     folder: docs/explanation/flow

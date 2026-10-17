@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a64cb3b45c41
+    with_body_sha: d1704caa9b9b
     repo_status: locked
     path: docs/references/automation/internal/Catzc.Internal.Importer.psm1.md
     folder: docs/references/automation/internal
@@ -478,4 +478,13 @@ Above `$top = $global:__CatzcLoadTimings | Sort-Object Ms -Descending |...`, wri
 The native C# type compile/load (every module's types/*.cs via Import-CSharpTypes) appears as one
 'types (combined)' row below; a 'compile+load' row is a cold cache (Roslyn), a 'cache load' row reused
 the committed automation/.compiled DLL.
+```
+
+## comment:40
+
+Above `$initializerSeconds = [math]::Round($initializerEnd.TotalSeconds, 1)`, written with `#`.
+
+```text
+The three parts sum to the total: the initializer is everything before the vendor import starts, the
+module import runs from there to the last module loaded, the finalizer is the rest (assert, overlay, janitors, cleanup).
 ```

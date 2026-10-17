@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f8f6f9438d63
+    with_body_sha: f926fa9f6bae
     repo_status: clean
     path: docs/explanation/flow/the-runner-is-the-only-seam.drawio.md
     folder: docs/explanation/flow

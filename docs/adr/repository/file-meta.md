@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "844662ad9a79"
+    with_body_sha: "3562bdd855d2"
     repo_status: clean
     path: docs/adr/repository/file-meta.md
     folder: docs/adr/repository

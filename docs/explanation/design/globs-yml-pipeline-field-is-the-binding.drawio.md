@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a0ffd8272fe5
+    with_body_sha: ecf2fd26affc
     repo_status: clean
     path: docs/explanation/design/globs-yml-pipeline-field-is-the-binding.drawio.md
     folder: docs/explanation/design

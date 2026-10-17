@@ -46,8 +46,6 @@ public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
     // The gate and check functions the agent runs or guards, in file order; empty when it has none.
     public IReadOnlyList<string> checks { get; }
 
-    // Why the agent runs above the default model, when it does; null when it runs on the default
-    // ([ADR-REPO-AGENTS#7](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents7)).
     public string model_reason { get; }
 
     public AgentEntry(IDictionary d)
@@ -85,8 +83,6 @@ public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
     }
 
-    // Reads a required list of distinct strings that each match the pattern, collecting every violation.
-    // Shared with CapabilityEntry, whose registry entries have the same two lists.
     internal static IReadOnlyList<string> ReadList(IDictionary d, string key, Regex pattern, string what, List<string> errors)
     {
         List<string> values = new List<string>();

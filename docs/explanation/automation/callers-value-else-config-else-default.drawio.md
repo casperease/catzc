@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "779b2cdc17d0"
+    with_body_sha: cc654b75c808
     repo_status: clean
     path: docs/explanation/automation/callers-value-else-config-else-default.drawio.md
     folder: docs/explanation/automation

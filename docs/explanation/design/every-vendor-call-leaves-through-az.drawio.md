@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ad365fe6e56b
+    with_body_sha: "86c4cb501275"
     repo_status: clean
     path: docs/explanation/design/every-vendor-call-leaves-through-az.drawio.md
     folder: docs/explanation/design

@@ -13,6 +13,21 @@ task:
       contracts/catzc/0.0.0,
       docs/adr/repository/file-meta.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: "0439e6f8b2ae"
+    repo_status: clean
+    path: ".claude/plans/task021.md"
+    folder: plans
+    name: task021
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task021: class selectors in file-meta.yml, the reachability test, the head schema

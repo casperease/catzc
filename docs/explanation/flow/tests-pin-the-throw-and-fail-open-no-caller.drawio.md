@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3086927ad72b"
+    with_body_sha: f5439c8d3f2d
     repo_status: clean
     path: docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.drawio.md
     folder: docs/explanation/flow

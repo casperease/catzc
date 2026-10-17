@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bbd488c4433d
+    with_body_sha: "14511bdad997"
     repo_status: clean
     path: docs/explanation/azure/two-layers-join-through-one-resolver.drawio.md
     folder: docs/explanation/azure

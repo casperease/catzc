@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ff6cee025cb3
+    with_body_sha: "9f1d7a964934"
     repo_status: clean
     path: docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.drawio.md
     folder: docs/explanation/azure

@@ -16,6 +16,7 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
+    page: docs/references/automation/catzc-base-docs/Build-Glossary.ps1.md
     test: automation/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
     cites:
       - ADR-REPO-README#7
@@ -60,8 +61,6 @@ function Build-Glossary {
         [switch] $PassThru
     )
 
-    # Every input of the page: the glossary sources, the domain order, the ADR files the defining rules link into, and the code that renders.
-    # An unchanged stamp means the page on disk was written from exactly these, so nothing is read or rendered. -PassThru wants the concept count, so it renders.
     $inputsSha = Get-InputStamp -Path @(
         @(Get-Config -Config glossary -ListOwners | ForEach-Object Path)
         (Resolve-RepoPath 'automation/Catzc.Base.Docs/configs/adrs.yml')

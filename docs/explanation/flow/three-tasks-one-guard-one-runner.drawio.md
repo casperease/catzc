@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7ba015b34353"
+    with_body_sha: "4f2eb1a1acf2"
     repo_status: clean
     path: docs/explanation/flow/three-tasks-one-guard-one-runner.drawio.md
     folder: docs/explanation/flow

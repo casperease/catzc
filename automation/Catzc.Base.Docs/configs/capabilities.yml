@@ -13,10 +13,10 @@
 #     module: Catzc.Base.Docs
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
+#   edges:
+#     page: docs/references/automation/catzc-base-docs/configs/capabilities.yml.md
 # ---
 
-# One entry per capability .claude/skills/<name>/SKILL.md: the rules behind it and the checks it runs or guards. The model
-# floor is not here; it lives once in the file's metadata.catzc.model_floor, and Test-AgentDefinitions enforces it.
 capabilities:
   # The time safeguard for every shell call and cats command a robot runs.
   - name: catzc-run

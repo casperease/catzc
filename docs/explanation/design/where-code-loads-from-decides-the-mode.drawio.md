@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "76086db80ddf"
+    with_body_sha: daf6ff178b71
     repo_status: clean
     path: docs/explanation/design/where-code-loads-from-decides-the-mode.drawio.md
     folder: docs/explanation/design

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: afb749621306
+    with_body_sha: "1946f0d63354"
     repo_status: clean
     path: docs/explanation/design/what-keeps-the-platform-thin.drawio.md
     folder: docs/explanation/design

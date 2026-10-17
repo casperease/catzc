@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "73166d39b128"
+    with_body_sha: "78bfec8fc03f"
     repo_status: clean
     path: docs/explanation/design/one-door-in-one-stable-point-out.drawio.md
     folder: docs/explanation/design

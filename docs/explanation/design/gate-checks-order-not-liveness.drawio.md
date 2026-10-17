@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "19ba9e6a7cb8"
+    with_body_sha: dfc6b7e4f34d
     repo_status: clean
     path: docs/explanation/design/gate-checks-order-not-liveness.drawio.md
     folder: docs/explanation/design

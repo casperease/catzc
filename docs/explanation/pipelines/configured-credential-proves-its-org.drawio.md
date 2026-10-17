@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2af2a521817b"
+    with_body_sha: f191da0f5924
     repo_status: clean
     path: docs/explanation/pipelines/configured-credential-proves-its-org.drawio.md
     folder: docs/explanation/pipelines

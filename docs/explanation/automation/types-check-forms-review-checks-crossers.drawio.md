@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e7f2505675db
+    with_body_sha: cb3db7c3f73f
     repo_status: clean
     path: docs/explanation/automation/types-check-forms-review-checks-crossers.drawio.md
     folder: docs/explanation/automation

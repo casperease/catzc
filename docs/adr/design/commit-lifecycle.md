@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: aeba5609dd4b
+    with_body_sha: a6d62cf0078a
     repo_status: clean
     path: docs/adr/design/commit-lifecycle.md
     folder: docs/adr/design

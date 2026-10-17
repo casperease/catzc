@@ -57,9 +57,6 @@ public sealed class FileCarrier
     // The ignored top-level key that holds a property carrier's block (e.g. //). Null for any other carrier.
     public string property { get; }
 
-    // The path template of a sidecar carrier, where {base} is the file's path without its last extension and {stem} the middle part of
-    // its name between the first and last "--" (the whole name without extensions when it has none); one folder level may be "*".
-    // Null for any other carrier.
     public string sidecar { get; }
 
     // Why a file class carries no meta block. Null unless the carrier is None, which needs one.

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "89e2595172b8"
+    with_body_sha: cfc2048e3518
     repo_status: clean
     path: docs/explanation/configuration/two-test-files-check-the-address-rules.drawio.md
     folder: docs/explanation/configuration

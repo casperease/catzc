@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c6f45ba94a38
+    with_body_sha: a7b96fa39ebb
     repo_status: clean
     path: docs/explanation/flow/one-program-two-vendor-dialects.drawio.md
     folder: docs/explanation/flow

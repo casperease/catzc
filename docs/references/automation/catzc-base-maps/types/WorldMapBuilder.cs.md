@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "407db4d461eb"
+    with_body_sha: "5049264e738a"
     repo_status: locked
     path: docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md
     folder: docs/references/automation/catzc-base-maps/types
@@ -15,7 +15,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TYPES#4
-      - ADR-DSGN-TRACK#{1,3,6}
+      - ADR-DSGN-TRACK#{1,3,6,11}
+      - ADR-DSGN-TRACKTYPE#5
 ---
 
 # automation/Catzc.Base.Maps/types/WorldMapBuilder.cs
@@ -65,4 +66,22 @@ Above `public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguage
 ```text
 adrFiles: each ADR code's own file (ADR-<CODE> -> repository-relative path). citationExclude: the globs of the files
 whose citations light nothing (maps.yml highlight.citation_exclude); such a file still sits in its cell. None when null.
+```
+
+## comment:3
+
+Above `private static Catzc.Base.Variants.VariantTrack TrackOf(string path,...`, written with `//`.
+
+```text
+The track with the longest place that contains a '/'-separated path
+([ADR-DSGN-TRACKTYPE#5](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype5)), or null when no place does.
+```
+
+## comment:4
+
+Above `private static readonly string[] NeverLiveTypes = { "verification",...`, written with `//`.
+
+```text
+Track types whose files are never live: test-only projects and code written by a third party
+([ADR-DSGN-TRACK#11](/docs/adr/design/tracks.md#rule-adr-dsgn-track11)).
 ```

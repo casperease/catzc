@@ -15,6 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
+    page: docs/references/automation/catzc-base-languages/types/PathParts.cs.md
     test: automation/Catzc.Base.Languages/tests/types/PathParts.Tests.ps1
     cites:
       - ADR-REPO-FILEMETA#11
@@ -29,8 +30,6 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
-// [ADR-REPO-FILEMETA#11](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta11): a path under its module is an optional folder, a
-// kebab-case name and a file type, and only that.
 public sealed class PathParts
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -67,8 +66,6 @@ public sealed class PathParts
     public static string Kebab(string text) =>
         NotWord.Replace(Boundary.Replace(text ?? "", "-").ToLowerInvariant(), "-").Trim('-');
 
-    // Splits a '/' or '\' separated path under its module (the whole path for a file in no module) and asserts that the three parts
-    // build the path back: the folders, the name and the file type, compared as kebab case.
     public static PathParts Of(string tail)
     {
         if (string.IsNullOrWhiteSpace(tail)) { throw new ArgumentException("path parts: the path is empty"); }

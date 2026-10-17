@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: df73db740431
+    with_body_sha: c8fa33b90d6c
     repo_status: clean
     path: docs/explanation/repository/a-base-module-between-config-and-its-callers.drawio.md
     folder: docs/explanation/repository

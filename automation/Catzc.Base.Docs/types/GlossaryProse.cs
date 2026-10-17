@@ -170,8 +170,6 @@ public static class GlossaryProse
         return segments.ToArray();
     }
 
-    // A code head's `immutable:` block holds facts the engine computed from the file (its name, kind, module), not prose; blank its lines,
-    // as the Markdown reader blanks the meta block, and keep the line count so later lines keep their numbers.
     static string WithoutImmutableFacts(string comment)
     {
         if (comment == null || !comment.Contains("\n  immutable:")) { return comment; }

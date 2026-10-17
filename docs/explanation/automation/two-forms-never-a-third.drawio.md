@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3e55dd27de41"
+    with_body_sha: "518f81d90ef3"
     repo_status: clean
     path: docs/explanation/automation/two-forms-never-a-third.drawio.md
     folder: docs/explanation/automation

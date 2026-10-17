@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f2bb9f703444
+    with_body_sha: "608283f7178c"
     repo_status: clean
     path: docs/explanation/repository/opted-in-then-link-copy-or-render.drawio.md
     folder: docs/explanation/repository

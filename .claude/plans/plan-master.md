@@ -7,7 +7,7 @@ plan:
   targets: [.claude/plans]
 catzc:
   immutable:
-    with_body_sha: "16c570fe17d3"
+    with_body_sha: "81ed10b4583e"
     repo_status: clean
     path: ".claude/plans/plan-master.md"
     folder: plans

@@ -13,6 +13,24 @@ task:
       automation/Catzc.Base.RootConfig,
       automation/Catzc.Base.Languages,
     ]
+catzc:
+  immutable:
+    with_body_sha: bbcdb1884ecd
+    repo_status: clean
+    path: ".claude/plans/task020.md"
+    folder: plans
+    name: task020
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-CONTRACT#6
 ---
 
 # task020: command contracts, P7

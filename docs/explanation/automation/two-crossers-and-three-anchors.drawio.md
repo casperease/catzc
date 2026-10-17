@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d06b5a915975
+    with_body_sha: c1da2ec570c6
     repo_status: clean
     path: docs/explanation/automation/two-crossers-and-three-anchors.drawio.md
     folder: docs/explanation/automation

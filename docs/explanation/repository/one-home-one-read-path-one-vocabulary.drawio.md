@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "65ae253e1c12"
+    with_body_sha: "52acd123b430"
     repo_status: clean
     path: docs/explanation/repository/one-home-one-read-path-one-vocabulary.drawio.md
     folder: docs/explanation/repository

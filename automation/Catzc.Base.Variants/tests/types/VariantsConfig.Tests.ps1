@@ -207,7 +207,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
                         widget = [ordered]@{ places = @('widget'); type = 'widget-works'; execution_engines = @($first); module_execution_engines = [ordered]@{ Widget_Gadget = @($first, $second) } }
                         gadget = [ordered]@{ places = @('gadget'); type = 'widget-works' }
-                    } })
+                    }
+                })
             $config.tracks[0].execution_engines | Should -Be @($first)
             $config.tracks[0].EnginesOf('Widget_Gadget') | Should -Be @($first, $second)
             $config.tracks[0].EnginesOf('Widget_Other') | Should -Be @($first)
@@ -221,17 +222,21 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $second = [Catzc.Base.Engines.ExecutionEngines]::Names[1]
             $err = { & $script:make ([ordered]@{ tracks = [ordered]@{
                             widget = [ordered]@{ places = @('widget'); type = 'widget-works'; execution_engines = @($first, $first, 'fish')
-                                module_execution_engines = [ordered]@{ A = @(); B = @($first, $first) } }
-                        } }) } | Should -Throw -PassThru
+                                module_execution_engines = [ordered]@{ A = @(); B = @($first, $first) }
+                            }
+                        }
+                    }) } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*unknown execution engine 'fish'*"
             $err.Exception.Message | Should -BeLike "*duplicate execution engine '$first'*"
             $err.Exception.Message | Should -Match ([regex]::Escape("module_execution_engines['A'] must name at least one engine"))
             { & $script:make ([ordered]@{ tracks = [ordered]@{
                             widget = [ordered]@{ places = @('widget'); type = 'widget-works'; execution_engines = @($first, $second); module_execution_engines = [ordered]@{ A = @($first, $second) } }
-                        } }) } | Should -Throw "*repeats the track's engines*"
+                        }
+                    }) } | Should -Throw "*repeats the track's engines*"
             { & $script:make ([ordered]@{ tracks = [ordered]@{
                             widget = [ordered]@{ places = @('widget'); type = 'widget-works'; module_execution_engines = @('A') }
-                        } }) } | Should -Throw '*module_execution_engines must be a map*'
+                        }
+                    }) } | Should -Throw '*module_execution_engines must be a map*'
         }
 
         It 'throws when tracks is empty, not a map, or holds a non-map entry' {

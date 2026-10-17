@@ -13,6 +13,21 @@ task:
       automation/Catzc.Base.Languages,
       docs/adr/repository/uniform-formatting.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: "3ea66466f221"
+    repo_status: clean
+    path: ".claude/plans/task022.md"
+    folder: plans
+    name: task022
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task022: file head leftovers

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ca650935236d
+    with_body_sha: "46a4cff70169"
     repo_status: clean
     path: docs/explanation/design/which-rung-gates-exist-in-code.drawio.md
     folder: docs/explanation/design

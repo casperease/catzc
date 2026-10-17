@@ -16,6 +16,7 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
+    page: docs/references/automation/catzc-base-contracts/Build-ContractReference.ps1.md
     test: automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
     cites:
       - ADR-REPO-CONTRACT#{2,5}
@@ -80,8 +81,6 @@ function Build-ContractReference {
     # Every page this writer emits carries this line; only a page carrying it is ever removed.
     $marker = '`Build-ContractReference` writes this page from'
 
-    # The assets, this module and the paragraph filler are the whole input: when every page this writer emitted already carries
-    # their stamp, nothing is read or written. A unit added or removed changes the assets, so its stamp moves and every page rebuilds.
     $inputsSha = Get-InputStamp -Root $RepositoryRoot -Path @(
         (Join-Path $RepositoryRoot 'contracts')
         (Resolve-RepoPath 'automation/Catzc.Base.Contracts')

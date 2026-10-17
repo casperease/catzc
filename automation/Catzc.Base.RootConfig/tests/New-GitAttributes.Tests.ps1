@@ -34,16 +34,17 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
         Mock Assert-PathExist -ModuleName Catzc.Base.RootConfig { }
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [Catzc.Base.Globs.FileKindsConfig]::new([ordered]@{ kinds = [ordered]@{
-                    widget = [ordered]@{
-                        definition = 'A widget.'
-                        subkinds   = [ordered]@{
-                            cog = [ordered]@{ definition = 'A cog.'; files = @('widgets/cogs/**'); git = @{ attributes = @('catzc-cog'); why = 'Cogs are data.' } }
+                        widget   = [ordered]@{
+                            definition = 'A widget.'
+                            subkinds   = [ordered]@{
+                                cog = [ordered]@{ definition = 'A cog.'; files = @('widgets/cogs/**'); git = @{ attributes = @('catzc-cog'); why = 'Cogs are data.' } }
+                            }
+                            files      = @('widgets/**', 'extras/**')
+                            git        = @{ attributes = @('catzc-widget', 'eol=lf'); why = 'Widgets are data on purpose.' }
                         }
-                        files      = @('widgets/**', 'extras/**')
-                        git        = @{ attributes = @('catzc-widget', 'eol=lf'); why = 'Widgets are data on purpose.' }
+                        sprocket = [ordered]@{ definition = 'A sprocket.'; files = @('sprockets/**') }
                     }
-                    sprocket = [ordered]@{ definition = 'A sprocket.'; files = @('sprockets/**') }
-                } })
+                })
         }
     }
 
@@ -61,8 +62,9 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
     It 'wraps a long why at the comment width, each line a comment' {
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [Catzc.Base.Globs.FileKindsConfig]::new([ordered]@{ kinds = [ordered]@{
-                    widget = [ordered]@{ definition = 'A widget.'; files = @('w/**'); git = @{ attributes = @('catzc-widget'); why = (('word ' * 60).Trim()) } }
-                } })
+                        widget = [ordered]@{ definition = 'A widget.'; files = @('w/**'); git = @{ attributes = @('catzc-widget'); why = (('word ' * 60).Trim()) } }
+                    }
+                })
         }
         Set-Template "{{file-kind-attributes}}`n"
         $lines = (New-GitAttributes) -split "`n"

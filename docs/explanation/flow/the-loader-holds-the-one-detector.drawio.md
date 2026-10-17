@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5f9fc412f838"
+    with_body_sha: fe83436b5023
     repo_status: clean
     path: docs/explanation/flow/the-loader-holds-the-one-detector.drawio.md
     folder: docs/explanation/flow

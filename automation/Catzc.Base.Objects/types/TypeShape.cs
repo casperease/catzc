@@ -15,6 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
+    page: docs/references/automation/catzc-base-objects/types/TypeShape.cs.md
     cites:
       - ADR-AUTO-CACHE
       - ADR-AUTO-TYPES#7
@@ -28,8 +29,6 @@ using System.Reflection;
 
 namespace Catzc.Base.Objects;
 
-// The reflected properties of a type, read once. The table is keyed by Type and filled on first use: a loaded type cannot change in
-// a process (ADR-AUTO-TYPES#7), so an entry cannot go stale, and it is not a session cache of the file set (ADR-AUTO-CACHE).
 public static class TypeShape
 {
     private static readonly ConcurrentDictionary<Type, Shape> Shapes = new ConcurrentDictionary<Type, Shape>();

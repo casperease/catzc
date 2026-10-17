@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c57bd0ab9113
+    with_body_sha: d88701a50040
     repo_status: clean
     path: docs/explanation/design/ingress-gated-the-rest-by-review.drawio.md
     folder: docs/explanation/design

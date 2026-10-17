@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4356bd7c10e7"
+    with_body_sha: "1b58e8b1bea4"
     repo_status: clean
     path: docs/explanation/azure/how-each-naming-rule-is-held.drawio.md
     folder: docs/explanation/azure

@@ -25,8 +25,12 @@ Describe 'TrackTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACKTYPE#1' {
         function script:New-Config {
             param($Types, $Vendors)
             $raw = [ordered]@{}
-            if ($null -ne $Types) { $raw['track_types'] = $Types }
-            if ($null -ne $Vendors) { $raw['vendors'] = $Vendors }
+            if ($null -ne $Types) {
+                $raw['track_types'] = $Types
+            }
+            if ($null -ne $Vendors) {
+                $raw['vendors'] = $Vendors
+            }
             [Catzc.Base.Variants.TrackTypesConfig]::new($raw)
         }
 

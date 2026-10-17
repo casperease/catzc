@@ -72,8 +72,6 @@ function Build-AdrIndex {
         [switch] $PassThru
     )
 
-    # Every input of the page: the registry, the ADR files the slugs resolve to, and the code that renders. An unchanged stamp means the page on
-    # disk was written from exactly these, so nothing is read or rendered. The generated pages beside the ADRs (the index, the glossary, the READMEs) are outputs, not inputs.
     $inputsSha = Get-InputStamp -Path @(
         (Resolve-RepoPath 'automation/Catzc.Base.Docs/configs/adrs.yml')
         (Resolve-RepoPath 'docs/adr')

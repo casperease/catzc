@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c83f2894d54c
+    with_body_sha: e377f71e6b5d
     repo_status: clean
     path: docs/explanation/azure/a-bad-coordinate-stops-discovery.drawio.md
     folder: docs/explanation/azure

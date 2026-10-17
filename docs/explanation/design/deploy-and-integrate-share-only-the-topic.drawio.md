@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2975ea9f44dd"
+    with_body_sha: c4049ba06d35
     repo_status: clean
     path: docs/explanation/design/deploy-and-integrate-share-only-the-topic.drawio.md
     folder: docs/explanation/design

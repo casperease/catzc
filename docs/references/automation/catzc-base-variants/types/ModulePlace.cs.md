@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1ee93ea7b2dd"
+    with_body_sha: d856825e05ee
     repo_status: locked
     path: docs/references/automation/catzc-base-variants/types/ModulePlace.cs.md
     folder: docs/references/automation/catzc-base-variants/types
@@ -28,4 +28,13 @@ A place under a root folder where modules of one type are found, and how a path 
 folder  the first folder under the root, never a dot-prefixed one, with the prefix put before its PascalCase when there is one;
 file    a file of the extension directly under the root, named without the extension;
 root    the root folder itself, named by its last segment.
+```
+
+## comment:2
+
+Above `public string TailOf(string path)`, written with `//`.
+
+```text
+The '/'-separated path of the file under the module NameOf names for it; call it only for a path NameOf placed. A file place's
+module is the file itself, so its tail is the file's name.
 ```

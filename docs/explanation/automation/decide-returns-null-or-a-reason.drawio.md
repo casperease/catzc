@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bceeedb9c714
+    with_body_sha: "97c72ed31b8b"
     repo_status: clean
     path: docs/explanation/automation/decide-returns-null-or-a-reason.drawio.md
     folder: docs/explanation/automation

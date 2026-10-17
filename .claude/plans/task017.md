@@ -13,6 +13,24 @@ task:
       automation/Catzc.Base.Languages/configs/languages.yml,
       automation/Catzc.Base.QualityGates,
     ]
+catzc:
+  immutable:
+    with_body_sha: b9beff04ebb9
+    repo_status: clean
+    path: ".claude/plans/task017.md"
+    folder: plans
+    name: task017
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-ENGINE#4
 ---
 
 # task017: layers P0 baseline and P1 doctrine

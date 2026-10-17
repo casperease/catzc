@@ -13,6 +13,21 @@ task:
       automation/.scriptanalyzer,
       .claude/hooks/Assert-BashTimeout,
     ]
+catzc:
+  immutable:
+    with_body_sha: "61bcad80f367"
+    repo_status: clean
+    path: ".claude/plans/task018.md"
+    folder: plans
+    name: task018
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task018: layers P2, the funnel

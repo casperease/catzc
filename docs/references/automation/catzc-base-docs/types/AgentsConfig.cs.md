@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9e2ffbe1ee22"
+    with_body_sha: "68c5f14d3870"
     repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md
     folder: docs/references/automation/catzc-base-docs/types
@@ -16,7 +16,7 @@ catzc:
     cites:
       - ADR-AUTO-TYPES#8
       - ADR-CONF-LOADING#4
-      - ADR-REPO-AGENTS#{2,4}
+      - ADR-REPO-AGENTS#{2,4,6,8}
 ---
 
 # automation/Catzc.Base.Docs/types/AgentsConfig.cs
@@ -44,4 +44,31 @@ Constructing an instance validates the file, collecting every violation into one
   - standard names one of the entries.
 The cross-checks against the agent files, the rule ids, the commands, and .claude/CLAUDE.md are the quality gate
 Test-AgentDefinitions.
+```
+
+## comment:2
+
+Above `public IReadOnlyList<string> contracts { get; } = new[] { "ADR-AI" };`, written with `//`.
+
+```text
+The contracts every robot and capability names in its front matter under `contracts`, the default declared once here
+([ADR-REPO-AGENTS#6](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents6)).
+```
+
+## comment:3
+
+Above `public int agent_body_lines { get; } = 20;`, written with `//`.
+
+```text
+The most body lines an agent file may have, the default declared once here and overridable in roofs
+([ADR-REPO-AGENTS#6](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents6)).
+```
+
+## comment:4
+
+Above `public int capability_lines { get; } = 10;`, written with `//`.
+
+```text
+The most lines a capability file may have outside its catzc head, delimiters excluded
+([ADR-REPO-AGENTS#8](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents8)).
 ```

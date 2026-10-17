@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6551b1e5ca86"
+    with_body_sha: ac0d803c6ac5
     repo_status: clean
     path: docs/explanation/automation/two-entries-feed-one-importer.drawio.md
     folder: docs/explanation/automation

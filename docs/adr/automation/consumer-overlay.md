@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3e34ba7e2ccc"
+    with_body_sha: "8eac7f5e59ab"
     repo_status: clean
     path: docs/adr/automation/consumer-overlay.md
     folder: docs/adr/automation

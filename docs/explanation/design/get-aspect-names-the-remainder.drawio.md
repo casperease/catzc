@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ef8e9b233eca
+    with_body_sha: "10ce5d919480"
     repo_status: clean
     path: docs/explanation/design/get-aspect-names-the-remainder.drawio.md
     folder: docs/explanation/design

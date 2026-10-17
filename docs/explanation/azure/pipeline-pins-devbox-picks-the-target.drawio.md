@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "64bf812618fb"
+    with_body_sha: "10838aba439c"
     repo_status: clean
     path: docs/explanation/azure/pipeline-pins-devbox-picks-the-target.drawio.md
     folder: docs/explanation/azure

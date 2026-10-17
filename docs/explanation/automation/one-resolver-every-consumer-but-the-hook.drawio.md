@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bcc1373e0dc9
+    with_body_sha: c5926f6efdea
     repo_status: clean
     path: docs/explanation/automation/one-resolver-every-consumer-but-the-hook.drawio.md
     folder: docs/explanation/automation

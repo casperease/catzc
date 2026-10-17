@@ -299,12 +299,14 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @(
                             [ordered]@{ folder = 'inner'; role = 'a' }
                             [ordered]@{ folder = 'inner'; role = 'b' }
-                        ) }) } | Should -Throw -PassThru
+                        )
+                    }) } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*folder 'inner' is named twice*"
             { & $script:make ([ordered]@{ languages = [ordered]@{
                             widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'x'; layout = @([ordered]@{ folder = 'inner'; role = 'a' }) }
                             gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'x'; layout = @([ordered]@{ folder = 'inner'; role = 'b' }) }
-                        } }) } | Should -Throw "*folder 'inner' is named twice (by 'widget' and 'gadget')*"
+                        }
+                    }) } | Should -Throw "*folder 'inner' is named twice (by 'widget' and 'gadget')*"
             { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @([ordered]@{ folder = 'tests'; role = 'a' }) }) } |
                 Should -Throw "*folder 'tests' is named twice (by 'widget' and '(shared)')*"
         }
@@ -319,7 +321,8 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                             [ordered]@{ folder = '.'; role = 'r'; extensions = @('.zzz') }
                             [ordered]@{ folder = '.'; role = 's'; extensions = @('.wdg') }
                             [ordered]@{ folder = '.'; role = 't'; extensions = @('.wdg') }
-                        ) }) } | Should -Throw -PassThru
+                        )
+                    }) } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*layout: unknown key 'speed'*"
             $err.Exception.Message | Should -BeLike "*invalid folder 'Bad/Folder'*"
             $err.Exception.Message | Should -BeLike "*invalid role 'Bad Role'*"

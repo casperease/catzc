@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "138e4729f0b1"
+    with_body_sha: "46b90a1766b2"
     repo_status: clean
     path: docs/explanation/automation/dot-source-one-entry-script.drawio.md
     folder: docs/explanation/automation

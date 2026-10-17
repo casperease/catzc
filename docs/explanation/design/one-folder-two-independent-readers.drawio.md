@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "682c06f7a0e0"
+    with_body_sha: "0dfc47c92c68"
     repo_status: clean
     path: docs/explanation/design/one-folder-two-independent-readers.drawio.md
     folder: docs/explanation/design

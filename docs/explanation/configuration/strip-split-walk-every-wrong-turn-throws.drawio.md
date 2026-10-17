@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "75670e30441a"
+    with_body_sha: "23819ef0c554"
     repo_status: clean
     path: docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.drawio.md
     folder: docs/explanation/configuration

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "97faf03409f9"
+    with_body_sha: f31b464aa8c4
     repo_status: clean
     path: docs/explanation/automation/pass-the-limit-or-the-call-is-denied.drawio.md
     folder: docs/explanation/automation

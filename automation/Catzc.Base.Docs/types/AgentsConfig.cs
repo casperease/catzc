@@ -38,8 +38,6 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly System.Text.RegularExpressions.Regex ContractRe =
         new System.Text.RegularExpressions.Regex("^ADR-[A-Z]+(-[A-Z]+)*$", System.Text.RegularExpressions.RegexOptions.Compiled);
 
-    // The contracts every robot and capability names in its front matter under `contracts`, the default declared once here
-    // ([ADR-REPO-AGENTS#6](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents6)).
     public IReadOnlyList<string> contracts { get; } = new[] { "ADR-AI" };
 
     // The standard sub-agent for delegated work ([ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4)).
@@ -48,12 +46,8 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
     // The registered agents, in file order.
     public IReadOnlyList<AgentEntry> agents { get; }
 
-    // The most body lines an agent file may have, the default declared once here and overridable in roofs
-    // ([ADR-REPO-AGENTS#6](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents6)).
     public int agent_body_lines { get; } = 20;
 
-    // The most lines a capability file may have outside its catzc head, delimiters excluded
-    // ([ADR-REPO-AGENTS#8](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents8)).
     public int capability_lines { get; } = 10;
 
     public AgentsConfig(IDictionary d)

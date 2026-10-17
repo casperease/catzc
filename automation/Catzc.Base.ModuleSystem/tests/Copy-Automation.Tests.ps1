@@ -49,7 +49,8 @@ Describe 'Copy-Automation' -Tag 'L0', 'logic' {
             [Catzc.Base.ModuleSystem.FilesConfig]::new([ordered]@{ modules = [ordered]@{
                         '.internal'             = [ordered]@{ packages = [ordered]@{ entrypoint = @('importer.ps1') } }
                         'Catzc.Base.Repository' = [ordered]@{ packages = [ordered]@{ root_configs = @('.editorconfig'); gitignore = @('.gitignore') } }
-                    } })
+                    }
+                })
         }
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'profiles' } {
             [pscustomobject]@{ profiles = [ordered]@{ demo = @('Catzc.Base.Alpha'); full = @() } }

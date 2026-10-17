@@ -47,7 +47,7 @@ Describe 'Install-VSCodeExtension' -Tag 'L0', 'logic' {
     }
 
     It 'refuses a name that holds no package.json' {
-        { Install-VSCodeExtension -Name plain } | Should -Throw "*holds no package.json*"
+        { Install-VSCodeExtension -Name plain } | Should -Throw '*holds no package.json*'
     }
 
     It 'says so when the editor CLI is not on PATH' {

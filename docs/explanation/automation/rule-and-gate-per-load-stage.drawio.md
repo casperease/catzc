@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "760a7a84666f"
+    with_body_sha: "423803283108"
     repo_status: clean
     path: docs/explanation/automation/rule-and-gate-per-load-stage.drawio.md
     folder: docs/explanation/automation

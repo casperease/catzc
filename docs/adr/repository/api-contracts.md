@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ea04d4d14d37
+    with_body_sha: "29a623397421"
     repo_status: clean
     path: docs/adr/repository/api-contracts.md
     folder: docs/adr/repository
@@ -59,7 +59,14 @@ asset `contracts/catzc/0.0.0/Catzc.Tooling.Github/workflows/release-automation.y
 ([conventional-folders](conventional-folders.md#rule-adr-repo-folders11)). Provided and depended-on contracts both version with their unit.
 There is no repository-wide version: another unit that carries contracts gets its own `contracts/<unit>/`, with its own versions.
 
+An outside party's own file shape, such as a vendor's schema, is held in an **external unit**, `contracts/EXTERNAL-<moniker>/`, where
+`<moniker>` names the vendor (`EXTERNAL-azure`). It carries depended-on assets only, each a trimmed, linkable check of the shape the outside
+party reads, never a copy of the party's whole schema, and its header says the vendor and the source it was trimmed from. An external unit
+is committed as two version folders: the draft `0.0.0`, the one that is checked and edited, and `0.1.0`, the draft frozen by
+`Publish-ContractRelease` as the unit's pin record.
+
 - [One folder per unit version, one per owning module](#one-folder-per-unit-version-one-per-owning-module)
+- [An external unit per vendor](#an-external-unit-per-vendor)
 - [A target root per module](#a-target-root-per-module)
 
 ### Rule ADR-REPO-CONTRACT:3
@@ -198,6 +205,28 @@ contracts/
         pipelines/ci-automation.yaml                  # fragment of pipelines/ci-automation.yaml: the keys Azure Pipelines reads
         rest/build-queue.sample.json                  # sample payload: the module produces or parses it
     1.0.0/                                            # frozen when the bundle 1.0.0 is released
+```
+
+### An external unit per vendor
+
+`The vendor's shape, trimmed, beside our own contracts`
+
+Some files we hold are read against a shape a vendor owns, such as the schema Azure Resource Manager publishes for a compiled template. The
+editor and the gate should check that shape without a download, and the vendor's full schema is neither small nor bounded: it refs
+hundreds of schemas of other versions and uses keywords the contract check does not support. So the contract is a trimmed verification of
+the part that matters, kept in `contracts/EXTERNAL-<moniker>/`, and it states in its header comment which vendor it follows and the address
+it was trimmed from, so a reviewer can compare it with the source. The unit follows its vendor, so it is not a version of `catzc`: the
+vendor pins nothing, and `0.0.0` is the shape in use ([Where back-compat is owed](#where-back-compat-is-owed)). `0.1.0` is the same
+shape frozen as the unit's record, written by `Publish-ContractRelease -Unit EXTERNAL-<moniker> -Version 0.1.0`; when the vendor changes
+what it expects, `0.0.0` changes and the unit is released again.
+
+```text
+contracts/
+  EXTERNAL-azure/                                     # an external unit: the vendor's shape
+    0.0.0/                                            # the draft, checked and edited
+      Catzc.Azure.Templates/                          # target root automation/Catzc.Azure.Templates
+        tests/assets/parameter-model/main.json.schema.json   # schema: the compiled template validates against it
+    0.1.0/                                            # the draft frozen
 ```
 
 ### A target root per module

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "25b1d77d44db"
+    with_body_sha: "7f5cc7d38169"
     repo_status: clean
     path: docs/explanation/azure/the-session-is-the-deploy-target.drawio.md
     folder: docs/explanation/azure

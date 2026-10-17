@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2fe345f4b04b"
+    with_body_sha: "52ed2e3c105c"
     repo_status: clean
     path: docs/explanation/design/out-of-band-deploy-is-adr-only.drawio.md
     folder: docs/explanation/design

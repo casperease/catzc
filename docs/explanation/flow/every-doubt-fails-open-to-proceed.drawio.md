@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b2afbbed6f88
+    with_body_sha: a5c2323f71ec
     repo_status: clean
     path: docs/explanation/flow/every-doubt-fails-open-to-proceed.drawio.md
     folder: docs/explanation/flow

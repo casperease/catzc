@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c7bb037b19da
+    with_body_sha: f9e1beb3e28a
     repo_status: clean
     path: docs/explanation/repository/five-keys-one-reader-twelve-primitives.drawio.md
     folder: docs/explanation/repository

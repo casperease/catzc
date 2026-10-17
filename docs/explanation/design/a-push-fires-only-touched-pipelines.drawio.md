@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ad83f6fadfc8
+    with_body_sha: "4294c3e3dd6c"
     repo_status: clean
     path: docs/explanation/design/a-push-fires-only-touched-pipelines.drawio.md
     folder: docs/explanation/design

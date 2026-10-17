@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "861d70fce3b3"
+    with_body_sha: "734d0ce0de09"
     repo_status: clean
     path: docs/explanation/design/code-wires-only-the-first-rungs.drawio.md
     folder: docs/explanation/design

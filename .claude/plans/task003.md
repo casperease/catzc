@@ -8,7 +8,7 @@ task:
   targets: [.claude/plans]
 catzc:
   immutable:
-    with_body_sha: "9be811ec4f79"
+    with_body_sha: "960bfa9f3f59"
     repo_status: clean
     path: ".claude/plans/task003.md"
     folder: plans

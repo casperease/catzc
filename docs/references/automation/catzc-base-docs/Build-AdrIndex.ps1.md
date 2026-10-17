@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7060edf12b1c"
+    with_body_sha: "2da8d16357ce"
     repo_status: locked
     path: docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md
     folder: docs/references/automation/catzc-base-docs
@@ -50,4 +50,13 @@ Above `$sections = foreach ($domain in $adrs.Domains) {`, written with `#`.
 ```text
 One aligned code-registry table per domain, in declared order. Rows carry the backtick-wrapped external
 code and the slug link in the exact shape Get-CatsAdrIndex parses.
+```
+
+## comment:4
+
+Above `$inputsSha = Get-InputStamp -Path @(`, written with `#`.
+
+```text
+Every input of the page: the registry, the ADR files the slugs resolve to, and the code that renders. An unchanged stamp means the page on
+disk was written from exactly these, so nothing is read or rendered. The generated pages beside the ADRs (the index, the glossary, the READMEs) are outputs, not inputs.
 ```

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b32dc2c0042f
+    with_body_sha: "2e4dd3867b3a"
     repo_status: clean
     path: docs/explanation/repository/an-edit-lands-at-the-next-import.drawio.md
     folder: docs/explanation/repository

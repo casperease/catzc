@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3b4e5f52ce1b"
+    with_body_sha: d105e5e4fac3
     repo_status: clean
     path: docs/explanation/design/one-entry-script-per-mode.drawio.md
     folder: docs/explanation/design

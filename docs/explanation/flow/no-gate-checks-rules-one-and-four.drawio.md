@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b9d8baf6fbf8
+    with_body_sha: "0c0dd3552a1f"
     repo_status: clean
     path: docs/explanation/flow/no-gate-checks-rules-one-and-four.drawio.md
     folder: docs/explanation/flow

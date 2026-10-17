@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "24a1725b2df9"
+    with_body_sha: "20a64427506a"
     repo_status: clean
     path: docs/explanation/flow/peers-in-a-layer-never-overlap.drawio.md
     folder: docs/explanation/flow

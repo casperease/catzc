@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bc55e83376ef
+    with_body_sha: e45d06a25ba3
     repo_status: locked
     path: docs/references/automation/catzc-base-languages/configs/languages.yml.md
     folder: docs/references/automation/catzc-base-languages/configs
@@ -75,4 +75,13 @@ Above `psscriptanalyzer:`, written with `#`.
 ```text
 PSScriptAnalyzer's formatter through the PowerShell extension, whose codeFormatting settings (vscode-settings.yml)
 mirror the analyzer settings file. The vendored module's manifest names its version.
+```
+
+## comment:3
+
+Above `layout:`, written with `#`.
+
+```text
+The layout: the folders of a module this language owns. assets/ and tests/ are on LayoutRow, since no one language owns them.
+shipped means a build copies the folder verbatim; the functions are merged into one file instead, so their rows are not shipped.
 ```

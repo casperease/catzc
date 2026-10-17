@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c813ab85c1b3
+    with_body_sha: "5eaeaab4ea49"
     repo_status: clean
     path: docs/explanation/design/every-deploy-stage-is-main-only.drawio.md
     folder: docs/explanation/design

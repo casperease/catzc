@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a201e578c433
+    with_body_sha: d6d5a0bfb274
     repo_status: clean
     path: docs/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
     folder: docs/references/automation/catzc-base-config

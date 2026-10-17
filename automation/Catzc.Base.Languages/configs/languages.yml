@@ -77,8 +77,6 @@ languages:
     adr_folder: pwsh
     checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
     imprint: [ps-help]
-    # The layout: the folders of a module this language owns. assets/ and tests/ are on LayoutRow, since no one language owns them.
-    # shipped means a build copies the folder verbatim; the functions are merged into one file instead, so their rows are not shipped.
     layout:
       - { folder: ".", role: public-function, extensions: [.ps1], shipped: false }
       - { folder: ".", role: manifest, extensions: [.psd1], live: false, shipped: false }

@@ -82,8 +82,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The globs, relative to a module root, that place the live files: the live rows' patterns.
     public IReadOnlyList<string> LivePatterns() => layout.Where(r => r.live).SelectMany(r => r.Patterns()).ToArray();
 
-    // The row of the layout that places a file, given its '/'-separated path relative to the module root, or null when no row does: a
-    // file at the root is placed by the root row of its extension, a file below a folder by the row that names the folder.
     public LayoutRow PlaceOf(string relativePath)
     {
         if (string.IsNullOrEmpty(relativePath)) { return null; }
@@ -471,9 +469,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         return language;
     }
 
-    // A language's layout rows: { folder, role, extensions, live, shipped }. A row at the module root ('.') lists the extensions it places,
-    // all among the language's own; any other row places every file in its folder. live and shipped default to true, the default every
-    // language row takes; only the shared tests row differs, and it is declared on LayoutRow.
     private static List<LayoutRow> ReadLayout(string name, List<string> languageExtensions, object value, List<string> errors)
     {
         List<LayoutRow> rows = new List<LayoutRow>();

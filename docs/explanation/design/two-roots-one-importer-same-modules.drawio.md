@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d24fa4696f79
+    with_body_sha: "4f6b96672c84"
     repo_status: clean
     path: docs/explanation/design/two-roots-one-importer-same-modules.drawio.md
     folder: docs/explanation/design

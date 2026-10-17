@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b407925348ec
+    with_body_sha: bd5d9f270053
     repo_status: clean
     path: docs/explanation/azure/one-reverse-lookup-feeds-every-module.drawio.md
     folder: docs/explanation/azure

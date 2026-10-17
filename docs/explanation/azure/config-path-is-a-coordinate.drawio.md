@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9977ae20d43e"
+    with_body_sha: "739dd6202956"
     repo_status: clean
     path: docs/explanation/azure/config-path-is-a-coordinate.drawio.md
     folder: docs/explanation/azure

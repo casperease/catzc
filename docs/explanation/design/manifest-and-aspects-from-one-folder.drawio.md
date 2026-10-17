@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "82e440930b70"
+    with_body_sha: eac6a0e284d5
     repo_status: clean
     path: docs/explanation/design/manifest-and-aspects-from-one-folder.drawio.md
     folder: docs/explanation/design

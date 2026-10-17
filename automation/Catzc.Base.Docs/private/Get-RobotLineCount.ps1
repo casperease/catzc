@@ -16,6 +16,7 @@ catzc:
     catzc_bundle: azure
     visibility: private
   edges:
+    page: docs/references/automation/catzc-base-docs/private/Get-RobotLineCount.ps1.md
     cites:
       - ADR-REPO-AGENTS#{6,8}
   config:
@@ -57,9 +58,6 @@ function Get-RobotLineCount {
     Assert-PathExist $Path
 
     $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($Path), $Key)
-    # A line counts when it starts something of its own: a key, a heading, a step, a paragraph. A line that starts with
-    # whitespace continues the line before it (the formatter's wrap at the repository width, or a folded YAML value) and
-    # counts with it; a blank line and a comment line (`<!-- -->`) count as nothing.
     $front = @($document.OtherFrontMatter | Where-Object { $_ -cmatch '^\S' }).Count
     $body = @(($document.Body -split "`r?`n") | Where-Object { $_ -cmatch '^\S' -and $_ -cnotmatch '^<!--' }).Count
     [pscustomobject]@{ Body = $body; Capability = $front + $body }
