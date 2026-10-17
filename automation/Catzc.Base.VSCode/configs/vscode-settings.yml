@@ -126,6 +126,11 @@ settings:
     "**/.markdownlintignore": ignore
     "**/out/**/*.log": ansi
 
+  # A catzc config named like a SchemaStore file (azure.yml matches the azd schema, which demands `name`) is checked by its config type, so a schema that allows anything wins over the store.
+  yaml.schemas:
+    ./.vscode/any.schema.json:
+      - "**/azure.yml"
+
   workbench.editorAssociations:
     "*.drawio.png": imagePreview.previewEditor
 
