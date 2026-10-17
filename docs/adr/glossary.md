@@ -2,7 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6fdbade1deab"
-    with_inputs_sha: "3438cf61e1ac5b09af4aae744ee8e15116a9c19773b9b3f62b10dd5f48537a13"
+    with_inputs_sha: "01e6fbfa9a6eb29202535113b5bb21fb44317cd4ac1e84b2d0cf9fdb6f6d101e"
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -598,7 +598,7 @@ tests; each is a member of the one generated uv workspace.
 
 ### quality gate
 
-A gate checking one property of the whole repository automatically — one Test-<subject> function that reports through
+A gate checking one property of the whole repository automatically — one Test-<\subject> function that reports through
 Write-QualityGateReport and throws once with every issue.
 
 - **Defined by:** [ADR-AUTO-TEST#35](automation/test-automation.md#rule-adr-auto-test35)

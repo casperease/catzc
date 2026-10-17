@@ -69,11 +69,19 @@ function Get-HelpHeadFinding {
                 else {
                     $_
                 } }) -join "`n")
-    $config = if ($yaml.Trim().Length -gt 0) {
-        ConvertFrom-Yaml -Yaml $yaml -Ordered
-    }
-    else {
-        [ordered]@{}
+    $config = [ordered]@{}
+    if ($yaml.Trim().Length -gt 0) {
+        try {
+            $config = ConvertFrom-Yaml -Yaml $yaml -Ordered
+        }
+        catch {
+            $inner = $_.Exception
+            while ($inner.InnerException) {
+                $inner = $inner.InnerException
+            }
+            $findings.Add("the head's config does not parse as YAML ($($inner.Message.TrimEnd('.'))): quote a value that holds a colon and a space")
+            return [string[]] $findings.ToArray()
+        }
     }
     if ($config -isnot [System.Collections.IDictionary]) {
         $findings.Add('the head''s config part is not a map')

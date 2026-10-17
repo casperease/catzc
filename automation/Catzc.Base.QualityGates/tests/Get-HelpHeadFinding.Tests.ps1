@@ -74,6 +74,13 @@ Describe 'Get-HelpHeadFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP#4' {
         (& $script:find (& $script:file $config)) | Should -Contain 'outputs documents [int] but [OutputType] declares [string]'
     }
 
+    It 'reports a config that does not parse as YAML instead of throwing' {
+        $config = @('    synopsis: Returns a gadget.', '    parameters:', '      Name: The name. Default: every gadget.')
+        $found = & $script:find (& $script:file $config)
+        @($found | Where-Object { $_.StartsWith("the head's config does not parse as YAML (") }) | Should -HaveCount 1
+        $found[0] | Should -Match 'quote a value that holds a colon and a space$'
+    }
+
     It 'reports a line made of nothing but a citation' {
         $config = @('    synopsis: Returns a gadget.', '    description: |-', '      Does the thing.', '      [ADR-WIDGET-GADGET#3](/docs/adr/widget/gadget.md#rule-adr-widget-gadget3)', '    parameters:', '      Name: The name.')
         (& $script:find (& $script:file $config)) | Should -Contain 'the help text description holds a line made of a citation or a page link, which the head derives'
