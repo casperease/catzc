@@ -70,8 +70,24 @@ function Invoke-FileMetaEngine {
 
         # A sidecar carrier keeps the block in the Markdown file beside the file, which is in scope on its own, so only its presence is checked.
         if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Sidecar) {
-            $sidecar = $entry.Carrier.sidecar.Replace('{base}', $file.Substring(0, $file.LastIndexOf('.')))
-            if (-not [System.IO.File]::Exists((Join-Path $RepositoryRoot $sidecar))) {
+            $name = [System.IO.Path]::GetFileName($file)
+            $name = $name.Substring(0, $name.IndexOf('.'))
+            $segments = $name -split '--'
+            $stem = $name
+            if ($segments.Count -ge 3) {
+                $stem = $segments[1..($segments.Count - 2)] -join '--'
+            }
+            $sidecar = $entry.Carrier.sidecar.Replace('{base}', $file.Substring(0, $file.LastIndexOf('.'))).Replace('{stem}', $stem)
+            $exists = if ($sidecar.Contains('*')) {
+                # One folder level may be a wildcard: the description is found in whichever folder beside the article holds it.
+                $before, $after = $sidecar -split '\*', 2
+                $root = Join-Path $RepositoryRoot $before
+                [System.IO.Directory]::Exists($root) -and @([System.IO.Directory]::GetDirectories($root)).Where({ [System.IO.File]::Exists($_ + $after) }).Count -eq 1
+            }
+            else {
+                [System.IO.File]::Exists((Join-Path $RepositoryRoot $sidecar))
+            }
+            if (-not $exists) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'MissingSidecar'; Actual = 'no file'; Expected = $sidecar })
             }
             [pscustomobject]@{ Path = $file; Findings = $findings; Fixed = $null }

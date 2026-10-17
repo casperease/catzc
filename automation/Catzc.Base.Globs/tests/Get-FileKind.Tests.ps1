@@ -40,6 +40,10 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Path = 'tools/export.py'; Class = 'script' }
         @{ Path = 'docs/.assets/explanation/widget-flow.drawio.png'; Class = 'diagram' }
         @{ Path = 'docs/.assets/explanation/grid/widget-flow.grid.md'; Class = 'asset-description' }
+        @{ Path = 'docs/explanation/.assets/adr-widget-flow--gadget-spins--meta.drawio.png'; Class = 'diagram' }
+        @{ Path = 'docs/explanation/.assets/grid/adr-widget-flow--gadget-spins--meta.grid.md'; Class = 'asset-description' }
+        @{ Path = 'docs/explanation/design/gadget-spins.drawio.md'; Class = 'asset-description' }
+        @{ Path = 'docs/explanation/design/gadget-spins.md'; Class = 'explanation' }
         @{ Path = 'docs/adr/index.md'; Class = 'index' }
         @{ Path = 'docs/adr/glossary.md'; Class = 'glossary' }
         @{ Path = 'docs/adr/repository/file-meta.md'; Class = 'adr' }

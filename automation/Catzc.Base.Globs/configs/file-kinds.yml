@@ -140,6 +140,18 @@ kinds:
   adr:
     definition: A decision record whose numbered rules the code follows.
     files: ["docs/adr/**"]
+  # The diagram kinds come before the two trees they live in, so the first match names a diagram or a description, not a page.
+  diagram:
+    definition: A diagram image of the documentation, drawn in the diagram editor or rendered from a description.
+    files: ["docs/.assets/**/*.png", "docs/explanation/.assets/**/*.png", "docs/references/.assets/**/*.png"]
+  asset-description:
+    definition: The description of a diagram, beside the article it illustrates, and the pages of its minimaps.
+    files:
+      - "docs/.assets/**/*.md"
+      - "docs/explanation/.assets/**/*.md"
+      - "docs/explanation/**/*.drawio.md"
+      - "docs/references/.assets/**/*.md"
+      - "docs/references/**/*.drawio.md"
   reference:
     definition: A reference page that states facts for lookup.
     files: ["docs/references/**"]
@@ -149,12 +161,6 @@ kinds:
   explanation:
     definition: A page that explains why something works as it does.
     files: ["docs/explanation/**"]
-  diagram:
-    definition: A diagram image of the documentation, drawn in the diagram editor or rendered from a description.
-    files: ["docs/.assets/**/*.png"]
-  asset-description:
-    definition: The description that sits beside a diagram.
-    files: ["docs/.assets/**/*.md"]
   readme:
     definition: The README of a folder.
     files: ["**/README.md"]

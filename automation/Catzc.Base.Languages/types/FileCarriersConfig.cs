@@ -172,7 +172,7 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
         Require(errors, id, carrier == CarrierKind.FrontMatter || keyPath == null, "key belongs to a front-matter carrier");
         Require(errors, id, keyPath == null || Catzc.Base.MarkdownMeta.MarkdownDocument.IsKeyPath(keyPath), "key is a dotted path of plain keys ending in " + DefaultKey + " (e.g. metadata." + DefaultKey + ")");
         Require(errors, id, carrier == CarrierKind.Property ? !string.IsNullOrEmpty(property) : property == null, "property is required, and only allowed, for a property carrier");
-        Require(errors, id, carrier == CarrierKind.Sidecar ? (sidecar != null && sidecar.Contains("{base}")) : sidecar == null, "sidecar is required, and only allowed, for a sidecar carrier, and names {base}");
+        Require(errors, id, carrier == CarrierKind.Sidecar ? (sidecar != null && (sidecar.Contains("{base}") || sidecar.Contains("{stem}"))) : sidecar == null, "sidecar is required, and only allowed, for a sidecar carrier, and names {base} or {stem}");
         Require(errors, id, carrier == CarrierKind.None ? !string.IsNullOrEmpty(reason) : reason == null, "reason is required, and only allowed, when the carrier is none");
         Require(errors, id, carrier != CarrierKind.Sidecar || files.Length > 0, "a sidecar carrier selects its files with files");
         if (errors.Count > before) { return null; }

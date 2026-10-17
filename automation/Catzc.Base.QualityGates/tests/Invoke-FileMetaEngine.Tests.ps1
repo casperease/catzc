@@ -30,6 +30,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
                     markdown   = @{ carrier = 'front-matter' }
                     json       = @{ carrier = 'property'; property = '//'; strip = @('GENERATED FILE') }
                     picture    = @{ files = @('**/*.pic'); carrier = 'sidecar'; sidecar = '{base}.md' }
+                    chart      = @{ files = @('**/*.chart'); carrier = 'sidecar'; sidecar = 'docs/pages/*/{stem}.chart.md' }
                     skill      = @{ files = @('docs/skills/**/SKILL.md'); carrier = 'front-matter'; key = 'metadata.catzc' }
                 }
             })
@@ -38,6 +39,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $script:nested = $carriers.Find('skill')
         $script:property = $carriers.Find('json')
         $script:sidecar = $carriers.Find('picture')
+        $script:stemSidecar = $carriers.Find('chart')
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
                 kinds = [ordered]@{
                     'widget-function' = [ordered]@{ definition = 'A widget function.'; files = @('automation/**/*.ps1') }
@@ -191,6 +193,19 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $result.Files[0].Path | Should -Be 'docs/gadget.pic'
         $result.Files[0].Findings[0].Kind | Should -Be 'MissingSidecar'
         $result.Files[0].Findings[0].Expected | Should -Be 'docs/gadget.md'
+    }
+
+    It 'finds a stem sidecar in the one folder beside the article that holds it' {
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/pages/flow')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/pages/flow/gadget-spins.chart.md'), "# Gadget`n")
+        $result = & $script:run @(
+            [pscustomobject]@{ Path = 'docs/art/adr-widget--gadget-spins--meta.chart'; Carrier = $script:stemSidecar }
+            [pscustomobject]@{ Path = 'docs/art/adr-widget--sprocket-turns--meta.chart'; Carrier = $script:stemSidecar }
+        )
+        @($result.Files).Count | Should -Be 1
+        $result.Files[0].Path | Should -Be 'docs/art/adr-widget--sprocket-turns--meta.chart'
+        $result.Files[0].Findings[0].Kind | Should -Be 'MissingSidecar'
+        $result.Files[0].Findings[0].Expected | Should -Be 'docs/pages/*/sprocket-turns.chart.md'
     }
 
     It 'checks the entries it is handed, and never asks for a scope of its own' {

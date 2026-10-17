@@ -185,6 +185,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
         It 'needs a sidecar template that names {base}, and the files it covers' {
             { & $script:one ([ordered]@{ carrier = 'sidecar'; files = @('a/*.png'); sidecar = 'notes.md' }) } | Should -Throw '*names {base}*'
             { & $script:one ([ordered]@{ carrier = 'sidecar'; sidecar = '{base}.md' }) } | Should -Throw '*selects its files with files*'
+            { & $script:one ([ordered]@{ carrier = 'sidecar'; files = @('a/*.png'); sidecar = 'docs/*/{stem}.md' }) } | Should -Not -Throw
         }
 
         It 'rejects a bad id, a duplicate file glob and a non-map entry' {

@@ -1,11 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "83074c031e6c"
+    with_body_sha: "49faedd8975e"
     repo_status: clean
-    path: docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md
-    folder: docs/.assets/explanation
-    name: adr-dsgn-life-sync-from-the-last-certified-commit-meta-drawio
+    path: docs/explanation/design/sync-from-the-last-certified-commit.drawio.md
+    folder: docs/explanation/design
+    name: sync-from-the-last-certified-commit-drawio
     filetype: md
     kind: asset-description
     language: markdown
@@ -13,10 +13,10 @@ catzc:
     tracktype: documentation
   edges:
     links:
-      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
-      - docs/.assets/explanation/chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
-      - docs/.assets/explanation/grid/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md
-      - docs/.assets/explanation/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
+      - docs/explanation/.assets/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
+      - docs/explanation/.assets/chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
+      - docs/explanation/.assets/grid/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
       - docs/explanation/design/sync-from-the-last-certified-commit.md
       - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
       - docs/references/automation/catzc-base-maps.md
