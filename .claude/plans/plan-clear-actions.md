@@ -87,7 +87,7 @@ skipped and named in the report.
 - [x] `value-of-plan.md`: rows for the seven unlisted plans (plan-master, plan-fast-push-followups, plan-skip-unchanged-generators,
       plan-csproj-xml-head, plan-idle-compaction, plan-assets-gallery-pdf in the meta table; plan-assert-wait in the feature table), each
       head's `value` matching its row; the next-funnel line under "Decision round". Check: `ls plan-*.md` against the table finds no plan
-      without a row; `Test-Links` clean (report in task003).
+      without a row; `Test-Links` clean (report path in the git history of task003.md, deleted as done).
 - [ ] After the user's level-2 gate run: delete `plan-bounded-folder-enumeration.md` and `prompt-bounded-folder-enumeration-continue.md`
       (check: both files gone, `Test-Links` clean on `.claude/plans`).
 - [ ] `out/test-links/20261016-2012*`: the 36 report folders of the verdict pass are gate output; clear them when the user agrees (check:

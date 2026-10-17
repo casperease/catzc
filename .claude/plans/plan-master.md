@@ -49,41 +49,27 @@ stay the durable record; task files and this master are derived from them and ca
 
 ## Chunks
 
-- T001 -> task001.md (done 2026-10-17): re-point the dangling links in six plan files; the tree already held the re-pointed links, all
-  six checks clean.
-- T002 -> task002.md (done 2026-10-17): a check on every open step; plan-shape for the four numbered-step plans; small plan fixes.
-- T003 -> task003.md (done 2026-10-17; the three prompt deletions are the user's git rm): value-of-plan.md rows for the unlisted plans;
-  prompt deletions after diff; questionnaire trim (nothing removable under the rule).
+- T001 to T003: done 2026-10-17, task files deleted (folder hygiene: links re-pointed, a check on every step, value rows, prompts deleted).
 - T004 -> task004.md (open): the decision round over every open question (plan-decide, items D01 to D16).
-- T005 -> task005.md (done 2026-10-17; the agent-contracts page deletion is the user's git rm): register ADR-AI; fold the
-  agent-contracts page into it. D14 answered by the user: keep ADR-AI; AdrsConfig now accepts one-segment codes, which ADR-CATS (T006) uses.
-- T006 -> task006.md (done 2026-10-17): write ADR-CATS in principles with five rules; glossary cats and catzc; clear the two waits_on
-  lines. The new ADR file is untracked until the user commits, so its head has no body sha yet and links to it report `[Untracked]`.
-- T007 -> task007.md (done 2026-10-17): body-sha Phase 0, the hash only on generated tracked files; FILEMETA#3 and #7. The stamp check
-  is in Test-GeneratedFiles; the 444 minimap pages and the compiled manifest are unstamped until their writers write a head (open steps in
-  plan-plans-body-sha-landing-zone, the minimap re-render on the user's ask).
-- T008 -> task008.md (done 2026-10-17 except step 4, the user's git rm, and the tick that follows it): the .unordered binding audit (12
-  code files, 299 markdown mentions) and the deletion script `out/delete-unordered-15-10-2026.ps1` for the 20 finished plans.
+- T005 to T008: done 2026-10-17, task files deleted (ADR-AI registered and the agent-contracts page folded in; ADR-CATS; body-sha Phase 0
+  with the stamp check in Test-GeneratedFiles; the .unordered audit and its deletion, run by the user).
 - T009 -> task009.md (open; after T008): tracks.md rule 17 rewritten, four glossary terms, Import-RepositoryWithHistory with tests, the
   sorting how-to.
-- T010 -> task010.md (done 2026-10-17; the one clause left, citing the landing-zone terms in CLAUDE.md, follows T009): ADR-REPO-PLANS
-  with nine rules, ADR-REPO-FOLDERS#12, ADR-REPO-VOCAB#9, the Test-Plans gate and its registry, plan-clear's checks, the CLAUDE.md plans
-  line.
+- T010: done 2026-10-17, task file deleted (ADR-REPO-PLANS, ADR-REPO-FOLDERS#12, ADR-REPO-VOCAB#9, the Test-Plans gate); one clause is
+  left and follows T009: the CLAUDE.md plans line cites the landing-zone terms.
 
 - T011 -> task011.md (open; steps 3 read, 4, 5, 6, 8 done 2026-10-17; D01 to D05 and the user's run for the rest): module model
   close-out, the rule 6 funnel (after D03), infrastructure track (a design step in plan-module-kinds-tracks), waits_on cleared.
 - T012 -> task012.md (open; after T011): kind becomes role through the registry and generators; tracks.md rule 19 one primary language;
   WorldMapBuilder links; Test-ShippedTypes; the namespace line.
-- T013 -> task013.md (done 2026-10-17; the three deletions are the user's git rm): minimal robots Phase 5 measured from the files, the
-  seven shape rules reconciled with ADR-REPO-AGENTS 6 to 10 (none missing), the catalogues closed, the overlay rows replaced by a Deleted line.
+- T013: done 2026-10-17, task file deleted (minimal robots Phase 5 measured, the three robot plans deleted).
 - T014 -> task014.md (open; after T011): config defaults Phase 1, VariantsConfig constants, getters lose -Default.
 - T015 -> task015.md (open; after T006 and T014): the .catzc fragment, config without a shipped file, Build-ConfigDefaultsContract.
 - T016 -> task016.md (open; after T015): every typed config into a posture, the NoLiteralDefault analyzer rule, five ADR amendments, the
   assert ladder, three glossary terms.
 
-- T017 -> task017.md (done 2026-10-17): layers P0 baseline and P1 doctrine: ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, the layer key, seven
-  glossary terms (role waits for T012, module exists, the retired forms wait for P6), the four term collisions, engines renamed formatters,
-  Test-AdrEngineNeutrality extended.
+- T017: done 2026-10-17, task file deleted (layers P0 baseline and P1 doctrine: ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, the glossary terms,
+  engines renamed formatters; the retired forms wait for P6).
 - T018 -> task018.md (open; after T011): layers P2 funnel: one bootstrap constant, about 45 sites onto the resolvers, S4 identifiers, the
   NoTrackRootLiteral guard.
 - T019 -> task019.md (open; P4 and P6 on the user's go, D10): P3 classification table and ADR wording drafts; P4 the flip by the user; P5
@@ -91,8 +77,8 @@ stay the durable record; task files and this master are derived from them and ca
 - T020 -> task020.md (open; C1, C2 and C4 done 2026-10-17; C3 waits for the user's answer to the pilot list; C5 and C6 after it, never
   inside the P4 window): command contracts: ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats
   validation, public functions made internal.
-- T021 -> task021.md (done 2026-10-17; the `note` kind no tracked file reaches is the user's question): class selectors with a zero-change
-  dry-run proof, the overlaps list and the strengthened reachability test, head.schema.json with tracktype and vendor.
+- T021: done 2026-10-17, task file deleted (class selectors proven by a zero-change dry run, the overlaps list and the strengthened
+  reachability test, the head schema keys); the `note` kind no tracked file reaches is the user's question.
 - T022 -> task022.md (open; D13 for one step, the rest done 2026-10-17): file head leftovers: note term, ASSETDEP reading, .compiled
   formatting, module-types.yml typo, spelling, four gate reports attributed.
 

@@ -162,7 +162,7 @@ by naming which of the 439 public functions are contracted. Every later plan spe
       and its section renamed in the engine ADR and the three test-artifact ADRs, `languages.yml` `engines:` renamed `formatters:` with
       LanguagesConfig, Format-Code, the root-config generator and their tests; Test-AdrEngineNeutrality gained the pipeline and item cmdlets
       and the engine's common parameters as tokens. Check: Test-AdrRegistry, Test-AdrEngineNeutrality, Test-Terminology clean; Test-Glossary
-      reports no finding on the touched files (verdicts in task017).
+      reports no finding on the touched files (verdicts in the git history of task017.md, deleted as done).
 - [ ] P2 (check: guard rule gate). P3 (check: classification table, then stop).
 - [ ] P4 on the user's go (check: full baseline green again). P5 to P8 per the master plan.
 - [ ] P7 command contracts, task020: C1 the ADR, C2 the kind and checker, C4 the reader and the signature column landed 2026-10-17

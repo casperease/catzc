@@ -20,6 +20,7 @@ catzc:
   edges:
     cites:
       - ADR-DSGN-LIFE#11
+      - ADR-REPO-PLANS#8
 ---
 
 # Value of each plan
@@ -90,6 +91,14 @@ next:
 
 ## Deleted 2026-10-17, and why
 
+- plan-adr-ai: ADR-AI is written, registered and named once (agents.yml `contracts`, the CLAUDE.md line); the agent-contracts page is
+  folded into its Context; D14 kept the one-segment code. No open step.
+- plan-adr-cats: ADR-CATS with five rules in principles, the glossary terms cats and catzc, the decisions told to the two plans that waited.
+  No open step.
+- prompt-file-kinds-and-formatting-continue, prompt-file-kinds-registry-continue, prompt-head-path-split-continue: continuation prompts of
+  plans deleted on 2026-10-16; every item they named is a step of plan-file-head-immutable-edges-classes or done.
+- task001, task002, task003, task005, task006, task007, task008, task010, task013, task017, task021: done task files, disposable
+  executables (ADR-REPO-PLANS#8); their verdict lines live in the plans they ticked and in git.
 - plan-minimal-robots, plan-minimal-robots-agents, plan-minimal-robots-capabilities: the program landed (15 robots, 18 capabilities,
   ADR-REPO-AGENTS rules 6 to 10, the gate), and Phase 5 is measured in the program plan's own table (static context per robot from its files;
   no robot over 4,000 tokens). The three files are listed for the user's `git rm`; until then they hold no open step of their own.
