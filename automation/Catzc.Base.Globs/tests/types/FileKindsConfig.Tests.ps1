@@ -168,7 +168,7 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
                 }
                 [Catzc.Base.Globs.FileKindsConfig]::new($raw)
             }
-            $script:paths = @('widgets/a.txt', 'widgets/b.txt', 'gadgets/cog-1.txt', 'gadgets/x.txt', 'other/one.txt')
+            $script:paths = [string[]] @('widgets/a.txt', 'widgets/b.txt', 'gadgets/cog-1.txt', 'gadgets/x.txt', 'other/one.txt')
         }
 
         It 'has no overlaps by default, and reads the pairs in order' {
@@ -183,25 +183,25 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
             $shadows = @((New-Shadowed).Shadowing($script:paths))
             $shadows.Count | Should -Be 2
             $shadows[0].hidden | Should -BeExactly 'sprocket'
-            $shadows[0].by | Should -BeExactly 'widget'
+            $shadows[0].by | Should -BeExactly 'gadget'
             $shadows[0].taken | Should -Be 2
             $shadows[0].matched | Should -Be 5
-            $shadows[1].by | Should -BeExactly 'gadget'
+            $shadows[1].by | Should -BeExactly 'widget'
             $shadows[1].taken | Should -Be 2
         }
 
         It 'reports nothing for a listed pair, and nothing below the shadowed share' {
             @((New-Shadowed @(@('widget', 'sprocket'), @('gadget', 'sprocket'))).Shadowing($script:paths)).Count | Should -Be 0
-            @((New-Shadowed).Shadowing(@('widgets/a.txt', 'other/one.txt', 'other/two.txt'))).Count | Should -Be 0
-            @((New-Shadowed).Shadowing(@())).Count | Should -Be 0
+            @((New-Shadowed).Shadowing([string[]] @('widgets/a.txt', 'other/one.txt', 'other/two.txt'))).Count | Should -Be 0
+            @((New-Shadowed).Shadowing([string[]] @())).Count | Should -Be 0
         }
 
         It 'counts a subkind''s files as the kind''s own' {
-            @((New-Shadowed).Shadowing(@('gadgets/cog-1.txt', 'gadgets/cog-2.txt', 'gadgets/x.txt')) | Where-Object hidden -eq 'gadget').Count | Should -Be 0
+            @((New-Shadowed).Shadowing([string[]] @('gadgets/cog-1.txt', 'gadgets/cog-2.txt', 'gadgets/x.txt')) | Where-Object hidden -eq 'gadget').Count | Should -Be 0
         }
 
         It 'rejects <Name>' -ForEach @(
-            @{ Name = 'an overlap that is not a pair'; Overlaps = @(, @('widget')); Message = '*is a pair [earlier, later]*' }
+            @{ Name = 'an overlap that is not a pair'; Overlaps = @(, @('widget')); Message = '*an overlap is a pair*' }
             @{ Name = 'an overlap naming an undeclared kind'; Overlaps = @(, @('widget', 'cog')); Message = '*names a kind the registry does not declare*' }
             @{ Name = 'an overlap out of precedence order'; Overlaps = @(, @('sprocket', 'widget')); Message = '*not in precedence order*' }
             @{ Name = 'an overlap listed twice'; Overlaps = @(@('widget', 'sprocket'), @('widget', 'sprocket')); Message = '*listed twice*' }

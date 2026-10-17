@@ -64,10 +64,15 @@ each copy can drift. Below the module model plan because that plan decides what 
 
 ## Open steps
 
-- [ ] Class selectors in file-meta.yml, one kind at a time, go now (Q50) (check: that kind's processor test; Test-FileMeta clean).
-- [ ] Write the intended kind overlaps and strengthen FileKindReachability (Q41) (check: a shadowed kind fails the kinds tests).
+- [x] Class selectors in file-meta.yml, one kind at a time, go now (Q50) (check: that kind's processor test; Test-FileMeta clean). Done
+      before task021 read it (2026-10-17): every kind selects by `classes` or `languages`, `files` is gone from type and config, and the
+      whole-tree `Format-FileMeta -DryRun` reports `changes=0` (`out/t021-dryrun-before.txt`).
+- [x] Write the intended kind overlaps and strengthen FileKindReachability (Q41) (check: a shadowed kind fails the kinds tests). Done
+      2026-10-17 (task021): `overlaps:` in file-kinds.yml, `FileKindsConfig.Shadowing`, the L0 fixture tests and the L2 test; verdicts in
+      task021 step 8.
 - [ ] Add note as a glossary term (Q53) (check: Test-Glossary clean).
-- [ ] Re-read ADR-AUTO-ASSETDEP and confirm or move the asset kind (Q54) (check: the kinds tests).
+- [x] Re-read ADR-AUTO-ASSETDEP and confirm or move the asset kind (Q54) (check: the kinds tests). Decided 2026-10-17 (task022): the ADR
+      names `assets/` as a folder a module's code reads, not as a file kind, so `asset` stays a top-level kind of `file-kinds.yml`.
 - [x] Naming rule: prose may say PowerShell; identifiers use only pwsh (engine, folder) or powershell (language id) (Q45). Done
       2026-10-17 (task010): ADR-REPO-VOCAB#9 with its prose section (check: Test-Terminology, verdict in task010).
 - [ ] Read the formatting ADR on automation/.compiled and follow it (Q47) (check: Test-Formatting clean or the ADR amended).

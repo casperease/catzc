@@ -52,14 +52,25 @@ kind overlaps are written down and FileKindReachability fails on a shadowed kind
 5. [x] `Get-AdrCodesFileMetaFact` reads `domain_classes` and `held_classes` (the kind's `ClassSetting`); `relative-edges` rules select by
    `classes`. In the tree before this task.
 6. [x] `files` is gone from the type and the config. In the tree before this task.
-7. `docs/adr/repository/file-meta.md` rule 2 and `docs/adr/repository/code-meta.md` rule 3: a kind selects by class; file-kind is the one
-   glob list. Present tense. Also clear the Test-Markdownlint findings in file-meta.md. Check: Test-AdrRegistry, Test-Links,
-   Test-Markdownlint clean.
-8. Q41: `automation/Catzc.Base.Globs/configs/file-kinds.yml` gains an `overlaps:` list (declared once on the config type) naming each
+7. [x] `docs/adr/repository/file-meta.md` rule 2 and `docs/adr/repository/code-meta.md` rule 3: a kind selects by class; file-kind is the
+   one glob list. Present tense. Also clear the Test-Markdownlint findings in file-meta.md. Check: Test-AdrRegistry, Test-Links,
+   Test-Markdownlint clean. Done 2026-10-17 (correction: the file is `code-file-meta.md`, and both rules already said it; rule 2 and the
+   "File kinds" section gained the overlaps sentence, the enforcement list the reachability test): `LINKS file-meta issues=0`,
+   `MDLINT file-meta issues=0` (`out/test-links/20261017-193950`, `out/test-markdownlint/20261017-193951`), `ADRREG issues=0`
+   (`out/test-adr-registry/20261017-193951`).
+8. [x] Q41: `automation/Catzc.Base.Globs/configs/file-kinds.yml` gains an `overlaps:` list (declared once on the config type) naming each
    intended pair; `FileKindReachability.Tests.ps1` fails when a kind is mostly shadowed by an earlier one and the pair is not listed (how
-   drawio-kit hid). Check: a fixture with a shadowed kind fails; the real registry passes.
-9. `contracts/catzc/0.0.0` `head.schema.json` and `head.sample.yml`: `tracktype` and `vendor` added by hand (Q39). Check:
-   `Format-FileMeta.Contract.Tests` passes; Test-Contracts clean.
+   drawio-kit hid). Check: a fixture with a shadowed kind fails; the real registry passes. Done 2026-10-17: `FileKindsConfig.overlaps`
+   (`FileKindOverlap`, validated against the declared kinds and their order), `ShadowedPercent = 50` and `Shadowing(paths)` returning
+   `FileKindShadow` records (measured first: `out/t021-shadow.ps1`; fixture, asset, script, reference and explanation are the mostly
+   shadowed kinds, 16 pairs listed, `[slide, explanation]` found by the new test itself); the L0 fixture tests and the L2 test.
+   `[Invoke-TestFile] Passed` for FileKindsConfig.Tests (`out/test-file/20261017-194430-e95068`); FileKindReachability.Tests: the new
+   shadowing test passes, and the one failure is `note`, which no tracked file reaches since `.unordered` was emptied (the user's
+   deletion of 2026-10-17, not this task's). ADR-REPO-FILEMETA#2, its "File kinds" section and its enforcement list state the overlaps.
+9. [x] `contracts/catzc/0.0.0` `head.schema.json` and `head.sample.yml`: `tracktype` and `vendor` added by hand (Q39). Check:
+   `Format-FileMeta.Contract.Tests` passes; Test-Contracts clean. Done 2026-10-17 (correction: the key-set test also wanted `with_inputs_sha`
+   and `repo_status`, the generated-head keys, so four keys joined the schema and `repo_status` and `tracktype` the sample):
+   `[Invoke-TestFile] Passed` (`out/test-file/20261017-193927-ff97c5`), `CONTRACTS issues=0`.
 10. Tick the class-selector, reachability and schema steps in `plan-file-head-immutable-edges-classes.md`. Check: grep `- [ ]` counts the
     task022 leftovers only.
 

@@ -17,7 +17,7 @@ catzc:
     visibility: private
   edges:
     cites:
-      - ADR-REPO-CMDCONTRACT#{2,4}
+      - ADR-REPO-CMDCONTRACT#{1,2,4}
   config:
     synopsis: Checks a command contract against the command's file and returns the findings.
     description: |-

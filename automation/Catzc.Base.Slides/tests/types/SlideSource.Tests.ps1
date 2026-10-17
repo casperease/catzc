@@ -103,6 +103,13 @@ Say it plainly.
         ([Catzc.Base.Slides.SlideSource]::Parse("## Body`n`na")).Errors | Should -Contain 'a slide has a level-one heading, its title; none was found'
     }
 
+    It 'joins an indented continuation line to the list item above it, as a formatter wraps a long item' {
+        $wrapped = [Catzc.Base.Slides.SlideSource]::Parse("# T`n`n## Cards`n`n- **Pin** Another trunk pins the widget and`n  controls when it changes.`n- **Clone** A team clones it.")
+        $wrapped.Fields['cards'].Items.Count | Should -Be 2
+        $wrapped.Fields['cards'].Items[0].Text | Should -Be 'Another trunk pins the widget and controls when it changes.'
+        $wrapped.Fields['cards'].Items[1].Lead | Should -Be 'Clone'
+    }
+
     It 'reads a Windows-ended text the same as a Unix-ended one' {
         $windows = [Catzc.Base.Slides.SlideSource]::Parse($script:body.Replace("`n", "`r`n"))
         $windows.Fields['body'].Items.Count | Should -Be 2

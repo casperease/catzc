@@ -75,6 +75,14 @@ concepts:
       - { phrase: current occupant, say: occupant (the <environment> occupant) }
       - { phrase: current occupants, say: occupants }
       - { phrase: resident commit, say: occupant }
+  note:
+    key: note
+    domain: design
+    defined_by: ADR-DSGN-TRACK#17
+    short:
+      A fragment frozen at the moment it was committed, kept in the unordered track and no part of the system — the file kind of everything
+      that track holds.
+    realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Globs/configs/file-kinds.yml" }
   track:
     key: track
     domain: design

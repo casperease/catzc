@@ -309,6 +309,9 @@ terms:
     - term: auth
       meaning: "authentication / authorization"
       expands_to: "authentication"
+    - term: cmdb
+      meaning: "CMDB — the configuration management database the product thesis contrasts with the repository"
+      expands_to: "configuration management database"
     - term: LOCAL
       meaning: "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK#15)"
       expands_to: "automation"
@@ -874,6 +877,16 @@ terms:
   tool:
     - term: csharp
       meaning: "C# (the csharp language / file token)"
+    - term: msbuild
+      meaning: "MSBuild, the .NET build engine whose project files the csproj carrier describes"
+    - term: vsixmanifest
+      meaning: "the extension.vsixmanifest file inside a VS Code extension package (Build-VSCodeExtension)"
+    - term: ildasm
+      meaning: "ildasm, the .NET IL disassembler quoted in the unboxing reference"
+    - term: editmsg
+      meaning: "COMMIT_EDITMSG, the file Git writes the commit message to (vscode-settings.yml)"
+    - term: diagnoser
+      meaning: "the Diagnoser half of BenchmarkDotNet's MemoryDiagnoser, quoted in the unboxing reference"
     - term: claudecode
       meaning: "the CLAUDECODE environment variable Claude Code sets in its shells (Test-IsRunningAsAgent)"
     - term: regexrobin
@@ -1009,6 +1022,14 @@ terms:
   platform:
     - term: clr
       meaning: "the Common Language Runtime (CLR)"
+    - term: isinst
+      meaning: "the isinst CIL instruction, quoted in the unboxing reference"
+    - term: apos
+      meaning: "the &apos; HTML character reference SlidePattern decodes"
+    - term: watchpoint
+      meaning: "a watchpoint — a place where Assert-Wait stands to show where a thread or process may be blocked"
+    - term: watchpoints
+      meaning: "the plural of watchpoint"
     - term: consolas
       meaning: "the Consolas monospace font (the VS Code markdown-preview font in vscode-settings.yml)"
     - term: chdir

@@ -214,6 +214,14 @@ public sealed class SlideSource
                 continue;
             }
 
+            // An indented line under a list item continues that item, as a formatter wraps a long item.
+            if (isList && paragraph.Count == 0 && items.Count > 0 && char.IsWhiteSpace(raw[0]))
+            {
+                SlideItem last = items[items.Count - 1];
+                items[items.Count - 1] = new SlideItem(last.Lead, (last.Text + " " + PlainText(line)).Trim());
+                continue;
+            }
+
             paragraph.Add(line.Trim());
         }
 

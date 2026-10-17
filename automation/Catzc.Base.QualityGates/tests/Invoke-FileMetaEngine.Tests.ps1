@@ -143,7 +143,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $spin = $result.Files | Where-Object Path -EQ 'docs/skills/widget-spin/SKILL.md'
         $spin.Findings.Kind | Should -Be @('Drift')
         $spin.Fixed | Should -BeLike "---`nname: widget-spin`nmetadata:`n  catzc:`n    immutable:`n      path: docs/skills/widget-spin/SKILL.md*    config:`n      floor: low`n---`n1. Spin.`n"
-        $spin.Fixed | Should -Not -BeLike "*`ncatzc:*" -Because 'the block lives at metadata.catzc and nowhere else'
+        $spin.Fixed | Should -Not -BeLike ("*`n" + 'catzc:*') -Because 'the block lives at metadata.catzc and nowhere else'
         $flow = $result.Files | Where-Object Path -EQ 'docs/skills/widget-flow/SKILL.md'
         $flow.Findings.Kind | Should -Be @('Unowned')
         $flow.Findings[0].Actual | Should -BeLike '*metadata.catzc holds a flow or scalar value*'
