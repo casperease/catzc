@@ -41,16 +41,15 @@ links. The target puts the description beside the article it describes and gives
   verification record under `docs/references/.assets/automation/<module>/`; a `reference-diagram` carrier class finds the description;
   ADR-REPO-FOLDERS#5 and the conventional-folders text name the new layout. Invoke-FileMetaEngine checks that a file exists before it
   looks for its sidecar, so an unstaged move raises no false finding.
+- The kit works from the new locations (defaults, STYLE.md, migrate_dark.py): drawio_forward.py --minimaps on a moved slide ends ok; its
+  pages differ from the committed ones only by link depth in a scratch folder and by a file another session added since. The engine
+  carries a test for a file the working tree lost (2026-10-17).
 - A sidecar carrier takes a `{stem}` token and one wildcard folder (`docs/explanation/*/{stem}.drawio.md`); the diagram and
   asset-description kinds come before the explanation and reference kinds; the generated-minimap marks in `.gitattributes` match any
   `.assets` under docs; the glyph library is listed in the carrier exclusions because it has no article.
 
 ## Open steps
 
-- [ ] Teach the kit the new locations: the defaults of `minimaps/render.py` and `minimaps/join.py`, the drawio_forward.py text, the
-      explanation lines of STYLE.md and migrate_dark.py are changed (the ADR codes come from the model's labels and file name, so a moved
-      description does not break the rebuild); left: the reference lines of STYLE.md, and gallery_pdf.py `--assets`, which pairs a PNG with
-      a description beside it (check: drawio_forward.py on a slide with --minimaps writes the moved files with no diff).
 - [ ] gallery_pdf.py `--assets` pairs a PNG with a description beside it, and the descriptions now sit beside the articles; teach it the
       lookup or retire the mode (check: the mode runs on docs/explanation/.assets and includes the descriptions, or is gone from STYLE.md).
 - [ ] The `FileCarrierResolver` shipped-registry test fails on its test-file exclusion line (the shipped powershell carrier lists no

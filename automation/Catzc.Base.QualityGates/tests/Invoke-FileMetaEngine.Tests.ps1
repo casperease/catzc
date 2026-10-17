@@ -211,6 +211,15 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $result.Files[0].Findings[0].Expected | Should -Be 'docs/pages/*/sprocket-turns.chart.md'
     }
 
+    It 'skips a sidecar carrier file the working tree has lost, a deletion not yet staged, with no finding' {
+        $result = & $script:run @(
+            [pscustomobject]@{ Path = 'docs/lost/gone.pic'; Carrier = $script:sidecar }
+            [pscustomobject]@{ Path = 'docs/art/adr-widget--gone--meta.chart'; Carrier = $script:stemSidecar }
+        )
+        $result.FileCount | Should -Be 2
+        @($result.Files).Count | Should -Be 0
+    }
+
     It 'checks the entries it is handed, and never asks for a scope of its own' {
         Mock Get-FileMetaScope { throw 'the scope must not be asked for' } -ModuleName Catzc.Base.QualityGates
         $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $script:config; Entries = @($script:entries[0]) } {

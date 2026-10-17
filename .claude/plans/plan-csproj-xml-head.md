@@ -1,9 +1,8 @@
 ---
 plan:
-  status: blocked
+  status: active
   value: low
   reviewed: 2026-10-17
-  blocked_on: Q1, the editor load of Catzc.Types.csproj is not yet confirmed
   targets:
     [
       automation/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml,
@@ -42,14 +41,13 @@ catzc:
 - `PropertyHead` (`Catzc.Base.CodeMeta`) reads and writes that form beside its JSON form, with six L0 tests in `PropertyHead.Tests.ps1`.
 - `.gitattributes` (from `assets/root/.gitattributes`) marks the file `linguist-generated` and `eol=lf`.
 - Checked: `PropertyHead.Tests.ps1` (20), `Test-FileMeta` on the file, `Test-RootConfigIntegrity`, `Test-GeneratedFileCurrent`,
-  `FileCarriersConfig.Tests.ps1`, `Test-RootConfigFiles`, and `dotnet build` of the project (succeeds).
+  `FileCarriersConfig.Tests.ps1`, `Test-RootConfigFiles`, and `dotnet build` of the project (succeeds), and the project opens in the editor with no load error (2026-10-17 screenshot).
 
 ## Open
 
-- **Q1.** Open the project in the editor after a window reload and confirm `MSB4025` is gone.
-- **Q2.** The `PropertyHead` page under `docs/references/automation/catzc-base-codemeta/types/` and the `Format-PropertyMetaHead` and
+- **Q1.** The `PropertyHead` page under `docs/references/automation/catzc-base-codemeta/types/` and the `Format-PropertyMetaHead` and
   `Get-PropertyMetaState` help still describe a JSON-only head; bring them to the XML form.
-- **Q3.** Four tests in `Build-RootConfig.Tests.ps1` compare an exact head text and fail; they are about fixture files. Run them against
+- **Q2.** Four tests in `Build-RootConfig.Tests.ps1` compare an exact head text and fail; they are about fixture files. Run them against
   the tree without this change to learn whether they failed before it.
 - The index holds one `automation/.compiled/Catzc.Types.<hash>.dll`; it goes stale at every `types/*.cs` edit, and staging it is the
   user's.
