@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: df05a26e2129
-    with_inputs_sha: "88ee776418890e37a0ba1d49077e04c5532b52c27cdbb3e46f4b3b4cb261a510"
+    with_body_sha: ced0823939ba
+    with_inputs_sha: f06b9762e3ea3c96c6d5376765066eca623a7209b6ae424d268227b1777a5e30
     repo_status: locked
     path: docs/references/contracts/EXTERNAL-azure.md
     source: contracts/EXTERNAL-azure
@@ -31,6 +31,22 @@ Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contract
 ## 0.0.0
 
 The draft: the one mutable version folder ([ADR-REPO-CONTRACT#5](../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
+
+| Module                  | Asset                                                | Target                                                                    | Direction   | Kind   |
+| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ----------- | ------ |
+| `Catzc.Azure.Templates` | `tests/assets/parameter-model/main.json.schema.json` | `automation/Catzc.Azure.Templates/tests/assets/parameter-model/main.json` | depended-on | schema |
+
+Notes:
+
+- `Catzc.Azure.Templates/tests/assets/parameter-model/main.json.schema.json`: Depended-on schema of a compiled ARM template
+  (ADR-REPO-CONTRACT#6): the skeleton Azure Resource Manager reads, kept local so an editor and a gate need no download. vendor: azure.
+  source: <https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json> (the full schema, 186 KB, refs hundreds of
+  per-API-version resource schemas and uses oneOf/anyOf/allOf, outside the bounded subset of ContractSchema), trimmed to the top-level
+  shape. Only the top-level sections are checked, never a resource body. Taken 2026-10-17.
+
+## 0.1.0
+
+Released, so frozen by its `.frozen` record ([ADR-REPO-CONTRACT#5](../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
 
 | Module                  | Asset                                                | Target                                                                    | Direction   | Kind   |
 | ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ----------- | ------ |

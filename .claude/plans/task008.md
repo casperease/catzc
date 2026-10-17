@@ -6,6 +6,21 @@ task:
   value: highest
   blocked_on: step 4 is the user's git rm
   targets: [.unordered, automation, docs/adr/design/tracks.md, .gitattributes]
+catzc:
+  immutable:
+    with_body_sha: "8dd7c7ef8c5b"
+    repo_status: clean
+    path: ".claude/plans/task008.md"
+    folder: plans
+    name: task008
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task008: the .unordered binding audit and the deletion of the 20 finished plans

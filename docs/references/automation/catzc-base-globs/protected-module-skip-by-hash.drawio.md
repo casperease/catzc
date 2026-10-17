@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7c84eae1bb10"
+    with_body_sha: ff493eb9d5b4
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
-    folder: docs/.assets/references/automation/catzc-base-globs
+    path: docs/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+    folder: docs/references/automation/catzc-base-globs
     name: protected-module-skip-by-hash-drawio
     filetype: md
     kind: asset-description
@@ -18,7 +18,7 @@ catzc:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-PROTGLOB#{4,9}
     links:
-      - docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png
+      - docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png
 ---
 
 # Skip a module only if its folded hash matches its last green: the diagram described

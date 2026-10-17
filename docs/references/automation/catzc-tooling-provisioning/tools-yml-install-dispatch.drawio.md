@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "26b52e084a21"
+    with_body_sha: ed825c362963
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
-    folder: docs/.assets/references/automation/catzc-tooling-provisioning
+    path: docs/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
+    folder: docs/references/automation/catzc-tooling-provisioning
     name: tools-yml-install-dispatch-drawio
     filetype: md
     kind: asset-description
@@ -16,7 +16,7 @@ catzc:
       - ADR-AUTO-BASH#6
       - ADR-AUTO-DEPS#4
     links:
-      - docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png
+      - docs/references/.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png
 ---
 
 # tools.yml is the one locked list; dispatch is by key name: the diagram described

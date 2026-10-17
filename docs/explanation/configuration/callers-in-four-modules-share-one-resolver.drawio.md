@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f2a08900c060
+    with_body_sha: "07f2ae6eeacf"
     repo_status: clean
     path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.drawio.md
     folder: docs/explanation/configuration

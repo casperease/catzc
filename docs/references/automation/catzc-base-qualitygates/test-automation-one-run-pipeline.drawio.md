@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3d8cf505cd81"
+    with_body_sha: "2410ccfdc853"
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
-    folder: docs/.assets/references/automation/catzc-base-qualitygates
+    path: docs/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
+    folder: docs/references/automation/catzc-base-qualitygates
     name: test-automation-one-run-pipeline-drawio
     filetype: md
     kind: asset-description
@@ -16,7 +16,7 @@ catzc:
       - ADR-AUTO-TEST#{13,26,30}
       - ADR-REPO-PROTGLOB#9
     links:
-      - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png
+      - docs/references/.assets/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png
 ---
 
 # One discovery feeds three phases; finally stamps run.json: the diagram described

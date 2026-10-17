@@ -13,6 +13,24 @@ task:
       automation/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1,
       docs/adr/repository/file-meta.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: e28c78be8953
+    repo_status: clean
+    path: ".claude/plans/task007.md"
+    folder: plans
+    name: task007
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-FILEMETA#7
 ---
 
 # task007: body-sha Phase 0, the hash only on generated tracked files

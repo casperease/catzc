@@ -15,6 +15,25 @@ task:
       docs/adr/repository/api-contracts.md,
       docs/adr/automation/fail-fast-with-asserts.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: "52d3677c1e74"
+    repo_status: clean
+    path: ".claude/plans/task016.md"
+    folder: plans
+    name: task016
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PRIN-CONFIG#3
 ---
 
 # task016: config defaults Phases 4 and 5, every typed config and the ADRs

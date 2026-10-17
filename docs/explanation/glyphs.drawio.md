@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9dcdf39c95c2"
+    with_body_sha: "2de2d81569c8"
     repo_status: clean
-    path: docs/.assets/explanation/glyphs.drawio.md
-    folder: docs/.assets/explanation
+    path: docs/explanation/glyphs.drawio.md
+    folder: docs/explanation
     name: glyphs-drawio
     filetype: md
     kind: asset-description
@@ -15,7 +15,7 @@ catzc:
     cites:
       - ADR-DSGN-VISUAL#4
     links:
-      - docs/.assets/explanation/glyphs.drawio.png
+      - docs/explanation/.assets/glyphs.drawio.png
       - docs/explanation/index.md
 ---
 

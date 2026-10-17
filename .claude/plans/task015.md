@@ -14,6 +14,24 @@ task:
       .catzc,
       contracts/catzc/0.0.0,
     ]
+catzc:
+  immutable:
+    with_body_sha: "234ff4c248d2"
+    repo_status: clean
+    path: ".claude/plans/task015.md"
+    folder: plans
+    name: task015
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-CONTRACT#9
 ---
 
 # task015: config defaults Phases 2 and 3, the repo fragment and the generated defaults contract

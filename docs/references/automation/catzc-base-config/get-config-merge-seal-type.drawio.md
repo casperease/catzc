@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "41345f139c1c"
+    with_body_sha: a201e578c433
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
-    folder: docs/.assets/references/automation/catzc-base-config
+    path: docs/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
+    folder: docs/references/automation/catzc-base-config
     name: get-config-merge-seal-type-drawio
     filetype: md
     kind: asset-description
@@ -17,7 +17,7 @@ catzc:
       - ADR-AUTO-OVERLAY#7
       - ADR-PWSH-CACHE#4
     links:
-      - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.png
+      - docs/references/.assets/automation/catzc-base-config/get-config-merge-seal-type.drawio.png
 ---
 
 # Overlay merges unless sealed; the registered type builds it: the diagram described

@@ -12,6 +12,21 @@ task:
       automation/Catzc.Base.Docs/configs/agents.yml,
       docs/adr/repository/agent-definitions.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: cbf8cf4c2fa4
+    repo_status: clean
+    path: ".claude/plans/task013.md"
+    folder: plans
+    name: task013
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task013: minimal robots Phase 5, measure and reconcile

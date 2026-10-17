@@ -14,6 +14,25 @@ task:
       automation/Catzc.Base.Docs/configs/adrs.yml,
       .claude/CLAUDE.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: b33b71b60b69
+    repo_status: clean
+    path: ".claude/plans/task010.md"
+    folder: plans
+    name: task010
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-PRIN-NOWASTE#1
+      - ADR-PRIN-ONELIVE#1
 ---
 
 # task010: ADR-REPO-PLANS, the Test-Plans gate, the naming rules, CLAUDE.md

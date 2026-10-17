@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "66c395b55045"
+    with_body_sha: "24af0fcfc219"
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
-    folder: docs/.assets/references/automation/catzc-base-modulesystem
+    path: docs/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+    folder: docs/references/automation/catzc-base-modulesystem
     name: module-graph-declared-vs-observed-drawio
     filetype: md
     kind: asset-description
@@ -19,7 +19,7 @@ catzc:
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-PESTER#9
     links:
-      - docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png
+      - docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png
 ---
 
 # Declared graph orders and closes; observed graph is checked: the diagram described

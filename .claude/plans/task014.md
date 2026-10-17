@@ -6,6 +6,24 @@ task:
   value: high
   blocked_on: task011 (shared VariantsConfig.cs and VariantTrack.cs, Q20); the module-model plan owns those files first
   targets: [automation/Catzc.Base.Variants, automation/Catzc.Base.Modules]
+catzc:
+  immutable:
+    with_body_sha: "580c8a5707b7"
+    repo_status: clean
+    path: ".claude/plans/task014.md"
+    folder: plans
+    name: task014
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
 ---
 
 # task014: config defaults Phase 1, the variants type carries its defaults

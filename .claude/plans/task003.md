@@ -6,6 +6,21 @@ task:
   value: medium
   blocked_on: nothing
   targets: [.claude/plans]
+catzc:
+  immutable:
+    with_body_sha: "9be811ec4f79"
+    repo_status: clean
+    path: ".claude/plans/task003.md"
+    folder: plans
+    name: task003
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task003: value-of-plan.md rows for the unlisted plans, prompt deletions after diff, questionnaire trim

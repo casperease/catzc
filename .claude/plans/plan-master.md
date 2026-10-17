@@ -7,7 +7,7 @@ plan:
   targets: [.claude/plans]
 catzc:
   immutable:
-    with_body_sha: "34c02ae6ae36"
+    with_body_sha: "16c570fe17d3"
     repo_status: clean
     path: ".claude/plans/plan-master.md"
     folder: plans
@@ -22,7 +22,6 @@ catzc:
     moduletype: settings
   edges:
     cites:
-      - ADR-AUTO-DEFAULT#6
       - ADR-REPO-COMMENTS#5
       - ADR-REPO-FORMAT#8
       - ADR-REPO-HELP#3

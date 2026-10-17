@@ -13,6 +13,21 @@ task:
       docs/adr/design/tracks.md,
       docs/adr/automation/module-model.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: "323a45942959"
+    repo_status: clean
+    path: ".claude/plans/task012.md"
+    folder: plans
+    name: task012
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task012: kind becomes role; the track rules

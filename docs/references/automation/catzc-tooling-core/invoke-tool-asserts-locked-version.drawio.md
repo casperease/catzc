@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "26e79173250c"
+    with_body_sha: "9b83c8d47898"
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
-    folder: docs/.assets/references/automation/catzc-tooling-core
+    path: docs/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+    folder: docs/references/automation/catzc-tooling-core
     name: invoke-tool-asserts-locked-version-drawio
     filetype: md
     kind: asset-description
@@ -18,7 +18,7 @@ catzc:
       - ADR-CONF-LOADING#6
       - ADR-PWSH-CACHE#4
     links:
-      - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png
+      - docs/references/.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png
 ---
 
 # Each `Invoke-<Tool>` asserts the locked version before it runs: the diagram described

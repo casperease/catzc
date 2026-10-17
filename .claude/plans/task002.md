@@ -6,6 +6,21 @@ task:
   value: medium
   blocked_on: nothing
   targets: [.claude/plans]
+catzc:
+  immutable:
+    with_body_sha: "792904bf64f5"
+    repo_status: clean
+    path: ".claude/plans/task002.md"
+    folder: plans
+    name: task002
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task002: a check on every open step, plan-shape for the numbered-step plans, small plan fixes

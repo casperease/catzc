@@ -3,8 +3,8 @@ catzc:
   immutable:
     with_body_sha: f33d8afc7bde
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.verify.md
-    folder: docs/.assets/references/automation/catzc-base-qualitygates
+    path: docs/references/.assets/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.verify.md
+    folder: docs/references/.assets/automation/catzc-base-qualitygates
     name: test-automation-one-run-pipeline-drawio-verify
     filetype: md
     kind: asset-description

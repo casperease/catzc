@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4277d8fc37cc"
+    with_body_sha: eb9bd5031d04
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
-    folder: docs/.assets/references/automation/catzc-base-execution
+    path: docs/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+    folder: docs/references/automation/catzc-base-execution
     name: invoke-executable-two-paths-one-bounded-drawio
     filetype: md
     kind: asset-description
@@ -17,7 +17,7 @@ catzc:
       - ADR-AUTO-FAILFAST#7
       - ADR-PWSH-ASSERT#1
     links:
-      - docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png
+      - docs/references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png
 ---
 
 # Invoke-Executable: only the streamed path is time-bounded: the diagram described

@@ -14,6 +14,21 @@ task:
       docs/references/agent-contracts.md,
       .claude/CLAUDE.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: "2fd192056706"
+    repo_status: clean
+    path: ".claude/plans/task005.md"
+    folder: plans
+    name: task005
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task005: register ADR-AI

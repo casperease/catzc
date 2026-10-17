@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "08089590029e"
+    with_body_sha: "3ff2df234896"
     repo_status: clean
     path: docs/explanation/configuration/one-gate-guards-the-read-path.drawio.md
     folder: docs/explanation/configuration

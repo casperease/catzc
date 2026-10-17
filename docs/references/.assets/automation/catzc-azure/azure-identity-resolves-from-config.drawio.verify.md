@@ -3,8 +3,8 @@ catzc:
   immutable:
     with_body_sha: e410849b57ff
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
-    folder: docs/.assets/references/automation/catzc-azure
+    path: docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
+    folder: docs/references/.assets/automation/catzc-azure
     name: azure-identity-resolves-from-config-drawio-verify
     filetype: md
     kind: asset-description

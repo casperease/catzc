@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8061b764a8d1"
+    with_body_sha: fc7c7cce64a7
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
-    folder: docs/.assets/references/automation/catzc-azure-templates
+    path: docs/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+    folder: docs/references/automation/catzc-azure-templates
     name: bicep-template-is-a-folder-drawio
     filetype: md
     kind: asset-description
@@ -20,7 +20,7 @@ catzc:
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-ERROR#8
     links:
-      - docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png
+      - docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png
 ---
 
 # A template is a folder; options.yml overrides five defaults: the diagram described

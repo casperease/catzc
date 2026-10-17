@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f34f60e47714
+    with_body_sha: "8dff5aa2a1f4"
     repo_status: clean
-    path: docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
-    folder: docs/.assets/references/automation/catzc-azure-cli
+    path: docs/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+    folder: docs/references/automation/catzc-azure-cli
     name: az-cli-test-assert-share-one-state-drawio
     filetype: md
     kind: asset-description
@@ -17,7 +17,7 @@ catzc:
       - ADR-AZ-CLI#1
       - ADR-AZ-DATAMOD#4
     links:
-      - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png
+      - docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png
 ---
 
 # Three az checks: Test and Assert share one state call: the diagram described

@@ -21,6 +21,21 @@ task:
   value: high
   blocked_on: the user answers; nothing is decided by the agent
   targets: [.claude/plans]
+catzc:
+  immutable:
+    with_body_sha: "33c3cd64abd3"
+    repo_status: clean
+    path: ".claude/plans/task004.md"
+    folder: plans
+    name: task004
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task004: the decision round that unblocks the most

@@ -12,6 +12,21 @@ task:
       automation/Catzc.Base.Docs/configs/glossary.yml,
       .claude/CLAUDE.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: f413b74faa84
+    repo_status: clean
+    path: ".claude/plans/task006.md"
+    folder: plans
+    name: task006
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task006: write ADR-CATS
