@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5990b16fd351"
+    with_body_sha: af3a3596d120
     repo_status: clean
     path: docs/explanation/pipelines/three-guarded-early-returns.md
     folder: docs/explanation/pipelines
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-PIPE-AUTH#{1-3,5}
     links:
-      - docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.md
-      - docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
       - docs/adr/pipelines/dual-authentication.md
+      - docs/explanation/.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/pipelines/configured-credential-proves-its-org.md
       - docs/explanation/pipelines/index.md
       - docs/explanation/pipelines/one-header-function-owns-precedence.md
+      - docs/explanation/pipelines/three-guarded-early-returns.drawio.md
       - docs/explanation/pipelines/what-you-set-decides-the-credential.md
       - docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
 ---
@@ -46,10 +46,9 @@ Supports ADR-PIPE-AUTH#1, #2, #3 and #5 (implementation lens).
 is a short ladder of four checks and three returns: two guarded early returns, then the az CLI path, which asserts twice before its final
 return. Every check either returns a header, passes control on, or throws; a check that throws never hands over to the next rung.
 
-![Four checks in code order, three returns and three throws](../../.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png)
+![Four checks in code order, three returns and three throws](../.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.md).
+The diagram is described element by element in [its asset description](three-guarded-early-returns.drawio.md).
 
 ## Walkthrough
 

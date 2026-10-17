@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "877da7a37604"
+    with_body_sha: de77c31a8136
     repo_status: clean
     path: docs/explanation/automation/a-stopped-run-names-its-limit.md
     folder: docs/explanation/automation
@@ -16,10 +16,10 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:
-      - docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.md
-      - docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/automation/sensible-defaults.md
+      - docs/explanation/.assets/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
+      - docs/explanation/automation/a-stopped-run-names-its-limit.drawio.md
       - docs/explanation/automation/callers-value-else-config-else-default.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
@@ -50,10 +50,9 @@ says how long it ran, what the limit was, and where to change it. The limits are
 for a foreground bash call, so that a call which legitimately needs longer shows up as a blocker to tune rather than a limit raised quietly
 in code.
 
-![A run past its limit stops with a message that names the limit](../../.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png)
+![A run past its limit stops with a message that names the limit](../.assets/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.md).
+The diagram is described element by element in [its asset description](a-stopped-run-names-its-limit.drawio.md).
 
 ## Walkthrough
 

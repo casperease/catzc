@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e6efd0ad79ce
+    with_body_sha: "27ce48d820dd"
     repo_status: clean
     path: docs/explanation/flow/peers-in-a-layer-never-overlap.md
     folder: docs/explanation/flow
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#{7,10}
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
       - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
       - docs/explanation/flow/independence-check-groups-by-layer.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/overlap-gated-for-units-and-modules.md
+      - docs/explanation/flow/peers-in-a-layer-never-overlap.drawio.md
       - docs/explanation/flow/two-declared-layers-one-derived.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -43,10 +43,9 @@ Every globset in cats belongs to one layer, and a layer is a set of peers that p
 peers share a file on their own contribution, because overlap would mean one boundary consumes another's files. The `loose-fileset` layer,
 which cuts across the others, is the only exemption, and across layers one file may sit in all three.
 
-![Peers in a layer never overlap, except loose-filesets](../../.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png)
+![Peers in a layer never overlap, except loose-filesets](../.assets/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.md).
+The diagram is described element by element in [its asset description](peers-in-a-layer-never-overlap.drawio.md).
 
 ## Walkthrough
 

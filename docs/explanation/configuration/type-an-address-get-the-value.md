@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5b750addd2a4"
+    with_body_sha: "023e3e8255c9"
     repo_status: clean
     path: docs/explanation/configuration/type-an-address-get-the-value.md
     folder: docs/explanation/configuration
@@ -16,15 +16,15 @@ catzc:
       - ADR-AUTO-ENVVAR#7
       - ADR-CONF-ADDRESSING#{1,3,4}
     links:
-      - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
-      - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
       - docs/adr/automation/environment-variables.md
       - docs/adr/configuration/config-value-addressing.md
+      - docs/explanation/.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
       - docs/explanation/configuration/an-address-is-a-read-only-walk.md
       - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
       - docs/explanation/configuration/index.md
       - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
       - docs/explanation/configuration/two-test-files-check-the-address-rules.md
+      - docs/explanation/configuration/type-an-address-get-the-value.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -50,10 +50,9 @@ the value the address names, and a message at the call when the address is wrong
 `Write-EnvironmentSet` puts it into a child process's environment next to secrets it masks, and `Build-Bicep` writes it into a template's
 parameters file.
 
-![Type an address and get its value back](../../.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png)
+![Type an address and get its value back](../.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md).
+The diagram is described element by element in [its asset description](type-an-address-get-the-value.drawio.md).
 
 ## Walkthrough
 

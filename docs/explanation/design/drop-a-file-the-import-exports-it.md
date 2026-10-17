@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "652ba7de9c73"
+    with_body_sha: "25d5c921ef92"
     repo_status: clean
     path: docs/explanation/design/drop-a-file-the-import-exports-it.md
     folder: docs/explanation/design
@@ -16,9 +16,9 @@ catzc:
       - ADR-DSGN-ASPECT#{1,2}
       - ADR-REPO-FOLDERS#10
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md
-      - docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
       - docs/adr/design/module-aspects.md
+      - docs/explanation/.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
+      - docs/explanation/design/drop-a-file-the-import-exports-it.drawio.md
       - docs/explanation/design/every-file-in-exactly-one-aspect.md
       - docs/explanation/design/index.md
       - docs/explanation/design/manifest-and-aspects-from-one-folder.md
@@ -47,10 +47,9 @@ Adding a function to a cats module has no registration step. The author drops a 
 exports it, and `Get-ModuleGlobSet` shows that the file belongs to the module's live aspect. The importer and the quality gates do the rest,
 and each failure they raise names the file or function at fault.
 
-![Drop a file, the next import exports it](../../.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png)
+![Drop a file, the next import exports it](../.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md).
+The diagram is described element by element in [its asset description](drop-a-file-the-import-exports-it.drawio.md).
 
 ## Walkthrough
 

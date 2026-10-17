@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f0db1a761e05
+    with_body_sha: "129c5a693f75"
     repo_status: clean
     path: docs/explanation/design/merging-to-main-is-what-deploys.md
     folder: docs/explanation/design
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-DSGN-LIFE#9
     links:
-      - docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
       - docs/adr/design/commit-lifecycle.md
+      - docs/explanation/.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
       - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
       - docs/explanation/design/deploying-is-not-integrating.md
       - docs/explanation/design/every-deploy-stage-is-main-only.md
       - docs/explanation/design/index.md
+      - docs/explanation/design/merging-to-main-is-what-deploys.drawio.md
       - docs/explanation/design/out-of-band-deploy-is-adr-only.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -45,10 +45,9 @@ Merging to main is the act that deploys, and an engineer who wants a topic commi
 request starts a build that skips every deploy stage, and the `Release` workflow builds a package but deploys nothing. Only completing the
 pull request into main starts a run that deploys. The out-of-band topic deploy that ADR-DSGN-LIFE#9 allows has no pipeline behind it.
 
-![Merging to main is what deploys](../../.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png)
+![Merging to main is what deploys](../.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.md).
+The diagram is described element by element in [its asset description](merging-to-main-is-what-deploys.drawio.md).
 
 ## Walkthrough
 

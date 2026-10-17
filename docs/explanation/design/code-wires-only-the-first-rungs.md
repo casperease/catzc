@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c40dc2238d5f
+    with_body_sha: "0c4d60e921ef"
     repo_status: clean
     path: docs/explanation/design/code-wires-only-the-first-rungs.md
     folder: docs/explanation/design
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-DSGN-LIFE#8
     links:
-      - docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png
       - docs/adr/design/commit-lifecycle.md
+      - docs/explanation/.assets/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png
+      - docs/explanation/design/code-wires-only-the-first-rungs.drawio.md
       - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
       - docs/explanation/design/four-domains-promote-one-artifact.md
       - docs/explanation/design/index.md
@@ -47,10 +47,9 @@ The commit lifecycle names eight rungs, from topic to production. The pipelines 
 merge, and the CI engine that verifies the commit and publishes its artifact. After that, one CD run goes straight from its CI stage into
 `Deploy_*` stages that are ordered by template, not by rung, and each stage deploys to all its targets at once.
 
-![The pipelines wire only topic, landed and BVT; past BVT there is no ladder](../../.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png)
+![The pipelines wire only topic, landed and BVT; past BVT there is no ladder](../.assets/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.md).
+The diagram is described element by element in [its asset description](code-wires-only-the-first-rungs.drawio.md).
 
 ## Walkthrough
 

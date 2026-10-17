@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5591a605f706"
+    with_body_sha: f6c9c5b5cbd8
     repo_status: clean
     path: docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
     folder: docs/explanation/design
@@ -19,18 +19,18 @@ catzc:
       - ADR-PWSH-ONEFUNC#1
       - ADR-REPO-FOLDERS#{6,10}
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md
-      - docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png
       - docs/adr/design/module-aspects.md
       - docs/adr/flow/durable-sha-globs.md
       - docs/adr/pwsh/dynamic-module-manifests.md
       - docs/adr/pwsh/one-function-per-file.md
       - docs/adr/repository/conventional-folders.md
+      - docs/explanation/.assets/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png
       - docs/explanation/design/drop-a-file-the-import-exports-it.md
       - docs/explanation/design/every-file-in-exactly-one-aspect.md
       - docs/explanation/design/index.md
       - docs/explanation/design/manifest-and-aspects-from-one-folder.md
       - docs/explanation/design/one-folder-two-independent-readers.md
+      - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -56,10 +56,9 @@ a check when the config loads. Two do not. The partition check of ADR-DSGN-ASPEC
 sha lock of ADR-DSGN-ASPECT#4 has no mechanism at all. Knowing which rules a gate holds, and which only the ADR states, tells a reviewer
 where a mistake would slip through.
 
-![Partition integrity runs only in unit tests](../../.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png)
+![Partition integrity runs only in unit tests](../.assets/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md).
+The diagram is described element by element in [its asset description](partition-integrity-runs-only-in-unit-tests.drawio.md).
 
 ## Walkthrough
 

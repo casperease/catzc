@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: de8d7a0b63f5
+    with_body_sha: "1c5dc72f13a4"
     repo_status: clean
     path: docs/explanation/automation/undeclared-edge-fails-with-one-line.md
     folder: docs/explanation/automation
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-AUTO-DEPM#{3-5}
     links:
-      - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md
-      - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
       - docs/adr/automation/controlling-module-dependencies.md
+      - docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
       - docs/explanation/automation/a-declared-allow-list-of-layers.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/three-layers-edges-point-down.md
       - docs/explanation/automation/two-gates-check-the-layer-pins.md
       - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
+      - docs/explanation/automation/undeclared-edge-fails-with-one-line.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -45,10 +45,9 @@ Supports ADR-AUTO-DEPM#3, #4 and #5 (operations lens).
 module graph. A broken declaration stops the run before any edge is checked. Otherwise a report lands in `out/`, and every undeclared edge
 or unknown module becomes one listed line in a single failure. The fix is always the same: declare the edge, or remove the call.
 
-![An undeclared edge fails with one line](../../.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png)
+![An undeclared edge fails with one line](../.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md).
+The diagram is described element by element in [its asset description](undeclared-edge-fails-with-one-line.drawio.md).
 
 ## Walkthrough
 

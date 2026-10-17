@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4316f5080e62"
+    with_body_sha: "5dae708be413"
     repo_status: clean
     path: docs/explanation/design/one-way-climb-three-endings.md
     folder: docs/explanation/design
@@ -16,14 +16,14 @@ catzc:
       - ADR-DSGN-LIFE#{1-4,8}
       - ADR-DSGN-VISUAL#14
     links:
-      - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/visual-design.md
+      - docs/explanation/.assets/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png
       - docs/explanation/design/code-wires-only-the-first-rungs.md
       - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
       - docs/explanation/design/four-domains-promote-one-artifact.md
       - docs/explanation/design/index.md
+      - docs/explanation/design/one-way-climb-three-endings.drawio.md
       - docs/explanation/design/which-rung-gates-exist-in-code.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -46,10 +46,9 @@ each colour is a durable fact about the same commit. Off the ladder there are ex
 discarded and retired. Telling them apart matters because each is a different fact: the pipeline moved fast, the pipeline caught a defect,
 or the commit delivered its value.
 
-![A commit only climbs, then ends in one of three ways](../../.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png)
+![A commit only climbs, then ends in one of three ways](../.assets/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.md).
+The diagram is described element by element in [its asset description](one-way-climb-three-endings.drawio.md).
 
 ## Walkthrough
 

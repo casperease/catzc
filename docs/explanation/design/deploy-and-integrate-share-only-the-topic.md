@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: afde8913f925
+    with_body_sha: "593594ce7b09"
     repo_status: clean
     path: docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
     folder: docs/explanation/design
@@ -16,10 +16,10 @@ catzc:
       - ADR-DSGN-LIFE#{1,9}
       - ADR-DSGN-VISUAL#{4,13}
     links:
-      - docs/.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/visual-design.md
+      - docs/explanation/.assets/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png
+      - docs/explanation/design/deploy-and-integrate-share-only-the-topic.drawio.md
       - docs/explanation/design/deploying-is-not-integrating.md
       - docs/explanation/design/every-deploy-stage-is-main-only.md
       - docs/explanation/design/index.md
@@ -48,10 +48,9 @@ environment through a workflow or pipeline without ever reaching main, and that 
 paths have exactly one part in common, the topic commit itself, and nothing on the deploy path feeds main, the BVT or the commit's place on
 the promotion ladder.
 
-![The deploy path and the integration path share only the topic commit](../../.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png)
+![The deploy path and the integration path share only the topic commit](../.assets/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.md).
+The diagram is described element by element in [its asset description](deploy-and-integrate-share-only-the-topic.drawio.md).
 
 ## Walkthrough
 

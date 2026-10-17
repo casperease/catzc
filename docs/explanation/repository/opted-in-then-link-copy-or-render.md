@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2d4abe8ad11f"
+    with_body_sha: "159a281d0bc6"
     repo_status: clean
     path: docs/explanation/repository/opted-in-then-link-copy-or-render.md
     folder: docs/explanation/repository
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-REPO-ROOTCFG#{2,4,5,7,8}
     links:
-      - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md
-      - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
       - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
       - docs/explanation/repository/index.md
       - docs/explanation/repository/one-registry-one-writer-two-primitives.md
       - docs/explanation/repository/one-source-one-writer-one-boolean.md
+      - docs/explanation/repository/opted-in-then-link-copy-or-render.drawio.md
       - docs/explanation/repository/three-gates-check-registry-drift-membership.md
 ---
 
@@ -49,10 +49,9 @@ Supports ADR-REPO-ROOTCFG#2, #4, #5, #7 and #8 (implementation lens).
 validates it; keeps the opted-in entries; and for each one either asks for a link, composes the source under a generated-file head, or asks
 a generator for its output and writes the same head over it. Two primitives in `Catzc.Base.Files` do every write.
 
-![The optIn filter, then link, copy or render, through two write primitives](../../.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png)
+![The optIn filter, then link, copy or render, through two write primitives](../.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md).
+The diagram is described element by element in [its asset description](opted-in-then-link-copy-or-render.drawio.md).
 
 ## Walkthrough
 

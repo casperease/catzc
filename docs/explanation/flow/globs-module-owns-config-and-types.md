@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: acff02a4ee86
+    with_body_sha: bb6fce69835e
     repo_status: clean
     path: docs/explanation/flow/globs-module-owns-config-and-types.md
     folder: docs/explanation/flow
@@ -15,11 +15,11 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#{1,5,6,9}
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png
       - docs/explanation/flow/edit-globs-yml-then-read-the-output.md
       - docs/explanation/flow/gates-check-source-and-trigger.md
+      - docs/explanation/flow/globs-module-owns-config-and-types.drawio.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-scan-program-feeds-three-roles.md
       - docs/explanation/flow/three-views-derived-live-from-one-program.md
@@ -46,10 +46,9 @@ tracked files through named globsets. It owns the `globs.yml` file, the types th
 plays. Everything outside the module only receives a projection, supplies a diff, or asks for an identity, so a change to an area-of-control
 is one config edit in one place.
 
-![Catzc.Base.Globs owns config, types and roles](../../.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png)
+![Catzc.Base.Globs owns config, types and roles](../.assets/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md).
+The diagram is described element by element in [its asset description](globs-module-owns-config-and-types.drawio.md).
 
 ## Walkthrough
 

@@ -98,7 +98,8 @@ function Get-Config {
 
     $registered = (Get-ConfigRegistry)[$entry.Name]
     if ($fragmentPath) {
-        if ($registered -and $registered.Contains('overridable') -and $registered['overridable'] -eq $false) {
+        $sealedConfigs = ([Catzc.Base.Config.ConfigsConfig]::new(@{ configs = Get-ConfigRegistry })).sealedConfigs
+        if ($sealedConfigs -contains $entry.Name) {
             throw "Config '$($entry.Name)' is sealed (configs.yml overridable: false), so the overlay may not change it: remove $fragmentPath."
         }
         $fragment = Get-Content $fragmentPath -Raw | ConvertFrom-Yaml -Ordered

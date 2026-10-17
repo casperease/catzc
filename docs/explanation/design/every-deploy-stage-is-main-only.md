@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1dbd42896d00"
+    with_body_sha: ae7d27684ab2
     repo_status: clean
     path: docs/explanation/design/every-deploy-stage-is-main-only.md
     folder: docs/explanation/design
@@ -15,11 +15,11 @@ catzc:
     cites:
       - ADR-DSGN-LIFE#9
     links:
-      - docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png
       - docs/adr/design/commit-lifecycle.md
+      - docs/explanation/.assets/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png
       - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
       - docs/explanation/design/deploying-is-not-integrating.md
+      - docs/explanation/design/every-deploy-stage-is-main-only.drawio.md
       - docs/explanation/design/index.md
       - docs/explanation/design/merging-to-main-is-what-deploys.md
       - docs/explanation/design/out-of-band-deploy-is-adr-only.md
@@ -46,10 +46,9 @@ Every `Deploy_*` stage in cats runs only from main. ADR-DSGN-LIFE#9 allows a wor
 integrating it, but in the code nothing does. The CD pipelines run on a pull request into main, yet a PR run executes only the `CI` stage:
 every `Deploy_*` stage carries a condition that the source branch is `refs/heads/main`. Only the merge to main starts a run that deploys.
 
-![Every Deploy stage is main-only](../../.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png)
+![Every Deploy stage is main-only](../.assets/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.md).
+The diagram is described element by element in [its asset description](every-deploy-stage-is-main-only.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "516e8f9171f2"
+    with_body_sha: "8e1cfbc526e4"
     repo_status: clean
     path: docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
     folder: docs/explanation/azure
@@ -16,12 +16,12 @@ catzc:
       - ADR-AZ-DATAMOD#{4,7}
       - ADR-AZ-NAMING#8
     links:
-      - docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md
-      - docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
       - docs/adr/azure/azure-data-model.md
       - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/.assets/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
       - docs/explanation/azure/four-gates-hold-the-session-rule.md
       - docs/explanation/azure/index.md
+      - docs/explanation/azure/one-reverse-lookup-feeds-every-module.drawio.md
       - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
       - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
       - docs/explanation/azure/the-session-is-the-deploy-target.md
@@ -50,10 +50,9 @@ lookup: `Catzc.Azure.Cli` resolves the session's subscription id to the identity
 that identity instead of asking the session again. The templating module picks the configuration slot from it, the Azure root module checks
 it against the environment, and the namer renders its customer into the resource-group name.
 
-![One reverse lookup in Catzc.Azure.Cli hands the session to every module](../../.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png)
+![One reverse lookup in Catzc.Azure.Cli hands the session to every module](../.assets/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md).
+The diagram is described element by element in [its asset description](one-reverse-lookup-feeds-every-module.drawio.md).
 
 ## Walkthrough
 

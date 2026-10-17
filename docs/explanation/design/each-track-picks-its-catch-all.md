@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "87398671b7d3"
+    with_body_sha: "20ee264ae283"
     repo_status: clean
     path: docs/explanation/design/each-track-picks-its-catch-all.md
     folder: docs/explanation/design
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-DSGN-ASPECT#{1-3}
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md
-      - docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
       - docs/adr/design/module-aspects.md
+      - docs/explanation/.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
+      - docs/explanation/design/each-track-picks-its-catch-all.drawio.md
       - docs/explanation/design/gate-checks-order-not-liveness.md
       - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
       - docs/explanation/design/get-aspect-names-the-remainder.md
@@ -45,10 +45,9 @@ ordered first match: a file is tried against the aspects in their declared order
 earlier aspect claimed. Which aspect is that remainder is each track's call. The automation track keeps `live` closed and lets `tests` catch
 the rest, so a stray file can never silently ship. The infrastructure track declares the opposite order, because a template deploys whole.
 
-![Each track picks its catch-all](../../.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png)
+![Each track picks its catch-all](../.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md).
+The diagram is described element by element in [its asset description](each-track-picks-its-catch-all.drawio.md).
 
 ## Walkthrough
 

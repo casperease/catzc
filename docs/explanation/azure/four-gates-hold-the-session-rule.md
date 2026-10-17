@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e5aa0b7c93ca
+    with_body_sha: "87b71c51f5c3"
     repo_status: clean
     path: docs/explanation/azure/four-gates-hold-the-session-rule.md
     folder: docs/explanation/azure
@@ -16,10 +16,10 @@ catzc:
       - ADR-AZ-DATAMOD#{4,5,7}
       - ADR-AZ-NAMING#8
     links:
-      - docs/.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.md
-      - docs/.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png
       - docs/adr/azure/azure-data-model.md
       - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/.assets/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png
+      - docs/explanation/azure/four-gates-hold-the-session-rule.drawio.md
       - docs/explanation/azure/index.md
       - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
       - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
@@ -50,10 +50,9 @@ neighbouring rules need no check at all. The customer comes from the session bec
 resource-group name is built by one function that never sees a subscription. No message or help text contradicts these rules; one help text
 misstates a config path.
 
-![Four gates hold the session rule; the customer and the name hold by construction](../../.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png)
+![Four gates hold the session rule; the customer and the name hold by construction](../.assets/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.md).
+The diagram is described element by element in [its asset description](four-gates-hold-the-session-rule.drawio.md).
 
 ## Walkthrough
 

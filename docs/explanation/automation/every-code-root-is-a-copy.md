@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "746c77c76a50"
+    with_body_sha: "71143da03ce9"
     repo_status: clean
     path: docs/explanation/automation/every-code-root-is-a-copy.md
     folder: docs/explanation/automation
@@ -16,12 +16,12 @@ catzc:
       - ADR-AUTO-BUNDLE#{1-3,6}
       - ADR-DSGN-RUNMODE#7
     links:
-      - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md
-      - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
       - docs/adr/automation/platform-bundle.md
       - docs/adr/design/run-modes.md
+      - docs/explanation/.assets/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
       - docs/explanation/automation/build-then-place-with-one-command.md
       - docs/explanation/automation/build-verify-then-copy-the-folder.md
+      - docs/explanation/automation/every-code-root-is-a-copy.drawio.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-commit-one-immutable-package.md
       - docs/explanation/automation/what-gates-each-bundle-stage.md
@@ -50,10 +50,9 @@ the code anywhere else, so the platform has to be built and then copied. Seen as
 engine writes the build from the source tree, the exporter module drives the engine and owns the integrity guard, and every code root
 outside the repository is a copy of the one verified build.
 
-![One engine builds, every code root is a copy](../../.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png)
+![One engine builds, every code root is a copy](../.assets/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md).
+The diagram is described element by element in [its asset description](every-code-root-is-a-copy.drawio.md).
 
 ## Walkthrough
 

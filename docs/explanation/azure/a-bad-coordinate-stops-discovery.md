@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: de5f24266b08
+    with_body_sha: "258726c22f8a"
     repo_status: clean
     path: docs/explanation/azure/a-bad-coordinate-stops-discovery.md
     folder: docs/explanation/azure
@@ -16,10 +16,10 @@ catzc:
       - ADR-AZ-CUSTOMER#6
       - ADR-AZ-DATAMOD#{3,8}
     links:
-      - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md
-      - docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
       - docs/adr/azure/azure-customer-model.md
       - docs/adr/azure/azure-data-model.md
+      - docs/explanation/.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
+      - docs/explanation/azure/a-bad-coordinate-stops-discovery.drawio.md
       - docs/explanation/azure/config-path-is-a-coordinate.md
       - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
       - docs/explanation/azure/coordinate-rules-and-their-gates.md
@@ -51,10 +51,9 @@ What they run next is discovery, directly or through anything that lists templat
 every problem at once. A config whose coordinate fits exactly one subscription becomes a slot; one that fits none, or more than one, or sits
 in a subfolder that names no customer, stops discovery with a single line that names the file and the reason.
 
-![A config file that resolves to no subscription, or to two, stops discovery with one line](../../.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png)
+![A config file that resolves to no subscription, or to two, stops discovery with one line](../.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md).
+The diagram is described element by element in [its asset description](a-bad-coordinate-stops-discovery.drawio.md).
 
 ## Walkthrough
 

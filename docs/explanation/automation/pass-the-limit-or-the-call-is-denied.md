@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "951dcc6dc22d"
+    with_body_sha: "30f1568c65bb"
     repo_status: clean
     path: docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
     folder: docs/explanation/automation
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-AUTO-FAILFAST#7
     links:
-      - docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.md
-      - docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
       - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/explanation/.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
       - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
       - docs/explanation/automation/decide-returns-null-or-a-reason.md
       - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
       - docs/explanation/automation/index.md
+      - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.drawio.md
       - docs/explanation/automation/three-tests-prove-the-hook.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -45,10 +45,9 @@ An agent working at a devbox in cats passes `timeout: 3000` on every foreground 
 shape is denied before it starts, with a message that says what was wrong and the exact form to re-issue it in, and the denial is written to
 a log so the limits can be tuned together instead of worked around.
 
-![Pass the limit or the call is denied](../../.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png)
+![Pass the limit or the call is denied](../.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.md).
+The diagram is described element by element in [its asset description](pass-the-limit-or-the-call-is-denied.drawio.md).
 
 ## Walkthrough
 

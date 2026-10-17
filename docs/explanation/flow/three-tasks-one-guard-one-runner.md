@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ce8375725233
+    with_body_sha: e83dc8b43c61
     repo_status: clean
     path: docs/explanation/flow/three-tasks-one-guard-one-runner.md
     folder: docs/explanation/flow
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-FLOW-CD-RUNNER#{1-3}
     links:
-      - docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
       - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/explanation/.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
       - docs/explanation/flow/a-step-only-names-a-command.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/no-gate-checks-rules-one-and-four.md
       - docs/explanation/flow/the-runner-is-the-only-seam.md
       - docs/explanation/flow/the-step-is-named-after-its-command.md
+      - docs/explanation/flow/three-tasks-one-guard-one-runner.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -48,10 +48,9 @@ Every pipeline step in cats runs through two files: the step template `pipelines
 guard before they call the runner. The runner then does four things in a fixed order. Read in code order, the path from a pipeline's
 `RunCommand` to the running command has no other stops.
 
-![Three tasks, one guard, one runner](../../.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png)
+![Three tasks, one guard, one runner](../.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md).
+The diagram is described element by element in [its asset description](three-tasks-one-guard-one-runner.drawio.md).
 
 ## Walkthrough
 

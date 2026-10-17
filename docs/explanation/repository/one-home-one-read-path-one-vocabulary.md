@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7272a8567547"
+    with_body_sha: aba8a4923483
     repo_status: clean
     path: docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
     folder: docs/explanation/repository
@@ -17,14 +17,14 @@ catzc:
       - ADR-PWSH-CACHE#1
       - ADR-REPO-VARIANT#{1,2}
     links:
-      - docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md
-      - docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
       - docs/explanation/repository/an-edit-lands-at-the-next-import.md
       - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
       - docs/explanation/repository/index.md
+      - docs/explanation/repository/one-home-one-read-path-one-vocabulary.drawio.md
       - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
 ---
 
@@ -45,10 +45,9 @@ Some settings belong to the whole repository and hold for a whole run: which Azu
 repository deploys for customers at all, how changes reach main. Cats calls such a setting a variant. A variant has one home, one read path
 and one guard vocabulary, and nothing reads the file it lives in directly.
 
-![A repo-wide switch has one home, one read path and one guard vocabulary](../../.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png)
+![A repo-wide switch has one home, one read path and one guard vocabulary](../.assets/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md).
+The diagram is described element by element in [its asset description](one-home-one-read-path-one-vocabulary.drawio.md).
 
 ## Walkthrough
 

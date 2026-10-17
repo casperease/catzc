@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0ee78f503e58"
+    with_body_sha: "73b6f7501e19"
     repo_status: clean
     path: docs/explanation/design/shims-set-roots-mode-read-back.md
     folder: docs/explanation/design
@@ -15,11 +15,11 @@ catzc:
     cites:
       - ADR-DSGN-RUNMODE#{1,4,5,7}
     links:
-      - docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.md
-      - docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png
       - docs/adr/design/run-modes.md
+      - docs/explanation/.assets/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png
       - docs/explanation/design/index.md
       - docs/explanation/design/one-entry-script-per-mode.md
+      - docs/explanation/design/shims-set-roots-mode-read-back.drawio.md
       - docs/explanation/design/two-roots-one-importer-same-modules.md
       - docs/explanation/design/where-code-loads-from-decides-the-mode.md
       - docs/explanation/design/which-run-mode-rules-have-a-gate.md
@@ -49,10 +49,9 @@ The two entry scripts of cats, one per run mode, are both thin. Each one only fi
 `Invoke-Importer`, which runs one load sequence in both modes and hands the code root on to every step of it. Because the mode is read back
 from that same code root, the mode a session reports cannot disagree with the code it actually loaded.
 
-![Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it](../../.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png)
+![Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it](../.assets/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.md).
+The diagram is described element by element in [its asset description](shims-set-roots-mode-read-back.drawio.md).
 
 ## Walkthrough
 

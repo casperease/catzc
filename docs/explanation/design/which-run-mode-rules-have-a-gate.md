@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6ae87099e7a9"
+    with_body_sha: "207242aaac7a"
     repo_status: clean
     path: docs/explanation/design/which-run-mode-rules-have-a-gate.md
     folder: docs/explanation/design
@@ -16,14 +16,14 @@ catzc:
       - ADR-AUTO-ASSETDEP#1
       - ADR-DSGN-RUNMODE
     links:
-      - docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md
-      - docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
       - docs/adr/design/run-modes.md
+      - docs/explanation/.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
       - docs/explanation/design/index.md
       - docs/explanation/design/one-entry-script-per-mode.md
       - docs/explanation/design/shims-set-roots-mode-read-back.md
       - docs/explanation/design/two-roots-one-importer-same-modules.md
       - docs/explanation/design/where-code-loads-from-decides-the-mode.md
+      - docs/explanation/design/which-run-mode-rules-have-a-gate.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -49,10 +49,9 @@ two test runs, two asserts, and the tests behind the mode function. The seventh,
 alone, because no code tells the kinds apart. A reader who wants to know which run-mode promises are enforced finds the gate for each rule
 here.
 
-![Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none](../../.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png)
+![Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none](../.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md).
+The diagram is described element by element in [its asset description](which-run-mode-rules-have-a-gate.drawio.md).
 
 ## Walkthrough
 

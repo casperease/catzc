@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ef6923670aa4
+    with_body_sha: "68a84799efb5"
     repo_status: clean
     path: docs/explanation/flow/every-doubt-fails-open-to-proceed.md
     folder: docs/explanation/flow
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#9
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
+      - docs/explanation/flow/every-doubt-fails-open-to-proceed.drawio.md
       - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/range-per-context-then-diff-and-match.md
@@ -45,10 +45,9 @@ answer is never read from a hash committed beside the unit. It is computed from 
 so a squash merge or a concurrent merge can never make it stale. And the answer is shaped by what a wrong answer costs: a redundant run is
 safe, a wrong skip is an un-deployed change, so every doubt proceeds.
 
-![Every doubt fails open to proceed](../../.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png)
+![Every doubt fails open to proceed](../.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.md).
+The diagram is described element by element in [its asset description](every-doubt-fails-open-to-proceed.drawio.md).
 
 ## Walkthrough
 

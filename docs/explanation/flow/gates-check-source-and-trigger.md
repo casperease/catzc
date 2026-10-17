@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "162cf941ab68"
+    with_body_sha: edadb4862ac1
     repo_status: clean
     path: docs/explanation/flow/gates-check-source-and-trigger.md
     folder: docs/explanation/flow
@@ -17,12 +17,12 @@ catzc:
       - ADR-FLOW-CD-GLOBS
       - ADR-REPO-PROTGLOB#5
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png
       - docs/adr/automation/test-automation.md
       - docs/adr/flow/durable-sha-globs.md
       - docs/adr/repository/protected-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png
       - docs/explanation/flow/edit-globs-yml-then-read-the-output.md
+      - docs/explanation/flow/gates-check-source-and-trigger.drawio.md
       - docs/explanation/flow/globs-module-owns-config-and-types.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-scan-program-feeds-three-roles.md
@@ -52,10 +52,9 @@ trigger. Every globset flows from one registry through a validated load into a f
 the ADR rules constrain each stage. The git reflection and the live identity are held by ADR rules alone: no gate checks them, which is
 worth knowing before relying on either.
 
-![Gates check the source of each globset and the trigger only](../../.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png)
+![Gates check the source of each globset and the trigger only](../.assets/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md).
+The diagram is described element by element in [its asset description](gates-check-source-and-trigger.drawio.md).
 
 ## Walkthrough
 

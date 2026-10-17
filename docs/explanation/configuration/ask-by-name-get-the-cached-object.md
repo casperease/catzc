@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "87242c08bfcf"
+    with_body_sha: "6e2f6beced80"
     repo_status: clean
     path: docs/explanation/configuration/ask-by-name-get-the-cached-object.md
     folder: docs/explanation/configuration
@@ -16,10 +16,10 @@ catzc:
       - ADR-CONF-ADDRESSING#4
       - ADR-CONF-LOADING#{1-4}
     links:
-      - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md
-      - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
       - docs/adr/configuration/config-value-addressing.md
       - docs/adr/configuration/module-config-loading.md
+      - docs/explanation/.assets/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
+      - docs/explanation/configuration/ask-by-name-get-the-cached-object.drawio.md
       - docs/explanation/configuration/callers-depend-on-one-config-module.md
       - docs/explanation/configuration/index.md
       - docs/explanation/configuration/one-gate-guards-the-read-path.md
@@ -49,10 +49,9 @@ The two config commands, `Get-ConfigValue` and `Get-Config`, are how a person or
 into a config, or by the config's name. The answer is the cached object for the session: nothing prints on a cache hit, the first read
 parses and types the file, and every mistake throws at the call that made it, with a message that names the problem.
 
-![Ask for a config by name and get the cached object back](../../.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png)
+![Ask for a config by name and get the cached object back](../.assets/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md).
+The diagram is described element by element in [its asset description](ask-by-name-get-the-cached-object.drawio.md).
 
 ## Walkthrough
 

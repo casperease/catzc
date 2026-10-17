@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "68a60ba45051"
+    with_body_sha: "99c10ec33050"
     repo_status: clean
     path: docs/explanation/configuration/callers-depend-on-one-config-module.md
     folder: docs/explanation/configuration
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-CONF-LOADING#{1-4,6}
     links:
-      - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md
-      - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
       - docs/adr/configuration/module-config-loading.md
+      - docs/explanation/.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
       - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
+      - docs/explanation/configuration/callers-depend-on-one-config-module.drawio.md
       - docs/explanation/configuration/index.md
       - docs/explanation/configuration/one-gate-guards-the-read-path.md
       - docs/explanation/configuration/one-reader-one-cache-per-session.md
@@ -46,10 +46,9 @@ A config belongs to the module that ships it, but the code that reads it can liv
 every caller depends on one module, `Catzc.Base.Config`, and the owning module only ships a file and a C# type. The owner is discovered from
 where the file lives, never wrapped, and reading a config is global access with no dependency guard.
 
-![Callers in any module read config through one module](../../.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png)
+![Callers in any module read config through one module](../.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md).
+The diagram is described element by element in [its asset description](callers-depend-on-one-config-module.drawio.md).
 
 ## Walkthrough
 

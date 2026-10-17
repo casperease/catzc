@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6338c39818a8"
+    with_body_sha: "48d7111bb84f"
     repo_status: clean
     path: docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
     folder: docs/explanation/automation
@@ -16,13 +16,13 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:
-      - docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.md
-      - docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/automation/sensible-defaults.md
+      - docs/explanation/.assets/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png
       - docs/explanation/automation/a-stopped-run-names-its-limit.md
       - docs/explanation/automation/callers-value-else-config-else-default.md
       - docs/explanation/automation/index.md
+      - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.drawio.md
       - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
       - docs/explanation/automation/resolve-one-limit-in-code-order.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -49,10 +49,9 @@ every consumer in pwsh its limit, so tuning a limit is one edit to one file. The
 compiled program that runs before every shell call a coding agent makes; it compiles the resolver's own config type into itself, so the hook
 and the pwsh side share one parser and one set of defaults without sharing a process.
 
-![One resolver serves every consumer but the hook](../../.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png)
+![One resolver serves every consumer but the hook](../.assets/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.md).
+The diagram is described element by element in [its asset description](one-resolver-every-consumer-but-the-hook.drawio.md).
 
 ## Walkthrough
 

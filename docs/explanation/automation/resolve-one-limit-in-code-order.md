@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f02beea63479
+    with_body_sha: b579f4fdfb03
     repo_status: clean
     path: docs/explanation/automation/resolve-one-limit-in-code-order.md
     folder: docs/explanation/automation
@@ -16,15 +16,15 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:
-      - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.md
-      - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/automation/sensible-defaults.md
+      - docs/explanation/.assets/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
       - docs/explanation/automation/a-stopped-run-names-its-limit.md
       - docs/explanation/automation/callers-value-else-config-else-default.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
       - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
+      - docs/explanation/automation/resolve-one-limit-in-code-order.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -50,10 +50,9 @@ loads the limits config as its typed record, asks that record for the limit of a
 exempt, raises the answer to the exemption ceiling. Each consumer in cats asks it from a parameter default, so the caller's explicit value,
 the config, and the default on the type are tried in exactly that order.
 
-![Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling](../../.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png)
+![Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling](../.assets/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.md).
+The diagram is described element by element in [its asset description](resolve-one-limit-in-code-order.drawio.md).
 
 ## Walkthrough
 

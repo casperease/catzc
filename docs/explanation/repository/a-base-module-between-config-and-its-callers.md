@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: deb5fed9f5ce
+    with_body_sha: "31a72c0f62a8"
     repo_status: clean
     path: docs/explanation/repository/a-base-module-between-config-and-its-callers.md
     folder: docs/explanation/repository
@@ -17,11 +17,11 @@ catzc:
       - ADR-CONF-LOADING#1
       - ADR-REPO-VARIANT#{1,3}
     links:
-      - docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.md
-      - docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
+      - docs/explanation/repository/a-base-module-between-config-and-its-callers.drawio.md
       - docs/explanation/repository/an-edit-lands-at-the-next-import.md
       - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
       - docs/explanation/repository/index.md
@@ -51,10 +51,9 @@ templating layer, in a tooling step, in a build. That argues for a low, widely d
 `Catzc.Base.Variants` is that module. It rests on three foundation modules, and every module layered above the configuration layer may call
 it.
 
-![Catzc.Base.Variants sits in Base, over Config, under every real caller](../../.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png)
+![Catzc.Base.Variants sits in Base, over Config, under every real caller](../.assets/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.md).
+The diagram is described element by element in [its asset description](a-base-module-between-config-and-its-callers.drawio.md).
 
 ## Walkthrough
 

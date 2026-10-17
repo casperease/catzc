@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a1d9fba083df
+    with_body_sha: "786a96f8a690"
     repo_status: clean
     path: docs/explanation/pipelines/what-you-set-decides-the-credential.md
     folder: docs/explanation/pipelines
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-PIPE-AUTH#{1,2,5,6}
     links:
-      - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md
-      - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
       - docs/adr/pipelines/dual-authentication.md
+      - docs/explanation/.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/pipelines/configured-credential-proves-its-org.md
       - docs/explanation/pipelines/index.md
       - docs/explanation/pipelines/one-header-function-owns-precedence.md
       - docs/explanation/pipelines/three-guarded-early-returns.md
+      - docs/explanation/pipelines/what-you-set-decides-the-credential.drawio.md
       - docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
 ---
 
@@ -47,11 +47,10 @@ Anyone who runs an Azure DevOps REST function in cats, from a pipeline or a term
 you have set is used, from the top down. When that setup is wrong you see its own message, and cats does not quietly try the next one: to
 switch credentials, unset the one above.
 
-![What you set decides the credential](../../.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png)
+![What you set decides the credential](../.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md). Each failure
-carries a verbatim fragment of its message; the full messages are quoted below.
+The diagram is described element by element in [its asset description](what-you-set-decides-the-credential.drawio.md). Each failure carries
+a verbatim fragment of its message; the full messages are quoted below.
 
 ## Walkthrough
 

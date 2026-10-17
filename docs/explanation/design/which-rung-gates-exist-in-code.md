@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "086277112b92"
+    with_body_sha: af08e5d86b57
     repo_status: clean
     path: docs/explanation/design/which-rung-gates-exist-in-code.md
     folder: docs/explanation/design
@@ -18,17 +18,17 @@ catzc:
       - ADR-DSGN-VISUAL#4
       - ADR-FLOW-CD#{5,8,9,12}
     links:
-      - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
       - docs/adr/automation/test-automation.md
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/visual-design.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
       - docs/explanation/design/code-wires-only-the-first-rungs.md
       - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
       - docs/explanation/design/four-domains-promote-one-artifact.md
       - docs/explanation/design/index.md
       - docs/explanation/design/one-way-climb-three-endings.md
+      - docs/explanation/design/which-rung-gates-exist-in-code.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -54,10 +54,9 @@ commit state each one grants beside it, the gates split cleanly into those a pip
 ADRs. Three checks exist in code: PR build validation, the BVT, and the stop that keeps a failed stage from reaching the next one. Every
 gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 
-![Only PR build validation, the BVT and the failure stop are checked in code](../../.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png)
+![Only PR build validation, the BVT and the failure stop are checked in code](../.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md).
+The diagram is described element by element in [its asset description](which-rung-gates-exist-in-code.drawio.md).
 
 ## Walkthrough
 

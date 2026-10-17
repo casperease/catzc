@@ -1,0 +1,71 @@
+// A read-only editor for the committed automation/.compiled/Catzc.Types.<hash>.dll: a short note instead of the binary screen.
+// The current hash is computed from automation/<module>/types/*.cs with the algorithm of Import-CSharpTypes (ADR-AUTO-CACHE#8):
+// per file the SHA-256 of the bytes without CR, upper-hex; one "<module>/<type>|<hex>\n" line per file in ordinal order;
+// the first 8 hex of the SHA-256 of that text, lower-cased.
+
+const vscode = require('vscode');
+const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto');
+
+function currentHash(automationRoot) {
+    const files = [];
+    for (const module of fs.readdirSync(automationRoot)) {
+        if (module.startsWith('.')) continue;
+        const typesDir = path.join(automationRoot, module, 'types');
+        if (!fs.existsSync(typesDir)) continue;
+        for (const name of fs.readdirSync(typesDir)) {
+            if (name.endsWith('.cs')) files.push([module + '/' + name.slice(0, -3), path.join(typesDir, name)]);
+        }
+    }
+    files.sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
+    let text = '';
+    for (const [key, file] of files) {
+        const bytes = fs.readFileSync(file).filter((b) => b !== 13);
+        text += key + '|' + crypto.createHash('sha256').update(bytes).digest('hex').toUpperCase() + '\n';
+    }
+    return crypto.createHash('sha256').update(text, 'utf8').digest('hex').slice(0, 8);
+}
+
+const escape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function render(file) {
+    const name = path.basename(file);
+    const built = (/^Catzc\.Types\.([0-9a-f]{8})\.dll$/i.exec(name) || [])[1];
+    const current = currentHash(path.dirname(path.dirname(file)));
+    const isCurrent = built !== undefined && built.toLowerCase() === current;
+    const sidecar = file.replace(/\.dll$/i, '.json');
+    const info = fs.existsSync(sidecar) ? fs.readFileSync(sidecar, 'utf8') : '';
+    const verdict = isCurrent
+        ? `This is the current build for <code>${escape(name)}</code>.`
+        : `This is <b>not</b> the current build. The sources need <code>Catzc.Types.${current}.dll</code>. ` +
+          'Dot-source <code>./importer.ps1</code>, then stage <code>automation/.compiled</code>.';
+    return `<!doctype html><html><head><meta charset="utf-8"><style>
+        body { font-family: var(--vscode-font-family); color: var(--vscode-foreground); padding: 1.5rem; max-width: 60rem; line-height: 1.5; }
+        h2 { font-weight: 600; } code, pre { font-family: var(--vscode-editor-font-family); }
+        pre { background: var(--vscode-textBlockQuote-background); padding: .75rem; overflow: auto; }
+        .state { border-left: 4px solid ${isCurrent ? 'var(--vscode-charts-green)' : 'var(--vscode-charts-orange)'}; padding-left: .75rem; }
+    </style></head><body>
+        <h2>${escape(name)}</h2>
+        <p><b>This is vendored.</b> A committed build of the Catzc type sources, written by the importer. Do not edit or rebuild it by hand.</p>
+        <p class="state">${verdict}</p>
+        ${info ? `<p>Build record:</p><pre>${escape(info)}</pre>` : ''}
+    </body></html>`;
+}
+
+function activate(context) {
+    context.subscriptions.push(
+        vscode.window.registerCustomEditorProvider('catzc.compiledInfo', {
+            openCustomDocument: (uri) => ({ uri, dispose() {} }),
+            resolveCustomEditor(document, panel) {
+                try {
+                    panel.webview.html = render(document.uri.fsPath);
+                } catch (error) {
+                    panel.webview.html = `<body><p>Could not read the build: ${escape(String(error))}</p></body>`;
+                }
+            },
+        }, { supportsMultipleEditorsPerDocument: true })
+    );
+}
+
+module.exports = { activate };

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "03b1fe0ec1d7"
+    with_body_sha: "28a560323e17"
     repo_status: clean
     path: docs/explanation/design/what-keeps-the-platform-thin.md
     folder: docs/explanation/design
@@ -16,15 +16,15 @@ catzc:
       - ADR-AZ-CLI#{1-3}
       - ADR-DSGN-THINPLAT
     links:
-      - docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.md
-      - docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png
       - docs/adr/azure/prefer-az-cli.md
       - docs/adr/design/thin-platforms.md
+      - docs/explanation/.assets/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png
       - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
       - docs/explanation/design/deploy-bicep-delegates-to-az.md
       - docs/explanation/design/every-vendor-call-leaves-through-az.md
       - docs/explanation/design/index.md
       - docs/explanation/design/same-deploy-bicep-on-both-sides.md
+      - docs/explanation/design/what-keeps-the-platform-thin.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -50,10 +50,9 @@ gate that stops the flow when they break: the function naming, the configuration
 thin in the first place (no reimplementation, everything as code, a swappable substrate) have no code behind them and are held by review
 alone.
 
-![Three gates guard the CLI and az; thinness has none](../../.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png)
+![Three gates guard the CLI and az; thinness has none](../.assets/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.md).
+The diagram is described element by element in [its asset description](what-keeps-the-platform-thin.drawio.md).
 
 ## Walkthrough
 

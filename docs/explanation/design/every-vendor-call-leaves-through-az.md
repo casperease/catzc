@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "53dfed796091"
+    with_body_sha: "00bfc48cbdcf"
     repo_status: clean
     path: docs/explanation/design/every-vendor-call-leaves-through-az.md
     folder: docs/explanation/design
@@ -16,12 +16,12 @@ catzc:
       - ADR-AZ-CLI#{1-3}
       - ADR-DSGN-THINPLAT#{1-3}
     links:
-      - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
-      - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
       - docs/adr/azure/prefer-az-cli.md
       - docs/adr/design/thin-platforms.md
+      - docs/explanation/.assets/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
       - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
       - docs/explanation/design/deploy-bicep-delegates-to-az.md
+      - docs/explanation/design/every-vendor-call-leaves-through-az.drawio.md
       - docs/explanation/design/index.md
       - docs/explanation/design/same-deploy-bicep-on-both-sides.md
       - docs/explanation/design/what-keeps-the-platform-thin.md
@@ -49,10 +49,9 @@ Cats is a thin platform over Azure: it standardizes how the vendor is used and l
 deploy path, two Azure modules do the platform's part. One composes and deploys templates, the other owns the az session and the az wrapper,
 and everything that reaches Azure, compiling a template included, goes out through the az CLI.
 
-![Every vendor call leaves through the az CLI](../../.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png)
+![Every vendor call leaves through the az CLI](../.assets/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md).
+The diagram is described element by element in [its asset description](every-vendor-call-leaves-through-az.drawio.md).
 
 ## Walkthrough
 

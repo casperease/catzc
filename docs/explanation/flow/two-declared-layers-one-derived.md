@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c84eb71f0891
+    with_body_sha: d3d38e9ee20d
     repo_status: clean
     path: docs/explanation/flow/two-declared-layers-one-derived.md
     folder: docs/explanation/flow
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#{7,8,10}
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png
       - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
       - docs/explanation/flow/independence-check-groups-by-layer.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/overlap-gated-for-units-and-modules.md
       - docs/explanation/flow/peers-in-a-layer-never-overlap.md
+      - docs/explanation/flow/two-declared-layers-one-derived.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -45,10 +45,9 @@ Each globset in cats maps an area-of-control onto its tracked files, and every g
 Two layers, `deployable-unit` and `loose-fileset`, are declared in `globs.yml`. The third, `module`, is derived from the folders under
 `automation/` and is never declared. Knowing which layer a set sits in tells you where it comes from and whether its peers may overlap it.
 
-![Two layers declared, the third derived](../../.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png)
+![Two layers declared, the third derived](../.assets/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.md).
+The diagram is described element by element in [its asset description](two-declared-layers-one-derived.drawio.md).
 
 ## Walkthrough
 

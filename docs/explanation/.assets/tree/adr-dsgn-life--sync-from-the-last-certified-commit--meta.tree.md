@@ -1,3 +1,43 @@
+---
+catzc:
+  immutable:
+    with_body_sha: eb77c5fe0cfc
+    repo_status: clean
+    path: docs/explanation/.assets/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
+    folder: docs/explanation/.assets/tree
+    name: adr-dsgn-life-sync-from-the-last-certified-commit-meta-tree
+    filetype: md
+    kind: asset-description
+    language: markdown
+    track: docs
+    tracktype: documentation
+  edges:
+    cites:
+      - ADR-DSGN-LIFE#5
+    links:
+      - ".unordered/15-10-2026/plan-adr-consistency.md"
+      - ".unordered/15-10-2026/plan-concern-axis.md"
+      - ".unordered/15-10-2026/plan-explanation-drift.md"
+      - automation/Catzc.Base.Docs/configs/adrs.yml
+      - automation/Catzc.Base.Git/Push-Dirty.ps1
+      - automation/Catzc.Base.Languages/configs/languages.yml
+      - automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+      - automation/Catzc.Base.Variants/configs/variants.yml
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+      - docs/adr/design/dora-explains.md
+      - docs/adr/glossary.md
+      - docs/adr/glossary.md#cell
+      - docs/adr/glossary.md#file-language
+      - docs/adr/glossary.md#lit-cell
+      - docs/adr/glossary.md#occupant
+      - docs/adr/glossary.md#track
+      - docs/adr/glossary.md#world-map
+      - docs/adr/index.md
+      - docs/explanation/.assets/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.png
+      - pipelines/ci-automation.yaml
+---
+
 # docs/explanation/.assets/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
 
 `Tree minimap: adr-dsgn-life--sync-from-the-last-certified-commit--meta`

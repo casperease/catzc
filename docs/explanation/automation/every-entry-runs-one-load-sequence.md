@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2fcdad285504"
+    with_body_sha: "4db7b0381eb2"
     repo_status: clean
     path: docs/explanation/automation/every-entry-runs-one-load-sequence.md
     folder: docs/explanation/automation
@@ -16,10 +16,10 @@ catzc:
       - ADR-AUTO-BUNDLE#{3,8}
       - ADR-DSGN-RUNMODE#5
     links:
-      - docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.md
-      - docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png
       - docs/adr/automation/platform-bundle.md
+      - docs/explanation/.assets/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png
       - docs/explanation/automation/dot-source-one-entry-script.md
+      - docs/explanation/automation/every-entry-runs-one-load-sequence.drawio.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/invoke-importer-in-code-order.md
       - docs/explanation/automation/rule-and-gate-per-load-stage.md
@@ -45,10 +45,9 @@ Cats loads through the same five stages in the same order, whatever the entry po
 then tidy up and leave. There is one living importer, never a forked copy, so a session loaded from the repository and a session loaded from
 a build are set up the same way.
 
-![Every entry runs one load sequence](../../.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png)
+![Every entry runs one load sequence](../.assets/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.md).
+The diagram is described element by element in [its asset description](every-entry-runs-one-load-sequence.drawio.md).
 
 ## Walkthrough
 

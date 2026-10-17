@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c2da6a7a9882
+    with_body_sha: "345b8204b036"
     repo_status: clean
     path: docs/explanation/configuration/one-reader-one-cache-per-session.md
     folder: docs/explanation/configuration
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-CONF-LOADING#{1,3}
     links:
-      - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.md
-      - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png
       - docs/adr/configuration/module-config-loading.md
+      - docs/explanation/.assets/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png
       - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
       - docs/explanation/configuration/callers-depend-on-one-config-module.md
       - docs/explanation/configuration/index.md
       - docs/explanation/configuration/one-gate-guards-the-read-path.md
+      - docs/explanation/configuration/one-reader-one-cache-per-session.drawio.md
       - docs/explanation/configuration/three-caches-back-one-reader.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -44,10 +44,9 @@ Config reading in cats has exactly one reader and one cache for the whole sessio
 in any module may need one of them, so instead of letting each function open the file it wants, every read goes the same way. The first read
 of a config parses and types the file; every later read gets the same object back from the cache, and only a re-import clears it.
 
-![Every config read goes through one reader and one session cache](../../.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png)
+![Every config read goes through one reader and one session cache](../.assets/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.md).
+The diagram is described element by element in [its asset description](one-reader-one-cache-per-session.drawio.md).
 
 ## Walkthrough
 

@@ -2,7 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6fdbade1deab"
-    with_inputs_sha: "27c24f1c3896a6cb5c16c6af2eab49a2542e9fff9260e744dae5590c02d7fc21"
+    with_inputs_sha: d4f29bb88184ddea712bc66a6128494e5778b7d1eada2a1971715b70f3da02c3
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary

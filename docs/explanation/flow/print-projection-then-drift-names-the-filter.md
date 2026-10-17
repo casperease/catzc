@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2678d113eea1"
+    with_body_sha: "3010b13a4236"
     repo_status: clean
     path: docs/explanation/flow/print-projection-then-drift-names-the-filter.md
     folder: docs/explanation/flow
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#6
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
       - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
       - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
       - docs/explanation/flow/globs-projects-and-three-consumers-read.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-program-two-vendor-dialects.md
+      - docs/explanation/flow/print-projection-then-drift-names-the-filter.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -48,10 +48,9 @@ command, `Get-GlobSetTrigger -Name <set>`. The Azure DevOps lists it prints go i
 then say whether the registry and the pipelines agree: one names the pipeline and the path filter that drifted, or the file that is missing,
 and the other names any member file an include pattern would miss.
 
-![Print the projection, then drift names the filter](../../.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png)
+![Print the projection, then drift names the filter](../.assets/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md).
+The diagram is described element by element in [its asset description](print-projection-then-drift-names-the-filter.drawio.md).
 
 ## Walkthrough
 

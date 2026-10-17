@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cd0312dc18af
+    with_body_sha: e1fe0099afd6
     repo_status: clean
     path: docs/explanation/azure/lookup-form-check-render-in-order.md
     folder: docs/explanation/azure
@@ -15,11 +15,11 @@ catzc:
     cites:
       - ADR-AZ-NAMING#{4-7}
     links:
-      - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md
-      - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png
       - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/.assets/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png
       - docs/explanation/azure/how-each-naming-rule-is-held.md
       - docs/explanation/azure/index.md
+      - docs/explanation/azure/lookup-form-check-render-in-order.drawio.md
       - docs/explanation/azure/names-are-derived-never-typed.md
       - docs/explanation/azure/names-are-pure-and-never-truncated.md
       - docs/explanation/azure/one-namer-assembles-every-name.md
@@ -50,10 +50,9 @@ type, the order and the pattern, forms the segment values, checks every componen
 bad input along the way, and one length check at the end either throws or returns the name. Knowing the order tells a reader which error a
 given mistake produces.
 
-![The namer looks up, forms, checks and renders a name in that order](../../.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png)
+![The namer looks up, forms, checks and renders a name in that order](../.assets/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md).
+The diagram is described element by element in [its asset description](lookup-form-check-render-in-order.drawio.md).
 
 ## Walkthrough
 

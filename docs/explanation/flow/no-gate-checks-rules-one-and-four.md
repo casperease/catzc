@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a85da9fc8bca
+    with_body_sha: d4ab2e8de2e6
     repo_status: clean
     path: docs/explanation/flow/no-gate-checks-rules-one-and-four.md
     folder: docs/explanation/flow
@@ -16,12 +16,12 @@ catzc:
       - ADR-FLOW-CD-RUNNER
       - ADR-PIPE-NAME#4
     links:
-      - docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png
       - docs/adr/flow/pipeline-runner-pattern.md
       - docs/adr/pipelines/pipeline-naming-and-placement.md
+      - docs/explanation/.assets/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png
       - docs/explanation/flow/a-step-only-names-a-command.md
       - docs/explanation/flow/index.md
+      - docs/explanation/flow/no-gate-checks-rules-one-and-four.drawio.md
       - docs/explanation/flow/the-runner-is-the-only-seam.md
       - docs/explanation/flow/the-step-is-named-after-its-command.md
       - docs/explanation/flow/three-tasks-one-guard-one-runner.md
@@ -49,10 +49,9 @@ the command. The stages run left to right, each calling the next, and the arrows
 rules hold today with no gate behind them, the step template contradicts the rule written for it, and the gates that do touch these stages
 check something nearby rather than the rule itself.
 
-![No gate checks rules 1 or 4; the template breaks 3](../../.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png)
+![No gate checks rules 1 or 4; the template breaks 3](../.assets/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md).
+The diagram is described element by element in [its asset description](no-gate-checks-rules-one-and-four.drawio.md).
 
 ## Walkthrough
 

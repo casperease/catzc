@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9387b36c0e27"
+    with_body_sha: ab367c58da49
     repo_status: clean
     path: docs/explanation/automation/output-root-first-then-repo-root.md
     folder: docs/explanation/automation
@@ -15,11 +15,11 @@ catzc:
     cites:
       - ADR-AUTO-PATH#{4,5,9,10}
     links:
-      - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
-      - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
       - docs/adr/automation/path-representation.md
+      - docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-out-string-two-places.md
+      - docs/explanation/automation/output-root-first-then-repo-root.drawio.md
       - docs/explanation/automation/two-crossers-and-three-anchors.md
       - docs/explanation/automation/two-forms-never-a-third.md
       - docs/explanation/automation/types-check-forms-review-checks-crossers.md
@@ -50,10 +50,9 @@ of their tests is the whole contract. Converting a path tries the output root be
 path when neither applies; resolving a path re-anchors `out/` on `Get-OutputRoot`, passes a rooted path through and joins everything else
 onto the repository root. Across a stage boundary `ArtifactRef` does the same job against the artifact root.
 
-![The output root is tried first, then the repository root](../../.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png)
+![The output root is tried first, then the repository root](../.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md).
+The diagram is described element by element in [its asset description](output-root-first-then-repo-root.drawio.md).
 
 ## Walkthrough
 

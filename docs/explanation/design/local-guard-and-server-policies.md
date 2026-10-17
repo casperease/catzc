@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f8b79c407fcb
+    with_body_sha: "9f8beb40a986"
     repo_status: clean
     path: docs/explanation/design/local-guard-and-server-policies.md
     folder: docs/explanation/design
@@ -16,14 +16,14 @@ catzc:
       - ADR-DSGN-REMOTE#{2,4}
       - ADR-REPO-VARIANT#6
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.md
-      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
       - docs/adr/design/server-remote-integration.md
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
       - docs/explanation/design/clients-bridge-to-one-server.md
       - docs/explanation/design/guard-and-policies-by-command.md
       - docs/explanation/design/index.md
       - docs/explanation/design/ingress-gated-the-rest-by-review.md
+      - docs/explanation/design/local-guard-and-server-policies.drawio.md
       - docs/explanation/design/one-door-in-one-stable-point-out.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -51,10 +51,9 @@ Cats implements the way in from both sides. On the clone, a `git_workspace` vari
 straight to main; on the server, a config file feeds the blocking build-validation policies on `main` in Azure DevOps. Both chains run in
 the order shown. The way out has no chain at all: no function returns the last verified commit that consumers are told to integrate from.
 
-![A local guard and ADO policies, no resolver](../../.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png)
+![A local guard and ADO policies, no resolver](../.assets/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.md).
+The diagram is described element by element in [its asset description](local-guard-and-server-policies.drawio.md).
 
 ## Walkthrough
 

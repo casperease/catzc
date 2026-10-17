@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "01018e7b150d"
+    with_body_sha: "9179ca73fd85"
     repo_status: clean
     path: docs/explanation/flow/a-step-only-names-a-command.md
     folder: docs/explanation/flow
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-FLOW-CD-RUNNER#{1,4}
     links:
-      - docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png
       - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/explanation/.assets/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png
+      - docs/explanation/flow/a-step-only-names-a-command.drawio.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/no-gate-checks-rules-one-and-four.md
       - docs/explanation/flow/the-runner-is-the-only-seam.md
@@ -44,10 +44,9 @@ A pipeline step in cats does not hold PowerShell. It names a command, and one ru
 in a terminal. YAML declares, PowerShell executes, and the string in the step is exactly what a developer types after loading the modules.
 That one invariant is what makes every pipeline step reproducible by hand.
 
-![A pipeline step only names a command you can run locally](../../.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png)
+![A pipeline step only names a command you can run locally](../.assets/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md).
+The diagram is described element by element in [its asset description](a-step-only-names-a-command.drawio.md).
 
 ## Walkthrough
 

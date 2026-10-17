@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "640b239cd646"
+    with_body_sha: f10253873ec7
     repo_status: clean
     path: docs/explanation/design/get-aspect-names-the-remainder.md
     folder: docs/explanation/design
@@ -16,13 +16,13 @@ catzc:
       - ADR-DSGN-ASPECT#3
       - ADR-REPO-VARIANT#{1,2}
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.md
-      - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
       - docs/adr/design/module-aspects.md
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
       - docs/explanation/design/each-track-picks-its-catch-all.md
       - docs/explanation/design/gate-checks-order-not-liveness.md
       - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
+      - docs/explanation/design/get-aspect-names-the-remainder.drawio.md
       - docs/explanation/design/index.md
       - docs/explanation/design/only-automation-compiles-its-aspects.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -50,10 +50,9 @@ declared order, and the last one is the remainder, so `(Get-Aspect -Track infras
 `automation` is `tests`. A person who wants to change that edits `variants.yml` and runs the importer again. A wrong order does not get far:
 the config type refuses to load a track whose last aspect is not the bare `**`.
 
-![Get-Aspect names the remainder](../../.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png)
+![Get-Aspect names the remainder](../.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.md).
+The diagram is described element by element in [its asset description](get-aspect-names-the-remainder.drawio.md).
 
 ## Walkthrough
 

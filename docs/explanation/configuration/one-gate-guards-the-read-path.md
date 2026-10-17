@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cd955d1c421d
+    with_body_sha: dad908bee111
     repo_status: clean
     path: docs/explanation/configuration/one-gate-guards-the-read-path.md
     folder: docs/explanation/configuration
@@ -17,14 +17,14 @@ catzc:
       - ADR-CONF-ADDRESSING
       - ADR-CONF-LOADING
     links:
-      - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.md
-      - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png
       - docs/adr/automation/test-automation.md
       - docs/adr/configuration/config-value-addressing.md
       - docs/adr/configuration/module-config-loading.md
+      - docs/explanation/.assets/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png
       - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
       - docs/explanation/configuration/callers-depend-on-one-config-module.md
       - docs/explanation/configuration/index.md
+      - docs/explanation/configuration/one-gate-guards-the-read-path.drawio.md
       - docs/explanation/configuration/one-reader-one-cache-per-session.md
       - docs/explanation/configuration/three-caches-back-one-reader.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -52,11 +52,10 @@ in an integrity test. Each stage of the read path carries the rules that govern 
 `Test-ShippedConfigs`, guards the read path, and it looks only at the typed step; the one-reader rule and the read-only rule rest on
 convention.
 
-![One quality gate guards the config read path](../../.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png)
+![One quality gate guards the config read path](../.assets/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.md). Rule chips name
-the rules: `L` is ADR-CONF-LOADING, `A` is ADR-CONF-ADDRESSING and `T` is ADR-AUTO-TEST.
+The diagram is described element by element in [its asset description](one-gate-guards-the-read-path.drawio.md). Rule chips name the rules:
+`L` is ADR-CONF-LOADING, `A` is ADR-CONF-ADDRESSING and `T` is ADR-AUTO-TEST.
 
 ## Walkthrough
 

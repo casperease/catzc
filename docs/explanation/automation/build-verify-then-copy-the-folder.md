@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7c07bf7b6e67"
+    with_body_sha: f1feb1492f74
     repo_status: clean
     path: docs/explanation/automation/build-verify-then-copy-the-folder.md
     folder: docs/explanation/automation
@@ -16,10 +16,10 @@ catzc:
       - ADR-AUTO-ASSETDEP#4
       - ADR-AUTO-BUNDLE#{1,5-7}
     links:
-      - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.md
-      - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
       - docs/adr/automation/platform-bundle.md
+      - docs/explanation/.assets/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
       - docs/explanation/automation/build-then-place-with-one-command.md
+      - docs/explanation/automation/build-verify-then-copy-the-folder.drawio.md
       - docs/explanation/automation/every-code-root-is-a-copy.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-commit-one-immutable-package.md
@@ -48,10 +48,9 @@ A bundle, in code, is a short chain of functions in `Catzc.Base.Exporter` and on
 resolves the version, calls `Invoke-ModuleBuild`, and runs `Assert-CatzcBundle` on what the engine wrote. What is left is one folder,
 `out/automation/build/Catzc/6.6.666/` on a devbox, and each target verifies that folder again and then copies or packs it whole.
 
-![Build, verify, then copy the folder](../../.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png)
+![Build, verify, then copy the folder](../.assets/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.md).
+The diagram is described element by element in [its asset description](build-verify-then-copy-the-folder.drawio.md).
 
 ## Walkthrough
 

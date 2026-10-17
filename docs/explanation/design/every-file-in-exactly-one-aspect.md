@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: edf4b6a5a7fa
+    with_body_sha: d95a2762799a
     repo_status: clean
     path: docs/explanation/design/every-file-in-exactly-one-aspect.md
     folder: docs/explanation/design
@@ -16,10 +16,10 @@ catzc:
       - ADR-DSGN-ASPECT#{1,2,4,5}
       - ADR-FLOW-CD-GLOBS#9
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md
-      - docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
       - docs/adr/design/module-aspects.md
+      - docs/explanation/.assets/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
       - docs/explanation/design/drop-a-file-the-import-exports-it.md
+      - docs/explanation/design/every-file-in-exactly-one-aspect.drawio.md
       - docs/explanation/design/index.md
       - docs/explanation/design/manifest-and-aspects-from-one-folder.md
       - docs/explanation/design/one-folder-two-independent-readers.md
@@ -46,10 +46,9 @@ apart. The module's files split into two aspects by ordered first match: `live` 
 that takes every other file. No file is in two aspects and no file is in none, so a test edit and a runtime edit never touch the same
 identity.
 
-![Every module file is in exactly one aspect](../../.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png)
+![Every module file is in exactly one aspect](../.assets/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md).
+The diagram is described element by element in [its asset description](every-file-in-exactly-one-aspect.drawio.md).
 
 ## Walkthrough
 

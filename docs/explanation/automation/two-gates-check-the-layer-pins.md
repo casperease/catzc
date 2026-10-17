@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "969c7f84aaa7"
+    with_body_sha: "55f2d339556b"
     repo_status: clean
     path: docs/explanation/automation/two-gates-check-the-layer-pins.md
     folder: docs/explanation/automation
@@ -16,13 +16,13 @@ catzc:
       - ADR-AUTO-DEPM#{1-6}
       - ADR-AUTO-TEST#35
     links:
-      - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md
-      - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/test-automation.md
+      - docs/explanation/.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
       - docs/explanation/automation/a-declared-allow-list-of-layers.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/three-layers-edges-point-down.md
+      - docs/explanation/automation/two-gates-check-the-layer-pins.drawio.md
       - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
       - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -47,10 +47,9 @@ The layer pins of cats' module graph, the groups and modules each consumer may u
 are checked twice. The load check validates the declaration itself, and the `Test-ModuleDependency` quality gate checks the real code
 against it. One rule, declaring a new edge in the same change as the code, has no gate at all.
 
-![Two gates check the layer pins](../../.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png)
+![Two gates check the layer pins](../.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md).
+The diagram is described element by element in [its asset description](two-gates-check-the-layer-pins.drawio.md).
 
 ## Walkthrough
 

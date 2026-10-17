@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0c1d71f47fcd"
+    with_body_sha: b86de29c34fc
     repo_status: clean
     path: docs/explanation/flow/overlap-gated-for-units-and-modules.md
     folder: docs/explanation/flow
@@ -17,15 +17,15 @@ catzc:
       - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-PROTGLOB#7
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png
       - docs/adr/automation/test-automation.md
       - docs/adr/flow/durable-sha-globs.md
       - docs/adr/principles/one-living-version.md
       - docs/adr/repository/protected-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png
       - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
       - docs/explanation/flow/independence-check-groups-by-layer.md
       - docs/explanation/flow/index.md
+      - docs/explanation/flow/overlap-gated-for-units-and-modules.drawio.md
       - docs/explanation/flow/peers-in-a-layer-never-overlap.md
       - docs/explanation/flow/two-declared-layers-one-derived.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -52,10 +52,9 @@ for the `deployable-unit` and `module` layers, config-load validation keeps the 
 is exempt by design. Two prohibitions in the same ADR, the phantom unit and the loose-fileset without a demonstrated use, have no check
 behind them: they hold only as ADR rules.
 
-![A gate on overlap for units and modules](../../.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png)
+![A gate on overlap for units and modules](../.assets/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md).
+The diagram is described element by element in [its asset description](overlap-gated-for-units-and-modules.drawio.md).
 
 ## Walkthrough
 

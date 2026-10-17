@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5ffe1a51b035"
+    with_body_sha: ef8740bfa3fb
     repo_status: clean
     path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
     folder: docs/explanation/design
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-DSGN-THINPLAT#{1-3,5}
     links:
-      - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md
-      - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png
       - docs/adr/design/thin-platforms.md
+      - docs/explanation/.assets/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png
+      - docs/explanation/design/bind-to-one-cli-delegate-the-rest.drawio.md
       - docs/explanation/design/deploy-bicep-delegates-to-az.md
       - docs/explanation/design/every-vendor-call-leaves-through-az.md
       - docs/explanation/design/index.md
@@ -43,10 +43,9 @@ Cats is a thin platform: a single CLI that standardizes how an organization uses
 is a single chain. A consumer binds to the CLI and nothing else, the CLI hands the work to the vendor's own tools, and those tools talk to
 the cloud. The invariant is delegation, not reimplementation, and the consequential choices stay in the consumer's configuration.
 
-![Bind to one CLI; delegate the rest to the vendor](../../.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png)
+![Bind to one CLI; delegate the rest to the vendor](../.assets/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md).
+The diagram is described element by element in [its asset description](bind-to-one-cli-delegate-the-rest.drawio.md).
 
 ## Walkthrough
 

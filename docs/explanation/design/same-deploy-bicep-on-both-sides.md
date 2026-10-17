@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ea64b39cbb52
+    with_body_sha: "3f6fc9494d83"
     repo_status: clean
     path: docs/explanation/design/same-deploy-bicep-on-both-sides.md
     folder: docs/explanation/design
@@ -16,14 +16,14 @@ catzc:
       - ADR-AUTO-PARITY#3
       - ADR-DSGN-THINPLAT#{2,3}
     links:
-      - docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.md
-      - docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/design/thin-platforms.md
+      - docs/explanation/.assets/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png
       - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
       - docs/explanation/design/deploy-bicep-delegates-to-az.md
       - docs/explanation/design/every-vendor-call-leaves-through-az.md
       - docs/explanation/design/index.md
+      - docs/explanation/design/same-deploy-bicep-on-both-sides.drawio.md
       - docs/explanation/design/what-keeps-the-platform-thin.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -49,10 +49,9 @@ surface. The one thing a pipeline must add is `-SubscriptionIdAssertIs`, the sub
 or when it does not match the az session, the run stops before az deploys anything. From there the run ends in one of four ways: a preview,
 a deployment, or one of two failures.
 
-![A developer and a pipeline run the same Deploy-Bicep](../../.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png)
+![A developer and a pipeline run the same Deploy-Bicep](../.assets/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.md).
+The diagram is described element by element in [its asset description](same-deploy-bicep-on-both-sides.drawio.md).
 
 ## Walkthrough
 

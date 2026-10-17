@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "15139b8bcd1b"
+    with_body_sha: d75adc1d543b
     repo_status: clean
     path: docs/explanation/design/get-aspect-feeds-globs-and-maps.md
     folder: docs/explanation/design
@@ -18,14 +18,14 @@ catzc:
       - ADR-FLOW-CD-GLOBS#4
       - ADR-REPO-VARIANT#1
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.md
-      - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
       - docs/adr/design/module-aspects.md
       - docs/adr/design/tracks.md
       - docs/adr/flow/durable-sha-globs.md
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
       - docs/explanation/design/each-track-picks-its-catch-all.md
       - docs/explanation/design/gate-checks-order-not-liveness.md
+      - docs/explanation/design/get-aspect-feeds-globs-and-maps.drawio.md
       - docs/explanation/design/get-aspect-names-the-remainder.md
       - docs/explanation/design/index.md
       - docs/explanation/design/only-automation-compiles-its-aspects.md
@@ -56,10 +56,9 @@ One function, `Get-Aspect`, is the only way a convention leaves `variants.yml`, 
 scan program. In `Catzc.Base.Maps`, `Get-WorldMap` reads the convention of every track and the builder answers one question per file: is it
 live? The code that validates the order sits in the config type, before either caller sees a list.
 
-![Get-Aspect feeds Globs and Maps](../../.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png)
+![Get-Aspect feeds Globs and Maps](../.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.md).
+The diagram is described element by element in [its asset description](get-aspect-feeds-globs-and-maps.drawio.md).
 
 ## Walkthrough
 

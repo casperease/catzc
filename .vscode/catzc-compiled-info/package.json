@@ -1,0 +1,20 @@
+{
+  "name": "catzc-compiled-info",
+  "displayName": "Catzc compiled build info",
+  "description": "Opens a committed Catzc.Types.<hash>.dll as a short note on what it is and whether it is the current build, instead of the binary screen.",
+  "version": "0.1.0",
+  "publisher": "catzc",
+  "engines": { "vscode": "^1.90.0" },
+  "main": "./extension.js",
+  "activationEvents": ["onCustomEditor:catzc.compiledInfo"],
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "catzc.compiledInfo",
+        "displayName": "Catzc compiled build",
+        "selector": [{ "filenamePattern": "**/automation/.compiled/*.dll" }],
+        "priority": "default"
+      }
+    ]
+  }
+}

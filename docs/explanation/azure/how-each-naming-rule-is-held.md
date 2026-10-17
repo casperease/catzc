@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ee09541f42c4
+    with_body_sha: "6a8106d2c55a"
     repo_status: clean
     path: docs/explanation/azure/how-each-naming-rule-is-held.md
     folder: docs/explanation/azure
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-AZ-NAMING
     links:
-      - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
-      - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
       - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
+      - docs/explanation/azure/how-each-naming-rule-is-held.drawio.md
       - docs/explanation/azure/index.md
       - docs/explanation/azure/lookup-form-check-render-in-order.md
       - docs/explanation/azure/names-are-derived-never-typed.md
@@ -45,10 +45,9 @@ The Azure naming standard has eight rules, and cats holds every one of them in c
 discovery, the rest inside the namer, in the order a name is built. The eighth, that the subscription never enters a name, holds by
 construction in the resolver, with no check and no dedicated test. Four comment or message texts still disagree with the ADR.
 
-![Code holds all eight naming rules, seven of them behind a check that throws](../../.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png)
+![Code holds all eight naming rules, seven of them behind a check that throws](../.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md).
+The diagram is described element by element in [its asset description](how-each-naming-rule-is-held.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: db59804939f1
+    with_body_sha: "7f1011289c79"
     repo_status: clean
     path: docs/explanation/flow/the-runner-is-the-only-seam.md
     folder: docs/explanation/flow
@@ -15,12 +15,12 @@ catzc:
     cites:
       - ADR-FLOW-CD-RUNNER#{1-3}
     links:
-      - docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png
       - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/explanation/.assets/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png
       - docs/explanation/flow/a-step-only-names-a-command.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/no-gate-checks-rules-one-and-four.md
+      - docs/explanation/flow/the-runner-is-the-only-seam.drawio.md
       - docs/explanation/flow/the-step-is-named-after-its-command.md
       - docs/explanation/flow/three-tasks-one-guard-one-runner.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -46,10 +46,9 @@ cats gives it exactly one crossing: pipeline YAML calls one step template, the t
 script, which loads the module system. A developer reaches the same module system from a terminal without passing through the YAML, the
 template or the task.
 
-![The runner is the only seam into PowerShell](../../.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png)
+![The runner is the only seam into PowerShell](../.assets/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md).
+The diagram is described element by element in [its asset description](the-runner-is-the-only-seam.drawio.md).
 
 ## Walkthrough
 

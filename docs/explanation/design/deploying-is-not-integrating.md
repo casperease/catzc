@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a9bdca79fa5e
+    with_body_sha: be05ede69383
     repo_status: clean
     path: docs/explanation/design/deploying-is-not-integrating.md
     folder: docs/explanation/design
@@ -16,11 +16,11 @@ catzc:
       - ADR-DSGN-LIFE#{1,9}
       - ADR-DSGN-VISUAL#{4,13}
     links:
-      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/visual-design.md
+      - docs/explanation/.assets/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
       - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
+      - docs/explanation/design/deploying-is-not-integrating.drawio.md
       - docs/explanation/design/every-deploy-stage-is-main-only.md
       - docs/explanation/design/index.md
       - docs/explanation/design/merging-to-main-is-what-deploys.md
@@ -46,10 +46,9 @@ Deploying a commit and integrating it are separate events: a commit can reach an
 treats that honestly: an out-of-band deploy puts a topic commit into an environment, but only landing on main puts it on the promotion
 ladder. Keeping the two events apart is what lets a commit's colour stay a true statement about where it stands.
 
-![Deploying is not integrating](../../.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png)
+![Deploying is not integrating](../.assets/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md).
+The diagram is described element by element in [its asset description](deploying-is-not-integrating.drawio.md).
 
 ## Walkthrough
 

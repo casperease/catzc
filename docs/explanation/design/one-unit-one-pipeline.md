@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c392cf3de1a3
+    with_body_sha: daabd9b2e97d
     repo_status: clean
     path: docs/explanation/design/one-unit-one-pipeline.md
     folder: docs/explanation/design
@@ -15,12 +15,12 @@ catzc:
     cites:
       - ADR-DSGN-TRACK#{1,2,4,5}
     links:
-      - docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md
-      - docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png
       - docs/adr/design/tracks.md
+      - docs/explanation/.assets/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png
       - docs/explanation/design/a-push-fires-only-touched-pipelines.md
       - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
       - docs/explanation/design/index.md
+      - docs/explanation/design/one-unit-one-pipeline.drawio.md
       - docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
       - docs/explanation/design/units-not-tracks-own-the-pipelines.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -44,10 +44,9 @@ Three words carry the delivery side of cats: a track is a concern, a deployable-
 machine. The invariant ties them in a line: units are composed from tracks, each unit binds one pipeline, and a pipeline never reaches a
 track except through the unit that is that track.
 
-![One unit, one pipeline; tracks ship through units](../../.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png)
+![One unit, one pipeline; tracks ship through units](../.assets/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md).
+The diagram is described element by element in [its asset description](one-unit-one-pipeline.drawio.md).
 
 ## Walkthrough
 

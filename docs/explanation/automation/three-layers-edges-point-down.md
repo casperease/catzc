@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a9f5e8f8eb54
+    with_body_sha: "79b351556612"
     repo_status: clean
     path: docs/explanation/automation/three-layers-edges-point-down.md
     folder: docs/explanation/automation
@@ -15,11 +15,11 @@ catzc:
     cites:
       - ADR-AUTO-DEPM#{1,3,4}
     links:
-      - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.md
-      - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
       - docs/adr/automation/controlling-module-dependencies.md
+      - docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
       - docs/explanation/automation/a-declared-allow-list-of-layers.md
       - docs/explanation/automation/index.md
+      - docs/explanation/automation/three-layers-edges-point-down.drawio.md
       - docs/explanation/automation/two-gates-check-the-layer-pins.md
       - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
       - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
@@ -46,10 +46,9 @@ declared up front in one file, `dependencies.yml`, and the declaration is the al
 Seen from far enough away, the declared graph has a simple shape. The modules sit in three layers, and every allowed dependency points down
 to a lower one.
 
-![Module dependencies form three layers, and every edge points down](../../.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png)
+![Module dependencies form three layers, and every edge points down](../.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.md).
+The diagram is described element by element in [its asset description](three-layers-edges-point-down.drawio.md).
 
 ## Walkthrough
 

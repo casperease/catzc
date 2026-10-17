@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "30924884b291"
+    with_body_sha: edbe7b1f9423
     repo_status: clean
     path: docs/explanation/automation/a-declared-allow-list-of-layers.md
     folder: docs/explanation/automation
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-AUTO-DEPM#{1,3-5}
     links:
-      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
-      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
       - docs/adr/automation/controlling-module-dependencies.md
+      - docs/explanation/.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
+      - docs/explanation/automation/a-declared-allow-list-of-layers.drawio.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/three-layers-edges-point-down.md
       - docs/explanation/automation/two-gates-check-the-layer-pins.md
@@ -44,10 +44,9 @@ The module dependency declaration is one file that says which module may depend 
 the other way round. The declaration is the allow-list: it lets each layer depend only on the layers below it, and a real edge it does not
 list fails the build. Stripped of every module and function name, the whole idea is three layers and one failure.
 
-![A declared allow-list whose edges point down](../../.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png)
+![A declared allow-list whose edges point down](../.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md).
+The diagram is described element by element in [its asset description](a-declared-allow-list-of-layers.drawio.md).
 
 ## Walkthrough
 

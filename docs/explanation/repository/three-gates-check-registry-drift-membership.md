@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "413a6f2fae83"
+    with_body_sha: fa04befa159e
     repo_status: clean
     path: docs/explanation/repository/three-gates-check-registry-drift-membership.md
     folder: docs/explanation/repository
@@ -16,16 +16,16 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-REPO-ROOTCFG
     links:
-      - docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.md
-      - docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png
       - docs/adr/automation/test-automation.md
       - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/.assets/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
       - docs/explanation/repository/index.md
       - docs/explanation/repository/one-registry-one-writer-two-primitives.md
       - docs/explanation/repository/one-source-one-writer-one-boolean.md
       - docs/explanation/repository/opted-in-then-link-copy-or-render.md
+      - docs/explanation/repository/three-gates-check-registry-drift-membership.drawio.md
 ---
 
 # Three gates check the registry, the drift and the git membership; one rule has no gate
@@ -50,10 +50,9 @@ that differs from what the writer would compose fails the drift check; and a tar
 disagrees with the registry fails the integrity check. One clause stands on the ADR alone: that the target-to-source pairing is restated
 nowhere else.
 
-![Three gates check the registry, the drift and the git membership; one rule has no gate](../../.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png)
+![Three gates check the registry, the drift and the git membership; one rule has no gate](../.assets/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.md).
+The diagram is described element by element in [its asset description](three-gates-check-registry-drift-membership.drawio.md).
 
 ## Walkthrough
 

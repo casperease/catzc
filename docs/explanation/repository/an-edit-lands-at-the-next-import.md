@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d1258477412c
+    with_body_sha: dabb0468aef6
     repo_status: clean
     path: docs/explanation/repository/an-edit-lands-at-the-next-import.md
     folder: docs/explanation/repository
@@ -16,11 +16,11 @@ catzc:
       - ADR-AUTO-CACHE#6
       - ADR-REPO-VARIANT#{1,2,5,6}
     links:
-      - docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.md
-      - docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
+      - docs/explanation/repository/an-edit-lands-at-the-next-import.drawio.md
       - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
       - docs/explanation/repository/index.md
       - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
@@ -49,10 +49,9 @@ Changing a repo-wide decision in cats is an edit and a re-import. The edit is on
 There are two moments an operator sees a variant say no: when the file is loaded with a value it does not accept, and when a guard is asked
 and the repository is not in the state the guard requires.
 
-![An edit to a variant lands at the next import](../../.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png)
+![An edit to a variant lands at the next import](../.assets/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.md).
+The diagram is described element by element in [its asset description](an-edit-lands-at-the-next-import.drawio.md).
 
 ## Walkthrough
 

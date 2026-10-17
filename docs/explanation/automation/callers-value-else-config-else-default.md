@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "359dd20fdbc4"
+    with_body_sha: bc3705e6a779
     repo_status: clean
     path: docs/explanation/automation/callers-value-else-config-else-default.md
     folder: docs/explanation/automation
@@ -16,11 +16,11 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:
-      - docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.md
-      - docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/automation/sensible-defaults.md
+      - docs/explanation/.assets/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
       - docs/explanation/automation/a-stopped-run-names-its-limit.md
+      - docs/explanation/automation/callers-value-else-config-else-default.drawio.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
       - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
@@ -48,10 +48,9 @@ under is a configurable setting that resolves the same way as every other settin
 configuration, else the sensible default declared once on the config type. An exemption can raise that limit to a ceiling while slow work is
 tuned, and nothing removes it, because there is no "no limit" value.
 
-![Every wait is bounded: the caller's value, else the config, else the default](../../.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png)
+![Every wait is bounded: the caller's value, else the config, else the default](../.assets/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.md).
+The diagram is described element by element in [its asset description](callers-value-else-config-else-default.drawio.md).
 
 ## Walkthrough
 

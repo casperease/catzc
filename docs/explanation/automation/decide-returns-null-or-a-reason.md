@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9302c72f3cc8"
+    with_body_sha: "0b2d8fe3d808"
     repo_status: clean
     path: docs/explanation/automation/decide-returns-null-or-a-reason.md
     folder: docs/explanation/automation
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-AUTO-FAILFAST#7
     links:
-      - docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.md
-      - docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
       - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/explanation/.assets/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
       - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
+      - docs/explanation/automation/decide-returns-null-or-a-reason.drawio.md
       - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
@@ -48,10 +48,9 @@ in from `Catzc.Base.Timeouts`. In code order, `Main` loads `timeouts.yml` into a
 call's payload to `BashSafeguard.Decide`, and acts on what comes back: nothing, or a reason. The verdict for a background call is delegated
 once more, to `BoundedCommand.Check`.
 
-![Decide returns null or a reason](../../.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png)
+![Decide returns null or a reason](../.assets/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.md).
+The diagram is described element by element in [its asset description](decide-returns-null-or-a-reason.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "54bd6341713f"
+    with_body_sha: a2886fdedc93
     repo_status: clean
     path: docs/explanation/configuration/an-address-is-a-read-only-walk.md
     folder: docs/explanation/configuration
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-CONF-ADDRESSING#{1,4,5}
     links:
-      - docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.md
-      - docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
       - docs/adr/configuration/config-value-addressing.md
+      - docs/explanation/.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
+      - docs/explanation/configuration/an-address-is-a-read-only-walk.drawio.md
       - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
       - docs/explanation/configuration/index.md
       - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
@@ -45,10 +45,9 @@ inside a named config. Cats resolves it without adding a second way to read conf
 reader has already loaded and cached, so the value a caller gets back is the cached config's own node, read-only, and a wrong address throws
 at the call that made it.
 
-![A config address is a read-only walk over the one cached config](../../.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png)
+![A config address is a read-only walk over the one cached config](../.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.md).
+The diagram is described element by element in [its asset description](an-address-is-a-read-only-walk.drawio.md).
 
 ## Walkthrough
 

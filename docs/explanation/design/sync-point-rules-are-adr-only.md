@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3cd7f3cab990"
+    with_body_sha: "9e090189db2a"
     repo_status: clean
     path: docs/explanation/design/sync-point-rules-are-adr-only.md
     folder: docs/explanation/design
@@ -16,13 +16,13 @@ catzc:
       - ADR-DSGN-LIFE#{2,5-8}
       - ADR-FLOW-CD#{5,9,11}
     links:
-      - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/.assets/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png
       - docs/explanation/design/index.md
       - docs/explanation/design/integrators-depend-on-an-occupant.md
       - docs/explanation/design/sync-from-the-last-certified-commit.md
+      - docs/explanation/design/sync-point-rules-are-adr-only.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -47,10 +47,9 @@ The sync point is the commit `main-UAT` holds: upstream integrators take it, nev
 the promotion ladder around it, only one has a gate in cats: the BVT rung, checked by the `ci-automation` pipeline. Every rule about
 occupants, the sync point and the dirty HEAD is ADR-only, so "sync from `main-UAT`" is a convention that no code checks.
 
-![Only BVT has a gate in code; the sync-point rules are ADR-only](../../.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png)
+![Only BVT has a gate in code; the sync-point rules are ADR-only](../.assets/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.md).
+The diagram is described element by element in [its asset description](sync-point-rules-are-adr-only.drawio.md).
 
 ## Walkthrough
 

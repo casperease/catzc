@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2eeb3688d95b"
+    with_body_sha: e2a29cb716a2
     repo_status: clean
     path: docs/explanation/flow/independence-check-groups-by-layer.md
     folder: docs/explanation/flow
@@ -16,10 +16,10 @@ catzc:
       - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-LINK#5
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png
       - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
+      - docs/explanation/flow/independence-check-groups-by-layer.drawio.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/overlap-gated-for-units-and-modules.md
       - docs/explanation/flow/peers-in-a-layer-never-overlap.md
@@ -48,10 +48,9 @@ The gate `Test-GlobSetIndependence` takes every declared and derived globset, co
 skips the `loose-fileset` group, and tests every pair inside the other groups for a shared file. Where a set's layer comes from therefore
 decides whether it is ever compared with anything. All paths below are under `automation/Catzc.Base.Globs/`.
 
-![Test-GlobSetIndependence groups by layer](../../.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png)
+![Test-GlobSetIndependence groups by layer](../.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.md).
+The diagram is described element by element in [its asset description](independence-check-groups-by-layer.drawio.md).
 
 ## Walkthrough
 

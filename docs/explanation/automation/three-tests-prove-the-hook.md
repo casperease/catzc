@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1a89156b60a6"
+    with_body_sha: "06e55a66cc57"
     repo_status: clean
     path: docs/explanation/automation/three-tests-prove-the-hook.md
     folder: docs/explanation/automation
@@ -16,15 +16,15 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:
-      - docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.md
-      - docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/automation/sensible-defaults.md
+      - docs/explanation/.assets/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png
       - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
       - docs/explanation/automation/decide-returns-null-or-a-reason.md
       - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
+      - docs/explanation/automation/three-tests-prove-the-hook.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -48,10 +48,9 @@ One rule governs the whole path of an agent's shell call through cats: every wai
 denies a call outside them. A second rule fixes where the defaults live. Three tests, one per tier, prove that the hook keeps to the rule as
 published, not just as written. One route the rule offers, exempting slow work by its budget GUID, has no code behind it for a Bash call.
 
-![Three tests prove the hook](../../.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png)
+![Three tests prove the hook](../.assets/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.md).
+The diagram is described element by element in [its asset description](three-tests-prove-the-hook.drawio.md).
 
 ## Walkthrough
 

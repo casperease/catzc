@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "77b17b73c674"
+    with_body_sha: "3a483d641a7d"
     repo_status: clean
     path: docs/explanation/automation/two-forms-never-a-third.md
     folder: docs/explanation/automation
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-AUTO-PATH#{1-4,10}
     links:
-      - docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md
-      - docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.png
       - docs/adr/automation/path-representation.md
+      - docs/explanation/.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-out-string-two-places.md
       - docs/explanation/automation/output-root-first-then-repo-root.md
       - docs/explanation/automation/two-crossers-and-three-anchors.md
+      - docs/explanation/automation/two-forms-never-a-third.drawio.md
       - docs/explanation/automation/types-check-forms-review-checks-crossers.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -45,10 +45,9 @@ output root, slash-separated, with no `.` or `..` segments, so it reads the same
 in binding form: a normalized absolute path that exists only on the line that reads, writes, or hands the path to a tool. Two functions, and
 only two, move a path from one form to the other, so normalization is a guarantee rather than a hope.
 
-![A path has two forms, never a third](../../.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.png)
+![A path has two forms, never a third](../.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md).
+The diagram is described element by element in [its asset description](two-forms-never-a-third.drawio.md).
 
 ## Walkthrough
 

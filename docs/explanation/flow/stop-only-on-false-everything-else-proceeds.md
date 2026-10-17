@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4eb015514f04"
+    with_body_sha: "0a1f582846b7"
     repo_status: clean
     path: docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
     folder: docs/explanation/flow
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#9
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
       - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
       - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/range-per-context-then-diff-and-match.md
+      - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.drawio.md
       - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -45,10 +45,9 @@ A deployable unit's pipeline stage opens with one line: `if (-not (Test-GlobSetA
 observe from that line is a boolean, at most one printed message, and one possible throw. The boolean is asymmetric on purpose: false is a
 positive confirmation that there is nothing to process, and every other outcome, touched or in doubt, proceeds.
 
-![A stage returns only on $false](../../.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png)
+![A stage returns only on $false](../.assets/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md).
+The diagram is described element by element in [its asset description](stop-only-on-false-everything-else-proceeds.drawio.md).
 
 ## Walkthrough
 

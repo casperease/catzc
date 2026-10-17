@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3bbcac23132a"
+    with_body_sha: a2bcd156b888
     repo_status: clean
     path: docs/explanation/flow/the-step-is-named-after-its-command.md
     folder: docs/explanation/flow
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-FLOW-CD-RUNNER#{3,4}
     links:
-      - docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
       - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
       - docs/explanation/flow/a-step-only-names-a-command.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/no-gate-checks-rules-one-and-four.md
       - docs/explanation/flow/the-runner-is-the-only-seam.md
+      - docs/explanation/flow/the-step-is-named-after-its-command.drawio.md
       - docs/explanation/flow/three-tasks-one-guard-one-runner.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -46,10 +46,9 @@ What an author writes in a pipeline is what the Azure DevOps run shows. The step
 echoes the command it is about to run, and a failure prints a full exception before the run stops. A developer who wants to reproduce a
 failed step copies the command from the label and runs it after the importer.
 
-![The step is named after its command](../../.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png)
+![The step is named after its command](../.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md).
+The diagram is described element by element in [its asset description](the-step-is-named-after-its-command.drawio.md).
 
 ## Walkthrough
 

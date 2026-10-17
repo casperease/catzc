@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d6736cd3c5ce
+    with_body_sha: "9fd9d4f57a21"
     repo_status: clean
     path: docs/explanation/azure/the-session-is-the-deploy-target.md
     folder: docs/explanation/azure
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-AZ-DATAMOD#7
     links:
-      - docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.md
-      - docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png
       - docs/adr/azure/azure-data-model.md
+      - docs/explanation/.assets/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png
       - docs/explanation/azure/four-gates-hold-the-session-rule.md
       - docs/explanation/azure/index.md
       - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
       - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
       - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
+      - docs/explanation/azure/the-session-is-the-deploy-target.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -44,10 +44,9 @@ the subscription: in a pipeline it is exactly what the service connection logged
 guard can state which subscription the session is expected to target, and in a pipeline it must, but the guard only confirms the target. It
 never picks one.
 
-![The az session is the deploy target, and the guard only checks it](../../.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png)
+![The az session is the deploy target, and the guard only checks it](../.assets/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.md).
+The diagram is described element by element in [its asset description](the-session-is-the-deploy-target.drawio.md).
 
 ## Walkthrough
 

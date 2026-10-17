@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a8f85abfe3b2
+    with_body_sha: b730d7d7983c
     repo_status: clean
     path: docs/explanation/automation/rule-and-gate-per-load-stage.md
     folder: docs/explanation/automation
@@ -21,8 +21,6 @@ catzc:
       - ADR-PWSH-TYPES#2
       - ADR-REPO-ROOTCFG#{1,4}
     links:
-      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
-      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/platform-bundle.md
       - docs/adr/design/run-modes.md
@@ -30,10 +28,12 @@ catzc:
       - docs/adr/pwsh/error-handling.md
       - docs/adr/pwsh/hosting-csharp-types.md
       - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/.assets/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
       - docs/explanation/automation/dot-source-one-entry-script.md
       - docs/explanation/automation/every-entry-runs-one-load-sequence.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/invoke-importer-in-code-order.md
+      - docs/explanation/automation/rule-and-gate-per-load-stage.drawio.md
       - docs/explanation/automation/two-entries-feed-one-importer.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -59,11 +59,10 @@ The cats load sequence runs in six stages, from the generated shim to the final 
 is constrained by at least one ADR rule, and each of those stages is checked by a gate: a test for four of them, and code review for the
 session set-up. The unload has neither a rule nor a gate, and two things the run-modes ADR names do not exist in code.
 
-![Every load stage but the unload has an ADR rule](../../.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png)
+![Every load stage but the unload has an ADR rule](../.assets/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md). Each stage has its
-own band, and a stage's gate sits in its band beside the rules it checks.
+The diagram is described element by element in [its asset description](rule-and-gate-per-load-stage.drawio.md). Each stage has its own band,
+and a stage's gate sits in its band beside the rules it checks.
 
 ## Walkthrough
 

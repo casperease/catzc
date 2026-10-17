@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "996f53ad2447"
+    with_body_sha: "6fba6a3110b8"
     repo_status: clean
     path: docs/explanation/automation/build-then-place-with-one-command.md
     folder: docs/explanation/automation
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-AUTO-BUNDLE#{5-7}
     links:
-      - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
-      - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png
       - docs/adr/automation/platform-bundle.md
+      - docs/explanation/.assets/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png
+      - docs/explanation/automation/build-then-place-with-one-command.drawio.md
       - docs/explanation/automation/build-verify-then-copy-the-folder.md
       - docs/explanation/automation/every-code-root-is-a-copy.md
       - docs/explanation/automation/index.md
@@ -47,10 +47,9 @@ Building and placing the bundle takes two commands at the prompt. In a source-mo
 own output and prints where the build went, and then one command places it: `Install-Catzc -Scope CurrentUser`, `Export-Catzc -Root <dir>`,
 or `Export-Catzc -To nuget`. A build that fails its integrity check throws with the whole list of what is wrong.
 
-![Build, then place with one command](../../.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png)
+![Build, then place with one command](../.assets/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md).
+The diagram is described element by element in [its asset description](build-then-place-with-one-command.drawio.md).
 
 ## Walkthrough
 

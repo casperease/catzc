@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b6c4ef9f5ef7
+    with_body_sha: e97815b5d974
     repo_status: clean
     path: docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
     folder: docs/explanation/repository
@@ -16,12 +16,12 @@ catzc:
       - ADR-PWSH-VERBS#6
       - ADR-REPO-VARIANT#{1,2,4-6}
     links:
-      - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md
-      - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
       - docs/explanation/repository/an-edit-lands-at-the-next-import.md
+      - docs/explanation/repository/five-keys-one-reader-twelve-primitives.drawio.md
       - docs/explanation/repository/index.md
       - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
       - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
@@ -50,10 +50,9 @@ Supports ADR-REPO-VARIANT#1, #2, #4, #5 and #6 (implementation lens).
 twelve public functions that ask it. A value flows one way, from the file through the loader and the reader to a `Get-` accessor, and from
 the accessor to the `Test-` and `Assert-` guards that answer a question or stop the run.
 
-![Five keys, one private reader, twelve exported primitives](../../.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png)
+![Five keys, one private reader, twelve exported primitives](../.assets/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md).
+The diagram is described element by element in [its asset description](five-keys-one-reader-twelve-primitives.drawio.md).
 
 ## Walkthrough
 

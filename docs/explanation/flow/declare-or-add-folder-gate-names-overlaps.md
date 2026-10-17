@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bbaf0b40bf29
+    with_body_sha: fd089139b8f9
     repo_status: clean
     path: docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
     folder: docs/explanation/flow
@@ -16,9 +16,9 @@ catzc:
       - ADR-FLOW-CD-GLOBS#{7,10}
       - ADR-REPO-LINK#5
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png
+      - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.drawio.md
       - docs/explanation/flow/independence-check-groups-by-layer.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/overlap-gated-for-units-and-modules.md
@@ -47,10 +47,9 @@ Changing what cats maps takes either an edit to `globs.yml` or a new folder. Dep
 `automation/Catzc.Base.Globs/configs/globs.yml`; a module is added by adding its folder under `automation/`. One run of
 `Test-GlobSetIndependence` then either passes or names every same-layer pair that shares a file.
 
-![Declare or add a folder, and the gate names overlaps](../../.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png)
+![Declare or add a folder, and the gate names overlaps](../.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.md).
+The diagram is described element by element in [its asset description](declare-or-add-folder-gate-names-overlaps.drawio.md).
 
 ## Walkthrough
 

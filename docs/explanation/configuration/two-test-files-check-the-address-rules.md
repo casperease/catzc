@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "054d69e70ec2"
+    with_body_sha: "7e375ce38235"
     repo_status: clean
     path: docs/explanation/configuration/two-test-files-check-the-address-rules.md
     folder: docs/explanation/configuration
@@ -16,14 +16,14 @@ catzc:
       - ADR-AUTO-ENVVAR#7
       - ADR-CONF-ADDRESSING
     links:
-      - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
-      - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
       - docs/adr/automation/environment-variables.md
       - docs/adr/configuration/config-value-addressing.md
+      - docs/explanation/.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
       - docs/explanation/configuration/an-address-is-a-read-only-walk.md
       - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
       - docs/explanation/configuration/index.md
       - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
+      - docs/explanation/configuration/two-test-files-check-the-address-rules.drawio.md
       - docs/explanation/configuration/type-an-address-get-the-value.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -49,11 +49,10 @@ carries the rules that govern it, set against what checks them. No quality gate 
 grammar, the reader and the walk, and one for the secret hand-off. Two rules rest on convention: that a resolved node is never written
 through, and that nothing an address can reach is a secret.
 
-![Two L0 test files check the address rules](../../.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png)
+![Two L0 test files check the address rules](../.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md). Rule
-chips name the rules: `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR.
+The diagram is described element by element in [its asset description](two-test-files-check-the-address-rules.drawio.md). Rule chips name
+the rules: `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR.
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "514628fc27ea"
+    with_body_sha: ac20397ba6f0
     repo_status: clean
     path: docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
     folder: docs/explanation/pipelines
@@ -16,15 +16,15 @@ catzc:
       - ADR-FLOW-CD-DETECT#1
       - ADR-PIPE-AUTH
     links:
-      - docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md
-      - docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png
       - docs/adr/pipelines/dual-authentication.md
+      - docs/explanation/.assets/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/pipelines/configured-credential-proves-its-org.md
       - docs/explanation/pipelines/index.md
       - docs/explanation/pipelines/one-header-function-owns-precedence.md
       - docs/explanation/pipelines/three-guarded-early-returns.md
       - docs/explanation/pipelines/what-you-set-decides-the-credential.md
+      - docs/explanation/pipelines/which-auth-rungs-have-a-gate.drawio.md
 ---
 
 # The PAT proof and the empty-token assert have no gate
@@ -45,10 +45,9 @@ ADR-PIPE-AUTH has seven rules, and tests check only some of them. The L0 tests o
 proofs, and one CI step checks that the token mapping works. The PAT's binding to the org, the empty-token assert, the one-function rule and
 the no-caching rule have no gate at all.
 
-![Which auth rungs have a gate](../../.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png)
+![Which auth rungs have a gate](../.assets/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md).
+The diagram is described element by element in [its asset description](which-auth-rungs-have-a-gate.drawio.md).
 
 ## Walkthrough
 

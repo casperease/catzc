@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8ebc8a912f72"
+    with_body_sha: aa2aed91cdfd
     repo_status: clean
     path: docs/explanation/repository/one-registry-one-writer-two-primitives.md
     folder: docs/explanation/repository
@@ -15,12 +15,12 @@ catzc:
     cites:
       - ADR-REPO-ROOTCFG#{2,4,7}
     links:
-      - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.md
-      - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
       - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/.assets/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
       - docs/explanation/repository/index.md
+      - docs/explanation/repository/one-registry-one-writer-two-primitives.drawio.md
       - docs/explanation/repository/one-source-one-writer-one-boolean.md
       - docs/explanation/repository/opted-in-then-link-copy-or-render.md
       - docs/explanation/repository/three-gates-check-registry-drift-membership.md
@@ -48,10 +48,9 @@ Root config materialisation in cats has four parts and one direction. Sources of
 `Catzc.Base.Files` owns; and the targets fall into two kinds that differ by one boolean. The dependency edges point one way, from the
 RootConfig module to the Files module and to the modules that hold the generators, and nothing reads the registry back.
 
-![One registry, one writer, two write primitives, two kinds of target](../../.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png)
+![One registry, one writer, two write primitives, two kinds of target](../.assets/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.md).
+The diagram is described element by element in [its asset description](one-registry-one-writer-two-primitives.drawio.md).
 
 ## Walkthrough
 

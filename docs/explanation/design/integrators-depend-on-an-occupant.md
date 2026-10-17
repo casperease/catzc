@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e9b85c942879
+    with_body_sha: ef9fae3d4c69
     repo_status: clean
     path: docs/explanation/design/integrators-depend-on-an-occupant.md
     folder: docs/explanation/design
@@ -17,11 +17,11 @@ catzc:
       - ADR-DSGN-VISUAL#13
       - ADR-FLOW-CD#{9,11}
     links:
-      - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
       - docs/explanation/design/index.md
+      - docs/explanation/design/integrators-depend-on-an-occupant.drawio.md
       - docs/explanation/design/sync-from-the-last-certified-commit.md
       - docs/explanation/design/sync-point-rules-are-adr-only.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -47,10 +47,9 @@ commit that `main-UAT` holds, not the tip of main. Every environment on the prom
 it, so the whole chain rests on occupants, never on HEAD. Keeping "what is newest" apart from "what is safe to build on" is what stops one
 broken commit from spreading. All of this is stated by the ADRs; no pipeline in the repository runs it yet.
 
-![Upstream integrators depend on the main-UAT occupant, never on the tip of main](../../.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png)
+![Upstream integrators depend on the main-UAT occupant, never on the tip of main](../.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md).
+The diagram is described element by element in [its asset description](integrators-depend-on-an-occupant.drawio.md).
 
 ## Walkthrough
 

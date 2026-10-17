@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "08911525b4a7"
+    with_body_sha: "17e368f5899e"
     repo_status: clean
     path: docs/explanation/flow/two-variables-read-in-one-place.md
     folder: docs/explanation/flow
@@ -15,15 +15,15 @@ catzc:
     cites:
       - ADR-FLOW-CD-DETECT#{1,4,5}
     links:
-      - docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-boolean-answer-from-one-function.md
       - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
       - docs/explanation/flow/the-analyzer-names-the-raw-read.md
       - docs/explanation/flow/the-loader-holds-the-one-detector.md
+      - docs/explanation/flow/two-variables-read-in-one-place.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -50,10 +50,9 @@ Supports ADR-FLOW-CD-DETECT#1, #4 and #5 (implementation lens).
 cares about the pipeline calls it, 24 call sites in all, and a custom PSScriptAnalyzer rule, loaded by the one settings file, turns any
 other read of those two variables into an error.
 
-![Two variables read in one place](../../.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png)
+![Two variables read in one place](../.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.md).
+The diagram is described element by element in [its asset description](two-variables-read-in-one-place.drawio.md).
 
 ## Walkthrough
 

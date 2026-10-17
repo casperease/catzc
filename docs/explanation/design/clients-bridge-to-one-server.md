@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "67c27c50bf4b"
+    with_body_sha: c4a403914cd7
     repo_status: clean
     path: docs/explanation/design/clients-bridge-to-one-server.md
     folder: docs/explanation/design
@@ -16,10 +16,10 @@ catzc:
       - ADR-DSGN-LIFE#{6,7}
       - ADR-DSGN-REMOTE#{1,2,4}
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.md
-      - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/server-remote-integration.md
+      - docs/explanation/.assets/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png
+      - docs/explanation/design/clients-bridge-to-one-server.drawio.md
       - docs/explanation/design/guard-and-policies-by-command.md
       - docs/explanation/design/index.md
       - docs/explanation/design/ingress-gated-the-rest-by-review.md
@@ -48,10 +48,9 @@ identity, branch protection and the audit history live. A client's change passes
 lands at HEAD, and consumers read out from the verified point, which the commit lifecycle owns. Knowing which side owns what tells a reader
 where a guarantee is enforced and where it is only a discipline.
 
-![Clients bridge to one server remote](../../.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png)
+![Clients bridge to one server remote](../.assets/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.md).
+The diagram is described element by element in [its asset description](clients-bridge-to-one-server.drawio.md).
 
 ## Walkthrough
 

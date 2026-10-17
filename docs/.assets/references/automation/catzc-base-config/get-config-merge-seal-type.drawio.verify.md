@@ -33,8 +33,8 @@ again, so re-grep before landing. Paths are relative to `automation/Catzc.Base.C
 | B3  | `Get-ConfigOverlayRoot` is private and wraps `Get-CatzcOverlayRoot` (build mode)                       | `private/Get-ConfigOverlayRoot.ps1:11,21`; `automation/Catzc.Base.Repository/Get-CatzcOverlayRoot.ps1:18-20` | confirmed |
 | B4  | `Get-ConfigRegistry` is private and returns `configs.yml`'s `configs:` map                             | `private/Get-ConfigRegistry.ps1:9,21,27,30-31`                                                               | confirmed |
 | B5  | `configs.yml` is the registry: name → `type:` and optional `overridable:`                              | `configs/configs.yml:4-7`                                                                                    | confirmed |
-| B6  | Gate `overridable: false?`: sealed only when a fragment exists and the entry says `overridable: false` | `Get-Config.ps1:69-70`                                                                                       | confirmed |
-| B7  | Failure `sealed: throw`: "Config '…' is sealed (configs.yml overridable: false) …"                     | `Get-Config.ps1:71`                                                                                          | confirmed |
+| B6  | Gate `overridable: false?`: sealed only when a fragment exists and the entry says `overridable: false` | `Get-Config.ps1:100-102`                                                                                     | confirmed |
+| B7  | Failure `sealed: throw`: "Config '…' is sealed (configs.yml overridable: false) …"                     | `Get-Config.ps1:103`                                                                                         | confirmed |
 | B8  | `Merge-ConfigFragment` is private: null removes a key, maps recurse, else replace                      | `private/Merge-ConfigFragment.ps1:13,30-37`                                                                  | confirmed |
 | B9  | The fragment is `<overlay root>/<Module>/configs/<name>.yml`                                           | `Get-Config.ps1:47-49`                                                                                       | confirmed |
 | B10 | `$type::new($raw)`: the registered C# type builds and validates the merged map                         | `Get-Config.ps1:82-85` (`[type] $registered['type']`)                                                        | confirmed |
@@ -46,8 +46,8 @@ again, so re-grep before landing. Paths are relative to `automation/Catzc.Base.C
 | E1  | `Get-Config` → `Resolve-ConfigEntry`                             | `Get-Config.ps1:38`                                                                                             | confirmed |
 | E2  | `Resolve-ConfigEntry` → `Get-ConfigOverlayRoot`                  | `Get-Config.ps1:38,45`                                                                                          | confirmed |
 | E3  | `Get-ConfigOverlayRoot` → `Get-ConfigRegistry` (into CACHE MISS) | `Get-Config.ps1:45,68`; a cache hit returns at `:61-63` first, and the bundled config is read at `:65-66` (cut) | confirmed |
-| E4  | `Get-ConfigRegistry` → gate                                      | `Get-Config.ps1:68-70`                                                                                          | confirmed |
-| E5  | gate → `sealed: throw` (failure path)                            | `Get-Config.ps1:70-71`                                                                                          | confirmed |
+| E4  | `Get-ConfigRegistry` → gate                                      | `Get-Config.ps1:99-102`                                                                                         | confirmed |
+| E5  | gate → `sealed: throw` (failure path)                            | `Get-Config.ps1:102-103`                                                                                        | confirmed |
 | E6  | gate → `Merge-ConfigFragment`                                    | `Get-Config.ps1:73-76` (after the both-maps assert at `:74`; skipped for an empty fragment at `:75`)            | confirmed |
 | E7  | `Merge-ConfigFragment` → `$type::new($raw)`                      | `Get-Config.ps1:76,84-85`                                                                                       | confirmed |
 
@@ -62,7 +62,7 @@ again, so re-grep before landing. Paths are relative to `automation/Catzc.Base.C
 | C5  | An unregistered config returns the raw map, unbuilt                                                    | `Get-Config.ps1:81-82`                                                                                                                                                                                                 | confirmed    |
 | C6  | Five configs are sealed: configs, glossary, dependencies, profiles, exporter                           | `configs/configs.yml:7,38,47,52,65`                                                                                                                                                                                    | confirmed    |
 | C7  | The registry is validated by `ConfigsConfig` when read                                                 | `private/Get-ConfigRegistry.ps1:28`                                                                                                                                                                                    | confirmed    |
-| C8  | ADR: `Catzc.Base.Config` refuses a sealed fragment via `ConfigsConfig.sealedConfigs`                   | `docs/adr/automation/consumer-overlay.md:162-163` vs `Get-Config.ps1:70` (reads `overridable` from the raw registry entry); `sealedConfigs` is read only by `automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1:20` | contradicted |
+| C8  | ADR: `Catzc.Base.Config` refuses a sealed fragment via `ConfigsConfig.sealedConfigs`                   | `docs/adr/automation/consumer-overlay.md:186-187`; `Get-Config.ps1:101-102` (reads `sealedConfigs`); `automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1:56` (reads it the same way)                                  | confirmed    |
 | C9  | ADR-AUTO-OVERLAY#7: sealed configs are declared once in the registry (`overridable: false`)            | `docs/adr/automation/consumer-overlay.md:57-61`; `configs/configs.yml`                                                                                                                                                 | confirmed    |
 | C10 | Supports: ADR-AUTO-OVERLAY, ADR-PWSH-CACHE#4, ADR-AUTO-ASSETDEP#1, cited by the drawn code             | `Get-Config.ps1:41,57`; `private/Merge-ConfigFragment.ps1:6`; `private/Get-ConfigRegistry.ps1:6,14`; `configs/configs.yml:2`                                                                                           | confirmed    |
 
@@ -74,14 +74,11 @@ Counts: 27 claims, 26 confirmed, 1 contradicted, 0 ADR-only.
   then checks the cache (`:61`). The slide shows the cache as the boundary between the RESOLVE and CACHE MISS bands, not as a box: a store
   would be a fifth kind, and the caches have their own slide (`adr-conf-loading--three-caches-back-one-reader`).
 - `Get-ConfigOverlayRoot` is not in the brief's sketch; it is the step that decides whether a fragment can exist, so it is drawn.
-- The seal check is not a lookup of `ConfigsConfig.sealedConfigs` in `Get-Config` (see Drift).
+- The seal check is a lookup of `ConfigsConfig.sealedConfigs` built from the registry (`Get-Config.ps1:101`), so it needs no second box.
 - Every scout line number had moved after the comment export. All the numbers above are new.
 
 ## Drift
 
-- ADR-AUTO-OVERLAY "How this is enforced" (`consumer-overlay.md:162-163`) says `Catzc.Base.Config` refuses a sealed fragment through
-  `ConfigsConfig.sealedConfigs`. `Get-Config.ps1:70` instead reads `overridable` off the raw registry entry; only `Assert-CatzcOverlay`
-  (`Catzc.Base.Overlay`) uses `sealedConfigs`. Same source of truth (`configs.yml`), two readers of it.
 - The sealed throw cites no rule code; ADR-AUTO-OVERLAY#7 is the rule it enforces.
 
 ## Cut

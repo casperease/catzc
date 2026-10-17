@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: df7b0bc977d6
+    with_body_sha: "82950fd4a53e"
     repo_status: clean
     path: docs/explanation/design/deploy-bicep-delegates-to-az.md
     folder: docs/explanation/design
@@ -16,11 +16,11 @@ catzc:
       - ADR-AZ-CLI#1
       - ADR-DSGN-THINPLAT#{2,3}
     links:
-      - docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.md
-      - docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png
       - docs/adr/azure/prefer-az-cli.md
       - docs/adr/design/thin-platforms.md
+      - docs/explanation/.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png
       - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
+      - docs/explanation/design/deploy-bicep-delegates-to-az.drawio.md
       - docs/explanation/design/every-vendor-call-leaves-through-az.md
       - docs/explanation/design/index.md
       - docs/explanation/design/same-deploy-bicep-on-both-sides.md
@@ -51,10 +51,9 @@ Supports ADR-DSGN-THINPLAT#2 and #3 (implementation lens).
 configuration, builds the template on a devbox, and passes every vendor step to az through `Invoke-AzCli`. Cats contributes the guards and
 the lookup; az and Bicep do the work, which is what keeps the platform thin.
 
-![Deploy-Bicep hands every vendor step to az](../../.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png)
+![Deploy-Bicep hands every vendor step to az](../.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.md).
+The diagram is described element by element in [its asset description](deploy-bicep-delegates-to-az.drawio.md).
 
 ## Walkthrough
 

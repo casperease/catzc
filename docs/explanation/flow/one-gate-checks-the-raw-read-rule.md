@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "214e0998f9bf"
+    with_body_sha: "4dd6ee872909"
     repo_status: clean
     path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
     folder: docs/explanation/flow
@@ -16,12 +16,12 @@ catzc:
       - ADR-AUTO-PARITY#3
       - ADR-FLOW-CD-DETECT
     links:
-      - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-boolean-answer-from-one-function.md
+      - docs/explanation/flow/one-gate-checks-the-raw-read-rule.drawio.md
       - docs/explanation/flow/the-analyzer-names-the-raw-read.md
       - docs/explanation/flow/the-loader-holds-the-one-detector.md
       - docs/explanation/flow/two-variables-read-in-one-place.md
@@ -46,10 +46,9 @@ Five rules govern pipeline detection in cats, and one gate carries most of the w
 variables directly, on every PowerShell file; an L0 test pins the fourth, that the answer is a plain boolean. The other three rules, and the
 one reader outside PowerShell, rest on the ADR alone.
 
-![One gate checks the raw-read rule](../../.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png)
+![One gate checks the raw-read rule](../.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.md).
+The diagram is described element by element in [its asset description](one-gate-checks-the-raw-read-rule.drawio.md).
 
 ## Walkthrough
 

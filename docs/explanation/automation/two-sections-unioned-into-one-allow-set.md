@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: be83854e0e86
+    with_body_sha: "219fc004fb7d"
     repo_status: clean
     path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
     folder: docs/explanation/automation
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-AUTO-DEPM#{2-4}
     links:
-      - docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
-      - docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
       - docs/adr/automation/controlling-module-dependencies.md
+      - docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
       - docs/explanation/automation/a-declared-allow-list-of-layers.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/three-layers-edges-point-down.md
       - docs/explanation/automation/two-gates-check-the-layer-pins.md
+      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.drawio.md
       - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -49,10 +49,9 @@ the file loads, and `Get-ModuleDependencyViolations` merges them into one allow-
 every C# type edge from that module is then checked against the set, and the `Test-ModuleDependency` quality gate fails on any miss. Reading
 the code in this order shows exactly where an undeclared edge is caught.
 
-![Two sections unioned into one allow-set](../../.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png)
+![Two sections unioned into one allow-set](../.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md).
+The diagram is described element by element in [its asset description](two-sections-unioned-into-one-allow-set.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4ddf067c9039"
+    with_body_sha: "322fa7affd5d"
     repo_status: clean
     path: docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
     folder: docs/explanation/flow
@@ -16,12 +16,12 @@ catzc:
       - ADR-FLOW-CD#{2,3,5,9,11-13}
       - ADR-FLOW-CD-TYPE#{4,8,11}
     links:
-      - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
-      - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
       - docs/adr/flow/pipeline-types.md
+      - docs/explanation/.assets/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
       - docs/explanation/flow/a-merge-runs-cd-to-prod.md
       - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
+      - docs/explanation/flow/ci-budget-is-the-only-quality-gate.drawio.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-artifact-climbs-unchanged.md
       - docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
@@ -49,10 +49,9 @@ The CI discipline and the promotion flow set a rule for every pipeline kind and 
 has a machine check behind it: the quality gate on test timings in the CI inner loop. Every other rule rests on a human reviewer. The flow
 reads left to right in one row, each kind or gate beside the rule that governs it, and below the row sit the two things that check it.
 
-![The CI budget is the only promotion rule a quality gate checks](../../.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png)
+![The CI budget is the only promotion rule a quality gate checks](../.assets/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md).
+The diagram is described element by element in [its asset description](ci-budget-is-the-only-quality-gate.drawio.md).
 
 ## Walkthrough
 

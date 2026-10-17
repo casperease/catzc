@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c8f5d7858cb5
+    with_body_sha: "3edd7b68d7d7"
     repo_status: clean
     path: docs/explanation/azure/read-the-session-guard-then-pick-slot.md
     folder: docs/explanation/azure
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-AZ-DATAMOD#{4,5,7}
     links:
-      - docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.md
-      - docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
       - docs/adr/azure/azure-data-model.md
+      - docs/explanation/.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
       - docs/explanation/azure/four-gates-hold-the-session-rule.md
       - docs/explanation/azure/index.md
       - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
       - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
+      - docs/explanation/azure/read-the-session-guard-then-pick-slot.drawio.md
       - docs/explanation/azure/the-session-is-the-deploy-target.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -49,10 +49,9 @@ session and resolves it against `azure.yml`, it applies the optional guard, and 
 customer deciding which config file, which environment check and which resource-group name apply. Everything downstream reads the one
 identity resolved here.
 
-![Get-BicepDeploymentContext reads the session, guards it, then picks the slot](../../.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png)
+![Get-BicepDeploymentContext reads the session, guards it, then picks the slot](../.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.md).
+The diagram is described element by element in [its asset description](read-the-session-guard-then-pick-slot.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4d9cd07a82cf"
+    with_body_sha: "295075ebd427"
     repo_status: clean
     path: docs/explanation/design/two-roots-one-importer-same-modules.md
     folder: docs/explanation/design
@@ -15,12 +15,12 @@ catzc:
     cites:
       - ADR-DSGN-RUNMODE#{1-3,7}
     links:
-      - docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md
-      - docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png
       - docs/adr/design/run-modes.md
+      - docs/explanation/.assets/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png
       - docs/explanation/design/index.md
       - docs/explanation/design/one-entry-script-per-mode.md
       - docs/explanation/design/shims-set-roots-mode-read-back.md
+      - docs/explanation/design/two-roots-one-importer-same-modules.drawio.md
       - docs/explanation/design/where-code-loads-from-decides-the-mode.md
       - docs/explanation/design/which-run-mode-rules-have-a-gate.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -48,10 +48,9 @@ a built `Catzc` package. Each mode has its own entry script and its own code roo
 handed on to one importer, which loads one set of modules, and those modules find their own files through the same code root. That is why a
 build is a second run mode of the same modules, and not a second product.
 
-![Two code roots feed one importer, which loads the same modules](../../.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png)
+![Two code roots feed one importer, which loads the same modules](../.assets/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md).
+The diagram is described element by element in [its asset description](two-roots-one-importer-same-modules.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0851cc5cff01"
+    with_body_sha: bbc990ceb775
     repo_status: clean
     path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
     folder: docs/explanation/configuration
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-CONF-ADDRESSING#{1-3}
     links:
-      - docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.md
-      - docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
       - docs/adr/configuration/config-value-addressing.md
+      - docs/explanation/.assets/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
       - docs/explanation/configuration/an-address-is-a-read-only-walk.md
+      - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.drawio.md
       - docs/explanation/configuration/index.md
       - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
       - docs/explanation/configuration/two-test-files-check-the-address-rules.md
@@ -45,10 +45,9 @@ resolver, `Get-ConfigValue`, keeps the key walk private, and builds the resolver
 addresses today, and every one of them depends on the same module and the same public pair, while the only file an address can reach is a
 committed `configs/<name>.yml` in the module that ships it.
 
-![Callers in four modules dereference an address through Catzc.Base.Config](../../.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png)
+![Callers in four modules dereference an address through Catzc.Base.Config](../.assets/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.md).
+The diagram is described element by element in [its asset description](callers-in-four-modules-share-one-resolver.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "429a6f32246d"
+    with_body_sha: c7e03a8bdff0
     repo_status: clean
     path: docs/explanation/flow/edit-globs-yml-then-read-the-output.md
     folder: docs/explanation/flow
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#{5,6,9}
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png
+      - docs/explanation/flow/edit-globs-yml-then-read-the-output.drawio.md
       - docs/explanation/flow/gates-check-source-and-trigger.md
       - docs/explanation/flow/globs-module-owns-config-and-types.md
       - docs/explanation/flow/index.md
@@ -47,10 +47,9 @@ Supports ADR-FLOW-CD-GLOBS#5, #6 and #9 (operations lens).
 prints what it derived: a projection, a list of touched sets, or a skip line. Knowing what each command prints lets an operator check a
 globset edit before any pipeline runs.
 
-![Edit globs.yml, then read the output](../../.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png)
+![Edit globs.yml, then read the output](../.assets/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.md).
+The diagram is described element by element in [its asset description](edit-globs-yml-then-read-the-output.drawio.md).
 
 ## Walkthrough
 

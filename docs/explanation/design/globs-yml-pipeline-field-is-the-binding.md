@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "46adf90a375a"
+    with_body_sha: "986bfe9815fa"
     repo_status: clean
     path: docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
     folder: docs/explanation/design
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-DSGN-TRACK#{4,5}
     links:
-      - docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md
-      - docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png
       - docs/adr/design/tracks.md
+      - docs/explanation/.assets/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png
       - docs/explanation/design/a-push-fires-only-touched-pipelines.md
+      - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.drawio.md
       - docs/explanation/design/index.md
       - docs/explanation/design/one-unit-one-pipeline.md
       - docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
@@ -46,10 +46,9 @@ The link between what ships and the pipeline that ships it is a single key. Each
 `pipeline:`, and that name resolves to the file `pipelines/<name>.yaml`. The two track sets bind the CI pipelines, the four configured
 deployable-units bind the CD pipelines, and the base unit they compose binds none.
 
-![globs.yml's pipeline: field is the binding](../../.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png)
+![globs.yml's pipeline: field is the binding](../.assets/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md).
+The diagram is described element by element in [its asset description](globs-yml-pipeline-field-is-the-binding.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3f52daff5480"
+    with_body_sha: cfc3ec5581b8
     repo_status: clean
     path: docs/explanation/automation/one-commit-one-immutable-package.md
     folder: docs/explanation/automation
@@ -16,14 +16,14 @@ catzc:
       - ADR-AUTO-BUNDLE#{1,5,6}
       - ADR-DSGN-RUNMODE#7
     links:
-      - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md
-      - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
       - docs/adr/automation/platform-bundle.md
       - docs/adr/design/run-modes.md
+      - docs/explanation/.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
       - docs/explanation/automation/build-then-place-with-one-command.md
       - docs/explanation/automation/build-verify-then-copy-the-folder.md
       - docs/explanation/automation/every-code-root-is-a-copy.md
       - docs/explanation/automation/index.md
+      - docs/explanation/automation/one-commit-one-immutable-package.drawio.md
       - docs/explanation/automation/what-gates-each-bundle-stage.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -47,10 +47,9 @@ A bundle is how cats leaves the repository it is developed in: the selected modu
 anywhere. The idea fits in one line. One build of one commit produces one package with one content hash, an integrity check proves the
 package is what the build wrote, and every place the package is installed holds a copy of those same bytes.
 
-![One commit, one verified, immutable package](../../.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png)
+![One commit, one verified, immutable package](../.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md).
+The diagram is described element by element in [its asset description](one-commit-one-immutable-package.drawio.md).
 
 ## Walkthrough
 

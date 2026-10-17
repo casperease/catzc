@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6e7af59d401e"
+    with_body_sha: fb76c9588fc8
     repo_status: clean
     path: docs/explanation/pipelines/configured-credential-proves-its-org.md
     folder: docs/explanation/pipelines
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-PIPE-AUTH#{1,2,5}
     links:
-      - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md
-      - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png
       - docs/adr/pipelines/dual-authentication.md
+      - docs/explanation/.assets/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
+      - docs/explanation/pipelines/configured-credential-proves-its-org.drawio.md
       - docs/explanation/pipelines/index.md
       - docs/explanation/pipelines/one-header-function-owns-precedence.md
       - docs/explanation/pipelines/three-guarded-early-returns.md
@@ -45,10 +45,9 @@ the credential by what is configured, in a fixed order, and never by trial and e
 configured organization or tenant before a header leaves, and when it fails it raises its own error instead of handing over to the next
 source.
 
-![The first configured source wins and proves its org](../../.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png)
+![The first configured source wins and proves its org](../.assets/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md).
+The diagram is described element by element in [its asset description](configured-credential-proves-its-org.drawio.md).
 
 ## Walkthrough
 

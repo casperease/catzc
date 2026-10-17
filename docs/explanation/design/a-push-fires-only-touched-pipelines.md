@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bdee370f2672
+    with_body_sha: "3f193769a374"
     repo_status: clean
     path: docs/explanation/design/a-push-fires-only-touched-pipelines.md
     folder: docs/explanation/design
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-DSGN-TRACK#{4,5}
     links:
-      - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md
-      - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png
       - docs/adr/design/tracks.md
+      - docs/explanation/.assets/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png
+      - docs/explanation/design/a-push-fires-only-touched-pipelines.drawio.md
       - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
       - docs/explanation/design/index.md
       - docs/explanation/design/one-unit-one-pipeline.md
@@ -46,10 +46,9 @@ Each pipeline in cats triggers on its globset projected to Azure DevOps path fil
 a changed file. A pull request to main runs a pipeline as pre-commit validation, and the merge runs the same pipeline post-commit. An edit
 to the shared foundation fires every CD pipeline; an edit to one unit's configuration fires only that unit's.
 
-![A push fires only the pipelines it touches](../../.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png)
+![A push fires only the pipelines it touches](../.assets/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md).
+The diagram is described element by element in [its asset description](a-push-fires-only-touched-pipelines.drawio.md).
 
 ## Walkthrough
 

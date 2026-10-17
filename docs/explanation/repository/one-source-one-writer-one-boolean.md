@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1932fd9f0525"
+    with_body_sha: "147e11306ad2"
     repo_status: clean
     path: docs/explanation/repository/one-source-one-writer-one-boolean.md
     folder: docs/explanation/repository
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-REPO-ROOTCFG#{1-4}
     links:
-      - docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.md
-      - docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
       - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/.assets/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
       - docs/explanation/repository/index.md
       - docs/explanation/repository/one-registry-one-writer-two-primitives.md
+      - docs/explanation/repository/one-source-one-writer-one-boolean.drawio.md
       - docs/explanation/repository/opted-in-then-link-copy-or-render.md
       - docs/explanation/repository/three-gates-check-registry-drift-membership.md
 ---
@@ -44,10 +44,9 @@ The repository root carries configuration files for git, editors and quality-gat
 opted in is reproduced from one source of truth inside `automation/`, by one writer, on every import. Whether the reproduced file is
 gitignored or stays tracked is one boolean per entry, not a second system.
 
-![Every managed root file has one source of truth, one writer, and one boolean that decides git membership](../../.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png)
+![Every managed root file has one source of truth, one writer, and one boolean that decides git membership](../.assets/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.md).
+The diagram is described element by element in [its asset description](one-source-one-writer-one-boolean.drawio.md).
 
 ## Walkthrough
 

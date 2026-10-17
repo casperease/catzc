@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e60f250283d"
+    with_body_sha: "07a69aa95554"
     repo_status: clean
     path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
     folder: docs/explanation/repository
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-REPO-ROOTCFG#{4,6}
     links:
-      - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md
-      - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
       - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
+      - docs/explanation/repository/import-materialises-two-gates-name-the-fix.drawio.md
       - docs/explanation/repository/index.md
       - docs/explanation/repository/one-registry-one-writer-two-primitives.md
       - docs/explanation/repository/one-source-one-writer-one-boolean.md
@@ -46,10 +46,9 @@ A developer never writes a managed root file. Running `. ./importer.ps1` materia
 on a clean tree nothing is printed and nothing is written. When a source changes, the next import regenerates its target; when something is
 out of step with the registry, one of two quality gates says which file and what to run.
 
-![The import materialises every root file; two gates catch drift and name the fix](../../.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png)
+![The import materialises every root file; two gates catch drift and name the fix](../.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md).
+The diagram is described element by element in [its asset description](import-materialises-two-gates-name-the-fix.drawio.md).
 
 ## Walkthrough
 

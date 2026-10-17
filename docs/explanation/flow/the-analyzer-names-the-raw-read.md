@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3c30ffb9e17f"
+    with_body_sha: "43e2a61f90dd"
     repo_status: clean
     path: docs/explanation/flow/the-analyzer-names-the-raw-read.md
     folder: docs/explanation/flow
@@ -16,13 +16,13 @@ catzc:
       - ADR-AUTO-PARITY#2
       - ADR-FLOW-CD-DETECT#{1,4}
     links:
-      - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/.assets/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-boolean-answer-from-one-function.md
       - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
+      - docs/explanation/flow/the-analyzer-names-the-raw-read.drawio.md
       - docs/explanation/flow/the-loader-holds-the-one-detector.md
       - docs/explanation/flow/two-variables-read-in-one-place.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -46,10 +46,9 @@ A developer who writes `if ($env:TF_BUILD)` finds out at the next analyzer run, 
 that names the file, the position, the rule and the function to call instead, and then throws. On the agent side the CI pipeline proves the
 seam itself: one step asserts that the detector answers true and prints where the output root landed.
 
-![The analyzer names the raw read](../../.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png)
+![The analyzer names the raw read](../.assets/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md).
+The diagram is described element by element in [its asset description](the-analyzer-names-the-raw-read.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: eefc2a1eb3c9
+    with_body_sha: b5f05d60afbd
     repo_status: clean
     path: docs/explanation/flow/one-artifact-climbs-unchanged.md
     folder: docs/explanation/flow
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-FLOW-CD#{2,3,5,6,9,13}
     links:
-      - docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.md
-      - docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/.assets/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png
       - docs/explanation/flow/a-merge-runs-cd-to-prod.md
       - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
       - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
       - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-artifact-climbs-unchanged.drawio.md
       - docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -46,10 +46,9 @@ and then let into production by a manual gate. Because nothing downstream rebuil
 certified. The flow splits into an automated side and a governed side, and the CD pipelines in the repository today take a shortcut past the
 governed one.
 
-![One artifact is built once and climbs to production unchanged](../../.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png)
+![One artifact is built once and climbs to production unchanged](../.assets/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.md).
+The diagram is described element by element in [its asset description](one-artifact-climbs-unchanged.drawio.md).
 
 ## Walkthrough
 

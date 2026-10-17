@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a414cc3c826a
+    with_body_sha: "265e75c72644"
     repo_status: clean
     path: docs/explanation/automation/dot-source-one-entry-script.md
     folder: docs/explanation/automation
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-AUTO-BUNDLE#{3,8}
     links:
-      - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.md
-      - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
       - docs/adr/automation/platform-bundle.md
+      - docs/explanation/.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
+      - docs/explanation/automation/dot-source-one-entry-script.drawio.md
       - docs/explanation/automation/every-entry-runs-one-load-sequence.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/invoke-importer-in-code-order.md
@@ -47,10 +47,9 @@ A person starts cats by dot-sourcing one entry script, one per run mode, and see
 stop it: an old PowerShell, a function-name clash or an incomplete bundle, and a module left over from the other run mode. Each stop names
 what is wrong. Otherwise a console session ends on one "Loaded in N seconds" line.
 
-![Dot-source one entry script; a failed check stops it](../../.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png)
+![Dot-source one entry script; a failed check stops it](../.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.md).
+The diagram is described element by element in [its asset description](dot-source-one-entry-script.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fac580a0ca23
+    with_body_sha: "5cc41f9b12d9"
     repo_status: clean
     path: docs/explanation/design/units-not-tracks-own-the-pipelines.md
     folder: docs/explanation/design
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-DSGN-TRACK#{2-5}
     links:
-      - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.md
-      - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png
       - docs/adr/design/tracks.md
+      - docs/explanation/.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png
       - docs/explanation/design/a-push-fires-only-touched-pipelines.md
       - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
       - docs/explanation/design/index.md
       - docs/explanation/design/one-unit-one-pipeline.md
       - docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
+      - docs/explanation/design/units-not-tracks-own-the-pipelines.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -46,10 +46,9 @@ ships is a deployable-unit, and each pipeline is the delivery machine of what it
 tracks ADR asks, but the two CI pipelines bind the `automation` and `infrastructure` track sets themselves, with no whole-track unit in
 between.
 
-![CD binds through units, CI binds the track sets](../../.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png)
+![CD binds through units, CI binds the track sets](../.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.md).
+The diagram is described element by element in [its asset description](units-not-tracks-own-the-pipelines.drawio.md).
 
 ## Walkthrough
 

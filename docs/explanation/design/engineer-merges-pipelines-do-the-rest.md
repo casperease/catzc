@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d4592a9826a0
+    with_body_sha: "38cb7ee13b79"
     repo_status: clean
     path: docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
     folder: docs/explanation/design
@@ -17,11 +17,11 @@ catzc:
       - ADR-DSGN-LIFE#{1,8}
       - ADR-FLOW-CD#8
     links:
-      - docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/.assets/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png
       - docs/explanation/design/code-wires-only-the-first-rungs.md
+      - docs/explanation/design/engineer-merges-pipelines-do-the-rest.drawio.md
       - docs/explanation/design/four-domains-promote-one-artifact.md
       - docs/explanation/design/index.md
       - docs/explanation/design/one-way-climb-three-endings.md
@@ -50,10 +50,9 @@ A person moves a commit through the first rungs of the cats lifecycle by hand: t
 request once its build validation is green. Azure DevOps pipelines run everything after the merge. When a rung fails, what the person sees
 is a red result: a blocked pull request, a red CI run, or a failed deploy stage.
 
-![An engineer runs the tests and merges; pipelines do the rest](../../.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png)
+![An engineer runs the tests and merges; pipelines do the rest](../.assets/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.md).
+The diagram is described element by element in [its asset description](engineer-merges-pipelines-do-the-rest.drawio.md).
 
 ## Walkthrough
 

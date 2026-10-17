@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0665f1c4e736"
+    with_body_sha: f226abbc9486
     repo_status: clean
     path: docs/explanation/azure/names-are-derived-never-typed.md
     folder: docs/explanation/azure
@@ -15,12 +15,12 @@ catzc:
     cites:
       - ADR-AZ-NAMING#{1,5-8}
     links:
-      - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md
-      - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
       - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/.assets/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
       - docs/explanation/azure/how-each-naming-rule-is-held.md
       - docs/explanation/azure/index.md
       - docs/explanation/azure/lookup-form-check-render-in-order.md
+      - docs/explanation/azure/names-are-derived-never-typed.drawio.md
       - docs/explanation/azure/names-are-pure-and-never-truncated.md
       - docs/explanation/azure/one-namer-assembles-every-name.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -46,10 +46,9 @@ An Azure resource name in cats is never typed by an operator. A person runs a de
 from settings the repository already holds. A bad or over-long name stops with an error that says what is wrong, and the fix is always a
 setting, never a hand-typed or truncated name.
 
-![Nobody types an Azure name: cats derives it, and a bad name stops with an error](../../.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.png)
+![Nobody types an Azure name: cats derives it, and a bad name stops with an error](../.assets/adr-az-naming--names-are-derived-never-typed--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md).
+The diagram is described element by element in [its asset description](names-are-derived-never-typed.drawio.md).
 
 ## Walkthrough
 

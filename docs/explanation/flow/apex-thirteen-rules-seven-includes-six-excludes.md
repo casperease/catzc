@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b7e23c06a752
+    with_body_sha: "146256bfb558"
     repo_status: clean
     path: docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
     folder: docs/explanation/flow
@@ -15,9 +15,9 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#{4,6,8}
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png
+      - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.drawio.md
       - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
       - docs/explanation/flow/globs-projects-and-three-consumers-read.md
       - docs/explanation/flow/index.md
@@ -50,10 +50,9 @@ of 13 rules. `Get-GlobSetTrigger` walks that program once: the GitHub list is th
 13 rules to 7 includes and 6 excludes because the same pattern is never selected twice. `pipelines/cd-apex.yaml` declares exactly those 13
 patterns, and `Test-AdoPipelineTriggerGlob` is the quality gate that proves it.
 
-![apex: 13 rules, 13 GitHub paths, 7 ADO includes and 6 excludes](../../.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png)
+![apex: 13 rules, 13 GitHub paths, 7 ADO includes and 6 excludes](../.assets/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md).
+The diagram is described element by element in [its asset description](apex-thirteen-rules-seven-includes-six-excludes.drawio.md).
 
 ## Walkthrough
 

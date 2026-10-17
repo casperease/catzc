@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bb7ec869f6ce
+    with_body_sha: bd4a88321356
     repo_status: clean
     path: docs/explanation/design/one-door-in-one-stable-point-out.md
     folder: docs/explanation/design
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-DSGN-REMOTE
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.md
-      - docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png
       - docs/adr/design/server-remote-integration.md
+      - docs/explanation/.assets/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png
       - docs/explanation/design/clients-bridge-to-one-server.md
       - docs/explanation/design/guard-and-policies-by-command.md
       - docs/explanation/design/index.md
       - docs/explanation/design/ingress-gated-the-rest-by-review.md
       - docs/explanation/design/local-guard-and-server-policies.md
+      - docs/explanation/design/one-door-in-one-stable-point-out.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -45,10 +45,9 @@ crosses that boundary in two directions, and each direction has one rule: a chan
 reads out only the last verified commit, never the raw tip. Together the two rules keep the mainline trustworthy to build on and honest
 about its history.
 
-![One door in, one stable point out](../../.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png)
+![One door in, one stable point out](../.assets/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.md).
+The diagram is described element by element in [its asset description](one-door-in-one-stable-point-out.drawio.md).
 
 ## Walkthrough
 

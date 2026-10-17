@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5676684496e7"
+    with_body_sha: "7c42911cb706"
     repo_status: clean
     path: docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
     folder: docs/explanation/azure
@@ -16,12 +16,12 @@ catzc:
       - ADR-AZ-CUSTOMER#{2,6}
       - ADR-AZ-DATAMOD#{2,3,8}
     links:
-      - docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.md
-      - docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png
       - docs/adr/azure/azure-customer-model.md
       - docs/adr/azure/azure-data-model.md
+      - docs/explanation/.assets/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png
       - docs/explanation/azure/a-bad-coordinate-stops-discovery.md
       - docs/explanation/azure/config-path-is-a-coordinate.md
+      - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.drawio.md
       - docs/explanation/azure/coordinate-rules-and-their-gates.md
       - docs/explanation/azure/index.md
       - docs/explanation/azure/two-layers-join-through-one-resolver.md
@@ -51,10 +51,9 @@ resolved and checked. For each file, `Get-BicepTemplates` parses the filename, r
 only then builds the slot with the one subscription the resolver returns. The shipped `foundation` template's `apex/nsub.yml` is the
 example: its coordinate is customer `apex`, environment `nsub`, base slot, and it resolves to `apex_nonprod`.
 
-![Discovery resolves every config file's coordinate through one shared check](../../.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png)
+![Discovery resolves every config file's coordinate through one shared check](../.assets/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.md).
+The diagram is described element by element in [its asset description](coordinate-resolved-file-by-file-at-discovery.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "37f8531166d7"
+    with_body_sha: a0d65d1fac66
     repo_status: clean
     path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
     folder: docs/explanation/flow
@@ -16,11 +16,11 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#{1,4,6,8}
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png
       - docs/adr/automation/test-automation.md
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png
       - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
+      - docs/explanation/flow/drift-is-gated-generation-is-adr-only.drawio.md
       - docs/explanation/flow/globs-projects-and-three-consumers-read.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-program-two-vendor-dialects.md
@@ -50,10 +50,9 @@ check that every bound workflow and pipeline declares its projection and that th
 ADR states around the projection have no code behind them: that the YAML filters are generated rather than written by hand, and that
 `Test-GlobSetAffected` runs first in every pipeline as the exact backstop. Both are worth knowing before relying on them.
 
-![Three gates check the projection; generation and the backstop are ADR-only](../../.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png)
+![Three gates check the projection; generation and the backstop are ADR-only](../.assets/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.md).
+The diagram is described element by element in [its asset description](drift-is-gated-generation-is-adr-only.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0042054487f7"
+    with_body_sha: "5fb9277550e4"
     repo_status: clean
     path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
     folder: docs/explanation/repository
@@ -17,17 +17,17 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-REPO-VARIANT
     links:
-      - docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md
-      - docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/test-automation.md
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
       - docs/explanation/index.md#how-to-read-the-diagrams
       - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
       - docs/explanation/repository/an-edit-lands-at-the-next-import.md
       - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
       - docs/explanation/repository/index.md
       - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
+      - docs/explanation/repository/values-and-edges-gated-reads-reviewed.drawio.md
 ---
 
 # Values and module edges have a gate; the no-direct-read rule is left to review
@@ -49,10 +49,9 @@ The six rules of the variants decision are held by two gates and one habit. The 
 loads; the module-dependency check proves that the module keeps its three declared edges; and the rule that nothing reads the file directly,
 the one the decision is named for, has no gate at all and is left to code review. That gap is what the diagram points at.
 
-![Values and module edges pass a quality gate; the no-direct-read rule is left to review](../../.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png)
+![Values and module edges pass a quality gate; the no-direct-read rule is left to review](../.assets/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md).
+The diagram is described element by element in [its asset description](values-and-edges-gated-reads-reviewed.drawio.md).
 
 ## Walkthrough
 

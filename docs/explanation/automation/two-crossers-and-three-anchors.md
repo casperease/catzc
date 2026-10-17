@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a93d455cb4f2
+    with_body_sha: "7ab253eccf34"
     repo_status: clean
     path: docs/explanation/automation/two-crossers-and-three-anchors.md
     folder: docs/explanation/automation
@@ -15,12 +15,12 @@ catzc:
     cites:
       - ADR-AUTO-PATH#{4,7,9,10}
     links:
-      - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.md
-      - docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
       - docs/adr/automation/path-representation.md
+      - docs/explanation/.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-out-string-two-places.md
       - docs/explanation/automation/output-root-first-then-repo-root.md
+      - docs/explanation/automation/two-crossers-and-three-anchors.drawio.md
       - docs/explanation/automation/two-forms-never-a-third.md
       - docs/explanation/automation/types-check-forms-review-checks-crossers.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -48,10 +48,9 @@ The path contract of cats is built from two functions in `Catzc.Base.Repository`
 crosses a stage boundary, where neither root survives, so its type `ArtifactRef` in `Catzc.Base.Objects` anchors on the artifact root
 instead.
 
-![Two crossers anchor on two roots](../../.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png)
+![Two crossers anchor on two roots](../.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.md).
+The diagram is described element by element in [its asset description](two-crossers-and-three-anchors.drawio.md).
 
 ## Walkthrough
 

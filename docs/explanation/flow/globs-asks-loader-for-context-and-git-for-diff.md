@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "824d978cfa10"
+    with_body_sha: "34905e74e5fd"
     repo_status: clean
     path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
     folder: docs/explanation/flow
@@ -16,11 +16,11 @@ catzc:
       - ADR-FLOW-CD-DETECT#1
       - ADR-FLOW-CD-GLOBS#{1,9}
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
       - docs/adr/flow/durable-sha-globs.md
       - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/.assets/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
       - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
+      - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.drawio.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/range-per-context-then-diff-and-match.md
       - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
@@ -50,10 +50,9 @@ query that answers whether a change touches a unit. The query itself depends on 
 execution context it runs in, because the reference commit differs between a developer's machine, a post-commit build and a pull request.
 And it asks git for the diff, because the changed paths are read from the repository at real refs, never from a committed marker.
 
-![Globs asks the loader for the context and git for the diff](../../.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png)
+![Globs asks the loader for the context and git for the diff](../.assets/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md).
+The diagram is described element by element in [its asset description](globs-asks-loader-for-context-and-git-for-diff.drawio.md).
 
 ## Walkthrough
 

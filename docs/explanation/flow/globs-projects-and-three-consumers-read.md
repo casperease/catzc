@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ba817bcb8f65
+    with_body_sha: "7dac146b68cf"
     repo_status: clean
     path: docs/explanation/flow/globs-projects-and-three-consumers-read.md
     folder: docs/explanation/flow
@@ -15,11 +15,11 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#{6,8}
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png
       - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
       - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
+      - docs/explanation/flow/globs-projects-and-three-consumers-read.drawio.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-program-two-vendor-dialects.md
       - docs/explanation/flow/print-projection-then-drift-names-the-filter.md
@@ -49,10 +49,9 @@ workflows, the Azure DevOps pipelines, and the build-validation policy that `Cat
 The two YAML consumers are kept in step by hand and checked by quality gates; the branch policy is the one consumer the code fills in
 itself, and it reads the GitHub list rather than the Azure DevOps lists.
 
-![Catzc.Base.Globs projects, three consumers read](../../.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png)
+![Catzc.Base.Globs projects, three consumers read](../.assets/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.md).
+The diagram is described element by element in [its asset description](globs-projects-and-three-consumers-read.drawio.md).
 
 ## Walkthrough
 

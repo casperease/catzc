@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2356399464e7"
+    with_body_sha: "312c27f484f3"
     repo_status: clean
     path: docs/explanation/azure/config-path-is-a-coordinate.md
     folder: docs/explanation/azure
@@ -16,11 +16,11 @@ catzc:
       - ADR-AZ-CUSTOMER#6
       - ADR-AZ-DATAMOD#{1-3}
     links:
-      - docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
-      - docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
       - docs/adr/azure/azure-customer-model.md
       - docs/adr/azure/azure-data-model.md
+      - docs/explanation/.assets/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
       - docs/explanation/azure/a-bad-coordinate-stops-discovery.md
+      - docs/explanation/azure/config-path-is-a-coordinate.drawio.md
       - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
       - docs/explanation/azure/coordinate-rules-and-their-gates.md
       - docs/explanation/azure/index.md
@@ -47,10 +47,9 @@ address. The file's folder says whose deployment it is, and its name says which 
 in any pipeline, names the subscription: cats resolves it from the path, and it insists that exactly one subscription fits. Because the
 resolution is one-to-one all the way through, listing the `configuration/` tree is the inventory of a template's resource groups.
 
-![A config file's path is a coordinate that resolves to one subscription and one resource group](../../.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png)
+![A config file's path is a coordinate that resolves to one subscription and one resource group](../.assets/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md).
+The diagram is described element by element in [its asset description](config-path-is-a-coordinate.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8bb9e4fa8e48"
+    with_body_sha: a7d5cd22f2e6
     repo_status: clean
     path: docs/explanation/design/gate-checks-order-not-liveness.md
     folder: docs/explanation/design
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-DSGN-ASPECT#{2,3,5}
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md
-      - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
       - docs/adr/design/module-aspects.md
+      - docs/explanation/.assets/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
       - docs/explanation/design/each-track-picks-its-catch-all.md
+      - docs/explanation/design/gate-checks-order-not-liveness.drawio.md
       - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
       - docs/explanation/design/get-aspect-names-the-remainder.md
       - docs/explanation/design/index.md
@@ -46,10 +46,9 @@ refuses any track whose last aspect is not the bare `**`, or that uses `**` anyw
 and always last. Which aspect that is, and so whether a stray file ships or not, is each track's declaration, and no gate reads it. The
 partition check that the ADR describes exists in code, but only unit tests on fixture files call it.
 
-![The gate checks order, not liveness](../../.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png)
+![The gate checks order, not liveness](../.assets/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md).
+The diagram is described element by element in [its asset description](gate-checks-order-not-liveness.drawio.md).
 
 ## Walkthrough
 

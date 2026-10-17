@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ffbbf6cf0962
+    with_body_sha: "5bda44a45f4a"
     repo_status: clean
     path: docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
     folder: docs/explanation/flow
@@ -17,16 +17,16 @@ catzc:
       - ADR-FLOW-CD-DETECT#1
       - ADR-FLOW-CD-GLOBS#9
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/flow/durable-sha-globs.md
       - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
       - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
       - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/range-per-context-then-diff-and-match.md
       - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
+      - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -52,10 +52,9 @@ name, the fail-open on an unresolved range or a failed diff, and the range chose
 test run. The context detection is pinned by a custom analyzer rule. What the decision asks of the pipeline side, a deep checkout and a
 stage that runs the check first, has no gate and no caller in the repository.
 
-![Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it](../../.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png)
+![Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it](../.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.md).
+The diagram is described element by element in [its asset description](tests-pin-the-throw-and-fail-open-no-caller.drawio.md).
 
 ## Walkthrough
 

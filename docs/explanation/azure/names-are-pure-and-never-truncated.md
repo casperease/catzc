@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fcb272ff0358
+    with_body_sha: "7dd29cb7f92c"
     repo_status: clean
     path: docs/explanation/azure/names-are-pure-and-never-truncated.md
     folder: docs/explanation/azure
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-AZ-NAMING#{1,3,7,8}
     links:
-      - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.md
-      - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
       - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
       - docs/explanation/azure/how-each-naming-rule-is-held.md
       - docs/explanation/azure/index.md
       - docs/explanation/azure/lookup-form-check-render-in-order.md
       - docs/explanation/azure/names-are-derived-never-typed.md
+      - docs/explanation/azure/names-are-pure-and-never-truncated.drawio.md
       - docs/explanation/azure/one-namer-assembles-every-name.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -46,10 +46,9 @@ An Azure resource name in cats is not chosen; it is computed. Fixed components g
 length budget, and the name either fits that budget or the deploy stops. The same inputs give the same name every time, so a name can be
 predicted, compared and reproduced without looking anything up in Azure.
 
-![An Azure name is a pure function of its components, and it is never truncated](../../.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png)
+![An Azure name is a pure function of its components, and it is never truncated](../.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.md).
+The diagram is described element by element in [its asset description](names-are-pure-and-never-truncated.drawio.md).
 
 ## Walkthrough
 

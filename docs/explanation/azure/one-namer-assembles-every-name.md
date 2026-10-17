@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9a514dbf85a3"
+    with_body_sha: "9039ea7f3fa8"
     repo_status: clean
     path: docs/explanation/azure/one-namer-assembles-every-name.md
     folder: docs/explanation/azure
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-AZ-NAMING#{1,4,5,8}
     links:
-      - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.md
-      - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
       - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/.assets/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
       - docs/explanation/azure/how-each-naming-rule-is-held.md
       - docs/explanation/azure/index.md
       - docs/explanation/azure/lookup-form-check-render-in-order.md
       - docs/explanation/azure/names-are-derived-never-typed.md
       - docs/explanation/azure/names-are-pure-and-never-truncated.md
+      - docs/explanation/azure/one-namer-assembles-every-name.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -47,10 +47,9 @@ Every Azure resource name in cats comes out of one place. A resolver gathers the
 namer, reading three pure-data registries, assembles and checks the name. A bad component or an over-limit name throws; a name that passes
 is the resource-group name the deploy uses. Because nothing else builds names, a rule changed in the namer reaches every name at once.
 
-![One resolver gathers the components and one namer assembles every Azure name](../../.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png)
+![One resolver gathers the components and one namer assembles every Azure name](../.assets/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.md).
+The diagram is described element by element in [its asset description](one-namer-assembles-every-name.drawio.md).
 
 ## Walkthrough
 

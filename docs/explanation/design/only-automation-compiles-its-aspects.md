@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: edf1d50add6a
+    with_body_sha: "243bf505fa8d"
     repo_status: clean
     path: docs/explanation/design/only-automation-compiles-its-aspects.md
     folder: docs/explanation/design
@@ -17,16 +17,16 @@ catzc:
       - ADR-DSGN-TRACK#3
       - ADR-REPO-VARIANT#{1,2}
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md
-      - docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png
       - docs/adr/design/module-aspects.md
       - docs/adr/design/tracks.md
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png
       - docs/explanation/design/each-track-picks-its-catch-all.md
       - docs/explanation/design/gate-checks-order-not-liveness.md
       - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
       - docs/explanation/design/get-aspect-names-the-remainder.md
       - docs/explanation/design/index.md
+      - docs/explanation/design/only-automation-compiles-its-aspects.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -51,10 +51,9 @@ depend on that reader, and they use the convention differently. `Catzc.Base.Glob
 folder and derives two globsets per module. `Catzc.Base.Maps` reads every track's entry, the infrastructure one included, but only to decide
 whether a file is live for the world map. No part of cats derives a globset from the infrastructure convention.
 
-![Only automation compiles its aspects](../../.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png)
+![Only automation compiles its aspects](../.assets/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md).
+The diagram is described element by element in [its asset description](only-automation-compiles-its-aspects.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dac2fa4c214e
+    with_body_sha: "5a23cb8cd831"
     repo_status: clean
     path: docs/explanation/automation/invoke-importer-in-code-order.md
     folder: docs/explanation/automation
@@ -15,12 +15,12 @@ catzc:
     cites:
       - ADR-AUTO-BUNDLE#{2,3,8}
     links:
-      - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md
-      - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png
       - docs/adr/automation/platform-bundle.md
+      - docs/explanation/.assets/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png
       - docs/explanation/automation/dot-source-one-entry-script.md
       - docs/explanation/automation/every-entry-runs-one-load-sequence.md
       - docs/explanation/automation/index.md
+      - docs/explanation/automation/invoke-importer-in-code-order.drawio.md
       - docs/explanation/automation/rule-and-gate-per-load-stage.md
       - docs/explanation/automation/two-entries-feed-one-importer.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -48,10 +48,9 @@ The whole cats load is one call chain inside `Invoke-Importer`, in `automation/.
 internal modules, the vendored modules and every catzc module, proves that only one run mode is loaded, runs the janitors, and removes its
 own Bootstrap. Both entry scripts end in this one function, so this order is the load order in both run modes.
 
-![Invoke-Importer loads, asserts one mode, tidies, unloads](../../.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png)
+![Invoke-Importer loads, asserts one mode, tidies, unloads](../.assets/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md).
+The diagram is described element by element in [its asset description](invoke-importer-in-code-order.drawio.md).
 
 ## Walkthrough
 

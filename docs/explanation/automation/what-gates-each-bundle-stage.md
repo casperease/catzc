@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "72ee88959e72"
+    with_body_sha: f5665cc46b0c
     repo_status: clean
     path: docs/explanation/automation/what-gates-each-bundle-stage.md
     folder: docs/explanation/automation
@@ -19,17 +19,17 @@ catzc:
       - ADR-DSGN-RUNMODE#{1,7}
       - ADR-PWSH-MANIFEST#5
     links:
-      - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.md
-      - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png
       - docs/adr/automation/platform-bundle.md
       - docs/adr/automation/test-automation.md
       - docs/adr/design/run-modes.md
       - docs/adr/pwsh/dynamic-module-manifests.md
+      - docs/explanation/.assets/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png
       - docs/explanation/automation/build-then-place-with-one-command.md
       - docs/explanation/automation/build-verify-then-copy-the-folder.md
       - docs/explanation/automation/every-code-root-is-a-copy.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-commit-one-immutable-package.md
+      - docs/explanation/automation/what-gates-each-bundle-stage.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -54,10 +54,9 @@ checks them, and two gates do the checking. `Assert-CatzcBundle` verifies every 
 build run `Test-CatzcBuild` runs the same tests against a fresh build that the source run runs against the source tree. One kind of code
 root, cached, is stated by an ADR and made by no code.
 
-![Every stage has a rule, two gates check it](../../.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png)
+![Every stage has a rule, two gates check it](../.assets/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.md).
+The diagram is described element by element in [its asset description](what-gates-each-bundle-stage.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3af8354b998e"
+    with_body_sha: "4120ba271663"
     repo_status: clean
     path: docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
     folder: docs/explanation/flow
@@ -15,15 +15,15 @@ catzc:
     cites:
       - ADR-FLOW-CD#{3-5,7,9,11}
     links:
-      - docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.md
-      - docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
       - docs/adr/flow/pipeline-types.md
+      - docs/explanation/.assets/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png
       - docs/explanation/flow/a-merge-runs-cd-to-prod.md
       - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
       - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-artifact-climbs-unchanged.md
+      - docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -49,10 +49,9 @@ governance and history, and they compose into one promotion flow because they sh
 component builds once and every downstream kind consumes unchanged. Read from left to right, the flow puts the two release gates between the
 kinds rather than inside them, and it shows the path the CD pipelines in the repository take today.
 
-![CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact](../../.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png)
+![CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact](../.assets/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.md).
+The diagram is described element by element in [its asset description](pipeline-kinds-keyed-by-one-artifact.drawio.md).
 
 ## Walkthrough
 

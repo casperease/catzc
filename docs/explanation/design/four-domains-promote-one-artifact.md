@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dfa7b99511ce
+    with_body_sha: "49035ad0fdd5"
     repo_status: clean
     path: docs/explanation/design/four-domains-promote-one-artifact.md
     folder: docs/explanation/design
@@ -16,12 +16,12 @@ catzc:
       - ADR-DSGN-LIFE#{5-8}
       - ADR-FLOW-CD#{3,4}
     links:
-      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
       - docs/explanation/design/code-wires-only-the-first-rungs.md
       - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
+      - docs/explanation/design/four-domains-promote-one-artifact.drawio.md
       - docs/explanation/design/index.md
       - docs/explanation/design/one-way-climb-three-endings.md
       - docs/explanation/design/which-rung-gates-exist-in-code.md
@@ -48,10 +48,9 @@ The commit ladder in cats is cut into domains: GIT, then the pipeline kinds CI, 
 promotes the same tagged artifact, the one the CI engine built once, and each always-on environment holds exactly one commit as its
 occupant. Reading the occupants tells you what lives where right now, and which commit is safe to build on.
 
-![Four pipeline kinds promote one artifact that CI built once](../../.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png)
+![Four pipeline kinds promote one artifact that CI built once](../.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md).
+The diagram is described element by element in [its asset description](four-domains-promote-one-artifact.drawio.md).
 
 ## Walkthrough
 

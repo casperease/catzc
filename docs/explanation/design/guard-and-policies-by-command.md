@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b79c1fbb598e
+    with_body_sha: c209f27963f8
     repo_status: clean
     path: docs/explanation/design/guard-and-policies-by-command.md
     folder: docs/explanation/design
@@ -16,11 +16,11 @@ catzc:
       - ADR-DSGN-REMOTE#{2,4}
       - ADR-REPO-VARIANT#6
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md
-      - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
       - docs/adr/design/server-remote-integration.md
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
       - docs/explanation/design/clients-bridge-to-one-server.md
+      - docs/explanation/design/guard-and-policies-by-command.drawio.md
       - docs/explanation/design/index.md
       - docs/explanation/design/ingress-gated-the-rest-by-review.md
       - docs/explanation/design/local-guard-and-server-policies.md
@@ -49,10 +49,9 @@ and re-runs the importer, after which automation refuses to commit straight to m
 `Sync-AdoBuildValidations` to put the blocking build-validation policies on `main`, and lists them afterwards. No command exists for the
 other half of the decision, picking the last verified commit to integrate from.
 
-![Flip git_workspace; sync the ADO policies](../../.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png)
+![Flip git_workspace; sync the ADO policies](../.assets/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md).
+The diagram is described element by element in [its asset description](guard-and-policies-by-command.drawio.md).
 
 ## Walkthrough
 

@@ -1,0 +1,103 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "45d612b7aa84"
+    repo_status: clean
+    path: docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.md
+    folder: docs/.assets/explanation
+    name: adr-flow-cd-globs-one-scan-program-feeds-three-roles-implementation-drawio
+    filetype: md
+    kind: asset-description
+    language: markdown
+    track: docs
+    tracktype: documentation
+  edges:
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png
+      - docs/.assets/explanation/chain/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.chain.md
+      - docs/.assets/explanation/grid/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.grid.md
+      - docs/.assets/explanation/tree/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.tree.md
+      - docs/explanation/flow/one-scan-program-feeds-three-roles.md
+      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      - docs/references/automation/catzc-base-maps.md
+      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
+---
+
+# ScanProgram() feeds three role functions: the diagram described
+
+```text
+A 1572 x 560 diagram, read left to right through four bands.
+Glyphs: 1 file (olive), 7 code units (slate), 1 gate, 1 failure; 8 flow edges, 1 failure path; 9 markers.
+Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
+```
+
+This describes what the [diagram](../.assets/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](one-scan-program-feeds-three-roles.md).
+
+## At a glance
+
+A 1572 × 560 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through four
+bands side by side, labelled CONFIG, PROGRAM, FUNCTIONS and CALLERS. It holds ten glyphs, one file, seven code units, one gate and one
+failure, joined by nine edges, with nine markers and a legend panel along the bottom. The eye lands first on the tall code unit in the
+PROGRAM band, then on the red failure at the bottom of the CONFIG band.
+
+## Reading path
+
+1. Marker 1, CONFIG band, top: the file globs.yml.
+2. Down its edge to marker 2: the code unit GlobsConfig; a red failure path continues down to the failure validation failed.
+3. Right from GlobsConfig to marker 3, PROGRAM band: the tall code unit GlobSet.ScanProgram().
+4. Right along three parallel edges to markers 4, 5 and 6, FUNCTIONS band, top to bottom: Get-GlobSetTrigger, Get-ChangedGlobSet and
+   Get-GlobSetHash.
+5. Right along three edges to the CALLERS band: marker 7 at the top vertex of the gate `Trigger gates`, then markers 8 and 9 on the code
+   units Test-GlobSetAffected and Test-GlobSetProtection.
+
+## Glyphs
+
+| Glyph (legend phrase) | Count | Where                                                                                                                                                                                                                                         |
+| --------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| file                  | 1     | globs.yml (CONFIG band, top row)                                                                                                                                                                                                              |
+| code unit             | 7     | GlobsConfig (CONFIG, middle row); GlobSet.ScanProgram() (PROGRAM, all rows); Get-GlobSetTrigger, Get-ChangedGlobSet, Get-GlobSetHash (FUNCTIONS, one per row); Test-GlobSetAffected, Test-GlobSetProtection (CALLERS, middle and bottom rows) |
+| gate                  | 1     | `Trigger gates` (CALLERS band, top row), 3 px rim                                                                                                                                                                                             |
+| failure               | 1     | validation failed (CONFIG band, bottom row)                                                                                                                                                                                                   |
+
+The file is olive and the code units are slate, all with white names; the gate is grey and the failure red.
+
+## Edges
+
+| Edge kind    | Count | From → to                                                                                                                                               |
+| ------------ | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| flow         | 8     | globs.yml → GlobsConfig (down); GlobsConfig → GlobSet.ScanProgram(); ScanProgram() → each of the three functions; each function → the caller in its row |
+| failure path | 1     | GlobsConfig → validation failed (down, red)                                                                                                             |
+
+Every edge is straight; none crosses another.
+
+## Legend
+
+A full-width panel at the bottom of the drawing area, in four columns, left to right:
+
+| Swatch                 | Phrase                        |
+| ---------------------- | ----------------------------- |
+| olive folded page      | file                          |
+| slate rounded box      | code unit                     |
+| grey rhombus, 3 px rim | gate                          |
+| red rounded box        | failure                       |
+| thin grey arrow        | flow: output read by the next |
+| thin red arrow         | failure path                  |
+| dark disc `1`          | marker: a Walkthrough step    |
+
+## Sidebar
+
+The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
+(ADR-FLOW-CD-GLOBS): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
+([Catzc.Base.Maps](../../references/automation/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions,
+[world map](../.assets/grid/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.grid.md),
+[tree](../.assets/tree/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.tree.md) and
+[value-chain map](../.assets/chain/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.chain.md), which hold the reason for every lit
+cell or group as of that build.
+
+- **Lens badge:** IMPL, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

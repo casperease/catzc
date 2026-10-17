@@ -1,3 +1,35 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "41264993c935"
+    repo_status: clean
+    path: docs/explanation/.assets/chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
+    folder: docs/explanation/.assets/chain
+    name: adr-dsgn-life-sync-from-the-last-certified-commit-meta-chain
+    filetype: md
+    kind: asset-description
+    language: markdown
+    track: docs
+    tracktype: documentation
+  edges:
+    cites:
+      - ADR-DSGN-LIFE#5
+      - ADR-DSGN-TRACK#{12,14,15}
+    links:
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track12
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track14
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track15
+      - docs/adr/glossary.md#cell
+      - docs/adr/glossary.md#lit-cell
+      - docs/adr/glossary.md#occupant
+      - docs/adr/glossary.md#value-chain-concern
+      - docs/adr/glossary.md#value-chain-map
+      - docs/adr/glossary.md#value-chain-stack
+      - docs/explanation/.assets/chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.png
+---
+
 # docs/explanation/.assets/chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
 
 `Value-chain minimap: adr-dsgn-life--sync-from-the-last-certified-commit--meta`

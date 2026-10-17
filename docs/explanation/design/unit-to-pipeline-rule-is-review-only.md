@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c709a49d0a69
+    with_body_sha: f0631007d435
     repo_status: clean
     path: docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
     folder: docs/explanation/design
@@ -17,13 +17,13 @@ catzc:
       - ADR-FLOW-CD-GLOBS#{7,8}
       - ADR-REPO-FOLDERS#{1,3}
     links:
-      - docs/.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.md
-      - docs/.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png
       - docs/adr/design/tracks.md
+      - docs/explanation/.assets/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png
       - docs/explanation/design/a-push-fires-only-touched-pipelines.md
       - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
       - docs/explanation/design/index.md
       - docs/explanation/design/one-unit-one-pipeline.md
+      - docs/explanation/design/unit-to-pipeline-rule-is-review-only.drawio.md
       - docs/explanation/design/units-not-tracks-own-the-pipelines.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -49,10 +49,9 @@ The tracks ADR sets rules at three levels: what a track is, how a deployable-uni
 the first two in code, when the configuration loads and in integrity tests. The rule that binds one unit to one pipeline, and the rule that
 a cross-cutting slice is a scope rather than a new track, have no check in code: code review holds them.
 
-![Tracks and units are checked in code, 1-1 is review only](../../.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png)
+![Tracks and units are checked in code, 1-1 is review only](../.assets/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.md).
+The diagram is described element by element in [its asset description](unit-to-pipeline-rule-is-review-only.drawio.md).
 
 ## Walkthrough
 

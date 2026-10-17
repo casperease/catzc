@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "334633557e7c"
+    with_body_sha: b186ae23bfa3
     repo_status: clean
     path: docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
     folder: docs/explanation/automation
@@ -15,11 +15,11 @@ catzc:
     cites:
       - ADR-AUTO-FAILFAST#7
     links:
-      - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.md
-      - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
       - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/explanation/.assets/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
       - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
       - docs/explanation/automation/decide-returns-null-or-a-reason.md
+      - docs/explanation/automation/hook-compiles-module-verdict-and-limits.drawio.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
       - docs/explanation/automation/three-tests-prove-the-hook.md
@@ -47,10 +47,9 @@ coding agent's shell calls. They cannot share a process, because the hook runs b
 PowerShell session. They share the source instead. The hook's project compiles the `Catzc.Base.Timeouts` module's own types straight from
 their files, so the limits it reads and the verdict it gives are the ones `Get-TimeoutSeconds` resolves and the module's tests check.
 
-![The hook compiles the module's own verdict and limits](../../.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png)
+![The hook compiles the module's own verdict and limits](../.assets/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.md).
+The diagram is described element by element in [its asset description](hook-compiles-module-verdict-and-limits.drawio.md).
 
 ## Walkthrough
 

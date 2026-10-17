@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: db61cae23740
+    with_body_sha: "463f0033f345"
     repo_status: clean
     path: docs/explanation/flow/one-program-two-vendor-dialects.md
     folder: docs/explanation/flow
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#{4,6,8}
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
       - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
       - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
       - docs/explanation/flow/globs-projects-and-three-consumers-read.md
       - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-program-two-vendor-dialects.drawio.md
       - docs/explanation/flow/print-projection-then-drift-names-the-filter.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -45,10 +45,9 @@ and a configured unit composes a base unit by putting the base's program first a
 of that one flattened program, but only one of the two dialects can carry its order: GitHub paths reproduce it exactly, while Azure DevOps
 keeps just each pattern's last select.
 
-![One flattened scan program, two vendor dialects](../../.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png)
+![One flattened scan program, two vendor dialects](../.assets/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md).
+The diagram is described element by element in [its asset description](one-program-two-vendor-dialects.drawio.md).
 
 ## Walkthrough
 

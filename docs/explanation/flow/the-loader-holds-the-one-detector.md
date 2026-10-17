@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8a2ef0492492"
+    with_body_sha: ee0690596b2f
     repo_status: clean
     path: docs/explanation/flow/the-loader-holds-the-one-detector.md
     folder: docs/explanation/flow
@@ -16,14 +16,14 @@ catzc:
       - ADR-AUTO-PARITY#3
       - ADR-FLOW-CD-DETECT#1
     links:
-      - docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/.assets/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-boolean-answer-from-one-function.md
       - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
       - docs/explanation/flow/the-analyzer-names-the-raw-read.md
+      - docs/explanation/flow/the-loader-holds-the-one-detector.drawio.md
       - docs/explanation/flow/two-variables-read-in-one-place.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -50,10 +50,9 @@ single cats module has loaded. So cats keeps `Test-IsRunningInPipeline` in `Catz
 modes import first and never remove. Everything above the loader calls that function. Only one piece of code outside PowerShell, the
 time-safeguard hook, repeats the test on its own.
 
-![The detector lives in the loader](../../.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png)
+![The detector lives in the loader](../.assets/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.md).
+The diagram is described element by element in [its asset description](the-loader-holds-the-one-detector.drawio.md).
 
 ## Walkthrough
 

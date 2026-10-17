@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6e9bebd9acdc"
+    with_body_sha: c8276abe3bf0
     repo_status: clean
     path: docs/explanation/flow/one-boolean-answer-from-one-function.md
     folder: docs/explanation/flow
@@ -16,11 +16,11 @@ catzc:
       - ADR-AUTO-PARITY#3
       - ADR-FLOW-CD-DETECT#{1,4}
     links:
-      - docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
       - docs/adr/automation/devbox-pipeline-parity.md
       - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/.assets/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
       - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-boolean-answer-from-one-function.drawio.md
       - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
       - docs/explanation/flow/the-analyzer-names-the-raw-read.md
       - docs/explanation/flow/the-loader-holds-the-one-detector.md
@@ -46,10 +46,9 @@ places: where output goes, whether a pipeline variable is written, which git ran
 on one question, "am I in a pipeline?", and cats answers it in exactly one function. The function reads the signal the pipeline agent sets,
 answers true or false, and an analyzer rule makes sure nobody reads the signal anywhere else.
 
-![One function answers whether the code is in a pipeline](../../.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png)
+![One function answers whether the code is in a pipeline](../.assets/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.md).
+The diagram is described element by element in [its asset description](one-boolean-answer-from-one-function.drawio.md).
 
 ## Walkthrough
 

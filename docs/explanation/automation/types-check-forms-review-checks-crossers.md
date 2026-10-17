@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b0cbf15d555a
+    with_body_sha: "891239b20711"
     repo_status: clean
     path: docs/explanation/automation/types-check-forms-review-checks-crossers.md
     folder: docs/explanation/automation
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-AUTO-PATH#{1-4,6,7,9-11}
     links:
-      - docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md
-      - docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
       - docs/adr/automation/path-representation.md
+      - docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-out-string-two-places.md
       - docs/explanation/automation/output-root-first-then-repo-root.md
       - docs/explanation/automation/two-crossers-and-three-anchors.md
       - docs/explanation/automation/two-forms-never-a-third.md
+      - docs/explanation/automation/types-check-forms-review-checks-crossers.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -48,10 +48,9 @@ by `InspirationRoot`, or a published artifact created by `ArtifactRef` cannot ca
 throws when it is built. The rules about how a path crosses the boundary, through the two crossers and only at the point of use, have no
 gate at all: code review holds them, and the ADR says why a static rule would be noise.
 
-![Three types check path forms at construction](../../.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png)
+![Three types check path forms at construction](../.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md).
+The diagram is described element by element in [its asset description](types-check-forms-review-checks-crossers.drawio.md).
 
 ## Walkthrough
 

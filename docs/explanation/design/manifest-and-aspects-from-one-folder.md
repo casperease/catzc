@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "13b42c260a6c"
+    with_body_sha: b9584782e2d1
     repo_status: clean
     path: docs/explanation/design/manifest-and-aspects-from-one-folder.md
     folder: docs/explanation/design
@@ -16,12 +16,12 @@ catzc:
       - ADR-DSGN-ASPECT#{1,2}
       - ADR-PWSH-MANIFEST#3
     links:
-      - docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
-      - docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png
       - docs/adr/design/module-aspects.md
+      - docs/explanation/.assets/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png
       - docs/explanation/design/drop-a-file-the-import-exports-it.md
       - docs/explanation/design/every-file-in-exactly-one-aspect.md
       - docs/explanation/design/index.md
+      - docs/explanation/design/manifest-and-aspects-from-one-folder.drawio.md
       - docs/explanation/design/one-folder-two-independent-readers.md
       - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -50,10 +50,9 @@ names and then turns the folder's `.ps1` files into a manifest. Separately, `Get
 folder and derives a live set and a tests set. Each path runs in call order, left to right, and neither needs a file the author maintains by
 hand.
 
-![Manifest and aspects from one folder](../../.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png)
+![Manifest and aspects from one folder](../.assets/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md).
+The diagram is described element by element in [its asset description](manifest-and-aspects-from-one-folder.drawio.md).
 
 ## Walkthrough
 

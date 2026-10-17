@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9449ba4f8a11"
+    with_body_sha: "3e7bc9e68569"
     repo_status: clean
     path: docs/explanation/configuration/three-caches-back-one-reader.md
     folder: docs/explanation/configuration
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-CONF-LOADING#{1-4}
     links:
-      - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.md
-      - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
       - docs/adr/configuration/module-config-loading.md
+      - docs/explanation/.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
       - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
       - docs/explanation/configuration/callers-depend-on-one-config-module.md
       - docs/explanation/configuration/index.md
       - docs/explanation/configuration/one-gate-guards-the-read-path.md
       - docs/explanation/configuration/one-reader-one-cache-per-session.md
+      - docs/explanation/configuration/three-caches-back-one-reader.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -49,10 +49,9 @@ Supports ADR-CONF-LOADING#1, #2, #3 and #4 (implementation lens).
 names to files, `configCache` holds the parsed configs, and `configRegistryCache` holds the type registry. Each is built lazily, on first
 use, and lives until the next import. Read in call order, the code shows where each cache is filled and where it is read.
 
-![Three session caches back the one config reader](../../.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png)
+![Three session caches back the one config reader](../.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.md).
+The diagram is described element by element in [its asset description](three-caches-back-one-reader.drawio.md).
 
 ## Walkthrough
 

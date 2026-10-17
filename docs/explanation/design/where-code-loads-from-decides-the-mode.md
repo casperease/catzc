@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c603138d451b
+    with_body_sha: c73ad35987e4
     repo_status: clean
     path: docs/explanation/design/where-code-loads-from-decides-the-mode.md
     folder: docs/explanation/design
@@ -15,13 +15,13 @@ catzc:
     cites:
       - ADR-DSGN-RUNMODE#{1,2,4,5}
     links:
-      - docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.md
-      - docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png
       - docs/adr/design/run-modes.md
+      - docs/explanation/.assets/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png
       - docs/explanation/design/index.md
       - docs/explanation/design/one-entry-script-per-mode.md
       - docs/explanation/design/shims-set-roots-mode-read-back.md
       - docs/explanation/design/two-roots-one-importer-same-modules.md
+      - docs/explanation/design/where-code-loads-from-decides-the-mode.drawio.md
       - docs/explanation/design/which-run-mode-rules-have-a-gate.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -44,10 +44,9 @@ Run modes are the two ways cats loads its one set of modules: from the repositor
 built package, which ships to other machines. Both ways go through one importer into the same modules. Nothing records which mode a session
 is in. The place the code was loaded from is the answer, so the mode can never disagree with what actually loaded.
 
-![Where the code loads from decides the run mode](../../.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png)
+![Where the code loads from decides the run mode](../.assets/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.md).
+The diagram is described element by element in [its asset description](where-code-loads-from-decides-the-mode.drawio.md).
 
 ## Walkthrough
 

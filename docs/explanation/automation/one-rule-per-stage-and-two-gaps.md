@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d24069d9bd3b
+    with_body_sha: f4738b41ee4f
     repo_status: clean
     path: docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
     folder: docs/explanation/automation
@@ -16,14 +16,14 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
     links:
-      - docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.md
-      - docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
       - docs/adr/automation/fail-fast-with-asserts.md
       - docs/adr/automation/sensible-defaults.md
+      - docs/explanation/.assets/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
       - docs/explanation/automation/a-stopped-run-names-its-limit.md
       - docs/explanation/automation/callers-value-else-config-else-default.md
       - docs/explanation/automation/index.md
       - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
+      - docs/explanation/automation/one-rule-per-stage-and-two-gaps.drawio.md
       - docs/explanation/automation/resolve-one-limit-in-code-order.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -49,10 +49,9 @@ Two rules decide how a time limit is found in cats. ADR-AUTO-FAILFAST#7 says wha
 raise one; ADR-AUTO-DEFAULT#6 says in which order a configurable setting resolves and where its default is declared. Two L0 test files and
 the Bash hook check them, and the checks leave two gaps: an exemption the hook never reads, and one mode that no gate bounds.
 
-![Two rules govern every stage, tests and the hook check them, and two gaps remain](../../.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png)
+![Two rules govern every stage, tests and the hook check them, and two gaps remain](../.assets/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.md).
+The diagram is described element by element in [its asset description](one-rule-per-stage-and-two-gaps.drawio.md).
 
 ## Walkthrough
 

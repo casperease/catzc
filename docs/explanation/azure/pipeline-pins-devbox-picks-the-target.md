@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f69ade07773a
+    with_body_sha: "52de04b4e6a0"
     repo_status: clean
     path: docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
     folder: docs/explanation/azure
@@ -15,12 +15,12 @@ catzc:
     cites:
       - ADR-AZ-DATAMOD#7
     links:
-      - docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.md
-      - docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png
       - docs/adr/azure/azure-data-model.md
+      - docs/explanation/.assets/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png
       - docs/explanation/azure/four-gates-hold-the-session-rule.md
       - docs/explanation/azure/index.md
       - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
+      - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.drawio.md
       - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
       - docs/explanation/azure/the-session-is-the-deploy-target.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -47,10 +47,9 @@ Nobody passes a subscription to a deploy in cats. A pipeline signs in through it
 `az account set` and runs the same command without the pin. Either way `Deploy-Bicep` resolves the session, prints the deployment context it
 is about to act on, and stops with one of three errors when the session is missing a pin, undeclared, or not the one expected.
 
-![A pipeline pins the subscription it expects; a devbox picks the target with az account set](../../.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png)
+![A pipeline pins the subscription it expects; a devbox picks the target with az account set](../.assets/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.md).
+The diagram is described element by element in [its asset description](pipeline-pins-devbox-picks-the-target.drawio.md).
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "57d23475251f"
+    with_body_sha: "39e67e65b1ba"
     repo_status: clean
     path: docs/explanation/azure/coordinate-rules-and-their-gates.md
     folder: docs/explanation/azure
@@ -16,13 +16,13 @@ catzc:
       - ADR-AZ-CUSTOMER#{2,6}
       - ADR-AZ-DATAMOD#{1-3,5,8}
     links:
-      - docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
-      - docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
       - docs/adr/azure/azure-customer-model.md
       - docs/adr/azure/azure-data-model.md
+      - docs/explanation/.assets/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
       - docs/explanation/azure/a-bad-coordinate-stops-discovery.md
       - docs/explanation/azure/config-path-is-a-coordinate.md
       - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
+      - docs/explanation/azure/coordinate-rules-and-their-gates.drawio.md
       - docs/explanation/azure/index.md
       - docs/explanation/azure/two-layers-join-through-one-resolver.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -50,10 +50,9 @@ by key or shortcode. Every rule but one is held by a gate: the shared check that
 tests that run the validator over the shipped tree. The one rule without a gate, that the resource-group name is derived and never typed, is
 held by the code that derives it.
 
-![Two ADRs rule the coordinate; one shared check and the integrity tests hold them](../../.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png)
+![Two ADRs rule the coordinate; one shared check and the integrity tests hold them](../.assets/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md).
+The diagram is described element by element in [its asset description](coordinate-rules-and-their-gates.drawio.md).
 
 ## Walkthrough
 

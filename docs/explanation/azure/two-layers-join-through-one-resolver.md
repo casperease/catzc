@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0b8ebf5deb43"
+    with_body_sha: d379b5ba0d07
     repo_status: clean
     path: docs/explanation/azure/two-layers-join-through-one-resolver.md
     folder: docs/explanation/azure
@@ -16,15 +16,15 @@ catzc:
       - ADR-AZ-CUSTOMER#2
       - ADR-AZ-DATAMOD#{1,3,8}
     links:
-      - docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.md
-      - docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
       - docs/adr/azure/azure-customer-model.md
       - docs/adr/azure/azure-data-model.md
+      - docs/explanation/.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
       - docs/explanation/azure/a-bad-coordinate-stops-discovery.md
       - docs/explanation/azure/config-path-is-a-coordinate.md
       - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
       - docs/explanation/azure/coordinate-rules-and-their-gates.md
       - docs/explanation/azure/index.md
+      - docs/explanation/azure/two-layers-join-through-one-resolver.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -50,10 +50,9 @@ under each template, says which deployments exist. The two never reference each 
 config's coordinate into its subscription, and one shared check that both discovery and the collect-all validator run, so the rule cannot
 drift between its two callers.
 
-![The templating and identity config layers join through one shared check and one resolver](../../.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png)
+![The templating and identity config layers join through one shared check and one resolver](../.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.md).
+The diagram is described element by element in [its asset description](two-layers-join-through-one-resolver.drawio.md).
 
 ## Walkthrough
 

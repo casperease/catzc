@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c24eef1948d2
+    with_body_sha: "7098d8551f9c"
     repo_status: clean
     path: docs/explanation/design/one-entry-script-per-mode.md
     folder: docs/explanation/design
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-DSGN-RUNMODE#{1,2,5,7}
     links:
-      - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md
-      - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
       - docs/adr/design/run-modes.md
+      - docs/explanation/.assets/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
       - docs/explanation/design/index.md
+      - docs/explanation/design/one-entry-script-per-mode.drawio.md
       - docs/explanation/design/shims-set-roots-mode-read-back.md
       - docs/explanation/design/two-roots-one-importer-same-modules.md
       - docs/explanation/design/where-code-loads-from-decides-the-mode.md
@@ -48,10 +48,9 @@ build, which `Import-Module Catzc` and a saved root's own `importer.ps1` both ha
 mode's entry script. Two things stop a session with a clear message: a load that leaves modules from two roots in one session, and a
 source-tree tool run in a build.
 
-![Each run mode has one entry script, and a mixed session throws](../../.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png)
+![Each run mode has one entry script, and a mixed session throws](../.assets/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md).
+The diagram is described element by element in [its asset description](one-entry-script-per-mode.drawio.md).
 
 ## Walkthrough
 

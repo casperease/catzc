@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1f77b803bb23"
+    with_body_sha: "89279df0140d"
     repo_status: clean
     path: docs/explanation/flow/three-views-derived-live-from-one-program.md
     folder: docs/explanation/flow
@@ -15,14 +15,14 @@ catzc:
     cites:
       - ADR-FLOW-CD-GLOBS#{1,4,5,9}
     links:
-      - docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.md
-      - docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png
       - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/.assets/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png
       - docs/explanation/flow/edit-globs-yml-then-read-the-output.md
       - docs/explanation/flow/gates-check-source-and-trigger.md
       - docs/explanation/flow/globs-module-owns-config-and-types.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-scan-program-feeds-three-roles.md
+      - docs/explanation/flow/three-views-derived-live-from-one-program.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -44,10 +44,9 @@ A globset in cats names an area-of-control and maps it onto files under version 
 that area reads the same flattened program. The registry is the only thing a person writes; the trigger, the change report and the
 protection identity are read-outs of it, recomputed when asked, so nothing stored per set can go stale.
 
-![One program, three views derived live, none committed](../../.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png)
+![One program, three views derived live, none committed](../.assets/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.md).
+The diagram is described element by element in [its asset description](three-views-derived-live-from-one-program.drawio.md).
 
 ## Walkthrough
 

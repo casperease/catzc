@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cda664cacc34
+    with_body_sha: a5bbd5aeafc4
     repo_status: clean
     path: docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
     folder: docs/explanation/flow
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-FLOW-CD#{3-5,12}
     links:
-      - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md
-      - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
       - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/.assets/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
       - docs/explanation/flow/a-merge-runs-cd-to-prod.md
+      - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.drawio.md
       - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
       - docs/explanation/flow/index.md
       - docs/explanation/flow/one-artifact-climbs-unchanged.md
@@ -46,10 +46,9 @@ Every customer CD pipeline in cats extends one template, `pipelines/extends/cd-c
 assert. In code order, the template runs one CI stage that builds and publishes three artifacts, then three deploy stages that apply them in
 dependency order. In `cd-apex`, each deploy stage reaches the non-prod and the prod tier in the same run.
 
-![The customer CD pipeline builds once, then deploys the prod tier itself](../../.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png)
+![The customer CD pipeline builds once, then deploys the prod tier itself](../.assets/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md).
+The diagram is described element by element in [its asset description](cd-builds-once-then-deploys-prod-itself.drawio.md).
 
 ## Walkthrough
 

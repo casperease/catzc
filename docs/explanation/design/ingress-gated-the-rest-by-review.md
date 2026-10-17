@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "38ff1b133ab0"
+    with_body_sha: "63b79ba20219"
     repo_status: clean
     path: docs/explanation/design/ingress-gated-the-rest-by-review.md
     folder: docs/explanation/design
@@ -17,14 +17,14 @@ catzc:
       - ADR-DSGN-REMOTE
       - ADR-REPO-VARIANT#6
     links:
-      - docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md
-      - docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/server-remote-integration.md
       - docs/adr/repository/repo-variants.md
+      - docs/explanation/.assets/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png
       - docs/explanation/design/clients-bridge-to-one-server.md
       - docs/explanation/design/guard-and-policies-by-command.md
       - docs/explanation/design/index.md
+      - docs/explanation/design/ingress-gated-the-rest-by-review.drawio.md
       - docs/explanation/design/local-guard-and-server-policies.md
       - docs/explanation/design/one-door-in-one-stable-point-out.md
       - docs/explanation/index.md#how-to-read-the-diagrams
@@ -51,10 +51,9 @@ a local guard in cats and a branch policy on the server. The rule that the serve
 integrate from, are checked by code review alone. Following a commit from a local clone to a consumer, each step carries a rule chip for the
 rule that governs it: R is ADR-DSGN-REMOTE, V is ADR-REPO-VARIANT and L is ADR-DSGN-LIFE.
 
-![Gates on ingress, review for the rest](../../.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png)
+![Gates on ingress, review for the rest](../.assets/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md).
+The diagram is described element by element in [its asset description](ingress-gated-the-rest-by-review.drawio.md).
 
 ## Walkthrough
 

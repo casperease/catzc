@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4ce846b18cf7"
+    with_body_sha: adb5744e4afa
     repo_status: clean
     path: docs/explanation/automation/one-out-string-two-places.md
     folder: docs/explanation/automation
@@ -15,10 +15,10 @@ catzc:
     cites:
       - ADR-AUTO-PATH#{3,9}
     links:
-      - docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.md
-      - docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.png
       - docs/adr/automation/path-representation.md
+      - docs/explanation/.assets/adr-auto-path--one-out-string-two-places--operations.drawio.png
       - docs/explanation/automation/index.md
+      - docs/explanation/automation/one-out-string-two-places.drawio.md
       - docs/explanation/automation/output-root-first-then-repo-root.md
       - docs/explanation/automation/two-crossers-and-three-anchors.md
       - docs/explanation/automation/two-forms-never-a-third.md
@@ -46,10 +46,9 @@ An output artifact of cats is stored as one string, `out/template/sample/main.js
 `Resolve-RepoPath` on that string gets the right absolute path for the machine they are on: under `{root}/out` on a devbox, under the
 staging directory in a pipeline job. Nobody edits the string, and nobody writes an absolute path into a record.
 
-![One stored out/ string lands in two places](../../.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.png)
+![One stored out/ string lands in two places](../.assets/adr-auto-path--one-out-string-two-places--operations.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.md).
+The diagram is described element by element in [its asset description](one-out-string-two-places.drawio.md).
 
 ## Walkthrough
 

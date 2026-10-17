@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e936870e0c62
+    with_body_sha: d74b49f73925
     repo_status: clean
     path: docs/explanation/design/out-of-band-deploy-is-adr-only.md
     folder: docs/explanation/design
@@ -17,16 +17,16 @@ catzc:
       - ADR-DSGN-LIFE#{1,9}
       - ADR-DSGN-VISUAL#{2,4,13}
     links:
-      - docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
       - docs/adr/automation/test-automation.md
       - docs/adr/design/commit-lifecycle.md
       - docs/adr/design/visual-design.md
+      - docs/explanation/.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
       - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
       - docs/explanation/design/deploying-is-not-integrating.md
       - docs/explanation/design/every-deploy-stage-is-main-only.md
       - docs/explanation/design/index.md
       - docs/explanation/design/merging-to-main-is-what-deploys.md
+      - docs/explanation/design/out-of-band-deploy-is-adr-only.drawio.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
@@ -50,10 +50,9 @@ checker in cats tests it, and nothing in the repository runs the deploy it allow
 way, since every `Deploy_*` stage runs only from main. The drawing rules of ADR-DSGN-VISUAL that colour these commits have no checker
 either, and none is expected.
 
-![ADR-DSGN-LIFE#9 is ADR-only and every Deploy stage is main-only](../../.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png)
+![ADR-DSGN-LIFE#9 is ADR-only and every Deploy stage is main-only](../.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.md).
+The diagram is described element by element in [its asset description](out-of-band-deploy-is-adr-only.drawio.md).
 
 ## Walkthrough
 
