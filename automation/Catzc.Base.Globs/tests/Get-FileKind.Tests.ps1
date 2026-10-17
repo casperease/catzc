@@ -46,6 +46,7 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Path = 'docs/explanation/.assets/grid/adr-widget-flow--gadget-spins--meta.grid.md'; Class = 'asset-description' }
         @{ Path = 'docs/explanation/design/gadget-spins.drawio.md'; Class = 'asset-description' }
         @{ Path = 'docs/explanation/design/gadget-spins.md'; Class = 'explanation' }
+        @{ Path = 'docs/explanation/design/widget-deck/gadget-spins.slide.md'; Class = 'slide' }
         @{ Path = 'docs/references/.assets/automation/catzc-widget/gadget-spins.drawio.png'; Class = 'diagram' }
         @{ Path = 'docs/references/.assets/automation/catzc-widget/gadget-spins.drawio.verify.md'; Class = 'asset-description' }
         @{ Path = 'docs/references/automation/catzc-widget/gadget-spins.drawio.md'; Class = 'asset-description' }

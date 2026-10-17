@@ -5,6 +5,7 @@
 # head.schema.json, lists the keys.
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Widget/Get-Gadget.ps1
     name: get-gadget
     filetype: ps1

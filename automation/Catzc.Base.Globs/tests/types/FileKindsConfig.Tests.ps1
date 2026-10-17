@@ -163,7 +163,9 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
                         sprocket = [ordered]@{ definition = 'Any text file.'; files = @('**/*.txt') }
                     }
                 }
-                if ($null -ne $Overlaps) { $raw.overlaps = $Overlaps }
+                if ($null -ne $Overlaps) {
+                    $raw.overlaps = $Overlaps
+                }
                 [Catzc.Base.Globs.FileKindsConfig]::new($raw)
             }
             $script:paths = @('widgets/a.txt', 'widgets/b.txt', 'gadgets/cog-1.txt', 'gadgets/x.txt', 'other/one.txt')

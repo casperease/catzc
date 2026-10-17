@@ -155,6 +155,9 @@ kinds:
       - "docs/explanation/**/*.drawio.md"
       - "docs/references/.assets/**/*.md"
       - "docs/references/**/*.drawio.md"
+  slide:
+    definition: One slide of a deck, rendered through a pattern of the slides kit.
+    files: ["docs/**/*.slide.md"]
   reference:
     definition: A reference page that states facts for lookup.
     files: ["docs/references/**"]

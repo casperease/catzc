@@ -25,7 +25,7 @@ catzc:
     description: |-
       A command contract names its command by placement
       ([ADR-REPO-CMDCONTRACT#3](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract3)): the module folder
-      is the owner, and the command's file is at the module's public slot under the module's root. The root comes from the
+      is the owner, and the command's file sits under the module's root beside its other public functions. The root comes from the
       one resolver of a module, Get-CatzcModule
       ([ADR-AUTO-MODULE#1](/docs/adr/automation/module-model.md#rule-adr-auto-module1)), looked up by name in the code
       track; no module of that name throws, naming the module. A module whose languages do not include PowerShell throws

@@ -13,7 +13,7 @@ catzc:
     tracktype: modules
     module: Catzc.Base.Globs
     moduletype: pwsh-folder
-    catzc_bundle: minimal
+    catzc_bundle: azure
   edges:
     cites:
       - ADR-REPO-FILEMETA#2
