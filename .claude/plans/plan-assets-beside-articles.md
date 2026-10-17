@@ -62,10 +62,13 @@ links. The target puts the description beside the article it describes and gives
 
 - [ ] gallery_pdf.py `--assets` pairs a PNG with a description beside it, and the descriptions now sit beside the articles; teach it the
       lookup or retire the mode (check: the mode runs on docs/explanation/.assets and includes the descriptions, or is gone from STYLE.md).
-- [ ] The `FileCarrierResolver` shipped-registry test fails on its test-file exclusion line (the shipped powershell carrier lists no `tests`
-      exclude); fix the test or the carrier, whichever the head rules for test files say (check: that test file passes).
-- [ ] Remove `docs/.assets/explanation`, which holds only two gitignored PDFs now (check: the folder is gone). `docs/.assets/references` is
-      already gone.
+- [x] The `FileCarrierResolver` shipped-registry test fails on its test-file exclusion line (the shipped powershell carrier lists no `tests`
+      exclude); fix the test or the carrier, whichever the head rules for test files say (check: that test file passes). Corrected
+      2026-10-17 (task023): the file passes as it stands, `[Invoke-TestFile] Passed` (`out/test-file/20261017-195921-41fa57`); the
+      shipped-registry line asserts a test file carries a head, which the carrier with no exclude agrees with.
+- [x] Remove `docs/.assets/explanation`, which holds only two gitignored PDFs now (check: the folder is gone). `docs/.assets/references` is
+      already gone. Done 2026-10-17 (task023): the PDFs moved to `out/diagrams/`, the folder is gone, `git status` shows nothing under
+      `docs/.assets`.
 - [ ] Delete this plan when the steps are done (check: no file in .claude/plans names it).
 
 ## Refs

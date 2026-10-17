@@ -40,6 +40,7 @@ metadata:
    git.
 3. Fan-in: one table per wave (diagram, staged path, finding, the maker's doubts), drift found in existing diagrams surfaced and not fixed,
    then the user's verdicts (approve / change / drop); fold what a report or verdict teaches into STYLE.md at once; bundles
-   (`contact_sheet.py`, `gallery_pdf.py`, `atlas.py`) only on the user's ask, as PDF or a claude.ai page, never a local HTML; an approved
+   (`contact_sheet.py`, `gallery_pdf.py`, with `--assets <tree>/.assets` for a landed tree, `atlas.py`) only on the user's ask, as PDF or
+   a claude.ai page, never a local HTML; an approved
    file lands one at a time as `docs/.assets/<subfolder>/<name>.drawio.png` embedded in its ADR with one Edit, never over an existing file,
    a `.bkp` or `.dtmp` sibling meaning the user has it open.

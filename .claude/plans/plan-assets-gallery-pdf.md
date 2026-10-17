@@ -38,11 +38,13 @@ unchanged. The PDF is for a person in a PDF viewer (`review-pdf` in `output-form
 
 ## Open steps
 
-- [ ] Name the mode in `.claude/skills/drawio-waves/SKILL.md` (it lists `gallery_pdf.py` as an on-ask tool) (check: the line says
-      `--assets`).
+- [x] Name the mode in `.claude/skills/drawio-waves/SKILL.md` (it lists `gallery_pdf.py` as an on-ask tool) (check: the line says
+      `--assets`). Done 2026-10-17 (task023): the bundles line names `--assets <tree>/.assets`; `AGENTS issues=0` (Test-AgentDefinitions),
+      `SPELL issues=0` on the file.
 - [ ] Decide whether a `--parts <n>` split belongs in the builder, so a file over a size cap needs no side script (check: a decision
       recorded here; if yes, a flag and a run that yields parts under 30 MiB).
-- [ ] Add a small test fixture run (two PNGs, one with a companion) if the kit gains a test home (check: page count is 3).
+- [ ] Add a small test fixture run (two PNGs, one with a companion) if the kit gains a test home (check: page count is 3). 2026-10-17: the
+      kit has no test home (`.claude/drawio` holds scripts, minimaps and the style guide, no tests folder), so the run waits for one.
 
 ## Refs
 

@@ -22,8 +22,9 @@ usage: uv run -q --with pillow python .claude/drawio/gallery_pdf.py [<slides-dir
        uv run -q --with pillow python .claude/drawio/gallery_pdf.py --assets [<assets-dir>] [--no-text]
 
 Assets mode writes out/diagrams/assets-gallery.pdf: every PNG under <assets-dir> (default docs/.assets) in path order, captioned
-with its folder, each followed by its same-stem markdown companion (X.drawio.png -> X.drawio.md, X.chain.png -> X.chain.md) as a
-text page; --no-text leaves the text pages out (the full PDF with them is large).
+with its folder, each followed by its description as a text page: for a diagram the page the sidecar carrier of file-carriers.yml
+names (docs/<tree>/<domain>/<stem>.drawio.md, beside its article; the registry is the one lookup), for a minimap the same-stem
+markdown beside it (X.chain.png -> X.chain.md); --no-text leaves the text pages out (the full PDF with them is large).
 
 With no argument it reads out/diagrams/fan-out and writes out/diagrams/gallery.pdf. With a slides dir (e.g. out/diagrams/wave-5) it
 writes <slides-dir>/gallery.pdf.
@@ -41,6 +42,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path("out/diagrams")
 WIDTH = 1600
+PAGE_HEIGHT = 24000  # the most text one page holds; a longer markdown file continues on the next page
 BAR = 44
 MARGIN = 48
 INK, QUIET, RULE = "#CDD3DC", "#949FAE", "#3A4555"  # the dark-theme tokens (.claude/drawio/STYLE.md)
@@ -150,28 +152,85 @@ def markdown_page(path, section):
         else:
             para.append(s)
     flush()
-    height = MARGIN * 2 + sum(gap + len(lines) * round(f.size * 1.4) for f, _, lines, gap in blocks)
-    img = Image.new("RGB", (WIDTH, height), BACKGROUND)
-    d = ImageDraw.Draw(img)
-    y = MARGIN
-    for f, colour, lines, gap in blocks:
-        y += gap
-        for ln in lines:
-            d.text((MARGIN, y), ln, font=f, fill=colour)
-            y += round(f.size * 1.4)
-    d.line([MARGIN, height - 12, WIDTH - MARGIN, height - 12], fill=RULE, width=2)
-    return caption(img, path, section)
+    # Cut the text into pages below the encoder's 65500 px roof: a minimap page runs to thousands of rows.
+    sheets, sheet, used = [], [], 0
+    for block in blocks:
+        f, _, lines, gap = block
+        tall = gap + len(lines) * round(f.size * 1.4)
+        if sheet and used + tall > PAGE_HEIGHT:
+            sheets.append(sheet)
+            sheet, used = [], 0
+        sheet.append(block)
+        used += tall
+    sheets.append(sheet)
+    images = []
+    for number, sheet in enumerate(sheets, 1):
+        height = MARGIN * 2 + sum(gap + len(lines) * round(f.size * 1.4) for f, _, lines, gap in sheet)
+        img = Image.new("RGB", (WIDTH, height), BACKGROUND)
+        d = ImageDraw.Draw(img)
+        y = MARGIN
+        for f, colour, lines, gap in sheet:
+            y += gap
+            for ln in lines:
+                d.text((MARGIN, y), ln, font=f, fill=colour)
+                y += round(f.size * 1.4)
+        d.line([MARGIN, height - 12, WIDTH - MARGIN, height - 12], fill=RULE, width=2)
+        label = section if len(sheets) == 1 else f"{section} ({number}/{len(sheets)})"
+        images.append(caption(img, path, label))
+    return images
+
+
+REPO = Path(__file__).resolve().parents[2]
+CARRIERS = REPO / "automation/Catzc.Base.Languages/configs/file-carriers.yml"
+
+
+def sidecar_rules():
+    """The sidecar carriers of file-carriers.yml as (globs, pattern) pairs: the registry is the one lookup, read, never re-spelled."""
+    rules, entry = [], None
+    for line in CARRIERS.read_text(encoding="utf-8").splitlines():
+        head = re.match(r"^  ([a-z][a-z0-9-]*):\s*$", line)
+        if head:
+            entry = {}
+            rules.append(entry)
+            continue
+        if entry is None:
+            continue
+        files = re.match(r"^\s+files:\s*\[(.*)\]\s*$", line)
+        if files:
+            entry["files"] = [g.strip().strip("\"'") for g in files.group(1).split(",") if g.strip()]
+        sidecar = re.match(r"^\s+sidecar:\s*\"?([^\"]+?)\"?\s*$", line)
+        if sidecar:
+            entry["sidecar"] = sidecar.group(1)
+    return [(r["files"], r["sidecar"]) for r in rules if "sidecar" in r and "files" in r]
+
+
+def glob_regex(glob):
+    """A registry glob as a regex over a '/'-separated repository-relative path: '**/' spans folders, '*' stays inside one segment."""
+    pattern = re.escape(glob).replace(r"\*\*/", "(?:.*/)?").replace(r"\*\*", ".*").replace(r"\*", "[^/]*")
+    return re.compile("^" + pattern + "$")
+
+
+def companion(png):
+    """The description page of a PNG: through the sidecar rule whose glob matches a diagram, else the same-stem markdown beside it."""
+    relative = png.resolve().relative_to(REPO).as_posix()
+    for globs, pattern in sidecar_rules():
+        if any(glob_regex(g).match(relative) for g in globs):
+            stem = png.name[: -len(".drawio.png")]
+            hits = sorted(REPO.glob(pattern.replace("{stem}", stem)))
+            return hits[0] if hits else None
+    beside = png.with_suffix(".md")
+    return beside if beside.exists() else None
 
 
 def assets_items(assets_dir, with_text):
-    """Every PNG under the assets dir in path order, each followed by its same-stem markdown companion (X.drawio.png -> X.drawio.md)."""
+    """Every PNG under the assets dir in path order, each followed by its description page when one exists."""
     items = []
     for p in sorted(assets_dir.rglob("*.png")):
         section = p.parent.relative_to(assets_dir).as_posix()
         items.append((p, section if section != "." else assets_dir.name, page))
-        companion = p.with_suffix(".md")
-        if with_text and companion.exists():
-            items.append((companion, "Description", markdown_page))
+        description = companion(p) if with_text else None
+        if description is not None:
+            items.append((description, "Description", markdown_page))
     return items
 
 
@@ -194,7 +253,21 @@ else:
         items += [(m, label, markdown_page) for m, label in ((folder / f"{stem}.md", "Presentation"),
                                                              (folder / f"{stem}.drawio.md", "Visual description"))
                   if m.exists()]
+if not items:
+    sys.exit(f"no PNG to render under {args[0] if args else 'the default folder'}")
 target.parent.mkdir(parents=True, exist_ok=True)
-pages = [render(p, s) for p, s, render in items]
-pages[0].save(target, "PDF", save_all=True, append_images=pages[1:], resolution=150)
-print(f"ok {target} pages={len(pages)}")
+
+
+def rendered(items, counter):
+    """One page at a time: Pillow walks the iterable while it writes, so a tree of hundreds of diagrams needs no page list."""
+    for p, s, render in items:
+        out = render(p, s)
+        for img in out if isinstance(out, list) else [out]:
+            counter[0] += 1
+            yield img
+
+
+counter = [0]
+renders = rendered(items, counter)
+next(renders).save(target, "PDF", save_all=True, append_images=renders, resolution=150)
+print(f"ok {target} pages={counter[0]}")
