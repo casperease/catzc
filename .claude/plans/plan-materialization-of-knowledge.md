@@ -7,7 +7,7 @@ plan:
   targets: [docs/adr/automation, automation/Catzc.Base.Docs/configs/glossary.yml, automation/Catzc.Base.Docs/configs/adrs.yml]
 catzc:
   immutable:
-    with_body_sha: "7d572acbf979"
+    with_body_sha: "3abcb978480c"
     repo_status: clean
     path: ".claude/plans/plan-materialization-of-knowledge.md"
     folder: plans
@@ -89,7 +89,7 @@ generated heads. One word and one default prevent each of them from inventing it
 
 ## Carried: out/adr-draft-materialization.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Draft: materialization of knowledge resources
+## Draft: materialization of knowledge resources
 
 Status: draft for review, not yet an ADR. Promote to an ADR next to `ADR-AUTO-CACHE` (suggested code `ADR-AUTO-MATERIAL`) after the three
 open choices at the bottom are confirmed. The glossary term and the registry entry follow with it.

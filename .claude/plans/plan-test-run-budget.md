@@ -7,7 +7,7 @@ plan:
   targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Engines, automation/Catzc.Base.Timeouts/configs]
 catzc:
   immutable:
-    with_body_sha: b343d69ef683
+    with_body_sha: da42a63ab033
     repo_status: clean
     path: ".claude/plans/plan-test-run-budget.md"
     folder: plans
@@ -58,7 +58,7 @@ so the value is a suite that proves the same in less time. The user runs full su
 
 ## Carried: out/plan-test-run-budget.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: bring the full test run under its 180 s budget
+## Plan: bring the full test run under its 180 s budget
 
 Status as of 2026-10-15. The last measured full run (`out/test-automation/20261015-113336`) took 265.8 s against `tests.run_seconds` 180 s.
 Figures below come from that run and from the `test-optimization` agent's report; the agent's timings were taken on a loaded machine, so

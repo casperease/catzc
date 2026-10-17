@@ -7,7 +7,7 @@ plan:
   targets: [automation, docs/adr/automation, docs/adr/repository, contracts, automation/Catzc.Base.Docs/configs, .catzc]
 catzc:
   immutable:
-    with_body_sha: f4eb9fa1608f
+    with_body_sha: "36e4e224e08c"
     repo_status: clean
     path: ".claude/plans/plan-layers-vocabulary-rename-contracts.md"
     folder: plans
@@ -135,7 +135,7 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 
 ## Carried: out/plan-automation-layers-rename.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: automation becomes the terminology; the pwsh track gets its own name
+## Plan: automation becomes the terminology; the pwsh track gets its own name
 
 Master plan. Companions: [plan-layers-importer-vocabulary.md](plan-layers-vocabulary-rename-contracts.md) (the layer model, vocabulary,
 ADRs, importer mix), [plan-command-contracts.md](plan-layers-vocabulary-rename-contracts.md) (command contracts and the contract language),
@@ -383,7 +383,7 @@ rendering any diagram unasked; the Azure DevOps and GitHub settings that live ou
 
 ## Carried: out/plan-layers-importer-vocabulary.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: the layer model (automation, language, engine, importer), its vocabulary and its ADRs
+## Plan: the layer model (automation, language, engine, importer), its vocabulary and its ADRs
 
 Part 2 of the layers series. Master plan and the rename: [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md).
 Command contracts: [plan-command-contracts.md](plan-layers-vocabulary-rename-contracts.md). Evidence worklist:
@@ -557,7 +557,7 @@ Phases (each a small, separately verified change; none requires the folder renam
 
 ## Carried: out/plan-command-contracts.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: command contracts and the contract language
+## Plan: command contracts and the contract language
 
 Part 3 of the layers series. Master plan: [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md). Layers and
 importer: [plan-layers-importer-vocabulary.md](plan-layers-vocabulary-rename-contracts.md). Facts below were read on 2026-10-16 (survey:
@@ -737,7 +737,7 @@ Each use is its own phase; none changes the contract file's shape.
 
 ## Carried: out/plan-rename-worklist.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Rename worklist: every use of "automation", classified, with its disposition
+## Rename worklist: every use of "automation", classified, with its disposition
 
 Evidence appendix to [plan-automation-layers-rename.md](plan-layers-vocabulary-rename-contracts.md). Compiled on 2026-10-16 from six
 read-only surveys (`out/survey-rename-{code,adrs,docs,edges,vocab-generators}.md`, `out/survey-layers.md`); counts are matching lines or
@@ -796,8 +796,10 @@ Data registries (the "single source" set; edit each file once, then regenerate):
 
 | Registry | Where | Edit | | ------------------------ |
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 | --- | ------------------ | ---------- | | track | `Catzc.Base.Variants/configs/variants.yml:23` (aspects), `:31`
 (`tracks.automation: {root: automation, class: core, languages: [...]}`) | rename key and root together; the key is what every head's
 `track:` prints. After [plan-config-defaults.md](plan-config-defaults.md) Phase 2 the file no longer exists in `automation/`: the edit moves

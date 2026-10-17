@@ -12,7 +12,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "327adc9e03c2"
+    with_body_sha: "8b40fca9f12a"
     repo_status: clean
     path: ".claude/plans/plan-format-step-moves-comments.md"
     folder: plans
@@ -64,7 +64,7 @@ is one entry or a build.
 
 ## Carried: out/plan-comments-format-step.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: the format command moves long comments to their pages
+## Plan: the format command moves long comments to their pages
 
 Status 2026-10-15. Nothing is changed yet. Origin: a long rule header in `automation/.scriptanalyzer/AnnounceStateChange.psm1` stays in the
 file because `.scriptanalyzer` has no comment page, and nothing in `Format-Code` runs the move.

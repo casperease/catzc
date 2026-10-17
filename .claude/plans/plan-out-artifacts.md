@@ -12,7 +12,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "52edab517f25"
+    with_body_sha: "27c55cbb23cb"
     repo_status: clean
     path: ".claude/plans/plan-out-artifacts.md"
     folder: plans
@@ -119,7 +119,7 @@ sessions; run-clear-output.ps1 was judged by reading, never run. Probe deletions
 
 ## Carried: out/plan-out-artifacts.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: configurable output artifacts with sensible defaults
+## Plan: configurable output artifacts with sensible defaults
 
 2026-10-15. Status: **basis for review**. It is derived from what `out/` holds today. Nothing is built yet.
 

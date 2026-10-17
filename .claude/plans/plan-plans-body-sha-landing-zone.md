@@ -6,7 +6,7 @@ plan:
   targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Languages, docs/adr/repository, .claude/CLAUDE.md, .unordered]
 catzc:
   immutable:
-    with_body_sha: "1b9db6037564"
+    with_body_sha: a7c5962c9a00
     repo_status: clean
     path: ".claude/plans/plan-plans-body-sha-landing-zone.md"
     folder: plans
@@ -106,7 +106,7 @@ other plan.
 
 ## Carried: out/plan-claude-plans.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: body-sha policy, tracked plans, and an import landing zone
+## Plan: body-sha policy, tracked plans, and an import landing zone
 
 Three connected changes, in this order. Phase 0 changes how every later edit behaves, so it goes first.
 

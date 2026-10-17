@@ -8,7 +8,7 @@ plan:
   targets: [automation/Catzc.Base.Folders, automation/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
 catzc:
   immutable:
-    with_body_sha: "2011dac7618a"
+    with_body_sha: "6c6646177845"
     repo_status: clean
     path: ".claude/plans/plan-bounded-folder-enumeration.md"
     folder: plans
@@ -80,7 +80,7 @@ The value is delivered; what is left is the proof at level 2.
 
 ## Carried: out/plan-bounded-folder-enumeration.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: bounded folder enumeration
+## Plan: bounded folder enumeration
 
 Status (2026-10-16): built and migrated. Walker, `ADR-PWSH-ENUM`, the migration of every non-test and test site, and the analyzer rule
 `Measure-NoUnboundedEnumeration` are done (see the memory note `bounded-folder-enumeration` for the per-stage record). What remains is the
@@ -328,7 +328,7 @@ ADR-PWSH-PARAM#4 - ADR-PWSH-PESTER#9
 
 ---
 
-# ADR: Bounded enumeration
+## ADR: Bounded enumeration
 
 ## Rules: ADR-PWSH-ENUM
 

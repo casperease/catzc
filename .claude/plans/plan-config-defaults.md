@@ -17,7 +17,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "039091ad3463"
+    with_body_sha: c0bde751fa12
     repo_status: clean
     path: ".claude/plans/plan-config-defaults.md"
     folder: plans
@@ -128,7 +128,7 @@ It generalises to every typed config in configs.yml.
 
 ## Carried: out/plan-config-defaults.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: config defaults — coded, overridable by a repo fragment, pinned by a contract
+## Plan: config defaults — coded, overridable by a repo fragment, pinned by a contract
 
 Status: **decisions recorded 2026-10-16**, nothing built. Pilot: `variants` (`Catzc.Base.Variants.VariantsConfig`). Generalises to every
 typed config in `configs.yml`. Continuation prompt: [prompt-config-defaults-continue.md](prompt-config-defaults-continue.md).

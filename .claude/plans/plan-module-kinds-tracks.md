@@ -14,7 +14,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "035878adb0f9"
+    with_body_sha: "59f5f03a4866"
     repo_status: clean
     path: ".claude/plans/plan-module-kinds-tracks.md"
     folder: plans
@@ -186,7 +186,7 @@ Languages itself; identity-only type, order and needs stay in ModuleSystem. (b) 
 the table, and "kind" kept out of the ADR until the rename. (c) Scope: rule 5 narrowed, rule 6 narrowed to check and test, `LoadedModule`
 kept although no production code uses it (or dropped).
 
-# Plan: Module as the generalized, ADR-backed meta model
+## Plan: Module as the generalized, ADR-backed meta model
 
 Part of [plan-k8s-kinds.md](plan-module-kinds-tracks.md) (kinds are tracks; `Module` is a kind). That plan said "Module is a kind inside the
 `automation` track". This plan refines it: a deployable track holds modules, so they get one generic C# definition that every deployable
@@ -485,7 +485,7 @@ supports, to carry into the implement prompt, not new questions:
 
 ## Carried: out/plan-k8s-kinds.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: Kubernetes-style kind names
+## Plan: Kubernetes-style kind names
 
 Goal: the things catzc talks about get the names Kubernetes already gave their counterparts (`Module`, `Service`, `Deployment`, `ConfigMap`,
 …), so a reader who knows k8s reads a catzc head or config without a translation table. Kubernetes is the source of the _vocabulary_ only;
@@ -625,7 +625,7 @@ them.
 
 ## Carried: out/plan-track-type.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: tracks as clusters of module contents, and a type for each track
+## Plan: tracks as clusters of module contents, and a type for each track
 
 Status: plan only, nothing built. Supersedes the first draft of this file (options A/B): the model below is the user's, 2026-10-16.
 
@@ -701,7 +701,7 @@ track **type**, and the track stays `automation` (or `pwsh` if the rename plan l
 
 ## Carried: out/analysis-track-structure.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Analysis: the repository's real folder structure against tracks, modules and vendors
+## Analysis: the repository's real folder structure against tracks, modules and vendors
 
 Scanned 2026-10-16 from `git ls-files` (4,600 tracked files), the gitignore, and the working tree. Counts are tracked files.
 
@@ -796,7 +796,7 @@ by entry, as `file-kinds.yml` is).
 
 ## Carried: out/adr-draft-tracks-modules-types.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Draft ADR set: tracks, modules, and their types
+## Draft ADR set: tracks, modules, and their types
 
 Status: draft for review, written 2026-10-16 to `out/` (not yet in `docs/adr/`). Landing it is the checklist at the end. Where the user has
 not decided yet, the draft takes the recommended answer and marks it **[confirm]**.
@@ -843,7 +843,7 @@ every yml file across automation) are **scopes over tracks**, not tracks: they s
 
 ## Part 2: new ADR `track-types.md` — ADR-DSGN-TRACKTYPE
 
-# ADR: Track types — what a track owns, and where tracks are declared
+## ADR: Track types — what a track owns, and where tracks are declared
 
 ## Rules: ADR-DSGN-TRACKTYPE
 
@@ -963,7 +963,7 @@ resolves each file (ADR-DSGN-TRACKTYPE#5); the head says `track` and `tracktype`
 
 ## Part 3: new ADR `module-types.md` — ADR-DSGN-MODTYPE
 
-# ADR: Module types — what a module is placed as
+## ADR: Module types — what a module is placed as
 
 ## Rules: ADR-DSGN-MODTYPE
 

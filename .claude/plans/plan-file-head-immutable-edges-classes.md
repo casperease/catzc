@@ -14,7 +14,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "90d329be0d19"
+    with_body_sha: "7cb9e04995f8"
     repo_status: clean
     path: ".claude/plans/plan-file-head-immutable-edges-classes.md"
     folder: plans
@@ -197,7 +197,7 @@ ADR-PRIN-ONELIVE).
 
 ## Carried: out/plan-file-meta-immutable-edges.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: `derived` becomes `immutable` + `edges`
+## Plan: `derived` becomes `immutable` + `edges`
 
 Status: ADR text edited (step 1); everything else open. Decided with the user 2026-10-16.
 
@@ -314,7 +314,7 @@ re-imprint needs the engine to treat `derived` as droppable for that one run (th
 
 ## Carried: out/plan-meta-class-selectors.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: one glob model for all front matter — globs once, classes everywhere else
+## Plan: one glob model for all front matter — globs once, classes everywhere else
 
 2026-10-15. Status: **for review**. `file-meta.yml` is catzc-64's active area (the `relatives` work), so nothing is edited until that
 session agrees or hands over.

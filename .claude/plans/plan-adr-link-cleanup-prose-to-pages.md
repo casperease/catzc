@@ -7,7 +7,7 @@ plan:
   targets: [docs, automation/Catzc.Base.QualityGates, out/adr-link-ledger.csv]
 catzc:
   immutable:
-    with_body_sha: b555aa3e89bb
+    with_body_sha: "0efcde7ec9b6"
     repo_status: clean
     path: ".claude/plans/plan-adr-link-cleanup-prose-to-pages.md"
     folder: plans
@@ -108,7 +108,7 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
 
 ## Carried: out/plan-adr-link-cleanup.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-# Plan: ADR link cleanup (Phase 1), then source-file prose into sister pages (Phase 2)
+## Plan: ADR link cleanup (Phase 1), then source-file prose into sister pages (Phase 2)
 
 Two phases, in this order. Phase 1 makes every edge to an ADR say exactly what it means. Phase 2 moves the larger text out of source files
 into their sister Markdown pages and leaves only unique one-liners and algorithmic insight. Phase 1 goes first because prose carries ADR
@@ -150,7 +150,7 @@ and the body-hash drift that every ADR edit causes. Phase 2 has not started.
   `TryParse` fix in `Get-AdrCodesFileMetaFact`. `Test-FileMeta` is clean for them; the formatting, link, spelling, glossary and analyzer
   gates have not run on them, and the `TryParse` fix has no regression test for an oversized rule number.
 
-# Phase 1: clean up ADR linking, semantically
+## Phase 1: clean up ADR linking, semantically
 
 Goal: read every declared edge to an ADR, decide what it really points at, and make it say exactly that. An edge that names a numbered rule
 but only means "see this ADR" becomes a link to the ADR as a whole. An edge that means one rule stays on that rule. A whole-ADR edge that in
@@ -339,7 +339,7 @@ Peer sessions edit this tree, so check `git status` for the file first and messa
 
 ---
 
-# Phase 2: larger text out of source files into sister pages
+## Phase 2: larger text out of source files into sister pages
 
 Goal: in every `yml`, `yaml`, `cs`, `ps1` and `psm1` source file, keep only what the code does not say itself: a unique one-line insight or
 an algorithmic insight. Everything larger lives in the file's sister Markdown page, sorted into **reference** (what it is and does) and
