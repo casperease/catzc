@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "29a623397421"
+    with_body_sha: "6804ae382349"
     repo_status: clean
     path: docs/adr/repository/api-contracts.md
     folder: docs/adr/repository
@@ -212,13 +212,13 @@ contracts/
 `The vendor's shape, trimmed, beside our own contracts`
 
 Some files we hold are read against a shape a vendor owns, such as the schema Azure Resource Manager publishes for a compiled template. The
-editor and the gate should check that shape without a download, and the vendor's full schema is neither small nor bounded: it refs
-hundreds of schemas of other versions and uses keywords the contract check does not support. So the contract is a trimmed verification of
-the part that matters, kept in `contracts/EXTERNAL-<moniker>/`, and it states in its header comment which vendor it follows and the address
-it was trimmed from, so a reviewer can compare it with the source. The unit follows its vendor, so it is not a version of `catzc`: the
-vendor pins nothing, and `0.0.0` is the shape in use ([Where back-compat is owed](#where-back-compat-is-owed)). `0.1.0` is the same
-shape frozen as the unit's record, written by `Publish-ContractRelease -Unit EXTERNAL-<moniker> -Version 0.1.0`; when the vendor changes
-what it expects, `0.0.0` changes and the unit is released again.
+editor and the gate should check that shape without a download, and the vendor's full schema is neither small nor bounded: it refs hundreds
+of schemas of other versions and uses keywords the contract check does not support. So the contract is a trimmed verification of the part
+that matters, kept in `contracts/EXTERNAL-<moniker>/`, and it states in its header comment which vendor it follows and the address it was
+trimmed from, so a reviewer can compare it with the source. The unit follows its vendor, so it is not a version of `catzc`: the vendor pins
+nothing, and `0.0.0` is the shape in use ([Where back-compat is owed](#where-back-compat-is-owed)). `0.1.0` is the same shape frozen as the
+unit's record, written by `Publish-ContractRelease -Unit EXTERNAL-<moniker> -Version 0.1.0`; when the vendor changes what it expects,
+`0.0.0` changes and the unit is released again.
 
 ```text
 contracts/

@@ -13,6 +13,21 @@ task:
       docs/adr/automation/fail-fast-with-asserts.md,
       docs/adr/pwsh/assert-idioms.md,
     ]
+catzc:
+  immutable:
+    with_body_sha: fff81592aa0e
+    repo_status: clean
+    path: ".claude/plans/task024.md"
+    folder: plans
+    name: task024
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task024: Assert-Wait, the config read, the measured run, the ADR pair
@@ -36,13 +51,13 @@ file caused by peers, the 110 ms first-tick source (Q3), help, and the ADR pair 
 5. Q3: run `importer.ps1 -DiagnoseBlocking` and `-DiagnoseLoadTime` side by side in the background (360 s cap); name where the fixed about
    110 ms first-tick lateness comes from (first-tick JIT of Stopwatch and Write-Message is the likely answer) in the plan. Check: the cause
    is named, or the tick no longer reports it.
-6. Function help for `Assert-Wait` beyond the head block, per ADR-REPO-HELP; `watchpoint` as a glossary term only if the ADR of step 7 bolds it.
-   Check: Test-Links on the touched pages.
+6. Function help for `Assert-Wait` beyond the head block, per ADR-REPO-HELP; `watchpoint` as a glossary term only if the ADR of step 7 bolds
+   it. Check: Test-Links on the touched pages.
 7. After the first measured `Test-Automation -DiagnoseBlocking` run (the user's): `ADR-AUTO-FAILFAST#8` (mark a suspected block with a
    watchpoint, then bound it) and `ADR-PWSH-ASSERT#7` (the pwsh form) through adrs.yml and `Build-AdrIndex`; present tense. Check:
    Test-AdrRegistry, Test-Links clean; the function head cites #8.
-8. After that run: each watchpoint that found a block becomes a `timeouts.yml` limit with `Invoke-WithTimeout`; every other `Assert-Wait` call
-   is deleted; the `-DiagnoseBlocking` switch stays. Check: grep `Assert-Wait` outside its own module and tests finds no call without a
+8. After that run: each watchpoint that found a block becomes a `timeouts.yml` limit with `Invoke-WithTimeout`; every other `Assert-Wait`
+   call is deleted; the `-DiagnoseBlocking` switch stays. Check: grep `Assert-Wait` outside its own module and tests finds no call without a
    recorded finding.
 9. Tick the plan's steps; it is deleted in T036. Check: grep `- [ ]` counts zero.
 

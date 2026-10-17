@@ -6,6 +6,21 @@ task:
   value: medium
   blocked_on: step 2 is the user's full run
   targets: [automation/Catzc.Base.Folders, automation/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
+catzc:
+  immutable:
+    with_body_sha: af743ce593e3
+    repo_status: clean
+    path: ".claude/plans/task034.md"
+    folder: plans
+    name: task034
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task034: bounded enumeration closed

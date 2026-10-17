@@ -12,6 +12,21 @@ task:
       automation/Catzc.Base.Engines,
       automation/Catzc.Base.Timeouts/configs/timeouts.yml,
     ]
+catzc:
+  immutable:
+    with_body_sha: "233d43e8f58f"
+    repo_status: clean
+    path: ".claude/plans/task029.md"
+    folder: plans
+    name: task029
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task029: the full test run under its 180 s roof
@@ -27,8 +42,8 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
 2. The stamp: find where it is built (`Catzc.Base.Engines` or the Format-Code cache in QualityGates); per engine, hash only that engine's
    pin from `tools.yml` and its settings files. Two tests: an unrelated pin edit leaves another engine's cache warm; every declared stamp
    input invalidates it (the risk is a stale result from a missed input). Check: the Test-Formatting tests pass cold and warm.
-3. After the user's two full runs with the new history: `Invoke-TestFile.Tests.ps1` no longer shares a shard with `Test-Formatting.Tests.ps1`;
-   record the shard table and wall clock against the 265.8 s run in the plan. Check: the table in the plan.
+3. After the user's two full runs with the new history: `Invoke-TestFile.Tests.ps1` no longer shares a shard with
+   `Test-Formatting.Tests.ps1`; record the shard table and wall clock against the 265.8 s run in the plan. Check: the table in the plan.
 4. Next three files by cost (Get-BicepParameterModel.Shipped 33.6 s, Import-Catzc 32.9 s, Build-Bicep.L2 31.3 s, then the Test-BuildArtifact
    files), one at a time through the `test-optimization` robot, each measured against the new balance. Check: same assertions, lower time,
    recorded per file.

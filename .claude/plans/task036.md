@@ -6,6 +6,21 @@ task:
   value: highest
   blocked_on: every earlier task that ticks a plan's last step
   targets: [.claude/plans]
+catzc:
+  immutable:
+    with_body_sha: "353155951124"
+    repo_status: clean
+    path: ".claude/plans/task036.md"
+    folder: plans
+    name: task036
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task036: the closing sweep
@@ -23,8 +38,8 @@ batch of tasks lands, as often as needed, and last of all. `git rm` is the user'
 4. `plan-master.md`: each pointer line whose task is complete is marked (done); when every chunk is done, the master itself has no open
    chunk and is deleted with the task files, leaving the plans folder with only live plans and value-of-plan.md. Check: Test-Plans and
    Test-Links clean on the folder.
-5. `plan-clear-actions.md`: its last verdict lines ticked (the out/test-links report folders cleared with the user's yes). Check: grep `- [ ]`
-   counts zero, then it is itself a candidate of step 1.
+5. `plan-clear-actions.md`: its last verdict lines ticked (the out/test-links report folders cleared with the user's yes). Check: grep
+   `- [ ]` counts zero, then it is itself a candidate of step 1.
 
 ## Report
 

@@ -12,19 +12,35 @@ task:
       docs/references/automation/catzc-base-codemeta,
       automation/Catzc.Base.Git/Push-Dirty.ps1,
     ]
+catzc:
+  immutable:
+    with_body_sha: "8a69de61c6bf"
+    repo_status: clean
+    path: ".claude/plans/task032.md"
+    folder: plans
+    name: task032
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # task032: the root-config fixture tests and the PropertyHead docs
 
 Two plans share one failure: four tests in `Build-RootConfig.Tests.ps1` (lines 66, 71, 189, 206) compare an exact generated head and now see
-`with_body_sha` and `repo_status` lines. Not caused by either plan's work; the generated-head config was changed by another session. The csproj
-plan also leaves the PropertyHead page and two help blocks describing a JSON-only head. The fast-push plan's remaining items are the user's.
+`with_body_sha` and `repo_status` lines. Not caused by either plan's work; the generated-head config was changed by another session. The
+csproj plan also leaves the PropertyHead page and two help blocks describing a JSON-only head. The fast-push plan's remaining items are the
+user's.
 
 ## Steps
 
-1. Run the four tests against a tree without the csproj change (`git stash` is the user's; instead read `git log -p` of
-   `generated-head.yml` and `Format-GeneratedFileHead.ps1` since 2026-10-16 to find the change that added the two keys). Record which change
-   moved the head in both plans. Check: the commit or change is named.
+1. Run the four tests against a tree without the csproj change (`git stash` is the user's; instead read `git log -p` of `generated-head.yml`
+   and `Format-GeneratedFileHead.ps1` since 2026-10-16 to find the change that added the two keys). Record which change moved the head in
+   both plans. Check: the commit or change is named.
 2. Fix one side: if the head is right (task007 makes `with_body_sha` required on generated files), the four fixture expectations gain the
    keys; if the head is wrong for fixture files, the generator is fixed. One file. Check: `Build-RootConfig.Tests.ps1` passes.
 3. `docs/references/automation/catzc-base-codemeta/types/PropertyHead.md` (or its generated source): describe the XML form (a CDATA property
@@ -32,8 +48,8 @@ plan also leaves the PropertyHead page and two help blocks describing a JSON-onl
    comment in `PropertyHead.cs` and regenerate. Check: Test-Links, Test-GeneratedFiles clean.
 4. `Format-PropertyMetaHead` and `Get-PropertyMetaState` help: the head block names both carriers. Check: Test-Links on their pages;
    Test-Help clean.
-5. By hand, the user's: a keybinding for the "Push dirty" task (`workbench.action.tasks.runTask`, args `Push dirty`) in the user keybindings;
-   one real `Push-Dirty` run against the remote (the tests mock every git call). Check: the user reports the run.
+5. By hand, the user's: a keybinding for the "Push dirty" task (`workbench.action.tasks.runTask`, args `Push dirty`) in the user
+   keybindings; one real `Push-Dirty` run against the remote (the tests mock every git call). Check: the user reports the run.
 6. The Test-AdrRegistry ADR-AI finding closes with task005; the Test-Glossary findings in plans are D15 and task002 step 10. Record both
    pointers in `plan-fast-push-followups.md`. Check: the lines exist.
 7. Tick both plans' steps; both are deleted in T036. Check: grep `- [ ]` in both counts zero.

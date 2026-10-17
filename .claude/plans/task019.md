@@ -8,7 +8,7 @@ task:
   targets: [docs/explanation/automation, docs/how-to/automation, docs/references/automation, automation, .catzc, out, .github, pipelines]
 catzc:
   immutable:
-    with_body_sha: "919a1b1f09e8"
+    with_body_sha: cd878f8ffc2b
     repo_status: clean
     path: ".claude/plans/task019.md"
     folder: plans
@@ -38,10 +38,10 @@ pipeline names the same day the user re-points Azure DevOps and GitHub. P8 diagr
    the list in the plan.
 3. P4 preconditions recorded: P1 to P3 green on touched files; `git status` shows no peer-dirty file; a hook-recovery path exists out of
    band; the user has named the window (D10). Check: four lines in the plan, each true.
-4. P4, the user runs: `git mv automation pwsh`; `.catzc/<track>` becomes `.catzc/pwsh`; build outputs `out/pwsh/built` and `out/pwsh/packages`
-   (Q6); the tracks registry row and the one bootstrap constant change to pwsh; `Build-RootConfig` regenerates importer.ps1; the docs mirror
-   `docs/references/automation` follows the folder for the moved pages of step 1. One source edit per step, generators after. Check: the P0
-   baseline gates green again (Test-GeneratedFiles, Test-Links, Test-Contracts, Test-WorldMap).
+4. P4, the user runs: `git mv automation pwsh`; `.catzc/<track>` becomes `.catzc/pwsh`; build outputs `out/pwsh/built` and
+   `out/pwsh/packages` (Q6); the tracks registry row and the one bootstrap constant change to pwsh; `Build-RootConfig` regenerates
+   importer.ps1; the docs mirror `docs/references/automation` follows the folder for the moved pages of step 1. One source edit per step,
+   generators after. Check: the P0 baseline gates green again (Test-GeneratedFiles, Test-Links, Test-Contracts, Test-WorldMap).
 5. The ADR rules of step 2 edited to the present tree. Check: Test-AdrRegistry, Test-Links, Test-AdrEngineNeutrality clean.
 6. P5 guards: avoid-phrasings for the retired uses ("automation folder", "automation track", "automation modules", "automation layer",
    "PowerShell automation") in `glossary.yml`; the P2 analyzer rule stays. Check: Test-Glossary clean; G4 reports none in tracked prose.

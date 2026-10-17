@@ -15,7 +15,7 @@ task:
     ]
 catzc:
   immutable:
-    with_body_sha: "0439e6f8b2ae"
+    with_body_sha: "13ae18fed7fd"
     repo_status: clean
     path: ".claude/plans/task021.md"
     folder: plans
@@ -41,20 +41,21 @@ kind overlaps are written down and FileKindReachability fails on a shadowed kind
 
 1. Proof baseline: `Format-FileMeta -DryRun` over the tree in the background; save the report under out/. Check: the report exists, zero
    changes (if not, stop: the tree is not clean for this work).
-2. `FileMetaKind` type (`automation/Catzc.Base.QualityGates/types`): `classes` and `languages` with defaults; `files` together with `classes`
-   is rejected at construction naming the kind. L0 tests, widget/gadget. Fresh pwsh. Check: the type's tests pass.
-3. `Invoke-FileMetaEngine` and `Get-FileMetaFact`: the file's class is computed once per file (file-kind already does) and kinds are selected
-   by it. Check: their tests pass; `Test-FileMetaProcessors` counts unchanged.
-4. `file-meta.yml`, one kind per step: rewrite its `select:` to classes or languages; after each, `Format-FileMeta -DryRun` shows zero changes.
-   Check: that kind's processor test; the dry run.
+2. `FileMetaKind` type (`automation/Catzc.Base.QualityGates/types`): `classes` and `languages` with defaults; `files` together with
+   `classes` is rejected at construction naming the kind. L0 tests, widget/gadget. Fresh pwsh. Check: the type's tests pass.
+3. `Invoke-FileMetaEngine` and `Get-FileMetaFact`: the file's class is computed once per file (file-kind already does) and kinds are
+   selected by it. Check: their tests pass; `Test-FileMetaProcessors` counts unchanged.
+4. `file-meta.yml`, one kind per step: rewrite its `select:` to classes or languages; after each, `Format-FileMeta -DryRun` shows zero
+   changes. Check: that kind's processor test; the dry run.
 5. `Get-AdrCodesFileMetaFact` reads `domain_classes` and `held_classes` against the file's class; the `relatives` processor selects by
    `classes`. Check: both tests pass.
 6. Remove `files` from the type and config when no kind uses it. Check: the type tests; Test-FileMeta clean.
-7. `docs/adr/repository/file-meta.md` rule 2 and `docs/adr/repository/code-meta.md` rule 3: a kind selects by class; file-kind is the one glob
-   list. Present tense. Also clear the Test-Markdownlint findings in file-meta.md. Check: Test-AdrRegistry, Test-Links, Test-Markdownlint clean.
-8. Q41: `automation/Catzc.Base.Globs/configs/file-kinds.yml` gains an `overlaps:` list (declared once on the config type) naming each intended
-   pair; `FileKindReachability.Tests.ps1` fails when a kind is mostly shadowed by an earlier one and the pair is not listed (how drawio-kit
-   hid). Check: a fixture with a shadowed kind fails; the real registry passes.
+7. `docs/adr/repository/file-meta.md` rule 2 and `docs/adr/repository/code-meta.md` rule 3: a kind selects by class; file-kind is the one
+   glob list. Present tense. Also clear the Test-Markdownlint findings in file-meta.md. Check: Test-AdrRegistry, Test-Links,
+   Test-Markdownlint clean.
+8. Q41: `automation/Catzc.Base.Globs/configs/file-kinds.yml` gains an `overlaps:` list (declared once on the config type) naming each
+   intended pair; `FileKindReachability.Tests.ps1` fails when a kind is mostly shadowed by an earlier one and the pair is not listed (how
+   drawio-kit hid). Check: a fixture with a shadowed kind fails; the real registry passes.
 9. `contracts/catzc/0.0.0` `head.schema.json` and `head.sample.yml`: `tracktype` and `vendor` added by hand (Q39). Check:
    `Format-FileMeta.Contract.Tests` passes; Test-Contracts clean.
 10. Tick the class-selector, reachability and schema steps in `plan-file-head-immutable-edges-classes.md`. Check: grep `- [ ]` counts the

@@ -15,7 +15,7 @@ task:
     ]
 catzc:
   immutable:
-    with_body_sha: "3ea66466f221"
+    with_body_sha: "7b76ae82db07"
     repo_status: clean
     path: ".claude/plans/task022.md"
     folder: plans
@@ -37,8 +37,8 @@ others; one file per step; gates in the background. Peers' files (the six Test-C
 
 ## Steps
 
-1. `glossary.yml`: `note` as a term (Q53), defined by the file-kinds rule that names the kind, domain repository, short form "a tracked
-   page that explains without being an ADR, a how-to or a reference". `Build-Glossary`. Check: Test-Glossary clean.
+1. `glossary.yml`: `note` as a term (Q53), defined by the file-kinds rule that names the kind, domain repository, short form "a tracked page
+   that explains without being an ADR, a how-to or a reference". `Build-Glossary`. Check: Test-Glossary clean.
 2. Q54: read `docs/adr/automation/asset-dependencies.md` (ADR-AUTO-ASSETDEP); confirm `asset` stays a top-level kind in `file-kinds.yml` or
    move it under the kind the ADR names; record the reading in the plan. Check: the kinds tests pass; one Decided line.
 3. D13: if skip, `Format-Code` and `Test-Formatting` exclude `automation/.compiled` through the formatting config (declared once, with its

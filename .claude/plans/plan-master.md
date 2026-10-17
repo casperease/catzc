@@ -7,7 +7,7 @@ plan:
   targets: [.claude/plans]
 catzc:
   immutable:
-    with_body_sha: "81ed10b4583e"
+    with_body_sha: "3c3e2e97abb8"
     repo_status: clean
     path: ".claude/plans/plan-master.md"
     folder: plans
@@ -20,11 +20,6 @@ catzc:
     vendor: claude
     module: ".claude"
     moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-COMMENTS#5
-      - ADR-REPO-FORMAT#8
-      - ADR-REPO-HELP#3
 ---
 
 # Master: every open step of every plan, in one executable order
@@ -90,8 +85,8 @@ stay the durable record; task files and this master are derived from them and ca
 
 - T023 -> task023.md (open; D07 for one step): assets leftovers: gallery --assets lookup or retirement, the FileCarrierResolver test, the
   old folder removed, the skill line, both plans deleted.
-- T024 -> task024.md (open; ADR pair after the first measured run): Assert-Wait defaults on TimeoutsConfig, the suite file green, the
-  110 ms source, help, ADR-AUTO-FAILFAST#8 and ADR-PWSH-ASSERT#7, watchpoints retired into limits.
+- T024 -> task024.md (open; ADR pair after the first measured run): Assert-Wait defaults on TimeoutsConfig, the suite file green, the 110 ms
+  source, help, ADR-AUTO-FAILFAST#8 and ADR-PWSH-ASSERT#7, watchpoints retired into limits.
 - T025 -> task025.md (open; D09 for one step): lazy types Phases 3 to 5: prompt hook, L1 test, stat-stamp memo, the ADR rule and exception,
   comment pages, bundle test, eager path deleted.
 - T026 -> task026.md (open; D16): ADR-AUTO-MATERIAL with seven rules, registry, dora-explains, glossary term.
@@ -100,13 +95,14 @@ stay the durable record; task files and this master are derived from them and ca
 - T028 -> task028.md (open; deletions are the user's runs): six out/ areas registered in Catzc.Base.Reports output-formats.yml, the prune in
   Clear-Output, OUTDIR amendments, the two probe batches, five tool candidates placed.
 - T029 -> task029.md (open; D08, the user's two runs): the per-engine cache stamp with two tests, shard re-check, next three files by cost.
-- T030 -> task030.md (open): comments.yml page entries for .scriptanalyzer and .internal, .vendor excluded, the export run, two ADR sentences.
+- T030 -> task030.md (open): comments.yml page entries for .scriptanalyzer and .internal, .vendor excluded, the export run, two ADR
+  sentences.
 - T031 -> task031.md (open; D12): Build-RootConfig and Build-GitKeep input sets, Sync-SessionTools skip, two janitors profiled, re-measure.
 - T032 -> task032.md (open): the four Build-RootConfig fixture-head tests, PropertyHead docs to the XML form, the user's keybinding and run.
 - T033 -> task033.md (open; the user's commit, D11): unboxing closed: three leftover checks, two gate findings, P4 and P5 only on a go.
 - T034 -> task034.md (open; the user's full run): bounded enumeration level-2 rerun, then plan and prompt deleted.
 - T035 -> task035.md (open; D06): idle compaction scope, then the plan deleted.
-- T036 -> task036.md (open; runs after every batch and last): the closing sweep, done plans deleted with one line each, the master and
-  task files deleted when every chunk is done.
+- T036 -> task036.md (open; runs after every batch and last): the closing sweep, done plans deleted with one line each, the master and task
+  files deleted when every chunk is done.
 
 Every chunk is now a task file. Numbers 037 to 050 are free for chunks that new plans or pastes bring; 050 is the cap.
