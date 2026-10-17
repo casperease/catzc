@@ -1,4 +1,4 @@
-# docs/.assets/explanation/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
+# docs/explanation/.assets/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
 
 `Tree minimap: adr-dsgn-life--sync-from-the-last-certified-commit--meta`
 

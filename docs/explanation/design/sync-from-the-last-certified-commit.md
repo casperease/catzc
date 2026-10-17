@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "951692dadb53"
+    with_body_sha: "61dd1bab2cc4"
     repo_status: clean
     path: docs/explanation/design/sync-from-the-last-certified-commit.md
     folder: docs/explanation/design
@@ -15,11 +15,11 @@ catzc:
     cites:
       - ADR-DSGN-LIFE#{6-8}
     links:
-      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md
-      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
       - docs/adr/design/commit-lifecycle.md
+      - docs/explanation/.assets/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
       - docs/explanation/design/index.md
       - docs/explanation/design/integrators-depend-on-an-occupant.md
+      - docs/explanation/design/sync-from-the-last-certified-commit.drawio.md
       - docs/explanation/design/sync-point-rules-are-adr-only.md
       - docs/explanation/index.md#how-to-read-the-diagrams
 ---
@@ -40,10 +40,9 @@ Supports ADR-DSGN-LIFE#6, #7 and #8 (meta lens).
 the commit to build on is the one the always-on non-prod environment holds, because it has already cleared every gate a machine decides.
 When the newest commit fails, it becomes the dirty HEAD, and nothing follows it.
 
-![Sync from the last certified commit, not from the tip of main](../../.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png)
+![Sync from the last certified commit, not from the tip of main](../.assets/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png)
 
-The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md).
+The diagram is described element by element in [its asset description](sync-from-the-last-certified-commit.drawio.md).
 
 ## Walkthrough
 

@@ -27,7 +27,7 @@ places nothing itself: every lit cell, lit file and reason is the highlight's.
 
 usage (repo root, background):
   timeout 300 uv run -q --with pillow python .claude/drawio/minimaps/render.py --slides <slides.json>
-      [--data out/minimaps] [--target docs/.assets/explanation] [--overview <world-map.tree.png>] [--facts <facts.json>]
+      [--data out/minimaps] [--target docs/explanation/.assets] [--overview <world-map.tree.png>] [--facts <facts.json>]
 """
 
 import argparse
@@ -491,7 +491,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
     parser.add_argument("--slides", required=True, help="the slide list (JSON: slides[] with id, stem, lens, adrs, xml)")
     parser.add_argument("--data", default="out/minimaps", help="the folder highlights.ps1 wrote")
-    parser.add_argument("--target", default="docs/.assets/explanation", help="the folder the minimaps and .md files go to")
+    parser.add_argument("--target", default="docs/explanation/.assets", help="the folder the minimaps and .md files go to")
     parser.add_argument("--overview", help="also write the full-size tree world map to this PNG")
     parser.add_argument("--facts", help="also write each slide's sidebar facts (lit cells, lit groups, file names) to this JSON")
     args = parser.parse_args()

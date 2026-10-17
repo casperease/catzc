@@ -25,7 +25,7 @@ loudly on any missing piece.
 
 usage (repo root, background):
   timeout 360 uv run -q --with pillow python .claude/drawio/minimaps/join.py --slides <slides.json>
-      [--data out/minimaps] [--target docs/.assets/explanation] [--start N --end M]
+      [--data out/minimaps] [--target docs/explanation/.assets] [--start N --end M]
 The optional slice of the slide list keeps each run inside the 360 s background limit.
 """
 
@@ -180,7 +180,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
     parser.add_argument("--slides", required=True, help="the slide list (JSON: slides[] with id, stem, lens, adrs, xml)")
     parser.add_argument("--data", default="out/minimaps", help="the folder highlights.ps1 wrote (palette, value-chain map)")
-    parser.add_argument("--target", default="docs/.assets/explanation", help="the folder of the minimaps and the built slides")
+    parser.add_argument("--target", default="docs/explanation/.assets", help="the folder of the minimaps and the built slides")
     parser.add_argument("--start", type=int, default=0)
     parser.add_argument("--end", type=int)
     args = parser.parse_args()

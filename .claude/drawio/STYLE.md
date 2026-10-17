@@ -282,7 +282,7 @@ laid out, the minimaps embedded, the slides rebuilt), `--start`/`--end` slicing 
 `drawio_forward.py <slide> --minimaps` instead. The diagram id a build embeds is a hash of the model, so a rebuild of an unchanged model is
 byte-identical.
 
-Every lens drawing is republished as an **explanation that supports its ADR(s)**: the committed slides in `docs/.assets/explanation/`, and
+Every lens drawing is republished as an **explanation that supports its ADR(s)**: the committed slides in `docs/explanation/.assets/`, and
 the review waves under `out/diagrams/`. A sidebar carries three minimaps showing where the drawing sits: two views of the world map (where
 its files are) and the value-chain map (where its ADRs sit in the value chain). The tooling that draws and joins them is
 `.claude/drawio/minimaps/`; it places nothing itself.
@@ -293,7 +293,7 @@ The minimaps draw the **world map** of the world-map processor (module `Catzc.Ba
 that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRACK#12), each with its reason. A minimap answers "where does
 this slide sit", not "how dense is the map": no cell is shaded by its count. The counts belong to the full maps (the world-map PDFs; a full
 value-chain view is still to come). A minimap lights the repository's citations of the slide's ADRs, never the slide's own words: the files
-under `docs/.assets/` (the slide descriptions and the minimaps' sister files), `docs/explanation/` (the articles the slides illustrate) and
+under `docs/explanation/` (the articles the slides illustrate, their descriptions and the `.assets` with the minimaps' sister files) and
 `.claude/drawio/` (this tooling) cite nothing for the highlight (`maps.yml` `highlight.citation_exclude`); they still sit in their cell.
 
 1. **Grid** (`grid/<stem>.grid.png`). Rows are the tracks and columns the file languages, in the map's order, with the root-file row and the
@@ -406,7 +406,7 @@ view adds its sections in `describe.py`'s `VIEWS`.
   1. `pwsh -NoProfile -File .claude/drawio/minimaps/highlights.ps1 -Slides <slides.json>` asks the map processors and writes the data
      (default `out/minimaps/`);
   2. `uv run -q --with pillow python .claude/drawio/minimaps/render.py --slides <slides.json>` draws the three minimaps and their sister
-     `.md` files into the target folder (`--target`, default `docs/.assets/explanation`; `--facts` also writes each slide's sidebar facts,
+     `.md` files into the target folder (`--target`, default `docs/explanation/.assets`; `--facts` also writes each slide's sidebar facts,
      `--overview` the full-size tree world map of an `out/` wave);
   3. `uv run -q --with pillow python .claude/drawio/minimaps/join.py --slides <slides.json>` lays out each slide's sidebar in its source
      XML, embeds the three PNGs and builds `<target>/<stem>.drawio.png` (`--start` and `--end` slice the list to fit the time limit).
@@ -574,26 +574,27 @@ the slide is two slides. The minimaps get their own **map key** in the sidebar.
 A finished slide lands in the repository as three files; the verify file stays in `out/diagrams/wave-N/` (plan:
 `out/plan-diagram-wave-7.md`).
 
-| File                                             | From                   | Shape                                                                                          |
-| ------------------------------------------------ | ---------------------- | ---------------------------------------------------------------------------------------------- |
-| `docs/explanation/<adr-domain>/<explanation>.md` | the article            | path H1 (ADR-REPO-FORMAT#6), the title in backticks, a `text` overview block, then the article |
-| `docs/.assets/explanation/<stem>.drawio.png`     | the built slide        | copied, never overwriting an existing asset                                                    |
-| `docs/.assets/explanation/<stem>.drawio.md`      | the visual description | path H1, the title in backticks, a `text` at-a-glance block, then the description              |
+| File                                                    | From                   | Shape                                                                                          |
+| ------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------- |
+| `docs/explanation/<adr-domain>/<explanation>.md`        | the article            | path H1 (ADR-REPO-FORMAT#6), the title in backticks, a `text` overview block, then the article |
+| `docs/explanation/.assets/<stem>.drawio.png`            | the built slide        | copied, never overwriting an existing asset                                                    |
+| `docs/explanation/<adr-domain>/<explanation>.drawio.md` | the visual description | path H1, the title in backticks, a `text` at-a-glance block, then the description              |
 
 - `<explanation>` is the middle part of the stem; `<adr-domain>` is the adrs.yml domain of the stem's ADR code.
 - **The `text` overview** of an article: the finding in one line; a blank line; one line per marker, `<n>  <name>  <what it is>`, names
   padded to one column; a blank line; `Supports <ADR-CODE>#a, #b and #c (<lens> lens).` Plain ASCII inside the block (`->`, not `→`).
 - **Words by audience:** the article uses the ADR's and glossary's terms (group, module, gate as the ADR names it); the asset description
   uses the glyph library's phrases (named set, code unit). Neither uses the other's vocabulary.
-- **Links:** the article links its image and its asset description under `../../.assets/explanation/`, the ADR, its sibling lenses, its
-  domain index and `../index.md#how-to-read-the-diagrams`. The asset description links the PNG and the article. ADRs never link to either.
+- **Links:** the article links its image under `../.assets/`, its asset description beside it, the ADR, its sibling lenses, its domain index
+  and `../index.md#how-to-read-the-diagrams`. The asset description links the PNG and the article. ADRs never link to either.
 - **Checks:** run `out/diagrams/wave-7/_check_docs.ps1 <paths…>` on your files (formats, then title, markdownlint, spelling, links). Report
   unknown words; never edit `terminology.yml` from a maker. A quoted message holding `<name>`-style placeholders goes in a code span (bare
   angle brackets fail markdownlint MD033). Example names copied from an ADR that are not words (`weudiscvm`) get a local `cspell:ignore`
   line, as the ADR does; never split a word across markup (`Co(nfig)` flags `nfig`).
 
 Quality bar for this format: the wave-7 pilot, `docs/explanation/automation/three-layers-edges-point-down.md` with
-`docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.{png,md}`.
+`docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png` and
+`docs/explanation/automation/three-layers-edges-point-down.drawio.md`.
 
 ## Readability rules
 

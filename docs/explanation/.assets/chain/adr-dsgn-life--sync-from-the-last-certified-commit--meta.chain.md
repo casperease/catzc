@@ -1,4 +1,4 @@
-# docs/.assets/explanation/chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
+# docs/explanation/.assets/chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
 
 `Value-chain minimap: adr-dsgn-life--sync-from-the-last-certified-commit--meta`
 

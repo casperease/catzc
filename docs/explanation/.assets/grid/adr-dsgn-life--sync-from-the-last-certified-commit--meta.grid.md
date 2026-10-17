@@ -1,4 +1,4 @@
-# docs/.assets/explanation/grid/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md
+# docs/explanation/.assets/grid/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md
 
 `Grid minimap: adr-dsgn-life--sync-from-the-last-certified-commit--meta`
 

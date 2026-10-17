@@ -29,7 +29,7 @@ one 100 percent after canonicalisation. With --assert every non-empty, non-headi
 lines) must appear in some cell label, whitespace-folded and case-folded. With --minimaps the slide's three minimaps are
 regenerated from the map processors (minimaps/highlights.ps1, render.py, join.py) into <out_dir>/<name>/, the slide
 list derived from the slide itself: id and stem from the file name, lens from the last `--` segment, ADR codes from the
-sister <name>.drawio.md, the model from <name>.model.xml; the joined slide is <out_dir>/<name>/<name>.drawio.png.
+model's labels and the file name, the model from <name>.model.xml; the joined slide is <out_dir>/<name>/<name>.drawio.png.
 Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still delivered. Exit 3: no source file,
 nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`, `slide`), one per warning (`warn`),
 then `status`.
@@ -44,6 +44,7 @@ then the three minimaps and their sister .md files into the folder); `join` (the
 embedded, the slide rebuilt); `all` runs the three. --start/--end slice the per-slide stages. Same exit codes; the
 report is out/drawio/<folder>/bulk.md.
 """
+
 import json
 import re
 import shutil
@@ -59,7 +60,16 @@ from PIL.PngImagePlugin import PngInfo
 
 PAGE_LINES = 66
 # A transport failure of any step becomes a warning and the artifacts still land: the exceptions the steps can raise.
-FORWARD = (OSError, ValueError, KeyError, AttributeError, RuntimeError, subprocess.SubprocessError, ET.ParseError, zlib.error)
+FORWARD = (
+    OSError,
+    ValueError,
+    KeyError,
+    AttributeError,
+    RuntimeError,
+    subprocess.SubprocessError,
+    ET.ParseError,
+    zlib.error,
+)
 KIT = Path(__file__).resolve().parent
 REPO = KIT.parents[1]
 ADR_CODE = re.compile(r"ADR-[A-Z]+(?:-[A-Z]+)*")
@@ -93,16 +103,20 @@ def canonical(xml_text):
 def first_difference(a, b):
     for i, (x, y) in enumerate(zip(a, b)):
         if x != y:
-            return f"at char {i}: {a[max(0, i - 40):i + 40]!r} vs {b[max(0, i - 40):i + 40]!r}"
+            return f"at char {i}: {a[max(0, i - 40) : i + 40]!r} vs {b[max(0, i - 40) : i + 40]!r}"
     return f"lengths differ: {len(a)} vs {len(b)}"
 
 
 def run(cmd, seconds):
     """One pipeline step; its failure is the caller's warning, with the tail of what it said."""
-    done = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, timeout=seconds, check=False)
+    done = subprocess.run(
+        cmd, cwd=REPO, capture_output=True, text=True, timeout=seconds, check=False
+    )
     if done.returncode != 0:
         tail = (done.stderr.strip() or done.stdout.strip()).splitlines()[-3:]
-        raise RuntimeError(f"{Path(cmd[-1] if cmd[0] == 'pwsh' else cmd[2]).name} rc={done.returncode}: {' | '.join(tail)}")
+        raise RuntimeError(
+            f"{Path(cmd[-1] if cmd[0] == 'pwsh' else cmd[2]).name} rc={done.returncode}: {' | '.join(tail)}"
+        )
     return done.stdout.strip()
 
 
@@ -116,25 +130,78 @@ def slide_adrs(name, model):
             codes.update(ADR_CODE.findall(value))
     if name.startswith("adr-"):
         codes.add("ADR-" + name[4:].split("--", 1)[0].upper())
-    known = set(re.findall(r"`(ADR-[A-Z]+(?:-[A-Z]+)*)`", (REPO / "docs" / "adr" / "index.md").read_text(encoding="utf-8")))
-    return sorted(codes & known)  # a label such as "ADR-only …" is prose, not a code of the index
+    known = set(
+        re.findall(
+            r"`(ADR-[A-Z]+(?:-[A-Z]+)*)`",
+            (REPO / "docs" / "adr" / "index.md").read_text(encoding="utf-8"),
+        )
+    )
+    return sorted(
+        codes & known
+    )  # a label such as "ADR-only …" is prose, not a code of the index
 
 
 def minimaps(src, name, model_file, out_dir):
     """Regenerate the slide's three minimaps and the joined slide into out_dir/name; returns the joined slide path."""
     adrs = slide_adrs(name, model_file.read_text(encoding="utf-8"))
     if not adrs:
-        raise RuntimeError("no ADR code in the slide's labels or file name to light the minimaps from")
+        raise RuntimeError(
+            "no ADR code in the slide's labels or file name to light the minimaps from"
+        )
     target = out_dir / name
     data = target / "minimaps-data"
     target.mkdir(parents=True, exist_ok=True)
     slides = target / "slides.json"
-    slide = {"id": name, "stem": name, "lens": name.rsplit("--", 1)[-1], "adrs": adrs, "xml": str(model_file.resolve())}
-    slides.write_text(json.dumps({"slides": [slide]}, indent=1) + "\n", encoding="utf-8")
+    slide = {
+        "id": name,
+        "stem": name,
+        "lens": name.rsplit("--", 1)[-1],
+        "adrs": adrs,
+        "xml": str(model_file.resolve()),
+    }
+    slides.write_text(
+        json.dumps({"slides": [slide]}, indent=1) + "\n", encoding="utf-8"
+    )
     rel = lambda p: str(p.resolve().relative_to(REPO)).replace("\\", "/")
-    run(["pwsh", "-NoProfile", "-File", str(KIT / "minimaps" / "highlights.ps1"), "-Slides", rel(slides), "-Data", rel(data)], 240)
-    run([sys.executable, str(KIT / "minimaps" / "render.py"), "--slides", rel(slides), "--data", rel(data), "--target", rel(target)], 60)
-    run([sys.executable, str(KIT / "minimaps" / "join.py"), "--slides", rel(slides), "--data", rel(data), "--target", rel(target)], 60)
+    run(
+        [
+            "pwsh",
+            "-NoProfile",
+            "-File",
+            str(KIT / "minimaps" / "highlights.ps1"),
+            "-Slides",
+            rel(slides),
+            "-Data",
+            rel(data),
+        ],
+        240,
+    )
+    run(
+        [
+            sys.executable,
+            str(KIT / "minimaps" / "render.py"),
+            "--slides",
+            rel(slides),
+            "--data",
+            rel(data),
+            "--target",
+            rel(target),
+        ],
+        60,
+    )
+    run(
+        [
+            sys.executable,
+            str(KIT / "minimaps" / "join.py"),
+            "--slides",
+            rel(slides),
+            "--data",
+            rel(data),
+            "--target",
+            rel(target),
+        ],
+        60,
+    )
     joined = target / f"{name}.drawio.png"
     if not joined.is_file():
         raise RuntimeError("join.py ended without the joined slide")
@@ -159,9 +226,15 @@ def bulk(folder, stage, migrate, start, end):
         for p in pngs[start:end]:
             try:
                 if migrate:
-                    run([sys.executable, str(KIT / "migrate_dark.py"), str(p), str(p)], 120)
-                models.joinpath(p.name.replace(".drawio.png", "") + ".model.xml").write_text(
-                    decode(Image.open(p).text["mxfile"]).strip(), encoding="utf-8")
+                    run(
+                        [sys.executable, str(KIT / "migrate_dark.py"), str(p), str(p)],
+                        120,
+                    )
+                models.joinpath(
+                    p.name.replace(".drawio.png", "") + ".model.xml"
+                ).write_text(
+                    decode(Image.open(p).text["mxfile"]).strip(), encoding="utf-8"
+                )
                 done += 1
             except FORWARD as e:
                 warnings.append(f"W_PREPARE {p.name}: {e}")
@@ -175,20 +248,65 @@ def bulk(folder, stage, migrate, start, end):
             if not adrs:
                 skipped.append(stem)
                 continue
-            slides.append({"id": stem, "stem": stem, "lens": stem.rsplit("--", 1)[-1], "adrs": adrs, "xml": rel(model_file)})
-        slides_json.write_text(json.dumps({"slides": slides}, indent=1) + "\n", encoding="utf-8")
+            slides.append(
+                {
+                    "id": stem,
+                    "stem": stem,
+                    "lens": stem.rsplit("--", 1)[-1],
+                    "adrs": adrs,
+                    "xml": rel(model_file),
+                }
+            )
+        slides_json.write_text(
+            json.dumps({"slides": slides}, indent=1) + "\n", encoding="utf-8"
+        )
         counts.update(prepared=done, listed=len(slides), skipped=skipped)
         print(f"slides {slides_json} listed={len(slides)} skipped={skipped}")
     if stage in ("highlight", "all"):
         try:
-            run(["pwsh", "-NoProfile", "-File", str(KIT / "minimaps" / "highlights.ps1"), "-Slides", rel(slides_json), "-Data", rel(data)], 300)
-            out = run([sys.executable, str(KIT / "minimaps" / "render.py"), "--slides", rel(slides_json), "--data", rel(data), "--target", rel(folder)], 120)
+            run(
+                [
+                    "pwsh",
+                    "-NoProfile",
+                    "-File",
+                    str(KIT / "minimaps" / "highlights.ps1"),
+                    "-Slides",
+                    rel(slides_json),
+                    "-Data",
+                    rel(data),
+                ],
+                300,
+            )
+            out = run(
+                [
+                    sys.executable,
+                    str(KIT / "minimaps" / "render.py"),
+                    "--slides",
+                    rel(slides_json),
+                    "--data",
+                    rel(data),
+                    "--target",
+                    rel(folder),
+                ],
+                120,
+            )
             print(f"minimaps {out.splitlines()[-1] if out else 'rendered'}")
         except FORWARD as e:
             warnings.append(f"W_HIGHLIGHT {e}")
     if stage in ("join", "all"):
         try:
-            cmd = [sys.executable, str(KIT / "minimaps" / "join.py"), "--slides", rel(slides_json), "--data", rel(data), "--target", rel(folder), "--start", str(start)]
+            cmd = [
+                sys.executable,
+                str(KIT / "minimaps" / "join.py"),
+                "--slides",
+                rel(slides_json),
+                "--data",
+                rel(data),
+                "--target",
+                rel(folder),
+                "--start",
+                str(start),
+            ]
             if end is not None:
                 cmd += ["--end", str(end)]
             out = run(cmd, 340)
@@ -200,9 +318,17 @@ def bulk(folder, stage, migrate, start, end):
     status = "ok" if not warnings else "warn"
     work.mkdir(parents=True, exist_ok=True)
     report = work / "bulk.md"
-    lines = [f"# {folder.name}: bulk rebuild, stage {stage}", "", f"- folder: `{folder}`", f"- slides on disk: {len(pngs)}",
-             f"- slice: {start}..{end if end is not None else len(pngs)}", f"- status: {status}"]
-    lines += [f"- {k}: {v}" for k, v in counts.items()] + [f"- warning: {w}" for w in warnings]
+    lines = [
+        f"# {folder.name}: bulk rebuild, stage {stage}",
+        "",
+        f"- folder: `{folder}`",
+        f"- slides on disk: {len(pngs)}",
+        f"- slice: {start}..{end if end is not None else len(pngs)}",
+        f"- status: {status}",
+    ]
+    lines += [f"- {k}: {v}" for k, v in counts.items()] + [
+        f"- warning: {w}" for w in warnings
+    ]
     report.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"report {report}")
     print(f"status {status}")
@@ -214,25 +340,27 @@ def main():
     if "--all" in args:
         i = args.index("--all")
         folder = Path(args[i + 1])
-        del args[i:i + 2]
+        del args[i : i + 2]
         stage, migrate, start, end = "all", False, 0, None
         if "--stage" in args:
             i = args.index("--stage")
             stage = args[i + 1]
-            del args[i:i + 2]
+            del args[i : i + 2]
         if "--migrate" in args:
             args.remove("--migrate")
             migrate = True
         if "--start" in args:
             i = args.index("--start")
             start = int(args[i + 1])
-            del args[i:i + 2]
+            del args[i : i + 2]
         if "--end" in args:
             i = args.index("--end")
             end = int(args[i + 1])
-            del args[i:i + 2]
+            del args[i : i + 2]
         if stage not in ("prepare", "highlight", "join", "all"):
-            raise SystemExit(f"stage must be prepare, highlight, join or all, got {stage}")
+            raise SystemExit(
+                f"stage must be prepare, highlight, join or all, got {stage}"
+            )
         raise SystemExit(bulk(folder, stage, migrate, start, end))
     xml_path = assert_path = root = None
     page, want_minimaps = None, False
@@ -240,7 +368,7 @@ def main():
         if flag in args:
             i = args.index(flag)
             value = args[i + 1]
-            del args[i:i + 2]
+            del args[i : i + 2]
             if flag == "--xml":
                 xml_path = Path(value)
             elif flag == "--assert":
@@ -292,7 +420,9 @@ def main():
             img.save(result, "PNG", pnginfo=info)
             back = decode(Image.open(result).text["mxfile"])
             if back != model:
-                warnings.append("W_ROUNDTRIP the result's embedded model differs from the source model")
+                warnings.append(
+                    "W_ROUNDTRIP the result's embedded model differs from the source model"
+                )
         except FORWARD as e:
             warnings.append(f"W_RENDER the model could not be rendered: {e}")
             shutil.copyfile(src, result)
@@ -304,12 +434,19 @@ def main():
         if not xml_path.is_file():
             warnings.append(f"W_XML no such model file: {xml_path}")
         elif model is None:
-            warnings.append("W_XML a model file was given but the source carries no model to compare")
+            warnings.append(
+                "W_XML a model file was given but the source carries no model to compare"
+            )
         else:
             try:
-                given, embedded = canonical(xml_path.read_text(encoding="utf-8")), canonical(model)
+                given, embedded = (
+                    canonical(xml_path.read_text(encoding="utf-8")),
+                    canonical(model),
+                )
                 if given != embedded:
-                    warnings.append(f"W_XMLMATCH given model differs from the embedded one {first_difference(given, embedded)}")
+                    warnings.append(
+                        f"W_XMLMATCH given model differs from the embedded one {first_difference(given, embedded)}"
+                    )
             except FORWARD as e:
                 warnings.append(f"W_XML the given model could not be read: {e}")
 
@@ -317,13 +454,22 @@ def main():
         if not assert_path.is_file():
             warnings.append(f"W_ASSERT no such text file: {assert_path}")
         elif root is None:
-            warnings.append("W_ASSERT a text file was given but the source carries no model to assert against")
+            warnings.append(
+                "W_ASSERT a text file was given but the source carries no model to assert against"
+            )
         else:
-            phrases = [normalise(line) for line in assert_path.read_text(encoding="utf-8").splitlines()]
+            phrases = [
+                normalise(line)
+                for line in assert_path.read_text(encoding="utf-8").splitlines()
+            ]
             phrases = [p for p in phrases if p and not p.startswith("#")]
             if len(phrases) > PAGE_LINES:
-                warnings.append(f"W_PAGE {len(phrases)} asserted lines, a page is {PAGE_LINES}; all were checked")
-            labels = " | ".join(normalise(plain(c.get("value") or "")) for c in root.iter("mxCell"))
+                warnings.append(
+                    f"W_PAGE {len(phrases)} asserted lines, a page is {PAGE_LINES}; all were checked"
+                )
+            labels = " | ".join(
+                normalise(plain(c.get("value") or "")) for c in root.iter("mxCell")
+            )
             for p in [p for p in phrases if p not in labels]:
                 warnings.append(f"W_TEXT asserted text not in any cell label: {p!r}")
 
@@ -347,7 +493,11 @@ def main():
         f"- source copy: `{src_copy}`",
         f"- result: `{result}` (page {page})",
         f"- model: `{model_file}`" if model is not None else "- model: none",
-        f"- slide with minimaps: `{joined}`" if joined is not None else "- slide with minimaps: not requested" if not want_minimaps else "- slide with minimaps: failed, see warnings",
+        f"- slide with minimaps: `{joined}`"
+        if joined is not None
+        else "- slide with minimaps: not requested"
+        if not want_minimaps
+        else "- slide with minimaps: failed, see warnings",
         f"- cells: {cells}",
         f"- status: {status}",
     ] + [f"- warning: {w}" for w in warnings]
