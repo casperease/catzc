@@ -46,18 +46,18 @@ function Install-VSCodeExtension {
     }
 
     $root = Join-Path (Get-RepositoryRoot) '.vscode'
-    $folders = @(Get-ChildItem -LiteralPath $root -Directory | Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'package.json') })
+    $folders = @(Get-ChildPath $root -Depth 1 -Directory | Where-Object { Test-Path -LiteralPath (Join-Path $_ 'package.json') })
     if ($Name) {
-        $folders = @($folders | Where-Object { $_.Name -in $Name })
-        $found = @($folders | ForEach-Object Name)
+        $folders = @($folders | Where-Object { (Split-Path $_ -Leaf) -in $Name })
+        $found = @($folders | ForEach-Object { Split-Path $_ -Leaf })
         foreach ($wanted in $Name | Where-Object { $_ -notin $found }) {
             throw "Install-VSCodeExtension: '.vscode/$wanted' holds no package.json."
         }
     }
 
     foreach ($folder in $folders) {
-        $vsix = Build-VSCodeExtension -Path $folder.FullName
-        Invoke-Executable "code --install-extension `"$vsix`" --force"
-        $vsix
+        $packagePath = Build-VSCodeExtension -Path $folder
+        Invoke-Executable "code --install-extension `"$packagePath`" --force"
+        $packagePath
     }
 }

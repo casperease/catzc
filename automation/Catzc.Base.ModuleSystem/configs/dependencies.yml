@@ -49,7 +49,8 @@ groups:
         Catzc.Base.Folders,
       ]
     Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Folders]
-    Catzc.Base.Timeouts: [Catzc.Base.Engines, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts]
+    Catzc.Base.Timeouts:
+      [Catzc.Base.Engines, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Asserts]
     Catzc.Base.Execution:
       [
         Catzc.Base.Engines,
@@ -131,7 +132,15 @@ groups:
         Catzc.Base.Folders,
         Catzc.Base.Variants,
       ]
-    Catzc.Base.VSCode: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Asserts]
+    Catzc.Base.VSCode:
+      [
+        Catzc.Base.Config,
+        Catzc.Base.Objects,
+        Catzc.Base.Execution,
+        Catzc.Base.Folders,
+        Catzc.Base.Repository,
+        Catzc.Base.Asserts,
+      ]
     Catzc.Base.RootConfig:
       [
         Catzc.Base.Languages,

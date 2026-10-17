@@ -28,7 +28,7 @@ catzc:
       - ADR-PRIN-NOWASTE#1
       - ADR-PRIN-ONELIVE#{1,5}
       - ADR-PROC-BUILTIN#3
-      - ADR-REPO-AGENTS#4
+      - ADR-REPO-AGENTS#{4,7}
       - ADR-REPO-FOLDERS#5
       - ADR-REPO-LINK#{1,5}
       - ADR-REPO-VOCAB#1
@@ -151,12 +151,11 @@ Sonnet reasons for the registry: build-inspiration-module and catzc-worker write
 run; test-optimization diagnoses; drawio-diagram-waves leads other agents. Each is a hypothesis to test in Phase 3: run the rewritten robot
 on haiku first, and record in "Done, and why" whether it held.
 
-## Open questions
+## Decided (questionnaire round of 2026-10-16, Q133 to Q135)
 
-- Q1 Does `drawio-png` replace `write-drawio-files` entirely once it also loads `drawio.model-edit`? Recommendation: no; one robot talks to
-  the user and verifies, the other edits in batch on a brief. Two jobs, two robots (ADR-REPO-AGENTS#4).
-- Q2 `adr-reviewer` on sonnet is the one recommended robot above haiku. Confirm, or start on haiku and promote on evidence.
-- Q3 Agent name form: `drawio-png` as the file name for the user's "Drawio.png agent". Confirm.
+- Q133: two jobs, two robots; `write-drawio-files` stays beside `drawio-png`, which hands parameter edits to it (ADR-REPO-AGENTS#4).
+- Q134: `adr-reviewer` runs on sonnet, with its `model_reason` in the registry (ADR-REPO-AGENTS#7).
+- Q135: `drawio-png` is the file name; agent names are lower-case and hyphenated.
 
 ## Done, and why
 
@@ -176,5 +175,5 @@ on haiku first, and record in "Done, and why" whether it held.
 
 ## Open steps
 
-- [ ] Deleted together with plan-minimal-robots once its Phase 5 measurement is recorded (T013); until then this catalogue holds the per-robot
-      state (check: `Test-Links` clean on `.claude/plans` after the deletion).
+- [x] Phase 5 is recorded in plan-minimal-robots (2026-10-17, task013), so this catalogue is done: its deletion is the user's `git rm`,
+      and `value-of-plan.md` carries its line under "Deleted" (check: `Test-Links` clean on `.claude/plans` after the deletion).

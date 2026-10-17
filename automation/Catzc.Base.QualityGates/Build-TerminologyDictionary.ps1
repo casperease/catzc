@@ -91,9 +91,9 @@ function Build-TerminologyDictionary {
         (Resolve-RepoPath 'automation/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1')
     )
     if (-not $PassThru -and (Test-Path -LiteralPath $cspellDir)) {
-        $lists = @(Get-ChildItem -LiteralPath $cspellDir -Filter '*.txt' -File)
-        if ($lists.Count -gt 0 -and -not @($lists | Where-Object { -not (Test-GeneratedFileCurrent -Path $_.FullName -InputsSha $inputsSha) })) {
-            return [string[]] @($lists.FullName)
+        $lists = @(Get-ChildPath $cspellDir -Depth 1 -File -Filter '*.txt')
+        if ($lists.Count -gt 0 -and -not @($lists | Where-Object { -not (Test-GeneratedFileCurrent -Path $_ -InputsSha $inputsSha) })) {
+            return [string[]] $lists
         }
     }
 

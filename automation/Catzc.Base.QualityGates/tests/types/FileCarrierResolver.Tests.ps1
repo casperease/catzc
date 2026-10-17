@@ -75,6 +75,6 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
         $shipped.For('docs/explanation/.assets/adr-widget-flow--gadget-spins--meta.drawio.png').id | Should -BeExactly 'diagram'
         $shipped.For('docs/references/.assets/automation/catzc-widget/gadget-spins.drawio.png').id | Should -BeExactly 'reference-diagram'
         $shipped.For('.gitignore').id | Should -BeExactly 'dotfile'
-        $shipped.IsExcluded($shipped.For('automation/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1'), 'automation/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1') | Should -BeTrue
+        $shipped.IsExcluded($shipped.For('automation/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1'), 'automation/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1') | Should -BeFalse -Because 'a test file carries a head like any other source file'
     }
 }

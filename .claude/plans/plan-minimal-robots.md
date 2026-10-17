@@ -58,8 +58,10 @@ are the catalogues. Phases 0 to 4 are landed; Phase 5 (measure) is the open work
 
 ## Decided
 
-- The shape rules (robot roof of 20 body lines, cheapest usable model, capability roof of 10 lines, declared once, no orphan and no ghost,
-  capability registry, one body shape) are ADR-REPO-AGENTS rules 6 to 10; the roofs are settings in `agents.yml`, not literals in the gate.
+- The shape rules are ADR-REPO-AGENTS rules 6 to 10, each with its home (reconciled 2026-10-17, task013, no rule missing): the robot roof
+  of 20 body lines and the one body shape (one job line, numbered steps, the report line) are rule 6; the cheapest usable model is rule 7;
+  the capability roof of 10 lines is rule 8; no orphan and no ghost is rule 9; the capability registry is rule 10, and declared once is rule
+  10 for the model floor and the skills list and rule 6 for the contract. The roofs are settings in `agents.yml`, not literals in the gate.
   Q127 to Q132 and Q139 in decisions-2026-10-16.md record the choices (body-only counting, amend the ADR, effort and maxTurns on every
   robot, the drawio-waves capability with drawio-png as maker).
 - ADR-AI is named once, in the CLAUDE.md session-start line and as `contracts` in `agents.yml`, never per file (Q140).
@@ -74,12 +76,39 @@ are the catalogues. Phases 0 to 4 are landed; Phase 5 (measure) is the open work
 
 ## Open steps
 
-- [ ] Phase 5, measure: run `session-cost-audit` on a session that spawned each robot once; record the context bytes per spawn and the model
-      mix here (check: its report in `out/` names both for every robot).
-- [ ] Reconcile the seven shape rules above with the ADR, which carries rules 6 to 10: add the one that is missing or state that two rules
-      merged (check: Test-AgentDefinitions clean and each rule of the list is cited by an ADR rule number in the Decided section).
-- [ ] When Phase 5 is recorded, delete this plan and its two siblings if they have no open step (check: `Test-Links` clean on
-      `.claude/plans`).
+- [x] Phase 5, measure. Done 2026-10-17 (task013) by a read of the files, not a run: a robot's context at spawn is its agent file plus the
+      capabilities it preloads plus the contract it reads first (`ai-agent-contract.md`, 3,646 bytes); tokens are about a quarter of the
+      bytes. No robot exceeds 4,000 tokens on this measure; the two heaviest, catzc-worker and drawio-diagram-waves, carry six capabilities
+      each (check: the table under "Phase 5 measure" names the model and the bytes for all 15 robots).
+- [x] Reconcile the seven shape rules above with the ADR. Done 2026-10-17 (task013): every rule of the list carries its rule number in the
+      Decided section; none is missing, the body shape is part of rule 6, and declared once is rules 6 and 10 (check: Test-AgentDefinitions
+      clean, `out/test-agent-definitions/20261017-174412`).
+- [ ] Delete this plan and its two siblings, which have no open step of their own: the user's `git rm` of `plan-minimal-robots.md`,
+      `plan-minimal-robots-agents.md` and `plan-minimal-robots-capabilities.md`; their three lines stand under "Deleted" in
+      `value-of-plan.md` (check: `Test-Links` clean on `.claude/plans` after the deletion).
+
+## Phase 5 measure (2026-10-17, read from the files)
+
+| Robot                    | Model  | Agent bytes | Capability bytes | With the contract | Tokens, about |
+| ------------------------ | ------ | ----------- | ---------------- | ----------------- | ------------- |
+| catzc-worker             | sonnet | 2,950       | 8,366            | 14,962            | 3,740         |
+| drawio-diagram-waves     | sonnet | 2,386       | 8,919            | 14,951            | 3,740         |
+| write-drawio-files       | haiku  | 2,065       | 8,243            | 13,954            | 3,490         |
+| test-optimization        | sonnet | 2,458       | 6,955            | 13,059            | 3,260         |
+| build-inspiration-module | sonnet | 2,370       | 6,437            | 12,453            | 3,110         |
+| plan-clear               | sonnet | 1,828       | 6,831            | 12,305            | 3,080         |
+| glossary-keeper          | haiku  | 1,838       | 5,743            | 11,227            | 2,810         |
+| link-fixer               | haiku  | 1,560       | 5,674            | 10,880            | 2,720         |
+| plan-decide              | sonnet | 2,483       | 4,508            | 10,637            | 2,660         |
+| print-artifacts          | haiku  | 2,028       | 4,885            | 10,559            | 2,640         |
+| plan-intake              | sonnet | 2,125       | 4,519            | 10,290            | 2,570         |
+| session-cost-audit       | haiku  | 2,990       | 3,328            | 9,964             | 2,490         |
+| drawio-png               | haiku  | 2,132       | 4,093            | 9,871             | 2,470         |
+| gate-runner              | haiku  | 1,582       | 3,530            | 8,758             | 2,190         |
+| adr-reviewer             | sonnet | 1,582       | 3,330            | 8,558             | 2,140         |
+
+Seven robots run on sonnet with a `model_reason`, eight on haiku. The one measured spawn, drawio-png at about 3,900 tokens
+(`out/drawio/token-count.md`), sits above its 2,470 static tokens by the harness's own preamble, which no file here controls.
 
 ## Refs
 

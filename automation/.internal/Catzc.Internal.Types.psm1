@@ -421,8 +421,8 @@ function Test-TypesAssemblyContent {
     }
 }
 
-$script:TypesAliasAttribute = 'Catzc.Base.Objects.PSTypeAliasAttribute'
-$script:TypesDisplayAttribute = 'Catzc.Base.Objects.ConsoleDisplayAttribute'
+$script:typesAliasAttribute = 'Catzc.Base.Objects.PSTypeAliasAttribute'
+$script:typesDisplayAttribute = 'Catzc.Base.Objects.ConsoleDisplayAttribute'
 
 function Get-TypesAssemblyManifest {
     [CmdletBinding()]
@@ -454,12 +454,12 @@ function Get-TypesAssemblyManifest {
                 $constructor = $reader.GetMethodDefinition($tokens::MethodDefinitionHandle($tokens::GetRowNumber($attribute.Constructor)))
                 $attributeType = $reader.GetTypeDefinition($constructor.GetDeclaringType())
                 $attributeName = $reader.GetString($attributeType.Namespace) + '.' + $reader.GetString($attributeType.Name)
-                if ($attributeName -ne $script:TypesAliasAttribute -and $attributeName -ne $script:TypesDisplayAttribute) {
+                if ($attributeName -ne $script:typesAliasAttribute -and $attributeName -ne $script:typesDisplayAttribute) {
                     continue
                 }
                 $blob = $reader.GetBlobReader($attribute.Value)
                 [void] $blob.ReadUInt16()
-                if ($attributeName -eq $script:TypesAliasAttribute) {
+                if ($attributeName -eq $script:typesAliasAttribute) {
                     $aliases.Add($blob.ReadSerializedString())
                 }
                 else {
@@ -549,13 +549,13 @@ function Write-TypesAssemblyManifest {
 }
 
 # The default row and the allowed values live here, not on a C# type: the policy is read while the types assembly is still unloaded.
-$script:TypesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true }
-$script:TypesLoadHosts = 'console', 'headless'
-$script:TypesLoadSystems = 'windows', 'unix'
-$script:TypesLoadRunModes = 'source', 'build'
-$script:TypesLoadLoads = 'lazy', 'eager'
-$script:TypesLoadTriggers = 'lookup-hook', 'none'
-$script:TypesLoadKeys = 'load', 'trigger', 'shadowCopy', 'eagerTypes'
+$script:typesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true }
+$script:typesLoadHosts = 'console', 'headless'
+$script:typesLoadSystems = 'windows', 'unix'
+$script:typesLoadRunModes = 'source', 'build'
+$script:typesLoadLoads = 'lazy', 'eager'
+$script:typesLoadTriggers = 'lookup-hook', 'none'
+$script:typesLoadKeys = 'load', 'trigger', 'shadowCopy', 'eagerTypes'
 
 function Get-TypesLoadPolicy {
     [CmdletBinding()]
@@ -607,9 +607,9 @@ function Get-TypesLoadPolicy {
         throw "The types-load config '$ConfigPath' has no 'cells' map."
     }
 
-    $valid = foreach ($h in $script:TypesLoadHosts) {
-        foreach ($o in $script:TypesLoadSystems) {
-            foreach ($r in $script:TypesLoadRunModes) {
+    $valid = foreach ($h in $script:typesLoadHosts) {
+        foreach ($o in $script:typesLoadSystems) {
+            foreach ($r in $script:typesLoadRunModes) {
                 "$h.$o.$r"
             }
         }
@@ -619,8 +619,8 @@ function Get-TypesLoadPolicy {
             throw "The types-load config has a row '$key' that is no mode. The modes are: $($valid -join ', ')."
         }
         foreach ($setting in $config['cells'][$key].Keys) {
-            if ($setting -cnotin $script:TypesLoadKeys) {
-                throw "The types-load row '$key' has an unknown setting '$setting'. The settings are: $($script:TypesLoadKeys -join ', ')."
+            if ($setting -cnotin $script:typesLoadKeys) {
+                throw "The types-load row '$key' has an unknown setting '$setting'. The settings are: $($script:typesLoadKeys -join ', ')."
             }
         }
     }
@@ -642,7 +642,7 @@ function Get-TypesLoadPolicy {
             $row[$fromConfig]
         }
         else {
-            $script:TypesLoadDefault[$name]
+            $script:typesLoadDefault[$name]
         }
     }
     $policy['EagerTypes'] = @(
@@ -653,15 +653,15 @@ function Get-TypesLoadPolicy {
             $row['eagerTypes']
         }
         else {
-            $script:TypesLoadDefault['EagerTypes']
+            $script:typesLoadDefault['EagerTypes']
         }
     )
 
-    if ($policy.Load -cnotin $script:TypesLoadLoads) {
-        throw "Row '$cell' has load '$($policy.Load)'; the values are: $($script:TypesLoadLoads -join ', ')."
+    if ($policy.Load -cnotin $script:typesLoadLoads) {
+        throw "Row '$cell' has load '$($policy.Load)'; the values are: $($script:typesLoadLoads -join ', ')."
     }
-    if ($policy.Trigger -cnotin $script:TypesLoadTriggers) {
-        throw "Row '$cell' has trigger '$($policy.Trigger)'; the values are: $($script:TypesLoadTriggers -join ', ')."
+    if ($policy.Trigger -cnotin $script:typesLoadTriggers) {
+        throw "Row '$cell' has trigger '$($policy.Trigger)'; the values are: $($script:typesLoadTriggers -join ', ')."
     }
     if ($policy.ShadowCopy -isnot [bool]) {
         throw "Row '$cell' has shadowCopy '$($policy.ShadowCopy)'; it is true or false."
@@ -695,6 +695,7 @@ function Register-DeferredTypes {
 function Initialize-Types {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads and marks $global:__CatzcDeferredTypes, the session-global pending record')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Loads the assembly the importer already verified and announced; there is nothing to confirm')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The importer announces the change: an eager load writes "Registered default display properties" through Write-ImporterMessage -StateChange, and a deferred load was announced as "Deferred types" when the importer registered it; Write-ImporterMessage is gone once the lazy load runs')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param()
@@ -738,7 +739,7 @@ function Initialize-Types {
     }
 }
 
-$script:DeferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new()
+$script:deferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new()
 
 function Enable-DeferredTypesLoad {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads $global:__CatzcDeferredTypes, the session-global pending record')]
@@ -763,10 +764,10 @@ function Enable-DeferredTypesLoad {
         return
     }
 
-    $script:DeferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new([string[]]$CommandName, [System.StringComparer]::OrdinalIgnoreCase)
+    $script:deferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new([string[]]$CommandName, [System.StringComparer]::OrdinalIgnoreCase)
     $ExecutionContext.InvokeCommand.PreCommandLookupAction = {
-        param($commandName, $eventArgs)
-        if ($script:DeferredTypesCommands.Contains($commandName)) {
+        param($commandName)
+        if ($script:deferredTypesCommands.Contains($commandName)) {
             Initialize-Types | Out-Null
         }
     }

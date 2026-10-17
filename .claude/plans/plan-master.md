@@ -70,12 +70,12 @@ stay the durable record; task files and this master are derived from them and ca
   with nine rules, ADR-REPO-FOLDERS#12, ADR-REPO-VOCAB#9, the Test-Plans gate and its registry, plan-clear's checks, the CLAUDE.md plans
   line.
 
-- T011 -> task011.md (open; D01 to D05 first, steps 3, 4, 6 can start): module model close-out, rule 6 code, infrastructure track, the
-  Modules reference page, the csproj first-line imprint, waits_on cleared.
+- T011 -> task011.md (open; steps 3 read, 4, 5, 6, 8 done 2026-10-17; D01 to D05 and the user's run for the rest): module model
+  close-out, the rule 6 funnel (after D03), infrastructure track (a design step in plan-module-kinds-tracks), waits_on cleared.
 - T012 -> task012.md (open; after T011): kind becomes role through the registry and generators; tracks.md rule 19 one primary language;
   WorldMapBuilder links; Test-ShippedTypes; the namespace line.
-- T013 -> task013.md (open): minimal robots Phase 5 measure, the seven shape rules reconciled with ADR-REPO-AGENTS 6 to 10, the three plans
-  deleted. The waves maker question is already answered in the agent file.
+- T013 -> task013.md (done 2026-10-17; the three deletions are the user's git rm): minimal robots Phase 5 measured from the files, the
+  seven shape rules reconciled with ADR-REPO-AGENTS 6 to 10 (none missing), the catalogues closed, the overlay rows replaced by a Deleted line.
 - T014 -> task014.md (open; after T011): config defaults Phase 1, VariantsConfig constants, getters lose -Default.
 - T015 -> task015.md (open; after T006 and T014): the .catzc fragment, config without a shipped file, Build-ConfigDefaultsContract.
 - T016 -> task016.md (open; after T015): every typed config into a posture, the NoLiteralDefault analyzer rule, five ADR amendments, the

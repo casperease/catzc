@@ -48,7 +48,8 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#
             param([string] $Path, $Kind = (Get-Kind))
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Kind = $Kind; Path = $Path; Root = $TestDrive } {
                 param($Kind, $Path, $Root)
-                Mock Get-RepositoryRoot { $Root }
+                $mockRoot = $Root
+                Mock Get-RepositoryRoot { $mockRoot }
                 # The fixture modules live under widgets/, which is no track of the shipped registry; the resolver's own tests prove the real rule.
                 Mock Get-PathModule { [pscustomobject]@{ name = (($Path -replace '\\', '/') -split '/')[1]; type = 'widget-folder' } }
                 Mock Get-Config { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }) }
@@ -99,7 +100,8 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#
         New-File 'widgets/Catzc.Gadget/Get-Alone.ps1'
         $edges = InModuleScope Catzc.Base.QualityGates -Parameters @{ Kind = (Get-Kind); Root = $TestDrive } {
             param($Kind, $Root)
-            Mock Get-RepositoryRoot { $Root }
+            $mockRoot = $Root
+            Mock Get-RepositoryRoot { $mockRoot }
             Mock Get-PathModule { [pscustomobject]@{ name = 'Catzc.Gadget'; type = 'widget-folder' } }
             Mock Get-Config { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }) }
             Get-RelativeEdgesFileMetaFact -State ([pscustomobject]@{}) -Path 'widgets/Catzc.Gadget/Get-Alone.ps1' -Kind $Kind

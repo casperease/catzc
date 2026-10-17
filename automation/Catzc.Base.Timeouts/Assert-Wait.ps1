@@ -22,7 +22,7 @@ catzc:
   config:
     synopsis: A watchpoint — stands where the thread or process may be blocked, writes loudly, warns once and lets go.
     description: |-
-      Holds the calling thread for Seconds + Millisecs in ten evenly spaced ticks and writes a line per tick through
+      Holds the calling thread for Seconds + Milliseconds in ten evenly spaced ticks and writes a line per tick through
       Write-Message: when the tick was due, when it ran, and how late it was. A blocked thread or a starved process cannot keep
       that schedule, so a late tick is the evidence. It ends with one Write-Message -Warning line (always, blocked or not), then
       returns. It stops nothing and throws nothing for a block; only an invalid argument throws.
@@ -32,11 +32,11 @@ catzc:
       run and is removed once the block it found is bounded (Invoke-WithTimeout, a timeouts.yml entry).
     parameters:
       Seconds: Whole seconds to stand. Defaults to 1.
-      Millisecs: Milliseconds added to Seconds. Defaults to 1.
+      Milliseconds: Milliseconds added to Seconds. Defaults to 1.
     examples:
       - Assert-Wait
       - Assert-Wait -Seconds 2
-      - Assert-Wait -Seconds 0 -Millisecs 250
+      - Assert-Wait -Seconds 0 -Milliseconds 250
 ---
 #>
 
@@ -47,11 +47,11 @@ function Assert-Wait {
         [int] $Seconds = 1,
 
         [ValidateRange(0, 3600000)]
-        [int] $Millisecs = 1
+        [int] $Milliseconds = 1
     )
 
-    $totalMs = $Seconds * 1000 + $Millisecs
-    Assert-True ($totalMs -gt 0) -ErrorText 'Assert-Wait: Seconds and Millisecs add up to zero; stand for at least 1 ms.'
+    $totalMs = $Seconds * 1000 + $Milliseconds
+    Assert-True ($totalMs -gt 0) -ErrorText 'Assert-Wait: Seconds and Milliseconds add up to zero; stand for at least 1 ms.'
 
     $tickCount = 10
     $tickMs = [int][math]::Round($totalMs / $tickCount)

@@ -173,5 +173,5 @@ ADR-REPO-LINK#1, the drawio ones cite ADR-DSGN-VISUAL#4) and `checks` (`[]` for 
 
 ## Open steps
 
-- [ ] Deleted together with plan-minimal-robots once its Phase 5 measurement is recorded (T013); until then this catalogue holds the
-      per-capability state (check: `Test-Links` clean on `.claude/plans` after the deletion).
+- [x] Phase 5 is recorded in plan-minimal-robots (2026-10-17, task013), so this catalogue is done: its deletion is the user's `git rm`,
+      and `value-of-plan.md` carries its line under "Deleted" (check: `Test-Links` clean on `.claude/plans` after the deletion).

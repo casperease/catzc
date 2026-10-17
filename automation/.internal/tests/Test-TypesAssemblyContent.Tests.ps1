@@ -32,7 +32,8 @@ namespace $($script:space) {
         function script:Get-FixtureAssembly {
             [System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { -not $_.IsDynamic -and $_.GetType("$($script:space).Widget", $false) }
         }
-        function script:New-Expected ([string[]] $Bases) {
+        function script:New-Expected {
+            param([string[]] $Bases)
             @(foreach ($base in $Bases) {
                     [pscustomobject]@{ Module = $script:space; Base = $base }
                 })

@@ -42,7 +42,8 @@ namespace $($script:space) {
 "@
         Add-Type -TypeDefinition $source -OutputAssembly $script:dll -OutputType Library -WarningAction SilentlyContinue
 
-        function script:Get-FixtureType ([string] $Name) {
+        function script:Get-FixtureType {
+            param([string] $Name)
             (Get-TypesAssemblyManifest -Path $script:dll).Types | Where-Object Name -EQ "$($script:space).$Name"
         }
     }

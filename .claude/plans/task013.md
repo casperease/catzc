@@ -1,10 +1,10 @@
 ---
 task:
   id: "013"
-  status: open
+  status: "done except the three deletions, the user's git rm"
   plans: [plan-minimal-robots, plan-minimal-robots-agents, plan-minimal-robots-capabilities]
   value: high
-  blocked_on: nothing
+  blocked_on: "the user's git rm of the three plans"
   targets: [.claude/agents, .claude/skills, automation/Catzc.Base.Docs/configs/agents.yml, docs/adr/repository/agent-definitions.md]
 catzc:
   immutable:
@@ -20,6 +20,10 @@ catzc:
     vendor: claude
     module: ".claude"
     moduletype: settings
+  edges:
+    cites:
+      - ADR-AI#2
+      - ADR-REPO-AGENTS#4
 ---
 
 # task013: minimal robots Phase 5, measure and reconcile
@@ -28,6 +32,24 @@ Phases 0 to 4 landed: 15 robots of at most 20 body lines, 18 capabilities of at 
 defaults on AgentsConfig), Test-AgentDefinitions extended, ADR-REPO-AGENTS rules 6 to 10. Phase 5 measures what a spawn costs and closes the
 program. Verified 2026-10-17: `drawio-diagram-waves.md` line 39 already names `drawio-png` robots as the makers (Q139), so that step is a
 tick.
+
+## Done (2026-10-17), with the corrections the tree forced
+
+- Step 1, corrected: no session spawned all 15 robots and a run of session-cost-audit needs the user's `/cost` block, so the measure is a
+  read of the files (ADR-AI#2): each robot's agent file bytes, its preloaded capability bytes and the contract it reads first, tokens about
+  a quarter of the bytes. The table is in plan-minimal-robots under Phase 5.
+- Step 2: the table has 15 rows with model and bytes; no robot exceeds 4,000 tokens on the static measure; the two heaviest carry six
+  capabilities each; the one measured spawn (drawio-png, about 3,900 tokens) sits above its static 2,470 by the harness preamble.
+- Step 3: every one of the seven plan rules carries its ADR rule number; none was missing (the body shape is in rule 6, declared once in
+  rules 6 and 10), so no rule 11. Check: `No agent-definitions issues found.` (`out/test-agent-definitions/20261017-174412`); the ADR is
+  unchanged, so Test-AdrRegistry's earlier clean verdict stands (`out/test-adr-registry/20261017-175653`).
+- Step 4: agents.yml names the robots' supporting rules as the plan says (catzc-worker cites ADR-REPO-AGENTS#4; the others cite their
+  domain rules, which rule 10 asks for); the schema has no `uses` key and the waves robot's body already names drawio-png robots as the
+  makers (line 38), so nothing changed. Check: the same clean Test-AgentDefinitions run.
+- Step 5: the agents catalogue's open questions are a Decided section citing Q133 to Q135; the "awaited" states were only in the overlay's
+  rows, which are gone; both catalogues' one open step is ticked. Check: grep `- [ ]` counts zero in both.
+- Step 6: the three rows left the overlay and one line under "Deleted 2026-10-17" names them with the reason; the three files are the
+  user's `git rm`. Check: Test-Links and Test-Plans, verdicts in the report.
 
 ## Steps
 

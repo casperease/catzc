@@ -28,16 +28,16 @@ Describe 'Build-VSCodeExtension' -Tag 'L0', 'logic' {
         Set-Content -LiteralPath (Join-Path $script:folder 'extension.js') -Value 'module.exports = {};'
         Set-Content -LiteralPath (Join-Path $script:folder 'lib/gadget.js') -Value 'module.exports = 1;'
         $script:out = Join-Path $TestDrive 'vsix'
-        $script:vsix = Build-VSCodeExtension -Path $script:folder -OutputDirectory $script:out
+        $script:packagePath = Build-VSCodeExtension -Path $script:folder -OutputDirectory $script:out
     }
 
     It 'names the package for the extension and its version' {
-        $script:vsix | Should -Be (Join-Path (Resolve-Path $script:out).Path 'widget-ext-1.2.3.vsix')
-        Test-Path -LiteralPath $script:vsix | Should -BeTrue
+        $script:packagePath | Should -Be (Join-Path (Resolve-Path $script:out).Path 'widget-ext-1.2.3.vsix')
+        Test-Path -LiteralPath $script:packagePath | Should -BeTrue
     }
 
     It 'holds the folder under extension/ beside the two package parts' {
-        $zip = [System.IO.Compression.ZipFile]::OpenRead($script:vsix)
+        $zip = [System.IO.Compression.ZipFile]::OpenRead($script:packagePath)
         try {
             $entries = @($zip.Entries.FullName | Sort-Object)
         }
@@ -48,7 +48,7 @@ Describe 'Build-VSCodeExtension' -Tag 'L0', 'logic' {
     }
 
     It 'writes a manifest that names the identity and the engine, escaped, as valid XML' {
-        $zip = [System.IO.Compression.ZipFile]::OpenRead($script:vsix)
+        $zip = [System.IO.Compression.ZipFile]::OpenRead($script:packagePath)
         try {
             $reader = [System.IO.StreamReader]::new($zip.GetEntry('extension.vsixmanifest').Open())
             $text = $reader.ReadToEnd()
@@ -67,8 +67,8 @@ Describe 'Build-VSCodeExtension' -Tag 'L0', 'logic' {
 
     It 'replaces a package of the same name' {
         $again = Build-VSCodeExtension -Path $script:folder -OutputDirectory $script:out
-        $again | Should -Be $script:vsix
-        @(Get-ChildItem -LiteralPath $script:out -Filter *.vsix).Count | Should -Be 1
+        $again | Should -Be $script:packagePath
+        @(Get-ChildPath $script:out -Depth 1 -File -Filter '*.vsix').Count | Should -Be 1
     }
 
     It 'refuses a folder whose package.json has no publisher' {

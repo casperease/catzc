@@ -124,6 +124,12 @@ the user's own and changes what every head's track key means. The config default
       used it), layout in languages.yml, Catzc.Base.Modules with Get-CatzcModule and Get-Aspect, execution_engines on the track,
       Get-ModuleOrder, old getters and types deleted, L1 integrity tests. Left: step 10 (infrastructure), generated READMEs and docs pages,
       Format-FileMeta heads of the new files.
+- [ ] Step 10, the infrastructure track. Read 2026-10-17 (task011): the track and its type are declared and deployable, the bicep module
+      type places `infrastructure/templates` folders and `infrastructure/modules` files, yet `Get-CatzcModule -TrackType infrastructure`
+      returns nothing, because both places sit below the track's one place `infrastructure` and the resolver treats a place below the track
+      place as internal unless `-IncludeInternal`. Decide whether a deployable track's module types may place below its root, or the
+      infrastructure track declares its two places; then the resolver change and a fixture test (check: `Get-CatzcModule -TrackType
+      infrastructure` names the three templates and the Bicep modules, and the L0 test covers a nested place of a non-code track).
 - [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean).
 - [ ] Rerun Test-Links on WorldMapBuilder.cs (check: zero findings there).
 - [x] Look at the 3 Get-ModuleProtectionIdentity failures (check: that test file): run 2026-10-16, 11 passed, 0 failed; the file is in

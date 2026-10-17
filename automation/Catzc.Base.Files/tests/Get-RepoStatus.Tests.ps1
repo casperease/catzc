@@ -26,7 +26,7 @@ Describe 'Get-RepoStatus' -Tag 'L0', 'logic' {
         $script:porcelain = ''
         $script:branch = 'main'
         $script:upstream = 'origin/main'
-        $script:unpushed = ''
+        $script:pendingCommits = ''
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Files { 'C:\widget-repo' }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Files { $script:tracked }
         Mock Invoke-Executable -ModuleName Catzc.Base.Files {
@@ -41,7 +41,7 @@ Describe 'Get-RepoStatus' -Tag 'L0', 'logic' {
                     $script:upstream
                 }
                 'git log*' {
-                    $script:unpushed
+                    $script:pendingCommits
                 }
             }
             [pscustomobject]@{ ExitCode = 0; Output = $output }
@@ -70,7 +70,7 @@ Describe 'Get-RepoStatus' -Tag 'L0', 'logic' {
     }
 
     It 'is committed when a commit touching the file is not on the upstream' {
-        $script:unpushed = 'abc123'
+        $script:pendingCommits = 'abc123'
         Get-RepoStatus 'widget/a.md' | Should -Be 'committed'
     }
 

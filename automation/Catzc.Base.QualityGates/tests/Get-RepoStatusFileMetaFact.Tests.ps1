@@ -24,7 +24,8 @@ Describe 'Get-RepoStatusFileMetaFact' -Tag 'L0', 'logic' {
             $kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'repo-status' = $Raw } }).kinds[0]
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Kind = $kind; Class = $Class } {
                 param($Kind, $Class)
-                Mock Get-FileKind { [pscustomobject]@{ Class = $Class } }
+                $mockClass = $Class
+                Mock Get-FileKind { [pscustomobject]@{ Class = $mockClass } }
                 Get-RepoStatusFileMetaFact -State ([pscustomobject]@{}) -Path 'widget/file.md' -Kind $Kind
             }
         }

@@ -40,6 +40,7 @@ catzc:
       - docs/references/automation/catzc-base-languages.md
       - docs/references/automation/catzc-base-maps.md
       - docs/references/automation/catzc-base-markdownmeta.md
+      - docs/references/automation/catzc-base-modules.md
       - docs/references/automation/catzc-base-modulesystem.md
       - docs/references/automation/catzc-base-objects.md
       - docs/references/automation/catzc-base-overlay.md
@@ -113,6 +114,7 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Base.Overlay](catzc-base-overlay.md)                                 | The consumer overlay — a consumer's function overrides applied to a built bundle, checked as a whole first                                                   |
 | [Catzc.Base.Globs](catzc-base-globs.md)                                     | Globsets, durable-SHA identities, trigger files, and protected scans                                                                                         |
 | [Catzc.Base.TypesSystem](catzc-base-typessystem.md)                         | The native C# type system — compiled-assembly cache and cross-module type-ref scanning                                                                       |
+| [Catzc.Base.Modules](catzc-base-modules.md)                                 | The one module resolver: every module of the deployable tracks, resolved through its track, and the aspect convention of a track                             |
 | [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md)                       | The module/function dependency graph, integrity, and vendoring                                                                                               |
 | [Catzc.Base.QualityGates](catzc-base-qualitygates.md)                       | The repository's quality gates — tests, spelling, markdownlint, formatting                                                                                   |
 | [Catzc.Base.Exporter](catzc-base-exporter.md)                               | The installable-bundle exporter — bundle version and content-addressed identity                                                                              |

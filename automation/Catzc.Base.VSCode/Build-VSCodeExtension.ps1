@@ -60,9 +60,9 @@ function Build-VSCodeExtension {
     $description = (& $read $manifest 'description') ?? ''
     $escape = { param([string] $Value) [System.Security.SecurityElement]::Escape($Value) }
 
-    $files = @(Get-ChildItem -LiteralPath $folder -Recurse -File)
+    $files = @(Get-ChildPath $folder -File -Depth 16 -Exclude @() -PruneVendor $false)
     $contentTypes = @{ '.vsixmanifest' = 'text/xml'; '.json' = 'application/json'; '.js' = 'application/javascript'; '.md' = 'text/markdown' }
-    $extensions = @($files | ForEach-Object { $_.Extension.ToLowerInvariant() } | Where-Object { $_ } | Sort-Object -Unique) + '.vsixmanifest' | Sort-Object -Unique
+    $extensions = @($files | ForEach-Object { [System.IO.Path]::GetExtension($_).ToLowerInvariant() } | Where-Object { $_ } | Sort-Object -Unique) + '.vsixmanifest' | Sort-Object -Unique
     $defaults = foreach ($extension in $extensions) {
         $type = if ($contentTypes.ContainsKey($extension)) {
             $contentTypes[$extension]
@@ -93,13 +93,13 @@ function Build-VSCodeExtension {
 "@ -replace "`r`n", "`n"
 
     $null = New-Item -ItemType Directory -Path $OutputDirectory -Force
-    $vsix = Join-Path (Resolve-Path -LiteralPath $OutputDirectory).Path "$($manifest.name)-$($manifest.version).vsix"
-    if (Test-Path -LiteralPath $vsix) {
-        Remove-Item -LiteralPath $vsix
+    $packagePath = Join-Path (Resolve-Path -LiteralPath $OutputDirectory).Path "$($manifest.name)-$($manifest.version).vsix"
+    if (Test-Path -LiteralPath $packagePath) {
+        Remove-Item -LiteralPath $packagePath
     }
 
     $utf8 = [System.Text.UTF8Encoding]::new($false)
-    $zip = [System.IO.Compression.ZipFile]::Open($vsix, [System.IO.Compression.ZipArchiveMode]::Create)
+    $zip = [System.IO.Compression.ZipFile]::Open($packagePath, [System.IO.Compression.ZipArchiveMode]::Create)
     try {
         $addBytes = {
             param([string] $EntryName, [byte[]] $Bytes)
@@ -114,13 +114,13 @@ function Build-VSCodeExtension {
         & $addBytes '[Content_Types].xml' $utf8.GetBytes($typesXml)
         & $addBytes 'extension.vsixmanifest' $utf8.GetBytes($manifestXml)
         foreach ($file in $files) {
-            $relative = [System.IO.Path]::GetRelativePath($folder, $file.FullName) -replace '\\', '/'
-            & $addBytes "extension/$relative" ([System.IO.File]::ReadAllBytes($file.FullName))
+            $relative = [System.IO.Path]::GetRelativePath($folder, $file) -replace '\\', '/'
+            & $addBytes "extension/$relative" ([System.IO.File]::ReadAllBytes($file))
         }
     }
     finally {
         $zip.Dispose()
     }
 
-    $vsix
+    $packagePath
 }

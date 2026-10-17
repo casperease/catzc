@@ -27,12 +27,14 @@ Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
             }
         }
 
-        function script:New-PolicyConfig ([string] $Body) {
+        function script:New-PolicyConfig {
+            param([string] $Body)
             $path = Join-Path $TestDrive ('types-load-{0}.yml' -f [guid]::NewGuid().ToString('N'))
             [System.IO.File]::WriteAllText($path, $Body)
             $path
         }
-        function script:Get-ModePolicy ([string] $Mode, [hashtable] $Extra = @{}) {
+        function script:Get-ModePolicy {
+            param([string] $Mode, [hashtable] $Extra = @{})
             $h, $o, $r = $Mode -split '\.'
             Get-TypesLoadPolicy -HostKind $h -Os $o -RunMode $r @Extra
         }

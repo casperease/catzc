@@ -183,6 +183,9 @@ and resolve checks and tests by language ([ADR-AUTO-MODULE#6](#rule-adr-auto-mod
 - **A loader test** compares the loader's own folder rules with the layout.
 - **`Test-ModuleDependency`** checks the declared graph the order is computed from
   ([ADR-AUTO-DEPM#4](controlling-module-dependencies.md#rule-adr-auto-depm4)).
+- **`Get-ChangeCheckPlan`** resolves the checks of a changed file from its language's `checks` list in `languages.yml`, so `Test-Change`
+  runs a gate because the registry names it for the language, never because a command names the language
+  ([ADR-AUTO-MODULE#6](#rule-adr-auto-module6)).
 
 ## Consequences
 

@@ -86,13 +86,13 @@ function Invoke-ExecutableStreamed {
         }
         else {
             # Null leaves stdin as before; a bound -InputText, even an empty one, is written and closed.
-            $stdin = if ($PSBoundParameters.ContainsKey('InputText')) {
+            $standardInput = if ($PSBoundParameters.ContainsKey('InputText')) {
                 $InputText
             }
             else {
                 $null
             }
-            [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory, $TimeoutSeconds, $stdin)
+            [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory, $TimeoutSeconds, $standardInput)
         }
     }
     catch [System.Management.Automation.MethodInvocationException] {

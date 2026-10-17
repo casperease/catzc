@@ -20,6 +20,9 @@ catzc:
 ---
 #>
 
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests read $global:__CatzcDeferredTypes, the session-global pending record of the deferred types load')]
+param()
+
 Describe 'Import-CSharpTypes' -Tag 'L0' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
@@ -119,7 +122,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestRestore$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Psi = 'public class Psi { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            $manifest = @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json'))[0]
+            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') | Select-Object -First 1
             [System.IO.File]::Delete($manifest)
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             [System.IO.File]::Exists($manifest) | Should -BeTrue
@@ -129,7 +132,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestBundle$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Chi = 'public class Chi { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            $manifest = @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json'))[0]
+            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') | Select-Object -First 1
             [System.IO.File]::Delete($manifest)
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -PrebuiltOnly } } |
                 Should -Throw '*missing its prebuilt types manifest*'
@@ -156,7 +159,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestLazyBundle$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Mu = 'public class Mu { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
-            $dll = @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.dll'))[0]
+            $dll = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.dll') | Select-Object -First 1
             $stamp = [System.IO.File]::GetLastWriteTimeUtc($dll)
 
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console -PrebuiltOnly }

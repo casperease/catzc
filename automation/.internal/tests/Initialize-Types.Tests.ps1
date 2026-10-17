@@ -18,7 +18,10 @@ catzc:
 ---
 #>
 
-Describe 'Initialize-Types' -Tag 'L1', 'logic' {
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests set and read $global:__CatzcDeferredTypes, the session-global pending record the deferred load reads')]
+param()
+
+Describe 'Initialize-Types'-Tag 'L1', 'logic' {
     BeforeAll {
         $script:fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) "inittypes-$([guid]::NewGuid().ToString('N'))"
         [System.IO.Directory]::CreateDirectory($script:fixtureRoot) | Out-Null
@@ -44,7 +47,8 @@ Describe 'Initialize-Types' -Tag 'L1', 'logic' {
             }
             [pscustomobject]@{ Dll = $dll; Space = $space; Run = $run }
         }
-        function script:Test-TypeLoaded ([string] $Name) {
+        function script:Test-TypeLoaded {
+            param([string] $Name)
             [bool] ([System.Management.Automation.PSTypeName]$Name).Type
         }
     }
@@ -149,7 +153,8 @@ Describe 'Enable-DeferredTypesLoad' -Tag 'L1', 'logic' {
             Register-DeferredTypes -RootKey 'root-a' -Path $dll -ShadowCopy $false
             $space
         }
-        function script:Test-WidgetLoaded ([string] $Space) {
+        function script:Test-WidgetLoaded {
+            param([string] $Space)
             [bool] ([System.Management.Automation.PSTypeName]"$Space.Widget").Type
         }
         function script:Invoke-FixtureWidget {
@@ -189,7 +194,7 @@ Describe 'Enable-DeferredTypesLoad' -Tag 'L1', 'logic' {
 
     It 'installs no hook, and clears an old one, when nothing is pending' {
         $global:__CatzcDeferredTypes = @{ 'root-a' = @{ Path = 'not-used.dll'; ShadowCopy = $false; Loaded = $true } }
-        $ExecutionContext.InvokeCommand.PreCommandLookupAction = { param($commandName, $eventArgs) }
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction = { $null = $args }
         Enable-DeferredTypesLoad -CommandName 'Invoke-FixtureWidget'
         $ExecutionContext.InvokeCommand.PreCommandLookupAction | Should -BeNullOrEmpty
     }
