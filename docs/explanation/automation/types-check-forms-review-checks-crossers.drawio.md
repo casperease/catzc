@@ -31,8 +31,8 @@ Glyphs: 3 named sets (mauve), 1 code unit (slate), 3 gates, 1 ADR-only; 3 flow e
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](types-check-forms-review-checks-crossers.md).
+This describes what the [diagram](../.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](types-check-forms-review-checks-crossers.md).
 
 ## At a glance
 
@@ -98,8 +98,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-auto-path--types-check-forms-review-checks-crossers--governance.grid.md),
 [tree](../.assets/tree/adr-auto-path--types-check-forms-review-checks-crossers--governance.tree.md) and
-[value-chain map](../.assets/chain/adr-auto-path--types-check-forms-review-checks-crossers--governance.chain.md), which hold the reason for every lit
-cell or group as of that build.
+[value-chain map](../.assets/chain/adr-auto-path--types-check-forms-review-checks-crossers--governance.chain.md), which hold the reason for
+every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AUTO-PATH" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

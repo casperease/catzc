@@ -31,8 +31,8 @@ Glyphs: 3 files (olive), 3 code units (slate), 1 gate; 7 flow edges; 7 markers.
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png) draws, in the vocabulary of
-the diagram glyphs; what it means is in [the article](two-layers-join-through-one-resolver.md).
+This describes what the [diagram](../.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](two-layers-join-through-one-resolver.md).
 
 ## At a glance
 
@@ -93,8 +93,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-az-datamod--two-layers-join-through-one-resolver--architecture.grid.md),
 [tree](../.assets/tree/adr-az-datamod--two-layers-join-through-one-resolver--architecture.tree.md) and
-[value-chain map](../.assets/chain/adr-az-datamod--two-layers-join-through-one-resolver--architecture.chain.md), which hold the reason for every lit
-cell or group as of that build.
+[value-chain map](../.assets/chain/adr-az-datamod--two-layers-join-through-one-resolver--architecture.chain.md), which hold the reason for
+every lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-AZ-CUSTOMER and ADR-AZ-DATAMOD" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -35,14 +35,18 @@ Describe 'New-DynamicManifest against the layout' -Tag 'L1', 'integrity', 'ADR-A
         foreach ($row in (Get-Config -Config languages).layout) {
             $isFunctionRow = $row.role -like '*-function'
             if ($row.folder -eq '.') {
-                if ($row.extensions -notcontains '.ps1') { continue }
+                if ($row.extensions -notcontains '.ps1') {
+                    continue
+                }
                 $relative = "Get-$($row.role).ps1"
             }
             else {
                 $relative = "$($row.folder)/Get-$($row.role).ps1"
             }
             New-Item -ItemType File -Path (Join-Path $module $relative) -Force | Out-Null
-            if ($isFunctionRow) { $expected.Add($relative) }
+            if ($isFunctionRow) {
+                $expected.Add($relative)
+            }
         }
         $expected.Count | Should -BeGreaterThan 1
 

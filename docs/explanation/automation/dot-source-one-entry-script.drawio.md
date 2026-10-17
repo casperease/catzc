@@ -31,8 +31,8 @@ Glyphs: 5 code units (slate), 1 gate, 1 result, 1 failure; 6 flow edges, 3 failu
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](dot-source-one-entry-script.md).
+This describes what the [diagram](../.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](dot-source-one-entry-script.md).
 
 ## At a glance
 
@@ -94,8 +94,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-auto-bundle--dot-source-one-entry-script--operations.grid.md),
 [tree](../.assets/tree/adr-auto-bundle--dot-source-one-entry-script--operations.tree.md) and
-[value-chain map](../.assets/chain/adr-auto-bundle--dot-source-one-entry-script--operations.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-auto-bundle--dot-source-one-entry-script--operations.chain.md), which hold the reason for every lit
+cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-AUTO-BUNDLE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

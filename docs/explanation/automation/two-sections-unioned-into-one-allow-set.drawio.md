@@ -31,9 +31,8 @@ Glyphs: 2 files (olive), 4 code units (slate), 1 gate, 2 failures; 6 flow edges,
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in
-[the article](two-sections-unioned-into-one-allow-set.md).
+This describes what the [diagram](../.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png) draws, in
+the vocabulary of the diagram glyphs; what it means is in [the article](two-sections-unioned-into-one-allow-set.md).
 
 ## At a glance
 
@@ -98,8 +97,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.grid.md),
 [tree](../.assets/tree/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.md) and
-[value-chain map](../.assets/chain/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.chain.md), which hold the reason for every
-lit cell or group as of that build.
+[value-chain map](../.assets/chain/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.chain.md), which hold the reason
+for every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-AUTO-DEPM" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

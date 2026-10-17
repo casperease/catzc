@@ -31,8 +31,8 @@ Glyphs: 1 actor, 1 code unit (slate), 1 external tool, 1 environment; 3 flow edg
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](bind-to-one-cli-delegate-the-rest.md).
+This describes what the [diagram](../.assets/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](bind-to-one-cli-delegate-the-rest.md).
 
 ## At a glance
 
@@ -92,8 +92,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.grid.md),
 [tree](../.assets/tree/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.tree.md) and
-[value-chain map](../.assets/chain/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.md), which hold the reason for every lit
+cell or group as of that build.
 
 - **Lens badge:** META, with "Supports ADR-DSGN-THINPLAT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

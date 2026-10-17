@@ -31,8 +31,8 @@ Glyphs: 1 file (olive), 2 code units (slate), 4 named sets (mauve), 1 failure; 2
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](get-aspect-names-the-remainder.md).
+This describes what the [diagram](../.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](get-aspect-names-the-remainder.md).
 
 ## At a glance
 
@@ -98,8 +98,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.grid.md),
 [tree](../.assets/tree/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.tree.md) and
-[value-chain map](../.assets/chain/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.chain.md), which hold the reason for every
+lit cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-DSGN-ASPECT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

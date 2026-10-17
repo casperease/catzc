@@ -55,16 +55,17 @@ plans. The master plan and the task files of this folder are named in the ADR as
    - 7 a **continuation prompt** is `prompt-<topic>-continue.md` beside its plan, verbatim, with a header mapping dead paths.
    - 8 the **master plan** (`plan-master.md`) and the **task files** (`taskNNN.md`, at most 050) are derived executables rebuilt from the
      plans; a task number is execution order, the one place a name carries one; they are cleared and rebuilt, never the plans.
-   - 9 every constraining decision in a plan becomes an ADR rule in the same change; a homeless decision is reopened (F3).
-   Context, Decision, Consequences (the cleaner plan-clear and the gate Test-Plans enforce; names only). Check: Test-Markdownlint, Test-Links
-   clean; Format-FileMeta writes `defines: ADR-REPO-PLANS#{1-9}`.
+   - 9 every constraining decision in a plan becomes an ADR rule in the same change; a homeless decision is reopened (F3). Context,
+     Decision, Consequences (the cleaner plan-clear and the gate Test-Plans enforce; names only). Check: Test-Markdownlint, Test-Links
+     clean; Format-FileMeta writes `defines: ADR-REPO-PLANS#{1-9}`.
 2. `docs/adr/repository/conventional-folders.md`: one rule, **stable locator**: a file name never encodes an order, rank or priority;
-   sorting is an overlay, an index or a head key; the delivered default sort is the semantic name order; the exception is a file whose
-   name is an execution order by its ADR (ADR-REPO-PLANS#8). Check: Test-AdrRegistry; the rule number is the next free one.
+   sorting is an overlay, an index or a head key; the delivered default sort is the semantic name order; the exception is a file whose name
+   is an execution order by its ADR (ADR-REPO-PLANS#8). Check: Test-AdrRegistry; the rule number is the next free one.
 3. `docs/adr/repository/controlled-vocabulary.md`: one rule, the PowerShell naming rule: prose says PowerShell; identifiers use only `pwsh`
    (engine, folder) or `powershell` (language id); the one literal Powershell in vendored dotnet-install.ps1 is vendor text. Check:
    Test-AdrRegistry; Test-Terminology on the file.
-4. `adrs.yml` repository rulesets: `plans: { external: ADR-REPO-PLANS }`. `Build-AdrIndex`. Check: Test-AdrRegistry clean; the index lists it.
+4. `adrs.yml` repository rulesets: `plans: { external: ADR-REPO-PLANS }`. `Build-AdrIndex`. Check: Test-AdrRegistry clean; the index lists
+   it.
 5. `docs/adr/repository/dora-explains.md`: one entry for ADR-REPO-PLANS (small batches; a plan that is the delta keeps work small and
    visible). Check: Test-Links.
 6. `automation/Catzc.Base.QualityGates/Test-Plans.ps1`, new gate, with `configs/plans.yml` (folder, head keys, required sections, name

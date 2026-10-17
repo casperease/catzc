@@ -31,8 +31,8 @@ Glyphs: 3 code units, 1 private helper, 2 C# types, 1 gate, 2 files, 1 catzc mod
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](../../.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png) draws from the source of the `Catzc.Azure.Templates` module. The
-module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](../../.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png) draws from the
+source of the `Catzc.Azure.Templates` module. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance
 

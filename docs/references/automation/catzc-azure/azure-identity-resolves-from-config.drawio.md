@@ -29,8 +29,8 @@ Edges: 11 flow edges (feeds); 10 markers; 1 count chip.
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](../../.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png) draws from the source of the `Catzc.Azure` module. The
-module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](../../.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png) draws from the source
+of the `Catzc.Azure` module. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance
 

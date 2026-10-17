@@ -31,10 +31,18 @@ Describe 'Get-RepoStatus' -Tag 'L0', 'logic' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Files { $script:tracked }
         Mock Invoke-Executable -ModuleName Catzc.Base.Files {
             $output = switch -Wildcard ($Command) {
-                'git status*' { $script:porcelain }
-                'git branch*' { $script:branch }
-                'git for-each-ref*' { $script:upstream }
-                'git log*' { $script:unpushed }
+                'git status*' {
+                    $script:porcelain
+                }
+                'git branch*' {
+                    $script:branch
+                }
+                'git for-each-ref*' {
+                    $script:upstream
+                }
+                'git log*' {
+                    $script:unpushed
+                }
             }
             [pscustomobject]@{ ExitCode = 0; Output = $output }
         }

@@ -31,8 +31,8 @@ Glyphs: 5 code units (slate), 1 file (olive), 1 gate (neutral), 2 failures; 4 fl
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](read-the-session-guard-then-pick-slot.md).
+This describes what the [diagram](../.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](read-the-session-guard-then-pick-slot.md).
 
 ## At a glance
 
@@ -96,8 +96,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.grid.md),
 [tree](../.assets/tree/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.tree.md) and
-[value-chain map](../.assets/chain/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.md), which hold the reason for every lit
-cell or group as of that build.
+[value-chain map](../.assets/chain/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.md), which hold the reason
+for every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-AZ-DATAMOD" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

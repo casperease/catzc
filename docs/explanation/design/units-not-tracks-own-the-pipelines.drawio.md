@@ -31,8 +31,8 @@ Glyphs: 4 named sets (mauve), 3 runners (slate); 6 edges; 6 markers; 1 count chi
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png) draws, in the vocabulary of
-the diagram glyphs; what it means is in [the article](units-not-tracks-own-the-pipelines.md).
+This describes what the [diagram](../.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](units-not-tracks-own-the-pipelines.md).
 
 ## At a glance
 
@@ -94,8 +94,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.grid.md),
 [tree](../.assets/tree/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.tree.md) and
-[value-chain map](../.assets/chain/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.chain.md), which hold the reason for every lit cell
-or group as of that build.
+[value-chain map](../.assets/chain/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.chain.md), which hold the reason for
+every lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-DSGN-TRACK" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

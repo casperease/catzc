@@ -31,8 +31,8 @@ Glyphs: 1 gate (neutral), 1 result, 2 failures, 1 file (olive); 2 flow edges, 2 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](pass-the-limit-or-the-call-is-denied.md).
+This describes what the [diagram](../.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](pass-the-limit-or-the-call-is-denied.md).
 
 ## At a glance
 
@@ -96,8 +96,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.grid.md),
 [tree](../.assets/tree/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.tree.md) and
-[value-chain map](../.assets/chain/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.chain.md), which hold the reason for every lit
-cell or group as of that build.
+[value-chain map](../.assets/chain/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.chain.md), which hold the reason for
+every lit cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-AUTO-FAILFAST" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

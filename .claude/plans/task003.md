@@ -26,8 +26,8 @@ catzc:
 # task003: value-of-plan.md rows for the unlisted plans, prompt deletions after diff, questionnaire trim
 
 value-of-plan.md is the sorting overlay (plan-value capability: the rank lives there and in each head's value key). Six plans written on
-2026-10-17 have no row. Three continuation prompts are delete candidates once their plans hold every item. The questionnaire is 740 lines and
-only the numbers that decisions-2026-10-16.md cites need to stay findable.
+2026-10-17 have no row. Three continuation prompts are delete candidates once their plans hold every item. The questionnaire is 740 lines
+and only the numbers that decisions-2026-10-16.md cites need to stay findable.
 
 ## Steps
 

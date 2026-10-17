@@ -31,8 +31,8 @@ Glyphs: 3 runners (slate), 1 gate, 1 ADR-only runner, 3 failures; 3 flow, 2 ADR-
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png) draws, in the vocabulary of
-the diagram glyphs; what it means is in [the article](engineer-merges-pipelines-do-the-rest.md).
+This describes what the [diagram](../.assets/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](engineer-merges-pipelines-do-the-rest.md).
 
 ## At a glance
 
@@ -98,8 +98,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.grid.md),
 [tree](../.assets/tree/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.tree.md) and
-[value-chain map](../.assets/chain/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.chain.md), which hold the reason for every lit cell
-or group as of that build.
+[value-chain map](../.assets/chain/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.chain.md), which hold the reason for
+every lit cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-DSGN-LIFE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -31,9 +31,8 @@ Glyphs: 4 code units (slate), 1 gate, 1 result, 3 failures; 5 flow edges, 3 fail
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in
-[the article](strip-split-walk-every-wrong-turn-throws.md).
+This describes what the [diagram](../.assets/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png)
+draws, in the vocabulary of the diagram glyphs; what it means is in [the article](strip-split-walk-every-wrong-turn-throws.md).
 
 ## At a glance
 
@@ -98,8 +97,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.grid.md),
 [tree](../.assets/tree/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.tree.md) and
-[value-chain map](../.assets/chain/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.chain.md), which hold the reason for
-every lit cell or group as of that build.
+[value-chain map](../.assets/chain/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.chain.md), which hold the
+reason for every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-CONF-ADDRESSING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

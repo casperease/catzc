@@ -31,8 +31,8 @@ Glyphs: 4 code units (slate), 1 gate, 2 files (olive), 2 named sets (mauve); 8 e
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](manifest-and-aspects-from-one-folder.md).
+This describes what the [diagram](../.assets/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](manifest-and-aspects-from-one-folder.md).
 
 ## At a glance
 
@@ -96,8 +96,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.grid.md),
 [tree](../.assets/tree/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.tree.md) and
-[value-chain map](../.assets/chain/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.chain.md), which hold the reason for every lit
-cell or group as of that build.
+[value-chain map](../.assets/chain/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.chain.md), which hold the reason
+for every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-DSGN-ASPECT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

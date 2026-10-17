@@ -31,8 +31,8 @@ Glyphs: 1 file (olive), 2 code units (slate), 1 result, 3 failures in a frame; 3
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](a-bad-coordinate-stops-discovery.md).
+This describes what the [diagram](../.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](a-bad-coordinate-stops-discovery.md).
 
 ## At a glance
 
@@ -98,8 +98,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.grid.md),
 [tree](../.assets/tree/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.tree.md) and
-[value-chain map](../.assets/chain/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.chain.md), which hold the reason for every
+lit cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-AZ-CUSTOMER and ADR-AZ-DATAMOD" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -142,7 +142,7 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
 
     It 'counts a wrapped continuation with its line and a comment line as nothing' -Tag 'ADR-REPO-AGENTS#6', 'ADR-REPO-AGENTS#8' {
         $wrapped = @('---', 'name: gadget', 'description: >', '  The gadget agent.', '  Do NOT use it for widget work.', 'tools: Read', 'model: haiku', '---', '# gadget', '', '<!-- cspell:ignore gizmo -->') +
-            @(1..19 | ForEach-Object { "$_. a step that the formatter"; "   wrapped onto a second line" })
+        @(1..19 | ForEach-Object { "$_. a step that the formatter"; '   wrapped onto a second line' })
         Write-AgentFixture 'agents/gadget.md' $wrapped
         $spin = @('---', 'name: widget-spin', 'description: Spin a widget; for widget; input is the widget.', 'user-invocable: false', 'allowed-tools: Read',
             'metadata:', '  catzc:', '    config:', '      model_floor: haiku', '      needs: []', '---', '# widget-spin', '', '1. Spin it', '   with care.', '2. Report', '   the spin.', '3. Stop.', '4. Rest.')

@@ -28,8 +28,7 @@ concepts:
       release candidate:
         A release candidate is one commit's tagged, immutable build of a deployable-unit; a deployable-unit is the composition that ships,
         whichever commit is built.
-      track:
-        A track is a cluster of module contents; a deployable-unit is what ships, composed from a whole track or a reduced part of one.
+      track: A track is a cluster of module contents; a deployable-unit is what ships, composed from a whole track or a reduced part of one.
       deployable track: A deployable track is the track that owns deployable-units; a deployable-unit is what ships.
       bundle: A bundle is one build of the toolset; a deployable-unit is what ships from the mono-repository, whichever way it is built.
   release candidate:
@@ -80,10 +79,13 @@ concepts:
     key: track
     domain: design
     defined_by: ADR-DSGN-TRACK#1
-    short: A named, on-disk cluster of module contents — the tracked files of one concern, selected by the places the track declares, and of one track type.
+    short:
+      A named, on-disk cluster of module contents — the tracked files of one concern, selected by the places the track declares, and of one
+      track type.
     realized_by: { kind: prose-only }
     contrasts:
-      verification track: A verification track is one type of track — test-only, shipping nothing; a track is any cluster of module contents.
+      verification track:
+        A verification track is one type of track — test-only, shipping nothing; a track is any cluster of module contents.
       deployable-unit:
         A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is the cluster of module contents
         itself.
@@ -113,7 +115,9 @@ concepts:
     key: layout
     domain: automation
     defined_by: ADR-AUTO-MODULE#2
-    short: The one table of folders inside a module and what each holds, declared once under each file language and read by every command that reads a module's folders.
+    short:
+      The one table of folders inside a module and what each holds, declared once under each file language and read by every command that
+      reads a module's folders.
     realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Languages/configs/languages.yml" }
     contrasts:
       module type: A module type says where modules of a sort are found; a layout says what a module's own folders hold.
@@ -121,7 +125,9 @@ concepts:
     key: track_type
     domain: design
     defined_by: ADR-DSGN-TRACKTYPE#1
-    short: The sort of cluster a track is, one of a closed set — modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts, documentation, verification, or unordered.
+    short:
+      The sort of cluster a track is, one of a closed set — modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts,
+      documentation, verification, or unordered.
     realized_by: { kind: prose-only }
     contrasts:
       track: A track is the named cluster of module contents; a track type is the sort it is, declared once for every track of that sort.
@@ -140,10 +146,13 @@ concepts:
     key: holder_track
     domain: design
     defined_by: ADR-DSGN-TRACKTYPE#2
-    short: A track that is itself a module more than it owns modules — one vendor's, one tool's or one purpose's files, shipping nothing of its own.
+    short:
+      A track that is itself a module more than it owns modules — one vendor's, one tool's or one purpose's files, shipping nothing of its
+      own.
     realized_by: { kind: prose-only }
     contrasts:
-      deployable track: A deployable track owns deployable-units delivered through CI/CD; a holder track holds files a platform or tool reads.
+      deployable track:
+        A deployable track owns deployable-units delivered through CI/CD; a holder track holds files a platform or tool reads.
   vendor:
     key: vendor
     domain: design
@@ -151,7 +160,9 @@ concepts:
     short: The platform or tool that reads a track's files, from a closed set declared once — never the third party that wrote them.
     realized_by: { kind: prose-only }
     contrasts:
-      vendored code: Vendored code is written by a third party and the repository does not author it; a vendor is the platform that reads a track's files.
+      vendored code:
+        Vendored code is written by a third party and the repository does not author it; a vendor is the platform that reads a track's
+        files.
   vendored code:
     key: vendored_code
     domain: design
@@ -164,7 +175,9 @@ concepts:
     key: place
     domain: design
     defined_by: ADR-DSGN-TRACK#1
-    short: A path a track declares it covers — a root folder, a path inside one, or a tool's root folder; the longest place that contains a file names its track.
+    short:
+      A path a track declares it covers — a root folder, a path inside one, or a tool's root folder; the longest place that contains a file
+      names its track.
     realized_by: { kind: prose-only }
     contrasts:
       track: A track is the cluster of module contents; a place is one path the track covers.

@@ -31,8 +31,8 @@ Glyphs: 2 named sets (mauve), 3 code units (slate), 3 stores (slate); 9 flow edg
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](two-crossers-and-three-anchors.md).
+This describes what the [diagram](../.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](two-crossers-and-three-anchors.md).
 
 ## At a glance
 
@@ -94,8 +94,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-auto-path--two-crossers-and-three-anchors--architecture.grid.md),
 [tree](../.assets/tree/adr-auto-path--two-crossers-and-three-anchors--architecture.tree.md) and
-[value-chain map](../.assets/chain/adr-auto-path--two-crossers-and-three-anchors--architecture.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-auto-path--two-crossers-and-three-anchors--architecture.chain.md), which hold the reason for every
+lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-AUTO-PATH" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -31,8 +31,8 @@ Glyphs: 3 named sets (mauve), 1 code unit (slate), 1 ADR-only; 4 flow edges; 5 m
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png) draws, in the vocabulary of the diagram glyphs;
-what it means is in [the article](two-forms-never-a-third.md).
+This describes what the [diagram](../.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png) draws, in the vocabulary of the
+diagram glyphs; what it means is in [the article](two-forms-never-a-third.md).
 
 ## At a glance
 
@@ -91,9 +91,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-AdrCitationMap](../../references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
 with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
 highlights, draws the three minimaps and writes their sister descriptions,
-[world map](../.assets/grid/adr-auto-path--two-forms-never-a-third--meta.grid.md), [tree](../.assets/tree/adr-auto-path--two-forms-never-a-third--meta.tree.md)
-and [value-chain map](../.assets/chain/adr-auto-path--two-forms-never-a-third--meta.chain.md), which hold the reason for every lit cell or group as of
-that build.
+[world map](../.assets/grid/adr-auto-path--two-forms-never-a-third--meta.grid.md),
+[tree](../.assets/tree/adr-auto-path--two-forms-never-a-third--meta.tree.md) and
+[value-chain map](../.assets/chain/adr-auto-path--two-forms-never-a-third--meta.chain.md), which hold the reason for every lit cell or group
+as of that build.
 
 - **Lens badge:** META, with "Supports ADR-AUTO-PATH" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

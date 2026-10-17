@@ -50,11 +50,12 @@ ADR-AUTO-FAILFAST. One config per change; the user runs the full gate.
 2. Triage the table into the three postures in `plan-config-defaults.md` under "Rollout worklist", one line per type with its posture and
    its getters. Check: every row has a posture.
 3. One type per step, in worklist order: constants on the type, construction throws for required keys, getters lose literals, tests updated
-   (fresh pwsh per C# edit). Sealed configs take defaults and no fragment and get no contract. Overridable types get their generated defaults
-   contract (Build-ConfigDefaultsContract from task015). Check: that config's tests; Test-Contracts after each contracted type.
-4. `automation/.scriptanalyzer/NoLiteralDefault.psm1`, new rule: a `-Default` parameter or a literal fallback (`?? 'x'`, `if (-not $v) { $v =
-   'x' }`) inside a public getter that reads a registered config is a finding citing ADR-PRIN-CONFIG#3 and ADR-AUTO-DEFAULT#6; tests with
-   fixtures; registered in `PSScriptAnalyzerSettings.psd1`. Check: its tests pass; Test-ScriptAnalyzer clean on the converted modules.
+   (fresh pwsh per C# edit). Sealed configs take defaults and no fragment and get no contract. Overridable types get their generated
+   defaults contract (Build-ConfigDefaultsContract from task015). Check: that config's tests; Test-Contracts after each contracted type.
+4. `automation/.scriptanalyzer/NoLiteralDefault.psm1`, new rule: a `-Default` parameter or a literal fallback (`?? 'x'`,
+   `if (-not $v) { $v = 'x' }`) inside a public getter that reads a registered config is a finding citing ADR-PRIN-CONFIG#3 and
+   ADR-AUTO-DEFAULT#6; tests with fixtures; registered in `PSScriptAnalyzerSettings.psd1`. Check: its tests pass; Test-ScriptAnalyzer clean
+   on the converted modules.
 5. `docs/adr/automation/sensible-defaults.md` rule 6: posture per property, defaults as constants on the type, contracted defaults published
    from the type. Present tense. Check: Test-AdrRegistry, Test-Links.
 6. `docs/adr/automation/consumer-overlay.md` rules 1 and 8: the repository's own fragments under `.catzc/<track>/` in source mode; no alias
@@ -65,8 +66,8 @@ ADR-AUTO-FAILFAST. One config per change; the user runs the full gate.
    constructor, Get-Config, cross-config validators, Test-Contracts, repo gates). Check: Test-Markdownlint, Test-Links.
 9. Glossary: `fragment`, `posture`, `contracted defaults`, defined by the rules above; Build-Glossary. Check: Test-Glossary clean.
 10. `Update-AdrCitation` and the reference-page generators in the background; `Test-Links` on the touched pages. Check: clean.
-11. `plan-config-defaults.md`: tick Phases 4 and 5; the plan is deleted in T036 once Test-Contracts is clean on every contracted type. Check:
-    grep `- [ ]` counts zero.
+11. `plan-config-defaults.md`: tick Phases 4 and 5; the plan is deleted in T036 once Test-Contracts is clean on every contracted type.
+    Check: grep `- [ ]` counts zero.
 
 ## Report
 

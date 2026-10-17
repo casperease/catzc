@@ -54,8 +54,7 @@ concepts:
     key: model_floor
     domain: repository
     defined_by: ADR-REPO-AGENTS#7
-    short:
-      The lowest model that performs a capability's steps reliably; no robot that preloads the capability runs below it.
+    short: The lowest model that performs a capability's steps reliably; no robot that preloads the capability runs below it.
     realized_by: { kind: prose-only }
   domain:
     key: domain
@@ -426,7 +425,9 @@ concepts:
       as its path, kind, language, track and module, each read from a registry and never from the file's text.
     realized_by: { kind: prose-only }
     contrasts:
-      edge: The place facts are properties of the file as a node, read from the repository's configuration; an edge is a named relation leaving the file, read from its text.
+      edge:
+        The place facts are properties of the file as a node, read from the repository's configuration; an edge is a named relation leaving
+        the file, read from its text.
   edge:
     key: meta_edge
     domain: repository
@@ -436,7 +437,9 @@ concepts:
       page or test, written on its source only.
     realized_by: { kind: prose-only }
     contrasts:
-      place facts: An edge is a named relation leaving the file, read from its text; the place facts are properties of the file as a node, read from the repository's configuration.
+      place facts:
+        An edge is a named relation leaving the file, read from its text; the place facts are properties of the file as a node, read from
+        the repository's configuration.
   kind:
     key: file_kind
     domain: repository
@@ -480,7 +483,9 @@ concepts:
       names its module.
     realized_by: { kind: prose-only }
     contrasts:
-      track: A track is the cluster of module contents and the concern it holds; a module type is the sort of module found at a place inside or across tracks.
+      track:
+        A track is the cluster of module contents and the concern it holds; a module type is the sort of module found at a place inside or
+        across tracks.
       track type: A track type is the sort of cluster a track is; a module type is the sort of module placed in it.
       module: A module is one named unit placed in a track; a module type is the sort of module found at a place, one of a closed set.
       layout: A layout says what a module's own folders hold; a module type says where modules of a sort are found.

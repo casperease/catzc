@@ -31,8 +31,8 @@ Glyphs: 1 actor, 2 runners (slate), 2 environments, 2 failures; 4 flow edges and
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png) draws, in the vocabulary of the diagram
-glyphs; what it means is in [the article](a-merge-runs-cd-to-prod.md).
+This describes what the [diagram](../.assets/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png) draws, in the vocabulary of the
+diagram glyphs; what it means is in [the article](a-merge-runs-cd-to-prod.md).
 
 ## At a glance
 
@@ -98,8 +98,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-flow-cd--a-merge-runs-cd-to-prod--operations.grid.md),
 [tree](../.assets/tree/adr-flow-cd--a-merge-runs-cd-to-prod--operations.tree.md) and
-[value-chain map](../.assets/chain/adr-flow-cd--a-merge-runs-cd-to-prod--operations.chain.md), which hold the reason for every lit cell or group as of
-that build.
+[value-chain map](../.assets/chain/adr-flow-cd--a-merge-runs-cd-to-prod--operations.chain.md), which hold the reason for every lit cell or
+group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-FLOW-CD" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -31,8 +31,8 @@ Glyphs: 4 commits, 1 gate, 1 environment; 3 flow edges, 1 ADR-only edge; 5 marke
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png) draws, in the vocabulary of the diagram
-glyphs; what it means is in [the article](deploying-is-not-integrating.md).
+This describes what the [diagram](../.assets/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png) draws, in the vocabulary of the
+diagram glyphs; what it means is in [the article](deploying-is-not-integrating.md).
 
 ## At a glance
 
@@ -94,8 +94,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-dsgn-life--deploying-is-not-integrating--meta.grid.md),
 [tree](../.assets/tree/adr-dsgn-life--deploying-is-not-integrating--meta.tree.md) and
-[value-chain map](../.assets/chain/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md), which hold the reason for every lit cell or group as of
-that build.
+[value-chain map](../.assets/chain/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md), which hold the reason for every lit cell or
+group as of that build.
 
 - **Lens badge:** META, with "Supports ADR-DSGN-LIFE and ADR-DSGN-VISUAL" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

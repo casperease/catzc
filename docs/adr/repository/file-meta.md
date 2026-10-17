@@ -119,17 +119,17 @@ meta-kind registry ([controlling-module-dependencies](../automation/controlling-
 
 A file the automation composes whole — a root-config copy, a generator's output, a `.gitkeep` — carries the **generated-file head** instead
 of an imprinted block. Its writer composes the content bare and writes the head through the one head function, in the carrier the file's
-class has. The head holds the same facts as an imprinted block, `repo_status` (always `locked`, since the file's source is the truth and is edited
-instead), `path`, `kind` and `subkind` (the role the file-kinds registry names for the
-file, which the writer reads and passes down), `language`, `filetype`, `track`, `module` and `moduletype` (the module-types registry's type
-of the module the file is placed in), each left out for a file that has none, and what only a composed file has: `generator` (the
-repository-relative path of the file that defines the command that composed the file) and `source` (the authored file or files it comes
-from). The head opens with `with_body_sha`, the hash of the content below it, whatever the file's language and carrier, so a tracked
-generated file says which text its writer composed and the drift check reads the stamp before the content. A generated file is told from an
-authored one by its `generator`, never by a kind of its own. No writer hand-words a banner, and the drift check compares the head with the
-rest of the content. The imprint engine leaves these files alone ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns
-every byte of them. A comment page is the one generated item whose block the engine imprints, and it names its writer the same way: the
-`generator` kind of the registry gives it the path of the comment exporter.
+class has. The head holds the same facts as an imprinted block, `repo_status` (always `locked`, since the file's source is the truth and is
+edited instead), `path`, `kind` and `subkind` (the role the file-kinds registry names for the file, which the writer reads and passes down),
+`language`, `filetype`, `track`, `module` and `moduletype` (the module-types registry's type of the module the file is placed in), each left
+out for a file that has none, and what only a composed file has: `generator` (the repository-relative path of the file that defines the
+command that composed the file) and `source` (the authored file or files it comes from). The head opens with `with_body_sha`, the hash of
+the content below it, whatever the file's language and carrier, so a tracked generated file says which text its writer composed and the
+drift check reads the stamp before the content. A generated file is told from an authored one by its `generator`, never by a kind of its
+own. No writer hand-words a banner, and the drift check compares the head with the rest of the content. The imprint engine leaves these
+files alone ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A comment page is the one generated
+item whose block the engine imprints, and it names its writer the same way: the `generator` kind of the registry gives it the path of the
+comment exporter.
 
 - [Generated files](#generated-files)
 
@@ -201,8 +201,8 @@ edge until the file's text changes. An edge is written on its source only, so th
 relation, never for the type of its target. In a Markdown file, and in a generated file of any language
 ([ADR-REPO-FILEMETA#7](#rule-adr-repo-filemeta7)), `immutable` opens with `with_body_sha`, the hash of the body below the head, so the stamp
 says which text the edges were read from or the writer composed. An authored code file carries no hash
-([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). Every block and every generated head also holds `repo_status`, the
-part of the file's repository status that the file itself decides: `locked` for a generated file, whose source is the truth and is edited
+([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). Every block and every generated head also holds `repo_status`, the part
+of the file's repository status that the file itself decides: `locked` for a generated file, whose source is the truth and is edited
 instead, and `clean` for an authored one. The states only git knows, edited, staged, committed and pushed, and `ready` (tracked and
 unchanged) are never written into the file, since the write would change them; `Get-RepoStatus` computes them on demand from git, read-only.
 A kind of the registry names the part it writes, `immutable` by default and `edges` for a relation.

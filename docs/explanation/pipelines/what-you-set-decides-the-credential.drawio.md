@@ -31,8 +31,8 @@ Glyphs: 3 gates, 1 result, 4 failures; 5 flow edges, 4 failure paths; 8 markers.
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](what-you-set-decides-the-credential.md).
+This describes what the [diagram](../.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](what-you-set-decides-the-credential.md).
 
 ## At a glance
 
@@ -94,8 +94,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-pipe-auth--what-you-set-decides-the-credential--operations.grid.md),
 [tree](../.assets/tree/adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md) and
-[value-chain map](../.assets/chain/adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md), which hold the reason for every lit cell
-or group as of that build.
+[value-chain map](../.assets/chain/adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md), which hold the reason for every
+lit cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-PIPE-AUTH" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

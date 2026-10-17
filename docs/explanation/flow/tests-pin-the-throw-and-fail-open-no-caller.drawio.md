@@ -31,8 +31,8 @@ Glyphs: 3 code units (slate), 3 gates, 2 ADR-only; 3 flow edges; 6 rule chips (3
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](tests-pin-the-throw-and-fail-open-no-caller.md).
+This describes what the [diagram](../.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png) draws,
+in the vocabulary of the diagram glyphs; what it means is in [the article](tests-pin-the-throw-and-fail-open-no-caller.md).
 
 ## At a glance
 
@@ -96,8 +96,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.grid.md),
 [tree](../.assets/tree/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.tree.md) and
-[value-chain map](../.assets/chain/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.chain.md), which hold the reason for
-every lit cell or group as of that build.
+[value-chain map](../.assets/chain/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.chain.md), which hold the
+reason for every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AUTO-FAILFAST, ADR-FLOW-CD-DETECT and ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

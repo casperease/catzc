@@ -40,8 +40,8 @@ before the next; the index is generated, never edited by hand.
 ## Steps
 
 1. Fact, no edit: `AdrCodeForm.cs` line 38 accepts `ADR-[A-Z]+(?:-[A-Z]+)*`, so a one-segment code parses. The registry composes
-   `ADR-<DOMAIN>-<NAME>` by default and `external:` overrides it. D14 is therefore "keep ADR-AI"; record that in plan-adr-ai Decided.
-   Check: grep `external: ADR-` in adrs.yml shows the override form in use.
+   `ADR-<DOMAIN>-<NAME>` by default and `external:` overrides it. D14 is therefore "keep ADR-AI"; record that in plan-adr-ai Decided. Check:
+   grep `external: ADR-` in adrs.yml shows the override form in use.
 2. `automation/Catzc.Base.Docs/configs/adrs.yml`, repository domain `rulesets:` (after `agent-definitions` at line 324): add
    `ai-agent-contract: { external: ADR-AI, concern: [automation] }`. Keep the one-line form the neighbours use. Check: the yaml config test
    for AdrsConfig passes; `Test-AdrRegistry` no longer names ADR-AI (background, catzc-run form).
@@ -53,9 +53,9 @@ before the next; the index is generated, never edited by hand.
 5. `docs/adr/repository/ai-agent-contract.md`, Context section: absorb the meaning of `docs/references/agent-contracts.md` (34 lines: what
    the contracts entry in agents.yml means, why it is named once) in present tense, no history. Check: Test-Links, Test-Markdownlint clean;
    the head's `edges.cites` still parses (Format-FileMeta).
-6. `docs/references/agent-contracts.md`: delete it, or reduce it to a pointer at the ADR if anything links to it (`grep -rn agent-contracts.md`
-   first; CLAUDE.md's Sub-agents section links it). Prefer re-pointing CLAUDE.md to the ADR and deleting the page (one living version).
-   Check: Test-Links clean on CLAUDE.md and on docs/references.
+6. `docs/references/agent-contracts.md`: delete it, or reduce it to a pointer at the ADR if anything links to it
+   (`grep -rn agent-contracts.md` first; CLAUDE.md's Sub-agents section links it). Prefer re-pointing CLAUDE.md to the ADR and deleting the
+   page (one living version). Check: Test-Links clean on CLAUDE.md and on docs/references.
 7. `.claude/CLAUDE.md`: the session-start sentence keeps the literal `ADR-AI` and its link; reword only if step 6 changed the link target.
    Check: Test-Links clean; grep ADR-AI finds the literal.
 8. `automation/Catzc.Base.Docs/configs/agents.yml`: no edit; confirm `contracts: [ADR-AI]` (line 26) and that Test-AgentDefinitions reads

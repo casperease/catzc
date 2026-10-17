@@ -31,8 +31,8 @@ Glyphs: 3 code units (slate), 3 gates (neutral), 1 ADR-only; 2 flow edges; 4 rul
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](three-tests-prove-the-hook.md).
+This describes what the [diagram](../.assets/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](three-tests-prove-the-hook.md).
 
 ## At a glance
 
@@ -94,8 +94,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-auto-failfast--three-tests-prove-the-hook--governance.grid.md),
 [tree](../.assets/tree/adr-auto-failfast--three-tests-prove-the-hook--governance.tree.md) and
-[value-chain map](../.assets/chain/adr-auto-failfast--three-tests-prove-the-hook--governance.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-auto-failfast--three-tests-prove-the-hook--governance.chain.md), which hold the reason for every lit
+cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AUTO-DEFAULT and ADR-AUTO-FAILFAST" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

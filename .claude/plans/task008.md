@@ -33,12 +33,12 @@ files, most of them plans and comment pages.
 
 ## Steps
 
-1. Audit, read-only, one file per line in `plan-plans-body-sha-landing-zone.md` under a new "Binding audit" section: for each of the 12
-   code and config files, the line, what it does with `.unordered`, and a verdict: `go` for a measure, a track getter or a default that
-   reads it; `stay` for a scan exclusion where the tool walks the disk and not the git index (ADR-AUTO-TRACKED); `track` for the tracks
-   registry entry in variants.yml (the unordered track class stays, imported content is tracked). Check: 12 verdict lines.
-2. The 283 markdown mentions: count by folder (`grep -rl .unordered docs automation --include=*.md | cut -d/ -f1-3 | sort | uniq -c`), record
-   the counts, and name only the authored pages (ADRs, how-tos, explanations) that state the old meaning ("frozen fragments, finished
+1. Audit, read-only, one file per line in `plan-plans-body-sha-landing-zone.md` under a new "Binding audit" section: for each of the 12 code
+   and config files, the line, what it does with `.unordered`, and a verdict: `go` for a measure, a track getter or a default that reads it;
+   `stay` for a scan exclusion where the tool walks the disk and not the git index (ADR-AUTO-TRACKED); `track` for the tracks registry entry
+   in variants.yml (the unordered track class stays, imported content is tracked). Check: 12 verdict lines.
+2. The 283 markdown mentions: count by folder (`grep -rl .unordered docs automation --include=*.md | cut -d/ -f1-3 | sort | uniq -c`),
+   record the counts, and name only the authored pages (ADRs, how-tos, explanations) that state the old meaning ("frozen fragments, finished
    plans"): tracks.md rule 17, track-types.md, the glossary source. Comment pages and plans are not edited here. Check: a counts table and a
    list of at most ten authored pages in the plan.
 3. Write `out/delete-unordered-15-10-2026.ps1`: `git rm -r .unordered/15-10-2026` and nothing else, with a comment naming Q09. Check: the

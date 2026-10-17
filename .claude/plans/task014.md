@@ -39,18 +39,18 @@ the rule being repaired. C# edits need a fresh pwsh; tests in the background.
    dirty, leave them and say so. Check: the status is recorded.
 2. Locate the five getters (`grep -rln "Get-Variant\b" automation --include=*.ps1`; Get-Variant is private or renamed, Get-Aspect lives in
    Catzc.Base.Modules). List them with their `-Default` literals in the plan. Check: the list has every literal.
-3. `automation/Catzc.Base.Variants/types/VariantsConfig.cs`: constants `DefaultAdoNaming = "standard"`, `DefaultGitWorkspace = "main-direct"`,
-   `DefaultHaveCustomers = false`, the aspects catch-all built per track when the map has no entry; `Tracks` required: construction throws
-   with the key name and "add tracks: to variants.yml or the repo fragment". No other file changes in this step. Check: the file compiles
-   (fresh pwsh import); `VariantsConfig.Tests.ps1` fails only on the new behaviour.
+3. `automation/Catzc.Base.Variants/types/VariantsConfig.cs`: constants `DefaultAdoNaming = "standard"`,
+   `DefaultGitWorkspace = "main-direct"`, `DefaultHaveCustomers = false`, the aspects catch-all built per track when the map has no entry;
+   `Tracks` required: construction throws with the key name and "add tracks: to variants.yml or the repo fragment". No other file changes in
+   this step. Check: the file compiles (fresh pwsh import); `VariantsConfig.Tests.ps1` fails only on the new behaviour.
 4. `automation/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1`: an empty map yields the four defaults; `tracks` omitted throws
    naming the key; null and omitted agree; an unknown key is rejected as before. Neutral fixture names. Check: passes.
 5. `VariantTrack.cs` only if T011 did not add `execution_engines` with its default; otherwise no edit. Check: its test passes.
 6. The private variant reader (`Get-Variant` or its successor): drop `-Default`; it returns the typed property. Check: its test passes.
 7. One getter per step, each with its test: `Get-AdoNaming`, `Get-GitWorkspace`, `Get-EnabledCustomers` (have_customers false means none;
-   this repo's fragment will say all in T015, until then the shipped variants.yml keeps `all`), `Get-Aspect` (Catzc.Base.Modules), `Get-Track`
-   (if not dirty). Each loses its literal and reads the type. Check: each getter's Pester file passes; `have_customers` agrees across the
-   getter and the type test.
+   this repo's fragment will say all in T015, until then the shipped variants.yml keeps `all`), `Get-Aspect` (Catzc.Base.Modules),
+   `Get-Track` (if not dirty). Each loses its literal and reads the type. Check: each getter's Pester file passes; `have_customers` agrees
+   across the getter and the type test.
 8. `plan-config-defaults.md`: tick the Phase 1 step with the test counts; the scratchpad-copy and paste steps are superseded by this task
    (record that under Done, and why). Check: grep `- [ ]` counts the Phase 2 to 5 steps only.
 

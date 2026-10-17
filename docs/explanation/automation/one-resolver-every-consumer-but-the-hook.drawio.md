@@ -31,9 +31,8 @@ Glyphs: 6 code units (slate), 1 gate (neutral); 1 frame; 5 flow edges; 7 markers
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in
-[the article](one-resolver-every-consumer-but-the-hook.md).
+This describes what the [diagram](../.assets/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png) draws, in
+the vocabulary of the diagram glyphs; what it means is in [the article](one-resolver-every-consumer-but-the-hook.md).
 
 ## At a glance
 
@@ -92,8 +91,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.grid.md),
 [tree](../.assets/tree/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.tree.md) and
-[value-chain map](../.assets/chain/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.chain.md), which hold the reason for every
-lit cell or group as of that build.
+[value-chain map](../.assets/chain/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.chain.md), which hold the
+reason for every lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-AUTO-DEFAULT and ADR-AUTO-FAILFAST" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -41,7 +41,20 @@ capabilities:
   # The per-file and end-of-task checks of a delegated change, and the shared files it never edits.
   - name: catzc-verify
     supported_by: [ADR-PROC-BUILTIN#3, ADR-AUTO-TEST#35, ADR-REPO-AGENTS#4]
-    checks: [Invoke-TestFile, Test-ScriptAnalyzer, Test-Spelling, Format-Types, Format-Code, Test-Links, Test-Glossary, Build-Readme, Build-Glossary, Build-AdrIndex, Test-GeneratedFiles]
+    checks:
+      [
+        Invoke-TestFile,
+        Test-ScriptAnalyzer,
+        Test-Spelling,
+        Format-Types,
+        Format-Code,
+        Test-Links,
+        Test-Glossary,
+        Build-Readme,
+        Build-Glossary,
+        Build-AdrIndex,
+        Test-GeneratedFiles,
+      ]
 
   # Finding the rules that govern a file set and citing them by code, without sweeping the corpus.
   - name: adr-cite

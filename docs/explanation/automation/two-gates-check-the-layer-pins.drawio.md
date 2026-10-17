@@ -31,8 +31,8 @@ Glyphs: 3 named sets (mauve), 2 gates, 1 ADR-only; 3 thick edges, 1 flow edge; 6
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](two-gates-check-the-layer-pins.md).
+This describes what the [diagram](../.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](two-gates-check-the-layer-pins.md).
 
 ## At a glance
 
@@ -94,8 +94,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md),
 [tree](../.assets/tree/adr-auto-depm--two-gates-check-the-layer-pins--governance.tree.md) and
-[value-chain map](../.assets/chain/adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md), which hold the reason for every lit
+cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AUTO-DEPM and ADR-AUTO-TEST" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

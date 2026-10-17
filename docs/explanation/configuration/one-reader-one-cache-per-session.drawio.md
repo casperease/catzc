@@ -31,8 +31,8 @@ Glyphs: 2 code units (slate), 1 store (slate), 1 file (olive), 1 result; 5 flow 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](one-reader-one-cache-per-session.md).
+This describes what the [diagram](../.assets/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](one-reader-one-cache-per-session.md).
 
 ## At a glance
 
@@ -92,8 +92,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-conf-loading--one-reader-one-cache-per-session--meta.grid.md),
 [tree](../.assets/tree/adr-conf-loading--one-reader-one-cache-per-session--meta.tree.md) and
-[value-chain map](../.assets/chain/adr-conf-loading--one-reader-one-cache-per-session--meta.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-conf-loading--one-reader-one-cache-per-session--meta.chain.md), which hold the reason for every lit
+cell or group as of that build.
 
 - **Lens badge:** META, with "Supports ADR-CONF-LOADING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

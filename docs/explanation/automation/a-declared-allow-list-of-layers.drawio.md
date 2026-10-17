@@ -31,8 +31,8 @@ Glyphs: 3 named sets (mauve), 1 code unit (slate), 1 failure; 5 downward edges, 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png) draws, in the vocabulary of the diagram
-glyphs; what it means is in [the article](a-declared-allow-list-of-layers.md).
+This describes what the [diagram](../.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png) draws, in the vocabulary of
+the diagram glyphs; what it means is in [the article](a-declared-allow-list-of-layers.md).
 
 ## At a glance
 
@@ -95,8 +95,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md),
 [tree](../.assets/tree/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md) and
-[value-chain map](../.assets/chain/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md), which hold the reason for every lit cell or group as
-of that build.
+[value-chain map](../.assets/chain/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md), which hold the reason for every lit cell
+or group as of that build.
 
 - **Lens badge:** META, with "Supports ADR-AUTO-DEPM" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

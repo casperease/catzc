@@ -31,8 +31,8 @@ Glyphs: 1 ADR-only box, 4 environments (ADR-only, framed), 5 commits; 4 ADR-only
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](integrators-depend-on-an-occupant.md).
+This describes what the [diagram](../.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](integrators-depend-on-an-occupant.md).
 
 ## At a glance
 
@@ -92,8 +92,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.grid.md),
 [tree](../.assets/tree/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.tree.md) and
-[value-chain map](../.assets/chain/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.chain.md), which hold the reason for every lit cell
-or group as of that build.
+[value-chain map](../.assets/chain/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.chain.md), which hold the reason for every
+lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-DSGN-LIFE and ADR-FLOW-CD" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

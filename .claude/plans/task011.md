@@ -44,22 +44,24 @@ edits need a fresh pwsh; gates in the background under the time safeguard.
 2. Record D04 in `plan-module-model-closeout.md` and confirm `Copy-Automation.ps1` selects the full profile by default and does not copy
    .scriptanalyzer; adjust the default on its config type if the user chose otherwise. Check: `Copy-Automation.Tests.ps1` passes.
 3. Rule 6 code: read `languages.yml` `checks:` per language and `Test-Change`; if a language's checks are resolved only through the registry
-   there is nothing to build, and the step records the resolving function as the enforcement in the ADR's "How this is enforced" section;
-   if any command branches on a language name (grep `-eq 'powershell'`, `switch ($language)` in QualityGates), funnel it through the
-   registry, one file at a time. Check: a test names each handler id the rule lists; Test-AdrRegistry clean.
-4. Step 10 of prompt-module-model-2-implement.md, the infrastructure track: read the step; either `Get-CatzcModule -TrackType infrastructure`
-   returns the track from variants.yml with a test, or the step is recorded as out of scope in `plan-module-kinds-tracks.md` with the
-   reason. Check: the test passes, or the recorded line exists.
+   there is nothing to build, and the step records the resolving function as the enforcement in the ADR's "How this is enforced" section; if
+   any command branches on a language name (grep `-eq 'powershell'`, `switch ($language)` in QualityGates), funnel it through the registry,
+   one file at a time. Check: a test names each handler id the rule lists; Test-AdrRegistry clean.
+4. Step 10 of prompt-module-model-2-implement.md, the infrastructure track: read the step; either
+   `Get-CatzcModule -TrackType infrastructure` returns the track from variants.yml with a test, or the step is recorded as out of scope in
+   `plan-module-kinds-tracks.md` with the reason. Check: the test passes, or the recorded line exists.
 5. `docs/references/automation/catzc-base-modules.md`: run the reference generator that builds the sibling module pages (grep how
    `catzc-base-modulesystem.md` is produced: Build-Readme or the comments exporter); if it is hand-authored, write it in that shape and list
    it in `docs/references/automation/index.md`. Check: Test-Links, Test-Spelling clean; Format-Code leaves it unchanged.
 6. `Catzc.Types.csproj` first line: run `Format-FileMeta` then `Format-Code` on `automation/.internal/assets/Catzc.Types.csproj` in the
    background and diff the first line after each; the step that drops the processing-instruction name is fixed in its carrier
-   (`file-carriers.yml` `msbuild-project`, or `PropertyHead.cs`). Check: both runs leave the first line intact; `PropertyHead.Tests.ps1` passes.
+   (`file-carriers.yml` `msbuild-project`, or `PropertyHead.cs`). Check: both runs leave the first line intact; `PropertyHead.Tests.ps1`
+   passes.
 7. D05 minimaps: keep means nothing to do but tick; revert means `git checkout` of the slides is the user's. Check: git status under
    `docs/explanation/.assets` lists only the slides meant to change.
 8. The 36 Test-Comments issues and the Test-Glossary bare terms in plan text: list each file with its owning plan in that plan's open steps
-   (one line each); none fixed here (D15 for the plan text). Check: Test-Comments and Test-Glossary findings each appear in exactly one plan.
+   (one line each); none fixed here (D15 for the plan text). Check: Test-Comments and Test-Glossary findings each appear in exactly one
+   plan.
 9. The user runs the whole Test-Automation and reads the drawio.yml live-yaml test and RootConfig New-GitAttributes failures. Check: the
    run's report lists neither; recorded in the plan.
 10. Clear the module-model part of `waits_on` in `plan-config-defaults.md` and `plan-layers-vocabulary-rename-contracts.md`. Check: grep

@@ -31,8 +31,8 @@ Glyphs: 2 files (olive), 1 runner, 2 code units (slate), 1 actor; 5 flow edges; 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](the-runner-is-the-only-seam.md).
+This describes what the [diagram](../.assets/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](the-runner-is-the-only-seam.md).
 
 ## At a glance
 
@@ -94,8 +94,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.grid.md),
 [tree](../.assets/tree/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.tree.md) and
-[value-chain map](../.assets/chain/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.chain.md), which hold the reason for every
+lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-FLOW-CD-RUNNER" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

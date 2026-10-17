@@ -143,9 +143,9 @@ canonical encoding of this lifecycle (they render the grammar of [ADR-DSGN-VISUA
 
 **In `main-direct`, the client lands a commit by one fast push to main, and a push is never a history change.** Every commit reaches the
 server as a single push from the client, carrying the text-field message or `...` when the field is empty. The push fast-forwards the
-server's main; a rejected push (main moved) stops and reports, and the client integrates by hand. A force push, an amend of a pushed
-commit, and an administrator's history change are not supported (ADR-DSGN-LIFE#2). In `main-via-pr` the push is refused locally while
-standing on main/master, the `git_workspace` variant's one stop condition.
+server's main; a rejected push (main moved) stops and reports, and the client integrates by hand. A force push, an amend of a pushed commit,
+and an administrator's history change are not supported (ADR-DSGN-LIFE#2). In `main-via-pr` the push is refused locally while standing on
+main/master, the `git_workspace` variant's one stop condition.
 
 - [Fast push to main](#fast-push-to-main)
 
@@ -266,9 +266,9 @@ tooling stops and reports rather than rebasing, because rebasing builds the comm
 `Landed is not yet wrong`
 
 Pushing before verifying means the tip of main is often a commit nobody has judged. Calling that commit "dirty" would claim a failure that
-has not happened, so the model names it _landed_ and keeps "dirty HEAD" for the commit a stage actually failed. The distinction matters
-for the response: a landed head waits for its gate; a dirty head gets a fix-forward commit, and consumers stay on the verified point
-meanwhile ([ADR-DSGN-REMOTE#3](server-remote-integration.md#rule-adr-dsgn-remote3)).
+has not happened, so the model names it _landed_ and keeps "dirty HEAD" for the commit a stage actually failed. The distinction matters for
+the response: a landed head waits for its gate; a dirty head gets a fix-forward commit, and consumers stay on the verified point meanwhile
+([ADR-DSGN-REMOTE#3](server-remote-integration.md#rule-adr-dsgn-remote3)).
 
 ## Worked lifecycle examples
 

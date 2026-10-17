@@ -31,8 +31,8 @@ Glyphs: 1 file (olive), 6 code units (slate), 2 named sets (mauve), 1 failure; 6
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png) draws, in the vocabulary of
-the diagram glyphs; what it means is in [the article](get-aspect-feeds-globs-and-maps.md).
+This describes what the [diagram](../.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](get-aspect-feeds-globs-and-maps.md).
 
 ## At a glance
 
@@ -103,8 +103,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.grid.md),
 [tree](../.assets/tree/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.tree.md) and
-[value-chain map](../.assets/chain/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.chain.md), which hold the reason for every lit cell
-or group as of that build.
+[value-chain map](../.assets/chain/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.chain.md), which hold the reason for
+every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-DSGN-ASPECT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -31,8 +31,8 @@ Glyphs: 4 gates, 1 code unit (slate), 1 failure, 1 result; 5 flow edges, 5 failu
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](how-each-naming-rule-is-held.md).
+This describes what the [diagram](../.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png) draws, in the vocabulary of
+the diagram glyphs; what it means is in [the article](how-each-naming-rule-is-held.md).
 
 ## At a glance
 
@@ -97,8 +97,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-az-naming--how-each-naming-rule-is-held--governance.grid.md),
 [tree](../.assets/tree/adr-az-naming--how-each-naming-rule-is-held--governance.tree.md) and
-[value-chain map](../.assets/chain/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md), which hold the reason for every lit cell or group
-as of that build.
+[value-chain map](../.assets/chain/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md), which hold the reason for every lit
+cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AZ-NAMING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

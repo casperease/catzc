@@ -31,8 +31,8 @@ Glyphs: 2 code units (slate), 1 named set (mauve), 2 gates (neutral); 1 thick ed
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png) draws, in the vocabulary of
-the diagram glyphs; what it means is in [the article](one-gate-checks-the-raw-read-rule.md).
+This describes what the [diagram](../.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](one-gate-checks-the-raw-read-rule.md).
 
 ## At a glance
 
@@ -98,8 +98,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.grid.md),
 [tree](../.assets/tree/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.tree.md) and
-[value-chain map](../.assets/chain/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.chain.md), which hold the reason for every lit
-cell or group as of that build.
+[value-chain map](../.assets/chain/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.chain.md), which hold the reason for
+every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-FLOW-CD-DETECT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

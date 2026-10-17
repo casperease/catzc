@@ -122,11 +122,11 @@ never the raw HEAD.
 
 The verified history is monotonic and immutable: a commit that reached the verified point is a durable fact no later event un-makes
 (ADR-DSGN-LIFE#1, `ADR-PRIN-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by
-a newer commit that overtakes it; it is never cut back. Whatever happens, the tip is subject to change while the
-verified point is not. So the choice of integration base is a choice between a stable anchor and a moving one. Building on the stable anchor
-means a later fix to the tip is simply the next thing you pull; building on the moving tip means that same fix can rewrite the ground under
-your work and force a reconciliation you did not need to have. Integrating from verified is what makes "the dirty HEAD got fixed later" a
-non-event for everyone downstream.
+a newer commit that overtakes it; it is never cut back. Whatever happens, the tip is subject to change while the verified point is not. So
+the choice of integration base is a choice between a stable anchor and a moving one. Building on the stable anchor means a later fix to the
+tip is simply the next thing you pull; building on the moving tip means that same fix can rewrite the ground under your work and force a
+reconciliation you did not need to have. Integrating from verified is what makes "the dirty HEAD got fixed later" a non-event for everyone
+downstream.
 
 ### PR as authenticated ingress
 

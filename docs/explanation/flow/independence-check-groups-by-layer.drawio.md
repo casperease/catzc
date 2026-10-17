@@ -32,8 +32,8 @@ Edges: 4 flow, 1 failure path; 8 markers.
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](independence-check-groups-by-layer.md).
+This describes what the [diagram](../.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](independence-check-groups-by-layer.md).
 
 ## At a glance
 
@@ -96,8 +96,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.grid.md),
 [tree](../.assets/tree/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.tree.md) and
-[value-chain map](../.assets/chain/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.chain.md), which hold the reason for every lit
-cell or group as of that build.
+[value-chain map](../.assets/chain/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.chain.md), which hold the reason
+for every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

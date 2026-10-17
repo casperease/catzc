@@ -31,9 +31,8 @@ Glyphs: 4 code units (slate), 1 ADR-only box, 2 gates; 5 flow edges; 7 markers; 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in
-[the article](two-test-files-check-the-address-rules.md).
+This describes what the [diagram](../.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png) draws, in
+the vocabulary of the diagram glyphs; what it means is in [the article](two-test-files-check-the-address-rules.md).
 
 ## At a glance
 
@@ -97,8 +96,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-conf-addressing--two-test-files-check-the-address-rules--governance.grid.md),
 [tree](../.assets/tree/adr-conf-addressing--two-test-files-check-the-address-rules--governance.tree.md) and
-[value-chain map](../.assets/chain/adr-conf-addressing--two-test-files-check-the-address-rules--governance.chain.md), which hold the reason for every
-lit cell or group as of that build.
+[value-chain map](../.assets/chain/adr-conf-addressing--two-test-files-check-the-address-rules--governance.chain.md), which hold the reason
+for every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AUTO-ENVVAR and ADR-CONF-ADDRESSING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -32,8 +32,8 @@ Edges: 2 flow, 2 failure paths; 7 markers.
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](declare-or-add-folder-gate-names-overlaps.md).
+This describes what the [diagram](../.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png) draws, in
+the vocabulary of the diagram glyphs; what it means is in [the article](declare-or-add-folder-gate-names-overlaps.md).
 
 ## At a glance
 
@@ -97,8 +97,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.grid.md),
 [tree](../.assets/tree/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.tree.md) and
-[value-chain map](../.assets/chain/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.chain.md), which hold the reason for every
-lit cell or group as of that build.
+[value-chain map](../.assets/chain/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.chain.md), which hold the reason
+for every lit cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

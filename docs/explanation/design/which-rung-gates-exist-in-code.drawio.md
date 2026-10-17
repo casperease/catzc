@@ -31,8 +31,8 @@ Glyphs: 8 commits, 3 gates, 4 ADR-only (3 gates, 1 runner); 4 flow, 8 ADR-only, 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](which-rung-gates-exist-in-code.md).
+This describes what the [diagram](../.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](which-rung-gates-exist-in-code.md).
 
 ## At a glance
 
@@ -102,8 +102,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-dsgn-life--which-rung-gates-exist-in-code--governance.grid.md),
 [tree](../.assets/tree/adr-dsgn-life--which-rung-gates-exist-in-code--governance.tree.md) and
-[value-chain map](../.assets/chain/adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md), which hold the reason for every lit
+cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-DSGN-LIFE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

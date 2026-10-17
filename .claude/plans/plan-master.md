@@ -64,60 +64,29 @@ stay the durable record; task files and this master are derived from them and ca
 - T010 -> task010.md (open; gate and ADR now, CLAUDE.md wording after T009): ADR-REPO-PLANS with nine rules, stable-locator rule in
   ADR-REPO-FOLDERS, the PowerShell naming rule in ADR-REPO-VOCAB, the Test-Plans gate, plan-clear registry, CLAUDE.md line 145.
 
-- T011 -> task011.md (open; D01 to D05 first, steps 3, 4, 6 can start): module model close-out, rule 6 code, infrastructure track,
-  the Modules reference page, the csproj first-line imprint, waits_on cleared.
+- T011 -> task011.md (open; D01 to D05 first, steps 3, 4, 6 can start): module model close-out, rule 6 code, infrastructure track, the
+  Modules reference page, the csproj first-line imprint, waits_on cleared.
 - T012 -> task012.md (open; after T011): kind becomes role through the registry and generators; tracks.md rule 19 one primary language;
   WorldMapBuilder links; Test-ShippedTypes; the namespace line.
-- T013 -> task013.md (open): minimal robots Phase 5 measure, the seven shape rules reconciled with ADR-REPO-AGENTS 6 to 10, the three
-  plans deleted. The waves maker question is already answered in the agent file.
+- T013 -> task013.md (open): minimal robots Phase 5 measure, the seven shape rules reconciled with ADR-REPO-AGENTS 6 to 10, the three plans
+  deleted. The waves maker question is already answered in the agent file.
 - T014 -> task014.md (open; after T011): config defaults Phase 1, VariantsConfig constants, getters lose -Default.
 - T015 -> task015.md (open; after T006 and T014): the .catzc fragment, config without a shipped file, Build-ConfigDefaultsContract.
 - T016 -> task016.md (open; after T015): every typed config into a posture, the NoLiteralDefault analyzer rule, five ADR amendments, the
   assert ladder, three glossary terms.
 
-### T017 Layers P0 and P1 (plan-layers-vocabulary-rename-contracts, high; P1 may run beside the module model, Q38)
-
-- P0 baseline in the background: Test-GeneratedFiles, Test-Links, Test-Contracts, Test-WorldMap; the two checks on a copy (hook rebuild edge
-  fact). Check: the baseline report.
-- P1 doctrine: ADR-AUTO-LAYERS and ADR-AUTO-IMPORTER new; glossary automation, importer, command, bare engine, language, module, role, run
-  mode, layer, pwsh; the four term collisions; languages.yml engines renamed formatters; Test-AdrEngineNeutrality extended. Check:
-  Test-Glossary, Test-AdrRegistry, Test-Terminology clean (P1 stop).
-
-### T018 Layers P2 funnel (after T011)
-
-- One bootstrap constant; about 45 sites onto Get-CatzcModulesRoot and Get-Track; S4 identifiers renamed; guard rule against track-root
-  literals. Check: the guard gate clean (P2 stop).
-
-### T019 Layers P3 classification; P4 flip waits for the user's go (D10)
-
-- P3: docs classified page by page (pwsh topic moves, abstract stays); report and stop. Check: the classification table.
-- P4: the folder move automation to pwsh by git mv in the user's quiet window; .catzc/pwsh/; out/pwsh/built and packages. Check: full
-  baseline green again. blocked_on: the user's explicit go.
-- P6 late rename of ci-automation names the same day the user re-points the external bindings. blocked_on: P4.
-
-### T020 Command contracts (plan-layers-vocabulary-rename-contracts P5 to P7)
-
-- ADR-REPO-CMDCONTRACT new; <\Module>/<\Verb-Noun>.command.yml, grammar shape A, closed type set; the checker; Test-Contracts covers the
-  fifth asset kind (unknown suffix settled on a copy first); the pilot list proposed for approval (the cats entry point's commands). Check:
-  Test-Contracts; the pilot contracts validate.
-- Public API (F6, S5): most of the 439 public functions become internal, after the pilot. Check: Test-Contracts on the frozen set.
-
-### T021 File head: class selectors and the schema (plan-file-head-immutable-edges-classes, medium-high)
-
-- Class selectors in file-meta.yml, one kind at a time (Q50). Check: that kind's processor test; Test-FileMeta clean.
-- Intended kind overlaps written; FileKindReachability strengthened so a shadowed kind fails (Q41). Check: the kinds tests.
-- head.schema.json and head.sample.yml gain tracktype and vendor (hand-written, Q39). Check: Format-FileMeta.Contract.Tests.
-- Test-Markdownlint findings in docs/adr/repository/file-meta.md. Check: clean on that file.
-
-### T022 File head leftovers
-
-- note as a glossary term (Q53). Check: Test-Glossary.
-- ADR-AUTO-ASSETDEP re-read; asset kind confirmed or moved (Q54). Check: the kinds tests.
-- Formatting ADR on automation/.compiled followed (Q47, D13): Format-Code skips the folder or the ADR is amended. Check: Test-Formatting
-  names no .compiled file.
-- module-types.yml pwsh-folder definition typo "under ex. automation" (present 2026-10-17; Q46). Check: grep finds nothing.
-- Test-Spelling run; catzc_bundle added to coined words only if flagged. Check: the report.
-- Test-FileMeta, Test-Glossary, Test-Contracts, Test-GeneratedFiles one by one in the background; findings attributed. Check: reports read.
+- T017 -> task017.md (open): layers P0 baseline and P1 doctrine: ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ten glossary terms, the four term
+  collisions, engines renamed formatters, Test-AdrEngineNeutrality.
+- T018 -> task018.md (open; after T011): layers P2 funnel: one bootstrap constant, about 45 sites onto the resolvers, S4 identifiers, the
+  NoTrackRootLiteral guard.
+- T019 -> task019.md (open; P4 and P6 on the user's go, D10): P3 classification table and ADR wording drafts; P4 the flip by the user; P5
+  retired-phrase guards; P6 pipeline names with the user's external re-pointing.
+- T020 -> task020.md (open; never inside the P4 window): command contracts C1 to C6: ADR-REPO-CMDCONTRACT, the Command asset kind and
+  checker, pilot contracts, reader, cats validation, public functions made internal.
+- T021 -> task021.md (open; after T007): class selectors one kind at a time with a zero-change dry-run proof, the overlaps list and the
+  strengthened reachability test, head.schema.json with tracktype and vendor.
+- T022 -> task022.md (open; D13 for one step): file head leftovers: note term, ASSETDEP reading, .compiled formatting, module-types.yml
+  typo, spelling, four gate reports attributed.
 
 ### T023 Assets beside articles and the gallery PDF (plan-assets-beside-articles, plan-assets-gallery-pdf)
 

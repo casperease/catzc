@@ -31,8 +31,8 @@ Glyphs: 3 files (olive), 3 code units (slate), 2 results (green); 5 flow edges, 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](globs-projects-and-three-consumers-read.md).
+This describes what the [diagram](../.assets/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png) draws, in
+the vocabulary of the diagram glyphs; what it means is in [the article](globs-projects-and-three-consumers-read.md).
 
 ## At a glance
 
@@ -94,8 +94,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.grid.md),
 [tree](../.assets/tree/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.tree.md) and
-[value-chain map](../.assets/chain/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.chain.md), which hold the reason for every
-lit cell or group as of that build.
+[value-chain map](../.assets/chain/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.chain.md), which hold the reason
+for every lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -31,8 +31,8 @@ Glyphs: 4 gates (neutral), 2 code units (slate), 1 failure; 5 flow edges, 4 fail
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](four-gates-hold-the-session-rule.md).
+This describes what the [diagram](../.assets/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](four-gates-hold-the-session-rule.md).
 
 ## At a glance
 
@@ -95,8 +95,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-az-datamod--four-gates-hold-the-session-rule--governance.grid.md),
 [tree](../.assets/tree/adr-az-datamod--four-gates-hold-the-session-rule--governance.tree.md) and
-[value-chain map](../.assets/chain/adr-az-datamod--four-gates-hold-the-session-rule--governance.chain.md), which hold the reason for every lit cell or
-group as of that build.
+[value-chain map](../.assets/chain/adr-az-datamod--four-gates-hold-the-session-rule--governance.chain.md), which hold the reason for every
+lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AZ-DATAMOD and ADR-AZ-NAMING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

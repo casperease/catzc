@@ -31,9 +31,8 @@ Glyphs: 2 code units (slate), 1 result (green), 2 gates (neutral rhombi), 2 fail
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in
-[the article](import-materialises-two-gates-name-the-fix.md).
+This describes what the [diagram](../.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png) draws, in
+the vocabulary of the diagram glyphs; what it means is in [the article](import-materialises-two-gates-name-the-fix.md).
 
 ## At a glance
 
@@ -98,8 +97,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.grid.md),
 [tree](../.assets/tree/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.tree.md) and
-[value-chain map](../.assets/chain/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.chain.md), which hold the reason for every
-lit cell or group as of that build.
+[value-chain map](../.assets/chain/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.chain.md), which hold the reason
+for every lit cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-REPO-ROOTCFG" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

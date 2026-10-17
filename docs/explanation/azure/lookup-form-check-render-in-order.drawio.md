@@ -31,8 +31,8 @@ Glyphs: 6 code units (slate), 1 gate, 1 result, 2 failures; 7 flow edges, 5 fail
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png) draws, in the vocabulary of
-the diagram glyphs; what it means is in [the article](lookup-form-check-render-in-order.md).
+This describes what the [diagram](../.assets/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](lookup-form-check-render-in-order.md).
 
 ## At a glance
 
@@ -96,8 +96,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-az-naming--lookup-form-check-render-in-order--implementation.grid.md),
 [tree](../.assets/tree/adr-az-naming--lookup-form-check-render-in-order--implementation.tree.md) and
-[value-chain map](../.assets/chain/adr-az-naming--lookup-form-check-render-in-order--implementation.chain.md), which hold the reason for every lit cell
-or group as of that build.
+[value-chain map](../.assets/chain/adr-az-naming--lookup-form-check-render-in-order--implementation.chain.md), which hold the reason for
+every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-AZ-NAMING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.
