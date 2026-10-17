@@ -7,7 +7,6 @@ catzc:
     name: install-vs-code-extension
     filetype: ps1
     kind: function
-    subkind: writer
     language: powershell
     track: automation
     tracktype: modules
