@@ -88,110 +88,25 @@ stay the durable record; task files and this master are derived from them and ca
 - T022 -> task022.md (open; D13 for one step): file head leftovers: note term, ASSETDEP reading, .compiled formatting, module-types.yml
   typo, spelling, four gate reports attributed.
 
-### T023 Assets beside articles and the gallery PDF (plan-assets-beside-articles, plan-assets-gallery-pdf)
+- T023 -> task023.md (open; D07 for one step): assets leftovers: gallery --assets lookup or retirement, the FileCarrierResolver test, the
+  old folder removed, the skill line, both plans deleted.
+- T024 -> task024.md (open; ADR pair after the first measured run): Assert-Wait defaults on TimeoutsConfig, the suite file green, the
+  110 ms source, help, ADR-AUTO-FAILFAST#8 and ADR-PWSH-ASSERT#7, watchpoints retired into limits.
+- T025 -> task025.md (open; D09 for one step): lazy types Phases 3 to 5: prompt hook, L1 test, stat-stamp memo, the ADR rule and exception,
+  comment pages, bundle test, eager path deleted.
+- T026 -> task026.md (open; D16): ADR-AUTO-MATERIAL with seven rules, registry, dora-explains, glossary term.
+- T027 -> task027.md (open; after T007 and T008): HELP#3 relaxed, TryParse test, five gates, ledger rebuilt, F8 bold rules, Phase 1 applied
+  slice by slice with verification, Phase 2 per D1 to D5.
+- T028 -> task028.md (open; deletions are the user's runs): six out/ areas registered in Catzc.Base.Reports output-formats.yml, the prune in
+  Clear-Output, OUTDIR amendments, the two probe batches, five tool candidates placed.
+- T029 -> task029.md (open; D08, the user's two runs): the per-engine cache stamp with two tests, shard re-check, next three files by cost.
+- T030 -> task030.md (open): comments.yml page entries for .scriptanalyzer and .internal, .vendor excluded, the export run, two ADR sentences.
+- T031 -> task031.md (open; D12): Build-RootConfig and Build-GitKeep input sets, Sync-SessionTools skip, two janitors profiled, re-measure.
+- T032 -> task032.md (open): the four Build-RootConfig fixture-head tests, PropertyHead docs to the XML form, the user's keybinding and run.
+- T033 -> task033.md (open; the user's commit, D11): unboxing closed: three leftover checks, two gate findings, P4 and P5 only on a go.
+- T034 -> task034.md (open; the user's full run): bounded enumeration level-2 rerun, then plan and prompt deleted.
+- T035 -> task035.md (open; D06): idle compaction scope, then the plan deleted.
+- T036 -> task036.md (open; runs after every batch and last): the closing sweep, done plans deleted with one line each, the master and
+  task files deleted when every chunk is done.
 
-- gallery_pdf.py --assets learns the beside-the-article lookup or the mode is retired from STYLE.md. Check: a run on
-  docs/explanation/.assets includes descriptions, or the mode is gone.
-- FileCarrierResolver shipped-registry test (test-file exclusion line). Check: that test passes.
-- Remove docs/.assets/explanation (two gitignored PDFs and an empty chain/ left). Check: the folder is gone.
-- .claude/skills/drawio-waves/SKILL.md names --assets (line 44 does not yet). Check: the line says --assets.
-- --parts <\n> split: D07; if yes, a flag and a run under 30 MiB per part. Check: recorded or built.
-- Fixture run (two PNGs, one companion) if the kit gains a test home. Check: page count 3.
-- Then delete both plans; one line each in value-of-plan.md.
-
-### T024 Assert-Wait (plan-assert-wait, medium)
-
-- wait map (seconds, millisecs; defaults 1 and 1) on TimeoutsConfig.cs with tests; literals in Assert-Wait.ps1 replaced by the config read.
-  Check: TimeoutsConfig.Tests and Assert-Wait.Tests pass (fresh pwsh).
-- Test-Automation.Tests.ps1 green (its failure is a peer's test name and "bash and zsh" wording in seven plans). Check: passes.
-- Source of the fixed about 110 ms first-tick lateness: -DiagnoseBlocking and -DiagnoseLoadTime side by side. Check: named in the plan.
-- Function help beyond the head blocks. Check: Test-Links.
-- After the first measured run: ADR-AUTO-FAILFAST#8 and ADR-PWSH-ASSERT#7; each watchpoint that found a block becomes a timeouts.yml limit,
-  the rest deleted. Check: Build-AdrIndex; no Assert-Wait call left without a finding.
-
-### T025 Lazy types load Phases 3 to 5 (plan-lazy-types-load, medium-high)
-
-- Phase 3 leftovers: console prompt hook; L1 test "not loaded after import" through the real importer; janitors decision (D09).
-- Phase 4: stat-stamp memo in front of Get-CombinedTypeHash (hash 155 ms dominates). Check: a warm import measures the saving.
-- Phase 5: ADR rule (importer never loads the DLL; first use does), the default-declaration exception recorded, comment pages, L1 tests,
-  bundle lazy-install test, eager path deleted. Check: Test-Links, Test-AdrRegistry.
-
-### T026 ADR-AUTO-MATERIAL (plan-materialization-of-knowledge, medium; choices decided Q66 to Q70, D16)
-
-- Write the ADR next to ADR-AUTO-CACHE from the decided section; adrs.yml; dora-explains; index; glossary entry contrasting cache and
-  persistence. Check: Test-AdrRegistry, Test-Glossary, Test-Links.
-- The sha-marker companion memory plan says its marker is a commit-materialized resource. Check: its text names materialization.
-
-### T027 ADR link cleanup (plan-adr-link-cleanup-prose-to-pages, medium; after T007 and T008)
-
-- ADR-REPO-HELP#3 relaxed and its gate (only a bare citation line reported). Check: Test-Links, Test-AdrRegistry; the gate reports a bare
-  line.
-- TryParse regression test (Q58); the five gates on the usage code (Q59). Check: the test passes; gates clean.
-- Ledger rebuilt without .unordered rows. Check: about 4,900 rows.
-- F8: every rule statement in the principles ADRs bold. Check: Test-Glossary finds every defining rule.
-- Steps 1.3 apply and 1.4 verify, one slice at a time; the two narrow fixes at no-gate-checks-rules-one-and-four.md lines 62 and 63. Check:
-  Test-Links clean.
-- Phase 2 per D1, one file at a time. Check: Test-Comments, Test-FileMeta clean.
-
-### T028 Output artifacts (plan-out-artifacts, medium; decided Q71 to Q74)
-
-- output-formats.yml registers the six areas with their numbers; sessions under out/sessions/<\session>/; time-safeguard.log never pruned.
-  Check: config tests; Test-Links.
-- The prune, only in Clear-Output, keeps N newest per registered run area. Check: its Pester file.
-- ADR-REPO-OUTDIR amendments. Check: Test-AdrRegistry, Test-Links.
-- Batch one (222 probes) and batch two (13) deletions: the user runs out/delete-probes-batch1.ps1. Check: listed files gone, keep list
-  intact.
-- The five tool candidates become open steps in their owning plans. Check: a grep finds each name in an open step.
-
-### T029 Test run budget (plan-test-run-budget, medium)
-
-- ADR-REPO-FORMAT sentence: an engine's cache stamp holds its own tool pin and settings files only (D08). Check: the sentence.
-- The stamp change with two tests (unrelated pin leaves another engine warm; every declared input invalidates). Check: Test-Formatting tests
-  cold and warm.
-- Invoke-TestFile no longer shares a shard with Test-Formatting after two runs. Check: the shard table.
-- Next three files by cost through test-optimization, one at a time. Check: same assertions, lower time.
-
-### T030 Format step moves comments (plan-format-step-moves-comments, low-medium)
-
-- Verified 2026-10-17: languages.yml top-level imprint lists comments and file-meta, so the step loop exists and the comments step is wired;
-  the first open step closes with that fact.
-- comments.yml pages gain automation/.scriptanalyzer and automation/.internal with reasons; exclude .vendor. Check: the config type accepts
-  a dot-prefixed source; Format-Code moves the long header; Test-Comments clean on the dot-folders.
-- One sentence each in ADR-REPO-FORMAT#8 and ADR-REPO-COMMENTS#5 if missing. Check: Test-Links.
-
-### T031 Skip unchanged generators (plan-skip-unchanged-generators, medium)
-
-- Build-Readme: D12; not skippable unless the README meta block gains the stamp. Check: recorded.
-- Build-RootConfig and Build-GitKeep: full input set or a stamp over the scanned tree. Check: a missed input is proven impossible by test.
-- Sync-SessionTools: its own skip check. Check: a warm run skips.
-- Invoke-TypeCacheJanitor and Invoke-AgentHookJanitor profiled. Check: numbers in the plan.
-- New files through Format-FileMeta, CatzcFiles regenerated, meta gates. Check: Test-FileMeta, Test-GeneratedFiles.
-- Done when out/profile-janitors.ps1 is re-measured and every generator is wired or recorded.
-
-### T032 Root-config fixture tests and the PropertyHead docs (plan-fast-push-followups, plan-csproj-xml-head)
-
-- Build-RootConfig.Tests.ps1 lines 66, 71, 189, 206 see with_body_sha and repo_status in a generated head: find the change that moved the
-  head; fix tests or head, one file at a time. Check: the file passes.
-- PropertyHead reference page and the Format-PropertyMetaHead and Get-PropertyMetaState help describe the XML form. Check: Test-Links.
-- By hand: a keybinding for the Push dirty task; one real Push-Dirty run. The user's.
-- The Test-AdrRegistry ADR-AI finding closes with T005; the Test-Glossary findings in plans are D15.
-
-### T033 Unboxing close (plan-unboxing, low-medium)
-
-- .compiled holds one DLL (Catzc.Types.1d35234a, verified 2026-10-17); the commit is the user's. Check: git status clean for them.
-- The three leftover checks of prompt-unboxing-continue.md in a fresh session; "full suite" wording and markdownlint in the article;
-  Format-Links on TypeShape.cs. Check: the report.
-- P4 and P5 only on the user's go (D11). Check: the 15 percent bar.
-
-### T034 Bounded enumeration close (plan-bounded-folder-enumeration)
-
-- Level-2 gate rerun in the background; fix only this feature's findings. Check: report shows the three tags accepted.
-- On the user's green full run: delete the plan and its prompt. Check: both gone; a line in value-of-plan.md.
-
-### T035 Idle compaction (plan-idle-compaction, low)
-
-- D06; if checked in: move the line to .claude/settings.json. Then delete the plan. Check: no file in .claude/plans names it.
-
-### T036 Closing sweep
-
-- Every plan with no open step is deleted and value-of-plan.md keeps one "deleted, why" line; Test-Links clean on the folder.
+Every chunk is now a task file. Numbers 037 to 050 are free for chunks that new plans or pastes bring; 050 is the cap.
