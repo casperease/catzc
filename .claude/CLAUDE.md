@@ -144,8 +144,9 @@ capability reads the AI agent contract first, [ADR-AI](../docs/adr/repository/ai
   the old shape. No legacy/dead code parked in the tree, no versioned variants (`*V2`, `*_old`, `legacy/`), no long-lived version branches —
   trunk-based, one source of truth. All history lives in `git log`/`git blame`, never in retained files, commented-out blocks, or "we used
   to" notes (docs read present-tense too).
-- **Plans go in `out/`**: when asked to "make a plan", write a markdown file to `{repo}/out/plan-<topic>.md` (the gitignored output dir) —
-  do not use plan mode or show a selection menu. The user wants a file to review.
+- **Plans are authored in `.claude/plans/plan-<topic>.md`** (`ADR-REPO-PLANS`, [plans](../docs/adr/repository/plans.md)): when asked to
+  "make a plan", write that file — do not use plan mode or show a selection menu; the user wants a file to review. A plan holds the delta
+  only, `plan-master.md` and the `taskNNN.md` files are derived from the plans, and a done plan is deleted.
 - **Run PowerShell yourself — and actually run a gate before claiming it passed**: `pwsh` (7.4+) is available and permitted via the Bash
   tool, so run the importer, Pester, `Test-Automation`, and any `.ps1` directly — e.g. `pwsh -NoProfile -Command ". ./importer.ps1; <cmd>"`
   or `pwsh -NoProfile -File out/<name>.ps1`. Remember the importer is **dot-sourced** and C# type edits need a fresh `pwsh` process to

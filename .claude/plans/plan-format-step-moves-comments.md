@@ -8,7 +8,7 @@ plan:
     [
       automation/Catzc.Base.QualityGates,
       automation/Catzc.Base.Languages/configs/languages.yml,
-      automation/Catzc.Base.Docs/configs/comments.yml,
+      automation/Catzc.Base.QualityGates/configs/comments.yml,
     ]
 catzc:
   immutable:

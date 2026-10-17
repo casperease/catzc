@@ -10,7 +10,6 @@ plan:
       automation/Catzc.Base.Overlay,
       automation/Catzc.Base.Contracts,
       automation/Catzc.Base.Config,
-      .catzc,
       docs/adr/automation,
     ]
 catzc:

@@ -19,6 +19,11 @@ catzc:
     vendor: claude
     module: ".claude"
     moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-FOLDERS#12
+      - ADR-REPO-PLANS#8
+      - ADR-REPO-VOCAB#9
 ---
 
 # Master: every open step of every plan, in one executable order
@@ -33,8 +38,8 @@ stay the durable record; task files and this master are derived from them and ca
   carries it, and the plan keeps the checkbox until the work lands in the tree.
 - A task file is `taskNNN.md`, 001 to 050 at most, one chunk each: head (`task:` id, status, plans, value, blocked_on, targets), then
   numbered steps. Every step names one file, the exact edit, and the check that proves it. One file per step, verified before the next.
-- Task numbers are execution order. This is the one place a file name carries an order; the stable-locators rule (ADR-REPO-PLANS, to be
-  written in T010) governs plan names, and task files are disposable executables, not plans.
+- Task numbers are execution order. This is the one place a file name carries an order (ADR-REPO-PLANS#8, ADR-REPO-FOLDERS#12); the
+  stable-locator rule governs plan names, and task files are disposable executables, not plans.
 - Clear and restart: delete `task*.md`, reset every pointer line here to its chunk from the source plans, re-stamp `reviewed`. Nothing else
   is touched. The plans themselves are never deleted by a clear.
 - The planner edits only this folder. It runs no gate and no code; a check named in a step is for the executor.
@@ -61,8 +66,9 @@ stay the durable record; task files and this master are derived from them and ca
   code files, 299 markdown mentions) and the deletion script `out/delete-unordered-15-10-2026.ps1` for the 20 finished plans.
 - T009 -> task009.md (open; after T008): tracks.md rule 17 rewritten, four glossary terms, Import-RepositoryWithHistory with tests, the
   sorting how-to.
-- T010 -> task010.md (open; gate and ADR now, CLAUDE.md wording after T009): ADR-REPO-PLANS with nine rules, stable-locator rule in
-  ADR-REPO-FOLDERS, the PowerShell naming rule in ADR-REPO-VOCAB, the Test-Plans gate, plan-clear registry, CLAUDE.md line 145.
+- T010 -> task010.md (done 2026-10-17; the one clause left, citing the landing-zone terms in CLAUDE.md, follows T009): ADR-REPO-PLANS
+  with nine rules, ADR-REPO-FOLDERS#12, ADR-REPO-VOCAB#9, the Test-Plans gate and its registry, plan-clear's checks, the CLAUDE.md plans
+  line.
 
 - T011 -> task011.md (open; D01 to D05 first, steps 3, 4, 6 can start): module model close-out, rule 6 code, infrastructure track, the
   Modules reference page, the csproj first-line imprint, waits_on cleared.

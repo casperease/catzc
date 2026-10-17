@@ -12,9 +12,10 @@ catzc:
     tracktype: documentation
   edges:
     defines:
-      - ADR-REPO-FOLDERS#{1-11}
+      - ADR-REPO-FOLDERS#{1-12}
     cites:
       - ADR-REPO-CONTRACT#{2,10}
+      - ADR-REPO-PLANS#8
     links:
       - docs/adr/automation/BCL/native-csharp-types.md
       - docs/adr/automation/bash/bash-test-artifacts.md
@@ -35,6 +36,7 @@ catzc:
       - docs/adr/repository/dedicated-output-directory.md
       - docs/adr/repository/generated-readmes.md
       - docs/adr/repository/generated-root-configs.md
+      - docs/adr/repository/plans.md#rule-adr-repo-plans8
 ---
 
 # ADR: Conventional folders — every folder in the repository, by convention
@@ -145,6 +147,15 @@ it stays tracked before any contract exists. What the contracts _are_ — the bi
 directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-REPO-CONTRACT`).
 
 - [Level 1: Repository root](#level-1-repository-root)
+
+### Rule ADR-REPO-FOLDERS:12
+
+A file name is a **stable locator**: it never encodes an order, a rank or a priority. Sorting is an overlay, an index or a head key, never a
+prefix, and the delivered default sort of any folder is the semantic name order. The one exception is a file whose name is an execution
+order by its own ADR: the task files of the plans folder ([ADR-REPO-PLANS#8](plans.md#rule-adr-repo-plans8)), which are derived and
+rebuilt, never authored.
+
+- [Stable locators](#stable-locators)
 
 ## Context
 
@@ -464,6 +475,14 @@ folder must exist.
 | Passing `-PrivatePath` or similar parameters to Bootstrap           | Adds indirection; the path is always `'private'`                                                     | Hardcode the name; remove the parameter            |
 | A `module.yml` mapping folder names to meanings                     | Second source of truth that drifts from the actual structure                                         | Remove the mapping; use the convention directly    |
 | Putting output files in `assets/`                                   | Mixes transient output with source — see [dedicated-output-directory](dedicated-output-directory.md) | Write to `out/`                                    |
+
+### Stable locators
+
+A name that carries a rank, `01-first.md` or `plan-A-urgent.md`, is wrong the moment the order changes, and every link to it breaks with
+the rename. A name that says what the file is stays true for the file's whole life, and the order a reader wants today is a view: a table
+that sorts by value, an index, a head key a tool reads. The folders of this repository therefore sort by name, and the name means the
+thing. The task files of the plans folder are the deliberate exception: their number is the execution order of a derived list that is
+cleared and rebuilt, so no link and no author depends on it ([plans](plans.md#rule-adr-repo-plans8)).
 
 ### How this is enforced
 

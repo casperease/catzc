@@ -527,3 +527,37 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       catzc: catzc is the source-level name every module, namespace and path carries; cats is the friendly form a person reads and says.
+  slide file:
+    key: slide_file
+    domain: repository
+    defined_by: ADR-REPO-SLIDES#1
+    short:
+      One markdown file per slide, `<stem>.slide.md`, in a deck folder under docs/explanation; its level-one heading is the title, each
+      level-two heading a field, and its head names the pattern, the deck and the order.
+    realized_by: { kind: prose-only }
+    contrasts:
+      deck file: The deck file names the deck's title and sections; a slide file is one slide of it.
+  deck file:
+    key: deck_file
+    domain: repository
+    defined_by: ADR-REPO-SLIDES#1
+    short: The `deck.md` of a deck folder — the deck's title and its sections, beside the slide files it gathers.
+    realized_by: { kind: prose-only }
+    contrasts:
+      slide file: A slide file is one slide of a deck; the deck file names the deck and its sections and holds no slide.
+  field:
+    key: field
+    domain: repository
+    defined_by: ADR-REPO-SLIDES#1
+    short: One level-two heading of a slide file and the text under it, filled into the placeholder of the same name in the slide's pattern.
+    realized_by: { kind: prose-only }
+    avoid:
+      - { phrase: slot (of a slide), say: field }
+  pattern:
+    key: pattern
+    domain: repository
+    defined_by: ADR-REPO-SLIDES#2
+    short:
+      One `.claude/slides/patterns/<name>.html` file — a section in the slide format whose placeholders name the fields it takes and which
+      are required; the layout of one kind of slide.
+    realized_by: { kind: prose-only }

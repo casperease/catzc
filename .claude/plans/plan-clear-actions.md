@@ -38,7 +38,7 @@ skipped and named in the report.
   sibling plan names); `Test-Links` reports "No links issues found." on all six files (reports `out/test-links/20261017-053922` and
   `20261017-054019` to `-6`). The remaining `out/plan-*.md` mentions are backticked provenance prose in the "Carried" headings, not links.
 
-## Steps
+## Open steps
 
 - [x] `plan-minimal-robots.md`: judged 2026-10-17 (task002), verdict keep: head keys present (status, value, reviewed, targets, siblings),
       three open steps each with a check, its one `out/` path (`out/drawio/token-count.md`) exists, no provenance path to an absent file;
@@ -88,40 +88,30 @@ skipped and named in the report.
       plan-csproj-xml-head, plan-idle-compaction, plan-assets-gallery-pdf in the meta table; plan-assert-wait in the feature table), each
       head's `value` matching its row; the next-funnel line under "Decision round". Check: `ls plan-*.md` against the table finds no plan
       without a row; `Test-Links` clean (report in task003).
-- [ ] After the user's level-2 gate run: delete `plan-bounded-folder-enumeration.md` and `prompt-bounded-folder-enumeration-continue.md`.
-- [ ] `out/test-links/20261016-2012*`: the 36 report folders of the verdict pass are gate output; clear them when the user agrees.
+- [ ] After the user's level-2 gate run: delete `plan-bounded-folder-enumeration.md` and `prompt-bounded-folder-enumeration-continue.md`
+      (check: both files gone, `Test-Links` clean on `.claude/plans`).
+- [ ] `out/test-links/20261016-2012*`: the 36 report folders of the verdict pass are gate output; clear them when the user agrees (check:
+      `ls out/test-links` lists no `20261016-2012*` folder).
 
 ## Vocabulary steps, one per flagged file
 
 `Test-Glossary` (report `out/test-glossary/20261017-012431`, 196 issues) flags bare terms in these files ("full suite" for "all tests",
-"gate", "phase", "layer", "source", "slot"). No sweep: each file is fixed when it is next edited for its own reason, and its step is ticked
-then. Check for every step: the next `Test-Glossary` run names no line in that file.
+"gate", "phase", "layer", "source", "slot"). No sweep: each file is fixed when it is next edited for its own reason.
 
-- [ ] `plan-layers-vocabulary-rename-contracts.md` (24)
-- [ ] `questionnaire-2026-10-16.md` (18)
-- [ ] `plan-module-kinds-tracks.md` (16)
-- [ ] `decisions-2026-10-16.md` (15)
-- [ ] `plan-config-defaults.md` (9)
-- [ ] `value-of-plan.md` (7)
-- [ ] `plan-out-artifacts.md` (7)
-- [ ] `questionnaire-fundamental-2026-10-16.md` (6)
-- [ ] `questionnaire-fundamental-2-2026-10-16.md` (6)
-- [ ] `plan-adr-link-cleanup-prose-to-pages.md` (6)
-- [ ] `plan-plans-body-sha-landing-zone.md` (5)
-- [ ] `plan-assert-wait.md` (4)
-- [ ] `prompt-module-model-2-implement.md` (3)
-- [ ] `plan-minimal-robots-capabilities.md` (3)
-- [ ] `plan-file-head-immutable-edges-classes.md` (3)
-- [ ] `plan-bounded-folder-enumeration.md` (3)
-- [ ] `prompt-k8s-kinds-2-implement.md` (2)
-- [ ] `prompt-bounded-folder-enumeration-continue.md` (2)
-- [ ] `plan-unboxing.md` (2)
-- [ ] `plan-minimal-robots-agents.md` (2)
-- [ ] `plan-format-step-moves-comments.md` (2)
-- [ ] `prompt-unboxing-continue.md`, `prompt-module-model-1-prepare.md`, `prompt-head-path-split-continue.md`,
-      `prompt-config-defaults-continue.md`, `prompt-automation-layers-continue.md` (1 each)
-- [ ] `plan-test-run-budget.md`, `plan-skip-unchanged-generators.md`, `plan-module-model-closeout.md`, `plan-minimal-robots.md`,
-      `plan-csproj-xml-head.md`, `plan-adr-cats.md`, `plan-adr-ai.md` (1 each)
+- [ ] Fix the flagged wording file by file, each when that file is next edited, and strike the file from the list below (check: the next
+      `Test-Glossary` run names no line in the struck file; the list below is empty when the step is done).
+
+The files, with their finding counts: `plan-layers-vocabulary-rename-contracts.md` (24), `questionnaire-2026-10-16.md` (18),
+`plan-module-kinds-tracks.md` (16), `decisions-2026-10-16.md` (15), `plan-config-defaults.md` (9), `value-of-plan.md` (7),
+`plan-out-artifacts.md` (7), `questionnaire-fundamental-2026-10-16.md` (6), `questionnaire-fundamental-2-2026-10-16.md` (6),
+`plan-adr-link-cleanup-prose-to-pages.md` (6), `plan-plans-body-sha-landing-zone.md` (5), `plan-assert-wait.md` (4),
+`prompt-module-model-2-implement.md` (3), `plan-minimal-robots-capabilities.md` (3), `plan-file-head-immutable-edges-classes.md` (3),
+`plan-bounded-folder-enumeration.md` (3), `prompt-k8s-kinds-2-implement.md` (2), `prompt-bounded-folder-enumeration-continue.md` (2),
+`plan-unboxing.md` (2), `plan-minimal-robots-agents.md` (2), `plan-format-step-moves-comments.md` (2), and one each in
+`prompt-unboxing-continue.md`, `prompt-module-model-1-prepare.md`, `prompt-head-path-split-continue.md`,
+`prompt-config-defaults-continue.md`, `prompt-automation-layers-continue.md`, `plan-test-run-budget.md`,
+`plan-skip-unchanged-generators.md`, `plan-module-model-closeout.md`, `plan-minimal-robots.md`, `plan-csproj-xml-head.md`,
+`plan-adr-cats.md` and `plan-adr-ai.md`.
 
 ## Keep as is
 

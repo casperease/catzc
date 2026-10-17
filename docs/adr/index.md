@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a2d8373b538c
-    with_inputs_sha: "39c60013250b7ef94aff25e8237858cea5bf2d68ca8e2b58f2c47dabfe18ce95"
+    with_body_sha: da12a5498e1c
+    with_inputs_sha: f0c5a98d14ee92eeafb45bad1834d0fb30825a662993570bf790459385cb6c72
     repo_status: locked
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml
@@ -331,6 +331,8 @@ skips a repeated scan over an unchanged globset.
 | `ADR-AI`            | [ai-agent-contract](repository/ai-agent-contract.md)                   |
 | `ADR-REPO-INSPIRE`  | [inspiration](repository/inspiration.md)                               |
 | `ADR-REPO-PROTGLOB` | [protected-globs](repository/protected-globs.md)                       |
+| `ADR-REPO-PLANS`    | [plans](repository/plans.md)                                           |
+| `ADR-REPO-SLIDES`   | [slides-as-markdown](repository/slides-as-markdown.md)                 |
 
 ### research/
 

@@ -60,8 +60,9 @@ uses a type should never pay the load or hold the shadow copy.
 - [x] Phase 2 manifest (`Catzc.Types.d9f7209b.json` beside the DLL in `.compiled`; Get/Write-TypesAssemblyManifest tests).
 - [x] Phase 3 deferred load (`Register-DeferredTypes`, `Initialize-Types`, `Enable-DeferredTypesLoad`; Initialize-Types tests).
 - [ ] Phase 3 leftovers: console prompt hook; L1 test of "not loaded after import" through the real importer; decision on source-console
-      janitors (below).
-- [ ] Phase 4 stat-stamp memo in front of `Get-CombinedTypeHash` (spike: hash 155 ms dominates the 41 ms load, so do it).
+      janitors (below) (check: the L1 test passes and D09 is recorded here).
+- [ ] Phase 4 stat-stamp memo in front of `Get-CombinedTypeHash` (spike: hash 155 ms dominates the 41 ms load, so do it) (check: a warm
+      import measures the hash below the load, numbers recorded here).
 - [ ] Phase 5 rules, docs, tests (check: Test-Links, Test-AdrRegistry clean): ADR rule, ADR record of the default-declaration exception,
       comment pages, L1 tests, bundle lazy-install test, delete any remaining eager path.
 

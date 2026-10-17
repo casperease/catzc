@@ -1,6 +1,6 @@
 ---
 plan:
-  status: open
+  status: active
   value: medium
   reviewed: 2026-10-17
   blocked_on: nothing; the first three steps are checks and fixes, the last is the user's

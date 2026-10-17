@@ -6,7 +6,7 @@ plan:
   blocked_on: four decisions in the draft
   targets:
     [
-      automation/Catzc.Base.Writers/configs/output-formats.yml,
+      automation/Catzc.Base.Reports/configs/output-formats.yml,
       automation/Catzc.Base.Reports,
       docs/adr/repository/dedicated-output-directory.md,
     ]

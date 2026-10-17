@@ -33,6 +33,7 @@ catzc:
       - ADR-REPO-CODEMETA#{2,3}
       - ADR-REPO-CONTRACT#{3,5,9}
       - ADR-REPO-FILEMETA#{2,5,7,11,13}
+      - ADR-REPO-VOCAB#9
 ---
 
 # The file head: immutable place facts plus declared edges, with globs spelled once as classes
@@ -67,8 +68,8 @@ each copy can drift. Below the module model plan because that plan decides what 
 - [ ] Write the intended kind overlaps and strengthen FileKindReachability (Q41) (check: a shadowed kind fails the kinds tests).
 - [ ] Add note as a glossary term (Q53) (check: Test-Glossary clean).
 - [ ] Re-read ADR-AUTO-ASSETDEP and confirm or move the asset kind (Q54) (check: the kinds tests).
-- [ ] Naming rule: prose may say PowerShell; identifiers use only pwsh (engine, folder) or powershell (language id) (Q45) (check:
-      Test-Terminology, once the rule has a home).
+- [x] Naming rule: prose may say PowerShell; identifiers use only pwsh (engine, folder) or powershell (language id) (Q45). Done
+      2026-10-17 (task010): ADR-REPO-VOCAB#9 with its prose section (check: Test-Terminology, verdict in task010).
 - [ ] Read the formatting ADR on automation/.compiled and follow it (Q47) (check: Test-Formatting clean or the ADR amended).
 
 ## Decided in the questionnaire round of 2026-10-16 (Q39 to Q54)

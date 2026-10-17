@@ -46,7 +46,8 @@ so the value is a suite that proves the same in less time. The user runs full su
 
 - [ ] Decide the stamp rule (check: the ADR sentence exists).
 - [ ] Change the stamp, add both tests (check: Test-Formatting tests pass cold and warm).
-- [ ] Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting after two runs.
+- [ ] Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting after two runs (check: the shard manifests of two runs
+      place them apart).
 - [ ] Next three files by cost, one at a time via the test-optimization agent (check: same assertions, lower time).
 
 ## Refs

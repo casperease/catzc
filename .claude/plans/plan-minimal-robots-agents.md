@@ -173,3 +173,8 @@ on haiku first, and record in "Done, and why" whether it held.
   (sonnet with a reason, 4 steps, loads the new `adr.cite`), glossary-keeper (haiku, 4 steps). Listed in CLAUDE.md and in catzc-worker's Do
   NOT clause. Gate 0 over the real tree, tests pass, analyzer 0, generated files 0. The robot count is 15, the capability count 18. Left in
   this plan: the `Test-SlideDescriptions` idea, and the first real brief for each robot (Phase 5's measurement).
+
+## Open steps
+
+- [ ] Deleted together with plan-minimal-robots once its Phase 5 measurement is recorded (T013); until then this catalogue holds the per-robot
+      state (check: `Test-Links` clean on `.claude/plans` after the deletion).

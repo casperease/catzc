@@ -4,7 +4,7 @@ task:
   status: open
   plans: [plan-layers-vocabulary-rename-contracts]
   value: high
-  blocked_on: nothing (Q38: P1 runs beside the module model; code phases wait)
+  blocked_on: "nothing (Q38: P1 runs beside the module model; code phases wait)"
   targets:
     [
       docs/adr/automation,

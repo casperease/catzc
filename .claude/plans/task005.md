@@ -1,10 +1,10 @@
 ---
 task:
   id: "005"
-  status: done (the agent-contracts page deletion is the user's git rm)
+  status: "done (the agent-contracts page deletion is the user's git rm)"
   plans: [plan-adr-ai]
   value: high
-  blocked_on: nothing (D14 answered 2026-10-17: keep ADR-AI)
+  blocked_on: "nothing (D14 answered 2026-10-17: keep ADR-AI)"
   targets:
     [
       automation/Catzc.Base.Docs/configs/adrs.yml,

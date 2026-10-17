@@ -170,3 +170,8 @@ ADR-REPO-LINK#1, the drawio ones cite ADR-DSGN-VISUAL#4) and `checks` (`[]` for 
   an unchanged model is byte-identical, proven on a scratch folder of two slides plus the glyph sheet (skipped as it names no ADR): stage
   all, status ok; join again, identical hashes. The session scripts `regen-explanation.py` and `relabel-subset.py` are deleted; the
   capability names the bulk form and STYLE.md's fan-out section describes it.
+
+## Open steps
+
+- [ ] Deleted together with plan-minimal-robots once its Phase 5 measurement is recorded (T013); until then this catalogue holds the
+      per-capability state (check: `Test-Links` clean on `.claude/plans` after the deletion).

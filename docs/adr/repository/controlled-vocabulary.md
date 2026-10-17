@@ -12,7 +12,7 @@ catzc:
     tracktype: documentation
   edges:
     defines:
-      - ADR-REPO-VOCAB#{1-8}
+      - ADR-REPO-VOCAB#{1-9}
     cites:
       - ADR-AUTO-TEST#9
     links:
@@ -92,6 +92,14 @@ general words **source**, **layer**, **facet**, and **scope** are such families 
 
 - [Qualified forms](#qualified-forms)
 
+### Rule ADR-REPO-VOCAB:9
+
+Prose says **PowerShell**, the product's own name. An identifier uses only `pwsh`, the engine and the folder, or `powershell`, the file
+language id; no other spelling of the name appears in code, configuration or a path. The one literal `Powershell` in the vendored
+`dotnet-install.ps1` is vendor text, kept as shipped.
+
+- [PowerShell, pwsh and powershell](#powershell-pwsh-and-powershell)
+
 ## Context
 
 The repository already controls its words at the spelling level: `terminology.yml` approves every token, and `Test-Terminology` and the
@@ -160,6 +168,13 @@ Two of the general families are easy to confuse. A **layer** is a level in a sta
 PowerShell under installer; a fileset inside a module). A **facet** is one of several parallel views of, or checks on, the same thing: none
 sits above another (a build's `Types`, `Load`, `Parity`, and `Manifest` facets; a module's disk and session facets). The parts a unit's
 files partition into are **aspects** ([ADR-DSGN-ASPECT](../design/module-aspects.md)); a facet is never one of them.
+
+### PowerShell, pwsh and powershell
+
+One product, three spellings, each with a home. A sentence to a person says PowerShell, as the vendor does. The engine that runs it and the
+folder that holds its track are `pwsh`, the executable's own name, short and lowercase like `go` and `python` beside it. The file language
+in the languages registry is `powershell`, the id every tool reads. A fourth spelling would be a fourth thing to search for and a fourth
+thing to get wrong, so none exists; a vendored file keeps the vendor's spelling because vendored text is kept as shipped.
 
 ### Realized concepts are enforced
 

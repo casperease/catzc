@@ -1,0 +1,183 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: automation/Catzc.Base.QualityGates/types/PlansConfig.cs
+    folder: types
+    name: plans-config
+    filetype: cs
+    kind: type
+    language: csharp
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: automation/Catzc.Base.QualityGates/tests/types/PlansConfig.Tests.ps1
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-PLANS#{2,3,8}
+---
+*/
+// The settings Test-Plans holds the plans folder to; every default is declared once here ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+namespace Catzc.Base.QualityGates;
+
+public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
+{
+    private const string Failed = "plans configuration validation failed:\n";
+    private static readonly string[] AllowedKeys = { "folder", "statuses", "ranks", "head", "sections", "master", "tasks", "names" };
+    private static readonly string[] HeadKeys = { "required", "allowed" };
+    private static readonly string[] SectionKeys = { "required", "carried" };
+    private static readonly string[] MasterKeys = { "file", "sections" };
+    private static readonly string[] TaskKeys = { "max" };
+
+    // The repository-relative folder the plans live in ([ADR-REPO-PLANS#1](/docs/adr/repository/plans.md#rule-adr-repo-plans1)).
+    public string folder { get; } = ".claude/plans";
+
+    // The states a plan's head may declare ([ADR-REPO-PLANS#2](/docs/adr/repository/plans.md#rule-adr-repo-plans2)).
+    public IReadOnlyList<string> statuses { get; } = new[] { "active", "blocked" };
+
+    // The value ranks value-of-plan.md orders by, highest first.
+    public IReadOnlyList<string> ranks { get; } = new[] { "highest", "high", "medium-high", "medium", "low-medium", "low" };
+
+    // The head keys every plan carries, and the further keys a plan may carry.
+    public IReadOnlyList<string> head_required { get; } = new[] { "status", "value", "reviewed", "targets" };
+    public IReadOnlyList<string> head_allowed { get; } = new[] { "blocked_on", "waits_on", "class", "next", "parent", "siblings", "role", "rule" };
+
+    // The section headings every plan has (matched as a prefix of the heading text), and the heading carried text sits under ([ADR-REPO-PLANS#3](/docs/adr/repository/plans.md#rule-adr-repo-plans3)).
+    public IReadOnlyList<string> sections_required { get; } = new[] { "Open steps" };
+    public string sections_carried { get; } = "Carried";
+
+    // The master plan and the sections it has instead of a plan's shape ([ADR-REPO-PLANS#8](/docs/adr/repository/plans.md#rule-adr-repo-plans8)).
+    public string master_file { get; } = "plan-master.md";
+    public IReadOnlyList<string> master_sections { get; } = new[] { "Process", "Chunks" };
+
+    // The highest task number a task file may carry.
+    public int tasks_max { get; } = 50;
+
+    // The file-name patterns the folder accepts; any other name is a finding.
+    public IReadOnlyList<string> names { get; } = new[]
+    {
+        "^plan-[a-z][a-z0-9]*(-[a-z0-9]+)*\\.md$",
+        "^prompt-[a-z][a-z0-9]*(-[a-z0-9]+)*\\.md$",
+        "^task[0-9]{3}\\.md$",
+        "^value-of-plan\\.md$",
+        "^decisions-[0-9]{4}-[0-9]{2}-[0-9]{2}\\.md$",
+        "^questionnaire-[a-z0-9]+(-[a-z0-9]+)*\\.md$",
+    };
+
+    public PlansConfig(IDictionary raw)
+    {
+        List<string> errors = new List<string>();
+        if (raw == null) { raw = new Hashtable(); }
+        foreach (object k in raw.Keys)
+        {
+            string key = k == null ? null : k.ToString();
+            if (Array.IndexOf(AllowedKeys, key) < 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "unknown top-level key '{0}' (allowed: {1})", key, string.Join(", ", AllowedKeys)));
+            }
+        }
+        if (raw.Contains("folder") && raw["folder"] != null) { folder = raw["folder"].ToString().Replace('\\', '/').TrimEnd('/'); }
+        if (raw.Contains("statuses")) { statuses = Words("statuses", raw["statuses"], errors) ?? statuses; }
+        if (raw.Contains("ranks")) { ranks = Words("ranks", raw["ranks"], errors) ?? ranks; }
+        IDictionary head = Section(raw, "head", HeadKeys, errors);
+        if (head != null)
+        {
+            if (head.Contains("required")) { head_required = Words("head.required", head["required"], errors) ?? head_required; }
+            if (head.Contains("allowed")) { head_allowed = Words("head.allowed", head["allowed"], errors) ?? head_allowed; }
+        }
+        IDictionary sections = Section(raw, "sections", SectionKeys, errors);
+        if (sections != null)
+        {
+            if (sections.Contains("required")) { sections_required = Words("sections.required", sections["required"], errors) ?? sections_required; }
+            if (sections.Contains("carried") && sections["carried"] != null) { sections_carried = sections["carried"].ToString(); }
+        }
+        IDictionary master = Section(raw, "master", MasterKeys, errors);
+        if (master != null)
+        {
+            if (master.Contains("file") && master["file"] != null) { master_file = master["file"].ToString(); }
+            if (master.Contains("sections")) { master_sections = Words("master.sections", master["sections"], errors) ?? master_sections; }
+        }
+        IDictionary tasks = Section(raw, "tasks", TaskKeys, errors);
+        if (tasks != null && tasks.Contains("max"))
+        {
+            int max;
+            if (tasks["max"] != null && int.TryParse(tasks["max"].ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out max) && max > 0 && max < 1000) { tasks_max = max; }
+            else { errors.Add("tasks.max must be a positive integer below 1000"); }
+        }
+        if (raw.Contains("names"))
+        {
+            IReadOnlyList<string> patterns = Words("names", raw["names"], errors);
+            if (patterns != null)
+            {
+                foreach (string pattern in patterns)
+                {
+                    try { new Regex(pattern); }
+                    catch (ArgumentException) { errors.Add(string.Format(CultureInfo.InvariantCulture, "names: '{0}' is not a regular expression", pattern)); }
+                }
+                names = patterns;
+            }
+        }
+        if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
+    }
+
+    // True when the file name is one the folder accepts.
+    public bool Accepts(string fileName)
+    {
+        foreach (string pattern in names)
+        {
+            if (Regex.IsMatch(fileName, pattern)) { return true; }
+        }
+        return false;
+    }
+
+    static IDictionary Section(IDictionary raw, string name, string[] allowed, List<string> errors)
+    {
+        if (!raw.Contains(name)) { return null; }
+        IDictionary map = raw[name] as IDictionary;
+        if (map == null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} must be a mapping of {1}", name, string.Join(", ", allowed)));
+            return null;
+        }
+        foreach (object k in map.Keys)
+        {
+            string key = k == null ? null : k.ToString();
+            if (Array.IndexOf(allowed, key) < 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: unknown key '{1}' (allowed: {2})", name, key, string.Join(", ", allowed)));
+            }
+        }
+        return map;
+    }
+
+    static IReadOnlyList<string> Words(string name, object value, List<string> errors)
+    {
+        List<string> items = new List<string>();
+        if (value is string single) { items.Add(single); }
+        else if (value is IEnumerable list && !(value is IDictionary))
+        {
+            foreach (object item in list) { items.Add(item == null ? string.Empty : item.ToString()); }
+        }
+        else
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} must be a non-empty list of strings", name));
+            return null;
+        }
+        if (items.Count == 0 || items.Exists(string.IsNullOrWhiteSpace))
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} must be a non-empty list of strings", name));
+            return null;
+        }
+        return items.ToArray();
+    }
+}

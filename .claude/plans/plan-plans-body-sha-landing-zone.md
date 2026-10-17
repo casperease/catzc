@@ -23,7 +23,8 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-DSGN-TRACK#17
       - ADR-REPO-FILEMETA#{3,7}
-      - ADR-REPO-VOCAB#1
+      - ADR-REPO-FOLDERS#12
+      - ADR-REPO-VOCAB#{1,9}
     links:
       - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
       - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta7
@@ -75,7 +76,10 @@ other plan.
 - [x] Binding audit of the .unordered references, read-only. Done 2026-10-17 (task008): the section "Binding audit" below holds one verdict
       per code and config line (12 files) and the markdown counts. Check: 12 verdict rows, a counts table, three authored pages named.
 - [ ] Phase 1 terms and the import tool (check: its Pester file passes; Test-Glossary clean).
-- [ ] Phase 2 rules and gate; the cleaner exists (check: Test-Plans passes on this folder).
+- [x] Phase 2 rules and gate; the cleaner exists. Done 2026-10-17 (task010): ADR-REPO-PLANS with nine rules, ADR-REPO-FOLDERS#12 (stable
+      locators), ADR-REPO-VOCAB#9 (PowerShell naming), Test-Plans with plans.yml and PlansConfig, registered as a markdown check and as
+      plan-clear's check; the folder brought to the shape (statuses, targets, Open steps sections, checks on every step). Check: Test-Plans
+      "No plans issues found." on this folder (`out/test-plans/20261017-174646`).
 - [ ] Delete the 20 plans in .unordered/15-10-2026, decided Q09; the user runs `out/delete-unordered-15-10-2026.ps1` (one `git rm -r`) and
       commits (check: `ls .unordered` shows no `15-10-2026`).
 - [ ] Retire the old .unordered wording, then update CLAUDE.md (check: Test-Links, Test-Terminology clean).

@@ -4,7 +4,7 @@ plan:
   value: medium
   reviewed: 2026-10-17
   next: the pilot slide, sync-from-the-last-certified-commit, moved end to end
-  targets: [docs/.assets/explanation, docs/.assets/references, docs/explanation, docs/references, .claude/drawio]
+  targets: [docs/.assets/explanation, docs/explanation, docs/references, .claude/drawio]
 catzc:
   immutable:
     repo_status: clean

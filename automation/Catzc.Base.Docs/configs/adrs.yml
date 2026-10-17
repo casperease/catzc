@@ -38,9 +38,9 @@ domains:
     role: axioms # the non-negotiable design axioms every other domain specialises
     description: >-
       The design axioms every other domain specialises: everything as code, configure don't program, reduce variability, reduce waste,
-      poka-yoke, one living version, and the two names of the system, cats and catzc. They specialise the thesis, catzc's product description, and rest on the DORA research, the
-      authoritative source; no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the reason for
-      its own decisions.
+      poka-yoke, one living version, and the two names of the system, cats and catzc. They specialise the thesis, catzc's product
+      description, and rest on the DORA research, the authoritative source; no domain later in the order overrides them, and every other
+      domain cites them (`ADR-PRIN-*`) as the reason for its own decisions.
     depends_on: [research, thesis]
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # axioms every concern specialises
@@ -326,6 +326,8 @@ domains:
       ai-agent-contract: { external: ADR-AI }
       inspiration: { external: ADR-REPO-INSPIRE }
       protected-globs: { external: ADR-REPO-PROTGLOB, terminology: protglob }
+      plans: { external: ADR-REPO-PLANS }
+      slides-as-markdown: { external: ADR-REPO-SLIDES, concern: [quality-control] }
 
   research:
     code: DORA # 4-letter domain code; composes ADR-DORA-<NAME> — a concise, precise capability name (no doraXXX body)

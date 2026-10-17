@@ -1,6 +1,6 @@
 ---
 plan:
-  status: open
+  status: active
   value: medium
   reviewed: 2026-10-16
   blocked_on:
@@ -135,7 +135,8 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
       `Get-TestRunContext`, and just before the workers). Done 2026-10-17: `Invoke-TestRun.Tests.ps1` passes 21 of 21, including two new
       tests (four waits then workers; none by default). A real `Test-Automation -DiagnoseBlocking` run was not made.
 - [ ] Run `Test-Automation.Tests.ps1` green. Its one failure on 2026-10-17 is the source-conventions check, caused by other files: a peer's
-      `Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1` name and "bash and zsh" wording in seven other plans, none of them this one.
+      `Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1` name and "bash and zsh" wording in seven other plans, none of them this one
+      (check: the file passes under Invoke-TestFile).
 - [ ] Q3: run `importer.ps1 -DiagnoseBlocking` and `-DiagnoseLoadTime` side by side and find where the fixed ~110 ms first-tick lateness
       comes from (check: the cause is named here, or the tick no longer reports it).
 - [ ] Function help beyond the head blocks (check: `Test-Links` on the touched pages).

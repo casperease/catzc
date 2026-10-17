@@ -1,6 +1,6 @@
 ---
 plan:
-  status: open
+  status: active
   value: low
   reviewed: 2026-10-17
   targets: [.claude/drawio/gallery_pdf.py, .claude/skills/drawio-waves/SKILL.md, .claude/drawio/STYLE.md]

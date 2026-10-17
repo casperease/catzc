@@ -1,10 +1,10 @@
 ---
 task:
   id: "010"
-  status: open
+  status: "done except the landing-zone clause of step 9, which follows task009"
   plans: [plan-plans-body-sha-landing-zone, plan-file-head-immutable-edges-classes, plan-master]
   value: highest
-  blocked_on: task009 (the terms) for the CLAUDE.md wording; the gate and ADR can start now
+  blocked_on: "task009 (the terms) for one CLAUDE.md clause; everything else is in the tree"
   targets:
     [
       docs/adr/repository,
@@ -32,6 +32,10 @@ catzc:
     cites:
       - ADR-PRIN-NOWASTE#1
       - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-FOLDERS#12
+      - ADR-REPO-PLANS#{5,8}
+      - ADR-REPO-SLIDES#5
+      - ADR-REPO-VOCAB#9
 ---
 
 # task010: ADR-REPO-PLANS, the Test-Plans gate, the naming rules, CLAUDE.md
@@ -41,7 +45,43 @@ PowerShell naming rule in ADR-REPO-VOCAB (Q45); Q06 gate first, then the cleaner
 Q08 a done plan is deleted and the index keeps one line; Q49 plans never concern in-use files; Q12 continuation prompts stay beside their
 plans. The master plan and the task files of this folder are named in the ADR as derived executables so the gate accepts them.
 
-## Steps
+## Done (2026-10-17), with the corrections the tree forced and each check's verdict
+
+- Step 1: `docs/adr/repository/plans.md`, nine rules, Context, Decision, Consequences. Correction: rule 4 does not forbid inline links in
+  a plan's body; the plans carry them and Test-Links checks them, so the clause would have written a rule the folder breaks on purpose.
+  The file is untracked, so its head has no body sha until it is committed and formatted. Checks: `[Write-QualityGateReport] No
+  markdownlint issues found.` (`out/test-markdownlint/20261017-174412`), `No links issues found.` (`out/test-links/20261017-174649`).
+- Steps 2 and 3: ADR-REPO-FOLDERS#12 (stable locator) and ADR-REPO-VOCAB#9 (PowerShell, pwsh, powershell), each with a prose section.
+  Checks: markdownlint clean on both (`out/test-markdownlint/20261017-174648`); `No terminology issues found.`
+  (`out/test-terminology/20261017-174414`); Test-AdrRegistry's one finding is a peer's new `ADR-REPO-SLIDES#5` citing a thesis rule
+  (`docs/adr/repository/slides-as-markdown.md:79`), not this task's (`out/test-adr-registry/20261017-174641`).
+- Step 4: `plans: { external: ADR-REPO-PLANS }` registered; `Build-AdrIndex` lists it at index line 334.
+- Step 5: the "Plans" entry in the repository dora-explains (small batches, work visibility, maintainability); the file is now also a
+  peer's, edited after mine, so it was link-checked (clean) and not re-stamped.
+- Step 6: `Test-Plans.ps1`, `configs/plans.yml`, `types/PlansConfig.cs` (every default once), registered in configs.yml; L0 tests for the
+  type and the gate on TestDrive fixtures with neutral names. Corrections: the gate checks the required sections (Open steps) and does
+  not enforce a section order, since the plans order their decided and done sections freely around the open steps; the status set is
+  `active`, `blocked`, so five plans that said `open` now say `active` (one, idle-compaction, `blocked`, which it is). Checks:
+  `[Invoke-TestFile] Passed (snapshot)` PlansConfig.Tests (`out/test-file/20261017-174648-e34e5f`), `Passed (snapshot)` Test-Plans.Tests
+  (`out/test-file/20261017-174648-fd8283`), `No shipped-configs issues found.` (`out/test-shipped-configs/20261017-174412`),
+  `No script-analyzer issues found.` (`out/test-script-analyzer/20261017-174652`), `No comments issues found.`
+  (`out/test-comments/20261017-174647`). On the real folder, after its fixes: `[Write-QualityGateReport] No plans issues found.`
+  (`out/test-plans/20261017-174646`). The first run found ten: six open steps without a check (assert-wait, clear-actions x2,
+  lazy-types x2, test-run-budget), two task heads with an unquoted colon in a value (task005, task017), each fixed in its file; five
+  plans had a target path that did not exist (two named the future `.catzc/`, one the wrong module for comments.yml, one the wrong module
+  for output-formats.yml, one a planned folder), fixed to existing paths; four plans had their steps under `## Steps` or `## Open`, now
+  `## Open steps`; the two robot catalogues gained an Open steps section pointing at their T013 deletion; the vocabulary list in
+  plan-clear-actions became one step with the files as prose.
+- Step 7: `languages.yml` markdown checks gain `Test-Plans`. Check: `[Invoke-TestFile] Passed` LanguagesConfig.Tests
+  (`out/test-file/20261017-174412-*`).
+- Step 8: plan-clear `supported_by: [ADR-REPO-PLANS#5, ...]`, `checks: [Test-Links, Test-Plans]`. Check: `No agent-definitions issues
+  found.` (`out/test-agent-definitions/20261017-174412`).
+- Step 9: the CLAUDE.md plans bullet says plans are authored in `.claude/plans/plan-<topic>.md`, the master and task files are derived
+  and a done plan is deleted; the landing-zone clause waits for T009. Check: `No links issues found.` (`out/test-links/20261017-174412`).
+- Step 10: body-sha plan Phase 2 ticked, file-head plan Q45 step ticked, plan-master cites ADR-REPO-PLANS#8 and ADR-REPO-FOLDERS#12.
+  Check: Test-Links clean on the twenty edited plan files (`out/test-links/20261017-174651`).
+
+## Steps, as planned
 
 1. `docs/adr/repository/plans.md`, new, `# ADR-REPO-PLANS: plans that stay true`. Rules, each bolded:
    - 1 one topic per file, `.claude/plans/plan-<topic>.md`; a **plan** is the delta only (what is open), authored directly there.

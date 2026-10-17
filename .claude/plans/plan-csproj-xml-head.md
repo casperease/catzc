@@ -43,7 +43,7 @@ catzc:
   `FileCarriersConfig.Tests.ps1`, `Test-RootConfigFiles`, and `dotnet build` of the project (succeeds), and the project opens in the editor
   with no load error (2026-10-17 screenshot).
 
-## Open
+## Open steps
 
 - [ ] The `PropertyHead` page under `docs/references/automation/catzc-base-codemeta/types/` and the `Format-PropertyMetaHead` and
       `Get-PropertyMetaState` help still describe a JSON-only head; bring them to the XML form (check: `Test-Links` clean on the

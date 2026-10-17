@@ -1,0 +1,39 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: automation/Catzc.Base.QualityGates/configs/plans.yml
+#     folder: configs
+#     name: plans
+#     filetype: yml
+#     kind: config
+#     language: yaml
+#     track: automation
+#     tracktype: modules
+#     module: Catzc.Base.QualityGates
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+# ---
+
+# The settings Test-Plans holds the plans folder to (ADR-REPO-PLANS); the defaults are declared once on PlansConfig.
+folder: .claude/plans
+statuses: [active, blocked]
+ranks: [highest, high, medium-high, medium, low-medium, low]
+head:
+  required: [status, value, reviewed, targets]
+  allowed: [blocked_on, waits_on, class, next, parent, siblings, role, rule]
+sections:
+  required: [Open steps]
+  carried: Carried
+master:
+  file: plan-master.md
+  sections: [Process, Chunks]
+tasks:
+  max: 50
+names:
+  - '^plan-[a-z][a-z0-9]*(-[a-z0-9]+)*\.md$'
+  - '^prompt-[a-z][a-z0-9]*(-[a-z0-9]+)*\.md$'
+  - '^task[0-9]{3}\.md$'
+  - '^value-of-plan\.md$'
+  - '^decisions-[0-9]{4}-[0-9]{2}-[0-9]{2}\.md$'
+  - '^questionnaire-[a-z0-9]+(-[a-z0-9]+)*\.md$'

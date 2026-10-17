@@ -1,6 +1,6 @@
 ---
 plan:
-  status: open
+  status: active
   value: medium
   reviewed: 2026-10-17
   targets:
@@ -39,7 +39,7 @@ when the stamp is current. Landed, tested per file:
 - Wired: `Build-Glossary`, `Build-AdrIndex` (about 16 and 38 ms on a skip), `Build-TerminologyDictionary` (10 ms), `Build-ContractReference`
   (5 ms).
 
-## Open
+## Open steps
 
 Janitor times measured 2026-10-17 on an unchanged tree (noisy, machine busy): wired ones 25 to 67 ms each (about 180 ms together); unwired
 `Build-RootConfig` 562 ms, `Sync-SessionTools` 403 ms, `Build-Readme` 315 ms, `Build-GitKeep` 312 ms. The importer finalizer showed 2.6 s,

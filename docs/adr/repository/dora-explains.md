@@ -29,8 +29,10 @@ catzc:
       - docs/adr/repository/inspiration.md
       - docs/adr/repository/markdown-links.md
       - docs/adr/repository/output-formats.md
+      - docs/adr/repository/plans.md
       - docs/adr/repository/protected-globs.md
       - docs/adr/repository/repo-variants.md
+      - docs/adr/repository/slides-as-markdown.md
       - docs/adr/repository/uniform-formatting.md
       - docs/references/dora/capabilities.md#ai-accessible-internal-data
       - docs/references/dora/capabilities.md#clear-and-communicated-ai-stance
@@ -46,6 +48,7 @@ catzc:
       - docs/references/dora/capabilities.md#team-experimentation
       - docs/references/dora/capabilities.md#test-automation
       - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/capabilities.md#work-visibility-in-value-stream
       - docs/references/dora/capabilities.md#working-in-small-batches
       - docs/references/dora/index.md
 ---
@@ -354,9 +357,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-AI](ai-agent-contract.md)
 
-> DORA finds that small batches and fast feedback move delivery performance, and that a clear, communicated stance on AI tools is what
-> makes them pay off. One short contract that every agent reads first keeps its changes small and reviewable: it runs no suite while
-> working, verifies by reading the tree, never mutates git, and ends with a fixed report the user acts on.
+> DORA finds that small batches and fast feedback move delivery performance, and that a clear, communicated stance on AI tools is what makes
+> them pay off. One short contract that every agent reads first keeps its changes small and reviewable: it runs no suite while working,
+> verifies by reading the tree, never mutates git, and ends with a fixed report the user acts on.
 
 - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — one file at a time, read back, with the
   checks owed listed instead of run, keeps every agent change small enough to review.
@@ -399,4 +402,40 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   identity, providing rapid feedback on unchanged inputs.
 - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — skipped scans cut iteration time in local
   inner loop.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Plans
+
+`Plans that stay true — the delta only, one shape, judged by the cleaner and held by the gate`
+
+[ADR-REPO-PLANS](plans.md)
+
+> DORA finds that small batches and visible work move delivery performance: work that is small enough to review and visible enough to pull.
+> A plan that holds only its open steps, each with its proof, is the smallest honest statement of what is left, and a plan that is deleted
+> when it is done keeps the folder a true picture of the work in flight.
+
+- [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — an open step names one file, one edit and one
+  check, so a session takes one step and leaves the tree verified.
+- [Work visibility in the value stream](../../references/dora/capabilities.md#work-visibility-in-value-stream) — the folder holds every open
+  step and nothing done, and the value overlay orders them, so what is in flight is read in one place.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a decision a plan records becomes an ADR rule in the
+  same change, so no constraint lives only in a file that will be deleted.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Slides as markdown
+
+`A deck is files in the tree, rendered through patterns and checked against the rules it quotes`
+
+[ADR-REPO-SLIDES](slides-as-markdown.md)
+
+> DORA finds that documentation quality and version control of every artifact move delivery performance: what a team relies on is findable,
+> kept current, and changed through review. A deck kept as one markdown file per slide, rendered forward and asserted against the rule
+> registry it cites, is documentation that stays true the same way the code does.
+
+- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — a slide quotes a rule verbatim or the render
+  reports the drift, so a deck never states a rule its ADR no longer holds.
+- [Version control](../../references/dora/capabilities.md#version-control) — the slide files are the deck's one source of truth; the
+  published page is a projection replaced whole on publish.
+- [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — one file per slide makes a deck change a
+  reviewable diff of the slides it touches.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

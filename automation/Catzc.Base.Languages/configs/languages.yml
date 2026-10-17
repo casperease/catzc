@@ -104,7 +104,7 @@ languages:
   markdown:
     extensions: [.md]
     formatter: prettier
-    checks: [Test-Markdownlint, Test-MarkdownTitle, Test-Formatting, Test-Spelling, Test-Links, Test-AgentDefinitions]
+    checks: [Test-Markdownlint, Test-MarkdownTitle, Test-Formatting, Test-Spelling, Test-Links, Test-AgentDefinitions, Test-Plans]
     layout:
       - { folder: ".", role: readme, extensions: [.md], live: false, shipped: false }
   bicep:

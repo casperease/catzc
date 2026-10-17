@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bf19e73734d7
-    with_inputs_sha: "240f85257bcb0394126103a5bf3785401fe7d3af1d1ca873656affebbe652b2c"
+    with_body_sha: "4a90daae71db"
+    with_inputs_sha: c1d579270fcb7a40ee763c55f0ce17328f9498757e2c823e0d034e53801c86c3
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -947,6 +947,16 @@ picks its kind — a fragment, a schema, or a sample payload.
   - [published artifact](#published-artifact): A published artifact is a file one stage produces and a later stage consumes within a run; a
     contract asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release.
 
+### deck file
+
+The `deck.md` of a deck folder — the deck's title and its sections, beside the slide files it gathers.
+
+- **Defined by:** [ADR-REPO-SLIDES#1](repository/slides-as-markdown.md#rule-adr-repo-slides1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [slide file](#slide-file): A slide file is one slide of a deck; the deck file names the deck and its sections and holds no slide.
+
 ### depended-on contract
 
 A contract an outside platform expects of our files and calls, such as GitHub reading a workflow file; it follows the platform, so a
@@ -1009,6 +1019,18 @@ module facet (disk, session).
   `runtime facet`, and the bare `facet`, with its verb forms
 - **Contrasts:**
   - [layer](#layer): A layer is one level of a stack, sitting on or containing the next; a facet is a parallel view of the same thing.
+
+### field
+
+One level-two heading of a slide file and the text under it, filled into the placeholder of the same name in the slide's pattern.
+
+- **Defined by:** [ADR-REPO-SLIDES#1](repository/slides-as-markdown.md#rule-adr-repo-slides1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+
+| Avoid               | Say instead |
+| ------------------- | ----------- |
+| `slot (of a slide)` | field       |
 
 ### file type
 
@@ -1147,6 +1169,15 @@ The lowest model that performs a capability's steps reliably; no robot that prel
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 
+### pattern
+
+One `.claude/slides/patterns/<name>.html` file — a section in the slide format whose placeholders name the fields it takes and which are
+required; the layout of one kind of slide.
+
+- **Defined by:** [ADR-REPO-SLIDES#2](repository/slides-as-markdown.md#rule-adr-repo-slides2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+
 ### place facts
 
 The facts under the immutable part of a meta block, which are what the repository's own configuration makes of a file's location, such as
@@ -1195,6 +1226,17 @@ scope (verify, scan, content).
   `child scope`, `environment scope`, `subscription scope`, `report scope`, `tag scope`, `declared scope`, `whole scope`, `top scope`,
   `strict scope`, `isolated scope`, `discovery scope`, `glossary scope`, `deployment scope`, `infra scope`, `radius scope`,
   `production scope`, and the bare `scope`, with its verb forms
+
+### slide file
+
+One markdown file per slide, `<stem>.slide.md`, in a deck folder under docs/explanation; its level-one heading is the title, each level-two
+heading a field, and its head names the pattern, the deck and the order.
+
+- **Defined by:** [ADR-REPO-SLIDES#1](repository/slides-as-markdown.md#rule-adr-repo-slides1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [deck file](#deck-file): The deck file names the deck's title and sections; a slide file is one slide of it.
 
 ### source
 

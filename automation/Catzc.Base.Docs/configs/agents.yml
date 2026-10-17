@@ -76,8 +76,8 @@ agents:
 
   # Cleans the plans in .claude/plans to the plan rules, one verdict and one file at a time; sonnet because it judges across files.
   - name: plan-clear
-    supported_by: [ADR-PRIN-ONELIVE#1, ADR-PRIN-NOWASTE#1]
-    checks: [Test-Links]
+    supported_by: [ADR-REPO-PLANS#5, ADR-PRIN-ONELIVE#1, ADR-PRIN-NOWASTE#1]
+    checks: [Test-Links, Test-Plans]
     model_reason: judging whether a plan's data is in the tree reads several files against each other
 
   # Lands a pasted continuation prompt in the plans, nothing discarded, every done claim checked against the tree.

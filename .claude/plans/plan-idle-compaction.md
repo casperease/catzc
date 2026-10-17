@@ -1,9 +1,10 @@
 ---
 plan:
-  status: open
+  status: blocked
   value: low
   reviewed: 2026-10-17
-  blocked_on: Q1 below is unanswered
+  blocked_on: Q1 below is unanswered (D06)
+  targets: [.claude]
 catzc:
   immutable:
     repo_status: clean
@@ -36,7 +37,7 @@ Claude Code compacts a long conversation shortly before the one-hour prompt cach
   Recommendation: keep it local, because it is a per-person cost and context preference, not a repository rule. The answer is recorded on
   this line when given (D06 of the decision round).
 
-## Steps
+## Open steps
 
 - [ ] If the answer to Q1 is "checked in", move the line to `.claude/settings.json` and remove it from `settings.local.json` (check:
       `.claude/settings.json` holds `"idleCompaction": false`, `settings.local.json` does not, and both parse as JSON).
