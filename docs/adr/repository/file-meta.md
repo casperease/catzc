@@ -128,9 +128,9 @@ command that composed the file) and `source` (the authored file or files it come
 the content below it, whatever the file's language and carrier, so a tracked generated file says which text its writer composed and the
 drift check compares the stamp with the hash of the content below it before it compares the content. A generated file is told from an
 authored one by its `generator`, never by a kind of its own. No writer hand-words a banner. The imprint engine leaves these files alone
-([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A comment page is the one generated
-item whose block the engine imprints, and it names its writer the same way: the `generator` kind of the registry gives it the path of the
-comment exporter.
+([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A comment page is the one generated item whose
+block the engine imprints, and it names its writer the same way: the `generator` kind of the registry gives it the path of the comment
+exporter.
 
 - [Generated files](#generated-files)
 
@@ -200,10 +200,10 @@ the rest, each read from a registry and never from the file's text. `edges` hold
 parts are imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an
 edge until the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the
 relation, never for the type of its target. In a generated file of any language ([ADR-REPO-FILEMETA#7](#rule-adr-repo-filemeta7)), and in
-the generated page the engine imprints, `immutable` opens with `with_body_sha`, the hash of the body below the head, so the stamp says
-which text the writer composed. An authored file, page or code, carries no hash ([ADR-REPO-FILEMETA#3](#rule-adr-repo-filemeta3),
-[ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). Every block and every generated head also holds `repo_status`, the
-part of the file's repository status that the file itself decides: `locked` for a generated file, whose source is the truth and is edited
+the generated page the engine imprints, `immutable` opens with `with_body_sha`, the hash of the body below the head, so the stamp says which
+text the writer composed. An authored file, page or code, carries no hash ([ADR-REPO-FILEMETA#3](#rule-adr-repo-filemeta3),
+[ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). Every block and every generated head also holds `repo_status`, the part
+of the file's repository status that the file itself decides: `locked` for a generated file, whose source is the truth and is edited
 instead, and `clean` for an authored one. The states only git knows, edited, staged, committed and pushed, and `ready` (tracked and
 unchanged) are never written into the file, since the write would change them; `Get-RepoStatus` computes them on demand from git, read-only.
 A kind of the registry names the part it writes, `immutable` by default and `edges` for a relation.
@@ -331,8 +331,8 @@ the same file in another repository would carry other values. And what does this
 the rules it cites, the files it links, the page that holds its comments, the test that proves it, all read from the file and fixed by its
 text. The first is a property of the node, the second a set of directed, named edges leaving it. Keeping them apart lets a reader ask "which
 files are in this module" of one part and "which files point at this page" of the other, and lets a generated file's body hash sit at the
-head of the place facts as the stamp of the text its writer composed. An edge is named for the relation, so a new relation is a new name
-and a registry entry, and the target of an edge is spelled the same way wherever it is read.
+head of the place facts as the stamp of the text its writer composed. An edge is named for the relation, so a new relation is a new name and
+a registry entry, and the target of an edge is spelled the same way wherever it is read.
 
 ### What a Markdown file defines and points at
 

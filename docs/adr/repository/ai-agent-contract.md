@@ -75,7 +75,7 @@ Every agent and every skill reads this first, at every start and after every cle
 
 ### Rule ADR-AI:13
 
-**out/ is never source; render nothing unasked.** Plans live in .claude/plans; no diagram without an ask. (ADR-REPO-OUTDIR)
+**out/ is output, never input; render nothing unasked.** Plans live in .claude/plans; no diagram without an ask. (ADR-REPO-OUTDIR)
 
 ## Context
 
@@ -88,8 +88,8 @@ A robot's front matter is a closed key set (ADR-REPO-AGENTS#6), and a value iden
 
 ## Decision
 
-One short contract, named once: the top-level `contracts: [ADR-AI]` entry in agents.yml, which the agent gate reads, and the CLAUDE.md
-session-start line. No per-file key. It says what to do and names the ADR that owns the why; under 100 lines with its head.
+One short contract, named once: the top-level `contracts: [ADR-AI]` entry in agents.yml, which `Test-AgentDefinitions` reads, and the
+CLAUDE.md session-start line. No per-file key. It says what to do and names the ADR that owns the why; under 100 lines with its head.
 
 ## Consequences
 

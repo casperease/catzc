@@ -41,4 +41,9 @@ Describe 'The file-kinds registry against the tracked files' -Tag 'L2', 'logic',
         $reached = $script:claimed.Contains($Class) -or @($script:claimed | Where-Object { $_.StartsWith("$Class/", [System.StringComparison]::Ordinal) }).Count -gt 0
         $reached | Should -BeTrue -Because "no tracked file resolves to '$Class': its globs match nothing, or an earlier kind takes every file"
     }
+
+    It 'no kind is mostly shadowed by an earlier one the registry does not pair it with in overlaps' {
+        $shadows = @((Get-Config -Config file-kinds).Shadowing([string[]] @(Get-TrackedFile)))
+        $shadows | Should -BeNullOrEmpty -Because (@($shadows | ForEach-Object { "'$($_.by)' takes $($_.taken) of the $($_.matched) files '$($_.hidden)' matches; list [$($_.by), $($_.hidden.Split('/')[0])] in overlaps when that is intended" }) -join '; ')
+    }
 }

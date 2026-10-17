@@ -41,8 +41,14 @@ public sealed class FileKindsConfig
 
     static readonly Regex Name = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$", RegexOptions.Compiled);
 
+    // A kind is mostly shadowed when an earlier kind takes more than this share of the files its globs match.
+    public const int ShadowedPercent = 50;
+
     // Every kind in precedence order: the first whose globs, or whose subkinds' globs, match a path names it.
     public IReadOnlyList<FileKindEntry> kinds { get; }
+
+    // The intended overlaps, [earlier, later] pairs; none by default.
+    public IReadOnlyList<FileKindOverlap> overlaps { get; }
 
     public FileKindsConfig(IDictionary raw)
     {
@@ -50,7 +56,7 @@ public sealed class FileKindsConfig
         foreach (object key in raw.Keys)
         {
             string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-            if (name != "kinds") { throw new ArgumentException("file-kinds config: unknown key '" + name + "' (allowed: kinds)"); }
+            if (name != "kinds" && name != "overlaps") { throw new ArgumentException("file-kinds config: unknown key '" + name + "' (allowed: kinds, overlaps)"); }
         }
         var list = new List<FileKindEntry>();
         if (raw.Contains("kinds") && raw["kinds"] != null)
@@ -68,6 +74,88 @@ public sealed class FileKindsConfig
             }
         }
         kinds = list;
+        overlaps = Overlaps(raw, list);
+    }
+
+    static List<FileKindOverlap> Overlaps(IDictionary raw, List<FileKindEntry> kinds)
+    {
+        var pairs = new List<FileKindOverlap>();
+        if (!raw.Contains("overlaps") || raw["overlaps"] == null) { return pairs; }
+        if (!(raw["overlaps"] is IEnumerable items) || raw["overlaps"] is string)
+        {
+            throw new ArgumentException("file-kinds config: overlaps must be a list of [earlier, later] kind pairs");
+        }
+        var order = kinds.Select(kind => kind.kind).ToList();
+        foreach (object item in items)
+        {
+            var pair = new List<string>();
+            if (item is IEnumerable parts && !(item is string))
+            {
+                foreach (object part in parts) { pair.Add(Convert.ToString(part, CultureInfo.InvariantCulture)); }
+            }
+            if (pair.Count != 2)
+            {
+                throw new ArgumentException("file-kinds config: an overlap is a pair [earlier, later] of kind names");
+            }
+            int earlier = order.IndexOf(pair[0]);
+            int later = order.IndexOf(pair[1]);
+            if (earlier < 0 || later < 0)
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                    "file-kinds config: overlap [{0}, {1}] names a kind the registry does not declare", pair[0], pair[1]));
+            }
+            if (earlier >= later)
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                    "file-kinds config: overlap [{0}, {1}] is not in precedence order: '{0}' must be declared before '{1}'", pair[0], pair[1]));
+            }
+            if (pairs.Any(existing => existing.earlier == pair[0] && existing.later == pair[1]))
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "file-kinds config: overlap [{0}, {1}] is listed twice", pair[0], pair[1]));
+            }
+            pairs.Add(new FileKindOverlap(pair[0], pair[1]));
+        }
+        return pairs;
+    }
+
+    // The classes that are mostly shadowed over these paths by a kind the overlaps do not pair them with: one record per hiding kind.
+    public IReadOnlyList<FileKindShadow> Shadowing(IEnumerable<string> paths)
+    {
+        var findings = new List<FileKindShadow>();
+        var resolved = (paths ?? Enumerable.Empty<string>()).Distinct(StringComparer.Ordinal)
+            .Select(path => new KeyValuePair<string, string>(path, Resolve(path).Class)).ToList();
+        foreach (FileKindEntry kind in kinds)
+        {
+            foreach (FileKindEntry sub in kind.subkinds) { Shadow(sub, resolved, findings); }
+            Shadow(kind, resolved, findings);
+        }
+        return findings;
+    }
+
+    void Shadow(FileKindEntry entry, List<KeyValuePair<string, string>> resolved, List<FileKindShadow> findings)
+    {
+        string own = entry.subkind == null ? entry.kind : entry.kind + "/" + entry.subkind;
+        var takers = new Dictionary<string, int>(StringComparer.Ordinal);
+        int matched = 0;
+        int taken = 0;
+        foreach (KeyValuePair<string, string> file in resolved)
+        {
+            if (!entry.Matches(file.Key)) { continue; }
+            matched++;
+            string named = file.Value;
+            if (named == own || (entry.subkind == null && named.StartsWith(own + "/", StringComparison.Ordinal))) { continue; }
+            taken++;
+            string by = named.Split('/')[0];
+            takers[by] = takers.TryGetValue(by, out int count) ? count + 1 : 1;
+        }
+        if (matched == 0 || taken * 100 <= matched * ShadowedPercent) { return; }
+        foreach (KeyValuePair<string, int> taker in takers.OrderByDescending(pair => pair.Value).ThenBy(pair => pair.Key, StringComparer.Ordinal))
+        {
+            if (!overlaps.Any(pair => pair.earlier == taker.Key && pair.later == entry.kind))
+            {
+                findings.Add(new FileKindShadow(own, taker.Key, taker.Value, matched));
+            }
+        }
     }
 
     static FileKindEntry Parse(string kind, IDictionary entry)

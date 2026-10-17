@@ -167,3 +167,21 @@ kinds:
   readme:
     definition: The README of a folder.
     files: ["**/README.md"]
+
+# The intended overlaps, [earlier, later]: the earlier kind takes most of the later kind's files on purpose, since the later one is the catch-all of its tree; a kind mostly shadowed by a pair not listed here fails FileKindReachability.
+overlaps:
+  - [test, fixture]
+  - [comment-page, fixture]
+  - [contract-asset, fixture]
+  - [fixture, asset]
+  - [test, script]
+  - [function, script]
+  - [drawio-kit, script]
+  - [asset, script]
+  - [fixture, script]
+  - [analyzer-rule, script]
+  - [comment-page, reference]
+  - [asset-description, reference]
+  - [diagram, reference]
+  - [asset-description, explanation]
+  - [diagram, explanation]
