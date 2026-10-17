@@ -65,54 +65,16 @@ stay the durable record; task files and this master are derived from them and ca
 - T010 -> task010.md (open; gate and ADR now, CLAUDE.md wording after T009): ADR-REPO-PLANS with nine rules, stable-locator rule in
   ADR-REPO-FOLDERS, the PowerShell naming rule in ADR-REPO-VOCAB, the Test-Plans gate, plan-clear registry, CLAUDE.md line 145.
 
-### T011 Module model close-out (plan-module-model-closeout, high; after T004 confirms D01 to D05)
-
-- Rule 6 of ADR-AUTO-MODULE gets code: handler ids on the track built and tested, or the rule narrowed. Check: Test-AdrRegistry; a test
-  names each handler id.
-- Step 10 of the implement prompt, the infrastructure track. Check: Get-CatzcModule -TrackType returns it, or recorded out of scope.
-- docs/references/automation/catzc-base-modules.md (absent 2026-10-17), listed in index.md. Check: Test-Links, Test-Spelling, Format-Code.
-- Catzc.Types.csproj first line: find the imprint step that turned the catzc processing instruction name into a bare one. Check:
-  Format-FileMeta then Format-Code leave the first line intact.
-- Minimaps of the other slides: keep or revert (D05). Check: git status under docs/explanation/.assets lists only intended slides.
-- Test-Comments 36 issues and Test-Glossary bare terms in plan text: assigned to owners' plans. Check: both gates report none.
-- Copy-Automation default (full profile) confirmed (D04). Check: Copy-Automation.Tests.ps1.
-- Clear the module-model part of waits_on in plan-config-defaults and plan-layers-vocabulary-rename-contracts. Check: grep waits_on.
-
-### T012 Kind to role and the track rules (plan-module-kinds-tracks, high)
-
-- Rename kind to role; kind takes the object meaning, partitioned by track. Check: Test-FileMeta, Test-FileKinds clean.
-- ADR-DSGN-TRACK: a track has one primary language by default (Q35). Check: Test-AdrRegistry, Test-Links.
-- Rerun Test-Links on WorldMapBuilder.cs. Check: zero findings.
-- Namespace follow-up (Q36) recorded as a decided section. Check: the section exists.
-- Test-ShippedTypes flags on TrackTypeEntry and VendorEntry (Q88, this plan's). Check: Test-ShippedTypes clean in a fresh process.
-
-### T013 Minimal robots Phase 5 (plan-minimal-robots and siblings, high)
-
-- session-cost-audit over a session that spawned each robot once; record context bytes per spawn and model mix. Check: report in out/.
-- Reconcile the seven shape rules with ADR-REPO-AGENTS rules 6 to 10. Check: Test-AgentDefinitions; each rule cited.
-- drawio-png as the maker inside drawio-diagram-waves (Q139 decided): confirm in the agent file. Check: Test-AgentDefinitions.
-- Then delete the three plans if no open step remains; one line each in value-of-plan.md. Check: Test-Links clean on the folder.
-
-### T014 Config defaults Phase 1 (plan-config-defaults, high; after T011)
-
-- VariantsConfig.cs and VariantTrack.cs carry defaults once (have_customers false, ado_naming standard, git_workspace main-direct, aspects
-  catch-all, tracks required with a throw naming key and fix); the five getters lose -Default. Check: VariantsConfig.Tests and getter tests.
-- Dirty-file note: Get-Track.ps1 and its test were modified in the user's tree on 2026-10-16; re-check before editing.
-
-### T015 Config defaults Phases 2 and 3 (after T006 names the folders)
-
-- This repo's data moves to .catzc/\<track>/Catzc.Base.Variants/configs/variants.yml; shipped variants.yml deleted; a typed config with no
-  file builds from an empty map plus the fragment. Check: overlay root tests; the shipped file gone.
-- Get-CatzcOverlayRoot and Get-ConfigOverlayRoot read the repo's own fragments in source mode. Check: source-mode tests.
-- Build-ConfigDefaultsContract writes contracts/catzc/0.0.0/<\Module>/configs/<\name>.yml; required keys in a header comment. Check:
-  Test-Contracts, Test-GeneratedFiles; Build-ContractReference lists it.
-
-### T016 Config defaults Phases 4 and 5
-
-- One config type per change into a posture (defaulted, empty-is-valid, required); the audit script in out/ is the worklist; the analyzer
-  rule flags a literal default in a function. Check: each config's own tests; the rule's test.
-- ADR-AUTO-DEFAULT#6, OVERLAY#1 #8, CONTRACT#6, CONF-LOADING amended; the assert ladder section in ADR-AUTO-FAILFAST (Q21);
-  Update-AdrCitation. Check: Test-Links, Test-AdrRegistry.
+- T011 -> task011.md (open; D01 to D05 first, steps 3, 4, 6 can start): module model close-out, rule 6 code, infrastructure track,
+  the Modules reference page, the csproj first-line imprint, waits_on cleared.
+- T012 -> task012.md (open; after T011): kind becomes role through the registry and generators; tracks.md rule 19 one primary language;
+  WorldMapBuilder links; Test-ShippedTypes; the namespace line.
+- T013 -> task013.md (open): minimal robots Phase 5 measure, the seven shape rules reconciled with ADR-REPO-AGENTS 6 to 10, the three
+  plans deleted. The waves maker question is already answered in the agent file.
+- T014 -> task014.md (open; after T011): config defaults Phase 1, VariantsConfig constants, getters lose -Default.
+- T015 -> task015.md (open; after T006 and T014): the .catzc fragment, config without a shipped file, Build-ConfigDefaultsContract.
+- T016 -> task016.md (open; after T015): every typed config into a posture, the NoLiteralDefault analyzer rule, five ADR amendments, the
+  assert ladder, three glossary terms.
 
 ### T017 Layers P0 and P1 (plan-layers-vocabulary-rename-contracts, high; P1 may run beside the module model, Q38)
 
