@@ -70,7 +70,7 @@ box plus 8 B reference) against 4 B in an `int[]`. The .NET 10 JIT did not remov
 | Site                                                                                  | Why it boxes                                                                                                      |
 | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `object`, `ValueType`, `Enum` or interface-typed variable, field, parameter or return | assignment converts                                                                                               |
-| `params object[]` call with value arguments                                           | one box per argument, plus the array (measured: 88 B for two integers)                                                |
+| `params object[]` call with value arguments                                           | one box per argument, plus the array (measured: 88 B for two integers)                                            |
 | `string.Format("{0}", i)` and `string.Concat(object, ...)`                            | the `object` overload (measured: 63 B total, 24 B of it the box). Interpolation `$"{i}"` and `"a" + i` do not box |
 | `PropertyInfo.GetValue`, `MethodInfo.Invoke`, `FieldInfo.GetValue`                    | the result is `object` (measured: 24 B per int, bool or enum read)                                                |
 | non-generic collections: `ArrayList`, `Hashtable`, `IEnumerable` over a value array   | the element type is `object` (measured: 24 B per element enumerated)                                              |
