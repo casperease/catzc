@@ -8,7 +8,7 @@ plan:
   targets: [automation/Catzc.Base.Folders, automation/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
 catzc:
   immutable:
-    with_body_sha: "6c6646177845"
+    with_body_sha: cdabe8b9966b
     repo_status: clean
     path: ".claude/plans/plan-bounded-folder-enumeration.md"
     folder: plans
@@ -51,8 +51,8 @@ The value is delivered; what is left is the proof at level 2.
   plan-file-head-immutable-edges-classes.
 - Session report of 15:33: the level-2 gate failed on three bad ADR test tags; the three fixes and their reasons are in the carried "Gate
   result and decision (2026-10-16)" section below. Lesson recorded there and in the memory note bounded-folder-enumeration: every test
-  citation needs the ADR-<CODE>#<n> form naming a real rule. The gate was not rerun, so the fix is unconfirmed. The old draft sections still
-  say Catzc.Base.Files and -IncludeVendor (the status line names -PruneVendor); the code and the later results win, by the draft's own
+  citation needs the `ADR-<CODE>#<n>` form naming a real rule. The gate was not rerun, so the fix is unconfirmed. The old draft sections
+  still say Catzc.Base.Files and -IncludeVendor (the status line names -PruneVendor); the code and the later results win, by the draft's own
   status line. Other plans mention ADR-AUTO-FAILFAST only in passing and were left alone by that session.
 
 ## Note from the questionnaire round (C1, 2026-10-16)
@@ -108,7 +108,7 @@ results; where they disagree with the code (module name, `-PruneVendor`, measure
 
 Violations to migrate (file:line):
 
-**A. Cmdlet enumeration**
+### A. Cmdlet enumeration
 
 - `Catzc.Base.Vendor/Install-VendorModule.ps1:60` (`-Recurse`)
 - `Catzc.Base.Vendor/private/Get-VendoredModule.ps1:20,21`

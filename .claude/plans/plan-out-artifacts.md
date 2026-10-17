@@ -12,7 +12,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "27c55cbb23cb"
+    with_body_sha: af8b5c723b9e
     repo_status: clean
     path: ".claude/plans/plan-out-artifacts.md"
     folder: plans
@@ -45,7 +45,7 @@ shrinks this one.
 
 Plan data left out/ on 2026-10-16; what remains is session tooling and output. Counted at the top level: 272 .ps1 scripts, 35 .log, 27 .txt,
 27 .bak (cc-int-_.bak of the internal .psm1 files and condense-comments-sa-_.bak of the analyzer modules), 2 .py, 5 .csv, .json or .sh, plus
-45 run folders (test-* gates, cache, diagrams, template, verdicts, spike, glossary-check, to-scratch-*).
+45 run folders (`test-*` gates, cache, diagrams, template, verdicts, spike, glossary-check, `to-scratch-*`).
 
 Referenced by a plan or prompt in .claude/plans, so kept until that plan is done:
 
@@ -79,7 +79,7 @@ a generic refactor-equivalence helper; QualityGates); gates-module.ps1 (a per-mo
 actual head against the fixed head, which Format-FileMeta -DryRun does not show; QualityGates).
 
 Caveats from the worker: scripts dated today 14:57 to 17:22 (step1 to step7, yamlcheck*, finish-glossary, time-comment-scope, mr-gate) may
-belong to sessions still running; the *-mine and peer scripts hardcode one session's file list; the drawio scripts belong to the drawio
+belong to sessions still running; the `*-mine` and peer scripts hardcode one session's file list; the drawio scripts belong to the drawio
 sessions; run-clear-output.ps1 was judged by reading, never run. Probe deletions skip anything younger than the session asking.
 
 ## Open steps (harvest)
@@ -92,7 +92,7 @@ sessions; run-clear-output.ps1 was judged by reading, never run. Probe deletions
 - [ ] The five tool candidates become open steps in their owning plans: run-head-batch and diff-one and probe-corpus and gates-module in the
       file-head and plans-program plans (QualityGates), tests-comments-rollout in the link cleanup plan (Docs) (check: a grep of those plans
       finds each of the five names in an open step).
-- [ ] Register the six out/ areas with their numbers in output-formats.yml (Q71); sessions under out/sessions/<session>/ (Q72);
+- [ ] Register the six out/ areas with their numbers in output-formats.yml (Q71); sessions under `out/sessions/<session>/` (Q72);
       time-safeguard.log never pruned (Q73); only Clear-Output prunes (Q74) (check: the config tests; Test-Links).
 
 ## Needed docs
@@ -107,7 +107,7 @@ sessions; run-clear-output.ps1 was judged by reading, never run. Probe deletions
 
 ## Open steps
 
-- Decided (Q71 to Q74): the six areas with their numbers; out/sessions/<session>/; time-safeguard.log is never pruned; only Clear-Output
+- Decided (Q71 to Q74): the six areas with their numbers; `out/sessions/<session>/`; time-safeguard.log is never pruned; only Clear-Output
   prunes. Nothing is left to decide here.
 - [ ] Register the unregistered areas (check: Test-Links on output-formats.yml; its config tests).
 - [ ] Implement the prune (check: its Pester file).

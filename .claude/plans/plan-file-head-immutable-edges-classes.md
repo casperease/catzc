@@ -14,7 +14,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "7cb9e04995f8"
+    with_body_sha: "7863c44dd345"
     repo_status: clean
     path: ".claude/plans/plan-file-head-immutable-edges-classes.md"
     folder: plans
@@ -332,7 +332,7 @@ Globs are the only selector, so the same file sets are spelled again in every ki
 
 Each copy can drift from the others. Adding a function class, such as a new `*-function` role, means editing up to seven lists.
 
-## The model
+## The glob model
 
 1. **Globs live in one place: `file-kind`'s ordered `classes`.** The first class whose glob matches a file is the file's class. The order is
    the precedence, and `other` is the default class. This is how it works today.

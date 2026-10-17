@@ -14,7 +14,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "59f5f03a4866"
+    with_body_sha: "9a1ba7c75c50"
     repo_status: clean
     path: ".claude/plans/plan-module-kinds-tracks.md"
     folder: plans
@@ -60,7 +60,7 @@ the user's own and changes what every head's track key means. The config default
 - Sequencing (2026-10-16, layers Q8): the module model lands first and keeps the name automation in its text. New code takes the track from
   the one resolver, so the later rename to pwsh stays a data edit. It deletes Get-AutomationModules and Get-BaseModule.
 - Config defaults (2026-10-16, plan-config-defaults): every key this plan adds to a config type declares its default once on the type;
-  tracks.<t>.engines joins variants.yml and VariantTrack; aspects shrinks. If both plans touch VariantsConfig.cs or VariantTrack.cs, this
+  `tracks.<t>.engines` joins variants.yml and VariantTrack; aspects shrinks. If both plans touch VariantsConfig.cs or VariantTrack.cs, this
   plan owns the file and the config defaults plan edits after it.
 - k8s plan Q1 to Q3, D1, uniqueness per track, namespace deferred: taken as recommended (section 6 of that draft).
 - Module-model Q-A to Q-G decided by the user in the questionnaire round of 2026-10-16 (Q27 to Q33): languages modelled generally and
@@ -144,7 +144,9 @@ the user's own and changes what every head's track key means. The config default
 
 ## Carried: out/plan-module-model.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
-### Corrections (prepare session, 2026-10-16; evidence in out/module-model-callers.md, -reading.md, -slots.md, -layering.md, -protection-identity.md, draft-adr-auto-module.md)
+### Corrections (prepare session, 2026-10-16)
+
+Evidence: out/module-model-callers.md, -reading.md, -slots.md, -layering.md, -protection-identity.md and draft-adr-auto-module.md.
 
 Where this list and the draft below disagree, this list wins.
 
@@ -420,7 +422,10 @@ Ordering matters: the model must exist before the ADR's enforcement can name it,
 Verification for every step: run the affected file's tests and the relevant gate in the background with `timeout`, and report what actually
 ran. Per-file checks only; the user runs the full suite (memory: user handles commits and tests).
 
-## 5a. Missing work (closed by prompt 1 on 2026-10-16: items 1 to 4 and 6 by out/module-model-callers.md, -reading.md, -slots.md, -layering.md and draft-adr-auto-module.md; item 5 by out/module-model-slots.md section C; item 7 by Corrections and the answers under section 7)
+## 5a. Missing work (closed by prompt 1 on 2026-10-16)
+
+Items 1 to 4 and 6 are closed by out/module-model-callers.md, -reading.md, -slots.md, -layering.md and draft-adr-auto-module.md; item 5 by
+out/module-model-slots.md section C; item 7 by Corrections and the answers under section 7.
 
 1. **Caller inventory** of `Get-BaseModule`, `Get-AutomationModules`, `Get-PathModule`, `Get-ModuleTestOrder`, `Get-ModuleProfile`,
    `DiskModule`/`BaseModule`/`SessionModule` and the `Kind` values (step 2).
@@ -1002,7 +1007,7 @@ for a holder's, so a head never lists a bundle for a file that is not bundled.
 
 - [Types and tracks](#types-and-tracks)
 
-## Context
+## Context (module types)
 
 ### Modules
 
@@ -1021,7 +1026,7 @@ Admission is the check that keeps a track one stack: the track type says what it
 is. A holder's single module keeps the head honest: the `settings` module of `vendor-settings` is the whole track, so a reader never looks
 for a module folder where none exists.
 
-## Decision
+## Decision (module types)
 
 A module is a unit placed in a track; its type comes from the registry (ADR-DSGN-MODTYPE#1, #2); its track type must admit it
 (ADR-DSGN-MODTYPE#3); a holder's module is the holder (ADR-DSGN-MODTYPE#4).
@@ -1031,7 +1036,7 @@ A module is a unit placed in a track; its type comes from the registry (ADR-DSGN
 - **The config types** fail the load on an unadmitted module type, an unknown key and a place two types claim.
 - **`Test-FileMeta`** compares `module`, `moduletype` and `catzc_bundle` in each head with the registry.
 
-## Consequences
+## Consequences (module types)
 
 - One registry says what a module is; the file-meta ADR only says the head carries it.
 - `pipeline` stays one module type: the platform is the track's vendor, so ADO and GitHub pipelines differ by a declared fact, not by a

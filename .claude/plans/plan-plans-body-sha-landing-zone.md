@@ -6,7 +6,7 @@ plan:
   targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Languages, docs/adr/repository, .claude/CLAUDE.md, .unordered]
 catzc:
   immutable:
-    with_body_sha: a7c5962c9a00
+    with_body_sha: "02cda16516fb"
     repo_status: clean
     path: ".claude/plans/plan-plans-body-sha-landing-zone.md"
     folder: plans
@@ -198,9 +198,9 @@ changes from "plans go in `out/`" to "draft in `out/`, promote with `Publish-Pla
 
 ## Order
 
-0. Phase 0 (policy, ADR, tool, then the one removal run). 1. The binding audit and the plan triage, both read-only. 2. Phase 1 terms and
-   tool. 3. Phase 2 rules, gate, cleaner, move. 4. Retire the old `.unordered` wording. 5. Update `.claude/CLAUDE.md`. The ADR link cleanup
-   resumes after step 3: the plans' 274 citations then become head data, and the body hash no longer makes every ADR edit a drift finding.
+Steps: 0. Phase 0 (policy, ADR, tool, then the one removal run). 1. The binding audit and the plan triage, both read-only. 2. Phase 1 terms
+and tool. 3. Phase 2 rules, gate, cleaner, move. 4. Retire the old `.unordered` wording. 5. Update `.claude/CLAUDE.md`. The ADR link cleanup
+resumes after step 3: the plans' 274 citations then become head data, and the body hash no longer makes every ADR edit a drift finding.
 
 ## Decided
 

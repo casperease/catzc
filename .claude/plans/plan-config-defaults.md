@@ -17,7 +17,7 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: c0bde751fa12
+    with_body_sha: "04f83226c2d8"
     repo_status: clean
     path: ".claude/plans/plan-config-defaults.md"
     folder: plans
@@ -143,7 +143,7 @@ edit in section 6 and a note in the affected phase. Do not re-ask them; do flag 
   shipped `configs/<name>.yml` → **type default, "declared exactly once, on the config type; no function restates it"**.
 - **`VariantsConfig` breaks that rule.** All five keys (`ado_naming`, `git_workspace`, `have_customers`, `aspects`, `tracks`) are `null`
   when unset. The defaults live as `-Default` literals in five getters: `Get-AdoNaming` ('standard'), `Get-GitWorkspace` ('main-direct'),
-  `Get-EnabledCustomers` ($false), `Get-Aspect` (local `$default`), `Get-Track` (@()).
+  `Get-EnabledCustomers` (`$false`), `Get-Aspect` (a local `$default`), `Get-Track` (`@()`).
 - **They already disagree:** shipped `variants.yml` says `have_customers: all`; the restated code default is `$false`.
 - **`ContractsConfig` is the model to copy**: `public const string DefaultAddressing`, `DefaultTargetRoot`; the constructor sets defaults
   first, treats `null` as "use the default", rejects unknown keys.

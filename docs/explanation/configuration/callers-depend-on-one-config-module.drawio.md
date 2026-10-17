@@ -31,8 +31,8 @@ Glyphs: 4 code units (slate), 1 store (slate), 1 file (olive), 1 result; 7 flow 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](callers-depend-on-one-config-module.md).
+This describes what the [diagram](../.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png) draws, in the
+vocabulary of the diagram glyphs; what it means is in [the article](callers-depend-on-one-config-module.md).
 
 ## At a glance
 
@@ -95,8 +95,8 @@ with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimap
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-conf-loading--callers-depend-on-one-config-module--architecture.grid.md),
 [tree](../.assets/tree/adr-conf-loading--callers-depend-on-one-config-module--architecture.tree.md) and
-[value-chain map](../.assets/chain/adr-conf-loading--callers-depend-on-one-config-module--architecture.chain.md), which hold the reason for every lit
-cell or group as of that build.
+[value-chain map](../.assets/chain/adr-conf-loading--callers-depend-on-one-config-module--architecture.chain.md), which hold the reason for
+every lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-CONF-LOADING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

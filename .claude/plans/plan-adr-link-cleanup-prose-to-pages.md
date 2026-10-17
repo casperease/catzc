@@ -7,7 +7,7 @@ plan:
   targets: [docs, automation/Catzc.Base.QualityGates, out/adr-link-ledger.csv]
 catzc:
   immutable:
-    with_body_sha: "0efcde7ec9b6"
+    with_body_sha: "98b2df0d8b71"
     repo_status: clean
     path: ".claude/plans/plan-adr-link-cleanup-prose-to-pages.md"
     folder: plans
@@ -398,7 +398,7 @@ Two ways to reconcile (decision D1):
 
 Decided: (a). (b) is revisited only if the duplication proves a real burden.
 
-## Steps
+## Steps, part two
 
 ### Step 2.0: inventory every piece of larger text
 
