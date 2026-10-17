@@ -14,7 +14,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "7863c44dd345"
     repo_status: clean
     path: ".claude/plans/plan-file-head-immutable-edges-classes.md"
     folder: plans

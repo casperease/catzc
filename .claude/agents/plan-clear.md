@@ -12,7 +12,6 @@ maxTurns: 30
 skills: [plan-shape, md-links, catzc-run, catzc-check, git-readonly, report-fixed]
 catzc:
   immutable:
-    with_body_sha: e6ce429d7643
     repo_status: clean
     path: ".claude/agents/plan-clear.md"
     folder: agents

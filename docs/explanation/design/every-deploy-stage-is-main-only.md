@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ae7d27684ab2
     repo_status: clean
     path: docs/explanation/design/every-deploy-stage-is-main-only.md
     folder: docs/explanation/design

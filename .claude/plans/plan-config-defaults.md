@@ -3,9 +3,7 @@ plan:
   status: active
   value: high
   reviewed: 2026-10-16
-  waits_on:
-    plan-module-kinds-tracks implemented before Phase 1 (VariantsConfig.cs, variants.yml and VariantTrack.cs are shared); plan-adr-cats for
-    the folder names
+  waits_on: plan-module-kinds-tracks implemented before Phase 1 (VariantsConfig.cs, variants.yml and VariantTrack.cs are shared)
   targets:
     [
       automation/Catzc.Base.Variants,
@@ -17,7 +15,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "04f83226c2d8"
     repo_status: clean
     path: ".claude/plans/plan-config-defaults.md"
     folder: plans
@@ -34,6 +31,7 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT#{5,6}
       - ADR-AUTO-OVERLAY#{1,4,8}
+      - ADR-CATS#5
       - ADR-PRIN-CONFIG#3
       - ADR-REPO-CONTRACT#{3,6,9}
     links:
@@ -59,6 +57,8 @@ It generalises to every typed config in configs.yml.
 
 - Q6 is reframed: .catzc and .cats are not canonical and alias. cats and catzc, their distinction and their cross-purpose use are a core
   product principle to be ruled by a new ADR-CATS (plan-adr-cats); the overlay and fragment folder names follow from it.
+- ADR-CATS#5 rules the folder (2026-10-17): `.catzc/` only, for the overlay root and this repository's own fragment root; no `.cats/` alias
+  is written or read (supersedes Q6's alias). The overlay root tests read the name from the rule.
 - Q20 Phase 1 waits for the module model too (shared VariantsConfig.cs); Q21 the assert ladder is a section in ADR-AUTO-FAILFAST.
 - F5, Q101, S5: every config type is audited into a posture; every -Default literal in a getter goes; the contract folder gains one defaults
   file per type; an analyzer rule flags a literal default in a function and keeps it so (the audit script is its seed; ADR-PRIN-CONFIG#3 is

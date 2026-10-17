@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "569f84e9516b"
     repo_status: clean
     path: docs/explanation/azure/four-gates-hold-the-session-rule.drawio.md
     folder: docs/explanation/azure

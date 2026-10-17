@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0cc818363bcc"
     repo_status: clean
     path: docs/explanation/flow/independence-check-groups-by-layer.drawio.md
     folder: docs/explanation/flow

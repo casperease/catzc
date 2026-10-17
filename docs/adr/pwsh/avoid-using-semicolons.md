@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "47103cd2d19b"
     repo_status: clean
     path: docs/adr/pwsh/avoid-using-semicolons.md
     folder: docs/adr/pwsh

@@ -18,6 +18,7 @@ catzc:
     page: docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md
     test: automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     cites:
+      - ADR-AI
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#9
       - ADR-AZ-CUSTOMER#3
@@ -39,7 +40,7 @@ public sealed class AdrsConfig
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
-    private static readonly Regex ExternalRe = new Regex("^ADR-[A-Z]{2,4}(-[A-Z]+)+$", RegexOptions.Compiled);
+    private static readonly Regex ExternalRe = new Regex("^ADR-[A-Z]+(-[A-Z]+)*$", RegexOptions.Compiled);
 
     // The rows of the value-chain stack, top to bottom ([ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
@@ -168,7 +169,7 @@ public sealed class AdrsConfig
                     string external = r.Contains("external") && r["external"] != null ? r["external"].ToString() : null;
                     if (external == null || !ExternalRe.IsMatch(external))
                     {
-                        errors.Add(string.Format("ruleset '{0}/{1}': external '{2}' must be ADR-<DC>-<NAME>", name, slug, external));
+                        errors.Add(string.Format("ruleset '{0}/{1}': external '{2}' must be ADR-<NAME> or ADR-<DC>-<NAME>, uppercase segments", name, slug, external));
                         continue;
                     }
                     if (seenExternals.ContainsKey(external))
@@ -189,7 +190,9 @@ public sealed class AdrsConfig
                     string terminology = r.Contains("terminology") && r["terminology"] != null ? r["terminology"].ToString() : null;
 
                     string expectedPrefix = "ADR-" + effective;
-                    bool domainSegmentMatches = string.Equals(external, expectedPrefix, StringComparison.Ordinal)
+                    bool hasDomainSegment = external.IndexOf('-', 4) >= 0;
+                    bool domainSegmentMatches = !hasDomainSegment
+                        || string.Equals(external, expectedPrefix, StringComparison.Ordinal)
                         || external.StartsWith(expectedPrefix + "-", StringComparison.Ordinal);
                     if (!domainSegmentMatches)
                     {

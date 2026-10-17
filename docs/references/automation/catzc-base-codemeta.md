@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "09a881a934b4"
     repo_status: clean
     path: docs/references/automation/catzc-base-codemeta.md
     folder: docs/references/automation

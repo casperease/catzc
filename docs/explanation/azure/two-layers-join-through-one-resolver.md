@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d379b5ba0d07
     repo_status: clean
     path: docs/explanation/azure/two-layers-join-through-one-resolver.md
     folder: docs/explanation/azure

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "57053f5e8c03"
     repo_status: clean
     path: docs/explanation/design/deploying-is-not-integrating.drawio.md
     folder: docs/explanation/design

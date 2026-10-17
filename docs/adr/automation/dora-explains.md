@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d865f91f9a39
     repo_status: clean
     path: docs/adr/automation/dora-explains.md
     folder: docs/adr/automation

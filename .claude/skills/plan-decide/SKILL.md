@@ -7,7 +7,6 @@ paths: .claude/plans/**
 metadata:
   catzc:
     immutable:
-      with_body_sha: c2f499f94362
       repo_status: clean
       path: ".claude/skills/plan-decide/SKILL.md"
       folder: skills/plan-decide

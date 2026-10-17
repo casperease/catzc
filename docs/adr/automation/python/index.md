@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: daf24257c517
     repo_status: clean
     path: docs/adr/automation/python/index.md
     folder: docs/adr/automation/python

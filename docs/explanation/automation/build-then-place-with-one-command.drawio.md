@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "33a33088793e"
     repo_status: clean
     path: docs/explanation/automation/build-then-place-with-one-command.drawio.md
     folder: docs/explanation/automation

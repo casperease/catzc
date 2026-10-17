@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2f81962511e8"
     repo_status: clean
     path: docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.drawio.md
     folder: docs/explanation/automation

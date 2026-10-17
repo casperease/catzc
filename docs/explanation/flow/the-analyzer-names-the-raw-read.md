@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "43e2a61f90dd"
     repo_status: clean
     path: docs/explanation/flow/the-analyzer-names-the-raw-read.md
     folder: docs/explanation/flow

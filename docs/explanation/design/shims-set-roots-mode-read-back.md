@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "73b6f7501e19"
     repo_status: clean
     path: docs/explanation/design/shims-set-roots-mode-read-back.md
     folder: docs/explanation/design

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1b8bb45ab915"
     repo_status: clean
     path: docs/adr/research/trunk-based-development.md
     folder: docs/adr/research

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cc05af7967c1
     repo_status: clean
     path: docs/how-to/automation/manual-test-plan/spelling-and-language.md
     folder: docs/how-to/automation/manual-test-plan

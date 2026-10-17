@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ca001a9de752
     repo_status: clean
     path: docs/explanation/configuration/type-an-address-get-the-value.drawio.md
     folder: docs/explanation/configuration

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c9c9dacd1070
     repo_status: clean
     path: docs/adr/research/visual-management.md
     folder: docs/adr/research

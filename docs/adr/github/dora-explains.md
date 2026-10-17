@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e0aa789e446d
     repo_status: clean
     path: docs/adr/github/dora-explains.md
     folder: docs/adr/github

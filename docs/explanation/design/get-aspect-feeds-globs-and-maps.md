@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d75adc1d543b
     repo_status: clean
     path: docs/explanation/design/get-aspect-feeds-globs-and-maps.md
     folder: docs/explanation/design

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fb85232d29c7
     repo_status: clean
     path: docs/explanation/design/one-unit-one-pipeline.drawio.md
     folder: docs/explanation/design

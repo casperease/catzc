@@ -7,7 +7,6 @@ plan:
   targets: [docs/adr/automation, automation/Catzc.Base.Docs/configs/glossary.yml, automation/Catzc.Base.Docs/configs/adrs.yml]
 catzc:
   immutable:
-    with_body_sha: c0c774fa8f3e
     repo_status: clean
     path: ".claude/plans/plan-materialization-of-knowledge.md"
     folder: plans

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b8e8750cdd85
     repo_status: clean
     path: docs/adr/pwsh/pwsh-engine.md
     folder: docs/adr/pwsh

@@ -12,7 +12,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "8b40fca9f12a"
     repo_status: clean
     path: ".claude/plans/plan-format-step-moves-comments.md"
     folder: plans

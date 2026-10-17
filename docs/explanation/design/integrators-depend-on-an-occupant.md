@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ef9fae3d4c69
     repo_status: clean
     path: docs/explanation/design/integrators-depend-on-an-occupant.md
     folder: docs/explanation/design

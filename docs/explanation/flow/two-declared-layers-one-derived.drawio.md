@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fb34e94f275e
     repo_status: clean
     path: docs/explanation/flow/two-declared-layers-one-derived.drawio.md
     folder: docs/explanation/flow

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "134788ad7604"
     repo_status: clean
     path: docs/how-to/automation/manual-test-plan/root-config-and-editor.md
     folder: docs/how-to/automation/manual-test-plan

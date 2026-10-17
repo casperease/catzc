@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5a64f7fdce40"
     repo_status: clean
     path: docs/explanation/automation/output-root-first-then-repo-root.drawio.md
     folder: docs/explanation/automation

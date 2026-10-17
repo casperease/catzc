@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ceb34799c90d
     repo_status: clean
     path: docs/explanation/flow/one-artifact-climbs-unchanged.drawio.md
     folder: docs/explanation/flow

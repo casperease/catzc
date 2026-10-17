@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bc3705e6a779
     repo_status: clean
     path: docs/explanation/automation/callers-value-else-config-else-default.md
     folder: docs/explanation/automation

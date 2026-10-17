@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "76186ea3afc1"
     repo_status: clean
     path: docs/how-to/getting-started/automation/python/index.md
     folder: docs/how-to/getting-started/automation/python

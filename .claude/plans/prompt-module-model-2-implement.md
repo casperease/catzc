@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "030b7b90274e"
     repo_status: clean
     path: ".claude/plans/prompt-module-model-2-implement.md"
     folder: plans

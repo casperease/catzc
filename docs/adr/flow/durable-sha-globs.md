@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c6e0e1792463
     repo_status: clean
     path: docs/adr/flow/durable-sha-globs.md
     folder: docs/adr/flow

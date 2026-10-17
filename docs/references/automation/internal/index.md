@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "552fcd9f3460"
     repo_status: clean
     path: docs/references/automation/internal/index.md
     folder: docs/references/automation/internal

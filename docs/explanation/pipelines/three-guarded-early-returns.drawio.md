@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ba7b37a076dc
     repo_status: clean
     path: docs/explanation/pipelines/three-guarded-early-returns.drawio.md
     folder: docs/explanation/pipelines

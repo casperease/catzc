@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: eff1880109ad
     repo_status: clean
     path: docs/references/automation/catzc-base-vscode.md
     folder: docs/references/automation

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d10e7f217e23
     repo_status: clean
     path: docs/adr/automation/sensible-defaults.md
     folder: docs/adr/automation

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "60c617041b83"
     repo_status: clean
     path: docs/explanation/automation/one-out-string-two-places.drawio.md
     folder: docs/explanation/automation

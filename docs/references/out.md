@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f36f8985dc86
     repo_status: clean
     path: docs/references/out.md
     folder: docs/references

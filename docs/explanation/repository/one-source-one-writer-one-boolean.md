@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "147e11306ad2"
     repo_status: clean
     path: docs/explanation/repository/one-source-one-writer-one-boolean.md
     folder: docs/explanation/repository

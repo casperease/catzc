@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a210ea69b439
     repo_status: clean
     path: docs/how-to/getting-started/automation/debug-in-vscode.md
     folder: docs/how-to/getting-started/automation

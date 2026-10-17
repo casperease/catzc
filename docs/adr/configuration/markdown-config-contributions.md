@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e8192d50ae2b
     repo_status: clean
     path: docs/adr/configuration/markdown-config-contributions.md
     folder: docs/adr/configuration

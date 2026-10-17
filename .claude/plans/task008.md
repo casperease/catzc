@@ -1,14 +1,13 @@
 ---
 task:
   id: "008"
-  status: open
+  status: done except step 4, the user's git rm, and step 5, which follows it
   plans: [plan-plans-body-sha-landing-zone]
   value: highest
   blocked_on: step 4 is the user's git rm
   targets: [.unordered, automation, docs/adr/design/tracks.md, .gitattributes]
 catzc:
   immutable:
-    with_body_sha: c6150655682f
     repo_status: clean
     path: ".claude/plans/task008.md"
     folder: plans
@@ -31,7 +30,20 @@ landing zone (T009), so every binding to it is audited first, read-only. Measure
 Get-TerminologyCorpus.ps1, Test-Markdownlint.ps1, Test-Spelling.ps1, variants.yml, Get-Track.Tests.ps1, .gitattributes) and 283 markdown
 files, most of them plans and comment pages.
 
-## Steps
+## Done (2026-10-17), with the corrections the tree forced
+
+- Step 1: the "Binding audit" section of plan-plans-body-sha-landing-zone holds the 12 verdict rows (3 track, 3 go, 6 stay). Correction:
+  the scan exclusions in GlossaryOptions.cs and its test read tracked files, so their `stay` rests on scope (imported text is not this
+  repository's prose until sorted), not on ADR-AUTO-TRACKED.
+- Step 2: 299 markdown files name `.unordered`, not 283: 282 generated minimap pages, 16 plan-folder files, one authored ADR (tracks.md).
+  No comment page names it. Three authored sources state the old meaning: tracks.md, track-types.md and the `note` kind in file-kinds.yml
+  (the glossary source only lists `unordered` as a track type). Recorded in the same section.
+- Step 3: `out/delete-unordered-15-10-2026.ps1` holds one `git rm -r .unordered/15-10-2026` and a comment naming Q09.
+- Step 4: the user's. Step 5 follows it: the deletion step of the plan is ticked once `ls .unordered` shows no `15-10-2026`; the audit
+  step is ticked already.
+- Check: `[Write-QualityGateReport] No links issues found.` on the plan, report in the task report.
+
+## Steps, as planned
 
 1. Audit, read-only, one file per line in `plan-plans-body-sha-landing-zone.md` under a new "Binding audit" section: for each of the 12 code
    and config files, the line, what it does with `.unordered`, and a verdict: `go` for a measure, a track getter or a default that reads it;

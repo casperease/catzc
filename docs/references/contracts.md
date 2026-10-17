@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b5678246da49
     repo_status: clean
     path: docs/references/contracts.md
     folder: docs/references

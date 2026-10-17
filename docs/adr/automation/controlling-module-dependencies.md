@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d7e079d24e76
     repo_status: clean
     path: docs/adr/automation/controlling-module-dependencies.md
     folder: docs/adr/automation

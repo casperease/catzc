@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "61c35cdfedaa"
     repo_status: clean
     path: docs/references/infrastructure/index.md
     folder: docs/references/infrastructure

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ef8740bfa3fb
     repo_status: clean
     path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
     folder: docs/explanation/design

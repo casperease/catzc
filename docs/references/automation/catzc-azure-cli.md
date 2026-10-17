@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1a24ce69a808"
     repo_status: clean
     path: docs/references/automation/catzc-azure-cli.md
     folder: docs/references/automation

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "72b0ca900c47"
     repo_status: clean
     path: docs/references/automation/catzc-base-configextensions.md
     folder: docs/references/automation

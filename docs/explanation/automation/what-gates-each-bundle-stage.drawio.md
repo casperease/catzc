@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c3b92ae64dee
     repo_status: clean
     path: docs/explanation/automation/what-gates-each-bundle-stage.drawio.md
     folder: docs/explanation/automation

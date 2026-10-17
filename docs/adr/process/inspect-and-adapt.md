@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e821d6725bb"
     repo_status: clean
     path: docs/adr/process/inspect-and-adapt.md
     folder: docs/adr/process

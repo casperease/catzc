@@ -3,11 +3,10 @@ plan:
   status: blocked
   value: medium
   reviewed: 2026-10-16
-  blocked_on: plan-plans-body-sha-landing-zone phase 0 and the plan move; three ledger recommendations await an answer
+  blocked_on: the plan move of plan-plans-body-sha-landing-zone; three ledger recommendations await an answer
   targets: [docs, automation/Catzc.Base.QualityGates, out/adr-link-ledger.csv]
 catzc:
   immutable:
-    with_body_sha: "98b2df0d8b71"
     repo_status: clean
     path: ".claude/plans/plan-adr-link-cleanup-prose-to-pages.md"
     folder: plans

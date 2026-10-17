@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3e7bc9e68569"
     repo_status: clean
     path: docs/explanation/configuration/three-caches-back-one-reader.md
     folder: docs/explanation/configuration

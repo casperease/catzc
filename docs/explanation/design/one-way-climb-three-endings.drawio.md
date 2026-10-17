@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5cc1f7d2aee4"
     repo_status: clean
     path: docs/explanation/design/one-way-climb-three-endings.drawio.md
     folder: docs/explanation/design

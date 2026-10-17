@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "945a8dd38e53"
     repo_status: clean
     path: docs/adr/azure/waf/security.md
     folder: docs/adr/azure/waf

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9f2c295bbc83"
     repo_status: clean
     path: docs/adr/automation/execution-engines.md
     folder: docs/adr/automation

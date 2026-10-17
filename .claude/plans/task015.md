@@ -16,7 +16,6 @@ task:
     ]
 catzc:
   immutable:
-    with_body_sha: "9980f623a4dc"
     repo_status: clean
     path: ".claude/plans/task015.md"
     folder: plans
@@ -31,6 +30,7 @@ catzc:
     moduletype: settings
   edges:
     cites:
+      - ADR-CATS#5
       - ADR-REPO-CONTRACT#9
 ---
 

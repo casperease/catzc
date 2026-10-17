@@ -507,3 +507,23 @@ concepts:
       A step the file-language registry lists under imprint, global or for one language, which Format-Code runs after the formatter to write
       one derived fact into the file.
     realized_by: { kind: prose-only }
+  catzc:
+    key: catzc
+    domain: principles
+    defined_by: ADR-CATS#1
+    short:
+      The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token
+      in code and precise references.
+    realized_by: { kind: prose-only }
+    avoid:
+      - { phrase: .cats folder, say: .catzc/ }
+    contrasts:
+      cats: cats is the same system named to a person; catzc is its name to code and to the facts the tooling writes.
+  cats:
+    key: cats
+    domain: principles
+    defined_by: ADR-CATS#2
+    short: The product's name to a person — the bash and zsh executor, and the word in prose, docs and conversation.
+    realized_by: { kind: prose-only }
+    contrasts:
+      catzc: catzc is the source-level name every module, namespace and path carries; cats is the friendly form a person reads and says.

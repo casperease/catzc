@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a992108b1a0f
     repo_status: clean
     path: docs/explanation/automation/a-declared-allow-list-of-layers.drawio.md
     folder: docs/explanation/automation

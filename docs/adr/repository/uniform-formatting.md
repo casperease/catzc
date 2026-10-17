@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "44ccc742c795"
     repo_status: clean
     path: docs/adr/repository/uniform-formatting.md
     folder: docs/adr/repository

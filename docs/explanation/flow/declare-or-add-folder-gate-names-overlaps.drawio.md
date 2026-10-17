@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f40a883d1c32
     repo_status: clean
     path: docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.drawio.md
     folder: docs/explanation/flow

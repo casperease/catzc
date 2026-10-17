@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8030049afc9c"
     repo_status: clean
     path: docs/adr/research/monitoring-and-observability.md
     folder: docs/adr/research

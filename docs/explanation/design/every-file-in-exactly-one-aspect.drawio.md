@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e4cd23fea9d3
     repo_status: clean
     path: docs/explanation/design/every-file-in-exactly-one-aspect.drawio.md
     folder: docs/explanation/design

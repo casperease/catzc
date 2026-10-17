@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4316b55080b9"
     repo_status: clean
     path: docs/adr/design/module-types.md
     folder: docs/adr/design

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7ab253eccf34"
     repo_status: clean
     path: docs/explanation/automation/two-crossers-and-three-anchors.md
     folder: docs/explanation/automation

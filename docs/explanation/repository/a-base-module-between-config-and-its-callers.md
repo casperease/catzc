@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "31a72c0f62a8"
     repo_status: clean
     path: docs/explanation/repository/a-base-module-between-config-and-its-callers.md
     folder: docs/explanation/repository

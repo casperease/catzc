@@ -1,7 +1,7 @@
 ---
 task:
   id: "007"
-  status: open
+  status: done (the unstamped writers are open steps in plan-plans-body-sha-landing-zone)
   plans: [plan-plans-body-sha-landing-zone, plan-adr-link-cleanup-prose-to-pages]
   value: highest
   blocked_on: nothing; coordinate on file-meta.yml if a peer holds it (git status first)
@@ -15,7 +15,6 @@ task:
     ]
 catzc:
   immutable:
-    with_body_sha: d03904775591
     repo_status: clean
     path: ".claude/plans/task007.md"
     folder: plans
@@ -40,7 +39,44 @@ hand-added one is no finding and is never maintained. Today `file-meta.yml` kind
 so every authored page is stamped and every ADR edit is a drift finding until Format-FileMeta runs. This change makes every later edit
 cheaper and unblocks the ADR link cleanup (T027). C# edits need a fresh pwsh; the gates run in the background under the time safeguard.
 
-## Steps
+## Done (2026-10-17), with the corrections the tree forced and each check's verdict
+
+- Step 1: `file-meta.yml` was clean.
+- Step 2, corrected: there is no `generated` class and ADR-REPO-FILEMETA#7 says a generated file is told by its `generator`, never by a
+  kind of its own. Generated files are also content-exempt from the imprint engine (`linguist-generated`, Get-ContentExemptPath), so the
+  selector only has to own the key and stop stamping authored pages: `body-sha` now selects `{ classes: [comment-page, index, glossary] }`,
+  the generated kinds the registry has; the comment page is the one generated page the engine imprints. Checks:
+  `[Invoke-TestFile] Passed (snapshot)` FileMetaConfig.Tests (`out/test-file/20261017-063811-28f808`), `Passed (snapshot)`
+  Test-FileMetaProcessors.Tests (`-a1c204`; the registry holds 20 kinds and 21 processors, not the 17 and 18 the step named).
+- Step 3, corrected: the processor is never called for a file its kind does not select, so it needs no change; a hand-kept hash on an
+  authored page is the author's only in the `config` part (the engine owns every `immutable` key). `Get-BodyShaFileMetaFact.Tests.ps1`
+  gained a shipped-registry context (six selection cases, key owned): `[Invoke-TestFile] Passed (in-place)` (`out/test-file/20261017-063811-a85ed6`).
+- Step 4, already in the tree: `Format-GeneratedFileHead` writes `with_body_sha` first, `generated-head.yml` lists it first, and its test
+  file covers the key and that the hash moves with the body. No edit.
+- Step 5, corrected: Test-GeneratedFiles compared generator output, not stamps; it now also runs `Get-GeneratedStampDrift` (new private
+  helper with its L0 test file) over every tracked `linguist-generated` file with a head carrier: a stamp that is not the body's hash is an
+  issue, a file with no head is counted as unstamped, never failed. Of 465 generated tracked files, 14 are stamped and current and 447 are
+  unstamped: the 444 minimap pages written by `.claude/drawio/minimaps/render.py` and the compiled types manifest (the dll and png files have
+  no head carrier). Giving those writers a head is re-rendering every minimap, which is diagram work on the user's ask, and a change to the
+  type compiler; both are open steps in plan-plans-body-sha-landing-zone. Checks: `[Invoke-TestFile] Passed (in-place)`
+  Get-GeneratedStampDrift.Tests (`out/test-file/20261017-064353-d14e63`), `Passed (in-place)` Test-GeneratedFiles.Tests
+  (`out/test-file/20261017-064709-5917d2`; its literal generator count 16 was stale against the peers' 18 root-file generators and now reads
+  the registry), `[Write-QualityGateReport] No generated-files issues found.` with Generators 18, Stamped 14, Unstamped 447
+  (`out/test-generated-files/20261017-064714`), `No script-analyzer issues found.` (`out/test-script-analyzer/20261017-064616`),
+  `No comments issues found.` on the helper and the gate (`out/test-comments/20261017-064614`, `-2`).
+- Step 6: `Format-FileMeta` over every tracked page but the peer-dirty `docs/adr/repository/function-help.md` formatted 755 of 1842 files;
+  `git diff --stat` shows 761 files, 474 insertions, 929 deletions, of which 759 are removed `with_body_sha` lines (the rest are this
+  session's plan and ADR edits). Three code heads (`AdrsConfig.cs`, `AgentsConfig.cs`, `AgentsConfig.Tests.ps1`) then drifted because the
+  newly registered ADR-AI entered their `cites`; re-imprinted. Check: Test-FileMeta reports one finding, the peer-dirty
+  `docs/adr/repository/function-help.md` left for its owner (`out/test-file-meta/20261017-064738`).
+- Step 7: `file-meta.md` rules 3, 7 and 13 and the two prose sections say the hash belongs to a generated tracked file, written by its
+  writer or imprinted on the comment page, that an authored file carries none, and that a hash an author keeps in `config` is left alone.
+  Checks: `No links issues found.` (`out/test-links/20261017-064711`), `No markdownlint issues found.`
+  (`out/test-markdownlint/20261017-064709`), `No adr-registry issues found.` (`out/test-adr-registry/20261017-064710`).
+- Step 8: plan-plans-body-sha-landing-zone Phase 0 ticked; plan-adr-link-cleanup-prose-to-pages `blocked_on` no longer names phase 0
+  (`out/test-links/20261017-064711-2`).
+
+## Steps, as planned
 
 1. `git status --short automation/Catzc.Base.QualityGates/configs/file-meta.yml`; if dirty, stop and report (a peer holds it). Check: clean.
 2. `file-meta.yml` kind `body-sha`: the selector becomes the generated class. Read how other kinds select by class in the same file (the

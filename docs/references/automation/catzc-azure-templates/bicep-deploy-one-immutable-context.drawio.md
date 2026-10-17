@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9a9539922986"
     repo_status: clean
     path: docs/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
     folder: docs/references/automation/catzc-azure-templates

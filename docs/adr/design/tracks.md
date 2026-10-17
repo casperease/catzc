@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "357136528505"
     repo_status: clean
     path: docs/adr/design/tracks.md
     folder: docs/adr/design

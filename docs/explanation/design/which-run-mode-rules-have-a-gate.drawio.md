@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bdd4d4068698
     repo_status: clean
     path: docs/explanation/design/which-run-mode-rules-have-a-gate.drawio.md
     folder: docs/explanation/design

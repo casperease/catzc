@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5a23cb8cd831"
     repo_status: clean
     path: docs/explanation/automation/invoke-importer-in-code-order.md
     folder: docs/explanation/automation

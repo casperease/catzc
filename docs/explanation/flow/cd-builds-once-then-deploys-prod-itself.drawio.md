@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c0896c115bba
     repo_status: clean
     path: docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.drawio.md
     folder: docs/explanation/flow

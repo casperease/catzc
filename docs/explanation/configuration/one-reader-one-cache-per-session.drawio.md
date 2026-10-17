@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d1c936acdec1
     repo_status: clean
     path: docs/explanation/configuration/one-reader-one-cache-per-session.drawio.md
     folder: docs/explanation/configuration

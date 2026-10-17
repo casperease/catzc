@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: be6c8949c162
     repo_status: clean
     path: docs/explanation/design/deploy-bicep-delegates-to-az.drawio.md
     folder: docs/explanation/design

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c209f27963f8
     repo_status: clean
     path: docs/explanation/design/guard-and-policies-by-command.md
     folder: docs/explanation/design

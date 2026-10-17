@@ -8,7 +8,6 @@ allowed-tools: Bash, Read
 metadata:
   catzc:
     immutable:
-      with_body_sha: e801e8eb687f
       repo_status: clean
       path: ".claude/skills/catzc-verify/SKILL.md"
       folder: skills/catzc-verify

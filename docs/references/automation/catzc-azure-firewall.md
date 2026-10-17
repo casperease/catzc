@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b2174730a4a1
     repo_status: clean
     path: docs/references/automation/catzc-azure-firewall.md
     folder: docs/references/automation

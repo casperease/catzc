@@ -7,7 +7,6 @@ plan:
   targets: [.claude/agents, automation/Catzc.Base.Docs/configs/agents.yml, .claude/CLAUDE.md]
 catzc:
   immutable:
-    with_body_sha: b1d0a493cf5b
     repo_status: clean
     path: ".claude/plans/plan-minimal-robots-agents.md"
     folder: plans

@@ -23,7 +23,6 @@ task:
   targets: [.claude/plans]
 catzc:
   immutable:
-    with_body_sha: "84ac42e2c824"
     repo_status: clean
     path: ".claude/plans/task004.md"
     folder: plans
@@ -74,7 +73,8 @@ time. An unanswered item stays open. Items are numbered D01 upward and never ren
 - D13 Format-Code and automation/.compiled: skip the folder, or amend the formatting ADR to cover it. Rec: skip; .compiled is generated
   output (Q47 asks to follow the ADR; this names the reading). Owner: plan-file-head-immutable-edges-classes.
 - D14 ADR-AI code form: keep ADR-AI with no domain segment (AdrCodeForm must parse it) or give it a domain. Rec: keep, since ADR-CATS takes
-  the same form (B3 put ADR-CATS in principles; its code has no domain segment either). Owner: plan-adr-ai.
+  the same form (B3 put ADR-CATS in principles; its code has no domain segment either). Owner: plan-adr-ai. Answered 2026-10-17 (the user,
+  asked by task005 when the registry rejected the form): keep; `AdrsConfig` now accepts one or more uppercase segments.
 - D15 Test-Glossary's about 195 bare-term findings in plan text ("full suite", "gate", "phase", "layer", "source", "slot"): fix per plan
   when next edited (task002 step 10), or exempt plan files from the vocabulary gate. Rec: fix per plan; the F1 decision says the gate covers
   plans. Owner: plan-clear-actions.

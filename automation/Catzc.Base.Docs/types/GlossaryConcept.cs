@@ -48,7 +48,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // A machine key: snake_case ('test_suite', 'all_tests').
     public static readonly Regex KeyRe = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$", RegexOptions.Compiled);
 
-    public static readonly Regex CitationRe = new Regex("^ADR-[A-Z]{2,4}(-[A-Z]+)+#[1-9][0-9]*$", RegexOptions.Compiled);
+    public static readonly Regex CitationRe = new Regex("^ADR-[A-Z]+(-[A-Z]+)*#[1-9][0-9]*$", RegexOptions.Compiled);
 
     // One qualifier word in a concept's forms ('quality', 'CI').
     public static readonly Regex FormRe = new Regex("^[A-Za-z0-9]+$", RegexOptions.Compiled);
@@ -116,7 +116,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
         if (domain != null && !DomainRe.IsMatch(domain)) { errors.Add(string.Format("domain '{0}' must be an adrs.yml domain key", domain)); }
         if (defined_by != null && !CitationRe.IsMatch(defined_by))
         {
-            errors.Add(string.Format("defined_by '{0}' must be a rule citation ADR-<CODE>-<NAME>#<n>", defined_by));
+            errors.Add(string.Format("defined_by '{0}' must be a rule citation ADR-<CODE>#<n>, uppercase segments", defined_by));
         }
 
         IDictionary realization = d.Contains("realized_by") ? d["realized_by"] as IDictionary : null;

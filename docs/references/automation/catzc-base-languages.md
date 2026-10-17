@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "855319b6f7ee"
     repo_status: clean
     path: docs/references/automation/catzc-base-languages.md
     folder: docs/references/automation

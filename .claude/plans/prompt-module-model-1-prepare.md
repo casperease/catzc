@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a0fbc9d78cac
     repo_status: clean
     path: ".claude/plans/prompt-module-model-1-prepare.md"
     folder: plans

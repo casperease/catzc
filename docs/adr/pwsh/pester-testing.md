@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "97dde284954c"
     repo_status: clean
     path: docs/adr/pwsh/pester-testing.md
     folder: docs/adr/pwsh

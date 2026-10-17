@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e375ce38235"
     repo_status: clean
     path: docs/explanation/configuration/two-test-files-check-the-address-rules.md
     folder: docs/explanation/configuration

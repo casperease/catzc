@@ -13,7 +13,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "3e70e8cf0b3e"
     repo_status: clean
     path: ".claude/plans/plan-skip-unchanged-generators.md"
     folder: plans
@@ -46,22 +45,26 @@ Janitor times measured 2026-10-17 on an unchanged tree (noisy, machine busy): wi
 `Build-RootConfig` 562 ms, `Sync-SessionTools` 403 ms, `Build-Readme` 315 ms, `Build-GitKeep` 312 ms. The importer finalizer showed 2.6 s,
 the rest being the two unprofiled janitors and import overhead.
 
-1. `Build-Readme` (315 ms cold, 107 ms warm, profiled with `out/profile-readme.ps1`): the 58 mappings cost 15 ms to list, 22 ms for
-   `Get-FileKind`, 33 ms to strip front matter, 36 ms to rebase links and about 30 ms to compare and write. Nothing dominates, and about 200
-   ms of the 315 is the first call in a session (loading and JIT), which a stamp skip would only partly avoid. Not worth a format change to
-   55 committed files; at most the front-matter strip could move into the compiled rebaser for about 30 ms. Recorded as not skippable. The
-   inputs, were it ever wanted, are known and small (`readme.yml`, each mapping's source doc, `Get-ReadmeMappings`, `Get-ReadmeContent`,
-   `MarkdownLinkRebaser`, the folder listing for the `automation/*` glob), but a README has no head to hold a stamp: its meta block is only
-   `kind: readme`. A stamp would add a key to about 55 committed README copies and touch `Test-GeneratedReadmes` and the meta gates. Decide
-   first: stamp into the README meta block, or profile where the 315 ms goes (mapping glob, `Get-FileKind` per folder, the link rebase) and
-   cut that instead.
-2. `Build-RootConfig` (562 ms): not safe from declared `sources`. Wildcard entries scan the tree and `.gitattributes` is built from more
-   than its two listed files, so a missed input leaves a root file stale with the stamp saying current. Needs its full input set, or a stamp
-   over the tree it scans.
-3. `Build-GitKeep` (125 ms): depends on the folder structure, so it has the same problem as `Build-RootConfig`.
-4. `Sync-SessionTools` (343 ms): not a generated file, so the head stamp does not apply; it needs its own skip check.
-5. `Invoke-TypeCacheJanitor` and `Invoke-AgentHookJanitor` costs are unprofiled.
-6. New files still to run through `Format-FileMeta` (heads, reference pages), the `.psd1` `CatzcFiles` regeneration, and the meta gates.
+- [ ] `Build-Readme` (315 ms cold, 107 ms warm, profiled with `out/profile-readme.ps1`): the 58 mappings cost 15 ms to list, 22 ms for
+      `Get-FileKind`, 33 ms to strip front matter, 36 ms to rebase links and about 30 ms to compare and write. Nothing dominates, and about
+      200 ms of the 315 is the first call in a session (loading and JIT), which a stamp skip would only partly avoid. Not worth a format
+      change to 55 committed files; at most the front-matter strip could move into the compiled rebaser for about 30 ms. Recorded as not
+      skippable. The inputs, were it ever wanted, are known and small (`readme.yml`, each mapping's source doc, `Get-ReadmeMappings`,
+      `Get-ReadmeContent`, `MarkdownLinkRebaser`, the folder listing for the `automation/*` glob), but a README has no head to hold a stamp:
+      its meta block is only `kind: readme`. A stamp would add a key to about 55 committed README copies and touch `Test-GeneratedReadmes`
+      and the meta gates. Decide first: stamp into the README meta block, or profile where the 315 ms goes (mapping glob, `Get-FileKind` per
+      folder, the link rebase) and cut that instead (check: the decision is recorded on this line, with the user's answer).
+- [ ] `Build-RootConfig` (562 ms): not safe from declared `sources`. Wildcard entries scan the tree and `.gitattributes` is built from more
+      than its two listed files, so a missed input leaves a root file stale with the stamp saying current. Needs its full input set, or a
+      stamp over the tree it scans (check: a test that changes each scanned input in turn and sees the stamp change, so no input is missed).
+- [ ] `Build-GitKeep` (125 ms): depends on the folder structure, so it has the same problem as `Build-RootConfig` (check: the same test shape,
+      an added or removed folder changes the stamp).
+- [ ] `Sync-SessionTools` (343 ms): not a generated file, so the head stamp does not apply; it needs its own skip check (check: a warm run on
+      an unchanged tree skips, and the measured time is recorded here).
+- [ ] `Invoke-TypeCacheJanitor` and `Invoke-AgentHookJanitor` costs are unprofiled (check: their numbers from `out/profile-janitors.ps1` are
+      in this plan).
+- [ ] New files still to run through `Format-FileMeta` (heads, reference pages), the `.psd1` `CatzcFiles` regeneration, and the meta gates
+      (check: `Test-FileMeta` and `Test-GeneratedFiles` clean on the touched modules).
 
 ## Done when
 

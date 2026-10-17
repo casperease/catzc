@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "301978152d09"
     repo_status: clean
     path: docs/explanation/automation/undeclared-edge-fails-with-one-line.drawio.md
     folder: docs/explanation/automation

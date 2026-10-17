@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2b24078306c3"
     repo_status: clean
     path: docs/references/automation/internal/catzc-internal-bootstrap.md
     folder: docs/references/automation/internal

@@ -8,7 +8,6 @@ task:
   targets: [automation/Catzc.Base.Variants, automation/Catzc.Base.Modules]
 catzc:
   immutable:
-    with_body_sha: a1407d85e41f
     repo_status: clean
     path: ".claude/plans/task014.md"
     folder: plans

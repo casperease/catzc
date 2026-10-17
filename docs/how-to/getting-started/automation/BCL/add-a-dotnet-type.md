@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d7792a0fc3a0
     repo_status: clean
     path: docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
     folder: docs/how-to/getting-started/automation/BCL

@@ -8,7 +8,6 @@ plan:
     [automation/Catzc.Base.Modules, automation/Catzc.Base.ModuleSystem, docs/adr/automation/module-model.md, docs/references/automation]
 catzc:
   immutable:
-    with_body_sha: "3b42369e7d10"
     repo_status: clean
     path: ".claude/plans/plan-module-model-closeout.md"
     folder: plans

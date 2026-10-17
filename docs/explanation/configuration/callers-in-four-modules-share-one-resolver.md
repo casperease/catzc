@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bbc990ceb775
     repo_status: clean
     path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
     folder: docs/explanation/configuration

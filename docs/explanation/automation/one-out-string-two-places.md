@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: adb5744e4afa
     repo_status: clean
     path: docs/explanation/automation/one-out-string-two-places.md
     folder: docs/explanation/automation

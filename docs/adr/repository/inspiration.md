@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "555677c00938"
     repo_status: clean
     path: docs/adr/repository/inspiration.md
     folder: docs/adr/repository

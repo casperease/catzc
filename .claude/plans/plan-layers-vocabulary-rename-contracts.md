@@ -7,7 +7,6 @@ plan:
   targets: [automation, docs/adr/automation, docs/adr/repository, contracts, automation/Catzc.Base.Docs/configs, .catzc]
 catzc:
   immutable:
-    with_body_sha: "6f5aaa3e7865"
     repo_status: clean
     path: ".claude/plans/plan-layers-vocabulary-rename-contracts.md"
     folder: plans
@@ -28,6 +27,7 @@ catzc:
       - ADR-AUTO-ENGINE#{1,4,6,7}
       - ADR-AUTO-EXTEND#3
       - ADR-AUTO-TYPES#7
+      - ADR-CATS#{1,2}
       - ADR-DSGN-RUNMODE#1
       - ADR-DSGN-TRACK#{3,15,17}
       - ADR-REPO-CONTRACT#{1-3,6-9}
@@ -71,6 +71,8 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 - The cats and catzc names are ruled by a new ADR-CATS (plan-adr-cats); pwsh and automation stay strictly apart from it (F1): the folder
   rename is technical, automation is a subject and the big cross-cutter with design principles and pipelines, so ADR-AUTO-LAYERS rules those
   two names and the glossary terms pwsh and automation come from it.
+- ADR-CATS is written (2026-10-17, docs/adr/principles/cats-and-catzc.md): cats (ADR-CATS#2) and catzc (ADR-CATS#1) are glossary terms
+  from it, so the layers glossary list excludes them and ADR-AUTO-LAYERS cites them where it needs the names.
 - Public API (F6, S5): most of the 439 public functions become internal; the pilot contracts are hand-written; generating a contract from
   the ADR that defines it is a direction tried on the second set.
 

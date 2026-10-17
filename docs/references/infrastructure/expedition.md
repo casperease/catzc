@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "562382a9cb1f"
     repo_status: clean
     path: docs/references/infrastructure/expedition.md
     folder: docs/references/infrastructure

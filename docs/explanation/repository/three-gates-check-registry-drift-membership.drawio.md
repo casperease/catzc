@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "10ba29ae0c87"
     repo_status: clean
     path: docs/explanation/repository/three-gates-check-registry-drift-membership.drawio.md
     folder: docs/explanation/repository

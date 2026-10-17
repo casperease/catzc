@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5442f36725bb"
     repo_status: clean
     path: docs/adr/azure/waf/performance-efficiency.md
     folder: docs/adr/azure/waf

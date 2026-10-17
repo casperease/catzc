@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ac517554a3ed
     repo_status: clean
     path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.drawio.md
     folder: docs/explanation/repository

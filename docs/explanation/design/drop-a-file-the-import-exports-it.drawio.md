@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4771952b613e"
     repo_status: clean
     path: docs/explanation/design/drop-a-file-the-import-exports-it.drawio.md
     folder: docs/explanation/design

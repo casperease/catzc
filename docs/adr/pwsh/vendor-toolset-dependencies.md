@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6eefb77c0042"
     repo_status: clean
     path: docs/adr/pwsh/vendor-toolset-dependencies.md
     folder: docs/adr/pwsh

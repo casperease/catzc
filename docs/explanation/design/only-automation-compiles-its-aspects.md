@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "243bf505fa8d"
     repo_status: clean
     path: docs/explanation/design/only-automation-compiles-its-aspects.md
     folder: docs/explanation/design

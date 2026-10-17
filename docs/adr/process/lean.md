@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0b8c763416c5"
     repo_status: clean
     path: docs/adr/process/lean.md
     folder: docs/adr/process

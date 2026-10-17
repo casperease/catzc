@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "463f0033f345"
     repo_status: clean
     path: docs/explanation/flow/one-program-two-vendor-dialects.md
     folder: docs/explanation/flow

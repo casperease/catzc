@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d5a5b3f5020f
     repo_status: clean
     path: docs/references/automation/catzc-tooling-core.md
     folder: docs/references/automation

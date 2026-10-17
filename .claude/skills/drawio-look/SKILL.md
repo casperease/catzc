@@ -9,7 +9,6 @@ paths: docs/.assets/**/*.png, out/drawio/**, out/diagrams/**
 metadata:
   catzc:
     immutable:
-      with_body_sha: f4f86ac0c87e
       repo_status: clean
       path: ".claude/skills/drawio-look/SKILL.md"
       folder: skills/drawio-look

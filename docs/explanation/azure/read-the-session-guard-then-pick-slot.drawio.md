@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b1921a8f8ee0
     repo_status: clean
     path: docs/explanation/azure/read-the-session-guard-then-pick-slot.drawio.md
     folder: docs/explanation/azure

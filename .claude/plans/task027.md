@@ -8,7 +8,6 @@ task:
   targets: [docs, automation/Catzc.Base.QualityGates, automation/Catzc.Base.Docs, out/adr-link-ledger.csv]
 catzc:
   immutable:
-    with_body_sha: "14a5bca04939"
     repo_status: clean
     path: ".claude/plans/task027.md"
     folder: plans

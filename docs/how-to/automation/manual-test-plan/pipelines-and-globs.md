@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4ed873adc971"
     repo_status: clean
     path: docs/how-to/automation/manual-test-plan/pipelines-and-globs.md
     folder: docs/how-to/automation/manual-test-plan

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "215f3b3c5d76"
     repo_status: clean
     path: docs/adr/pipelines/custom-template-discipline.md
     folder: docs/adr/pipelines

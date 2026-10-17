@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "52de04b4e6a0"
     repo_status: clean
     path: docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
     folder: docs/explanation/azure

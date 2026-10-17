@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e7e62cc95be3
     repo_status: clean
     path: docs/adr/pwsh/index.md
     folder: docs/adr/pwsh

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "367f1c4d7eb2"
     repo_status: clean
     path: ".claude/plans/prompt-automation-layers-continue.md"
     folder: plans

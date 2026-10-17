@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "919abc1cc47b"
     repo_status: clean
     path: docs/references/automation/catzc-base-markdownmeta.md
     folder: docs/references/automation

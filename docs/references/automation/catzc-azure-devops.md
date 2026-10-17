@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "05d82b8083b5"
     repo_status: clean
     path: docs/references/automation/catzc-azure-devops.md
     folder: docs/references/automation

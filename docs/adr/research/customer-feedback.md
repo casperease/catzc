@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6d931cf1787f"
     repo_status: clean
     path: docs/adr/research/customer-feedback.md
     folder: docs/adr/research

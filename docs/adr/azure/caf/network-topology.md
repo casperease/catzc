@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d686931f9aad
     repo_status: clean
     path: docs/adr/azure/caf/network-topology.md
     folder: docs/adr/azure/caf

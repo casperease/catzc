@@ -5,7 +5,6 @@ plan:
   reviewed: 2026-10-16
 catzc:
   immutable:
-    with_body_sha: "3cb7883cf354"
     repo_status: clean
     path: ".claude/plans/decisions-2026-10-16.md"
     folder: plans
@@ -20,6 +19,7 @@ catzc:
     moduletype: settings
   edges:
     cites:
+      - ADR-AI#{5,13}
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#4
       - ADR-AUTO-FAILFAST#7

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dee7621809eb
     repo_status: clean
     path: docs/explanation/flow/gates-check-source-and-trigger.drawio.md
     folder: docs/explanation/flow

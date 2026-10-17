@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "25f6f76e79b8"
     repo_status: clean
     path: docs/adr/repository/dora-explains.md
     folder: docs/adr/repository
@@ -14,6 +13,7 @@ catzc:
   edges:
     links:
       - docs/adr/repository/agent-definitions.md
+      - docs/adr/repository/ai-agent-contract.md
       - docs/adr/repository/api-contracts.md
       - docs/adr/repository/code-file-meta.md
       - docs/adr/repository/comments-in-docs.md
@@ -42,6 +42,7 @@ catzc:
       - docs/references/dora/capabilities.md#loosely-coupled-teams
       - docs/references/dora/capabilities.md#pervasive-security
       - docs/references/dora/capabilities.md#platform-engineering
+      - docs/references/dora/capabilities.md#streamlining-change-approval
       - docs/references/dora/capabilities.md#team-experimentation
       - docs/references/dora/capabilities.md#test-automation
       - docs/references/dora/capabilities.md#version-control
@@ -345,6 +346,24 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   registry entry cites, so its answers follow the repository's decisions rather than general habit.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a renumbered rule or a renamed check fails a check
   instead of leaving an agent that points at nothing.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## The agent contract
+
+`The agent contract — every agent and skill reads it first, at every start`
+
+[ADR-AI](ai-agent-contract.md)
+
+> DORA finds that small batches and fast feedback move delivery performance, and that a clear, communicated stance on AI tools is what
+> makes them pay off. One short contract that every agent reads first keeps its changes small and reviewable: it runs no suite while
+> working, verifies by reading the tree, never mutates git, and ends with a fixed report the user acts on.
+
+- [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — one file at a time, read back, with the
+  checks owed listed instead of run, keeps every agent change small enough to review.
+- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — the user is the only committer, and
+  the fixed report tells them exactly what to approve.
+- [Clear and communicated AI stance](../../references/dora/capabilities.md#clear-and-communicated-ai-stance) — the contract is named once,
+  at session start and in the agent registry, so every robot works under the same stated rules.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Inspiration

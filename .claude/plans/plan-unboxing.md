@@ -14,7 +14,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "67c2890f42f6"
     repo_status: clean
     path: ".claude/plans/plan-unboxing.md"
     folder: plans

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8d77f48a4cae"
     repo_status: clean
     path: docs/adr/azure/prefer-az-cli.md
     folder: docs/adr/azure

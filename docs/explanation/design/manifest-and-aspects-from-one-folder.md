@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b9584782e2d1
     repo_status: clean
     path: docs/explanation/design/manifest-and-aspects-from-one-folder.md
     folder: docs/explanation/design

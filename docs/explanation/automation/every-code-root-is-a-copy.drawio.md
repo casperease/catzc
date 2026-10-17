@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d7471e06afbb
     repo_status: clean
     path: docs/explanation/automation/every-code-root-is-a-copy.drawio.md
     folder: docs/explanation/automation

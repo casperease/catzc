@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3f6fc9494d83"
     repo_status: clean
     path: docs/explanation/design/same-deploy-bicep-on-both-sides.md
     folder: docs/explanation/design

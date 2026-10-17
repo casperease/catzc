@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "230112490cf8"
     repo_status: clean
     path: docs/explanation/design/integrators-depend-on-an-occupant.drawio.md
     folder: docs/explanation/design

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "49faedd8975e"
     repo_status: clean
     path: docs/explanation/design/sync-from-the-last-certified-commit.drawio.md
     folder: docs/explanation/design

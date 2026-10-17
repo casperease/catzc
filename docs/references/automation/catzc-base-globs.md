@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bec00ab5b970
     repo_status: clean
     path: docs/references/automation/catzc-base-globs.md
     folder: docs/references/automation

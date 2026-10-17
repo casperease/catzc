@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e2e53be9ddcf
     repo_status: clean
     path: docs/explanation/automation/build-verify-then-copy-the-folder.drawio.md
     folder: docs/explanation/automation

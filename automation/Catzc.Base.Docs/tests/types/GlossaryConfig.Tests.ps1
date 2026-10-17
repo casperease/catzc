@@ -134,11 +134,17 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $body.domain = 'Automation'
         { & $script:single $body } | Should -Throw "*domain 'Automation'*"
 
-        foreach ($citation in 'ADR-COG-GADGET:30', 'ADR-COG-GADGET#0', 'ADR-COG#3', 'adr-cog-gadget#3') {
+        foreach ($citation in 'ADR-COG-GADGET:30', 'ADR-COG-GADGET#0', 'ADR-COG-#3', 'adr-cog-gadget#3') {
             $body = & $script:concept
             $body.defined_by = $citation
             { & $script:single $body } | Should -Throw '*must be a rule citation*' -Because "'$citation' is not the '#' citation form"
         }
+    }
+
+    It 'accepts a one-segment rule citation, a code with no domain segment' -Tag 'ADR-REPO-VOCAB#1' {
+        $body = & $script:concept
+        $body.defined_by = 'ADR-COG#3'
+        (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG#3'
     }
 
     It 'keeps declared forms in order, empty when none, and rejects a non-word or a repeated form' -Tag 'ADR-REPO-VOCAB#8' {

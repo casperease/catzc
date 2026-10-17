@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d2049d5d7120
     repo_status: clean
     path: docs/adr/azure/azure-network-model.md
     folder: docs/adr/azure

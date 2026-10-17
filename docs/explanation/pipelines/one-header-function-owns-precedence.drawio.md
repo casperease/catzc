@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: abc66cd38dc7
     repo_status: clean
     path: docs/explanation/pipelines/one-header-function-owns-precedence.drawio.md
     folder: docs/explanation/pipelines

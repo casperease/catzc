@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "96977c1ab2d6"
     repo_status: clean
     path: docs/explanation/azure/names-are-derived-never-typed.drawio.md
     folder: docs/explanation/azure

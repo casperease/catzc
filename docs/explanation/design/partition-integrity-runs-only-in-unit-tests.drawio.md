@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: de3865e78c84
     repo_status: clean
     path: docs/explanation/design/partition-integrity-runs-only-in-unit-tests.drawio.md
     folder: docs/explanation/design

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3ec1338daf69"
     repo_status: clean
     path: docs/adr/repository/domain-language-separation.md
     folder: docs/adr/repository

@@ -14,7 +14,6 @@ maxTurns: 40
 skills: [test-speed, catzc-run, catzc-check, git-readonly, report-fixed]
 catzc:
   immutable:
-    with_body_sha: "0885f59bb4b4"
     repo_status: clean
     path: ".claude/agents/test-optimization.md"
     folder: agents

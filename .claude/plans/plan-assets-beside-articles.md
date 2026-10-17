@@ -7,7 +7,6 @@ plan:
   targets: [docs/.assets/explanation, docs/.assets/references, docs/explanation, docs/references, .claude/drawio]
 catzc:
   immutable:
-    with_body_sha: "41bbddb211ab"
     repo_status: clean
     path: ".claude/plans/plan-assets-beside-articles.md"
     folder: plans

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f10253873ec7
     repo_status: clean
     path: docs/explanation/design/get-aspect-names-the-remainder.md
     folder: docs/explanation/design

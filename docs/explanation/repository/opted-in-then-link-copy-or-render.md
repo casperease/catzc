@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "159a281d0bc6"
     repo_status: clean
     path: docs/explanation/repository/opted-in-then-link-copy-or-render.md
     folder: docs/explanation/repository

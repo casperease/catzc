@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1c5dc72f13a4"
     repo_status: clean
     path: docs/explanation/automation/undeclared-edge-fails-with-one-line.md
     folder: docs/explanation/automation

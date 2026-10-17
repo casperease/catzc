@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4479ff9ca781"
     repo_status: clean
     path: docs/adr/research/index.md
     folder: docs/adr/research

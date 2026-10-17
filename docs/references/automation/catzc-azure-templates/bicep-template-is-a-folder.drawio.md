@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bdacdac3d269
     repo_status: clean
     path: docs/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
     folder: docs/references/automation/catzc-azure-templates

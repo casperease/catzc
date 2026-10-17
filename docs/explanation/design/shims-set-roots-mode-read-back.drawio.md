@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c1d4d1eb8ea7
     repo_status: clean
     path: docs/explanation/design/shims-set-roots-mode-read-back.drawio.md
     folder: docs/explanation/design

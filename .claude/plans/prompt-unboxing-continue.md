@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d1390e535fdc
     repo_status: clean
     path: ".claude/plans/prompt-unboxing-continue.md"
     folder: plans

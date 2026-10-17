@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: efc44afd4854
     repo_status: clean
     path: docs/references/.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md
     folder: docs/references/.assets/automation/catzc-tooling-provisioning

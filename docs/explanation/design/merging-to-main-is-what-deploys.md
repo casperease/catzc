@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "129c5a693f75"
     repo_status: clean
     path: docs/explanation/design/merging-to-main-is-what-deploys.md
     folder: docs/explanation/design

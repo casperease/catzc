@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5b4ef165e6bd"
     repo_status: clean
     path: docs/explanation/azure/one-namer-assembles-every-name.drawio.md
     folder: docs/explanation/azure

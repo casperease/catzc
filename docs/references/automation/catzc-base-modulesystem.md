@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a432c020286b
     repo_status: clean
     path: docs/references/automation/catzc-base-modulesystem.md
     folder: docs/references/automation

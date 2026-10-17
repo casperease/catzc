@@ -8,7 +8,6 @@ task:
   targets: [.claude/agents, .claude/skills, automation/Catzc.Base.Docs/configs/agents.yml, docs/adr/repository/agent-definitions.md]
 catzc:
   immutable:
-    with_body_sha: bd588c235192
     repo_status: clean
     path: ".claude/plans/task013.md"
     folder: plans

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e0fe1021a9b"
     repo_status: clean
     path: docs/adr/pwsh/announce-state-changes.md
     folder: docs/adr/pwsh

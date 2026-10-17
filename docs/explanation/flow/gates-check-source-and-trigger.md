@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: edadb4862ac1
     repo_status: clean
     path: docs/explanation/flow/gates-check-source-and-trigger.md
     folder: docs/explanation/flow

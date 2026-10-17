@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "38ab14dccb0d"
     repo_status: clean
     path: docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
     folder: docs/references/.assets/automation/catzc-base-globs

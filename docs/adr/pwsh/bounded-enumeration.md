@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b0131730897a
     repo_status: clean
     path: docs/adr/pwsh/bounded-enumeration.md
     folder: docs/adr/pwsh

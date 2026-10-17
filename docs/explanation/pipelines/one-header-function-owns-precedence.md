@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b2a722f7a3d5
     repo_status: clean
     path: docs/explanation/pipelines/one-header-function-owns-precedence.md
     folder: docs/explanation/pipelines

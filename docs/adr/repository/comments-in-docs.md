@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: da8f190cff2b
     repo_status: clean
     path: docs/adr/repository/comments-in-docs.md
     folder: docs/adr/repository

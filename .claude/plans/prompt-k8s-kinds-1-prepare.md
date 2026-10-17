@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c9e2d2588a87
     repo_status: clean
     path: ".claude/plans/prompt-k8s-kinds-1-prepare.md"
     folder: plans

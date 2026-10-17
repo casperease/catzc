@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c2b95f4a9247
     repo_status: clean
     path: docs/adr/repository/output-formats.md
     folder: docs/adr/repository

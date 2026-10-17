@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: be1d73e111ce
     repo_status: clean
     path: docs/adr/azure/waf/operational-excellence.md
     folder: docs/adr/azure/waf

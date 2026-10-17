@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a0f096b5f6fe
     repo_status: clean
     path: docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.drawio.md
     folder: docs/explanation/flow

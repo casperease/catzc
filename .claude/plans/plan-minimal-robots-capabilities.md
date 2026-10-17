@@ -7,7 +7,6 @@ plan:
   targets: [.claude/skills, automation/Catzc.Base.Docs/configs/capabilities.yml]
 catzc:
   immutable:
-    with_body_sha: d401073f759a
     repo_status: clean
     path: ".claude/plans/plan-minimal-robots-capabilities.md"
     folder: plans

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dad908bee111
     repo_status: clean
     path: docs/explanation/configuration/one-gate-guards-the-read-path.md
     folder: docs/explanation/configuration

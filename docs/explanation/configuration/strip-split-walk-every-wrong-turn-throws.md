@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8dd1183e313c"
     repo_status: clean
     path: docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
     folder: docs/explanation/configuration

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9feeec9638e8"
     repo_status: clean
     path: docs/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
     folder: docs/references/automation/catzc-base-qualitygates

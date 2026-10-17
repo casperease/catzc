@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2b20b836d222"
     repo_status: clean
     path: docs/explanation/automation/a-stopped-run-names-its-limit.drawio.md
     folder: docs/explanation/automation

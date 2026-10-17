@@ -6,7 +6,6 @@ plan:
   funnel: 20 items -> 10 fundamental questions -> 5 -> 2 -> end
 catzc:
   immutable:
-    with_body_sha: "9dcb08a0a62a"
     repo_status: clean
     path: ".claude/plans/questionnaire-fundamental-2026-10-16.md"
     folder: plans

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0ce3c2687d76"
     repo_status: clean
     path: docs/explanation/design/merging-to-main-is-what-deploys.drawio.md
     folder: docs/explanation/design

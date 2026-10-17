@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "41cf64b698e5"
     repo_status: clean
     path: docs/explanation/flow/range-per-context-then-diff-and-match.md
     folder: docs/explanation/flow

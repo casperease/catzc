@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: aacdd93c1006
     repo_status: clean
     path: docs/adr/repository/repo-variants.md
     folder: docs/adr/repository

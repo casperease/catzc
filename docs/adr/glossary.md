@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6fdbade1deab"
-    with_inputs_sha: "01e6fbfa9a6eb29202535113b5bb21fb44317cd4ac1e84b2d0cf9fdb6f6d101e"
+    with_body_sha: bf19e73734d7
+    with_inputs_sha: "240f85257bcb0394126103a5bf3785401fe7d3af1d1ca873656affebbe652b2c"
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -95,6 +95,34 @@ with all its consumers.
   - [pin](#pin): A pin is an explicit version at the repository boundary; inside the trunk nothing is pinned, and everything is at HEAD.
   - [product mono-repository](#product-mono-repository): A product mono-repository is the repository as a whole, with its tracks and
     deployable-units; the trunk is its one mainline.
+
+## principles
+
+### cats
+
+The product's name to a person — the bash and zsh executor, and the word in prose, docs and conversation.
+
+- **Defined by:** [ADR-CATS#2](principles/cats-and-catzc.md#rule-adr-cats2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [catzc](#catzc): catzc is the source-level name every module, namespace and path carries; cats is the friendly form a person reads and
+    says.
+
+### catzc
+
+The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token in
+code and precise references.
+
+- **Defined by:** [ADR-CATS#1](principles/cats-and-catzc.md#rule-adr-cats1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [cats](#cats): cats is the same system named to a person; catzc is its name to code and to the facts the tooling writes.
+
+| Avoid          | Say instead |
+| -------------- | ----------- |
+| `.cats folder` | .catzc/     |
 
 ## design
 
@@ -598,7 +626,7 @@ tests; each is a member of the one generated uv workspace.
 
 ### quality gate
 
-A gate checking one property of the whole repository automatically — one Test-<\subject> function that reports through
+A gate checking one property of the whole repository automatically — one Test-<subject> function that reports through
 Write-QualityGateReport and throws once with every issue.
 
 - **Defined by:** [ADR-AUTO-TEST#35](automation/test-automation.md#rule-adr-auto-test35)

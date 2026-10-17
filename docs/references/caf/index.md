@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c74c37e86f75
     repo_status: clean
     path: docs/references/caf/index.md
     folder: docs/references/caf

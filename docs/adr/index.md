@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5657fad93dd9"
-    with_inputs_sha: "47e53aec3a4183bbbd2e7513bc62969c7dd8705e4033ca35b5f2b34d5cb1097e"
+    with_body_sha: a2d8373b538c
+    with_inputs_sha: "39c60013250b7ef94aff25e8237858cea5bf2d68ca8e2b58f2c47dabfe18ce95"
     repo_status: locked
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml
@@ -56,8 +56,9 @@ through them.
 ### principles/
 
 The design axioms every other domain specialises: everything as code, configure don't program, reduce variability, reduce waste, poka-yoke,
-and one living version. They specialise the thesis, catzc's product description, and rest on the DORA research, the authoritative source; no
-domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the reason for its own decisions.
+one living version, and the two names of the system, cats and catzc. They specialise the thesis, catzc's product description, and rest on
+the DORA research, the authoritative source; no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`)
+as the reason for its own decisions.
 
 **Role:** `axioms` — **depends on:** `research`, `thesis`.
 
@@ -69,6 +70,7 @@ domain later in the order overrides them, and every other domain cites them (`AD
 | `ADR-PRIN-NOWASTE`   | [reduce-waste](principles/reduce-waste.md)                   |
 | `ADR-PRIN-POKAYOKE`  | [poka-yoke](principles/poka-yoke.md)                         |
 | `ADR-PRIN-ONELIVE`   | [one-living-version](principles/one-living-version.md)       |
+| `ADR-CATS`           | [cats-and-catzc](principles/cats-and-catzc.md)               |
 
 ### process/
 
@@ -326,6 +328,7 @@ skips a repeated scan over an unchanged globset.
 | `ADR-REPO-CODEMETA` | [code-file-meta](repository/code-file-meta.md)                         |
 | `ADR-REPO-HELP`     | [function-help](repository/function-help.md)                           |
 | `ADR-REPO-AGENTS`   | [agent-definitions](repository/agent-definitions.md)                   |
+| `ADR-AI`            | [ai-agent-contract](repository/ai-agent-contract.md)                   |
 | `ADR-REPO-INSPIRE`  | [inspiration](repository/inspiration.md)                               |
 | `ADR-REPO-PROTGLOB` | [protected-globs](repository/protected-globs.md)                       |
 

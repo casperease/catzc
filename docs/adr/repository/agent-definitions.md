@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ec6c59390b78
     repo_status: clean
     path: docs/adr/repository/agent-definitions.md
     folder: docs/adr/repository

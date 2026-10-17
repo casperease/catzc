@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d8b8633941e4
     repo_status: clean
     path: docs/adr/principles/dora-explains.md
     folder: docs/adr/principles
@@ -13,6 +12,7 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/adr/principles/cats-and-catzc.md
       - docs/adr/principles/configure-not-program.md
       - docs/adr/principles/everything-as-code.md
       - docs/adr/principles/one-living-version.md
@@ -20,6 +20,7 @@ catzc:
       - docs/adr/principles/reduce-variability.md
       - docs/adr/principles/reduce-waste.md
       - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#documentation-quality
       - docs/references/dora/capabilities.md#platform-engineering
       - docs/references/dora/capabilities.md#streamlining-change-approval
       - docs/references/dora/capabilities.md#trunk-based-development
@@ -123,4 +124,20 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   trunk as the sole living version.
 - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — atomic contract changes across all callers
   enable rapid, coherent integration.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## cats and catzc
+
+`cats and catzc — two names, two audiences, used across each other on purpose`
+
+[ADR-CATS](cats-and-catzc.md)
+
+> DORA ties code maintainability and documentation quality to how easily a reader finds and understands what a name means. One name per
+> audience, each with a home and a rule for where they meet, removes a source of variability in how the system is spoken of and written,
+> so code, docs and conversation stay legible to the reader each is for.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one reserved token in every namespace, prefix and
+  path means a search for catzc finds the system and nothing else.
+- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — docs and conversation say cats, so the product
+  reads as a product, and a code token never leaks into a sentence meant for a person.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

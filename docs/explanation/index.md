@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8dce3aaf047b"
     repo_status: clean
     path: docs/explanation/index.md
     folder: docs/explanation

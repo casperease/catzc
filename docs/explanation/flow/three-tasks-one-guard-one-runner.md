@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e83dc8b43c61
     repo_status: clean
     path: docs/explanation/flow/three-tasks-one-guard-one-runner.md
     folder: docs/explanation/flow

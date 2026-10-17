@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ba9e66a45031
     repo_status: clean
     path: docs/adr/pwsh/module-path-hygiene.md
     folder: docs/adr/pwsh

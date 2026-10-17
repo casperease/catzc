@@ -7,7 +7,6 @@ plan:
   targets: [.claude/plans]
 catzc:
   immutable:
-    with_body_sha: "3c3e2e97abb8"
     repo_status: clean
     path: ".claude/plans/plan-master.md"
     folder: plans
@@ -45,15 +44,21 @@ stay the durable record; task files and this master are derived from them and ca
 
 ## Chunks
 
-- T001 -> task001.md (open): re-point the dangling links in six plan files.
-- T002 -> task002.md (open): a check on every open step; plan-shape for the four numbered-step plans; small plan fixes.
-- T003 -> task003.md (open): value-of-plan.md rows for the unlisted plans; prompt deletions after diff; questionnaire trim.
+- T001 -> task001.md (done 2026-10-17): re-point the dangling links in six plan files; the tree already held the re-pointed links, all
+  six checks clean.
+- T002 -> task002.md (done 2026-10-17): a check on every open step; plan-shape for the four numbered-step plans; small plan fixes.
+- T003 -> task003.md (done 2026-10-17; the three prompt deletions are the user's git rm): value-of-plan.md rows for the unlisted plans;
+  prompt deletions after diff; questionnaire trim (nothing removable under the rule).
 - T004 -> task004.md (open): the decision round over every open question (plan-decide, items D01 to D16).
-- T005 -> task005.md (open): register ADR-AI; fold the agent-contracts page into it. D14 answered by a read: AdrCodeForm accepts ADR-AI.
-- T006 -> task006.md (open): write ADR-CATS in principles with five rules; glossary cats and catzc; clear the two waits_on lines.
-- T007 -> task007.md (open): body-sha Phase 0, the hash only on generated tracked files; FILEMETA#3 and #7.
-- T008 -> task008.md (open; step 4 is the user's git rm): the .unordered binding audit (12 code files, 283 markdown mentions) and the
-  deletion script for the 20 finished plans.
+- T005 -> task005.md (done 2026-10-17; the agent-contracts page deletion is the user's git rm): register ADR-AI; fold the
+  agent-contracts page into it. D14 answered by the user: keep ADR-AI; AdrsConfig now accepts one-segment codes, which ADR-CATS (T006) uses.
+- T006 -> task006.md (done 2026-10-17): write ADR-CATS in principles with five rules; glossary cats and catzc; clear the two waits_on
+  lines. The new ADR file is untracked until the user commits, so its head has no body sha yet and links to it report `[Untracked]`.
+- T007 -> task007.md (done 2026-10-17): body-sha Phase 0, the hash only on generated tracked files; FILEMETA#3 and #7. The stamp check
+  is in Test-GeneratedFiles; the 444 minimap pages and the compiled manifest are unstamped until their writers write a head (open steps in
+  plan-plans-body-sha-landing-zone, the minimap re-render on the user's ask).
+- T008 -> task008.md (done 2026-10-17 except step 4, the user's git rm, and the tick that follows it): the .unordered binding audit (12
+  code files, 299 markdown mentions) and the deletion script `out/delete-unordered-15-10-2026.ps1` for the 20 finished plans.
 - T009 -> task009.md (open; after T008): tracks.md rule 17 rewritten, four glossary terms, Import-RepositoryWithHistory with tests, the
   sorting how-to.
 - T010 -> task010.md (open; gate and ADR now, CLAUDE.md wording after T009): ADR-REPO-PLANS with nine rules, stable-locator rule in

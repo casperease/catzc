@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "71143da03ce9"
     repo_status: clean
     path: docs/explanation/automation/every-code-root-is-a-copy.md
     folder: docs/explanation/automation

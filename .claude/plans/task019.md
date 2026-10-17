@@ -8,7 +8,6 @@ task:
   targets: [docs/explanation/automation, docs/how-to/automation, docs/references/automation, automation, .catzc, out, .github, pipelines]
 catzc:
   immutable:
-    with_body_sha: cd878f8ffc2b
     repo_status: clean
     path: ".claude/plans/task019.md"
     folder: plans

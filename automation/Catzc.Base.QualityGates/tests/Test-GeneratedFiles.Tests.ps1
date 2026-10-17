@@ -18,6 +18,7 @@ catzc:
     page: docs/references/automation/catzc-base-qualitygates/tests/Test-GeneratedFiles.Tests.ps1.md
     cites:
       - ADR-AUTO-TEST#35
+      - ADR-REPO-FILEMETA#7
 ---
 #>
 
@@ -32,6 +33,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Category = 'widget'; Path = '.cspell/widget.txt'; WordCount = 3; Changed = $false; DryRun = $true } }
         Mock Get-ConfigValue -ModuleName Catzc.Base.QualityGates { '10' }
         Mock Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Stamped = 2; Unstamped = [string[]] @('docs/widget/plain.md'); Issues = [string[]] @() } }
         Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $false; DryRun = $true }
             [pscustomobject]@{ Target = 'gadget.json'; Source = 'assets/gadget.json'; Generator = $null; Changed = $false; DryRun = $true }
@@ -66,7 +68,21 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result.Subject | Should -Be 'generated-files'
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -Be 'widget/README.md: stale — Build-Readme would change it; regenerate with: Build-Readme'
-        $result.Generators | Should -Be 16
+        $known = InModuleScope Catzc.Base.QualityGates { @(Get-GeneratedFileGenerator).Count }
+        $result.Generators | Should -Be $known -Because 'the count is every writer of generated-files.yml plus every root-file generator of rootconfig.yml'
+    }
+
+    It 'reports a generated file whose head stamp is not the hash of its body, and counts the stamped and unstamped files' -Tag 'ADR-REPO-FILEMETA#7' {
+        Mock Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Stamped = 3; Unstamped = [string[]] @('docs/widget/plain.md'); Issues = [string[]] @('docs/widget/index.md: stale — the head''s with_body_sha 000000000000 is not the hash of the body, 111111111111; regenerate the file with its writer') }
+        }
+
+        $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
+        $result.IssueCount | Should -Be 1
+        $result.Issues[0] | Should -BeLike 'docs/widget/index.md: stale — the head''s with_body_sha 000000000000*'
+        $result.Stamped | Should -Be 3
+        $result.Unstamped | Should -Be 1
+        Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1
     }
 
     It 'lists the writers of generated-files.yml and the generators of rootconfig.yml, so no generator is left out' -Tag 'ADR-AUTO-TEST#35' {

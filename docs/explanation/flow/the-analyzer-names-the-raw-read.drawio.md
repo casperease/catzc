@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1d1ed4bc5401"
     repo_status: clean
     path: docs/explanation/flow/the-analyzer-names-the-raw-read.drawio.md
     folder: docs/explanation/flow

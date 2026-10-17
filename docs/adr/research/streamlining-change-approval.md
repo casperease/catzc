@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ab4ed1a741a8
     repo_status: clean
     path: docs/adr/research/streamlining-change-approval.md
     folder: docs/adr/research

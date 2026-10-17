@@ -9,7 +9,6 @@ paths: automation/**/tests/**
 metadata:
   catzc:
     immutable:
-      with_body_sha: facfd87cd418
       repo_status: clean
       path: ".claude/skills/test-speed/SKILL.md"
       folder: skills/test-speed

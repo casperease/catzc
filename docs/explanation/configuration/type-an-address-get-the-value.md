@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "023e3e8255c9"
     repo_status: clean
     path: docs/explanation/configuration/type-an-address-get-the-value.md
     folder: docs/explanation/configuration

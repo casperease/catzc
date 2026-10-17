@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fc97167302f1
     repo_status: clean
     path: docs/explanation/pipelines/what-you-set-decides-the-credential.drawio.md
     folder: docs/explanation/pipelines

@@ -12,7 +12,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: af8b5c723b9e
     repo_status: clean
     path: ".claude/plans/plan-out-artifacts.md"
     folder: plans

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "104908eb04df"
     repo_status: clean
     path: docs/explanation/design/local-guard-and-server-policies.drawio.md
     folder: docs/explanation/design

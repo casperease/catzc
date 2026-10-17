@@ -8,7 +8,6 @@ task:
   targets: [docs/adr/automation, automation/Catzc.Base.Docs/configs/adrs.yml, automation/Catzc.Base.Docs/configs/glossary.yml]
 catzc:
   immutable:
-    with_body_sha: "9bb2d8a11a28"
     repo_status: clean
     path: ".claude/plans/task026.md"
     folder: plans

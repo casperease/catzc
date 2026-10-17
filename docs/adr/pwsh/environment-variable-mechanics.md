@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f06f5693d22e
     repo_status: clean
     path: docs/adr/pwsh/environment-variable-mechanics.md
     folder: docs/adr/pwsh

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a7d5cd22f2e6
     repo_status: clean
     path: docs/explanation/design/gate-checks-order-not-liveness.md
     folder: docs/explanation/design

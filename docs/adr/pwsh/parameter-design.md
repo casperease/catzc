@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7373a919820f"
     repo_status: clean
     path: docs/adr/pwsh/parameter-design.md
     folder: docs/adr/pwsh

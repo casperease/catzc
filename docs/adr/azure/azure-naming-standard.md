@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "73a0cb2d870c"
     repo_status: clean
     path: docs/adr/azure/azure-naming-standard.md
     folder: docs/adr/azure

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "06e55a66cc57"
     repo_status: clean
     path: docs/explanation/automation/three-tests-prove-the-hook.md
     folder: docs/explanation/automation

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0e95c25d7466"
     repo_status: clean
     path: docs/explanation/flow/edit-globs-yml-then-read-the-output.drawio.md
     folder: docs/explanation/flow

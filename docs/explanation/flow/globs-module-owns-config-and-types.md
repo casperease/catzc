@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bb6fce69835e
     repo_status: clean
     path: docs/explanation/flow/globs-module-owns-config-and-types.md
     folder: docs/explanation/flow

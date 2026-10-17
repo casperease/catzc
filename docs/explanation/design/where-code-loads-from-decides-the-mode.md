@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c73ad35987e4
     repo_status: clean
     path: docs/explanation/design/where-code-loads-from-decides-the-mode.md
     folder: docs/explanation/design

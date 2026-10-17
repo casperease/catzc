@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f0631007d435
     repo_status: clean
     path: docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
     folder: docs/explanation/design

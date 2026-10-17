@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6fba6a3110b8"
     repo_status: clean
     path: docs/explanation/automation/build-then-place-with-one-command.md
     folder: docs/explanation/automation

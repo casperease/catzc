@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b885ae6df735
     repo_status: clean
     path: docs/adr/azure/waf/cost-optimization.md
     folder: docs/adr/azure/waf

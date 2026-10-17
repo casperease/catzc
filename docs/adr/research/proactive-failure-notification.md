@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f37383f96bac
     repo_status: clean
     path: docs/adr/research/proactive-failure-notification.md
     folder: docs/adr/research

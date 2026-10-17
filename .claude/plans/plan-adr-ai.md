@@ -15,7 +15,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: bfcdf5aaabc1
     repo_status: clean
     path: ".claude/plans/plan-adr-ai.md"
     folder: plans
@@ -33,8 +32,8 @@ catzc:
 # ADR-AI: the contract every agent and skill reads first
 
 Written 2026-10-16 at the user's ask, as docs/adr/repository/ai-agent-contract.md: 13 rules, under 100 lines, no links, each rule one line
-to act on plus the why, with ADR codes as pointers. Named as `contracts: [ADR-AI]` in the front matter of plan-intake, plan-decide,
-plan-intake, plan-decide and plan-value. Not yet registered; no gate run (the contract's own rule 3).
+to act on plus the why, with ADR codes as pointers. Named as `contracts: [ADR-AI]` in the front matter of plan-intake, plan-decide and
+plan-value. Not yet registered; no gate run (the contract's own rule 3).
 
 ## Why its value is high
 
@@ -66,13 +65,26 @@ the user. One short contract bounds what every agent spends its calls on, before
 - Test-AgentDefinitions reads the required contracts from agents.yml; the key set of rule 6 is closed again.
 - Test-AdrRegistry, Test-Links, Test-Glossary on the new file.
 
+## Decided: D14, the code form (2026-10-17, the user, asked by task005)
+
+The code stays `ADR-AI`, and `ADR-CATS` takes the same one-segment form. `AdrCodeForm.cs` already parsed it; the registry's config type
+did not (`AdrsConfig.cs` required `ADR-<DC>-<NAME>`, so the first registration made adrs.yml invalid and every import failed in the index
+janitor until the entry was reverted). `AdrsConfig.ExternalRe` is now `^ADR-[A-Z]+(-[A-Z]+)*$`, a one-segment external skips the
+domain-segment match, and `AdrsConfig.Tests.ps1` holds two tests for it (27 pass). The ADR index text, "one or more uppercase segments",
+is unchanged.
+
 ## Open steps
 
-- [ ] Register ADR-AI (check: Test-AdrRegistry clean; the index lists it). Not blocked by the agent gate: it treats ADR-AI as a literal
-      contract code from agents.yml, so registration can land in any order.
-- [ ] Reword the CLAUDE.md session-start line if wanted; it exists and must keep the literal ADR-AI (check: Test-Links).
-- [ ] When registering, fold docs/references/agent-contracts.md into the ADR's Context (check: the page is deleted or points at the ADR).
-- [ ] Confirm the code form ADR-AI with the registry (check: AdrCodeForm parses it).
+- [x] Register ADR-AI. Done 2026-10-17 (task005): `ai-agent-contract: { external: ADR-AI }` in adrs.yml, a dora-explains entry, the index
+      regenerated (line 329). Check: Test-AdrRegistry "No adr-registry issues found." (`out/test-adr-registry/20261017-061143`);
+      Test-GeneratedFiles clean (`out/test-generated-files/20261017-061237`).
+- [x] The CLAUDE.md session-start line keeps the literal ADR-AI and its link; the agent-contracts link is dropped. Check: Test-Links "No
+      links issues found." (`out/test-links/20261017-061143`).
+- [x] docs/references/agent-contracts.md folded into the ADR's Context (one paragraph: closed key set, a constant declared once, named in
+      agents.yml `contracts` and the CLAUDE.md line); nothing links to the page; its `git rm` is the user's. Check: Test-Links and
+      Test-Markdownlint clean on the ADR (`out/test-links/20261017-061144`, `out/test-markdownlint/20261017-061235`); Test-AgentDefinitions
+      clean (`out/test-agent-definitions/20261017-061235`).
+- [x] The code form confirmed with the registry: D14 above; `AdrsConfig.Tests.ps1` passes 27 (`out/test-file/20261017-061016-0dfa4d`).
 
 ## Done, and why
 
@@ -80,7 +92,7 @@ the user. One short contract bounds what every agent spends its calls on, before
   (another session's round) ruled ADR-AI is named once. The user confirmed Q140 after the collision was put to them; a first answer "U2
   stands" was withdrawn as a flake. State now: rule 6's key set closed; agents.yml holds the top-level `contracts: [ADR-AI]` with its
   default on AgentsConfig and the gate reads it; the CLAUDE.md line exists; the reference page carries the key's meaning; the planner
-  removed the key from plan-intake, plan-decide, plan-intake, plan-decide and plan-value; the ADR's Decision text says "named once". Gates
+  removed the key from plan-intake, plan-decide and plan-value; the ADR's Decision text says "named once". Gates
   not run by the planner; catzc-d7's run after the revert is the one to read.
 
 ## Refs

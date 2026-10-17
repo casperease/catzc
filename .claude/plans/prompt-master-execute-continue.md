@@ -3,6 +3,20 @@ prompt:
   for: a fresh session that executes the task files of plan-master.md
   written: 2026-10-17
   plan: plan-master
+catzc:
+  immutable:
+    repo_status: clean
+    path: ".claude/plans/prompt-master-execute-continue.md"
+    folder: plans
+    name: prompt-master-execute-continue
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
 ---
 
 # Prompt: execute the next task of the master plan

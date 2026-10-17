@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "620d1efbab2c"
     repo_status: clean
     path: docs/adr/process/queues-cost-money.md
     folder: docs/adr/process

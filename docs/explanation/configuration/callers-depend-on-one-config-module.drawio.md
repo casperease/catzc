@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "365d6512fbef"
     repo_status: clean
     path: docs/explanation/configuration/callers-depend-on-one-config-module.drawio.md
     folder: docs/explanation/configuration

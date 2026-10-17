@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b730d7d7983c
     repo_status: clean
     path: docs/explanation/automation/rule-and-gate-per-load-stage.md
     folder: docs/explanation/automation

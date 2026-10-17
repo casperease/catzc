@@ -14,7 +14,6 @@ maxTurns: 12
 skills: [adr-cite, catzc-run, catzc-check, git-readonly, report-fixed]
 catzc:
   immutable:
-    with_body_sha: eac2afdda3b1
     repo_status: clean
     path: ".claude/agents/glossary-keeper.md"
     folder: agents

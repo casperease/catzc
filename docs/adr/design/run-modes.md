@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: feb2d9ae1bab
     repo_status: clean
     path: docs/adr/design/run-modes.md
     folder: docs/adr/design

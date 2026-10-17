@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04687311c854"
+    with_body_sha: "91c3887cbeb4"
     repo_status: locked
     path: docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md
     folder: docs/references/automation/catzc-base-docs/types
@@ -44,9 +44,10 @@ model, [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-c
   - domains is a non-empty map; each domain has code (^[A-Z]{2,4}$, optionally a compound of two segments
     like FLOW-CD), a non-empty role, a non-empty description, a depends_on list, and a non-empty rulesets map;
   - every depends_on target resolves to a declared domain, no self-edge, and the domain graph is acyclic;
-  - each ruleset external is ADR-<code>[-<NAME>…] (^ADR-[A-Z]{2,4}(-[A-Z]+)+$), the leaf code (if any)
-    matches the domain-code pattern, and the EFFECTIVE code (leaf override else domain code) is the
-    external's domain segment — the external is 'ADR-<effective>' or begins 'ADR-<effective>-' (so a
+  - each ruleset external is ADR-<NAME> or ADR-<code>-<NAME>… (^ADR-[A-Z]+(-[A-Z]+)*$, one or more uppercase
+    segments), the leaf code (if any) matches the domain-code pattern, and when the external has a domain
+    segment the EFFECTIVE code (leaf override else domain code) is that segment — the external is
+    'ADR-<effective>' or begins 'ADR-<effective>-' (a one-segment external such as ADR-AI has none to match; so a
     compound-code domain cites its root ADR as [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and the rest as
 [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>); every
     external is unique;
@@ -78,5 +79,6 @@ The external's domain segment is the effective code: the external is either the
 domain-root citation 'ADR-<effective>' or a named 'ADR-<effective>-<NAME>'. A compound
 domain code (e.g. FLOW-CD, whose ADRs cite [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and
 [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>) is matched
-by this prefix rule without splitting on a specific dash.
+by this prefix rule without splitting on a specific dash. A one-segment external
+('ADR-<NAME>', no dash after the prefix) carries no domain segment and skips the match.
 ```

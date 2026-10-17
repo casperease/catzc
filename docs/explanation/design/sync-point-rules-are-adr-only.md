@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9e090189db2a"
     repo_status: clean
     path: docs/explanation/design/sync-point-rules-are-adr-only.md
     folder: docs/explanation/design

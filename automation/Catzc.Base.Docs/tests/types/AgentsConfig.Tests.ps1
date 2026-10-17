@@ -17,6 +17,7 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md
     cites:
+      - ADR-AI
       - ADR-AUTO-TEST#3
       - ADR-REPO-AGENTS#{2,6-8}
 ---

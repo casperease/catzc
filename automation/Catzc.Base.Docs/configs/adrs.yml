@@ -38,7 +38,7 @@ domains:
     role: axioms # the non-negotiable design axioms every other domain specialises
     description: >-
       The design axioms every other domain specialises: everything as code, configure don't program, reduce variability, reduce waste,
-      poka-yoke, and one living version. They specialise the thesis, catzc's product description, and rest on the DORA research, the
+      poka-yoke, one living version, and the two names of the system, cats and catzc. They specialise the thesis, catzc's product description, and rest on the DORA research, the
       authoritative source; no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the reason for
       its own decisions.
     depends_on: [research, thesis]
@@ -51,6 +51,7 @@ domains:
       reduce-waste: { external: ADR-PRIN-NOWASTE, terminology: nowaste }
       poka-yoke: { external: ADR-PRIN-POKAYOKE, terminology: pokayoke, concern: [quality-control] }
       one-living-version: { external: ADR-PRIN-ONELIVE, terminology: onelive, concern: [release] }
+      cats-and-catzc: { external: ADR-CATS }
 
   process:
     code: PROC
@@ -322,6 +323,7 @@ domains:
       code-file-meta: { external: ADR-REPO-CODEMETA, terminology: codemeta, concern: [quality-control] }
       function-help: { external: ADR-REPO-HELP, concern: [quality-control] }
       agent-definitions: { external: ADR-REPO-AGENTS }
+      ai-agent-contract: { external: ADR-AI }
       inspiration: { external: ADR-REPO-INSPIRE }
       protected-globs: { external: ADR-REPO-PROTGLOB, terminology: protglob }
 

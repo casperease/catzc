@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: edbe7b1f9423
     repo_status: clean
     path: docs/explanation/automation/a-declared-allow-list-of-layers.md
     folder: docs/explanation/automation

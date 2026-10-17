@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b9d2cd62e5eb
     repo_status: clean
     path: ".claude/plans/prompt-file-kinds-registry-continue.md"
     folder: plans

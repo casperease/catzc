@@ -2,7 +2,7 @@
 plan:
   status: active
   value: high
-  reviewed: 2026-10-16
+  reviewed: 2026-10-17
   targets:
     [
       .claude/agents,
@@ -16,7 +16,6 @@ plan:
   siblings: [plan-minimal-robots-agents, plan-minimal-robots-capabilities]
 catzc:
   immutable:
-    with_body_sha: f285afe8201a
     repo_status: clean
     path: ".claude/plans/plan-minimal-robots.md"
     folder: plans

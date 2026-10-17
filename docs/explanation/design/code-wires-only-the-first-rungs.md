@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0c4d60e921ef"
     repo_status: clean
     path: docs/explanation/design/code-wires-only-the-first-rungs.md
     folder: docs/explanation/design

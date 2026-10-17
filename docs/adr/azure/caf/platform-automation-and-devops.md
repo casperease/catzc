@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "357b29a93d56"
     repo_status: clean
     path: docs/adr/azure/caf/platform-automation-and-devops.md
     folder: docs/adr/azure/caf

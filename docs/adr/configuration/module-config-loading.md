@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "54ad5d90da9a"
     repo_status: clean
     path: docs/adr/configuration/module-config-loading.md
     folder: docs/adr/configuration

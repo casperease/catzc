@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "71f356db6aa3"
     repo_status: clean
     path: docs/explanation/flow/globs-module-owns-config-and-types.drawio.md
     folder: docs/explanation/flow

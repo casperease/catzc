@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fd71bc64643a
     repo_status: clean
     path: docs/adr/design/self-service.md
     folder: docs/adr/design

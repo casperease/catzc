@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e2a29cb716a2
     repo_status: clean
     path: docs/explanation/flow/independence-check-groups-by-layer.md
     folder: docs/explanation/flow

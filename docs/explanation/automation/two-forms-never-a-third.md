@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3a483d641a7d"
     repo_status: clean
     path: docs/explanation/automation/two-forms-never-a-third.md
     folder: docs/explanation/automation

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "18ffda694fc5"
     repo_status: clean
     path: docs/explanation/automation/resolve-one-limit-in-code-order.drawio.md
     folder: docs/explanation/automation

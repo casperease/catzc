@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "38cb7ee13b79"
     repo_status: clean
     path: docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
     folder: docs/explanation/design

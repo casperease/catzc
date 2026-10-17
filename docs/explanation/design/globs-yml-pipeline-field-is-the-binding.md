@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "986bfe9815fa"
     repo_status: clean
     path: docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
     folder: docs/explanation/design

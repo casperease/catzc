@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c7fbe67c5617
     repo_status: clean
     path: docs/adr/github/github-release.md
     folder: docs/adr/github

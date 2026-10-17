@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a9141502fdc9
     repo_status: clean
     path: docs/explanation/automation/two-gates-check-the-layer-pins.drawio.md
     folder: docs/explanation/automation

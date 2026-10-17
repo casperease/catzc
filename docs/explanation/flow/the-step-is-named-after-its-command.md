@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a2bcd156b888
     repo_status: clean
     path: docs/explanation/flow/the-step-is-named-after-its-command.md
     folder: docs/explanation/flow

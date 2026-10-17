@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "925acdea1fdb"
     repo_status: clean
     path: docs/explanation/flow/globs-projects-and-three-consumers-read.drawio.md
     folder: docs/explanation/flow

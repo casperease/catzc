@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9859b8c5cf93"
     repo_status: clean
     path: docs/explanation/design/four-domains-promote-one-artifact.drawio.md
     folder: docs/explanation/design

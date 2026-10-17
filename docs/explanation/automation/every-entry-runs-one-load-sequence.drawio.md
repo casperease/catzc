@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6c14cd719927"
     repo_status: clean
     path: docs/explanation/automation/every-entry-runs-one-load-sequence.drawio.md
     folder: docs/explanation/automation

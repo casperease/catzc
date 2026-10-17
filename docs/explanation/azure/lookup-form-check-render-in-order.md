@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e1fe0099afd6
     repo_status: clean
     path: docs/explanation/azure/lookup-form-check-render-in-order.md
     folder: docs/explanation/azure

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "46f3d3a6a209"
+    with_body_sha: "6d3e2ff44e46"
     repo_status: clean
     path: docs/adr/repository/function-help.md
     folder: docs/adr/repository
@@ -56,8 +56,8 @@ its help. A line of the text made of nothing but a citation is reported.
 
 ### Rule ADR-REPO-HELP:4
 
-Four mismatches are reported and never rewritten: a parameter with no entry in `parameters`, an entry for a name the function does not
-declare, an `outputs` string whose first type differs from `[OutputType]`, and a file with no `synopsis`.
+Five faults are reported and never rewritten: a config that does not parse as YAML, a parameter with no entry in `parameters`, an entry for
+a name the function does not declare, an `outputs` string whose first type differs from `[OutputType]`, and a file with no `synopsis`.
 
 - [Mismatches are reported](#mismatches-are-reported)
 
@@ -108,7 +108,8 @@ description would drift from it. A page link stands for prose moved out of the f
 `A check, never a guess`
 
 A missing entry, an entry for a name that is gone and a type that disagrees with `[OutputType]` each need a sentence only an author can
-write, so they are findings.
+write, so they are findings. A config the YAML parser rejects, most often a plain value that holds a colon and a space, is the same kind of
+fault: the finding names the file and the parser's message, so the whole run never stops on one head.
 
 ### Hosted by Format-Code
 

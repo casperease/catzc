@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c4fa5f3ae000
     repo_status: clean
     path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.drawio.md
     folder: docs/explanation/design

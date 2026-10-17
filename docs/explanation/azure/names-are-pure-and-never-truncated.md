@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7dd29cb7f92c"
     repo_status: clean
     path: docs/explanation/azure/names-are-pure-and-never-truncated.md
     folder: docs/explanation/azure

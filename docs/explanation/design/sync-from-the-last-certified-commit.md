@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "61dd1bab2cc4"
     repo_status: clean
     path: docs/explanation/design/sync-from-the-last-certified-commit.md
     folder: docs/explanation/design

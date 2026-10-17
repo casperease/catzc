@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b9556f3fd004
     repo_status: clean
     path: docs/explanation/automation/three-tests-prove-the-hook.drawio.md
     folder: docs/explanation/automation

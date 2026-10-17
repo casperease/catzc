@@ -18,6 +18,7 @@ catzc:
     page: docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md
     test: automation/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
     cites:
+      - ADR-AI
       - ADR-AUTO-TYPES#8
       - ADR-CONF-LOADING#4
       - ADR-REPO-AGENTS#{2,4,6,8}

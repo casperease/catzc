@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "340ada650a79"
     repo_status: clean
     path: docs/adr/automation/BCL/index.md
     folder: docs/adr/automation/BCL

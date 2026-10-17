@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "714072254ede"
     repo_status: clean
     path: docs/how-to/automation/manual-test-plan/tooling.md
     folder: docs/how-to/automation/manual-test-plan

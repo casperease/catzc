@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d4ab2e8de2e6
     repo_status: clean
     path: docs/explanation/flow/no-gate-checks-rules-one-and-four.md
     folder: docs/explanation/flow

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "311142b2a5ab"
     repo_status: clean
     path: docs/adr/automation/open-closed-architecture.md
     folder: docs/adr/automation

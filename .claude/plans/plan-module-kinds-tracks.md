@@ -14,7 +14,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "9a1ba7c75c50"
     repo_status: clean
     path: ".claude/plans/plan-module-kinds-tracks.md"
     folder: plans

@@ -5,7 +5,6 @@ plan:
   reviewed: 2026-10-16
 catzc:
   immutable:
-    with_body_sha: "3ec64a0f2298"
     repo_status: clean
     path: ".claude/plans/questionnaire-2026-10-16.md"
     folder: plans

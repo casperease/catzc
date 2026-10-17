@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "57d973bedb2e"
     repo_status: clean
     path: docs/adr/automation/go/index.md
     folder: docs/adr/automation/go

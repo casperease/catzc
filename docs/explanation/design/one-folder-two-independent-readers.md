@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "36216a4c0433"
     repo_status: clean
     path: docs/explanation/design/one-folder-two-independent-readers.md
     folder: docs/explanation/design

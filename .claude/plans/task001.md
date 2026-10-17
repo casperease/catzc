@@ -1,14 +1,13 @@
 ---
 task:
   id: "001"
-  status: open
+  status: done
   plans: [plan-clear-actions]
   value: medium
   blocked_on: nothing
   targets: [.claude/plans]
 catzc:
   immutable:
-    with_body_sha: bfb6a46bbee2
     repo_status: clean
     path: ".claude/plans/task001.md"
     folder: plans
@@ -37,23 +36,31 @@ checked before the next. Only link targets change, never link text or prose (md-
   becomes the plan that now holds the text, with its `#heading` anchor; `out/plan-x.md` provenance becomes the sibling file name.
 - Re-run the same script. Done when it reports zero dangling links (untracked targets excepted).
 
+## Correction (2026-10-17)
+
+The tree contradicts the premise: every link the verdict pass listed was already re-pointed when this task ran (the targets read
+`../../docs/adr/...` and the sibling plan names), so steps 1 to 5 needed no edit. Each check was still run and its verdict recorded.
+
 ## Steps
 
-1. `plan-adr-link-cleanup-prose-to-pages.md`: 15 links (verdict lines 79-86, 205, 263, 308, 334, 348, 349, 420, 427; all
-   `.claude/docs/adr/...` to `../../docs/adr/...`). Check: Test-Links reports 0 dangling.
-2. `plan-layers-vocabulary-rename-contracts.md`: 9 links (verdict lines 111-113, 359, 360, 532, 533, 712). Check: Test-Links reports 0
-   dangling.
-3. `plan-module-kinds-tracks.md`: 3 links (verdict lines 98, 104, 370). Check: Test-Links reports 0 dangling.
-4. `plan-config-defaults.md`: 3 sibling links (verdict lines 243, 247, 250) to the plans that now hold the text. Check: Test-Links reports 0
-   dangling.
-5. `plan-plans-body-sha-landing-zone.md`: 2 links (`file-meta.md`, `sensible-defaults.md` in the carried draft, written from out/). Check:
-   Test-Links reports 0 dangling.
-6. `plan-materialization-of-knowledge.md`: the Refs line says the draft is carried below; confirm no `out/adr-draft-materialization.md` path
-   remains as a link. Check: grep `out/adr-draft` finds only prose that says "formerly".
-7. `value-of-plan.md`: the two `out/` paths that name absent files (`out/prompt-*-continue.md`, `out/adr-draft-materialization.md`) in
-   "Where the data lives now" and "Pastes processed" become the sibling names. Check: every named path exists (`ls` each).
-8. Record: in `plan-clear-actions.md` tick the re-point steps that are done, one checkbox per file. Check: the ticked lines name a
-   0-dangling run.
+1. [x] `plan-adr-link-cleanup-prose-to-pages.md`: 15 links already `../../docs/adr/...`. Check: `[Write-QualityGateReport] No links issues
+   found.` (`out/test-links/20261017-053922`).
+2. [x] `plan-layers-vocabulary-rename-contracts.md`: 9 links already sibling names. Check: `[Write-QualityGateReport] No links issues found.`
+   (`out/test-links/20261017-054019`).
+3. [x] `plan-module-kinds-tracks.md`: 3 links already sibling names. Check: `[Write-QualityGateReport] No links issues found.`
+   (`out/test-links/20261017-054019-2`).
+4. [x] `plan-config-defaults.md`: 3 sibling links already point at the plans that hold the text. Check: `[Write-QualityGateReport] No links
+   issues found.` (`out/test-links/20261017-054019-3`).
+5. [x] `plan-plans-body-sha-landing-zone.md`: 2 links already `../../docs/adr/...`. Check: `[Write-QualityGateReport] No links issues
+   found.` (`out/test-links/20261017-054019-4`).
+6. [x] `plan-materialization-of-knowledge.md`: grep `out/adr-draft` finds the Refs line ("formerly") and the "Carried" heading, both prose;
+   the Refs path `result-caching.md` re-pointed to `docs/adr/automation/caching.md`. Check: `[Write-QualityGateReport] No links issues
+   found.` (`out/test-links/20261017-054248`).
+7. [x] `value-of-plan.md`: neither `out/prompt-*-continue.md` nor `out/adr-draft-materialization.md` remains; `ls` finds every named path
+   (`docs/explanation/automation/reference-unboxing.md`, `out/README.md`, the six out/ scripts). Check: `[Write-QualityGateReport] No links
+   issues found.` (`out/test-links/20261017-054019-6`).
+8. [x] `plan-clear-actions.md`: the correction recorded, the re-point halves ticked with their report folders, the trim halves split into
+   their own open checkboxes. Check: `[Write-QualityGateReport] No links issues found.` (`out/test-links/20261017-054348`).
 
 ## Report
 

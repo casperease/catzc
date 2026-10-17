@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ddae042c3b46
     repo_status: clean
     path: docs/adr/pwsh/prepost-extension-modules.md
     folder: docs/adr/pwsh

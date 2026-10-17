@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5bda44a45f4a"
     repo_status: clean
     path: docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
     folder: docs/explanation/flow

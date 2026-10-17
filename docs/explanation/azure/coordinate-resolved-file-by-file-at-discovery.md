@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7c42911cb706"
     repo_status: clean
     path: docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
     folder: docs/explanation/azure

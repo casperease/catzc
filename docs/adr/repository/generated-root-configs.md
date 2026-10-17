@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0664fd3164c3"
     repo_status: clean
     path: docs/adr/repository/generated-root-configs.md
     folder: docs/adr/repository

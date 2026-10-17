@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "146256bfb558"
     repo_status: clean
     path: docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
     folder: docs/explanation/flow

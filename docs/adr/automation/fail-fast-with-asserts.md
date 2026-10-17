@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "64ab2812bb25"
     repo_status: clean
     path: docs/adr/automation/fail-fast-with-asserts.md
     folder: docs/adr/automation

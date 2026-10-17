@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a7339ac9e757
     repo_status: clean
     path: docs/explanation/flow/a-step-only-names-a-command.drawio.md
     folder: docs/explanation/flow

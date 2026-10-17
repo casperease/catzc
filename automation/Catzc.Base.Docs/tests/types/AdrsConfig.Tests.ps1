@@ -93,6 +93,19 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw '*domain segment*'
     }
 
+    It 'accepts a one-segment external code, which has no domain segment to match' {
+        $raw = New-ValidRaw
+        $raw.domains.alpha.rulesets['thing-one'].external = 'ADR-ONE'
+        $config = [Catzc.Base.Docs.AdrsConfig]::new($raw)
+        ($config.RuleSets | Where-Object Slug -EQ 'thing-one').External | Should -Be 'ADR-ONE'
+    }
+
+    It 'throws on an external code whose segments are not uppercase letters' {
+        $raw = New-ValidRaw
+        $raw.domains.alpha.rulesets['thing-one'].external = 'ADR-al-one'
+        { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw '*uppercase segments*'
+    }
+
     It 'throws on a duplicate external code' {
         $raw = New-ValidRaw
         $raw.domains.beta.rulesets['thing-two'].external = 'ADR-AL-ONE'

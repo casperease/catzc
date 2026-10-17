@@ -6,7 +6,6 @@ plan:
   funnel: 80 remaining items -> 40 resolved lines (planner) -> 5 for the user -> one undivided statement
 catzc:
   immutable:
-    with_body_sha: "528ef5bbe839"
     repo_status: clean
     path: ".claude/plans/questionnaire-fundamental-2-2026-10-16.md"
     folder: plans

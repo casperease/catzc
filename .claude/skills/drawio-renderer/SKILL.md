@@ -10,7 +10,6 @@ paths: docs/.assets/**/*.drawio.png, out/drawio/**
 metadata:
   catzc:
     immutable:
-      with_body_sha: cd4a2ab1f723
       repo_status: clean
       path: ".claude/skills/drawio-renderer/SKILL.md"
       folder: skills/drawio-renderer

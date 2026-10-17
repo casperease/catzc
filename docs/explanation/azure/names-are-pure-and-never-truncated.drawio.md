@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7a0ba47bab0b"
     repo_status: clean
     path: docs/explanation/azure/names-are-pure-and-never-truncated.drawio.md
     folder: docs/explanation/azure

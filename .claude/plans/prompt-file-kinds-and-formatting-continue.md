@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2245052fbff6"
     repo_status: clean
     path: ".claude/plans/prompt-file-kinds-and-formatting-continue.md"
     folder: plans

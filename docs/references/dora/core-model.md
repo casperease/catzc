@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "523a0e9c4ca7"
     repo_status: clean
     path: docs/references/dora/core-model.md
     folder: docs/references/dora

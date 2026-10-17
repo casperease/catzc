@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6aefd4024a00"
     repo_status: clean
     path: ".claude/plans/prompt-adr-links-and-plans-continue.md"
     folder: plans

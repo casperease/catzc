@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "42fefd3c2207"
     repo_status: clean
     path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.drawio.md
     folder: docs/explanation/flow

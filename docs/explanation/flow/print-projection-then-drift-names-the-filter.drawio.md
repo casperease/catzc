@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d0a56ae28d16
     repo_status: clean
     path: docs/explanation/flow/print-projection-then-drift-names-the-filter.drawio.md
     folder: docs/explanation/flow

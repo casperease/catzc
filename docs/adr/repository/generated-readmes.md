@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a0b4332cbb1e
     repo_status: clean
     path: docs/adr/repository/generated-readmes.md
     folder: docs/adr/repository

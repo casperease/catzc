@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "065c13d2beea"
     repo_status: clean
     path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.drawio.md
     folder: docs/explanation/flow

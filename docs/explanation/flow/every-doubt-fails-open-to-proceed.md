@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "68a84799efb5"
     repo_status: clean
     path: docs/explanation/flow/every-doubt-fails-open-to-proceed.md
     folder: docs/explanation/flow

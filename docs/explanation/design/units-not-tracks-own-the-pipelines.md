@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5cc41f9b12d9"
     repo_status: clean
     path: docs/explanation/design/units-not-tracks-own-the-pipelines.md
     folder: docs/explanation/design

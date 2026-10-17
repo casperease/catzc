@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "55f2d339556b"
     repo_status: clean
     path: docs/explanation/automation/two-gates-check-the-layer-pins.md
     folder: docs/explanation/automation

@@ -47,4 +47,26 @@ Describe 'Get-BodyShaFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         }
         $hash[0] | Should -BeExactly $hash[1]
     }
+
+    Context 'the shipped registry' {
+        BeforeAll {
+            $script:shipped = Get-Config -Config file-meta
+            $script:bodySha = $script:shipped.kinds | Where-Object id -EQ 'body-sha'
+        }
+
+        It 'stamps a generated page and never an authored one, so a hand-kept hash on an authored page is no finding' -ForEach @(
+            @{ Class = 'comment-page'; Selected = $true }
+            @{ Class = 'glossary'; Selected = $true }
+            @{ Class = 'index'; Selected = $true }
+            @{ Class = 'adr'; Selected = $false }
+            @{ Class = 'reference'; Selected = $false }
+            @{ Class = 'explanation'; Selected = $false }
+        ) {
+            $script:shipped.Selects($script:bodySha, $Class, 'markdown') | Should -Be $Selected
+        }
+
+        It 'owns the key, so a hash in an authored page''s block is never reported as unowned' {
+            $script:shipped.KeysOf('immutable') | Should -Contain 'with_body_sha'
+        }
+    }
 }

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f4738b41ee4f
     repo_status: clean
     path: docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
     folder: docs/explanation/automation

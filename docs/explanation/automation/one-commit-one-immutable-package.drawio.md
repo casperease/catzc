@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d95d4e003e47
     repo_status: clean
     path: docs/explanation/automation/one-commit-one-immutable-package.drawio.md
     folder: docs/explanation/automation

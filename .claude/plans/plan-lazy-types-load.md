@@ -13,7 +13,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "910903fe13ba"
     repo_status: clean
     path: ".claude/plans/plan-lazy-types-load.md"
     folder: plans

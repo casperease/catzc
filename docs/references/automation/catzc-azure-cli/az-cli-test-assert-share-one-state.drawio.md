@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "415a0c201434"
     repo_status: clean
     path: docs/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
     folder: docs/references/automation/catzc-azure-cli

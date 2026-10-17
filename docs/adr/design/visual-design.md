@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9af99e4e5cbf"
     repo_status: clean
     path: docs/adr/design/visual-design.md
     folder: docs/adr/design

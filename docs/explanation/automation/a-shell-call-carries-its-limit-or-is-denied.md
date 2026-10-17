@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5010945c66c8"
     repo_status: clean
     path: docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
     folder: docs/explanation/automation

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9a3a343e530b"
     repo_status: clean
     path: docs/adr/flow/cd-discipline-and-promotion-flow.md
     folder: docs/adr/flow

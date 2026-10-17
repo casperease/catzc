@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fa04befa159e
     repo_status: clean
     path: docs/explanation/repository/three-gates-check-registry-drift-membership.md
     folder: docs/explanation/repository

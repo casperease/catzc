@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3d08ae3bea80"
     repo_status: clean
     path: docs/how-to/automation/manual-test-plan/repository-conventions.md
     folder: docs/how-to/automation/manual-test-plan

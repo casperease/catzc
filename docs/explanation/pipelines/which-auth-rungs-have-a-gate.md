@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ac20397ba6f0
     repo_status: clean
     path: docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
     folder: docs/explanation/pipelines

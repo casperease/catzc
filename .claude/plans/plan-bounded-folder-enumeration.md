@@ -8,7 +8,6 @@ plan:
   targets: [automation/Catzc.Base.Folders, automation/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
 catzc:
   immutable:
-    with_body_sha: cdabe8b9966b
     repo_status: clean
     path: ".claude/plans/plan-bounded-folder-enumeration.md"
     folder: plans

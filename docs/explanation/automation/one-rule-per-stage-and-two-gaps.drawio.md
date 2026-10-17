@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d583b6d50689
     repo_status: clean
     path: docs/explanation/automation/one-rule-per-stage-and-two-gaps.drawio.md
     folder: docs/explanation/automation

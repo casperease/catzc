@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "17e368f5899e"
     repo_status: clean
     path: docs/explanation/flow/two-variables-read-in-one-place.md
     folder: docs/explanation/flow

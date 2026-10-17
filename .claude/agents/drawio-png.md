@@ -13,7 +13,6 @@ maxTurns: 12
 skills: [drawio-renderer, catzc-run, report-fixed]
 catzc:
   immutable:
-    with_body_sha: b24b06be2ec1
     repo_status: clean
     path: ".claude/agents/drawio-png.md"
     folder: agents

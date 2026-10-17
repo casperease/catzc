@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0b2d8fe3d808"
     repo_status: clean
     path: docs/explanation/automation/decide-returns-null-or-a-reason.md
     folder: docs/explanation/automation

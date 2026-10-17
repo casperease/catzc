@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "36f1bd3f320b"
     repo_status: clean
     path: docs/adr/pwsh/prefer-foreach-over-foreach-object.md
     folder: docs/adr/pwsh

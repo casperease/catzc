@@ -1,11 +1,10 @@
 ---
 plan:
   status: active
-  reviewed: 2026-10-16
+  reviewed: 2026-10-17
   rule: value first, then needed docs and tests; job size never ranks
 catzc:
   immutable:
-    with_body_sha: "0ed7ca622614"
     repo_status: clean
     path: ".claude/plans/value-of-plan.md"
     folder: plans
@@ -18,6 +17,9 @@ catzc:
     vendor: claude
     module: ".claude"
     moduletype: settings
+  edges:
+    cites:
+      - ADR-DSGN-LIFE#11
 ---
 
 # Value of each plan
@@ -42,7 +44,8 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 
 | Value       | Plan                                    | Why                                                                                                                                          | Needed docs                                                                                                                | Needed tests                                                                                              | State                                                                           |
 | ----------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| highest     | plan-plans-body-sha-landing-zone        | Removes the drift finding on every ADR edit, makes plans survive agent death, unblocks the link cleanup.                                     | ADR-REPO-PLANS new (incl. stable locators rule); FILEMETA#3 #7; DSGN-TRACK#17; 4 glossary terms; CLAUDE.md; sorting how-to | Test-Plans; body_sha on generated heads; import tool on two temp repos; Publish-Plan                      | nothing started                                                                 |
+| highest     | plan-master                             | The one executable order over every open step of every plan; task files are its disposable executables.                                      | ADR-REPO-PLANS names the task files (T010)                                                                                 | Test-Plans over the folder (T010)                                                                         | T001 to T036 written; T001 and T002 done                                        |
+| highest     | plan-plans-body-sha-landing-zone        | Removes the drift finding on every ADR edit, makes plans survive agent death, unblocks the link cleanup.                                     | ADR-REPO-PLANS new (incl. stable locators rule); FILEMETA#3 #7; DSGN-TRACK#17; 4 glossary terms; CLAUDE.md; sorting how-to | Test-Plans; body_sha on generated heads; import tool on two temp repos; Publish-Plan                      | Phase 0 done (T007); Phases 1 and 2 open                                        |
 | high        | plan-minimal-robots                     | Every spawn re-reads 78 to 126 lines cold on an unnamed model; 20-line robots on haiku loading 10-line capabilities.                         | ADR-REPO-AGENTS rules 6-12; CLAUDE.md sentence; 3 glossary terms; capabilities.yml page                                    | Test-AgentDefinitions extensions on fixtures; CapabilitiesConfig; one real run per rewritten robot        | Phases 0-4 landed; Phase 5 (measure) open                                       |
 | high        | plan-minimal-robots-agents              | Catalogue: 2 proposed, 4 recommended, 7 rewritten robots with model and capabilities.                                                        | registry entries; CLAUDE.md lines                                                                                          | the gate; one real brief per robot                                                                        | planned; plan-clear text awaited                                                |
 | high        | plan-minimal-robots-capabilities        | Catalogue: 2 proposed, 8 recommended, 4 reserved capabilities with floors.                                                                   | capabilities.yml; the ADR capabilities section                                                                             | the gate's capability checks                                                                              | planned; capability 2 text awaited                                              |
@@ -58,14 +61,20 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 | medium      | plan-test-run-budget                    | 266 s against a 180 s roof; cache stamp needs an ADR decision.                                                                               | REPO-FORMAT stamp rule                                                                                                     | warm-cache and invalidation tests; two runs                                                               | two levers landed                                                               |
 | medium      | plan-materialization-of-knowledge       | One word and one default for cache versus commit, which several plans lean on.                                                               | ADR-AUTO-MATERIAL new; glossary; sha-marker plan                                                                           | registry, glossary, link gates; resolver tests later                                                      | draft; 3 choices to confirm                                                     |
 | medium      | plan-out-artifacts                      | 144 session scripts and 27 backups unregistered.                                                                                             | OUTDIR amendments                                                                                                          | Clear-Output and prune tests                                                                              | 4 decisions open                                                                |
-| medium      | plan-clear-actions                      | 32 broken links in 5 plans and three over-long plans, judged 2026-10-16 and acted on in none.                                                | none                                                                                                                       | Test-Links per file                                                                                       | verdicts recorded; no step done                                                 |
+| medium      | plan-clear-actions                      | 32 broken links in 5 plans and three over-long plans, judged 2026-10-16 and acted on in none.                                                | none                                                                                                                       | Test-Links per file                                                                                       | links and plan-shape done (T001, T002); trims and deletions open                |
+| medium      | plan-fast-push-followups                | Four Build-RootConfig fixture-head tests fail and two unrelated findings have no owner yet.                                                  | none; ADR-DSGN-LIFE#11 and #12 landed                                                                                      | Build-RootConfig.Tests.ps1 green; Test-AdrRegistry; one real Push-Dirty run (the user's)                  | landed and tested; four steps open                                              |
+| medium      | plan-skip-unchanged-generators          | Four import-time generators still rebuild on an unchanged tree, about 1.3 s of every import.                                                 | none; D12 decides Build-Readme                                                                                             | input tests for Build-RootConfig and Build-GitKeep; a Sync-SessionTools warm skip; the meta gates         | four generators wired; six steps open                                           |
 | low-medium  | plan-format-step-moves-comments         | One long header survives a format run; verify the step loop first.                                                                           | one ADR sentence; comments.yml entries                                                                                     | Format-Code step test                                                                                     | unverified since 2026-10-15                                                     |
+| low         | plan-csproj-xml-head                    | The generated csproj carries a head; its page and two help pages still describe the JSON form.                                               | PropertyHead page and the two help pages to the XML form                                                                   | the four Build-RootConfig fixture tests against a tree without the change                                 | landed; two steps open                                                          |
+| low         | plan-idle-compaction                    | One local setting; whether it is checked in is D06.                                                                                          | none                                                                                                                       | none; both settings files parse                                                                           | set locally; D06 open; delete after                                             |
+| low         | plan-assets-gallery-pdf                 | One review PDF of every asset PNG with its companion text; the split flag is D07.                                                            | the drawio-waves skill line names --assets                                                                                 | a two-PNG fixture run if the kit gains a test home                                                        | mode landed and measured; three steps open                                      |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
 | Value       | Plan                            | Needed docs                                 | Needed tests                                                         | State                               |
 | ----------- | ------------------------------- | ------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------- |
 | medium-high | plan-lazy-types-load            | native-csharp-types ADR rule; comment pages | types-load.yml policy L0; Test-TypesAssemblyContent on a fixture DLL | Phase 0 done                        |
+| medium      | plan-assert-wait                | FAILFAST#8, ASSERT#7 after a measured run   | Assert-Wait.Tests (16 pass); TimeoutsConfig wait keys; Test-Automation.Tests | points landed; config, ADRs, run open |
 | medium      | plan-bounded-folder-enumeration | none left; ADR-PWSH-ENUM exists             | the user's level-2 gate run                                          | built and migrated; delete on green |
 | low-medium  | plan-unboxing                   | optional ADR-AUTO-CACHE line                | one DLL in .compiled; Test-ShippedTypes re-run                       | P1-P3 shipped; P4, P5 on a go       |
 
@@ -103,6 +112,7 @@ next:
   next batch, run through the same funnel. New from the round: plan-adr-cats (Q18b); the rule that a track has one primary language (Q35);
   in-use files are out of scope for plans (Q49, saved as memory feedback). The planner's method is now the plan-intake and plan-decide
   robots with the plan-intake, plan-decide and plan-value capabilities (plan-minimal-robots-agents).
+- The next funnel batch is Q102 to Q126 plus the D-items D01 to D16 that task004 lists (the decision round of plan-master).
 
 ## Pastes processed
 

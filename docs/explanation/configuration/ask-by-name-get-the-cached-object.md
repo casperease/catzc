@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6e2f6beced80"
     repo_status: clean
     path: docs/explanation/configuration/ask-by-name-get-the-cached-object.md
     folder: docs/explanation/configuration

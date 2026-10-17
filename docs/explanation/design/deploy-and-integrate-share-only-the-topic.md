@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "593594ce7b09"
     repo_status: clean
     path: docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
     folder: docs/explanation/design

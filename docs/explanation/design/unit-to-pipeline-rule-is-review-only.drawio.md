@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "93dfca58b673"
     repo_status: clean
     path: docs/explanation/design/unit-to-pipeline-rule-is-review-only.drawio.md
     folder: docs/explanation/design

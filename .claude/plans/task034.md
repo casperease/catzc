@@ -8,7 +8,6 @@ task:
   targets: [automation/Catzc.Base.Folders, automation/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
 catzc:
   immutable:
-    with_body_sha: af743ce593e3
     repo_status: clean
     path: ".claude/plans/task034.md"
     folder: plans

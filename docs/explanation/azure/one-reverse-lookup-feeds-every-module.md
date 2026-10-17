@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8e1cfbc526e4"
     repo_status: clean
     path: docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
     folder: docs/explanation/azure

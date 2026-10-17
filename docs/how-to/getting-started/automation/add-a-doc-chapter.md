@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9af19429156a"
     repo_status: clean
     path: docs/how-to/getting-started/automation/add-a-doc-chapter.md
     folder: docs/how-to/getting-started/automation

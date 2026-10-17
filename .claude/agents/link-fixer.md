@@ -13,7 +13,6 @@ maxTurns: 20
 skills: [md-links, catzc-run, catzc-check, git-readonly, report-fixed]
 catzc:
   immutable:
-    with_body_sha: "2777f5f810ac"
     repo_status: clean
     path: ".claude/agents/link-fixer.md"
     folder: agents

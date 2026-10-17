@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "28a560323e17"
     repo_status: clean
     path: docs/explanation/design/what-keeps-the-platform-thin.md
     folder: docs/explanation/design

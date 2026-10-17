@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d2cb16c40656
     repo_status: clean
     path: docs/adr/process/holding-the-line.md
     folder: docs/adr/process

@@ -7,7 +7,6 @@ paths: "**/*.md"
 metadata:
   catzc:
     immutable:
-      with_body_sha: dbee73aac03f
       repo_status: clean
       path: ".claude/skills/md-links/SKILL.md"
       folder: skills/md-links

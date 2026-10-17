@@ -13,7 +13,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "5268740b175c"
     repo_status: clean
     path: ".claude/plans/plan-assert-wait.md"
     folder: plans

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d914df52e6db
     repo_status: clean
     path: docs/adr/pwsh/cross-platform-powershell.md
     folder: docs/adr/pwsh

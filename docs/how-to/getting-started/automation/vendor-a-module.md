@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: adca12471052
     repo_status: clean
     path: docs/how-to/getting-started/automation/vendor-a-module.md
     folder: docs/how-to/getting-started/automation

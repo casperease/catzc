@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2f64cc7666e4"
     repo_status: clean
     path: docs/adr/automation/tracked-files-from-the-index.md
     folder: docs/adr/automation

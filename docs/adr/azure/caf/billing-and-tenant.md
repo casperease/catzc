@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "43969d556544"
     repo_status: clean
     path: docs/adr/azure/caf/billing-and-tenant.md
     folder: docs/adr/azure/caf

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1e0245cf2ffa"
     repo_status: clean
     path: docs/explanation/vendor/claude/artifact-diagramming-skill.md
     folder: docs/explanation/vendor/claude

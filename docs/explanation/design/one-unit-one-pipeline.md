@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: daabd9b2e97d
     repo_status: clean
     path: docs/explanation/design/one-unit-one-pipeline.md
     folder: docs/explanation/design

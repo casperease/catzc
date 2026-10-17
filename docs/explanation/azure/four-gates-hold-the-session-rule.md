@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "87b71c51f5c3"
     repo_status: clean
     path: docs/explanation/azure/four-gates-hold-the-session-rule.md
     folder: docs/explanation/azure

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "203576ad0251"
     repo_status: clean
     path: docs/adr/automation/zero-ceremony-poka-yoke.md
     folder: docs/adr/automation

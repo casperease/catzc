@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6cd17e0faa5f"
     repo_status: clean
     path: docs/references/pipelines/template-folders.md
     folder: docs/references/pipelines

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8b6e4a3e998a"
     repo_status: clean
     path: docs/adr/pwsh/powershell-formatting.md
     folder: docs/adr/pwsh

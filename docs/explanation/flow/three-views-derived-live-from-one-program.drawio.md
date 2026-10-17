@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "687664354350"
     repo_status: clean
     path: docs/explanation/flow/three-views-derived-live-from-one-program.drawio.md
     folder: docs/explanation/flow

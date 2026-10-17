@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c9314955e75e
     repo_status: clean
     path: docs/references/automation/catzc-base-timeouts.md
     folder: docs/references/automation

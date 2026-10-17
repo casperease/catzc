@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f1feb1492f74
     repo_status: clean
     path: docs/explanation/automation/build-verify-then-copy-the-folder.md
     folder: docs/explanation/automation

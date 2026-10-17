@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7dac146b68cf"
     repo_status: clean
     path: docs/explanation/flow/globs-projects-and-three-consumers-read.md
     folder: docs/explanation/flow

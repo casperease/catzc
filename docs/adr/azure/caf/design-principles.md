@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b891f6ab0cc2
     repo_status: clean
     path: docs/adr/azure/caf/design-principles.md
     folder: docs/adr/azure/caf

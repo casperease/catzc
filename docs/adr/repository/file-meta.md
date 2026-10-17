@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3562bdd855d2"
     repo_status: clean
     path: docs/adr/repository/file-meta.md
     folder: docs/adr/repository
@@ -79,8 +78,10 @@ files carry a block at all. Which kinds exist is data, never a list inside an en
 
 The `immutable` and `edges` parts are imprinted by `Format-FileMeta` and are byte-identical on every run: keys in the registry's order,
 values in canonical form, no timestamp and no run identifier. A hash is allowed only when it changes exactly when something a reader cares
-about changes. A second run changes no file. The output is stable under the formatter of the file's language, so the formatter and the
-imprint never undo each other ([ADR-REPO-FORMAT#5](uniform-formatting.md#rule-adr-repo-format5)).
+about changes, and only a generated tracked file carries one: `with_body_sha` is required there and written by the file's writer, or
+imprinted on the one generated page the engine owns. An authored page carries no body hash; a hash an author keeps in the `config` part is
+the author's, left alone and never maintained. A second run changes no file. The output is stable under the formatter of the file's
+language, so the formatter and the imprint never undo each other ([ADR-REPO-FORMAT#5](uniform-formatting.md#rule-adr-repo-format5)).
 
 - [Imprinted, never hand-edited](#imprinted-never-hand-edited)
 
@@ -125,9 +126,9 @@ edited instead), `path`, `kind` and `subkind` (the role the file-kinds registry 
 out for a file that has none, and what only a composed file has: `generator` (the repository-relative path of the file that defines the
 command that composed the file) and `source` (the authored file or files it comes from). The head opens with `with_body_sha`, the hash of
 the content below it, whatever the file's language and carrier, so a tracked generated file says which text its writer composed and the
-drift check reads the stamp before the content. A generated file is told from an authored one by its `generator`, never by a kind of its
-own. No writer hand-words a banner, and the drift check compares the head with the rest of the content. The imprint engine leaves these
-files alone ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A comment page is the one generated
+drift check compares the stamp with the hash of the content below it before it compares the content. A generated file is told from an
+authored one by its `generator`, never by a kind of its own. No writer hand-words a banner. The imprint engine leaves these files alone
+([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A comment page is the one generated
 item whose block the engine imprints, and it names its writer the same way: the `generator` kind of the registry gives it the path of the
 comment exporter.
 
@@ -198,11 +199,11 @@ the rest, each read from a registry and never from the file's text. `edges` hold
 **edge**, a named relation leaving the file to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `page` and `test`. Both
 parts are imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an
 edge until the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the
-relation, never for the type of its target. In a Markdown file, and in a generated file of any language
-([ADR-REPO-FILEMETA#7](#rule-adr-repo-filemeta7)), `immutable` opens with `with_body_sha`, the hash of the body below the head, so the stamp
-says which text the edges were read from or the writer composed. An authored code file carries no hash
-([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). Every block and every generated head also holds `repo_status`, the part
-of the file's repository status that the file itself decides: `locked` for a generated file, whose source is the truth and is edited
+relation, never for the type of its target. In a generated file of any language ([ADR-REPO-FILEMETA#7](#rule-adr-repo-filemeta7)), and in
+the generated page the engine imprints, `immutable` opens with `with_body_sha`, the hash of the body below the head, so the stamp says
+which text the writer composed. An authored file, page or code, carries no hash ([ADR-REPO-FILEMETA#3](#rule-adr-repo-filemeta3),
+[ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)). Every block and every generated head also holds `repo_status`, the
+part of the file's repository status that the file itself decides: `locked` for a generated file, whose source is the truth and is edited
 instead, and `clean` for an authored one. The states only git knows, edited, staged, committed and pushed, and `ready` (tracked and
 unchanged) are never written into the file, since the write would change them; `Get-RepoStatus` computes them on demand from git, read-only.
 A kind of the registry names the part it writes, `immutable` by default and `edges` for a relation.
@@ -329,9 +330,9 @@ that place: its folder, its name, its role, its language, its track and its modu
 the same file in another repository would carry other values. And what does this file itself say it is related to: the rules it declares,
 the rules it cites, the files it links, the page that holds its comments, the test that proves it, all read from the file and fixed by its
 text. The first is a property of the node, the second a set of directed, named edges leaving it. Keeping them apart lets a reader ask "which
-files are in this module" of one part and "which files point at this page" of the other, and lets the body hash sit at the head of the place
-facts as the stamp the edges were read under. An edge is named for the relation, so a new relation is a new name and a registry entry, and
-the target of an edge is spelled the same way wherever it is read.
+files are in this module" of one part and "which files point at this page" of the other, and lets a generated file's body hash sit at the
+head of the place facts as the stamp of the text its writer composed. An edge is named for the relation, so a new relation is a new name
+and a registry entry, and the target of an edge is spelled the same way wherever it is read.
 
 ### What a Markdown file defines and points at
 

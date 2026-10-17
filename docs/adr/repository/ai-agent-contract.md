@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a107d16cfe1c
     repo_status: clean
     path: docs/adr/repository/ai-agent-contract.md
     folder: docs/adr/repository
@@ -16,7 +15,7 @@ catzc:
       - ADR-AI#{1-13}
     cites:
       - ADR-AUTO-FAILFAST#7
-      - ADR-REPO-AGENTS#4
+      - ADR-REPO-AGENTS#{4,6}
       - ADR-REPO-LINK#5
 ---
 
@@ -72,7 +71,7 @@ Every agent and every skill reads this first, at every start and after every cle
 
 ### Rule ADR-AI:12
 
-**Use the domain's words.** Domain rules, never house rules; cats the product, catzc the inner namespace. (ADR-CATS)
+**Use the domain's words.** Domain rules, never "house rules"; cats the product, catzc the inner namespace. (ADR-CATS)
 
 ### Rule ADR-AI:13
 
@@ -82,6 +81,10 @@ Every agent and every skill reads this first, at every start and after every cle
 
 Agents start cold on small models. Test runs are the largest cost of a session, and a mutating git command by an agent cannot be undone by
 the user. The time safeguard bounds every call; this contract bounds what a call is spent on.
+
+A robot's front matter is a closed key set (ADR-REPO-AGENTS#6), and a value identical on every file is a constant, declared once
+(ADR-PRIN-CONFIG, ADR-PRIN-REDUCEVAR). So the contract every robot and capability reads first is not a per-file key: it is named in the
+`contracts` entry of agents.yml, which Test-AgentDefinitions reads, and in the CLAUDE.md session-start line.
 
 ## Decision
 

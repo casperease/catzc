@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "48d7111bb84f"
     repo_status: clean
     path: docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
     folder: docs/explanation/automation

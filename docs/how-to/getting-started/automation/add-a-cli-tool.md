@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e3a289fb0e4"
     repo_status: clean
     path: docs/how-to/getting-started/automation/add-a-cli-tool.md
     folder: docs/how-to/getting-started/automation

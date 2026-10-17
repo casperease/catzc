@@ -5,9 +5,11 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 ## Terminology
 
 - **catzc** — the reserved, source-code-level name of the system: the `Catzc.*` module prefix, the C# `Catzc.*` namespaces, the `Catzc.`
-  type-accelerator prefix, and the literal product token. Use it in code and in precise references.
+  type-accelerator prefix, and the literal product token. Use it in code and in precise references
+  ([ADR-CATS#1](../docs/adr/principles/cats-and-catzc.md#rule-adr-cats1)).
 - **cats** (plural) — the conversational cover term for the catzc system as a whole: the human-friendly name used in prose and docs and when
-  talking to or about the system ("ask cats"). It stands in for the complicated, code-level catzc.
+  talking to or about the system ("ask cats"). It stands in for the complicated, code-level catzc
+  ([ADR-CATS#2](../docs/adr/principles/cats-and-catzc.md#rule-adr-cats2)).
 - **"domain rules" / "ADR rules"** — the sanctioned terms for this repository's conventions and decision records. Never say "house rules";
   it is not a domain-sanctioned term.
 
@@ -64,7 +66,7 @@ registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/
 robot: a body of at most 20 lines on a named model, loading its shared know-how from capabilities, `.claude/skills/<domain>-<job>/SKILL.md`
 files of at most 10 lines with a model floor, registered in `automation/Catzc.Base.Docs/configs/capabilities.yml`. Every robot and
 capability reads the AI agent contract first, [ADR-AI](../docs/adr/repository/ai-agent-contract.md); it is named once, here and as
-`contracts` in `agents.yml`, never in a file's front matter ([agent contracts](../docs/references/agent-contracts.md)).
+`contracts` in `agents.yml`, never in a file's front matter.
 
 - **`catzc-worker`** — the **standard** sub-agent for delegated work: one scoped task from a coordinator's brief, editing only the files it
   owns, verifying each file, and asking the coordinator for shared-file entries. Use it whenever work is delegated and no specialised agent

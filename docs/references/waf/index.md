@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1c89ab77c942"
     repo_status: clean
     path: docs/references/waf/index.md
     folder: docs/references/waf

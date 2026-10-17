@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e12e9f60019e
     repo_status: clean
     path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.drawio.md
     folder: docs/explanation/flow

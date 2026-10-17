@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a5186cbe36ce
     repo_status: clean
     path: docs/references/automation/catzc-base-asserts.md
     folder: docs/references/automation

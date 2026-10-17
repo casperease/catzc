@@ -18,10 +18,10 @@
 # ---
 
 kinds:
-  # The hash of the body below the front matter, so it changes exactly when the file does; first of the place facts, the stamp the edges were read under.
+  # The hash of the body below the head, first of the place facts: a generated tracked file carries it, written by its writer or imprinted on a generated page; an authored page carries none, and one an author keeps in the config part is left alone.
   body-sha:
     keys: [with_body_sha]
-    select: [{ languages: [markdown] }]
+    select: [{ classes: [comment-page, index, glossary] }]
 
   # What the file itself decides of its repository status: locked for a generated file (edit its source), clean for an authored one; the states only git knows are computed on demand, never stored.
   repo-status:

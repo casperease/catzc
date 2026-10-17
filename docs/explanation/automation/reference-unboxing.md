@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6f97a628b101"
     repo_status: clean
     path: docs/explanation/automation/reference-unboxing.md
     folder: docs/explanation/automation

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "99c10ec33050"
     repo_status: clean
     path: docs/explanation/configuration/callers-depend-on-one-config-module.md
     folder: docs/explanation/configuration

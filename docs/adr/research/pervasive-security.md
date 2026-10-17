@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: aa1fb107b65d
     repo_status: clean
     path: docs/adr/research/pervasive-security.md
     folder: docs/adr/research

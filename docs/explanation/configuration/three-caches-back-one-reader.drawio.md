@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5208bcce5ce5"
     repo_status: clean
     path: docs/explanation/configuration/three-caches-back-one-reader.drawio.md
     folder: docs/explanation/configuration

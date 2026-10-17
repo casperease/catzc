@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04fd12a98d2e"
     repo_status: clean
     path: docs/explanation/flow/ci-budget-is-the-only-quality-gate.drawio.md
     folder: docs/explanation/flow

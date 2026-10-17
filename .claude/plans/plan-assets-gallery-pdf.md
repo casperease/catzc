@@ -6,7 +6,6 @@ plan:
   targets: [.claude/drawio/gallery_pdf.py, .claude/skills/drawio-waves/SKILL.md, .claude/drawio/STYLE.md]
 catzc:
   immutable:
-    with_body_sha: "590c75ce2ca8"
     repo_status: clean
     path: ".claude/plans/plan-assets-gallery-pdf.md"
     folder: plans

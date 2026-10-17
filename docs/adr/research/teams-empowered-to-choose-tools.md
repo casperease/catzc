@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9230a7e17988"
     repo_status: clean
     path: docs/adr/research/teams-empowered-to-choose-tools.md
     folder: docs/adr/research

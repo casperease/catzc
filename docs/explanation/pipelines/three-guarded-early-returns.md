@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: af3a3596d120
     repo_status: clean
     path: docs/explanation/pipelines/three-guarded-early-returns.md
     folder: docs/explanation/pipelines

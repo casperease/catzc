@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7aba34771d45"
     repo_status: clean
     path: docs/adr/automation/internal-asset-dependencies.md
     folder: docs/adr/automation

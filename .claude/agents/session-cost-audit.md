@@ -15,7 +15,6 @@ maxTurns: 20
 skills: [catzc-run, git-readonly, report-fixed]
 catzc:
   immutable:
-    with_body_sha: "60a719126c75"
     repo_status: clean
     path: ".claude/agents/session-cost-audit.md"
     folder: agents

@@ -43,6 +43,11 @@ catzc:
                                      New-VSCodePipelineSchema, New-GoWorkspace (one issue per stale file of a
                                      multi-file generator, e.g. each go/tests/<folder>/go.mod)
 
+      Then the stamp check ([ADR-REPO-FILEMETA#7](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta7)): every
+      tracked file .gitattributes marks linguist-generated opens with with_body_sha, the hash of the content below its
+      head, and a stamp that is not the hash of the body is one issue (Get-GeneratedStampDrift). A generated file whose
+      writer writes no head yet is counted as unstamped in the report's facts, never failed.
+
       Collects every stale file and ends with Write-QualityGateReport: the report lands in
       out/test-generated-files/, and the gate throws once listing every issue (or returns the result with -PassThru).
       The generators read and write the source tree, so the gate needs the source mode (Assert-SourceTree).
@@ -143,6 +148,12 @@ function Test-GeneratedFiles {
         }
     }
 
+    # The stamp of every generated tracked file against its body; a file with no head yet is counted, not failed.
+    $stamps = Get-GeneratedStampDrift -RepositoryRoot (Get-RepositoryRoot)
+    foreach ($issue in $stamps.Issues) {
+        $issues.Add($issue)
+    }
+
     Write-QualityGateReport -Subject generated-files -Title Test-GeneratedFiles -Issues $issues.ToArray() `
-        -Facts ([ordered]@{ Generators = $selected.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
+        -Facts ([ordered]@{ Generators = $selected.Count; Stamped = $stamps.Stamped; Unstamped = $stamps.Unstamped.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: af35dd6b1d66
     repo_status: clean
     path: docs/references/automation/internal/catzc-internal-vendor.md
     folder: docs/references/automation/internal

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6880bc8382a3"
     repo_status: clean
     path: docs/how-to/automation/manual-test-plan/csharp-types.md
     folder: docs/how-to/automation/manual-test-plan

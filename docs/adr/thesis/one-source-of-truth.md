@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d790814a2975
     repo_status: clean
     path: docs/adr/thesis/one-source-of-truth.md
     folder: docs/adr/thesis

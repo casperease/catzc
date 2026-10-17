@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c7e03a8bdff0
     repo_status: clean
     path: docs/explanation/flow/edit-globs-yml-then-read-the-output.md
     folder: docs/explanation/flow

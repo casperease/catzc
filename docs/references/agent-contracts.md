@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: db82dec95bb6
     repo_status: clean
     path: docs/references/agent-contracts.md
     folder: docs/references

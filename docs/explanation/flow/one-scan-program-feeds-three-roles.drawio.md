@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d32d5c01c7df
     repo_status: clean
     path: docs/explanation/flow/one-scan-program-feeds-three-roles.drawio.md
     folder: docs/explanation/flow

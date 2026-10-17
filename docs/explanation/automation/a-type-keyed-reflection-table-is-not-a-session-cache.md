@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ffc326283435
     repo_status: clean
     path: docs/explanation/automation/a-type-keyed-reflection-table-is-not-a-session-cache.md
     folder: docs/explanation/automation

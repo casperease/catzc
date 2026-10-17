@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "245b02b1e15b"
     repo_status: clean
     path: docs/adr/pipelines/dual-authentication.md
     folder: docs/adr/pipelines

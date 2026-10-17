@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9eb88be252ff"
     repo_status: clean
     path: docs/explanation/design/get-aspect-feeds-globs-and-maps.drawio.md
     folder: docs/explanation/design

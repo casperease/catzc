@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ee0690596b2f
     repo_status: clean
     path: docs/explanation/flow/the-loader-holds-the-one-detector.md
     folder: docs/explanation/flow

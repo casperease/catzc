@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fa2e9b2b1535
     repo_status: clean
     path: docs/adr/pwsh/use-ps1-not-psm1.md
     folder: docs/adr/pwsh

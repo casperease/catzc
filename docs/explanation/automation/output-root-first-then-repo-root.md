@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ab367c58da49
     repo_status: clean
     path: docs/explanation/automation/output-root-first-then-repo-root.md
     folder: docs/explanation/automation

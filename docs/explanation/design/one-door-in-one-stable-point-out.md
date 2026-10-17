@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bd4a88321356
     repo_status: clean
     path: docs/explanation/design/one-door-in-one-stable-point-out.md
     folder: docs/explanation/design

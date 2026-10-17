@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1a6d4c98c1b7"
     repo_status: clean
     path: ".claude/plans/prompt-bounded-folder-enumeration-continue.md"
     folder: plans

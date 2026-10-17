@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c12cfe882c3d
     repo_status: clean
     path: ".claude/plans/prompt-config-defaults-continue.md"
     folder: plans

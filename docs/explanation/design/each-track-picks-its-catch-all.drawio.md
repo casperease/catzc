@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5a3d06a7dc11"
     repo_status: clean
     path: docs/explanation/design/each-track-picks-its-catch-all.drawio.md
     folder: docs/explanation/design

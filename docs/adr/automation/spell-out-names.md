@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9a5905f33231"
     repo_status: clean
     path: docs/adr/automation/spell-out-names.md
     folder: docs/adr/automation

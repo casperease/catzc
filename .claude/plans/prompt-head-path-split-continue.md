@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4517bc2b3452"
     repo_status: clean
     path: ".claude/plans/prompt-head-path-split-continue.md"
     folder: plans

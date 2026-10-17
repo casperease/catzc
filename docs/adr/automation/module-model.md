@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "109b2c75917d"
     repo_status: clean
     path: docs/adr/automation/module-model.md
     folder: docs/adr/automation

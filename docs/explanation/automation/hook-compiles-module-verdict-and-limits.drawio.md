@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f139c9debab2
     repo_status: clean
     path: docs/explanation/automation/hook-compiles-module-verdict-and-limits.drawio.md
     folder: docs/explanation/automation

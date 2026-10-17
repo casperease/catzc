@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3f193769a374"
     repo_status: clean
     path: docs/explanation/design/a-push-fires-only-touched-pipelines.md
     folder: docs/explanation/design

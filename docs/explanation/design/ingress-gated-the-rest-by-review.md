@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "63b79ba20219"
     repo_status: clean
     path: docs/explanation/design/ingress-gated-the-rest-by-review.md
     folder: docs/explanation/design

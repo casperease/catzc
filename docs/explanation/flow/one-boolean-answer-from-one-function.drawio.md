@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1debb0bc60bf"
     repo_status: clean
     path: docs/explanation/flow/one-boolean-answer-from-one-function.drawio.md
     folder: docs/explanation/flow

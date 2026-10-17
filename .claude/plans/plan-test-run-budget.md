@@ -7,7 +7,6 @@ plan:
   targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Engines, automation/Catzc.Base.Timeouts/configs]
 catzc:
   immutable:
-    with_body_sha: da42a63ab033
     repo_status: clean
     path: ".claude/plans/plan-test-run-budget.md"
     folder: plans

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6eb214b978f7"
     repo_status: clean
     path: docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.drawio.md
     folder: docs/explanation/flow

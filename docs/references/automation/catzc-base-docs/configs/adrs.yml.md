@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "96d4a2de82c7"
+    with_body_sha: "741669a27f5c"
     repo_status: locked
     path: docs/references/automation/catzc-base-docs/configs/adrs.yml.md
     folder: docs/references/automation/catzc-base-docs/configs
@@ -40,10 +40,11 @@ Single source of truth for how the decision space is organised and cited. It dec
             [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14) and
             [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15).
   rulesets: within a domain, keyed by INTERNAL kebab name (= the ADR file slug). Each declares its full
-            EXTERNAL citation code (`ADR-<DC>-<NAME>`, fully spelled) and, when the code body is a
-            registered spelling token, its `terminology` link into the `adr:` category of terminology.yml.
-            `code` may be set on a LEAF to OVERRIDE the domain default; the validator asserts the external's
-            DC-segment equals the effective code (`^[A-Z]{2,4}$`). `concern` may be set on a LEAF to OVERRIDE
+            EXTERNAL citation code (`ADR-<DC>-<NAME>`, or a one-segment `ADR-<NAME>` such as `ADR-AI`, fully
+            spelled) and, when the code body is a registered spelling token, its `terminology` link into the
+            `adr:` category of terminology.yml. `code` may be set on a LEAF to OVERRIDE the domain default; the
+            validator asserts a two-segment external's DC-segment equals the effective code (`^[A-Z]{2,4}$`),
+            and a one-segment external has no DC-segment to match. `concern` may be set on a LEAF to OVERRIDE
             the domain default, only when the ADR's place in the value chain differs from its domain's.
 
 Loaded via Get-Config -Config adrs; validated by its config type, AdrsConfig. index.md is a generated projection of

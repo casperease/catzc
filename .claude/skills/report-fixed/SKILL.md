@@ -6,7 +6,6 @@ allowed-tools: Read
 metadata:
   catzc:
     immutable:
-      with_body_sha: "4619e469edcd"
       repo_status: clean
       path: ".claude/skills/report-fixed/SKILL.md"
       folder: skills/report-fixed

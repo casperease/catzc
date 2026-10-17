@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c8276abe3bf0
     repo_status: clean
     path: docs/explanation/flow/one-boolean-answer-from-one-function.md
     folder: docs/explanation/flow

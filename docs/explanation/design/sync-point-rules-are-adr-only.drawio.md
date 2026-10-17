@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "364acd88cf02"
     repo_status: clean
     path: docs/explanation/design/sync-point-rules-are-adr-only.drawio.md
     folder: docs/explanation/design

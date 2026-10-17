@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "79b351556612"
     repo_status: clean
     path: docs/explanation/automation/three-layers-edges-point-down.md
     folder: docs/explanation/automation

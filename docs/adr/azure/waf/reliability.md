@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8fe3ab1c81d6"
     repo_status: clean
     path: docs/adr/azure/waf/reliability.md
     folder: docs/adr/azure/waf

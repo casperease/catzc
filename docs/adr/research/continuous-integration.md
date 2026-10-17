@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6e3811077548"
     repo_status: clean
     path: docs/adr/research/continuous-integration.md
     folder: docs/adr/research

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "76e54634d821"
     repo_status: clean
     path: docs/explanation/flow/range-per-context-then-diff-and-match.drawio.md
     folder: docs/explanation/flow

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "34905e74e5fd"
     repo_status: clean
     path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
     folder: docs/explanation/flow

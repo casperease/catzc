@@ -12,7 +12,6 @@ plan:
     ]
 catzc:
   immutable:
-    with_body_sha: "7fa55f8c9d42"
     repo_status: clean
     path: ".claude/plans/plan-csproj-xml-head.md"
     folder: plans
@@ -46,8 +45,10 @@ catzc:
 
 ## Open
 
-- **Q1.** The `PropertyHead` page under `docs/references/automation/catzc-base-codemeta/types/` and the `Format-PropertyMetaHead` and
-  `Get-PropertyMetaState` help still describe a JSON-only head; bring them to the XML form.
-- **Q2.** Four tests in `Build-RootConfig.Tests.ps1` compare an exact head text and fail; they are about fixture files. Run them against the
-  tree without this change to learn whether they failed before it.
-- The index holds one `automation/.compiled/Catzc.Types.<hash>.dll`; it goes stale at every `types/*.cs` edit, and staging it is the user's.
+- [ ] The `PropertyHead` page under `docs/references/automation/catzc-base-codemeta/types/` and the `Format-PropertyMetaHead` and
+      `Get-PropertyMetaState` help still describe a JSON-only head; bring them to the XML form (check: `Test-Links` clean on the
+      `PropertyHead` page and the two help pages, and each names the CDATA property form).
+- [ ] Four tests in `Build-RootConfig.Tests.ps1` compare an exact head text and fail; they are about fixture files. Run them against the
+      tree without this change to learn whether they failed before it (check: the four tests run against a tree without the change and the
+      result is recorded here).
+- Context: the index holds one `automation/.compiled/Catzc.Types.<hash>.dll`; it goes stale at every `types/*.cs` edit, and staging it is the user's.

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e25fb6e97b4"
     repo_status: clean
     path: docs/explanation/design/clients-bridge-to-one-server.drawio.md
     folder: docs/explanation/design

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4dd6ee872909"
     repo_status: clean
     path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
     folder: docs/explanation/flow

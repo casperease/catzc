@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d95a2762799a
     repo_status: clean
     path: docs/explanation/design/every-file-in-exactly-one-aspect.md
     folder: docs/explanation/design

@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a0d65d1fac66
     repo_status: clean
     path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
     folder: docs/explanation/flow

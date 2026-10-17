@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c4b37e3362a4
     repo_status: clean
     path: docs/explanation/repository/one-source-one-writer-one-boolean.drawio.md
     folder: docs/explanation/repository

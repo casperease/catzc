@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "345b8204b036"
     repo_status: clean
     path: docs/explanation/configuration/one-reader-one-cache-per-session.md
     folder: docs/explanation/configuration

@@ -6,7 +6,6 @@ plan:
   blocked_on: Q1 below is unanswered
 catzc:
   immutable:
-    with_body_sha: "2f954a7c562a"
     repo_status: clean
     path: ".claude/plans/plan-idle-compaction.md"
     folder: plans
@@ -34,10 +33,12 @@ Claude Code compacts a long conversation shortly before the one-hour prompt cach
 ## Open
 
 - **Q1: scope.** Keep the setting local, or move it into the checked-in `.claude/settings.json` so every checkout stops idle compaction?
-  Recommendation: keep it local, because it is a per-person cost and context preference, not a repository rule.
+  Recommendation: keep it local, because it is a per-person cost and context preference, not a repository rule. The answer is recorded on
+  this line when given (D06 of the decision round).
 
 ## Steps
 
-1. Answer Q1.
-2. If the answer is "checked in", move the line to `.claude/settings.json` and remove it from `settings.local.json`.
-3. Delete this plan (a done plan is deleted, never kept).
+- [ ] If the answer to Q1 is "checked in", move the line to `.claude/settings.json` and remove it from `settings.local.json` (check:
+      `.claude/settings.json` holds `"idleCompaction": false`, `settings.local.json` does not, and both parse as JSON).
+- [ ] Delete this plan once Q1 is answered and the line sits where the answer says (check: the file is gone and `Test-Links` is clean on
+      `.claude/plans`).

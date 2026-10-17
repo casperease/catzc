@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e192bb608891
     repo_status: clean
     path: docs/adr/azure/caf/identity-and-access.md
     folder: docs/adr/azure/caf

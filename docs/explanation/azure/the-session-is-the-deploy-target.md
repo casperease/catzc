@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9fd9d4f57a21"
     repo_status: clean
     path: docs/explanation/azure/the-session-is-the-deploy-target.md
     folder: docs/explanation/azure

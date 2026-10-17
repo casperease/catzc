@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3edd7b68d7d7"
     repo_status: clean
     path: docs/explanation/azure/read-the-session-guard-then-pick-slot.md
     folder: docs/explanation/azure

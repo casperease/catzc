@@ -1,7 +1,6 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a63051b9dbba
     repo_status: clean
     path: docs/explanation/design/guard-and-policies-by-command.drawio.md
     folder: docs/explanation/design
