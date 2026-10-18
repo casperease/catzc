@@ -53,7 +53,6 @@ is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines o
 - root-config-fixtures -> task-root-config-fixtures.md: closes on the user's Push-Dirty run.
 - bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md: closes on the final full run, then the plan and its prompt are
   deleted.
-- out-artifacts -> task-out-artifacts.md: closes on the user's two probe deletions.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them. Closes plan-fast-push-followups and the
   user-owned steps of the plans above.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned.

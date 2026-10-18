@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cd6d17564b69
+    with_body_sha: db142f331db1
     repo_status: locked
     path: docs/explanation/automation/.assets/two-gates-check-the-layer-pins/grid.md
     source: docs/explanation/automation/.assets/two-gates-check-the-layer-pins/diagram.drawio.png
@@ -16,13 +16,13 @@ catzc:
 
 ```text
 Where the files that cite ADR-AUTO-DEPM and ADR-AUTO-TEST sit in the repository: tracks down, file languages across.
-6 of 342 cells lit, holding 450 files.
+6 of 342 cells lit, holding 451 files.
 ```
 
 ![The world-map minimap of Two gates check the layer pins, and one rule is left to review](grid.png)
 
 This is the world-map minimap in the sidebar of the governance diagram of [Two gates check the layer pins, and one rule is left to
-review][452], which explains [ADR-AUTO-DEPM][1] and [ADR-AUTO-TEST][2]. It lights every cell of the world map that holds a file citing those
+review][453], which explains [ADR-AUTO-DEPM][1] and [ADR-AUTO-TEST][2]. It lights every cell of the world map that holds a file citing those
 codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
@@ -32,10 +32,10 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 6 lit of 64 files
-- docs × markdown: 370 lit of 2766 files
+- .claude × markdown: 6 lit of 61 files
+- docs × markdown: 370 lit of 2781 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
-- pwsh × powershell: 62 lit of 1653 files
+- pwsh × powershell: 63 lit of 1653 files
 - pwsh × yaml: 10 lit of 115 files
 - Root files × powershell: 1 lit of 1 file
 
@@ -57,13 +57,13 @@ language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCE
 
 - [.claude/CLAUDE.md][4]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 54 (text).
 - [.claude/agents/test-optimization.md][5]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 5 (text).
-- [.claude/plans/plan-automation-word-residue.md][6]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 24 (text).
-- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][7]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 73 (text), line
+- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][6]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 73 (text), line
   73 (text), line 73 (text), line 73 (text) and line 74 (text).
-- [.claude/skills/catzc-module/SKILL.md][8]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 29 (text) and line 42 (text).
+- [.claude/plans/plan-test-run-budget.md][7]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 61 (text).
+- [.claude/skills/catzc-module/SKILL.md][8]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 29 (text) and line 43 (text).
 - [.claude/skills/test-speed/SKILL.md][9]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 4 (text), line 26 (text), line 27
   (text), line 28 (text), line 29 (text), line 30 (text), line 31 (text), line 43 (text), line 44 (text), line 45 (text), line 47 (text),
-  line 47 (text) and line 50 (text).
+  line 48 (text) and line 50 (text).
 
 ### docs × markdown (370 lit files)
 
@@ -74,14 +74,14 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/adr/automation/dora-explains.md][10]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 365 (text); selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 140 (text).
 - [docs/adr/automation/test-automation.md][2]: selected by [ADR-AUTO-TEST][2]: the ADR's own file.
-- [docs/adr/glossary.md][11]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 543 (text), line 601 (text), line 623 (text), line
-  758 (text), line 826 (text), line 844 (text), line 856 (text), line 870 (text), line 892 (text), line 906 (text), line 917 (text) and line
-  937 (text).
+- [docs/adr/glossary.md][11]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 544 (text), line 602 (text), line 624 (text), line
+  759 (text), line 827 (text), line 845 (text), line 857 (text), line 871 (text), line 893 (text), line 907 (text), line 918 (text) and line
+  938 (text).
 - [docs/adr/index.md][12]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 169 (text); selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 156 (text).
 - [docs/how-to/getting-started/pwsh/run-tests-and-checks.md][13]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 31 (text).
-- [docs/how-to/pwsh/manual-test-plan.md][14]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 54 (text) and line 60 (text).
-- [docs/how-to/pwsh/manual-test-plan/azure.md][15]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 67 (text).
+- [docs/how-to/pwsh/manual-test-plan.md][14]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 54 (text) and line 61 (text).
+- [docs/how-to/pwsh/manual-test-plan/azure.md][15]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 68 (text).
 - [docs/how-to/pwsh/manual-test-plan/test-harness.md][16]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
 - [docs/references/pipelines/ci-automation.yaml.md][17]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 94 (text).
 - [docs/references/pipelines/ci-infrastructure.yaml.md][18]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 22 (text).
@@ -90,15 +90,15 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.verify.md][20]: selected by [ADR-AUTO-TEST][2]: the
   file cites it at line 44 (text).
 - [docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md][21]: selected by [ADR-AUTO-DEPM][1]: the file cites it
-  at line 110 (text) and line 114 (text); selected by [ADR-AUTO-TEST][2]: the file cites it at line 39 (text), line 41 (text), line 104
+  at line 111 (text) and line 115 (text); selected by [ADR-AUTO-TEST][2]: the file cites it at line 39 (text), line 41 (text), line 104
   (text) and line 104 (text).
 - [docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.verify.md][22]: selected by [ADR-AUTO-DEPM][1]: the file
   cites it at line 47 (text), line 54 (text), line 54 (text), line 71 (text) and line 73 (text); selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 53 (text) and line 53 (text).
 - [docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.md][23]: selected by [ADR-AUTO-TEST][2]: the file cites it
-  at line 21 (text), line 25 (text), line 28 (text), line 96 (text), line 96 (text), line 96 (text) and line 101 (text).
+  at line 22 (text), line 25 (text), line 28 (text), line 96 (text), line 97 (text), line 97 (text) and line 102 (text).
 - [docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.verify.md][24]: selected by [ADR-AUTO-TEST][2]: the file
-  cites it at line 18 (text), line 20 (text), line 49 (text), line 49 (text), line 49 (text) and line 62 (text).
+  cites it at line 17 (text), line 19 (text), line 48 (text), line 48 (text), line 48 (text) and line 61 (text).
 - [docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md][25]: selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 24 (text).
 - [docs/references/pwsh/catzc-azure-devops/Test-Pipelines.ps1.md][26]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
@@ -195,7 +195,7 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
   cites it at line 12 (text).
 - [docs/references/pwsh/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md][73]: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md][74]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 16
+- [docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md][74]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 17
   (text).
 - [docs/references/pwsh/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md][75]: selected by [ADR-AUTO-TEST][2]: the file cites
   it at line 14 (text).
@@ -220,7 +220,7 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md][86]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 25 (text).
 - [docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md][87]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
 - [docs/references/pwsh/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md][88]: selected by [ADR-AUTO-TEST][2]: the file cites it at
-  line 29 (text).
+  line 31 (text).
 - [docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md][89]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 14
   (text).
 - [docs/references/pwsh/catzc-base-docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1.md][90]: selected by [ADR-AUTO-TEST][2]: the file cites
@@ -409,7 +409,7 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md][184]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 14
   (text).
 - [docs/references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md][185]: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 19 (text).
+  the file cites it at line 20 (text).
 - [docs/references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md][186]: selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
 - [docs/references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md][187]: selected by [ADR-AUTO-TEST][2]: the
@@ -443,17 +443,17 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/references/pwsh/catzc-base-overlay/tests/Overlay.Fixture.ps1.md][201]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 13
   (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md][202]: selected by [ADR-AUTO-TEST][2]: the file cites it at
-  line 15 (text) and line 17 (text).
+  line 15 (text) and line 18 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md][203]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 21
-  (text), line 30 (text), line 34 (text), line 39 (text) and line 40 (text).
+  (text), line 30 (text), line 34 (text), line 39 (text) and line 41 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md][204]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
   14 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md][205]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 20
-  (text), line 32 (text), line 33 (text), line 96 (text), line 110 (text), line 216 (text) and line 226 (text).
+  (text), line 32 (text), line 34 (text), line 97 (text), line 111 (text), line 209 (text) and line 219 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md][206]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
   15 (text) and line 16 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md][207]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 14
-  (text), line 22 (text) and line 47 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md][207]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 15
+  (text), line 24 (text) and line 50 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-Change.ps1.md][208]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 15
   (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md][209]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 14
@@ -464,32 +464,32 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
   (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md][212]: selected by [ADR-AUTO-TEST][2]: the file cites it at
   line 17 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Formatting.ps1.md][213]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 14
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Formatting.ps1.md][213]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 15
   (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-GeneratedFiles.ps1.md][214]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
-  14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Links.ps1.md][215]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 24
+  15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Links.ps1.md][215]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 25
   (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md][216]: selected by [ADR-AUTO-TEST][2]: the file cites it at
-  line 21 (text) and line 28 (text).
+  line 21 (text) and line 29 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-ManagedGuids.ps1.md][217]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 14
   (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-ManualTestPlan.ps1.md][218]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
-  14 (text) and line 18 (text).
+  14 (text) and line 19 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-MarkdownTitle.ps1.md][219]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
   18 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-Markdownlint.ps1.md][220]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 20
   (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-ParameterConsistency.ps1.md][221]: selected by [ADR-AUTO-TEST][2]: the file cites it at
   line 16 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md][222]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 30
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md][222]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 31
   (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md][223]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
   23 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md][224]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
   14 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-SourceConventions.ps1.md][225]: selected by [ADR-AUTO-TEST][2]: the file cites it at
-  line 14 (text) and line 39 (text).
+  line 14 (text) and line 41 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-Spelling.ps1.md][226]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 17
   (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-Terminology.ps1.md][227]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 27
@@ -507,9 +507,9 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/references/pwsh/catzc-base-qualitygates/private/Assert-TestTagGate.ps1.md][233]: selected by [ADR-AUTO-TEST][2]: the file cites it
   at line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md][234]: selected by [ADR-AUTO-TEST][2]: the file cites it
-  at line 15 (text) and line 19 (text).
+  at line 16 (text) and line 20 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md][235]: selected by [ADR-AUTO-TEST][2]: the file cites
-  it at line 14 (text).
+  it at line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-GeneratedFileGenerator.ps1.md][236]: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md][237]: selected by [ADR-AUTO-TEST][2]: the file
@@ -519,7 +519,7 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md][239]: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 19 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-NeutralCodeFinding.ps1.md][240]: selected by [ADR-AUTO-TEST][2]: the file cites
-  it at line 14 (text).
+  it at line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md][241]: selected by [ADR-AUTO-TEST][2]: the file cites
   it at line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-TestRunLocationEntry.ps1.md][242]: selected by [ADR-AUTO-TEST][2]: the file
@@ -527,21 +527,21 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-BuildArtifactProbe.ps1.md][243]: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md][244]: selected by [ADR-AUTO-TEST][2]: the file
-  cites it at line 16 (text) and line 21 (text).
+  cites it at line 16 (text) and line 22 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md][245]: selected by [ADR-AUTO-TEST][2]: the file cites it at
-  line 14 (text), line 23 (text), line 222 (text) and line 302 (text).
+  line 15 (text), line 25 (text), line 219 (text) and line 299 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md][246]: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 18 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md][247]: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 18 (text), line 62 (text) and line 121 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md][248]: selected by [ADR-AUTO-TEST][2]: the file cites
-  it at line 15 (text) and line 24 (text).
+  it at line 15 (text) and line 26 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md][249]: selected by [ADR-AUTO-TEST][2]: the file cites it at
   line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Select-TestRunFiles.ps1.md][250]: selected by [ADR-AUTO-TEST][2]: the file cites it
-  at line 23 (text).
+  at line 24 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Split-TestAutomationFiles.ps1.md][251]: selected by [ADR-AUTO-TEST][2]: the file
-  cites it at line 26 (text) and line 30 (text).
+  cites it at line 27 (text) and line 31 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][252]: selected by [ADR-AUTO-TEST][2]: the file cites
   it at line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md][253]: selected by [ADR-AUTO-TEST][2]: the file
@@ -695,7 +695,7 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/references/pwsh/catzc-base-qualitygates/types/TestPolicyConfig.cs.md][327]: selected by [ADR-AUTO-TEST][2]: the file cites it at
   line 12 (text).
 - [docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md][328]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
-  14 (text).
+  15 (text).
 - [docs/references/pwsh/catzc-base-reports/configs/reports.yml.md][329]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 12
   (text).
 - [docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md][330]: selected by [ADR-AUTO-TEST][2]: the file cites
@@ -806,14 +806,15 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-T
   (text), `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 42 (text), `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1`
   line 51 (text), `pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1` line 5 (text),
   `pwsh/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml` line 7 (header),
+  `pwsh/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1` line 27 (body comment),
   `pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1` line 26 (text), `pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1` line
   46 (text), `pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1` line 70 (text),
   `pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1` line 197 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 125 (text),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 76 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 97 (text),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 97 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 97 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 9 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 14 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 19 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 19 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 19 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 24 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 9 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 18 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 26 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 26 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 26 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 31 (text),
   `pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1` line 1 (text),
   `pwsh/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1` line 1 (text),
   `pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1` line 1 (text),
@@ -852,13 +853,13 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-T
   `pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1` line 16 (text),
   `pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1` line 28 (text),
   `pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1` line 1 (header), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`
-  line 15 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 5 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
+  line 21 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 5 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
   line 21 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 30 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
   line 40 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 67 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
   line 82 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 105 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 117 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 127 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 137 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 152 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 166 (text), `pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1` line 11 (text),
+  line 117 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 128 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
+  line 138 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 153 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
+  line 167 (text), `pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1` line 11 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1` line 1 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1` line 4 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1` line 95 (text),
@@ -879,12 +880,12 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-T
   `pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1` line 2 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1` line 100 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1` line 1 (text),
-  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 151 (text),
-  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 176 (text),
-  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 249 (text),
-  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 264 (text),
-  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 264 (text),
-  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 304 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 128 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 153 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 226 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 241 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 241 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1` line 281 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1` line 2 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1` line 13 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1` line 1 (text),
@@ -936,7 +937,7 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-T
   `pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1` line 74 (body comment) and
   `pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1` line 1 (text).
 
-### pwsh × powershell (62 lit files)
+### pwsh × powershell (63 lit files)
 
 Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][3]); the extension `.ps1` names the file
 language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
@@ -948,110 +949,112 @@ language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LIT
   line 51 (text).
 - [pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1][382]: selected by [ADR-AUTO-TEST][2]: the file cites it at
   line 5 (text).
-- [pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1][383]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 26 (text), line
+- [pwsh/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1][383]: selected by [ADR-AUTO-TEST][2]: the file cites it at
+  line 27 (body comment) (a passing mention only).
+- [pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1][384]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 26 (text), line
   46 (text), line 70 (text) and line 197 (text).
-- [pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1][384]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1][385]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (text).
-- [pwsh/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1][385]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1][386]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (text).
-- [pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1][386]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (text)
+- [pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1][387]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (text)
   and line 124 (text).
-- [pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1][387]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (text) and line
+- [pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1][388]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (text) and line
   210 (text).
-- [pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1][388]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 53 (text),
+- [pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1][389]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 53 (text),
   line 181 (text) and line 190 (text).
-- [pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1][389]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 43 (text) and line 85
+- [pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1][390]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 43 (text) and line 85
   (text).
-- [pwsh/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1][390]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1][391]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (header).
-- [pwsh/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1][391]: selected by [ADR-AUTO-TEST][2]: the file cites it at
+- [pwsh/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1][392]: selected by [ADR-AUTO-TEST][2]: the file cites it at
   line 1 (text).
-- [pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1][392]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 79 (text)
+- [pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1][393]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 79 (text)
   and line 79 (text).
-- [pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1][393]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 15
+- [pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1][394]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 15
   (text), line 26 (text) and line 38 (text).
-- [pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1][394]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 14
+- [pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1][395]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 14
   (text), line 21 (text) and line 32 (text).
-- [pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1][395]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 24
+- [pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1][396]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 24
   (text), line 32 (text) and line 45 (text).
-- [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][396]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 41 (text).
-- [pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][397]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 37 (text), line
+- [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][397]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 41 (text).
+- [pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][398]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 37 (text), line
   66 (text), line 72 (text) and line 80 (text).
-- [pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1][398]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 45 (text), line 96
+- [pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1][399]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 45 (text), line 96
   (text), line 103 (text) and line 111 (text).
-- [pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1][399]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 27
+- [pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1][400]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 27
   (text), line 33 (text) and line 43 (text).
-- [pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1][400]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 16
+- [pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1][401]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 16
   (text) and line 28 (text).
-- [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1][401]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (header).
-- [pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1][402]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1][403]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1][402]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (header).
+- [pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1][403]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1][404]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1][404]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 4
+- [pwsh/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1][405]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 4
   (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1][405]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 95 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1][406]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 51
+- [pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1][406]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 95 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1][407]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 51
   (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1][407]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1][408]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1][408]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 13
+- [pwsh/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1][409]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 13
   (text), line 25 (text), line 37 (text), line 49 (text), line 62 (text), line 72 (text) and line 85 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1][409]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 21 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1][410]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 19
+- [pwsh/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1][410]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 21 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1][411]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 19
   (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-TestOptOutExclusion.Tests.ps1][411]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.QualityGates/tests/Get-TestOptOutExclusion.Tests.ps1][412]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1][412]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1][413]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 2
+- [pwsh/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1][413]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1][414]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 2
   (text), line 2 (text) and line 100 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1][414]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1][415]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1][415]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 151 (text),
-  line 176 (text), line 249 (text), line 264 (text), line 264 (text) and line 304 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1][416]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 2 (text)
+- [pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1][416]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 128 (text),
+  line 153 (text), line 226 (text), line 241 (text), line 241 (text) and line 281 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1][417]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 2 (text)
   and line 13 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1][417]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1][418]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1][418]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
+- [pwsh/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1][419]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
   16 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1][419]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1][420]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 52
+- [pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1][420]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1][421]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 52
   (text), line 61 (text) and line 76 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1][421]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1][422]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
+- [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1][422]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1][423]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
   48 (text), line 52 (text) and line 70 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1][423]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 25 (text)
+- [pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1][424]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 25 (text)
   and line 32 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1][424]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 20
+- [pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1][425]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 20
   (text), line 26 (text), line 40 (text), line 64 (text) and line 77 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1][425]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 19 (text), line
+- [pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1][426]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 19 (text), line
   24 (text) and line 37 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1][426]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 36
+- [pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1][427]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 36
   (text), line 40 (text) and line 45 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1][427]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 19
+- [pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1][428]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 19
   (text), line 29 (text) and line 39 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1][428]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1][429]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 26 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1][430]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 24 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1][431]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 32
+- [pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1][429]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1][430]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 26 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1][431]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 24 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1][432]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 32
   (text), line 41 (text) and line 53 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1][432]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 89
+- [pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1][433]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 89
   (text) and line 100 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1][433]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 20 (text),
+- [pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1][434]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 20 (text),
   line 29 (text), line 43 (text) and line 53 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1][434]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1][435]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1][435]: selected by [ADR-AUTO-TEST][2]: the file cites it at
+- [pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1][436]: selected by [ADR-AUTO-TEST][2]: the file cites it at
   line 1 (text).
-- [pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1][436]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 10
+- [pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1][437]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 10
   (text), line 20 (text), line 28 (text), line 39 (text) and line 45 (text).
-- [pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1][437]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 2 (text),
+- [pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1][438]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 2 (text),
   line 10 (text) and line 17 (text).
-- [pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1][438]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1][439]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (text).
-- [pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1][439]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 74
+- [pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1][440]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 74
   (body comment) (a passing mention only).
-- [pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1][440]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
+- [pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1][441]: selected by [ADR-AUTO-TEST][2]: the file cites it at line
   1 (text).
 
 ### pwsh × yaml (10 lit files)
@@ -1059,25 +1062,25 @@ language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LIT
 Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][3]); the extension `.yml` names the file
 language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
-- [pwsh/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml][441]: selected by [ADR-AUTO-TEST][2]: the file cites it at
+- [pwsh/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml][442]: selected by [ADR-AUTO-TEST][2]: the file cites it at
   line 7 (header).
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][442]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 138 (text); selected by
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][443]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 138 (text); selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 125 (text).
-- [pwsh/Catzc.Base.Docs/configs/agents.yml][443]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 76 (text), line 97 (text), line
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][444]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 76 (text), line 97 (text), line
   97 (text) and line 97 (text).
-- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][444]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 9 (text), line 14 (text),
-  line 19 (text), line 19 (text), line 19 (text) and line 24 (text).
-- [pwsh/Catzc.Base.Docs/tests/assets/glossary/gadget/glossary.yml][445]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][445]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 9 (text), line 18 (text),
+  line 26 (text), line 26 (text), line 26 (text) and line 31 (text).
+- [pwsh/Catzc.Base.Docs/tests/assets/glossary/gadget/glossary.yml][446]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (header) and line 6 (text).
-- [pwsh/Catzc.Base.Docs/tests/assets/glossary/widget/glossary.yml][446]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
+- [pwsh/Catzc.Base.Docs/tests/assets/glossary/widget/glossary.yml][447]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 1
   (header), line 8 (text) and line 16 (text).
-- [pwsh/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml][447]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 5
+- [pwsh/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml][448]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 5
   (header).
-- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][448]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][449]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 5 (text), line 21
-  (text), line 30 (text), line 40 (text), line 67 (text), line 82 (text), line 105 (text), line 117 (text), line 127 (text), line 137
-  (text), line 152 (text) and line 166 (text).
-- [pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][450]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 120 (body
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][449]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 21 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][450]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 5 (text), line 21
+  (text), line 30 (text), line 40 (text), line 67 (text), line 82 (text), line 105 (text), line 117 (text), line 128 (text), line 138
+  (text), line 153 (text) and line 167 (text).
+- [pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][451]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 120 (body
   comment) (a passing mention only).
 
 ### Root files × powershell (1 lit file)
@@ -1085,34 +1088,34 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
 Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK-ROOTFILE][3]); the extension `.ps1` names the
 file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
-- [importer.ps1][451]: selected by [ADR-AUTO-TEST][2]: a root file carries the citations of its owner module's files (files.yml), which cite
+- [importer.ps1][452]: selected by [ADR-AUTO-TEST][2]: a root file carries the citations of its owner module's files (files.yml), which cite
   it at `pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1` line 1 (text) and `pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1` line 77
   (text).
 
 ## Keywords
 
-- [world map][453]
-- [track][454]
-- [file language][455]
-- [cell][456]
-- [lit cell][457]
-- [root file][458]
-- [.claude][459]: a track
-- [docs][459]: a track
-- [pipelines][459]: a track
-- [pwsh][459]: a track
-- [markdown][460]: a file language
-- [pipeline-yaml][460]: a file language
-- [powershell][460]: a file language
-- [yaml][460]: a file language
+- [world map][454]
+- [track][455]
+- [file language][456]
+- [cell][457]
+- [lit cell][458]
+- [root file][459]
+- [.claude][460]: a track
+- [docs][460]: a track
+- [pipelines][460]: a track
+- [pwsh][460]: a track
+- [markdown][461]: a file language
+- [pipeline-yaml][461]: a file language
+- [powershell][461]: a file language
+- [yaml][461]: a file language
 
 [1]: ../../../../adr/automation/controlling-module-dependencies.md
 [2]: ../../../../adr/automation/test-automation.md
 [3]: ../../../../adr/design/tracks.md
 [4]: ../../../../../.claude/CLAUDE.md
 [5]: ../../../../../.claude/agents/test-optimization.md
-[6]: ../../../../../.claude/plans/plan-automation-word-residue.md
-[7]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
+[6]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
+[7]: ../../../../../.claude/plans/plan-test-run-budget.md
 [8]: ../../../../../.claude/skills/catzc-module/SKILL.md
 [9]: ../../../../../.claude/skills/test-speed/SKILL.md
 [10]: ../../../../adr/automation/dora-explains.md
@@ -1488,81 +1491,82 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRAC
 [380]: ../../../../../pwsh/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1
 [381]: ../../../../../pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
 [382]: ../../../../../pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
-[383]: ../../../../../pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-[384]: ../../../../../pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
-[385]: ../../../../../pwsh/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
-[386]: ../../../../../pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
-[387]: ../../../../../pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
-[388]: ../../../../../pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
-[389]: ../../../../../pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-[390]: ../../../../../pwsh/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1
-[391]: ../../../../../pwsh/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
-[392]: ../../../../../pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
-[393]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
-[394]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
-[395]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
-[396]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-[397]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
-[398]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-[399]: ../../../../../pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
-[400]: ../../../../../pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
-[401]: ../../../../../pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-[402]: ../../../../../pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
-[403]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1
-[404]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
-[405]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
-[406]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
-[407]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
-[408]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
-[409]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1
-[410]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
-[411]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestOptOutExclusion.Tests.ps1
-[412]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1
-[413]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
-[414]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1
-[415]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
-[416]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1
-[417]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
-[418]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
-[419]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
-[420]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
-[421]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1
-[422]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
-[423]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
-[424]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
-[425]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
-[426]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
-[427]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
-[428]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
-[429]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
-[430]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1
-[431]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
-[432]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
-[433]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
-[434]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1
-[435]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1
-[436]: ../../../../../pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
-[437]: ../../../../../pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-[438]: ../../../../../pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
-[439]: ../../../../../pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
-[440]: ../../../../../pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
-[441]: ../../../../../pwsh/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml
-[442]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[443]: ../../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
-[444]: ../../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
-[445]: ../../../../../pwsh/Catzc.Base.Docs/tests/assets/glossary/gadget/glossary.yml
-[446]: ../../../../../pwsh/Catzc.Base.Docs/tests/assets/glossary/widget/glossary.yml
-[447]: ../../../../../pwsh/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml
-[448]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-[449]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-[450]: ../../../../../pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
-[451]: ../../../../../importer.ps1
-[452]: ../../two-gates-check-the-layer-pins.md
-[453]: ../../../../adr/glossary.md#world-map
-[454]: ../../../../adr/glossary.md#track
-[455]: ../../../../adr/glossary.md#file-language
-[456]: ../../../../adr/glossary.md#cell
-[457]: ../../../../adr/glossary.md#lit-cell
-[458]: ../../../../adr/glossary.md#root-file
-[459]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[460]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[383]: ../../../../../pwsh/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1
+[384]: ../../../../../pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
+[385]: ../../../../../pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
+[386]: ../../../../../pwsh/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
+[387]: ../../../../../pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
+[388]: ../../../../../pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
+[389]: ../../../../../pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+[390]: ../../../../../pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+[391]: ../../../../../pwsh/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1
+[392]: ../../../../../pwsh/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
+[393]: ../../../../../pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
+[394]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
+[395]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
+[396]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+[397]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+[398]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+[399]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+[400]: ../../../../../pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+[401]: ../../../../../pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
+[402]: ../../../../../pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
+[403]: ../../../../../pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
+[404]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1
+[405]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
+[406]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
+[407]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
+[408]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
+[409]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
+[410]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1
+[411]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
+[412]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestOptOutExclusion.Tests.ps1
+[413]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1
+[414]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
+[415]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1
+[416]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
+[417]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1
+[418]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
+[419]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
+[420]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
+[421]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
+[422]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1
+[423]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
+[424]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
+[425]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
+[426]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
+[427]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
+[428]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
+[429]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
+[430]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
+[431]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1
+[432]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
+[433]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
+[434]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
+[435]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1
+[436]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1
+[437]: ../../../../../pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
+[438]: ../../../../../pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+[439]: ../../../../../pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
+[440]: ../../../../../pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
+[441]: ../../../../../pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
+[442]: ../../../../../pwsh/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml
+[443]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[444]: ../../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
+[445]: ../../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
+[446]: ../../../../../pwsh/Catzc.Base.Docs/tests/assets/glossary/gadget/glossary.yml
+[447]: ../../../../../pwsh/Catzc.Base.Docs/tests/assets/glossary/widget/glossary.yml
+[448]: ../../../../../pwsh/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml
+[449]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+[450]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+[451]: ../../../../../pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
+[452]: ../../../../../importer.ps1
+[453]: ../../two-gates-check-the-layer-pins.md
+[454]: ../../../../adr/glossary.md#world-map
+[455]: ../../../../adr/glossary.md#track
+[456]: ../../../../adr/glossary.md#file-language
+[457]: ../../../../adr/glossary.md#cell
+[458]: ../../../../adr/glossary.md#lit-cell
+[459]: ../../../../adr/glossary.md#root-file
+[460]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[461]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

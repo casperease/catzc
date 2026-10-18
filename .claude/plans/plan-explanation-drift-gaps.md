@@ -36,7 +36,7 @@ When a step lands, remove its claim from every article that states it (search `d
       group's description is written at creation only, since a Graph group patch needs a JSON-patch content type the REST caller does not
       send (check: a second apply reports Unchanged for the group and all three checks, and a CD run to `shared-psub` waits for approval).
 - [x] Rename `docs/explanation/design/only-automation-compiles-its-aspects.md` to `only-pwsh-compiles-its-aspects.md` with its diagram
-      folder, through `Move-Diagram`; the user runs the two `Move-Diagram` calls by hand (task-user-runs-and-commits step 5), and a session
+      folder, through `Move-Diagram`; the user runs the two `Move-Diagram` calls by hand (`out/run-user-git.ps1`, 2026-10-18), and a session
       then re-points the links left over (check: `Build-Diagrams -Path` on the new folder clean; Test-Links over docs/explanation clean; a
       grep for the old name over the tree finds only the plans' history). Done 2026-10-18 (the user's moves, `out/run-user-git.ps1`): "BUILD
       docs/explanation/design/.assets/only-pwsh-compiles-its-aspects prepare=clean highlight=clean join=clean", which regenerated the three
