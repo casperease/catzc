@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "66cc68536cad"
-    with_inputs_sha: "0c41f02441b1d4f3e5242d892ad722ca4e09c02b0b4bee3ea8a951d59dd0ca58"
+    with_body_sha: "092f92cdde6a"
+    with_inputs_sha: "5350c7d494c48a817e2987c2437247848006e534d2de2ad866fb0e3022c2e1a8"
     repo_status: locked
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
@@ -63,6 +63,21 @@ The draft: the one mutable version folder ([ADR-REPO-CONTRACT#5](../../adr/repos
 | `Catzc.Tooling.Github`    | `README.md`                                      | `.github/README.md`                                             | depended-on             | presence         | none                                                                                                                                                        |
 | `Catzc.Tooling.Github`    | `workflows/ci-automation.yml`                    | `.github/workflows/ci-automation.yml`                           | depended-on             | fragment         | none                                                                                                                                                        |
 | `Catzc.Tooling.Github`    | `workflows/release-automation.yml`               | `.github/workflows/release-automation.yml`                      | depended-on             | fragment         | none                                                                                                                                                        |
+| `Catzc.Tooling.Node`      | `Install-Cspell.command.yml`                     | `automation/Catzc.Tooling.Node/Install-Cspell.ps1`              | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Node`      | `Install-Markdownlint.command.yml`               | `automation/Catzc.Tooling.Node/Install-Markdownlint.ps1`        | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Node`      | `Install-NodeJs.command.yml`                     | `automation/Catzc.Tooling.Node/Install-NodeJs.ps1`              | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Node`      | `Install-Prettier.command.yml`                   | `automation/Catzc.Tooling.Node/Install-Prettier.ps1`            | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Python`    | `Install-Poetry.command.yml`                     | `automation/Catzc.Tooling.Python/Install-Poetry.ps1`            | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Python`    | `Install-PySpark.command.yml`                    | `automation/Catzc.Tooling.Python/Install-PySpark.ps1`           | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Python`    | `Install-Python.command.yml`                     | `automation/Catzc.Tooling.Python/Install-Python.ps1`            | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Toolchain` | `Install-AzCli.command.yml`                      | `automation/Catzc.Tooling.Toolchain/Install-AzCli.ps1`          | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Toolchain` | `Install-Bicep.command.yml`                      | `automation/Catzc.Tooling.Toolchain/Install-Bicep.ps1`          | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Toolchain` | `Install-Dotnet.command.yml`                     | `automation/Catzc.Tooling.Toolchain/Install-Dotnet.ps1`         | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Toolchain` | `Install-Go.command.yml`                         | `automation/Catzc.Tooling.Toolchain/Install-Go.ps1`             | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Toolchain` | `Install-Java.command.yml`                       | `automation/Catzc.Tooling.Toolchain/Install-Java.ps1`           | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Toolchain` | `Install-Shellcheck.command.yml`                 | `automation/Catzc.Tooling.Toolchain/Install-Shellcheck.ps1`     | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Toolchain` | `Install-Terraform.command.yml`                  | `automation/Catzc.Tooling.Toolchain/Install-Terraform.ps1`      | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
+| `Catzc.Tooling.Toolchain` | `Install-Uv.command.yml`                         | `automation/Catzc.Tooling.Toolchain/Install-Uv.ps1`             | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
 
 Notes:
 
@@ -145,3 +160,48 @@ Notes:
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the keys GitHub Actions requires to run the
   workflow — the `on` events, and `jobs`, each job with the `runs-on` runner and its `steps`. A null value pins only that the key exists.
   Source: <https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions>
+- `Catzc.Tooling.Node/Install-Cspell.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Install-Cspell,
+  which installs cspell. Version defaults to the version tools.yml locks for 'cspell', a computed default the contract does not restate;
+  Force reinstalls over a present install.
+- `Catzc.Tooling.Node/Install-Markdownlint.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-Markdownlint, which installs markdownlint. Version defaults to the version tools.yml locks for 'markdownlint', a computed default
+  the contract does not restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Node/Install-NodeJs.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Install-NodeJs,
+  which installs Node.js. Version defaults to the version tools.yml locks for 'node_js', a computed default the contract does not restate;
+  Force reinstalls over a present install.
+- `Catzc.Tooling.Node/Install-Prettier.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-Prettier, which installs Prettier. Version defaults to the version tools.yml locks for 'prettier', a computed default the contract
+  does not restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Python/Install-Poetry.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-Poetry, which installs Poetry. Version defaults to the version tools.yml locks for 'poetry', a computed default the contract does
+  not restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Python/Install-PySpark.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-PySpark, which installs PySpark. Version defaults to the version tools.yml locks for 'py_spark', a computed default the contract
+  does not restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Python/Install-Python.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-Python, which installs Python. Version defaults to the version tools.yml locks for 'python', a computed default the contract does
+  not restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Toolchain/Install-AzCli.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-AzCli, which installs the Azure CLI. Version defaults to the version tools.yml locks for 'az_cli', a computed default the contract
+  does not restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Toolchain/Install-Bicep.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-Bicep, which installs the Bicep CLI. Version defaults to the version tools.yml locks for 'bicep', a computed default the contract
+  does not restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Toolchain/Install-Dotnet.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-Dotnet, which installs the .NET SDK. Version defaults to the version tools.yml locks for 'dotnet', a computed default the contract
+  does not restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Toolchain/Install-Go.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Install-Go,
+  which installs Go. Version defaults to the version tools.yml locks for 'go', a computed default the contract does not restate; Force
+  reinstalls over a present install.
+- `Catzc.Tooling.Toolchain/Install-Java.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-Java, which installs Java. Version defaults to the version tools.yml locks for 'java', a computed default the contract does not
+  restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Toolchain/Install-Shellcheck.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-Shellcheck, which installs ShellCheck. Version defaults to the version tools.yml locks for 'shellcheck', a computed default the
+  contract does not restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Toolchain/Install-Terraform.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Install-Terraform, which installs Terraform. Version defaults to the version tools.yml locks for 'terraform', a computed default the
+  contract does not restate; Force reinstalls over a present install.
+- `Catzc.Tooling.Toolchain/Install-Uv.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Install-Uv,
+  which installs uv. Version defaults to the version tools.yml locks for 'uv', a computed default the contract does not restate; Force
+  reinstalls over a present install.

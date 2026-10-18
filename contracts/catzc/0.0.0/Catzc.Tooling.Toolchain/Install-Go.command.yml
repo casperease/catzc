@@ -1,0 +1,5 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Install-Go, which installs Go. Version defaults to
+# the version tools.yml locks for 'go', a computed default the contract does not restate; Force reinstalls over a present install.
+parameters:
+  Version: string
+  Force: switch

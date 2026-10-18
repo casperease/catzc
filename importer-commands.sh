@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5f2e5cfb5924"
+#     with_body_sha: "7931adfc023e"
 #     repo_status: locked
 #     path: importer-commands.sh
 #     source: contracts/catzc/0.0.0
@@ -30,6 +30,36 @@ Get-ContractCheckResults	RepositoryRoot	string	0	0	0	contracts/catzc/0.0.0/Catzc
 Get-FileLanguage	Name	string	1	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Get-FileLanguage.command.yml
 Get-FileLanguage	Path	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Get-FileLanguage.command.yml
 Get-PathFileType	Path	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Get-PathFileType.command.yml
+Install-AzCli	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-AzCli.command.yml
+Install-AzCli	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-AzCli.command.yml
+Install-Bicep	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Bicep.command.yml
+Install-Bicep	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Bicep.command.yml
+Install-Cspell	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Install-Cspell.command.yml
+Install-Cspell	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Install-Cspell.command.yml
+Install-Dotnet	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Dotnet.command.yml
+Install-Dotnet	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Dotnet.command.yml
+Install-Go	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Go.command.yml
+Install-Go	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Go.command.yml
+Install-Java	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Java.command.yml
+Install-Java	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Java.command.yml
+Install-Markdownlint	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Install-Markdownlint.command.yml
+Install-Markdownlint	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Install-Markdownlint.command.yml
+Install-NodeJs	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Install-NodeJs.command.yml
+Install-NodeJs	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Install-NodeJs.command.yml
+Install-Poetry	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Install-Poetry.command.yml
+Install-Poetry	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Install-Poetry.command.yml
+Install-Prettier	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Install-Prettier.command.yml
+Install-Prettier	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Install-Prettier.command.yml
+Install-PySpark	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Install-PySpark.command.yml
+Install-PySpark	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Install-PySpark.command.yml
+Install-Python	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Install-Python.command.yml
+Install-Python	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Install-Python.command.yml
+Install-Shellcheck	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Shellcheck.command.yml
+Install-Shellcheck	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Shellcheck.command.yml
+Install-Terraform	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Terraform.command.yml
+Install-Terraform	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Terraform.command.yml
+Install-Uv	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Uv.command.yml
+Install-Uv	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-Uv.command.yml
 Invoke-BashTest	Module	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-BashTest.command.yml
 Invoke-BashTest	EntryScript	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-BashTest.command.yml
 Invoke-BashTest	EngineExecutable	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-BashTest.command.yml
