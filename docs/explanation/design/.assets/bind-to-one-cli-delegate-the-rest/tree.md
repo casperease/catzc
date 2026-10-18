@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0f5fb3b204ec"
+    with_body_sha: "0e2938519219"
     repo_status: locked
     path: docs/explanation/design/.assets/bind-to-one-cli-delegate-the-rest/tree.md
     source: docs/explanation/design/.assets/bind-to-one-cli-delegate-the-rest/diagram.drawio.png
@@ -50,7 +50,7 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 111 (text).
+- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 109 (text).
 
 ### pipelines (1 lit file)
 

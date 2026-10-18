@@ -10,8 +10,8 @@ go:
   tests: { runner: Invoke-GoTest, tools: [go], executable: GoExecutable }
 ```
 
-The `executable` key named the runner's parameter that takes the path of the executable the run located: `GoExecutable` for
-`Invoke-GoTest`, `UvExecutable` for `Invoke-PythonTest`, `EngineExecutable` for `Invoke-BashTest`. `LanguagesConfig` read it into
+The `executable` key named the runner's parameter that takes the path of the executable the run located: `GoExecutable` for `Invoke-GoTest`,
+`UvExecutable` for `Invoke-PythonTest`, `EngineExecutable` for `Invoke-BashTest`. `LanguagesConfig` read it into
 `LanguageTestRunner.executable` and required a parameter name, and `Get-LanguageTestOutcomes` passed the located path under that name.
 
 ## Why it goes
@@ -23,6 +23,7 @@ is that the key inside `tests` takes the name of what it holds.
 
 ## Where it lives now
 
-The same value, under `executable_parameter` in the `tests` block (`tests: { runner: Invoke-GoTest, tools: [go], executable_parameter:
-GoExecutable }`), read into `LanguageTestRunner.executable_parameter`. `executable` inside a `tests` block is now an unknown key and fails
-the config at load. The module-model ADR's language-registry rule absorbs this page when it is next restated.
+The same value, under `executable_parameter` in the `tests` block
+(`tests: { runner: Invoke-GoTest, tools: [go], executable_parameter: GoExecutable }`), read into `LanguageTestRunner.executable_parameter`.
+`executable` inside a `tests` block is now an unknown key and fails the config at load. The module-model ADR's language-registry rule
+absorbs this page when it is next restated.

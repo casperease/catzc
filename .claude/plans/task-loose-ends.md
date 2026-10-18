@@ -35,7 +35,9 @@ Five plans each hold one step that fits no larger chunk. Each is one file and on
        reports 0 on both sources.
 2. [x] Landed 2026-10-18 by session catzc-fb, committed by the user in dcc194abd, verdict: "LanguagesConfig.Tests.ps1 Passed 35/35
        failures=0; ADRREG issues=0; LINKS issues=0 on layers.md". `executable` on FileLanguage.cs (default false once on the type),
-       validated in LanguagesConfig, set on powershell, csharp, python, go and bash; ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION names the flag. Naming note for a
+       validated in LanguagesConfig, set on powershell, csharp, python, go and bash; ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION names the flag. The naming note below is resolved 2026-10-18 by
+       session catzc-fb: the tests-block key is now `executable_parameter` (removed-key page
+       docs/references/languages-tests-executable-key.md; LanguagesConfig.Tests and the language-runner tests pass). Naming note for a
        later look: the `tests:` block already has an `executable` key meaning a parameter name (GoExecutable), so one entry uses the word
        twice. Original step: The `executable` flag (plan-layers-vocabulary-rename-contracts, the last open step): `languages.yml` gains
        `executable: true` on the languages a command is implemented in, read by `LanguagesConfig` with its default declared once on the type

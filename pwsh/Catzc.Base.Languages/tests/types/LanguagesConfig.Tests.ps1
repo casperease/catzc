@@ -121,7 +121,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable_parameter = 'GizmoExecutable'; colour = 'red' } }) } |
                 Should -Throw "*unknown key 'colour'*"
             { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable = 'GizmoExecutable' } }) } |
-                Should -Throw "*unknown key 'colour'*"
+                Should -Throw "*unknown key 'executable'*"
             { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); engine = 'bash'; executable_parameter = 'GizmoExecutable' } }) } |
                 Should -Throw '*never both and never neither*'
             { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; executable_parameter = 'GizmoExecutable' } }) } |
