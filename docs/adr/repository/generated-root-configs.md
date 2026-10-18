@@ -41,7 +41,7 @@ delete-then-write, never in-place, so it can never write through a linked target
 ### Rule ADR-REPO-ROOTCFG:5
 
 A composed root file — a non-link `source` copy-in or a `generator`'s output — carries the unified generated-file head
-([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)): the `kind` the file-kinds registry names for the target, the `generator`
+([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)): the `role` the file-kinds registry names for the target, the `generator`
 (`Build-RootConfig` for a copy), and the `source` it copies or the `sources` it renders from. `Build-RootConfig` writes the head, in the
 carrier its `carrier` key names (default: the carrier of the target's file language), so a generator renders its content bare and no entry
 hand-words a banner. The head is strictly a leading block: config formats have no portable in-body anchor. A `copyAsLink` entry carries no

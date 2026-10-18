@@ -76,7 +76,7 @@ registry is global: it runs over every file whose carrier is not none ([ADR-REPO
 whatever its language, as the meta block does ([ADR-REPO-CODEMETA#4](code-file-meta.md#rule-adr-repo-codemeta4)). A language's own entry
 lists the steps that concern only its files, such as the C# namespace. A step may also write a companion file that belongs to the file it
 formats: the `comments` step moves a file's long comments into the file's comment page
-([ADR-REPO-COMMENTS#5](comments-in-docs.md#rule-adr-repo-comments5)), and that page carries its own meta block, whose `kind` marks it as a
+([ADR-REPO-COMMENTS#5](comments-in-docs.md#rule-adr-repo-comments5)), and that page carries its own meta block, whose `role` marks it as a
 comment page. `Test-Formatting` checks the same steps, and no check names one.
 
 - [Formatting is configured per language](#formatting-is-configured-per-language)

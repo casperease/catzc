@@ -42,6 +42,13 @@ Document Az module dependencies explicitly: any function requiring an Az module 
 
 - [When Az PowerShell is unavoidable](#when-az-powershell-is-unavoidable)
 
+### Rule ADR-AZ-CLI:7
+
+Name an Azure-platform function `Verb-Azure<Noun>`, never `Verb-Az<Noun>`, which reads as an Az PowerShell module cmdlet. The only
+sanctioned `Az` prefixes are `AzCli` (the az CLI wrappers) and `AzBicep` (the az bicep checks).
+
+- [Az PowerShell problems](#az-powershell-problems)
+
 ## Context
 
 Azure operations can be performed through two official toolchains:

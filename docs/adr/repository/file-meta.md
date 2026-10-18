@@ -83,7 +83,7 @@ meta-kind registry ([controlling-module-dependencies](../automation/controlling-
 A file the automation composes whole — a root-config copy, a generator's output, a `.gitkeep` — carries the **generated-file head** instead
 of an imprinted block. Its writer composes the content bare and writes the head through the one head function, in the carrier the file's
 class has. The head holds the same facts as an imprinted block, `repo_status` (always `locked`, since the file's source is the truth and is
-edited instead), `path`, `kind` and `subkind` (the role the file-kinds registry names for the file, which the writer reads and passes down),
+edited instead), `path`, `role` and `subkind` (the role the file-kinds registry names for the file, which the writer reads and passes down),
 `language`, `filetype`, `track`, `module` and `moduletype` (the module-types registry's type of the module the file is placed in), each left
 out for a file that has none, and what only a composed file has: `generator` (the repository-relative path of the file that defines the
 command that composed the file) and `source` (the authored file or files it comes from). The head opens with `with_body_sha`, the hash of
@@ -157,7 +157,7 @@ the head never carries a list of its own. It also holds `tracktype` and `vendor`
 ### Rule ADR-REPO-FILEMETA:13
 
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts**: what the
-repository's own configuration makes of the file's location, its `path` and the parts of it, its `kind`, `language`, `track`, `module` and
+repository's own configuration makes of the file's location, its `path` and the parts of it, its `role`, `language`, `track`, `module` and
 the rest, each read from a registry and never from the file's text. `edges` holds what the file itself declares or points at, each one an
 **edge**, a named relation leaving the file to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `page` and `test`. Both
 parts are imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an
