@@ -52,7 +52,7 @@ namespace — are the language layer, [dynamic-module-manifests](../pwsh/dynamic
 | -------------------------- | ---------------------------------------- | ---------------------------------------- |
 | Add a function to a module | Create `Verb-Noun.ps1` in the module dir | No manifest, no export list, no loader   |
 | Add a private helper       | Create `Verb-Noun.ps1` in `private/`     | No manifest, no export list, no loader   |
-| Add a new module           | Create a folder under `pwsh/`      | Not `importer.ps1`, not `Bootstrap.psm1` |
+| Add a new module           | Create a folder under `pwsh/`            | Not `importer.ps1`, not `Bootstrap.psm1` |
 | Add a vendor dependency    | Drop the module in `.vendor/`            | Not `importer.ps1`, not `Bootstrap.psm1` |
 
 Every row follows the same pattern: the extension is a new file or folder, and the infrastructure discovers it automatically.
@@ -102,9 +102,9 @@ and actual intra-group edges must be a subset of the declared internal map. The 
 
 The platform must remain open for extension and closed for modification. Concretely:
 
-- **Growth is additive.** A new function is a new `Verb-Noun.ps1` file, a new module is a new folder under `pwsh/`, a new vendor
-  dependency is a new folder under `.vendor/`, and a new root concern is a new track. None of these edits `importer.ps1`, the bootstrap
-  module, or any other module's files (ADR-AUTO-EXTEND#1).
+- **Growth is additive.** A new function is a new `Verb-Noun.ps1` file, a new module is a new folder under `pwsh/`, a new vendor dependency
+  is a new folder under `.vendor/`, and a new root concern is a new track. None of these edits `importer.ps1`, the bootstrap module, or any
+  other module's files (ADR-AUTO-EXTEND#1).
 - **The infrastructure knows conventions, not content.** The importer and the bootstrap module discover modules, exports, and visibility
   from names and locations alone; they never name a specific module, function, or business rule (ADR-AUTO-EXTEND#3).
 - **Non-conforming code is fixed, not accommodated.** Code that does not follow file name = function name, folder = module, and root =
@@ -114,10 +114,10 @@ The platform must remain open for extension and closed for modification. Concret
 
 ### How this is enforced
 
-- **`Import-AllModules`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under `pwsh/` as a module
-  and generates its manifest with `New-DynamicManifest`, so a new module or function needs no registration anywhere. Before any module loads
-  it fails fast on a duplicate export or a shadowed shipped command, the one seam where convention alone cannot guarantee a single meaning
-  per name ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md)).
+- **`Import-AllModules`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under `pwsh/` as a module and
+  generates its manifest with `New-DynamicManifest`, so a new module or function needs no registration anywhere. Before any module loads it
+  fails fast on a duplicate export or a shadowed shipped command, the one seam where convention alone cannot guarantee a single meaning per
+  name ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md)).
 - **`Test-Automation.Tests.ps1`** and **`Test-FolderConventions.Tests.ps1`** fail the test run on a file, function, or folder that breaks
   the naming and placement conventions, so non-conforming code is caught rather than silently skipped
   ([one-function-per-file](../pwsh/one-function-per-file.md), [conventional-folders](../repository/conventional-folders.md)).

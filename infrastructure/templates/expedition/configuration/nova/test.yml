@@ -1,0 +1,61 @@
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: expedition
+        environment: test
+        owner: nova
+        cost-center: nova
+        criticality: low
+        data-classification: confidential
+    storageAccountName:
+      value: teweuzctexpednvst
+    sqlServerName:
+      value: test-weu-zct-exped-nova-sql
+    sqlDatabaseName:
+      value: test-weu-zct-exped-nova-sqldb
+    blobPrivateEndpointName:
+      value: test-weu-zct-exped-nova-blb-pep
+    sqlPrivateEndpointName:
+      value: test-weu-zct-exped-nova-sql-pep
+    entraAdminLogin:
+      value: zct-exped-sql-admins
+    entraAdminObjectId:
+      value: 59100000-ad01-0000-6000-000000000000
+    administratorLogin:
+      value: exped-break-glass
+    administratorLoginPassword:
+      reference:
+        keyVault:
+          id: /subscriptions/000a0000-de00-50b0-0000-000000000000/resourceGroups/nsub-weu-zct-fnd-nova-rg/providers/Microsoft.KeyVault/vaults/ns-weu-zct-fnd-nv-kv
+        secretName: exped-sql-admin-password
+    databaseSkuName:
+      value: GP_S_Gen5
+    databaseTier:
+      value: GeneralPurpose
+    databaseSkuFamily:
+      value: Gen5
+    databaseSkuCapacity:
+      value: 2
+    databaseZoneRedundant:
+      value: false
+    databaseBackupStorageRedundancy:
+      value: Local
+    databaseBackupRetentionDays:
+      value: 7
+    databaseAutoPauseDelay:
+      value: 60
+    databaseMinCapacity:
+      value: "0.5"
+    networkResourceGroupName:
+      value: nsub-weu-zct-disco-nova-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-nova-vnet
+    privateDnsZoneSubscriptionId:
+      address: global.azure.subscriptions.shared_nonprod.id
+    privateDnsZoneResourceGroupName:
+      value: nsub-weu-zct-disco-rg
+    logAnalyticsResourceGroupName:
+      value: nsub-weu-zct-fnd-nova-rg
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-nova-log

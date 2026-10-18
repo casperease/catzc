@@ -98,9 +98,6 @@ pwsh/.compiled/** linguist-generated
 /contracts/** linguist-detectable=false
 # The minimap grid, tree and chain descriptions are rendered by .claude/drawio/minimaps/render.py from the slide and
 # its reasons: output, not authored prose — out of the statistics, and collapsed in pull-request diffs.
-/docs/**/.assets/**/*.grid.md  linguist-generated
-/docs/**/.assets/**/*.tree.md  linguist-generated
-/docs/**/.assets/**/*.chain.md linguist-generated
 /docs/**/.assets/*/grid.md     linguist-generated
 /docs/**/.assets/*/tree.md     linguist-generated
 /docs/**/.assets/*/chain.md    linguist-generated

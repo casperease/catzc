@@ -8,9 +8,23 @@ parameters:
   - name: Target
     displayName: "The rung to deploy"
     type: string
-    values: [prod]
+    values: [release-uat, prod]
 
 stages:
+  # release-uat is test; the RC approval check on apex-release-uat holds the job for its certifier (ADR-FLOW-CD#9).
+  - ${{ if eq(parameters.Target, 'release-uat') }}:
+      - template: /pipelines/stages/deploy-unit.yaml
+        parameters:
+          Unit: apex
+          Expeditions:
+            - {
+                env: test,
+                adoEnvironment: apex-release-uat,
+                serviceConnection: sc-apex-nonprod,
+                subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000,
+              }
+          ArtifactPipeline: cd-apex
+          RunId: ${{ parameters.CiRunId }}
   # Stage the exact artifact in pre-prod, the inactive slot of prod, then activate it to prod (ADR-FLOW-CD#12).
   - ${{ if eq(parameters.Target, 'prod') }}:
       - template: /pipelines/stages/deploy-unit.yaml

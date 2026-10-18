@@ -6,7 +6,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 ## Devbox / pipeline parity
 
-`Devbox / pipeline parity — the automation track is a CLI that runs everywhere`
+`Devbox / pipeline parity — the pwsh track is a CLI that runs everywhere`
 
 [ADR-AUTO-PARITY](devbox-pipeline-parity.md)
 

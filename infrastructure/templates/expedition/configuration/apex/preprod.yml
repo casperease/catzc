@@ -1,0 +1,55 @@
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: expedition
+        environment: preprod
+        owner: apex
+        cost-center: apex
+        criticality: high
+        data-classification: confidential
+    storageAccountName:
+      value: ppweuzctexpedapst
+    sqlServerName:
+      value: preprod-weu-zct-exped-apex-sql
+    sqlDatabaseName:
+      value: preprod-weu-zct-exped-apex-sqldb
+    blobPrivateEndpointName:
+      value: preprod-weu-zct-exped-apex-blb-pep
+    sqlPrivateEndpointName:
+      value: preprod-weu-zct-exped-apex-sql-pep
+    entraAdminLogin:
+      value: zct-exped-sql-admins
+    entraAdminObjectId:
+      value: 59100000-ad01-0000-6000-000000000000
+    administratorLogin:
+      value: exped-break-glass
+    administratorLoginPassword:
+      reference:
+        keyVault:
+          id: /subscriptions/a0e00000-000d-50b0-0000-000000000000/resourceGroups/psub-weu-zct-fnd-apex-rg/providers/Microsoft.KeyVault/vaults/ps-weu-zct-fnd-ap-kv
+        secretName: exped-sql-admin-password
+    databaseSkuName:
+      value: GP_Gen5
+    databaseTier:
+      value: GeneralPurpose
+    databaseSkuFamily:
+      value: Gen5
+    databaseSkuCapacity:
+      value: 2
+    databaseBackupStorageRedundancy:
+      value: Geo
+    databaseBackupRetentionDays:
+      value: 35
+    networkResourceGroupName:
+      value: psub-weu-zct-disco-apex-rg
+    virtualNetworkName:
+      value: psub-weu-zct-disco-apex-vnet
+    privateDnsZoneSubscriptionId:
+      address: global.azure.subscriptions.shared_prod.id
+    privateDnsZoneResourceGroupName:
+      value: psub-weu-zct-disco-rg
+    logAnalyticsResourceGroupName:
+      value: psub-weu-zct-fnd-apex-rg
+    logAnalyticsName:
+      value: psub-weu-zct-fnd-apex-log

@@ -78,8 +78,8 @@ parses each file in memory and dot-sources it into the module's session state
 `<Module>.functions.ps1`, and the built manifest lists that one file
 ([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest5)). The merged file is a `.ps1` too, so the module's public
 and private functions share one session state in both modes, and it is one module per folder, so each module keeps its own `$script:` scope.
-It is output, not source: it exists only in a build under `out/pwsh/built/` and the installs copied from it, is rewritten on every
-build, and the rules of this ADR apply to the files it is generated from
+It is output, not source: it exists only in a build under `out/pwsh/built/` and the installs copied from it, is rewritten on every build,
+and the rules of this ADR apply to the files it is generated from
 ([one-function-per-file](one-function-per-file.md#rule-adr-pwsh-onefunc3)).
 
 ### How this is enforced
