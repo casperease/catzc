@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "14b3f83d1192"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.grid.md
+    source: docs/explanation/.assets/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # An engineer runs the tests and merges; pipelines do the rest: the world-map minimap
 
 ```text

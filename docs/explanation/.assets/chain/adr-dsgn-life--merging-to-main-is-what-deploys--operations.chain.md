@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e25f2a14156e
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-life--merging-to-main-is-what-deploys--operations.chain.md
+    source: docs/explanation/.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Merging to main is what deploys; there is no run that deploys a topic: the value-chain minimap
 
 ```text

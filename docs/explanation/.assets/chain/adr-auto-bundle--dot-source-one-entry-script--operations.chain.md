@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: ea73ac13bfa9
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-bundle--dot-source-one-entry-script--operations.chain.md
+    source: docs/explanation/.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Dot-source one entry script, and a failed check stops the load with a named error: the value-chain minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "89116d7ca19a"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Three tasks share one guard, and one runner imports, traps, sanitizes and invokes: the tree minimap
 
 ```text

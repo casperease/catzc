@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: d0a964c7d236
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.tree.md
+    source: docs/explanation/.assets/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Three gates guard the CLI and az, but nothing checks that cats stays thin: the tree minimap
 
 ```text

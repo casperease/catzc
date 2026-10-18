@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: dd3f6b3fa097
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-bundle--two-entries-feed-one-importer--architecture.chain.md
+    source: docs/explanation/.assets/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two entry scripts feed one importer, and the importer leaves once the load is done: the value-chain minimap
 
 ```text

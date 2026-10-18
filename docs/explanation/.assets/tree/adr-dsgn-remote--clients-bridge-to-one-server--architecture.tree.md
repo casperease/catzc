@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "57afbdf73922"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-remote--clients-bridge-to-one-server--architecture.tree.md
+    source: docs/explanation/.assets/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Clients bridge to one server remote: in through a pull request, out from the verified point: the tree minimap
 
 ```text

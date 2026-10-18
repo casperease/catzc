@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "9c526b5cb422"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.grid.md
+    source: docs/explanation/.assets/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private: the world-map minimap
 
 ```text

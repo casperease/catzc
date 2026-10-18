@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: fda397bd1474
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.grid.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One module folder has two independent readers: the world-map minimap
 
 ```text

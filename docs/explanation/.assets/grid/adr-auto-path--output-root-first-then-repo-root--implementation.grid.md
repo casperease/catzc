@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "0e2541df81cc"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-path--output-root-first-then-repo-root--implementation.grid.md
+    source: docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "0b2683b3dee1"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The detector lives in the loader, which both run modes import first and keep loaded: the tree minimap
 
 ```text

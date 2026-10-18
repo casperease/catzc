@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "15a7bc274ff8"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Test-GlobSetIndependence groups every set by layer and tests each same-layer pair: the world-map minimap
 
 ```text

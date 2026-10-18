@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "3c533a08a8a4"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every globset carries one of three layers, and only two are declared: the tree minimap
 
 ```text

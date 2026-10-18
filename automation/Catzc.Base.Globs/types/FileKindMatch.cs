@@ -22,7 +22,7 @@ catzc:
 
 namespace Catzc.Base.Globs;
 
-// What the file-kinds registry names for one path: its kind, its subkind when it has one, and the kind's definition.
+// What the file-kinds registry names for one path: its kind, its subkind when it has one, and the kind's definition ([ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2)).
 public sealed class FileKindMatch
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

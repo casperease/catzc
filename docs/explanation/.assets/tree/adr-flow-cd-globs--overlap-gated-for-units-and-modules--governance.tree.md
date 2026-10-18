@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "46530cd97985"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A gate checks overlap for units and modules, and loose-filesets are exempt: the tree minimap
 
 ```text

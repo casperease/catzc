@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: ee01896f41af
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.tree.md
+    source: docs/explanation/.assets/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Main loads the limits and the run environment, then Decide returns null or a reason: the tree minimap
 
 ```text

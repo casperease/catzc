@@ -31,6 +31,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
+// Rests on [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6), [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8) and [ADR-REPO-CMDCONTRACT#2](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract2).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Name), nameof(Signature))]
 public sealed class ContractCommand
 {

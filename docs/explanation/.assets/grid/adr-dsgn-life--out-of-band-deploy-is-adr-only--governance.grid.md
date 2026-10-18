@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "563fe031faee"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.grid.md
+    source: docs/explanation/.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only: the world-map minimap
 
 ```text

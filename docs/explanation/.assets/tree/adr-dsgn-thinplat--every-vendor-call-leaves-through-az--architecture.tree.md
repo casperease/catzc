@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8e0bf66fb33d"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.tree.md
+    source: docs/explanation/.assets/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every vendor call leaves cats through the az CLI: the tree minimap
 
 ```text

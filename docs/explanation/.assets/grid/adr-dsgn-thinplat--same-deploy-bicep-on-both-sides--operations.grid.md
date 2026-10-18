@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "9107ace1d457"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.grid.md
+    source: docs/explanation/.assets/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription: the world-map minimap
 
 ```text

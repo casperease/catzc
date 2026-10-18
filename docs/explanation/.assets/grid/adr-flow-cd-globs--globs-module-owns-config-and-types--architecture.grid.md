@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "40f7a006a6ab"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Catzc.Base.Globs computes every globset role from one typed registry: the world-map minimap
 
 ```text

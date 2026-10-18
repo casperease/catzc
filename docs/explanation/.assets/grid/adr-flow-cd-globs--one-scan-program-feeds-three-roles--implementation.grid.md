@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "37afc518563f"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One method, GlobSet.ScanProgram(), feeds all three globset role functions: the world-map minimap
 
 ```text

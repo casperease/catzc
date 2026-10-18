@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e92db1a419d9
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-life--four-domains-promote-one-artifact--architecture.tree.md
+    source: docs/explanation/.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Four pipeline kinds promote one artifact that CI built once: the tree minimap
 
 ```text

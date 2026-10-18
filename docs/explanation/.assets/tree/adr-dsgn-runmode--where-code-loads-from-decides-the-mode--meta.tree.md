@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "1a9ef1e53dc6"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.tree.md
+    source: docs/explanation/.assets/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Where the code loads from decides the run mode: the tree minimap
 
 ```text

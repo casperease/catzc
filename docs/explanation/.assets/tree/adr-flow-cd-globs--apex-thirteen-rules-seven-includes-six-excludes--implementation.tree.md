@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: c27da3f408d2
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The apex unit flattens to 13 rules, 13 GitHub paths, and 7 Azure DevOps includes with 6 excludes: the tree minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: c0b9f66febc7
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-conf-addressing--two-test-files-check-the-address-rules--governance.chain.md
+    source: docs/explanation/.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two L0 test files check the address rules; read-only and committed-only rest on convention: the value-chain minimap
 
 ```text

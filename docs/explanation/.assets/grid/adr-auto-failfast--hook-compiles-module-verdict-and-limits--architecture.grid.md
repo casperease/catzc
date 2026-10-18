@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "297e6f42303f"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.grid.md
+    source: docs/explanation/.assets/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree: the world-map minimap
 
 ```text

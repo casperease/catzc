@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: b8fb6988677a
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.tree.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Both tracks' conventions are read, but only the automation track's compiles into globsets: the tree minimap
 
 ```text

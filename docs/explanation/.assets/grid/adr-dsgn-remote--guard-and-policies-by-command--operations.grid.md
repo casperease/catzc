@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "9302f72b3a23"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-remote--guard-and-policies-by-command--operations.grid.md
+    source: docs/explanation/.assets/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A person turns on the local guard with one variant; an admin syncs the server policies with one command: the world-map minimap
 
 ```text

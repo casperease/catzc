@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "1ae00a830b2b"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Test-GlobSetIndependence groups every set by layer and tests each same-layer pair: the tree minimap
 
 ```text

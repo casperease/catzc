@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: b4470e9928de
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.tree.md
+    source: docs/explanation/.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The optIn filter, then link, copy or render, through two write primitives: the tree minimap
 
 ```text

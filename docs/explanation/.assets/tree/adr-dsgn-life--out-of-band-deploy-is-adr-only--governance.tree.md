@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: f1af7fa7750f
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.tree.md
+    source: docs/explanation/.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only: the tree minimap
 
 ```text

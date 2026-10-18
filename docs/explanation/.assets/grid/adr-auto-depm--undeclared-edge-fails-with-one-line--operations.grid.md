@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: edaddac54ebb
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.md
+    source: docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # An undeclared module edge fails the gate with one line per issue: the world-map minimap
 
 ```text

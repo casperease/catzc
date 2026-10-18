@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: cb71e06c1e54
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it: the tree minimap
 
 ```text

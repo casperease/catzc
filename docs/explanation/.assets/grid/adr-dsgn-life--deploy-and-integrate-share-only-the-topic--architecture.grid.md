@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: d266f23bb676
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.grid.md
+    source: docs/explanation/.assets/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Deploying a topic commit and integrating it share only the topic commit: the world-map minimap
 
 ```text

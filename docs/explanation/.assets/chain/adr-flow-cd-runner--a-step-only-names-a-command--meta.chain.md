@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: a1854e28f896
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-flow-cd-runner--a-step-only-names-a-command--meta.chain.md
+    source: docs/explanation/.assets/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A pipeline step only names a command that a developer can run locally: the value-chain minimap
 
 ```text

@@ -73,7 +73,6 @@ function Get-LanguageTestOutcomes {
     [OutputType([hashtable])]
     param(
         [Parameter(Mandatory)]
-        [ValidateSet('go', 'python', 'bash')]
         [string] $Language,
 
         [Parameter(Mandatory)]
@@ -93,11 +92,18 @@ function Get-LanguageTestOutcomes {
         [string] $EngineExecutable
     )
 
-    $tool = @{ go = 'go'; python = 'uv'; bash = 'bash' }[$Language]
+    # The language registry names the runner; a language without a tests entry has no test artifacts to run (ADR-AUTO-MODULE#6).
+    $entry = @((Get-Config -Config languages).languages | Where-Object { $_.name -ceq $Language })
+    $tests = if ($entry.Count -eq 1) {
+        $entry[0].tests
+    }
+    if ($null -eq $tests) {
+        throw "Language '$Language' declares no tests entry in languages.yml, so no runner runs its tests."
+    }
     $pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
     # The language's tool missing skips the language; an engine other than the running pwsh missing skips that engine.
     $missing = if (-not $Executable) {
-        "tool_$($tool)_missing"
+        "tool_$($tests.ExecutableName)_missing"
     }
     elseif ($Engine -ne $pwsh -and -not $EngineExecutable) {
         "tool_$($Engine)_missing"
@@ -118,18 +124,12 @@ function Get-LanguageTestOutcomes {
     if ($EntryScript) {
         $run['EntryScript'] = $EntryScript
     }
-    $produced = if ($Language -eq 'go') {
-        Invoke-GoTest @run -GoExecutable $Executable
-    }
-    elseif ($Language -eq 'python') {
-        Invoke-PythonTest @run -UvExecutable $Executable
-    }
-    else {
-        # A Bash test is Bash: it runs under the bash engine only, with the bash the source session located.
+    if ($tests.engine) {
+        # A language that is an engine runs its tests under that engine only, with the executable the source session located.
         $run.Remove('Engine')
-        $run['EngineExecutable'] = $Executable
-        Invoke-BashTest @run
     }
+    $run[$tests.executable] = $Executable
+    $produced = & $tests.runner @run
     $results = @{}
     foreach ($result in @($produced)) {
         $results["$($result.Package) $($result.Name)"] = $result

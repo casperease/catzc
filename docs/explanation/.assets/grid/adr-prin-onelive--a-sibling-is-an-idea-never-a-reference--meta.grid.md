@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8d22e7ebb7af"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.grid.md
+    source: docs/explanation/.assets/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A sibling is an idea, never a reference: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: b83b3ede3bd2
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.tree.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Partition integrity runs only in unit tests: the tree minimap
 
 ```text

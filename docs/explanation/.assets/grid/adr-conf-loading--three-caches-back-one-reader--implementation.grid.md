@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: bec4009c33ca
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-conf-loading--three-caches-back-one-reader--implementation.grid.md
+    source: docs/explanation/.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Three session caches back the one config reader: the world-map minimap
 
 ```text

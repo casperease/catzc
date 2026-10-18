@@ -27,7 +27,7 @@ the embedded model on the chosen page, or the source copy again when no model ca
 decoded model, when one exists) and <name>.render.md (the report). With --xml the given model must match the embedded
 one 100 percent after canonicalisation. With --assert every non-empty, non-heading line of the text file (a page, 66
 lines) must appear in some cell label, whitespace-folded and case-folded. With --minimaps the slide's three minimaps are
-regenerated from the map processors (minimaps/highlights.ps1, render.py, join.py) into <out_dir>/<name>/, the slide
+regenerated from the map processors (minimaps/highlights.ps1, render.py, stamp.ps1, join.py) into <out_dir>/<name>/, the slide
 list derived from the slide itself: id and stem from the file name, lens from the last `--` segment, ADR codes from the
 model's labels and the file name, the model from <name>.model.xml; the joined slide is <out_dir>/<name>/<name>.drawio.png.
 Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still delivered. Exit 3: no source file,
@@ -40,9 +40,9 @@ bulk:  uv run --with pillow python drawio_forward.py --all <folder> [--stage pre
 Rebuilds every <stem>.drawio.png of a folder in place with fresh minimaps, in stages that each fit the time safeguard:
 `prepare` (optionally migrates each slide to the dark tokens, extracts its model to out/drawio/<folder>/models/, and
 writes the slide list, skipping a sheet with no ADR code); `highlight` (the map processors once for every listed slide,
-then the three minimaps and their sister .md files into the folder); `join` (the sidebar laid out, the minimaps
-embedded, the slide rebuilt); `all` runs the three. --start/--end slice the per-slide stages. Same exit codes; the
-report is out/drawio/<folder>/bulk.md.
+then the three minimaps and their sister .md files into the folder, each page given its generated head by stamp.ps1);
+`join` (the sidebar laid out, the minimaps embedded, the slide rebuilt); `all` runs the three. --start/--end slice the
+per-slide stages. Same exit codes; the report is out/drawio/<folder>/bulk.md.
 """
 
 import json
@@ -191,6 +191,17 @@ def minimaps(src, name, model_file, out_dir):
     )
     run(
         [
+            "pwsh",
+            "-NoProfile",
+            "-File",
+            str(KIT / "minimaps" / "stamp.ps1"),
+            "-Target",
+            rel(target),
+        ],
+        240,
+    )
+    run(
+        [
             sys.executable,
             str(KIT / "minimaps" / "join.py"),
             "--slides",
@@ -291,6 +302,18 @@ def bulk(folder, stage, migrate, start, end):
                 120,
             )
             print(f"minimaps {out.splitlines()[-1] if out else 'rendered'}")
+            stamped = run(
+                [
+                    "pwsh",
+                    "-NoProfile",
+                    "-File",
+                    str(KIT / "minimaps" / "stamp.ps1"),
+                    "-Target",
+                    rel(folder),
+                ],
+                300,
+            )
+            print(stamped.splitlines()[-1] if stamped else "stamped")
         except FORWARD as e:
             warnings.append(f"W_HIGHLIGHT {e}")
     if stage in ("join", "all"):

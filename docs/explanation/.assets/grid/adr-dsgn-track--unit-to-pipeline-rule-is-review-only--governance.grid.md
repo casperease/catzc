@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: bb0eb560b7fe
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.grid.md
+    source: docs/explanation/.assets/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone: the world-map minimap
 
 ```text

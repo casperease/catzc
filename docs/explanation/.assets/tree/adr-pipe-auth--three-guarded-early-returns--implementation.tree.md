@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "66c205c696a2"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-pipe-auth--three-guarded-early-returns--implementation.tree.md
+    source: docs/explanation/.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The header function is four checks and three returns, and none falls through on failure: the tree minimap
 
 ```text

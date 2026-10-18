@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "25a0355b945e"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-conf-loading--ask-by-name-get-the-cached-object--operations.grid.md
+    source: docs/explanation/.assets/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Ask for a config by name and get the cached object back: the world-map minimap
 
 ```text

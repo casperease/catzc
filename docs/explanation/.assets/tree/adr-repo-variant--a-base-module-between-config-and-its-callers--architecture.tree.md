@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "05e4101a9f6a"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.tree.md
+    source: docs/explanation/.assets/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Catzc.Base.Variants sits in Base, over Config, under every real caller: the tree minimap
 
 ```text

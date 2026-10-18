@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "02cccfe4eec8"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-life--four-domains-promote-one-artifact--architecture.grid.md
+    source: docs/explanation/.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Four pipeline kinds promote one artifact that CI built once: the world-map minimap
 
 ```text

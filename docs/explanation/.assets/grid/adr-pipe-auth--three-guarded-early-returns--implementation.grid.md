@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "409f91f55076"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-pipe-auth--three-guarded-early-returns--implementation.grid.md
+    source: docs/explanation/.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The header function is four checks and three returns, and none falls through on failure: the world-map minimap
 
 ```text

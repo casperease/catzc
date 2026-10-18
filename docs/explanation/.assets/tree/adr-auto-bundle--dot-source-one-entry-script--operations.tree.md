@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: a17d81d6a5bf
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-bundle--dot-source-one-entry-script--operations.tree.md
+    source: docs/explanation/.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Dot-source one entry script, and a failed check stops the load with a named error: the tree minimap
 
 ```text

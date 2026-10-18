@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: d71dde3117de
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.grid.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Each track picks its catch-all: a stray module file falls to tests, a stray template file to live: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "1433775a647d"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.tree.md
+    source: docs/explanation/.assets/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Deploying a topic commit and integrating it share only the topic commit: the tree minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: c61e37e73718
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.chain.md
+    source: docs/explanation/.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate: the value-chain minimap
 
 ```text

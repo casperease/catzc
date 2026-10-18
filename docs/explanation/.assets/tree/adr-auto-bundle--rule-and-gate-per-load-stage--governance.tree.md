@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "50708bd7a95a"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-bundle--rule-and-gate-per-load-stage--governance.tree.md
+    source: docs/explanation/.assets/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every load stage but the unload has an ADR rule and a gate: the tree minimap
 
 ```text

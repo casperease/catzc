@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "2b0a1a83db0f"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.tree.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The manifest and the aspects both come from one folder: the tree minimap
 
 ```text

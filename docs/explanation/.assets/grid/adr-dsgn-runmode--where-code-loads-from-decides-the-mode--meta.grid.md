@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e55cdec2c6d2
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.grid.md
+    source: docs/explanation/.assets/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Where the code loads from decides the run mode: the world-map minimap
 
 ```text

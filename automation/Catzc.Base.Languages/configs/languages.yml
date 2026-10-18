@@ -117,6 +117,7 @@ languages:
     formatter: ruff
     adr_folder: automation/python
     checks: [Test-PythonLint, Test-Formatting, Test-Spelling]
+    tests: { runner: Invoke-PythonTest, tools: [uv, python], executable: UvExecutable }
   json:
     extensions: [.json]
     formatter: prettier
@@ -129,11 +130,13 @@ languages:
     formatter: gofmt
     adr_folder: automation/go
     checks: [Test-Formatting, Test-Spelling]
+    tests: { runner: Invoke-GoTest, tools: [go], executable: GoExecutable }
   bash:
     extensions: [.sh, .bats]
     no_formatter: no engine is configured for Bash yet
     adr_folder: automation/bash
     checks: [Test-ShellScripts]
+    tests: { runner: Invoke-BashTest, engine: bash, executable: EngineExecutable }
   xml:
     extensions: [.ps1xml, .xml, .xsd, .dtd, .csproj]
     no_formatter: no engine is configured for XML; .editorconfig and the editor's XML extension cover its layout

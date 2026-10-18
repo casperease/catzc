@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "0c4d226760ca"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-naming--names-are-derived-never-typed--operations.grid.md
+    source: docs/explanation/.assets/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Nobody types an Azure name: cats derives it, and a bad name stops with an error: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "495521a2d344"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-path--two-crossers-and-three-anchors--architecture.tree.md
+    source: docs/explanation/.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two crossers anchor on two roots, and a published artifact anchors on its artifact root: the tree minimap
 
 ```text

@@ -55,7 +55,12 @@ function Get-LanguageTestExecutable {
     param()
 
     $languages = @(Get-LanguageTestFolders | ForEach-Object Language | Select-Object -Unique)
-    $executables = @{ go = ''; python = '' }
+    # The languages whose tests need tools come from the registry; a language that is an engine resolves with the engines below.
+    $toolLanguages = @((Get-Config -Config languages).languages | Where-Object { $_.tests -and -not $_.tests.engine })
+    $executables = @{}
+    foreach ($language in $toolLanguages) {
+        $executables[$language.name] = ''
+    }
     $pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
     foreach ($engine in [Catzc.Base.Engines.ExecutionEngines]::All) {
         if ($engine.Name -eq $pwsh) {
@@ -71,17 +76,16 @@ function Get-LanguageTestExecutable {
             }
         }
     }
-    if ('go' -in $languages) {
-        $go = Resolve-ToolExecutable -Tool go
-        if ($go.Found -and $go.VersionOk) {
-            $executables['go'] = $go.Path
+    foreach ($language in $toolLanguages) {
+        if ($language.name -notin $languages) {
+            continue
         }
-    }
-    if ('python' -in $languages) {
-        $uv = Resolve-ToolExecutable -Tool uv
-        $python = Resolve-ToolExecutable -Tool python
-        if ($uv.Found -and $uv.VersionOk -and $python.Found -and $python.VersionOk) {
-            $executables['python'] = $uv.Path
+        # Every tool the entry names must resolve at its locked version; the first one's path is the one the runner takes.
+        $resolved = @(foreach ($tool in $language.tests.tools) {
+                Resolve-ToolExecutable -Tool $tool
+            })
+        if (@($resolved | Where-Object { -not ($_.Found -and $_.VersionOk) }).Count -eq 0) {
+            $executables[$language.name] = $resolved[0].Path
         }
     }
     $executables

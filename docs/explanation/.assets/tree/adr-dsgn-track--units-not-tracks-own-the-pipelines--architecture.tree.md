@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: dbdcfa08afd9
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.tree.md
+    source: docs/explanation/.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly: the tree minimap
 
 ```text

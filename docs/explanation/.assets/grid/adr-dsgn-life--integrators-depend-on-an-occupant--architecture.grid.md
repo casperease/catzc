@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "3d3d7e02f484"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.grid.md
+    source: docs/explanation/.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Upstream integrators depend on the main-UAT occupant, never on the tip of main: the world-map minimap
 
 ```text

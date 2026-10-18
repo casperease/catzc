@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "72768e5c76c3"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.tree.md
+    source: docs/explanation/.assets/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One resolver serves every consumer but the hook, which compiles the same config type: the tree minimap
 
 ```text

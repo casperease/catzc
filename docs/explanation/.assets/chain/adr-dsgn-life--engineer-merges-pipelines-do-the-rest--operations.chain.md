@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: f2b9c4a5699d
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.chain.md
+    source: docs/explanation/.assets/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # An engineer runs the tests and merges; pipelines do the rest: the value-chain minimap
 
 ```text

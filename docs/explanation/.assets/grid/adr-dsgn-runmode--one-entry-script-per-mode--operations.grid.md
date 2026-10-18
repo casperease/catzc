@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "0d9bca9ed9c2"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-runmode--one-entry-script-per-mode--operations.grid.md
+    source: docs/explanation/.assets/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Each run mode has one entry script, and a mixed session throws: the world-map minimap
 
 ```text

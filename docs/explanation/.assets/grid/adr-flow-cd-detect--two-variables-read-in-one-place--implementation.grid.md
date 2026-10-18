@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "22a2a89f360d"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two variables, one reader, 24 callers, and one analyzer rule for every other read: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "992de2911d9e"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-naming--how-each-naming-rule-is-held--governance.grid.md
+    source: docs/explanation/.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Code holds all eight naming rules, seven of them behind a check that throws: the world-map minimap
 
 ```text

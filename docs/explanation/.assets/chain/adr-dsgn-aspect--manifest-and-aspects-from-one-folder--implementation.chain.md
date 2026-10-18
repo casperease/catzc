@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "55573b9835ac"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.chain.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The manifest and the aspects both come from one folder: the value-chain minimap
 
 ```text

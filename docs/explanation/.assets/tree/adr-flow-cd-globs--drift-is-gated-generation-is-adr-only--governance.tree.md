@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "17107c101361"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone: the tree minimap
 
 ```text

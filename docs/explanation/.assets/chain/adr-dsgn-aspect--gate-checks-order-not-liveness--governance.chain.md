@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "585b377a47ba"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.chain.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call: the value-chain minimap
 
 ```text

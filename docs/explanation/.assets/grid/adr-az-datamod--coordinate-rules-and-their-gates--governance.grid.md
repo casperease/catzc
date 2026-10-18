@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: f92bbfac1553
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-datamod--coordinate-rules-and-their-gates--governance.grid.md
+    source: docs/explanation/.assets/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two ADRs rule the coordinate; one shared check and the integrity tests hold them: the world-map minimap
 
 ```text

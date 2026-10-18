@@ -29,6 +29,7 @@ using System.Linq;
 
 namespace Catzc.Base.QualityGates;
 
+// Rests on [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9).
 public sealed class CommentBlock
 {
     public CommentBlockKind Kind { get; }

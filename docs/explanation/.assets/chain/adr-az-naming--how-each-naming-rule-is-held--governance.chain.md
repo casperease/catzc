@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "4ff151bf22ef"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md
+    source: docs/explanation/.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Code holds all eight naming rules, seven of them behind a check that throws: the value-chain minimap
 
 ```text

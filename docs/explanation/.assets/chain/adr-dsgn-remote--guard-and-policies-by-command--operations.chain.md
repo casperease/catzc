@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: ea2d5e30ac87
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-remote--guard-and-policies-by-command--operations.chain.md
+    source: docs/explanation/.assets/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A person turns on the local guard with one variant; an admin syncs the server policies with one command: the value-chain minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "3b2a4c14c09e"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.chain.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A globset is one ordered program, and its three views are derived live, never committed: the value-chain minimap
 
 ```text

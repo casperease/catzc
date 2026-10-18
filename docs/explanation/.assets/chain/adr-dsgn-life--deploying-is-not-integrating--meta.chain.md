@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: bd35fedf20e3
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md
+    source: docs/explanation/.assets/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Deploying a topic commit is not integrating it: the value-chain minimap
 
 ```text

@@ -28,6 +28,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Modules;
 
+// Rests on [ADR-AUTO-MODULE#1](/docs/adr/automation/module-model.md#rule-adr-auto-module1) and [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9).
 public sealed class Module
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

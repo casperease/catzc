@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: f553397d8506
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-life--sync-point-rules-are-adr-only--governance.tree.md
+    source: docs/explanation/.assets/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Only BVT has a gate in code; the sync-point rules are ADR-only: the tree minimap
 
 ```text

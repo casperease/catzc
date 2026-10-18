@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "5d98fcfcd1e5"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.tree.md
+    source: docs/explanation/.assets/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One reverse lookup in Catzc.Azure.Cli hands the session to every module: the tree minimap
 
 ```text

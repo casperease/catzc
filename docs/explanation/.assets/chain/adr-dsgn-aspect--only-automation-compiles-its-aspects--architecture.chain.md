@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8b9193c9d02b"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.chain.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Both tracks' conventions are read, but only the automation track's compiles into globsets: the value-chain minimap
 
 ```text

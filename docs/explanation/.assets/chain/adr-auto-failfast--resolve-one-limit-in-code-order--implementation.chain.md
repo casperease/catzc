@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "11691ece50a8"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.chain.md
+    source: docs/explanation/.assets/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order: the value-chain minimap
 
 ```text

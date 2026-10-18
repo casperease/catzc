@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e578dd32323b
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.md
+    source: docs/explanation/.assets/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The customer CD pipeline builds once, then deploys the prod tier itself: the world-map minimap
 
 ```text

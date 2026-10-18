@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8173fdcd5a66"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.grid.md
+    source: docs/explanation/.assets/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A pipeline pins the subscription it expects; a devbox picks the target with az account set: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8791251d3291"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-conf-addressing--two-test-files-check-the-address-rules--governance.grid.md
+    source: docs/explanation/.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two L0 test files check the address rules; read-only and committed-only rest on convention: the world-map minimap
 
 ```text

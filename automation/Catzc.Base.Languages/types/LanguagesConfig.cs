@@ -40,7 +40,10 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout", "tests" };
+    private static readonly string[] AllowedTestsKeys = { "runner", "tools", "executable", "engine" };
+    private static readonly Regex CommandName = new Regex("^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*$");
+    private static readonly Regex ParameterName = new Regex("^[A-Z][A-Za-z0-9]*$");
     private static readonly string[] AllowedLayoutKeys = { "folder", "role", "extensions", "live", "shipped" };
     private static readonly Regex LayoutFolder = new Regex("^(\\.|[a-z][a-z0-9]*(-[a-z0-9]+)*)$");
     private static readonly Regex LayoutRole = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
@@ -463,8 +466,10 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 
         List<LayoutRow> layoutRows = ReadLayout(name, extensions, entry.Contains("layout") ? entry["layout"] : null, errors);
 
+        LanguageTestRunner tests = ReadTests(name, entry.Contains("tests") ? entry["tests"] : null, errors);
+
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray());
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests);
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
     }
@@ -561,6 +566,77 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         if (row[key] is bool) { return (bool)row[key]; }
         errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].layout: {1} must be true or false", name, key));
         return true;
+    }
+
+    // A language's test runner: a runner command, the parameter its executable binds to, and either the tools that must resolve or the
+    // one engine the tests run under, never both and never neither.
+    private static LanguageTestRunner ReadTests(string name, object value, List<string> errors)
+    {
+        if (value == null) { return null; }
+        IDictionary map = value as IDictionary;
+        string where = string.Format(CultureInfo.InvariantCulture, "languages['{0}'].tests", name);
+        if (map == null)
+        {
+            errors.Add(where + ": must be a map of runner, tools, executable and engine");
+            return null;
+        }
+        int before = errors.Count;
+        foreach (object key in map.Keys)
+        {
+            if (Array.IndexOf(AllowedTestsKeys, Text(key)) < 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: unknown key '{1}' (allowed: {2})", where, Text(key), string.Join(", ", AllowedTestsKeys)));
+            }
+        }
+        string runner = map.Contains("runner") ? Text(map["runner"]) : "";
+        if (!CommandName.IsMatch(runner))
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: runner '{1}' is not a command name (Verb-Noun)", where, runner));
+        }
+        string executable = map.Contains("executable") ? Text(map["executable"]) : "";
+        if (!ParameterName.IsMatch(executable))
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: executable '{1}' is not a parameter name (e.g. GoExecutable)", where, executable));
+        }
+        List<string> tools = new List<string>();
+        if (map.Contains("tools") && map["tools"] != null)
+        {
+            IList list = map["tools"] as IList;
+            if (list == null)
+            {
+                errors.Add(where + ": tools must be a list of tool names (e.g. [uv, python])");
+            }
+            else
+            {
+                foreach (object item in list)
+                {
+                    string tool = Text(item);
+                    if (!LanguageName.IsMatch(tool) && !System.Text.RegularExpressions.Regex.IsMatch(tool, "^[a-z][a-z0-9_]*$"))
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: invalid tool '{1}'", where, tool));
+                    }
+                    else if (tools.Contains(tool))
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: duplicate tool '{1}'", where, tool));
+                    }
+                    else
+                    {
+                        tools.Add(tool);
+                    }
+                }
+            }
+        }
+        string engine = map.Contains("engine") && map["engine"] != null ? Text(map["engine"]) : null;
+        if (engine != null && !LanguageName.IsMatch(engine))
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: invalid engine '{1}'", where, engine));
+        }
+        if ((engine == null) == (tools.Count == 0))
+        {
+            errors.Add(where + ": names either the tools that must resolve or the one engine the tests run under, never both and never neither");
+        }
+        if (errors.Count > before) { return null; }
+        return new LanguageTestRunner(runner, tools.ToArray(), executable, engine);
     }
 
     private static List<string> ReadChecks(string name, object value, List<string> errors)

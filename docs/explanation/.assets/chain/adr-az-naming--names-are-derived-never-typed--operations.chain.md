@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: aae266d5c0df
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-az-naming--names-are-derived-never-typed--operations.chain.md
+    source: docs/explanation/.assets/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Nobody types an Azure name: cats derives it, and a bad name stops with an error: the value-chain minimap
 
 ```text

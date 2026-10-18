@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e1f9af6e27eb
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-failfast--a-stopped-run-names-its-limit--operations.grid.md
+    source: docs/explanation/.assets/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A run past its limit stops with a message that names the limit and where to change it: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "6a61daddb06e"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.tree.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live: the tree minimap
 
 ```text

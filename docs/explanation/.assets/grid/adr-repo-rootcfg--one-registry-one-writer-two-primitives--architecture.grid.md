@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "053012a85a7a"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.grid.md
+    source: docs/explanation/.assets/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One registry, one writer, two write primitives, two kinds of target: the world-map minimap
 
 ```text

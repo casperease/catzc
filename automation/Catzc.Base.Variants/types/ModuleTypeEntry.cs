@@ -24,7 +24,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Variants;
 
-// One module type of the module-types registry: its id, its one-sentence definition, and the places its modules are found in.
+// One module type of the module-types registry: its id, its one-sentence definition, and the places its modules are found in ([ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3)).
 public sealed class ModuleTypeEntry
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

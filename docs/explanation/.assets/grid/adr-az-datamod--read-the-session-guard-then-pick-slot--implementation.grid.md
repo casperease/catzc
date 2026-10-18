@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "2c0617ca5b53"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.grid.md
+    source: docs/explanation/.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Get-BicepDeploymentContext reads the session, guards it, then picks the slot: the world-map minimap
 
 ```text

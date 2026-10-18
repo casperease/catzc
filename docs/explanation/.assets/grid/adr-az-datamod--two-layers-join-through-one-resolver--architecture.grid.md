@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: a9cc1c75dca3
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-datamod--two-layers-join-through-one-resolver--architecture.grid.md
+    source: docs/explanation/.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Templating and identity join through one shared check and one resolver: the world-map minimap
 
 ```text

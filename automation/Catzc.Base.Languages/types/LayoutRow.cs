@@ -28,7 +28,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Languages;
 
-// One row of a module's layout: a folder inside the module and what it holds.
+// One row of a module's layout: a folder inside the module and what it holds ([ADR-AUTO-MODULE#2](/docs/adr/automation/module-model.md#rule-adr-auto-module2); rests on [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6) and [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 public sealed class LayoutRow
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

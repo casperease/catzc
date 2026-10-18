@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e66e4e24cc33
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-runner--a-step-only-names-a-command--meta.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A pipeline step only names a command that a developer can run locally: the world-map minimap
 
 ```text

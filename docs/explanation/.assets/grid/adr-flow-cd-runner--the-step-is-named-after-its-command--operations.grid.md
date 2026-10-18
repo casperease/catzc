@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: ab8446d14937
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The Azure DevOps step is named after its command, and its log echoes the command before it runs: the world-map minimap
 
 ```text

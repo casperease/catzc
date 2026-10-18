@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "321450a98353"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-conf-loading--one-gate-guards-the-read-path--governance.grid.md
+    source: docs/explanation/.assets/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One quality gate guards the config read path, and it checks only the typed step: the world-map minimap
 
 ```text

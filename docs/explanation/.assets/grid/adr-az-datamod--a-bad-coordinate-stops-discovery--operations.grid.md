@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "88a9a36144c3"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.grid.md
+    source: docs/explanation/.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A config file that resolves to no subscription, or to two, stops discovery with one line: the world-map minimap
 
 ```text

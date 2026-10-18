@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "5c0c4e529dda"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.grid.md
+    source: docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two sections of dependencies.yml are unioned into one allow-set per source module: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "657b1e124c3b"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-path--two-crossers-and-three-anchors--architecture.grid.md
+    source: docs/explanation/.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two crossers anchor on two roots, and a published artifact anchors on its artifact root: the world-map minimap
 
 ```text

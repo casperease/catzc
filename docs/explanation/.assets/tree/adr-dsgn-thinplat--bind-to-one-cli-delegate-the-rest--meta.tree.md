@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "95ee7b5311b4"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.tree.md
+    source: docs/explanation/.assets/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Consumers bind to one CLI, and everything behind it is delegated to the vendor: the tree minimap
 
 ```text

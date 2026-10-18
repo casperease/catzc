@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "4bef3421c916"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-az-naming--names-are-derived-never-typed--operations.tree.md
+    source: docs/explanation/.assets/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Nobody types an Azure name: cats derives it, and a bad name stops with an error: the tree minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: fa64f131e526
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-life--merging-to-main-is-what-deploys--operations.grid.md
+    source: docs/explanation/.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Merging to main is what deploys; there is no run that deploys a topic: the world-map minimap
 
 ```text

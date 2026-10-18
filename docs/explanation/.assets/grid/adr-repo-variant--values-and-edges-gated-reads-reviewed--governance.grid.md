@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "30a68b9f7638"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.grid.md
+    source: docs/explanation/.assets/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Values and module edges have a gate; the no-direct-read rule is left to review: the world-map minimap
 
 ```text

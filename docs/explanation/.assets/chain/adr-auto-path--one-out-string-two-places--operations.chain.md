@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e2c8ec642141
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-path--one-out-string-two-places--operations.chain.md
+    source: docs/explanation/.assets/adr-auto-path--one-out-string-two-places--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline: the value-chain minimap
 
 ```text

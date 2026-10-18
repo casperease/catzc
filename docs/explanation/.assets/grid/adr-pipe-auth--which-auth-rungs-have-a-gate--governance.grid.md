@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "80d00608b368"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.grid.md
+    source: docs/explanation/.assets/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The PAT proof and the empty-token assert have no gate: the world-map minimap
 
 ```text

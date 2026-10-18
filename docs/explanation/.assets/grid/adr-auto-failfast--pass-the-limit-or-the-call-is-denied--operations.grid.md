@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "07620c612207"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.grid.md
+    source: docs/explanation/.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A call inside the limit runs; outside it, the hook denies it and says how to re-issue it: the world-map minimap
 
 ```text

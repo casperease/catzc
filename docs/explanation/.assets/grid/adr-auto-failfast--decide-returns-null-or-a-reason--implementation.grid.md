@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e70d61884d33
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.grid.md
+    source: docs/explanation/.assets/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Main loads the limits and the run environment, then Decide returns null or a reason: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "630f2cdaecf7"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The Azure DevOps step is named after its command, and its log echoes the command before it runs: the tree minimap
 
 ```text

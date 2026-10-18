@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "887e344fbc2f"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Three tasks share one guard, and one runner imports, traps, sanitizes and invokes: the world-map minimap
 
 ```text

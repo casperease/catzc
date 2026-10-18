@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "98686292144c"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.tree.md
+    source: docs/explanation/.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none: the tree minimap
 
 ```text

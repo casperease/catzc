@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "033a08d0ece8"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Declare a unit or add a module folder, and the gate names every overlap: the world-map minimap
 
 ```text

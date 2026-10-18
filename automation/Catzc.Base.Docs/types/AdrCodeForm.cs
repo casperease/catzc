@@ -30,6 +30,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Docs;
 
+// Rests on [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1).
 public static class AdrCodeForm
 {
     const int MaxRange = 10000;

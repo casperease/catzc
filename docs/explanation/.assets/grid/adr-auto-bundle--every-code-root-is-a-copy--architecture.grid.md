@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e9576efec768
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-bundle--every-code-root-is-a-copy--architecture.grid.md
+    source: docs/explanation/.assets/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One engine builds the bundle, and every code root is a copy of its output: the world-map minimap
 
 ```text

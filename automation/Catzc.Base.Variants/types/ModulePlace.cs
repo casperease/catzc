@@ -26,6 +26,7 @@ using System.Linq;
 
 namespace Catzc.Base.Variants;
 
+// Rests on [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3).
 public sealed class ModulePlace
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

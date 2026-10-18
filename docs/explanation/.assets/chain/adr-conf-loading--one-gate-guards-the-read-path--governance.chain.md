@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: c824958a13b7
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-conf-loading--one-gate-guards-the-read-path--governance.chain.md
+    source: docs/explanation/.assets/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One quality gate guards the config read path, and it checks only the typed step: the value-chain minimap
 
 ```text

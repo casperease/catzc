@@ -2,7 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "66cc68536cad"
-    with_inputs_sha: "42a7309b38594be6b84dae80546bee83003243071eaad9fd9e7b7e8322826e82"
+    with_inputs_sha: fee8796a467bd852113b1f47d8e01c0b80833f0a11a9e9d1bf1c4e8d686b8622
     repo_status: locked
     path: docs/references/contracts/catzc.md
     source: contracts/catzc

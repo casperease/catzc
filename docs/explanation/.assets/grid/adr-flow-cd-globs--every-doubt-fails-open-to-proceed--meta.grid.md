@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "6c070ef0ca19"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # "Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "80dc46832bb1"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.grid.md
+    source: docs/explanation/.assets/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order: the world-map minimap
 
 ```text

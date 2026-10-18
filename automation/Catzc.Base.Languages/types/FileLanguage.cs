@@ -56,9 +56,13 @@ public sealed class FileLanguage
     // The folders of a module this language owns and what each holds; empty when it owns none.
     public IReadOnlyList<LayoutRow> layout { get; }
 
+    // How the language's test artifacts run, for a language that has them; null for every other language.
+    public LanguageTestRunner tests { get; }
+
     public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,
-        string[] checks, string[] imprint = null, LayoutRow[] layout = null)
+        string[] checks, string[] imprint = null, LayoutRow[] layout = null, LanguageTestRunner tests = null)
     {
+        this.tests = tests;
         this.layout = layout == null ? Array.Empty<LayoutRow>() : (LayoutRow[])layout.Clone();
         this.imprint = imprint == null ? Array.Empty<string>() : (string[])imprint.Clone();
         this.name = name;

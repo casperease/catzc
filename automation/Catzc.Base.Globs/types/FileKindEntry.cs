@@ -25,7 +25,7 @@ using System.Linq;
 
 namespace Catzc.Base.Globs;
 
-// One entry of the file-kinds registry: a kind, or one of its subkinds, with its definition and the globs that select it.
+// One entry of the file-kinds registry: a kind, or one of its subkinds, with its definition and the globs that select it ([ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2)).
 public sealed class FileKindEntry
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

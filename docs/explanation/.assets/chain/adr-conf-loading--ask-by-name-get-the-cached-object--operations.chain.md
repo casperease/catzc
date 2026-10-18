@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "2871ea0c153c"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-conf-loading--ask-by-name-get-the-cached-object--operations.chain.md
+    source: docs/explanation/.assets/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Ask for a config by name and get the cached object back: the value-chain minimap
 
 ```text

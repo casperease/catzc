@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "368416ace013"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.tree.md
+    source: docs/explanation/.assets/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two code roots feed one importer, which loads the same modules: the tree minimap
 
 ```text

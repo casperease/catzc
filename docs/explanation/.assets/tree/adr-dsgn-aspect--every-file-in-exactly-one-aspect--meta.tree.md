@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: d16ce20d5db0
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.tree.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every module file is in exactly one aspect: the tree minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: dc7216cebcf8
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One function answers "am I in a pipeline?", and every branch on context asks it: the tree minimap
 
 ```text

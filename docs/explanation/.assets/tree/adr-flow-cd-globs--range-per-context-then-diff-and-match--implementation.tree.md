@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: f59068963a2b
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Check the name, pick the range per context, then diff git and match the paths: the tree minimap
 
 ```text

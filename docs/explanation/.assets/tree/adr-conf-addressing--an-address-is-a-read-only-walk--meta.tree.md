@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: bd3b8981defa
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-conf-addressing--an-address-is-a-read-only-walk--meta.tree.md
+    source: docs/explanation/.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A config address is a read-only walk over the one cached config, never a second reader: the tree minimap
 
 ```text

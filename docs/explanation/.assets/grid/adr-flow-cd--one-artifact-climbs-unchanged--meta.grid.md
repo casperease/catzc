@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "7d2714d534b3"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd--one-artifact-climbs-unchanged--meta.grid.md
+    source: docs/explanation/.assets/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One artifact is built once and climbs to production unchanged: the world-map minimap
 
 ```text

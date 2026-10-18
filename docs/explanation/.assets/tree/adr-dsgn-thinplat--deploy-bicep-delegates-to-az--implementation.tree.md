@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "6a5b29f0b0a3"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.tree.md
+    source: docs/explanation/.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az: the tree minimap
 
 ```text

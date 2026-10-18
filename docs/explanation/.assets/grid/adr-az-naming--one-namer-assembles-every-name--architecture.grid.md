@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e91e16619f16
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-naming--one-namer-assembles-every-name--architecture.grid.md
+    source: docs/explanation/.assets/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One resolver gathers the components and one namer assembles every Azure name: the world-map minimap
 
 ```text

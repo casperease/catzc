@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "4398cdd79f5d"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.chain.md
+    source: docs/explanation/.assets/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Five keys, one private reader, twelve exported primitives: the value-chain minimap
 
 ```text

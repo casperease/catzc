@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "5f8a6857fdce"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.grid.md
+    source: docs/explanation/.assets/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One reverse lookup in Catzc.Azure.Cli hands the session to every module: the world-map minimap
 
 ```text
