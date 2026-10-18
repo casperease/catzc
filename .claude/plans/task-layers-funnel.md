@@ -30,9 +30,14 @@ first; C# edits need a fresh pwsh.
        through `Get-CatzcModulesRoot` relative to the root, finds the overlay with it and writes the shim's two `{{modules-folder}}` places
        from it, so the shim spells no folder of its own. The shim it renders equals the committed `importer.ps1`; New-Importer 9/9,
        Write-ImporterMessage 5/5, `GENERATED issues=0`, `ANALYZER issues=0` on both files.
-2. The Bash hook keeps its own constant (`BashSafeguard.ConfigRelativePath` and the csproj, no importer there); try the csproj change on a
-   copy first and confirm the layers doctrine's edge fact before touching the real one. Check: the hook builds; a denied call is still
-   logged to out/time-safeguard.log.
+2. [x] Done 2026-10-18. `BashSafeguard.ConfigModulePath` is module-relative, and `BashSafeguard.FindConfig` finds the one top-level folder
+       of the repository that holds it (one level only, so a built bundle under out/ is never read; none or two throw, and the hook denies).
+       The hook csproj names `$(CatzcModulesFolder)`, which Build-BashTimeoutHook passes from `Get-CatzcModulesFolder` and substitutes when
+       it hashes the linked sources; a build without it stops with an error. Checked on a copy first: published to out/hook-check/bin, the
+       hook allows a compliant call and denies a 999999 ms one; BashSafeguard 45 tests, Build-BashTimeoutHook 14/14. The live hook
+       republishes on the next import. Original step: The Bash hook keeps its own constant (`BashSafeguard.ConfigRelativePath` and the
+       csproj, no importer there); try the csproj change on a copy first and confirm the layers doctrine's edge fact before touching the
+       real one. Check: the hook builds; a denied call is still logged to out/time-safeguard.log.
 3. [x] (PowerShell code; the C# constants are open) Done 2026-10-18 from the guard's worklist, 49 code files: each site reads
        `Get-CatzcModulesRoot`, `Get-CatzcModuleRoot`, or the new `Get-CatzcModulesFolder` (Catzc.Base.Repository: the modules root relative
        to the repository root, throwing outside the source tree; help page, 3 tests, a Division row). A function given a root (a fixture, a
@@ -41,11 +46,13 @@ first; C# edits need a fresh pwsh.
        their reason in `track_root_literal`: the bootstrap constant, `Get-CatzcModulesRoot`, `Get-CatzcRunMode` (it compares against the
        source folder), and the three Exporter files whose `out/automation/{built,packages}` areas are named after the track (Q6, renamed
        with output-formats.yml in P4). The re-run guard leaves one code file: `automation/Catzc.Base.RootConfig/assets/root/importer.ps1`,
-       an orphan template nothing reads (rootconfig.yml builds importer.ps1 with New-Importer), listed for the user's delete. Open: the C#
-       constants (`GlobsConfig.ConfigPath`, `CommentsConfig`, the `CliRunner` message, `BashSafeguard`), which the analyzer does not see.
-       Original step: Registry bypasses (worklist section 4, about 45 sites): move each onto `Get-CatzcModulesRoot` or `Get-Track`, one file
-       per step with its test; C# constants such as `GlobsConfig.ConfigPath` read the track root through the config type's resolver where
-       one exists (`AdrsConfig` is S3 and stays). Check: that file's Pester file; a grep of the literal in the file finds nothing.
+       an orphan template nothing reads (rootconfig.yml builds importer.ps1 with New-Importer), listed for the user's delete. The C#
+       constants the analyzer does not see: `GlobsConfig.ConfigPath` and the `CliRunner` and Catzc.Types.csproj messages name the module,
+       not the folder (GlobsConfig 24/24, CliRunner 12/12); `CommentsConfig.DefaultPages` keeps `automation/*` because it mirrors
+       comments.yml, which P4 renames in the same edit (a P4 item, with its tests in types/CommentsConfig.Tests.ps1). Original step:
+       Registry bypasses (worklist section 4, about 45 sites): move each onto `Get-CatzcModulesRoot` or `Get-Track`, one file per step with
+       its test; C# constants such as `GlobsConfig.ConfigPath` read the track root through the config type's resolver where one exists
+       (`AdrsConfig` is S3 and stays). Check: that file's Pester file; a grep of the literal in the file finds nothing.
 4. (in progress 2026-10-18, module by module, the user's choice) Done and green, guard 0 per file: Azure, Azure.Cli, Azure.Firewall,
    CodeMeta, ConfigExtensions, Languages, RootConfig, TypesSystem, Vendor, Tooling.Github, Tooling.KeyHandler, Files, Git, ModuleSystem,
    Objects, Contracts, Globs, Repository's path tests, Azure.Templates (26), Docs (16), QualityGates (52), .scriptanalyzer, .internal. The

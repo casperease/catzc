@@ -1,0 +1,2 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Assert-DevBoxToolsStatus, which throws unless every
+# tool is available at its locked version; it takes no parameters.

@@ -32,7 +32,8 @@ function Sync-AdoEnvironmentApprovals {
         Assert-NotNull $environment -ErrorText "Environment '$name' does not exist in $Organization/$Project. A CD run creates it on its first deploy, or create it in Azure DevOps."
 
         $checks = @(Invoke-AdoRestMethod -Uri "$apiBase/pipelines/checks/configurations?resourceType=environment&resourceId=$($environment.id)&`$expand=settings&api-version=7.1-preview.1")
-        $existing = $checks | Where-Object { "$($_.type.id)" -eq $approvalTypeId } | Select-Object -First 1
+        $existing = $checks | Where-Object { $null -ne $_ -and $_.PSObject.Properties['type'] -and "$($_.type.id)" -eq $approvalTypeId } |
+            Select-Object -First 1
 
         $desired = @{
             type     = @{ id = $approvalTypeId; name = 'Approval' }

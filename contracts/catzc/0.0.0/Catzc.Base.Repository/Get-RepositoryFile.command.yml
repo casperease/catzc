@@ -1,0 +1,5 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Get-RepositoryFile, which returns the full, normalized
+# path to a file relative to the repository root.
+parameters:
+  Path: string!
+output: string

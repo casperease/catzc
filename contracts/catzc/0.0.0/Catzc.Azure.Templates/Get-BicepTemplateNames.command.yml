@@ -1,0 +1,3 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Get-BicepTemplateNames, which returns the names of all
+# discovered Bicep templates; it takes no parameters.
+output: string[]

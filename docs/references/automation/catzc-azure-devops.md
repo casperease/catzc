@@ -69,8 +69,8 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                                               | `New-AdoPullRequest`             |
 |                                                               | `Register-AdoPipeline`           |
 |                                                               | `Get-AdoPipelineDefinitions`     |
-|                                                               | `Sync-AdoEnvironmentApprovals` |
-| config                                                        | `environment-approvals.yml` |
+|                                                               | `Sync-AdoEnvironmentApprovals`   |
+| config                                                        | `environment-approvals.yml`      |
 | responsibility:3 — Pipeline YAML discovery and classification | `Get-AdoYamlFiles`               |
 |                                                               | `Get-AdoYamlInventory`           |
 |                                                               | `Test-Pipelines`                 |

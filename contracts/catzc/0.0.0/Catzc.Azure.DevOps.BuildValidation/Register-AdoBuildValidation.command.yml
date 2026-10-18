@@ -1,0 +1,11 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Register-AdoBuildValidation, which creates or updates
+# the build-validation branch policy tied to a globset. Branch, Project, Organization and RepositoryName default to the configured
+# values, computed defaults the contract does not restate; DryRun reports the change instead of making it.
+parameters:
+  GlobSet: string!
+  Pipeline: string
+  Branch: string
+  Project: string
+  Organization: string
+  RepositoryName: string
+  DryRun: switch

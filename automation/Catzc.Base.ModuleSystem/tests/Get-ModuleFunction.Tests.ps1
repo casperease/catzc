@@ -1,4 +1,4 @@
-Describe 'Get-AutomationFunctions' -Tag 'L0', 'logic' {
+Describe 'Get-ModuleFunction' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
             [Catzc.Base.Modules.Module]::new('Catzc.Base.Widget', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Catzc.Base.Widget', 'folder', $null, $null, $null, $null)
@@ -14,26 +14,26 @@ Describe 'Get-AutomationFunctions' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'lists the exported functions of the loaded automation modules only, sorted' {
-        $functions = @(Get-AutomationFunctions -AutomationRoot $TestDrive)
+    It 'lists the exported functions of the loaded catzc modules only, sorted' {
+        $functions = @(Get-ModuleFunction -ModulesRoot $TestDrive)
         $functions.Function | Should -Be @('Get-Gadget', 'Set-Gadget')
         $functions.Module | Should -Not -Contain 'Foreign.Module'
     }
 
     It 'takes the module list from the resolver, for the code track' {
-        Get-AutomationFunctions | Out-Null
+        Get-ModuleFunction | Out-Null
         Should -Invoke Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $TrackType -contains 'modules' }
     }
 
-    It 'with -NotUsedInternally drops the functions another automation function calls' {
+    It 'with -NotUsedInternally drops the functions another catzc function calls' {
         Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.Repository
-        (Get-AutomationFunctions -NotUsedInternally -AutomationRoot $TestDrive).Function | Should -Be 'Get-Gadget'
+        (Get-ModuleFunction -NotUsedInternally -ModulesRoot $TestDrive).Function | Should -Be 'Get-Gadget'
     }
 
     It 'lists the loaded functions in build mode, but -NotUsedInternally stops with a named error there' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
-        @(Get-AutomationFunctions -AutomationRoot $TestDrive).Count | Should -Be 2
-        { Get-AutomationFunctions -NotUsedInternally -AutomationRoot $TestDrive } |
-            Should -Throw '*Get-AutomationFunctions operates on the catzc source tree*'
+        @(Get-ModuleFunction -ModulesRoot $TestDrive).Count | Should -Be 2
+        { Get-ModuleFunction -NotUsedInternally -ModulesRoot $TestDrive } |
+            Should -Throw '*Get-ModuleFunction operates on the catzc source tree*'
     }
 }

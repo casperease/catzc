@@ -102,7 +102,7 @@ The module's public functions and configuration files, sorted into the responsib
 
 | Responsibility                                    | Function                            |
 | ------------------------------------------------- | ----------------------------------- |
-| responsibility:1 — Function enumeration           | `Get-AutomationFunctions`           |
+| responsibility:1 — Function enumeration           | `Get-ModuleFunction`                |
 | responsibility:2 — Dependency graph and integrity | `Get-ModuleDependency`              |
 |                                                   | `Get-ModuleDependencyEdges`         |
 |                                                   | `ConvertTo-ModuleDependencyDiagram` |

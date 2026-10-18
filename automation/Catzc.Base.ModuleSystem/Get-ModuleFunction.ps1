@@ -1,7 +1,7 @@
-function Get-AutomationFunctions {
+function Get-ModuleFunction {
     param(
         [switch] $NotUsedInternally,
-        [string] $AutomationRoot = (Get-CatzcModulesRoot)
+        [string] $ModulesRoot = (Get-CatzcModulesRoot)
     )
 
     if ($NotUsedInternally) {
@@ -23,7 +23,7 @@ function Get-AutomationFunctions {
     }
 
     if ($NotUsedInternally) {
-        $called = Get-FunctionDependency -AutomationRoot $AutomationRoot |
+        $called = Get-FunctionDependency -AutomationRoot $ModulesRoot |
             ForEach-Object { $_.TargetFunction } |
             Sort-Object -Unique
         $functions = $functions | Where-Object { $_.Function -notin $called }

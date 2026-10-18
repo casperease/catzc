@@ -1,0 +1,2 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Clear-GlobSetProtection, which drops every recorded
+# glob protection so the next run of every protected scan scans in full; it takes no parameters.
