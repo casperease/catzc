@@ -59,8 +59,9 @@ uses a type should never pay the load or hold the shadow copy.
 - [x] Phase 1 metadata verification (`Test-TypesAssemblyContent`, 8 L0 tests).
 - [x] Phase 2 manifest (`Catzc.Types.d9f7209b.json` beside the DLL in `.compiled`; Get/Write-TypesAssemblyManifest tests).
 - [x] Phase 3 deferred load (`Register-DeferredTypes`, `Initialize-Types`, `Enable-DeferredTypesLoad`; Initialize-Types tests).
-- [ ] Phase 3 leftovers: console prompt hook; decision on source-console janitors (below) (check: D09 is recorded here and, if it says
-      "after the first prompt", the hook's test passes). 2026-10-17 (lazy task): the "not loaded after import" proof lives in
+- [x] Phase 3 leftovers: console prompt hook; decision on source-console janitors (below) (check: D09 is recorded here and, if it says
+      "after the first prompt", the hook's test passes). Done 2026-10-18 (task-lazy-types-load steps 1 and 2): `Enable-DeferredJanitors` in
+      the Loader, `[Invoke-TestFile] Passed`; a fresh console import 3.5 s to 2.3 s, the janitors paid at the second prompt. 2026-10-17 (lazy task): the "not loaded after import" proof lives in
       `Import-CSharpTypes.Tests.ps1` with `-HostKind console`, since a test run is headless and eager by the policy; no prompt hook exists,
       it is the D09 branch. Decided 2026-10-18 (D09): the janitors run after the first prompt; the hook and its test are
       task-lazy-types-load steps 1 and 2.
