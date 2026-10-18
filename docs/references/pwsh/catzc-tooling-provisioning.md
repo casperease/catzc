@@ -55,7 +55,7 @@ order and dispatches each key by name to the install function whose name it deri
 provides are checked and skipped before the dispatch. Its [description](.assets/tools-yml-install-dispatch/diagram.drawio.md)
 walks it step by step.
 
-![tools.yml is the one locked list; dispatch is by key name](../.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png)
+![tools.yml is the one locked list; dispatch is by key name](.assets/tools-yml-install-dispatch/diagram.drawio.png)
 
 ## Division
 

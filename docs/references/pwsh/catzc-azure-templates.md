@@ -88,9 +88,9 @@ az session against `azure.yml`. A dry run stops at the what-if; otherwise the de
 [template discovery](.assets/bicep-template-is-a-folder/diagram.drawio.md) and
 [deployment](.assets/bicep-deploy-one-immutable-context/diagram.drawio.md).
 
-![A template is a folder; options.yml overrides five defaults](../.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png)
+![A template is a folder; options.yml overrides five defaults](.assets/bicep-template-is-a-folder/diagram.drawio.png)
 
-![One immutable context, resolved from the az session](../.assets/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png)
+![One immutable context, resolved from the az session](.assets/bicep-deploy-one-immutable-context/diagram.drawio.png)
 
 ## Division
 

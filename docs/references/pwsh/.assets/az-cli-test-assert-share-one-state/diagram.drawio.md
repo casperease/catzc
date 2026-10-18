@@ -6,7 +6,7 @@ Glyphs: 7 code units, 2 named sets, 1 external tool, 1 catzc module frame; 11 fl
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](../../../.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png) draws from the
+This describes what the [diagram](diagram.drawio.png) draws from the
 source of the `Catzc.Azure.Cli` module. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance

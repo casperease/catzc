@@ -6,7 +6,7 @@ Glyphs: 7 code units, 3 C# types, 2 catzc module frames; 11 flow edges; 8 marker
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](../../../.assets/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png) draws from
+This describes what the [diagram](diagram.drawio.png) draws from
 the source of the `Catzc.Azure.Templates` module. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance

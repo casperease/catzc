@@ -75,7 +75,7 @@ globset hash matches the hash recorded after its last green run in this session.
 promoted only after a green result. In a pipeline nothing is skipped. Its
 [description](.assets/protected-module-skip-by-hash/diagram.drawio.md) walks it step by step.
 
-![Skip a module only if its folded hash matches its last green](../.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png)
+![Skip a module only if its folded hash matches its last green](.assets/protected-module-skip-by-hash/diagram.drawio.png)
 
 ## Division
 

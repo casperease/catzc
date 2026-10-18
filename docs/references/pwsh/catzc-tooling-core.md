@@ -91,7 +91,7 @@ The diagram below draws tool invocation from the source. Every tool wrapper asse
 tool. The assertion either probes for the executable or checks the command and reads its version. The query form shares the same pieces. Its
 [description](.assets/invoke-tool-asserts-locked-version/diagram.drawio.md) walks it step by step.
 
-![Each Invoke-Tool wrapper asserts the locked version before it runs](../.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png)
+![Each Invoke-Tool wrapper asserts the locked version before it runs](.assets/invoke-tool-asserts-locked-version/diagram.drawio.png)
 
 ## Division
 

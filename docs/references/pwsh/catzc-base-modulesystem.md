@@ -94,7 +94,7 @@ each profile. The graph observed from the parsed code is checked against it for 
 [description](.assets/module-graph-declared-vs-observed/diagram.drawio.md) walks it step by step, including the one place the test
 order falls back instead of failing.
 
-![Declared graph orders and closes; observed graph is checked](../.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png)
+![Declared graph orders and closes; observed graph is checked](.assets/module-graph-declared-vs-observed/diagram.drawio.png)
 
 ## Division
 

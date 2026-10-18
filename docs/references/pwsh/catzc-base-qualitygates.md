@@ -115,7 +115,7 @@ and checks their tags before any run directory exists, then splits the files int
 that are already protected, and derives one verdict. A `finally` stamps the run's `run.json` record on every exit from the run. Its
 [description](.assets/test-automation-one-run-pipeline/diagram.drawio.md) walks it step by step.
 
-![One discovery feeds three phases; finally stamps run.json](../.assets/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png)
+![One discovery feeds three phases; finally stamps run.json](.assets/test-automation-one-run-pipeline/diagram.drawio.png)
 
 ## Division
 

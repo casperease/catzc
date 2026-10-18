@@ -48,7 +48,7 @@ function Test-Pipelines {
 
         # A parse failure is itself a violation — a pipeline that ADO cannot read is not compliant.
         if ($record.ParseError) {
-            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME:parse' -Message "YAML failed to parse: $($record.ParseError)"))
+            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME' -Message "YAML failed to parse: $($record.ParseError)"))
             continue
         }
 

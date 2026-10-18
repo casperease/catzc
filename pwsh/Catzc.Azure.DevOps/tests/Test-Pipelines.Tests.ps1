@@ -113,7 +113,7 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
 
     It 'reports a parse failure as its own violation' {
         $script:records = @((Rec 'ci-broken.yaml' -Classification 'Unknown' -ParseError 'bad indent at line 4'))
-        Get-Issues | Should -Match 'ADR-PIPE-NAME:parse'
+        Get-Issues | Should -BeLike '`[ADR-PIPE-NAME`] pipelines/ci-broken.yaml: YAML failed to parse: bad indent at line 4'
     }
 }
 

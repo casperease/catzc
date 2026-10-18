@@ -6,7 +6,7 @@ Glyphs: 1 code unit, 4 private helpers, 1 C# type, 2 files, 1 gate, 1 failure; 7
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](../../../.assets/automation/catzc-base-config/get-config-merge-seal-type.drawio.png) draws from the source of
+This describes what the [diagram](diagram.drawio.png) draws from the source of
 the `Catzc.Base.Config` module. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance

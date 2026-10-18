@@ -85,7 +85,7 @@ executable's time limit from `timeouts.yml`, and kills the process tree when the
 the command to the console with no time limit. Its [description](.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md)
 walks it step by step.
 
-![Invoke-Executable: only the streamed path is time-bounded](../.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png)
+![Invoke-Executable: only the streamed path is time-bounded](.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.png)
 
 ## Division
 

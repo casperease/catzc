@@ -32,6 +32,14 @@ listed for deletion.
 - [x] `docs/adr/design/.assets/new-design-stack.drawio.png`: no tracked file names it, so it has no page to sit beside and no line in the
       script (check: the slide is gone, or its page embeds it and the script holds its line with a clean dry run). Decided by the user
       2026-10-18: delete it; its `git rm` line is in `out/delete-done-plans.ps1` for the user's run.
-- [ ] The user runs `out/move-rest-diagrams.ps1` (it stages `git mv`) (check: `git ls-files 'docs/.assets/*/*.drawio.png'` lists nothing).
-- [ ] `Build-Diagrams -Path` on each new folder, one at a time (check: all stages clean on each; Test-Links over docs/ clean).
+- [x] The user runs `out/move-rest-diagrams.ps1` (it stages `git mv`) (check: `git ls-files 'docs/.assets/*/*.drawio.png'` lists nothing).
+      Done 2026-10-18 by the user (`out/run-user-git.ps1`): the check lists 0 files.
+- [ ] `Build-Diagrams -Path` on each new folder, one at a time (check: all stages clean on each; Test-Links over docs/ clean). Run
+      2026-10-18 (`out/build-rest-folders.ps1`): the 11 reference folders under `docs/references/pwsh/.assets/` "prepare=clean
+      highlight=clean join=clean"; Test-Links over docs/ issues=0 after the 22 links into the old `docs/references/.assets/automation/`
+      path were re-pointed (`out/test-links/20261018-200355`). Blocked on five slides whose model has no subtitle cell, the one warning
+      each ("warn W_SUBTITLE …: the model has no subtitle cell", prepare=warnings, every artifact delivered):
+      `docs/adr/azure/.assets/azure-name-assembly`, `docs/explanation/design/.assets/10-commits-story`,
+      `docs/adr/design/.assets/commit-lifecycle-states`, `docs/explanation/design/.assets/state-changes`,
+      `docs/adr/design/.assets/sync-point`. Adding a cell is diagram work for the user to ask for.
 - [ ] Delete this plan (check: no file in .claude/plans names it).

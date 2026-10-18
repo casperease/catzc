@@ -6,7 +6,7 @@ Glyphs: 6 code units, 1 private helper, 1 named set, 1 file, 1 catzc module fram
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](../../../.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png) draws from the
+This describes what the [diagram](diagram.drawio.png) draws from the
 source of the `Catzc.Tooling.Core` module. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance

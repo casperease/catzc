@@ -28,7 +28,9 @@ links into it must move with it (ADR-PRIN-ONELIVE).
 - [x] The user runs `git mv docs/references/.assets/automation docs/references/.assets/pwsh` (a mutating git command; it belongs in
       task-user-runs-and-commits step 5, its references asset bullet). (check: `ls docs/references/.assets/automation` fails) Done
       2026-10-18 by the user (`out/run-user-git.ps1`): "ls: cannot access 'docs/references/.assets/automation': No such file or directory".
-- [ ] Every page that links into the moved folder is re-pointed by `link-fixer`, after the move. (check: `Test-Links` clean over `docs/`)
+- [x] Every page that links into the moved folder is re-pointed by `link-fixer`, after the move. (check: `Test-Links` clean over `docs/`)
+      Done 2026-10-18: 22 links re-pointed one file at a time (11 module reference pages to `.assets/<slide>/diagram.drawio.png`, 11
+      slide description pages to `diagram.drawio.png`); "TEST-LINKS docs issues=0" (`out/test-links/20261018-200355`).
 
 ## Refs
 
