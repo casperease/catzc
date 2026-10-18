@@ -1,6 +1,9 @@
 renderer:
   page: dark # dark | model. dark: every render sits on the dark page (STYLE.md tokens); model: the model's own background, white allowed. Parameter: --page
   out: out/drawio # where drawio_forward.py lands its artifacts when no <out_dir> argument is given
+  role: slide # a diagram folder's role when roles: names none. slide: its subtitle says `<codes> · <lens>`; legend: it names no ADR and has no subtitle
+roles: # a diagram folder's role, keyed by its repository path, only where it is not renderer.role
+  docs/explanation/.assets/glyphs: legend # the glyph library, the legend every slide's glyphs come from
 lenses: # the closed set of lenses a slide's subtitle may end with (`<codes> · <lens>`), each with the badge its grid minimap prints
   meta: META
   architecture: ARCH

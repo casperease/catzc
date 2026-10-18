@@ -125,29 +125,6 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the blocking watchpoints (-DiagnoseBlocking)' {
-        BeforeEach {
-            $script:steps = [System.Collections.Generic.List[string]]::new()
-            Mock Watch-Blocking -ModuleName Catzc.Base.QualityGates { $script:steps.Add('wait') }
-            Mock Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates {
-                $script:steps.Add('workers')
-                [pscustomobject]@{
-                    Rows = @([pscustomobject]@{ Result = 'Passed'; Level = 'L0'; DurationMs = 1 }); Files = @()
-                    FailedShardLabels = @(); ShardExitCodes = @{}; DurationSeconds = 0.1; Shards = @(); WorkerSummaries = @(); Location = $null
-                }
-            }
-        }
-
-        # The measured run found no block, so no watchpoint stands; the switch stays for the next suspected block.
-        It 'accepts the switch and stands no watchpoint, with it or without it' {
-            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false; DiagnoseBlocking = $true } | Out-Null
-            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false } | Out-Null
-
-            Should -Invoke Watch-Blocking -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
-            $script:steps -join ',' | Should -Be 'workers,workers'
-        }
-    }
-
     Context 'the location decides the top tier (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE)' {
         It 'runs every tier, L3 included, in place by default' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null

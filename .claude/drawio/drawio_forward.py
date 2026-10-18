@@ -60,6 +60,7 @@ REPO = KIT.parents[1]
 ADR_CODE = re.compile(r"(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
 NUMBERED = re.compile(r"(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")
 SLIDE = "diagram.drawio.png"  # a diagram folder's slide; its minimaps are <view>.png and <view>.md beside it
+ROLES = ("slide", "legend")  # the closed set of diagram-folder roles drawio.yml may name
 
 
 def normalise(text):
@@ -132,6 +133,24 @@ def slide_facts(model):
             f"the subtitle cites a rule by number, a rule is cited by its name (ADR-REPO-ADRCODE): {subtitle!r}"
         )
     return adrs_of(subtitle), lens, problems
+
+
+def folder_role(folder):
+    """A diagram folder's role: its entry under drawio.yml roles:, keyed by repository path, else renderer.role."""
+    path = str(Path(folder).resolve().relative_to(REPO)).replace("\\", "/")
+    role = DEFAULTS.get("roles", {}).get(path, DEFAULTS["renderer"]["role"])
+    if role not in ROLES:
+        raise ValueError(f"drawio.yml gives {path} the role '{role}', not one of {', '.join(ROLES)}")
+    return role
+
+
+def subtitle_facts(folder, model):
+    """slide_facts for a slide, with each problem as a W_SUBTITLE warning; a legend names no ADR and carries no subtitle, so it has none."""
+    if folder_role(folder) == "legend":
+        return [], None, []
+    adrs, lens, problems = slide_facts(model)
+    path = str(Path(folder).resolve().relative_to(REPO)).replace("\\", "/")
+    return adrs, lens, [f"W_SUBTITLE {path}: {p}" for p in problems]
 
 
 def known_adrs():
@@ -305,8 +324,8 @@ def bulk(root, stage, migrate, start, end):
         for f in folders:
             if not model_of(f).is_file():
                 continue
-            adrs, lens, problems = slide_facts(model_of(f).read_text(encoding="utf-8"))
-            warnings += [f"W_SUBTITLE {rel(f)}: {p}" for p in problems]
+            adrs, lens, subtitle_warnings = subtitle_facts(f, model_of(f).read_text(encoding="utf-8"))
+            warnings += subtitle_warnings
             if not adrs or lens is None:
                 skipped.append(rel(f))
                 continue

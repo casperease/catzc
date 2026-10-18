@@ -55,7 +55,8 @@ kills the child process tree at its executable's limit. In-process work runs as 
 In pwsh, the watchpoint of ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND is a `Watch-Blocking` call behind the entry's `-DiagnoseBlocking` switch,
 `if ($DiagnoseBlocking) { Watch-Blocking }`, standing where a writer exists, after the modules load. It writes its ticks and one closing
 `Write-Message -Warning` line, and throws only for an invalid argument. Once its run is read the call is deleted: a block it found is
-bounded through `Invoke-WithTimeout` with a `timeouts.yml` limit, and the switch stays.
+bounded through `Invoke-WithTimeout` with a `timeouts.yml` limit. An entry carries `-DiagnoseBlocking` only while a watchpoint stands
+behind it: the switch is added together with the watchpoint and deleted with the last one.
 
 - [Standing a watchpoint](#standing-a-watchpoint)
 
@@ -153,7 +154,7 @@ a condition, each with no limit of its own, is the unbounded wait the rule exist
 
 ### Standing a watchpoint
 
-A suspected block in a startup gets one line where it is suspected, behind the switch the entry already carries:
+A suspected block in a startup gets one line where it is suspected, behind a `-DiagnoseBlocking` switch the same change adds to the entry:
 
 ```powershell
 Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot
@@ -165,7 +166,9 @@ if ($DiagnoseBlocking) {
 `Watch-Blocking` holds the thread for its configured duration (the `wait` keys of `timeouts.yml`, one second by default) in ten ticks and
 writes each tick through `Write-Message`: when it was due, when it ran, and how late. Its closing line is `Write-Message -Warning`, not the
 `Write-Warning` cmdlet, because the importer makes warnings stop the session and a watchpoint must let go. A free thread runs each tick a
-few milliseconds late, the timer's resolution; a held one misses the schedule. The call stands for one measured run and is deleted after it.
+few milliseconds late, the timer's resolution; a held one misses the schedule. The call stands for one measured run and is deleted after it,
+and the switch with it when no other watchpoint stands behind it: a switch nothing reads is a parameter the analyzer reports as unused,
+and one living version keeps no parameter for a future use.
 
 ## Decision
 
@@ -173,7 +176,8 @@ In pwsh, assumptions are asserted with the `Assert-*` functions: input guards di
 after an external call, never an inline `if`/`throw` for a precondition, and never a `try`/`catch` around an assertion outside a test. A
 function that bounds its own long work declares its limit with the `TimeLimit` attribute and reads it through `Get-TimeoutSeconds`. A native
 tool is bounded by `Invoke-Executable`, and in-process work by passing it as a script block to `Invoke-WithTimeout` or its assertion and
-test forms. A suspected block is found with a `Watch-Blocking` call behind `-DiagnoseBlocking`, deleted once its run is read.
+test forms. A suspected block is found with a `Watch-Blocking` call behind a `-DiagnoseBlocking` switch added with it, both deleted once
+its run is read.
 
 ### How this is enforced
 

@@ -41,7 +41,15 @@ into its folder. Carried from plan-diagram-folders, which is done and listed for
       ("warn W_SUBTITLE …: the model has no subtitle cell", prepare=warnings, every artifact delivered):
       `docs/adr/azure/.assets/azure-name-assembly`, `docs/explanation/design/.assets/10-commits-story`,
       `docs/adr/design/.assets/commit-lifecycle-states`, `docs/explanation/design/.assets/state-changes`,
-      `docs/adr/design/.assets/sync-point`. Adding a cell is diagram work for the user to ask for.
+      `docs/adr/design/.assets/sync-point`. Decided by the orchestrator (delegated): each is migrated to the dark tokens with the
+      sidebar and an ADR-level subtitle, numbered citations named from the slug map. Landed 2026-10-18 by catzc-a2 for sync-point,
+      commit-lifecycle-states and azure-name-assembly: "prepare 0 clean, highlight 0 clean, join 0 clean", 0 W_ lines each, every
+      numbered citation named (4, 8 and 7), only the title moved to make room, long citations broken onto their own line, two boxes in
+      azure-name-assembly widened; each raster read in the dark theme with nothing overlapping that the light original did not. Open:
+      10-commits-story and state-changes, which the kit's Pillow renderer cannot draw faithfully (curved and in-group edges, flexArrow
+      push/pull arrows, the gate lines and span arrows of the top lane): a migration through it drops their arrows, so both stay light
+      with W_SUBTITLE and W_JOIN until a renderer draws them or the user accepts the loss. HEAD (7010cea99) holds a lossy migrated
+      state-changes, and the working tree its light original.
 - [x] Numbered citations left in 12 slide models outside docs/explanation (the widened `out/scan-numbered-models.py`: the glyph legend
       `docs/explanation/.assets/glyphs` and the 11 `docs/references/pwsh/.assets/*` slides), re-cited the way step 6 of the code language
       did: named rules, chips on slide-local keys with a legend naming each rule (check: Build-Diagrams -Path clean on each; the scan
@@ -51,5 +59,10 @@ into its folder. Carried from plan-diagram-folders, which is done and listed for
       cites ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE. "Build-Diagrams -Path all stages clean on the 11 reference folders, 0 W_ lines, 0 other
       cells changed (out/b4-chips/celldiff.py); the glyph legend all stages done, prepare with its known W_SUBTITLE (it has no subtitle
       cell, and a standard one at y 44 overlaps its first band at y 56, so none was added), 0 other cells changed; out/scan-numbered-models.py:
-      SCANNED 166 folders, 0 with hits, 0 numbered codes, 0 chip labels".
+      SCANNED 166 folders, 0 with hits, 0 numbered codes, 0 chip labels". Then, decided by the orchestrator (configure, don't program): the
+      glyph legend is a legend, not a slide. `.claude/drawio/drawio.yml` declares `renderer.role: slide` once and a `roles:` map naming
+      `docs/explanation/.assets/glyphs: legend`; `folder_role` in `drawio_forward.py` reads it and `subtitle_facts` raises no W_SUBTITLE for a
+      legend. "kit pytest: 25 passed (three new cases: a legend without a subtitle has no warning, a slide without one is warned, a role
+      outside the closed set is refused); Build-Diagrams -Path docs/explanation/.assets/glyphs prepare=clean highlight=clean join=clean, 0 W_
+      lines; tools-yml-install-dispatch prepare=clean highlight=clean join=clean".
 - [ ] Delete this plan (check: no file in .claude/plans names it).

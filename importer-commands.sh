@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "03e4f18ea8c8"
+#     with_body_sha: aff4b5a2e8b8
 #     repo_status: locked
 #     path: importer-commands.sh
 #     source: contracts/catzc/0.0.0
@@ -154,7 +154,6 @@ Test-Automation	Suite	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates
 Test-Automation	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
 Test-Automation	Isolated	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
 Test-Automation	KeepSandbox	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
-Test-Automation	DiagnoseBlocking	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
 Test-AzureNetworkPlan	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Azure/Test-AzureNetworkPlan.command.yml		
 Test-AzureNetworkPlan	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Azure/Test-AzureNetworkPlan.command.yml		
 Test-BuildArtifact	Module	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-BuildArtifact.command.yml		

@@ -130,3 +130,39 @@ def test_a_page_that_does_not_embed_the_slide_is_not_its_article(article, repo):
     other = folder.parent.parent / "gizmo-page.md"
     other.write_text("# Gizmo\n\nSupports ADR-GADGET (governance lens).\n", encoding="utf-8")
     assert drawio_forward.supports_drift(folder, ["ADR-WIDGET"], "meta") is None
+
+
+@pytest.fixture
+def roles(repo, monkeypatch):
+    """drawio.yml's roles: in the fixture repository, naming one widget folder a legend; every other folder takes renderer.role."""
+    legend = repo / "docs" / "explanation" / ".assets" / "widget-legend"
+    slide = repo / "docs" / "explanation" / ".assets" / "gadget-slide"
+    legend.mkdir(parents=True)
+    slide.mkdir(parents=True)
+    monkeypatch.setitem(DEFAULTS, "roles", {"docs/explanation/.assets/widget-legend": "legend"})
+    return legend, slide
+
+
+def test_a_legend_without_a_subtitle_has_no_warning(roles):
+    legend, _ = roles
+    no_subtitle = '<mxGraphModel><root><mxCell id="0"/></root></mxGraphModel>'
+    assert drawio_forward.folder_role(legend) == "legend"
+    assert drawio_forward.subtitle_facts(legend, no_subtitle) == ([], None, [])
+
+
+def test_a_slide_without_a_subtitle_is_warned(roles):
+    _, slide = roles
+    no_subtitle = '<mxGraphModel><root><mxCell id="0"/></root></mxGraphModel>'
+    assert drawio_forward.folder_role(slide) == DEFAULTS["renderer"]["role"] == "slide"
+    assert drawio_forward.subtitle_facts(slide, no_subtitle) == (
+        [],
+        None,
+        ["W_SUBTITLE docs/explanation/.assets/gadget-slide: the model has no subtitle cell"],
+    )
+
+
+def test_a_role_outside_the_closed_set_is_refused(roles, monkeypatch):
+    legend, _ = roles
+    monkeypatch.setitem(DEFAULTS, "roles", {"docs/explanation/.assets/widget-legend": "poster"})
+    with pytest.raises(ValueError, match="not one of slide, legend"):
+        drawio_forward.folder_role(legend)

@@ -280,26 +280,54 @@ def render(root, page=None):
             ty = y0 + 6 if top else (y0 + y1 - th) / 2
             d.multiline_text((tx, ty), text, font=f, fill=ink, spacing=3, align=align if align in ("left", "right") else "center")
 
+    def origin(c):  # the absolute offset of an edge's own coordinates: its parent group's position (geo is absolute), or none
+        parent = geo.get(c.get("parent"))
+        return (parent[0], parent[1]) if parent else (0.0, 0.0)
+
+    def path(c):  # an edge's points on the canvas: its source end, its waypoints, its target end; None when an end is missing
+        g = c.find("mxGeometry")
+        ox, oy = origin(c)
+        point = lambda p: off(float(p.get("x", 0)) + ox, float(p.get("y", 0)) + oy)
+        ends = {p.get("as"): p for p in (g.findall("mxPoint") if g is not None else [])}
+        waypoints = [point(p) for p in g.find("Array").findall("mxPoint")] if g is not None and g.find("Array") is not None else []
+        src, dst = geo.get(c.get("source")), geo.get(c.get("target"))
+        centre = lambda box: off(box[0] + box[2] / 2, box[1] + box[3] / 2)
+        a = centre(src) if src else (point(ends["sourcePoint"]) if "sourcePoint" in ends else None)
+        b = centre(dst) if dst else (point(ends["targetPoint"]) if "targetPoint" in ends else None)
+        if a is None or b is None:
+            return None
+        pts = [a, *waypoints, b]
+        if src:
+            pts[0] = clip(pts[0], pts[1], src, minx, miny)
+        if dst:
+            pts[-1] = clip(pts[-1], pts[-2], dst, minx, miny)
+        return pts
+
     for cid, c in cells.items():
         if c.get("edge") != "1":
             continue
         s = style_map(c.get("style"))
-        src, dst = geo.get(c.get("source")), geo.get(c.get("target"))
-        if not (src and dst):
+        pts = path(c)
+        if pts is None:
             continue
-        a = off(src[0] + src[2] / 2, src[1] + src[3] / 2)
-        b = off(dst[0] + dst[2] / 2, dst[1] + dst[3] / 2)
-        a, b = clip(a, b, src, minx, miny), clip(b, a, dst, minx, miny)
+        if s.get("shape") == "flexArrow":
+            flex_arrow(d, pts[0], pts[-1], s)
+            continue
         ink = color(s.get("strokeColor"), LINE)
         width = int(float(s.get("strokeWidth", 1))) + 1
+        line = rounded(pts) if s.get("rounded") == "1" and len(pts) > 2 else pts
         if s.get("dashed") == "1":
-            dashed_line(d, [a, b], ink, width)
+            dashed_line(d, line, ink, width)
         else:
-            d.line([a, b], fill=ink, width=width)
+            d.line(line, fill=ink, width=width, joint="curve")
         if s.get("endArrow", "classic") != "none":
-            arrow(d, a, b, ink)
+            arrow(d, pts[-2], pts[-1], ink)
+        if s.get("startArrow", "none") != "none":
+            arrow(d, pts[1], pts[0], ink)
         label = plain(c.get("value"))
         if label:
+            mid = len(pts) // 2
+            a, b = pts[mid - 1], pts[mid]
             f = font(int(float(s.get("fontSize", 11))), False)
             d.text(((a[0] + b[0]) / 2 + 4, (a[1] + b[1]) / 2 - 14), label, font=f, fill=color(s.get("fontColor"), INK))
     return img
@@ -313,6 +341,44 @@ def clip(p, q, box, minx, miny):
         return p
     t = min((w / 2) / abs(dx) if dx else 1e9, (h / 2) / abs(dy) if dy else 1e9)
     return (cx + dx * t, cy + dy * t)
+
+
+def rounded(pts, radius=10, steps=8):
+    """A polyline whose every waypoint corner is replaced by a quadratic curve cutting it, as draw.io draws `rounded=1`."""
+    import math
+    out = [pts[0]]
+    for a, p, b in zip(pts, pts[1:], pts[2:]):
+        din, dout = math.hypot(p[0] - a[0], p[1] - a[1]), math.hypot(b[0] - p[0], b[1] - p[1])
+        if din == 0 or dout == 0:
+            out.append(p)
+            continue
+        r = min(radius, din / 2, dout / 2)
+        start = (p[0] - (p[0] - a[0]) / din * r, p[1] - (p[1] - a[1]) / din * r)
+        end = (p[0] + (b[0] - p[0]) / dout * r, p[1] + (b[1] - p[1]) / dout * r)
+        for i in range(steps + 1):
+            t = i / steps
+            out.append(tuple((1 - t) ** 2 * s + 2 * (1 - t) * t * c + t ** 2 * e for s, c, e in zip(start, p, end)))
+    out.append(pts[-1])
+    return out
+
+
+def flex_arrow(d, a, b, s):
+    """A draw.io `shape=flexArrow` edge from a to b: a filled band `width` wide ending in a head `endWidth` wide and
+    `endSize` x 2 long, outlined in the stroke colour."""
+    import math
+    length = math.hypot(b[0] - a[0], b[1] - a[1])
+    if length == 0:
+        return
+    ux, uy = (b[0] - a[0]) / length, (b[1] - a[1]) / length
+    nx, ny = -uy, ux
+    body, head = float(s.get("width", 10)) / 2, float(s.get("endWidth", 20)) / 2
+    head_len = min(length, float(s.get("endSize", 7)) * 2) if s.get("endArrow", "classic") != "none" else 0
+    base = (b[0] - ux * head_len, b[1] - uy * head_len)
+    side = lambda p, w: (p[0] + nx * w, p[1] + ny * w)
+    outline = [side(a, body), side(base, body), side(base, head), b, side(base, -head), side(base, -body), side(a, -body)]
+    if not head_len:
+        outline = [side(a, body), side(b, body), side(b, -body), side(a, -body)]
+    d.polygon(outline, fill=faded(color(s.get("fillColor"), LINE), s), outline=color(s.get("strokeColor"), LINE))
 
 
 def arrow(d, a, b, ink):

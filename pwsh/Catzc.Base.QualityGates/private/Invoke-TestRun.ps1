@@ -53,9 +53,7 @@ function Invoke-TestRun {
 
         [switch] $Isolated,
 
-        [switch] $KeepSandbox,
-
-        [switch] $DiagnoseBlocking
+        [switch] $KeepSandbox
     )
 
     # The entry point's key: its default report folder under out/ and its protection-key prefix.

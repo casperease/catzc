@@ -115,14 +115,6 @@ it runs. The report lands in the working folder's out/ either way, and run.json 
 
 Keep the snapshot (when the run used one) after the run instead of deleting it, for a post-mortem.
 
-### parameter `DiagnoseBlocking`
-
-The switch the run's watchpoints stand behind. A watchpoint is a `Watch-Blocking` call a session adds, as
-`if ($DiagnoseBlocking) { Watch-Blocking }`, where it suspects the thread or process blocks; it prints its ticks and ends with a warning
-naming how late the thread ran. The workflow is mark, measure, bound, remove: once a run shows the block, the call is bounded by a
-`timeouts.yml` limit through Invoke-WithTimeout and the watchpoint goes. No watchpoint stands today: the last measured run found no block. A
-worker's own import does not carry the switch.
-
 ### example 1
 
 ```powershell

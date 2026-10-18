@@ -22,8 +22,8 @@ From the repository root:
 | Debugging            | `. ./importer.ps1 -ExportPrivates` | Also exports `private/` functions so you can call them directly |
 
 After import, every public function from every module is available. Load time is roughly half a second on a warm checkout. The importer also
-accepts `-AllowWarnings` (don't make warnings fatal), `-DiagnoseLoadTime` (print a per-stage load breakdown), and `-ClearCompiledTypes` (rebuild the
-C# type assembly from source).
+accepts `-AllowWarnings` (don't make warnings fatal), `-DiagnoseLoadTime` (print a per-stage load breakdown), and `-ClearCompiledTypes`
+(rebuild the C# type assembly from source).
 
 > The importer is **dot-sourced** (`. ./importer.ps1`). It runs in your scope so its global state — the prompt hook, `$env:RepositoryRoot`,
 > error preferences — takes effect. Re-run it after changing files on disk: the importer invocation is the boundary at which the session's

@@ -16,5 +16,4 @@ parameters:
   OutputFolder: string
   Isolated: switch
   KeepSandbox: switch
-  DiagnoseBlocking: switch
 output: Catzc.Base.Reports.TestRunResult

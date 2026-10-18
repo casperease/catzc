@@ -105,11 +105,6 @@ Run in a snapshot of the working folder even when it is free (Enter-TestRunLocat
 
 Keep the snapshot (when the run used one) after the run, for a post-mortem.
 
-### parameter `DiagnoseBlocking`
-
-Test-Automation's -DiagnoseBlocking: the switch the startup's watchpoints stand behind (`if ($DiagnoseBlocking) { Watch-Blocking }`, added
-where a block is suspected and removed once it is bounded). No watchpoint stands today; the last measured run found no block.
-
 ## comment:1
 
 Above `Write-Message '.' -NoHeader -NoNewline`, written with `#`.

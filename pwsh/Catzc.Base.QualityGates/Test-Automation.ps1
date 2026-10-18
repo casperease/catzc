@@ -43,9 +43,7 @@ function Test-Automation {
 
         [switch] $Isolated,
 
-        [switch] $KeepSandbox,
-
-        [switch] $DiagnoseBlocking
+        [switch] $KeepSandbox
     )
 
     if ($MinLevel -gt $MaxLevel) {
@@ -64,5 +62,5 @@ function Test-Automation {
     Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
         -Modules $Modules -Category $Category -Workers $Workers -GreedyGroupSize $GreedyGroupSize -TimeoutSeconds $TimeoutSeconds -Output $Output `
         -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -Suite $Suite -OutputFolder $OutputFolder `
-        -Isolated:$Isolated -KeepSandbox:$KeepSandbox -DiagnoseBlocking:$DiagnoseBlocking
+        -Isolated:$Isolated -KeepSandbox:$KeepSandbox
 }
