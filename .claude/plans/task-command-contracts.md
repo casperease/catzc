@@ -68,9 +68,20 @@ contracts plan).
        (`out/test-file/20261017-192734-5a36e9`) and Build-ContractReference.Tests (`20261017-192958-3a9d1c`); after Build-ContractReference
        and Build-Readme, `GENERATED issues=0`, `CONTRACTS issues=0`, `LINKS article issues=0`, `MDLINT article issues=0`,
        `ANALYZER issues=0`.
-6. C5 `cats` validation and coercion: generator plus committed lookup, edited through the `importer.sh` source in `Catzc.Base.RootConfig` (a
-   generated root file, never by hand); per-engine bats tests under `bash/tests` and the engine-case tables. Check: the bats file passes;
-   Test-GeneratedFiles clean.
+6. [x] C5 `cats` validation and coercion: generator plus committed lookup, edited through the `importer.sh` source in
+       `Catzc.Base.RootConfig` (a generated root file, never by hand); per-engine bats tests under `bash/tests` and the engine-case tables.
+       Check: the bats file passes; Test-GeneratedFiles clean. Done 2026-10-18: `New-CatsCommandLookup` (public, Contracts) renders the
+       lookup from `Get-CommandContract`, one tab-separated row per contracted parameter with its type, list, mandatory and pipeline flags
+       and the asset; Build-RootConfig writes it to the committed root file `importer-commands.sh` (a new rootconfig.yml entry with the
+       contracts folder as its source; the RootConfig input stamp also covers the Contracts module, so a generator change re-renders it;
+       RootConfig gained the Contracts dependency). `cats` in the importer.sh source checks a contracted command before pwsh starts: an
+       unknown parameter, a missing mandatory one and an int that is not a whole number fail with the asset named, a switch passes as a
+       flag, an int unquoted and a bool as `$true` or `$false`; a value passed by position skips the mandatory check; an uncontracted
+       command passes as before; `CATZC_COMMAND_LOOKUP` names another lookup for a test. Verdicts: `[Invoke-TestFile] Passed` for
+       New-CatsCommandLookup.Tests (`out/test-file/20261018-125505-204835`), Build-RootConfig.Tests and Get-RootConfigInputStamp.Tests; the
+       six cats.bats cases pass under bash, three of them new; `SHELL issues=0`, `GENERATED issues=0`, `MODDEP issues=0`,
+       `ANALYZER issues=0`; 34 lookup rows for the 12 contracts. Not covered: the zsh run of the bats file, since the bridge runs Bash tests
+       under bash only; the check code avoids arrays and bash-only syntax for zsh.
 7. C6 widen: the 15 near-identical tool wrappers as the second batch (one family, one grammar); then the F6 decision applied: every public
    function without a contract becomes internal, one module per step, its `.psd1` export list regenerated. Check: Test-Contracts on the
    frozen set; the module's tests pass.
