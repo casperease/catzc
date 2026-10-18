@@ -22,8 +22,9 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
 ## Steps
 
 1. [x] D08 recorded; `docs/adr/repository/uniform-formatting.md`: one sentence, an engine's cache stamp contains its own tool pin and its
-       own settings files, nothing else. Check: Test-AdrRegistry, Test-Links. Done 2026-10-18: ADR-REPO-FORMAT-CONFIGUREDFORMATTERS says an engine's
-       `settings:` entries are its whole stamp, citing ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS; `ADRREG issues=0`, `LINKS issues=0`, `MDLINT issues=0`.
+       own settings files, nothing else. Check: Test-AdrRegistry, Test-Links. Done 2026-10-18: ADR-REPO-FORMAT-CONFIGUREDFORMATTERS says an
+       engine's `settings:` entries are its whole stamp, citing ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS; `ADRREG issues=0`,
+       `LINKS issues=0`, `MDLINT issues=0`.
 2. [x] The stamp: find where it is built (`Catzc.Base.Engines` or the Format-Code cache in QualityGates); per engine, hash only that
        engine's pin from `tools.yml` and its settings files. Two tests: an unrelated pin edit leaves another engine's cache warm; every
        declared stamp input invalidates it (the risk is a stale result from a missed input). Check: the Test-Formatting tests pass cold and
@@ -33,16 +34,16 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
        the missing-input and never-the-whole-registry cases; 13 of 13 pass. `Test-Formatting.Tests.ps1` passes 4 of 5 cold and warm (15.2 s,
        then 10.2 s); the failure is its integrity case, "formatting leaves the repository unchanged", over 18 unformatted working-tree
        files, none of them a stamp file.
-3. [x] Landed 2026-10-18 by session catzc-93, verdict: "Invoke-TestFile.Tests (shard 6, alone) and Test-Formatting.Tests (shard 0) are
-   apart in all three manifests; the 347 s run is 81 s over the ~265 s runs, almost all in wave B, where Test-ScriptAnalyzer.Tests ran
-   134.2 s against 34.2 s and 3.7 s; no run started". No manifest holds 265.8 s; compared against 20261018-130623 (264.55 s, snapshot)
-   and 20261018-115412 (266.42 s, in-place); the 347 s run is 20261018-153550 (347.47 s, snapshot, -Isolated).
+3. [x] Landed 2026-10-18 by session catzc-93, verdict: "Invoke-TestFile.Tests (shard 6, alone) and Test-Formatting.Tests (shard 0) are apart
+       in all three manifests; the 347 s run is 81 s over the ~265 s runs, almost all in wave B, where Test-ScriptAnalyzer.Tests ran 134.2 s
+       against 34.2 s and 3.7 s; no run started". No manifest holds 265.8 s; compared against 20261018-130623 (264.55 s, snapshot) and
+       20261018-115412 (266.42 s, in-place); the 347 s run is 20261018-153550 (347.47 s, snapshot, -Isolated).
 
-   | Phase (shards)                       | 347.47 s | 264.55 s | 266.42 s | Driver in the 347 s run                                             |
-   | ------------------------------------ | -------- | -------- | -------- | ------------------------------------------------------------------- |
-   | A: 0-4 in parallel                   | 114 s    | 113 s    | 129 s    | shard 1, 112.2 s (Get-AdrUsage.Tests 49.7 s); Test-Formatting 50.9 s |
+   | Phase (shards)                       | 347.47 s | 264.55 s | 266.42 s | Driver in the 347 s run                                                                        |
+   | ------------------------------------ | -------- | -------- | -------- | ---------------------------------------------------------------------------------------------- |
+   | A: 0-4 in parallel                   | 114 s    | 113 s    | 129 s    | shard 1, 112.2 s (Get-AdrUsage.Tests 49.7 s); Test-Formatting 50.9 s                           |
    | B: 5 and 6 in parallel               | 135 s    | 46 s     | 30 s     | shard 5 Test-ScriptAnalyzer.Tests 134.2 s (34.2 / 3.7 s); shard 6 Invoke-TestFile.Tests 52.8 s |
-   | C: 7-20 as 7 greedy pairs, in series | 88 s     | 95 s     | 96 s     | Language.Bridge pairs 19+20 (19.2 s), 17+18 (14.3 s); Import-Catzc 13.4 s |
+   | C: 7-20 as 7 greedy pairs, in series | 88 s     | 95 s     | 96 s     | Language.Bridge pairs 19+20 (19.2 s), 17+18 (14.3 s); Import-Catzc 13.4 s                      |
 
    Phase A (~113 s) plus phase C (~90 s) exceed 180 s alone in every run, so phase B is pure overrun; in the 347 s run B is a cold
    Test-ScriptAnalyzer (cause not dug into). The structural levers are the serial phases (C's seven pairs in series; B and C could start
@@ -51,8 +52,9 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
    manifest of the final session's full run (and of any earlier run the user made on their own; this task asks for none):
    `Invoke-TestFile.Tests.ps1` no longer shares a shard with `Test-Formatting.Tests.ps1`; record the shard table and wall clock against the
    265.8 s run in the plan. Check: the table in the plan, read from `out/test-automation`, no run started for it. Reported 2026-10-18 by
-   session catzc-93: the user's last full run took 347 s against the 180 s `tests.run_seconds` budget; that run's manifest is one this
-   step may read now.
+   session catzc-93: the user's last full run took 347 s against the 180 s `tests.run_seconds` budget; that run's manifest is one this step
+   may read now.
+
 4. [x] Next three files by cost (Get-BicepParameterModel.Shipped 33.6 s, Import-Catzc 32.9 s, Build-Bicep.L2 31.3 s, then the
        Test-BuildArtifact files), one at a time through the `test-optimization` robot, each measured against the new balance. Check: same
        assertions, lower time, recorded per file.
@@ -79,23 +81,23 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
        under 0.5 s warm.
 6. The scheduler (the user's decision 2026-10-18, held by session catzc-93): first the cold Test-ScriptAnalyzer cache, read from its stamp
    inputs and the manifests, fixed in the file that builds the stamp; then the Test-Automation scheduler starts shards 5, 6 and the greedy
-   pairs as phase A frees slots, keeping build-heavy greedy files apart, one file at a time. Check: the stamp's and the scheduler's L0
-   test files pass under Invoke-TestFile; no run started; the next full run's manifest is read when the user makes it. The cold cache,
-   found 2026-10-18 by catzc-93: the stamp is correct (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS), but any terminology or glossary edit regenerates a `.cspell`
-   file and so re-analyzes all ~1630 files (~130 s; 15:36 run: only `vssps` added, 637d66ca9). Decided by the orchestrator on the user's
-   delegation: `Get-ScriptAnalyzerDiagnostics` runs two cached passes, the spelling rule keyed on the dictionaries and its own files,
-   every other rule on settings, rules and manifest only; an L0 case proves a dictionary-only change re-runs only the spelling pass.
-   The scheduler, decided by the orchestrator on the user's delegation: one PesterRunner pool with a per-class cap (greedy files start in
-   any slot a parallel shard frees, at most `greedy_group_size` at once, serial last and alone); "build-heavy apart" is a `greedy_apart`
-   list in `test-policy.yml` with its default declared once on TestPolicyConfig; ADR-AUTO-TEST-ONESCHEDULINGPOOL is reworded to the pool.
-   Part 1 landed 2026-10-18 by session catzc-93, verdict: "the analyzer cache is split into two passes, rules and spelling, each keyed on
-   every input it declares (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS); a dictionary-only change re-runs only the spelling pass: 22.9 s against 151.7 s for a
-   full cold run, and 4.1 s warm; repo-wide .internal Test-ScriptAnalyzer.Tests passes" (new CatzcSpelling.psm1 and private
-   Invoke-ScriptAnalyzerShards; settings re-linked). Part 2 landed 2026-10-18 by catzc-93, verdict: "one pool: greedy files take the
-   first slot a parallel shard frees, at most greedy_group_size at once and the greedy_apart build files one at a time, serial last;
-   PesterRunner.Tests, TestPolicyConfig.Tests, Invoke-TestRun.Tests and Invoke-TestFile.Tests pass under Invoke-TestFile;
-   Test-AdrRegistry 0 and Test-Links 0 on the ADR; no full run started, no limit raised, no test removed or re-tiered". The wall-clock
-   effect is read from the user's next full run against step 3's table.
+   pairs as phase A frees slots, keeping build-heavy greedy files apart, one file at a time. Check: the stamp's and the scheduler's L0 test
+   files pass under Invoke-TestFile; no run started; the next full run's manifest is read when the user makes it. The cold cache, found
+   2026-10-18 by catzc-93: the stamp is correct (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS), but any terminology or glossary edit
+   regenerates a `.cspell` file and so re-analyzes all ~1630 files (~130 s; 15:36 run: only `vssps` added, 637d66ca9). Decided by the
+   orchestrator on the user's delegation: `Get-ScriptAnalyzerDiagnostics` runs two cached passes, the spelling rule keyed on the
+   dictionaries and its own files, every other rule on settings, rules and manifest only; an L0 case proves a dictionary-only change re-runs
+   only the spelling pass. The scheduler, decided by the orchestrator on the user's delegation: one PesterRunner pool with a per-class cap
+   (greedy files start in any slot a parallel shard frees, at most `greedy_group_size` at once, serial last and alone); "build-heavy apart"
+   is a `greedy_apart` list in `test-policy.yml` with its default declared once on TestPolicyConfig; ADR-AUTO-TEST-ONESCHEDULINGPOOL is
+   reworded to the pool. Part 1 landed 2026-10-18 by session catzc-93, verdict: "the analyzer cache is split into two passes, rules and
+   spelling, each keyed on every input it declares (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS); a dictionary-only change re-runs only the
+   spelling pass: 22.9 s against 151.7 s for a full cold run, and 4.1 s warm; repo-wide .internal Test-ScriptAnalyzer.Tests passes" (new
+   CatzcSpelling.psm1 and private Invoke-ScriptAnalyzerShards; settings re-linked). Part 2 landed 2026-10-18 by catzc-93, verdict: "one
+   pool: greedy files take the first slot a parallel shard frees, at most greedy_group_size at once and the greedy_apart build files one at
+   a time, serial last; PesterRunner.Tests, TestPolicyConfig.Tests, Invoke-TestRun.Tests and Invoke-TestFile.Tests pass under
+   Invoke-TestFile; Test-AdrRegistry 0 and Test-Links 0 on the ADR; no full run started, no limit raised, no test removed or re-tiered". The
+   wall-clock effect is read from the user's next full run against step 3's table.
 7. Tick the plan's steps; the carried draft goes; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report

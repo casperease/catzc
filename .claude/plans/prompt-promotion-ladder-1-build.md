@@ -16,11 +16,11 @@ and `docs/how-to/automation/apply-environment-approvals.md`.
 
 Build the ladder as the answers decide, one file at a time: `pipelines/README.md` naming the ladder's environments and the pipeline that
 deploys each; the environments and their approval checks in `pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml` and its config type
-with defaults declared once (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER); the pipeline YAML for main-uat, release-uat behind the RC gate, pre-prod behind the RBC
-gate, and the separate DEPLOY pipeline taking the CI artifact as Q4 decides; every decision an ADR rule in ADR-DSGN-LIFE or ADR-FLOW-CD in
-the same change (ADR-REPO-PLANS-DECISIONSBECOMERULES), registered in `pwsh/Catzc.Base.Docs/configs/adrs.yml` (re-read it right before the append),
-`Build-AdrIndex` run, never `docs/adr/index.md` by hand. Config over code: a per-environment value is a config entry, not a branch in a
-script. A real run is the user's; say in the report which run proves which rung.
+with defaults declared once (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER); the pipeline YAML for main-uat, release-uat behind the RC gate, pre-prod
+behind the RBC gate, and the separate DEPLOY pipeline taking the CI artifact as Q4 decides; every decision an ADR rule in ADR-DSGN-LIFE or
+ADR-FLOW-CD in the same change (ADR-REPO-PLANS-DECISIONSBECOMERULES), registered in `pwsh/Catzc.Base.Docs/configs/adrs.yml` (re-read it
+right before the append), `Build-AdrIndex` run, never `docs/adr/index.md` by hand. Config over code: a per-environment value is a config
+entry, not a branch in a script. A real run is the user's; say in the report which run proves which rung.
 
 Owns: `pipelines/**`, the workflow files, `pwsh/Catzc.Azure.DevOps/**`, the two ADR pages, `adrs.yml`, the lifecycle articles under
 `docs/explanation/design/` and `docs/explanation/flow/` (text only). Re-read a file right before editing it; each verified by

@@ -37,8 +37,9 @@ config lives at `pwsh/Catzc.Base.Reports/configs/output-formats.yml` (the plan h
        `run-out-retention-tests.ps1` no longer exists in out/.
 4. [x] `docs/adr/repository/dedicated-output-directory.md`: amendments for the areas, session placement, what prunes and when;
        `docs/references/out.md` regenerated or updated. Check: Test-AdrRegistry, Test-Links clean. The ADR already holds it as
-       ADR-REPO-OUTDIR-EVERYFILEHASFORMAT with its Retention section; `docs/references/out.md` updated 2026-10-17: the clean-all is `Clear-Output -All`, and
-       a paragraph names the formats, the areas, the never-pruned log and the session folder. Verdicts in the report.
+       ADR-REPO-OUTDIR-EVERYFILEHASFORMAT with its Retention section; `docs/references/out.md` updated 2026-10-17: the clean-all is
+       `Clear-Output -All`, and a paragraph names the formats, the areas, the never-pruned log and the session folder. Verdicts in the
+       report.
 5. Batch one: the user runs `out/delete-probes-batch1.ps1` (222 probes older than 2026-10-16 14:57, listed in `out/harvest-batch1.txt`;
    `audit-file-kinds.ps1` and `count-kinds.ps1` pulled back as reruns). Check: the listed files are gone; nothing in `harvest-keep.txt` is.
    2026-10-17: the script and the three harvest lists are no longer in out/, so either the user ran it or out/ was cleared; the user

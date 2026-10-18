@@ -25,8 +25,8 @@ the flat `docs/explanation/.assets` slides, so no slide is rendered before step 
 
 ## Steps
 
-In hand 2026-10-18: session catzc-fb holds steps 3 to 5 (orchestrator). Step 6 has the user's leave (2026-10-18) for Move-Diagram's `git mv`
-in the repository, for this migration only; the user still commits.
+Steps 3 to 8 were done by session catzc-fb on 2026-10-18. Step 6 had the user's leave (2026-10-18) for Move-Diagram's `git mv` in the
+repository, for this migration only; the user still commits.
 
 Step 2 closed 2026-10-18 (catzc-f3: both subtitles already canonical, drawio_forward.py exit 0, no W_SUBTITLE). Step 1 waits on the decision
 round's test home for the kit.
@@ -37,9 +37,9 @@ round's test home for the kit.
        Original step: Kit tests: subtitle parsing (both code forms reported, the canonical accepted), the closed lens set, the
        `Supports (<lens> lens)` drift warning, under the test home the decision round names (`.claude/drawio/tests/`) and run with `uv run`
        under the time safeguard. Check: the tests pass; `Test-FileMeta` clean on the new files.
-2. [x] Closed 2026-10-18 by session catzc-f3 with nothing to change (see the plan). Original step: The two subtitles still in the `:1,2,3` form (`adr-dsgn-aspect--each-track-picks-its-catch-all--meta`,
-   `adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta`) normalised through `write-drawio-files`. Check: the subtitle parser
-   reports none; the two rasters re-rendered from their models.
+2. [x] Closed 2026-10-18 by session catzc-f3 with nothing to change (see the plan). Original step: The two subtitles still in the `:1,2,3`
+       form (`adr-dsgn-aspect--each-track-picks-its-catch-all--meta`, `adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta`)
+       normalised through `write-drawio-files`. Check: the subtitle parser reports none; the two rasters re-rendered from their models.
 3. [x] Landed 2026-10-18 by session catzc-fb, verdict: "Move-Diagram.Tests.ps1 Passed (4 cases: folder move with links in and into it plus
        Test-Links clean on the fixture repo after the move, a single-file move under a new name, -DryRun lists and changes nothing, and the
        four refusals); MarkdownLinkRebaser.Tests Passed; COMMENTS 0". It uses a new `MarkdownLinkRebaser.Rebase` overload in Catzc.Base.Docs
@@ -59,9 +59,9 @@ round's test home for the kit.
 5. [x] Landed 2026-10-18 by session catzc-fb, verdict: "ADRREG issues=0; LINKS 0 and MARKDOWNLINT 0 on conventional-folders.md and
        slides-as-markdown.md; FileKindReachability, Get-FileKind and FileKindsConfig tests Passed; Build-AdrIndex applied, index.md
        unchanged". The two beside-the-article `*.drawio.md` kind patterns stay until step 6 empties them and go in its last change. Original
-       step: ADR-REPO-FOLDERS (conventional-folders.md, the `.assets` paragraph), ADR-REPO-SLIDES-ONEBUILDCOMMAND (slides-as-markdown.md) and
-       `file-kinds.yml` (the diagram kinds select `docs/**/.assets/**`) restated, present tense. Check: `Test-AdrRegistry`, `Test-Links`,
-       the file-kind reachability test clean; `Build-AdrIndex` dry run unchanged or applied.
+       step: ADR-REPO-FOLDERS (conventional-folders.md, the `.assets` paragraph), ADR-REPO-SLIDES-ONEBUILDCOMMAND (slides-as-markdown.md)
+       and `file-kinds.yml` (the diagram kinds select `docs/**/.assets/**`) restated, present tense. Check: `Test-AdrRegistry`,
+       `Test-Links`, the file-kind reachability test clean; `Build-AdrIndex` dry run unchanged or applied.
 6. [x] Landed 2026-10-18, all 149 diagrams. Last verdicts: design "44 folders moved and rendered (132 stages: 126 clean, 6 prepare
        warnings), LINKS 0 / FILEMETA 0 / SPELLING 0 over 223 pages, residue grep 0"; flow "35 folders (105 stages: 102 clean, 3 prepare
        warnings), LINKS/FILEMETA/SPELLING 0 over 176 pages, residue 0"; pipelines "5 folders (15 clean), 0/0/0 over 26 pages, residue 0";
@@ -93,7 +93,8 @@ round's test home for the kit.
        `docs/explanation/.assets/{grid,tree,chain}/`; `Build-Diagrams.ps1.md` help and `catzc-base-slides.md` responsibility:4 follow the
        parameter. Check: `git ls-files docs/explanation/.assets` lists only `glyphs/`; `Test-Links` on the two edited pages; the final full
        run is the tree-wide proof.
-9. [x] Done 2026-10-18: every step of plan-diagram-folders ticked. Original step: Tick the plan's steps as each lands; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero in plan-diagram-folders.
+9. [x] Done 2026-10-18: every step of plan-diagram-folders ticked. Original step: Tick the plan's steps as each lands; the plan is deleted
+       in task-closing-sweep. Check: grep `- [ ]` counts zero in plan-diagram-folders.
 
 ## Report
 

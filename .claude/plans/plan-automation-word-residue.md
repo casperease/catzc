@@ -35,8 +35,8 @@ ADR-PRIN-ONELIVE (one living version, no "we used to").
 
 ## Decided, and why
 
-- **Stays as is**: `automation` as the ADR domain and layer (ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT, `AdrsConfig.Layers`, the default layer), every
-  `docs/adr/automation/` citation, `Test-Automation` and its `*TestAutomation*` helpers, `System.Management.Automation.*`,
+- **Stays as is**: `automation` as the ADR domain and layer (ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT, `AdrsConfig.Layers`, the default layer),
+  every `docs/adr/automation/` citation, `Test-Automation` and its `*TestAutomation*` helpers, `System.Management.Automation.*`,
   `invoke-automation.yaml` and `release-automation.yml` (rename plan Q2), and "Cloud Automation Toolkit". These are the abstract layer, a
   gate name, .NET, or a decided keep.
 - **Replacement words**: where the folder is meant, `pwsh/`; where a variable or parameter holds the folder, `ModulesRoot` / `$modulesRoot`,
@@ -287,9 +287,9 @@ now matches its own examples; pipeline-runner-pattern needed no change, line 35 
       `manifest-and-aspects-from-one-folder.md` text block lines 6, 10 and marker label 30. Their `aspects.automation` / `-Track automation`
       lines are the open drift step in plan-explanation-drift-gaps.
 - [x] `docs/explanation/configuration/callers-depend-on-one-config-module.md` (check: no folder-meaning line; Test-Links clean)
-- [x] `docs/explanation/configuration/three-caches-back-one-reader.md` (check: no folder-meaning line; Test-Links clean)
-  2026-10-18, session catzc-fb with the user's go: the slide-label lines below changed with their slides ("every stage clean; LINKS 0,
-  FILEMETA 0, Test-Glossary 0 on each article"); every open step of this block is now ticked.
+- [x] `docs/explanation/configuration/three-caches-back-one-reader.md` (check: no folder-meaning line; Test-Links clean) 2026-10-18, session
+      catzc-fb with the user's go: the slide-label lines below changed with their slides ("every stage clean; LINKS 0, FILEMETA 0,
+      Test-Glossary 0 on each article"); every open step of this block is now ticked.
 - [x] `docs/explanation/design/a-push-fires-only-touched-pipelines.drawio.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/design/get-aspect-feeds-globs-and-maps.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/design/manifest-and-aspects-from-one-folder.md` (check: no folder-meaning line; Test-Links clean) Explanation batch
@@ -362,15 +362,11 @@ now matches its own examples; pipeline-runner-pattern needed no change, line 35 
       `git grep -n -i -E "\\\$automation\b|AutomationRoot|automationRoot|<RepositoryRoot>/automation|     under automation/" -- pwsh docs .claude/drawio`
       prints nothing; the final full `Test-Automation` of task-user-runs-and-commits is the tree-wide proof)
 
-## Open questions (for the next decision round)
+## Decided late (2026-10-18, the orchestrator on the user's delegation)
 
-- **The how-to folders named automation.** `docs/how-to/automation/` and `docs/how-to/getting-started/automation/` hold cross-track pages
-  (deployable unit, doc chapter, infra template, go/, python/), so the name reads as the abstract layer beside their `pwsh/` siblings.
-  Recommendation: keep, since ADR-AUTO-LAYERS makes automation the abstract term.
-- **31 test fixtures shaped like the old folder** (`C:\repo\automation\M\...` in Convert-TestRunLocationPath, Select-TestRunFiles,
-  Select-InScopeTestFiles, Assert-CatzcRunModeExclusive, Test-Links.Repository, Write-TestRunContext, Test-LoadedTypesCurrent,
-  Assert-LoadedTypesCurrent, Get-FileKind and the VariantsConfig track-key fixtures). They are fake data. Recommendation: rename to a
-  neutral segment only when a test is next edited, under the neutral-fixture rule (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES), with no sweep.
+- The how-to folders named `automation` keep their name: they hold cross-track pages, and ADR-AUTO-LAYERS makes automation the abstract.
+- The 31 test fixtures shaped like the old folder are renamed to a neutral segment only when each test is next edited
+  (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES), with no sweep.
 
 ## Refs
 

@@ -135,10 +135,10 @@ def slide_facts(model):
 
 
 def known_adrs():
-    """The ADR codes the index lists."""
+    """The ADR codes the index's code tables list; a code quoted in its prose is no entry."""
     return set(
         re.findall(
-            r"`(ADR(?:-[A-Z][A-Z0-9]*)+)`",
+            r"(?m)^\|\s*`(ADR(?:-[A-Z][A-Z0-9]*)+)`",
             (REPO / "docs" / "adr" / "index.md").read_text(encoding="utf-8"),
         )
     )

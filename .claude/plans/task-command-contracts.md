@@ -24,14 +24,14 @@ contracts plan).
        `the target 'Get-Thing.command.yml' does not exist` (`out/t020-unknown-suffix.ps1`).
 2. [x] C1 `docs/adr/repository/command-contracts.md`, ADR-REPO-CMDCONTRACT: rules 1 a command is public exactly when a command contract
        names it; 2 the contract language and its closed types; 3 derived facts (placement says module, version, language; none stored); 4
-       one checker per language; 5 use (reader, reference column, cats validation); 6 version and pinning. Amend ADR-REPO-CONTRACT-CONTRACTASSET (fifth
-       kind) and #7 (direction by kind) and its enforcement list. Glossary: command contract, contract language (command is layers').
-       `adrs.yml`, `Build-AdrIndex`, `Build-Glossary`. Check: Test-AdrRegistry, Test-Glossary, Test-Links clean. Done 2026-10-17:
-       `ADRREG issues=0` (`out/test-adr-registry/20261017-190652`), `NEUTRAL issues=0`, Test-Glossary 222 issues none on the touched files
-       (`out/test-glossary/20261017-190705`), Test-Links clean on the ADR and `[Untracked]` only on the two pages that link it (the user's
-       commit), Test-Markdownlint and Test-Spelling `issues=0` on the three pages after `cmdcontract` joined terminology.yml; the
-       `code review` line of ADR-REPO-CONTRACT's enforcement list stands as is since the kind rule covers the asset. Correction recorded in
-       the plan: no `command.schema.json`, the ContractCommand type is the one grammar.
+       one checker per language; 5 use (reader, reference column, cats validation); 6 version and pinning. Amend
+       ADR-REPO-CONTRACT-CONTRACTASSET (fifth kind) and #7 (direction by kind) and its enforcement list. Glossary: command contract,
+       contract language (command is layers'). `adrs.yml`, `Build-AdrIndex`, `Build-Glossary`. Check: Test-AdrRegistry, Test-Glossary,
+       Test-Links clean. Done 2026-10-17: `ADRREG issues=0` (`out/test-adr-registry/20261017-190652`), `NEUTRAL issues=0`, Test-Glossary 222
+       issues none on the touched files (`out/test-glossary/20261017-190705`), Test-Links clean on the ADR and `[Untracked]` only on the two
+       pages that link it (the user's commit), Test-Markdownlint and Test-Spelling `issues=0` on the three pages after `cmdcontract` joined
+       terminology.yml; the `code review` line of ADR-REPO-CONTRACT's enforcement list stands as is since the kind rule covers the asset.
+       Correction recorded in the plan: no `command.schema.json`, the ContractCommand type is the one grammar.
 3. [x] C2 `Catzc.Base.Contracts`: `ContractAssetKind.Command`; one branch in `Get-ContractAssetKind`; C# `ContractCommand` and
        `ContractParameter` with defaults on the type (fresh pwsh); L0 tests with widget/gadget fixtures; `Get-ContractCommandFindings`
        compares a contract to a `.ps1` AST with L0 tests over fixture text; `command.schema.json`. Check: each new file's Pester file
@@ -47,13 +47,13 @@ contracts plan).
        `.command.yml` per command, provided; the existing contract L1 test file extended so one test per asset enumerates them. Check:
        Test-Contracts clean; the L1 file passes. Done 2026-10-18: 12 assets under `contracts/catzc/0.0.0`, each with its header comment.
        Correction from the tree: the two modules hold 15 public commands today, and three sit outside the contract language
-       (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE), so they stay uncontracted and internal until C6 decides their signatures: `Format-GeneratedFileHead` (an
-       `object` parameter), `Get-Contract` (an `IDictionary` parameter) and `Test-Contracts` (a `pscustomobject` output). The 8 Languages
-       commands are every other Languages command; the 4 Contracts commands are Build-ContractReference, Get-CommandContract,
-       Get-ContractCheckResults and Publish-ContractRelease. Verdicts: `CONTRACTS issues=0` (`out/test-contracts/20261018-104227`),
-       `GENERATED issues=0` after Build-ContractReference (`out/test-generated-files/20261018-104233`), `[Invoke-TestFile] Passed` for
-       Get-ContractCheckResults.Assets.Tests with one case per command asset and the pilot count (`out/test-file/20261018-104359-b45947`),
-       `ANALYZER issues=0`.
+       (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE), so they stay uncontracted and internal until C6 decides their signatures:
+       `Format-GeneratedFileHead` (an `object` parameter), `Get-Contract` (an `IDictionary` parameter) and `Test-Contracts` (a
+       `pscustomobject` output). The 8 Languages commands are every other Languages command; the 4 Contracts commands are
+       Build-ContractReference, Get-CommandContract, Get-ContractCheckResults and Publish-ContractRelease. Verdicts: `CONTRACTS issues=0`
+       (`out/test-contracts/20261018-104227`), `GENERATED issues=0` after Build-ContractReference
+       (`out/test-generated-files/20261018-104233`), `[Invoke-TestFile] Passed` for Get-ContractCheckResults.Assets.Tests with one case per
+       command asset and the pilot count (`out/test-file/20261018-104359-b45947`), `ANALYZER issues=0`.
 5. [x] C4 `Get-CommandContract` reader; a signature column in `Build-ContractReference`; Test-GeneratedFiles covers the page. Check: both
        gates. Done 2026-10-17: `Get-CommandContract` (public, the one reader; `ContractCommand` gained `asset`, `name` and `signature`), the
        Signature column with `none` for every other kind and `not readable (Test-Contracts reports it)` for a command contract that does not
@@ -75,61 +75,64 @@ contracts plan).
        six cats.bats cases pass under bash, three of them new; `SHELL issues=0`, `GENERATED issues=0`, `MODDEP issues=0`,
        `ANALYZER issues=0`; 34 lookup rows for the 12 contracts. Not covered: the zsh run of the bats file, since the bridge runs Bash tests
        under bash only; the check code avoids arrays and bash-only syntax for zsh.
-7. C6 widen: the 15 near-identical tool wrappers as the second batch (one family, one grammar); then the F6 decision applied: every public
-   function without a contract becomes internal, one module per step, its `.psd1` export list regenerated. Check: Test-Contracts on the
-   frozen set; the module's tests pass. The widening done 2026-10-18. The list in `out/plan-help-registry-options.md` is gone (never
-   tracked), so the family was read from the tree: the fifteen installers with the one signature `[string] $Version [switch] $Force` and no
-   output (Install-AzCli, -Bicep, -Dotnet, -Go, -Java, -Shellcheck, -Terraform and -Uv in Toolchain; -Cspell, -Markdownlint, -NodeJs and
-   -Prettier in Node; -Poetry, -PySpark and -Python in Python), each `Version` defaulting to its tools.yml lock, a computed default the
-   contract leaves out. Verdicts: `CONTRACTS issues=0`, 27 contracted commands, the lookup regenerated to 64 rows,
-   `[Invoke-TestFile] Passed` for Get-ContractCheckResults.Assets.Tests (`out/test-file/20261018-125926-c4bfcd`) and
-   New-CatsCommandLookup.Tests, `GENERATED issues=0`. F6 under D21 (2026-10-18, the user: internal means internal to its module, as C#'s
-   `internal` scopes to an assembly; a Catzc.Internal module is another thing): ADR-REPO-CMDCONTRACT-COMMANDCONTRACT reworded to say so, a function other
-   modules call stays exported with no promise. The inventory (`out/inventory-f6.sh`, one grep pass, `out/f6-inventory.tsv`) read the 457
-   public functions: 27 contracted, 244 named by code outside their module, 139 named only in docs, 47 named nowhere outside it. Of the 47,
-   the console commands are public and were contracted, the counterpart family of the installers: 20 `Uninstall-<Tool>` and 5
-   `Remove-<Tool>` in Node, Provisioning, Python and Toolchain (52 contracted commands, `CONTRACTS issues=0`, the lookup and the reference
-   regenerated, both contract test files passed). Two helpers only their own module calls moved to `private/` with their comment pages,
-   their article rows and a test through `InModuleScope`: Get-WorldMapOutputRoot (Maps) and Get-ManagedGuids (QualityGates); each is
-   unexported, its tests and the module's callers' tests pass, Test-Links, Test-Comments, Test-GeneratedFiles, Test-FileMeta and
-   Test-ManagedGuids clean. Left exported, by the pair convention or as a module's own responsibility: Test-VendorModuleAvailable,
-   Get-PermanentEnvironmentVariable, the Asserts and Files Test/Assert pairs, Assert-GitHubPurgeReady, New-SyntheticHistory,
-   Set-CurrentAzSubscription and Save-PSReadLineKeyHandlerSet. The two questions the user delegated (2026-10-18, D26 and D27): of the twelve
-   exported functions nothing calls, five were dead code and left the tree with their tests, pages and article rows (Assert-Null,
-   Assert-PipelineEmpty, Get-LastExitCode, Wait-Mutex, ConvertTo-Dictionary); Assert-IsGuidInRange, Assert-FileIsLocked and
-   Test-IsTimeoutExempt stay as halves of a Test/Assert pair, Write-CallStack and Write-CmdletParameterSet as debug writers,
-   Get-FunctionDependencyTree with no contract (a `PSObject[]` parameter), and Remove-TokenFromHistory got its contract. Of the 139
-   functions only docs name, 38 are named by a how-to; the 12 of them the closed language expresses got hand-written contracts
-   (Clear-GlobSetProtection, Test-GlobSetAffected, Build-EnglishDictionary, Export-SpellingTriage, Format-MarkdownTitle,
-   Install-DevBoxTools, Assert-DevBoxToolsStatus, Register-AdoBuildValidation, Invoke-Poetry, Get-RepositoryFile, Get-BicepTemplateNames,
-   Get-BicepParameterModel); the rest stay exported with no promise: the gates return a `pscustomobject` under `-PassThru`, and
-   Get-Inspiration and Export-WorldMapPdf use parameter sets, which the grammar cannot state. Verdicts: `CONTRACTS issues=0`, 65 contracted
-   commands, `[Invoke-TestFile] Passed` for Get-ContractCheckResults.Assets.Tests and New-CatsCommandLookup.Tests
-   (`out/test-file/20261018-135212-cc0b32`, `-135236-24560e`). Open, for a later language step: a type for gate results and a way to state
-   parameter sets, which together would let the gates and the two set-based commands be contracted.
+7. [x] Landed 2026-10-18 (the record below). C6 widen: the 15 near-identical tool wrappers as the second batch (one family, one grammar);
+       then the F6 decision applied: every public function without a contract becomes internal, one module per step, its `.psd1` export list
+       regenerated. Check: Test-Contracts on the frozen set; the module's tests pass. The widening done 2026-10-18. The list in
+       `out/plan-help-registry-options.md` is gone (never tracked), so the family was read from the tree: the fifteen installers with the
+       one signature `[string] $Version [switch] $Force` and no output (Install-AzCli, -Bicep, -Dotnet, -Go, -Java, -Shellcheck, -Terraform
+       and -Uv in Toolchain; -Cspell, -Markdownlint, -NodeJs and -Prettier in Node; -Poetry, -PySpark and -Python in Python), each `Version`
+       defaulting to its tools.yml lock, a computed default the contract leaves out. Verdicts: `CONTRACTS issues=0`, 27 contracted commands,
+       the lookup regenerated to 64 rows, `[Invoke-TestFile] Passed` for Get-ContractCheckResults.Assets.Tests
+       (`out/test-file/20261018-125926-c4bfcd`) and New-CatsCommandLookup.Tests, `GENERATED issues=0`. F6 under D21 (2026-10-18, the user:
+       internal means internal to its module, as C#'s `internal` scopes to an assembly; a Catzc.Internal module is another thing):
+       ADR-REPO-CMDCONTRACT-COMMANDCONTRACT reworded to say so, a function other modules call stays exported with no promise. The inventory
+       (`out/inventory-f6.sh`, one grep pass, `out/f6-inventory.tsv`) read the 457 public functions: 27 contracted, 244 named by code
+       outside their module, 139 named only in docs, 47 named nowhere outside it. Of the 47, the console commands are public and were
+       contracted, the counterpart family of the installers: 20 `Uninstall-<Tool>` and 5 `Remove-<Tool>` in Node, Provisioning, Python and
+       Toolchain (52 contracted commands, `CONTRACTS issues=0`, the lookup and the reference regenerated, both contract test files passed).
+       Two helpers only their own module calls moved to `private/` with their comment pages, their article rows and a test through
+       `InModuleScope`: Get-WorldMapOutputRoot (Maps) and Get-ManagedGuids (QualityGates); each is unexported, its tests and the module's
+       callers' tests pass, Test-Links, Test-Comments, Test-GeneratedFiles, Test-FileMeta and Test-ManagedGuids clean. Left exported, by the
+       pair convention or as a module's own responsibility: Test-VendorModuleAvailable, Get-PermanentEnvironmentVariable, the Asserts and
+       Files Test/Assert pairs, Assert-GitHubPurgeReady, New-SyntheticHistory, Set-CurrentAzSubscription and Save-PSReadLineKeyHandlerSet.
+       The two questions the user delegated (2026-10-18, D26 and D27): of the twelve exported functions nothing calls, five were dead code
+       and left the tree with their tests, pages and article rows (Assert-Null, Assert-PipelineEmpty, Get-LastExitCode, Wait-Mutex,
+       ConvertTo-Dictionary); Assert-IsGuidInRange, Assert-FileIsLocked and Test-IsTimeoutExempt stay as halves of a Test/Assert pair,
+       Write-CallStack and Write-CmdletParameterSet as debug writers, Get-FunctionDependencyTree with no contract (a `PSObject[]`
+       parameter), and Remove-TokenFromHistory got its contract. Of the 139 functions only docs name, 38 are named by a how-to; the 12 of
+       them the closed language expresses got hand-written contracts (Clear-GlobSetProtection, Test-GlobSetAffected,
+       Build-EnglishDictionary, Export-SpellingTriage, Format-MarkdownTitle, Install-DevBoxTools, Assert-DevBoxToolsStatus,
+       Register-AdoBuildValidation, Invoke-Poetry, Get-RepositoryFile, Get-BicepTemplateNames, Get-BicepParameterModel); the rest stay
+       exported with no promise: the gates return a `pscustomobject` under `-PassThru`, and Get-Inspiration and Export-WorldMapPdf use
+       parameter sets, which the grammar cannot state. Verdicts: `CONTRACTS issues=0`, 65 contracted commands, `[Invoke-TestFile] Passed`
+       for Get-ContractCheckResults.Assets.Tests and New-CatsCommandLookup.Tests (`out/test-file/20261018-135212-cc0b32`, `-135236-24560e`).
+       Open, for a later language step: a type for gate results and a way to state parameter sets, which together would let the gates and
+       the two set-based commands be contracted.
 8. [x] Landed 2026-10-18 by session catzc-f3, verdict: "[Invoke-TestFile] Passed for ContractCommand, Read-CommandSignature,
-   New-CatsCommandLookup, Get-ContractCheckResults.Assets (out/test-file/20261018-162922-0d4274, -162928-2ad798, -162934-c8134f,
-   -162940-ec476e); CONTRACTS issues=0; Test-AdrRegistry issues=0; Test-Links clean on the ADR and catzc.md; Invoke-BashTest
-   catzc-base-engines ok". Lookup columns 8 (sets) and 9 (default set); importer.sh resolves the call's set (two new bats cases);
-   Get-Inspiration and Export-WorldMapPdf contracted; Get-FileLanguage's contract corrected (its sets were unstated). Its
-   Test-GeneratedFiles 287 are the stale minimap pages the migration clears. Original step: Parameter sets in the contract language. Decided by the orchestrator on the user's
-   delegation: a spec suffix ` in <Set>[,<Set>]` (none = every set) and a top-level `default_set:` key (omitted = one set); mandatory stays
-   per parameter, and a parameter mandatory in one set but optional in another is a finding; the checker reads ParameterSetName and
-   DefaultParameterSetName; the `cats` lookup gains a sets column and importer.sh picks the set the given names fit, the default when
-   several fit. ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE states it; then Get-Inspiration and Export-WorldMapPdf get their contracts. Check:
-   Test-AdrRegistry and Test-Links on the ADR; the ContractCommand, Read-CommandSignature, Get-ContractCheckResults.Assets and
-   New-CatsCommandLookup test files pass; the cats.bats cases pass; `CONTRACTS issues=0`; Test-GeneratedFiles clean.
+       New-CatsCommandLookup, Get-ContractCheckResults.Assets (out/test-file/20261018-162922-0d4274, -162928-2ad798, -162934-c8134f,
+       -162940-ec476e); CONTRACTS issues=0; Test-AdrRegistry issues=0; Test-Links clean on the ADR and catzc.md; Invoke-BashTest
+       catzc-base-engines ok". Lookup columns 8 (sets) and 9 (default set); importer.sh resolves the call's set (two new bats cases);
+       Get-Inspiration and Export-WorldMapPdf contracted; Get-FileLanguage's contract corrected (its sets were unstated). Its
+       Test-GeneratedFiles 287 are the stale minimap pages the migration clears. Original step: Parameter sets in the contract language.
+       Decided by the orchestrator on the user's delegation: a spec suffix ` in <Set>[,<Set>]` (none = every set) and a top-level
+       `default_set:` key (omitted = one set); mandatory stays per parameter, and a parameter mandatory in one set but optional in another
+       is a finding; the checker reads ParameterSetName and DefaultParameterSetName; the `cats` lookup gains a sets column and importer.sh
+       picks the set the given names fit, the default when several fit. ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE states it; then
+       Get-Inspiration and Export-WorldMapPdf get their contracts. Check: Test-AdrRegistry and Test-Links on the ADR; the ContractCommand,
+       Read-CommandSignature, Get-ContractCheckResults.Assets and New-CatsCommandLookup test files pass; the cats.bats cases pass;
+       `CONTRACTS issues=0`; Test-GeneratedFiles clean.
 9. [x] Landed 2026-10-18 by session catzc-f3, verdict: "CONTRACTS issues=0 (124 assets); New-CatsCommandLookup +
-   Get-ContractCheckResults.Assets 238/238; post-switch 66 test files: 59 fully green, 7 red only on real-tree integrity checks owned
-   elsewhere"; QualityGateResult (L0 5/5), seam removed, every gate typed (Test-Slides by catzc-fb), 43 gate contracts (the gates a
-   how-to names). Not run: the L2 build tests Import-Catzc, Get-DynamicManifestContent, Test-CatzcBuild.Parity (the final full run).
-   Original step: The gate result type, decided the same way: a C# `Catzc.Base.Reports.QualityGateResult` (Subject, IssueCount, Issues, ReportPath,
-   Facts as an ordered dictionary) returned by `Write-QualityGateReport -PassThru`; each gate declares it as its OutputType, one gate file
-   at a time with its tests and every caller reading a flattened fact moved to `.Facts[...]` in the same change (one living version); no
-   grammar change (a Catzc.* type); then the gates get contracts. Unblocked 2026-10-18 (task-test-run-budget step 6 landed); held by
-   session catzc-f3. Check per gate: its test file and its callers' test files pass; `CONTRACTS issues=0` at the end.
-10. Tick P7 in `plan-layers-vocabulary-rename-contracts.md`; when every phase is ticked the plan is trimmed of its carried drafts and deleted
-   in task-closing-sweep. Check: grep `- [ ]` counts zero.
+       Get-ContractCheckResults.Assets 238/238; post-switch 66 test files: 59 fully green, 7 red only on real-tree integrity checks owned
+       elsewhere"; QualityGateResult (L0 5/5), seam removed, every gate typed (Test-Slides by catzc-fb), 43 gate contracts (the gates a
+       how-to names). Not run: the L2 build tests Import-Catzc, Get-DynamicManifestContent, Test-CatzcBuild.Parity (the final full run).
+       Original step: The gate result type, decided the same way: a C# `Catzc.Base.Reports.QualityGateResult` (Subject, IssueCount, Issues,
+       ReportPath, Facts as an ordered dictionary) returned by `Write-QualityGateReport -PassThru`; each gate declares it as its OutputType,
+       one gate file at a time with its tests and every caller reading a flattened fact moved to `.Facts[...]` in the same change (one
+       living version); no grammar change (a Catzc.* type); then the gates get contracts. Unblocked 2026-10-18 (task-test-run-budget step 6
+       landed); held by session catzc-f3. Check per gate: its test file and its callers' test files pass; `CONTRACTS issues=0` at the end.
+10. [x] Done 2026-10-18: P7 is ticked in plan-layers-vocabulary-rename-contracts; this task is complete. Tick P7 in
+        `plan-layers-vocabulary-rename-contracts.md`; when every phase is ticked the plan is trimmed of its carried drafts and deleted in
+        task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report
 

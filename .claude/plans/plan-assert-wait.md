@@ -2,9 +2,8 @@
 plan:
   status: active
   value: medium
-  reviewed: 2026-10-16
-  blocked_on:
-    nothing; Q1-Q5 are answered below, and the open steps are the config move, a green Test-Automation file and the first measured run
+  reviewed: 2026-10-18
+  blocked_on: the user's git mv of FileKindReachability.Tests (task-user-runs-and-commits step 2), the one open step
   targets: [pwsh/Catzc.Base.Timeouts, pwsh/.internal/Catzc.Internal.Importer.psm1, pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1]
 ---
 
@@ -16,9 +15,9 @@ stops nothing and throws on nothing. First uses: the startup of the importer and
 
 ## Why its value is medium
 
-A hang today shows nothing about where it stopped (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, "A hang is the slowest failure"). The watchpoint finds the place so
-a limit can be put there and tuned. It is a diagnostic that leaves the tree once the block is bounded, so its lasting value is the limits it
-leads to, not the function. It needs one ADR pair and one L0 test file.
+A hang today shows nothing about where it stopped (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, "A hang is the slowest failure"). The watchpoint finds
+the place so a limit can be put there and tuned. It is a diagnostic that leaves the tree once the block is bounded, so its lasting value is
+the limits it leads to, not the function. It needs one ADR pair and one L0 test file.
 
 ## Contract (final for v1; Q1-Q3 answered below)
 
@@ -33,19 +32,20 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 - Returns nothing; throws only for invalid arguments, never caught (ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS).
 - Sees the calling thread's schedule only; a starved process shows as late ticks too. Telling thread from process apart (a second thread's
   heartbeat, as `Invoke-WithProgress` runs) is out of scope.
-- Home: `Catzc.Base.Timeouts`, beside `Assert-CompletesWithin`. `ADR-PWSH-ASSERT-TWOWAITBOUNDS` bans an unbounded wait; this one is bounded by
-  construction, so its `Start-Sleep` is not a finding.
+- Home: `Catzc.Base.Timeouts`, beside `Assert-CompletesWithin`. `ADR-PWSH-ASSERT-TWOWAITBOUNDS` bans an unbounded wait; this one is bounded
+  by construction, so its `Start-Sleep` is not a finding.
 
 ## Needed docs
 
-- `ADR-AUTO-FAILFAST#8`: mark a suspected block with a watchpoint, then bound it (Q5). `ADR-PWSH-ASSERT#7`: the pwsh form. Both go through
-  `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `Build-AdrIndex`; present tense, no history.
+- ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND (mark a suspected block with a watchpoint, then bound it) and
+  ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH (the pwsh form): written 2026-10-18.
 - Function help for `Assert-Wait` (ADR-REPO-HELP); a glossary entry only if `watchpoint` becomes a defined term (`glossary-keeper`).
 - The `timeouts.yml` page documents the new `wait` keys (Q1).
 
 ## Needed tests
 
-- `tests/Assert-Wait.Tests.ps1`, L0 logic, neutral fixture names (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES); lift `$global:__PesterRunning` in the test's own scope.
+- `tests/Assert-Wait.Tests.ps1`, L0 logic, neutral fixture names (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES); lift `$global:__PesterRunning`
+  in the test's own scope.
   - default total is 1.001 s with ten ticks; `-Seconds 0 -Millisecs 30` runs 30 ms
   - zero total and a negative value throw the assertion message
   - output order: opening, ten ticks, exactly one warning, the warning last
@@ -56,38 +56,15 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
   `wait` rejected, and a zero or negative value rejected.
 - Module-graph check that `Catzc.Base.Timeouts` -> `Catzc.Base.Writers` makes no cycle (ADR-AUTO-DEPM).
 
-## Open questions
+## Decided
 
-- **Q1. Answered 2026-10-17 at the user's request: on the config type.** The defaults 1 s and 1 ms are declared once on `TimeoutsConfig`, as
-  a `wait` map with `seconds` and `millisecs`, one pair and not keyed by environment (a watchpoint is a diagnostic; a pipeline run of one is
-  the rare case). The `param` block reads them from `Get-Config -Config timeouts` and restates no number. Why:
-  [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder) declares a sensible default exactly once, on
-  the setting's config type, and ADR-AUTO-DEFAULT-DEFAULTSFROMCONFIG pulls defaults from configuration. Projected outcome: `timeouts.yml` may set `wait`, a
-  fresh checkout behaves as the type says, and `Assert-Wait.Tests.ps1` still pins a 1.001 s total. The literals now in `Assert-Wait.ps1` are
-  replaced in the same change (ADR-PRIN-ONELIVE).
-- **Q2. Answered 2026-10-17 at the user's request: as drafted.** `Assert-Wait` really waits and measures its own ticks (not a threshold on
-  time since a start mark); `Millisecs` adds to `Seconds` (not a tick interval); the closing warning always fires. Why: a threshold needs a
-  start mark and a second function, so a one-line watchpoint cannot be one; the request's own wording ("write-aggressively ... conclude with
-  write-warning and then let go") describes a function that stands and speaks; and an always-on warning keeps a temporary diagnostic from
-  being parked in the tree (ADR-PRIN-ONELIVE). Projected outcome: the 16 tests in `Assert-Wait.Tests.ps1` stand as they are, and the
-  contract above is final for v1.
-- **Q3. Answered 2026-10-17 at the user's request: v1 as built; the Bootstrap span stays uncovered until a measured run asks for it.** The
-  standing points sit only after the module import. The Bootstrap phases (loader, vendor, type compile) keep `-DiagnoseLoadTime`, which
-  already times them. A Bootstrap copy of `Assert-Wait` would be a second living version (ADR-PRIN-ONELIVE), and the other shape (a
-  heartbeat thread started before the first module, as `Invoke-WithProgress` runs one) is a new function, so it waits for evidence. Evidence
-  to collect first: run `importer.ps1 -DiagnoseBlocking` and `-DiagnoseLoadTime` side by side; a Bootstrap phase that dominates the load
-  time without a visible cause is the trigger to open that shape as its own plan. Observation from the first real run: all four importer
-  watchpoints reported a worst tick about 110 ms late (116, 114, 106, 109), the same each time, so it looks like a fixed cost of the first
-  tick in that session and not a stall; find its source before reading a late tick in the importer as a block. Projected outcome: no new
-  code now; the follow-up is a measured step below.
-- **Q4 (built, not yet confirmed).** The opt-in switch is `-DiagnoseBlocking`, beside `-DiagnoseLoadTime`, on `importer.ps1`,
-  `Test-Automation` and `Invoke-TestRun`; a call site reads `if ($DiagnoseBlocking) { Assert-Wait }`, because each point costs its full
-  duration on every run. The importer's standing points add about four seconds to its own "Loaded in" line.
-- **Q5. Answered 2026-10-17 at the user's request: after the first measured run, not with the code.** `ADR-AUTO-FAILFAST#8` and
-  `ADR-PWSH-ASSERT#7` are written once a run has shown what a watchpoint finds and whether the ten-tick shape and the always-on warning
-  hold. An ADR states the current design in the present tense and is cited by code (`ADR-AUTO-FAILFAST#8`); a rule written before the shape
-  is proven would be edited or retired again, and a retired number is never reused. The function's head block cites ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS and ADR-AUTO-FAILFAST-BOUNDEVERYWAIT,
-  which is what governs it meanwhile. Projected outcome: the ADR step stays open with that trigger.
+- Q1: the defaults (1 s, 1 ms) are declared once on `TimeoutsConfig` as a `wait` map; the function restates no number.
+- Q2: the watchpoint really waits, measures its own ticks and always ends with a warning.
+- Q3: the standing points sit after the module import only; the Bootstrap span keeps `-DiagnoseLoadTime`.
+- Q4: the switch is `-DiagnoseBlocking` on `importer.ps1`, `Test-Automation` and `Invoke-TestRun`. Since the measured run of 2026-10-18
+  found no block, no watchpoint stands; the switch and `Watch-Blocking` stay as the mark, measure, bound, remove mechanism.
+- Q5: the rules were written after that run, in the named form: ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND and
+  ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH.
 
 ## Open steps
 
@@ -120,20 +97,21 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
       phase that hides a block (types 203 ms, the largest module imports 56 to 66 ms).
 - [x] Function help beyond the head blocks (check: `Test-Links` on the touched pages). Corrected 2026-10-17 (task-assert-wait): the head's
       config part is the whole help (ADR-REPO-HELP-HELPONCOMMENTPAGE), and it now names the registry defaults.
-- [x] Done 2026-10-18 with the rename (catzc-93; task-assert-wait step 7). Q6, raised by the read-only review of 2026-10-17 (session catzc-6c): `Assert-Wait` throws only for a bad argument and otherwise lets
-      go, while ADR-PWSH-VERBS-SEMANTICCONTRACT and ADR-PWSH-VERBS-TESTANDASSERT make an Assert- function one that stops the caller, and the file sits in the `assert` subkind of
+- [x] Done 2026-10-18 with the rename (catzc-93; task-assert-wait step 7). Q6, raised by the read-only review of 2026-10-17 (session
+      catzc-6c): `Assert-Wait` throws only for a bad argument and otherwise lets go, while ADR-PWSH-VERBS-SEMANTICCONTRACT and
+      ADR-PWSH-VERBS-TESTANDASSERT make an Assert- function one that stops the caller, and the file sits in the `assert` subkind of
       file-kinds.yml ("stops the caller"). The user decides: a watch verb (`Watch-Blocking`) with the assert subkind untouched, or a VERBS#7
       exemption for a watchpoint that never stops (check: a Decided line, then the rename or the exemption in the same change as the ADR
       pair of Q5). Decided 2026-10-18 (D17): the rename to `Watch-Blocking`, the assert subkind untouched; it lands with the Q5 pair.
 - [x] Done 2026-10-18 by session catzc-93: the run found no block (worst tick 12-14 ms); the rules landed in the named form as
       ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND and ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH ("Build-AdrIndex ok; Test-AdrRegistry 0;
-      Test-Links 0, Test-Markdownlint 0 and Test-Spelling 0 on both ADRs and index.md"); Watch-Blocking.Tests 16/16. Q5: after the first measured run (`importer.ps1 -DiagnoseBlocking`, four seconds, the user's; the Test-Automation points are read only
-      if the final full run carries the switch, and nothing waits on that), write `ADR-AUTO-FAILFAST#8` and `ADR-PWSH-ASSERT#7` with the D17
-      rename to `Watch-Blocking` (check: `Build-AdrIndex`, `Test-Links` and the ADR gates on the touched pages; the renamed test file passes
-      under `Invoke-TestFile`).
+      Test-Links 0, Test-Markdownlint 0 and Test-Spelling 0 on both ADRs and index.md"); Watch-Blocking.Tests 16/16. Q5: after the first
+      measured run (`importer.ps1 -DiagnoseBlocking`, four seconds, the user's; the Test-Automation points are read only if the final full
+      run carries the switch, and nothing waits on that), write the two rules with the D17 rename to `Watch-Blocking` (check:
+      `Build-AdrIndex`, `Test-Links` and the ADR gates on the touched pages; the renamed test file passes under `Invoke-TestFile`).
 - [x] Done 2026-10-18 (catzc-93; task-assert-wait step 8): no watchpoint found a block, so all eight calls are deleted. After that run:
-      replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check: a grep finds no
-      watchpoint call left without a finding).
+      replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check: a grep finds no watchpoint call
+      left without a finding).
 
 ## Refs
 

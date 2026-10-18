@@ -41,11 +41,12 @@ by naming which of the 439 public functions are contracted. Every later plan spe
   plan (render nothing unasked); the session proposes the command-contract pilot list for approval (the cats entry point's commands the
   likely answer); the externally bound pipeline names are re-pointed the same day as P6; the planner re-points the prompts' out/ paths; P1
   (docs and glossary) runs beside the module model, code phases wait.
-- The cats and catzc names are ruled by a new ADR-PRIN-CATS (plan-adr-cats); pwsh and automation stay strictly apart from it (F1): the folder
-  rename is technical, automation is a subject and the big cross-cutter with design principles and pipelines, so ADR-AUTO-LAYERS rules those
-  two names and the glossary terms pwsh and automation come from it.
-- ADR-PRIN-CATS is written (2026-10-17, docs/adr/principles/cats-and-catzc.md): cats (ADR-PRIN-CATS-CATSISPERSONNAME) and catzc (ADR-PRIN-CATS-CATZCISSOURCENAME) are glossary terms from
-  it, so the layers glossary list excludes them and ADR-AUTO-LAYERS cites them where it needs the names.
+- The cats and catzc names are ruled by a new ADR-PRIN-CATS (plan-adr-cats); pwsh and automation stay strictly apart from it (F1): the
+  folder rename is technical, automation is a subject and the big cross-cutter with design principles and pipelines, so ADR-AUTO-LAYERS
+  rules those two names and the glossary terms pwsh and automation come from it.
+- ADR-PRIN-CATS is written (2026-10-17, docs/adr/principles/cats-and-catzc.md): cats (ADR-PRIN-CATS-CATSISPERSONNAME) and catzc
+  (ADR-PRIN-CATS-CATZCISSOURCENAME) are glossary terms from it, so the layers glossary list excludes them and ADR-AUTO-LAYERS cites them
+  where it needs the names.
 - Public API (F6, S5): most of the 439 public functions become internal; the pilot contracts are hand-written; generating a contract from
   the ADR that defines it is a direction tried on the second set.
 
@@ -63,8 +64,8 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 - Glossary: automation, importer, command, bare engine, language, module, role, run mode, command contract, contract language, layer.
   Avoid-phrasings for the new meanings now, for the retired folder meaning at P6.
 - languages.yml top-level engines renamed formatters; adrs.yml layer key; the four term collisions (tracks.md:209, tracks.md:57,
-  ADR-AUTO-ENGINE-STARTENVIRONMENT, engines:); docs/references mirror follows the folder; Test-AdrEngineNeutrality extended so AUTO ADRs carry no pwsh
-  syntax.
+  ADR-AUTO-ENGINE-STARTENVIRONMENT, engines:); docs/references mirror follows the folder; Test-AdrEngineNeutrality extended so AUTO ADRs
+  carry no pwsh syntax.
 
 ## P0 baseline (2026-10-17, layers doctrine)
 
@@ -74,8 +75,8 @@ by naming which of the 439 public functions are contracted. Every later plan spe
   catzc-base-modules.md page, and one `[Citation]` in plans.yml, a bare `ADR-REPO-PLANS` in a comment, fixed in the same hour
   (`out/test-links/20261017-183621` clean on the file).
 - Test-WorldMap: 2 issues outside this plan (`out/test-world-map/20261017-183226`): a stack violation, `.claude/drawio/drawio.yml` is a yaml
-  file in the `.claude` track whose languages are markdown only (ADR-DSGN-TRACK-ONETECHSTACK), and an undeclared root folder, `.vscode/` holds 3
-  tracked files and no track names it (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER). Both are peers' work of the same day.
+  file in the `.claude` track whose languages are markdown only (ADR-DSGN-TRACK-ONETECHSTACK), and an undeclared root folder, `.vscode/`
+  holds 3 tracked files and no track names it (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER). Both are peers' work of the same day.
 - Edge fact, read from `Build-BashTimeoutHook` and the hook janitor of `Catzc.Internal.Importer.psm1`: a failed hook rebuild does not delete
   the published binary. Nothing removes `.claude/hooks/bin/` before `dotnet publish`, which only overwrites its output when the build
   succeeds, and the janitor wraps the build in try and catch and prints the failure in red. A Bash call stays available on the previous
@@ -130,13 +131,13 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 - [x] P1 doctrine and vocabulary. Done 2026-10-17 (doctrine): ADR-AUTO-LAYERS (7 rules) and ADR-AUTO-IMPORTER (5 rules) written, registered
       with a `layer` key per automation ADR (AdrsConfig validates the five layers, default automation), dora-explains entries; glossary
       terms automation, command, implementation language, pwsh (Docs), importer (ModuleSystem), run mode (Docs, bolded in
-      ADR-DSGN-RUNMODE-TWORUNMODES), engine start environment (Engines, bolded in ADR-AUTO-ENGINE-STARTENVIRONMENT, avoid "black-box contract"), the layer family
-      gains contract, engine, importer and the code segment AUTO; the four collisions: tracks.md lines 65 and 227 reworded,
-      ADR-AUTO-ENGINE-STARTENVIRONMENT and its section renamed in the engine ADR and the three test-artifact ADRs, `languages.yml` `engines:` renamed
-      `formatters:` with LanguagesConfig, Format-Code, the root-config generator and their tests; Test-AdrEngineNeutrality gained the
-      pipeline and item cmdlets and the engine's common parameters as tokens. Check: Test-AdrRegistry, Test-AdrEngineNeutrality,
-      Test-Terminology clean; Test-Glossary reports no finding on the touched files (verdicts in the git history of the layers doctrine task
-      file, deleted as done).
+      ADR-DSGN-RUNMODE-TWORUNMODES), engine start environment (Engines, bolded in ADR-AUTO-ENGINE-STARTENVIRONMENT, avoid "black-box
+      contract"), the layer family gains contract, engine, importer and the code segment AUTO; the four collisions: tracks.md lines 65 and
+      227 reworded, ADR-AUTO-ENGINE-STARTENVIRONMENT and its section renamed in the engine ADR and the three test-artifact ADRs,
+      `languages.yml` `engines:` renamed `formatters:` with LanguagesConfig, Format-Code, the root-config generator and their tests;
+      Test-AdrEngineNeutrality gained the pipeline and item cmdlets and the engine's common parameters as tokens. Check: Test-AdrRegistry,
+      Test-AdrEngineNeutrality, Test-Terminology clean; Test-Glossary reports no finding on the touched files (verdicts in the git history
+      of the layers doctrine task file, deleted as done).
 - [x] P2 done 2026-10-18 (task-layers-funnel): the NoTrackRootLiteral guard reports one file over 1,641 tracked PowerShell files, the orphan
       root-config `importer.ps1` template listed for the user's delete; Test-GeneratedFiles 0 issues, as at the P0 baseline.
 - [x] P3 done 2026-10-18 (task-layers-classification-flip steps 1 and 2): the classification table in section 8, the wording drafts in
@@ -145,19 +146,21 @@ by naming which of the 439 public functions are contracted. Every later plan spe
       from the staged build output the user unstages (verdicts in task-layers-classification-flip steps 3 to 5). P5 to P8 per the master
       plan.
 - [x] Done 2026-10-18: the user's calls landed as D26 and D27, and task-command-contracts steps 8 and 9 added parameter sets, the gate
-      result type and 43 gate contracts (CONTRACTS issues=0, 124 assets). P7 command contracts, task-command-contracts: C1 the ADR, C2 the kind and checker, C4 the reader and the signature column landed
-      2026-10-17, C3 the pilot set landed 2026-10-18 (12 command assets, Test-Contracts clean; three commands outside the contract language
-      wait for C6; verdicts in task-command-contracts), C5 the `cats` lookup and its checks landed 2026-10-18 (`importer-commands.sh`
-      generated by New-CatsCommandLookup, six cats.bats cases pass), the C6 widening landed 2026-10-18 (the fifteen installers, 27
-      contracted commands, Test-Contracts clean), and F6 under D21 the same day (internal is internal to its module: the uninstall and
-      remove family contracted, 52 commands; two helpers moved to `private/`; verdicts in task-command-contracts). Open: the user's call on
-      twelve exported functions nothing calls and on the 139 only docs name (check: Test-Contracts clean on the frozen set).
+      result type and 43 gate contracts (CONTRACTS issues=0, 124 assets). P7 command contracts, task-command-contracts: C1 the ADR, C2 the
+      kind and checker, C4 the reader and the signature column landed 2026-10-17, C3 the pilot set landed 2026-10-18 (12 command assets,
+      Test-Contracts clean; three commands outside the contract language wait for C6; verdicts in task-command-contracts), C5 the `cats`
+      lookup and its checks landed 2026-10-18 (`importer-commands.sh` generated by New-CatsCommandLookup, six cats.bats cases pass), the C6
+      widening landed 2026-10-18 (the fifteen installers, 27 contracted commands, Test-Contracts clean), and F6 under D21 the same day
+      (internal is internal to its module: the uninstall and remove family contracted, 52 commands; two helpers moved to `private/`;
+      verdicts in task-command-contracts). Open: the user's call on twelve exported functions nothing calls and on the 139 only docs name
+      (check: Test-Contracts clean on the frozen set).
 - [ ] P6 also retires the old layer forms `automation`, `PowerShell` and `implementation` from the layer family and adds the avoid phrasings
       "the automation folder", "automation modules" and "the loader": 68 pages say "automation layer", "implementation layer" or "PowerShell
       layer" today (pipelines/custom-template-discipline.md 15, docs/index.md 13, the pwsh ADRs most of the rest), so the retirement waits
       for the flip (check: Test-Glossary clean after the rewording).
-- [x] Done 2026-10-18 (task-loose-ends step 2: the `executable` flag exists and the rule names it). The ADR-AUTO-LAYERS rule 2 wording "the file languages its track declares" stands in for the `executable` flag of Q-L1, which is a
-      LanguagesConfig key and so P2 or L3 code, not P1 (check: the flag exists and rule 2 names it).
+- [x] Done 2026-10-18 (task-loose-ends step 2: the `executable` flag exists and the rule names it). The ADR-AUTO-LAYERS rule 2 wording "the
+      file languages its track declares" stands in for the `executable` flag of Q-L1, which is a LanguagesConfig key and so P2 or L3 code,
+      not P1 (check: the flag exists and rule 2 names it).
 
 ## Stop and ask when
 
@@ -192,8 +195,8 @@ Edges for P6, from the worklist (section 6):
   `Catzc.Azure.DevOps/pipelines/ci-automation*.yaml`.
 - `README` badge `.github/README.md` and external bindings outside git: Azure DevOps pipeline definitions point at
   `pipelines/ci-automation.yaml`; GitHub required checks. Only the pipeline rename (S6) touches these.
-- ADR-DSGN-TRACK-DEPLOYABLEUNIT (tracks.md): "as `ci-automation` binds the automation track" -> "as `ci-<TRACK>` binds the `<TRACK>` track"; lands with
-  P6.
+- ADR-DSGN-TRACK-DEPLOYABLEUNIT (tracks.md): "as `ci-automation` binds the automation track" -> "as `ci-<TRACK>` binds the `<TRACK>` track";
+  lands with P6.
 
 ### From the master draft: not in this plan
 
@@ -212,12 +215,12 @@ rendering any diagram unasked; the Azure DevOps and GitHub settings that live ou
 The user's phrase: "an IMPORTER deciding the final mix of engines and languages". The design, smallest first, all configuration with
 sensible defaults and no new registry (ADR-PRIN-CONFIG, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-AUTO-OVERLAY for consumer differences):
 
-- **Inputs** (resolution order of ADR-AUTO-DEFAULT-ONERESOLUTIONORDER: the caller's explicit value, else configuration, else the default declared once on the
-  config type): `-Languages`, `-Engines` on the importer (an importer switch, like today's `-Bundle`), environment variables only where
-  ADR-AUTO-ENVVAR allows an external contract (**read it first**), `importer.yml` (new, `Catzc.Base.ModuleSystem/configs/`, type
-  `ImporterConfig` carries the defaults, with the posture and generated `defaults` contract of plan-config-defaults), then the
-  bundle/profile closure for modules. Run mode (source|build) and host (console|headless) stay orthogonal and keep choosing the types-load
-  cell.
+- **Inputs** (resolution order of ADR-AUTO-DEFAULT-ONERESOLUTIONORDER: the caller's explicit value, else configuration, else the default
+  declared once on the config type): `-Languages`, `-Engines` on the importer (an importer switch, like today's `-Bundle`), environment
+  variables only where ADR-AUTO-ENVVAR allows an external contract (**read it first**), `importer.yml` (new,
+  `Catzc.Base.ModuleSystem/configs/`, type `ImporterConfig` carries the defaults, with the posture and generated `defaults` contract of
+  plan-config-defaults), then the bundle/profile closure for modules. Run mode (source|build) and host (console|headless) stay orthogonal
+  and keep choosing the types-load cell.
 - **Values:** `auto` (default) or an explicit list. `auto` for **engines** = pwsh plus every POSIX engine whose executable exists (a missing
   zsh is skipped and reported, as the earlier decision says); for **languages** = the executable languages of the loaded modules.
 - **Result:** one `ImportMix { Languages, Engines, Modules }` record kept for the session, readable by `Get-ImportMix`. The test runner
@@ -226,8 +229,8 @@ sensible defaults and no new registry (ADR-PRIN-CONFIG, ADR-AUTO-DEFAULT-ONERESO
   1. report only (`Get-ImportMix` states today's truth: engines [pwsh], languages [powershell, csharp], modules = all in the root);
   2. module selection by language (a module whose live languages are not in the mix is not loaded);
   3. entry files follow the mix (`importer.sh` is only generated and mentioned when a POSIX engine is in the mix);
-  4. languages beyond powershell and csharp: **throw `NotImplemented` when configured** (the pattern of ADR-REPO-CONTRACT-CONFIGUREDADDRESSING); switched on
-     only once proven from every engine.
+  4. languages beyond powershell and csharp: **throw `NotImplemented` when configured** (the pattern of
+     ADR-REPO-CONTRACT-CONFIGUREDADDRESSING); switched on only once proven from every engine.
 - **Per-language facts** that the importer and the module-model plan both need (`build`, `test`, `layout` handlers, the `executable` flag)
   belong in `languages.yml` beside `formatter` and `checks`, one file the formatter, checks and importer share (Q-F of the module-model
   plan). Whether `FileLanguage` rejects unknown keys is **unverified**; a new key needs the type edit first (C# change, fresh `pwsh`).

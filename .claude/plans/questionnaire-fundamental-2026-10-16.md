@@ -15,18 +15,18 @@ answered and unanswered alike) are the next batch, run the same way.
 
 ## The twenty selected
 
-Q18b ADR-PRIN-CATS; Q98 Track as root; Q96 plans as deltas; Q97 decisions become rules; Q07 plans authored in .claude/plans; Q05 stable locators
-repository-wide; Q10 body-sha removal; Q09 .unordered emptied for the landing zone; Q66 scoped sha as deployable-module globs; Q70
-ADR-AUTO-MATERIAL now; Q101 analyzer rule for literal defaults; Q16 defaults as a contract kind; Q56 ADR-REPO-HELP-CITATIONINSENTENCE relaxed; Q35 one
-primary language per track; Q22 the pwsh folder move; Q24 the contract pilot set; Q107 contracts as the only public API; Q108 contracts
-generated from ADRs; Q109 the ADR reading rule; Q118 the next structural change.
+Q18b ADR-PRIN-CATS; Q98 Track as root; Q96 plans as deltas; Q97 decisions become rules; Q07 plans authored in .claude/plans; Q05 stable
+locators repository-wide; Q10 body-sha removal; Q09 .unordered emptied for the landing zone; Q66 scoped sha as deployable-module globs; Q70
+ADR-AUTO-MATERIAL now; Q101 analyzer rule for literal defaults; Q16 defaults as a contract kind; Q56 ADR-REPO-HELP-CITATIONINSENTENCE
+relaxed; Q35 one primary language per track; Q22 the pwsh folder move; Q24 the contract pilot set; Q107 contracts as the only public API;
+Q108 contracts generated from ADRs; Q109 the ADR reading rule; Q118 the next structural change.
 
 ## The ten fundamental questions
 
 ### F1 Names
 
-What changes for the repository when ADR-PRIN-CATS rules cats and catzc: which folders, namespaces, executors, glossary terms and CLAUDE.md lines
-change their name, and does pwsh versus powershell versus automation fall under the same rule?
+What changes for the repository when ADR-PRIN-CATS rules cats and catzc: which folders, namespaces, executors, glossary terms and CLAUDE.md
+lines change their name, and does pwsh versus powershell versus automation fall under the same rule?
 
 ### F2 The root entity
 

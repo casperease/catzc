@@ -53,13 +53,13 @@ staging and the DEPLOY pipeline have no code. Every explanation article on the l
   run-time state DEPLOY's cutover changes, not config; DEPLOY reads `staging_for`.
 - [x] Landed 2026-10-18 by session catzc-59, verdict: "AzureConfig.Tests passed (4 new staging_for cases plus the shipped azure.yml
       integrity), EnvironmentApprovalsConfig.Tests passed, ADRREG ok, Test-Links/Test-Comments ok on the ADR and 3 reference pages,
-      Test-Contracts ok, Format-Code clean" (new rule ADR-AZ-DATAMOD-STAGINGSLOT; `preprod: staging_for: prod`). Original step: Pre-prod: the staging
-      slot in the prod subscription, declared in the azure config and inactive until activated (check: the resolver's L0 tests pass;
-      Test-Contracts clean).
+      Test-Contracts ok, Format-Code clean" (new rule ADR-AZ-DATAMOD-STAGINGSLOT; `preprod: staging_for: prod`). Original step: Pre-prod:
+      the staging slot in the prod subscription, declared in the azure config and inactive until activated (check: the resolver's L0 tests
+      pass; Test-Contracts clean).
 - Step 5 shape, decided by the orchestrator on the user's delegation 2026-10-18: the deploy-and-verify stages are extracted now into one
-  stage template both CD and DEPLOY call (ADR-FLOW-CD-TYPE-ONEDEPLOYPATH, no fork), cd-customer and cd-shared keep an identical stage graph, so the
-  user's pending CD proof run (plan-explanation-drift-gaps Q1, Q2) proves the template that will live; four `deploy-<unit>.yaml` files; the
-  certifying CD run tags its own run `certified-<rung>`. The user is the one approver in `approver_group.members` (2026-10-18).
+  stage template both CD and DEPLOY call (ADR-FLOW-CD-TYPE-ONEDEPLOYPATH, no fork), cd-customer and cd-shared keep an identical stage graph,
+  so the user's pending CD proof run (plan-explanation-drift-gaps Q1, Q2) proves the template that will live; four `deploy-<unit>.yaml`
+  files; the certifying CD run tags its own run `certified-<rung>`. The user is the one approver in `approver_group.members` (2026-10-18).
 - [x] Landed 2026-10-18 by session catzc-59, verdict: "all 6 pipeline files parse; Test-Pipelines ok; Test-AdoPipelineTriggerGlob ok;
       Test-Contracts ok; Format-Code applied; pipelines/README.md regenerated, Test-Links ok" (stages/deploy-unit.yaml, the one deploy path;
       deploy-shared.yaml and deploy-apex.yaml). The approver is the simulated `prod-approver@example.com`, at the user's word in that
@@ -81,13 +81,6 @@ staging and the DEPLOY pipeline have no code. Every explanation article on the l
       which `deploy-apex` stages through before prod), nova `test.yml`, and a flux expedition at all. Until they exist, `deploy-apex`'s
       pre-prod job has no config to deploy and nova and flux have no DEPLOY pipeline (check: the configs build with Build-Bicep; deploy-nova
       and deploy-flux follow deploy-shared's shape; Test-Pipelines clean).
-
-## Open questions
-
-- Q1. Where does main-uat live: a new ADO environment per unit (e.g. `shared-main-uat`), or the existing `nsub` targets renamed?
-- Q2. What certifies RC and RBC: an ADO approval on the next environment, a manual DEPLOY-pipeline parameter, or a tag on the artifact?
-- Q3. Is pre-prod a new environment and subscription, or a staging slot in the prod subscription that stays inactive until activated?
-- Q4. Does DEPLOY take the artifact CI built (by run id or tag), and which pipeline kind owns the tag?
 
 ## Refs
 

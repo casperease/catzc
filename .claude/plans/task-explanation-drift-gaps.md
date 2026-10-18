@@ -27,16 +27,17 @@ Step 1 is unblocked 2026-10-18: the cycle is decided under the step in plan-expl
 exported Variants reader through `Get-Variant`; `Get-Aspect` stays in Modules and calls it; plus `Get-FileLanguage.Tests.ps1:49`). Step 6
 has the user's go (2026-10-18) and the four choices, recorded under the Q4 step there, but is blocked on the diagram-folders migration
 (task-diagram-folders step 6): a flat-slide raster re-render is barred until then, and the articles change with their slides, never ahead.
+
 1. [x] Landed 2026-10-18 by session catzc-fb, verdict: "8/8 L0 files Passed under Invoke-TestFile (Variants: Get-AspectDeclaration,
-   Test-AspectDeclaration, Get-Track, VariantsConfig; Modules: Get-Aspect, Get-CatzcModule; Maps: Get-WorldMap; Languages:
-   Get-FileLanguage); the `Get-Config -Config variants` grep over pwsh hits only Catzc.Base.Variants; LINKS issues=0, COMMENTS issues=0,
-   MARKDOWNLINT issues=0 after Format-Code on the 6 edited pages". New exported `Get-AspectDeclaration`; the five-keys slide's text is
-   left for step 6 (see the plan). Original step: `Get-Aspect.ps1` and `Test-AspectDeclaration.ps1` move from `Catzc.Base.Modules` into `Catzc.Base.Variants` and read through the private
-   `Get-Variant`, so `aspects` has one read path (ADR-REPO-VARIANT); their tests, the `.psd1` export lists, `Get-WorldMap`'s call, the
-   Modules reference page (`docs/references/pwsh/catzc-base-modules.md`, one responsibility left) and the Variants count in
-   `docs/explanation/repository/` and its slide follow. Check: the Variants, Modules and Maps L0 files pass; a grep for
-   `Get-Config -Config variants` over `pwsh/**/*.ps1` hits only Catzc.Base.Variants; `Test-Links` on the edited pages; the final full run is
-   the tree-wide proof.
+       Test-AspectDeclaration, Get-Track, VariantsConfig; Modules: Get-Aspect, Get-CatzcModule; Maps: Get-WorldMap; Languages:
+       Get-FileLanguage); the `Get-Config -Config variants` grep over pwsh hits only Catzc.Base.Variants; LINKS issues=0, COMMENTS issues=0,
+       MARKDOWNLINT issues=0 after Format-Code on the 6 edited pages". New exported `Get-AspectDeclaration`; the five-keys slide's text is
+       left for step 6 (see the plan). Original step: `Get-Aspect.ps1` and `Test-AspectDeclaration.ps1` move from `Catzc.Base.Modules` into
+       `Catzc.Base.Variants` and read through the private `Get-Variant`, so `aspects` has one read path (ADR-REPO-VARIANT); their tests, the
+       `.psd1` export lists, `Get-WorldMap`'s call, the Modules reference page (`docs/references/pwsh/catzc-base-modules.md`, one
+       responsibility left) and the Variants count in `docs/explanation/repository/` and its slide follow. Check: the Variants, Modules and
+       Maps L0 files pass; a grep for `Get-Config -Config variants` over `pwsh/**/*.ps1` hits only Catzc.Base.Variants; `Test-Links` on the
+       edited pages; the final full run is the tree-wide proof.
 2. Q1 proof: the user's CD run (task-user-runs-and-commits step 7). Check: the two run logs show `AFFECTED` true in `cd-apex` and false in
    `cd-shared`; the globset articles lose their "no caller" wording.
 3. Q2 proof: the user's main and PR runs of `ci-automation.yaml` (the same step). Check: `BuildArtifact` ran on main, skipped on the PR.
@@ -49,13 +50,13 @@ has the user's go (2026-10-18) and the four choices, recorded under the Q4 step 
        (marker 8 and its title) and `tests-pin-the-throw-and-fail-open-no-caller` (marker 7 and its title), the elements to remove or
        relabel and the new title where one is due, written to `out/drift-slides-brief.md`. Check: the brief names five slides with their
        article, `.drawio.md` and minimap pages.
-6. [x] Landed 2026-10-18 by session catzc-59, verdict: "Build-Diagrams -Path ok on all 6 folders (and the renamed one); Test-Links ok on
-   all 18 touched pages; Test-Comments ok on pipelines/extends/cd-customer.yaml and its page"; slide 5's slug renamed with the user's go
-   to `tests-pin-the-throw-and-fail-open-cd-calls-it` (Move-Diagram, staged); `a-base-module-between-config-and-its-callers.md` says
-   fifteen. The 13 pages Format-Code would re-wrap are formatted after the citation rename lands. Original step: On the user's go: the
-   five slides changed as the brief says (`write-drawio-files` for labels and titles; a new cell set is a `drawio-png`
-   run per slide), the article text blocks and `.drawio.md` pages following, minimaps restamped. Check: each article's text blocks match its
-   slide; `Test-Links` passes on the touched pages.
+6. [x] Landed 2026-10-18 by session catzc-59, verdict: "Build-Diagrams -Path ok on all 6 folders (and the renamed one); Test-Links ok on all
+       18 touched pages; Test-Comments ok on pipelines/extends/cd-customer.yaml and its page"; slide 5's slug renamed with the user's go to
+       `tests-pin-the-throw-and-fail-open-cd-calls-it` (Move-Diagram, staged); `a-base-module-between-config-and-its-callers.md` says
+       fifteen. The 13 pages Format-Code would re-wrap are formatted after the citation rename lands. Original step: On the user's go: the
+       five slides changed as the brief says (`write-drawio-files` for labels and titles; a new cell set is a `drawio-png` run per slide),
+       the article text blocks and `.drawio.md` pages following, minimaps restamped. Check: each article's text blocks match its slide;
+       `Test-Links` passes on the touched pages.
 7. Tick the plan's steps; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero in plan-explanation-drift-gaps.
 
 ## Report

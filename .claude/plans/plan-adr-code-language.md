@@ -172,32 +172,74 @@ them all).
 ## Open steps
 
 - [x] 1. Write `docs/adr/repository/adr-code-language.md` (`ADR-REPO-ADRCODE`) with the grammar as its 8 rules and register it in
-     `adrs.yml`. Add the `code_language` check to `Test-AdrRegistry` (segment form, domain segment, numbered rule headings, sibling
-     uniqueness), in `report` mode in `adr-checks.yml`, so today's tree reports and never fails. The index's "Citing a rule" and
-     ADR-REPO-LINK keep the `#` form until step 6, because it is the live spelling until then. Check: the `Test-AdrRegistry` and
-     `AdrChecksConfig` test files pass; `Test-AdrRegistry` and `Test-Links` on the new ADR clean.
+      `adrs.yml`. Add the `code_language` check to `Test-AdrRegistry` (segment form, domain segment, numbered rule headings, sibling
+      uniqueness), in `report` mode in `adr-checks.yml`, so today's tree reports and never fails. The index's "Citing a rule" and
+      ADR-REPO-LINK keep the `#` form until step 6, because it is the live spelling until then. Check: the `Test-AdrRegistry` and
+      `AdrChecksConfig` test files pass; `Test-AdrRegistry` and `Test-Links` on the new ADR clean.
 - [x] 2. Write the slug map: one `ADR-X:<n> → ADR-X-<SLUG>` line for all 1645 rules, as a reviewable file in `out/`, written per domain and
-     reviewed by the user one domain at a time before anything is rewritten. Spelled-out slugs, vendor item ids for CAF/WAF. Check: no
-     duplicate under any parent, and no slug that equals a child ADR's name (`ADR-FLOW-CD`).
+      reviewed by the user one domain at a time before anything is rewritten. Spelled-out slugs, vendor item ids for CAF/WAF. Check: no
+      duplicate under any parent, and no slug that equals a child ADR's name (`ADR-FLOW-CD`).
 - [x] 3. Rename the codes: the three domain moves (`ADR-CATS`, `ADR-AI`, `ADR-PRIN-PROCESS`) and the 17 CAF/WAF codes into their group
-     level, through `Update-AdrCitation -CodeMap`; the flow domain's `code` in `adrs.yml` goes from `FLOW-CD` to `FLOW` (its ADR codes stay;
-     `ADR-FLOW-CD` is then the ADR `CD` with its four sibling ADRs below it). Message the orchestrator first. Check: `Test-Links` and
-     `Test-AdrRegistry` on the moved ADRs.
+      level, through `Update-AdrCitation -CodeMap`; the flow domain's `code` in `adrs.yml` goes from `FLOW-CD` to `FLOW` (its ADR codes
+      stay; `ADR-FLOW-CD` is then the ADR `CD` with its four sibling ADRs below it). Message the orchestrator first. Check: `Test-Links` and
+      `Test-AdrRegistry` on the moved ADRs.
 - [x] 4. First, `Test-Spelling` takes the segments of every registered code and rule heading as known words, read from `adrs.yml` and the
-     registries at run time, and the hand-written code-body entries leave `terminology.yml` in the same change (open question 1). Then
-     rewrite the registries: each ADR's `### Rule` headings take their slugs, one ADR file at a time. Check: the `Test-Spelling` test file
-     passes; `Test-Spelling` clean on `docs/adr`; `Test-AdrRegistry` on each rewritten file.
+      registries at run time, and the hand-written code-body entries leave `terminology.yml` in the same change (open question 1). Then
+      rewrite the registries: each ADR's `### Rule` headings take their slugs, one ADR file at a time. Check: the `Test-Spelling` test file
+      passes; `Test-Spelling` clean on `docs/adr`; `Test-AdrRegistry` on each rewritten file.
 - [ ] 5. Rewrite the citations through `Update-AdrCitation -RuleMap`, one area at a time in the order `docs/adr`, `pwsh`,
-     `docs/explanation`, `docs/references` (heads regenerate), `contracts`, `.claude`. Message the orchestrator first. In
-     `contracts/EXTERNAL-azure/0.1.0/` the `.frozen` record is refreshed in the same change. Check: `Test-Links` per area, `Test-Contracts`
-     clean, and `git grep -E 'ADR-[A-Z-]+[#:][0-9{]'` counts zero at the end.
+      `docs/explanation`, `docs/references` (heads regenerate), `contracts`, `.claude`. Message the orchestrator first. In
+      `contracts/EXTERNAL-azure/0.1.0/` the `.frozen` record is refreshed in the same change. Check: `Test-Links` per area, `Test-Contracts`
+      clean, and `git grep -E 'ADR-[A-Z-]+[#:][0-9{]'` counts zero at the end.
 - [ ] 6. Replace the parsers (`AdrCodeForm`, `RULE_COLON`, the `:`→`#` replaces) in the same change as their callers and remove the `#`
-     form, including the seam that lets the three citation validators (`GlossaryConcept`, `AgentEntry`, `CapabilityEntry` `CitationRe`) and
-     `Update-AdrCitation`'s numbered rule-map kinds accept it during the migration; restate the index's "Citing a rule" and trim
-     ADR-REPO-LINK to the link forms; switch `code_language` to `gate`. Check: `AdrCodeForm.Tests.ps1`, `Update-AdrCitation.Tests.ps1`, the
-     glossary and link test files pass; `Test-AdrRegistry` clean in gate mode.
+      form, including the seam that lets the three citation validators (`GlossaryConcept`, `AgentEntry`, `CapabilityEntry` `CitationRe`) and
+      `Update-AdrCitation`'s numbered rule-map kinds accept it during the migration; restate the index's "Citing a rule" and trim
+      ADR-REPO-LINK to the link forms; switch `code_language` to `gate`. Check: `AdrCodeForm.Tests.ps1`, `Update-AdrCitation.Tests.ps1`, the
+      glossary and link test files pass; `Test-AdrRegistry` clean in gate mode. State at the stop of 2026-10-18 (session restart); a fresh
+      session continues from here:
+  - Done: every parser, seam and validator is on the named form only (`AdrCitationMap` with named rules in authored order, `AdrCodeForm` =
+    `IsCode`/`Covers`/`Minimize`, `CodeLinkRewriter`, `AdrCitationRewriter` with rule-map kinds `move`/`collapse` only, the maps
+    `CitationScanner`, the four citation validators, the test-tag readers, Slides, Glossary, `drawio_forward.py`). The link fixers
+    `Colon`/`StringColon` became the unfixable findings `Numbered`/`StringNumbered`; `links.yml` `string_citations.exempt` names only the
+    test files that carry a numbered citation on purpose. The index's "Citing a rule" is restated (`adr-index.yml` preamble), ADR-REPO-LINK
+    holds only the link forms, `code_language` is `gate` (`Test-AdrRegistry` 0 issues). Tests: the 80 touched test files 727 passed 0
+    failed, 19 more 152 passed 0 failed, kit pytest 20 passed; Test-Links, Test-Spelling, Test-Glossary, Test-AgentDefinitions,
+    Test-AnalyzerAdrMap 0 issues; Test-GeneratedFiles 0.
+  - Diagram subtitles (decided 2026-10-18 by the user, option A): a subtitle names the ADRs a slide supports at ADR level, the article's
+    Supports line names the rules; the sentence is in ADR-REPO-ADRCODE-NOSUBSETSPELLING. Per folder: rewrite the `subtitle` cell of the
+    model embedded in `diagram.drawio.png` to the ADR codes (each code cut back to its longest prefix in the index's code tables, each ADR
+    once, the lens kept; the raw model writes the separator as `&amp;#183;`), re-embed it, then `Build-Diagrams -Path <folder>` (all
+    stages). The folder order is `git ls-files` order of `docs/explanation/**/.assets/*/diagram.drawio.png`, glyphs left out,
+    tests-pin-the-throw-and-fail-open-cd-calls-it moved last. Done: the first 110 (automation, azure, configuration, design, and flow up to
+    globs-asks-loader-for-context-and-git-for-diff), all three stages clean bar the warnings below. Left, 39: flow:
+    globs-module-owns-config-and-types, globs-projects-and-three-consumers-read, independence-check-groups-by-layer,
+    no-gate-checks-rules-one-and-four, one-artifact-climbs-unchanged, one-boolean-answer-from-one-function,
+    one-gate-checks-the-raw-read-rule, one-program-two-vendor-dialects, one-scan-program-feeds-three-roles,
+    overlap-gated-for-units-and-modules, peers-in-a-layer-never-overlap, pipeline-kinds-keyed-by-one-artifact,
+    print-projection-then-drift-names-the-filter, range-per-context-then-diff-and-match, stop-only-on-false-everything-else-proceeds,
+    the-analyzer-names-the-raw-read, the-loader-holds-the-one-detector, the-runner-is-the-only-seam, the-step-is-named-after-its-command,
+    three-tasks-one-guard-one-runner, three-views-derived-live-from-one-program, two-declared-layers-one-derived,
+    two-variables-read-in-one-place; pipelines: configured-credential-proves-its-org, one-header-function-owns-precedence,
+    three-guarded-early-returns, what-you-set-decides-the-credential, which-auth-rungs-have-a-gate; repository:
+    a-base-module-between-config-and-its-callers, an-edit-lands-at-the-next-import, five-keys-one-reader-twelve-primitives,
+    import-materialises-two-gates-name-the-fix, one-home-one-read-path-one-vocabulary, one-registry-one-writer-two-primitives,
+    one-source-one-writer-one-boolean, opted-in-then-link-copy-or-render, three-gates-check-registry-drift-membership,
+    values-and-edges-gated-reads-reviewed; and last flow: tests-pin-the-throw-and-fail-open-cd-calls-it.
+  - Supports warnings found on the done folders. Two are real drift, for catzc-fb (the article's Supports line names one ADR more than the
+    slide): automation/one-commit-one-immutable-package (ADR-DSGN-RUNMODE) and flow/drift-is-gated-generation-is-adr-only (ADR-AUTO-TEST).
+    Four were a kit fault, fixed: azure/how-each-naming-rule-is-held, azure/lookup-form-check-render-in-order,
+    azure/names-are-derived-never-typed, azure/names-are-pure-and-never-truncated warned because the kit read every backticked code in
+    index.md as an ADR, and the restated preamble quotes a rule; `known_adrs` in `drawio_forward.py` now reads the code tables only. Rerun
+    the kit pytest after that fix.
+  - Left for the check: finish the 39 folders; `Test-GeneratedFiles` and `Test-Links` over `docs/explanation`; the git grep below lists only
+    the intended numbered strings (the refusal fixtures named in `links.yml` `string_citations.exempt`, `AdrCodeForm.Tests.ps1`,
+    `Build-SlideDeck.Tests.ps1`, `MarkdownMetaBlock.Tests.ps1`, `test_slide_facts.py`, and plan-assert-wait / task-assert-wait /
+    prompt-assert-wait-1-watch-blocking, which cite two rules not written yet: name them when they are written); `Test-Comments` 0 (seven
+    stale anchors were re-anchored at the stop and not yet re-run); the import compiles; then tick this step.
 - [ ] 7. Move this plan's decisions into the ADR and delete the plan. Check: `Test-AdrRegistry` and `Test-Links` clean on the ADR;
-     `git grep plan-adr-code-language` finds no link left.
+      `git grep plan-adr-code-language` finds no link left. Not started. Also due here: tick step 5 (its git grep is the step 6 check), fold
+      `docs/references/adr-terminology-key.md` (the removed `terminology:` key) into the ADR and remove that page, and record the user's
+      subtitle decision (option A) among the decisions.
 
 ## Decisions
 
@@ -216,18 +258,11 @@ Recorded 2026-10-18 with the user:
 6. **Owning ADR:** the grammar gets its own ADR, `docs/adr/repository/adr-code-language.md` (`ADR-REPO-ADRCODE`).
 7. **Rule order:** a registry keeps its authored order.
 
-## Open questions
+## Decided while building
 
-1. **Spelling of rule slugs** (found in step 1): `Test-Spelling` flags every joined slug (`BOUNDEVERYWAIT`, `NOCOMPATIBILITYSHIMS`) as an
-   unknown word, and today each ADR code body is a hand-written `terminology.yml` entry (`onelive`, `failfast`). With 1645 rule slugs that
-   is 1645 hand entries. Recommendation: `Test-Spelling` takes the segments of every registered code and rule heading as known words,
-   derived from `adrs.yml` and the registries at run time, and the hand entries for code bodies go in the same change. Needed before step 2.
-   Decided 2026-10-18 by the orchestrator on the user's delegation: the recommendation, as one mechanism read from the registry
-   (ADR-PRIN-ONELIVE: the hand entries are deleted in the same change, no fallback).
-2. **WAF and CAF rule names** (found in step 2): WAF rules carry Microsoft's ids (`RE:01`), CAF rules carry none in the tree. Decided by the
-   orchestrator on the user's delegation, 2026-10-18: the WAF ADR segment is the short pillar code (`RE`, `SE`, `CO`, `OE`, `PE`) and a rule
-   is the vendor id without the colon (`ADR-AZ-WAF-RE-RE01`); CAF rules take spelled-out names (the plan's fallback).
-3. **CAF rule names** (found in step 2): decided by the orchestrator on the user's delegation, 2026-10-18: each CAF rule's name is derived
-   mechanically from its vendor checklist title, upper-cased and joined with the English stop words of one list dropped; a collision under
-   one ADR keeps the full title for both. No collision occurred. `ADR-PRIN-PROCESS` becomes `ADR-PROC-AGILEPRINCIPLES`, because
-   `ADR-PROC-AGILE` exists.
+- Rule-slug spelling: `Test-Spelling` takes every registered code and rule segment as a known word, from the registry at run time; the
+  hand-written code-body entries left `terminology.yml` in the same change.
+- WAF rules: the pillar code as the ADR segment and the vendor id as the rule (`ADR-AZ-WAF-RE-RE01`).
+- CAF rules: each name derived from its vendor checklist title, upper-cased and joined, English stop words dropped; no collision occurred.
+  `ADR-PRIN-PROCESS` became `ADR-PROC-AGILEPRINCIPLES`, since `ADR-PROC-AGILE` exists.
+- Diagram subtitles (the user, 2026-10-18): at ADR level; the article's Supports line names the rules.

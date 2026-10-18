@@ -51,13 +51,15 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
   - `Test-GlobSetAffected` raises its unknown-name throw through `Assert-True` (ADR-AUTO-FAILFAST); its L0 file passed.
   - `Build-Bicep.Integrity.Tests` checks that a template resolves a `short_name`, worded as such; the file passed.
   - Q7: `Resolve-RepoPath` normalizes a rooted input; its L0 file passed with a new `.`/`..` case.
-  - Q8: ADR-AZ-NAMING-NEVERTRUNCATE says the throw lists the components that can be shortened; ADR-AZ-CLI-AZURENOUNPREFIX (new) holds the `Verb-Azure<Noun>` naming
-    rule and `analyzer-adr-map.yml` credits `Measure-NoAzModuleNaming` to it. Test-AdrRegistry 0 issues; Test-AnalyzerAdrMap.Tests passed.
-  - Q4: ADR-DSGN-RUNMODE-THREEBUILDKINDS has three build kinds (temporary, installed, saved) and no longer says the kind is derived; the Consequences name
-    `Get-CatzcRunMode`, not a load banner. `build-catzc.ps1` and `Write-CatzcLoadBanner` were already gone from the ADR. Seven run-mode
-    articles lost those claims.
-  - Q6: ADR-DSGN-TRACK-DEPLOYABLEUNIT and its "Tracks, units, pipelines" section say a CI pipeline that verifies a whole track binds the track's own
-    loose-fileset set (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER), and units bind CD pipelines 1-1. Four tracks articles lost the disagreement claim.
+  - Q8: ADR-AZ-NAMING-NEVERTRUNCATE says the throw lists the components that can be shortened; ADR-AZ-CLI-AZURENOUNPREFIX (new) holds the
+    `Verb-Azure<Noun>` naming rule and `analyzer-adr-map.yml` credits `Measure-NoAzModuleNaming` to it. Test-AdrRegistry 0 issues;
+    Test-AnalyzerAdrMap.Tests passed.
+  - Q4: ADR-DSGN-RUNMODE-THREEBUILDKINDS has three build kinds (temporary, installed, saved) and no longer says the kind is derived; the
+    Consequences name `Get-CatzcRunMode`, not a load banner. `build-catzc.ps1` and `Write-CatzcLoadBanner` were already gone from the ADR.
+    Seven run-mode articles lost those claims.
+  - Q6: ADR-DSGN-TRACK-DEPLOYABLEUNIT and its "Tracks, units, pipelines" section say a CI pipeline that verifies a whole track binds the
+    track's own loose-fileset set (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER), and units bind CD pipelines 1-1. Four tracks articles lost the
+    disagreement claim.
   - Q7: ADR-AUTO-PATH says a path-bearing type holds both forms or derives the absolute on demand, `ExistsAt` answers whether the file
     exists, `Resolve-RepoPath` normalizes an absolute input, `ConvertTo-RepoRelativePath` tries the output root first, and `ArtifactRef` is
     the published-artifact type with no production caller yet. Five path articles lost those claims.
@@ -94,7 +96,8 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
 Each decision becomes an ADR rule, or an ADR amendment, in the change that lands it (ADR-REPO-PLANS-DECISIONSBECOMERULES).
 
 - Q1, code. Wire `Test-GlobSetAffected` into the CD stages and set `fetchDepth: 0` on every Azure DevOps checkout: the function exists, its
-  tests pin the throw and the fail-open, and a wrong answer only costs a redundant run. ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT stands as written.
+  tests pin the throw and the fail-open, and a wrong answer only costs a redundant run. ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT stands as
+  written.
 - Q2, code. Run `Test-BuildArtifact` in the post-merge BVT, not in PR CI, so it costs nothing against the CI budget that
   plan-test-run-budget is fighting. ADR-AUTO-TEST-BUILDVERIFICATIONTEST stands.
 - Q3, code now, ladder later. "CD never touches production" is a safety rule the CD runs break today: put an approval check on the prod-tier
@@ -119,18 +122,18 @@ When a step lands, remove its claim from every article that states it (search `d
 
 - [x] Landed 2026-10-18 by session catzc-fb as decided (verdict in task-explanation-drift-gaps step 1); the plain `mv` shows as a delete
       plus an add until the user's `git add` records the move. Left for the slide step (text block = slide): the text blocks, H1 and file
-      name of `five-keys-one-reader-twelve-primitives` (still "twelve", row 7 "Get-Aspect · Get-Track") and `a-base-module-between-config-and-its-callers.md:10`;
-      older drift in the same article, line 39 "exactly the three edges" (Variants has 4) and line 42 "Globs asks Get-Aspect" as if
-      Variants held it. Original step: `pwsh/Catzc.Base.Modules/Get-Aspect.ps1` and `Test-AspectDeclaration.ps1`: move both into `Catzc.Base.Variants` and read through the
-      private `Get-Variant`, so `aspects` has one read path like every other variant (ADR-REPO-VARIANT); the Variants count of exported
-      primitives in `docs/explanation/repository/` and its slide changes with it (check: the Variants and Maps L0 tests pass, and no file
-      outside Catzc.Base.Variants reads `(Get-Config -Config variants)`). Decided 2026-10-18 by the orchestrator on the user's delegation:
-      the session's recommendation below is the step; the `Get-FileLanguage.Tests.ps1:49` switch is in it. Raised by session catzc-59:
-      moving `Get-Aspect` makes a cycle, since it reads `(Get-Config -Config languages).LivePatterns()` (Catzc.Base.Languages) and
-      `dependencies.yml` has Catzc.Base.Languages -> Catzc.Base.Variants. The session's recommendation: move only `Test-AspectDeclaration`,
-      add one exported Variants reader for the declared aspects through `Get-Variant`, keep `Get-Aspect` in Modules calling it. The grep
-      check also hits `pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1:49`, which needs a one-line switch to
-      `Test-AspectDeclaration`.
+      name of `five-keys-one-reader-twelve-primitives` (still "twelve", row 7 "Get-Aspect · Get-Track") and
+      `a-base-module-between-config-and-its-callers.md:10`; older drift in the same article, line 39 "exactly the three edges" (Variants
+      has 4) and line 42 "Globs asks Get-Aspect" as if Variants held it. Original step: `pwsh/Catzc.Base.Modules/Get-Aspect.ps1` and
+      `Test-AspectDeclaration.ps1`: move both into `Catzc.Base.Variants` and read through the private `Get-Variant`, so `aspects` has one
+      read path like every other variant (ADR-REPO-VARIANT); the Variants count of exported primitives in `docs/explanation/repository/` and
+      its slide changes with it (check: the Variants and Maps L0 tests pass, and no file outside Catzc.Base.Variants reads
+      `(Get-Config -Config variants)`). Decided 2026-10-18 by the orchestrator on the user's delegation: the session's recommendation below
+      is the step; the `Get-FileLanguage.Tests.ps1:49` switch is in it. Raised by session catzc-59: moving `Get-Aspect` makes a cycle, since
+      it reads `(Get-Config -Config languages).LivePatterns()` (Catzc.Base.Languages) and `dependencies.yml` has Catzc.Base.Languages ->
+      Catzc.Base.Variants. The session's recommendation: move only `Test-AspectDeclaration`, add one exported Variants reader for the
+      declared aspects through `Get-Variant`, keep `Get-Aspect` in Modules calling it. The grep check also hits
+      `pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1:49`, which needs a one-line switch to `Test-AspectDeclaration`.
 - [ ] Q1 the CD pipelines on a real run: the wiring is in the YAML (see Done); a run on main touching only `apex` shows the `Changes` step
       writing `AFFECTED=True` in `cd-apex` and `AFFECTED=False` in `cd-shared`, whose deploy stages then skip (check: those two run logs).
 - [ ] Q2 `pipelines/ci-automation.yaml` on a real run: the `BuildArtifact` job runs on main and passes, and is skipped on a PR (check: one
@@ -139,30 +142,40 @@ When a step lands, remove its claim from every article that states it (search `d
       the apply (`Sync-AdoEnvironmentApprovals -DryRun`, then without); then the lifecycle articles drop the "prod with no gate" claims
       (check: a second apply reports Unchanged for the group and all three checks, and a CD run to `shared-psub` waits for approval).
 - [x] Done 2026-10-18 (catzc-59; verdict in task-explanation-drift-gaps step 6; the fifth slide is now
-      `tests-pin-the-throw-and-fail-open-cd-calls-it`). Q4 the five slides that draw what is no longer true. Three draw what the run-modes ADR no longer names: `rule-and-gate-per-load-stage`
-      (`build-catzc.ps1` and `Write-CatzcLoadBanner`, markers 7 and 8), `what-gates-each-bundle-stage` (the cached root, marker 6) and
-      `which-run-mode-rules-have-a-gate` (four build kinds, marker 8). Two, since Q1, say the in-pipeline check has no caller:
-      `drift-is-gated-generation-is-adr-only` (the "in-pipeline exact backstop" ADR-only box, marker 8, and its title) and
-      `tests-pin-the-throw-and-fail-open-no-caller` (the `fetchDepth: 0` ADR-only glyph, marker 7, and its title "…no pipeline calls it").
-      Each needs those elements removed or relabelled, and the two globset articles a new title, with the article, `.drawio.md` and minimaps
-      following; cell removal is diagram work for the user to ask for, not `write-drawio-files` (check: the articles' text blocks match
-      their slides, and Test-Links passes). Decided by the user 2026-10-18, go given: slide 4 loses the backstop box; slide 5 restyles
-      marker 8 as well as 7; slide 5's `…-no-caller` slug is renamed, through the move command once it exists (task-diagram-folders step 3),
-      so one tool re-points the links; slide 3 takes the brief's proposed title. The choices as raised: The brief is in
-      `out/drift-slides-brief.md` (session catzc-59, 2026-10-18; all 30 paths it names exist). The choices, the session's recommendation
-      first where it gave one: slide 4, remove the backstop box (recommended) or relabel it as the Changes step; slide 5, restyle marker 8
-      too, since Q1 wired the Changes step (recommended); slide 5, keep or rename the `…-no-caller` slug; slide 3, the new title wording.
-      Also for step 6: the "Where the code and the ADR differ" section of `which-run-mode-rules-have-a-gate.md` still holds the retired
-      build kind, `build-catzc.ps1` and `Write-CatzcLoadBanner` bullets.
+      `tests-pin-the-throw-and-fail-open-cd-calls-it`). Q4 the five slides that draw what is no longer true. Three draw what the run-modes
+      ADR no longer names: `rule-and-gate-per-load-stage` (`build-catzc.ps1` and `Write-CatzcLoadBanner`, markers 7 and 8),
+      `what-gates-each-bundle-stage` (the cached root, marker 6) and `which-run-mode-rules-have-a-gate` (four build kinds, marker 8). Two,
+      since Q1, say the in-pipeline check has no caller: `drift-is-gated-generation-is-adr-only` (the "in-pipeline exact backstop" ADR-only
+      box, marker 8, and its title) and `tests-pin-the-throw-and-fail-open-no-caller` (the `fetchDepth: 0` ADR-only glyph, marker 7, and its
+      title "…no pipeline calls it"). Each needs those elements removed or relabelled, and the two globset articles a new title, with the
+      article, `.drawio.md` and minimaps following; cell removal is diagram work for the user to ask for, not `write-drawio-files` (check:
+      the articles' text blocks match their slides, and Test-Links passes). Decided by the user 2026-10-18, go given: slide 4 loses the
+      backstop box; slide 5 restyles marker 8 as well as 7; slide 5's `…-no-caller` slug is renamed, through the move command once it exists
+      (task-diagram-folders step 3), so one tool re-points the links; slide 3 takes the brief's proposed title. The choices as raised: The
+      brief is in `out/drift-slides-brief.md` (session catzc-59, 2026-10-18; all 30 paths it names exist). The choices, the session's
+      recommendation first where it gave one: slide 4, remove the backstop box (recommended) or relabel it as the Changes step; slide 5,
+      restyle marker 8 too, since Q1 wired the Changes step (recommended); slide 5, keep or rename the `…-no-caller` slug; slide 3, the new
+      title wording. Also for step 6: the "Where the code and the ADR differ" section of `which-run-mode-rules-have-a-gate.md` still holds
+      the retired build kind, `build-catzc.ps1` and `Write-CatzcLoadBanner` bullets.
 - [x] Done 2026-10-18 by session catzc-fb with the user's go: get-aspect-feeds-globs-and-maps, manifest-and-aspects-from-one-folder,
       only-automation-compiles-its-aspects and get-aspect-names-the-remainder now say pwsh's aspects derive from the languages.yml layout
-      (Get-Aspect -Track pwsh), slides and articles together; "every stage clean; LINKS 0, FILEMETA 0, Test-Glossary 0 on each article".
-      The declared `aspects.automation` entry: `docs/explanation/design/get-aspect-feeds-globs-and-maps.md` and
+      (Get-Aspect -Track pwsh), slides and articles together; "every stage clean; LINKS 0, FILEMETA 0, Test-Glossary 0 on each article". The
+      declared `aspects.automation` entry: `docs/explanation/design/get-aspect-feeds-globs-and-maps.md` and
       `manifest-and-aspects-from-one-folder.md` (and `only-automation-compiles-its-aspects.md` lines 18, 29, 33, the "automation
-      track/convention") describe a declared `aspects.automation` entry and `Get-Aspect -Track automation`; the tree
-      has neither (the code track is `pwsh`, its aspects derive from `languages.yml`, as `variants.yml:7` says), so a word swap would be
-      as wrong. Found 2026-10-18 by session catzc-59 during the word residue; the articles and their slides are corrected together, after
-      the diagram-folders migration (check: each article's text blocks match its slide; Test-Links on the touched pages).
+      track/convention") describe a declared `aspects.automation` entry and `Get-Aspect -Track automation`; the tree has neither (the code
+      track is `pwsh`, its aspects derive from `languages.yml`, as `variants.yml:7` says), so a word swap would be as wrong. Found
+      2026-10-18 by session catzc-59 during the word residue; the articles and their slides are corrected together, after the
+      diagram-folders migration (check: each article's text blocks match its slide; Test-Links on the touched pages).
+- [ ] Rename `docs/explanation/design/only-automation-compiles-its-aspects.md` to `only-pwsh-compiles-its-aspects.md` with its diagram
+      folder, through `Move-Diagram` (the user said yes 2026-10-18, and allowed the `git mv` staging it does), every link re-pointed. Wait
+      until plan-adr-code-language's subtitle re-render is finished, since it rebuilds that folder (check: `Build-Diagrams -Path` on the new
+      folder clean; Test-Links over docs/explanation clean; a grep for the old name over the tree finds only the plans' history).
+- [ ] The Supports lines of two articles name one ADR more than their slide's subtitle (a prepare-stage W_SUPPORTS warning, older than the
+      code rename): `docs/explanation/automation/one-commit-one-immutable-package.md` (+ADR-DSGN-RUNMODE) and
+      `docs/explanation/flow/drift-is-gated-generation-is-adr-only.md` (+ADR-AUTO-TEST). Align each with its slide: drop the ADR from the
+      line, or add it to the subtitle if the slide does draw it (check: `Build-Diagrams -Path` prepare clean on each folder; Test-Links on
+      the article). The four azure naming slides that also warned were a kit fault, fixed in drawio_forward.py (plan-adr-code-language step
+      6).
 
 ## Refs
 

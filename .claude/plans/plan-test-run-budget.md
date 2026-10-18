@@ -40,21 +40,21 @@ so the value is a suite that proves the same in less time. The user runs full su
 - [x] Decide the stamp rule (check: the ADR sentence exists). Decided 2026-10-18 (D08): an engine's stamp contains its own tool pin and its
       own settings files, nothing else; the sentence and the tests are task-test-run-budget steps 1 and 2.
 - [x] Change the stamp, add both tests (check: Test-Formatting tests pass cold and warm). Done 2026-10-18, already in the tree: each engine
-      lists `tools.yml#<tool>` keys and `Get-FormatEngineStamp` hashes each key alone (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS); its 13 tests hold both cases and
-      pass, and ADR-REPO-FORMAT-CONFIGUREDFORMATTERS states the stamp. `Test-Formatting.Tests.ps1` is 4 of 5 cold and warm; its integrity case fails on
-      unformatted working-tree files only.
-- [x] Landed 2026-10-18 by session catzc-93 (verdicts in task-test-run-budget step 6); the wall-clock effect is read from the next full
-      run. The scheduler, decided by the user 2026-10-18 from task-test-run-budget step 3's table: shards 5 and 6 and the greedy pairs start
-      as soon as phase A frees a slot instead of in series, still keeping build-heavy greedy files from overlapping; and the cause of
+      lists `tools.yml#<tool>` keys and `Get-FormatEngineStamp` hashes each key alone (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS); its 13
+      tests hold both cases and pass, and ADR-REPO-FORMAT-CONFIGUREDFORMATTERS states the stamp. `Test-Formatting.Tests.ps1` is 4 of 5 cold
+      and warm; its integrity case fails on unformatted working-tree files only.
+- [x] Landed 2026-10-18 by session catzc-93 (verdicts in task-test-run-budget step 6); the wall-clock effect is read from the next full run.
+      The scheduler, decided by the user 2026-10-18 from task-test-run-budget step 3's table: shards 5 and 6 and the greedy pairs start as
+      soon as phase A frees a slot instead of in series, still keeping build-heavy greedy files from overlapping; and the cause of
       Test-ScriptAnalyzer.Tests' cold 134 s (its cache stamp inputs) found and fixed. No limit raised, no test removed (check: the
       scheduler's L0 tests pass; the next full run's manifest shows phase B and C overlapping A, read when the user runs it).
-- [x] Done 2026-10-18 by session catzc-93 from three manifests, no run started: apart in all three (shard table in
-      task-test-run-budget step 3). Original: Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting, read from the shard manifest of the final session's full
-      run (task-user-runs-and-commits, last step) and of any run the user made on their own; this plan starts none (check: the manifests in
-      out/test-automation place them apart). Watch, reported 2026-10-18 by session catzc-93: a first Invoke-TestFile of
+- [x] Done 2026-10-18 by session catzc-93 from three manifests, no run started: apart in all three (shard table in task-test-run-budget step
+      3). Original: Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting, read from the shard manifest of the final
+      session's full run (task-user-runs-and-commits, last step) and of any run the user made on their own; this plan starts none (check:
+      the manifests in out/test-automation place them apart). Watch, reported 2026-10-18 by session catzc-93: a first Invoke-TestFile of
       Get-TimeoutSeconds.Repository.Tests and Get-EngineCaseTable.Tests crashed after 3 s with empty stderr before any test ran; the shard
-      script run directly and a second Invoke-TestFile passed (likely an import race). The user's last full run took 347 s against the
-      180 s `tests.run_seconds` budget.
+      script run directly and a second Invoke-TestFile passed (likely an import race). The user's last full run took 347 s against the 180 s
+      `tests.run_seconds` budget.
 - [x] Next three files by cost, one at a time via the test-optimization agent (check: same assertions, lower time). Done 2026-10-18 with no
       edit: each file is about 14 s alone (14.3, 13.9 and 14.8 s against 33.6, 32.9 and 31.3 s in the full run), each test is one real build
       the test exists to prove, so no file has a lever inside it; about half of each full-run figure is contention between build-heavy

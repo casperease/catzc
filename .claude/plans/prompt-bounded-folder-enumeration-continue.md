@@ -29,6 +29,7 @@ On 2026-10-16 `test-automation -Output Minimal -Level 2` stopped in `Assert-Test
 
 ## Rules learned
 
-- Every new test: tier tag, category tag, and each ADR citation in `ADR-<CODE>#<n>` form naming a real rule (`ADR-PWSH-ERROR-THROWNOTWRITEERROR` style).
+- Every new test: tier tag, category tag, and each ADR citation in `ADR-<CODE>#<n>` form naming a real rule
+  (`ADR-PWSH-ERROR-THROWNOTWRITEERROR` style).
 - Bash: foreground `timeout: 3000`; long work in the background behind a GNU `timeout <s> <one command>`; no `cd`, pipes or `;` there.
 - One file at a time, verify each. Neutral fixture names (`widget`, `gadget`) in L0 tests.

@@ -39,8 +39,8 @@ user's.
        is the ps-help step of Format-Code, which left both files unchanged; `ANALYZER issues=0`, `FILEMETA issues=0`.
 5. By hand, the user's: a keybinding for the "Push dirty" task (`workbench.action.tasks.runTask`, args `Push dirty`) in the user
    keybindings; one real `Push-Dirty` run against the remote (the tests mock every git call). Check: the user reports the run.
-6. [x] The Test-AdrRegistry ADR-REPO-AI finding closes with the ADR-REPO-AI registration; the Test-Glossary findings in plans are D15 and the folder
-       hygiene's step 10. Record both pointers in `plan-fast-push-followups.md`. Check: the lines exist. Done 2026-10-18.
+6. [x] The Test-AdrRegistry ADR-REPO-AI finding closes with the ADR-REPO-AI registration; the Test-Glossary findings in plans are D15 and
+       the folder hygiene's step 10. Record both pointers in `plan-fast-push-followups.md`. Check: the lines exist. Done 2026-10-18.
 7. [x] Tick both plans' steps; both are deleted in task-closing-sweep. Check: grep `- [ ]` in both counts zero. 2026-10-18:
        plan-csproj-xml-head counts zero; plan-fast-push-followups keeps one, the user's keybinding and real Push-Dirty run (step 5).
 

@@ -18,10 +18,10 @@ plan:
 # The file head: immutable place facts plus declared edges, with globs spelled once as classes
 
 The head's shape is in the tree: `immutable` holds the place facts read from registries, `edges` what the file declares or points at
-(ADR-REPO-FILEMETA-FILEISNODE); file-kinds.yml's ordered classes are the one place a glob lives and every meta kind selects by class or language
-(ADR-REPO-FILEMETA-METAKIND, ADR-REPO-FILEMETA-ROLE); the path splits into asserted parts and the head carries `module`, `moduletype` and `catzc_bundle`
-(ADR-REPO-FILEMETA-ROLE, ADR-REPO-FILEMETA-MODULEFACTS). Which files carry a head at all is the head policy (ADR-REPO-FILEMETA-HEADPOLICY, ADR-REPO-FILEMETA-NOREADBACK). What remains is the user's gate
-run.
+(ADR-REPO-FILEMETA-FILEISNODE); file-kinds.yml's ordered classes are the one place a glob lives and every meta kind selects by class or
+language (ADR-REPO-FILEMETA-METAKIND, ADR-REPO-FILEMETA-ROLE); the path splits into asserted parts and the head carries `module`,
+`moduletype` and `catzc_bundle` (ADR-REPO-FILEMETA-ROLE, ADR-REPO-FILEMETA-MODULEFACTS). Which files carry a head at all is the head policy
+(ADR-REPO-FILEMETA-HEADPOLICY, ADR-REPO-FILEMETA-NOREADBACK). What remains is the user's gate run.
 
 ## Why its value is medium-high
 
@@ -31,8 +31,8 @@ The head is the carrier every other plan writes into; this plan settled its shap
 
 - Q39 the contract schema and sample stay hand-written; no generator; the key-set test guards them.
 - Q42 the visibility head key stays. Q43 generated heads stay minimal. Q44 no glossary term for catzc_bundle.
-- Q45 identifiers use pwsh (engine, folder) or powershell (language id), prose may say PowerShell (ADR-REPO-VOCAB-SAYPOWERSHELL); the one literal
-  Powershell is in the vendored dotnet-install.ps1 and stays.
+- Q45 identifiers use pwsh (engine, folder) or powershell (language id), prose may say PowerShell (ADR-REPO-VOCAB-SAYPOWERSHELL); the one
+  literal Powershell is in the vendored dotnet-install.ps1 and stays.
 - Q52 this stays one plan for the whole head.
 
 ## Open steps

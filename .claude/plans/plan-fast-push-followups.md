@@ -9,9 +9,9 @@ plan:
 
 # Fast push to main: what is left
 
-Landed and tested: the five `git.*` commit settings in `vscode-settings.yml`; `ADR-DSGN-LIFE-FASTPUSHLANDS` and `:12` in `commit-lifecycle.md`;
-`Push-Dirty` in `Catzc.Base.Git`; the `.vscode/tasks.json` generator with the "Push dirty" task. A rejected push stops and reports, it never
-rebases.
+Landed and tested: the five `git.*` commit settings in `vscode-settings.yml`; `ADR-DSGN-LIFE-FASTPUSHLANDS` and `:12` in
+`commit-lifecycle.md`; `Push-Dirty` in `Catzc.Base.Git`; the `.vscode/tasks.json` generator with the "Push dirty" task. A rejected push
+stops and reports, it never rebases.
 
 ## Open steps
 
@@ -21,9 +21,9 @@ rebases.
       `Build-RootConfig.Tests.ps1` passes). 2026-10-18 (task-root-config-fixtures): the file passes with the four fixture cases included
       (`[Invoke-TestFile] Passed`, `out/test-file/20261018-120150-e2c30e`); the head the fixtures expect and the head the generator writes
       agree again since body-sha Phase 0 limited `with_body_sha` to the generated kinds, so neither side needed a change.
-- [x] **Unrelated, found on the way: the registry.** `Test-AdrRegistry` reports `ai-agent-contract.md` declares `ADR-REPO-AI` but no `adrs.yml`
-      rule set registers it (check: `Test-AdrRegistry` no longer names `ADR-REPO-AI`). Closed by the ADR-REPO-AI registration (2026-10-17);
-      `ADRREG issues=0` on 2026-10-18 (`out/test-adr-registry/20261018-110057`).
+- [x] **Unrelated, found on the way: the registry.** `Test-AdrRegistry` reports `ai-agent-contract.md` declares `ADR-REPO-AI` but no
+      `adrs.yml` rule set registers it (check: `Test-AdrRegistry` no longer names `ADR-REPO-AI`). Closed by the ADR-REPO-AI registration
+      (2026-10-17); `ADRREG issues=0` on 2026-10-18 (`out/test-adr-registry/20261018-110057`).
 - [x] **Unrelated, found on the way: the vocabulary.** `Test-Glossary` reports about 195 vocabulary findings in other plans and docs ("full
       suite", "gate", "phase", "layer", "source", "slot") (check: every finding is assigned to the plan that owns its file, as a step
       there). Decided D15 (2026-10-18): each plan fixes its own findings when it is next edited, a standing rule in plan-clear-actions, so

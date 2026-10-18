@@ -49,9 +49,10 @@ option of each is the recommendation.
   recommendation).
 - D16 Materialization choices 1 to 3 were taken in Q66 to Q70; adr-auto-material writes ADR-AUTO-MATERIAL. Options: confirm, nothing
   reopens; reopen one choice. Decision: confirm, nothing reopens (2026-10-18, the recommendation).
-- D17 `Assert-Wait` throws only for a bad argument and otherwise lets go, while ADR-PWSH-VERBS-SEMANTICCONTRACT and ADR-PWSH-VERBS-TESTANDASSERT make an Assert- function one that
-  stops the caller, and the file sits in the `assert` subkind. Options: rename to a watch verb, `Watch-Blocking`, assert subkind untouched;
-  a VERBS#7 exemption for a watchpoint that never stops. Decision: rename to Watch-Blocking (2026-10-18, the recommendation).
+- D17 `Assert-Wait` throws only for a bad argument and otherwise lets go, while ADR-PWSH-VERBS-SEMANTICCONTRACT and
+  ADR-PWSH-VERBS-TESTANDASSERT make an Assert- function one that stops the caller, and the file sits in the `assert` subkind. Options:
+  rename to a watch verb, `Watch-Blocking`, assert subkind untouched; a VERBS#7 exemption for a watchpoint that never stops. Decision:
+  rename to Watch-Blocking (2026-10-18, the recommendation).
 - D18 ADR-AUTO-CACHE and type-level statics: the unboxing work keeps class-level static caches in the compiled types. Options: no sentence,
   the ADR stays as it is; one sentence saying ADR-AUTO-CACHE does not cover type-level statics. Decision: no sentence (2026-10-18, the
   recommendation).

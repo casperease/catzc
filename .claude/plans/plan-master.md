@@ -19,8 +19,9 @@ plans stay the durable record; task files and this master are derived from them 
   only when its task file carries it, and the plan keeps the checkbox until the work lands in the tree.
 - A task file is `task-<topic>.md`, at most 50 in the folder, one chunk each: head (`task:` with status, plans, value, blocked_on, targets),
   then numbered steps. Every step names one file, the exact edit, and the check that proves it. One file per step, verified before the next.
-- The order is the position of a pointer line in the Chunks list below, and nothing else (ADR-REPO-PLANS-MASTERANDTASKS, ADR-REPO-FOLDERS-STABLEFILENAMES). A task
-  name says what the task does; no name, head key or reference carries a number, so reordering the list renames nothing.
+- The order is the position of a pointer line in the Chunks list below, and nothing else (ADR-REPO-PLANS-MASTERANDTASKS,
+  ADR-REPO-FOLDERS-STABLEFILENAMES). A task name says what the task does; no name, head key or reference carries a number, so reordering the
+  list renames nothing.
 - Clear and restart: delete `task-*.md`, reset every pointer line here to its chunk from the source plans, re-stamp `reviewed`. Nothing else
   is touched. The plans themselves are never deleted by a clear.
 - The planner edits only this folder. It runs no gate and no code; a check named in a step is for the executor.
@@ -40,65 +41,53 @@ plans stay the durable record; task files and this master are derived from them 
 
 Done, task files deleted:
 
-- Plans-folder hygiene, the decision round of 2026-10-18, ADR-REPO-AI, ADR-PRIN-CATS, body-sha Phase 0, the .unordered audit, the plans ADR, minimal
-  robots, layers doctrine, class selectors, assets leftovers, comment pages, skip unchanged generators, idle compaction: done 2026-10-17 and
-  2026-10-18, as the plans' Done sections and value-of-plan.md record.
+- Plans-folder hygiene, the decision round of 2026-10-18, ADR-REPO-AI, ADR-PRIN-CATS, body-sha Phase 0, the .unordered audit, the plans ADR,
+  minimal robots, layers doctrine, class selectors, assets leftovers, comment pages, skip unchanged generators, idle compaction: done
+  2026-10-17 and 2026-10-18, as the plans' Done sections and value-of-plan.md record.
 - import-landing-zone, kind-becomes-role, config-defaults-variants, config-defaults-fragment, config-defaults-postures, layers-funnel,
   file-head-leftovers, lazy-types-load, adr-auto-material, adr-link-cleanup, unboxing-closeout: every step in the tree or closed by
   2026-10-18; value-of-plan.md records each deletion.
 
 Open, in execution order:
 
-- decision-round -> task-decision-round.md (open; nothing blocks it): one `plan-decide` round over the six plans with a question only the
-  user can answer: the promotion ladder Q1 to Q4, the command-contracts freeze (twelve exported functions nothing calls, 139 only docs
-  name), the diagram-folders pilot approval, the out/test-links clearance, probe batch two, a test home for the drawio kit.
-- user-runs-and-commits -> task-user-runs-and-commits.md (open; the user's nine steps, in the order they depend on each other; steps 1 to 8
-  run early, step 9 is the last chunk of this list): the gitattributes template commit, the `git mv` of the reachability test, the probe
-  deletions, the keybinding and real Push-Dirty run, the cheap measured watchpoint run of the importer, the environment-approvals apply, the
-  CD and CI proof runs, the external re-pointing after P6. Closes plan-plans-body-sha-landing-zone and plan-fast-push-followups and the
-  user-owned steps of five more.
-- explanation-drift-gaps -> task-explanation-drift-gaps.md (open; step 1 and the slides brief can start now, the three proofs are the user's
-  runs): the Get-Aspect move into Catzc.Base.Variants, the Q1 to Q3 proofs read from the run logs, the brief for the five slides that draw
-  retired claims, then the slides on the user's go.
-- layers-classification-flip -> task-layers-classification-flip.md (open; P3 to P5's ADR edits done 2026-10-18; steps 6 and 7 next): P5 the
-  avoid-phrasings for the retired layer forms and the rewording of the 68 pages that still say "automation layer", "implementation layer" or
-  "PowerShell layer"; P6 the pipeline rename `ci-automation` to `ci-pwsh` as one atomic set, scheduled on a day the user re-points the
-  external definitions (task-user-runs-and-commits step 8).
-- automation-word-residue -> plan-automation-word-residue.md (open; no task file yet, the plan's steps are one file each; nothing blocks it
-  but the asset-folder `git mv`, which is the user's): the old folder meaning of "automation" retired from code, comment pages, the minimap
-  generator, docs prose and the plans; the sln step landed 2026-10-18.
-- adr-code-language -> plan-adr-code-language.md (open; no task file yet, seven steps, design decided by the user 2026-10-18, nothing built;
-  held by session catzc-f3 from step 1, the new ADR-REPO-ADRCODE and report-only Test-AdrRegistry checks): ADR codes become segment paths
-  `ADR-DOMAIN-ADR-RULESLUG`, with no rule numbers or `#{}` groups.
-- command-contracts -> task-command-contracts.md (2026-10-18: the freeze is decided and applied, step 7; the language step 8 is held
-  by session catzc-f3) (open; 65 commands contracted; after the decision round's freeze call): the frozen set
-  contracted, made internal or deleted as decided, Test-Contracts clean; the later language step for gate results and parameter sets.
-- assert-wait -> task-assert-wait.md (open; steps 1 to 6 done; steps 7 and 8 after the user's cheap importer watchpoint run): the ADR pair
-  with the D17 rename to Watch-Blocking, then each watchpoint that found a block becomes a timeouts.yml limit and the rest are deleted.
-- diagram-folders -> task-diagram-folders.md (done 2026-10-18: every step landed; the plan, the task and its three prompts are in
-  `out/delete-done-plans.ps1` for the user's `git rm`, with plan-assets-gallery-pdf).
-- test-run-budget -> task-test-run-budget.md (open; step 3 reads the final full run's shard manifest, it starts no run): the shard re-check
-  that Invoke-TestFile and Test-Formatting no longer share a shard, then the scheduling option step 4 names.
-- loose-ends -> task-loose-ends.md (open; steps 1 to 3 now, 4 and 5 after the decision round): the two stale comment-page sections, the
-  `executable` flag and ADR-AUTO-LAYERS rule 2, the vocabulary fixes riding on each edit, the gallery fixture or its drop, the pipelines
-  README for the ladder with its ADR rules.
-- module-model-closeout -> task-module-model-closeout.md (open; closes on the final full run and the loose-ends comment step).
+State at the round-up of 2026-10-18 (full restart next; no session holds anything). Done that day, task files kept only until the user's
+`git rm`: decision-round, command-contracts, loose-ends, assert-wait (one box waits on the reachability `git mv`) and diagram-folders.
+`out/delete-done-plans.ps1` lists plan-assets-gallery-pdf, plan-diagram-folders, the done task files (diagram-folders, decision-round,
+command-contracts, loose-ends) and the continuation prompts whose work has landed. No plan holds an open question: every question asked by
+2026-10-18 is answered and recorded as Decided.
+
+- adr-code-language -> plan-adr-code-language.md (open; the one chunk mid-flight): steps 1 to 5 landed (every rule named, every citation in
+  the tree rewritten); step 6 has its production code and test port in, and its subtitle re-render stopped at 110 of 149 folders (the 39
+  left, the procedure and the order are in the plan; the import compiles); then step 6's check and step 7 (decisions into ADR-REPO-ADRCODE,
+  plan deleted).
+- explanation-drift-gaps -> task-explanation-drift-gaps.md (open): the code move, the slides brief, the five slides and the aspects drift
+  landed 2026-10-18; open are the Q1 to Q3 proofs from the user's runs, the `only-pwsh-compiles-its-aspects` rename (the user said yes;
+  after the subtitle re-render) and two Supports lines.
+- automation-word-residue -> plan-automation-word-residue.md (open): every code, comment, docs and slide step landed 2026-10-18; open is the
+  references asset folder `git mv` (task-user-runs-and-commits step 8a) and its four follow-ups.
+- promotion-ladder -> plan-promotion-ladder.md (open): steps 1 to 5 and the rung configs landed 2026-10-18; open are the `<unit>-dev` to
+  `<unit>-main-uat` rename and the certifying record, both after the user's CD proof run.
+- layers-classification-flip -> task-layers-classification-flip.md (open): P5 landed 2026-10-18; open is P6, the `ci-automation` pipeline
+  rename on a day the user re-points the external definitions (task-user-runs-and-commits step 8).
+- test-run-budget -> task-test-run-budget.md (open): the shard check, the analyzer cache split and the one-pool scheduler landed 2026-10-18;
+  open is reading the next full run's wall clock against the 347 s table.
+- module-model-closeout -> task-module-model-closeout.md (open; closes on the final full run).
 - root-config-fixtures -> task-root-config-fixtures.md (open; closes on the user's Push-Dirty run).
 - bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md (open; closes on the final full run, then the plan and its prompt are
   deleted).
 - out-artifacts -> task-out-artifacts.md (open; closes on the user's two probe deletions).
-- promotion-ladder -> plan-promotion-ladder.md (2026-10-18: Q1 to Q4 decided, the plan holds its five build steps, held by session
-  catzc-59 from the ADR step; earlier wording: blocked on the decision round; its README step is task-loose-ends step 5; once Q1 to Q4 are
-  answered the plan gains its build steps, main-uat, release-uat behind RC, pre-prod behind RBC, the DEPLOY pipeline, and a task file is
-  written for them at this position).
+- user-runs-and-commits -> task-user-runs-and-commits.md (open; the user's steps, the only list of them): steps 5, 6b and 8b done
+  2026-10-18; open are the gitattributes template commit (1), the `git mv` of the reachability test (2), the probe deletions (3), the
+  keybinding and real Push-Dirty run (4), the environment-approvals apply with a real approver (6), the CD and CI proof runs (7), the
+  external re-pointing after P6 (8), the references asset folder `git mv` (8a), running `out/delete-done-plans.ps1`, and the final full run
+  (9). Closes plan-fast-push-followups and the user-owned steps of five more.
 - closing-sweep -> task-closing-sweep.md (open; runs after every batch): done plans deleted with one line each in value-of-plan.md. The
-  sweep of 2026-10-18 (catzc-59) found no candidate; the three deleted plans have no table rows, only their "Deleted" lines;
-  plan-adr-code-language got its row.
+  sweep of 2026-10-18 found plan-assets-gallery-pdf and plan-diagram-folders; the round-up added the done task files and landed prompts.
 - final-full-run -> task-user-runs-and-commits.md, its last step (open; after every chunk above): a new session, `. ./importer.ps1`, then
   `Test-Automation` once over the whole repository, by hand; the one place the tree is tested. Closes plan-bounded-folder-enumeration,
   plan-file-head-immutable-edges-classes, plan-module-model-closeout and plan-test-run-budget's shard check.
 - closing-sweep, last -> task-closing-sweep.md step 6: the plans that closed on green deleted; the master and the task files deleted when
   every chunk is done.
 
-Every chunk is a task file, apart from the promotion ladder, which gets one when its questions are answered. A new plan or paste adds its
-chunk as a pointer line at the position its dependencies and value give it.
+Every chunk is a task file, apart from adr-code-language, automation-word-residue and promotion-ladder, whose plans are the executable. A
+new plan or paste adds its chunk as a pointer line at the position its dependencies and value give it.

@@ -206,9 +206,9 @@ with the module model; c) config defaults Phase 1 in parallel too. Decision:
 
 ### Q39 Contract schema $comment
 
-The schema's $comment must say what the contract pins (ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS); a generated head would use the same property. Options: a)
-hand-written schema and sample, no generator; b) generated, the generated head wins and the pin note moves elsewhere; c) generated, the pin
-note wins and the head goes into another property. Decision:
+The schema's $comment must say what the contract pins (ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS); a generated head would use the same
+property. Options: a) hand-written schema and sample, no generator; b) generated, the generated head wins and the pin note moves elsewhere;
+c) generated, the pin note wins and the head goes into another property. Decision:
 
 ### Q40 Registry shape before a generator
 
@@ -673,8 +673,8 @@ leave both to the harness default; c) set `effort` only. Decision: a) both on ev
 ### Q133 drawio-png and write-drawio-files
 
 drawio-png talks to the user and verifies one slide; write-drawio-files edits labels and styles in batch on a brief. Once drawio-png loads
-`drawio-model-edit` it could do both. Options: a) two jobs, two robots (ADR-REPO-AGENTS-STANDARDWORKER); b) drawio-png absorbs write-drawio-files.
-Decision: a) two jobs, two robots.
+`drawio-model-edit` it could do both. Options: a) two jobs, two robots (ADR-REPO-AGENTS-STANDARDWORKER); b) drawio-png absorbs
+write-drawio-files. Decision: a) two jobs, two robots.
 
 ### Q134 adr-reviewer model
 
@@ -714,7 +714,7 @@ and 3 rewrites, Phase 1 later. Decision: a) Phase 1 now; the shared capabilities
 
 ### Q140 Where ADR-REPO-AI is named for agents
 
-The gate's rule 6 fixes the agent front matter to a closed key set; plan-adr-ai plans `contracts: [ADR-REPO-AI]` on every robot and capability,
-the same value on every file. Options: a) name it once, the CLAUDE.md session-start line and a top-level `contracts:` entry in agents.yml
-the gate reads, no per-file key; b) extend rule 6 with `contracts`; c) a contracts list per registry entry. Decision: a) named once; the
-per-file key is dropped and plan-adr-ai steps 34, 40 and 46 change.
+The gate's rule 6 fixes the agent front matter to a closed key set; plan-adr-ai plans `contracts: [ADR-REPO-AI]` on every robot and
+capability, the same value on every file. Options: a) name it once, the CLAUDE.md session-start line and a top-level `contracts:` entry in
+agents.yml the gate reads, no per-file key; b) extend rule 6 with `contracts`; c) a contracts list per registry entry. Decision: a) named
+once; the per-file key is dropped and plan-adr-ai steps 34, 40 and 46 change.

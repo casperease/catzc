@@ -18,8 +18,9 @@ task:
 
 The model landed on 2026-10-16 (Catzc.Base.Modules with Get-CatzcModule and Get-Aspect, Get-ModuleOrder in ModuleSystem, ADR-AUTO-MODULE
 with six rules). This closes what the implement run left open. Rule 6 today says a check and a test of a module are resolved by the file
-language from the language registry, never by a branch in a command; the open question is whether code enforces it. One file per step; C#
-edits need a fresh pwsh; gates in the background under the time safeguard.
+language from the language registry, never by a branch in a command; step 3 settled that code enforces it (the resolving functions read the
+registry, named in the ADR's enforcement section). One file per step; C# edits need a fresh pwsh; gates in the background under the time
+safeguard.
 
 ## Done before the decisions (2026-10-17), with the corrections the tree forced
 
@@ -45,9 +46,9 @@ edits need a fresh pwsh; gates in the background under the time safeguard.
 1. [x] Record D01 to D03 in `plan-module-kinds-tracks.md` Decided: replace "taken as recommended, user not yet confirmed" with "confirmed
        2026-10-17 (D01 to D03)" or with the user's change. Check: grep "not yet confirmed" finds nothing. Done 2026-10-18 (D01 to D03
        confirmed in the decision round); the grep finds no such line in plan-module-kinds-tracks.
-2. [x] Record D04 in `plan-module-model-closeout.md` and confirm `Copy-CatzcModule.ps1` selects the full profile by default and does not copy
-       .scriptanalyzer; adjust the default on its config type if the user chose otherwise. Check: `Copy-CatzcModule.Tests.ps1` passes. Done
-       2026-10-18: D04 confirmed, the default unchanged; `[Invoke-TestFile] Passed` (`out/test-file/20261018-121811-11583a`).
+2. [x] Record D04 in `plan-module-model-closeout.md` and confirm `Copy-CatzcModule.ps1` selects the full profile by default and does not
+       copy .scriptanalyzer; adjust the default on its config type if the user chose otherwise. Check: `Copy-CatzcModule.Tests.ps1` passes.
+       Done 2026-10-18: D04 confirmed, the default unchanged; `[Invoke-TestFile] Passed` (`out/test-file/20261018-121811-11583a`).
 3. [x] Rule 6 code: read `languages.yml` `checks:` per language and `Test-Change`; if a language's checks are resolved only through the
        registry there is nothing to build, and the step records the resolving function as the enforcement in the ADR's "How this is
        enforced" section; if any command branches on a language name (grep `-eq 'powershell'`, `switch ($language)` in QualityGates), funnel

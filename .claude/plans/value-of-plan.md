@@ -25,28 +25,27 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 
 ## Meta plans by value (how the repository describes and governs itself)
 
-| Value       | Plan                                    | Why                                                                                                                                  | Needed docs                                                                                                                | Needed tests                                                                              | State                                                                       |
-| ----------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| highest     | plan-master                             | The one executable order over every open step of every plan; task files are its disposable executables.                              | ADR-REPO-PLANS names the task files (the plans ADR)                                                                        | Test-Plans over the folder (the plans ADR)                                                | every chunk a task file; folder hygiene done                                |
-| highest     | plan-plans-body-sha-landing-zone        | Removes the drift finding on every ADR edit, makes plans survive agent death, unblocks the link cleanup.                             | ADR-REPO-PLANS new (incl. stable locators rule); FILEMETA#3 #7; DSGN-TRACK#17; 4 glossary terms; CLAUDE.md; sorting how-to | Test-Plans; body_sha on generated heads; import tool on two temp repos; Publish-Plan      | landed; Phase 0's count closes on the user's template commit                |
-| high        | plan-layers-vocabulary-rename-contracts | Settles six words and names the public API.                                                                                          | ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ADR-REPO-CMDCONTRACT new; glossary; ENGINE#4; four collisions                          | three terminology gates; guard rule; Test-Contracts; frozen P0 baseline                   | P0 to P4 landed; P5, P6, the P7 freeze call and the executable flag open    |
-| high        | plan-module-model-closeout              | The model landed with open choices, a rule without code and stale pages; the close-out keeps them from being lost.                   | ADR-AUTO-MODULE rule 6 or its narrowing; Catzc.Base.Modules reference page                                                 | Copy-CatzcModule test; Test-AdrRegistry; Test-Links, Test-Comments                        | closes on the final full run and two comment pages                          |
-| high        | plan-explanation-drift-gaps             | CD deploys the prod tier with no gate today (Q3), and the ADRs promise deploy-path, run-mode and safeguard behaviour the code lacks. | six ADR amendments (RUNMODE, FAILFAST, TRACK, PATH, AZ-NAMING, AZ-CLI); the articles' drift sections                       | L0 for the fixed functions, the new sync command and Resolve-RepoPath; the hook's L2 deny | 5 open: Q1/Q2 pipelines, the approval sync run, the Get-Aspect move, slides |
-| high        | plan-promotion-ladder                   | The ADRs' ladder (main-uat, release-uat, RC/RBC, pre-prod, DEPLOY) has no code; prod waits only on the new approval check.           | ADR-DSGN-LIFE, ADR-FLOW-CD as the answers decide                                                                           | per pipeline, a run that shows the rung                                                   | blocked on Q1-Q4                                                            |
-| high        | plan-adr-code-language                  | Rule numbers say nothing; one ADR string language of named segments replaces ADR-X#n and its group grammar.                          | the ADR code grammar in docs/adr/index.md; adrs.yml rule names; every citation re-cited                                    | Test-AdrRegistry; Test-Links citations; the code-form parser L0                           | decided 2026-10-18; in hand with catzc-f3                                   |
-| medium-high | plan-file-head-immutable-edges-classes  | Head shape settled; globs still spelled seven times; registry, formatting and path-split records with leftovers.                     | CODEMETA#2 note; naming rule PowerShell versus pwsh and powershell; note as a term                                         | selector tests; five gates on the registry work; strengthened reachability test           | landed; closes on the final full run                                        |
-| medium-high | plan-automation-word-residue            | The old folder meaning of "automation" survives in code, help pages, a generator and docs; the root sln was broken by it.            | none; ADR-AUTO-LAYERS and ADR-PRIN-ONELIVE already decide                                                                  | per-file Invoke-TestFile; Test-Comments, Test-Links, Test-GeneratedFiles on touched files | sln fixed 2026-10-18; the rest open                                         |
-| medium      | plan-test-run-budget                    | 266 s against a 180 s roof; cache stamp needs an ADR decision.                                                                       | REPO-FORMAT stamp rule                                                                                                     | warm-cache and invalidation tests; the final run's shard manifest                         | stamp landed; the shard re-check reads the final run                        |
-| medium      | plan-out-artifacts                      | 144 session scripts and 27 backups unregistered.                                                                                     | OUTDIR amendments                                                                                                          | Clear-Output and prune tests                                                              | landed; two probe batches wait on the user                                  |
-| medium      | plan-clear-actions                      | The cleaner's open verdicts: the bounded-enumeration delete, the out/test-links clearance, the vocabulary list.                      | none                                                                                                                       | Test-Links per file                                                                       | three steps open                                                            |
-| medium      | plan-fast-push-followups                | Four Build-RootConfig fixture-head tests fail and two unrelated findings have no owner yet.                                          | none; ADR-DSGN-LIFE-FASTPUSHLANDS and ADR-DSGN-LIFE-LANDEDUNTILFAILED landed                                                                                      | Build-RootConfig.Tests.ps1 green; Test-AdrRegistry; one real Push-Dirty run (the user's)  | landed and tested; the user's Push-Dirty run open                           |
+| Value       | Plan                                    | Why                                                                                                                                  | Needed docs                                                                                          | Needed tests                                                                              | State                                                                       |
+| ----------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| highest     | plan-master                             | The one executable order over every open step of every plan; task files are its disposable executables.                              | ADR-REPO-PLANS names the task files (the plans ADR)                                                  | Test-Plans over the folder (the plans ADR)                                                | every chunk a task file; folder hygiene done                                |
+| high        | plan-layers-vocabulary-rename-contracts | Settles six words and names the public API.                                                                                          | ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ADR-REPO-CMDCONTRACT new; glossary; ENGINE#4; four collisions    | three terminology gates; guard rule; Test-Contracts; frozen P0 baseline                   | P0 to P4 landed; P5, P6, the P7 freeze call and the executable flag open    |
+| high        | plan-module-model-closeout              | The model landed with open choices, a rule without code and stale pages; the close-out keeps them from being lost.                   | ADR-AUTO-MODULE rule 6 or its narrowing; Catzc.Base.Modules reference page                           | Copy-CatzcModule test; Test-AdrRegistry; Test-Links, Test-Comments                        | closes on the final full run and two comment pages                          |
+| high        | plan-explanation-drift-gaps             | CD deploys the prod tier with no gate today (Q3), and the ADRs promise deploy-path, run-mode and safeguard behaviour the code lacks. | six ADR amendments (RUNMODE, FAILFAST, TRACK, PATH, AZ-NAMING, AZ-CLI); the articles' drift sections | L0 for the fixed functions, the new sync command and Resolve-RepoPath; the hook's L2 deny | 5 open: Q1/Q2 pipelines, the approval sync run, the Get-Aspect move, slides |
+| high        | plan-promotion-ladder                   | The ADRs' ladder (main-uat, release-uat, RC/RBC, pre-prod, DEPLOY) has no code; prod waits only on the new approval check.           | ADR-DSGN-LIFE, ADR-FLOW-CD as the answers decide                                                     | per pipeline, a run that shows the rung                                                   | blocked on Q1-Q4                                                            |
+| high        | plan-adr-code-language                  | Rule numbers say nothing; one ADR string language of named segments replaces ADR-X#n and its group grammar.                          | the ADR code grammar in docs/adr/index.md; adrs.yml rule names; every citation re-cited              | Test-AdrRegistry; Test-Links citations; the code-form parser L0                           | decided 2026-10-18; in hand with catzc-f3                                   |
+| medium-high | plan-file-head-immutable-edges-classes  | Head shape settled; globs still spelled seven times; registry, formatting and path-split records with leftovers.                     | CODEMETA#2 note; naming rule PowerShell versus pwsh and powershell; note as a term                   | selector tests; five gates on the registry work; strengthened reachability test           | landed; closes on the final full run                                        |
+| medium-high | plan-automation-word-residue            | The old folder meaning of "automation" survives in code, help pages, a generator and docs; the root sln was broken by it.            | none; ADR-AUTO-LAYERS and ADR-PRIN-ONELIVE already decide                                            | per-file Invoke-TestFile; Test-Comments, Test-Links, Test-GeneratedFiles on touched files | sln fixed 2026-10-18; the rest open                                         |
+| medium      | plan-test-run-budget                    | 266 s against a 180 s roof; cache stamp needs an ADR decision.                                                                       | REPO-FORMAT stamp rule                                                                               | warm-cache and invalidation tests; the final run's shard manifest                         | stamp landed; the shard re-check reads the final run                        |
+| medium      | plan-out-artifacts                      | 144 session scripts and 27 backups unregistered.                                                                                     | OUTDIR amendments                                                                                    | Clear-Output and prune tests                                                              | landed; two probe batches wait on the user                                  |
+| medium      | plan-clear-actions                      | The cleaner's open verdicts: the bounded-enumeration delete, the out/test-links clearance, the vocabulary list.                      | none                                                                                                 | Test-Links per file                                                                       | three steps open                                                            |
+| medium      | plan-fast-push-followups                | Four Build-RootConfig fixture-head tests fail and two unrelated findings have no owner yet.                                          | none; ADR-DSGN-LIFE-FASTPUSHLANDS and ADR-DSGN-LIFE-LANDEDUNTILFAILED landed                         | Build-RootConfig.Tests.ps1 green; Test-AdrRegistry; one real Push-Dirty run (the user's)  | landed and tested; the user's Push-Dirty run open                           |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value  | Plan                            | Needed docs                               | Needed tests                                                       | State                               |
-| ------ | ------------------------------- | ----------------------------------------- | ------------------------------------------------------------------ | ----------------------------------- |
-| medium | plan-assert-wait                | FAILFAST#8, ASSERT#7 after a measured run | Assert-Wait.Tests; TimeoutsConfig wait keys; Test-Automation.Tests | points landed; config, ADRs open    |
-| medium | plan-bounded-folder-enumeration | none left; ADR-PWSH-ENUM exists           | the final full run                                                 | built and migrated; delete on green |
+| Value  | Plan                            | Needed docs                     | Needed tests                                        | State                               |
+| ------ | ------------------------------- | ------------------------------- | --------------------------------------------------- | ----------------------------------- |
+| medium | plan-assert-wait                | none left; both rules written   | Test-Automation.Tests after the reachability git mv | all landed but that one check       |
+| medium | plan-bounded-folder-enumeration | none left; ADR-PWSH-ENUM exists | the final full run                                  | built and migrated; delete on green |
 
 ## Where the data lives now (absorbed 2026-10-16)
 
@@ -54,8 +53,8 @@ Every draft plan, ADR draft, analysis and continuation prompt that was in out/ i
 "Carried" heading of its meta plan, a continuation prompt is a `prompt-<topic>-continue.md` or `prompt-<topic>-<n>-<step>.md` file beside
 its plan, and reference-unboxing.md sits at docs/explanation/pwsh/. out/ holds README.md, session scripts, logs, backups and run folders
 only; plan-out-artifacts carries the harvest inventory (what a plan names and keeps, what is unsorted). Carried text remains only in
-plan-layers-vocabulary-rename-contracts (four drafts, each trimmed as its phase lands); ADR-REPO-PLANS-ONESHAPE sets no line roof, and the cleaner
-shortens a plan only after its data is in the tree, never by dropping a signal.
+plan-layers-vocabulary-rename-contracts (four drafts, each trimmed as its phase lands); ADR-REPO-PLANS-ONESHAPE sets no line roof, and the
+cleaner shortens a plan only after its data is in the tree, never by dropping a signal.
 
 ## Deleted 2026-10-18, and why
 
@@ -63,9 +62,9 @@ shortens a plan only after its data is in the tree, never by dropping a signal.
   ADR-AUTO-CACHE sentence (D18), and the one step left, the commit of a single DLL pair, was closed by the user's rule that the typed DLL
   under `pwsh/.compiled` churns while many agents work and is ignored. No open step.
 - plan-config-defaults: every phase landed (defaults on the types and shown in the shipped files, held together by the defaults check in
-  Test-ShippedConfigs; every config type in a posture; the NoLiteralDefault rule; ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-AUTO-OVERLAY-OVERLAYFOLDER and ADR-AUTO-OVERLAY-CHECKEDASWHOLE, the assert
-  ladder, the glossary terms posture and config fragment). No open step. Its task files go with it: task-config-defaults-variants,
-  task-config-defaults-fragment and task-config-defaults-postures.
+  Test-ShippedConfigs; every config type in a posture; the NoLiteralDefault rule; ADR-AUTO-DEFAULT-ONERESOLUTIONORDER,
+  ADR-AUTO-OVERLAY-OVERLAYFOLDER and ADR-AUTO-OVERLAY-CHECKEDASWHOLE, the assert ladder, the glossary terms posture and config fragment). No
+  open step. Its task files go with it: task-config-defaults-variants, task-config-defaults-fragment and task-config-defaults-postures.
 - task-kind-becomes-role: every step landed (the head key role, D29 the namespace).
 - plan-adr-link-cleanup-prose-to-pages and task-adr-link-cleanup: Phase 1 and Phase 2 landed (every ledger row has its verdict, D23 applied,
   the held files closed). No open step.
@@ -76,13 +75,14 @@ shortens a plan only after its data is in the tree, never by dropping a signal.
 
 - plan-csproj-xml-head: both steps landed (the XML property head is described on its page and in the two help pages; the four
   Build-RootConfig fixture tests pass on the tree). No open step.
-- plan-lazy-types-load and its task: Phases 0 to 5 landed and ADR-AUTO-TYPES-CONSOLEVERIFIESONLY holds the lazy load and its default-declaration exception.
-  Two facts it carried stay unproven and are not steps: `shadowCopy: false` on Unix is built but its janitor and drift-guard assumptions are
-  unconfirmed on Unix, and the manifest beside the DLL could feed `Test-TypesAssemblyContent` instead of the DLL. No open step.
-- plan-file-meta-head-policy: landed in one tree-wide pass (12:29–12:33, `out/one-pass.log`); ADR-REPO-FILEMETA-HEADPOLICY (the head policy) and #14
-  (no read-back), ADR-REPO-HELP (help on the comment page) and ADR-REPO-COMMENTS-PAGEISAUTHORED (an authored page) hold every decision, and
-  `Sync-FileMeta` is the single-file tool. The explanation is docs/explanation/file-meta.md. A `Get-Help` provider that reads the page is an
-  idea, not a step. No open step.
+- plan-lazy-types-load and its task: Phases 0 to 5 landed and ADR-AUTO-TYPES-CONSOLEVERIFIESONLY holds the lazy load and its
+  default-declaration exception. Two facts it carried stay unproven and are not steps: `shadowCopy: false` on Unix is built but its janitor
+  and drift-guard assumptions are unconfirmed on Unix, and the manifest beside the DLL could feed `Test-TypesAssemblyContent` instead of the
+  DLL. No open step.
+- plan-file-meta-head-policy: landed in one tree-wide pass (12:29–12:33, `out/one-pass.log`); ADR-REPO-FILEMETA-HEADPOLICY (the head policy)
+  and #14 (no read-back), ADR-REPO-HELP (help on the comment page) and ADR-REPO-COMMENTS-PAGEISAUTHORED (an authored page) hold every
+  decision, and `Sync-FileMeta` is the single-file tool. The explanation is docs/explanation/file-meta.md. A `Get-Help` provider that reads
+  the page is an idea, not a step. No open step.
 - plan-materialization-of-knowledge and its task: ADR-AUTO-MATERIAL holds the decided axis in seven rules, registered, with its
   dora-explains entry and the glossary term `materialization`; no sha-marker companion exists to align with. No open step.
 - The decision round task: D01 to D20 answered, every recommendation taken; the record is decisions-2026-10-18.md and the questionnaire,
@@ -99,6 +99,11 @@ shortens a plan only after its data is in the tree, never by dropping a signal.
   kit, `Move-Diagram` and `Build-Diagrams -Path` landed with their tests, the ADRs were restated, and `docs/explanation/.assets` holds only
   `glyphs/`. The pilot was approved by the user. Its prompts go with it: prompt-diagram-folders-1-kit-and-commands,
   prompt-diagram-folders-2-adrs and prompt-diagram-folders-3-migration.
+- plan-plans-body-sha-landing-zone: Phase 0 closed once the gitattributes template rename was committed (Test-GeneratedFiles 0 tree-wide, so
+  Unstamped 0). Its row in the meta table goes with it.
+- At the round-up, the task files decision-round, command-contracts and loose-ends (every step landed) and the continuation prompts whose
+  work landed (assert-wait-1, automation-word-residue-1, closeout-1-decisions, command-contracts-1-freeze, drift-gaps-1 and -2,
+  loose-ends-1, promotion-ladder-1-build).
 
 ## Deleted 2026-10-17, and why
 
@@ -115,8 +120,8 @@ shortens a plan only after its data is in the tree, never by dropping a signal.
 - prompt-file-kinds-and-formatting-continue, prompt-file-kinds-registry-continue, prompt-head-path-split-continue: continuation prompts of
   plans deleted on 2026-10-16; every item they named is a step of plan-file-head-immutable-edges-classes or done.
 - The done task files of folder hygiene, ADR-REPO-AI, ADR-PRIN-CATS, body-sha Phase 0, the .unordered audit, the plans ADR, minimal robots,
-  layers doctrine and class selectors: disposable executables (ADR-REPO-PLANS-MASTERANDTASKS); their verdict lines live in the plans they ticked and in
-  git.
+  layers doctrine and class selectors: disposable executables (ADR-REPO-PLANS-MASTERANDTASKS); their verdict lines live in the plans they
+  ticked and in git.
 - plan-minimal-robots, plan-minimal-robots-agents, plan-minimal-robots-capabilities: the program landed (15 robots, 18 capabilities,
   ADR-REPO-AGENTS rules 6 to 10, the gate), and Phase 5 is measured in the program plan's own table (static context per robot from its
   files; no robot over 4,000 tokens). The three files are listed for the user's `git rm`; until then they hold no open step of their own.

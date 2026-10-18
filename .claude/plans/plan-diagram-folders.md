@@ -11,9 +11,9 @@ plan:
 
 A diagram is a folder `<article-folder>/.assets/<name>/` holding everything the diagram owns, under role names: `diagram.drawio.png`, its
 description `diagram.drawio.md`, and `grid`, `tree` and `chain` each as a `.png` and a `.md`. Moving the diagram moves the folder.
-`Build-Diagrams -Path <folder>` rebuilds one folder in place; with no path it repeats that for every diagram folder (ADR-REPO-SLIDES-ONEBUILDCOMMAND). The
-explanation article stays outside the folder; the render reads it and never writes it. Scope: the 150 slides of `docs/explanation`; the 18
-in `docs/.assets` and `docs/references/.assets` follow later.
+`Build-Diagrams -Path <folder>` rebuilds one folder in place; with no path it repeats that for every diagram folder
+(ADR-REPO-SLIDES-ONEBUILDCOMMAND). The explanation article stays outside the folder; the render reads it and never writes it. Scope: the 150
+slides of `docs/explanation`; the 18 in `docs/.assets` and `docs/references/.assets` follow later.
 
 ## Why its value is high
 
@@ -25,9 +25,9 @@ moved, reviewed or rebuilt as one thing. One folder per diagram makes the move a
 Recorded 2026-10-18 with the user:
 
 - Role names inside the folder; the folder name is the diagram's only name.
-- The description moves into the folder. Its relative links (ADR-REPO-LINK-MARKDOWNRELATIVE) are kept right by a move command, not generated: one tested
-  command moves a diagram folder with `git mv` and re-points every relative link in the moved `.md` files and in the pages that link into
-  them, each resolved to its repository path and recomputed from the new place; Test-Links after each move.
+- The description moves into the folder. Its relative links (ADR-REPO-LINK-MARKDOWNRELATIVE) are kept right by a move command, not
+  generated: one tested command moves a diagram folder with `git mv` and re-points every relative link in the moved `.md` files and in the
+  pages that link into them, each resolved to its repository path and recomputed from the new place; Test-Links after each move.
 - ADR codes and lens come from the model's `subtitle` cell only (`<codes> · <lens>`, on all 151 models); the sidebar chips, the lens badge
   and the page name are outputs. The lens is a closed set of six in `drawio.yml` (today `LENS_BADGE` in render.py); a lens outside it fails
   the render. The article's `Supports … (<lens> lens)` line is checked against the subtitle and warns on drift, never parsed as the source.
@@ -62,26 +62,28 @@ Recorded 2026-10-18 with the user:
       file-name code and lens go (check: the out/ pilot below renders clean). Done 2026-10-18: also fixed the highlight stage, which ignored
       its slice; W_SUBTITLE and W_SUPPORTS warnings; spelling, file-meta, comments and analyzer gates clean. Until the migration step,
       `Build-Diagrams` and the kit cannot rebuild the flat `docs/explanation/.assets` slides; render none until then.
-- [x] Done 2026-10-18 (catzc-93; verdict in task-diagram-folders step 1). Kit tests: subtitle parsing, the lens set and the `Supports` drift, as Needed tests lists (check: the tests pass).
+- [x] Done 2026-10-18 (catzc-93; verdict in task-diagram-folders step 1). Kit tests: subtitle parsing, the lens set and the `Supports`
+      drift, as Needed tests lists (check: the tests pass).
 - [x] Pilot in out/: `out/diagram-pilot/` holds `configuration/` in the new layout (articles copied, each diagram assembled into its
       folder), rendered by the new kit (check: exit 0; the user compares the slides with today's and approves). Rendered 2026-10-18 by
       `out/diagram-pilot.py`: exit 0, 10 of 10 joined; each slide matches today's apart from the minimaps, which follow the current maps
-      (`out/diagram-pilot/sidebar-old-vs-new.png`). Approved by the user 2026-10-18; the row still labelled `automation` in both
-      sidebars is fixed when the minimaps re-render in the new layout (describe.py already says `pwsh/`).
+      (`out/diagram-pilot/sidebar-old-vs-new.png`). Approved by the user 2026-10-18; the row still labelled `automation` in both sidebars is
+      fixed when the minimaps re-render in the new layout (describe.py already says `pwsh/`).
 - [x] Normalise the two subtitles still in the `:1,2,3` form (adr-dsgn-aspect--each-track-picks-its-catch-all--meta,
       adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta) through write-drawio-files (check: the subtitle parser reports none).
-      Closed 2026-10-18 by session catzc-f3 with nothing to change: both subtitles, citing ADR-DSGN-ASPECT and ADR-PRIN-ONELIVE, were already
-      in the citation form of that day, last touched in 928c51e9d); drawio_forward.py on both: exit 0, status ok, no
-      W_SUBTITLE.
-- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 3). The move command: moves files with `git mv` and re-points relative links in and into them, with L0 tests on neutral fixtures (check:
-      its tests pass; Test-Links clean after a fixture move).
-- [x] Done 2026-10-18 (catzc-fb, all 149 plus glyphs; verdicts in task-diagram-folders step 6). On approval, all 150 diagrams move, one folder of articles at a time, through the move command (check: Test-Links clean after each
-      folder).
-- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 4). `Build-Diagrams -Path`, the folder discovery; `diagram_folders` replaced in the same change (ADR-PRIN-ONELIVE); each description's
-      rebuild step names `Build-Diagrams -Path` (check: its L0 tests pass, dry run lists the call set per folder).
-- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 5). ADR-REPO-FOLDERS, ADR-REPO-SLIDES-ONEBUILDCOMMAND and `file-kinds.yml` restated (check: Test-AdrRegistry, Test-Links, the file-kind reachability
-      test).
-- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 7). `glyphs.drawio.png`, the shared glyph legend, into `docs/explanation/.assets/glyphs/` (check: every page that links it resolves).
+      Closed 2026-10-18 by session catzc-f3 with nothing to change: both subtitles, citing ADR-DSGN-ASPECT and ADR-PRIN-ONELIVE, were
+      already in the citation form of that day, last touched in 928c51e9d); drawio_forward.py on both: exit 0, status ok, no W_SUBTITLE.
+- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 3). The move command: moves files with `git mv` and re-points relative
+      links in and into them, with L0 tests on neutral fixtures (check: its tests pass; Test-Links clean after a fixture move).
+- [x] Done 2026-10-18 (catzc-fb, all 149 plus glyphs; verdicts in task-diagram-folders step 6). On approval, all 150 diagrams move, one
+      folder of articles at a time, through the move command (check: Test-Links clean after each folder).
+- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 4). `Build-Diagrams -Path`, the folder discovery; `diagram_folders`
+      replaced in the same change (ADR-PRIN-ONELIVE); each description's rebuild step names `Build-Diagrams -Path` (check: its L0 tests
+      pass, dry run lists the call set per folder).
+- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 5). ADR-REPO-FOLDERS, ADR-REPO-SLIDES-ONEBUILDCOMMAND and
+      `file-kinds.yml` restated (check: Test-AdrRegistry, Test-Links, the file-kind reachability test).
+- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 7). `glyphs.drawio.png`, the shared glyph legend, into
+      `docs/explanation/.assets/glyphs/` (check: every page that links it resolves).
 - [x] Folders done 2026-10-18 (task-diagram-folders step 8); the plan itself goes in the closing sweep. Delete the emptied
-      `docs/explanation/.assets/{grid,tree,chain}/` and this plan (check: `git ls-files docs/explanation/.assets` lists
-      only `glyphs/`; Test-Plans clean).
+      `docs/explanation/.assets/{grid,tree,chain}/` and this plan (check: `git ls-files docs/explanation/.assets` lists only `glyphs/`;
+      Test-Plans clean).
