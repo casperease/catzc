@@ -77,9 +77,10 @@ each copy can drift. Below the module model plan because that plan decides what 
       names `assets/` as a folder a module's code reads, not as a file kind, so `asset` stays a top-level kind of `file-kinds.yml`.
 - [x] Naming rule: prose may say PowerShell; identifiers use only pwsh (engine, folder) or powershell (language id) (Q45). Done 2026-10-17
       (the plans ADR): ADR-REPO-VOCAB#9 with its prose section (check: Test-Terminology clean, 2026-10-17).
-- [ ] Read the formatting ADR on automation/.compiled and follow it (Q47) (check: Test-Formatting clean or the ADR amended). Decided
-      2026-10-18 (D13): the folder is skipped as generated output and the ADR names that reading; the work is task-file-head-leftovers
-      step 3.
+- [x] Read the formatting ADR on automation/.compiled and follow it (Q47) (check: Test-Formatting clean or the ADR amended). Decided
+      2026-10-18 (D13): the folder is skipped as generated output and the ADR names that reading. Done 2026-10-18
+      (task-file-head-leftovers step 3): Get-FormatScope leaves out the `binary` class `.gitattributes` gives `.compiled`, and
+      ADR-REPO-FORMAT#8 says so; `Test-Formatting -Language json` names no `.compiled` file.
 
 ## Decided in the questionnaire round of 2026-10-16 (Q39 to Q54)
 

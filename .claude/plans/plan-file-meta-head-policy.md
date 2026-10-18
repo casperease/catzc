@@ -89,13 +89,13 @@ on whether a file was imprinted. The policy removes heads from authored source a
       (check: `Test-Links -Path docs/adr/repository/code-file-meta.md`) — 2026-10-18: rule 1 and 3 follow the head policy, rule 2 derives
       `cites` without reading the head and gives a code head no `config` part, the example drops its `.SYNOPSIS` block; Test-Links,
       Test-AdrRegistry, Test-FileMeta, Test-Markdownlint, Test-Spelling pass.
-- [x] `docs/adr/repository/function-help.md`: ADR-REPO-HELP restated: help is the comment page's `## help` section in the fixed shape
-      (rules 1 to 5, Context and Decision). (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/function-help.md`) —
-      2026-10-18: both pass, with Test-FileMeta, Test-Markdownlint, Test-Spelling.
+- [x] `docs/adr/repository/function-help.md`: ADR-REPO-HELP restated: help is the comment page's `## help` section in the fixed shape (rules
+      1 to 5, Context and Decision). (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/function-help.md`) — 2026-10-18: both
+      pass, with Test-FileMeta, Test-Markdownlint, Test-Spelling.
 - [x] `docs/adr/repository/comments-in-docs.md`: rule 1 finds the page through `comments.yml`, not a head edge; a new rule makes the page an
       authored file whose `## help` section holds the help in the fixed shape, which `Export-Comments` never writes; rule 5 drops the page's
-      `kind` from its meta block. (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/comments-in-docs.md`) — 2026-10-18:
-      rule 6 added with "An authored page"; both pass, with Test-FileMeta, Test-Markdownlint, Test-Spelling.
+      `kind` from its meta block. (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/comments-in-docs.md`) — 2026-10-18: rule
+      6 added with "An authored page"; both pass, with Test-FileMeta, Test-Markdownlint, Test-Spelling.
 - [ ] `automation/Catzc.Base.QualityGates/configs/file-meta.yml`: remove `comment-page` from `locked_classes`, from the `body-sha` selection
       and from the `generator` kind (which then selects nothing and goes, with `Get-GeneratorFileMetaFact.ps1` and its test, per
       ADR-REPO-FILEMETA#4); in the same change, `docs/adr/repository/file-meta.md` drops the comment page as the one generated page the
@@ -117,10 +117,23 @@ on whether a file was imprinted. The policy removes heads from authored source a
 
 ### Phase 3: the policy
 
-- [ ] A head-policy config type in `automation/Catzc.Base.QualityGates/types/` with the three values and the defaults above declared on the
-      type; the policy entries keyed by class in `file-meta.yml`. (check: an L0 types test of the defaults and the resolution order)
-- [ ] `automation/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1`: a finding for a head absent where `required` or present where
-      `forbidden`; `Save-FileMetaResult` strips a forbidden head. (check: `tests/Invoke-FileMetaEngine.Tests.ps1`)
+- [x] A head-policy config type in `automation/Catzc.Base.QualityGates/types/` with the three values and the defaults above declared on the
+      type; the policy entries keyed by class in `file-meta.yml`. (check: an L0 types test of the defaults and the resolution order) —
+      2026-10-18: `HeadPolicy.cs`, `FileHeadPolicy.cs` (default `forbidden`, first matching class wins), `FileMetaConfig.head_policy` and
+      `PolicyFor`; `file-meta.yml` sets `default: required` plus `agent`, `capability`, `slide`, `index`, `glossary` as `required`;
+      `tests/types/FileHeadPolicy.Tests.ps1` passes.
+- [x] `automation/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1`: a finding for a head absent where `required` or present where
+      `forbidden`; `Save-FileMetaResult` strips a forbidden head. (check: `tests/Invoke-FileMetaEngine.Tests.ps1`) — 2026-10-18: forbidden
+      strips the block (renders with no facts; an empty Markdown front matter goes whole, with its separator line, in `MarkdownDocument`), a
+      forbidden block with a `config` part is a `ForbiddenConfig` finding left unchanged, optional writes no new block; Format-FileMeta and
+      Test-FileMeta word the new finding. 124 tests over the engine, Format-FileMeta, Invoke-ImprintStep, FileMetaConfig, FileHeadPolicy and
+      MarkdownMeta pass; a tree-wide `Format-FileMeta -DryRun` changes no file because of the policy (4 of 4,079 drift, all peer work).
+
+### The one tree-wide pass (after Phases 2, 4 and 5)
+
+- [ ] `automation/Catzc.Base.QualityGates/configs/file-meta.yml`: delete `default: required` and its comment line, so the type's `forbidden`
+      holds, after the help has moved to the comment pages (Phase 5), so no code head is left with a `config` part; then run
+      `Format-FileMeta` once over the tree. (check: `Test-FileMeta` reports no finding, and no `ForbiddenConfig`)
 
 ### Phase 4: the single-file command
 
