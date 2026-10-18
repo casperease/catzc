@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fa0d8954209c
+    with_body_sha: "382afc74cdb9"
     repo_status: locked
     path: docs/explanation/pipelines/.assets/one-header-function-owns-precedence/grid.md
     source: docs/explanation/pipelines/.assets/one-header-function-owns-precedence/diagram.drawio.png
@@ -32,7 +32,7 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- docs × markdown: 3 lit of 2763 files
+- docs × markdown: 3 lit of 2767 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × yaml: 1 lit of 115 files
 
@@ -51,7 +51,7 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.md` names the file language
 markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [docs/adr/index.md][3]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 252 (text).
+- [docs/adr/index.md][3]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 250 (text).
 - [docs/adr/pipelines/dora-explains.md][4]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 11 (text).
 - [docs/adr/pipelines/dual-authentication.md][1]: selected by [ADR-PIPE-AUTH][1]: the ADR's own file.
 

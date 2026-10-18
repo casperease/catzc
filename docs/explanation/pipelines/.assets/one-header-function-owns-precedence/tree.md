@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "34827f34062a"
+    with_body_sha: "1440e4eadb25"
     repo_status: locked
     path: docs/explanation/pipelines/.assets/one-header-function-owns-precedence/tree.md
     source: docs/explanation/pipelines/.assets/one-header-function-owns-precedence/diagram.drawio.png
@@ -50,7 +50,7 @@ The group holds the files of docs/adr/pipelines; each sits in its world-map cell
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 252 (text).
+- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 250 (text).
 
 ### pipelines (1 lit file)
 
