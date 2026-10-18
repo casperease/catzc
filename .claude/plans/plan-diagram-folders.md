@@ -62,7 +62,7 @@ Recorded 2026-10-18 with the user:
       file-name code and lens go (check: the out/ pilot below renders clean). Done 2026-10-18: also fixed the highlight stage, which ignored
       its slice; W_SUBTITLE and W_SUPPORTS warnings; spelling, file-meta, comments and analyzer gates clean. Until the migration step,
       `Build-Diagrams` and the kit cannot rebuild the flat `docs/explanation/.assets` slides; render none until then.
-- [ ] Kit tests: subtitle parsing, the lens set and the `Supports` drift, as Needed tests lists (check: the tests pass).
+- [x] Done 2026-10-18 (catzc-93; verdict in task-diagram-folders step 1). Kit tests: subtitle parsing, the lens set and the `Supports` drift, as Needed tests lists (check: the tests pass).
 - [ ] Pilot in out/: `out/diagram-pilot/` holds `configuration/` in the new layout (articles copied, each diagram assembled into its
       folder), rendered by the new kit (check: exit 0; the user compares the slides with today's and approves). Rendered 2026-10-18 by
       `out/diagram-pilot.py`: exit 0, 10 of 10 joined; each slide matches today's apart from the minimaps, which follow the current maps

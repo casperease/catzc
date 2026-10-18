@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "51aca096e53e"
+    repo_status: locked
+    path: docs/explanation/configuration/.assets/type-an-address-get-the-value/chain.md
+    source: docs/explanation/configuration/.assets/type-an-address-get-the-value/diagram.drawio.png
+    role: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Type an address and get its value back; a wrong address throws its message at the call: the value-chain minimap
 
 ```text

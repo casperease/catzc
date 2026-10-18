@@ -31,7 +31,10 @@ In hand 2026-10-18: session catzc-fb holds steps 3 to 5 (orchestrator). Step 6 h
 Step 2 closed 2026-10-18 (catzc-f3: both subtitles already canonical, drawio_forward.py exit 0, no W_SUBTITLE). Step 1 waits on the decision
 round's test home for the kit.
 
-1. Kit tests: subtitle parsing (both code forms reported, the canonical accepted), the closed lens set, the `Supports (<lens> lens)` drift
+1. [x] Landed 2026-10-18 by session catzc-93, verdict: ".claude/drawio/tests/test_slide_facts.py: 16 tests pass under `timeout 200 uv
+   run -q --with pillow==12.3.0 --with pytest==9.1.1 python -m pytest .claude/drawio/tests`; Test-FileMeta 0, Test-PythonLint 0,
+   Test-PythonTypes 0, Test-Spelling 0 on the new files"; neutral fixtures on a tmp repository, no kit source edited. Original step: Kit
+   tests: subtitle parsing (both code forms reported, the canonical accepted), the closed lens set, the `Supports (<lens> lens)` drift
    warning, under the test home the decision round names (`.claude/drawio/tests/`) and run with `uv run` under the time safeguard. Check:
    the tests pass; `Test-FileMeta` clean on the new files.
 2. The two subtitles still in the `:1,2,3` form (`adr-dsgn-aspect--each-track-picks-its-catch-all--meta`,

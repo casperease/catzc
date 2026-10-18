@@ -74,9 +74,11 @@ function Write-QualityGateReport {
             Issues     = [string[]] @($Issues)
             ReportPath = $runDir
         }
+        # The seam while the gates move to QualityGateResult (ADR-PRIN-ONELIVE#8): facts both flattened and under Facts.
         foreach ($key in $Facts.Keys) {
             $result[$key] = $Facts[$key]
         }
+        $result['Facts'] = [Catzc.Base.Reports.QualityGateResult]::new($Subject, [string[]] @($Issues), $runDir, $Facts).Facts
         return [pscustomobject]$result
     }
 

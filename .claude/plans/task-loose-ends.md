@@ -46,7 +46,9 @@ Five plans each hold one step that fits no larger chunk. Each is one file and on
    files this execution edits (plan-layers-vocabulary-rename-contracts, plan-assert-wait, plan-unboxing, plan-module-model-closeout,
    value-of-plan.md) lose their bare terms in that edit. Check: `Test-Glossary` on each edited file names no line; the file is struck from
    the list in plan-clear-actions.
-4. The gallery fixture (plan-assets-gallery-pdf): if the decision round gives the kit a test home, a two-PNG fixture run (one with a
+4. [x] Landed 2026-10-18 by session catzc-93, verdict: ".claude/drawio/tests/test_gallery_pdf.py: two PNGs, one with a same-stem .md
+   companion, run `gallery_pdf.py --assets`, which prints pages=3; passes" (runs on a tmp mirror; a REPO argument in the kit would drop
+   the mirror, an idea for catzc-fb). Original step: The gallery fixture (plan-assets-gallery-pdf): if the decision round gives the kit a test home, a two-PNG fixture run (one with a
    companion) under it; if not, the step is dropped and the plan deleted in the sweep. Check: page count is 3, or the plan is gone.
 5. [x] Landed 2026-10-18 by session catzc-59 as plan-promotion-ladder's steps 1 and 2 (verdicts there). Original step:
    `pipelines/README.md` (plan-promotion-ladder): the ladder's environments and the pipeline that deploys each, as the decision round's Q1

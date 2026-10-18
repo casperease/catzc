@@ -33,7 +33,8 @@ unchanged. The PDF is for a person in a PDF viewer (`review-pdf` in `output-form
 - [x] Decide whether a `--parts <n>` split belongs in the builder, so a file over a size cap needs no side script (check: a decision
       recorded here; if yes, a flag and a run that yields parts under 30 MiB). Decided 2026-10-18 (D07): no flag; the PDF is a review
       artifact and the cap is the chat's, so a side script splits when a review needs it.
-- [ ] Add a small test fixture run (two PNGs, one with a companion) if the kit gains a test home (check: page count is 3). 2026-10-17: the
+- [x] Done 2026-10-18 by session catzc-93 (`.claude/drawio/tests/test_gallery_pdf.py`, pages=3, passes). Add a small test fixture run
+      (two PNGs, one with a companion) if the kit gains a test home (check: page count is 3). 2026-10-17: the
       kit has no test home (`.claude/drawio` holds scripts, minimaps and the style guide, no tests folder), so the run waits for one.
 
 ## Refs

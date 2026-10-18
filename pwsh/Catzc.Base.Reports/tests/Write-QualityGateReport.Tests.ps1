@@ -32,6 +32,7 @@ Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
         $result.IssueCount | Should -Be 1
         $result.Issues | Should -Be @('one problem')
         $result.Files | Should -Be 3
+        $result.Facts['Files'] | Should -Be 3
         [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'gadget.md')) | Should -Match '- Files: 3'
     }
 

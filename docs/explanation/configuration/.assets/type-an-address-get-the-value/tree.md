@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: c925b54a9686
+    repo_status: locked
+    path: docs/explanation/configuration/.assets/type-an-address-get-the-value/tree.md
+    source: docs/explanation/configuration/.assets/type-an-address-get-the-value/diagram.drawio.png
+    role: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Type an address and get its value back; a wrong address throws its message at the call: the tree minimap
 
 ```text

@@ -1,6 +1,6 @@
 function Sync-AdoEnvironmentCheck {
     [CmdletBinding()]
-    [OutputType([string])]
+    [OutputType([pscustomobject])]
     param(
         [Parameter(Mandatory)]
         [pscustomobject] $Context,
@@ -22,11 +22,25 @@ function Sync-AdoEnvironmentCheck {
 
     $record = @(Invoke-AdoRestMethod -Uri "$($Context.ApiBase)/distributedtask/environments?name=$([uri]::EscapeDataString($Environment))&api-version=7.1") |
         Where-Object { $null -ne $_ -and "$($_.name)" -eq $Environment } | Select-Object -First 1
-    Assert-NotNull $record -ErrorText "Environment '$Environment' does not exist in $($Context.Organization)/$($Context.Project). A CD run creates it on its first deploy, or create it in Azure DevOps."
 
-    $checks = @(Invoke-AdoRestMethod -Uri "$($Context.ApiBase)/pipelines/checks/configurations?resourceType=environment&resourceId=$($record.id)&`$expand=settings&api-version=7.1-preview.1")
-    $existing = $checks | Where-Object { $null -ne $_ -and $_.PSObject.Properties['type'] -and "$($_.type.id)" -eq $approvalTypeId } |
-        Select-Object -First 1
+    $environmentAction = 'Unchanged'
+    if (-not $record) {
+        $environmentAction = 'Create'
+        if (-not $DryRun) {
+            $body = @{ name = $Environment; description = 'Created by Sync-AdoEnvironmentApprovals from environment-approvals.yml.' }
+            $record = Invoke-AdoRestMethod -Uri "$($Context.ApiBase)/distributedtask/environments?api-version=7.1" -Method Post -Body $body
+            Assert-NotNull $record -ErrorText "Creating environment '$Environment' in $($Context.Organization)/$($Context.Project) returned nothing."
+        }
+        Write-Message "Create environment '$Environment'$(if ($DryRun) { ' [dry run]' })"
+    }
+
+    # A new environment has no checks yet.
+    $existing = $null
+    if ($environmentAction -eq 'Unchanged') {
+        $checks = @(Invoke-AdoRestMethod -Uri "$($Context.ApiBase)/pipelines/checks/configurations?resourceType=environment&resourceId=$($record.id)&`$expand=settings&api-version=7.1-preview.1")
+        $existing = $checks | Where-Object { $null -ne $_ -and $_.PSObject.Properties['type'] -and "$($_.type.id)" -eq $approvalTypeId } |
+            Select-Object -First 1
+    }
 
     $action = if (-not $existing) {
         'Create'
@@ -61,5 +75,5 @@ function Sync-AdoEnvironmentCheck {
         }
     }
     Write-Message "$action approval check on '$Environment'$(if ($DryRun) { ' [dry run]' })"
-    $action
+    [pscustomobject]@{ Environment = $environmentAction; Check = $action }
 }
