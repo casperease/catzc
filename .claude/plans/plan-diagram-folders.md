@@ -73,13 +73,13 @@ Recorded 2026-10-18 with the user:
       Closed 2026-10-18 by session catzc-f3 with nothing to change: both are already canonical (`ADR-DSGN-ASPECT#{1-3} · meta`,
       `ADR-AUTO-GO#1 · ADR-PRIN-ONELIVE#{1,5} · meta`, last touched in 928c51e9d); drawio_forward.py on both: exit 0, status ok, no
       W_SUBTITLE.
-- [ ] The move command: moves files with `git mv` and re-points relative links in and into them, with L0 tests on neutral fixtures (check:
+- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 3). The move command: moves files with `git mv` and re-points relative links in and into them, with L0 tests on neutral fixtures (check:
       its tests pass; Test-Links clean after a fixture move).
 - [ ] On approval, all 150 diagrams move, one folder of articles at a time, through the move command (check: Test-Links clean after each
       folder).
-- [ ] `Build-Diagrams -Path`, the folder discovery; `diagram_folders` replaced in the same change (ADR-PRIN-ONELIVE); each description's
+- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 4). `Build-Diagrams -Path`, the folder discovery; `diagram_folders` replaced in the same change (ADR-PRIN-ONELIVE); each description's
       rebuild step names `Build-Diagrams -Path` (check: its L0 tests pass, dry run lists the call set per folder).
-- [ ] ADR-REPO-FOLDERS, ADR-REPO-SLIDES#7 and `file-kinds.yml` restated (check: Test-AdrRegistry, Test-Links, the file-kind reachability
+- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 5). ADR-REPO-FOLDERS, ADR-REPO-SLIDES#7 and `file-kinds.yml` restated (check: Test-AdrRegistry, Test-Links, the file-kind reachability
       test).
 - [ ] `glyphs.drawio.png`, the shared glyph legend, into `docs/explanation/.assets/glyphs/` (check: every page that links it resolves).
 - [ ] Delete the emptied `docs/explanation/.assets/{grid,tree,chain}/` and this plan (check: `git ls-files docs/explanation/.assets` lists

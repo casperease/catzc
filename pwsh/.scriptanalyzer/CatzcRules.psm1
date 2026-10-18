@@ -16,7 +16,6 @@ $checks = @(
     'NoRawInformationStream'
     'NoRawConsoleWrite'
     'AnnounceStateChange'
-    'SpellOutIdentifiers'
     'NoScriptRootAnchor'
     'NoEnvRepositoryRoot'
     'ParameterDesign'

@@ -1,5 +1,4 @@
 function Get-ScriptAnalyzerDiagnostics {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The analyzer import runs inside each background Start-Job shard process, never in this session')]
     [CmdletBinding()]
     [OutputType([object[]])]
     param(
@@ -19,95 +18,56 @@ function Get-ScriptAnalyzerDiagnostics {
         return @()
     }
 
-    $root = Get-RepositoryRoot
+    $fullRoot = [System.IO.Path]::GetFullPath((Get-RepositoryRoot))
+    # Two passes, each cached on its own inputs: the spelling entry rule reads the dictionaries, every other rule does not, so a dictionary
+    # edit re-runs the spelling pass alone ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)).
+    $spellingRule = 'Measure-CatzcSpelling'
+    $passes = @(
+        [pscustomobject]@{ Label = 'rules'; Cache = 'script-analyzer.json'; IncludeRule = @(); ExcludeRule = @($spellingRule) }
+        [pscustomobject]@{ Label = 'spelling'; Cache = 'script-analyzer-spelling.json'; IncludeRule = @($spellingRule); ExcludeRule = @() }
+    )
 
-    $fullRoot = [System.IO.Path]::GetFullPath($root)
-    $stamp = Get-ContentStamp -Label 'script-analyzer' -File (Get-ScriptAnalyzerInputs -RepositoryRoot $fullRoot -SettingsPath $SettingsPath) -RepositoryRoot $fullRoot
-    $cachePath = Join-Path (Get-OutputRoot) 'cache/script-analyzer.json'
-    $cache = if ($NoCache) {
-        @{}
+    $batch = [System.Collections.Generic.List[object]]::new()
+    foreach ($pass in $passes) {
+        $inputs = Get-ScriptAnalyzerInputs -RepositoryRoot $fullRoot -SettingsPath $SettingsPath -Pass $pass.Label
+        $stamp = Get-ContentStamp -Label "script-analyzer-$($pass.Label)" -File $inputs -RepositoryRoot $fullRoot
+        $cachePath = Join-Path (Get-OutputRoot) "cache/$($pass.Cache)"
+        $cache = if ($NoCache) {
+            @{}
+        }
+        else {
+            Get-ResultCache -Path $cachePath
+        }
+        $split = Split-CachedFile -File $requested -Cache $cache -Stamp $stamp -RepositoryRoot $fullRoot
+        Write-Message "$($pass.Label) pass: $($split.CachedCount) of $($requested.Count) file(s) unchanged since the analyzer last found them clean."
+        if (@($split.Pending).Count -gt 0) {
+            $batch.Add([pscustomobject]@{
+                    Label        = $pass.Label
+                    Files        = [string[]] @($split.Pending)
+                    SettingsPath = $SettingsPath
+                    IncludeRule  = $pass.IncludeRule
+                    ExcludeRule  = $pass.ExcludeRule
+                    Cache        = $cache
+                    CachePath    = $cachePath
+                    Key          = $split.Key
+                })
+        }
     }
-    else {
-        Get-ResultCache -Path $cachePath
-    }
-    $split = Split-CachedFile -File $requested -Cache $cache -Stamp $stamp -RepositoryRoot $fullRoot
-    $files = @($split.Pending)
-    Write-Message "$($split.CachedCount) of $($requested.Count) file(s) unchanged since the analyzer last found them clean."
-    if ($files.Count -eq 0) {
+    if ($batch.Count -eq 0) {
         return @()
     }
-    $analyzerPath = Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer'
 
-    $shardCount = [Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 10))
-    $shardCount = [Math]::Min($shardCount, $files.Count)
-
-    $shards = @{}
-    for ($i = 0; $i -lt $shardCount; $i++) {
-        $shards[$i] = [System.Collections.Generic.List[string]]::new()
-    }
-    # Round-robin spreads the heavy modules across shards.
-    for ($i = 0; $i -lt $files.Count; $i++) {
-        $shards[$i % $shardCount].Add($files[$i])
-    }
-
-    $worker = {
-        param($shardFiles, $root, $analyzer, $settings)
-        Import-Module $analyzer -Force
-
-        Push-Location $root
-        $savedProgress = $ProgressPreference
-        $ProgressPreference = 'SilentlyContinue'
-        try {
-            $err = $null
-            $diagnostics = $shardFiles | Invoke-ScriptAnalyzer -Settings $settings -ErrorVariable err -ErrorAction SilentlyContinue
-            if ($err) {
-                throw "PSScriptAnalyzer error analysing this shard: $($err[0].Exception.Message)"
-            }
-            $diagnostics
-        }
-        finally {
-            $ProgressPreference = $savedProgress
-            Pop-Location
-        }
-    }
-
-    $jobs = for ($i = 0; $i -lt $shardCount; $i++) {
-        Start-Job -ScriptBlock $worker -ArgumentList @($shards[$i], $root, $analyzerPath, $SettingsPath)
-    }
-
-    $dotted = $false
-    try {
-        # Poll for shard completion so the user sees the run is alive rather than a silent wait.
-        while ($true) {
-            $completed = @($jobs | Where-Object { $_.State -in 'Completed', 'Failed', 'Stopped' }).Count
-            if ($completed -eq $shardCount) {
-                break
-            }
-            Write-Message '.' -NoHeader -NoNewline
-            $dotted = $true
-            Start-Sleep -Seconds 1
-        }
-
-        $allDiagnostics = @()
-        foreach ($job in $jobs) {
-            if ($job.State -ne 'Completed') {
-                $reason = ($job.ChildJobs.JobStateInfo.Reason.Message) -join '; '
-                throw "PSScriptAnalyzer shard job $($job.Id) ended in state '$($job.State)': $reason"
-            }
-            $allDiagnostics += Receive-Job -Job $job -ErrorAction Stop
-        }
-
+    $diagnostics = Invoke-ScriptAnalyzerShards -Batch $batch.ToArray() -RepositoryRoot $fullRoot
+    $allDiagnostics = [System.Collections.Generic.List[object]]::new()
+    foreach ($entry in $batch) {
+        $found = @($diagnostics[$entry.Label])
         # Record every analyzed file without a diagnostic as clean; a file with one is checked again next time.
-        $flagged = @($allDiagnostics | Where-Object { $_.ScriptPath } | ForEach-Object { $_.ScriptPath })
-        Update-ResultCache -Cache $cache -Key $split.Key -Checked $files -Flagged $flagged
-        Save-ResultCache -Path $cachePath -Cache $cache
-
-        $allDiagnostics
-    }
-    finally {
-        if ($dotted) {
-            Write-Message '' -NoHeader   # newline to close the dot line
+        $flagged = @($found | Where-Object { $_.ScriptPath } | ForEach-Object { $_.ScriptPath })
+        Update-ResultCache -Cache $entry.Cache -Key $entry.Key -Checked $entry.Files -Flagged $flagged
+        Save-ResultCache -Path $entry.CachePath -Cache $entry.Cache
+        foreach ($diagnostic in $found) {
+            $allDiagnostics.Add($diagnostic)
         }
-        $jobs | Remove-Job -Force
     }
+    $allDiagnostics.ToArray()
 }

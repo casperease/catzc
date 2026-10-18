@@ -10,6 +10,7 @@
     # ScriptBlockAst). Add a new check module to the list in CatzcRules.psm1, not here.
     CustomRulePath      = @(
         'pwsh/.scriptanalyzer/CatzcRules.psm1'
+        'pwsh/.scriptanalyzer/CatzcSpelling.psm1'
     )
 
     ExcludeRules        = @(

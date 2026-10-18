@@ -74,7 +74,7 @@ mechanically, not by review.
 `One helper, one answer in both modes`
 
 `Get-CatzcModuleRoot` returns the calling module's folder under the active code root (`CatzcModulesRoot`) —
-`<RepositoryRoot>/automation/<Module>` in source mode, `<build>/<Module>` in build mode — joined with `-ChildPath` when given. The layout
+`<RepositoryRoot>/pwsh/<Module>` in source mode, `<build>/<Module>` in build mode — joined with `-ChildPath` when given. The layout
 below a module folder (`configs/`, `assets/`, `types/`) is the same in both modes, so one call names the same file in both. The module
 defaults to the caller's own; an explicit `-Module` reads another module's content, which is a cross-module dependency and therefore an edge
 in `dependencies.yml` ([controlling-module-dependencies](controlling-module-dependencies.md)). The dot-prefixed infrastructure that is not a

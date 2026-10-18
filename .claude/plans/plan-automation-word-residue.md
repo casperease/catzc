@@ -266,18 +266,22 @@ its prose only, never the generated sidebar.
 - [x] `docs/adr/flow/durable-sha-globs.md` (check: no folder-meaning line; Test-Links clean) (the glob table at 171 to 174 uses
       `automation/` as sample paths: switch them to `pwsh/`; line 281)
 - [x] `docs/adr/flow/pipeline-runner-pattern.md` (check: no folder-meaning line; Test-Links clean) (line 35)
-- [ ] `docs/adr/flow/pipeline-types.md` (check: no folder-meaning line; Test-Links clean) (lines 14, 180)
-- [ ] `docs/adr/pwsh/bounded-enumeration.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/adr/pwsh/dynamic-module-manifests.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/adr/pwsh/index.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/adr/pwsh/one-function-per-file.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/adr/pwsh/pester-testing.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/adr/pwsh/prepost-extension-modules.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/adr/pwsh/pwsh-engine.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/adr/pwsh/working-directory-mechanics.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/adr/repository/generated-readmes.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/adr/repository/generated-root-configs.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/adr/repository/protected-globs.md` (check: no folder-meaning line; Test-Links clean)
+  ADR batches 2 and 3, session catzc-59, 2026-10-18, the twelve ticked below, each Test-Links ok. No change needed in `pwsh/index.md`
+  and `pwsh-engine.md` (their `automation/` means the ADR domain); layer-meaning lines kept in pipeline-types, generated-readmes and
+  generated-root-configs; protected-globs keeps the `test-automation|…` protection keys (key format). dynamic-module-manifests now matches
+  Export-Catzc's `out/pwsh/packages/` and the Builder's `# source: pwsh/<Module>/<path>` marker.
+- [x] `docs/adr/flow/pipeline-types.md` (check: no folder-meaning line; Test-Links clean) (lines 14, 180)
+- [x] `docs/adr/pwsh/bounded-enumeration.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/adr/pwsh/dynamic-module-manifests.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/adr/pwsh/index.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/adr/pwsh/one-function-per-file.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/adr/pwsh/pester-testing.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/adr/pwsh/prepost-extension-modules.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/adr/pwsh/pwsh-engine.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/adr/pwsh/working-directory-mechanics.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/adr/repository/generated-readmes.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/adr/repository/generated-root-configs.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/adr/repository/protected-globs.md` (check: no folder-meaning line; Test-Links clean)
   Explanation batch 1, session catzc-59, 2026-10-18, each Test-Links ok. Ticked: the two configuration pages. Free prose done but kept open
   for the slide migration (slide-label lines are changed with their slides, never ahead): `a-push-fires-only-touched-pipelines.drawio.md`
   line 32 (the slide's named-set label `automation/**`); `get-aspect-feeds-globs-and-maps.md` text block lines 6, 9, 10;
@@ -315,11 +319,23 @@ its prose only, never the generated sidebar.
 - [x] `docs/explanation/flow/two-declared-layers-one-derived.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/repository/one-registry-one-writer-two-primitives.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/repository/one-source-one-writer-one-boolean.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/how-to/getting-started/pwsh/BCL/add-a-dotnet-type.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/how-to/getting-started/pwsh/BCL/index.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/how-to/getting-started/pwsh/add-a-module.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/how-to/getting-started/pwsh/powershell/add-a-function.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/how-to/getting-started/pwsh/powershell/index.md` (check: no folder-meaning line; Test-Links clean)
+  How-to batch, session catzc-59, 2026-10-18, the five ticked below, each Test-Links ok; the two index pages needed no change ("under
+  `automation/`" names the getting-started guide folder, "automation platform" the layer). The section is closed but for the
+  slide-label lines kept open above for the migration.
+- [x] `docs/how-to/getting-started/pwsh/BCL/add-a-dotnet-type.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/how-to/getting-started/pwsh/BCL/index.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/how-to/getting-started/pwsh/add-a-module.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/how-to/getting-started/pwsh/powershell/add-a-function.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/how-to/getting-started/pwsh/powershell/index.md` (check: no folder-meaning line; Test-Links clean)
+
+  Found by the Close scan 2026-10-18 and landed the same day by session catzc-59, each Test-Links ok; one kept open for its slide labels
+  (text block lines 7, 11 and marker label 33).
+- [x] `docs/adr/automation/platform-bundle.md` (check: no folder-meaning line; Test-Links clean) (line 133)
+- [x] `docs/adr/automation/internal-asset-dependencies.md` (check: no folder-meaning line; Test-Links clean) (line 77)
+- [x] `docs/explanation/automation/two-entries-feed-one-importer.md` (check: no folder-meaning line; Test-Links clean) (line 37)
+- [x] `docs/explanation/design/one-entry-script-per-mode.md` (check: no folder-meaning line; Test-Links clean) (line 29)
+- [ ] `docs/explanation/design/shims-set-roots-mode-read-back.md` (check: no folder-meaning line; Test-Links clean) (body lines 33, 44
+      done; the slide-label lines wait for the migration)
 
 ### Plans that still say P4 waits or name removed functions
 

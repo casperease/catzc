@@ -3,15 +3,14 @@ task:
   status: open
   plans: [plan-layers-vocabulary-rename-contracts]
   value: high
-  blocked_on: P3 after task-layers-funnel; P4 and P6 on the user's explicit go (D10), in a quiet window with no peer-dirty files
+  blocked_on: P6 on the user's explicit go, the same day the user re-points Azure DevOps and GitHub
   targets: [docs/explanation/automation, docs/how-to/automation, docs/references/pwsh, pwsh, out, .github, pipelines]
 ---
 
 # Task: layers P3 classification, then the flip P4 and the pipeline names P6
 
-P3 changes no path: it classifies pages and drafts ADR wording against the placeholder TRACK. P4 is the one phase that cannot be
-interleaved: `git mv automation pwsh` in the user's window, run by the user (a mutating git command). P6 renames the externally bound
-pipeline names the same day the user re-points Azure DevOps and GitHub. P8 diagrams are dropped (Q23).
+P3 and P4 have landed: `automation/` is `pwsh/` since 2026-10-18. P6 renames the externally bound pipeline names the same day the user
+re-points Azure DevOps and GitHub. P8 diagrams are dropped (Q23).
 
 ## Steps
 
@@ -35,21 +34,9 @@ pipeline names the same day the user re-points Azure DevOps and GitHub. P8 diagr
    - The user has named the window (D10): not yet. Original step: P4 preconditions recorded: P1 to P3 green on touched files; `git status`
      shows no peer-dirty file; a hook-recovery path exists out of band; the user has named the window (D10). Check: four lines in the plan,
      each true.
-4. P4, the user runs: `git mv automation pwsh`; `.catzc/<track>` becomes `.catzc/pwsh`; build outputs `out/pwsh/built` and
-   `out/pwsh/packages` (Q6); the tracks registry row and the one bootstrap constant change to pwsh; `Build-RootConfig` regenerates
-   importer.ps1; the docs mirror `docs/references/pwsh` follows the folder for the moved pages of step 1. One source edit per step,
-   generators after. Check: the P0 baseline gates green again (Test-GeneratedFiles, Test-Links, Test-Contracts, Test-WorldMap). Done
-   2026-10-18 by session catzc-cc with the user's leave for `git mv`: `automation/` became `pwsh/` and `docs/references/automation/` became
-   `docs/references/pwsh/` (3,797 renames), and the eleven P3 "move" pages went to `docs/explanation/pwsh`, `docs/how-to/pwsh` and
-   `docs/how-to/getting-started/pwsh`. The bootstrap set by hand (the importer constant, Get-CatzcModulesRoot, Get-CatzcRunMode,
-   Get-CatzcOverlayRoot, CommentsConfig's default pages, the importer shim line, the exporter's `out/pwsh/{built,packages}`), the tracks
-   `pwsh` and `pwsh-vendor`, the module-types root, then 64 configs, assets and tests one file at a time and 2,184 docs files by a
-   one-file-at-a-time path pass that rewrote only code-folder paths, the mirror and the moved pages, never the ADR domain
-   `docs/adr/automation` or the concern word. Generators reran and the flat minimap pages were restamped. Check: `GENERATED issues=0`,
-   `CONTRACTS issues=0`, `LINKS issues=0` over the tree, `COMMENTS issues=0`, `FILEMETA issues=0`, `FOLDERS issues=0`; Test-WorldMap has one
-   finding, the build output under `pwsh/.internal/assets/{obj,bin}` that the move staged before `.gitignore` knew the new path (the user's
-   `git rm --cached` of `out/p4-unstage.txt`, 66 files, which the permission settings kept from this session); the grep for `automation/`
-   code paths is empty. The tests of every touched file passed, the full and reduced builds included (Import-Catzc.Tests).
+4. [x] P4 done 2026-10-18 by session catzc-cc: `automation/` is `pwsh/` and `docs/references/automation/` is `docs/references/pwsh/`;
+       the gates came back clean, and the obj/bin build output the move staged is no longer tracked. The word residue left after the move
+       is plan-automation-word-residue.
 5. [x] The ADR rules of step 2 edited to the present tree. Check: Test-AdrRegistry, Test-Links, Test-AdrEngineNeutrality clean. Done
        2026-10-18: ADR-DSGN-TRACK#1 to #3 and its context, ADR-DSGN-RUNMODE#1, #4 and #7, ADR-DSGN-ASPECT#3 and #5, ADR-REPO-FOLDERS#4 with
        its Level 2 heading and anchor, ADR-REPO-CODEMETA#2 (folder-free), ADR-AUTO-BUNDLE#1, ADR-AUTO-OVERLAY#2, #3 and #9 (and the

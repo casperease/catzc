@@ -26,7 +26,7 @@ The diagram is described element by element in [its asset description](one-entry
 
 ## Walkthrough
 
-1. **`. ./importer.ps1`.** Dot-sourced at the repository root, it loads the modules from `<RepositoryRoot>/automation/`. The CI and release
+1. **`. ./importer.ps1`.** Dot-sourced at the repository root, it loads the modules from `<RepositoryRoot>/pwsh/`. The CI and release
    workflows enter cats the same way.
 2. **Import-Module Catzc.** An installed package, put in the user module path by `Install-Catzc -Scope CurrentUser`, loads with
    `Import-Module Catzc`. Its root module dot-sources the package's `Import-Catzc.ps1`.

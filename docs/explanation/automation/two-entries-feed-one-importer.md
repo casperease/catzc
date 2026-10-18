@@ -34,7 +34,7 @@ The diagram is described element by element in [its asset description](two-entri
    `Invoke-Importer -Bundle`. A build's `Catzc.psm1` dot-sources the same file, so `Import-Module Catzc` sets up the same session.
 3. **Two roots.** The working root, `$env:RepositoryRoot`, is where `out/` and repo-relative paths resolve. The code root,
    `$env:CatzcModulesRoot`, is where the loaded code lives, and config, type and vendor discovery follow it. Source mode derives the code
-   root as `<RepositoryRoot>/automation`. `Import-Catzc.ps1` sets it to the build's own folder, and `-Bundle` honours that value.
+   root as `<RepositoryRoot>/pwsh`. `Import-Catzc.ps1` sets it to the build's own folder, and `-Bundle` honours that value.
 4. **Catzc.Internal.Importer.** This module holds `Invoke-Importer`, which runs every load stage in order and proves that only one run mode
    is loaded. The entry script removes it once the load returns.
 5. **Catzc.Internal.Bootstrap.** The Bootstrap does the discovery, the eviction of stale and foreign modules, the manifests and the C# types

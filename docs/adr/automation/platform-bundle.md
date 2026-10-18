@@ -130,7 +130,7 @@ source tree assert that they run there (`Assert-SourceTree`) and say so in a bui
 The platform separates the **working root** from the **code root**. `RepositoryRoot` is where the user runs — the anchor for `out/`,
 repo-relative paths, and git. `CatzcModulesRoot` is where the loaded catzc code lives — the anchor every config, type, and vendor scan
 follows, through `Get-CatzcModulesRoot`, and the root `Get-CatzcModuleRoot` resolves a module's own content under. In the mono repo the
-importer derives `CatzcModulesRoot` as `<RepositoryRoot>/automation`, so the two coincide. In an install they diverge: the working root is
+importer derives `CatzcModulesRoot` as `<RepositoryRoot>/pwsh`, so the two coincide. In an install they diverge: the working root is
 the destination folder, and the code root is the installed build, which may sit anywhere. This split is the whole reason the platform can be
 relocated — a scan that anchored on `RepositoryRoot` would look in the wrong place the moment the code and the work were not the same tree.
 

@@ -35,9 +35,8 @@ $longBody
         $script:firedRules = $script:records.RuleName | Sort-Object -Unique
     }
 
-    It 'the settings hand the engine the one entry rule' {
-        $script:rulePaths | Should -HaveCount 1
-        Split-Path $script:rulePaths[0] -Leaf | Should -Be 'CatzcRules.psm1'
+    It 'the settings hand the engine the two entry rules: every check, and the spelling check on its own' {
+        @($script:rulePaths | ForEach-Object { Split-Path $_ -Leaf }) | Should -Be @('CatzcRules.psm1', 'CatzcSpelling.psm1')
     }
 
     It 'PSScriptAnalyzer fires <Rule> through the entry rule, under its own rule name' -ForEach @(

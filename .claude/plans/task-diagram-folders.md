@@ -37,15 +37,26 @@ round's test home for the kit.
 2. The two subtitles still in the `:1,2,3` form (`adr-dsgn-aspect--each-track-picks-its-catch-all--meta`,
    `adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta`) normalised through `write-drawio-files`. Check: the subtitle parser
    reports none; the two rasters re-rendered from their models.
-3. The move command in `pwsh/Catzc.Base.Slides` (`Move-Diagram`): `git mv` of one diagram folder, every relative link in the moved `.md`
+3. [x] Landed 2026-10-18 by session catzc-fb, verdict: "Move-Diagram.Tests.ps1 Passed (4 cases: folder move with links in and into it
+   plus Test-Links clean on the fixture repo after the move, a single-file move under a new name, -DryRun lists and changes nothing, and
+   the four refusals); MarkdownLinkRebaser.Tests Passed; COMMENTS 0". It uses a new `MarkdownLinkRebaser.Rebase` overload in
+   Catzc.Base.Docs (one link parser); it moves a folder or one file, so step 6 assembles the nine files through it one at a time.
+   Original step: The move command in `pwsh/Catzc.Base.Slides` (`Move-Diagram`): `git mv` of one diagram folder, every relative link in the moved `.md`
    files and in the pages that link into them resolved to its repository path and recomputed from the new place; `-DryRun` lists; L0 tests
    on neutral widget/gadget fixtures under TestDrive with a fixture git repository. Check: its test file passes; `Test-Links` clean after a
    fixture move.
-4. `Build-Diagrams -Path <folder>`: rebuild one diagram folder; no path repeats that for every diagram folder found under
+4. [x] Landed 2026-10-18 by session catzc-fb, verdict: "Build-Diagrams.Tests.ps1 Passed (one folder, every folder, orphan reported and
+   rendered, two embedders fail, not-a-diagram-folder refused, dry run lists 3 calls per folder, exit codes); SlidesConfig.Tests Passed;
+   the tree dry run lists 0 calls (no diagram folder exists until the migration); LINKS/COMMENTS/MARKDOWNLINT 0 on the Slides pages".
+   `diagram_batch` went with `diagram_folders`; step 8's help pages (Build-Diagrams, Move-Diagram, catzc-base-slides responsibility:4)
+   already follow. Original step: `Build-Diagrams -Path <folder>`: rebuild one diagram folder; no path repeats that for every diagram folder found under
    `docs/**/.assets/**`; `diagram_folders` in `pwsh/Catzc.Base.Slides/configs` goes in the same change (ADR-PRIN-ONELIVE). L0: one folder,
    every folder, an orphan reported, two embedders fail, the locality gate. Check: `Build-Diagrams.Tests.ps1` passes; a dry run lists the
    call set per folder. `SlidesConfig` tests follow the key removal.
-5. ADR-REPO-FOLDERS (conventional-folders.md, the `.assets` paragraph), ADR-REPO-SLIDES#7 (slides-as-markdown.md) and `file-kinds.yml` (the
+5. [x] Landed 2026-10-18 by session catzc-fb, verdict: "ADRREG issues=0; LINKS 0 and MARKDOWNLINT 0 on conventional-folders.md and
+   slides-as-markdown.md; FileKindReachability, Get-FileKind and FileKindsConfig tests Passed; Build-AdrIndex applied, index.md
+   unchanged". The two beside-the-article `*.drawio.md` kind patterns stay until step 6 empties them and go in its last change.
+   Original step: ADR-REPO-FOLDERS (conventional-folders.md, the `.assets` paragraph), ADR-REPO-SLIDES#7 (slides-as-markdown.md) and `file-kinds.yml` (the
    diagram kinds select `docs/**/.assets/**`) restated, present tense. Check: `Test-AdrRegistry`, `Test-Links`, the file-kind reachability
    test clean; `Build-AdrIndex` dry run unchanged or applied.
 6. Migration, one article folder at a time through the move command, `docs/explanation/configuration` first (the pilot's source): each

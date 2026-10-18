@@ -77,7 +77,15 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
        exist. Done 2026-10-18: both lines are under the plan's new Decided section. `Test-MarkdownTitle.Repository.Tests.ps1` (L1) is 2.45 s
        warm, 3.68 s cold against the 2 s limit, its whole-repository read being what it proves; the other three title and scope files are
        under 0.5 s warm.
-6. Tick the plan's steps; the carried draft goes; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
+6. The scheduler (the user's decision 2026-10-18, held by session catzc-93): first the cold Test-ScriptAnalyzer cache, read from its stamp
+   inputs and the manifests, fixed in the file that builds the stamp; then the Test-Automation scheduler starts shards 5, 6 and the greedy
+   pairs as phase A frees slots, keeping build-heavy greedy files apart, one file at a time. Check: the stamp's and the scheduler's L0
+   test files pass under Invoke-TestFile; no run started; the next full run's manifest is read when the user makes it. The cold cache,
+   found 2026-10-18 by catzc-93: the stamp is correct (ADR-AUTO-CACHE#10), but any terminology or glossary edit regenerates a `.cspell`
+   file and so re-analyzes all ~1630 files (~130 s; 15:36 run: only `vssps` added, 637d66ca9). Decided by the orchestrator on the user's
+   delegation: `Get-ScriptAnalyzerDiagnostics` runs two cached passes, the spelling rule keyed on the dictionaries and its own files,
+   every other rule on settings, rules and manifest only; an L0 case proves a dictionary-only change re-runs only the spelling pass.
+7. Tick the plan's steps; the carried draft goes; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report
 

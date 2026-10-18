@@ -6,6 +6,69 @@ Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
         }
         @($result).Count | Should -Be 0
     }
+
+    Context 'two cached passes' {
+        BeforeEach {
+            $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            [void][System.IO.Directory]::CreateDirectory((Join-Path $script:root 'out'))
+            $script:widget = Join-Path $script:root 'Get-Widget.ps1'
+            $script:ruleInput = Join-Path $script:root 'widget-rules.psd1'
+            $script:dictionary = Join-Path $script:root 'gadget.txt'
+            [System.IO.File]::WriteAllText($script:widget, "function Get-Widget { 1 }`n")
+            [System.IO.File]::WriteAllText($script:ruleInput, "@{ }`n")
+            [System.IO.File]::WriteAllText($script:dictionary, "widget`n")
+            $script:passesRun = [System.Collections.Generic.List[string]]::new()
+            Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
+            Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $script:root 'out' }
+            Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+            Mock Get-ScriptAnalyzerInputs -ModuleName Catzc.Base.QualityGates {
+                if ($Pass -eq 'spelling') {
+                    @($script:ruleInput, $script:dictionary)
+                }
+                else {
+                    @($script:ruleInput)
+                }
+            }
+            Mock Invoke-ScriptAnalyzerShards -ModuleName Catzc.Base.QualityGates {
+                $ret = @{}
+                foreach ($entry in $Batch) {
+                    $script:passesRun.Add($entry.Label)
+                    $ret[$entry.Label] = @()
+                }
+                $ret
+            }
+            $script:analyze = {
+                InModuleScope Catzc.Base.QualityGates -Parameters @{ P = $script:widget } {
+                    param($P)
+                    @(Get-ScriptAnalyzerDiagnostics -Path @($P) -SettingsPath 'unused')
+                }
+            }
+        }
+
+        It 'runs both passes cold, and neither once both found the file clean' {
+            $null = & $script:analyze
+            @($script:passesRun) | Should -Be @('rules', 'spelling')
+            $script:passesRun.Clear()
+            $null = & $script:analyze
+            $script:passesRun | Should -HaveCount 0
+        }
+
+        It 're-runs only the spelling pass when only a dictionary changes' {
+            $null = & $script:analyze
+            $script:passesRun.Clear()
+            [System.IO.File]::WriteAllText($script:dictionary, "widget`ngadget`n")
+            $null = & $script:analyze
+            @($script:passesRun) | Should -Be @('spelling')
+        }
+
+        It 're-runs both passes when an input they share changes' {
+            $null = & $script:analyze
+            $script:passesRun.Clear()
+            [System.IO.File]::WriteAllText($script:ruleInput, "@{ Severity = @('Error') }`n")
+            $null = & $script:analyze
+            @($script:passesRun) | Should -Be @('rules', 'spelling')
+        }
+    }
 }
 
 Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
