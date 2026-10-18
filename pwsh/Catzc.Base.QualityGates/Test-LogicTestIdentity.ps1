@@ -1,5 +1,6 @@
 function Test-LogicTestIdentity {
     [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [string[]] $Path,
 

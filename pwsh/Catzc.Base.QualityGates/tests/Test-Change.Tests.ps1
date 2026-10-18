@@ -50,7 +50,7 @@ Describe 'Test-Change' -Tag 'L1', 'logic' {
             'Test-WidgetLint: widget/a.wdg: widget too wide'
             'Test-GadgetScan: widget/a.wdg:3: gadget loose'
         ) -Because 'Test-WidgetLint names exactly the paths it was given'
-        $result.Unattributed | Should -Be 2
+        $result.Facts['Unattributed'] | Should -Be 2
     }
 
     It 'runs the covering test files once, through Invoke-TestFile' {

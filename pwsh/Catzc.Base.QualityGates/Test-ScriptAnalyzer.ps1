@@ -1,5 +1,6 @@
 function Test-ScriptAnalyzer {
     [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     [Alias('Test-Pssa')]
     param(
         [string[]] $Path,

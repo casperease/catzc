@@ -32,6 +32,9 @@ Constructing an instance validates the file, collecting every violation into one
   - environment shortcodes are unique;
   - a subscription's tenant is a defined tenant and each of its environments a defined environment;
   - a subscription lists at most one per_subscription environment (its identity env);
+  - an environment's staging_for names a defined environment, neither of the two is per_subscription, and every
+    subscription that serves the staging environment serves its target
+    ([ADR-AZ-DATAMOD#12](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod12));
   - no two subscriptions of one customer serve the same environment — what makes a configuration/<customer>/
     config resolve to exactly one subscription ([ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8)).
     Grouping is by the RAW customer token; the normalized (key-vs-shortcode) grouping is a cross-asset fact.

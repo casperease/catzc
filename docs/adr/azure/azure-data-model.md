@@ -97,6 +97,14 @@ an unknown key or mode. Templates read it by config address.
 
 - [Policy enforcement](#policy-enforcement)
 
+### Rule ADR-AZ-DATAMOD:12
+
+An environment may name the environment it stages, `staging_for: <environment>`: it is that environment's **staging slot**, inactive until
+activated, inside the same subscriptions (`preprod` stages `prod`). `AzureConfig` rejects a `staging_for` that names no environment, that
+involves a per-subscription environment, or whose staging environment is served by a subscription that does not serve its target.
+
+- [Staging slots](#staging-slots)
+
 ## Context
 
 `Catzc.Azure.Templates` is configured by **two layers**:
@@ -165,6 +173,7 @@ erDiagram
         string region           "Azure location"
         string region_code      "3 letters (name component)"
         bool   per_subscription "optional; true marks a sub-identity env (nsub/psub) for environment_kind: subscription"
+        string staging_for      FK "optional; -> ENVIRONMENT.name it stages (preprod -> prod)"
     }
     SUBSCRIPTION {
         string name     PK "map key (the config-folder name)"
@@ -210,6 +219,17 @@ and a fresh checkout behave alike: the type fills each key the file omits, and e
 rejected at load, with every other violation of the file, in one error. A template reads the mode by config address
 (`global.azure.policy_enforcement.production`, see [Config-addressed parameters](#config-addressed-parameters)), so no template restates it
 and changing it is one edit to `azure.yml`.
+
+### Staging slots
+
+`A staging environment names what it stages`
+
+A release goes live in two moves: the exact artifact is first deployed to a production-grade environment that serves no traffic, then
+activated there as production ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)). That staging environment
+lives in the production subscription, so it needs no subscription of its own, and the relation between the two is data: `staging_for` on
+the staging environment names the one it stages. Whether the slot is active is a fact of the running deployment, changed by the cutover, so
+the config states only which environment stages which. Keeping both environments in the same subscriptions means a staged release meets the
+same identity, network and policy as the live one.
 
 ### Layer 2 — Templating
 

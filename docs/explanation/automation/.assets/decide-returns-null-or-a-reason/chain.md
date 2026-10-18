@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dfca3a740429
+    with_body_sha: ccce94837040
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.chain.md
-    source: docs/explanation/.assets/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
+    path: docs/explanation/automation/.assets/decide-returns-null-or-a-reason/chain.md
+    source: docs/explanation/automation/.assets/decide-returns-null-or-a-reason/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -20,9 +20,9 @@ lookup: `Catzc.Azure.Cli` resolves the session's subscription id to the identity
 that identity instead of asking the session again. The templating module picks the configuration slot from it, the Azure root module checks
 it against the environment, and the namer renders its customer into the resource-group name.
 
-![One reverse lookup in Catzc.Azure.Cli hands the session to every module](../.assets/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png)
+![One reverse lookup in Catzc.Azure.Cli hands the session to every module](.assets/one-reverse-lookup-feeds-every-module/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-reverse-lookup-feeds-every-module.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-reverse-lookup-feeds-every-module/diagram.drawio.md).
 
 ## Walkthrough
 

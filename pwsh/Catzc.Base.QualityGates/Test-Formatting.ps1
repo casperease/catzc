@@ -1,6 +1,6 @@
 function Test-Formatting {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [ArgumentCompleter({ Get-FileLanguage | ForEach-Object name })]
         [string[]] $Language,

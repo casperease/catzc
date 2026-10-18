@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "070fca80ff80"
+    with_body_sha: "5e243a929232"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--every-code-root-is-a-copy--architecture.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
+    path: docs/explanation/automation/.assets/every-code-root-is-a-copy/chain.md
+    source: docs/explanation/automation/.assets/every-code-root-is-a-copy/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

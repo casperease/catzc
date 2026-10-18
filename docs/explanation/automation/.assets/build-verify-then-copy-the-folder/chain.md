@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "170fe3e76f4a"
+    with_body_sha: dea646ac9294
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
+    path: docs/explanation/automation/.assets/build-verify-then-copy-the-folder/chain.md
+    source: docs/explanation/automation/.assets/build-verify-then-copy-the-folder/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

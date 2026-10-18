@@ -3,7 +3,7 @@ plan:
   status: blocked
   value: high
   reviewed: 2026-10-18
-  blocked_on: the kit tests' home (task-decision-round); the pilot was approved 2026-10-18
+  blocked_on: nothing; the pilot and the kit test home were decided 2026-10-18, the kit tests landed
   targets: [docs/explanation, .claude/drawio, pwsh/Catzc.Base.Slides, pwsh/Catzc.Base.Globs, docs/adr/repository]
 ---
 

@@ -22,7 +22,7 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         $result = Test-Spelling -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'spelling'
         $result.IssueCount | Should -Be 0
-        $result.ExitCode | Should -Be 0
+        $result.Facts['ExitCode'] | Should -Be 0
         (Join-Path $result.ReportPath 'spelling.md') | Should -Exist
     }
 
@@ -45,8 +45,8 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         $script:cspellOut = "a.md:1:1 - Unknown word (foo)`na.md:2:1 - Unknown word (baz)`nb.ps1:2:3 - Unknown word (bar)`nCSpell: Files checked: 5, Issues found: 3 in 2 files."
         $result = Test-Spelling -OutputFolder $script:reportBase -PassThru
         $result.IssueCount | Should -Be 3
-        $result.FileCount | Should -Be 2
-        $result.ExitCode | Should -Be 1
+        $result.Facts['FileCount'] | Should -Be 2
+        $result.Facts['ExitCode'] | Should -Be 1
         (Get-Content (Join-Path $result.ReportPath 'spelling.md') -Raw) | Should -Match 'b\.ps1:2:3 - Unknown word \(bar\)'
     }
 
@@ -57,7 +57,7 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         $result = Test-Spelling -Path $paths -OutputFolder $script:reportBase -PassThru
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 3 -Exactly
         $result.IssueCount | Should -Be 3
-        $result.ExitCode | Should -Be 1
+        $result.Facts['ExitCode'] | Should -Be 1
     }
 
     It 'never passes a failing cspell run whose output it cannot parse' {

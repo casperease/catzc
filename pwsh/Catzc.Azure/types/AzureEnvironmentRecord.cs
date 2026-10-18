@@ -7,7 +7,7 @@ namespace Catzc.Azure;
 
 public sealed class AzureEnvironmentRecord : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "shortcode", "region", "region_code", "per_subscription" };
+    private static readonly string[] AllowedKeys = { "shortcode", "region", "region_code", "per_subscription", "staging_for" };
 
     // The environment's readable name (the map key).
     public string name { get; }
@@ -23,6 +23,9 @@ public sealed class AzureEnvironmentRecord : Catzc.Base.Objects.DictionaryRecord
 
     // True marks a once-per-subscription identity environment (nsub/psub); absent means false.
     public bool per_subscription { get; }
+
+    // The environment this one stages: its inactive slot before activation (preprod for prod). Null when absent.
+    public string staging_for { get; }
 
     // Builds the record and throws one ArgumentException listing every violation.
     public AzureEnvironmentRecord(string name, IDictionary d) : this(name, d, null) { }
@@ -76,6 +79,13 @@ public sealed class AzureEnvironmentRecord : Catzc.Base.Objects.DictionaryRecord
                 {
                     own.Add(string.Format("environment '{0}' has invalid per_subscription '{1}' (must be a boolean: true or false)", name, AzureConfig.Text(d["per_subscription"])));
                 }
+            }
+
+            if (d.Contains("staging_for"))
+            {
+                staging_for = OptStr(d, "staging_for");
+                if (staging_for == null) { own.Add(string.Format("environment '{0}' has empty 'staging_for'", name)); }
+                else if (staging_for == name) { own.Add(string.Format("environment '{0}' cannot stage itself (staging_for)", name)); staging_for = null; }
             }
         }
 

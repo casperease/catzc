@@ -1,5 +1,6 @@
 function Test-Spelling {
     [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [string[]] $Path = @(
             '**/*.md'

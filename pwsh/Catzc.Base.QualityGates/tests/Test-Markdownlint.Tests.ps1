@@ -22,7 +22,7 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
         $result = Test-Markdownlint -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'markdownlint'
         $result.IssueCount | Should -Be 0
-        $result.ExitCode | Should -Be 0
+        $result.Facts['ExitCode'] | Should -Be 0
         (Join-Path $result.ReportPath 'markdownlint.md') | Should -Exist
     }
 
@@ -41,8 +41,8 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
         $script:markdownlintOut = "a.md:1:1 MD013/line-length Line length`na.md:2:1 MD049/emphasis-style Emphasis`nb.md:2:3 MD040/fenced-code-language Fenced`n"
         $result = Test-Markdownlint -OutputFolder $script:reportBase -PassThru
         $result.IssueCount | Should -Be 3
-        $result.FileCount | Should -Be 2
-        $result.ExitCode | Should -Be 1
+        $result.Facts['FileCount'] | Should -Be 2
+        $result.Facts['ExitCode'] | Should -Be 1
         (Get-Content (Join-Path $result.ReportPath 'markdownlint.md') -Raw) | Should -Match 'MD040'
     }
 

@@ -39,7 +39,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $thrown.Exception.Message | Should -BeLike 'Test-Formatting failed: 4 issue(s)*'
         $result = Test-Formatting -PassThru -OutputFolder $script:reportFolder
         $result.Subject | Should -Be 'formatting'
-        $result.Languages | Should -Be 4
+        $result.Facts['Languages'] | Should -Be 4
         $result.Issues | Should -Be @(
             'docs/widget.wdg: not formatted — run Format-Code -Language widget'
             'gadgets/catzc-widget/gadget.gdg: not formatted — run Format-Code -Language gadget'
@@ -51,7 +51,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     It 'checks only the selected languages, and skips Format-Code when none of them has a formatter' {
         $result = Test-Formatting -Language gadget -PassThru -OutputFolder $script:reportFolder
         $result.IssueCount | Should -Be 0
-        $result.Languages | Should -Be 1
+        $result.Facts['Languages'] | Should -Be 1
         Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { ($Language -join ',') -eq 'gadget' }
 
         $null = Test-Formatting -Language csharp, sprocket -PassThru -OutputFolder $script:reportFolder

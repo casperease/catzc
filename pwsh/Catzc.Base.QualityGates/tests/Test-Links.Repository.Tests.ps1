@@ -5,7 +5,7 @@ Describe 'Repository code links (automation comments)' -Tag 'L1', 'integrity', '
     }
 
     It 'every ADR reference in an automation comment is a canonical code link that resolves' -Tag 'ADR-REPO-LINK#3', 'ADR-REPO-LINK#5' {
-        $result.FileCount | Should -BeGreaterThan 0
+        $result.Facts['FileCount'] | Should -BeGreaterThan 0
         $result.Issues | Should -BeNullOrEmpty -Because 'Format-Links aligns code links; the rest need a person'
         $result.IssueCount | Should -Be 0
     }
@@ -21,7 +21,7 @@ Describe 'Repository links (every tracked file)' -Tag 'L2', 'integrity', 'source
     }
 
     It 'every markdown link and code link in a tracked file is aligned and resolves, fragments included' -Tag 'ADR-REPO-LINK#2', 'ADR-REPO-LINK#7' {
-        $result.FileCount | Should -BeGreaterThan 0
+        $result.Facts['FileCount'] | Should -BeGreaterThan 0
         $result.Issues | Should -BeNullOrEmpty -Because 'run Format-Links, then fix what remains by hand'
         $result.IssueCount | Should -Be 0
     }

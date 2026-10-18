@@ -26,7 +26,7 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
     It 'passes clean when the registry validates, has no drift, and no orphans' {
         $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 0
-        $r.TermCount | Should -Be 2
+        $r.Facts['TermCount'] | Should -Be 2
     }
 
     It 'reports drift when the checked-in dictionary is stale (ADR-AUTO-SPELL#5)' {

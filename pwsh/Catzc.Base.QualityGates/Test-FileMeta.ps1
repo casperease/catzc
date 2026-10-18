@@ -1,5 +1,6 @@
 function Test-FileMeta {
     [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [string[]] $Path,
 

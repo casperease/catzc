@@ -18,9 +18,9 @@ An Azure resource name in cats is not chosen; it is computed. Fixed components g
 length budget, and the name either fits that budget or the deploy stops. The same inputs give the same name every time, so a name can be
 predicted, compared and reproduced without looking anything up in Azure.
 
-![An Azure name is a pure function of its components, and it is never truncated](../.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png)
+![An Azure name is a pure function of its components, and it is never truncated](.assets/names-are-pure-and-never-truncated/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](names-are-pure-and-never-truncated.drawio.md).
+The diagram is described element by element in [its asset description](.assets/names-are-pure-and-never-truncated/diagram.drawio.md).
 
 ## Walkthrough
 

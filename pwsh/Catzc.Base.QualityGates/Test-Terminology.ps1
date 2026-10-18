@@ -1,5 +1,6 @@
 function Test-Terminology {
     [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [string] $OutputFolder,
 

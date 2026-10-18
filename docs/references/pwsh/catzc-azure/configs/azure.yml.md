@@ -79,7 +79,8 @@ unique. `shortcode` is a 2-letter code, unique, used
 as the env-segment of the restricted (tight-budget) patterns only — `kv`/`storage`/`vm` — so a
 readable name never costs a tight name a byte; its 2nd char lets same-first-letter envs coexist
 (e.g. preprod `pp` vs prod `pr`). `region` is the Azure deployment location; `region_code`
-is its 3-letter name component (`weu`).
+is its 3-letter name component (`weu`). `staging_for` marks an environment as another's staging slot,
+inactive until activated (preprod stages prod, [ADR-AZ-DATAMOD#12](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod12)).
 ```
 
 ## comment:8

@@ -33,8 +33,8 @@ Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {
     It 'passes when every scanned guid is registered and every entry is live' {
         $result = Test-ManagedGuids -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Registered | Should -Be 2
-        $result.Occurrences | Should -Be 2
+        $result.Facts['Registered'] | Should -Be 2
+        $result.Facts['Occurrences'] | Should -Be 2
     }
 
     It 'throws once naming an uncovered file, a denied and an unregistered guid, and a dead entry' {

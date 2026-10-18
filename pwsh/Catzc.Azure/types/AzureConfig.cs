@@ -85,6 +85,7 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
 
         CheckShortcodes(errors);
         CheckReferences(errors);
+        CheckStaging(errors);
         CheckCustomerDisjointness(errors);
 
         if (errors.Count > 0) { Fail(errors); }
@@ -134,6 +135,34 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (KeyValuePair<string, int> pair in count)
         {
             if (pair.Value > 1) { errors.Add(string.Format("Duplicate environment shortcode: '{0}'", pair.Key)); }
+        }
+    }
+
+    // A staging environment is its target's inactive slot: the target exists, neither is per-subscription, and every subscription that
+    // serves the staging environment serves its target too.
+    private void CheckStaging(List<string> errors)
+    {
+        foreach (AzureEnvironmentRecord environment in environments.Values)
+        {
+            if (environment.staging_for == null) { continue; }
+            AzureEnvironmentRecord target;
+            if (!environments.TryGetValue(environment.staging_for, out target))
+            {
+                errors.Add(string.Format("environment '{0}' stages unknown environment '{1}' (valid: {2})", environment.name, environment.staging_for,
+                    string.Join(", ", environments.Keys)));
+                continue;
+            }
+            if (environment.per_subscription || target.per_subscription)
+            {
+                errors.Add(string.Format("environment '{0}' stages '{1}', but a per-subscription environment cannot stage or be staged", environment.name, target.name));
+            }
+            foreach (AzureSubscriptionRecord subscription in subscriptions.Values)
+            {
+                if (Array.IndexOf(subscription.environments, environment.name) >= 0 && Array.IndexOf(subscription.environments, target.name) < 0)
+                {
+                    errors.Add(string.Format("subscription '{0}' serves staging environment '{1}' but not the '{2}' it stages", subscription.name, environment.name, target.name));
+                }
+            }
         }
     }
 

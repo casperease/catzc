@@ -53,9 +53,9 @@ Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
         $kinds = [ordered]@{ widget = @{} }
         $result = Invoke-Gate $kinds -PassThru
         $result.Subject | Should -Be 'file-meta-processors'
-        $result.KindCount | Should -Be 19
+        $result.Facts['KindCount'] | Should -Be 19
         $result.IssueCount | Should -Be 1
-        $result.ProcessorCount | Should -Be 20
+        $result.Facts['ProcessorCount'] | Should -Be 20
     }
 }
 

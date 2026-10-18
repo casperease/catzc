@@ -18,9 +18,9 @@ An Azure resource name in cats is never typed by an operator. A person runs a de
 from settings the repository already holds. A bad or over-long name stops with an error that says what is wrong, and the fix is always a
 setting, never a hand-typed or truncated name.
 
-![Nobody types an Azure name: cats derives it, and a bad name stops with an error](../.assets/adr-az-naming--names-are-derived-never-typed--operations.drawio.png)
+![Nobody types an Azure name: cats derives it, and a bad name stops with an error](.assets/names-are-derived-never-typed/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](names-are-derived-never-typed.drawio.md).
+The diagram is described element by element in [its asset description](.assets/names-are-derived-never-typed/diagram.drawio.md).
 
 ## Walkthrough
 

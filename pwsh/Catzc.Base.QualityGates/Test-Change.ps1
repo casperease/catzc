@@ -1,6 +1,6 @@
 function Test-Change {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [Parameter(Position = 0)]
         [AllowEmptyCollection()]

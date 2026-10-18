@@ -4,7 +4,7 @@ Describe 'Manual test plan covers every integrity check' -Tag 'L1', 'integrity',
     }
 
     It 'the AST scan found the integrity blocks (guards against a silent no-op)' {
-        $result.IntegrityBlocks | Should -BeGreaterThan 30
+        $result.Facts['IntegrityBlocks'] | Should -BeGreaterThan 30
     }
 
     It 'every integrity block has exactly one index row (matched on file + block name)' {

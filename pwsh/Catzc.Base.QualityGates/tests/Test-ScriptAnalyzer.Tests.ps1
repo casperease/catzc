@@ -34,7 +34,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         $result = Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'script-analyzer'
         $result.IssueCount | Should -Be 0
-        $result.FileCount | Should -Be 0
+        $result.Facts['FileCount'] | Should -Be 0
         (Join-Path $result.ReportPath 'script-analyzer.md') | Should -Exist
     }
 
@@ -58,7 +58,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         )
         $result = Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru
         $result.IssueCount | Should -Be 3
-        $result.FileCount | Should -Be 2
+        $result.Facts['FileCount'] | Should -Be 2
     }
 
     It 'writes the violations into the report file, sorted by file, line, and column' {
@@ -90,7 +90,7 @@ Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity', 'greedy',
         $result = Test-ScriptAnalyzer -Path @($clean, $bad) -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
 
         $result.IssueCount | Should -BeGreaterThan 0
-        $result.FileCount | Should -Be 1   # only the violating file has issues; the clean one contributes none
+        $result.Facts['FileCount'] | Should -Be 1   # only the violating file has issues; the clean one contributes none
         (Get-Content (Join-Path $result.ReportPath 'script-analyzer.md') -Raw) | Should -Match 'PSAvoidUsingCmdletAliases'
     }
 }

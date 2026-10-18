@@ -30,9 +30,9 @@ Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
         Set-FixtureFile $planPath "# Plan`n`n$widgetRow`n$gadgetRow`n"
         $result = Test-ManualTestPlan -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.IntegrityBlocks | Should -Be 2
-        $result.PlanRows | Should -Be 2
-        $result.CategoryFiles | Should -Be 1
+        $result.Facts['IntegrityBlocks'] | Should -Be 2
+        $result.Facts['PlanRows'] | Should -Be 2
+        $result.Facts['CategoryFiles'] | Should -Be 1
     }
 
     It 'collects the rows across every category file' {
@@ -40,8 +40,8 @@ Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
         Set-FixtureFile "$planFolder/gadgets.md" "$gadgetRow`n"
         $result = Test-ManualTestPlan -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.PlanRows | Should -Be 2
-        $result.CategoryFiles | Should -Be 2
+        $result.Facts['PlanRows'] | Should -Be 2
+        $result.Facts['CategoryFiles'] | Should -Be 2
     }
 
     It 'reports more than 13 category files' {

@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8bb2dffe7ee1"
+    with_body_sha: "5d432aa2a1e9"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.chain.md
-    source: docs/explanation/.assets/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png
+    path: docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied/chain.md
+    source: docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

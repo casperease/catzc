@@ -21,6 +21,7 @@ environments:
     shortcode: pp
     region: westeurope
     region_code: weu
+    staging_for: prod
   prod:
     shortcode: pr
     region: westeurope

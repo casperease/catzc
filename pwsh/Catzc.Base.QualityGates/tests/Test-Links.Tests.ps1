@@ -39,8 +39,8 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
         $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
         $result.Subject | Should -Be 'links'
         $result.IssueCount | Should -Be 2
-        $result.FixableCount | Should -Be 1
-        $result.FileCount | Should -Be 1
+        $result.Facts['FixableCount'] | Should -Be 1
+        $result.Facts['FileCount'] | Should -Be 1
         $unfixable = @($result.Issues | Where-Object { $_ -notmatch 'run Format-Links$' })
         $unfixable.Count | Should -Be 1
         $unfixable[0] | Should -Match '\[Dangling\]'
@@ -72,7 +72,7 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
             $result.IssueCount | Should -Be 2
             $result.Issues | Should -BeLike '*`[StringColon`]*run Format-Links'
             @($result.Issues | Where-Object { $_ -like 'src/widget.ps1:1:*' }) | Should -HaveCount 1
-            $result.ReportedCount | Should -Be 0
+            $result.Facts['ReportedCount'] | Should -Be 0
         }
 
         It 'lists the findings and passes in report mode' -Tag 'ADR-REPO-LINK#5', 'ADR-PRIN-CONFIG#4' {
@@ -80,7 +80,7 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
             { Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase } | Should -Not -Throw
             $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
             $result.IssueCount | Should -Be 0
-            $result.ReportedCount | Should -Be 2
+            $result.Facts['ReportedCount'] | Should -Be 2
             $result.Reported | Should -BeLike '*`[StringColon`]*'
         }
 

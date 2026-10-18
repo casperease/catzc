@@ -79,10 +79,10 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35', 'ADR
             "docs/adr/gadget/gadget-one.md:7: ADR-GA-ONE#1: gizmo-variable — '`$gizmo:'"
             "docs/adr/gadget/gadget-one.md:7: ADR-GA-ONE#1: gizmo-file — '.gz1'"
         )
-        $result.Mode | Should -Be 'report'
-        $result.Domains | Should -Be 'gadget'
-        $result.RuleSets | Should -Be 1
-        $result.Lines | Should -Be 2
+        $result.Facts['Mode'] | Should -Be 'report'
+        $result.Facts['Domains'] | Should -Be 'gadget'
+        $result.Facts['RuleSets'] | Should -Be 1
+        $result.Facts['Lines'] | Should -Be 2
     }
 
     It 'prints the findings and their count in report mode, writes the report, and never throws' -Tag 'ADR-PRIN-CONFIG#1' {
@@ -116,7 +116,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35', 'ADR
         }
         $result = Test-AdrEngineNeutrality -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Mode | Should -Be 'gate'
+        $result.Facts['Mode'] | Should -Be 'gate'
     }
 }
 

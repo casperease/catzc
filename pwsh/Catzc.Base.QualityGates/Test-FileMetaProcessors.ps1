@@ -1,6 +1,6 @@
 function Test-FileMetaProcessors {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [Catzc.Base.QualityGates.FileMetaConfig] $Config = (Get-Config -Config file-meta),
 

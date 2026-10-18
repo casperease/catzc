@@ -16,6 +16,7 @@ with the file's (shortcode uniqueness is AzureConfig's).
 
 Shape: the name (the deploy handle, the config-file name, and the relaxed env-segment) is 2+ lowercase
 alphanumeric with a leading letter; `shortcode` is 2 lowercase letters (the tight-pattern env-segment); `region`
-is non-empty; `region_code` is 3 lowercase letters; `per_subscription`, when present, is a boolean; no other
-key.
+is non-empty; `region_code` is 3 lowercase letters; `per_subscription`, when present, is a boolean;
+`staging_for`, when present, names another environment this one stages (its inactive slot before activation, ADR-AZ-DATAMOD#12;
+AzureConfig checks the target); no other key.
 ```

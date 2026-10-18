@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ea73ac13bfa9
+    with_body_sha: f014a2965fee
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--dot-source-one-entry-script--operations.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
+    path: docs/explanation/automation/.assets/dot-source-one-entry-script/chain.md
+    source: docs/explanation/automation/.assets/dot-source-one-entry-script/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

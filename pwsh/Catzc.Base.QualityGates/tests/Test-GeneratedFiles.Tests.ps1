@@ -45,7 +45,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -Be 'widget/README.md: stale — Build-Readme would change it; regenerate with: Build-Readme'
         $known = InModuleScope Catzc.Base.QualityGates { @(Get-GeneratedFileGenerator).Count }
-        $result.Generators | Should -Be $known -Because 'the count is every writer of generated-files.yml plus every root-file generator of rootconfig.yml'
+        $result.Facts['Generators'] | Should -Be $known -Because 'the count is every writer of generated-files.yml plus every root-file generator of rootconfig.yml'
     }
 
     It 'reports a generated file whose head stamp is not the hash of its body, and counts the stamped and unstamped files' -Tag 'ADR-REPO-FILEMETA#7' {
@@ -56,8 +56,8 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -BeLike 'docs/widget/index.md: stale — the head''s with_body_sha 000000000000*'
-        $result.Stamped | Should -Be 3
-        $result.Unstamped | Should -Be 1
+        $result.Facts['Stamped'] | Should -Be 3
+        $result.Facts['Unstamped'] | Should -Be 1
         Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1
     }
 
@@ -98,7 +98,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
 
         $result = Test-GeneratedFiles -Generator New-VSCodeSettings -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Be @("widget.json: stale — New-VSCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'")
-        $result.Generators | Should -Be 1
+        $result.Facts['Generators'] | Should -Be 1
         Should -Invoke Build-AdrIndex -ModuleName Catzc.Base.QualityGates -Times 0
         Should -Invoke Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates -Times 0
     }
@@ -116,7 +116,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             "go/tests/widget/go.mod: stale — New-GoWorkspace would change it; regenerate with: Build-RootConfig 'go/tests/widget/go.mod'"
             "go/tests/gadget/go.mod: stale — New-GoWorkspace would change it; regenerate with: Build-RootConfig 'go/tests/gadget/go.mod'"
         )
-        $result.Generators | Should -Be 1
+        $result.Facts['Generators'] | Should -Be 1
     }
 
     It 'reports each English dictionary drift reason against the tools.yml cspell pin' {

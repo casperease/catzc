@@ -46,7 +46,7 @@ Describe 'Test-LogicTestIdentity — gate shape' -Tag 'L0', 'logic' {
         $result = Test-LogicTestIdentity -Path $script:clean, $script:leaky -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'logic-test-identity'
         $result.IssueCount | Should -Be 1
-        $result.FileCount | Should -Be 2
+        $result.Facts['FileCount'] | Should -Be 2
         Test-Path (Join-Path $result.ReportPath 'logic-test-identity.md') | Should -BeTrue
     }
 }

@@ -21,9 +21,9 @@ session and resolves it against `azure.yml`, it applies the optional guard, and 
 customer deciding which config file, which environment check and which resource-group name apply. Everything downstream reads the one
 identity resolved here.
 
-![Get-BicepDeploymentContext reads the session, guards it, then picks the slot](../.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png)
+![Get-BicepDeploymentContext reads the session, guards it, then picks the slot](.assets/read-the-session-guard-then-pick-slot/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](read-the-session-guard-then-pick-slot.drawio.md).
+The diagram is described element by element in [its asset description](.assets/read-the-session-guard-then-pick-slot/diagram.drawio.md).
 
 ## Walkthrough
 

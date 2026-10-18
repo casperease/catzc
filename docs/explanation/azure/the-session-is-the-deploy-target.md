@@ -16,9 +16,9 @@ the subscription: in a pipeline it is exactly what the service connection logged
 guard can state which subscription the session is expected to target, and in a pipeline it must, but the guard only confirms the target. It
 never picks one.
 
-![The az session is the deploy target, and the guard only checks it](../.assets/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png)
+![The az session is the deploy target, and the guard only checks it](.assets/the-session-is-the-deploy-target/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](the-session-is-the-deploy-target.drawio.md).
+The diagram is described element by element in [its asset description](.assets/the-session-is-the-deploy-target/diagram.drawio.md).
 
 ## Walkthrough
 

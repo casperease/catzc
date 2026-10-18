@@ -21,9 +21,9 @@ What they run next is discovery, directly or through anything that lists templat
 every problem at once. A config whose coordinate fits exactly one subscription becomes a slot; one that fits none, or more than one, or sits
 in a subfolder that names no customer, stops discovery with a single line that names the file and the reason.
 
-![A config file that resolves to no subscription, or to two, stops discovery with one line](../.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png)
+![A config file that resolves to no subscription, or to two, stops discovery with one line](.assets/a-bad-coordinate-stops-discovery/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](a-bad-coordinate-stops-discovery.drawio.md).
+The diagram is described element by element in [its asset description](.assets/a-bad-coordinate-stops-discovery/diagram.drawio.md).
 
 ## Walkthrough
 

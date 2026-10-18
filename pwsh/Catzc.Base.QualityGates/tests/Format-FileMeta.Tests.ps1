@@ -96,7 +96,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         $result = Test-FileMeta -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'file-meta'
         $result.IssueCount | Should -Be 2
-        $result.FileCount | Should -Be 2
+        $result.Facts['FileCount'] | Should -Be 2
         Test-Path (Join-Path $result.ReportPath 'file-meta.md') | Should -BeTrue
     }
 

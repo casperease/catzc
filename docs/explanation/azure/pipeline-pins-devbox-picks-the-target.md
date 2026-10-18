@@ -19,9 +19,9 @@ Nobody passes a subscription to a deploy in cats. A pipeline signs in through it
 `az account set` and runs the same command without the pin. Either way `Deploy-Bicep` resolves the session, prints the deployment context it
 is about to act on, and stops with one of three errors when the session is missing a pin, undeclared, or not the one expected.
 
-![A pipeline pins the subscription it expects; a devbox picks the target with az account set](../.assets/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png)
+![A pipeline pins the subscription it expects; a devbox picks the target with az account set](.assets/pipeline-pins-devbox-picks-the-target/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](pipeline-pins-devbox-picks-the-target.drawio.md).
+The diagram is described element by element in [its asset description](.assets/pipeline-pins-devbox-picks-the-target/diagram.drawio.md).
 
 ## Walkthrough
 

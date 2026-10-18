@@ -22,9 +22,9 @@ type, the order and the pattern, forms the segment values, checks every componen
 bad input along the way, and one length check at the end either throws or returns the name. Knowing the order tells a reader which error a
 given mistake produces.
 
-![The namer looks up, forms, checks and renders a name in that order](../.assets/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png)
+![The namer looks up, forms, checks and renders a name in that order](.assets/lookup-form-check-render-in-order/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](lookup-form-check-render-in-order.drawio.md).
+The diagram is described element by element in [its asset description](.assets/lookup-form-check-render-in-order/diagram.drawio.md).
 
 ## Walkthrough
 

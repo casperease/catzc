@@ -52,7 +52,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
         $result = Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'markdown-title'
         $result.IssueCount | Should -Be 1
-        $result.FileCount | Should -Be 2
+        $result.Facts['FileCount'] | Should -Be 2
         Test-Path (Join-Path $result.ReportPath 'markdown-title.md') | Should -BeTrue
     }
 
@@ -126,7 +126,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — contract assets' -Tag 
 
     It 'never flags the contract asset' {
         $result = Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase -PassThru
-        $result.FileCount | Should -Be 1
+        $result.Facts['FileCount'] | Should -Be 1
         $result.Issues | Should -Not -BeLike "*$($script:contractAsset)*"
     }
 }

@@ -122,6 +122,36 @@ Describe 'AzureConfig' -Tag 'L0' {
             (& $script:make $ok).environments['nsub'].per_subscription | Should -BeTrue
         }
 
+        Context 'staging_for' {
+            BeforeEach {
+                $script:staged = Copy-Object $baseConfig
+                $script:staged.environments.beta = [ordered]@{ shortcode = 'be'; region = 'westeurope'; region_code = 'weu'; staging_for = 'alpha' }
+                $script:staged.subscriptions.core_lower.environments = @('alpha', 'beta')
+            }
+
+            It 'accepts an environment that stages another served by the same subscriptions' {
+                $config = & $script:make $script:staged
+                $config.environments['beta'].staging_for | Should -Be 'alpha'
+                $config.environments['alpha'].staging_for | Should -BeNullOrEmpty
+            }
+
+            It 'throws when the staged environment does not exist' {
+                $script:staged.environments.beta.staging_for = 'gamma'
+                { & $script:make $script:staged } | Should -Throw "*environment 'beta' stages unknown environment 'gamma'*"
+            }
+
+            It 'throws when a per-subscription environment stages or is staged' {
+                $script:staged.environments.alpha.per_subscription = $true
+                { & $script:make $script:staged } | Should -Throw '*a per-subscription environment cannot stage or be staged*'
+            }
+
+            It 'throws when a subscription serves the staging environment but not its target' {
+                $script:staged.environments.gamma = [ordered]@{ shortcode = 'ga'; region = 'westeurope'; region_code = 'weu' }
+                $script:staged.subscriptions.core_lower.environments = @('gamma', 'beta')
+                { & $script:make $script:staged } | Should -Throw "*subscription 'core_lower' serves staging environment 'beta' but not the 'alpha' it stages*"
+            }
+        }
+
         It 'throws when environment is missing shortcode' {
             $bad = Copy-Object $baseConfig
             $bad.environments.alpha.Remove('shortcode')
