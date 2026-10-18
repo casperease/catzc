@@ -17,7 +17,7 @@ Describe 'Measure-NoLiteralDefault' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT#6', 'A
     }
 
     It 'flags <Description>' -ForEach @(
-        @{ Description = 'a -Default parameter'; Text = '[string] $Default'; Code = "function Get-WidgetSize {`n    param([string] `$Default = 'small')`n    (Get-Config -Config widgets).size`n}" }
+        @{ Description = 'a -Default parameter'; Text = '$Default = '; Code = "function Get-WidgetSize {`n    param([string] `$Default = 'small')`n    (Get-Config -Config widgets).size`n}" }
         @{ Description = 'a literal after ?? on a config read'; Text = "(Get-Config -Config widgets).size ?? 'small'"; Code = "function Get-WidgetSize {`n    (Get-Config -Config widgets).size ?? 'small'`n}" }
         @{ Description = 'a literal after ?? on a variable filled from config'; Text = "`$size ?? 'small'"; Code = "function Get-WidgetSize {`n    `$size = (Get-Config -Config widgets).size`n    `$size ?? 'small'`n}" }
         @{ Description = 'an emptiness fallback to a literal'; Text = "if (-not `$size) {"; Code = "function Get-WidgetSize {`n    `$size = (Get-Config -Config widgets).size`n    if (-not `$size) {`n        `$size = 'small'`n    }`n    `$size`n}" }

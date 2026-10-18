@@ -2,7 +2,7 @@ ado_naming: standard
 
 git_workspace: main-direct
 
-have_customers: false
+have_customers: all
 
 # A code track's aspects are derived from the layout in languages.yml (Get-Aspect), so only the other deployable tracks declare theirs.
 aspects:
@@ -38,6 +38,4 @@ tracks:
       vendor: claude,
       languages: [yaml, markdown, python, html, xml, powershell],
     }
-  .vscode: { places: [.vscode], type: vendor-settings, vendor: vscode, languages: [json] }
-  .catzc: { places: [.catzc], type: vendor-settings, vendor: catzc, languages: [yaml] }
-  .unordered: { places: [.unordered], type: unordered, languages: [markdown] }
+  .vscode: { places: [.vscode], type: vendor-settings, vendor: vscode, languages: [json] }  .unordered: { places: [.unordered], type: unordered, languages: [markdown] }
