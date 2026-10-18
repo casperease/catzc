@@ -24,7 +24,8 @@ BeforeDiscovery {
 
 Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     BeforeAll {
-        # One lookup per unit, version and module, the filtered call each case makes (ADR-AUTO-TEST-SETUPONCE).
+        # One lookup per unit, version and module, the filtered call each case makes
+        # ([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
         $script:groupContracts = @{}
     }
 

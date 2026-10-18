@@ -9,7 +9,7 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
             'docs/widgets/assets/widget/grid.md'            = "# Grid`n`n[the description](diagram.drawio.md)`n"
             'docs/widgets/assets/widget/grid.png'           = 'png'
             'docs/adr/index.md'                             = "# Widget decisions`n"
-            'docs/gadgets/index.md'                         = "# Gadgets`n`n[the widget slide](../widgets/assets/widget/diagram.drawio.md#top)`n"
+            'docs/gadgets/index.md'                         = "# Gadgets`n`n[the widget slide](../widgets/assets/widget/diagram.drawio.md#widget-described)`n"
         }
         foreach ($file in $files.Keys) {
             $full = Join-Path $script:widgetRoot $file
@@ -33,10 +33,10 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         $index | Should -Contain 'docs/widgets/.assets/widget/grid.png'
         $index | Should -Not -Contain 'docs/widgets/assets/widget/grid.png'
         & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](.assets/widget/diagram.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
-        & $script:read 'docs/gadgets/index.md' | Should -BeExactly "# Gadgets`n`n[the widget slide](../widgets/.assets/widget/diagram.drawio.md#top)`n"
+        & $script:read 'docs/gadgets/index.md' | Should -BeExactly "# Gadgets`n`n[the widget slide](../widgets/.assets/widget/diagram.drawio.md#widget-described)`n"
         & $script:read 'docs/widgets/.assets/widget/diagram.drawio.md' | Should -BeExactly "# Widget described`n`n[the article](../../index.md) [the grid](grid.md) ![grid](grid.png)`n"
         @($result.Pages | Sort-Object) | Should -Be @('docs/gadgets/index.md', 'docs/widgets/index.md')
-        @((Test-Links -Path docs -RepositoryRoot $script:widgetRoot -PassThru 6> $null).Issues) | Should -BeNullOrEmpty
+        @((Test-Links -Path (Join-Path $script:widgetRoot docs) -RepositoryRoot $script:widgetRoot -PassThru 6> $null).Issues) | Should -BeNullOrEmpty
     }
 
     It 'moves one file under a new name, re-pointing the files that link to it and its own links' {

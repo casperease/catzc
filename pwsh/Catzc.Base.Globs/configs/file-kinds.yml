@@ -122,11 +122,8 @@ kinds:
     definition: A diagram image of the documentation, drawn in the diagram editor or rendered from a description.
     files: ["docs/**/.assets/**/*.png"]
   asset-description:
-    definition:
-      The description of a diagram and the pages of its minimaps, in the diagram's folder under .assets or beside its reference page.
-    files:
-      - "docs/**/.assets/**/*.md"
-      - "docs/references/**/*.drawio.md"
+    definition: The description of a diagram and the pages of its minimaps, in the diagram's folder under .assets.
+    files: ["docs/**/.assets/**/*.md"]
   slide:
     definition: One slide of a deck, rendered through a pattern of the slides kit.
     files: ["docs/**/*.slide.md"]

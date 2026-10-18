@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7fe714049895"
-    with_inputs_sha: ca1f294af55871d11188e17cb963470c0b33201f64f5fe7b3e60e40db4218397
+    with_body_sha: "2187cbb4b6d9"
+    with_inputs_sha: "1ae3d419466ee1dc4b65ca06985198bf7b7e94943eb7eedb99d6f469db0eea58"
     repo_status: locked
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
@@ -321,14 +321,14 @@ Notes:
   interface of Test-AnalyzerAdrMap, the quality gate that checks the analyzer map cites only real ADR rules and maps every custom analyzer
   rule, and returns its result under -PassThru.
 - `Catzc.Base.QualityGates/Test-Automation.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-Automation, the source run of the test suite: it runs the tests in scope in worker shards, writes its report under
+  interface of Test-Automation, the source run of all tests: it runs the tests in scope in worker shards, writes its report under
   out/test-automation and returns the run's result under -PassThru.
 - `Catzc.Base.QualityGates/Test-BuildArtifact.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Test-BuildArtifact, the quality gate that builds the selected modules once into a temporary destination, verifies the built
   artifact by facet, and returns its result under -PassThru.
 - `Catzc.Base.QualityGates/Test-CatzcBuild.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-CatzcBuild, the build run of the test suite: it builds the selected modules into a disposable build, runs their tests
-  against it and returns the run's result under -PassThru.
+  interface of Test-CatzcBuild, the build run of all tests: it builds the selected modules into a disposable build, runs their tests against
+  it and returns the run's result under -PassThru.
 - `Catzc.Base.QualityGates/Test-Change.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
   Test-Change, the quality gate over what changed: it runs the tests and checks of the changed files and returns its result under -PassThru,
   or the planned set under -DryRun.

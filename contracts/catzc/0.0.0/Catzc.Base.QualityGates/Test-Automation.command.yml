@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Automation, the source run of the test suite: it runs
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Automation, the source run of all tests: it runs
 # the tests in scope in worker shards, writes its report under out/test-automation and returns the run's result under -PassThru.
 parameters:
   MinLevel: int = 0

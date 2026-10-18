@@ -18,16 +18,14 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = '.claude/slides/patterns/rule.html'; Class = 'slides-kit' }
         @{ Path = '.claude/slides/slides.yml'; Class = 'slides-kit' }
         @{ Path = 'tools/export.py'; Class = 'script' }
-        @{ Path = 'docs/.assets/explanation/widget-flow.drawio.png'; Class = 'diagram' }
-        @{ Path = 'docs/.assets/explanation/grid/widget-flow.grid.md'; Class = 'asset-description' }
-        @{ Path = 'docs/explanation/.assets/adr-widget-flow--gadget-spins--meta.drawio.png'; Class = 'diagram' }
-        @{ Path = 'docs/explanation/.assets/grid/adr-widget-flow--gadget-spins--meta.grid.md'; Class = 'asset-description' }
-        @{ Path = 'docs/explanation/design/gadget-spins.drawio.md'; Class = 'asset-description' }
+        @{ Path = 'docs/explanation/design/.assets/gadget-spins/diagram.drawio.png'; Class = 'diagram' }
+        @{ Path = 'docs/explanation/design/.assets/gadget-spins/grid.md'; Class = 'asset-description' }
+        @{ Path = 'docs/explanation/design/.assets/gadget-spins/diagram.drawio.md'; Class = 'asset-description' }
         @{ Path = 'docs/explanation/design/gadget-spins.md'; Class = 'explanation' }
         @{ Path = 'docs/explanation/design/widget-deck/gadget-spins.slide.md'; Class = 'slide' }
-        @{ Path = 'docs/references/.assets/automation/catzc-widget/gadget-spins.drawio.png'; Class = 'diagram' }
-        @{ Path = 'docs/references/.assets/automation/catzc-widget/gadget-spins.drawio.verify.md'; Class = 'asset-description' }
-        @{ Path = 'docs/references/pwsh/catzc-widget/gadget-spins.drawio.md'; Class = 'asset-description' }
+        @{ Path = 'docs/references/pwsh/.assets/catzc-widget/diagram.drawio.png'; Class = 'diagram' }
+        @{ Path = 'docs/references/pwsh/.assets/catzc-widget/diagram.drawio.verify.md'; Class = 'asset-description' }
+        @{ Path = 'docs/references/pwsh/.assets/catzc-widget/diagram.drawio.md'; Class = 'asset-description' }
         @{ Path = 'docs/references/pwsh/catzc-widget.md'; Class = 'reference' }
         @{ Path = 'docs/adr/index.md'; Class = 'index' }
         @{ Path = 'docs/adr/glossary.md'; Class = 'glossary' }

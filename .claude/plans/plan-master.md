@@ -42,6 +42,8 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. Nothing below is held by a session; every chunk that an agent can take without the user has landed, and done work
 is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and prompts.
 
+- final-run-failures -> task-final-run-failures.md: the 13 failures of the final full run (221 s), five agent chunks, then the user's
+  re-run.
 - explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs; the `only-pwsh-compiles-its-aspects`
   rename once the user has run its two `Move-Diagram` calls (a session then re-points what is left and runs the checks).
 - promotion-ladder -> plan-promotion-ladder.md: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying record, after the user's CD
