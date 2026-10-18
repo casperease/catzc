@@ -47,18 +47,17 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
                 }
             })
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
-        $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{
-                    'file-path'   = @{ keys = @('path') }
-                    'module-name' = @{ keys = @('module'); select = @(@{ classes = @('widget-*') }) }
-                    visibility    = @{ keys = @('visibility'); select = @(@{ classes = @('widget-function') }) }
-                }
-            })
+        $script:widgetKinds = [ordered]@{
+            'file-path'   = @{ keys = @('path') }
+            'module-name' = @{ keys = @('module'); select = @(@{ classes = @('widget-*') }) }
+            visibility    = @{ keys = @('visibility'); select = @(@{ classes = @('widget-function') }) }
+        }
+        $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'required' }; kinds = $script:widgetKinds })
         $script:run = {
-            param($Entries)
+            param($Entries, $Config = $script:config)
             $script:engineEntries = $Entries
             Mock Get-FileMetaScope { $script:engineEntries } -ModuleName Catzc.Base.QualityGates
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $script:config } {
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $Config } {
                 param($Root, $Config)
                 Invoke-FileMetaEngine -RepositoryRoot $Root -Config $Config
             }
@@ -235,5 +234,47 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $result = & $script:run @()
         $result.FileCount | Should -Be 0
         @($result.Files).Count | Should -Be 0
+    }
+
+    Context 'the head policy' -Tag 'ADR-REPO-FILEMETA#1' {
+        It 'strips the block of a file whose class the policy forbids one, and leaves the code as it was' {
+            $text = "<#`n---`ncatzc:`n  immutable:`n    path: automation/Catzc.Widget/Get-Gadget.ps1`n---`n#>`n`nfunction Get-Gadget { }`n"
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/Get-Gadget.ps1'), $text)
+            $forbidden = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'forbidden' }; kinds = $script:widgetKinds })
+            $result = & $script:run $script:entries[0] $forbidden
+            $result.Files[0].Findings.Kind | Should -Be @('Drift')
+            $result.Files[0].Findings[0].Expected | Should -BeLike 'no meta block*'
+            $result.Files[0].Fixed | Should -BeExactly "function Get-Gadget { }`n"
+        }
+
+        It 'removes a Markdown front matter that held nothing but the block' {
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "---`ncatzc:`n  immutable:`n    path: docs/widget.md`n---`n`n# Widget`n")
+            $forbidden = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = $script:widgetKinds })
+            $result = & $script:run @([pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $forbidden
+            $result.Files[0].Fixed | Should -BeExactly "# Widget`n"
+        }
+
+        It 'reports a forbidden block that holds an authored config part, and changes nothing' {
+            $text = "<#`n---`ncatzc:`n  config:`n    synopsis: Gets a gadget.`n---`n#>`n`nfunction Get-Gadget { }`n"
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/Get-Gadget.ps1'), $text)
+            $forbidden = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'forbidden' }; kinds = $script:widgetKinds })
+            $result = & $script:run $script:entries[0] $forbidden
+            $result.Files[0].Findings.Kind | Should -Be @('ForbiddenConfig')
+            $result.Files[0].Fixed | Should -BeExactly $text
+        }
+
+        It 'writes no block for an optional file that has none, and keeps one up to date that has one' {
+            $optional = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'optional' }; kinds = $script:widgetKinds })
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/private/Get-Sprocket.ps1'), "<#`n---`ncatzc:`n  immutable:`n    path: stale.ps1`n---`n#>`n`nfunction Get-Sprocket { }`n")
+            $result = & $script:run $script:entries $optional
+            $result.Files.Path | Should -Be @('automation/Catzc.Widget/private/Get-Sprocket.ps1')
+            $result.Files[0].Fixed | Should -BeLike "*    path: automation/Catzc.Widget/private/Get-Sprocket.ps1`n*"
+        }
+
+        It 'lets a class entry require a block where the default forbids one' {
+            $mixed = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = [ordered]@{ default = 'forbidden'; classes = @{ 'widget-function' = 'required' } }; kinds = $script:widgetKinds })
+            $result = & $script:run $script:entries[0] $mixed
+            $result.Files[0].Fixed | Should -BeLike "<#`n---`ncatzc:`n*function Get-Gadget { }`n"
+        }
     }
 }

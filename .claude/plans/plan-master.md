@@ -90,9 +90,9 @@ Open, in execution order:
   the resolvers, S4 identifiers, the NoTrackRootLiteral guard.
 - layers-classification-flip -> task-layers-classification-flip.md (open; P4 and P6 on the user's go, D10): P3 classification table and ADR
   wording drafts; P4 the flip by the user; P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.
-- command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17; C3 waits for the user's answer to the pilot list; C5
-  and C6 after it, never inside the P4 window): ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats
-  validation, public functions made internal.
+- command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17, C3 the 12 pilot assets done 2026-10-18; C5 and C6
+  next, never inside the P4 window): ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats validation,
+  public functions made internal.
 - file-head-leftovers -> task-file-head-leftovers.md (open; step 3 the .compiled skip per D13 and step 10 the note kind's removal per D20,
   the rest done 2026-10-17): note term, ASSETDEP reading, .compiled formatting, module-types.yml typo, spelling, four gate reports
   attributed.

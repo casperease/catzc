@@ -69,7 +69,12 @@ function Format-FileMeta {
         }
     }
     foreach ($unowned in $saved.Unowned) {
-        Write-Message "$($unowned.Path) needs a decision by hand: '$($unowned.Actual)' is a key no meta kind owns — expected $($unowned.Expected)." -Warning
+        if ("$($unowned.Kind)" -eq 'ForbiddenConfig') {
+            Write-Message "$($unowned.Path) needs a decision by hand: its block holds $($unowned.Actual), but its head policy forbids a block — move the authored keys to their home." -Warning
+        }
+        else {
+            Write-Message "$($unowned.Path) needs a decision by hand: '$($unowned.Actual)' is a key no meta kind owns — expected $($unowned.Expected)." -Warning
+        }
     }
 
     $verb = if ($DryRun) {

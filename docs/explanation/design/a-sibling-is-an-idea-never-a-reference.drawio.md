@@ -72,8 +72,8 @@ the edge from the gate to the result carries none.
 ## Notes
 
 Two quiet lines of text, one at the foot of each outer band, name what each repository keeps as its own: a rule as a `.feature`
-specification and no unordered file (eac); a rule as an ADR cited by code and `.unordered` as the landing zone of an import (catzc). They
-are text, not glyphs.
+specification and no unordered file (eac); a rule as an ADR cited by code and `.unordered` as where an import lands (catzc). They are text,
+not glyphs.
 
 ## Legend
 

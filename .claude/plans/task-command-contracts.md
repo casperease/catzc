@@ -28,6 +28,7 @@ catzc:
     moduletype: settings
   edges:
     cites:
+      - ADR-REPO-CMDCONTRACT#2
       - ADR-REPO-CONTRACT#6
 ---
 
@@ -67,9 +68,17 @@ contracts plan).
        (`20261017-192726-123593`), Get-Contract.Tests (`20261017-192238-cd3760`), Get-ContractCommandRoot.Tests (`20261017-192226-d5b9bd`),
        Get-ContractAssetKind.Tests (`20261017-191657-e624f4`), the L1 Get-ContractCheckResults.Assets.Tests and Test-Contracts.Tests;
        `CONTRACTS issues=0`; `ANALYZER issues=0` on every touched file.
-4. C3 pilot contracts, the draft's set (D19, 2026-10-18): the 8 Catzc.Base.Languages and 5 Catzc.Base.Contracts commands; one `.command.yml`
-   per command, provided; the existing contract L1 test file extended so one test per asset enumerates them. Check: Test-Contracts clean;
-   the L1 file passes.
+4. [x] C3 pilot contracts, the draft's set (D19, 2026-10-18): the 8 Catzc.Base.Languages and 5 Catzc.Base.Contracts commands; one
+       `.command.yml` per command, provided; the existing contract L1 test file extended so one test per asset enumerates them. Check:
+       Test-Contracts clean; the L1 file passes. Done 2026-10-18: 12 assets under `contracts/catzc/0.0.0`, each with its header comment.
+       Correction from the tree: the two modules hold 15 public commands today, and three sit outside the contract language
+       (ADR-REPO-CMDCONTRACT#2), so they stay uncontracted and internal until C6 decides their signatures: `Format-GeneratedFileHead` (an
+       `object` parameter), `Get-Contract` (an `IDictionary` parameter) and `Test-Contracts` (a `pscustomobject` output). The 8 Languages
+       commands are every other Languages command; the 4 Contracts commands are Build-ContractReference, Get-CommandContract,
+       Get-ContractCheckResults and Publish-ContractRelease. Verdicts: `CONTRACTS issues=0` (`out/test-contracts/20261018-104227`),
+       `GENERATED issues=0` after Build-ContractReference (`out/test-generated-files/20261018-104233`), `[Invoke-TestFile] Passed` for
+       Get-ContractCheckResults.Assets.Tests with one case per command asset and the pilot count (`out/test-file/20261018-104359-b45947`),
+       `ANALYZER issues=0`.
 5. [x] C4 `Get-CommandContract` reader; a signature column in `Build-ContractReference`; Test-GeneratedFiles covers the page. Check: both
        gates. Done 2026-10-17: `Get-CommandContract` (public, the one reader; `ContractCommand` gained `asset`, `name` and `signature`), the
        Signature column with `none` for every other kind and `not readable (Test-Contracts reports it)` for a command contract that does not

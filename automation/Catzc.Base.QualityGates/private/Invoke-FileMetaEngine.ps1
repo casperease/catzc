@@ -155,8 +155,25 @@ function Invoke-FileMetaEngine {
         }
 
         $fixed = $text
-        if ($findings.Count -eq 0) {
-            $facts = Get-FileMetaFact -State $state -Path $file -Config $Config
+        $policy = $Config.PolicyFor((Get-FileKind $file).Class)
+        $hasBlock = if ($isProperty -or $isHead) {
+            $state.HasHead
+        }
+        else {
+            $state.HasMetaBlock
+        }
+        # A forbidden block that holds an authored config part is the author's to move: stripping it would drop their keys.
+        if ($findings.Count -eq 0 -and $policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden -and $state.ConfigLines.Count -gt 0) {
+            $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'ForbiddenConfig'; Actual = 'a config part'; Expected = 'no meta block, as the head policy forbids one' })
+        }
+        $skip = $policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Optional -and -not $hasBlock
+        if ($findings.Count -eq 0 -and -not $skip) {
+            $facts = if ($policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden) {
+                [pscustomobject]@{ Immutable = [ordered]@{}; Edges = [ordered]@{} }
+            }
+            else {
+                Get-FileMetaFact -State $state -Path $file -Config $Config
+            }
             $fixed = if ($isProperty) {
                 Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Immutable $facts.Immutable -Edges $facts.Edges
             }
@@ -167,7 +184,13 @@ function Invoke-FileMetaEngine {
                 Format-MarkdownMetaBlock -Text $text -Immutable $facts.Immutable -Edges $facts.Edges -Key $entry.Carrier.key
             }
             if ($fixed -cne $text) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'Drift'; Actual = 'the meta block as written'; Expected = 'the imprinted meta block' })
+                $expected = if ($policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden) {
+                    'no meta block, as the head policy forbids one'
+                }
+                else {
+                    'the imprinted meta block'
+                }
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'Drift'; Actual = 'the meta block as written'; Expected = $expected })
             }
         }
         [pscustomobject]@{ Path = $file; Findings = $findings; Fixed = $fixed }

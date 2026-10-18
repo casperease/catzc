@@ -27,7 +27,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-adapter-repo'))
         $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{ carriers = [ordered]@{ markdown = @{ carrier = 'front-matter' }; powershell = @{ carrier = 'comment-head'; block = @('<#', '#>') } } })
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{ languages = [ordered]@{ markdown = @{ extensions = @('.md'); formatter = 'prettier' } } })
-        $script:meta = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-path' = @{ keys = @('path') } } })
+        $script:meta = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'required' }; kinds = [ordered]@{ 'file-path' = @{ keys = @('path') } } })
         $script:widget = Join-Path $script:root 'docs/widget.md'
         $script:gadget = Join-Path $script:root 'docs/gadget.md'
     }

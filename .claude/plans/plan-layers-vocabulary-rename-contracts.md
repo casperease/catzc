@@ -171,9 +171,9 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 - [ ] P2 (check: guard rule gate). P3 (check: classification table, then stop).
 - [ ] P4 on the user's go (check: full baseline green again). P5 to P8 per the master plan.
 - [ ] P7 command contracts, task-command-contracts: C1 the ADR, C2 the kind and checker, C4 the reader and the signature column landed
-      2026-10-17 (verdicts in task-command-contracts). Open: C3 the pilot set, which waits for the user's answer to the proposed list in
-      task-command-contracts' report; C5 the `cats` lookup and coercion; C6 the widening and the F6 narrowing (check: Test-Contracts clean
-      on the pilot set; the bats file passes).
+      2026-10-17, C3 the pilot set landed 2026-10-18 (12 command assets, Test-Contracts clean; three commands outside the contract language
+      wait for C6; verdicts in task-command-contracts). Open: C5 the `cats` lookup and coercion; C6 the widening and the F6 narrowing
+      (check: the bats file passes; Test-Contracts clean on the widened set).
 - [ ] P6 also retires the old layer forms `automation`, `PowerShell` and `implementation` from the layer family and adds the avoid phrasings
       "the automation folder", "automation modules" and "the loader": 68 pages say "automation layer", "implementation layer" or "PowerShell
       layer" today (pipelines/custom-template-discipline.md 15, docs/index.md 13, the pwsh ADRs most of the rest), so the retirement waits

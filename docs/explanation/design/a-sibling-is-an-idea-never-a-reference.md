@@ -56,7 +56,7 @@ Two siblings of one family, catzc and eac, compared model by model: where they m
 
 1  the family      one thesis in two engines, PowerShell with C# and Go
 2  the meeting     tracks and modules, contracts, defaults, materialization, output
-3  the parting     rules as ADRs or as specifications; a landing zone or none
+3  the parting     rules as ADRs or as specifications; a place where imports land, or none
 4  the crossing    an idea is named where it is used and rebuilt to this repository's rules
 
 Supports ADR-PRIN-ONELIVE#1 and #5, ADR-AUTO-GO#1, ADR-CATS#1 and #2, and ADR-DSGN-TRACK#1, #3, #5 and #17.
@@ -81,8 +81,7 @@ passes before it lands here as a rule.
 3. **The gate.** An idea leaves eac named where it is used and reaches the owning ADR, which decides whether and how catzc takes it. An idea
    with no ADR to hold it opens a question for the user.
 4. **The result.** What passes is rebuilt to catzc's rules, one living version with nothing ported alongside, and lands in catzc as a rule.
-   At the foot of the right band, what catzc keeps as its own: a rule is an ADR cited by code, and `.unordered` is the landing zone of an
-   import.
+   At the foot of the right band, what catzc keeps as its own: a rule is an ADR cited by code, and `.unordered` is where an import lands.
 
 The diagram's glyphs and edges are listed in [its description](a-sibling-is-an-idea-never-a-reference.drawio.md).
 
@@ -124,8 +123,8 @@ because a decision that never becomes a rule is the kind of parked text
 [ADR-PRIN-ONELIVE#5](../../adr/principles/one-living-version.md#rule-adr-prin-onelive5) forbids.
 
 **Unordered files.** Eac forbids them: a specification fails the build when a file sits where no module claims it. Catzc keeps one
-[unordered track](../../adr/design/tracks.md#rule-adr-dsgn-track17), `.unordered`, as the landing zone for foreign code that an import
-brings in before it is sorted into tracks. The two agree that nothing unsorted is part of the system; they differ on whether the repository
+[unordered track](../../adr/design/tracks.md#rule-adr-dsgn-track17), `.unordered`, as the place where an import lands, whole and with its
+history, before it is sorted into tracks. The two agree that nothing unsorted is part of the system; they differ on whether the repository
 holds a place for it. Catzc needs the place because its track model is proven by importing a foreign repository into it.
 
 ## How an idea crosses

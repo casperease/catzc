@@ -39,7 +39,8 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
             })
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
         $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{
+                head_policy = @{ default = 'required' }
+                kinds       = [ordered]@{
                     'body-sha'  = @{ keys = @('with_body_sha') }
                     'file-kind' = @{ keys = @('kind') }
                     'adr-codes' = @{ keys = @('cites'); section = 'edges' }
