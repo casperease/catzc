@@ -3,7 +3,7 @@ task:
   status: open
   plans: [plan-layers-vocabulary-rename-contracts]
   value: high
-  blocked_on: task-module-model-closeout (the module model gives the one resolver and deletes Get-AutomationModules and Get-BaseModule)
+  blocked_on: nothing; the module model's resolver is in the tree and Get-AutomationModules and Get-BaseModule are gone (checked 2026-10-18)
   targets:
     [
       automation/.internal/Catzc.Internal.Importer.psm1,

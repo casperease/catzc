@@ -20,6 +20,7 @@ catzc:
 ---
 #>
 
+# Rests on [ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2).
 Describe 'New-VSCodeTasks' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {

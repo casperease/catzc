@@ -180,10 +180,17 @@ of them MD033 for placeholders such as `<build>`), because the help was written 
       on 3 pages remain: `Get-ClaudeMdAgentNames.ps1` and `Get-AdrDoraCoverageViolations.ps1` write the code span `## ` with its space
       (MD038), and `Test-ConsoleReadyType.ps1`'s description gives one MD038 and one MD013 whose cause is not yet found. Prettier
       renumbers `Deploy-Bicep.ps1`'s flow, which skips 2.
-- [ ] The user settles `out/held-nowhere-review.md` (drafted 2026-10-18: each held-only code with its rule's opening sentence, proposed
-      verdict "keep: write the link", one row whose rule text was not found), and `out/one-pass.ps1` (drafted, never run: lists the five
-      edits that land first, moves the help with `-Go` only, formats the pages, runs `Format-FileMeta` and six gates, logging to
-      `out/one-pass.log`) is reviewed before it runs. (check: the review file has a verdict on every row)
+- [x] Settle the 113 held-only citations. (check: every one is a real link or recorded as dropped) — 2026-10-18 the user decided: keep
+      all, written as real links. 29 C# types and tests without help carry a one-line `Rests on [ADR-X#n](...)` comment (Test-Links and
+      Test-Comments pass, no head changes, their tests pass); the 53 files with help get the sentence through `Move-FunctionHelp -RestsOn`
+      in the pass (tested). `CodeLinkRewriter.cs` holds `ADR-REPO-LINK#9`, which is no rule of its ADR, so it is dropped in the pass and
+      named in `out/one-pass.log`.
+- [ ] `automation/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` and its three tests (`Build-VSCodeExtension`, `Install-VSCodeExtension`,
+      `New-VSCodeTasks`): the same comment line, once catzc-ff, which works in the module, is clear of them. (check: Test-Links and
+      Test-Comments on the four files)
+- [ ] The user reviews `out/one-pass.ps1` before it runs (drafted, never run: lists the five edits that land first, moves the help with
+      `-RestsOn` from `out/held-links.tsv` and `-Go` only, formats the pages, runs `Format-FileMeta` and six gates, logging to
+      `out/one-pass.log`). (check: the user's go-ahead)
 - [x] Run the help tests (`out/help-tests.sh`: FunctionHelp, Move-FunctionHelp, Get-HelpPageFinding, Export-Comments, CodeMetaHead,
       MarkdownMetaBlock). (check: the run passes) — 2026-10-18 12:03: 82 pass, after a fix to a spaced placeholder followed by another;
       the Phase 5 files carry their heads (`Sync-FileMeta`, a second run changes nothing) and pass Test-FileMeta, Test-Links,

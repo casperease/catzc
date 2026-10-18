@@ -3,7 +3,7 @@ task:
   status: open
   plans: [plan-module-kinds-tracks]
   value: high
-  blocked_on: task-module-model-closeout steps 1 to 4 (the model confirmed)
+  blocked_on: nothing; task-module-model-closeout steps 1 to 4 are done (2026-10-18)
   targets:
     [
       automation/Catzc.Base.Globs/configs/file-kinds.yml,

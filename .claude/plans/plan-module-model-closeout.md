@@ -47,7 +47,7 @@ verification found.
       (check: the "user not yet confirmed" wording is gone from that plan's Decided list). Confirmed 2026-10-18 (D01 to D03).
 - [x] The user confirms that Copy-Automation selects the full profile by default, which no longer copies .scriptanalyzer (check:
       Copy-Automation.Tests.ps1 passes with the confirmed default). Confirmed 2026-10-18 (D04); the tests already hold that default.
-- [ ] Rule 6 of ADR-AUTO-MODULE gets code: build and test handler ids on the track, or the rule is narrowed to what exists (check:
+- [x] Rule 6 of ADR-AUTO-MODULE gets code: build and test handler ids on the track, or the rule is narrowed to what exists (check:
       Test-AdrRegistry clean; a test names each handler id the rule lists). Read 2026-10-17 (its task): the checks side holds, every
       language's gates come from its `checks` list in languages.yml through `Get-ChangeCheckPlan`, and the ADR's enforcement section now
       names it (Test-AdrRegistry clean, `out/test-adr-registry/20261017-175653`). The tests side has one branch left:
@@ -55,6 +55,8 @@ verification found.
       three names, a tool map `go`, `uv`, `bash`, and three executable parameter names); `Get-PythonCheckScope` only filters folders by the
       registry's language name. The funnel is a `tests:` entry per test-artifact language in languages.yml naming the runner, its tool and
       the executable parameter, read by LanguagesConfig and dispatched by the one function; it follows D03 (rule 6 covers test handlers).
+      Done 2026-10-18 (task-module-model-closeout step 3): the `tests:` entries for go, python and bash, `LanguageTestRunner`, both
+      functions read the registry, three test files pass, `ADRREG issues=0`; the ADR's enforcement section names both functions.
 - [x] Step 10 of the implement prompt, the infrastructure track. Recorded 2026-10-17 (its task) in plan-module-kinds-tracks: the track and
       its type are declared and deployable, but `Get-CatzcModule -TrackType infrastructure` returns no module, because the bicep module
       type's places (`infrastructure/templates`, `infrastructure/modules`) sit below the track's place `infrastructure` and the resolver
@@ -63,8 +65,8 @@ verification found.
       responsibilities (module resolution, aspect classification), listed in index.md. Check: Format-Code run on it and a dry run changes
       nothing more, index.md dry run unchanged; Test-Spelling, Test-Markdownlint, Test-Links clean (`out/test-spelling/20261017-175756`,
       `out/test-markdownlint/20261017-175756`); index.md's link to it reports `[Untracked]` until the page is committed.
-- [ ] Clear the waits_on lines in plan-config-defaults and plan-layers-vocabulary-rename-contracts once the first two steps are done (check:
-      grep waits_on in .claude/plans shows neither file).
+- [x] Clear the waits_on lines in plan-config-defaults and plan-layers-vocabulary-rename-contracts once the first two steps are done (check:
+      grep waits_on in .claude/plans shows neither file). Done 2026-10-18: config-defaults has none; layers waits only on the P4 go (D10).
 - [ ] The user runs the whole Test-Automation and reads the two real-repo failures an agent reported (the drawio.yml live-yaml test and
       RootConfig New-GitAttributes) (check: the run's report lists neither).
 - [x] The head of automation/.internal/assets/Catzc.Types.csproj. Done 2026-10-17 (its task): the file no longer carries a processing

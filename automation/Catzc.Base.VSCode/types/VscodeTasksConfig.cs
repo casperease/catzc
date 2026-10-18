@@ -29,6 +29,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.VSCode;
 
+// Rests on [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8) and [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
 public sealed class VscodeTasksConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "vscode-tasks config validation failed:\n";

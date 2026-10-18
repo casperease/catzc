@@ -79,7 +79,12 @@ other plan.
       Test-GeneratedFiles: `Stamped: 461`, `Unstamped: 4`, no issues. The 4 left need a decision, not an edit: the compiled-types
       manifest (`automation/.compiled/Catzc.Types.<hash>.json`), whose writer runs inside the importer before Catzc.Base.Languages and
       its head function load; and the three RootConfig templates under `assets/root/`, which are authored sources the generator copies,
-      so their `linguist-generated` class may be the thing to correct.
+      so their `linguist-generated` class may be the thing to correct. The user decided both 2026-10-18: the manifest takes
+      `carrier: none` (file-carriers.yml `compiled-manifest`, reason: written whole by the importer before any head function loads, the
+      hash in its name its identity), now `Unstamped: 3`; the templates' class is corrected. Read from the tree: what marks them is the
+      template `assets/root/.gitattributes` itself, which git applies to its own folder, so its `/importer.ps1`, `/importer.sh` and
+      `/.gitattributes` lines mark the templates beside it; no pattern in it can avoid that, so the correction is a rename of the
+      template, which waits for the user's choice of name.
 - [x] Binding audit of the .unordered references, read-only. Done 2026-10-17 (audit): the section "Binding audit" below holds one verdict
       per code and config line (12 files) and the markdown counts. Check: 12 verdict rows, a counts table, three authored pages named.
 - [x] Phase 1 terms and the import tool (check: its Pester file passes; Test-Glossary clean). Done 2026-10-18 (task-import-landing-zone):
