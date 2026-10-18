@@ -13,7 +13,7 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
 
     BeforeEach {
         $script:pin = '3.13'
-        $script:python = @{ dependencies = [ordered]@{ ruff = '0.17.0'; pytest = '9.1.1'; 'widget-kit' = '1.2' } }
+        $script:python = @{ dependencies = [ordered]@{ ruff = '0.17.0'; pytest = '9.1.1'; pyright = '1.1.414'; 'widget-kit' = '1.2' } }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:root }
         Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'python' } { [Catzc.Base.Languages.PythonConfig]::new($script:python) }
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.python.version' } { $script:pin }
@@ -23,7 +23,7 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         @(New-PythonProject).Target | Should -Be @('python/pyproject.toml', 'python/tests/catzc-gadget/pyproject.toml', 'python/tests/catzc-widget/pyproject.toml')
     }
 
-    It 'renders a virtual workspace root naming every member, with the ruff settings' {
+    It 'renders a virtual workspace root naming every member, with the ruff and pyright settings' {
         (New-PythonProject -Target 'python/pyproject.toml').Content | Should -BeExactly ((@(
                     '[tool.uv.workspace]'
                     'members = ['
@@ -34,7 +34,16 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
                     '[tool.ruff]'
                     'line-length = 140'
                     'target-version = "py313"'
+                    ''
+                    '[tool.pyright]'
+                    'pythonVersion = "3.13"'
+                    'typeCheckingMode = "standard"'
                 ) -join "`n") + "`n")
+    }
+
+    It 'renders the declared type-checking mode for pyright' {
+        $script:python['type_checking'] = 'strict'
+        (New-PythonProject -Target 'python/pyproject.toml').Content | Should -Match '(?m)^typeCheckingMode = "strict"$'
     }
 
     It 'renders each member named for its folder, at the python pin, with the pinned dependencies in name order' {
@@ -44,6 +53,7 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
                     'version = "0.0.0"'
                     'requires-python = "==3.13.*"'
                     'dependencies = ['
+                    '    "pyright==1.1.414",'
                     '    "pytest==9.1.1",'
                     '    "ruff==0.17.0",'
                     '    "widget-kit==1.2",'

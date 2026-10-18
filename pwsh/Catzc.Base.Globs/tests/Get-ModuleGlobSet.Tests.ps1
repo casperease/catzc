@@ -21,7 +21,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs
         Mock Get-Config { [Catzc.Base.Languages.GoConfig]::new(@{ root = 'go' }) } -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'go' }
         Mock Get-Config {
-            [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'; dependencies = @{ pytest = '9.1.1'; ruff = '0.17.0' } })
+            [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'; dependencies = @{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } })
         } -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'python' }
         Mock Get-Config {
             [Catzc.Base.Languages.BashConfig]::new(@{ root = 'bash'; bats_version = '1.2.3'; bats_sha256 = ('a' * 64) })

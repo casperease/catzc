@@ -6,7 +6,7 @@ Describe 'Test-PythonLint' -Tag 'L0', 'logic' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'python' } {
-            [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'; dependencies = @{ pytest = '9.1.1'; ruff = '0.17.0' } })
+            [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'; dependencies = @{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } })
         }
         Mock Get-PythonCheckScope -ModuleName Catzc.Base.QualityGates { Join-Path $script:repo 'python/tests/catzc-widget' }
         Mock Invoke-PythonWorkspaceTool -ModuleName Catzc.Base.QualityGates {

@@ -34,13 +34,16 @@ function Invoke-RootConfigGenerator {
             if ($go.Found -and $go.VersionOk) {
                 $machineSetting['go.goroot'] = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($go.Path))
             }
-            $pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))
+            $python = Get-Config -Config python
+            $pythonRoot = $python.ResolveRoot((Get-RepositoryRoot))
             $machineSetting['python.defaultInterpreterPath'] = if ($IsWindows) {
                 "`${workspaceFolder}/$pythonRoot/.venv/Scripts/python.exe"
             }
             else {
                 "`${workspaceFolder}/$pythonRoot/.venv/bin/python"
             }
+            # Pylance runs pyright in the mode Test-PythonTypes runs it in (ADR-AUTO-PY#9).
+            $machineSetting['python.analysis.typeCheckingMode'] = $python.type_checking
             $languageFormatter = [ordered]@{}
             $editorFormatters = (Get-Config -Config languages).EditorFormatters()
             foreach ($id in $editorFormatters.Keys) {

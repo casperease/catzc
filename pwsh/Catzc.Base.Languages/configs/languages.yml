@@ -97,7 +97,7 @@ languages:
     extensions: [.py]
     formatter: ruff
     adr_folder: automation/python
-    checks: [Test-PythonLint, Test-Formatting, Test-Spelling]
+    checks: [Test-PythonLint, Test-PythonTypes, Test-Formatting, Test-Spelling]
     tests: { runner: Invoke-PythonTest, tools: [uv, python], executable: UvExecutable }
   json:
     extensions: [.json]

@@ -11,7 +11,7 @@ Describe 'Invoke-PythonWorkspaceTool' -Tag 'L0', 'logic' {
         $script:seen = [System.Collections.Generic.List[object]]::new()
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'python' } {
-            [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'; dependencies = @{ pytest = '9.1.1'; ruff = '0.17.0' } })
+            [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'; dependencies = @{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } })
         }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'uv' } {
             [pscustomobject]@{ Found = $true; VersionOk = $true; Path = $script:uvPath; Version = '0.11.26'; Required = '0.11' }
@@ -31,6 +31,11 @@ Describe 'Invoke-PythonWorkspaceTool' -Tag 'L0', 'logic' {
             "`"$script:uvPath`" run --no-sync --quiet ruff check --config pyproject.toml `"C:\widget\a.py`" `"C:\widget\b.py`""
         )
         $script:seen.Directory | Sort-Object -Unique | Should -Be $script:pythonRoot
+    }
+
+    It 'names the workspace config with the option the tool takes' {
+        $null = InModuleScope Catzc.Base.QualityGates { Invoke-PythonWorkspaceTool -Tool 'pyright --outputjson' -File 'C:\widget\a.py' -ConfigOption '--project' }
+        $script:seen.Command[-1] | Should -Be "`"$script:uvPath`" run --no-sync --quiet pyright --outputjson --project pyproject.toml `"C:\widget\a.py`""
     }
 
     It 'never lets uv download an interpreter, and restores the variable' {

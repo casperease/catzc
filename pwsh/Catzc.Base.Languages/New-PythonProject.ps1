@@ -50,6 +50,10 @@ function New-PythonProject {
     $workspace.Add('[tool.ruff]')
     $workspace.Add('line-length = 140')
     $workspace.Add("target-version = `"py$($pythonVersion.Replace('.', ''))`"")
+    $workspace.Add('')
+    $workspace.Add('[tool.pyright]')
+    $workspace.Add("pythonVersion = `"$pythonVersion`"")
+    $workspace.Add("typeCheckingMode = `"$($config.type_checking)`"")
     $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml", ($workspace -join "`n") + "`n"))
 
     foreach ($folder in $folders) {

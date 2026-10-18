@@ -55,7 +55,8 @@ Markdown title and heading formatter and quality gate, the Markdown meta formatt
 processors), the one formatting command (`Format-Code`, which runs the formatter engine `languages.yml` names for each file language —
 Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer, `dotnet format`, the pinned Bicep CLI — with one private
 adapter per engine; [configure-not-program](../../adr/principles/configure-not-program.md)), the C# type-namespace formatter, the Python
-lint quality gate (`Test-PythonLint`, `ruff check`) over every `.py` file the repository holds, the shell-script quality gate
+lint and type quality gates (`Test-PythonLint`, `ruff check`; `Test-PythonTypes`, `pyright`, the engine Pylance runs in the editor) over
+every `.py` file the repository holds, the shell-script quality gate
 (`Test-ShellScripts`: LF, the executable bit, and ShellCheck) over every shell script it tracks
 ([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)), and the link aligner and quality gate, which keep code links
 repository-rooted and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)), and the comment
@@ -152,6 +153,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-FileMetaProcessors`     |
 |                                                 | `Format-Types`                |
 |                                                 | `Test-PythonLint`             |
+|                                                 | `Test-PythonTypes`            |
 |                                                 | `Test-ShellScripts`           |
 |                                                 | `Format-Links`                |
 |                                                 | `Test-Links`                  |

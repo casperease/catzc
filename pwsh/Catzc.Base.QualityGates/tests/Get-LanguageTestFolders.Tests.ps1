@@ -33,7 +33,7 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
             [Catzc.Base.Languages.GoConfig]::new([ordered]@{})
         }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'python' } {
-            [Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = [ordered]@{ pytest = '9.1.1'; ruff = '0.17.0' } })
+            [Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } })
         }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'bash' } {
             [Catzc.Base.Languages.BashConfig]::new([ordered]@{ bats_version = '1.2.3'; bats_sha256 = ('a' * 64) })

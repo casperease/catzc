@@ -79,6 +79,16 @@ glossary checks read PowerShell and markdown, so Python comments are outside the
 
 - [The checks](#the-checks)
 
+### Rule ADR-AUTO-PY:9
+
+Every `.py` file the repository holds is type-checked by pyright, the engine of the Pylance editor extension, in one mode for the gate and
+the editor alike: `python.yml`'s `type_checking`, `standard` by default, declared once on `PythonConfig`. The pinned pyright runs through
+the `Test-PythonTypes` quality gate with the workspace's `[tool.pyright]` settings; the generated VS Code settings give Pylance the same mode
+and the workspace interpreter, so a finding the editor shows is a finding the gate reports. A package a checked file imports is pinned in
+`python.yml`, so the import resolves in both.
+
+- [The type check](#the-type-check)
+
 ## Context
 
 The engine is verified as a process, from outside, by tests in a second language ([go test artifacts](../go/go-test-artifacts.md)). Python
@@ -170,17 +180,28 @@ explicitly, so every machine formats and lints every file — the agent helpers 
 The glossary checks read PowerShell, through its parser, and markdown ([controlled-vocabulary](../../repository/controlled-vocabulary.md)),
 so a Python comment is outside their reach.
 
+### The type check
+
+A lint finds a pattern; a type check finds a value that cannot be what the code assumes, such as an optional read as if it were always
+there. pyright is the type checker the editor already runs, inside Pylance, so the gate runs pyright too: one engine, one mode and one
+interpreter mean the editor and the gate never disagree, as the PSScriptAnalyzer settings tie the PowerShell editor to its gate. The mode is
+configuration, not code ([configure-not-program](../../principles/configure-not-program.md)): `python.yml` names it, `PythonConfig`
+declares the `standard` default once, `New-PythonProject` renders it into the workspace's `[tool.pyright]`, and the root-config generator
+renders it into the VS Code settings with the workspace interpreter. The agent helpers import Pillow, so Pillow is pinned beside the test
+dependencies: an import the type check cannot resolve is a finding, never a gap.
+
 ## Decision
 
 Python is a black-box test language and nothing else (ADR-AUTO-PY#1). Its tests live in one Python test folder per catzc module under the
 Python root (ADR-AUTO-PY#2), start the engine from the entry the run names (ADR-AUTO-PY#3), run in one generated, gitignored uv workspace
 (ADR-AUTO-PY#4) at the one pinned Python version (ADR-AUTO-PY#5) with the managed tools (ADR-AUTO-PY#6), and run through `Test-Automation`
-as `L2` tests through the language bridge (ADR-AUTO-PY#7), under the checks that read Python (ADR-AUTO-PY#8).
+as `L2` tests through the language bridge (ADR-AUTO-PY#7), under the checks that read Python (ADR-AUTO-PY#8) and one type check shared with
+the editor (ADR-AUTO-PY#9).
 
 ### How this is enforced
 
-- **`PythonConfig`** (`Catzc.Base.Languages`) validates `python.yml` at load, requires the pytest and ruff pins, and declares the Python
-  root's defaults once (`ResolveRoot`).
+- **`PythonConfig`** (`Catzc.Base.Languages`) validates `python.yml` at load, requires the pyright, pytest and ruff pins, and declares the
+  Python root's default once (`ResolveRoot`) and the type-checking mode's (`type_checking`).
 - **`New-PythonProject`** renders the workspace root and one member per Python test folder, and throws when a folder is not named in kebab
   case or the `tools.yml` pin is not a Python minor version. **`Build-RootConfig`** writes them, and **`Test-GeneratedFiles`** reports a
   stale one.
@@ -191,6 +212,8 @@ as `L2` tests through the language bridge (ADR-AUTO-PY#7), under the checks that
   Python test folder to its catzc module and tags each test.
 - **The `ruff` formatter engine** in `Test-Formatting` (languages.yml gives Python `formatter: ruff`), the **`Test-PythonLint`** quality
   gate, and the spelling check's `*.py` scope apply the checks to every `.py` file the repository holds.
+- **The `Test-PythonTypes`** quality gate runs the pinned pyright over the same files, and the root-config generator gives Pylance the same
+  mode and interpreter in the generated VS Code settings.
 
 ## Consequences
 

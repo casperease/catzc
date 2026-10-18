@@ -6,7 +6,9 @@ function Invoke-PythonWorkspaceTool {
         [string] $Tool,
 
         [Parameter(Mandatory)]
-        [string[]] $File
+        [string[]] $File,
+
+        [string] $ConfigOption = '--config'
     )
 
     $uv = Resolve-ToolExecutable -Tool uv
@@ -29,7 +31,7 @@ function Invoke-PythonWorkspaceTool {
         if ($sync.ExitCode -ne 0) {
             throw "uv sync failed in $pythonRelative/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python.`n$($sync.Full)"
         }
-        Invoke-Executable "$uvCommand run --no-sync --quiet $Tool --config pyproject.toml $quoted" -WorkingDirectory $pythonRoot -PassThru -NoAssert -Silent
+        Invoke-Executable "$uvCommand run --no-sync --quiet $Tool $ConfigOption pyproject.toml $quoted" -WorkingDirectory $pythonRoot -PassThru -NoAssert -Silent
     }
     finally {
         if ($null -eq $saved) {

@@ -19,6 +19,8 @@ recommendations:
   - ibm.output-colorizer
   - iliazeus.vscode-ansi
   - ms-python.python
+  # Pylance — pyright in the editor, in the mode the Test-PythonTypes gate runs (python.yml type_checking).
+  - ms-python.vscode-pylance
   - ms-dotnettools.csdevkit
   # Bicep — language service and validation for the infrastructure templates.
   - ms-azuretools.vscode-bicep

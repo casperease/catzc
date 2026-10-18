@@ -12,7 +12,7 @@ Describe 'Invoke-RuffFormat' -Tag 'L0', 'logic' {
         $script:checkExit = 1
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'python' } {
-            [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'; dependencies = @{ pytest = '9.1.1'; ruff = '0.17.0' } })
+            [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'; dependencies = @{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } })
         }
         Mock Invoke-PythonWorkspaceTool -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'ruff format --check' } {
             [Catzc.Base.Execution.CliResult]::new($script:checkOutput, '', $script:checkExit)
