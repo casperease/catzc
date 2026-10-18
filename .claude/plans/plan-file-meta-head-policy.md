@@ -180,9 +180,14 @@ of them MD033 for placeholders such as `<build>`), because the help was written 
       on 3 pages remain: `Get-ClaudeMdAgentNames.ps1` and `Get-AdrDoraCoverageViolations.ps1` write the code span `## ` with its space
       (MD038), and `Test-ConsoleReadyType.ps1`'s description gives one MD038 and one MD013 whose cause is not yet found. Prettier
       renumbers `Deploy-Bicep.ps1`'s flow, which skips 2.
-- [ ] Run the help tests (`out/help-tests.sh`: FunctionHelp, Move-FunctionHelp, Get-HelpPageFinding, Export-Comments, CodeMetaHead,
-      MarkdownMetaBlock) once the test-run lock is free: a peer's Test-Automation (pid 25756, from 11:54) held it, and the snapshot
-      fallback failed while draw.io PNGs were being re-rendered. (check: the run passes)
+- [ ] The user settles `out/held-nowhere-review.md` (drafted 2026-10-18: each held-only code with its rule's opening sentence, proposed
+      verdict "keep: write the link", one row whose rule text was not found), and `out/one-pass.ps1` (drafted, never run: lists the five
+      edits that land first, moves the help with `-Go` only, formats the pages, runs `Format-FileMeta` and six gates, logging to
+      `out/one-pass.log`) is reviewed before it runs. (check: the review file has a verdict on every row)
+- [x] Run the help tests (`out/help-tests.sh`: FunctionHelp, Move-FunctionHelp, Get-HelpPageFinding, Export-Comments, CodeMetaHead,
+      MarkdownMetaBlock). (check: the run passes) — 2026-10-18 12:03: 82 pass, after a fix to a spaced placeholder followed by another;
+      the Phase 5 files carry their heads (`Sync-FileMeta`, a second run changes nothing) and pass Test-FileMeta, Test-Links,
+      Test-Spelling and Test-ScriptAnalyzer.
 - [ ] `automation/Catzc.Base.QualityGates/configs/comments.yml`: map `.claude/drawio` to a page folder, so
       `.claude/drawio/minimaps/highlights.ps1` has a page for its help. (check: `out/help-preview.ps1` reports no unmapped file)
 - [ ] `automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`: document `Text` and `Color`, which its help does not name.

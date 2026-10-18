@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: automation/Catzc.Base.QualityGates/types/FunctionHelp.cs
+    folder: types
+    name: function-help
+    filetype: cs
+    kind: type
+    language: csharp
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/FunctionHelp.cs.md
+    test: automation/Catzc.Base.QualityGates/tests/types/FunctionHelp.Tests.ps1
+    cites:
+      - ADR-REPO-HELP#1
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +32,8 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
-// The help of a PowerShell function file or script, as the `## help` section of its comment page holds it (ADR-REPO-HELP#1).
+// The help of a PowerShell function file or script, as the `## help` section of its comment page holds it
+// ([ADR-REPO-HELP#1](/docs/adr/repository/function-help.md#rule-adr-repo-help1)).
 public sealed class FunctionHelp
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -195,13 +220,11 @@ public sealed class FunctionHelp
     static readonly Regex ListItem = new Regex(@"^(?<indent>[ \t]*)(?<marker>[-*+]|\d+[.)])[ \t]+(?<rest>.*)$", RegexOptions.Compiled);
     static readonly Regex Protected = new Regex(@"`[^`]*`|\[[^\]\n]*\]\([^)\s]*\)|<https?://[^>\s]+>", RegexOptions.Compiled);
     // A placeholder with a space in it, with the rest of the token it sits in, quotes and closing punctuation left outside.
-    static readonly Regex SpacedPlaceholder = new Regex(@"[^\s'""(`\u0001\u0002]*<[A-Za-z][^<>\n`]*? [^<>\n`]*?>(?:[^\s'""`\u0001\u0002]*[^\s'"".,;:)`\u0001\u0002])?", RegexOptions.Compiled);
+    static readonly Regex SpacedPlaceholder = new Regex(@"(?:[^\s'""(`\u0001\u0002<]|<[^<>\n`]*>)*<[A-Za-z][^<>\n`]*? [^<>\n`]*?>(?:[^\s'""`\u0001\u0002<]|<[^<>\n`]*>)*", RegexOptions.Compiled);
     static readonly Regex Emphasis = new Regex(@"(?<![\w*])\*(?<word>[A-Za-z0-9][\w'-]*)\*(?![\w*])", RegexOptions.Compiled);
     static readonly Regex Token = new Regex(@"\S+", RegexOptions.Compiled);
     static readonly Regex Placeholder = new Regex(@"<[^<>\s]+>|\*|\[[^\]]*\]", RegexOptions.Compiled);
 
-    // Plain help text written inside YAML, as Markdown that means the same: lists at the margin, aligned layouts fenced verbatim, and a
-    // placeholder, glob or bracket token in a code span, so a formatter or a linter reads what the author wrote.
     public static string Markdown(string text)
     {
         string[] lines = (text ?? string.Empty).Replace("\r\n", "\n").Split('\n');
@@ -280,7 +303,11 @@ public sealed class FunctionHelp
         var kept = new List<string>();
         string Keep(string value) { kept.Add(value); return "\u0001" + (kept.Count - 1).ToString(CultureInfo.InvariantCulture) + "\u0002"; }
         string masked = Protected.Replace(line, m => Keep(m.Value));
-        masked = SpacedPlaceholder.Replace(masked, m => Keep("`" + m.Value + "`"));
+        masked = SpacedPlaceholder.Replace(masked, m =>
+        {
+            string core = m.Value.TrimEnd('.', ',', ';', ':', ')');
+            return Keep("`" + core + "`") + m.Value.Substring(core.Length);
+        });
         masked = Emphasis.Replace(masked, m => "_" + m.Groups["word"].Value + "_");
         masked = Token.Replace(masked, m => Spanned(m.Value));
         return Regex.Replace(masked, "\u0001(\\d+)\u0002", m => kept[int.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture)]);

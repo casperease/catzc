@@ -145,6 +145,10 @@ languages:
     extensions: [.css]
     formatter: prettier
     checks: [Test-Formatting]
+  javascript:
+    extensions: [.js]
+    formatter: prettier
+    checks: [Test-Formatting, Test-Spelling]
   solution:
     extensions: [.sln]
     no_formatter: the Visual Studio solution format is written by Visual Studio and dotnet sln, not formatted by hand

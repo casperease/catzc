@@ -45,11 +45,15 @@ catzc:
 
 ## Open steps
 
-- [ ] The `PropertyHead` page under `docs/references/automation/catzc-base-codemeta/types/` and the `Format-PropertyMetaHead` and
+- [x] The `PropertyHead` page under `docs/references/automation/catzc-base-codemeta/types/` and the `Format-PropertyMetaHead` and
       `Get-PropertyMetaState` help still describe a JSON-only head; bring them to the XML form (check: `Test-Links` clean on the
-      `PropertyHead` page and the two help pages, and each names the CDATA property form).
-- [ ] Four tests in `Build-RootConfig.Tests.ps1` compare an exact head text and fail; they are about fixture files. Run them against the
+      `PropertyHead` page and the two help pages, and each names the CDATA property form). Done 2026-10-18: the page, generated from the
+      type's comments, already named the CDATA property of the labelled first PropertyGroup; the two help heads now name both carriers and
+      `CatzcMeta` as the project's property. Format-Code's help step left both unchanged, `ANALYZER issues=0`, `FILEMETA issues=0`; the two
+      functions have no comment page of their own.
+- [x] Four tests in `Build-RootConfig.Tests.ps1` compare an exact head text and fail; they are about fixture files. Run them against the
       tree without this change to learn whether they failed before it (check: the four tests run against a tree without the change and the
-      result is recorded here).
+      result is recorded here). 2026-10-18: they pass on the tree as it is (`out/test-file/20261018-120150-e2c30e`), so the run against an
+      older tree is not needed; plan-fast-push-followups records the same verdict.
 - Context: the index holds one `automation/.compiled/Catzc.Types.<hash>.dll`; it goes stale at every `types/*.cs` edit, and staging it is
   the user's.

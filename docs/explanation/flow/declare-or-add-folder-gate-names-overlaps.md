@@ -75,10 +75,8 @@ The diagram is described element by element in [its asset description](declare-o
 
 ## Where the code and the ADR differ
 
-- The issue text cites `ADR-FLOW-CD-GLOBS:10` with a colon, where the citation rule (ADR-REPO-LINK#5) makes `#` the only spelling outside a
-  rule heading.
-- ADR-REPO-PROTGLOB says every shadowing declared name is rejected at load; only the reserved names are, and the other shadows throw in
-  `Get-ModuleGlobSet`.
+ADR-REPO-PROTGLOB says every shadowing declared name is rejected at load; only the reserved names are, and the other shadows throw in
+`Get-ModuleGlobSet`.
 
 ## See also
 

@@ -96,8 +96,8 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-Track — the real repository' -Tag 'L1', 'integrity', 'source-only', 'ADR-DSGN-TRACK#17' {
-    It 'declares the unordered track as the shelf nothing defaults to' {
+    It 'declares the unordered track where imports land, and resolves a file at a landing address to it' {
         (Get-Track -Name '.unordered').type | Should -Be 'unordered'
-        (Get-Track -Path '.unordered/15-10-2026/plan-widget.md').name | Should -Be '.unordered'
+        (Get-Track -Path '.unordered/widget-tools/Spin-Widget.ps1').name | Should -Be '.unordered'
     }
 }

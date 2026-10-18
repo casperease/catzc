@@ -18,6 +18,7 @@ catzc:
     cites:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-FILEMETA#3
+      - ADR-REPO-HELP#1
 ---
 #>
 

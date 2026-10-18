@@ -34,7 +34,7 @@ tracks:
     {
       places: [automation],
       type: modules,
-      languages: [powershell, csharp, yaml, json, jsonl, bash, xml, css, solution, stamp, asset],
+      languages: [powershell, csharp, yaml, json, jsonl, bash, xml, css, javascript, solution, stamp, asset],
       execution_engines: [pwsh],
     }
   automation-vendor: { places: [automation/.vendor], type: vendored-code }

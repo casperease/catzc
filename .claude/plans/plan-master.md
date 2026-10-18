@@ -73,8 +73,8 @@ Done, task files deleted:
 
 Open, in execution order:
 
-- import-landing-zone -> task-import-landing-zone.md (open; ready): tracks.md rule 17 rewritten, four glossary terms,
-  Import-RepositoryWithHistory with tests, the sorting how-to.
+- import-landing-zone -> task-import-landing-zone.md (done 2026-10-18; the task file goes with the user's `git rm`, its plan keeps the
+  user's Phase 2 steps): tracks.md rule 17 rewritten, four glossary terms, Import-RepositoryWithHistory with tests, the sorting how-to.
 - module-model-closeout -> task-module-model-closeout.md (open; steps 3 read, 4, 5, 6, 8 done 2026-10-17; D01 to D05 confirmed 2026-10-18;
   the user's run for the rest): module model close-out, the rule 6 funnel (D03 confirmed), infrastructure track (a design step in
   plan-module-kinds-tracks), waits_on cleared.
@@ -93,16 +93,17 @@ Open, in execution order:
 - command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17, C3 the 12 pilot assets done 2026-10-18; C5 and C6
   next, never inside the P4 window): ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats validation,
   public functions made internal.
-- file-head-leftovers -> task-file-head-leftovers.md (open; step 3 the .compiled skip per D13 and step 10 the note kind's removal per D20,
-  the rest done 2026-10-17): note term, ASSETDEP reading, .compiled formatting, module-types.yml typo, spelling, four gate reports
-  attributed.
+- file-head-leftovers -> task-file-head-leftovers.md (done 2026-10-18; the task file goes with the user's `git rm`, its plan keeps the
+  user's Test-FileMeta and Test-Automation runs): the binary class skips .compiled, the four tool candidates recorded as not needed, the
+  note kind gone with its exemption moved to the unordered track type.
 - assert-wait -> task-assert-wait.md (open; steps 1 to 6 done 2026-10-17; the ADR pair and the watchpoint retirement wait for the user's
   measured run, the one conventions finding left is the user's `git mv` of FileKindReachability.Tests.ps1): Assert-Wait defaults on
   TimeoutsConfig, the lateness explained and removed (sleep until due), ADR-AUTO-FAILFAST#8 and ADR-PWSH-ASSERT#7, watchpoints retired into
   limits.
-- lazy-types-load -> task-lazy-types-load.md (done 2026-10-18; the plan's steps are all ticked, task-closing-sweep deletes both): lazy types
-  Phases 3 to 5: the hash memo, the ADR rule and exception, comment pages, the bundle and lazy tests in the tree, no second eager path, the
-  janitors behind the console prompt hook.
+- lazy-types-load -> task-lazy-types-load.md (done 2026-10-18; the task file goes with the user's `git rm`; the plan stays, since its open
+  facts keep one question: the janitors' and drift guard's shadow-path assumption is unconfirmed on Unix): lazy types Phases 3 to 5: the
+  hash memo, the ADR rule and exception, comment pages, the bundle and lazy tests in the tree, no second eager path, the janitors behind the
+  console prompt hook.
 - adr-auto-material -> task-adr-auto-material.md (done 2026-10-18; the plan's steps are all ticked, task-closing-sweep deletes both):
   ADR-AUTO-MATERIAL with seven rules, registry, dora-explains, glossary term.
 - adr-link-cleanup -> task-adr-link-cleanup.md (open; steps 1 to 7 done by 2026-10-18 with the first slice; the remaining slices and Phase 2
@@ -111,10 +112,10 @@ Open, in execution order:
 - out-artifacts -> task-out-artifacts.md (open; done 2026-10-17 apart from the two probe batches, which the user confirms since their lists
   are gone): the areas were registered and the prune in the tree, the safeguard log never ages out, Clear-Output has its tests, out.md names
   the retention, the five tool candidates placed.
-- test-run-budget -> task-test-run-budget.md (open; D08 decided 2026-10-18 so steps 1 and 2 are ready; the user's two runs for step 3): the
+- test-run-budget -> task-test-run-budget.md (open; steps 1, 2, 4 and 5 done 2026-10-18; step 3 is the user's two runs, then step 6): the
   per-engine cache stamp with two tests, shard re-check, next three files by cost.
-- root-config-fixtures -> task-root-config-fixtures.md (open): the four Build-RootConfig fixture-head tests, PropertyHead docs to the XML
-  form, the user's keybinding and run.
+- root-config-fixtures -> task-root-config-fixtures.md (open; everything done 2026-10-18 apart from step 5, the user's keybinding and real
+  Push-Dirty run): the four Build-RootConfig fixture-head tests, PropertyHead docs to the XML form, the user's keybinding and run.
 - unboxing-closeout -> task-unboxing-closeout.md (open; steps 2 to 5 done; step 1 is the user's commit of the one DLL pair; D11 stay closed
   and D18 no sentence, 2026-10-18): unboxing closed: three leftover checks, two gate findings, P4 and P5 closed.
 - bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md (open; the level-2 rerun is green 2026-10-17; the user's run of all

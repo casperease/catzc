@@ -22,6 +22,9 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
   `Bootstrap` and `Importer` load first and are removed after import; `Builder` and `TestKit` load when a build or a test run needs them;
   plus build `assets/`
 - `automation/.vendor/` — third-party modules (checked in)
+- `.unordered/` — the unordered track, where an import lands with its history at a landing address `.unordered/<name>`
+  (`Import-RepositoryWithHistory`); sorting moves each file out with `git mv`, and nothing reads or defaults to the track
+  ([ADR-DSGN-TRACK#17](../docs/adr/design/tracks.md#rule-adr-dsgn-track17))
 - `docs/adr/` — Architecture Decision Records (see below); `docs/references/` — reference articles (incl. the DORA research reference in
   `docs/references/dora/`); `docs/how-to/` — task guides; `docs/.assets/` — diagram assets
 

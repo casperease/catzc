@@ -78,11 +78,6 @@ The diagram is described element by element in [its asset description](independe
 - Within a layer, no two globsets select a common file on their own contribution, compose ignored; validation is per layer, never across,
   and the `loose-fileset` layer is exempt (ADR-FLOW-CD-GLOBS#10).
 
-## Where the code and the ADR differ
-
-The gate's issue text, its integrity test and the `GlobsConfig` error cite `ADR-FLOW-CD-GLOBS:10` and `ADR-FLOW-CD-GLOBS:7` with a colon,
-where the citation rule (ADR-REPO-LINK#5) makes `#` the only spelling outside a rule heading.
-
 ## See also
 
 - [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.

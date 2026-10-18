@@ -3,22 +3,22 @@
 // ones, so a line in the first and not the second is staged. A pure deletion has no line to shade; an untracked file has no diff.
 // The colours are the contributed theme colours, set in workbench.colorCustomizations (vscode-settings.yml).
 
-const vscode = require('vscode');
-const path = require('path');
-const { execFile } = require('child_process');
+const vscode = require("vscode");
+const path = require("path");
+const { execFile } = require("child_process");
 
 const staged = vscode.window.createTextEditorDecorationType({
     isWholeLine: true,
-    backgroundColor: new vscode.ThemeColor('catzc.gitChanges.stagedBackground'),
+    backgroundColor: new vscode.ThemeColor("catzc.gitChanges.stagedBackground"),
 });
 const unstaged = vscode.window.createTextEditorDecorationType({
     isWholeLine: true,
-    backgroundColor: new vscode.ThemeColor('catzc.gitChanges.unstagedBackground'),
+    backgroundColor: new vscode.ThemeColor("catzc.gitChanges.unstagedBackground"),
 });
 
 function git(cwd, args) {
     return new Promise((resolve) => {
-        execFile('git', args, { cwd, maxBuffer: 32 * 1024 * 1024, windowsHide: true }, (error, stdout) => resolve(error ? null : stdout));
+        execFile("git", args, { cwd, maxBuffer: 32 * 1024 * 1024, windowsHide: true }, (error, stdout) => resolve(error ? null : stdout));
     });
 }
 
@@ -34,11 +34,11 @@ function addedLines(diff) {
 
 async function shade(editor) {
     const document = editor.document;
-    if (document.uri.scheme !== 'file') return;
+    if (document.uri.scheme !== "file") return;
     const cwd = path.dirname(document.uri.fsPath);
     const file = path.basename(document.uri.fsPath);
-    const options = ['diff', '-U0', '--no-color', '--no-ext-diff'];
-    const [all, open] = await Promise.all([git(cwd, [...options, 'HEAD', '--', file]), git(cwd, [...options, '--', file])]);
+    const options = ["diff", "-U0", "--no-color", "--no-ext-diff"];
+    const [all, open] = await Promise.all([git(cwd, [...options, "HEAD", "--", file]), git(cwd, [...options, "--", file])]);
     if (all === null || open === null) {
         editor.setDecorations(staged, []);
         editor.setDecorations(unstaged, []);
@@ -58,7 +58,7 @@ function refresh() {
 }
 
 function activate(context) {
-    const watcher = vscode.workspace.createFileSystemWatcher('**/.git/{index,HEAD}');
+    const watcher = vscode.workspace.createFileSystemWatcher("**/.git/{index,HEAD}");
     context.subscriptions.push(
         staged,
         unstaged,

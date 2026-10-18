@@ -83,9 +83,13 @@ other plan.
       locators), ADR-REPO-VOCAB#9 (PowerShell naming), Test-Plans with plans.yml and PlansConfig, registered as a markdown check and as
       plan-clear's check; the folder brought to the shape (statuses, targets, Open steps sections, checks on every step). Check: Test-Plans
       "No plans issues found." on this folder (`out/test-plans/20261017-174646`).
-- [ ] Delete the 20 plans in .unordered/15-10-2026, decided Q09; the user runs `out/delete-unordered-15-10-2026.ps1` (one `git rm -r`) and
-      commits (check: `ls .unordered` shows no `15-10-2026`).
-- [ ] Retire the old .unordered wording, then update CLAUDE.md (check: Test-Links, Test-Terminology clean).
+- [x] Delete the 20 plans in .unordered/15-10-2026, decided Q09; the user runs `out/delete-unordered-15-10-2026.ps1` (one `git rm -r`) and
+      commits (check: `ls .unordered` shows no `15-10-2026`). Done by the user: on 2026-10-18 `.unordered` is empty and git tracks no file
+      under it.
+- [x] Retire the old .unordered wording, then update CLAUDE.md (check: Test-Links, Test-Terminology clean). Done 2026-10-18: the last old
+      wording was the Get-Track integrity test ("the shelf", a `15-10-2026` fixture path), now "where imports land" with a landing-address
+      path, 10 of 10 pass; CLAUDE.md's project structure lists `.unordered/` with the import, the landing address and sorting, citing
+      ADR-DSGN-TRACK#17. `LINKS issues=0`, `TERMINOLOGY issues=0`.
 
 ## Binding audit of `.unordered` (2026-10-17, read-only)
 
