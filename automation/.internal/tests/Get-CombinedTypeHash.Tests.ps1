@@ -108,4 +108,19 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         $result.CombinedHash | Should -Be (Get-CombinedTypeHash $root).CombinedHash
         (([System.IO.File]::ReadAllText($stamp) | ConvertFrom-Json -AsHashtable)['combined']) | Should -Be $result.CombinedHash
     }
+
+    It 'returns the hash and leaves no temporary file when another process holds the memo open' {
+        $root = New-TypesRoot
+        $stamp = Join-Path $TestDrive "stamp-$([guid]::NewGuid().ToString('N')).json"
+        [System.IO.File]::WriteAllText($stamp, 'not json {')
+        $held = [System.IO.File]::Open($stamp, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::Read)
+        try {
+            $result = Get-CombinedTypeHash $root -StampPath $stamp
+        }
+        finally {
+            $held.Dispose()
+        }
+        $result.CombinedHash | Should -Be (Get-CombinedTypeHash $root).CombinedHash
+        @(Get-ChildPath $TestDrive -Depth 1 -File -Filter '*.tmp' -Exclude @() -PruneVendor $false).Count | Should -Be 0
+    }
 }

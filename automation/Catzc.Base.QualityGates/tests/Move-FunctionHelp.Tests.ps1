@@ -18,6 +18,7 @@ catzc:
     cites:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-COMMENTS#6
+      - ADR-REPO-FILEMETA#14
       - ADR-REPO-HELP#1
 ---
 #>
@@ -84,6 +85,21 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         $result.Moved | Should -BeFalse
         $result.Reason | Should -BeLike '*no help keys (owner)*'
         [System.IO.File]::Exists((Join-Path $script:widgetRoot $script:pagePath)) | Should -BeFalse
+    }
+
+    It 'keeps each code it is handed as a real link in the description, after any description there is' -Tag 'ADR-REPO-FILEMETA#14' {
+        $links = '[ADR-WIDGET#1](/docs/adr/widget.md#rule-adr-widget1)', '[ADR-GADGET](/docs/adr/gadget.md)'
+        $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Path = $script:codePath; Links = $links } {
+            param($Root, $Path, $Links)
+            Move-FunctionHelp -Path $Path -RepositoryRoot $Root -RestsOn $Links -DryRun
+        }
+        $result.PageText.Contains("### synopsis`n`nGets a widget.`n`n### description`n`nIt rests on [ADR-WIDGET#1](/docs/adr/widget.md#rule-adr-widget1) and [ADR-GADGET](/docs/adr/gadget.md).`n`n### parameter Name") | Should -BeTrue
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:codePath), "<#`n---`ncatzc:`n  config:`n    synopsis: Gets.`n    description: Reads the registry.`n---`n#>`n`nfunction Get-Widget { }`n")
+        $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Path = $script:codePath; Links = @($links[0]) } {
+            param($Root, $Path, $Links)
+            Move-FunctionHelp -Path $Path -RepositoryRoot $Root -RestsOn $Links -DryRun
+        }
+        $result.PageText.Contains("### description`n`nReads the registry.`n`nIt rests on [ADR-WIDGET#1](/docs/adr/widget.md#rule-adr-widget1).`n") | Should -BeTrue
     }
 
     It 'computes both texts under -DryRun and writes neither file' -Tag 'ADR-AUTO-DRYRUN#2' {

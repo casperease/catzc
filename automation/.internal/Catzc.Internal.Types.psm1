@@ -132,7 +132,14 @@ function Get-CombinedTypeHash {
         $json = [ordered]@{ combined = $combinedHash; files = $memo } | ConvertTo-Json -Depth 4 -Compress
         $temporary = "$StampPath.$([guid]::NewGuid().ToString('N')).tmp"
         [System.IO.File]::WriteAllText($temporary, $json)
-        [System.IO.File]::Move($temporary, $StampPath, $true)
+        # The stamp is a cache that parallel imports share: a replace that loses to another process's read or replace leaves the next import to rehash.
+        try {
+            [System.IO.File]::Move($temporary, $StampPath, $true)
+        }
+        catch [System.UnauthorizedAccessException], [System.IO.IOException] {
+            Write-Verbose "Skipped the types stamp write; another process holds '$StampPath': $($_.Exception.Message)"
+            [System.IO.File]::Delete($temporary)
+        }
     }
 
     [pscustomobject]@{

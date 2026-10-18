@@ -89,3 +89,9 @@ carriers:
   license: { files: ["**/LICENSE", "**/LICENSE.txt"], carrier: none, reason: "legal text kept verbatim" }
   build-output:
     { files: ["**/*.dll", "**/*.pdb", "**/*.p7s"], carrier: none, reason: "a compiled or signed binary whose identity is its hash" }
+  compiled-manifest:
+    {
+      files: ["automation/.compiled/*.json"],
+      carrier: none,
+      reason: "written whole beside its types DLL by the importer, before any head function loads; the hash in both names is its identity",
+    }

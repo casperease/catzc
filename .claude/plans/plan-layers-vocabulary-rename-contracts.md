@@ -3,7 +3,7 @@ plan:
   status: active
   value: high
   reviewed: 2026-10-16
-  waits_on: plan-module-kinds-tracks implemented (Q8); P4 folder move waits for the user's explicit go
+  waits_on: P4 folder move waits for the user's explicit go (D10)
   targets: [automation, docs/adr/automation, docs/adr/repository, contracts, automation/Catzc.Base.Docs/configs]
 catzc:
   immutable:

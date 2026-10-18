@@ -28,6 +28,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Languages;
 
+// Rests on [ADR-AUTO-MODULE#2](/docs/adr/automation/module-model.md#rule-adr-auto-module2).
 public sealed class FileLanguage
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -2,8 +2,7 @@
 plan:
   status: active
   value: high
-  reviewed: 2026-10-16
-  waits_on: plan-module-kinds-tracks implemented before Phase 1 (VariantsConfig.cs, variants.yml and VariantTrack.cs are shared)
+  reviewed: 2026-10-18
   targets:
     [
       automation/Catzc.Base.Variants,
