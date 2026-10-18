@@ -15,6 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
+    page: docs/references/automation/catzc-base-qualitygates/types/FileHeadPolicy.cs.md
     test: automation/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1
     cites:
       - ADR-REPO-FILEMETA#1
@@ -28,8 +29,6 @@ using System.Globalization;
 
 namespace Catzc.Base.QualityGates;
 
-// The head policy of the meta-kind registry: whether a file of a class must, may or must not carry a meta block
-// ([ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1)).
 public sealed class FileHeadPolicy
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

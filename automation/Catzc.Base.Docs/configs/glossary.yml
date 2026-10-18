@@ -436,8 +436,8 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       meta head:
-        A meta head is the leading comment that holds a file's facts; materialization is the property of a resource that a generated
-        file's body_sha makes visible there.
+        A meta head is the leading comment that holds a file's facts; materialization is the property of a resource that a generated file's
+        body_sha makes visible there.
     avoid:
       - { phrase: cached at commit, say: a commit resource }
       - { phrase: materialized view, say: a commit resource }

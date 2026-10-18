@@ -96,18 +96,27 @@ ledger with stable keys, the pilot review of the pipelines slice (88 rows).
    with its default on the config type); 2.1 verdicts; 2.2 review in slices (every delete verdict read first); 2.3 apply one file at a time;
    2.4 verify. Check: Test-Comments, Test-FileMeta clean per file; the ledger complete. Step 2.0 done 2026-10-18 by
    `out/inventory-source-text.ps1` (the old measure script counts comments only): 6,099 pieces in 1,173 source files, written to
-   `out/source-text-ledger.csv`: 3,039 string literals of 40 characters or more, 2,151 single-line comments, 887 data values, 19
-   comment runs, 3 C# doc comments. Distribution (D5): string literals with 3 or more lines 12, with 200 or more characters 60; data
-   values with 3 or more lines 52, with 200 or more characters 47; the starting guess, 3 lines or 200 characters, cuts where the counts
-   flatten, so it is the threshold. Correction: no code in the tree reads the threshold yet (the inventory is a script in out/), so
-   the setting joins `CommentsConfig` in the same change as the function that reads it (step 9), never as a key nobody reads. Step 2.1
-   for the 19 comment runs: 4 stay (the importer template text inside New-Importer's here-string, and its generated copy in
-   importer.ps1), 2 hold (FileHeadPolicy.cs, which session catzc-e5 holds, and the dirty FunctionHelp.cs), 13 rule: they sit in
-   `.github/workflows` (9) and the `.claude` drawio and slides kits (4), outside the comments page map, so whether those folders join
-   the map is the user's decision. Open: verdicts for the single-line comments and the literals and data values above the threshold,
-   then the user's 5% read before any apply.
-9. The `tests-comments-rollout.ps1` tool candidate (from plan-out-artifacts) becomes a module function with tests if Phase 2 needs the
-   before-and-after citation-map proof; else recorded as not needed. Check: the function's Pester file, or the line.
+   `out/source-text-ledger.csv`: 3,039 string literals of 40 characters or more, 2,151 single-line comments, 887 data values, 19 comment
+   runs, 3 C# doc comments. Distribution (D5): string literals with 3 or more lines 12, with 200 or more characters 60; data values with 3
+   or more lines 52, with 200 or more characters 47; the starting guess, 3 lines or 200 characters, cuts where the counts flatten, so it is
+   the threshold. Correction: no code in the tree reads the threshold yet (the inventory is a script in out/), so the setting joins
+   `CommentsConfig` in the same change as the function that reads it (step 9), never as a key nobody reads. Step 2.1 for the 19 comment
+   runs: 4 stay (the importer template text inside New-Importer's here-string, and its generated copy in importer.ps1), 2 hold
+   (FileHeadPolicy.cs, which session catzc-e5 holds, and the dirty FunctionHelp.cs), 13 rule: they sit in `.github/workflows` (9) and the
+   `.claude` drawio and slides kits (4), outside the comments page map, so whether those folders join the map is the user's decision. Then,
+   2026-10-18: the 118 literals and data values above the threshold, all read: 116 stay (code held in data, such as the workflow and
+   pipeline run scripts; runtime text such as throw messages, analyzer diagnostics and suppression justifications; template content, such as
+   here-strings the code writes and the generators' data in `adrs.yml` and `gitignore.yml`), 2 rule: `Build-AdrIndex.ps1` holds the ADR
+   index's introduction and its authoring conventions (27 and 62 lines) as here-strings, so authored documentation lives in a generator, and
+   moving it to a docs source the generator reads is the user's design decision. The 2,151 single-line comments: a 100-row sample (seed
+   20261018, `out/sample-comments.txt`) found no clear restatement of the next line, only near-duplicates, which D4 keeps, so
+   sample-then-stop closes them as stay. Ledger: 6,082 stay, 15 rule, 2 hold, none without a verdict. Nothing is applied: no delete or move
+   verdict exists, so the user's 5% read has nothing to read, and Phase 2 waits on the two decisions (the page map for `.github` and the
+   `.claude` kits; the ADR index text in the generator) and on the two held files.
+9. [x] The `tests-comments-rollout.ps1` tool candidate (from plan-out-artifacts) becomes a module function with tests if Phase 2 needs the
+       before-and-after citation-map proof; else recorded as not needed. Check: the function's Pester file, or the line. Recorded 2026-10-18
+       as not needed: Phase 2 applies no edit to a source file, so there is no before and after to prove; the two decisions, if they move
+       text, take the comment exporter's own round trip (`Test-Comments`) as their proof.
 10. Tick the plan's steps; the carried draft goes when its data is in the tree; the plan is deleted in task-closing-sweep. Check: grep
     `- [ ]` counts zero.
 

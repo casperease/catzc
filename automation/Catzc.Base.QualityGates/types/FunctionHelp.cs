@@ -194,7 +194,8 @@ public sealed class FunctionHelp
 
     static readonly Regex ListItem = new Regex(@"^(?<indent>[ \t]*)(?<marker>[-*+]|\d+[.)])[ \t]+(?<rest>.*)$", RegexOptions.Compiled);
     static readonly Regex Protected = new Regex(@"`[^`]*`|\[[^\]\n]*\]\([^)\s]*\)|<https?://[^>\s]+>", RegexOptions.Compiled);
-    static readonly Regex SpacedPlaceholder = new Regex(@"(?<![\w`])<[A-Za-z][^<>\n`]*? [^<>\n`]*?>", RegexOptions.Compiled);
+    // A placeholder with a space in it, with the rest of the token it sits in, quotes and closing punctuation left outside.
+    static readonly Regex SpacedPlaceholder = new Regex(@"[^\s'""(`\u0001\u0002]*<[A-Za-z][^<>\n`]*? [^<>\n`]*?>(?:[^\s'""`\u0001\u0002]*[^\s'"".,;:)`\u0001\u0002])?", RegexOptions.Compiled);
     static readonly Regex Emphasis = new Regex(@"(?<![\w*])\*(?<word>[A-Za-z0-9][\w'-]*)\*(?![\w*])", RegexOptions.Compiled);
     static readonly Regex Token = new Regex(@"\S+", RegexOptions.Compiled);
     static readonly Regex Placeholder = new Regex(@"<[^<>\s]+>|\*|\[[^\]]*\]", RegexOptions.Compiled);
@@ -254,7 +255,13 @@ public sealed class FunctionHelp
                 i = end;
                 continue;
             }
-            output.Add(Inline(line.TrimEnd()));
+            // A paragraph is converted whole, so a code span the author broke across two lines stays one span.
+            int last = i;
+            while (last + 1 < lines.Length && lines[last + 1].Trim().Length > 0 && Indent(lines[last + 1]) < 2
+                && !ListItem.IsMatch(lines[last + 1]) && !lines[last + 1].TrimStart().StartsWith("```", StringComparison.Ordinal)) { last++; }
+            string paragraph = string.Join("\n", Enumerable.Range(i, last - i + 1).Select(k => lines[k].TrimEnd()));
+            output.AddRange(Inline(paragraph).Split('\n'));
+            i = last;
         }
         while (output.Count > 0 && output[output.Count - 1].Length == 0) { output.RemoveAt(output.Count - 1); }
         return string.Join("\n", output);

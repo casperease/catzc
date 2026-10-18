@@ -67,7 +67,13 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         }
 
         It 'spans a placeholder with spaces in it, and a URL with a placeholder in it, and turns any other bare URL into an autolink' {
-            & $script:md "'<widget path>#<old anchor>' -> new" | Should -BeExactly "'``<widget path>``#``<old anchor>``' -> new"
+            & $script:md "'<widget path>#<old anchor>' -> new" | Should -BeExactly "'``<widget path>#<old anchor>``' -> new"
+            & $script:md 'under <widget root>/gadget/<name>, by default' | Should -BeExactly 'under `<widget root>/gadget/<name>`, by default'
+            & $script:md "'<file hash>:<stamp>' is kept" | Should -BeExactly "'``<file hash>:<stamp>``' is kept"
+        }
+
+        It 'keeps a code span the author broke across two lines as one span' {
+            & $script:md "a top-level ``func Test<Name>(t`n*testing.T)`` whose name" | Should -BeExactly "a top-level ``func Test<Name>(t`n*testing.T)`` whose name"
             & $script:md 'The URL (https://example.com/<owner>/<repo>), or https://example.com/dl/?mode=json.' |
                 Should -BeExactly 'The URL (`https://example.com/<owner>/<repo>`), or <https://example.com/dl/?mode=json>.'
         }

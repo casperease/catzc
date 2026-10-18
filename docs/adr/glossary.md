@@ -2,7 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e2cb9426eaef
-    with_inputs_sha: df438f39883cfc55463896db4738e41406730f0b43d17c1833a7c4089a0984f0
+    with_inputs_sha: b868b3c7d5b16a0884f4421665e0a7ab45aff3cc59e36ff28970fdfa40180667
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -779,7 +779,7 @@ tests; each is a member of the one generated uv workspace.
 
 ### quality gate
 
-A gate checking one property of the whole repository automatically — one Test-<\subject> function that reports through
+A gate checking one property of the whole repository automatically — one Test-<subject> function that reports through
 Write-QualityGateReport and throws once with every issue.
 
 - **Defined by:** [ADR-AUTO-TEST#35](automation/test-automation.md#rule-adr-auto-test35)
@@ -1071,7 +1071,7 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
 
 ### command contract
 
-A provided contract asset, <\module>/<\Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
+A provided contract asset, <module>/<Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
 contract language; a command is public exactly when one names it.
 
 - **Defined by:** [ADR-REPO-CMDCONTRACT#1](repository/command-contracts.md#rule-adr-repo-cmdcontract1)

@@ -72,8 +72,11 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
    - Step 4 verdict: none of the three files has a lever inside it; each is about 14 s alone, and about half of each full-run figure is
      contention between greedy files that each spawn real builds. The lever is the scheduler: keep the build-heavy greedy files
      (az bicep builds, `Test-BuildArtifact`) from overlapping, which step 3's shard table measures. That is the user's decision.
-5. Items 2 and 3 of the carried draft (the Invoke-TestFile snapshot test, the config conventions test at 0.77 s) stay as they are unless the
+5. [x] Items 2 and 3 of the carried draft (the Invoke-TestFile snapshot test, the config conventions test at 0.77 s) stay as they are unless the
    user decides otherwise; one Decided line. The markdown title test re-measured once Get-MarkdownScope landed. Check: the lines exist.
+   Done 2026-10-18: both lines are under the plan's new Decided section. `Test-MarkdownTitle.Repository.Tests.ps1` (L1) is 2.45 s warm,
+   3.68 s cold against the 2 s limit, its whole-repository read being what it proves; the other three title and scope files are under
+   0.5 s warm.
 6. Tick the plan's steps; the carried draft goes; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report

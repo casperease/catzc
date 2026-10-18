@@ -28,6 +28,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-CLI#1
       - ADR-REPO-COMMENTS#2
       - ADR-REPO-FILEMETA#{1,4}
       - ADR-REPO-PLANS#9
@@ -37,6 +39,7 @@ catzc:
       - docs/adr/repository/code-file-meta.md
       - docs/adr/repository/comments-in-docs.md
       - docs/adr/repository/file-meta.md
+      - docs/explanation/file-meta.md
 ---
 
 # File meta head policy: facts never read from a head, a head only where configured, Sync-FileMeta for one file
@@ -160,21 +163,21 @@ on whether a file was imprinted. The policy removes heads from authored source a
 
 Built 2026-10-18, wired into nothing yet, so no file changes until the pass: `types/FunctionHelp.cs` (renders, parses and inserts the
 section), `CodeMetaHead.WithoutConfig` and `MarkdownMetaBlock.WithoutConfig`, `CommentEngine.FreshPage` (the one fresh-page opening),
-`private/Move-FunctionHelp.ps1` (one file, refuses a non-help config key) and `private/Get-HelpPageFinding.ps1` (the page-based check,
-the same faults as the head one). 83 tests pass over them and the existing Export-Comments, Get-HelpHeadFinding, CodeMetaHead and
+`private/Move-FunctionHelp.ps1` (one file, refuses a non-help config key) and `private/Get-HelpPageFinding.ps1` (the page-based check, the
+same faults as the head one). 83 tests pass over them and the existing Export-Comments, Get-HelpHeadFinding, CodeMetaHead and
 MarkdownMetaBlock tests. `Export-Comments` keeps a `## help` section untouched: its page parser treats everything before the first
 `## comment:<n>` as the prefix, written back verbatim. A full dry run (`out/help-preview.ps1`, pages under `out/help-preview/`): 752 files
-move, 839 hold no help, one is unmapped, one has page findings, and after Prettier 243 of the 752 pages fail markdownlint (856 errors,
-537 of them MD033 for placeholders such as `<build>`), because the help was written as plain text inside YAML.
+move, 839 hold no help, one is unmapped, one has page findings, and after Prettier 243 of the 752 pages fail markdownlint (856 errors, 537
+of them MD033 for placeholders such as `<build>`), because the help was written as plain text inside YAML.
 
 - [x] Decide how help text that is plain text becomes a page section (243 pages fail markdownlint as written). (check: the answer is
       recorded under Decided) — 2026-10-18: the user decided to convert it to Markdown. `FunctionHelp.Markdown` moves YAML-indented lists to
       the margin with blank lines around them, fences an aligned layout verbatim as `text`, writes `*word*` emphasis as `_word_`, spans a
       placeholder, glob, bracket or placeholder URL token as code and turns a bare URL into an autolink. The first conversion took the
       preview from 856 errors on 243 pages to 39 on 26.
-- [ ] Rerun `out/help-preview-all.sh` with the URL and spaced-placeholder rules and Prettier's prose wrap, and list what still fails for
-      its author: `Deploy-Bicep.ps1` numbers its flow 1, 3, 4 (MD029), and four code spans an author wrote with an edge space (MD038).
-      (check: `out/help-preview-lint.txt` lists only author faults)
+- [ ] Rerun `out/help-preview-all.sh` with the URL and spaced-placeholder rules and Prettier's prose wrap, and list what still fails for its
+      author: `Deploy-Bicep.ps1` numbers its flow 1, 3, 4 (MD029), and four code spans an author wrote with an edge space (MD038). (check:
+      `out/help-preview-lint.txt` lists only author faults)
 - [ ] `automation/Catzc.Base.QualityGates/configs/comments.yml`: map `.claude/drawio` to a page folder, so
       `.claude/drawio/minimaps/highlights.ps1` has a page for its help. (check: `out/help-preview.ps1` reports no unmapped file)
 - [ ] `automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`: document `Text` and `Color`, which its help does not name.

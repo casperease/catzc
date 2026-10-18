@@ -92,7 +92,12 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
       narrows; 150 rule links, 0 widens. Sample-then-stop (Q57) closes the review: the 4,963 unread rows keep their citations, and every
       editable row of the 6,449 carries a verdict. Phase 1 is done apart from the `Get-AdrCodesFileMetaFact` placeholder fix, which waits
       for session catzc-e5's file.
-- [ ] Phase 2 per decided D1, one file at a time (check: Test-Comments, Test-FileMeta clean).
+- [ ] Phase 2 per decided D1, one file at a time (check: Test-Comments, Test-FileMeta clean). 2026-10-18 (task-adr-link-cleanup step 8): the
+      inventory, `out/inventory-source-text.ps1`, finds 6,099 pieces of text in 1,173 source files; every piece has a verdict, 6,082 stay, 2
+      hold (files in use), 15 for the user: whether `.github/workflows` and the `.claude` drawio and slides kits join the comment page map
+      (13 comment runs), and whether the ADR index's introduction and authoring conventions leave `Build-AdrIndex.ps1` for a docs source it
+      reads (2 here-strings). The threshold is 3 lines or 200 characters (D5), a `CommentsConfig` setting once a function reads it. Nothing
+      else is left to apply.
 
 ## Done, and why (session report of 2026-10-16 15:23)
 
