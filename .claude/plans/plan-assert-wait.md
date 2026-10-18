@@ -146,15 +146,15 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
       never the first tick. Each `Start-Sleep -Milliseconds 100` overruns by about 9 ms (a bare session measures 107 ms, the first call 148
       ms), and the loop slept the full slice every tick, so the overrun accumulated: ticks late by 3, 15, 22, 30, 42, 49, 65, 72, 79, 86 ms,
       the worst always the last. The loop now sleeps until the tick is due; the same four importer watchpoints then report a worst tick of
-      13 to 14 ms and 1.002 to 1.012 s measured for 1.001 s asked. `-DiagnoseLoadTime` shows no phase that hides a block (types 203 ms,
-      the largest module imports 56 to 66 ms).
+      13 to 14 ms and 1.002 to 1.012 s measured for 1.001 s asked. `-DiagnoseLoadTime` shows no phase that hides a block (types 203 ms, the
+      largest module imports 56 to 66 ms).
 - [x] Function help beyond the head blocks (check: `Test-Links` on the touched pages). Corrected 2026-10-17 (task024): the head's config
       part is the whole help (ADR-REPO-HELP#1), and it now names the registry defaults.
 - [ ] Q6, raised by the read-only review of 2026-10-17 (session catzc-6c): `Assert-Wait` throws only for a bad argument and otherwise lets
       go, while ADR-PWSH-VERBS#2 and #3 make an Assert- function one that stops the caller, and the file sits in the `assert` subkind of
       file-kinds.yml ("stops the caller"). The user decides: a watch verb (`Watch-Blocking`) with the assert subkind untouched, or a VERBS#7
       exemption for a watchpoint that never stops (check: a Decided line, then the rename or the exemption in the same change as the ADR
-      pair of Q5).
+      pair of Q5). Decided 2026-10-18 (D17): the rename to `Watch-Blocking`, the assert subkind untouched; it lands with the Q5 pair.
 - [ ] Q5: after the first measured run, write `ADR-AUTO-FAILFAST#8` and `ADR-PWSH-ASSERT#7` (check: `Build-AdrIndex`, `Test-Links` and the
       ADR gates on the touched pages).
 - [ ] After the first measured run: replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check:

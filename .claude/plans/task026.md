@@ -4,7 +4,7 @@ task:
   status: open
   plans: [plan-materialization-of-knowledge]
   value: medium
-  blocked_on: D16 (a confirmation that nothing reopens)
+  blocked_on: nothing; D16 confirmed 2026-10-18
   targets: [docs/adr/automation, automation/Catzc.Base.Docs/configs/adrs.yml, automation/Catzc.Base.Docs/configs/glossary.yml]
 catzc:
   immutable:

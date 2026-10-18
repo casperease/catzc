@@ -1,9 +1,8 @@
 ---
 plan:
-  status: blocked
+  status: active
   value: medium
-  reviewed: 2026-10-16
-  blocked_on: three choices to confirm before the ADR is written
+  reviewed: 2026-10-18
   targets: [docs/adr/automation, automation/Catzc.Base.Docs/configs/glossary.yml, automation/Catzc.Base.Docs/configs/adrs.yml]
 catzc:
   immutable:
@@ -62,6 +61,7 @@ generated heads. One word and one default prevent each of them from inventing it
   to on-demand with one announced line. Its own ADR, ADR-AUTO-MATERIAL, next to ADR-AUTO-CACHE, written now.
 - Scope (F7): generated tracked files and the analyzer cache become commit resources keyed by their globset; body_sha is that key's visible
   form; on-demand stays the default for everything else.
+- D16 (2026-10-18): the three choices stand, nothing reopens; T026 writes ADR-AUTO-MATERIAL as drafted.
 
 ## Needed docs
 

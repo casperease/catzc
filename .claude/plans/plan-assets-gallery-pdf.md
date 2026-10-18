@@ -35,17 +35,18 @@ unchanged. The PDF is for a person in a PDF viewer (`review-pdf` in `output-form
 
 - Full run without text pages: 609 pages, 41.3 MiB, under 360 s. With text pages the earlier build was 90 MiB.
 - A chat upload is capped at 30 MiB, so the file was split into two halves (305 + 304 pages) outside the tree to send it.
-- 2026-10-17, after the descriptions moved beside the articles and the builder streams pages: `docs/explanation/.assets` without text is
-  593 pages; with the description pages (the minimap pages run to thousands of rows, cut into pages under the encoder roof) 1059 pages and
-  684 MiB, so D07's split question is about a factor of 20, not 2.
+- 2026-10-17, after the descriptions moved beside the articles and the builder streams pages: `docs/explanation/.assets` without text is 593
+  pages; with the description pages (the minimap pages run to thousands of rows, cut into pages under the encoder roof) 1059 pages and 684
+  MiB, so D07's split question is about a factor of 20, not 2.
 
 ## Open steps
 
 - [x] Name the mode in `.claude/skills/drawio-waves/SKILL.md` (it lists `gallery_pdf.py` as an on-ask tool) (check: the line says
       `--assets`). Done 2026-10-17 (task023): the bundles line names `--assets <tree>/.assets`; `AGENTS issues=0` (Test-AgentDefinitions),
       `SPELL issues=0` on the file.
-- [ ] Decide whether a `--parts <n>` split belongs in the builder, so a file over a size cap needs no side script (check: a decision
-      recorded here; if yes, a flag and a run that yields parts under 30 MiB).
+- [x] Decide whether a `--parts <n>` split belongs in the builder, so a file over a size cap needs no side script (check: a decision
+      recorded here; if yes, a flag and a run that yields parts under 30 MiB). Decided 2026-10-18 (D07): no flag; the PDF is a review
+      artifact and the cap is the chat's, so a side script splits when a review needs it.
 - [ ] Add a small test fixture run (two PNGs, one with a companion) if the kit gains a test home (check: page count is 3). 2026-10-17: the
       kit has no test home (`.claude/drawio` holds scripts, minimaps and the style guide, no tests folder), so the run waits for one.
 

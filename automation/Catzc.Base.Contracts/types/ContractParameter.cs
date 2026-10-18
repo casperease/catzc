@@ -15,6 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
+    page: docs/references/automation/catzc-base-contracts/types/ContractParameter.cs.md
     cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-CMDCONTRACT#2
@@ -37,8 +38,6 @@ public sealed class ContractParameter
 
     public static readonly string[] BaseTypes = { "string", "int", "bool", "switch" };
 
-    // spec = type [ "!" ] [ "=" literal ] [ "pipeline" ]; type = base [ "[]" ]
-    // ([ADR-REPO-CMDCONTRACT#2](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract2)).
     private static readonly Regex SpecRe = new Regex(
         "^(?<type>[A-Za-z][A-Za-z0-9_.]*)(?<list>\\[\\])?(?<mandatory>!)?(?:\\s*=\\s*(?<default>'[^']*'|\\S+))?(?:\\s+(?<pipeline>pipeline))?\\s*$");
     private static readonly Regex NameRe = new Regex("^[A-Za-z][A-Za-z0-9_]*$");

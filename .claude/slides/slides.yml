@@ -8,7 +8,7 @@
 #     filetype: yml
 #     kind: slides-kit
 #     language: yaml
-#     track: ".claude"
+#     track: ".claude-kits"
 #     tracktype: vendor-settings
 #     vendor: claude
 #     module: ".claude"

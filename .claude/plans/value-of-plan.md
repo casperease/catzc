@@ -61,9 +61,7 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 | medium      | plan-out-artifacts                      | 144 session scripts and 27 backups unregistered.                                                                                             | OUTDIR amendments                                                                                                          | Clear-Output and prune tests                                                                              | 4 decisions open                                                                |
 | medium      | plan-clear-actions                      | 32 broken links in 5 plans and three over-long plans, judged 2026-10-16 and acted on in none.                                                | none                                                                                                                       | Test-Links per file                                                                                       | links and plan-shape done (T001, T002); trims and deletions open                |
 | medium      | plan-fast-push-followups                | Four Build-RootConfig fixture-head tests fail and two unrelated findings have no owner yet.                                                  | none; ADR-DSGN-LIFE#11 and #12 landed                                                                                      | Build-RootConfig.Tests.ps1 green; Test-AdrRegistry; one real Push-Dirty run (the user's)                  | landed and tested; four steps open                                              |
-| medium      | plan-skip-unchanged-generators          | Four import-time generators still rebuild on an unchanged tree, about 1.3 s of every import.                                                 | none; D12 decides Build-Readme                                                                                             | input tests for Build-RootConfig and Build-GitKeep; a Sync-SessionTools warm skip; the meta gates         | four generators wired; six steps open                                           |
 | low         | plan-csproj-xml-head                    | The generated csproj carries a head; its page and two help pages still describe the JSON form.                                               | PropertyHead page and the two help pages to the XML form                                                                   | the four Build-RootConfig fixture tests against a tree without the change                                 | landed; two steps open                                                          |
-| low         | plan-idle-compaction                    | One local setting; whether it is checked in is D06.                                                                                          | none                                                                                                                       | none; both settings files parse                                                                           | set locally; D06 open; delete after                                             |
 | low         | plan-assets-gallery-pdf                 | One review PDF of every asset PNG with its companion text; the split flag is D07.                                                            | the drawio-waves skill line names --assets                                                                                 | a two-PNG fixture run if the kit gains a test home                                                        | mode landed and measured; three steps open                                      |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
@@ -87,6 +85,17 @@ next:
   from this folder they resolve one level wrong. Re-point them with the link tool, one file at a time, never by sweep.
 - The carried files are far over the 150-line roof the plans plan proposes. The roof is a setting; the cleaner shortens a plan only after
   its data is in the tree (an ADR, a test, a config), never by dropping a signal.
+
+## Deleted 2026-10-18, and why
+
+- task004 (the decision round): D01 to D20 answered, every recommendation taken; the record is decisions-2026-10-18.md and the
+  questionnaire, folded into the owning plans the same day.
+- plan-idle-compaction and task035: D06 keeps `idleCompaction: false` in the gitignored local settings, a per-person preference; nothing is
+  left to do.
+- plan-skip-unchanged-generators and task031: every janitor is wired with its inputs proven, bounded or recorded as not skippable (D12); the
+  ten janitors measure 1.2 s on their first call and 0.4 s warm against the 2.6 s the plan started from.
+- task023: the assets leftovers landed 2026-10-17 and D07 settled the last step (no `--parts` flag); plan-assets-gallery-pdf keeps its one
+  fixture line, which waits on a test home.
 
 ## Deleted 2026-10-17, and why
 

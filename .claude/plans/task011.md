@@ -1,10 +1,10 @@
 ---
 task:
   id: "011"
-  status: "steps 3 (read), 4, 5, 6 and 8 done; the rest waits on D01 to D05 and the user's runs"
+  status: "steps 3 (read), 4, 5, 6 and 8 done; the rest waits on the user's runs"
   plans: [plan-module-model-closeout, plan-module-kinds-tracks, plan-config-defaults, plan-layers-vocabulary-rename-contracts]
   value: high
-  blocked_on: "task004 items D01 to D05 (the user's confirmations), the rule 6 funnel on D03, and the user's Test-Automation run (step 9)"
+  blocked_on: "the user's Test-Automation run (step 9); D01 to D05 were confirmed 2026-10-18"
   targets:
     [
       automation/Catzc.Base.Modules,
@@ -47,10 +47,10 @@ edits need a fresh pwsh; gates in the background under the time safeguard.
   decision it needs are recorded as an open step in plan-module-kinds-tracks.
 - Step 5: the reference page `docs/references/automation/catzc-base-modules.md` written in the five-part shape and listed in index.md;
   Format-Code run on it (a dry run changes nothing more), index.md dry run unchanged; `No spelling issues found.`
-  (`out/test-spelling/20261017-175756`), `No markdownlint issues found.` (`out/test-markdownlint/20261017-175756`), `No links issues
-  found.` on the page; index.md's link to it is `[Untracked]` until the commit.
-- Step 6, corrected: the csproj carries no processing instruction any more (its head is the CDATA property of plan-csproj-xml-head), so
-  the step's premise is gone; Format-FileMeta then Format-Code both leave its first line, the IDE comment, as it is.
+  (`out/test-spelling/20261017-175756`), `No markdownlint issues found.` (`out/test-markdownlint/20261017-175756`), `No links issues found.`
+  on the page; index.md's link to it is `[Untracked]` until the commit.
+- Step 6, corrected: the csproj carries no processing instruction any more (its head is the CDATA property of plan-csproj-xml-head), so the
+  step's premise is gone; Format-FileMeta then Format-Code both leave its first line, the IDE comment, as it is.
 - Step 8: Test-Comments has 11 findings, not 36, all comment pages whose section names a code line the source no longer has; listed with
   their owners in plan-module-model-closeout (three in the file-head plan already, eight in peers' sources of today with no plan). The
   glossary findings are one step of plan-clear-actions.

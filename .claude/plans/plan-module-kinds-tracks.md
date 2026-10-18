@@ -78,12 +78,12 @@ the user's own and changes what every head's track key means. The config default
 - Vendor note (C1): node_modules compares to .vendor, tracked or not; both are ignored by everything but their loader. A vendor track rule
   says so, and the enumeration prune sets name both.
 - Q88: the Test-ShippedTypes flags on TrackTypeEntry and VendorEntry are this plan's.
-- Module-model open choices a, b, c (2026-10-16), taken as recommended, user not yet confirmed: (a) the resolver lives in a new small module
-  above Languages and returns a type carrying identity only; needs and order stay in ModuleSystem (dependencies.yml lives there). (b) the
-  track key is execution_engines (languages.yml engines: means formatter engines); the table is called "layout"; the word "kind" stays out
-  of the ADR text until the kind-to-role rename lands. (c) rule 5 says one function sorts the graph; rule 6 covers check and test handlers
-  only (the build is code in the closed Builder); LoadedModule is kept only if the draft's reasoning holds on re-reading, else dropped with
-  BaseModule.
+- Module-model open choices a, b, c (2026-10-16), taken as recommended, confirmed by the user 2026-10-18 (D01 to D03): (a) the resolver
+  lives in a new small module above Languages and returns a type carrying identity only; needs and order stay in ModuleSystem
+  (dependencies.yml lives there). (b) the track key is execution_engines (languages.yml engines: means formatter engines); the table is
+  called "layout"; the word "kind" stays out of the ADR text until the kind-to-role rename lands. (c) rule 5 says one function sorts the
+  graph; rule 6 covers check and test handlers only (the build is code in the closed Builder); LoadedModule is kept only if the draft's
+  reasoning holds on re-reading, else dropped with BaseModule.
 
 ## Done, and why: tracks, track types and vendors as ADRs and code (session report of 2026-10-16 15:14, verified in the tree)
 
@@ -119,7 +119,8 @@ the user's own and changes what every head's track key means. The config default
 
 - [x] Run the prepare prompt (check: its read-only report and ADR draft in out/: module-model-callers, -reading, -slots, -layering,
       -protection-identity, draft-adr-auto-module).
-- [x] Settle the three open choices listed under "Corrections": taken as recommended, user not yet confirmed (see "Decided, and why").
+- [x] Settle the three open choices listed under "Corrections": taken as recommended, confirmed by the user 2026-10-18 (D01 to D03) (see
+      "Decided, and why").
 - [x] Run the implement prompt, steps 1 to 9 (2026-10-16): ADR-AUTO-MODULE landed (6 rules; LoadedModule dropped with BaseModule, no caller
       used it), layout in languages.yml, Catzc.Base.Modules with Get-CatzcModule and Get-Aspect, execution_engines on the track,
       Get-ModuleOrder, old getters and types deleted, L1 integrity tests. Left: step 10 (infrastructure), generated READMEs and docs pages,
@@ -128,8 +129,9 @@ the user's own and changes what every head's track key means. The config default
       type places `infrastructure/templates` folders and `infrastructure/modules` files, yet `Get-CatzcModule -TrackType infrastructure`
       returns nothing, because both places sit below the track's one place `infrastructure` and the resolver treats a place below the track
       place as internal unless `-IncludeInternal`. Decide whether a deployable track's module types may place below its root, or the
-      infrastructure track declares its two places; then the resolver change and a fixture test (check: `Get-CatzcModule -TrackType
-      infrastructure` names the three templates and the Bicep modules, and the L0 test covers a nested place of a non-code track).
+      infrastructure track declares its two places; then the resolver change and a fixture test (check:
+      `Get-CatzcModule -TrackType     infrastructure` names the three templates and the Bicep modules, and the L0 test covers a nested place
+      of a non-code track).
 - [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean).
 - [ ] Rerun Test-Links on WorldMapBuilder.cs (check: zero findings there).
 - [x] Look at the 3 Get-ModuleProtectionIdentity failures (check: that test file): run 2026-10-16, 11 passed, 0 failed; the file is in
@@ -322,8 +324,8 @@ _tests_ aspect, never of `live`. Widening that (a Bash module that ships) is a d
 **Engine axis** (what runs it). The engine set is closed at three (`ADR-AUTO-ENGINE#1`). A module's `Engines` is the subset it must run and
 be tested under:
 
-- a PowerShell function module runs in **pwsh**; the other engines reach it only through the `cats` dispatcher (`ADR-AUTO-ENGINE#6`), so pwsh is
-  its one engine and the other two are reach, not run;
+- a PowerShell function module runs in **pwsh**; the other engines reach it only through the `cats` dispatcher (`ADR-AUTO-ENGINE#6`), so
+  pwsh is its one engine and the other two are reach, not run;
 - a module that ships POSIX scripts (an `importer.sh` style root config) has **bash** and **zsh**;
 - an infrastructure module has no engine of its own: it deploys through the Azure CLI, which the automation tools run under any engine, so
   its engine set is `auto` (`ADR-AUTO-ENGINE#7`).

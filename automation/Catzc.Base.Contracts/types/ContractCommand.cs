@@ -69,8 +69,6 @@ public sealed class ContractCommand
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The contract of one command asset: the asset names the command
-    // ([ADR-REPO-CMDCONTRACT#3](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract3)), raw is its parsed document.
     public ContractCommand(ContractAsset asset, IDictionary raw) : this(raw)
     {
         Asset = asset ?? throw new ArgumentNullException(nameof(asset), "contract command: the asset is required");

@@ -50,7 +50,8 @@ stay the durable record; task files and this master are derived from them and ca
 ## Chunks
 
 - T001 to T003: done 2026-10-17, task files deleted (folder hygiene: links re-pointed, a check on every step, value rows, prompts deleted).
-- T004 -> task004.md (open): the decision round over every open question (plan-decide, items D01 to D16).
+- T004: done 2026-10-18, task file deleted (the decision round: D01 to D20 asked four at a time, every recommendation taken, recorded in
+  decisions-2026-10-18.md and folded into the owning plans; D14 had been answered 2026-10-17).
 - T005 to T008: done 2026-10-17, task files deleted (ADR-AI registered and the agent-contracts page folded in; ADR-CATS; body-sha Phase 0
   with the stamp check in Test-GeneratedFiles; the .unordered audit and its deletion, run by the user).
 - T009 -> task009.md (open; after T008): tracks.md rule 17 rewritten, four glossary terms, Import-RepositoryWithHistory with tests, the
@@ -58,8 +59,8 @@ stay the durable record; task files and this master are derived from them and ca
 - T010: done 2026-10-17, task file deleted (ADR-REPO-PLANS, ADR-REPO-FOLDERS#12, ADR-REPO-VOCAB#9, the Test-Plans gate); one clause is left
   and follows T009: the CLAUDE.md plans line cites the landing-zone terms.
 
-- T011 -> task011.md (open; steps 3 read, 4, 5, 6, 8 done 2026-10-17; D01 to D05 and the user's run for the rest): module model close-out,
-  the rule 6 funnel (after D03), infrastructure track (a design step in plan-module-kinds-tracks), waits_on cleared.
+- T011 -> task011.md (open; steps 3 read, 4, 5, 6, 8 done 2026-10-17; D01 to D05 confirmed 2026-10-18; the user's run for the rest): module
+  model close-out, the rule 6 funnel (D03 confirmed), infrastructure track (a design step in plan-module-kinds-tracks), waits_on cleared.
 - T012 -> task012.md (open; after T011): kind becomes role through the registry and generators; tracks.md rule 19 one primary language;
   WorldMapBuilder links; Test-ShippedTypes; the namespace line.
 - T013: done 2026-10-17, task file deleted (minimal robots Phase 5 measured, the three robot plans deleted).
@@ -78,34 +79,36 @@ stay the durable record; task files and this master are derived from them and ca
   inside the P4 window): command contracts: ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats
   validation, public functions made internal.
 - T021: done 2026-10-17, task file deleted (class selectors proven by a zero-change dry run, the overlaps list and the strengthened
-  reachability test, the head schema keys); the `note` kind no tracked file reaches is the user's question.
-- T022 -> task022.md (open; D13 for one step, the rest done 2026-10-17): file head leftovers: note term, ASSETDEP reading, .compiled
-  formatting, module-types.yml typo, spelling, four gate reports attributed.
+  reachability test, the head schema keys); the `note` kind no tracked file reaches goes (D20, 2026-10-18; T022 step 10).
+- T022 -> task022.md (open; step 3 the .compiled skip per D13 and step 10 the note kind's removal per D20, the rest done 2026-10-17): file
+  head leftovers: note term, ASSETDEP reading, .compiled formatting, module-types.yml typo, spelling, four gate reports attributed.
 
-- T023 -> task023.md (open; D07 for one step, the rest done 2026-10-17): assets leftovers: gallery --assets reads the sidecar carrier and
-  streams its pages, the carrier test passes as it stands, the old folder removed, the skill line, plan-assets-beside-articles deleted.
+- T023: done 2026-10-18, task file deleted (assets leftovers: gallery --assets reads the sidecar carrier and streams its pages, the carrier
+  test passes as it stands, the old folder removed, the skill line, plan-assets-beside-articles deleted; D07 no --parts flag).
 - T024 -> task024.md (open; steps 1 to 6 done 2026-10-17; the ADR pair and the watchpoint retirement wait for the user's measured run, the
   one conventions finding left is the user's `git mv` of FileKindReachability.Tests.ps1): Assert-Wait defaults on TimeoutsConfig, the
   lateness explained and removed (sleep until due), ADR-AUTO-FAILFAST#8 and ADR-PWSH-ASSERT#7, watchpoints retired into limits.
-- T025 -> task025.md (open; done 2026-10-17 apart from the prompt hook, which is D09's branch): lazy types Phases 3 to 5: the hash memo, the
-  ADR rule and exception, comment pages, the bundle and lazy tests in the tree, no second eager path.
-- T026 -> task026.md (open; D16): ADR-AUTO-MATERIAL with seven rules, registry, dora-explains, glossary term.
+- T025 -> task025.md (open; done 2026-10-17 apart from the prompt hook, which D09 chose 2026-10-18: the janitors run after the first
+  prompt): lazy types Phases 3 to 5: the hash memo, the ADR rule and exception, comment pages, the bundle and lazy tests in the tree, no
+  second eager path.
+- T026 -> task026.md (open; D16 confirmed 2026-10-18, ready): ADR-AUTO-MATERIAL with seven rules, registry, dora-explains, glossary term.
 - T027 -> task027.md (open; after T007 and T008): HELP#3 relaxed, TryParse test, five gates, ledger rebuilt, F8 bold rules, Phase 1 applied
   slice by slice with verification, Phase 2 per D1 to D5.
 - T028 -> task028.md (open; done 2026-10-17 apart from the two probe batches, which the user confirms since their lists are gone): the areas
   were registered and the prune in the tree, the safeguard log never ages out, Clear-Output has its tests, out.md names the retention, the
   five tool candidates placed.
-- T029 -> task029.md (open; D08, the user's two runs): the per-engine cache stamp with two tests, shard re-check, next three files by cost.
+- T029 -> task029.md (open; D08 decided 2026-10-18 so steps 1 and 2 are ready; the user's two runs for step 3): the per-engine cache stamp
+  with two tests, shard re-check, next three files by cost.
 - T030: done 2026-10-17 by session catzc-6c, task file deleted (the page entries, the sentences and the step loop were in the tree; two
   stale `.internal` page sections removed, Test-Comments 0 on both folders).
-- T031 -> task031.md (steps 2 to 8 done; step 1 waits for D12): Build-RootConfig stamp, Build-GitKeep bounded walk, Sync-SessionTools memo,
-  janitors re-measured at 1.2 s first call and 0.4 s warm.
+- T031: done 2026-10-18, task file deleted (Build-RootConfig stamp, Build-GitKeep bounded walk, Sync-SessionTools memo, Build-Readme not
+  skippable per D12; janitors re-measured at 1.2 s first call and 0.4 s warm; plan-skip-unchanged-generators deleted).
 - T032 -> task032.md (open): the four Build-RootConfig fixture-head tests, PropertyHead docs to the XML form, the user's keybinding and run.
-- T033 -> task033.md (open; steps 2, 3 and 5 done 2026-10-17; the user's commit of the one DLL pair, D11 for P4 and P5, and the
-  ADR-AUTO-CACHE sentence as the user's question): unboxing closed: three leftover checks, two gate findings, P4 and P5 only on a go.
+- T033 -> task033.md (open; steps 2 to 5 done; step 1 is the user's commit of the one DLL pair; D11 stay closed and D18 no sentence,
+  2026-10-18): unboxing closed: three leftover checks, two gate findings, P4 and P5 closed.
 - T034 -> task034.md (open; the level-2 rerun is green 2026-10-17; the user's run of all tests, then the plan and prompt deleted): bounded
   enumeration closed.
-- T035 -> task035.md (open; D06): idle compaction scope, then the plan deleted.
+- T035: done 2026-10-18, task file deleted (D06 keeps idleCompaction in the local settings; plan-idle-compaction deleted).
 - T036 -> task036.md (open; runs after every batch and last): the closing sweep, done plans deleted with one line each, the master and task
   files deleted when every chunk is done.
 

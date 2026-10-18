@@ -43,11 +43,13 @@ skipped and named in the report.
 - [x] `plan-minimal-robots.md`: judged 2026-10-17 (task002), verdict keep: head keys present (status, value, reviewed, targets, siblings),
       three open steps each with a check, its one `out/` path (`out/drawio/token-count.md`) exists, no provenance path to an absent file;
       `reviewed` re-stamped. Check: `Test-Links` clean (`out/test-links/20261017-055215-2`).
-- [x] `plan-adr-link-cleanup-prose-to-pages.md`: re-point 15 dangling links. Check: `Test-Links` 0 dangling (`out/test-links/20261017-053922`).
+- [x] `plan-adr-link-cleanup-prose-to-pages.md`: re-point 15 dangling links. Check: `Test-Links` 0 dangling
+      (`out/test-links/20261017-053922`).
 - [ ] `plan-adr-link-cleanup-prose-to-pages.md`: trim the carried draft (434 lines). Check: `Test-Links` reports 0 dangling.
 - [x] `plan-config-defaults.md`: re-point 3 sibling links to the plans that now hold the text. Check: `Test-Links` 0 dangling
       (`out/test-links/20261017-054019-3`).
-- [x] `plan-layers-vocabulary-rename-contracts.md`: re-point 9 dangling links. Check: `Test-Links` 0 dangling (`out/test-links/20261017-054019`).
+- [x] `plan-layers-vocabulary-rename-contracts.md`: re-point 9 dangling links. Check: `Test-Links` 0 dangling
+      (`out/test-links/20261017-054019`).
 - [ ] `plan-layers-vocabulary-rename-contracts.md`: trim the 890-line file after its data is in the tree. Check: `Test-Links` reports 0
       dangling.
 - [x] `plan-module-kinds-tracks.md`: re-point 3 dangling links. Check: `Test-Links` 0 dangling (`out/test-links/20261017-054019-2`).
@@ -73,17 +75,16 @@ skipped and named in the report.
 - [x] `plan-adr-ai.md`: the repeated "plan-intake, plan-decide" dropped in both sentences. Check: `Test-Links` clean
       (`out/test-links/20261017-055215`).
 - [x] Plan-shape for the four numbered-step plans (task002): `plan-fast-push-followups.md` (4 steps, `out/test-links/20261017-055059-2`),
-      `plan-idle-compaction.md` (2, `20261017-055042`), `plan-csproj-xml-head.md` (2, `20261017-055059`), `plan-skip-unchanged-generators.md`
-      (6, `20261017-055142`). Check: grep `- [ ]` counts as listed and `Test-Links` clean on each.
+      `plan-idle-compaction.md` (2, `20261017-055042`), `plan-csproj-xml-head.md` (2, `20261017-055059`),
+      `plan-skip-unchanged-generators.md` (6, `20261017-055142`). Check: grep `- [ ]` counts as listed and `Test-Links` clean on each.
 - [x] Delete candidates, diffed line by line against `plan-file-head-immutable-edges-classes.md` (task003, 2026-10-17); each is now the
-      user's `git rm`:
-      `prompt-head-path-split-continue.md`: the spelling-gate run is the first step of "Open leftovers from the path split"; folder and name
-      on generated heads is Decided (Q43) there.
-      `prompt-file-kinds-registry-continue.md`: the memory-note check is Done (Q51), the five gates are the first step of "Open leftovers from
-      the registry work", PowerShell versus Powershell is Decided (Q45), the peers rule is the "Rule to keep" line.
-      `prompt-file-kinds-and-formatting-continue.md`: the Test-Formatting rerun and the `.compiled` question are the first step of "Open
-      leftovers from that follow-up" (Q47), the reachability decision is Decided (Q41), the Test-Comments findings and the untracked page
-      are its context lines (Q48, Q49), the peers rule is the "Rule to keep" line; its mid-sentence cut is recorded in the plan's Refs.
+      user's `git rm`: `prompt-head-path-split-continue.md`: the spelling-gate run is the first step of "Open leftovers from the path
+      split"; folder and name on generated heads is Decided (Q43) there. `prompt-file-kinds-registry-continue.md`: the memory-note check is
+      Done (Q51), the five gates are the first step of "Open leftovers from the registry work", PowerShell versus Powershell is Decided
+      (Q45), the peers rule is the "Rule to keep" line. `prompt-file-kinds-and-formatting-continue.md`: the Test-Formatting rerun and the
+      `.compiled` question are the first step of "Open leftovers from that follow-up" (Q47), the reachability decision is Decided (Q41), the
+      Test-Comments findings and the untracked page are its context lines (Q48, Q49), the peers rule is the "Rule to keep" line; its
+      mid-sentence cut is recorded in the plan's Refs.
 - [x] `value-of-plan.md`: rows for the seven unlisted plans (plan-master, plan-fast-push-followups, plan-skip-unchanged-generators,
       plan-csproj-xml-head, plan-idle-compaction, plan-assets-gallery-pdf in the meta table; plan-assert-wait in the feature table), each
       head's `value` matching its row; the next-funnel line under "Decision round". Check: `ls plan-*.md` against the table finds no plan
@@ -96,7 +97,8 @@ skipped and named in the report.
 ## Vocabulary steps, one per flagged file
 
 `Test-Glossary` (report `out/test-glossary/20261017-012431`, 196 issues) flags bare terms in these files ("full suite" for "all tests",
-"gate", "phase", "layer", "source", "slot"). No sweep: each file is fixed when it is next edited for its own reason.
+"gate", "phase", "layer", "source", "slot"). No sweep: each file is fixed when it is next edited for its own reason. Confirmed 2026-10-18
+(D15): no exemption for plan files; the gate covers plans (F1).
 
 - [ ] Fix the flagged wording file by file, each when that file is next edited, and strike the file from the list below (check: the next
       `Test-Glossary` run names no line in the struck file; the list below is empty when the step is done).
@@ -109,9 +111,8 @@ The files, with their finding counts: `plan-layers-vocabulary-rename-contracts.m
 `plan-bounded-folder-enumeration.md` (3), `prompt-k8s-kinds-2-implement.md` (2), `prompt-bounded-folder-enumeration-continue.md` (2),
 `plan-unboxing.md` (2), `plan-minimal-robots-agents.md` (2), `plan-format-step-moves-comments.md` (2), and one each in
 `prompt-unboxing-continue.md`, `prompt-module-model-1-prepare.md`, `prompt-head-path-split-continue.md`,
-`prompt-config-defaults-continue.md`, `prompt-automation-layers-continue.md`, `plan-test-run-budget.md`,
-`plan-skip-unchanged-generators.md`, `plan-module-model-closeout.md`, `plan-minimal-robots.md`, `plan-csproj-xml-head.md`,
-`plan-adr-cats.md` and `plan-adr-ai.md`.
+`prompt-config-defaults-continue.md`, `prompt-automation-layers-continue.md`, `plan-test-run-budget.md`, `plan-module-model-closeout.md`,
+`plan-minimal-robots.md`, `plan-csproj-xml-head.md`, `plan-adr-cats.md` and `plan-adr-ai.md`.
 
 ## Keep as is
 

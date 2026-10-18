@@ -61,7 +61,8 @@ Describe 'Get-AdrUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
 
     It 'limits the scan to the path given' -Tag 'ADR-REPO-FILEMETA#3' {
         $path = 'docs/adr/repository/file-meta.md'
-        $one = @(Get-AdrUsage -Path $path)
+        # An absolute path: a relative one resolves against the process location, which a test worker does not hold at the root.
+        $one = @(Get-AdrUsage -Path (Join-Path (Get-RepositoryRoot) $path))
         $one.Count | Should -BeGreaterThan 0
         @($one.Path | Sort-Object -Unique) | Should -Be @($path)
     }

@@ -1,9 +1,8 @@
 ---
 plan:
-  status: blocked
+  status: active
   value: medium
-  reviewed: 2026-10-16
-  blocked_on: the per-engine cache stamp needs an ADR decision
+  reviewed: 2026-10-18
   targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Engines, automation/Catzc.Base.Timeouts/configs]
 catzc:
   immutable:
@@ -44,7 +43,8 @@ so the value is a suite that proves the same in less time. The user runs full su
 
 ## Open steps
 
-- [ ] Decide the stamp rule (check: the ADR sentence exists).
+- [x] Decide the stamp rule (check: the ADR sentence exists). Decided 2026-10-18 (D08): an engine's stamp contains its own tool pin and its
+      own settings files, nothing else; the sentence and the tests are T029 steps 1 and 2.
 - [ ] Change the stamp, add both tests (check: Test-Formatting tests pass cold and warm).
 - [ ] Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting after two runs (check: the shard manifests of two runs
       place them apart).

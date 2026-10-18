@@ -4,7 +4,7 @@ plan:
   class: feature
   value: low-medium
   reviewed: 2026-10-16
-  blocked_on: the user's go for P4 and P5, and the commit of the changed types
+  blocked_on: the commit of the changed types
   targets:
     [
       automation/Catzc.Base.Contracts/types,
@@ -71,12 +71,12 @@ allocation, else it is reverted.
   Clear-ModuleTypeCache and commit the survivor with the types, tests and docs; run all tests.
 - Test-ShippedTypes flags TrackTypeEntry and VendorEntry in Catzc.Base.Variants as not resolving after import; not part of this work, not
   investigated.
-- Optional: a one-sentence ADR line saying ADR-AUTO-CACHE does not cover type-level statics.
-- P4 and P5 have no plan yet; one is written only when the user says so.
+- No ADR-AUTO-CACHE sentence on type-level statics (D18, 2026-10-18).
+- P4 and P5 stay closed (D11, 2026-10-18); no plan is written for them.
 
 ## Needed docs
 
-- Optional one-sentence ADR line on type-level statics in ADR-AUTO-CACHE, only if the user wants it.
+- None; the user declined the ADR-AUTO-CACHE sentence on type-level statics (D18, 2026-10-18).
 
 ## Needed tests
 
@@ -92,10 +92,10 @@ allocation, else it is reverted.
 - [ ] The user runs Clear-ModuleTypeCache so .compiled holds one DLL, then commits types, tests, docs and that DLL (check: one
       Catzc.Types.*.dll; git status clean for them).
 - [x] A fresh session runs the three leftover checks in the prompt (check: its report). Done 2026-10-17 (task033, session catzc-6c
-      read-only): `.compiled` holds one DLL pair; `Test-ShippedTypes` is clean in a fresh process (`out/test-shipped-types/20261017-210518`),
-      so the `Catzc.Base.Variants` findings once attributed to task012 (Q88) are gone; the optional ADR-AUTO-CACHE sentence on type-level
-      statics is a question for the user.
-- [ ] Only on the user's go: plan P4 and P5, measure first (check: the 15 percent bar on the row).
+      read-only): `.compiled` holds one DLL pair; `Test-ShippedTypes` is clean in a fresh process
+      (`out/test-shipped-types/20261017-210518`), so the `Catzc.Base.Variants` findings once attributed to task012 (Q88) are gone; the
+      optional ADR-AUTO-CACHE sentence on type-level statics was declined 2026-10-18 (D18).
+- [x] Only on the user's go: plan P4 and P5, measure first (check: the 15 percent bar on the row). Decided 2026-10-18 (D11): stay closed.
 
 ## Refs
 

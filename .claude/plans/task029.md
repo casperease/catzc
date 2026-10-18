@@ -4,7 +4,7 @@ task:
   status: open
   plans: [plan-test-run-budget]
   value: medium
-  blocked_on: D08 for steps 1 and 2; the user's two full runs for step 3
+  blocked_on: the user's two full runs for step 3; D08 decided 2026-10-18 for steps 1 and 2
   targets:
     [
       docs/adr/repository/uniform-formatting.md,

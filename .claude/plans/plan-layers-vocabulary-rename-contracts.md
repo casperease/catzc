@@ -49,6 +49,7 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 
 ## Decided, and why (all took the recommendation, 2026-10-16)
 
+- D10 (2026-10-18): P4, the folder move, holds until T011 and T018 are green; the user names the quiet window then and runs the move.
 - Q1 folder and track are pwsh; rejected powershell, modules, catzc. A track is named by its stack, parallel to go, python, bash.
 - Q2 keep invoke-automation.yaml and release-automation.yml: they invoke and release the automation, the abstract thing.
 - Q3 keep Test-Automation, its 16 helpers and test-automation/: the name is already accurate; a 470-line rename buys nothing.
@@ -71,8 +72,8 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 - The cats and catzc names are ruled by a new ADR-CATS (plan-adr-cats); pwsh and automation stay strictly apart from it (F1): the folder
   rename is technical, automation is a subject and the big cross-cutter with design principles and pipelines, so ADR-AUTO-LAYERS rules those
   two names and the glossary terms pwsh and automation come from it.
-- ADR-CATS is written (2026-10-17, docs/adr/principles/cats-and-catzc.md): cats (ADR-CATS#2) and catzc (ADR-CATS#1) are glossary terms
-  from it, so the layers glossary list excludes them and ADR-AUTO-LAYERS cites them where it needs the names.
+- ADR-CATS is written (2026-10-17, docs/adr/principles/cats-and-catzc.md): cats (ADR-CATS#2) and catzc (ADR-CATS#1) are glossary terms from
+  it, so the layers glossary list excludes them and ADR-AUTO-LAYERS cites them where it needs the names.
 - Public API (F6, S5): most of the 439 public functions become internal; the pilot contracts are hand-written; generating a contract from
   the ADR that defines it is a direction tried on the second set.
 
@@ -102,8 +103,8 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 - Test-Links: 2 issues (`out/test-links/20261017-183225`): one `[Untracked]` link from the automation index to the new, uncommitted
   catzc-base-modules.md page, and one `[Citation]` in plans.yml, a bare `ADR-REPO-PLANS` in a comment, fixed in the same hour
   (`out/test-links/20261017-183621` clean on the file).
-- Test-WorldMap: 2 issues outside this plan (`out/test-world-map/20261017-183226`): a stack violation, `.claude/drawio/drawio.yml` is a
-  yaml file in the `.claude` track whose languages are markdown only (ADR-DSGN-TRACK#3), and an undeclared root folder, `.vscode/` holds 3
+- Test-WorldMap: 2 issues outside this plan (`out/test-world-map/20261017-183226`): a stack violation, `.claude/drawio/drawio.yml` is a yaml
+  file in the `.claude` track whose languages are markdown only (ADR-DSGN-TRACK#3), and an undeclared root folder, `.vscode/` holds 3
   tracked files and no track names it (ADR-DSGN-TRACK#1). Both are peers' work of the same day.
 - Edge fact, read from `Build-BashTimeoutHook` and the hook janitor of `Catzc.Internal.Importer.psm1`: a failed hook rebuild does not delete
   the published binary. Nothing removes `.claude/hooks/bin/` before `dotnet publish`, which only overwrites its output when the build
@@ -117,14 +118,15 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 - C2 sizing, read from the module: `Get-ContractAssetKind` picks one of four kinds from the name alone, `Resolve-ContractAsset` derives
   target and direction from the kind (a sample has no target and is provided; every other kind targets `<target root>/<path>` and is
   depended-on), `Get-ContractCheckResult` switches on the kind and throws for a kind no check covers, and `ContractAsset`'s constructor
-  demands a target for every kind but Sample. A fifth kind touches those four places, and the command asset's target is the command's
-  source file under the module's root, which `Resolve-ContractAsset` cannot derive from a target root alone.
-- Unknown suffix, on a copy: a `Get-Thing.command.yml` under a unit's draft reads as `kind=Fragment direction=DependedOn
-  target=Get-Thing.command.yml`, and the check fails it with `the target 'Get-Thing.command.yml' does not exist: the repository root holds
-  no 'Get-Thing.command.yml'.` (`out/t020-unknown-suffix.ps1`). The kind lands before any asset.
+  demands a target for every kind but Sample. A fifth kind touches those four places, and the command asset's target is the command's source
+  file under the module's root, which `Resolve-ContractAsset` cannot derive from a target root alone.
+- Unknown suffix, on a copy: a `Get-Thing.command.yml` under a unit's draft reads as
+  `kind=Fragment direction=DependedOn target=Get-Thing.command.yml`, and the check fails it with
+  `the target 'Get-Thing.command.yml' does not exist: the repository root holds no 'Get-Thing.command.yml'.`
+  (`out/t020-unknown-suffix.ps1`). The kind lands before any asset.
 - Handlers by language (task011 step 3): the checks of a changed file are resolved through the registry, `languages.yml` `checks:`, and the
-  tests side still branches on the language, whose funnel follows D03. The command checker therefore registers nothing in `languages.yml`
-  in C2: it selects by the command's file language, builds the PowerShell checker, and throws NotImplemented for any other language; the
+  tests side still branches on the language, whose funnel follows D03. The command checker therefore registers nothing in `languages.yml` in
+  C2: it selects by the command's file language, builds the PowerShell checker, and throws NotImplemented for any other language; the
   registry key for it is D03's scope.
 - Correction (C1, read from `ContractSchema`): the bounded JSON Schema subset has no `pattern` keyword and takes `additionalProperties` as a
   boolean only, so a `command.schema.json` cannot hold the value grammar. The `ContractCommand` type is the one grammar (ADR-PRIN-ONELIVE),
@@ -154,26 +156,27 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 - [x] The scratchpad copy and the paste of the continuation prompt are superseded: the task files of plan-master (task017 to task020) carry
       this plan's phases, and the module model landed first (2026-10-17).
 - [x] P0 baseline and the two reads, recorded above (2026-10-17, task017).
-- [x] P1 doctrine and vocabulary. Done 2026-10-17 (task017): ADR-AUTO-LAYERS (7 rules) and ADR-AUTO-IMPORTER (5 rules) written,
-      registered with a `layer` key per automation ADR (AdrsConfig validates the five layers, default automation), dora-explains entries;
-      glossary terms automation, command, implementation language, pwsh (Docs), importer (ModuleSystem), run mode (Docs, bolded in
+- [x] P1 doctrine and vocabulary. Done 2026-10-17 (task017): ADR-AUTO-LAYERS (7 rules) and ADR-AUTO-IMPORTER (5 rules) written, registered
+      with a `layer` key per automation ADR (AdrsConfig validates the five layers, default automation), dora-explains entries; glossary
+      terms automation, command, implementation language, pwsh (Docs), importer (ModuleSystem), run mode (Docs, bolded in
       ADR-DSGN-RUNMODE#1), engine start environment (Engines, bolded in ADR-AUTO-ENGINE#4, avoid "black-box contract"), the layer family
-      gains contract, engine, importer and the code segment AUTO; the four collisions: tracks.md lines 65 and 227 reworded, ADR-AUTO-ENGINE#4
-      and its section renamed in the engine ADR and the three test-artifact ADRs, `languages.yml` `engines:` renamed `formatters:` with
-      LanguagesConfig, Format-Code, the root-config generator and their tests; Test-AdrEngineNeutrality gained the pipeline and item cmdlets
-      and the engine's common parameters as tokens. Check: Test-AdrRegistry, Test-AdrEngineNeutrality, Test-Terminology clean; Test-Glossary
-      reports no finding on the touched files (verdicts in the git history of task017.md, deleted as done).
+      gains contract, engine, importer and the code segment AUTO; the four collisions: tracks.md lines 65 and 227 reworded,
+      ADR-AUTO-ENGINE#4 and its section renamed in the engine ADR and the three test-artifact ADRs, `languages.yml` `engines:` renamed
+      `formatters:` with LanguagesConfig, Format-Code, the root-config generator and their tests; Test-AdrEngineNeutrality gained the
+      pipeline and item cmdlets and the engine's common parameters as tokens. Check: Test-AdrRegistry, Test-AdrEngineNeutrality,
+      Test-Terminology clean; Test-Glossary reports no finding on the touched files (verdicts in the git history of task017.md, deleted as
+      done).
 - [ ] P2 (check: guard rule gate). P3 (check: classification table, then stop).
 - [ ] P4 on the user's go (check: full baseline green again). P5 to P8 per the master plan.
-- [ ] P7 command contracts, task020: C1 the ADR, C2 the kind and checker, C4 the reader and the signature column landed 2026-10-17
-      (verdicts in task020). Open: C3 the pilot set, which waits for the user's answer to the proposed list in task020's report; C5 the
-      `cats` lookup and coercion; C6 the widening and the F6 narrowing (check: Test-Contracts clean on the pilot set; the bats file passes).
-- [ ] P6 also retires the old layer forms `automation`, `PowerShell` and `implementation` from the layer family and adds the avoid
-      phrasings "the automation folder", "automation modules" and "the loader": 68 pages say "automation layer", "implementation layer" or
-      "PowerShell layer" today (pipelines/custom-template-discipline.md 15, docs/index.md 13, the pwsh ADRs most of the rest), so the
-      retirement waits for the flip (check: Test-Glossary clean after the rewording).
-- [ ] The ADR-AUTO-LAYERS rule 2 wording "the file languages its track declares" stands in for the `executable` flag of Q-L1, which is
-      a LanguagesConfig key and so P2 or L3 code, not P1 (check: the flag exists and rule 2 names it).
+- [ ] P7 command contracts, task020: C1 the ADR, C2 the kind and checker, C4 the reader and the signature column landed 2026-10-17 (verdicts
+      in task020). Open: C3 the pilot set, which waits for the user's answer to the proposed list in task020's report; C5 the `cats` lookup
+      and coercion; C6 the widening and the F6 narrowing (check: Test-Contracts clean on the pilot set; the bats file passes).
+- [ ] P6 also retires the old layer forms `automation`, `PowerShell` and `implementation` from the layer family and adds the avoid phrasings
+      "the automation folder", "automation modules" and "the loader": 68 pages say "automation layer", "implementation layer" or "PowerShell
+      layer" today (pipelines/custom-template-discipline.md 15, docs/index.md 13, the pwsh ADRs most of the rest), so the retirement waits
+      for the flip (check: Test-Glossary clean after the rewording).
+- [ ] The ADR-AUTO-LAYERS rule 2 wording "the file languages its track declares" stands in for the `executable` flag of Q-L1, which is a
+      LanguagesConfig key and so P2 or L3 code, not P1 (check: the flag exists and rule 2 names it).
 
 ## Stop and ask when
 
@@ -261,8 +264,8 @@ Reading (say so if wrong; the plan is built so only the map in section 3 changes
 ## 4. Phases
 
 Each phase ends with its own stop condition. "Per file" always means: edit one file with the Edit tool, then run that file's own Pester test
-or gate in the background under `timeout` (CLAUDE.md: no batch edits; time safeguard). The user runs all tests and handles commits
-(memory: user-handles-commits-and-tests); this plan proposes no commit split.
+or gate in the background under `timeout` (CLAUDE.md: no batch edits; time safeguard). The user runs all tests and handles commits (memory:
+user-handles-commits-and-tests); this plan proposes no commit split.
 
 ### P0 Decide (nothing changes)
 
@@ -330,8 +333,8 @@ Order (it follows the boot dependency; the importer must work before any generat
    follow with zero hand edits.
 6. **Hand waves** (section 5): per-module code, tests, ADR rule text, docs prose and links, contracts.
 7. Stop: Grep for `automation/` over tracked files minus the allowlist (S2 paths, `.unordered`, S8) is empty; `Test-GeneratedFiles`,
-   `Test-Links`, `Test-Contracts`, `Test-WorldMap`, `Test-FolderConventions` clean; every touched file's own test passes. Running all tests is
-   the user's.
+   `Test-Links`, `Test-Contracts`, `Test-WorldMap`, `Test-FolderConventions` clean; every touched file's own test passes. Running all tests
+   is the user's.
 
 ### P5 Guards (makes the new meaning stick)
 
@@ -382,9 +385,9 @@ CLAUDE.md rule against script sweeps makes that the user's call (Q7). The defaul
 
 - Per file: its Pester test or gate, read before the next file. Never claim a gate passed unless it ran and the result was read.
 - Per phase: the stop conditions above, run in the background with `timeout`.
-- End: the user runs all tests. The plan names which gates must be green and which were red at P0 (so unrelated reds are not blamed on
-  the rename): known unrelated reds from the last session notes are Test-Spelling 5, Test-Glossary G4, Test-Formatting `.compiled/*.json`,
-  about 37 Test-ScriptAnalyzer.
+- End: the user runs all tests. The plan names which gates must be green and which were red at P0 (so unrelated reds are not blamed on the
+  rename): known unrelated reds from the last session notes are Test-Spelling 5, Test-Glossary G4, Test-Formatting `.compiled/*.json`, about
+  37 Test-ScriptAnalyzer.
 - Keep a residue scan as a standing check: `rg -i automation` over tracked files with the do-not-sweep allowlist, to the zero the allowlist
   implies.
 
@@ -735,8 +738,8 @@ Each use is its own phase; none changes the contract file's shape.
    parsed contract. Nothing hand-written (ADR-REPO-CONTRACT#9).
 3. **`cats` validates before it starts pwsh** (poka-yoke, ADR-PRIN-POKAYOKE): an unknown parameter, a missing mandatory one, or a value that
    is not an `int` is rejected in the POSIX shell with the contract's message, instead of failing after a pwsh start and an import
-   (seconds). Needs the contract in a form a shell can read without pwsh: a generated, committed lookup beside `importer.sh`,
-   **unverified** whether that is one file per command or one file for all; decide in phase C5.
+   (seconds). Needs the contract in a form a shell can read without pwsh: a generated, committed lookup beside `importer.sh`, **unverified**
+   whether that is one file per command or one file for all; decide in phase C5.
 4. **Tests:** Go/Python black-box tests that call a contracted command take the call shape from the contract; a drift test fails when the
    contract changes and the test does not.
 5. **Typed arguments across layers:** `cats` passes everything as a string today; with the contract it can coerce `int`/`bool`/`switch`
