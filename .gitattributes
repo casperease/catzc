@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0d9e8a309b79"
+#     with_body_sha: "3b93f6d11498"
 #     repo_status: locked
 #     path: ".gitattributes"
 #     source:
@@ -134,7 +134,8 @@ contracts/*/*/** catzc-contract text eol=lf
 **/tests/**/assets/** catzc-fixture
 
 # catzc: files under the unordered track are imports not yet sorted, held to no domain rule until they move — the
-# content tools (links, Markdown titles, source conventions) leave them as they landed (ADR-DSGN-TRACK-UNORDEREDTRACK).
+# content tools (links, Markdown titles, source conventions) leave them as they landed
+# (ADR-DSGN-TRACK-UNORDEREDTRACK).
 .unordered/** catzc-unordered
 
 # catzc: these files are read verbatim by another tool, so they carry no meta block: the session instructions are

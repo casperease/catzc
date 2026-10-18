@@ -26,8 +26,8 @@ The diagram is described element by element in [its asset description](.assets/e
 
 ## Walkthrough
 
-1. **pwsh/.** The source tree under the working root is the only input. The engine asserts that it runs in the source tree and refuses
-   to run anywhere else.
+1. **pwsh/.** The source tree under the working root is the only input. The engine asserts that it runs in the source tree and refuses to
+   run anywhere else.
 2. **Catzc.Internal.Builder.** The `.internal` engine, `Invoke-ModuleBuild`, does the writing: the closure over the declared dependencies,
    the merged function files, the manifests, the types DLL, the vendor and `.internal` copies, and `build.json`.
 3. **Assert-CatzcBundle.** The integrity guard checks what the engine wrote and throws with every violation it finds. It belongs to the

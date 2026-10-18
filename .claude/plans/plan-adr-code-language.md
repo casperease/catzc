@@ -192,7 +192,8 @@ them all).
      `contracts/EXTERNAL-azure/0.1.0/` the `.frozen` record is refreshed in the same change. Check: `Test-Links` per area, `Test-Contracts`
      clean, and `git grep -E 'ADR-[A-Z-]+[#:][0-9{]'` counts zero at the end.
 - [ ] 6. Replace the parsers (`AdrCodeForm`, `RULE_COLON`, the `:`→`#` replaces) in the same change as their callers and remove the `#`
-     form; restate the index's "Citing a rule" and trim ADR-REPO-LINK to the link forms; switch `code_language` to `gate`. Check:
+     form, including the seam that lets the three citation validators (`GlossaryConcept`, `AgentEntry`, `CapabilityEntry` `CitationRe`)
+     and `Update-AdrCitation`'s numbered rule-map kinds accept it during the migration; restate the index's "Citing a rule" and trim ADR-REPO-LINK to the link forms; switch `code_language` to `gate`. Check:
      `AdrCodeForm.Tests.ps1`, `Update-AdrCitation.Tests.ps1`, the glossary and link test files pass; `Test-AdrRegistry` clean in gate mode.
 - [ ] 7. Move this plan's decisions into the ADR and delete the plan. Check: `Test-AdrRegistry` and `Test-Links` clean on the ADR;
      `git grep plan-adr-code-language` finds no link left.

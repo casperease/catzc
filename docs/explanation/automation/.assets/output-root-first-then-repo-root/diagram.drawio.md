@@ -6,8 +6,8 @@ Glyphs: 3 results (green), 6 code units (slate), 1 named set (mauve); 7 flow edg
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../output-root-first-then-repo-root.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../output-root-first-then-repo-root.md).
 
 ## At a glance
 
@@ -18,8 +18,8 @@ markers and a legend panel along the bottom. The eye lands first on the three gr
 
 ## Reading path
 
-1. Markers 1, 2 and 3, `COMMUNICATION FORM` band, top to bottom inside one frame: the results out/template/…/main.json,
-   pwsh/mod/file.ps1 and D:\a\1\ws\sample\main.json.
+1. Markers 1, 2 and 3, `COMMUNICATION FORM` band, top to bottom inside one frame: the results out/template/…/main.json, pwsh/mod/file.ps1
+   and D:\a\1\ws\sample\main.json.
 2. Right along the flow edge that leaves the frame to marker 4, `THE TWO CROSSERS` band, top: the code unit Resolve-RepoPath.
 3. Marker 5, below it: the code unit Get-OutputRoot, with one flow edge up into Resolve-RepoPath and one down into
    ConvertTo-RepoRelativePath.
@@ -32,7 +32,7 @@ markers and a legend panel along the bottom. The eye lands first on the three gr
 
 | Glyph (legend phrase) | Count | Where                                                                                                                                                                        |
 | --------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                | 3     | out/template/…/main.json, pwsh/mod/file.ps1, D:\a\1\ws\sample\main.json (`COMMUNICATION FORM`, stacked inside one frame)                                               |
+| result                | 3     | out/template/…/main.json, pwsh/mod/file.ps1, D:\a\1\ws\sample\main.json (`COMMUNICATION FORM`, stacked inside one frame)                                                     |
 | code unit             | 6     | Resolve-RepoPath, Get-OutputRoot, ConvertTo-RepoRelativePath (`THE TWO CROSSERS`, top to bottom); ArtifactRef.Materialize, ArtifactRef, ResolveAt / ExistsAt (`CROSS-STAGE`) |
 | named set             | 1     | Reads, writes, tool calls (`BINDING FORM`)                                                                                                                                   |
 
@@ -66,13 +66,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-AUTO-PATH): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason for
-every lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-AUTO-PATH" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

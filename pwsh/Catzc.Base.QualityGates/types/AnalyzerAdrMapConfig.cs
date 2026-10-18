@@ -9,7 +9,7 @@ namespace Catzc.Base.QualityGates;
 public sealed class AnalyzerAdrMapConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "analyzer-adr-map configuration validation failed:\n";
-    private static readonly Regex Citation = new Regex(@"^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$");
+    private static readonly Regex Citation = new Regex(@"^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$|^ADR(?:-[A-Z][A-Z0-9]*){3,}$");
 
     // Analyzer rule name -> the ADR rule ids it enforces (string[], '#' form), in declaration order; read-only.
     public OrderedDictionary analyzers { get; }

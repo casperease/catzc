@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5e243a929232"
+    with_body_sha: "3a9cd5eb2191"
     repo_status: locked
     path: docs/explanation/automation/.assets/every-code-root-is-a-copy/chain.md
     source: docs/explanation/automation/.assets/every-code-root-is-a-copy/diagram.drawio.png
@@ -77,10 +77,6 @@ Lit ([ADR-DSGN-TRACK#12][2]) by:
 - [cell][9]
 - [lit cell][10]
 
-Terms the cited ADRs define:
-
-- [bundle][11], defined by [ADR-AUTO-BUNDLE#1][12]
-
 [1]: ../../../../adr/automation/platform-bundle.md
 [2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
@@ -91,5 +87,3 @@ Terms the cited ADRs define:
 [8]: ../../../../adr/glossary.md#value-chain-concern
 [9]: ../../../../adr/glossary.md#cell
 [10]: ../../../../adr/glossary.md#lit-cell
-[11]: ../../../../adr/glossary.md#bundle
-[12]: ../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1
