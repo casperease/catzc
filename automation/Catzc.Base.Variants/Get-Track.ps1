@@ -16,7 +16,7 @@ function Get-Track {
         foreach ($trackName in $Name) {
             $match = @($tracks | Where-Object { $_.name -ceq $trackName })
             if ($match.Count -eq 0) {
-                throw "Unknown track '$trackName' (declared in automation/Catzc.Base.Variants/configs/variants.yml: $(@($tracks | ForEach-Object name) -join ', '))."
+                throw "Unknown track '$trackName' (declared in the variants config, Catzc.Base.Variants configs/variants.yml:$(@($tracks | ForEach-Object name) -join ', '))."
             }
             $match[0]
         }

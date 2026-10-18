@@ -56,23 +56,23 @@ rename is a data edit.
    repository's own values moved to its fragment in step 3; `tracks` is required and has no default, so the shipped file names it in a
    comment and the fragment gives it. Check: the five getters' tests pass; Test-ShippedConfigs clean.
 5. [x] The defaults check (D22: defaults live in both the shipped config assets and the config types, and most of the time they match): for
-   every registered config type with a shipped file, compare each key the file states with the default the type declares for it, and report
-   a key whose two values differ unless the config's entry in `configs.yml` lists it under `differs` with a one-sentence reason (configure,
-   don't program; the reason is the data). The type declares a key's default as its `Default<Key>` constant, the key in Pascal case
-   (`DefaultAdoNaming` for `ado_naming`), the convention the types follow today; a key with no such constant compares nothing, and a typed
-   default (a list or map, such as `DefaultAspects`) compares through its own serialisation or is named as not compared. Built as a case of
-   Test-ShippedConfigs with L0 tests over a widget fixture type, never a second gate. Check: its Pester file passes; Test-ShippedConfigs on
-   the tree lists the real differences, each then given its reason or its value matched, one config per step. Done 2026-10-18:
-   `ConfigDefaultDifference.Compare` (C#, Catzc.Base.Config) compares scalars only; `ConfigsConfig` reads `differs` per entry (a reason
-   required); Test-ShippedConfigs reports an unexplained difference and a reason whose values agree. On the tree it found one difference,
-   variants `have_customers: all` against the type's false, given its reason in configs.yml (this repository enables every customer) until
-   step 3 moves the value to the fragment. Verdicts: `[Invoke-TestFile] Passed` for Get-Config.Tests (two new cases) and
-   Test-ShippedConfigs.Tests (three new cases, `out/test-file/20261018-134213-e92d7e`); `SHIPPED issues=0`, `VALIDATORS issues=0`,
-   `SHIPPEDTYPES issues=0`, the analyzer and the glossary clean.
+       every registered config type with a shipped file, compare each key the file states with the default the type declares for it, and
+       report a key whose two values differ unless the config's entry in `configs.yml` lists it under `differs` with a one-sentence reason
+       (configure, don't program; the reason is the data). The type declares a key's default as its `Default<Key>` constant, the key in
+       Pascal case (`DefaultAdoNaming` for `ado_naming`), the convention the types follow today; a key with no such constant compares
+       nothing, and a typed default (a list or map, such as `DefaultAspects`) compares through its own serialisation or is named as not
+       compared. Built as a case of Test-ShippedConfigs with L0 tests over a widget fixture type, never a second gate. Check: its Pester
+       file passes; Test-ShippedConfigs on the tree lists the real differences, each then given its reason or its value matched, one config
+       per step. Done 2026-10-18: `ConfigDefaultDifference.Compare` (C#, Catzc.Base.Config) compares scalars only; `ConfigsConfig` reads
+       `differs` per entry (a reason required); Test-ShippedConfigs reports an unexplained difference and a reason whose values agree. On
+       the tree it found one difference, variants `have_customers: all` against the type's false, given its reason in configs.yml (this
+       repository enables every customer) until step 3 moves the value to the fragment. Verdicts: `[Invoke-TestFile] Passed` for
+       Get-Config.Tests (two new cases) and Test-ShippedConfigs.Tests (three new cases, `out/test-file/20261018-134213-e92d7e`);
+       `SHIPPED issues=0`, `VALIDATORS issues=0`, `SHIPPEDTYPES issues=0`, the analyzer and the glossary clean.
 6. [x] No generated defaults contract: the shipped config asset is the published default (D22 drops Q4's `defaults` asset kind and
-   Build-ConfigDefaultsContract). Done 2026-10-18: ADR-AUTO-DEFAULT#6 and its "Where defaults come from" section say the default is
-   programmed on the type as its `Default<Key>` constant and shown in the shipped file, the two agreeing unless `differs` gives the reason.
-   Check: `ADRREG issues=0`, `LINKS issues=0` on the ADR.
+       Build-ConfigDefaultsContract). Done 2026-10-18: ADR-AUTO-DEFAULT#6 and its "Where defaults come from" section say the default is
+       programmed on the type as its `Default<Key>` constant and shown in the shipped file, the two agreeing unless `differs` gives the
+       reason. Check: `ADRREG issues=0`, `LINKS issues=0` on the ADR.
 7. `plan-config-defaults.md`: tick Phases 2 and 3 when steps 3 to 6 are in the tree. Check: grep `- [ ]` counts Phases 4 and 5 only.
 
 ## Report

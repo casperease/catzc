@@ -11,9 +11,9 @@ Walks a key path into an already-loaded config node and returns the addressed no
 
 ### description
 
-The traversal seam behind Get-ConfigValue (see ADR-CONF-ADDRESSING). Given a config node — a raw ordered dictionary or a
-typed/validated object returned by Get-Config — and an ordered list of key segments, it walks one segment at a time and returns the node
-reached (a leaf value or a subtree).
+The traversal seam behind Get-ConfigValue (see ADR-CONF-ADDRESSING). Given a config node — a raw ordered dictionary or a typed/validated
+object returned by Get-Config — and an ordered list of key segments, it walks one segment at a time and returns the node reached (a leaf
+value or a subtree).
 
 Each segment resolves as a dictionary key when the current node is an IDictionary, otherwise as a property on the node (so a typed C# config
 object and a raw dictionary traverse the same way,

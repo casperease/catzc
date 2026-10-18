@@ -30,7 +30,7 @@ function Clear-ModuleTypeCache {
             })
         if ($typeDlls.Count -gt 1) {
             $names = ($typeDlls | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object) -join ', '
-            throw "More than one compiled type assembly is committed in automation/.compiled ($names). The committed .compiled must contain exactly one build. On the devbox, run Clear-ModuleTypeCache and commit the single remaining build."
+            throw "More than one compiled type assembly is committed in $compiledDir ($names). The committed .compiled must contain exactly one build. On the devbox, run Clear-ModuleTypeCache and commit the single remaining build."
         }
         if (-not $Silent) {
             Write-Message 'type cache: skipped — running in a pipeline (CI makes no source-control changes).'
@@ -148,6 +148,6 @@ function Clear-ModuleTypeCache {
                 "$name ($($entry.Reason))"
             }
         }
-        throw "Could not remove superseded type assemblies from automation/.compiled: $($details -join '; '). Types load from a per-user shadow copy, so no catzc session holds .compiled; close what does, then re-run Clear-ModuleTypeCache."
+        throw "Could not remove superseded type assemblies from ${compiledDir}:$($details -join '; '). Types load from a per-user shadow copy, so no catzc session holds .compiled; close what does, then re-run Clear-ModuleTypeCache."
     }
 }

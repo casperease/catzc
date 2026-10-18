@@ -56,8 +56,9 @@ environment (devbox | pipeline) and execution engine ([ADR-AUTO-ENGINE#1](execut
 defaults declared on its config type — deliberately tight on a devbox — plus per-executable entries, and no "no limit" value.
 `Invoke-Executable` kills a child process tree at its executable's limit; `Invoke-WithTimeout` / `Assert-CompletesWithin` /
 `Test-CompletesWithin` stop a piece of in-process work at its limit. The bash limits bound every shell call an agent makes, foreground and
-background, and a hook denies a call outside them. Work that legitimately runs longer while it is tuned carries an immutable budget GUID and
-is exempted in `timeout-exemptions.yml`, which raises its limit to a ceiling but never lifts it.
+background, and a hook denies a call outside them. Code that legitimately runs longer while it is tuned carries an immutable budget GUID and
+is exempted in `timeout-exemptions.yml`, which raises its limit to a ceiling but never lifts it; an agent's shell call carries no budget, so
+it takes no exemption.
 
 - [A hang is the slowest failure](#a-hang-is-the-slowest-failure)
 - [Bounding an agent's shell calls](#bounding-an-agents-shell-calls)
@@ -167,8 +168,15 @@ a compound command would leave everything after its first command unbounded. Exi
 
 The hook denies and never rewrites. A hook that rewrites a command must also approve it, and an approval skips the permission prompt, while
 a command wrapped in `bash -c` no longer matches the deny rules written for it. Denial leaves every other safeguard in force. Who asked
-changes only what the denial says: the main session raises the blocker with the user, a subagent reports it to its coordinator, and a
-pipeline fixes the call or its limit. Each denial is also appended to `out/time-safeguard.log`, the list of blockers to tune.
+changes only what the denial says: the main session raises the blocker with the user, and a subagent reports it to its coordinator. Each
+denial is also appended to `out/time-safeguard.log`, the list of blockers to tune.
+
+The hook is a control, so it denies when it cannot decide: an error inside it, such as a payload it cannot read, denies the call and names
+the failure. The one case that lets a call through is a hook not yet built, the bootstrap of a fresh clone before its first import publishes
+the hook; the settings entry says so and names the command that builds it. The hook guards agent sessions on a devbox and is not published
+in a pipeline, where no agent runs. A call that leaves through the bash tool is the only shell call it sees; a person's own interactive run
+(`Invoke-Executable -Direct`) has a person at the prompt as its safeguard and no limit. A call that needs longer goes to the background or
+gets a `timeouts.yml` entry; an exemption never applies to it.
 
 The hook compiles the module's own config and verdict types (`TimeoutsConfig`, `BashSafeguard`), so its limits and decisions are the ones
 `Get-TimeoutSeconds` resolves and the L0 tests check; an integrity test runs the published hook against the shipped config to prove it.
@@ -184,7 +192,8 @@ bounded by a configured time limit.
 - Errors surface immediately at the point of failure with a clear message naming the exact assumption that was violated.
 - A hang becomes a failure at a known limit instead of an indefinite wait; a limit too tight for real work surfaces as a blocker to tune in
   `timeouts.yml`, or an exemption with a reason in `timeout-exemptions.yml`.
-- An agent cannot start a shell call that has no limit, in the foreground or the background; a denied call says how to re-issue it.
+- An agent cannot start a shell call that has no limit, in the foreground or the background, and a hook that fails denies; a denied call
+  says how to re-issue it. Only an unbuilt hook, before the first import, lets a call through.
 - Stack traces are short — typically one or two frames — because the assertion fires before the bad value propagates.
 - Debugging is rarely needed. The error message from the assertion usually contains everything needed to diagnose the problem.
 - Code is self-documenting: reading the assertions tells you the function's preconditions, postconditions, and invariants.

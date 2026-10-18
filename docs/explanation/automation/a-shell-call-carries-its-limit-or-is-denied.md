@@ -42,11 +42,6 @@ The diagram is described element by element in [its asset description](a-shell-c
   a call (ADR-AUTO-FAILFAST#7).
 - The hook denies and never rewrites, so a denial leaves every other safeguard in force (ADR-AUTO-FAILFAST#7).
 
-## Where the code and the ADR differ
-
-The ADR states that an agent cannot start a shell call that has no limit. The hook fails open: when it cannot run at all, because it is not
-built yet or its own program throws, it reports a non-blocking error and the call goes ahead.
-
 ## See also
 
 - [Fail fast with inline assertions](../../adr/automation/fail-fast-with-asserts.md) — the decision this article explains.

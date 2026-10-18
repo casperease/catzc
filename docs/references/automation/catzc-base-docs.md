@@ -105,7 +105,8 @@ stale one is rewritten through the shared `Write-FileIfChanged` primitive. The m
 bad entry fails fast rather than producing a broken README.
 
 The ADR index and the glossary follow the same pattern: an authored source (`adrs.yml` and the index's own text in `adr-index.yml`, the
-glossary sources) and a generated page reproduced from it, which `Test-GeneratedFiles` ([Catzc.Base.QualityGates](catzc-base-qualitygates.md)) checks for drift.
+glossary sources) and a generated page reproduced from it, which `Test-GeneratedFiles`
+([Catzc.Base.QualityGates](catzc-base-qualitygates.md)) checks for drift.
 
 ## Division
 

@@ -61,6 +61,12 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
   - Q7: ADR-AUTO-PATH says a path-bearing type holds both forms or derives the absolute on demand, `ExistsAt` answers whether the file
     exists, `Resolve-RepoPath` normalizes an absolute input, `ConvertTo-RepoRelativePath` tries the output root first, and `ArtifactRef` is
     the published-artifact type with no production caller yet. Five path articles lost those claims.
+  - Q5: the hook denies with its reason on its own error (`Program.cs`; `Build-BashTimeoutHook.Tests` passed with the deny asserted, and the
+    live hook republished). ADR-AUTO-FAILFAST names the unbuilt-hook bootstrap as the one pass-through, scopes the hook to agent sessions on
+    a devbox, accepts `Invoke-Executable -Direct`, and says an agent's call carries no budget and so takes no exemption. Nine safeguard
+    articles lost those claims. Refined against the decision: `TimeoutExemptionsConfig` keeps its shell axis, since it is the engine list
+    (`ExecutionEngines.Names`) for budgeted code, one mechanism per kind; cutting `bash` from it would special-case one engine, and no agent
+    call can match an exemption anyway.
 
 ## Decided (2026-10-18, the user took every recommendation)
 
@@ -109,12 +115,6 @@ When a step lands, remove its claim from every article that states it (search `d
       `which-run-mode-rules-have-a-gate` (four build kinds, marker 8). Each needs those elements removed or relabelled, with its article,
       `.drawio.md` and minimaps following; cell removal is diagram work for the user to ask for, not `write-drawio-files` (check: the
       articles' text blocks match their slides, and Test-Links passes).
-- [ ] Q5 `.claude/hooks/Assert-BashTimeout/Program.cs`: a hook error denies the call with its reason instead of exiting non-blocking (check:
-      the hook's L2 test asserts the deny).
-- [ ] Q5 `docs/adr/automation/fail-fast-with-asserts.md`: name the unbuilt-hook bootstrap case, accept `-Direct`, scope the hook to agent
-      sessions, and drop the bash exemption route (check: Test-AdrRegistry and Test-Links pass).
-- [ ] Q5 `automation/Catzc.Base.Timeouts/types/TimeoutExemptionsConfig.cs` and `configs/timeout-exemptions.yml`: remove the bash ceiling and
-      the `shell: bash` scope (check: the Timeouts L0 tests pass).
 
 ## Refs
 

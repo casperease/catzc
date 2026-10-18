@@ -22,7 +22,7 @@ function Get-ReadmeMappings {
             $prefix = $Matches['prefix']
         }
         else {
-            throw "Unsupported README glob '$($pattern.glob)'. Only a trailing '/*' is supported (e.g. 'automation/*')."
+            throw "Unsupported README glob '$($pattern.glob)'. Only a trailing '/*' is supported (e.g. '<folder>/*')."
         }
 
         $prefixPath = Join-Path $RepositoryRoot $prefix

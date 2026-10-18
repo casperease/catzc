@@ -56,9 +56,7 @@ The diagram is described element by element in [its asset description](pass-the-
 
 ## Where the code and the ADR differ
 
-- The ADR states that an agent cannot start a shell call that has no limit. An unbuilt hook and a hook error each report a non-blocking
-  error and let the call go.
-- The denial has a pipeline wording, but the importer never publishes the hook in a pipeline, so no pipeline call ever sees it.
+The denial has a pipeline wording, but the importer never publishes the hook in a pipeline, so no pipeline call ever sees it.
 
 ## See also
 

@@ -119,7 +119,7 @@ function Get-ModuleGlobSet {
             $moduleAspects[$lookupName]
         }
         else {
-            throw "No derived globset for '$lookupName' — expected a module folder under automation/ (bare name -> its aspects, or '<module>-live'/'<module>-tests'), an internal module (automation/.internal/<Name>.psm1), the kebab name of either, or one of: $([Catzc.Base.Globs.GlobsConfig]::ReservedNames -join ', ')."
+            throw "No derived globset for '$lookupName' — expected a module folder under the modules folder (bare name -> its aspects, or '<module>-live'/'<module>-tests'), an internal module (.internal/<Name>.psm1 there), the kebab name of either, or one of: $([Catzc.Base.Globs.GlobsConfig]::ReservedNames -join ', ')."
         }
     }
 }

@@ -60,8 +60,7 @@ The diagram is described element by element in [its asset description](resolve-o
 ## Where the code and the ADR differ
 
 The ADR presents a per-executable entry as the remedy for a call that needs longer, but an entry replaces the limit in every environment and
-may lower it. The ADR lets an exemption raise an agent's bash limit, and the exemptions file accepts a bash ceiling and a `shell: bash`
-scope, but the hook never reads them. The ADR bounds every external call, yet `Invoke-Executable -Direct` has no limit.
+may lower it.
 
 ## See also
 

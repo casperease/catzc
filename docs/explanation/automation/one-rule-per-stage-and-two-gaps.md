@@ -55,12 +55,6 @@ The diagram is described element by element in [its asset description](one-rule-
 - A configurable setting resolves in one order, the explicit value, else the configuration, else the sensible default, and the default is
   declared exactly once, on the config type (ADR-AUTO-DEFAULT#6).
 
-## Where the code and the ADR differ
-
-The ADR lets an exemption raise an agent's bash limit, and the exemptions file accepts a bash ceiling and a `shell: bash` scope, but the
-hook reads `TimeoutsConfig` only. The ADR bounds every external call, yet `Invoke-Executable -Direct` runs with no limit, and no gate checks
-it.
-
 ## See also
 
 - [Fail fast with inline assertions](../../adr/automation/fail-fast-with-asserts.md) and

@@ -11,8 +11,6 @@ function New-Importer {
 
     Assert-SourceTree
 
-    # The modules folder, relative to the root, as the importer's one constant set it (read back through the resolver), so this
-    # generator names no folder of its own and the shim it writes spells the folder from the same place.
     $modulesFolder = [System.IO.Path]::GetRelativePath((Get-RepositoryRoot), (Get-CatzcModulesRoot)) -replace '\\', '/'
     $overlayPath = Join-Path $RepositoryRoot "$modulesFolder/.internal/Catzc.Internal.Importer.psm1"
     if (-not (Test-Path -LiteralPath $overlayPath -PathType Leaf)) {

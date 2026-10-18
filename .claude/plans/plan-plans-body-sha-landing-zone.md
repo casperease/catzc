@@ -37,5 +37,4 @@ that stamps no head leaves its output unprovable.
 
 ## Refs
 
-- prompt-adr-links-and-plans-continue.md (beside this file)
 - docs/adr/repository/plans.md, docs/adr/repository/file-meta.md, docs/adr/design/tracks.md

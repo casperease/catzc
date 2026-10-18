@@ -25,7 +25,7 @@ function Get-FileLanguage {
         foreach ($languageName in $Name) {
             $match = @($config.languages | Where-Object { $_.name -ceq $languageName })
             if ($match.Count -eq 0) {
-                throw "Unknown file language '$languageName' (declared in automation/Catzc.Base.Languages/configs/languages.yml: $(@($config.languages | ForEach-Object name) -join ', '))."
+                throw "Unknown file language '$languageName' (declared in the languages config, Catzc.Base.Languages configs/languages.yml:$(@($config.languages | ForEach-Object name) -join ', '))."
             }
             $match[0]
         }

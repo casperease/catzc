@@ -66,8 +66,8 @@ The diagram is described element by element in [its asset description](which-run
   asserting the derived mode. The switch test uses two fixture roots instead, and checks eviction and a fresh script scope, but not the
   derived mode.
 - The ADR's load banner, `Write-CatzcLoadBanner`, does not exist, so no gate checks it.
-- `Measure-NoScriptRootAnchor` cites ADR-PWSH-PWD#4 and the internal-asset-dependencies rule (ADR-AUTO-ASSETDEP#1), not a run-mode rule;
-  the rules agree.
+- `Measure-NoScriptRootAnchor` cites ADR-PWSH-PWD#4 and the internal-asset-dependencies rule (ADR-AUTO-ASSETDEP#1), not a run-mode rule; the
+  rules agree.
 
 ## See also
 

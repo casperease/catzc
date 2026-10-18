@@ -8,8 +8,8 @@ One rule bounds every agent call, three tests prove the hook at three tiers, and
 3  Assert-BashTimeout         the hook that denies a call outside them (ADR-AUTO-FAILFAST#7)
 4  BashSafeguard (L0 logic)   the verdict against fixture limits: every rule, actor and wording
 5  parity (L1 integrity)      the published hook against the shipped config, against Get-TimeoutSeconds
-6  published hook (L2 logic)  the published program end to end: allow, deny, log, and the error exit
-7  timeout-exemptions.yml     a budget exemption raises a limit, but no code applies it to a Bash call
+6  published hook (L2 logic)  the published program end to end: allow, deny, log, and deny on its own error
+7  timeout-exemptions.yml     a budget exemption raises a limit; a Bash call carries no budget and takes none
 
 Supports ADR-AUTO-FAILFAST#7 and ADR-AUTO-DEFAULT#6 (governance lens).
 ```
@@ -40,10 +40,10 @@ The diagram is described element by element in [its asset description](three-tes
    one second more.
 6. **Published hook (L2 logic).** A test publishes the program against a fixture repository and drives it end to end: an allowed foreground
    and background call, a denied background call that is also logged, a denied foreground call naming the limit, and a payload the hook
-   cannot read, which exits 1 as a non-blocking error.
+   cannot read, which the hook denies, naming the failure.
 7. **timeout-exemptions.yml.** The rule offers one route for work that must run longer while it is tuned: an immutable budget GUID, exempted
-   in `timeout-exemptions.yml`, raises its limit to a ceiling. The pwsh side applies that in `Get-TimeoutSeconds`. The hook reads no
-   exemption and a Bash call carries no budget, so for an agent's shell call this route stands in the rule alone.
+   in `timeout-exemptions.yml`, raises its limit to a ceiling. The pwsh side applies that in `Get-TimeoutSeconds`. A Bash call carries no
+   budget, so the rule gives an agent's shell call no exemption; it goes to the background or gets a `timeouts.yml` entry.
 
 ## Why it holds
 
@@ -54,12 +54,8 @@ The diagram is described element by element in [its asset description](three-tes
 
 ## Where the code and the ADR differ
 
-- The ADR offers an exemption in `timeout-exemptions.yml` as the way to run longer while a limit is tuned. The hook never reads that file,
-  so an exemption, even one scoped to the bash shell, changes no verdict on an agent's Bash call.
-- The ADR says the run environment comes from `Get-RunEnvironment`. The hook decides it with `BashSafeguard.EnvironmentOf`; an L0 test keeps
-  the two in agreement.
-- The ADR states that an agent cannot start a shell call that has no limit. A hook error exits 1 as a non-blocking error and the call goes
-  ahead, and the L2 test asserts exactly that exit.
+The ADR says the run environment comes from `Get-RunEnvironment`. The hook decides it with `BashSafeguard.EnvironmentOf`; an L0 test keeps
+the two in agreement.
 
 ## See also
 

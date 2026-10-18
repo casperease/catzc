@@ -47,3 +47,13 @@ Above `public object have_customers { get; }`, written with `//`.
 The enabled-customer set as written: a bool, the string 'all', or a string[] of customer names. Null when
 unset. Get-EnabledCustomers is its single interpreter.
 ```
+
+## comment:3
+
+Above `public const string DefaultAdoNaming = "standard";`, written with `//`.
+
+```text
+The defaults, declared once here and nowhere else
+([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): a getter reads the typed property and never
+restates them.
+```

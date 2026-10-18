@@ -72,5 +72,5 @@ verification found.
 
 ## Refs
 
-- plan-module-kinds-tracks (owns the model and the carried drafts), prompt-module-model-2-implement
+- plan-module-kinds-tracks (owns the model and the carried drafts)
 - docs/adr/automation/module-model.md (ADR-AUTO-MODULE), docs/adr/design/tracks.md (rule 18)

@@ -58,11 +58,6 @@ The diagram is described element by element in [its asset description](decide-re
 - The hook denies and never rewrites, and each denial is appended to `out/time-safeguard.log`, the list of blockers to tune
   (ADR-AUTO-FAILFAST#7).
 
-## Where the code and the ADR differ
-
-The ADR states that an agent cannot start a shell call that has no limit. A hook error, a payload that is not JSON for instance, exits 1 as
-a non-blocking error and the call goes ahead; so does an unbuilt hook.
-
 ## See also
 
 - [Fail fast with inline assertions](../../adr/automation/fail-fast-with-asserts.md) — the decision this article explains.

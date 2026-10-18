@@ -55,12 +55,6 @@ The diagram is described element by element in [its asset description](a-stopped
 - The limit a wrapper applies is the caller's explicit value, else the config, else the declared default, so a person tunes one entry in one
   file and never a number in code (ADR-AUTO-DEFAULT#6).
 
-## Where the code and the ADR differ
-
-The ADR bounds every external call, yet `Invoke-Executable -Direct`, the interactive mode, runs with no limit: a person at the prompt is its
-safeguard. The ADR also lets an exemption raise an agent's bash limit, but the hook never reads `timeout-exemptions.yml`, so a denied call
-is tuned in `timeouts.yml` or moved to the background, never exempted.
-
 ## See also
 
 - [Fail fast with inline assertions](../../adr/automation/fail-fast-with-asserts.md) and

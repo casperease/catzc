@@ -35,13 +35,19 @@ track_root_literal:
   exempt:
     automation/.internal/Catzc.Internal.Importer.psm1: the one bootstrap constant, read before any registry loads (ADR-AUTO-LAYERS)
     automation/Catzc.Base.Repository/Get-CatzcModulesRoot.ps1: the resolver, whose fallback outside an import is the same constant
-    automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1: it compares the loaded modules against the source modules folder, which is that constant
-    automation/Catzc.Base.Exporter/Build-Modules.ps1: its out/ area automation/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
-    automation/Catzc.Base.Exporter/Export-Catzc.ps1: its out/ area automation/packages is named after the track (Q6), renamed with the output-formats.yml areas in P4
-    automation/Catzc.Base.Exporter/Install-Catzc.ps1: its out/ area automation/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
+    automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1:
+      it compares the loaded modules against the source modules folder, which is that constant
+    automation/Catzc.Base.Exporter/Build-Modules.ps1:
+      its out/ area automation/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
+    automation/Catzc.Base.Exporter/Export-Catzc.ps1:
+      its out/ area automation/packages is named after the track (Q6), renamed with the output-formats.yml areas in P4
+    automation/Catzc.Base.Exporter/Install-Catzc.ps1:
+      its out/ area automation/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
     automation/Catzc.Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1: it proves the resolver's fallback is the bootstrap constant
-    automation/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1: it proves the run mode compares against the source modules folder, the same constant
+    automation/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1:
+      it proves the run mode compares against the source modules folder, the same constant
     automation/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1: it asserts the out/automation/built area of its exempt code (Q6)
     automation/Catzc.Base.Exporter/tests/Export-Catzc.Tests.ps1: it asserts the out/automation/packages area of its exempt code (Q6)
     automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1: it asserts the out/automation/built area of its exempt code (Q6)
-    automation/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1: it names the real globset key automation, renamed with the pipeline names in P6 (S6)
+    automation/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1:
+      it names the real globset key automation, renamed with the pipeline names in P6 (S6)

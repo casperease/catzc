@@ -99,3 +99,12 @@ Above ``$content = $explanation + "`n" + $paramBlock + "`n`n" + $body + "`n"``, 
 LF throughout, one trailing newline. The explanation/param/body join and the EOF newline match the committed
 importer.ps1 below its generated-file head byte-for-byte (the drift test compares EOL-insensitively).
 ```
+
+## comment:6
+
+Above `$modulesFolder = [System.IO.Path]::GetRelativePath((Get-RepositoryRoot),...`, written with `#`.
+
+```text
+The modules folder, relative to the root, as the importer's one constant set it (read back through the resolver), so this
+generator names no folder of its own and the shim it writes spells the folder from the same place.
+```
