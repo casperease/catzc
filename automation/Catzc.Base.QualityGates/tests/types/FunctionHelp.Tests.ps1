@@ -13,7 +13,7 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
     It 'renders the help in the fixed shape, each subsection once and in order, its text as written' -Tag 'ADR-REPO-HELP#2' {
         $script:section | Should -BeExactly (
             "## help`n`n### synopsis`n`nGets a widget.`n`n### description`n`nReads the widget registry.`n`n- one`n- two`n`n" +
-            "### parameter Name`n`nThe widget name.`n`n### parameter Force`n`nSkips the gadget check.`n`n### outputs`n`n``[Widget]`` the widget.`n`n" +
+            "### parameter ``Name```n`nThe widget name.`n`n### parameter ``Force```n`nSkips the gadget check.`n`n### outputs`n`n``[Widget]`` the widget.`n`n" +
             "### example 1`n`n``````powershell`nGet-Widget -Name cog`n```````n`n### example 2`n`n``````powershell`n`$w = Get-Widget -Name cog`n`$w.Size`n```````n")
     }
 
@@ -45,6 +45,12 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         @($help.findings | Where-Object { $_ -like '*out of order*' }).Count | Should -Be 1
         $help.findings | Should -Contain 'the help section has a subsection the shape does not name: ''### remarks'''
         $help.findings | Should -Contain 'the help section has no synopsis'
+    }
+
+    It 'reads a parameter name written as code, and reports one written bare' -Tag 'ADR-REPO-HELP#1' {
+        $help = [Catzc.Base.QualityGates.FunctionHelp]::Parse("## help`n`n### synopsis`n`nGets.`n`n### parameter ``Slot```n`nThe slot.`n`n### parameter Gadget`n`nThe gadget.`n")
+        @($help.parameters | ForEach-Object Key) | Should -Be @('Slot', 'Gadget')
+        $help.findings | Should -Be @('the parameter heading ''### parameter Gadget'' writes its name as code: ''### parameter `Gadget`''')
     }
 
     It 'stops the section at the page''s next section, so a comment section is no help' {

@@ -2,7 +2,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
         # The one fixture kind below is a code file, so its class is what the kind's settings name.
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
-                kinds = [ordered]@{ 'widget-type' = [ordered]@{ definition = 'A widget type.'; files = @('automation/**/types/*.cs') } }
+                kinds = [ordered]@{ 'widget-type' = [ordered]@{ definition = 'A widget type.'; files = @('widgets/**/types/*.cs') } }
             })
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
 
@@ -99,7 +99,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
                 $state = Get-CodeMetaState -Text $Text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/'))
                 $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:codeKind } {
                     param($State, $Kind)
-                    Get-AdrCodesFileMetaFact -State $State -Path 'automation/Catzc.Widget/types/Widget.cs' -Kind $Kind
+                    Get-AdrCodesFileMetaFact -State $State -Path 'widgets/Catzc.Widget/types/Widget.cs' -Kind $Kind
                 }
                 , @($fact['cites'])
             }
@@ -145,7 +145,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
                 $state = Get-CodeMetaState -Text $Text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/'))
                 $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:codeKind } {
                     param($State, $Kind)
-                    Get-AdrCodesFileMetaFact -State $State -Path 'automation/Catzc.Widget/types/Widget.cs' -Kind $Kind
+                    Get-AdrCodesFileMetaFact -State $State -Path 'widgets/Catzc.Widget/types/Widget.cs' -Kind $Kind
                 }
                 , @($fact['cites'])
             }
@@ -176,7 +176,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $state = Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/'))
         $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $kind } {
             param($State, $Kind)
-            Get-AdrCodesFileMetaFact -State $State -Path 'automation/Catzc.Widget/types/Widget.cs' -Kind $Kind
+            Get-AdrCodesFileMetaFact -State $State -Path 'widgets/Catzc.Widget/types/Widget.cs' -Kind $Kind
         }
         $fact['cites'] | Should -Be @('ADR-GADGET#4', 'ADR-WIDGET')
     }

@@ -15,7 +15,7 @@ Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP#4' {
     }
 
     It 'finds nothing in help that matches the function' {
-        $body = "### synopsis`n`nGets a widget.`n`n### parameter Name`n`nThe name.`n`n### parameter Force`n`nSkips.`n`n### outputs`n`n[string] the name.`n"
+        $body = "### synopsis`n`nGets a widget.`n`n### parameter ``Name```n`nThe name.`n`n### parameter ``Force```n`nSkips.`n`n### outputs`n`n[string] the name.`n"
         @(& $script:find $script:code (& $script:page $body)).Count | Should -Be 0
     }
 
@@ -25,29 +25,29 @@ Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP#4' {
     }
 
     It 'reports a parameter with no subsection, one the function does not declare, and the order of the param block' {
-        $body = "### synopsis`n`nGets.`n`n### parameter Force`n`nSkips.`n`n### parameter Name`n`nThe name.`n`n### parameter Size`n`nGone.`n"
+        $body = "### synopsis`n`nGets.`n`n### parameter ``Force```n`nSkips.`n`n### parameter ``Name```n`nThe name.`n`n### parameter ``Size```n`nGone.`n"
         $found = & $script:find $script:code (& $script:page $body)
         $found | Should -Contain 'the parameter Size is documented but the function declares no such parameter'
         @($found | Where-Object { $_ -like '*not in the order of the param block*' }).Count | Should -Be 1
-        $found = & $script:find $script:code (& $script:page "### synopsis`n`nGets.`n`n### parameter Name`n`nThe name.`n")
+        $found = & $script:find $script:code (& $script:page "### synopsis`n`nGets.`n`n### parameter ``Name```n`nThe name.`n")
         $found | Should -Contain 'the parameter Force is declared but has no ### parameter subsection'
     }
 
     It 'reports an outputs type that differs from [OutputType]' {
-        $body = "### synopsis`n`nGets.`n`n### parameter Name`n`nN.`n`n### parameter Force`n`nF.`n`n### outputs`n`n[int] a count.`n"
+        $body = "### synopsis`n`nGets.`n`n### parameter ``Name```n`nN.`n`n### parameter ``Force```n`nF.`n`n### outputs`n`n[int] a count.`n"
         & $script:find $script:code (& $script:page $body) | Should -Be @('outputs documents [int] but [OutputType] declares [string]')
     }
 
     It 'reports a comment-based help block and a help line made of a citation alone' {
         $legacy = "<#`n.SYNOPSIS`n    Gets.`n#>`n" + $script:code
-        $body = "### synopsis`n`nGets.`n`n### description`n`n[ADR-WIDGET#1](/docs/adr/widget.md)`n`n### parameter Name`n`nN.`n`n### parameter Force`n`nF.`n"
+        $body = "### synopsis`n`nGets.`n`n### description`n`n[ADR-WIDGET#1](/docs/adr/widget.md)`n`n### parameter ``Name```n`nN.`n`n### parameter ``Force```n`nF.`n"
         $found = & $script:find $legacy (& $script:page $body)
         $found | Should -Contain 'comment-based help is not used: write the help in the ## help section of the comment page'
         $found | Should -Contain 'a help line is made of nothing but a citation or a page link, which the tooling derives'
     }
 
     It 'passes the section''s shape faults through' {
-        & $script:find $script:code (& $script:page "### description`n`nGets.`n`n### parameter Name`n`nN.`n`n### parameter Force`n`nF.`n") |
+        & $script:find $script:code (& $script:page "### description`n`nGets.`n`n### parameter ``Name```n`nN.`n`n### parameter ``Force```n`nF.`n") |
             Should -Be @('the help section has no synopsis')
     }
 

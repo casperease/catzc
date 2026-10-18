@@ -13,10 +13,11 @@ function Get-ChangeTestFile {
     )
 
     $tests = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
+    $modulePattern = '^(?<module>' + [regex]::Escape((Get-CatzcModulesFolder)) + '/[^/.][^/]*)/'
     if ($Module) {
         $modules = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
         foreach ($changed in $Path) {
-            if ($changed -match '^(?<module>automation/[^/.][^/]*)/') {
+            if ($changed -match $modulePattern) {
                 [void]$modules.Add($Matches['module'])
             }
         }
@@ -36,10 +37,10 @@ function Get-ChangeTestFile {
         $candidate = if ($changed -match '\.Tests\.ps1$') {
             $changed
         }
-        elseif ($changed -match '^(?<module>automation/[^/.][^/]*)/(private/)?(?<name>[^/]+)\.ps1$') {
+        elseif ($changed -match ($modulePattern + '(private/)?(?<name>[^/]+)\.ps1$')) {
             "$($Matches['module'])/tests/$($Matches['name']).Tests.ps1"
         }
-        elseif ($changed -match '^(?<module>automation/[^/.][^/]*)/types/(?<type>[^/]+)\.cs$') {
+        elseif ($changed -match ($modulePattern + 'types/(?<type>[^/]+)\.cs$')) {
             "$($Matches['module'])/tests/types/$($Matches['type']).Tests.ps1"
         }
         else {

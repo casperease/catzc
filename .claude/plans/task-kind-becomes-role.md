@@ -3,9 +3,7 @@ task:
   status: open
   plans: [plan-module-kinds-tracks]
   value: high
-  blocked_on:
-    steps 2 to 6 wait for session catzc-e5, which holds the file-meta engine, file-meta.yml, the head contract and the file-meta ADR, and
-    step 5's tree-wide head pass needs a quiet window the user names
+  blocked_on: step 9, the namespace question, waits for the next decision round
   targets:
     [
       automation/Catzc.Base.Globs/configs/file-kinds.yml,
@@ -31,19 +29,31 @@ through the generators, never by sweep: change the source once, regenerate, veri
        `plan-module-kinds-tracks.md` under a "Rename map" heading. Check: the map exists with counts. Done 2026-10-18 under the plan's
        rename step instead of a new heading, since the plan shape fixes the sections (ADR-REPO-PLANS#3): eight file-kind consumers named
        with counts; the grep's other hits are head lines and unrelated kinds.
-2. `automation/Catzc.Base.Variants/types` or wherever `FileKind` lives: the type gains `Role`; `Kind` is reserved for the object kind
-   resolved from the track (module, pipeline, settings, vendor, docs). Tests updated. Fresh pwsh. Check: the type's Pester file passes.
-3. `file-meta.yml`: kind `file-kind` becomes `file-role` with `keys: [role, subkind]`; a new kind `object-kind` with `keys: [kind]` reads
-   the track's kind. Processor added and counted (18 kinds, 19 processors). Check: `Test-FileMetaProcessors` and the two processor tests
-   pass.
-4. `contracts/catzc/0.0.0` `head.schema.json` and `head.sample.yml`: `role` added, `kind` redefined (hand-written, Q39). Check:
-   `Format-FileMeta.Contract.Tests` passes.
-5. `Format-FileMeta` over the tree in the background (360 s cap): every head gains `role` and its `kind` changes meaning. Read the diff
-   stat. Check: Test-FileMeta clean; Test-GeneratedFiles clean.
-6. Docs: `docs/adr/repository/file-meta.md` rules that name the kind key (11 and 12 among them) say role; `docs/adr/design/tracks.md` gains
-   rule 19: a track has one primary language by default, declared in the tracks registry, and a module in it may override (Q35);
-   ADR-AUTO-MODULE text may now say kind (D02 lifts the hold). Glossary: `role` defined by the file-meta rule, `kind` by the tracks rule;
-   the file-kinds entries' `kind` and `subkind` concepts re-pointed. Check: Test-AdrRegistry, Test-Links, Test-Glossary clean.
+2. [x] The Globs types: `FileKindMatch` and `FileKindEntry` say `role` (the entry's name), `Class` is role or role/subkind. Done 2026-10-18
+       on the user's go (D24), the peers told first. Correction from the tree: no `Kind` property joins them, since the head already carries
+       the object's kind as `tracktype` and `moduletype`, so a second key for it would say one fact twice (ADR-PRIN-ONELIVE); the registry
+       keeps its name `file-kinds.yml` and `subkind`, as this task's checks do. Readers moved: `FileKindsConfig`, `Get-ReadmeContent`,
+       `Format-GeneratedFileHead`, `GeneratedHeadConfig` and `generated-head.yml` (the required key is `role`).
+3. [x] `file-meta.yml`: `file-kind` became `file-role`, `keys: [role, subkind]`, its processor renamed `Get-FileRoleFileMetaFact` with its
+       test and comment page; no `object-kind` (step 2's correction). Verdicts: `[Invoke-TestFile] Passed` for FileKindsConfig.Tests,
+       Get-FileKind.Tests, GeneratedHeadConfig.Tests, Format-GeneratedFileHead.Tests, Get-FileRoleFileMetaFact.Tests, Format-FileMeta.Tests,
+       Test-FileMetaProcessors.Tests, Get-RepoStatusFileMetaFact.Tests, Get-FileMetaFact.Tests and Build-Readme.Tests
+       (`out/test-file/20261018-131232` to `-131434`); Test-FileMetaProcessors clean.
+4. [x] `head.schema.json` and `head.sample.yml`: `role` replaces `kind` and is required with `path`; the comment says the object's kind is
+       `tracktype`. Check: `CONTRACTS issues=0` (`out/test-contracts/20261018-132345`).
+5. [x] The heads: the generators rewrote theirs (Build-RootConfig, Build-Glossary, Build-AdrIndex, Build-ContractReference,
+       Build-TerminologyDictionary with -PassThru, since its input stamp does not cover the head shape, and the minimap stamp, 447 pages);
+       Format-FileMeta held the 37 authored required heads (15 agents, 21 thesis slides, docs/index.md) and the 18 capability heads for a
+       decision by hand, as it refuses a key no meta kind owns, so each was edited from `kind:` to `role:` one file at a time. Check:
+       `FILEMETA issues=0` and `GENERATED issues=0` (`out/test-file-meta/20261018-132829`, `out/test-generated-files/20261018-132509`); the
+       one leftover, `importer-commands.sh` read as authored, was a C5 gap fixed by its `linguist-generated` line in the gitattributes
+       template.
+6. [x] Docs: file-meta rule 11 bolds **role** (a head writes it as `role`), its File kinds section, and the key in code-file-meta,
+       generated-readmes, generated-root-configs and uniform-formatting; the glossary term `kind` became `role` (key `file_role`, defined by
+       ADR-REPO-FILEMETA#11) with its six contrasts. `kind` is left free for the object meaning: no rule defines it yet, so it gets no term
+       until ADR-AUTO-MODULE or the tracks ADR bolds it. The tracks rule on one primary language is in the tree as ADR-DSGN-TRACK#18. Check:
+       `ADRREG issues=0`, `LINKS issues=0` on the six pages; Test-Glossary's 29 findings are the comment pages' `### parameter` headings,
+       none from this rename (told to session catzc-e5).
 7. [x] `Test-Links` on `automation/Catzc.Base.Docs/types/WorldMapBuilder.cs` (or its current path). Check: zero findings. 2026-10-18: it
        lives in `Catzc.Base.Maps/types`; `LINKS issues=0` (`out/test-links/20261018-122129`).
 8. [x] `Test-ShippedTypes` in a fresh process: `TrackTypeEntry` and `VendorEntry` resolve after import, or the reason is fixed in the type

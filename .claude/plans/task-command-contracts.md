@@ -90,11 +90,22 @@ contracts plan).
    -Prettier in Node; -Poetry, -PySpark and -Python in Python), each `Version` defaulting to its tools.yml lock, a computed default the
    contract leaves out. Verdicts: `CONTRACTS issues=0`, 27 contracted commands, the lookup regenerated to 64 rows,
    `[Invoke-TestFile] Passed` for Get-ContractCheckResults.Assets.Tests (`out/test-file/20261018-125926-c4bfcd`) and
-   New-CatsCommandLookup.Tests, `GENERATED issues=0`. Open, a question for the user: what "becomes internal" does in code.
-   ADR-REPO-CMDCONTRACT#1 makes an uncontracted function internal "exported or not", and the module system's cross-module calls need the
-   export, so dropping a function from the `.psd1` export list breaks every caller in another module; the step names that list, so the
-   reading the user meant decides it (no code change, the contract alone deciding public; or a narrowed export list per module with each
-   caller moved first).
+   New-CatsCommandLookup.Tests, `GENERATED issues=0`. F6 under D21 (2026-10-18, the user: internal means internal to its module, as
+   C#'s `internal` scopes to an assembly; a Catzc.Internal module is another thing): ADR-REPO-CMDCONTRACT#1 reworded to say so, a
+   function other modules call stays exported with no promise. The inventory (`out/inventory-f6.sh`, one grep pass, `out/f6-inventory.tsv`)
+   read the 457 public functions: 27 contracted, 244 named by code outside their module, 139 named only in docs, 47 named nowhere outside
+   it. Of the 47, the console commands are public and were contracted, the counterpart family of the installers: 20 `Uninstall-<Tool>`
+   and 5 `Remove-<Tool>` in Node, Provisioning, Python and Toolchain (52 contracted commands, `CONTRACTS issues=0`, the lookup and the
+   reference regenerated, both contract test files passed). Two helpers only their own module calls moved to `private/` with their
+   comment pages, their article rows and a test through `InModuleScope`: Get-WorldMapOutputRoot (Maps) and Get-ManagedGuids
+   (QualityGates); each is unexported, its tests and the module's callers' tests pass, Test-Links, Test-Comments, Test-GeneratedFiles,
+   Test-FileMeta and Test-ManagedGuids clean. Left exported, by the pair convention or as a module's own responsibility:
+   Test-VendorModuleAvailable, Get-PermanentEnvironmentVariable, the Asserts and Files Test/Assert pairs, Assert-GitHubPurgeReady,
+   New-SyntheticHistory, Set-CurrentAzSubscription and Save-PSReadLineKeyHandlerSet. Open, a question for the user: twelve exported
+   functions nothing calls at all (Assert-IsGuidInRange, Assert-Null, Assert-PipelineEmpty, Get-LastExitCode, Wait-Mutex,
+   Assert-FileIsLocked, Get-FunctionDependencyTree, ConvertTo-Dictionary, Test-IsTimeoutExempt, Write-CallStack,
+   Write-CmdletParameterSet, Remove-TokenFromHistory): delete them as dead code, or keep them as the library's vocabulary; and whether the
+   139 functions only docs name are console commands to contract.
 8. Tick P7 in `plan-layers-vocabulary-rename-contracts.md`; when every phase is ticked the plan is trimmed of its carried drafts and deleted
    in task-closing-sweep. Check: grep `- [ ]` counts zero.
 

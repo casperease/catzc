@@ -33,12 +33,12 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
 
     BeforeEach {
         Mock Get-GitTrackedPath {
-            'automation/Widget/get.wdg', 'automation/Widget/tests/get.wdg', 'automation/Widget/assets/vendor.wdg', 'docs/read.gdg', 'docs/own.gdg',
+            'widgets/Widget/get.wdg', 'widgets/Widget/tests/get.wdg', 'widgets/Widget/assets/vendor.wdg', 'docs/read.gdg', 'docs/own.gdg',
             'docs/value.stp', 'docs/spin.cog', 'docs/plain.txt', 'docs/other.wdg', 'docs/table.dat', 'docs/image.pic'
         } -ModuleName Catzc.Base.QualityGates
         Mock Get-GitAttributeValue {
             @{
-                'automation/Widget/assets/vendor.wdg' = @{ 'linguist-vendored' = 'set' }
+                'widgets/Widget/assets/vendor.wdg' = @{ 'linguist-vendored' = 'set' }
                 'docs/own.gdg'                        = @{ 'catzc-meta' = 'unset' }
             }
         } -ModuleName Catzc.Base.QualityGates
@@ -46,7 +46,7 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
 
     It 'keeps the tracked files with a carrier that no exclude, exemption or opt-out takes out' {
         $found = & $script:scope
-        $found.Path | Should -Be @('automation/Widget/get.wdg', 'docs/read.gdg', 'docs/other.wdg', 'docs/table.dat', 'docs/image.pic')
+        $found.Path | Should -Be @('widgets/Widget/get.wdg', 'docs/read.gdg', 'docs/other.wdg', 'docs/table.dat', 'docs/image.pic')
     }
 
     It 'hands each file its carrier entry, a property or a sidecar carrier included' {

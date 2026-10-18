@@ -8,7 +8,7 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
         }
         $script:repo = Join-Path $TestDrive 'repo'
         foreach ($module in 'Catzc.Widget', 'Catzc.Gadget.Parts', '.internal') {
-            [void][System.IO.Directory]::CreateDirectory((Join-Path $script:repo "automation/$module"))
+            [void][System.IO.Directory]::CreateDirectory((Join-Path $script:repo "widget-modules/$module"))
         }
         New-FixtureFile $script:repo 'go/tests/catzc-widget/widget_test.go'
         New-FixtureFile $script:repo 'go/tests/catzc-gadget-parts/nested/parts_test.go'
@@ -64,7 +64,7 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
 
     It 'returns nothing when the repository has no test folder' {
         $empty = Join-Path $TestDrive 'empty'
-        [void][System.IO.Directory]::CreateDirectory((Join-Path $empty 'automation/Catzc.Widget'))
+        [void][System.IO.Directory]::CreateDirectory((Join-Path $empty 'widget-modules/Catzc.Widget'))
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'empty' }
         @(InModuleScope Catzc.Base.QualityGates { Get-LanguageTestFolders }) | Should -HaveCount 0
     }

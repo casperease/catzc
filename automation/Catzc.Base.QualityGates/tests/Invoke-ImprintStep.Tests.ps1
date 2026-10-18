@@ -78,7 +78,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
             [System.IO.File]::WriteAllText($script:helpFile, $script:helpText)
             $script:helpPage = Join-Path $script:root ((Get-Config -Config comments).PageFor('automation/Widget/Get-Gadget.ps1'))
             $null = New-Item -ItemType Directory -Path (Split-Path $script:helpPage) -Force
-            $script:pageText = "# automation/Widget/Get-Gadget.ps1`n`n## help`n`n### synopsis`n`nGets a gadget.`n`n### parameter Widget`n`nThe widget.`n`n### outputs`n`n``[string]`` The gadget.`n"
+            $script:pageText = "# automation/Widget/Get-Gadget.ps1`n`n## help`n`n### synopsis`n`nGets a gadget.`n`n### parameter ``Widget```n`nThe widget.`n`n### outputs`n`n``[string]`` The gadget.`n"
             [System.IO.File]::WriteAllText($script:helpPage, $script:pageText)
         }
 
@@ -93,7 +93,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         }
 
         It 'returns a finding only a person can settle as a file to repair, and still writes no file' -Tag 'ADR-REPO-HELP#4' {
-            $broken = $script:pageText.Replace("### parameter Widget`n`nThe widget.`n`n", '')
+            $broken = $script:pageText.Replace("### parameter ``Widget```n`nThe widget.`n`n", '')
             [System.IO.File]::WriteAllText($script:helpPage, $broken)
             $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
                 param($Root, $File)

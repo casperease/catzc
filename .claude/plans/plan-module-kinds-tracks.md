@@ -103,15 +103,10 @@ the user's own and changes what every head's track key means. The config default
       types may place below its root, or the infrastructure track declares its two places; then the resolver change and a fixture test
       (check: `Get-CatzcModule -TrackType     infrastructure` names the three templates and the Bicep modules, and the L0 test covers a
       nested place of a non-code track).
-- [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean). Rename map,
-      read 2026-10-18 (task-kind-becomes-role step 1): the head key `kind` is written in the head of every tracked file it selects; in code,
-      27 source files and 40 test files name a key spelled `kind`, and most of them mean another kind (a network's, an output format's, a
-      citation's, a glossary realization's). The file-kind consumers are eight: `FileKindsConfig.cs` (5 uses), `FileKindEntry.cs` and
-      `FileKindMatch.cs` (1 each) and `Get-FileKind.ps1` (1) in Globs; `Format-GeneratedFileHead.ps1` (1) and `GeneratedHeadConfig.cs` (2,
-      the known and required head keys) in Languages; `Get-ReadmeContent.ps1` (1) in Docs; and `Get-FileKindFileMetaFact.ps1` (1) with
-      `file-meta.yml` in QualityGates. The rename waits for session catzc-e5, which holds the file-meta engine, `file-meta.yml`, the head
-      contract and the file-meta ADR, and its tree-wide `Format-FileMeta` pass needs a quiet window, since it rewrites the head of every
-      file other sessions are editing.
+- [x] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean). Done 2026-10-18
+      (task-kind-becomes-role steps 2 to 6, on the user's go, D24): every head says `role`, the file-meta kind is `file-role`, rule 11 and
+      the glossary say role; `FILEMETA issues=0`, `GENERATED issues=0`. The object's kind stays the track type the head already carries, so
+      no second key says it.
 - [x] Rerun Test-Links on WorldMapBuilder.cs (check: zero findings there). 2026-10-18: `LINKS issues=0` (`out/test-links/20261018-122129`).
 - [x] Look at the 3 Get-ModuleProtectionIdentity failures (check: that test file): run 2026-10-16, 11 passed, 0 failed; the file is in
       QualityGates and isolated from tracks; nothing to fix (out/module-model-protection-identity.md). Run it again after the

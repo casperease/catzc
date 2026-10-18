@@ -8,8 +8,8 @@ The help of a PowerShell function file or script is the `## help` section of the
 ([ADR-REPO-COMMENTS#3](comments-in-docs.md#rule-adr-repo-comments3)), the page `comments.yml` names for the file's path. The file itself
 carries no help: no comment-based help block (no `.SYNOPSIS`, `.DESCRIPTION`, `.PARAMETER`, `.INPUTS`, `.OUTPUTS`, `.EXAMPLE` or `.NOTES`
 section anywhere) and no help in a head. The section comes first after the page's opening line and holds, in this order, `### synopsis`,
-`### description`, one `### parameter <Name>` for each parameter, `### inputs`, `### outputs`, one `### example <n>` for each example, and
-`### notes`. Every subsection but the synopsis is present only when it has text.
+`### description`, one ``### parameter `<Name>` `` for each parameter, its name written as code, `### inputs`, `### outputs`, one
+`### example <n>` for each example, and `### notes`. Every subsection but the synopsis is present only when it has text.
 
 - [The page holds the help](#the-page-holds-the-help)
 

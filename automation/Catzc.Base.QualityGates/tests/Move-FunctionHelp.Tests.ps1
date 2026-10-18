@@ -28,7 +28,7 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         $result = & $script:move
         $result.Moved | Should -BeTrue
         $page = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $script:pagePath))
-        $page | Should -BeLike "# automation/Catzc.Widget/Get-Widget.ps1`n`nThe comments of the file*`n`n## help`n`n### synopsis`n`nGets a widget.`n`n### parameter Name`n`nThe widget name.`n"
+        $page | Should -BeLike "# automation/Catzc.Widget/Get-Widget.ps1`n`nThe comments of the file*`n`n## help`n`n### synopsis`n`nGets a widget.`n`n### parameter ``Name```n`nThe widget name.`n"
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $script:codePath)) |
             Should -BeExactly "<#`n---`ncatzc:`n  immutable:`n    path: automation/Catzc.Widget/Get-Widget.ps1`n---`n#>`n`nfunction Get-Widget {`n    param([string] `$Name)`n}`n"
     }
@@ -38,7 +38,7 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:pagePath), "# t`n`nThe intro.`n`n## comment:1`n`nAbove ``x``.`n")
         & $script:move | Out-Null
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $script:pagePath)) |
-            Should -BeExactly "# t`n`nThe intro.`n`n## help`n`n### synopsis`n`nGets a widget.`n`n### parameter Name`n`nThe widget name.`n`n## comment:1`n`nAbove ``x``.`n"
+            Should -BeExactly "# t`n`nThe intro.`n`n## help`n`n### synopsis`n`nGets a widget.`n`n### parameter ``Name```n`nThe widget name.`n`n## comment:1`n`nAbove ``x``.`n"
     }
 
     It 'removes a head left with nothing but its config part' {
@@ -68,7 +68,7 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
             param($Root, $Path, $Links)
             Move-FunctionHelp -Path $Path -RepositoryRoot $Root -RestsOn $Links -DryRun
         }
-        $result.PageText.Contains("### synopsis`n`nGets a widget.`n`n### description`n`nIt rests on [ADR-WIDGET#1](/docs/adr/widget.md#rule-adr-widget1) and [ADR-GADGET](/docs/adr/gadget.md).`n`n### parameter Name") | Should -BeTrue
+        $result.PageText.Contains("### synopsis`n`nGets a widget.`n`n### description`n`nIt rests on [ADR-WIDGET#1](/docs/adr/widget.md#rule-adr-widget1) and [ADR-GADGET](/docs/adr/gadget.md).`n`n### parameter ``Name``") | Should -BeTrue
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:codePath), "<#`n---`ncatzc:`n  config:`n    synopsis: Gets.`n    description: Reads the registry.`n---`n#>`n`nfunction Get-Widget { }`n")
         $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Path = $script:codePath; Links = @($links[0]) } {
             param($Root, $Path, $Links)

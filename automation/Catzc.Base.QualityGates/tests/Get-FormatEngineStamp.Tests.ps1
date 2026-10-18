@@ -85,7 +85,7 @@ Describe 'The shipped format engines'' keyed settings' -Tag 'L1', 'integrity', '
 
     It 'never lists the whole tool registry again for an engine' {
         foreach ($engine in (Get-Config -Config languages).formatters.Values) {
-            $engine.settings | Should -Not -Contain 'automation/Catzc.Base.Execution/configs/tools.yml'
+            $engine.settings | Should -Not -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Execution/configs/tools.yml"
         }
     }
 }

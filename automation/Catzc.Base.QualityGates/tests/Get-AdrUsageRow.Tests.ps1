@@ -35,7 +35,7 @@ Describe 'Get-AdrUsageRow' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#14' {
 
     It 'keeps a bare code a code file cites as the whole ADR' {
         $form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')
-        $rows = @(Get-Rows "// Rests on ADR-WIDGET-PART.`nclass Widget {}`n" 'automation/Catzc.Widget/types/Widget.cs' $form)
+        $rows = @(Get-Rows "// Rests on ADR-WIDGET-PART.`nclass Widget {}`n" "$(Get-CatzcModulesFolder)/Catzc.Widget/types/Widget.cs" $form)
         $rows.Count | Should -Be 1
         $rows[0].Rule | Should -BeNullOrEmpty
     }

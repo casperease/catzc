@@ -4,9 +4,9 @@ Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
         [System.IO.Directory]::CreateDirectory($script:widgetRoot) | Out-Null
         $script:paths = @(
             'docs/widget.md'
-            'automation/.vendor/Gadget/README.md'
+            'widgets/.vendor/Gadget/README.md'
             'docs/generated-widget.md'
-            'automation/Widget/tests/assets/fixture.md'
+            'widgets/Widget/tests/assets/fixture.md'
             'contracts/widget/0.0.0/Gadget/.github/README.md'
             'docs/gadget.md'
             'docs/sprocket.md'
@@ -18,9 +18,9 @@ Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
         # git check-attr is the one boundary: the declared classes, as .gitattributes would report them.
         Mock Get-GitAttributeValue {
             @{
-                'automation/.vendor/Gadget/README.md'             = @{ 'linguist-vendored' = 'set' }
+                'widgets/.vendor/Gadget/README.md'             = @{ 'linguist-vendored' = 'set' }
                 'docs/generated-widget.md'                        = @{ 'linguist-generated' = 'true' }
-                'automation/Widget/tests/assets/fixture.md'       = @{ 'catzc-fixture' = 'set' }
+                'widgets/Widget/tests/assets/fixture.md'       = @{ 'catzc-fixture' = 'set' }
                 'contracts/widget/0.0.0/Gadget/.github/README.md' = @{ 'catzc-contract' = 'set' }
                 'docs/gadget.md'                                  = @{ 'catzc-contract' = 'unset' }
                 'docs/sprocket.md'                                = @{ 'catzc-meta' = 'unset' }
@@ -35,9 +35,9 @@ Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
             Get-ContentExemptPath -RepositoryRoot $Root -Path $Paths
         }
         $exempt | Should -Be @(
-            'automation/.vendor/Gadget/README.md'
+            'widgets/.vendor/Gadget/README.md'
             'docs/generated-widget.md'
-            'automation/Widget/tests/assets/fixture.md'
+            'widgets/Widget/tests/assets/fixture.md'
             'contracts/widget/0.0.0/Gadget/.github/README.md'
             'landed/widget-plan.md'
         )

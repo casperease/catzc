@@ -70,7 +70,7 @@ public sealed class FunctionHelp
         var text = new StringBuilder(SectionTitle).Append("\n\n");
         Part(text, "synopsis", synopsis);
         Part(text, "description", description);
-        foreach (KeyValuePair<string, string> parameter in parameters) { Part(text, "parameter " + parameter.Key, parameter.Value); }
+        foreach (KeyValuePair<string, string> parameter in parameters) { Part(text, "parameter `" + parameter.Key + "`", parameter.Value); }
         Part(text, "inputs", inputs);
         Part(text, "outputs", outputs);
         for (int i = 0; i < examples.Count; i++)
@@ -161,6 +161,12 @@ public sealed class FunctionHelp
                 findings.Add("the help section has a subsection the shape does not name: '" + line.Trim() + "'");
                 name = null;
                 continue;
+            }
+            // A parameter name is an identifier, so its heading writes it as code; a bare name reads as prose to the glossary gate.
+            if (name == "parameter")
+            {
+                if (arg.Length > 2 && arg[0] == '`' && arg[arg.Length - 1] == '`') { arg = arg.Substring(1, arg.Length - 2); }
+                else { findings.Add("the parameter heading '" + line.Trim() + "' writes its name as code: '### parameter `" + arg + "`'"); }
             }
             bool repeats = needsArg && rank == last;
             if (rank < last || (rank == last && !repeats))

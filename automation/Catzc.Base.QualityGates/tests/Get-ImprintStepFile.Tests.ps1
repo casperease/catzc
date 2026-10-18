@@ -9,14 +9,15 @@ Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
     }
 
     BeforeEach {
+        Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-meta' } { $script:meta }
         Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $null }
             [pscustomobject]@{ Path = 'docs/gadget.md'; Carrier = $null }
         }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates {
-            'automation/Widget/types/Gadget.cs', 'automation/Widget/types/nested/Gizmo.cs', 'automation/Widget/Get-Gadget.ps1', 'tools/Cog/types/Sprocket.cs',
-            'automation/Widget/tests/types/Fixture.cs'
+            'widget-modules/Widget/types/Gadget.cs', 'widget-modules/Widget/types/nested/Gizmo.cs', 'widget-modules/Widget/Get-Gadget.ps1', 'tools/Cog/types/Sprocket.cs',
+            'widget-modules/Widget/tests/types/Fixture.cs'
         }
     }
 
@@ -33,30 +34,30 @@ Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
             param($Root)
             Get-ImprintStepFile -Step csharp-namespace -RepositoryRoot $Root
         }
-        $found | Should -Be @((Join-Path $script:root 'automation/Widget/types/Gadget.cs'))
+        $found | Should -Be @((Join-Path $script:root 'widget-modules/Widget/types/Gadget.cs'))
     }
 
     It 'returns only the function files of a module, public and private, for the ps-help step' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates {
-            'automation/Widget/Get-Gadget.ps1', 'automation/Widget/private/Get-Cog.ps1', 'automation/Widget/tests/Get-Gadget.Tests.ps1',
-            'automation/Widget/assets/scripts/install.ps1', 'automation/Widget/types/Gadget.cs', 'tools/Cog/Get-Sprocket.ps1'
+            'widget-modules/Widget/Get-Gadget.ps1', 'widget-modules/Widget/private/Get-Cog.ps1', 'widget-modules/Widget/tests/Get-Gadget.Tests.ps1',
+            'widget-modules/Widget/assets/scripts/install.ps1', 'widget-modules/Widget/types/Gadget.cs', 'tools/Cog/Get-Sprocket.ps1'
         }
         $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             param($Root)
             Get-ImprintStepFile -Step ps-help -RepositoryRoot $Root
         }
-        $found | Should -Be @((Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'), (Join-Path $script:root 'automation/Widget/private/Get-Cog.ps1'))
+        $found | Should -Be @((Join-Path $script:root 'widget-modules/Widget/Get-Gadget.ps1'), (Join-Path $script:root 'widget-modules/Widget/private/Get-Cog.ps1'))
     }
 
     It 'returns the absolute paths of the files the comment scope covers for the comments step' {
         Mock Get-CommentScope -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ File = 'automation/Widget/Get-Gadget.ps1'; Extension = '.ps1'; Language = 'powershell'; Page = 'docs/references/automation/widget/Get-Gadget.ps1.md' }
+            [pscustomobject]@{ File = 'widget-modules/Widget/Get-Gadget.ps1'; Extension = '.ps1'; Language = 'powershell'; Page = 'docs/references/automation/widget/Get-Gadget.ps1.md' }
         }
         $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             param($Root)
             Get-ImprintStepFile -Step comments -RepositoryRoot $Root
         }
-        $found | Should -Be @((Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'))
+        $found | Should -Be @((Join-Path $script:root 'widget-modules/Widget/Get-Gadget.ps1'))
     }
 
     It 'leaves a path outside the repository out instead of refusing it, and asks nothing when none is left' {

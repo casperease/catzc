@@ -85,7 +85,7 @@ part is a finding left for the author (`ForbiddenConfig`), so no authored key is
 
 A function's help is prose an author writes, so it lives with the file's other prose: in the `## help` section of its comment page, the page
 `comments.yml` names for the path ([ADR-REPO-HELP#1](../adr/repository/function-help.md#rule-adr-repo-help1)). The section has one shape,
-`### synopsis`, `### description`, one `### parameter <Name>` per parameter in `param()` order, `### inputs`, `### outputs`, one
+`### synopsis`, `### description`, one ``### parameter `<Name>` `` per parameter in `param()` order, the name written as code, `### inputs`, `### outputs`, one
 `### example <n>` per example and `### notes`, and `Export-Comments`, which appends the page's `## comment:<n>` sections, never writes it
 ([ADR-REPO-COMMENTS#6](../adr/repository/comments-in-docs.md#rule-adr-repo-comments6)). `Format-Code` checks it through its `ps-help` step
 (`Get-HelpPageFinding`): a function file with no page, a page with no synopsis, a parameter with no subsection or a subsection for one that
