@@ -33,7 +33,18 @@ first; C# edits need a fresh pwsh.
 2. The Bash hook keeps its own constant (`BashSafeguard.ConfigRelativePath` and the csproj, no importer there); try the csproj change on a
    copy first and confirm the layers doctrine's edge fact before touching the real one. Check: the hook builds; a denied call is still
    logged to out/time-safeguard.log.
-3. Registry bypasses (worklist section 4, about 45 sites): move each onto `Get-CatzcModulesRoot` or `Get-Track`, one file per step with its
+3. [x] (PowerShell code; the C# constants are open) Done 2026-10-18 from the guard's worklist, 49 code files: each site reads
+   `Get-CatzcModulesRoot`, `Get-CatzcModuleRoot`, or the new `Get-CatzcModulesFolder` (Catzc.Base.Repository: the modules root relative
+   to the repository root, throwing outside the source tree; help page, 3 tests, a Division row). A function given a root (a fixture, a
+   sandbox, the Builder's `$SourceRoot`) joins or labels with that root's folder, so fixtures keep working. Each file's own Pester file
+   passed after it; nine tests had to mock the resolver instead of `Get-RepositoryRoot`, `Resolve-RepoPath` or `Get-Track`. Exempt with
+   their reason in `track_root_literal`: the bootstrap constant, `Get-CatzcModulesRoot`, `Get-CatzcRunMode` (it compares against the
+   source folder), and the three Exporter files whose `out/automation/{built,packages}` areas are named after the track (Q6, renamed with
+   output-formats.yml in P4). The re-run guard leaves one code file: `automation/Catzc.Base.RootConfig/assets/root/importer.ps1`, an
+   orphan template nothing reads (rootconfig.yml builds importer.ps1 with New-Importer), listed for the user's delete. Open: the C#
+   constants (`GlobsConfig.ConfigPath`, `CommentsConfig`, the `CliRunner` message, `BashSafeguard`), which the analyzer does not see.
+   Original step:
+   Registry bypasses (worklist section 4, about 45 sites): move each onto `Get-CatzcModulesRoot` or `Get-Track`, one file per step with its
    test; C# constants such as `GlobsConfig.ConfigPath` read the track root through the config type's resolver where one exists (`AdrsConfig`
    is S3 and stays). Check: that file's Pester file; a grep of the literal in the file finds nothing.
 4. Test fixtures that bake `<root>/automation`: a root from the resolver or a neutral root (widget/gadget). Check: the fixture's tests pass.

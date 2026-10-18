@@ -69,6 +69,10 @@ function Invoke-RootConfigGenerator {
         'New-PythonProject' {
             New-PythonProject -Target $Target
         }
+        'New-CatsCommandLookup' {
+            # The lookup cats checks a call against, from the command contracts (Catzc.Base.Contracts).
+            New-CatsCommandLookup
+        }
         default {
             throw "Unknown root-config generator '$Name'. Register its invocation in Invoke-RootConfigGenerator (Catzc.Base.RootConfig)."
         }

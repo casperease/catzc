@@ -130,6 +130,7 @@ groups:
       [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Execution, Catzc.Base.Folders, Catzc.Base.Repository, Catzc.Base.Asserts]
     Catzc.Base.RootConfig:
       [
+        Catzc.Base.Contracts,
         Catzc.Base.Languages,
         Catzc.Base.ModuleSystem,
         Catzc.Base.Folders,

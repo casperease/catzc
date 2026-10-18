@@ -69,6 +69,10 @@ next:
 
 ## Deleted 2026-10-18, and why
 
+- plan-file-meta-head-policy: landed in one tree-wide pass (12:29–12:33, `out/one-pass.log`); ADR-REPO-FILEMETA#1 (the head policy) and
+  #14 (no read-back), ADR-REPO-HELP (help on the comment page) and ADR-REPO-COMMENTS#6 (an authored page) hold every decision, and
+  `Sync-FileMeta` is the single-file tool. The explanation is docs/explanation/file-meta.md. A `Get-Help` provider that reads the page is
+  an idea, not a step. No open step.
 - plan-materialization-of-knowledge and its task: ADR-AUTO-MATERIAL holds the decided axis in seven rules, registered, with its
   dora-explains entry and the glossary term `materialization`; no sha-marker companion exists to align with. No open step.
 - The decision round task: D01 to D20 answered, every recommendation taken; the record is decisions-2026-10-18.md and the questionnaire,

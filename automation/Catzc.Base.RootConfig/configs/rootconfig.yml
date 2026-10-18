@@ -13,6 +13,12 @@ files:
     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
     committed: true
     optIn: true
+  - target: importer-commands.sh
+    generator: New-CatsCommandLookup
+    sources:
+      - contracts/catzc/0.0.0
+    committed: true
+    optIn: true
   - target: .vscode/settings.json
     generator: New-VSCodeSettings
     sources:

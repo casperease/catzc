@@ -12,7 +12,7 @@ function Get-RootConfigInputStamp {
     $salt = [System.Collections.Generic.List[string]]::new()
 
     # The generators' code is read from the loaded modules, so a fixture tree hashes the same code the run uses.
-    foreach ($module in 'Catzc.Base.RootConfig', 'Catzc.Base.VSCode', 'Catzc.Base.Git') {
+    foreach ($module in 'Catzc.Base.RootConfig', 'Catzc.Base.VSCode', 'Catzc.Base.Git', 'Catzc.Base.Contracts') {
         $loaded = Get-Module -Name $module
         if ($loaded) {
             $paths.Add($loaded.ModuleBase)

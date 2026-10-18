@@ -13,7 +13,7 @@ function New-CatsCommandLookup {
     $lines.Add("_catzc_commands='")
     $contracts = @(Get-CommandContract -RepositoryRoot $RepositoryRoot | Sort-Object -Property Name -Culture ([System.Globalization.CultureInfo]::InvariantCulture))
     foreach ($contract in $contracts) {
-        $asset = "contracts/$($contract.Asset.Unit)/$($contract.Asset.Version)/$($contract.Asset.AssetPath)"
+        $asset = $contract.Asset.AssetPath
         $parameters = @($contract.parameters)
         if ($parameters.Count -eq 0) {
             $lines.Add(($contract.Name, '', '', '0', '0', '0', $asset) -join "`t")
