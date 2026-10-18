@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Dot-source one entry script: the diagram described
+# Dot-source one entry script, and a failed check stops the load with a named error: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom down one column, with a failure glyph to its right.

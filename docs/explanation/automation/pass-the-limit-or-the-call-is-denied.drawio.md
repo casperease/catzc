@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Pass the limit or the call is denied: the diagram described
+# A call inside the limit runs; outside it, the hook denies it and says how to re-issue it: the diagram described
 
 ```text
 A 1572 x 650 diagram, read top to bottom through three bands in two columns.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One declared allow-list, edges point down: the diagram described
+# One declared allow-list says what may depend on what, and every edge points down: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands, beside one tall band on the right.

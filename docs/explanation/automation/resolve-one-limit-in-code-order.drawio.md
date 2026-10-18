@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling: the diagram described
+# Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through four bands.

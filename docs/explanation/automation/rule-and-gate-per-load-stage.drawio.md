@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Every load stage but the unload has an ADR rule: the diagram described
+# Every load stage but the unload has an ADR rule and a gate: the diagram described
 
 ```text
 A 1572 x 720 diagram, read top to bottom through six stage bands and an ADR-only frame.

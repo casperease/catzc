@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A pipeline pins, a devbox picks the target: the diagram described
+# A pipeline pins the subscription it expects; a devbox picks the target with az account set: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

@@ -81,7 +81,10 @@ ledger with stable keys, the pilot review of the pipelines slice (88 rows).
        an example, a rule list; closed as keep); the merge signal (122 rows in 51 groups, 118 keep since each repeat backs its own claim, 2
        drop: a rule link followed by the same bare citation in one sentence in `native-csharp-types.md` and `cross-platform.md`).
        `LINKS issues=0`, `FILEMETA issues=0`, `GLOSSARY issues=0`, `SPELL issues=0`, `MDLINT issues=0` on the four pages
-       (`out/test-links/20261018-111720`, `20261018-111842`), `ADRREG issues=0`. Ledger: 312 of 6,449 rows carry a verdict.
+       (`out/test-links/20261018-111720`, `20261018-111842`), `ADRREG issues=0`. Ledger: 312 of 6,449 rows carry a verdict. The samples,
+       2026-10-18 (seed 20261018, keys in `out/sample-whole.txt` and `out/sample-rule.txt`): 100 whole links, 0 narrows, each a pointer or a
+       topic link; 150 rule links, 0 widens, each sentence backing the rule's claim. Sample-then-stop (Q57) closes the review: the 4,963
+       unread rows keep their citations, and every editable row carries a verdict (`out/t-ledger-marks3.py`: 0 without one).
 7. [x] Step 1.4 verify after the first slice: `Get-AdrUsage` before and after (rule links fall by widen and merge count, whole-ADR links
        rise by the same, no unregistered code); ledger has no row without a verdict or unapplied; Test-Glossary and Test-Spelling on changed
        files. After Phase 1: `Get-AdrCodesFileMetaFact` drops unregistered codes from held lists (the seven placeholder heads). Check: the
@@ -91,7 +94,18 @@ ledger with stable keys, the pilot review of the pipelines slice (88 rows).
        7,473 rows (5,655 rule, 1,818 whole), the two dropped duplicates gone from the count; unregistered codes 0.
 8. Phase 2 per D1 to D5: Step 2.0 inventory (`out/measure-text-in-source.ps1` writes `out/source-text-ledger.csv`; the threshold setting
    with its default on the config type); 2.1 verdicts; 2.2 review in slices (every delete verdict read first); 2.3 apply one file at a time;
-   2.4 verify. Check: Test-Comments, Test-FileMeta clean per file; the ledger complete.
+   2.4 verify. Check: Test-Comments, Test-FileMeta clean per file; the ledger complete. Step 2.0 done 2026-10-18 by
+   `out/inventory-source-text.ps1` (the old measure script counts comments only): 6,099 pieces in 1,173 source files, written to
+   `out/source-text-ledger.csv`: 3,039 string literals of 40 characters or more, 2,151 single-line comments, 887 data values, 19
+   comment runs, 3 C# doc comments. Distribution (D5): string literals with 3 or more lines 12, with 200 or more characters 60; data
+   values with 3 or more lines 52, with 200 or more characters 47; the starting guess, 3 lines or 200 characters, cuts where the counts
+   flatten, so it is the threshold. Correction: no code in the tree reads the threshold yet (the inventory is a script in out/), so
+   the setting joins `CommentsConfig` in the same change as the function that reads it (step 9), never as a key nobody reads. Step 2.1
+   for the 19 comment runs: 4 stay (the importer template text inside New-Importer's here-string, and its generated copy in
+   importer.ps1), 2 hold (FileHeadPolicy.cs, which session catzc-e5 holds, and the dirty FunctionHelp.cs), 13 rule: they sit in
+   `.github/workflows` (9) and the `.claude` drawio and slides kits (4), outside the comments page map, so whether those folders join
+   the map is the user's decision. Open: verdicts for the single-line comments and the literals and data values above the threshold,
+   then the user's 5% read before any apply.
 9. The `tests-comments-rollout.ps1` tool candidate (from plan-out-artifacts) becomes a module function with tests if Phase 2 needs the
    before-and-after citation-map proof; else recorded as not needed. Check: the function's Pester file, or the line.
 10. Tick the plan's steps; the carried draft goes when its data is in the tree; the plan is deleted in task-closing-sweep. Check: grep

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One resolver serves every consumer but the hook: the diagram described
+# One resolver serves every consumer but the hook, which compiles the same config type: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through four bands.

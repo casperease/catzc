@@ -38,6 +38,9 @@ public sealed class VscodeExtensionsConfig : Catzc.Base.Objects.DictionaryRecord
     // The recommended extension ids, in registry order.
     public string[] recommendations { get; }
 
+    // The repository's own extensions, in registry order; New-VSCodeExtensionFolder renders each one.
+    public IReadOnlyList<VscodeOwnExtension> extensions { get; }
+
     public VscodeExtensionsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
@@ -46,8 +49,21 @@ public sealed class VscodeExtensionsConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (object k in raw.Keys)
         {
             string key = k == null ? null : k.ToString();
-            if (key != "recommendations") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: recommendations)", key)); }
+            if (key != "recommendations" && key != "extensions") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: recommendations, extensions)", key)); }
         }
+
+        List<VscodeOwnExtension> own = new List<VscodeOwnExtension>();
+        object block = raw.Contains("extensions") ? raw["extensions"] : null;
+        if (block is IDictionary)
+        {
+            foreach (DictionaryEntry pair in (IDictionary)block)
+            {
+                try { own.Add(new VscodeOwnExtension(pair.Key == null ? null : pair.Key.ToString(), pair.Value)); }
+                catch (ArgumentException ex) { errors.Add(ex.Message); }
+            }
+        }
+        else if (block != null) { errors.Add("'extensions' must be a mapping of extension name to its manifest"); }
+        extensions = own.AsReadOnly();
 
         // An absent key and an empty (null) value are both an empty list; a single scalar is a one-item list.
         List<object> items = new List<object>();

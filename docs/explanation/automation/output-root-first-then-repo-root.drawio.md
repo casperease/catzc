@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Output root first, then repository root: the diagram described
+# The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right through three bands, then the band below.

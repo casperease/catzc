@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# An undeclared edge fails with one line: the diagram described
+# An undeclared module edge fails the gate with one line per issue: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom through three bands and left to right within each.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One commit, one verified, immutable package: the diagram described
+# One commit becomes one verified, immutable package, and every code root is a copy of it: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through four bands.

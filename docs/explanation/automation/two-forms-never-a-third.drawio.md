@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A path has two forms, never a third: the diagram described
+# A path has two forms, never a third, and one pair of crossers moves it between them: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then the band below.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Types check the forms, review checks the crossers: the diagram described
+# Three types check path forms at construction, and the crossing rules are left to review: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right through three bands, then the band below.

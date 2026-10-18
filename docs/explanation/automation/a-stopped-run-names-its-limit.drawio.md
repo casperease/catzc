@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A run past its limit stops with a message that names the limit: the diagram described
+# A run past its limit stops with a message that names the limit and where to change it: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

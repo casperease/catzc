@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Two entry scripts feed one importer: the diagram described
+# Two entry scripts feed one importer, and the importer leaves once the load is done: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom, then left to right, through three bands.

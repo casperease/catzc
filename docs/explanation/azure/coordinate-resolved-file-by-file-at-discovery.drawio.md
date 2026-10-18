@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The coordinate is resolved file by file at discovery: the diagram described
+# Discovery resolves every config file's coordinate through one shared check: the diagram described
 
 ```text
 A 1572 x 720 diagram, read left to right along the top band, then up from the two bands below it.

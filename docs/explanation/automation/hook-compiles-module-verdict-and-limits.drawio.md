@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The hook compiles the module's own verdict and limits: the diagram described
+# The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom through three bands.

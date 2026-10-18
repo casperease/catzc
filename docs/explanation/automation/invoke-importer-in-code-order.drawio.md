@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Invoke-Importer in code order: the diagram described
+# Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain: the diagram described
 
 ```text
 A 1572 x 822 diagram, read top to bottom down one column in one band.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Build, then place with one command: the diagram described
+# Build the bundle once, then place it with one command: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through four bands.

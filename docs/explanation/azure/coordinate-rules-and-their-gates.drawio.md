@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The coordinate rules and their gates: the diagram described
+# Two ADRs rule the coordinate; one shared check and the integrity tests hold them: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right through three bands.

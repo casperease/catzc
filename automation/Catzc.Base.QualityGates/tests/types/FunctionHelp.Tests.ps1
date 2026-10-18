@@ -13,7 +13,7 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
     It 'renders the help in the fixed shape, each subsection once and in order, its text as written' -Tag 'ADR-REPO-HELP#2' {
         $script:section | Should -BeExactly (
             "## help`n`n### synopsis`n`nGets a widget.`n`n### description`n`nReads the widget registry.`n`n- one`n- two`n`n" +
-            "### parameter Name`n`nThe widget name.`n`n### parameter Force`n`nSkips the gadget check.`n`n### outputs`n`n[Widget] the widget.`n`n" +
+            "### parameter Name`n`nThe widget name.`n`n### parameter Force`n`nSkips the gadget check.`n`n### outputs`n`n``[Widget]`` the widget.`n`n" +
             "### example 1`n`n``````powershell`nGet-Widget -Name cog`n```````n`n### example 2`n`n``````powershell`n`$w = Get-Widget -Name cog`n`$w.Size`n```````n")
     }
 
@@ -24,7 +24,7 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         $help.synopsis | Should -BeExactly 'Gets a widget.'
         $help.description | Should -BeExactly "Reads the widget registry.`n`n- one`n- two"
         @($help.parameters | ForEach-Object Key) | Should -Be @('Name', 'Force')
-        $help.outputs | Should -BeExactly '[Widget] the widget.'
+        $help.outputs | Should -BeExactly '`[Widget]` the widget.'
         $help.examples[1] | Should -BeExactly "`$w = Get-Widget -Name cog`n`$w.Size"
     }
 
@@ -54,6 +54,45 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
 
     It 'reports no section on a page without one' {
         [Catzc.Base.QualityGates.FunctionHelp]::Parse("# docs`n`n## comment:1`n").present | Should -BeFalse
+    }
+
+    Context 'plain help text as Markdown' -Tag 'ADR-REPO-HELP#2' {
+        BeforeAll {
+            $script:md = { param([string] $Text) [Catzc.Base.QualityGates.FunctionHelp]::Markdown($Text) }
+        }
+
+        It 'spans a placeholder, a glob and a bracket token, and leaves code spans, links and URLs as written' {
+            & $script:md 'Writes <out>/widget, globs **/*.wdg and returns [string[]] (see `<kept>`, [ADR-WIDGET#1](/docs/adr/widget.md) and <https://example.com>).' |
+                Should -BeExactly 'Writes `<out>/widget`, globs `**/*.wdg` and returns `[string[]]` (see `<kept>`, [ADR-WIDGET#1](/docs/adr/widget.md) and <https://example.com>).'
+        }
+
+        It 'spans a placeholder with spaces in it, and a URL with a placeholder in it, and turns any other bare URL into an autolink' {
+            & $script:md "'<widget path>#<old anchor>' -> new" | Should -BeExactly "'``<widget path>``#``<old anchor>``' -> new"
+            & $script:md 'The URL (https://example.com/<owner>/<repo>), or https://example.com/dl/?mode=json.' |
+                Should -BeExactly 'The URL (`https://example.com/<owner>/<repo>`), or <https://example.com/dl/?mode=json>.'
+        }
+
+        It 'writes emphasis with underscores and keeps strong emphasis' {
+            & $script:md 'takes a widget *name*, **never** an id' | Should -BeExactly 'takes a widget _name_, **never** an id'
+        }
+
+        It 'moves an indented list to the margin with a blank line around it, a star marker written as a dash' {
+            & $script:md "Checks:`n  * the widget exists;`n    and is shaped`n  * the gadget is known.`nThen it returns." |
+                Should -BeExactly "Checks:`n`n- the widget exists;`n  and is shaped`n- the gadget is known.`n`nThen it returns."
+        }
+
+        It 'keeps a nested item under its parent and an ordered list numbered as written' {
+            & $script:md "1. first`n   - inner`n2. second" | Should -BeExactly "1. first`n   - inner`n2. second"
+        }
+
+        It 'fences an aligned layout verbatim, dedented' {
+            & $script:md "Keys:`n  widget_files   — all *.wdg files`n  gadget_folder  — the gadgets/ folder`nDone." |
+                Should -BeExactly "Keys:`n`n``````text`nwidget_files   — all *.wdg files`ngadget_folder  — the gadgets/ folder`n```````n`nDone."
+        }
+
+        It 'keeps a fenced block as written' {
+            & $script:md "Run:`n`n``````powershell`nGet-Widget *`n```````n" | Should -BeExactly "Run:`n`n``````powershell`nGet-Widget *`n``````"
+        }
     }
 
     Context 'writing the section into a page' -Tag 'ADR-REPO-COMMENTS#6' {

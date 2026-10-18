@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Two gates check the layer pins: the diagram described
+# Two gates check the layer pins, and one rule is left to review: the diagram described
 
 ```text
 A 1572 x 700 diagram in two columns, each read top to bottom through three bands.

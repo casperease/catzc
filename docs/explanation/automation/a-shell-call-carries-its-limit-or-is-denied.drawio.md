@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A shell call carries its limit or is denied: the diagram described
+# A shell call carries its limit, or the hook denies it with a reason; it is never rewritten: the diagram described
 
 ```text
 A 1572 x 650 diagram, read top to bottom through two bands, then left and right from the gate.

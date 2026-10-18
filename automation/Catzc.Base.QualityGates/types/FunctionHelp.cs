@@ -189,7 +189,120 @@ public sealed class FunctionHelp
     static void Part(StringBuilder text, string heading, string value)
     {
         if (string.IsNullOrWhiteSpace(value)) { return; }
-        text.Append("### ").Append(heading).Append("\n\n").Append(Trimmed(value)).Append("\n\n");
+        text.Append("### ").Append(heading).Append("\n\n").Append(Markdown(Trimmed(value))).Append("\n\n");
+    }
+
+    static readonly Regex ListItem = new Regex(@"^(?<indent>[ \t]*)(?<marker>[-*+]|\d+[.)])[ \t]+(?<rest>.*)$", RegexOptions.Compiled);
+    static readonly Regex Protected = new Regex(@"`[^`]*`|\[[^\]\n]*\]\([^)\s]*\)|<https?://[^>\s]+>", RegexOptions.Compiled);
+    static readonly Regex SpacedPlaceholder = new Regex(@"(?<![\w`])<[A-Za-z][^<>\n`]*? [^<>\n`]*?>", RegexOptions.Compiled);
+    static readonly Regex Emphasis = new Regex(@"(?<![\w*])\*(?<word>[A-Za-z0-9][\w'-]*)\*(?![\w*])", RegexOptions.Compiled);
+    static readonly Regex Token = new Regex(@"\S+", RegexOptions.Compiled);
+    static readonly Regex Placeholder = new Regex(@"<[^<>\s]+>|\*|\[[^\]]*\]", RegexOptions.Compiled);
+
+    // Plain help text written inside YAML, as Markdown that means the same: lists at the margin, aligned layouts fenced verbatim, and a
+    // placeholder, glob or bracket token in a code span, so a formatter or a linter reads what the author wrote.
+    public static string Markdown(string text)
+    {
+        string[] lines = (text ?? string.Empty).Replace("\r\n", "\n").Split('\n');
+        var output = new List<string>();
+        int listBase = -1;
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string line = lines[i];
+            if (line.TrimStart().StartsWith("```", StringComparison.Ordinal))
+            {
+                listBase = -1;
+                Blank(output);
+                int close = i + 1;
+                while (close < lines.Length && !lines[close].TrimStart().StartsWith("```", StringComparison.Ordinal)) { close++; }
+                for (int k = i; k <= Math.Min(close, lines.Length - 1); k++) { output.Add(lines[k].TrimEnd()); }
+                i = close;
+                output.Add(string.Empty);
+                continue;
+            }
+            if (line.Trim().Length == 0)
+            {
+                if (output.Count > 0 && output[output.Count - 1].Length > 0) { output.Add(string.Empty); }
+                continue;
+            }
+            int indent = Indent(line);
+            Match item = ListItem.Match(line);
+            if (item.Success && (listBase < 0 ? true : indent >= listBase))
+            {
+                if (listBase < 0) { listBase = indent; Blank(output); }
+                string marker = char.IsDigit(item.Groups["marker"].Value[0]) ? item.Groups["marker"].Value : "-";
+                output.Add(new string(' ', indent - listBase) + marker + " " + Inline(item.Groups["rest"].Value));
+                continue;
+            }
+            if (listBase >= 0 && indent > listBase)
+            {
+                output.Add(new string(' ', indent - listBase) + Inline(line.Trim()));
+                continue;
+            }
+            if (listBase >= 0) { listBase = -1; Blank(output); }
+            if (indent >= 2)
+            {
+                // An indented run that is no list is a layout the author aligned by hand: kept verbatim in a fence.
+                int end = i;
+                while (end + 1 < lines.Length && lines[end + 1].Trim().Length > 0 && Indent(lines[end + 1]) >= 2 && !ListItem.IsMatch(lines[end + 1])) { end++; }
+                int strip = Enumerable.Range(i, end - i + 1).Min(k => Indent(lines[k]));
+                Blank(output);
+                output.Add("```text");
+                for (int k = i; k <= end; k++) { output.Add(lines[k].Substring(strip).TrimEnd()); }
+                output.Add("```");
+                output.Add(string.Empty);
+                i = end;
+                continue;
+            }
+            output.Add(Inline(line.TrimEnd()));
+        }
+        while (output.Count > 0 && output[output.Count - 1].Length == 0) { output.RemoveAt(output.Count - 1); }
+        return string.Join("\n", output);
+    }
+
+    static void Blank(List<string> output)
+    {
+        if (output.Count > 0 && output[output.Count - 1].Length > 0) { output.Add(string.Empty); }
+    }
+
+    static int Indent(string line) => line.Length - line.TrimStart(' ', '\t').Length;
+
+    // One line of prose: code spans, links and URLs kept, emphasis written with underscores, and a token Markdown would misread spanned.
+    static string Inline(string line)
+    {
+        var kept = new List<string>();
+        string Keep(string value) { kept.Add(value); return "\u0001" + (kept.Count - 1).ToString(CultureInfo.InvariantCulture) + "\u0002"; }
+        string masked = Protected.Replace(line, m => Keep(m.Value));
+        masked = SpacedPlaceholder.Replace(masked, m => Keep("`" + m.Value + "`"));
+        masked = Emphasis.Replace(masked, m => "_" + m.Groups["word"].Value + "_");
+        masked = Token.Replace(masked, m => Spanned(m.Value));
+        return Regex.Replace(masked, "\u0001(\\d+)\u0002", m => kept[int.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture)]);
+    }
+
+    static string Spanned(string token)
+    {
+        if (token.Contains('\u0001')) { return token; }
+        int url = token.IndexOf("://", StringComparison.Ordinal);
+        if (url > 0 && Regex.IsMatch(token.Substring(0, url), @"(^|[('""])https?$"))
+        {
+            // A URL with a placeholder in it is a pattern, so a code span; any other bare URL is an autolink.
+            int open = token.IndexOf("http", StringComparison.Ordinal);
+            int close = token.Length;
+            while (close > open && ".,;:)'\"".IndexOf(token[close - 1]) >= 0) { close--; }
+            string address = token.Substring(open, close - open);
+            string wrapped = address.IndexOfAny(new[] { '<', '{', '*' }) >= 0 ? "`" + address + "`" : "<" + address + ">";
+            return token.Substring(0, open) + wrapped + token.Substring(close);
+        }
+        if (!Placeholder.IsMatch(token)) { return token; }
+        if (Regex.IsMatch(token, @"^\*\*[^*]+\*\*[.,;:)]*$")) { return token; }
+        int start = 0;
+        int end = token.Length;
+        while (start < end && "('\"".IndexOf(token[start]) >= 0) { start++; }
+        while (end > start && ".,;:)'\"".IndexOf(token[end - 1]) >= 0) { end--; }
+        if (end <= start) { return token; }
+        string core = token.Substring(start, end - start);
+        if (!Placeholder.IsMatch(core)) { return token; }
+        return token.Substring(0, start) + "`" + core + "`" + token.Substring(end);
     }
 
     static string Trimmed(string value) => value.Replace("\r\n", "\n").Trim('\n').TrimEnd();

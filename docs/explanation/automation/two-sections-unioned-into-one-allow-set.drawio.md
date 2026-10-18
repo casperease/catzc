@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Two sections unioned into one allow-set: the diagram described
+# Two sections of dependencies.yml are unioned into one allow-set per source module: the diagram described
 
 ```text
 A 1572 x 760 diagram, read top to bottom through four bands.

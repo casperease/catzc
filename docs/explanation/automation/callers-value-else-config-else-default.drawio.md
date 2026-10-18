@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Every wait is bounded: the caller's value, else the config, else the default: the diagram described
+# Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

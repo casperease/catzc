@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A bad coordinate stops discovery: the diagram described
+# A config file that resolves to no subscription, or to two, stops discovery with one line: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right through two bands.

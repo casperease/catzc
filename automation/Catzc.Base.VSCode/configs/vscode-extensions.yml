@@ -46,3 +46,33 @@ recommendations:
   # PDF viewing for reference material in docs.
   - tomoki1207.pdf
   - DanLevett.regex-robin
+
+# The repository's own extensions: each renders to out/vscode-extensions/<name>/ with its script from assets/extensions/<name>.js.
+extensions:
+  catzc-git-changes:
+    displayName: Catzc git changes
+    description: >-
+      Shades the lines a file changes against HEAD inside the editor: staged lines in one colour, unstaged lines in another, both set in
+      workbench.colorCustomizations.
+    activationEvents: [onStartupFinished]
+    contributes:
+      colors:
+        - id: catzc.gitChanges.stagedBackground
+          description: Background of a line whose change against HEAD is staged.
+          defaults: { dark: "#f5e17a26", light: "#f5e17a40", highContrast: "#f5e17a40" }
+        - id: catzc.gitChanges.unstagedBackground
+          description: Background of a line whose change is not staged yet.
+          defaults: { dark: "#b8860b40", light: "#b8860b40", highContrast: "#b8860b59" }
+  catzc-compiled-info:
+    displayName: Catzc compiled build info
+    description: >-
+      Opens a committed Catzc.Types.<hash>.dll as a short note on what it is and whether it is the current build, instead of the binary
+      screen.
+    activationEvents: [onCustomEditor:catzc.compiledInfo]
+    contributes:
+      customEditors:
+        - viewType: catzc.compiledInfo
+          displayName: Catzc compiled build
+          selector:
+            - filenamePattern: "**/automation/.compiled/*.dll"
+          priority: default

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One reverse lookup feeds every module: the diagram described
+# One reverse lookup in Catzc.Azure.Cli hands the session to every module: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One engine builds, every code root is a copy: the diagram described
+# One engine builds the bundle, and every code root is a copy of its output: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through four bands.

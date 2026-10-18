@@ -85,11 +85,13 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
       generated diagram text of all three `.assets` trees; the pilot's 97 verdicts re-attached (95 keep, 2 narrow).
 - [x] Add the TryParse regression test (check: its Pester file). Done 2026-10-17, the same step as Q58 above.
 - [x] Run the five gates on the usage code (check: each clean). Done 2026-10-17, the same step as Q59 above.
-- [ ] Step 1.3 apply and 1.4 verify, one slice at a time (check: Test-Links clean). First slice done 2026-10-18: the two narrow fixes in
+- [x] Step 1.3 apply and 1.4 verify, one slice at a time (check: Test-Links clean). First slice done 2026-10-18: the two narrow fixes in
       `docs/explanation/flow/no-gate-checks-rules-one-and-four.md`, `LINKS issues=0`; usage 7,473 to 7,474 rows, no unregistered code.
       Slices 2 and 3 done 2026-10-18: the rule-number pattern (two pages narrowed), the retarget signal (0 of 78, closed), the merge signal
-      (2 duplicates dropped, 118 keep); 312 of 6,449 ledger rows reviewed. Next: the 100-row sample of whole links and the 150-row sample of
-      rule rows.
+      (2 duplicates dropped, 118 keep); 312 of 6,449 ledger rows reviewed. The samples, 2026-10-18 (seed 20261018): 100 whole links, 0
+      narrows; 150 rule links, 0 widens. Sample-then-stop (Q57) closes the review: the 4,963 unread rows keep their citations, and every
+      editable row of the 6,449 carries a verdict. Phase 1 is done apart from the `Get-AdrCodesFileMetaFact` placeholder fix, which waits
+      for session catzc-e5's file.
 - [ ] Phase 2 per decided D1, one file at a time (check: Test-Comments, Test-FileMeta clean).
 
 ## Done, and why (session report of 2026-10-16 15:23)

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A config file's path is a coordinate: the diagram described
+# A config file's path is a coordinate that resolves to one subscription and one resource group: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right through two bands.

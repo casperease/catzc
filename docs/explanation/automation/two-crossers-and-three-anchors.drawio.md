@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Two crossers and three anchors: the diagram described
+# Two crossers anchor on two roots, and a published artifact anchors on its artifact root: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then the band below.

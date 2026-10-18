@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Every stage has a rule, two gates check it: the diagram described
+# Every stage of the bundle has a rule, and two gates check it: the diagram described
 
 ```text
 A 1572 x 620 diagram, read left to right through three bands.

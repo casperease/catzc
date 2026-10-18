@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Three tests prove the hook: the diagram described
+# One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only: the diagram described
 
 ```text
 A 1572 x 720 diagram in two columns: the left read top to bottom through four bands, the right one band of gates.

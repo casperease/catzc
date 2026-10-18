@@ -17,18 +17,19 @@ catzc:
   edges:
     test: automation/Catzc.Base.VSCode/tests/Install-VSCodeExtension.Tests.ps1
   config:
-    synopsis: Installs the repository's own editor extensions, the folders of the module's extensions/ that hold a package.json, through the editor's CLI.
+    synopsis: Installs the repository's own editor extensions, the entries under extensions in vscode-extensions.yml, through the editor's CLI.
     description: |-
-      Each extension folder under `extensions/` is packed with Build-VSCodeExtension and installed with `code --install-extension --force`,
-      so the editor writes its own registry entry. An extension whose installed copy (`<publisher>.<name>-<version>` in the editor's
+      Each extension is generated: New-VSCodeExtensionFolder renders it from its registry entry and its script in `assets/extensions/` to
+      `<Root>/<name>/`, Build-VSCodeExtension packs that folder, and `code --install-extension --force` installs it, so the editor writes
+      its own registry entry. An extension whose installed copy (`<publisher>.<name>-<version>` in the editor's
       extensions folder) already holds every source file byte for byte is skipped, so the importer runs this on every load and only a
       changed extension costs an install. An extension of the same name is replaced; the editor loads it on its next window reload.
 
       A link from the editor's extensions folder into the repository is not the install: the editor would write the extension's files
       through the link into the working tree. Remove such a link first.
     parameters:
-      Name: 'The extension folder names to install. Default: every folder of extensions/ that holds a package.json.'
-      Root: "The folder that holds the extension folders. Default: the module's extensions/."
+      Name: 'The extension names to install. Default: every entry under extensions in vscode-extensions.yml.'
+      Root: 'The folder the extensions are rendered under. Default: the vscode-extensions folder under the output root.'
       ExtensionsDirectory: "The editor's extensions folder, where an installed copy is compared. Default: ~/.vscode/extensions."
       Force: Installs even an extension whose installed copy is current.
     outputs: '[string[]] The .vsix files that were installed.'
@@ -44,7 +45,7 @@ function Install-VSCodeExtension {
     param(
         [string[]] $Name,
 
-        [string] $Root = (Get-CatzcModuleRoot -ChildPath 'extensions'),
+        [string] $Root = (Join-Path (Get-OutputRoot) 'vscode-extensions'),
 
         [string] $ExtensionsDirectory = (Join-Path $HOME '.vscode/extensions'),
 
@@ -55,16 +56,17 @@ function Install-VSCodeExtension {
         throw "Install-VSCodeExtension: the editor's CLI 'code' is not on PATH. Add it (VS Code: Shell Command: Install 'code' command in PATH), then re-run."
     }
 
-    $folders = @(Get-ChildPath $Root -Depth 1 -Directory | Where-Object { Test-Path -LiteralPath (Join-Path $_ 'package.json') })
+    $entries = @((Get-Config -Config vscode-extensions).extensions)
     if ($Name) {
-        $folders = @($folders | Where-Object { (Split-Path $_ -Leaf) -in $Name })
-        $found = @($folders | ForEach-Object { Split-Path $_ -Leaf })
-        foreach ($wanted in $Name | Where-Object { $_ -notin $found }) {
-            throw "Install-VSCodeExtension: 'extensions/$wanted' holds no package.json."
+        $known = @($entries | ForEach-Object name)
+        foreach ($wanted in $Name | Where-Object { $_ -notin $known }) {
+            throw "Install-VSCodeExtension: '$wanted' is not an entry under extensions in vscode-extensions.yml."
         }
+        $entries = @($entries | Where-Object { $_.name -in $Name })
     }
 
-    foreach ($folder in $folders) {
+    foreach ($entry in $entries) {
+        $folder = New-VSCodeExtensionFolder -Extension $entry -OutputDirectory $Root
         if (-not $Force) {
             $manifest = Get-Content -LiteralPath (Join-Path $folder 'package.json') -Raw | ConvertFrom-Json
             $installed = Join-Path $ExtensionsDirectory "$($manifest.publisher).$($manifest.name)-$($manifest.version)".ToLowerInvariant()

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One out/ string, two places: the diagram described
+# One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

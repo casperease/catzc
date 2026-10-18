@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Module dependencies form three layers: the diagram described
+# Module dependencies form three layers, and every edge points down: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands.

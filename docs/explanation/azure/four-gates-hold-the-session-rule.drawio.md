@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Four gates hold the session rule: the diagram described
+# Four gates hold the session rule; the customer and the name hold by construction: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through two bands, with a third band below.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Build, verify, then copy the folder: the diagram described
+# Build-Modules builds, verifies, and leaves one folder that every target copies whole: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through four bands.

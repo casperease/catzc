@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Decide returns null or a reason: the diagram described
+# Main loads the limits and the run environment, then Decide returns null or a reason: the diagram described
 
 ```text
 A 1572 x 710 diagram, read top to bottom through four bands.

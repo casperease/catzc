@@ -56,6 +56,11 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
 4. Next three files by cost (Get-BicepParameterModel.Shipped 33.6 s, Import-Catzc 32.9 s, Build-Bicep.L2 31.3 s, then the Test-BuildArtifact
    files), one at a time through the `test-optimization` robot, each measured against the new balance. Check: same assertions, lower time,
    recorded per file.
+   - `Get-BicepParameterModel.Shipped.Tests.ps1`, 2026-10-18, no edit: 3 tests, about 4 s each (14.3 s container, run alone twice,
+     `out/test-file/20261018-114611-03d7dc`); the 33.6 s was contention in the full run. Each test is one real `az bicep build` per
+     shipped template, which is what this L2 integrity test proves, so no rule in this file applies. Open for the user, both outside the
+     file: one shared build per template for the whole run (other Build-Bicep tests may rebuild the same three), or the three builds in
+     parallel in `BeforeAll`.
 5. Items 2 and 3 of the carried draft (the Invoke-TestFile snapshot test, the config conventions test at 0.77 s) stay as they are unless the
    user decides otherwise; one Decided line. The markdown title test re-measured once Get-MarkdownScope landed. Check: the lines exist.
 6. Tick the plan's steps; the carried draft goes; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
