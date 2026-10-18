@@ -1,3 +1,10 @@
 renderer:
   page: dark # dark | model. dark: every render sits on the dark page (STYLE.md tokens); model: the model's own background, white allowed. Parameter: --page
   out: out/drawio # where drawio_forward.py lands its artifacts when no <out_dir> argument is given
+lenses: # the closed set of lenses a slide's subtitle may end with (`<codes> · <lens>`), each with the badge its grid minimap prints
+  meta: META
+  architecture: ARCH
+  implementation: IMPL
+  operations: OPS
+  governance: GOV
+  source: SRC
