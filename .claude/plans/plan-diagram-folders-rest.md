@@ -42,8 +42,14 @@ into its folder. Carried from plan-diagram-folders, which is done and listed for
       `docs/adr/azure/.assets/azure-name-assembly`, `docs/explanation/design/.assets/10-commits-story`,
       `docs/adr/design/.assets/commit-lifecycle-states`, `docs/explanation/design/.assets/state-changes`,
       `docs/adr/design/.assets/sync-point`. Adding a cell is diagram work for the user to ask for.
-- [ ] Numbered citations left in 12 slide models outside docs/explanation (the widened `out/scan-numbered-models.py`: the glyph legend
+- [x] Numbered citations left in 12 slide models outside docs/explanation (the widened `out/scan-numbered-models.py`: the glyph legend
       `docs/explanation/.assets/glyphs` and the 11 `docs/references/pwsh/.assets/*` slides), re-cited the way step 6 of the code language
       did: named rules, chips on slide-local keys with a legend naming each rule (check: Build-Diagrams -Path clean on each; the scan
-      reports 0 over all 166 folders).
+      reports 0 over all 166 folders). Landed 2026-10-18 by catzc-b4. The 11 reference slides carried their numbered codes only in the
+      sidebar `supports` cell; decided by the orchestrator (the user's option A: the slide names ADRs, the article names rules), it now
+      lists ADR-level codes, deduped, which fit the box (named rules overflowed it). The glyph legend's sample chip reads `3` and its footer
+      cites ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE. "Build-Diagrams -Path all stages clean on the 11 reference folders, 0 W_ lines, 0 other
+      cells changed (out/b4-chips/celldiff.py); the glyph legend all stages done, prepare with its known W_SUBTITLE (it has no subtitle
+      cell, and a standard one at y 44 overlaps its first band at y 56, so none was added), 0 other cells changed; out/scan-numbered-models.py:
+      SCANNED 166 folders, 0 with hits, 0 numbered codes, 0 chip labels".
 - [ ] Delete this plan (check: no file in .claude/plans names it).

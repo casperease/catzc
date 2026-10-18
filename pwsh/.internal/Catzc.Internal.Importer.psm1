@@ -11,8 +11,6 @@ function Invoke-Importer {
         [switch] $AllowWarnings,
         [switch] $DiagnoseLoadTime,
 
-        [switch] $DiagnoseBlocking,
-
         [switch] $ClearCompiledTypes,
 
         [switch] $SkipJanitors,

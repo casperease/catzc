@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9a33aed3a828"
+    with_body_sha: "0ac84c8dabfe"
     repo_status: locked
     path: importer.ps1
     source: pwsh/.internal/Catzc.Internal.Importer.psm1
@@ -22,7 +22,6 @@ param(
     [switch] $ExportPrivates,
     [switch] $AllowWarnings,
     [switch] $DiagnoseLoadTime,
-    [switch] $DiagnoseBlocking,
     [switch] $ClearCompiledTypes,
     [switch] $SkipJanitors,
     [switch] $CleanClone,

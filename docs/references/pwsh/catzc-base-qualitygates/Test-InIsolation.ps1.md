@@ -70,7 +70,8 @@ Return the run summary object instead of throwing on failure.
 
 ### outputs
 
-`[pscustomobject]` with Isolation, Sandbox, Modules, Total, Failed, Success, ResultsPath (under -PassThru).
+`[Catzc.Base.Reports.IsolationRunResult]` with Isolation, ModuleProfile, Sandbox, Modules, Total, Failed, Success, ResultsPath (under
+-PassThru).
 
 ### example 1
 

@@ -43,7 +43,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
     }
 
     It 'reads a numbered citation, a group or a wildcard in body text as no citation' {
-        $codes = Get-Codes ("The ADR-GADGET" + "#4 rule, the ADR-GADGET" + "#{2,3} group, the ADR-WIDGET-* family.`n")
+        $codes = Get-Codes ('The ADR-GADGET' + '#4 rule, the ADR-GADGET' + "#{2,3} group, the ADR-WIDGET-* family.`n")
         $codes.Count | Should -Be 0
     }
 
