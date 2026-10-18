@@ -57,7 +57,7 @@ indent_size = 2
 #    the YAML key and the C# property are the same identifier (ADR-AUTO-TYPES#8) — not PascalCase.
 #  - IDE0130 "Namespace does not match folder structure": each file's namespace is its MODULE (ADR-AUTO-TYPES#2) —
 #    e.g. Catzc.Azure for pwsh/Catzc.Azure/types/*.cs — a flat, module-encoding convention, NOT the IDE
-#    project's physical path (Catzc.Types.automation.Catzc.Azure.types). We turn the underlying preference off
+#    project's physical path (Catzc.Types.pwsh.Catzc.Azure.types). We turn the underlying preference off
 #    (stating the policy as code) and mute the diagnostic; this rule is an editor hint, invisible to dotnet build.
 # CA1050 "Declare types in namespaces" is deliberately NOT suppressed: every source declares its module's
 # file-scoped namespace (Format-Types writes it, Test-Formatting gates it), so the rule passes honestly —

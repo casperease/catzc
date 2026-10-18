@@ -56,18 +56,18 @@ re-confirm. Enumeration is native `.NET` and ~1–7ms, so it is never the cause;
 
 **Source and build answer it differently.** Source stays one function per file: that is the form a developer reads, reviews, and diffs, so a
 devbox in source mode pays the cold scan, and its mitigation is environmental — an antivirus exclusion for the repository working copy and
-`pwsh/.vendor/`. The **installed build** is merged per module ([platform-bundle](platform-bundle.md),
-[run-modes](../design/run-modes.md)): `Build-Modules` writes each module's functions into one generated function file, so a machine that
-runs the installed `Catzc` opens one function file per module instead of one per function. That is the code-level answer to the cold-import
-antivirus cost, and it needs no exclusion. (The C# in the `types/` folders ship a committed, hash-keyed prebuilt DLL in
-`pwsh/.compiled/`, so a fresh checkout and CI load it without invoking Roslyn — only a developer who edits a type source pays the
-`~0.5s` compile, once — but that is secondary to the per-file scan.)
+`pwsh/.vendor/`. The **installed build** is merged per module ([platform-bundle](platform-bundle.md), [run-modes](../design/run-modes.md)):
+`Build-Modules` writes each module's functions into one generated function file, so a machine that runs the installed `Catzc` opens one
+function file per module instead of one per function. That is the code-level answer to the cold-import antivirus cost, and it needs no
+exclusion. (The C# in the `types/` folders ship a committed, hash-keyed prebuilt DLL in `pwsh/.compiled/`, so a fresh checkout and CI load
+it without invoking Roslyn — only a developer who edits a type source pays the `~0.5s` compile, once — but that is secondary to the per-file
+scan.)
 
 ## Decision
 
 We vendor every dependency and assume nothing about the machine: no network access at runtime, no elevation, no dependence on the user
 profile. How the engine realises this — the module-path mechanics that make the vendored copies win, the one-time fix for a network user
-path, and no gallery at runtime — is the PowerShell layer: [module-path-hygiene](../pwsh/module-path-hygiene.md) and
+path, and no gallery at runtime — belongs to the pwsh rules: [module-path-hygiene](../pwsh/module-path-hygiene.md) and
 [vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md).
 
 ### How this is enforced

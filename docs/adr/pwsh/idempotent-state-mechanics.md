@@ -1,4 +1,4 @@
-# ADR: Idempotent state mechanics — the PowerShell layer over idempotent-state-functions
+# ADR: Idempotent state mechanics — the pwsh rules over idempotent-state-functions
 
 ## Rules: ADR-PWSH-IDEM
 
@@ -57,7 +57,7 @@ idempotent and names a non-idempotent command it wraps, and a `.PARAMETER Force`
 idempotent: check before acting, prefer graceful handling, overwrite rather than append, return the resulting state, and document the
 contract. Those rules hold for every execution engine. PowerShell adds its own ways to get each one wrong: cmdlets that look alike but
 differ on a re-run, a `-Force` that means different things on different commands, and a pipeline that returns every value a function forgets
-to capture. This ADR is the PowerShell layer under the doctrine.
+to capture. This ADR realises the doctrine in pwsh.
 
 ### Overwrite, not append
 

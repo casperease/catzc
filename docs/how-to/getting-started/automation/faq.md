@@ -89,8 +89,8 @@ no possibility of a missing import at runtime.
 
 **Fair.** There is real complexity; it is just kept out of your way. Under the covers the system manages several kinds of dependency:
 
-- **Compiled internal types** — immutable, optimized `Catzc.*` types and their processing in the automation layer.
-- **Module dependencies** — the internal and vendored modules the automation layer loads.
+- **Compiled internal types** — immutable, optimized `Catzc.*` types and their processing in the pwsh modules.
+- **Module dependencies** — the internal and vendored modules the importer loads.
 - **External system dependencies** — the tooling the system shells out to, plus direct OS-level integration for processing and control.
 - **Build-time dependencies** — everything the infrastructure build, deploy, and test steps pull in.
 

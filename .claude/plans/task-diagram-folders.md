@@ -25,6 +25,9 @@ change is `write-drawio-files`.
 
 ## Steps
 
+Step 2 closed 2026-10-18 (catzc-f3: both subtitles already canonical, drawio_forward.py exit 0, no W_SUBTITLE). Step 1 waits on the
+decision round's test home for the kit.
+
 1. Kit tests: subtitle parsing (both code forms reported, the canonical accepted), the closed lens set, the `Supports (<lens> lens)` drift
    warning, under the test home the decision round names (`.claude/drawio/tests/`) and run with `uv run` under the time safeguard. Check:
    the tests pass; `Test-FileMeta` clean on the new files.

@@ -1,4 +1,4 @@
-# ADR: Module-path hygiene — the PowerShell layer over effective-in-enterprises
+# ADR: Module-path hygiene — the pwsh rules over effective-in-enterprises
 
 ## Rules: ADR-PWSH-MODPATH
 
@@ -29,8 +29,8 @@ leaves `$env:PSModulePath` alone and **warns** when it contains a network share,
 ## Context
 
 [effective-in-enterprises](../automation/effective-in-enterprises.md) (`ADR-AUTO-ENTERP`) fixes the constraints: home folders on network
-storage, no local admin, no network access at runtime. This ADR is the PowerShell layer under it — how the module path is kept fast, local,
-and deterministic on such a machine. The gallery half of the same constraint, no PowerShell Gallery at runtime, is
+storage, no local admin, no network access at runtime. This ADR realises it in pwsh — how the module path is kept fast, local, and
+deterministic on such a machine. The gallery half of the same constraint, no PowerShell Gallery at runtime, is
 [vendor-toolset-dependencies](vendor-toolset-dependencies.md#rule-adr-pwsh-vendor8).
 
 ### PSModulePath
@@ -58,8 +58,8 @@ one-time helper that points the user module path at local disk — the importer 
 
 ### What the importer does
 
-The vendor loader (`Import-VendorModules` in `pwsh/.internal/Catzc.Internal.Vendor.psm1`) makes the vendored copy of each dependency
-win, by **surgical removal** — not a wholesale rebuild:
+The vendor loader (`Import-VendorModules` in `pwsh/.internal/Catzc.Internal.Vendor.psm1`) makes the vendored copy of each dependency win, by
+**surgical removal** — not a wholesale rebuild:
 
 - For each vendored module, if a copy is already loaded from somewhere other than `.vendor/`, it is removed (`Remove-Module`) so the
   vendored version can take its place.
@@ -80,8 +80,8 @@ a UNC/network share, and point the user at the one-time fix below (see `Invoke-I
 
 `The one-time fix for network user paths`
 
-The slow-network-path problem is solved by `pwsh/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`, a one-time helper the user
-runs themselves. It writes a user-scope `powershell.config.json` (under `Documents\PowerShell`, even when that is on DFS) that overrides the
+The slow-network-path problem is solved by `pwsh/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`, a one-time helper the user runs
+themselves. It writes a user-scope `powershell.config.json` (under `Documents\PowerShell`, even when that is on DFS) that overrides the
 CurrentUser module path to a local directory (`$env:LOCALAPPDATA\PowerShell\Modules`). PowerShell reads that single config file once at
 startup — fast — instead of recursively scanning a network share on every lookup.
 

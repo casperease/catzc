@@ -22,6 +22,8 @@ Five plans each hold one step that fits no larger chunk. Each is one file and on
 
 ## Steps
 
+In hand 2026-10-18: session catzc-fb holds steps 1 and 2 (orchestrator).
+
 1. The two stale comment-page sections (plan-module-model-closeout): `Get-ModuleGlobSet.ps1.md` comment:4 and `variants.yml.md` comment:4
    each name a code line the source no longer has; `Export-Comments` on each source re-points or drops the section. Check: `Test-Comments`
    reports 0 on both sources.

@@ -50,7 +50,7 @@ function Format-GeneratedFileHead {
     if ($fileType) {
         $values['filetype'] = $fileType
     }
-    # A root file is in no track, and a file outside automation is in no module.
+    # A root file is in no track, and a file outside pwsh/ is in no module.
     $track = Get-Track -Path $relative
     if ($track) {
         $values['track'] = $track.name

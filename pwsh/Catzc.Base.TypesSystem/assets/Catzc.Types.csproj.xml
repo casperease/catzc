@@ -84,7 +84,7 @@
   -->
   <UsingTask TaskName="StampCatzcTypesVersion" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
-      <AutomationRoot ParameterType="System.String" Required="true" />
+      <ModulesRoot ParameterType="System.String" Required="true" />
       <!-- The index's pwsh/.compiled entries (git ls-files), ';'-separated; empty when git is unavailable. -->
       <TrackedCompiled ParameterType="System.String" Required="false" />
       <GitAvailable ParameterType="System.Boolean" Required="false" />
@@ -94,7 +94,7 @@
       <Code Type="Fragment" Language="cs"><![CDATA[
         // Gather pwsh/<module>/types/*.cs (skip dot-modules), keyed <module>/<bare-type>.
         var files = new List<KeyValuePair<string, string>>();
-        foreach (var moduleDir in Directory.EnumerateDirectories(AutomationRoot))
+        foreach (var moduleDir in Directory.EnumerateDirectories(ModulesRoot))
         {
             var module = Path.GetFileName(moduleDir);
             if (module.StartsWith(".")) continue;
@@ -157,7 +157,7 @@
       <Output TaskParameter="ConsoleOutput" ItemName="CatzcTrackedCompiled" />
       <Output TaskParameter="ExitCode" PropertyName="CatzcGitExitCode" />
     </Exec>
-    <StampCatzcTypesVersion AutomationRoot="$(MSBuildProjectDirectory)/../.." TrackedCompiled="@(CatzcTrackedCompiled)"
+    <StampCatzcTypesVersion ModulesRoot="$(MSBuildProjectDirectory)/../.." TrackedCompiled="@(CatzcTrackedCompiled)"
                             GitAvailable="$([System.String]::Equals('$(CatzcGitExitCode)', '0'))">
       <Output TaskParameter="CombinedHash" PropertyName="CatzcTypesHash" />
     </StampCatzcTypesVersion>

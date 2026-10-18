@@ -2,7 +2,7 @@ Describe 'Test-FolderConventions' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {
             param([string] $Path)
-            $full = Join-Path $TestDrive "repo/automation/$Path"
+            $full = Join-Path $TestDrive "repo/pwsh/$Path"
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
             [System.IO.File]::WriteAllText($full, '')
         }

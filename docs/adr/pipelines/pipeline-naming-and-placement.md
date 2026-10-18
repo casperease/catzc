@@ -124,7 +124,7 @@ root supplies only parameters: `extends: { template: /pipelines/extends/<name>.y
 mechanism when many pipelines must share one governed structure — e.g. **customer CD**, where every customer's pipeline extends a single
 `extends/cd-customer.yaml` and passes only meta selection criteria (the customer key, the environment). It still answers to
 [custom-template-discipline](custom-template-discipline.md): it earns its existence through genuine, proven many-pipeline reuse, and its
-parameters are meta keys only — never config the automation layer can derive.
+parameters are meta keys only — never config the catzc commands can derive.
 
 ### 3. `.yaml` vs `.yml`
 

@@ -1,6 +1,6 @@
 # Catzc.Azure.DevOps
 
-The Azure DevOps integration module. It is the boundary between the automation layer and an Azure DevOps organization: authenticating to it,
+The Azure DevOps integration module. It is the boundary between the catzc commands and an Azure DevOps organization: authenticating to it,
 calling its REST API, taking inventory of the pipeline YAML in the repository, and bridging a running pipeline back to PowerShell. Its
 organization identity is configured, not guessed.
 

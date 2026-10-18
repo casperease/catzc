@@ -56,21 +56,31 @@ Every step edits one file and proves it before the next (CLAUDE.md, editing rule
       The root `catzc.sln` is a hard link to this asset (`copyAsLink`), so the edit writes through the same inode and never replaces the
       file. Done 2026-10-18: `grep -c automation catzc.sln` is 0, both paths share one inode, "No root-config-files issues found", and
       `Test-RootConfigFiles.Tests.ps1` passed under `Invoke-TestFile`.
-- [ ] `pwsh/Catzc.Base.RootConfig/assets/root/.editorconfig:60`: the IDE path example `Catzc.Types.automation.Catzc.Azure.types` becomes
+- [x] `pwsh/Catzc.Base.RootConfig/assets/root/.editorconfig:60`: the IDE path example `Catzc.Types.automation.Catzc.Azure.types` becomes
       `Catzc.Types.pwsh.Catzc.Azure.types`; regenerate the root `.editorconfig`. (check: grep clean; `Test-GeneratedFiles` clean)
-- [ ] `pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml:87,97,160`: the MSBuild task parameter `AutomationRoot` becomes
+      Landed 2026-10-18 by session catzc-59: grep -i automation 0 on asset and root, the root hard link restored (same inode, 2 links);
+      Test-GeneratedFiles 5 issues, none from this file (Build-Readme stale for `pipelines/README.md`, `pipelines/jobs/README.md`,
+      `pipelines/stages/README.md`, `pipelines/variables/README.md`, `pwsh/Catzc.Azure.DevOps/README.md`; no owner yet). Trap: the Edit
+      tool replaces a copyAsLink root asset and breaks its hard link; re-link with `ln -f`.
+- [x] Landed 2026-10-18 by session catzc-59: `AutomationRoot` renamed to `ModulesRoot` at 3 sites, `Catzc.Types.csproj` regenerated in a
+      fresh pwsh, grep 0 on both files, Import-CSharpTypes.Tests passed under Invoke-TestFile; Test-GeneratedFiles 2 issues, neither from
+      this file (`docs/adr/index.md` stale for Build-AdrIndex, `docs/adr/glossary.md` for Build-Glossary, both dirty in other sessions).
+      Original step: `pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml:87,97,160`: the MSBuild task parameter `AutomationRoot` becomes
       `ModulesRoot` in the declaration, the enumeration and the call; regenerate `pwsh/.internal/assets/Catzc.Types.csproj` from it, in a
       fresh pwsh. (check: grep clean on both files; `Test-GeneratedFiles` clean; `Invoke-TestFile
       pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-compiled-info.js:11-15`: `automationRoot` becomes `modulesRoot`. (check: grep
+- [x] Landed 2026-10-18 by session catzc-59: 3 sites renamed, grep -i automation 0, Build-VSCodeExtension.Tests passed under
+      Invoke-TestFile. Original step: `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-compiled-info.js:11-15`: `automationRoot` becomes `modulesRoot`. (check: grep
       clean; `Invoke-TestFile pwsh/Catzc.Base.VSCode/tests/Build-VSCodeExtension.Tests.ps1`)
 
 ### Source code: comments, examples and error text
 
-- [ ] `pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1:128`: names `Format-Automation`, which does not exist; name the formatter that
+- [x] Landed 2026-10-18 by session catzc-59: the comment names `Format-Code`, grep -i automation 0, the root hard link restored,
+      Test-RootAnalyzerSettings.Tests passed under Invoke-TestFile. Original step: `pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1:128`: names `Format-Automation`, which does not exist; name the formatter that
       aligns `=` today (`Format-Code`) or drop the clause. (check: grep clean; `Invoke-TestFile
       pwsh/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1`)
-- [ ] `pwsh/.internal/Catzc.Internal.Bootstrap.psm1:465,495`: "automation modules" and "automation function" become "catzc modules" and
+- [x] Landed 2026-10-18 by session catzc-59: "catzc modules" and "module function"; grep leaves only the kept `Test-Automation` hit on
+      line 4; Import-AllModules.Tests passed under Invoke-TestFile. Original step: `pwsh/.internal/Catzc.Internal.Bootstrap.psm1:465,495`: "automation modules" and "automation function" become "catzc modules" and
       "module function". (check: grep clean; `Invoke-TestFile pwsh/.internal/tests/Import-AllModules.Tests.ps1`)
 - [ ] `pwsh/Catzc.Base.Variants/types/VariantTrack.cs:10,13`: the examples `e.g. automation` become `e.g. pwsh`. (check: grep clean;
       `Invoke-TestFile pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1`)
@@ -104,6 +114,9 @@ Every step edits one file and proves it before the next (CLAUDE.md, editing rule
 
 ### Tests that mock the old folder
 
+  Reported 2026-10-18 by session catzc-93 (outside the master plan, clearing the last run's failing tests): the
+  `Get-TestAutomationTestPaths`, `Get-FixtureIdentityTokens` and `Test-FolderConventions` test steps below are edited in its working copy,
+  verdict "the files pass 16/16"; the grep half of each check is unverified, so the three stay open until it is.
 - [ ] `pwsh/.internal/tests/Import-AllModules.Tests.ps1:63,189-195`: the context title and the `$automation` local become "modules folder"
       and `$modulesRoot`. (check: grep clean; the file passes under `Invoke-TestFile`)
 - [ ] `pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1:213-230`: `$automation` and the `Automation` parameter key become

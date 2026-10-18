@@ -56,7 +56,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## Dynamic module manifests
 
-`Dynamic module manifests — the PowerShell layer over open-closed-architecture`
+`Dynamic module manifests — the pwsh rules over open-closed-architecture`
 
 [ADR-PWSH-MANIFEST](dynamic-module-manifests.md)
 
@@ -74,7 +74,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## Module-path hygiene
 
-`Module-path hygiene — the PowerShell layer over effective-in-enterprises`
+`Module-path hygiene — the pwsh rules over effective-in-enterprises`
 
 [ADR-PWSH-MODPATH](module-path-hygiene.md)
 
@@ -257,7 +257,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## Identifier names
 
-`Identifier names — the PowerShell layer over spell-out-names`
+`Identifier names — the pwsh rules over spell-out-names`
 
 [ADR-PWSH-NAMES](identifier-names.md)
 
@@ -287,7 +287,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## Environment-variable mechanics
 
-`Environment-variable mechanics — the PowerShell layer over environment-variables`
+`Environment-variable mechanics — the pwsh rules over environment-variables`
 
 [ADR-PWSH-ENV](environment-variable-mechanics.md)
 
@@ -307,7 +307,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## Parameter design
 
-`Parameter design — the PowerShell layer over sensible-defaults`
+`Parameter design — the pwsh rules over sensible-defaults`
 
 [ADR-PWSH-PARAM](parameter-design.md)
 
@@ -323,7 +323,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## Bounded enumeration
 
-`Bounded enumeration — the PowerShell layer over sensible-defaults`
+`Bounded enumeration — the pwsh rules over sensible-defaults`
 
 [ADR-PWSH-ENUM](bounded-enumeration.md)
 
@@ -340,7 +340,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## Working-directory mechanics
 
-`Working-directory mechanics — the PowerShell layer over never-depend-on-pwd`
+`Working-directory mechanics — the pwsh rules over never-depend-on-pwd`
 
 [ADR-PWSH-PWD](working-directory-mechanics.md)
 
@@ -373,7 +373,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## Script-scope caching
 
-`Script-scope caching — the PowerShell layer over caching`
+`Script-scope caching — the pwsh rules over caching`
 
 [ADR-PWSH-CACHE](script-scope-caching.md)
 

@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ba361eebe8dc
-    with_inputs_sha: "74e8720ee6399ad8c11140fc478b3ea6f3975e562ec999d4d47c961b8dbba0d0"
+    with_body_sha: dec8cf38a006
+    with_inputs_sha: ad999146a9b5b6a23d8a4aff191be857b6da59ad137da64356ece5c9f7d6bbd1
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary
@@ -568,6 +568,14 @@ folder; the ADR domain, the value-chain row and the concern carry the name.
   - [importer](#importer): The importer brings a mix of languages, engines and modules into a session; automation is what the loaded modules
     offer.
 
+| Avoid                   | Say instead                                             |
+| ----------------------- | ------------------------------------------------------- |
+| `automation folder`     | the pwsh track folder (pwsh/)                           |
+| `automation track`      | pwsh track                                              |
+| `automation modules`    | pwsh modules / catzc modules                            |
+| `automation layer`      | automation (the abstract) / the pwsh modules (the code) |
+| `powershell automation` | pwsh modules / PowerShell code                          |
+
 ### bash test folder
 
 The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box `.bats`
@@ -674,7 +682,7 @@ tests.
 
 ### implementation language
 
-The file language a command's source is written in, one of the file languages its track declares, which are PowerShell with its hosted C#,
+The file language a command's source is written in, one whose languages.yml entry sets executable, which are PowerShell with its hosted C#,
 Bash, Python and Go.
 
 - **Defined by:** [ADR-AUTO-LAYERS#2](automation/layers.md#rule-adr-auto-layers2)
@@ -1297,12 +1305,11 @@ ADR-AUTO-LAYERS#6), or a globset layer (module, fileset).
 - **Defined by:** [ADR-REPO-VOCAB#8](repository/controlled-vocabulary.md#rule-adr-repo-vocab8)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
-- **Forms:** `implementation layer`, `automation layer`, `contract layer`, `language layer`, `engine layer`, `importer layer`,
-  `PowerShell layer`, `installer layer`, `config layer`, `configuration layer`, `Azure layer`, `tooling layer`, `YAML layer`,
-  `module layer`, `template layer`, `templating layer`, `vendor layer`, `abstraction layer`, `analyzer layer`, `compatibility layer`,
-  `mapping layer`, `serialization layer`, `base layer`, `design layer`, `spelling layer`, `Pester layer`, `pip layer`, `path layer`,
-  `support layer`, `doctrine layer`, `globset layer`, `fileset layer`, `cross layer`, `ADR layer`, `AUTO layer`, `shaping layer`, and the
-  bare `layer`, with its verb forms
+- **Forms:** `automation layer`, `contract layer`, `language layer`, `engine layer`, `importer layer`, `installer layer`, `config layer`,
+  `configuration layer`, `Azure layer`, `tooling layer`, `YAML layer`, `module layer`, `template layer`, `templating layer`, `vendor layer`,
+  `abstraction layer`, `analyzer layer`, `compatibility layer`, `mapping layer`, `serialization layer`, `base layer`, `design layer`,
+  `spelling layer`, `Pester layer`, `pip layer`, `path layer`, `support layer`, `doctrine layer`, `globset layer`, `fileset layer`,
+  `cross layer`, `ADR layer`, `AUTO layer`, `shaping layer`, and the bare `layer`, with its verb forms
 - **Contrasts:**
   - [facet](#facet): A facet is one of several parallel views of, or checks on, the same thing; a layer is one level of a stack.
 

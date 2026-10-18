@@ -1,4 +1,4 @@
-# ADR: Parameter design — the PowerShell layer over sensible-defaults
+# ADR: Parameter design — the pwsh rules over sensible-defaults
 
 ## Rules: ADR-PWSH-PARAM
 
@@ -38,8 +38,8 @@ value relative to a parameter declared after it, or a pass-through parameter man
 ## Context
 
 [sensible-defaults](../automation/sensible-defaults.md) fixes the doctrine: the zero-argument call works, defaults come from configuration,
-and a parameter is mandatory only when no default makes sense. This ADR is the PowerShell layer under it — how the parameter surface itself
-is shaped so the common invocation reads naturally.
+and a parameter is mandatory only when no default makes sense. This ADR realises it in pwsh — how the parameter surface itself is shaped so
+the common invocation reads naturally.
 
 The neighbouring parameter rules live where their hazards live: defaulting a `[string]` with `??` never works, and reassigning a
 `Validate*`-attributed parameter re-fires its validator ([automatic-variable-pitfalls](automatic-variable-pitfalls.md),
@@ -105,9 +105,9 @@ declares the configured value as its default. Secondary inputs are named paramet
 
 - **The doctrine layer** — what defaults exist and where they come from is [sensible-defaults](../automation/sensible-defaults.md)
   (`ADR-AUTO-DEFAULT`); this ADR only fixes the parameter mechanics.
-- **Custom PSScriptAnalyzer rules** (`pwsh/.scriptanalyzer/ParameterDesign.psm1`) — `Measure-PrimaryArgumentPosition` flags a function
-  whose one mandatory parameter lacks `Position = 0` (ADR-PWSH-PARAM#2), and `Measure-ParameterFillIn` flags a body that fills an empty
-  parameter in (ADR-PWSH-PARAM#4).
+- **Custom PSScriptAnalyzer rules** (`pwsh/.scriptanalyzer/ParameterDesign.psm1`) — `Measure-PrimaryArgumentPosition` flags a function whose
+  one mandatory parameter lacks `Position = 0` (ADR-PWSH-PARAM#2), and `Measure-ParameterFillIn` flags a body that fills an empty parameter
+  in (ADR-PWSH-PARAM#4).
 - **The exemplars** — the `Invoke-*` family (`Invoke-Executable`, `Invoke-Poetry`, `Invoke-Python`) is the pattern new functions copy.
 - **Code review** — a `[bool]` where a `[switch]` belongs is rejected against this ADR.
 

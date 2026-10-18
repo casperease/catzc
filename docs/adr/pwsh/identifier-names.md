@@ -1,4 +1,4 @@
-# ADR: Identifier names — the PowerShell layer over spell-out-names
+# ADR: Identifier names — the pwsh rules over spell-out-names
 
 ## Rules: ADR-PWSH-NAMES
 
@@ -69,15 +69,15 @@ drive-qualified variable (`$env:`, `$function:`, `$variable:`) names data outsid
 ## Context
 
 [spell-out-names](../automation/spell-out-names.md) fixes the doctrine: identifiers are spelled out in full, the curated vocabulary lives in
-one registry, and a flagged token is a review candidate. This ADR is the PowerShell layer under it — what an identifier is in PowerShell,
-which names the engine owns, the analyzer rule that checks them, and the blessed names a local takes when it has no meaning of its own.
+one registry, and a flagged token is a review candidate. This ADR realises it in pwsh — what an identifier is in PowerShell, which names the
+engine owns, the analyzer rule that checks them, and the blessed names a local takes when it has no meaning of its own.
 
 ### The analyzer rule
 
 `How Measure-SpellOutIdentifiers reads a file`
 
-`Measure-SpellOutIdentifiers` lives in `pwsh/.scriptanalyzer/SpellOutIdentifiers.psm1` and runs inside the L2 `Test-ScriptAnalyzer`
-quality gate. Per file it:
+`Measure-SpellOutIdentifiers` lives in `pwsh/.scriptanalyzer/SpellOutIdentifiers.psm1` and runs inside the L2 `Test-ScriptAnalyzer` quality
+gate. Per file it:
 
 - reads every variable reference and every function definition from the script's syntax tree;
 - skips a drive-qualified variable and the automatic and preference variables (ADR-PWSH-NAMES#6), and strips a scope prefix (`script:`,

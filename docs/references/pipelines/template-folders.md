@@ -11,8 +11,8 @@ speculatively. The folders exist so that when a template earns extraction it has
 Until then the `.gitkeep` keeps the folder tracked.
 
 Templates that do exist here carry **pipeline concerns only** — task selection, service-connection wiring, gates, pool selection, checkout,
-token mapping, artifacts. Automation logic, configuration values, and business rules live in the automation layer and are invoked through
-the runner; template parameters are ADO controls or meta selection criteria, never config the automation can derive.
+token mapping, artifacts. Automation logic, configuration values, and business rules live in the catzc commands and are invoked through the
+runner; template parameters are ADO controls or meta selection criteria, never config the automation can derive.
 
 The governing decisions are [pipeline-naming-and-placement](../../adr/pipelines/pipeline-naming-and-placement.md) (the per-kind folder
 layout and the flat `<type>-<name>.yaml` pipelines above them) and

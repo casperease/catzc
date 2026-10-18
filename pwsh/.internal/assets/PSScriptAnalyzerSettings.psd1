@@ -125,7 +125,7 @@
         # Pairs with PSUseConsistentWhitespace's IgnoreAssignmentOperatorInsideHashTable = $true, which
         # stops CheckOperator flagging the multiple spaces this alignment introduces. VS Code's "Format
         # Document" aligns the same way via powershell.codeFormatting.alignPropertyValuePairs, so editor,
-        # Format-Automation, and analyzer all agree on aligned '='.
+        # Format-Code, and analyzer all agree on aligned '='.
         # History: this was off because enabling it made Invoke-Formatter throw internally and silently
         # return text UNCHANGED. That upstream bug is fixed as of the vendored PSScriptAnalyzer 1.25.0
         # (verified: aligns hashtables and applies other formatting without throwing) — re-enabled here.

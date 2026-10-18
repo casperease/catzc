@@ -20,7 +20,7 @@ function Format-Types {
                 $files.Add($item)
             }
             elseif (Test-Path -Path $item -PathType Container) {
-                # A types file sits two levels below its module (types/), so a folder as wide as automation is three levels up.
+                # A types file sits two levels below its module (types/), so a folder as wide as pwsh/ is three levels up.
                 foreach ($typeFile in Get-ChildPath $item -File -Filter '*.cs' -Depth 3) {
                     $files.Add($typeFile)
                 }

@@ -19,6 +19,11 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'passes for the shipped languages.yml' {
             Get-Config -Config languages | Should -BeOfType [Catzc.Base.Languages.LanguagesConfig]
         }
+
+        It 'marks PowerShell with its hosted C#, Bash, Python and Go as the implementation languages' -Tag 'ADR-AUTO-LAYERS#2' {
+            @((Get-Config -Config languages).languages.Where({ $_.executable }).name) |
+                Should -Be @('powershell', 'csharp', 'python', 'go', 'bash')
+        }
     }
 
     Context 'logic (fixture configs)' -Tag 'logic' {
@@ -119,6 +124,13 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                 Should -Throw '*never both and never neither*'
             { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; executable = 'GizmoExecutable' } }) } |
                 Should -Throw '*never both and never neither*'
+        }
+
+        It 'reads executable as stated, false when the entry is silent, and throws on one that is not a boolean' -Tag 'ADR-AUTO-LAYERS#2' {
+            (& $script:one ([ordered]@{ extensions = @('.wdg'); executable = $true })).languages[0].executable | Should -BeTrue
+            (& $script:one ([ordered]@{ extensions = @('.wdg'); executable = $false })).languages[0].executable | Should -BeFalse
+            (& $script:one ([ordered]@{ extensions = @('.wdg') })).languages[0].executable | Should -BeFalse
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); executable = 'yes' }) } | Should -Throw '*executable must be true or false*'
         }
 
         It 'accepts every engine it declares' {

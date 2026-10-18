@@ -195,7 +195,7 @@ This is "the CI pipeline" and, identically, "the CI part of the CD pipeline."
   projection of the unit it verifies ([durable-sha-globs](durable-sha-globs.md#rule-adr-flow-cd-globs6)) — generated from `globs.yml`, never
   hand-authored.
 - **Example — CI-automation:** "builds" by running `importer.ps1` and "tests" via `Test-Automation` (see
-  [test-automation](../automation/test-automation.md)). It produces no artifact; it simply verifies that the automation layer loads and is
+  [test-automation](../automation/test-automation.md)). It produces no artifact; it simply verifies that the pwsh modules load and are
   green. It registers on the automation unit's native projection (`pwsh/**`), so it runs exactly when that unit's files change.
 - **Contract:** unit-scoped and fast. The pre-commit budget is 5–10 minutes. A CI pipeline never deploys and never publishes a deployable
   artifact; if it needs to, it is a CD pipeline.

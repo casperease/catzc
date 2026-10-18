@@ -212,10 +212,10 @@ Every custom analyzer rule names the ADR rule it enforces in the analyzer map.
 - **`.editorconfig`** — the `[*.{ps1,psm1,psd1}]` section sets the PowerShell indent width and max line length, on top of the `[*]`
   baseline.
 - **PSScriptAnalyzer** — the full rule set, options, and on/off rationale live in `PSScriptAnalyzerSettings.psd1` (every rule folded out
-  with inline comments). Custom analyzer rules, including `Measure-VariableCasing` (the casing rule above), live in
-  `pwsh/.scriptanalyzer/`, one check module each. The settings hand the engine one entry rule, `CatzcRules.psm1`, which runs every
-  check once per file (the engine otherwise calls a script rule once per script block); a new check module is added to its list. Each check
-  keeps its own rule name, so diagnostics and `SuppressMessageAttribute` name the check.
+  with inline comments). Custom analyzer rules, including `Measure-VariableCasing` (the casing rule above), live in `pwsh/.scriptanalyzer/`,
+  one check module each. The settings hand the engine one entry rule, `CatzcRules.psm1`, which runs every check once per file (the engine
+  otherwise calls a script rule once per script block); a new check module is added to its list. Each check keeps its own rule name, so
+  diagnostics and `SuppressMessageAttribute` name the check.
 - **The source set, shared** — `Get-ModuleSourceFile` names the canonical set the analysis quality gates cover: every module `*.ps1` (module
   root, `private/`, `tests/`), the `.internal` and `.scriptanalyzer` infrastructure folders (every `.internal/*.psm1` internal module, the
   custom analyzer rules `*.psm1`, and their `tests/`), the root `importer.ps1`, and authored `.psd1` config
@@ -233,5 +233,5 @@ Every custom analyzer rule names the ADR rule it enforces in the analyzer map.
 - New contributors produce correctly formatted PowerShell because their editor reads `.editorconfig` and PSScriptAnalyzer plus the L2 tests
   catch the rest before merge.
 - The cross-language baseline is single-sourced in [uniform-formatting](../repository/uniform-formatting.md); this ADR holds only the
-  PowerShell layer, so the two never duplicate or drift.
+  PowerShell rules, so the two never duplicate or drift.
 - A new custom analyzer rule cannot ship without naming the ADR rule it enforces, so the coverage report credits it from its first run.

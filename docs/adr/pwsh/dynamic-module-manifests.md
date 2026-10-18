@@ -1,4 +1,4 @@
-# ADR: Dynamic module manifests — the PowerShell layer over open-closed-architecture
+# ADR: Dynamic module manifests — the pwsh rules over open-closed-architecture
 
 ## Rules: ADR-PWSH-MANIFEST
 
@@ -22,17 +22,17 @@ module contains and exports.
 Generated manifests are gitignored, never committed. `New-DynamicManifest` recomputes each module's `<Module>.psd1` from the filesystem on
 **every** import, writing only when the content differs (and deleting it when a module has no `.ps1` files left), so the manifest is a pure
 derived artifact — `pwsh/**/*.psd1` is gitignored. The only committed `.psd1` files are the vendored third-party manifests under
-`pwsh/.vendor/` and the authored analyzer settings `pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1` (both negated in
-`.gitignore`), which the platform does not generate.
+`pwsh/.vendor/` and the authored analyzer settings `pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1` (both negated in `.gitignore`),
+which the platform does not generate.
 
 - [Regenerated manifests](#regenerated-manifests)
 
 ### Rule ADR-PWSH-MANIFEST:4
 
-Every function name resolves to exactly one definition. Two automation modules cannot export the same name, and no automation function may
-shadow an already-imported vendored or built-in command — `Import-AllModules` fails fast on either before any module loads, since PowerShell
-would otherwise let the module imported last silently win. Beyond exports, every function name — public or private — must be defined in
-exactly one file across the repository, verified by an integrity test.
+Every function name resolves to exactly one definition. Two catzc modules cannot export the same name, and no catzc function may shadow an
+already-imported vendored or built-in command — `Import-AllModules` fails fast on either before any module loads, since PowerShell would
+otherwise let the module imported last silently win. Beyond exports, every function name — public or private — must be defined in exactly
+one file across the repository, verified by an integrity test.
 
 - [One function namespace](#one-function-namespace)
 
@@ -63,8 +63,8 @@ riding inside its `.vendor/`, never as `RequiredModules`.
 
 ### Rule ADR-PWSH-MANIFEST:7
 
-The infrastructure that stays closed (ADR-AUTO-EXTEND#1) is, in PowerShell, the generated `importer.ps1` shim, the `pwsh/.internal/`
-modules — `Catzc.Internal.Importer` (the load sequence), `Catzc.Internal.Bootstrap` (`Import-AllModules`, `New-DynamicManifest`) and
+The infrastructure that stays closed (ADR-AUTO-EXTEND#1) is, in PowerShell, the generated `importer.ps1` shim, the `pwsh/.internal/` modules
+— `Catzc.Internal.Importer` (the load sequence), `Catzc.Internal.Bootstrap` (`Import-AllModules`, `New-DynamicManifest`) and
 `Catzc.Internal.Vendor` (`Import-VendorModules`) — and the shared loader `Import-ModuleFiles.ps1`. A new function file, module folder, or
 vendored module is discovered by them; none of them is edited to admit it.
 
@@ -100,8 +100,8 @@ cross-module calls into the module edges `Test-ModuleDependency` checks.
 ## Context
 
 [open-closed-architecture](../automation/open-closed-architecture.md) fixes the doctrine: grow the system by adding files and folders, never
-by editing the infrastructure that discovers them. This ADR is the PowerShell layer under it — the manifest and namespace mechanics that
-make the doctrine hold in this module system, in the source tree and in the installed build.
+by editing the infrastructure that discovers them. This ADR realises it in pwsh — the manifest and namespace mechanics that make the
+doctrine hold in this module system, in the source tree and in the installed build.
 
 PowerShell module systems typically require hand-maintained manifests, explicit import lists, or registration steps. Each new function means
 editing a `.psd1`, updating an export list, or adding a line to a loader script. These edit-to-extend workflows create merge conflicts,
@@ -143,13 +143,13 @@ A module's `.psd1` is not source — it is a projection of the module's `.ps1` f
 `Import-AllModules` calls `New-DynamicManifest` for each module directory immediately before `Import-Module`, deriving
 `<Module>/<Module>.psd1` directly from the current filesystem: every root `*.ps1` (excluding `*.Tests.ps1`) becomes an exported function,
 every `private/*.ps1` a non-exported one. The files are listed, `private/` first and then the root, each group ordinal, in the manifest's
-`PrivateData.CatzcFiles`; its one `NestedModules` entry is the shared loader `pwsh/.internal/assets/Import-ModuleFiles.ps1`, which
-parses each listed file in memory and dot-sources it into the module's session state. Loading each file as its own nested script cost about
-3 ms per file on top of its parse — most of the import — while the parsed script block keeps the source file and line for `Get-Command`,
-errors and stack traces. The file is written only when the recomputed content differs — a clean tree costs a read per module and no write,
-which is also what lets Test-Automation's parallel workers import concurrently without racing the manifest files. A directory that has lost
-all its `.ps1` files has its stale manifest deleted in the same loop. The manifest is never read as an input and never hand-edited; the
-filesystem of `.ps1` files is the single source of truth, and the manifest is its output.
+`PrivateData.CatzcFiles`; its one `NestedModules` entry is the shared loader `pwsh/.internal/assets/Import-ModuleFiles.ps1`, which parses
+each listed file in memory and dot-sources it into the module's session state. Loading each file as its own nested script cost about 3 ms
+per file on top of its parse — most of the import — while the parsed script block keeps the source file and line for `Get-Command`, errors
+and stack traces. The file is written only when the recomputed content differs — a clean tree costs a read per module and no write, which is
+also what lets Test-Automation's parallel workers import concurrently without racing the manifest files. A directory that has lost all its
+`.ps1` files has its stale manifest deleted in the same loop. The manifest is never read as an input and never hand-edited; the filesystem
+of `.ps1` files is the single source of truth, and the manifest is its output.
 
 Because the manifest is regenerated from scratch on every import, committing it would be committing a build output. It would drift from the
 `.ps1` files on any branch that adds, renames, or moves a function, and produce noisy, conflict-prone diffs that say nothing the directory
@@ -180,9 +180,9 @@ This is the one open/closed seam where "non-conforming code is invisible" does n
 wins. So the import enforces it directly. Before any module (or C# type) loads, `Import-AllModules` computes the names each module would
 export and fails fast, naming every collision, when:
 
-- two automation modules would export the same name, or
-- an automation function would shadow an already-imported shipped command — one from a vendored module or a built-in. The shadow check is
-  scoped to shipped commands by module path, so a user's unrelated session module never blocks the import.
+- two catzc modules would export the same name, or
+- a catzc function would shadow an already-imported shipped command — one from a vendored module or a built-in. The shadow check is scoped
+  to shipped commands by module path, so a user's unrelated session module never blocks the import.
 
 The import-time guard limits its scope to the set the manifests export — module-root functions always, `private/` functions under
 `-ExportPrivates` — because that is the set a load can actually break. The repository is stricter than that: an integrity test

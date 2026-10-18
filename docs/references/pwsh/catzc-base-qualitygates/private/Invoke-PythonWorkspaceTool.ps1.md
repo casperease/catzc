@@ -29,6 +29,10 @@ The tool and its subcommand words, e.g. 'ruff format --check' or 'ruff check'.
 
 The files and folders to run it on, as full paths.
 
+### parameter `ConfigOption`
+
+The option that hands the tool the workspace's pyproject.toml: '--config' (the default, ruff) or '--project' (pyright).
+
 ### outputs
 
 `[Catzc.Base.Execution.CliResult]` The tool's result; a non-zero exit is the caller's to read.

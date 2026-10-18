@@ -51,12 +51,12 @@ cache entry on first call, never at import, because importer time is a protected
 ### Rule ADR-AUTO-CACHE:8
 
 The compiled-type prebuild is the one committed, cross-session cache: one assembly for the whole repository, committed as
-`pwsh/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and CI
-load it without compiling, and editing any source re-keys it. The hash material is, per source file,
-`<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the
-content is byte-identical, and the key does not depend on the repository root. Every process loads the assembly from a per-user,
-content-addressed shadow copy (`%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place: an
-uncommitted derivative of the committed assembly, so no session ever locks `pwsh/.compiled`.
+`pwsh/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and CI load it
+without compiling, and editing any source re-keys it. The hash material is, per source file, `<module>|<bare type>|SHA-256(content)`,
+ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the content is byte-identical, and the key
+does not depend on the repository root. Every process loads the assembly from a per-user, content-addressed shadow copy
+(`%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place: an uncommitted derivative of the committed
+assembly, so no session ever locks `pwsh/.compiled`.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 
@@ -196,7 +196,7 @@ keyed on the file's content and every declared input of the check (ADR-AUTO-CACH
 
 `The storage idiom is the language layer`
 
-Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function are the PowerShell layer,
+Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function belong to the pwsh rules,
 [script-scope-caching](../pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): module `$script:` state — never `$env:` or `$global:` — with
 `Get-Config` and `Get-BicepTemplates` as the exemplars. Its rules map onto the ones here: the importer as the only invalidation
 (ADR-AUTO-CACHE#6) is module state discarded on re-import (ADR-PWSH-CACHE#1), and the compiled-type prebuild (ADR-AUTO-CACHE#8) is loaded by

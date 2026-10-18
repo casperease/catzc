@@ -38,7 +38,7 @@ Pipelines are flat in the root and named for their type. Templates live in the f
 
 Real:
 
-- `ci-automation.yaml` — pure CI for the automation layer (`Test-Automation`); the CI exemplar.
+- `ci-automation.yaml` — pure CI for the pwsh modules (`Test-Automation`); the CI exemplar.
 - `ci-automation-expected-failures.yaml` — proves the CI guardrails fire (steps expected to go amber).
 
 Infrastructure (foundation / discovery / expedition) — **reference shapes**, not yet registered. The CI build path runs as-is

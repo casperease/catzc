@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f717e92791bf
+    with_body_sha: d5554114166b
     repo_status: locked
     path: docs/index.md
     folder: docs
@@ -150,21 +150,19 @@ the diagrams. By ADR domain:
 
 ## Module reference
 
-Per-module reference, written responsibilities-first — each [article](references/pwsh/index.md) declares the module's
-responsibilities, describes it in those terms, and sorts its functions and configs into them:
+Per-module reference, written responsibilities-first — each [article](references/pwsh/index.md) declares the module's responsibilities,
+describes it in those terms, and sorts its functions and configs into them:
 
-- [Catzc.Base.Asserts](references/pwsh/catzc-base-asserts.md),
-  [Catzc.Base.Repository](references/pwsh/catzc-base-repository.md),
-  [Catzc.Base.Environment](references/pwsh/catzc-base-environment.md),
-  [Catzc.Base.Objects](references/pwsh/catzc-base-objects.md), [Catzc.Base.Writers](references/pwsh/catzc-base-writers.md),
-  [Catzc.Base.Config](references/pwsh/catzc-base-config.md), [Catzc.Base.Execution](references/pwsh/catzc-base-execution.md),
-  [Catzc.Base.Files](references/pwsh/catzc-base-files.md), [Catzc.Base.TypesSystem](references/pwsh/catzc-base-typessystem.md),
+- [Catzc.Base.Asserts](references/pwsh/catzc-base-asserts.md), [Catzc.Base.Repository](references/pwsh/catzc-base-repository.md),
+  [Catzc.Base.Environment](references/pwsh/catzc-base-environment.md), [Catzc.Base.Objects](references/pwsh/catzc-base-objects.md),
+  [Catzc.Base.Writers](references/pwsh/catzc-base-writers.md), [Catzc.Base.Config](references/pwsh/catzc-base-config.md),
+  [Catzc.Base.Execution](references/pwsh/catzc-base-execution.md), [Catzc.Base.Files](references/pwsh/catzc-base-files.md),
+  [Catzc.Base.TypesSystem](references/pwsh/catzc-base-typessystem.md),
   [Catzc.Base.ModuleSystem](references/pwsh/catzc-base-modulesystem.md),
   [Catzc.Base.QualityGates](references/pwsh/catzc-base-qualitygates.md), [Catzc.Base.Git](references/pwsh/catzc-base-git.md),
   [Catzc.Base.VSCode](references/pwsh/catzc-base-vscode.md), [Catzc.Base.RootConfig](references/pwsh/catzc-base-rootconfig.md)
 - [Catzc.Tooling.Core](references/pwsh/catzc-tooling-core.md), [Catzc.Tooling.Python](references/pwsh/catzc-tooling-python.md),
-  [Catzc.Tooling.Node](references/pwsh/catzc-tooling-node.md),
-  [Catzc.Tooling.Toolchain](references/pwsh/catzc-tooling-toolchain.md),
+  [Catzc.Tooling.Node](references/pwsh/catzc-tooling-node.md), [Catzc.Tooling.Toolchain](references/pwsh/catzc-tooling-toolchain.md),
   [Catzc.Tooling.Provisioning](references/pwsh/catzc-tooling-provisioning.md)
 - [Catzc.Azure](references/pwsh/catzc-azure.md), [Catzc.Azure.Cli](references/pwsh/catzc-azure-cli.md),
   [Catzc.Azure.DevOps](references/pwsh/catzc-azure-devops.md), [Catzc.Azure.Firewall](references/pwsh/catzc-azure-firewall.md),
@@ -172,26 +170,26 @@ responsibilities, describes it in those terms, and sorts its functions and confi
 
 ## Automation ADRs
 
-The "why" and "how" behind the automation layer and its PowerShell engine.
+The "why" and "how" behind the automation and its pwsh engine.
 
 ### Design principles
 
 - [Single-responsibility functions](adr/automation/single-responsibility-functions.md) — keep functions focused so they are easy to write,
   test, and debug
 - [Open/closed architecture](adr/automation/open-closed-architecture.md) — extend by adding files, never by editing infrastructure
-- [Dynamic module manifests](adr/pwsh/dynamic-module-manifests.md) — the PowerShell layer: generated .psd1, collision-free namespace
+- [Dynamic module manifests](adr/pwsh/dynamic-module-manifests.md) — the pwsh rules: generated .psd1, collision-free namespace
 - [Fail fast with assertions](adr/automation/fail-fast-with-asserts.md) — catch errors at the source, not three layers down
-- [Assert idioms](adr/pwsh/assert-idioms.md) — the PowerShell layer: guards after the param block, a declared time limit on long work
+- [Assert idioms](adr/pwsh/assert-idioms.md) — the pwsh rules: guards after the param block, a declared time limit on long work
 - [Retry as a last resort](adr/automation/retry-as-last-resort.md) — last-ditch only, lowest level possible, never in a test
 - [Test automation](adr/automation/test-automation.md) — isolate logic tests behind seams; bind only integrity tests to shipped assets
 - [Pester testing](adr/pwsh/pester-testing.md) — the language layer: the mock idioms, test-file conventions, and engine gotchas
 - [Idempotent state functions](adr/automation/idempotent-state-functions.md) — re-runs are always safe
 - [Sensible defaults](adr/automation/sensible-defaults.md) — the zero-arg call does the right thing
-- [Parameter design](adr/pwsh/parameter-design.md) — the PowerShell layer: positional primary argument, switches over booleans
+- [Parameter design](adr/pwsh/parameter-design.md) — the pwsh rules: positional primary argument, switches over booleans
 - [Console output matters](adr/automation/console-output-matters.md) — every line of output is a UX decision
 - [Error handling](adr/pwsh/error-handling.md) — fail immediately, no warnings, no middle ground
 - [Never depend on $PWD](adr/automation/never-depend-on-pwd.md) — functions work from anywhere
-- [Working-directory mechanics](adr/pwsh/working-directory-mechanics.md) — the PowerShell layer: the anchors, and Push-Location/Pop-Location
+- [Working-directory mechanics](adr/pwsh/working-directory-mechanics.md) — the pwsh rules: the anchors, and Push-Location/Pop-Location
 
 ### Implementation decisions
 
@@ -200,33 +198,33 @@ The "why" and "how" behind the automation layer and its PowerShell engine.
 - [Use .ps1 not .psm1](adr/pwsh/use-ps1-not-psm1.md) — shared scope without boilerplate loaders
 - [Approved verbs](adr/pwsh/respect-pwsh-verb-rules.md) — enforced naming so functions are self-documenting
 - [Spell out names](adr/automation/spell-out-names.md) — no invented abbreviations
-- [Identifier names](adr/pwsh/identifier-names.md) — the PowerShell layer: the analyzer rule that checks every variable and noun
+- [Identifier names](adr/pwsh/identifier-names.md) — the pwsh rules: the analyzer rule that checks every variable and noun
 - [Uniform formatting](adr/repository/uniform-formatting.md) — the whole repo, one mechanical standard
-- [PowerShell formatting](adr/pwsh/powershell-formatting.md) — the PowerShell layer over uniform-formatting
+- [PowerShell formatting](adr/pwsh/powershell-formatting.md) — the pwsh rules over uniform-formatting
 - [Log before invoke](adr/automation/log-before-invoke.md) — automatic, not opt-in
 - [Vendor dependencies](adr/pwsh/vendor-toolset-dependencies.md) — determinism without a restore step, no gallery at runtime
 - [Controlling system-wide deps](adr/automation/controlling-systemwide-deps.md) — version-locked, platform-aware, no container required
 - [Effective in enterprises](adr/automation/effective-in-enterprises.md) — no admin required
-- [Module-path hygiene](adr/pwsh/module-path-hygiene.md) — the PowerShell layer: vendored copies win, network user paths fixed once
+- [Module-path hygiene](adr/pwsh/module-path-hygiene.md) — the pwsh rules: vendored copies win, network user paths fixed once
 - [Prefer Az CLI](adr/azure/prefer-az-cli.md) — avoids assembly hell, no module ceremony
 - [Dry run](adr/automation/dry-run.md) — an explicit dry-run parameter on every side-effecting function
-- [Prefer -DryRun over ShouldProcess](adr/pwsh/prefer-dryrun-over-shouldprocess.md) — the PowerShell layer: an explicit switch beats the
+- [Prefer -DryRun over ShouldProcess](adr/pwsh/prefer-dryrun-over-shouldprocess.md) — the pwsh rules: an explicit switch beats the
   un-testable, easy-to-misuse -WhatIf/-Confirm subsystem
 - [Conventional folders](adr/repository/conventional-folders.md) — predictable layout for the whole repository: root folders, modules,
   tests, assets, and output
 - [Dedicated output directory](adr/repository/dedicated-output-directory.md) — all generated artifacts go to `out/`
 - [Environment variables](adr/automation/environment-variables.md) — when and how to use them
-- [Environment-variable mechanics](adr/pwsh/environment-variable-mechanics.md) — the PowerShell layer: scoping, runspaces, test isolation
+- [Environment-variable mechanics](adr/pwsh/environment-variable-mechanics.md) — the pwsh rules: scoping, runspaces, test isolation
 - [Cross-platform](adr/automation/cross-platform.md) — runs on Windows, Linux, and macOS
 - [Cross-platform PowerShell](adr/pwsh/cross-platform-powershell.md) — the language layer: Join-Path, compatible cmdlets, platform guards
-- [Script-scope caching](adr/pwsh/script-scope-caching.md) — the PowerShell layer under [caching](adr/automation/caching.md): `$script:`
-  cache entries, mock-the-whole-function
+- [Script-scope caching](adr/pwsh/script-scope-caching.md) — the pwsh rules under [caching](adr/automation/caching.md): `$script:` cache
+  entries, mock-the-whole-function
 - [Avoid deep nesting](adr/automation/avoid-deep-nesting.md) — flat code is readable code
 - [Avoid using semicolons](adr/pwsh/avoid-using-semicolons.md) — one statement per line
 - [Prefer foreach over ForEach-Object](adr/pwsh/prefer-foreach-over-foreach-object.md) — clarity and debuggability
 - [Automatic variable pitfalls](adr/pwsh/automatic-variable-pitfalls.md) — `$?`, `$_`, `$LASTEXITCODE` and their traps
 - [Use proper package managers](adr/automation/use-proper-package-managers.md) — system tools via native package managers
-- [Hosting C# types](adr/pwsh/hosting-csharp-types.md) — the PowerShell layer under native C# types: Add-Type, accelerators, stale types
+- [Hosting C# types](adr/pwsh/hosting-csharp-types.md) — the pwsh rules under native C# types: Add-Type, accelerators, stale types
 
 ### SOLID principles that don't apply
 
@@ -246,7 +244,7 @@ The "why" and "how" behind the automation layer and its PowerShell engine.
 
 ## Pipeline ADRs
 
-How Azure DevOps pipelines interact with the automation layer.
+How Azure DevOps pipelines interact with the catzc commands.
 
 - [Pipeline runner pattern](adr/flow/pipeline-runner-pattern.md) — all pipeline steps invoke PowerShell through a single runner
 - [Custom template discipline](adr/pipelines/custom-template-discipline.md) — when and how to use ADO templates

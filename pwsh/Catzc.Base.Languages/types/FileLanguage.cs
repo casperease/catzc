@@ -35,9 +35,13 @@ public sealed class FileLanguage
     // How the language's test artifacts run, for a language that has them; null for every other language.
     public LanguageTestRunner tests { get; }
 
+    // Whether a command may be implemented in the language (ADR-AUTO-LAYERS#2); false unless the entry says true.
+    public bool executable { get; }
+
     public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,
-        string[] checks, string[] imprint = null, LayoutRow[] layout = null, LanguageTestRunner tests = null)
+        string[] checks, string[] imprint = null, LayoutRow[] layout = null, LanguageTestRunner tests = null, bool executable = false)
     {
+        this.executable = executable;
         this.tests = tests;
         this.layout = layout == null ? Array.Empty<LayoutRow>() : (LayoutRow[])layout.Clone();
         this.imprint = imprint == null ? Array.Empty<string>() : (string[])imprint.Clone();

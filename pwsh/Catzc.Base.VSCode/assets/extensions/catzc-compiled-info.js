@@ -8,11 +8,11 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 
-function currentHash(automationRoot) {
+function currentHash(modulesRoot) {
     const files = [];
-    for (const module of fs.readdirSync(automationRoot)) {
+    for (const module of fs.readdirSync(modulesRoot)) {
         if (module.startsWith(".")) continue;
-        const typesDir = path.join(automationRoot, module, "types");
+        const typesDir = path.join(modulesRoot, module, "types");
         if (!fs.existsSync(typesDir)) continue;
         for (const name of fs.readdirSync(typesDir)) {
             if (name.endsWith(".cs")) files.push([module + "/" + name.slice(0, -3), path.join(typesDir, name)]);

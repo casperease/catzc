@@ -135,13 +135,11 @@ concepts:
     realized_by: { kind: prose-only }
     forms:
       [
-        implementation,
         automation,
         contract,
         language,
         engine,
         importer,
-        PowerShell,
         installer,
         config,
         configuration,
@@ -543,6 +541,12 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       importer: The importer brings a mix of languages, engines and modules into a session; automation is what the loaded modules offer.
+    avoid:
+      - { phrase: automation folder, say: the pwsh track folder (pwsh/) }
+      - { phrase: automation track, say: pwsh track }
+      - { phrase: automation modules, say: pwsh modules / catzc modules }
+      - { phrase: automation layer, say: automation (the abstract) / the pwsh modules (the code) }
+      - { phrase: PowerShell automation, say: pwsh modules / PowerShell code }
   command:
     key: command
     domain: automation
@@ -586,7 +590,7 @@ concepts:
     domain: automation
     defined_by: ADR-AUTO-LAYERS#2
     short:
-      The file language a command's source is written in, one of the file languages its track declares, which are PowerShell with its hosted
+      The file language a command's source is written in, one whose languages.yml entry sets executable, which are PowerShell with its hosted
       C#, Bash, Python and Go.
     realized_by: { kind: prose-only }
     contrasts:

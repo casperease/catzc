@@ -14,7 +14,7 @@ sentence that means the PowerShell code names its track, a sentence that means a
 ### Rule ADR-AUTO-LAYERS:2
 
 A **command** is one public function of the module system, the unit a contract describes. A command is written in one **implementation
-language**: one of the file languages of `languages.yml` that its track declares
+language**: a file language of `languages.yml` whose entry sets `executable: true`, a flag that is false unless stated
 ([ADR-DSGN-TRACK#3](../design/tracks.md#rule-adr-dsgn-track3), [ADR-AUTO-MODULE#3](module-model.md#rule-adr-auto-module3)); PowerShell with
 the C# types it hosts is one such language, Bash, Python and Go are the others.
 

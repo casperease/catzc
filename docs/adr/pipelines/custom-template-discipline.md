@@ -27,7 +27,7 @@ artifacts). They must not carry automation logic, configuration resolution, busi
 ### Rule ADR-PIPE-TEMPLATE:4
 
 Template parameters are either ADO controls or meta selection criteria (customer, environment, subscription type). The looked-up values the
-automation layer can derive from those keys must not be pipeline parameters.
+catzc commands can derive from those keys must not be pipeline parameters.
 
 - [Parameters select](#parameters-select)
 - [The parameter needle-through problem](#the-parameter-needle-through-problem)
@@ -43,7 +43,7 @@ three is a design problem. A template that exists only to forward parameters sho
 ### Rule ADR-PIPE-TEMPLATE:6
 
 Variables are for ADO plumbing (build numbers, artifact paths, output variables, conditional expressions). Do not use variables to transport
-script configuration — that comes from the automation layer's configuration system.
+script configuration — that comes from the catzc configuration system.
 
 - [Variables are not configuration](#variables-are-not-configuration)
 
@@ -72,7 +72,7 @@ Templates are the right tool when they encapsulate **pipeline-level concerns** �
 - **Organizational compliance.** Mandated steps (security scanning, audit logging) that must appear in every pipeline.
 
 The step template in `invoke-automation.yaml` is a good example: it wires up the runner, selects the task type based on `Mode`, maps the
-system token when needed, and sets the display name. These are all ADO concerns that the PowerShell automation layer cannot handle.
+system token when needed, and sets the display name. These are all ADO concerns that the catzc commands cannot handle.
 
 ### What goes wrong
 
@@ -84,9 +84,9 @@ flow — is legitimate YAML-layer state. Agent pool names, stage conditions, dep
 variable group references: these exist because ADO needs them to decide _what runs where and when_. They belong in pipeline files and
 variable templates. **Automation configuration** — values consumed by scripts to do their actual work (IaC parameters, resource names,
 feature flags, connection strings, customer-specific settings) — does not belong in ADO at all. It is not passed through template
-parameters, not stored in variable groups, and not mapped into `$env:` variables. It lives in the automation layer's configuration system,
-looked up by meta selection criteria at runtime. The pipeline is a thin orchestrator — its job is to decide _what runs where and when_, not
-to carry the data that scripts need to do their work.
+parameters, not stored in variable groups, and not mapped into `$env:` variables. It lives in the catzc configuration system, looked up by
+meta selection criteria at runtime. The pipeline is a thin orchestrator — its job is to decide _what runs where and when_, not to carry the
+data that scripts need to do their work.
 
 **Template wrapping.** A template that wraps a single step with ten parameters is not simplifying anything — it is adding a layer of
 indirection that the reader must open and mentally inline. If the wrapped step is a runner invocation, the template is overhead. The caller
@@ -109,7 +109,7 @@ is a recognized, widespread problem.
 
 Pipeline parameters serve as **meta-level selection criteria** — they identify _which_ customer, environment, or subscription type the
 pipeline run targets. These are values like `Customer`, `Environment` — high-level keys that the user selects when queuing a run, and that
-templates can legitimately pass through to the automation layer.
+templates can legitimately pass through to the catzc commands.
 
 These meta parameters are good and intended:
 
@@ -130,12 +130,12 @@ steps:
       ServiceConnection: sc-${{ parameters.Environment }}
 ```
 
-The pipeline passes two selection criteria — a customer and an environment — and one ADO concern (the service connection). The automation
-layer uses these keys to look up everything it needs from its own configuration.
+The pipeline passes two selection criteria — a customer and an environment — and one ADO concern (the service connection). The catzc
+commands use these keys to look up everything they need from their own configuration.
 
 ### The parameter needle-through problem
 
-Problems start when the pipeline passes values that **the automation layer can derive from the selection criteria**.
+Problems start when the pipeline passes values that **the catzc commands can derive from the selection criteria**.
 
 ```yaml
 # pipeline.yaml — BAD: needling config details through the template layer
@@ -154,13 +154,13 @@ Problems start when the pipeline passes values that **the automation layer can d
 ```
 
 The template receives ten parameters. It uses two itself (`environment`, `serviceConnection`) — both ADO concerns. It passes the other eight
-to an inner template or directly to a script. Those eight are not ADO concerns — they are configuration details that the automation layer
-can resolve from the customer and environment keys alone.
+to an inner template or directly to a script. Those eight are not ADO concerns — they are configuration details that the catzc commands can
+resolve from the customer and environment keys alone.
 
-If each customer has an assigned list of environments, app names, feature flags, and health-check URLs, then those values live in the
-automation layer's configuration system. Needling them through template parameters means every change to config requires a YAML change,
-every template in the chain must declare and forward the parameter, and the pipeline definition becomes a fragile mirror of data that
-already exists in a better place.
+If each customer has an assigned list of environments, app names, feature flags, and health-check URLs, then those values live in the catzc
+configuration system. Needling them through template parameters means every change to config requires a YAML change, every template in the
+chain must declare and forward the parameter, and the pipeline definition becomes a fragile mirror of data that already exists in a better
+place.
 
 The correct version:
 
@@ -192,7 +192,7 @@ steps:
 ```
 
 Three parameters — two meta selection criteria and one ADO concern. Same template, but the seven config details are gone. The template
-passes the meta keys into the `RunCommand` string and wires the service connection. Nothing else. The automation layer resolves app names,
+passes the meta keys into the `RunCommand` string and wires the service connection. Nothing else. The catzc commands resolve app names,
 config paths, feature flags, and everything else from its own configuration using the customer and environment as lookup keys.
 
 ### Variables are not configuration
@@ -201,21 +201,21 @@ ADO pipeline variables have a specific purpose: **communication between ADO cons
 Setting build numbers. Controlling conditional expressions. Mapping tokens.
 
 They are not a general-purpose configuration system. When variables carry application configuration — connection strings, feature flags,
-version numbers, deployment targets — the YAML layer becomes a configuration store that competes with the automation layer's own config
-files. Values are defined in YAML, overridden in variable groups, re-overridden in variable templates, and passed to scripts through `$env:`
-— a chain that is impossible to trace without opening every file in the variable resolution order. Variables are also mutable by design —
+version numbers, deployment targets — the YAML layer becomes a configuration store that competes with the catzc commands' own config files.
+Values are defined in YAML, overridden in variable groups, re-overridden in variable templates, and passed to scripts through `$env:` — a
+chain that is impossible to trace without opening every file in the variable resolution order. Variables are also mutable by design —
 upstream steps can silently modify downstream values — making them an unreliable transport for configuration that scripts depend on being
 stable. Variable groups make this worse: they are not code, not version-controlled, and have no built-in change tracking (see
 [everything-as-code](../principles/everything-as-code.md)). The only legitimate use for a variable group is secrets — and only when no
 proper secret store (such as Key Vault) is available.
 
-Script configuration belongs in the automation layer. The pipeline's job is to collect the meta-level selection criteria — customer,
+Script configuration belongs in the catzc configuration. The pipeline's job is to collect the meta-level selection criteria — customer,
 environment, subscription type — and pass them to the script. Everything the script needs beyond those keys, it resolves itself.
 
 ## Decision
 
-Templates are used only for pipeline-level concerns. Automation logic, configuration, and business rules live in the automation layer and
-are invoked through the runner pattern (see [pipeline-runner-pattern](../flow/pipeline-runner-pattern.md)). And even for those concerns, a
+Templates are used only for pipeline-level concerns. Automation logic, configuration, and business rules live in the catzc commands and are
+invoked through the runner pattern (see [pipeline-runner-pattern](../flow/pipeline-runner-pattern.md)). And even for those concerns, a
 template is the **exception, not the default**: the default is a self-contained pipeline of a page or two of inline YAML, composed directly.
 A template is extracted only when a fragment is proven to be genuinely, generally reusable — never created speculatively.
 
@@ -230,7 +230,7 @@ a script. This template adds indirection without value. Inline the step or call 
 
 **The variable-configured pipeline.** A pipeline that defines thirty variables at the top — half in the YAML, half in a variable group — and
 maps them into script environment variables. The script reads `$env:DatabaseServer`, `$env:FeatureFlags`, `$env:AppVersion`. These values
-should come from the automation layer's configuration, not from ADO variables.
+should come from the catzc configuration, not from ADO variables.
 
 **The template-per-service pattern.** A `deploy-api.yaml`, `deploy-worker.yaml`, `deploy-frontend.yaml` where each template is identical
 except for two parameter defaults. This is not reuse — it is copy-paste with indirection. Use a single runner invocation with different
@@ -244,8 +244,8 @@ resolution context shifts at each level, making the actual file path a puzzle. A
 - **The runner pattern** for all automation logic. Pass a `RunCommand` string that a developer can paste into a terminal after
   `.\importer.ps1`. See [pipeline-runner-pattern](../flow/pipeline-runner-pattern.md).
 
-- **The automation layer's configuration system** for all values the script needs. Configuration files, structured lookups keyed by meta
-  parameters (customer, environment, subscription type) — these are version-controlled, testable, and independent of the pipeline.
+- **The catzc configuration system** for all values the script needs. Configuration files, structured lookups keyed by meta parameters
+  (customer, environment, subscription type) — these are version-controlled, testable, and independent of the pipeline.
 
 - **Flat pipeline files** with direct step template references. A stage lists its jobs. A job lists its steps. Each step is either a direct
   task or a single-level template reference. The pipeline reads as a plan, not a maze.
@@ -254,7 +254,7 @@ resolution context shifts at each level, making the actual file path a puzzle. A
 
 - Pipeline YAML is thin and declarative. Reviewers can understand the flow from the pipeline file alone.
 - Template parameter lists stay short (2-5 parameters), covering only ADO-level decisions.
-- Configuration lives in one place (the automation layer), not split between YAML variables, variable groups, and template parameters.
+- Configuration lives in one place (the catzc configuration), not split between YAML variables, variable groups, and template parameters.
 - Moving files does not break template references, because all paths are absolute.
 - Nested template trees are eliminated, removing the parameter pass-through boilerplate and the mental inlining tax.
 - New pipelines are easy to write: pick the step template, write the `RunCommand`, set the `Mode` and `ServiceConnection`. Done.

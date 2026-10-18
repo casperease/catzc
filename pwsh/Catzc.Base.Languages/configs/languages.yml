@@ -54,6 +54,7 @@ steps:
 languages:
   powershell:
     extensions: [.ps1, .psm1, .psd1]
+    executable: true
     formatter: psscriptanalyzer
     adr_folder: pwsh
     checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
@@ -65,6 +66,7 @@ languages:
       - { folder: extension, role: editor-extension, live: false, shipped: false }
   csharp:
     extensions: [.cs]
+    executable: true
     formatter: dotnet-format
     adr_folder: automation/BCL
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
@@ -95,6 +97,7 @@ languages:
     checks: [Test-Formatting, Test-Spelling, Test-Comments]
   python:
     extensions: [.py]
+    executable: true
     formatter: ruff
     adr_folder: automation/python
     checks: [Test-PythonLint, Test-PythonTypes, Test-Formatting, Test-Spelling]
@@ -108,12 +111,14 @@ languages:
     no_formatter: one record per line by definition, so there is no layout to format
   go:
     extensions: [.go]
+    executable: true
     formatter: gofmt
     adr_folder: automation/go
     checks: [Test-Formatting, Test-Spelling]
     tests: { runner: Invoke-GoTest, tools: [go], executable: GoExecutable }
   bash:
     extensions: [.sh, .bats]
+    executable: true
     no_formatter: no engine is configured for Bash yet
     adr_folder: automation/bash
     checks: [Test-ShellScripts]

@@ -32,7 +32,7 @@ Commands are developer-reproducible: whatever string appears in `RunCommand` can
 
 ## Context
 
-Azure DevOps pipelines execute YAML steps. PowerShell automation lives in modules under `automation/`. The bridge between them — how a YAML
+Azure DevOps pipelines execute YAML steps. The catzc commands live in the pwsh modules under `pwsh/`. The bridge between them — how a YAML
 step invokes a PowerShell function — is a critical boundary.
 
 ### The naive approach

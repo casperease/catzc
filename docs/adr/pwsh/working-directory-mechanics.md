@@ -1,4 +1,4 @@
-# ADR: Working-directory mechanics — the PowerShell layer over never-depend-on-pwd
+# ADR: Working-directory mechanics — the pwsh rules over never-depend-on-pwd
 
 ## Rules: ADR-PWSH-PWD
 
@@ -69,8 +69,8 @@ dependency the inventory cannot see.
 ## Context
 
 [never-depend-on-pwd](../automation/never-depend-on-pwd.md) fixes the doctrine: every function works correctly regardless of the caller's
-working directory, and module code finds its own content through the code root. This ADR is the PowerShell layer under it — the anchor
-idioms that make paths location-independent, and the one safe way to change directory when an external tool insists on one.
+working directory, and module code finds its own content through the code root. This ADR realises it in pwsh — the anchor idioms that make
+paths location-independent, and the one safe way to change directory when an external tool insists on one.
 
 ### The anchors
 
@@ -132,8 +132,8 @@ Paths resolve from the code root (`Get-CatzcModuleRoot`, with a literal `-ChildP
 - **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — flags bare
   `Set-Location`/`cd` calls (ADR-PWSH-PWD#2) and `$PWD` references (ADR-AUTO-NOPWD#1). Runs as one of the L2 tests via
   `Test-ScriptAnalyzer.Tests.ps1`.
-- **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`pwsh/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags
-  `$PSScriptRoot` in module function files (ADR-PWSH-PWD#4), exempting tests, `assets/`, and `.internal`.
+- **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`pwsh/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags `$PSScriptRoot` in
+  module function files (ADR-PWSH-PWD#4), exempting tests, `assets/`, and `.internal`.
 - **Custom PSScriptAnalyzer rule `Measure-NoEnvRepositoryRoot`** (`pwsh/.scriptanalyzer/NoEnvRepositoryRoot.psm1`) — flags a
   `$env:RepositoryRoot` read in a module function file (ADR-PWSH-PWD#6).
 

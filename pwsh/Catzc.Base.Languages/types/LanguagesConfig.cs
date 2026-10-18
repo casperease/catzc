@@ -12,7 +12,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout", "tests" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout", "tests", "executable" };
     private static readonly string[] AllowedTestsKeys = { "runner", "tools", "executable", "engine" };
     private static readonly Regex CommandName = new Regex("^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*$");
     private static readonly Regex ParameterName = new Regex("^[A-Z][A-Za-z0-9]*$");
@@ -440,8 +440,21 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 
         LanguageTestRunner tests = ReadTests(name, entry.Contains("tests") ? entry["tests"] : null, errors);
 
+        bool executable = false;
+        if (entry.Contains("executable") && entry["executable"] != null)
+        {
+            if (entry["executable"] is bool)
+            {
+                executable = (bool)entry["executable"];
+            }
+            else
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: executable must be true or false", name));
+            }
+        }
+
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests);
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable);
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
     }

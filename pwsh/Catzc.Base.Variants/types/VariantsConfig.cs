@@ -258,7 +258,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 string place = Text(item);
                 if (!PlacePath.IsMatch(place) || place.Split('/').Any(s => s == "." || s == ".."))
                 {
-                    errors.Add(string.Format("tracks['{0}']: invalid place '{1}' (a repository-relative path with '/' separators, e.g. automation or .github/workflows)", name, place));
+                    errors.Add(string.Format("tracks['{0}']: invalid place '{1}' (a repository-relative path with '/' separators, e.g. pwsh or .github/workflows)", name, place));
                 }
                 else if (place == "out" || place.StartsWith("out/", StringComparison.OrdinalIgnoreCase))
                 {

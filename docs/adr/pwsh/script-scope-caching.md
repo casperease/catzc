@@ -1,4 +1,4 @@
-# ADR: Script-scope caching — the PowerShell layer over caching
+# ADR: Script-scope caching — the pwsh rules over caching
 
 ## Rules: ADR-PWSH-CACHE
 
@@ -39,8 +39,8 @@ analyzer rule alike.
 ## Context
 
 [caching](../automation/caching.md) fixes the doctrine: static config reads and filesystem-derived information are cached for the session,
-keyed by input, lazily, with the importer as the one invalidation knob. This ADR is the PowerShell layer under it — the `$script:` idioms a
-cached function is written with.
+keyed by input, lazily, with the importer as the one invalidation knob. This ADR realises it in pwsh — the `$script:` idioms a cached
+function is written with.
 
 ### The `$script:` scope
 
@@ -145,8 +145,8 @@ loaded through the shadow copy.
 
 - **The exemplars** — `Get-Config` (`Catzc.Base.Config`) and `Get-BicepTemplates` (`Catzc.Azure.Templates`) are the patterns every new
   cached function copies.
-- **Custom PSScriptAnalyzer rule `Measure-NoBareCacheEntryRead`** (`pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1`) — flags a
-  `$script:` read before the function assigns it (ADR-PWSH-CACHE#4).
+- **Custom PSScriptAnalyzer rule `Measure-NoBareCacheEntryRead`** (`pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1`) — flags a `$script:`
+  read before the function assigns it (ADR-PWSH-CACHE#4).
 - **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../automation/caching.md) (`ADR-AUTO-CACHE`);
   this ADR only fixes the storage idiom.
 - **Code review** — a cache in `$env:`/`$global:`, or a test that mocks a cached function's internals, is rejected against this ADR.

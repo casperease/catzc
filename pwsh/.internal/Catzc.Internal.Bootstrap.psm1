@@ -462,7 +462,7 @@ function Assert-UniqueModuleFunctionName {
 
     $violations = [System.Collections.Generic.List[string]]::new()
 
-    # 1) Two automation modules exporting the same name — the module imported last silently shadows the others.
+    # 1) Two catzc modules exporting the same name — the module imported last silently shadows the others.
     foreach ($entry in $sources.GetEnumerator()) {
         if ($entry.Value.Count -gt 1) {
             $violations.Add("  $($entry.Key): defined by $($entry.Value -join ', ')")
@@ -492,7 +492,7 @@ function Assert-UniqueModuleFunctionName {
     if ($violations.Count) {
         $sorted = $violations | Sort-Object
         $lines = @(
-            'Function name collision(s) detected before import. Each automation function name must be unique'
+            'Function name collision(s) detected before import. Each module function name must be unique'
             'across modules AND must not shadow an already-imported (vendored/built-in) command:'
         ) + $sorted
         throw ($lines -join "`n")

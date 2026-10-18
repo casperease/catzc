@@ -1,7 +1,7 @@
 # Automation explanations
 
 ```text
-How the automation layer of cats holds together.
+How the automation of cats holds together.
 
 The bundle                 one commit becomes one verified package, and every code root is a copy
 The importer               every entry runs one load sequence
@@ -58,5 +58,5 @@ more ([native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)).
 
 | Article                                                                                                                                              |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Unboxing is cheap, the type tests and crossings around it are not](../pwsh/unboxing-is-cheap-and-crossings-are-not.md)                                      |
+| [Unboxing is cheap, the type tests and crossings around it are not](../pwsh/unboxing-is-cheap-and-crossings-are-not.md)                              |
 | [A static table keyed by Type is not a session cache, so ADR-AUTO-CACHE does not govern it](a-type-keyed-reflection-table-is-not-a-session-cache.md) |

@@ -67,8 +67,11 @@ Recorded 2026-10-18 with the user:
       folder), rendered by the new kit (check: exit 0; the user compares the slides with today's and approves). Rendered 2026-10-18 by
       `out/diagram-pilot.py`: exit 0, 10 of 10 joined; each slide matches today's apart from the minimaps, which follow the current maps
       (`out/diagram-pilot/sidebar-old-vs-new.png`). Open: the user's review.
-- [ ] Normalise the two subtitles still in the `:1,2,3` form (adr-dsgn-aspect--each-track-picks-its-catch-all--meta,
+- [x] Normalise the two subtitles still in the `:1,2,3` form (adr-dsgn-aspect--each-track-picks-its-catch-all--meta,
       adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta) through write-drawio-files (check: the subtitle parser reports none).
+      Closed 2026-10-18 by session catzc-f3 with nothing to change: both are already canonical (`ADR-DSGN-ASPECT#{1-3} · meta`,
+      `ADR-AUTO-GO#1 · ADR-PRIN-ONELIVE#{1,5} · meta`, last touched in 928c51e9d); drawio_forward.py on both: exit 0, status ok, no
+      W_SUBTITLE.
 - [ ] The move command: moves files with `git mv` and re-points relative links in and into them, with L0 tests on neutral fixtures (check:
       its tests pass; Test-Links clean after a fixture move).
 - [ ] On approval, all 150 diagrams move, one folder of articles at a time, through the move command (check: Test-Links clean after each

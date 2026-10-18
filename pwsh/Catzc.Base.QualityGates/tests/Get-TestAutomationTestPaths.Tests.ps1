@@ -1,6 +1,6 @@
 Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:automation = Join-Path $TestDrive 'repo/automation'
+        $script:automation = Join-Path $TestDrive 'repo/pwsh'
         foreach ($folder in 'Catzc.Widget/tests', 'Catzc.Gadget/tests', 'Catzc.Gizmo', '.internal/tests') {
             [void][System.IO.Directory]::CreateDirectory((Join-Path $script:automation $folder))
         }

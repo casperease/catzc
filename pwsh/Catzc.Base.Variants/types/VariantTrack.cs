@@ -7,10 +7,10 @@ public sealed class VariantTrack
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The track's name: its key in the `tracks` map (e.g. automation).
+    // The track's name: its key in the `tracks` map (e.g. pwsh).
     public string name { get; }
 
-    // The places the track covers: repository-relative paths with '/' separators (e.g. automation, .github/workflows).
+    // The places the track covers: repository-relative paths with '/' separators (e.g. pwsh, .github/workflows).
     public IReadOnlyList<string> places { get; }
 
     // The track's type: the id of a track type of the track-types registry ([ADR-DSGN-TRACKTYPE#1](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype1)).

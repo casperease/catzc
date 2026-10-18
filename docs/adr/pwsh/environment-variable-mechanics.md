@@ -1,4 +1,4 @@
-# ADR: Environment-variable mechanics — the PowerShell layer over environment-variables
+# ADR: Environment-variable mechanics — the pwsh rules over environment-variables
 
 ## Rules: ADR-PWSH-ENV
 
@@ -94,7 +94,7 @@ value past the call only on `-Persist`.
 ## Context
 
 [environment-variables](../automation/environment-variables.md) fixes the doctrine: environment variables are for external boundaries, never
-internal state. This ADR is the PowerShell layer under it — the concrete mechanics of obeying that doctrine in this codebase's language.
+internal state. This ADR realises it in pwsh — the concrete mechanics of obeying that doctrine in this codebase's language.
 
 PowerShell makes `$env:` variables dangerously convenient. They look like regular variables, they are accessible everywhere, and they
 survive function calls — which makes them tempting for passing state between functions, caching results, or storing configuration. The
