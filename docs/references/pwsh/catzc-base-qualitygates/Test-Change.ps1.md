@@ -38,7 +38,7 @@ The changed repo-relative, '/'-separated paths. Default: the working tree's chan
 
 ### parameter `WholeModule`
 
-Run every test file of each module a change touches (`automation/<Module>/tests/`), not only the test files that cover the changed files.
+Run every test file of each module a change touches (`pwsh/<Module>/tests/`), not only the test files that cover the changed files.
 
 ### parameter `DryRun`
 

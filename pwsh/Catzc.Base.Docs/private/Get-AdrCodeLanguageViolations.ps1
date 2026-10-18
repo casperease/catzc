@@ -16,14 +16,19 @@ function Get-AdrCodeLanguageViolations {
     }
 
     $ret = foreach ($domain in $Adrs.Domains) {
+        # A domain code of several segments is one finding; its ADRs are held to its first segment.
+        $domainSegment = $domain.Code.Split('-')[0]
+        if ($domain.Code -cnotmatch "^$segment\z") {
+            "$($domain.Name): domain code $($domain.Code) is not one segment (ADR-REPO-ADRCODE#2)"
+        }
         foreach ($ruleSet in $domain.RuleSets) {
             $code = $ruleSet.External
             if ($code -cnotmatch "^ADR(-$segment)+\z") {
                 "${code} ($($domain.Name)): not a path of upper-case segments after ADR (ADR-REPO-ADRCODE#1)"
                 continue
             }
-            if (-not $code.StartsWith("ADR-$($domain.Code)-", [System.StringComparison]::Ordinal)) {
-                "${code} ($($domain.Name)): does not start with its domain's segment, ADR-$($domain.Code)- (ADR-REPO-ADRCODE#2)"
+            if (-not $code.StartsWith("ADR-$domainSegment-", [System.StringComparison]::Ordinal)) {
+                "${code} ($($domain.Name)): does not start with its domain's segment, ADR-$domainSegment- (ADR-REPO-ADRCODE#2)"
             }
             if (-not $Index.FileOf.ContainsKey($code)) {
                 continue

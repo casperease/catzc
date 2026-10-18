@@ -601,6 +601,8 @@ terms:
       meaning: "body of the ADR-REPO-CODEMETA code (code-file-meta)"
     - term: cmdcontract
       meaning: "body of the ADR-REPO-CMDCONTRACT code (command-contracts)"
+    - term: adrcode
+      meaning: "body of the ADR-REPO-ADRCODE code (adr-code-language)"
     - term: rootcfg
       meaning: "body of the ADR-REPO-ROOTCFG code (generated-root-configs)"
     - term: uvpy

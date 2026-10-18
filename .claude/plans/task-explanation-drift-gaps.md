@@ -27,9 +27,11 @@ Step 1 is unblocked 2026-10-18: the cycle is decided under the step in plan-expl
 exported Variants reader through `Get-Variant`; `Get-Aspect` stays in Modules and calls it; plus `Get-FileLanguage.Tests.ps1:49`). Step 6
 has the user's go (2026-10-18) and the four choices, recorded under the Q4 step there, but is blocked on the diagram-folders migration
 (task-diagram-folders step 6): a flat-slide raster re-render is barred until then, and the articles change with their slides, never ahead.
-Step 1 is in hand: session catzc-fb (orchestrator).
-
-1. `Get-Aspect.ps1` and `Test-AspectDeclaration.ps1` move from `Catzc.Base.Modules` into `Catzc.Base.Variants` and read through the private
+1. [x] Landed 2026-10-18 by session catzc-fb, verdict: "8/8 L0 files Passed under Invoke-TestFile (Variants: Get-AspectDeclaration,
+   Test-AspectDeclaration, Get-Track, VariantsConfig; Modules: Get-Aspect, Get-CatzcModule; Maps: Get-WorldMap; Languages:
+   Get-FileLanguage); the `Get-Config -Config variants` grep over pwsh hits only Catzc.Base.Variants; LINKS issues=0, COMMENTS issues=0,
+   MARKDOWNLINT issues=0 after Format-Code on the 6 edited pages". New exported `Get-AspectDeclaration`; the five-keys slide's text is
+   left for step 6 (see the plan). Original step: `Get-Aspect.ps1` and `Test-AspectDeclaration.ps1` move from `Catzc.Base.Modules` into `Catzc.Base.Variants` and read through the private
    `Get-Variant`, so `aspects` has one read path (ADR-REPO-VARIANT); their tests, the `.psd1` export lists, `Get-WorldMap`'s call, the
    Modules reference page (`docs/references/pwsh/catzc-base-modules.md`, one responsibility left) and the Variants count in
    `docs/explanation/repository/` and its slide follow. Check: the Variants, Modules and Maps L0 files pass; a grep for

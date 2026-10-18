@@ -22,7 +22,7 @@ Module     the module whose folder the call resolves under: the -Module literal 
 Function   the function that makes the call
 ChildPath  the -ChildPath literal (positional argument 0 or -ChildPath); $null when the call names the
            module folder itself
-File       the file, repository-relative (automation/<Module>/...)
+File       the file, repository-relative (pwsh/<Module>/...)
 Line       the line of the call
 ```
 
@@ -37,11 +37,11 @@ Reads the per-function source files, which exist only in the source tree, so it 
 
 ### parameter `ModulesRoot`
 
-Path to the automation directory to scan. Defaults to the loaded code root (Get-CatzcModulesRoot).
+Path to the modules folder to scan. Defaults to the loaded code root (Get-CatzcModulesRoot).
 
 ### parameter `Module`
 
-Scan only these module folders. Default: every module folder (non-dot) under the automation root.
+Scan only these module folders. Default: every module folder (non-dot) under the modules root.
 
 ### parameter `Violation`
 

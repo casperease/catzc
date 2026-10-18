@@ -7,11 +7,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Compiles a list of function-to-function calls across all automation modules using AST.
+Compiles a list of function-to-function calls across all catzc modules using AST.
 
 ### description
 
-Parses every .ps1 file (excluding tests) under the automation root, builds a definition map of all functions, then walks each function body
+Parses every .ps1 file (excluding tests) under the modules root, builds a definition map of all functions, then walks each function body
 for CommandAst nodes and cross-references them against the map.
 
 Reads the per-function source files, which exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
@@ -19,7 +19,7 @@ Reads the per-function source files, which exist only in the source tree, so it 
 
 ### parameter `ModulesRoot`
 
-Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
+Path to the modules folder. Defaults to the loaded code root (Get-CatzcModulesRoot).
 
 ### parameter `ParsedScripts`
 
@@ -48,7 +48,7 @@ Get-FunctionDependency | Get-ModuleDependency
 Above `if ($null -eq...`, written with `#`.
 
 ```text
-Filesystem-derived information — cached for the session, lazily on first use, keyed on the resolved automation
+Filesystem-derived information — cached for the session, lazily on first use, keyed on the resolved modules
 root
 ([ADR-AUTO-CACHE#2](/docs/adr/automation/caching.md#rule-adr-auto-cache2)/[ADR-AUTO-CACHE#4](/docs/adr/automation/caching.md#rule-adr-auto-cache4)). The expensive AST walk runs once and Get-ModuleDependency / Get-ModuleFunction
 / Get-FunctionDependencyTree (and the integrity tests) all reuse it. Re-running the importer resets the

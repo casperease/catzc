@@ -22,7 +22,7 @@ Per-set hashes are memoized in the caller-owned -HashCache, so one run hashes ea
 
 ### parameter `Module`
 
-The unit's folder name under automation/ — a module ('Catzc.Base.Globs') or the infra test units '.internal' / '.scriptanalyzer'.
+The unit's folder name under pwsh/ — a module ('Catzc.Base.Globs') or the infra test units '.internal' / '.scriptanalyzer'.
 
 ### parameter `HasIntegrityTests`
 

@@ -60,7 +60,7 @@ AfterAll {
 Describe 'Bootstrap' -Tag 'L0', 'logic' {
     # NOTE: contexts run in file order and share one sandbox. 'empty' must come before any module is added.
 
-    Context 'empty automation folder' -Tag 'L1' {
+    Context 'empty modules folder' -Tag 'L1' {
         It 'imports without error and loads no modules' {
             @(Invoke-Sandbox -Capture $moduleListExpr) | Should -HaveCount 0
         }
@@ -186,13 +186,13 @@ Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {
         function New-EvictionRoot {
             param([string] $Label, [string] $OnlyModule, [string] $OnlyFunction, [string] $OnlyBody)
             $root = Join-Path ([System.IO.Path]::GetTempPath()) "eviction-$Label-$([guid]::NewGuid().ToString('N'))"
-            $automation = Join-Path $root (Get-CatzcModulesFolder)
-            [System.IO.Directory]::CreateDirectory($automation) | Out-Null
+            $modulesRoot = Join-Path $root (Get-CatzcModulesFolder)
+            [System.IO.Directory]::CreateDirectory($modulesRoot) | Out-Null
             Copy-Item -Path (Join-Path $env:RepositoryRoot 'importer.ps1') -Destination $root
-            Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path $automation '.internal')
-            Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $automation '.vendor')
+            Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path $modulesRoot '.internal')
+            Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $modulesRoot '.vendor')
             foreach ($entry in @(@($OnlyModule, $OnlyFunction, $OnlyBody), @('Catzc.Shared', 'Get-SharedOrigin', "'$Label'"))) {
-                $folder = Join-Path $automation $entry[0]
+                $folder = Join-Path $modulesRoot $entry[0]
                 [System.IO.Directory]::CreateDirectory($folder) | Out-Null
                 [System.IO.File]::WriteAllText((Join-Path $folder "$($entry[1]).ps1"), "function $($entry[1]) { $($entry[2]) }")
             }

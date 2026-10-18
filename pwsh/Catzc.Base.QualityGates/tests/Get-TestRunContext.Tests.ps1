@@ -15,7 +15,7 @@ Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Get-SessionActor -ModuleName Catzc.Base.QualityGates { 'Person' }
-        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { 'C:\widget\automation' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { 'C:\widget\pwsh' }
         Mock Get-Command -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'az' } { $null }
         Mock Get-Command -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -in 'git', 'dotnet' } { [pscustomobject]@{ Name = $Name } }
     }
@@ -24,7 +24,7 @@ Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {
         $context = Get-Context @{ EntryPoint = 'Test-Automation'; Location = (New-FixtureLocation); RequestedMaxLevel = 3; MaxLevel = 3 }
         $context.entryPoint | Should -Be 'Test-Automation'
         $context.run | Should -Be 'source'
-        $context.codeRoot | Should -Be 'C:\widget\automation'
+        $context.codeRoot | Should -Be 'C:\widget\pwsh'
         $context.location | Should -Be 'in-place'
         $context.locationReason | Should -BeNullOrEmpty
         $context.tiersRequested | Should -Be 'L0-L3'

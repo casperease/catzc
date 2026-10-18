@@ -14,7 +14,7 @@ Collects the facts that say what a test run is and where it runs: its context bl
 One record of the run's context, for the console block under the banner (Write-TestRunContext) and for run.json, so a reader of either knows
 what ran without inferring it:
 
-- entryPoint, run (source | build), and codeRoot — the modules the workers load (the build's own automation/ folder for a build run,
+- entryPoint, run (source | build), and codeRoot — the modules the workers load (the build's own pwsh/ folder for a build run,
   Get-CatzcModulesRoot otherwise);
 - location (in-place | snapshot, the location's Mode) and locationReason — who held the working folder, or -Isolated;
 - tiersRequested, tiersRunning, and tierCap — why the top tier is lower than asked (Resolve-TestRunMaxLevel);

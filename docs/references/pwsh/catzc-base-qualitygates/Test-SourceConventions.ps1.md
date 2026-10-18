@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every source and test file under automation/ follows the naming and one-function conventions.
+Quality gate: every source and test file under pwsh/ follows the naming and one-function conventions.
 
 ### description
 

@@ -11,7 +11,7 @@ Lists the run's test paths — tests folders and language test folders — found
 
 ### description
 
-Discovers every `automation/<dir>/tests` folder in a single .NET directory scan — one enumeration instead of two Get-ChildItem passes, with
+Discovers every `pwsh/<dir>/tests` folder in a single .NET directory scan — one enumeration instead of two Get-ChildItem passes, with
 no pipeline/object overhead (and fewer filesystem round trips on network-backed repos, see effective-in-enterprises). A module's Go and
 Python test folders (`<root>/tests/<module` in kebab case>/, Get-LanguageTestFolders) belong to that module and follow its tests folder; a
 module with only such tests is included by them. A test folder that matches no catzc module throws, naming the folder. Module tests come
@@ -22,7 +22,7 @@ so the test run still proceeds rather than the runner crashing on the config it 
 
 ### parameter `Modules`
 
-Narrow to the named automation modules' tests folders and language test folders. Dot-prefixed infrastructure is never a named module, so it
+Narrow to the named modules' tests folders and language test folders. Dot-prefixed infrastructure is never a named module, so it
 is included only in the unfiltered case. Empty (the default) includes everything.
 
 ### outputs

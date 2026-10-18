@@ -131,6 +131,14 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
     }
 
     Context 'the code-language check' -Tag 'ADR-REPO-ADRCODE#1' {
+        BeforeAll {
+            $script:sharedFixture = $script:fixture
+        }
+
+        AfterEach {
+            $script:fixture = $script:sharedFixture
+        }
+
         It 'counts a file''s numbered rule headings as one finding' {
             Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n`n### Rule ADR-WI-ONE:2`n"
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
@@ -140,7 +148,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
         }
 
         It 'passes named rule headings that are one segment below their ADR' {
-            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINSFREELY`n`n``````text`n### Rule ADR-WI-ONE:9`n```````n"
+            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS`n`n``````text`n### Rule ADR-WI-ONE:9`n```````n"
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
             $result.CodeLanguageFindings | Should -Be 0
         }
@@ -171,6 +179,22 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
                 'docs/adr/widget/widget-one.md:9: rule ADR-WI-ONE-TWO shares its name with the ADR ADR-WI-ONE-TWO (ADR-REPO-ADRCODE#6)'
                 "ADR-GIZMO (widget): does not start with its domain's segment, ADR-WI- (ADR-REPO-ADRCODE#2)"
             )
+        }
+
+        It 'reports a domain code of two segments once and holds its ADRs to the first segment' {
+            $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
+                    domains = [ordered]@{
+                        widget = [ordered]@{
+                            code = 'WI-SPIN'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                            stack = 'PRIN'; concern = @('build')
+                            rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-SPIN' } }
+                        }
+                    }
+                })
+            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-SPIN`n"
+            Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
+            $result = Test-AdrRegistry -OutputFolder $out -PassThru
+            $result.CodeLanguage | Should -Be @('widget: domain code WI-SPIN is not one segment (ADR-REPO-ADRCODE#2)')
         }
 
         It 'adds its findings to the gate''s issues in gate mode' {

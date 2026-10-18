@@ -11,7 +11,7 @@ Maintains the file-scoped namespace on each C# type source, derived from its mod
 
 ### description
 
-Every automation C# type lives at `automation/<Module>/types/<Type>.cs` and belongs to namespace `<Module>` (ADR native-csharp-types). The
+Every catzc C# type lives at `pwsh/<Module>/types/<Type>.cs` and belongs to namespace `<Module>` (ADR native-csharp-types). The
 namespace is NOT hand-authored: this formatter writes/repairs the `namespace <Module>;` line from the file's folder, so the folder stays the
 single source of truth and a move between modules is a safe refactor — re-running Format-Types rewrites the line to the new folder, and
 Test-Formatting (its -DryRun) fails CI on any drift. The declared namespace is what lets the editor's C# toolchain compile and analyze these
@@ -26,7 +26,7 @@ A source-tree tool: it rewrites the repository's type sources, so it throws in b
 
 ### parameter `Path`
 
-One or more files or directories to process. Defaults to every `automation/<Module>/types/*.cs` file.
+One or more files or directories to process. Defaults to every `pwsh/<Module>/types/*.cs` file.
 
 ### parameter `DryRun`
 

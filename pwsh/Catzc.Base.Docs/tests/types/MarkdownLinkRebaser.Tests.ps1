@@ -73,6 +73,23 @@ Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README#6' {
         }
     }
 
+    Context 'a moved path' {
+        It 'a page that stays re-points only its links into the moved folder, and keeps every other link as written' {
+            [Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase('[s](assets/widget/slide.png) [g](./gadget.md) [w](assets/widgetry.md)', 'docs/widget/index.md', 'docs/widget', 'docs/widget/assets/widget', 'docs/widget/.assets/widget') |
+                Should -BeExactly '[s](.assets/widget/slide.png) [g](./gadget.md) [w](assets/widgetry.md)'
+        }
+
+        It 'a page that stays re-points a link to a moved file' {
+            [Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase('![s](../assets/grid/widget.png#top)', 'docs/widget/index.md', 'docs/widget', 'docs/assets/grid/widget.png', 'docs/widget/.assets/widget/grid.png') |
+                Should -BeExactly '![s](.assets/widget/grid.png#top)'
+        }
+
+        It 'a moved file re-points its links out of the folder and keeps its links inside it' {
+            [Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase('[a](../../index.md) [g](grid.png)', 'docs/widget/assets/widget/diagram.md', 'docs/gadget/.assets/widget', 'docs/widget/assets/widget', 'docs/gadget/.assets/widget') |
+                Should -BeExactly '[a](../../../widget/index.md) [g](grid.png)'
+        }
+    }
+
     Context 'RelativeLink' {
         It 'links from a folder to a repository path' {
             [Catzc.Base.Docs.MarkdownLinkRebaser]::RelativeLink('widget/sub', 'docs/references/widget.md') | Should -BeExactly '../../docs/references/widget.md'

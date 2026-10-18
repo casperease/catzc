@@ -210,24 +210,24 @@ Describe 'Get-CommittedTypesDrift' -Tag 'L0', 'logic' {
 
 Describe 'Get-ModuleSourceFunctions' -Tag 'L0', 'logic' {
     It 'reads the public and private function names from the module folder' {
-        $automation = Join-Path $TestDrive 'widget-modules'
+        $modulesRoot = Join-Path $TestDrive 'widget-modules'
         foreach ($file in 'Catzc.Gadget/Set-Gadget.ps1', 'Catzc.Gadget/Get-Gadget.ps1', 'Catzc.Gadget/private/Resolve-Gadget.ps1') {
-            $path = Join-Path $automation $file
+            $path = Join-Path $modulesRoot $file
             [System.IO.Directory]::CreateDirectory((Split-Path $path -Parent)) | Out-Null
             [System.IO.File]::WriteAllText($path, '')
         }
-        InModuleScope Catzc.Base.QualityGates -Parameters @{ Automation = $automation } {
-            $source = Get-ModuleSourceFunctions -ModulesRoot $Automation -Name 'Catzc.Gadget'
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ ModulesRoot = $modulesRoot } {
+            $source = Get-ModuleSourceFunctions -ModulesRoot $ModulesRoot -Name 'Catzc.Gadget'
             $source.Public | Should -Be @('Get-Gadget', 'Set-Gadget')
             $source.Private | Should -Be @('Resolve-Gadget')
         }
     }
 
     It 'returns empty sets for a module with no private folder' {
-        $automation = Join-Path $TestDrive 'bare'
-        [System.IO.Directory]::CreateDirectory((Join-Path $automation 'Catzc.Widget')) | Out-Null
-        InModuleScope Catzc.Base.QualityGates -Parameters @{ Automation = $automation } {
-            $source = Get-ModuleSourceFunctions -ModulesRoot $Automation -Name 'Catzc.Widget'
+        $modulesRoot = Join-Path $TestDrive 'bare'
+        [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot 'Catzc.Widget')) | Out-Null
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ ModulesRoot = $modulesRoot } {
+            $source = Get-ModuleSourceFunctions -ModulesRoot $ModulesRoot -Name 'Catzc.Widget'
             @($source.Public).Count | Should -Be 0
             @($source.Private).Count | Should -Be 0
         }

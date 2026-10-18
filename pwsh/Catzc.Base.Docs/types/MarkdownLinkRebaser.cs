@@ -14,11 +14,16 @@ public static class MarkdownLinkRebaser
     static readonly Regex Fence = new Regex(@"^ {0,3}(`{3,}|~{3,})", RegexOptions.Compiled);
     static readonly Regex Scheme = new Regex(@"^[a-zA-Z][a-zA-Z0-9+.\-]*:", RegexOptions.Compiled);
 
-    public static string Rebase(string text, string sourceRepoPath, string folderRepoPath)
+    public static string Rebase(string text, string sourceRepoPath, string folderRepoPath) => Rebase(text, sourceRepoPath, folderRepoPath, null, null);
+
+    // As Rebase, and a target at movedFrom or under it (a file or a folder, repository-relative) is re-pointed to the same place under movedTo.
+    public static string Rebase(string text, string sourceRepoPath, string folderRepoPath, string movedFrom, string movedTo)
     {
         if (string.IsNullOrEmpty(text)) { return text; }
         List<string> sourceFolder = Segments(ParentOf(sourceRepoPath));
         List<string> copyFolder = Segments(folderRepoPath);
+        List<string> from = movedFrom == null ? null : Segments(movedFrom);
+        List<string> to = movedTo == null ? null : Segments(movedTo);
 
         var edits = new List<(int Start, int Length, string Replacement)>();
         string fence = null;
@@ -47,12 +52,12 @@ public static class MarkdownLinkRebaser
             foreach (Match link in InlineLink.Matches(line))
             {
                 if (literal[link.Index]) { continue; }
-                AddEdit(link.Groups["dest"], lineStart, sourceFolder, copyFolder, edits);
+                AddEdit(link.Groups["dest"], lineStart, sourceFolder, copyFolder, from, to, edits);
             }
             Match definition = ReferenceDefinition.Match(line);
             if (definition.Success)
             {
-                AddEdit(definition.Groups["dest"], lineStart, sourceFolder, copyFolder, edits);
+                AddEdit(definition.Groups["dest"], lineStart, sourceFolder, copyFolder, from, to, edits);
             }
             lineStart = lineEnd + 1;
         }
@@ -75,7 +80,8 @@ public static class MarkdownLinkRebaser
         return Relative(Segments(folderRepoPath), Segments(targetRepoPath), false);
     }
 
-    static void AddEdit(Group dest, int lineStart, List<string> sourceFolder, List<string> copyFolder, List<(int, int, string)> edits)
+    static void AddEdit(Group dest, int lineStart, List<string> sourceFolder, List<string> copyFolder, List<string> from, List<string> to,
+        List<(int, int, string)> edits)
     {
         string written = dest.Value;
         bool angle = written.StartsWith("<", StringComparison.Ordinal);
@@ -88,10 +94,31 @@ public static class MarkdownLinkRebaser
 
         List<string> resolved = Resolve(sourceFolder, pathPart);
         if (resolved == null) { return; }
+        bool remapped = from != null && IsAtOrUnder(resolved, from);
+        if (remapped)
+        {
+            var target = new List<string>(to);
+            target.AddRange(resolved.GetRange(from.Count, resolved.Count - from.Count));
+            resolved = target;
+        }
+        // A page that stays in place keeps every link it wrote, apart from the ones the move re-points.
+        else if (from != null && SameSegments(sourceFolder, copyFolder)) { return; }
         string rebased = Relative(copyFolder, resolved, pathPart.EndsWith("/", StringComparison.Ordinal)) + suffix;
         if (angle) { rebased = "<" + rebased + ">"; }
         if (rebased != written) { edits.Add((lineStart + dest.Index, dest.Length, rebased)); }
     }
+
+    static bool IsAtOrUnder(List<string> path, List<string> prefix)
+    {
+        if (prefix.Count == 0 || path.Count < prefix.Count) { return false; }
+        for (int i = 0; i < prefix.Count; i++)
+        {
+            if (!string.Equals(path[i], prefix[i], StringComparison.Ordinal)) { return false; }
+        }
+        return true;
+    }
+
+    static bool SameSegments(List<string> left, List<string> right) => left.Count == right.Count && IsAtOrUnder(left, right) || left.Count == 0 && right.Count == 0;
 
     // folder + a relative path, with '.' and '..' applied; null when it climbs above the repository root.
     static List<string> Resolve(List<string> folder, string relativePath)

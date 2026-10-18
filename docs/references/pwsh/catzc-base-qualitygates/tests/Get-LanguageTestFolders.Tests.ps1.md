@@ -9,7 +9,7 @@ Above `Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {`, written with `#
 
 ```text
 Get-LanguageTestFolders over a fixture repository in $TestDrive (Get-RepositoryRoot and the go config mocked): catzc
-modules under automation/, Go test folders under the go/ root, Python test folders under python/ and Bash test folders
+modules under pwsh/, Go test folders under the go/ root, Python test folders under python/ and Bash test folders
 under bash/. Neutral
 fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 ```

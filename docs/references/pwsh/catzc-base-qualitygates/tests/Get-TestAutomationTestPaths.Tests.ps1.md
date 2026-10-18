@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-Get-TestAutomationTestPaths over a fixture automation tree in $TestDrive (Get-RepositoryRoot and
+Get-TestAutomationTestPaths over a fixture pwsh/ tree in $TestDrive (Get-RepositoryRoot and
 Get-ModuleOrder mocked): two modules with tests, one without, and one dot-prefixed infrastructure folder.
 Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 ```

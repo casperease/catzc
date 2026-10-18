@@ -7,12 +7,12 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every module folder under automation/ follows the folder and file conventions.
+Quality gate: every module folder under pwsh/ follows the folder and file conventions.
 
 ### description
 
 A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the module folders of
-`<RepositoryRoot>/automation` (dot-prefixed folders are infrastructure, not modules). It scans the tree once with `[System.IO]` and collects
+`<RepositoryRoot>/pwsh` (dot-prefixed folders are infrastructure, not modules). It scans the tree once with `[System.IO]` and collects
 every issue ([ADR-REPO-FOLDERS](../../../adr/repository/conventional-folders.md)):
 
 - every module subdirectory is a conventional folder: private, tests, assets, types, configs;

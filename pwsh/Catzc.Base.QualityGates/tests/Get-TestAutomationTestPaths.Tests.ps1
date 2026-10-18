@@ -1,12 +1,12 @@
 Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:automation = Join-Path $TestDrive 'repo/pwsh'
+        $script:modulesRoot = Join-Path $TestDrive 'repo/pwsh'
         foreach ($folder in 'Catzc.Widget/tests', 'Catzc.Gadget/tests', 'Catzc.Gizmo', '.internal/tests') {
-            [void][System.IO.Directory]::CreateDirectory((Join-Path $script:automation $folder))
+            [void][System.IO.Directory]::CreateDirectory((Join-Path $script:modulesRoot $folder))
         }
         function Get-FixtureTests {
             param([string] $Folder)
-            [System.IO.Path]::Combine($script:automation, $Folder, 'tests')
+            [System.IO.Path]::Combine($script:modulesRoot, $Folder, 'tests')
         }
     }
 

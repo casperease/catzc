@@ -9,7 +9,7 @@ Above `Describe 'Test-FunctionDependency' -Tag 'L1', 'integrity', 'source-only' 
 
 ```text
 The integrity invariant — the real repository's function dependency graph is satisfied — needs exactly one
-scan of the real automation tree. The gate's uniform shape
+scan of the real pwsh/ tree. The gate's uniform shape
 ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) is pure logic, so it is proven at
 L0 against fixture roots rather than by a second full-tree scan.
 ```

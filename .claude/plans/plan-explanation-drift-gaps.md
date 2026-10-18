@@ -117,7 +117,11 @@ Each decision becomes an ADR rule, or an ADR amendment, in the change that lands
 
 When a step lands, remove its claim from every article that states it (search `docs/explanation` for the function name) in the same change.
 
-- [ ] `pwsh/Catzc.Base.Modules/Get-Aspect.ps1` and `Test-AspectDeclaration.ps1`: move both into `Catzc.Base.Variants` and read through the
+- [x] Landed 2026-10-18 by session catzc-fb as decided (verdict in task-explanation-drift-gaps step 1); the plain `mv` shows as a delete
+      plus an add until the user's `git add` records the move. Left for the slide step (text block = slide): the text blocks, H1 and file
+      name of `five-keys-one-reader-twelve-primitives` (still "twelve", row 7 "Get-Aspect · Get-Track") and `a-base-module-between-config-and-its-callers.md:10`;
+      older drift in the same article, line 39 "exactly the three edges" (Variants has 4) and line 42 "Globs asks Get-Aspect" as if
+      Variants held it. Original step: `pwsh/Catzc.Base.Modules/Get-Aspect.ps1` and `Test-AspectDeclaration.ps1`: move both into `Catzc.Base.Variants` and read through the
       private `Get-Variant`, so `aspects` has one read path like every other variant (ADR-REPO-VARIANT); the Variants count of exported
       primitives in `docs/explanation/repository/` and its slide changes with it (check: the Variants and Maps L0 tests pass, and no file
       outside Catzc.Base.Variants reads `(Get-Config -Config variants)`). Decided 2026-10-18 by the orchestrator on the user's delegation:

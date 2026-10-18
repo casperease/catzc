@@ -151,8 +151,8 @@ the grep half of each check is unverified, so the three stay open until it is.
 2026-10-18, session catzc-59: describe.py edited (grep leaves only the kept AUTO concern key on line 38); 149 tree pages still carry the old
 wording and 283 minimap pages are body-hash stale after commit 06d5525b3. The user's go (2026-10-18): minimaps only,
 `drawio_forward.py --all --stage highlight`, one bounded background run per folder, no slides. Blocked the same day: since 06d5525b3 the
-kit's `--all` finds only diagram folders (`<article-folder>/.assets/<name>/diagram.drawio.png`), docs/explanation has none yet, so every
-run ends `E_SOURCE no diagram folder` (exit 3). Decided by the orchestrator: the rerun waits for the diagram-folders migration
+kit's `--all` finds only diagram folders (`<article-folder>/.assets/<name>/diagram.drawio.png`), docs/explanation has none yet, so every run
+ends `E_SOURCE no diagram folder` (exit 3). Decided by the orchestrator: the rerun waits for the diagram-folders migration
 (task-diagram-folders step 6), then runs as approved; the 149 old-wording pages and 283 stale hashes stay until then.
 
 - [ ] `.claude/drawio/minimaps/describe.py:414`: "under `automation/` by module" becomes "under `pwsh/` by module"; rerun `render.py` per
@@ -164,42 +164,52 @@ run ends `E_SOURCE no diagram folder` (exit 3). Decided by the orchestrator: the
 Each page below is edited by hand where it means the folder (`<RepositoryRoot>/automation`, `automation/<Module>/...`, "under automation/"),
 never where it means the layer or the ADR domain. Check for each: grep clean, `Test-Comments` and `Test-Links` clean on the page.
 
-- [ ] `docs/references/pwsh/catzc-base-config/Get-Config.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-docs/tests/Build-Readme.Tests.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+Landed 2026-10-18 by session catzc-59, the five ticked below, each Test-Comments ok and Test-Links ok (Get-AutoControlledGlobs keeps "the
+automation itself", which means the layer); `gitignore.yml` Format-Code yaml applied, dry run no change, `.gitignore` rebuilt.
+
+- [x] `docs/references/pwsh/catzc-base-config/Get-Config.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-docs/tests/Build-Readme.Tests.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
       (also "the automation itself", rename plan line 1033)
-- [ ] `docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-globs/configs/globs.yml.md` (check: grep clean; Test-Comments and Test-Links clean) (the globset key
+  Landed 2026-10-18 by session catzc-59, batch 2, the five ticked below, each Test-Comments ok and Test-Links ok (globs.yml.md keeps
+  the `automation` key and ci-automation for P6).
+- [x] `docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-globs/configs/globs.yml.md` (check: grep clean; Test-Comments and Test-Links clean) (the globset key
       `automation` stays until P6; only the folder wording changes)
-- [ ] `docs/references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links
+- [x] `docs/references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links
       clean)
-- [ ] `docs/references/pwsh/catzc-base-modulesystem/Test-FolderConventions.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md` (check: grep clean; Test-Comments
+- [x] `docs/references/pwsh/catzc-base-modulesystem/Test-FolderConventions.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+  Landed 2026-10-18 by session catzc-59, batch 3, the five ticked below, each Test-Comments ok and Test-Links ok
+  (Get-UncoveredInternalAssetDependency's default corrected to Get-CatzcModulesRoot, as the code does; Invoke-TestFile.ps1.md needed no
+  change, its hits are `out/test-automation/` and New-TestAutomationShardScript).
+- [x] `docs/references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md` (check: grep clean; Test-Comments
       and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md` (check: grep clean; Test-Comments and
+- [x] `docs/references/pwsh/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/Format-Types.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/Test-Change.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/Test-ParameterConsistency.ps1.md` (check: grep clean; Test-Comments and Test-Links
+- [x] `docs/references/pwsh/catzc-base-qualitygates/Format-Types.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+  Landed 2026-10-18 by session catzc-59, batch 4, the five ticked below, each Test-Comments ok and Test-Links ok.
+- [x] `docs/references/pwsh/catzc-base-qualitygates/Test-Change.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-qualitygates/Test-ParameterConsistency.ps1.md` (check: grep clean; Test-Comments and Test-Links
       clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/Test-SourceConventions.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/private/Get-ChangeTestFile.ps1.md` (check: grep clean; Test-Comments and Test-Links
+- [x] `docs/references/pwsh/catzc-base-qualitygates/Test-SourceConventions.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-qualitygates/private/Get-ChangeTestFile.ps1.md` (check: grep clean; Test-Comments and Test-Links
       clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md` (check: grep clean; Test-Comments and
+  Landed 2026-10-18 by session catzc-59, batch 5, the five ticked below, each Test-Comments ok and Test-Links ok.
+- [x] `docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md` (check: grep clean; Test-Comments and
+- [x] `docs/references/pwsh/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/private/Get-TestFileModule.ps1.md` (check: grep clean; Test-Comments and Test-Links
+- [x] `docs/references/pwsh/catzc-base-qualitygates/private/Get-TestFileModule.ps1.md` (check: grep clean; Test-Comments and Test-Links
       clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/private/Get-TestRunContext.ps1.md` (check: grep clean; Test-Comments and Test-Links
+- [x] `docs/references/pwsh/catzc-base-qualitygates/private/Get-TestRunContext.ps1.md` (check: grep clean; Test-Comments and Test-Links
       clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-FixtureIdentityTokens.Tests.ps1.md` (check: grep clean; Test-Comments and
+- [x] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-FixtureIdentityTokens.Tests.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)
 - [ ] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-LanguageTestFolders.Tests.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)

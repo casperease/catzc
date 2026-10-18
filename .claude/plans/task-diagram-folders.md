@@ -25,6 +25,9 @@ the flat `docs/explanation/.assets` slides, so no slide is rendered before step 
 
 ## Steps
 
+In hand 2026-10-18: session catzc-fb holds steps 3 to 5 (orchestrator). Step 6 has the user's leave (2026-10-18) for Move-Diagram's
+`git mv` in the repository, for this migration only; the user still commits.
+
 Step 2 closed 2026-10-18 (catzc-f3: both subtitles already canonical, drawio_forward.py exit 0, no W_SUBTITLE). Step 1 waits on the decision
 round's test home for the kit.
 

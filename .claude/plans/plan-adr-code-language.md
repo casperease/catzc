@@ -180,7 +180,8 @@ them all).
       reviewed by the user one domain at a time before anything is rewritten. Spelled-out slugs, vendor item ids for CAF/WAF. Check: no
       duplicate under any parent, and no slug that equals a child ADR's name (`ADR-FLOW-CD`).
 - [ ] 3. Rename the codes: the three domain moves (`ADR-CATS`, `ADR-AI`, `ADR-PRIN-PROCESS`) and the 17 CAF/WAF codes into their group
-      level, through `Update-AdrCitation -CodeMap`. Message the orchestrator first. Check: `Test-Links` and `Test-AdrRegistry` on the moved
+      level, through `Update-AdrCitation -CodeMap`; the flow domain's `code` in `adrs.yml` goes from `FLOW-CD` to `FLOW` (its ADR codes
+      stay; `ADR-FLOW-CD` is then the ADR `CD` with its four sibling ADRs below it). Message the orchestrator first. Check: `Test-Links` and `Test-AdrRegistry` on the moved
       ADRs.
 - [ ] 4. Rewrite the registries: each ADR's `### Rule` headings take their slugs, one ADR file at a time. Check: `Test-AdrRegistry` on that
       file.
@@ -210,3 +211,10 @@ Recorded 2026-10-18 with the user:
    rewrite.
 6. **Owning ADR:** the grammar gets its own ADR, `docs/adr/repository/adr-code-language.md` (`ADR-REPO-ADRCODE`).
 7. **Rule order:** a registry keeps its authored order.
+
+## Open questions
+
+1. **Spelling of rule slugs** (found in step 1): `Test-Spelling` flags every joined slug (`BOUNDEVERYWAIT`, `NOCOMPATIBILITYSHIMS`) as an
+   unknown word, and today each ADR code body is a hand-written `terminology.yml` entry (`onelive`, `failfast`). With 1645 rule slugs that
+   is 1645 hand entries. Recommendation: `Test-Spelling` takes the segments of every registered code and rule heading as known words,
+   derived from `adrs.yml` and the registries at run time, and the hand entries for code bodies go in the same change. Needed before step 2.

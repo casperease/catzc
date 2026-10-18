@@ -1,0 +1,62 @@
+Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#7' {
+    BeforeEach {
+        $script:widgetRoot = Join-Path $TestDrive "widget-repository-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
+        $files = [ordered]@{
+            'docs/widgets/index.md'                         = "# Widgets`n`n![Widget](assets/widget/diagram.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
+            'docs/widgets/plain.md'                         = "# Plain`n`n[up](index.md)`n"
+            'docs/widgets/assets/widget/diagram.drawio.png' = 'png'
+            'docs/widgets/assets/widget/diagram.drawio.md'  = "# Widget described`n`n[the article](../../index.md) [the grid](grid.md) ![grid](grid.png)`n"
+            'docs/widgets/assets/widget/grid.md'            = "# Grid`n`n[the description](diagram.drawio.md)`n"
+            'docs/widgets/assets/widget/grid.png'           = 'png'
+            'docs/gadgets/index.md'                         = "# Gadgets`n`n[the widget slide](../widgets/assets/widget/diagram.drawio.md#top)`n"
+        }
+        foreach ($file in $files.Keys) {
+            $full = Join-Path $script:widgetRoot $file
+            [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
+            [System.IO.File]::WriteAllText($full, $files[$file])
+        }
+        foreach ($command in 'git init --quiet', 'git add -A') {
+            Invoke-Executable $command -WorkingDirectory $script:widgetRoot -Silent | Out-Null
+        }
+        Mock Write-Message -ModuleName Catzc.Base.Slides { }
+        $script:read = { param([string] $File) [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $File)) }
+    }
+
+    It 'moves a diagram folder with git mv and re-points the links in it and into it' {
+        $result = Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -PassThru
+
+        $result.Moves.Count | Should -Be 4
+        Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget') | Should -BeFalse
+        $staged = (Invoke-Executable 'git status --porcelain' -WorkingDirectory $script:widgetRoot -PassThru -Silent).Output
+        $staged | Should -Match 'R  docs/widgets/assets/widget/grid.png -> docs/widgets/.assets/widget/grid.png'
+        & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](.assets/widget/diagram.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
+        & $script:read 'docs/gadgets/index.md' | Should -BeExactly "# Gadgets`n`n[the widget slide](../widgets/.assets/widget/diagram.drawio.md#top)`n"
+        & $script:read 'docs/widgets/.assets/widget/diagram.drawio.md' | Should -BeExactly "# Widget described`n`n[the article](../../index.md) [the grid](grid.md) ![grid](grid.png)`n"
+        @($result.Pages | Sort-Object) | Should -Be @('docs/gadgets/index.md', 'docs/widgets/index.md')
+        @((Test-Links -Path docs -RepositoryRoot $script:widgetRoot -PassThru 6> $null).Issues) | Should -BeNullOrEmpty
+    }
+
+    It 'moves one file under a new name, re-pointing the files that link to it and its own links' {
+        Move-Diagram docs/widgets/assets/widget/grid.md docs/gadgets/.assets/widget/grid.md -RepositoryRoot $script:widgetRoot
+
+        & $script:read 'docs/gadgets/.assets/widget/grid.md' | Should -BeExactly "# Grid`n`n[the description](../../../widgets/assets/widget/diagram.drawio.md)`n"
+        & $script:read 'docs/widgets/assets/widget/diagram.drawio.md' | Should -BeExactly "# Widget described`n`n[the article](../../index.md) [the grid](../../../gadgets/.assets/widget/grid.md) ![grid](grid.png)`n"
+    }
+
+    It 'lists the moves and the pages under -DryRun and changes nothing' {
+        $result = Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -DryRun -PassThru
+
+        $result.DryRun | Should -BeTrue
+        $result.Moves.To | Should -Contain 'docs/widgets/.assets/widget/diagram.drawio.md'
+        Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget/grid.png') | Should -BeTrue
+        & $script:read 'docs/widgets/index.md' | Should -Match '\(assets/widget/diagram\.drawio\.png\)'
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Message -like 'Would move: *' } -Times 4 -Exactly
+    }
+
+    It 'refuses a destination that exists, one inside the source, a path outside the repository, and an untracked source' {
+        { Move-Diagram docs/widgets/assets/widget docs/gadgets -RepositoryRoot $script:widgetRoot } | Should -Throw '*already exists*'
+        { Move-Diagram docs/widgets/assets docs/widgets/assets/inner -RepositoryRoot $script:widgetRoot } | Should -Throw '*lies inside it*'
+        { Move-Diagram docs/widgets/assets ../elsewhere -RepositoryRoot $script:widgetRoot } | Should -Throw '*inside the repository*'
+        { Move-Diagram docs/nothing docs/somewhere -RepositoryRoot $script:widgetRoot } | Should -Throw '*holds no tracked file*'
+    }
+}

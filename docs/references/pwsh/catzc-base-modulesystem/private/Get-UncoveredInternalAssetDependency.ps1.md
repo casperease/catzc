@@ -27,7 +27,7 @@ It rests on [ADR-AUTO-ASSETDEP#4](../../../../adr/automation/internal-asset-depe
 
 ### parameter `ModulesRoot`
 
-Path to the automation directory. Defaults to `<RepositoryRoot>/automation`.
+Path to the modules folder. Defaults to the loaded code root (Get-CatzcModulesRoot).
 
 ### parameter `Dependency`
 

@@ -35,7 +35,9 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
        files, none of them a stamp file.
 3. From the shard manifest of the final session's full run (and of any earlier run the user made on their own; this task asks for none):
    `Invoke-TestFile.Tests.ps1` no longer shares a shard with `Test-Formatting.Tests.ps1`; record the shard table and wall clock against the
-   265.8 s run in the plan. Check: the table in the plan, read from `out/test-automation`, no run started for it.
+   265.8 s run in the plan. Check: the table in the plan, read from `out/test-automation`, no run started for it. Reported 2026-10-18 by
+   session catzc-93: the user's last full run took 347 s against the 180 s `tests.run_seconds` budget; that run's manifest is one this
+   step may read now.
 4. [x] Next three files by cost (Get-BicepParameterModel.Shipped 33.6 s, Import-Catzc 32.9 s, Build-Bicep.L2 31.3 s, then the
        Test-BuildArtifact files), one at a time through the `test-optimization` robot, each measured against the new balance. Check: same
        assertions, lower time, recorded per file.

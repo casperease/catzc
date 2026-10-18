@@ -7,6 +7,7 @@ Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
                 $config.engine_neutrality.domains | Should -HaveCount 0
                 $config.engine_neutrality.tokens | Should -HaveCount 0
                 $config.citation_graph.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
+                $config.code_language.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
                 $config.dora_coverage.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
                 $config.dora_coverage.file | Should -Be 'dora-explains.md'
                 $config.dora_coverage.exempt.Count | Should -Be 0
@@ -29,12 +30,14 @@ Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
                     }
                     citation_graph    = [ordered]@{ mode = 'Report' }
                     dora_coverage     = [ordered]@{ mode = 'gate'; file = 'widget-notes.md'; exempt = [ordered]@{ gizmo = 'Gizmo keeps its own notes.' } }
+                    code_language     = [ordered]@{ mode = 'REPORT' }
                 })
         }
 
         It 'reads each check''s mode, case-insensitively' {
             $config.engine_neutrality.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Report)
             $config.citation_graph.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Report)
+            $config.code_language.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Report)
             $config.dora_coverage.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
         }
 

@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Names the unit a run file belongs to — the first path segment under automation/, or the module of a language test folder.
+Names the unit a run file belongs to — the first path segment under pwsh/, or the module of a language test folder.
 
 ### description
 
@@ -18,4 +18,4 @@ to the catzc module it is named for, so its tests protect and invalidate that mo
 
 ### parameter `Path`
 
-The absolute path of a file under `<repo>/automation/`, or of a language test folder.
+The absolute path of a file under `<repo>/pwsh/`, or of a language test folder.
