@@ -10,7 +10,7 @@ Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
                     definition = 'A widget that is a folder.'
                     places     = @(
                         @{ root = 'widgetry'; name = 'folder' }
-                        @{ root = 'widgetry/.core'; name = 'folder'; prefix = 'Widget.Core.' }
+                        @{ root = 'widgetry/.core'; name = 'folder'; prefix = 'Widget.Core.'; internal = $true }
                     )
                 }
                 'widget-file'   = [ordered]@{ definition = 'A widget that is one file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg' }) }
@@ -88,6 +88,16 @@ Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
         }
     }
 
+    Context 'internal places' {
+        It 'reads a place declared internal, and leaves every other place public, the default the type declares' {
+            $places = $script:config.types[0].places
+            $places[1].internal | Should -BeTrue
+            $places[0].internal | Should -BeFalse
+            $script:config.types[1].places[0].internal | Should -Be ([Catzc.Base.Variants.ModulePlace]::DefaultInternal)
+            [Catzc.Base.Variants.ModulePlace]::DefaultInternal | Should -BeFalse
+        }
+    }
+
     Context 'validation' {
         It 'rejects <Name>' -ForEach @(
             @{ Name = 'a type with no definition'; Types = @{ 'widget-x' = @{ places = @(@{ root = 'a'; name = 'root' }) } }; Message = '*needs a definition*' }
@@ -103,6 +113,7 @@ Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
             @{ Name = 'a file place with a dotted extension'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'file'; extension = '.wdg' }) } }; Message = '*without its dot*' }
             @{ Name = 'an extension on a folder place'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'folder'; extension = 'wdg' }) } }; Message = '*only a file place has an extension*' }
             @{ Name = 'a prefix on a root place'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'root'; prefix = 'X.' }) } }; Message = '*only a folder place has a prefix*' }
+            @{ Name = 'an internal that is no boolean'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'root'; internal = 'yes' }) } }; Message = '*internal is true or false*' }
         ) {
             { New-Config $Types } | Should -Throw $Message
         }

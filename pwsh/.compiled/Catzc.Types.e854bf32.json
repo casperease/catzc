@@ -1,5 +1,5 @@
 {
-  "hash": "248f6abc",
+  "hash": "e854bf32",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1341,6 +1341,16 @@
       "display": []
     },
     {
+      "name": "Catzc.Base.Reports.IsolationRunResult",
+      "aliases": [],
+      "display": [
+        "Isolation",
+        "Total",
+        "Failed",
+        "Sandbox"
+      ]
+    },
+    {
       "name": "Catzc.Base.Reports.OutputFile",
       "aliases": [],
       "display": []
@@ -1383,6 +1393,16 @@
       "name": "Catzc.Base.Reports.ReportsConfig",
       "aliases": [],
       "display": []
+    },
+    {
+      "name": "Catzc.Base.Reports.TestRunResult",
+      "aliases": [],
+      "display": [
+        "Result",
+        "PassedCount",
+        "FailedCount",
+        "DurationSeconds"
+      ]
     },
     {
       "name": "Catzc.Base.Repository.ParsedScripts",

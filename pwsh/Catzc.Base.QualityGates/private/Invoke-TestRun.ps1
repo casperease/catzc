@@ -1,6 +1,7 @@
 function Invoke-TestRun {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-OutputFolder is forwarded empty by every entry point that got none, and its default is keyed by the entry point the body resolves; an explicit empty argument would override a declared default (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.TestRunResult])]
     param(
         [ValidateSet('Test-Automation', 'Test-CatzcBuild')]
         [string] $EntryPoint = 'Test-Automation',
@@ -210,23 +211,10 @@ function Invoke-TestRun {
             -DurationSeconds $workerRun.DurationSeconds -ReportPath $runDir
 
         if ($PassThru) {
-            $summary = [pscustomobject]@{
-                Result           = $runResult
-                TotalCount       = $rows.Count
-                PassedCount      = $passedCount
-                FailedCount      = $failedCount
-                SkippedCount     = $skippedCount
-                NotRunCount      = @($rows | Where-Object { $_.Result -eq 'NotRun' }).Count
-                DurationSeconds  = [math]::Round($workerRun.DurationSeconds, 2)
-                Rows             = $rows
-                RunDirectory     = $runDir
-                Shards           = @($workerRun.Shards)
-                ProtectedModules = @($protectedModules)
-            }
-            if ($OptOutTag.Count -gt 0) {
-                $summary | Add-Member -NotePropertyName ExcludedTests -NotePropertyValue @($optOutExcludedTests)
-            }
-            $summary
+            $notRunCount = @($rows | Where-Object { $_.Result -eq 'NotRun' }).Count
+            [Catzc.Base.Reports.TestRunResult]::new($runResult, $passedCount, $failedCount, $skippedCount, $notRunCount,
+                [math]::Round($workerRun.DurationSeconds, 2), $runDir, [object[]] $rows, [object[]] @($workerRun.Shards),
+                [string[]] @($protectedModules), [object[]] @($optOutExcludedTests))
         }
         elseif ($runResult -ne 'Passed' -or $timingFailure -or $budgetFailure) {
             throw "$EntryPoint failed: $($verdict.Summary)"

@@ -1,7 +1,7 @@
 function Test-InIsolation {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoEnvRepositoryRoot', '', Justification = 'The InProcess mode swaps $env:RepositoryRoot for the sandbox and restores it: the variable itself is the subject, so it saves the hand-off value, not the root through the accessor')]
     [CmdletBinding(DefaultParameterSetName = 'ModuleProfile')]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.IsolationRunResult])]
     param(
         [Parameter(Position = 0, ParameterSetName = 'ModuleProfile')]
         [ArgumentCompleter({ (Get-Config -Config profiles).profiles.Keys })]
@@ -126,26 +126,19 @@ exit `$r.FailedCount
             }
         }
 
-        $ret = [pscustomobject]@{
-            Isolation     = $Isolation
-            ModuleProfile = if ($PSCmdlet.ParameterSetName -eq 'ModuleProfile') {
-                $ModuleProfile
-            }
-            else {
-                $null
-            }
-            Sandbox       = $sandbox
-            Modules       = $set
-            Total         = $total
-            Failed        = $failed
-            Success       = ($failed -eq 0)
-            ResultsPath   = if ($KeepSandbox) {
-                $resultsPath
-            }
-            else {
-                $null
-            }
+        $profileName = if ($PSCmdlet.ParameterSetName -eq 'ModuleProfile') {
+            $ModuleProfile
         }
+        else {
+            $null
+        }
+        $keptResults = if ($KeepSandbox) {
+            $resultsPath
+        }
+        else {
+            $null
+        }
+        $ret = [Catzc.Base.Reports.IsolationRunResult]::new($Isolation, $sandbox, [string[]] @($set), $total, $failed, $profileName, $keptResults)
 
         Write-Message "Test-InIsolation ($Isolation): $($ret.Total) test(s), $($ret.Failed) failed — sandbox $sandbox"
 

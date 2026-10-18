@@ -37,8 +37,10 @@ by naming which public functions are contracted. Every later plan speaks this vo
       `Register-AdoPipeline` examples, and ADR-DSGN-TRACK-DEPLOYABLEUNIT's "as `ci-automation` binds the automation track". With it, the
       `automation` form leaves the layer family. The user's go first (check: Test-Pipelines, Test-Contracts and Test-Glossary clean; the
       triggers fire on the next push after the user re-points the bindings).
-- [ ] P7: the user's call on the twelve exported functions nothing calls and on the 139 that only docs name, each contracted or moved to
-      `private/` (task-command-contracts) (check: Test-Contracts clean on the frozen set).
+- [x] P7: decided by the user 2026-10-18 (D26, D27) and landed (task-command-contracts): five dead functions left the tree, the Test/Assert
+      pair halves and debug writers stay exported, the how-to-named commands the grammar can state are contracted; `CONTRACTS issues=0`,
+      65 contracted commands. The parameter-set grammar and the QualityGateResult gate contracts landed too (task-command-contracts
+      steps 8 and 9); the test runners' untyped results are plan-test-run-result-type.
 
 ## Stop and ask when
 

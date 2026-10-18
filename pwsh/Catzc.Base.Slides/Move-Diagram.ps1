@@ -80,6 +80,6 @@ function Move-Diagram {
     }
 
     if ($PassThru) {
-        return [pscustomobject]@{ From = $from; To = $to; Moves = $moves; Pages = @($edits.Page); DryRun = [bool] $DryRun }
+        return [pscustomobject]@{ From = $from; To = $to; Moves = $moves; Pages = @(foreach ($edit in $edits) { $edit.Page }); DryRun = [bool] $DryRun }
     }
 }

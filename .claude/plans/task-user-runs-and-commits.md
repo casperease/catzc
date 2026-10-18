@@ -44,6 +44,8 @@ Order: the commits and git operations first, the remote runs next, the final ful
    any bookmarks from `ci-automation` to `ci-pwsh` the same day. Check: the triggers fire on the next push.
    - Also, at any time: `git mv docs/references/.assets/automation docs/references/.assets/pwsh` (plan-automation-word-residue's four
      follow-up steps wait on it). Check: `git ls-files docs/references/.assets/automation` lists nothing.
+   - After that move: run `out/move-rest-diagrams.ps1` (18 `Move-Diagram` lines, each dry-run by a session; plan-diagram-folders-rest).
+     Check: `git ls-files 'docs/.assets/*/*.drawio.png'` lists nothing.
    - Also, at any time: run the `git rm` lines of `out/delete-done-plans.ps1` (done plans, task files and landed continuation prompts), one
      at a time; sessions cannot, the permission layer blocks it. Check: the files it names are gone, and `Test-Links -Path .claude/plans` is
      clean.

@@ -55,6 +55,13 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Message -like 'Would move: *' } -Times 4 -Exactly
     }
 
+    It 'returns no pages under -PassThru when no page links the moved file' {
+        $result = Move-Diagram docs/adr/index.md docs/adr/.assets/widget/index.md -RepositoryRoot $script:widgetRoot -DryRun -PassThru
+
+        $result.Moves.To | Should -Be @('docs/adr/.assets/widget/index.md')
+        @($result.Pages).Count | Should -Be 0
+    }
+
     It 'refuses a destination that exists, one inside the source, a path outside the repository, and an untracked source' {
         { Move-Diagram docs/widgets/assets/widget docs/gadgets -RepositoryRoot $script:widgetRoot } | Should -Throw '*already exists*'
         { Move-Diagram docs/widgets/assets docs/widgets/assets/inner -RepositoryRoot $script:widgetRoot } | Should -Throw '*lies inside it*'

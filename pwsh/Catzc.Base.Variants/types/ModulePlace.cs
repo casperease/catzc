@@ -8,17 +8,22 @@ public sealed class ModulePlace
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
+    // A place is public unless its entry declares it internal.
+    public const bool DefaultInternal = false;
+
     public string root { get; }
     public string name { get; }
     public string extension { get; }
     public string prefix { get; }
+    public bool @internal { get; }
 
-    public ModulePlace(string root, string name, string extension, string prefix)
+    public ModulePlace(string root, string name, string extension, string prefix, bool @internal)
     {
         this.root = root;
         this.name = name;
         this.extension = extension;
         this.prefix = prefix;
+        this.@internal = @internal;
     }
 
     // The module name this place gives a '/'-separated repository-relative path, or null when the path is not in the place.

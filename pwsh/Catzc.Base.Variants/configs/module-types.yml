@@ -3,11 +3,11 @@ module_types:
     definition: A PowerShell module that is a folder of function files under the track folder, named by the folder.
     places:
       - { root: pwsh, name: folder }
-      - { root: pwsh/.internal, name: folder, prefix: Catzc.Internal. }
+      - { root: pwsh/.internal, name: folder, prefix: Catzc.Internal., internal: true }
   pwsh-psm1:
     definition: A PowerShell module that is one psm1 file under pwsh/.internal, named by the file.
     places:
-      - { root: pwsh/.internal, name: file, extension: psm1 }
+      - { root: pwsh/.internal, name: file, extension: psm1, internal: true }
   python:
     definition: A Python project, named by its track folder.
     places:

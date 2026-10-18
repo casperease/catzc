@@ -256,7 +256,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
             Should -Invoke Write-TestAutomationHeader -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
                 $Title -eq 'Test Automation'
             }
-            $summary.PSObject.Properties['ExcludedTests'] | Should -BeNullOrEmpty
+            $summary.ExcludedTests.Count | Should -Be 0
             [System.IO.File]::Exists((Join-Path $summary.RunDirectory 'excluded-tests.csv')) | Should -BeFalse
         }
     }

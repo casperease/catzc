@@ -61,13 +61,13 @@ public sealed class ModuleTypesConfig
 
     static ModulePlace ParsePlace(string where, IDictionary place)
     {
-        if (place == null) { throw new ArgumentException(where + ": a place must be a map of root, name, and optionally extension and prefix"); }
+        if (place == null) { throw new ArgumentException(where + ": a place must be a map of root, name, and optionally extension, prefix and internal"); }
         foreach (object key in place.Keys)
         {
             string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-            if (name != "root" && name != "name" && name != "extension" && name != "prefix")
+            if (name != "root" && name != "name" && name != "extension" && name != "prefix" && name != "internal")
             {
-                throw new ArgumentException(where + ": unknown place key '" + name + "' (allowed: root, name, extension, prefix)");
+                throw new ArgumentException(where + ": unknown place key '" + name + "' (allowed: root, name, extension, prefix, internal)");
             }
         }
         string root = place.Contains("root") ? Convert.ToString(place["root"], CultureInfo.InvariantCulture) : null;
@@ -88,7 +88,13 @@ public sealed class ModuleTypesConfig
         if (naming != "file" && extension != null) { throw new ArgumentException(where + ": only a file place has an extension"); }
         string prefix = place.Contains("prefix") ? Convert.ToString(place["prefix"], CultureInfo.InvariantCulture) : null;
         if (naming != "folder" && prefix != null) { throw new ArgumentException(where + ": only a folder place has a prefix"); }
-        return new ModulePlace(root, naming, extension, prefix);
+        bool isInternal = ModulePlace.DefaultInternal;
+        if (place.Contains("internal"))
+        {
+            if (!(place["internal"] is bool flag)) { throw new ArgumentException(where + ": a place's internal is true or false"); }
+            isInternal = flag;
+        }
+        return new ModulePlace(root, naming, extension, prefix, isInternal);
     }
 
     // The module a repository-relative path is placed in, or null when no module type places it.

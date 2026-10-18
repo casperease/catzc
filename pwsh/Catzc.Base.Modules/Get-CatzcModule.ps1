@@ -40,7 +40,7 @@ function Get-CatzcModule {
         foreach ($moduleType in $moduleTypes.types.Where({ $typeEntry.admits -ccontains $_.id })) {
             foreach ($place in $moduleType.places) {
                 $trackPlace = @($trackEntry.places.Where({ $place.root -ceq $_ -or $place.root.StartsWith("$_/", [System.StringComparison]::Ordinal) }))
-                if ($trackPlace.Count -eq 0 -or ($place.root -cne $trackPlace[0] -and -not $IncludeInternal)) {
+                if ($trackPlace.Count -eq 0 -or ($place.internal -and -not $IncludeInternal)) {
                     continue
                 }
 

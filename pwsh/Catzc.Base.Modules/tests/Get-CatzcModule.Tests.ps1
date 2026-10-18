@@ -23,10 +23,10 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
                 module_types = [ordered]@{
                     'widget-folder' = [ordered]@{ definition = 'A widget folder.'; places = @(
                             @{ root = 'widgetry'; name = 'folder' }
-                            @{ root = 'widgetry/.core'; name = 'folder'; prefix = 'Widget.Core.' }
+                            @{ root = 'widgetry/.core'; name = 'folder'; prefix = 'Widget.Core.'; internal = $true }
                         )
                     }
-                    'widget-file'   = [ordered]@{ definition = 'A widget file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg' }) }
+                    'widget-file'   = [ordered]@{ definition = 'A widget file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg'; internal = $true }) }
                     'gizmo-folder'  = [ordered]@{ definition = 'A gizmo folder.'; places = @(@{ root = 'gizmo'; name = 'folder' }) }
                 }
             })
@@ -98,6 +98,31 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
         $kit.root | Should -Be 'widgetry/.core/Widget.Core.Kit.wdg'
         $kit.files | Should -Be @('Widget.Core.Kit.wdg')
         ($all | Where-Object name -CEQ 'Widget.Core.Tests').place | Should -Be 'widgetry/.core'
+    }
+
+    It 'takes a nested place with no internal flag as public, and skips a place declared internal unless it is asked for' {
+        $tree = Join-Path $TestDrive 'nested'
+        'gizmo/Doodad/Doodad.gzm', 'gizmo/.extra/Whatsit/Whatsit.gzm' | ForEach-Object {
+            New-Item -ItemType File -Path (Join-Path $tree $_) -Force | Out-Null
+        }
+        $nested = { param([bool] $Internal)
+            [Catzc.Base.Variants.ModuleTypesConfig]::new(@{
+                    module_types = [ordered]@{
+                        'gizmo-folder' = [ordered]@{ definition = 'A gizmo folder.'; places = @(
+                                @{ root = 'gizmo'; name = 'folder' }
+                                @{ root = 'gizmo/.extra'; name = 'folder'; internal = $Internal }
+                            )
+                        }
+                    }
+                })
+        }
+        $script:public = & $nested $false
+        $script:flagged = & $nested $true
+        Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'module-types' } { $script:public }
+        (Get-CatzcModule -Track gizmos -RepositoryRoot $tree).name | Should -Be @('Doodad', 'Whatsit')
+        Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'module-types' } { $script:flagged }
+        (Get-CatzcModule -Track gizmos -RepositoryRoot $tree).name | Should -Be @('Doodad')
+        (Get-CatzcModule -Track gizmos -IncludeInternal -RepositoryRoot $tree).name | Should -Be @('Doodad', 'Whatsit')
     }
 
     It 'filters by track and by name, and returns nothing for a name no module has' {
