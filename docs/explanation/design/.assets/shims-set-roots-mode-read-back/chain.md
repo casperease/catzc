@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a10efeb0a202
+    with_body_sha: "677d7afe0b6e"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.chain.md
-    source: docs/explanation/.assets/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png
+    path: docs/explanation/design/.assets/shims-set-roots-mode-read-back/chain.md
+    source: docs/explanation/design/.assets/shims-set-roots-mode-read-back/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

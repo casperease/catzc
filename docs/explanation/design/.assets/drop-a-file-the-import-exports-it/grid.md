@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2f752ee2bb2d"
+    with_body_sha: "499ebf377ed7"
     repo_status: locked
     path: docs/explanation/design/.assets/drop-a-file-the-import-exports-it/grid.md
     source: docs/explanation/design/.assets/drop-a-file-the-import-exports-it/diagram.drawio.png
@@ -34,7 +34,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - .claude × markdown: 3 lit of 89 files
 - docs × markdown: 13 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 11 files
+- pipelines × pipeline-yaml: 1 lit of 13 files
 - pwsh × powershell: 2 lit of 1649 files
 - pwsh × yaml: 1 lit of 115 files
 

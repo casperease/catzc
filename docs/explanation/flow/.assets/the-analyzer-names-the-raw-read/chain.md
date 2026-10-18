@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "49a30ab2d973"
+    with_body_sha: "179d903b7faa"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
+    path: docs/explanation/flow/.assets/the-analyzer-names-the-raw-read/chain.md
+    source: docs/explanation/flow/.assets/the-analyzer-names-the-raw-read/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

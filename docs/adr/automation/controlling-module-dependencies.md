@@ -174,7 +174,7 @@ single version, not a `2.x` range or `latest` — so its feed resolves the same 
 ### Internal: vendored and named
 
 An internal module dependency is visible in the repository two ways at once. It is **vendored** — the code is in-tree, whether the toolset's
-own modules under `automation/` or a third-party module checked in under `pwsh/.vendor/<Name>/<Version>/`
+own modules under `pwsh/` or a third-party module checked in under `pwsh/.vendor/<Name>/<Version>/`
 ([vend](../pwsh/vendor-toolset-dependencies.md)) — so loading is a path read with no network. And it is **named** — the edge is declared in
 `dependencies.yml` and checked (the graph rules above). Vendored gives the code; named gives the layering. Together they make the repository
 alone the internal dependency set: nothing is fetched and nothing is resolved.

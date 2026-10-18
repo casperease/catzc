@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3b2a4c14c09e"
+    with_body_sha: "3865fee60fce"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png
+    path: docs/explanation/flow/.assets/three-views-derived-live-from-one-program/chain.md
+    source: docs/explanation/flow/.assets/three-views-derived-live-from-one-program/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

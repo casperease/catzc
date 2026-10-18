@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c2c705dd7b67
+    with_body_sha: "57b5fa255eaa"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png
+    path: docs/explanation/flow/.assets/independence-check-groups-by-layer/chain.md
+    source: docs/explanation/flow/.assets/independence-check-groups-by-layer/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

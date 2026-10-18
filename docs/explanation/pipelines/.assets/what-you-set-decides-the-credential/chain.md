@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6df5e08482aa"
+    with_body_sha: f1511bcfa1a9
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md
-    source: docs/explanation/.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
+    path: docs/explanation/pipelines/.assets/what-you-set-decides-the-credential/chain.md
+    source: docs/explanation/pipelines/.assets/what-you-set-decides-the-credential/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

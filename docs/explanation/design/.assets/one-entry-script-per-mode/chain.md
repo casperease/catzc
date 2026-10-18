@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f4bcbbcd9999
+    with_body_sha: ab428dd76027
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-runmode--one-entry-script-per-mode--operations.chain.md
-    source: docs/explanation/.assets/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
+    path: docs/explanation/design/.assets/one-entry-script-per-mode/chain.md
+    source: docs/explanation/design/.assets/one-entry-script-per-mode/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

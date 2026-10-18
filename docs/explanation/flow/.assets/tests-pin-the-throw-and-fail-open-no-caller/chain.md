@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6a86d27c7c94"
+    with_body_sha: dc9ce7a30da2
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
+    path: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-no-caller/chain.md
+    source: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-no-caller/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

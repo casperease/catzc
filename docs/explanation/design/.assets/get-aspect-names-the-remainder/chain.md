@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c863ecabffa1
+    with_body_sha: "90b97b1525c4"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
+    path: docs/explanation/design/.assets/get-aspect-names-the-remainder/chain.md
+    source: docs/explanation/design/.assets/get-aspect-names-the-remainder/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

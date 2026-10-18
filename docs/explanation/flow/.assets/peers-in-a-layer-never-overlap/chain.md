@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9e2ba91940e2"
+    with_body_sha: ce59857718b3
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
+    path: docs/explanation/flow/.assets/peers-in-a-layer-never-overlap/chain.md
+    source: docs/explanation/flow/.assets/peers-in-a-layer-never-overlap/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

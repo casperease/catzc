@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d4e9f67c73ff
+    with_body_sha: ea7829dc0d0e
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.chain.md
-    source: docs/explanation/.assets/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png
+    path: docs/explanation/flow/.assets/pipeline-kinds-keyed-by-one-artifact/chain.md
+    source: docs/explanation/flow/.assets/pipeline-kinds-keyed-by-one-artifact/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

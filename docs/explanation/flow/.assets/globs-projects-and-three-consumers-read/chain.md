@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4dd4cb3d0cf4"
+    with_body_sha: aa766e53fe5d
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png
+    path: docs/explanation/flow/.assets/globs-projects-and-three-consumers-read/chain.md
+    source: docs/explanation/flow/.assets/globs-projects-and-three-consumers-read/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

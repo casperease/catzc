@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "27cdb2ea6da0"
+    with_body_sha: aaba2aa2764a
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.chain.md
-    source: docs/explanation/.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png
+    path: docs/explanation/design/.assets/units-not-tracks-own-the-pipelines/chain.md
+    source: docs/explanation/design/.assets/units-not-tracks-own-the-pipelines/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "425227f90ef1"
+    with_body_sha: "28654baafd31"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md
-    source: docs/explanation/.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
+    path: docs/explanation/design/.assets/four-domains-promote-one-artifact/chain.md
+    source: docs/explanation/design/.assets/four-domains-promote-one-artifact/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -88,6 +88,7 @@ Lit ([ADR-DSGN-TRACK#12][2]) by:
 Terms the cited ADRs define:
 
 - [occupant][11], defined by [ADR-DSGN-LIFE#5][12]
+- [staging slot][13], defined by [ADR-DSGN-LIFE#5][12]
 
 [1]: ../../../../adr/design/commit-lifecycle.md
 [2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
@@ -101,3 +102,4 @@ Terms the cited ADRs define:
 [10]: ../../../../adr/glossary.md#lit-cell
 [11]: ../../../../adr/glossary.md#occupant
 [12]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[13]: ../../../../adr/glossary.md#staging-slot

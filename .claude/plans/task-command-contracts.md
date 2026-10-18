@@ -119,7 +119,11 @@ contracts plan).
    several fit. ADR-REPO-CMDCONTRACT#2 states it; then Get-Inspiration and Export-WorldMapPdf get their contracts. Check:
    Test-AdrRegistry and Test-Links on the ADR; the ContractCommand, Read-CommandSignature, Get-ContractCheckResults.Assets and
    New-CatsCommandLookup test files pass; the cats.bats cases pass; `CONTRACTS issues=0`; Test-GeneratedFiles clean.
-9. The gate result type, decided the same way: a C# `Catzc.Base.Reports.QualityGateResult` (Subject, IssueCount, Issues, ReportPath,
+9. [x] Landed 2026-10-18 by session catzc-f3, verdict: "CONTRACTS issues=0 (124 assets); New-CatsCommandLookup +
+   Get-ContractCheckResults.Assets 238/238; post-switch 66 test files: 59 fully green, 7 red only on real-tree integrity checks owned
+   elsewhere"; QualityGateResult (L0 5/5), seam removed, every gate typed (Test-Slides by catzc-fb), 43 gate contracts (the gates a
+   how-to names). Not run: the L2 build tests Import-Catzc, Get-DynamicManifestContent, Test-CatzcBuild.Parity (the final full run).
+   Original step: The gate result type, decided the same way: a C# `Catzc.Base.Reports.QualityGateResult` (Subject, IssueCount, Issues, ReportPath,
    Facts as an ordered dictionary) returned by `Write-QualityGateReport -PassThru`; each gate declares it as its OutputType, one gate file
    at a time with its tests and every caller reading a flattened fact moved to `.Facts[...]` in the same change (one living version); no
    grammar change (a Catzc.* type); then the gates get contracts. Unblocked 2026-10-18 (task-test-run-budget step 6 landed); held by

@@ -52,7 +52,7 @@ namespace — are the language layer, [dynamic-module-manifests](../pwsh/dynamic
 | -------------------------- | ---------------------------------------- | ---------------------------------------- |
 | Add a function to a module | Create `Verb-Noun.ps1` in the module dir | No manifest, no export list, no loader   |
 | Add a private helper       | Create `Verb-Noun.ps1` in `private/`     | No manifest, no export list, no loader   |
-| Add a new module           | Create a folder under `automation/`      | Not `importer.ps1`, not `Bootstrap.psm1` |
+| Add a new module           | Create a folder under `pwsh/`      | Not `importer.ps1`, not `Bootstrap.psm1` |
 | Add a vendor dependency    | Drop the module in `.vendor/`            | Not `importer.ps1`, not `Bootstrap.psm1` |
 
 Every row follows the same pattern: the extension is a new file or folder, and the infrastructure discovers it automatically.
@@ -74,7 +74,7 @@ Every row follows the same pattern: the extension is a new file or folder, and t
 The open/closed guarantee rests on conventions:
 
 - **File name = function name.** `Get-Foo.ps1` exports `Get-Foo`. No mapping table needed.
-- **Folder = module.** A directory under `automation/` with `.ps1` files is a module. No registration needed.
+- **Folder = module.** A directory under `pwsh/` with `.ps1` files is a module. No registration needed.
 - **Root = public, `private/` = private.** Export visibility is determined by file location. No attribute or annotation needed.
 
 In PowerShell these conventions are [one-function-per-file](../pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc1) and the location-based
@@ -102,7 +102,7 @@ and actual intra-group edges must be a subset of the declared internal map. The 
 
 The platform must remain open for extension and closed for modification. Concretely:
 
-- **Growth is additive.** A new function is a new `Verb-Noun.ps1` file, a new module is a new folder under `automation/`, a new vendor
+- **Growth is additive.** A new function is a new `Verb-Noun.ps1` file, a new module is a new folder under `pwsh/`, a new vendor
   dependency is a new folder under `.vendor/`, and a new root concern is a new track. None of these edits `importer.ps1`, the bootstrap
   module, or any other module's files (ADR-AUTO-EXTEND#1).
 - **The infrastructure knows conventions, not content.** The importer and the bootstrap module discover modules, exports, and visibility
@@ -114,7 +114,7 @@ The platform must remain open for extension and closed for modification. Concret
 
 ### How this is enforced
 
-- **`Import-AllModules`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under `automation/` as a module
+- **`Import-AllModules`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under `pwsh/` as a module
   and generates its manifest with `New-DynamicManifest`, so a new module or function needs no registration anywhere. Before any module loads
   it fails fast on a duplicate export or a shadowed shipped command, the one seam where convention alone cannot guarantee a single meaning
   per name ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md)).

@@ -60,12 +60,18 @@ staging and the DEPLOY pipeline have no code. Every explanation article on the l
   stage template both CD and DEPLOY call (ADR-FLOW-CD-TYPE#9, no fork), cd-customer and cd-shared keep an identical stage graph, so the
   user's pending CD proof run (plan-explanation-drift-gaps Q1, Q2) proves the template that will live; four `deploy-<unit>.yaml` files;
   the certifying CD run tags its own run `certified-<rung>`. The user is the one approver in `approver_group.members` (2026-10-18).
-- [ ] The DEPLOY pipeline: takes a CI run id, resolves that run's artifact, deploys it to prod; the certifying CD run records the run id
+- [x] Landed 2026-10-18 by session catzc-59, verdict: "all 6 pipeline files parse; Test-Pipelines ok; Test-AdoPipelineTriggerGlob ok;
+      Test-Contracts ok; Format-Code applied; pipelines/README.md regenerated, Test-Links ok" (stages/deploy-unit.yaml, the one deploy path;
+      deploy-shared.yaml and deploy-apex.yaml). The approver is the simulated `prod-approver@example.com`, at the user's word in that
+      session; a live apply needs a real approver listed. Original step: The DEPLOY pipeline: takes a CI run id, resolves that run's artifact, deploys it to prod; the certifying CD run records the run id
       (check: Test-Pipelines and the pipeline contract check clean; the first real run is the user's).
 - [ ] main-uat is `dev` (decided 2026-10-18: main-uat = dev, release-uat = test, pre-prod = preprod, prod = prod): rename each unit's
       `<unit>-dev` ADO environment to `<unit>-main-uat` in the deploy lists and the ladder docs, so the rung has its own environment name
       (check: Test-Pipelines clean; the rename in Azure DevOps itself is the user's).
-- [ ] The missing rung configs, the user's infra decision (each is a new resource group): apex `test.yml` (release-uat) and `preprod.yml`
+- [ ] The certifying record: no `certified-<rung>` build tag for now, since ADO records the deploying run in each environment's history;
+      decided by the orchestrator 2026-10-18 to revisit after the user's CD proof run (check: the plan names the record DEPLOY reads).
+- [ ] The missing rung configs, decided by the user 2026-10-18: apex `test.yml` and `preprod.yml` and nova `test.yml` in dev's shape;
+      flux waits for a workload. Earlier wording: the user's infra decision (each is a new resource group): apex `test.yml` (release-uat) and `preprod.yml`
       (pre-prod, which `deploy-apex` stages through before prod), nova `test.yml`, and a flux expedition at all. Until they exist,
       `deploy-apex`'s pre-prod job has no config to deploy and nova and flux have no DEPLOY pipeline (check: the configs build with
       Build-Bicep; deploy-nova and deploy-flux follow deploy-shared's shape; Test-Pipelines clean).

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: ea600985d0ba
+    repo_status: locked
+    path: docs/explanation/flow/.assets/globs-module-owns-config-and-types/chain.md
+    source: docs/explanation/flow/.assets/globs-module-owns-config-and-types/diagram.drawio.png
+    role: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Catzc.Base.Globs computes every globset role from one typed registry: the value-chain minimap
 
 ```text

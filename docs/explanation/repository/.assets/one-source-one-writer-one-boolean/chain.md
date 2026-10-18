@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "31274db8eff6"
+    with_body_sha: d2a8b539f8ef
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.chain.md
-    source: docs/explanation/.assets/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
+    path: docs/explanation/repository/.assets/one-source-one-writer-one-boolean/chain.md
+    source: docs/explanation/repository/.assets/one-source-one-writer-one-boolean/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

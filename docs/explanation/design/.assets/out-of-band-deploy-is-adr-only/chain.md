@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a89593916dbc
+    with_body_sha: "0ed615cf7179"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.chain.md
-    source: docs/explanation/.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
+    path: docs/explanation/design/.assets/out-of-band-deploy-is-adr-only/chain.md
+    source: docs/explanation/design/.assets/out-of-band-deploy-is-adr-only/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -98,6 +98,7 @@ Lit ([ADR-DSGN-TRACK#12][3]) by:
 Terms the cited ADRs define:
 
 - [occupant][12], defined by [ADR-DSGN-LIFE#5][13]
+- [staging slot][14], defined by [ADR-DSGN-LIFE#5][13]
 
 [1]: ../../../../adr/design/commit-lifecycle.md
 [2]: ../../../../adr/design/visual-design.md
@@ -112,3 +113,4 @@ Terms the cited ADRs define:
 [11]: ../../../../adr/glossary.md#lit-cell
 [12]: ../../../../adr/glossary.md#occupant
 [13]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[14]: ../../../../adr/glossary.md#staging-slot

@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a2523818635e
+    with_body_sha: "492fcaf42922"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.chain.md
-    source: docs/explanation/.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
+    path: docs/explanation/repository/.assets/import-materialises-two-gates-name-the-fix/chain.md
+    source: docs/explanation/repository/.assets/import-materialises-two-gates-name-the-fix/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

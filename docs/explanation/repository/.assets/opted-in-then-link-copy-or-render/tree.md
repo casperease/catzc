@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9ff3a6c54611"
+    with_body_sha: "428cb4d6d9bb"
     repo_status: locked
-    path: docs/explanation/.assets/tree/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.tree.md
-    source: docs/explanation/.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
+    path: docs/explanation/repository/.assets/opted-in-then-link-copy-or-render/tree.md
+    source: docs/explanation/repository/.assets/opted-in-then-link-copy-or-render/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -27,17 +27,17 @@ files carry the decision. Each lit group has its reason below, naming the code t
 
 ## What the minimap shows
 
-The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
+The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
 domain), and lights 40 files in 7 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 33 lit files
 - adr/repo (docs/adr/repository): 2 lit files
+- adr/* (the files directly in docs/adr/): 1 lit file
+- pipelines: 1 lit file
 - Docs (pwsh/Catzc.Base.Docs): 1 lit file
 - QualityGates (pwsh/Catzc.Base.QualityGates): 1 lit file
 - VSCode (pwsh/Catzc.Base.VSCode): 1 lit file
-- adr/* (the files directly in docs/adr/): 1 lit file
-- pipelines: 1 lit file
 
 ## Why each group is lit
 
@@ -120,41 +120,41 @@ The group holds the files of docs/adr/repository; each sits in its world-map cel
   (text).
 - [docs/adr/repository/generated-root-configs.md][1], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the ADR's own file.
 
-### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][36], in the cell automation × yaml: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
-  301 (text).
-
-### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][37], in the cell automation × yaml: selected by [ADR-REPO-ROOTCFG][1]: the file
-  cites it at line 603 (text).
-
-### VSCode (pwsh/Catzc.Base.VSCode, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.VSCode; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs][38], in the cell automation × csharp: selected by [ADR-REPO-ROOTCFG][1]: the file
-  cites it at line 8 (body comment) (a passing mention only).
-
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][39], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 325 (text).
+- [docs/adr/index.md][36], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 325 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][40], in the cell pipelines × pipeline-yaml: selected by [ADR-REPO-ROOTCFG][1]: a pipeline that cites
+- [pipelines/ci-automation.yaml][37], in the cell pipelines × pipeline-yaml: selected by [ADR-REPO-ROOTCFG][1]: a pipeline that cites
   nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 301 (text),
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 603 (text) and `pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` line 8
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 607 (text) and `pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` line 8
   (body comment).
+
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][38], in the cell pwsh × yaml: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 301
+  (text).
+
+### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][39], in the cell pwsh × yaml: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
+  at line 607 (text).
+
+### VSCode (pwsh/Catzc.Base.VSCode, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.VSCode; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs][40], in the cell pwsh × csharp: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
+  at line 8 (body comment) (a passing mention only).
 
 ## Keywords
 
@@ -163,9 +163,9 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [file language][44]
 - [cell][45]
 - [lit cell][46]
-- [automation][47]: a track
 - [docs][47]: a track
 - [pipelines][47]: a track
+- [pwsh][47]: a track
 - [csharp][48]: a file language
 - [markdown][48]: a file language
 - [pipeline-yaml][48]: a file language
@@ -206,11 +206,11 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [33]: ../../../../references/pwsh/catzc-base-vscode/types/VscodeSettingsConfig.cs.md
 [34]: ../../../../references/pwsh/internal/Catzc.Internal.Importer.psm1.md
 [35]: ../../../../adr/repository/dora-explains.md
-[36]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[37]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[38]: ../../../../../pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
-[39]: ../../../../adr/index.md
-[40]: ../../../../../pipelines/ci-automation.yaml
+[36]: ../../../../adr/index.md
+[37]: ../../../../../pipelines/ci-automation.yaml
+[38]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[39]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+[40]: ../../../../../pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
 [41]: ../../opted-in-then-link-copy-or-render.md
 [42]: ../../../../adr/glossary.md#world-map
 [43]: ../../../../adr/glossary.md#track

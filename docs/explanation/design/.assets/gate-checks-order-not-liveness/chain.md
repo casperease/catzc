@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "585b377a47ba"
+    with_body_sha: "9f40d3f69446"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
+    path: docs/explanation/design/.assets/gate-checks-order-not-liveness/chain.md
+    source: docs/explanation/design/.assets/gate-checks-order-not-liveness/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

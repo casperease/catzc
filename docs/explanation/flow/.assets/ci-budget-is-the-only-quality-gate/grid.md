@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dc6794436177
+    with_body_sha: ae81579e13f6
     repo_status: locked
     path: docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate/grid.md
     source: docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate/diagram.drawio.png
@@ -16,13 +16,13 @@ catzc:
 
 ```text
 Where the files that cite ADR-FLOW-CD and ADR-FLOW-CD-TYPE sit in the repository: tracks down, file languages across.
-5 of 342 cells lit, holding 36 files.
+5 of 342 cells lit, holding 38 files.
 ```
 
 ![The world-map minimap of The CI budget is the only promotion rule a quality gate checks](grid.png)
 
 This is the world-map minimap in the sidebar of the governance diagram of [The CI budget is the only promotion rule a quality gate
-checks][40], which explains [ADR-FLOW-CD][1] and [ADR-FLOW-CD-TYPE][2]. It lights every cell of the world map that holds a file citing those
+checks][42], which explains [ADR-FLOW-CD][1] and [ADR-FLOW-CD-TYPE][2]. It lights every cell of the world map that holds a file citing those
 codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
@@ -34,7 +34,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - .claude × markdown: 7 lit of 89 files
 - docs × markdown: 24 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 11 files
+- pipelines × pipeline-yaml: 3 lit of 13 files
 - pwsh × powershell: 1 lit of 1649 files
 - pwsh × yaml: 3 lit of 115 files
 
@@ -58,7 +58,7 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 - [.claude/plans/plan-adr-code-language.md][7]: selected by [ADR-FLOW-CD][1]: the file cites it at line 126 (text), line 127 (text), line
   128 (text), line 181 (text) and line 184 (text).
 - [.claude/plans/plan-explanation-drift-gaps.md][8]: selected by [ADR-FLOW-CD][1]: the file cites it at line 36 (text) and line 79 (text).
-- [.claude/plans/plan-promotion-ladder.md][9]: selected by [ADR-FLOW-CD][1]: the file cites it at line 12 (text), line 34 (text) and line 78
+- [.claude/plans/plan-promotion-ladder.md][9]: selected by [ADR-FLOW-CD][1]: the file cites it at line 12 (text), line 34 (text) and line 82
   (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 60 (text).
 - [.claude/plans/prompt-promotion-ladder-1-build.md][10]: selected by [ADR-FLOW-CD][1]: the file cites it at line 20 (text).
 - [.claude/plans/task-loose-ends.md][11]: selected by [ADR-FLOW-CD][1]: the file cites it at line 55 (text).
@@ -108,7 +108,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md][34]: selected by [ADR-FLOW-CD][1]: the file cites it at line 54
   (text).
 
-### pipelines × pipeline-yaml (1 lit file)
+### pipelines × pipeline-yaml (3 lit files)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][3]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
@@ -119,13 +119,15 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
   `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text) and `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 58 (text);
   selected by [ADR-FLOW-CD-TYPE][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
   `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 100 (text).
+- [pipelines/deploy-apex.yaml][36]: selected by [ADR-FLOW-CD][1]: the file cites it at line 14 (body comment) (a passing mention only).
+- [pipelines/deploy-shared.yaml][37]: selected by [ADR-FLOW-CD][1]: the file cites it at line 14 (body comment) (a passing mention only).
 
 ### pwsh × powershell (1 lit file)
 
 Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][3]); the extension `.ps1` names the file language powershell
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][36]: selected by [ADR-FLOW-CD][1]: the file cites it at line 70 (text) and
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][38]: selected by [ADR-FLOW-CD][1]: the file cites it at line 70 (text) and
   line 71 (text).
 
 ### pwsh × yaml (3 lit files)
@@ -133,31 +135,31 @@ Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][3]); th
 Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][37]: selected by [ADR-FLOW-CD][1]: the file cites it at line 97 (text); selected by
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][39]: selected by [ADR-FLOW-CD][1]: the file cites it at line 97 (text); selected by
   [ADR-FLOW-CD-TYPE][2]: the file cites it at line 100 (text).
-- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][38]: selected by [ADR-FLOW-CD][1]: the file cites it at line 18 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][39]: selected by [ADR-FLOW-CD][1]: the file cites it at line 58 (text).
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][40]: selected by [ADR-FLOW-CD][1]: the file cites it at line 18 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][41]: selected by [ADR-FLOW-CD][1]: the file cites it at line 58 (text).
 
 ## Keywords
 
-- [world map][41]
-- [track][42]
-- [file language][43]
-- [cell][44]
-- [lit cell][45]
-- [.claude][46]: a track
-- [docs][46]: a track
-- [pipelines][46]: a track
-- [pwsh][46]: a track
-- [markdown][47]: a file language
-- [pipeline-yaml][47]: a file language
-- [powershell][47]: a file language
-- [yaml][47]: a file language
+- [world map][43]
+- [track][44]
+- [file language][45]
+- [cell][46]
+- [lit cell][47]
+- [.claude][48]: a track
+- [docs][48]: a track
+- [pipelines][48]: a track
+- [pwsh][48]: a track
+- [markdown][49]: a file language
+- [pipeline-yaml][49]: a file language
+- [powershell][49]: a file language
+- [yaml][49]: a file language
 
 Terms the cited ADRs define:
 
-- [gate][48], defined by [ADR-FLOW-CD#13][49]
-- [release candidate][50], defined by [ADR-FLOW-CD#14][51]
+- [gate][50], defined by [ADR-FLOW-CD#13][51]
+- [release candidate][52], defined by [ADR-FLOW-CD#14][53]
 
 [1]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md
 [2]: ../../../../adr/flow/pipeline-types.md
@@ -194,19 +196,21 @@ Terms the cited ADRs define:
 [33]: ../../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
 [34]: ../../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
 [35]: ../../../../../pipelines/ci-automation.yaml
-[36]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[37]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[38]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-[39]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-[40]: ../../ci-budget-is-the-only-quality-gate.md
-[41]: ../../../../adr/glossary.md#world-map
-[42]: ../../../../adr/glossary.md#track
-[43]: ../../../../adr/glossary.md#file-language
-[44]: ../../../../adr/glossary.md#cell
-[45]: ../../../../adr/glossary.md#lit-cell
-[46]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[47]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[48]: ../../../../adr/glossary.md#gate
-[49]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[50]: ../../../../adr/glossary.md#release-candidate
-[51]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[36]: ../../../../../pipelines/deploy-apex.yaml
+[37]: ../../../../../pipelines/deploy-shared.yaml
+[38]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[39]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[40]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[41]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+[42]: ../../ci-budget-is-the-only-quality-gate.md
+[43]: ../../../../adr/glossary.md#world-map
+[44]: ../../../../adr/glossary.md#track
+[45]: ../../../../adr/glossary.md#file-language
+[46]: ../../../../adr/glossary.md#cell
+[47]: ../../../../adr/glossary.md#lit-cell
+[48]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[49]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[50]: ../../../../adr/glossary.md#gate
+[51]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[52]: ../../../../adr/glossary.md#release-candidate
+[53]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14

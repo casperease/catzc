@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: eb8283cc463a
+    with_body_sha: b203e8e8b19d
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
+    path: docs/explanation/flow/.assets/one-boolean-answer-from-one-function/chain.md
+    source: docs/explanation/flow/.assets/one-boolean-answer-from-one-function/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

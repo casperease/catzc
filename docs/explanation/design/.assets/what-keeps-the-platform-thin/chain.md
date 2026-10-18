@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9b6caac5447d"
+    with_body_sha: "7b3e92f20d09"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.chain.md
-    source: docs/explanation/.assets/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png
+    path: docs/explanation/design/.assets/what-keeps-the-platform-thin/chain.md
+    source: docs/explanation/design/.assets/what-keeps-the-platform-thin/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

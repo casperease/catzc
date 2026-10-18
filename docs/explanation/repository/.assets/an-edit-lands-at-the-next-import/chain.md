@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f949dcf95859
+    with_body_sha: eb698295bd9a
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-variant--an-edit-lands-at-the-next-import--operations.chain.md
-    source: docs/explanation/.assets/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png
+    path: docs/explanation/repository/.assets/an-edit-lands-at-the-next-import/chain.md
+    source: docs/explanation/repository/.assets/an-edit-lands-at-the-next-import/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

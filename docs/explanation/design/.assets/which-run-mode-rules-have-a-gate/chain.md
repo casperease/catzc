@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e467d2a4ce7f
+    with_body_sha: "5cf9e9d91810"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.chain.md
-    source: docs/explanation/.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
+    path: docs/explanation/design/.assets/which-run-mode-rules-have-a-gate/chain.md
+    source: docs/explanation/design/.assets/which-run-mode-rules-have-a-gate/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b8a8fd704d5e
+    with_body_sha: ac03f9d437cf
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png
+    path: docs/explanation/flow/.assets/no-gate-checks-rules-one-and-four/chain.md
+    source: docs/explanation/flow/.assets/no-gate-checks-rules-one-and-four/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

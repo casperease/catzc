@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e7a5c7c2e26"
+    with_body_sha: "9d09296429f0"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
+    path: docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps/chain.md
+    source: docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

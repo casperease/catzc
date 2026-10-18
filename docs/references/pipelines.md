@@ -60,6 +60,11 @@ ADRs:
   subscription (`nsub`/`psub`); an expedition entry is an environment with an optional slot, and an empty expedition list skips its build
   and stage. Adding a spoke runs hub → spoke → hub again across `cd-shared` and the customer CD, by hand
   ([landing-zones](../adr/azure/landing-zones.md)).
+- `stages/deploy-unit.yaml` — the one deploy path of a unit (foundation → discovery → expedition), called by its CD and by its DEPLOY, so
+  the two never fork; the artifact comes from the current run (CD) or from the certifying CD run by its id (DEPLOY).
+- `deploy-shared.yaml`, `deploy-apex.yaml` — DEPLOY, run by hand with the run id of the certifying CD run: `deploy-shared` rolls the
+  artifact onto release-uat (`test`), `deploy-apex` stages it in pre-prod (`preprod`) and then activates it to `prod`. Each job waits on its
+  environment's approval check. nova and flux have no DEPLOY until they have a rung config.
 
 There are no CRON or INPUT pipelines in the repo yet, and no per-type sample pipelines — the real `ci-*` / `cd-*` pipelines above are the
 canonical shapes to copy.

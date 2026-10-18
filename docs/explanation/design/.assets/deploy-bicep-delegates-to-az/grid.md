@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9e22de77caa8"
+    with_body_sha: "90ae780efbc3"
     repo_status: locked
     path: docs/explanation/design/.assets/deploy-bicep-delegates-to-az/grid.md
     source: docs/explanation/design/.assets/deploy-bicep-delegates-to-az/diagram.drawio.png
@@ -33,7 +33,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - docs × markdown: 3 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 11 files
+- pipelines × pipeline-yaml: 1 lit of 13 files
 - pwsh × yaml: 2 lit of 115 files
 
 ## Key

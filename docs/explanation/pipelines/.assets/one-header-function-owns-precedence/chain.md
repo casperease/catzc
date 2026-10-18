@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b571ff042fe9
+    with_body_sha: "95c77749852c"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-pipe-auth--one-header-function-owns-precedence--architecture.chain.md
-    source: docs/explanation/.assets/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png
+    path: docs/explanation/pipelines/.assets/one-header-function-owns-precedence/chain.md
+    source: docs/explanation/pipelines/.assets/one-header-function-owns-precedence/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

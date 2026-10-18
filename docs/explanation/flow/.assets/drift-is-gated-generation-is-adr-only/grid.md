@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a7520c892dd5
+    with_body_sha: ce61ff00efb5
     repo_status: locked
     path: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/grid.md
     source: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png
@@ -35,7 +35,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - .claude × markdown: 1 lit of 89 files
 - docs × markdown: 63 lit of 2761 files
-- pipelines × pipeline-yaml: 3 lit of 11 files
+- pipelines × pipeline-yaml: 3 lit of 13 files
 - pwsh × csharp: 3 lit of 293 files
 - pwsh × powershell: 5 lit of 1649 files
 - pwsh × yaml: 2 lit of 115 files

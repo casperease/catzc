@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f302652b1e0e
+    with_body_sha: "612ba005deed"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
+    path: docs/explanation/flow/.assets/range-per-context-then-diff-and-match/chain.md
+    source: docs/explanation/flow/.assets/range-per-context-then-diff-and-match/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

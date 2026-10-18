@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3dff518981d8"
+    with_body_sha: "7de0345f60fc"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
+    path: docs/explanation/flow/.assets/the-step-is-named-after-its-command/chain.md
+    source: docs/explanation/flow/.assets/the-step-is-named-after-its-command/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

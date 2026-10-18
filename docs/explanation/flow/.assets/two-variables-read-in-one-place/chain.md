@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "17a1f11b2803"
+    with_body_sha: a414e9f5500f
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
+    path: docs/explanation/flow/.assets/two-variables-read-in-one-place/chain.md
+    source: docs/explanation/flow/.assets/two-variables-read-in-one-place/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

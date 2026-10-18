@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "60c543f7582b"
+    with_body_sha: "45ba1c2f5943"
     repo_status: locked
-    path: docs/explanation/.assets/tree/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.tree.md
-    source: docs/explanation/.assets/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png
+    path: docs/explanation/flow/.assets/the-loader-holds-the-one-detector/tree.md
+    source: docs/explanation/flow/.assets/the-loader-holds-the-one-detector/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -27,16 +27,16 @@ which files carry the decision. Each lit group has its reason below, naming the 
 
 ## What the minimap shows
 
-The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
+The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
 domain), and lights 11 files in 6 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 5 lit files
 - adr/flow (docs/adr/flow): 2 lit files
-- Docs (pwsh/Catzc.Base.Docs): 1 lit file
-- QualityGates (pwsh/Catzc.Base.QualityGates): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
 - pipelines: 1 lit file
+- Docs (pwsh/Catzc.Base.Docs): 1 lit file
+- QualityGates (pwsh/Catzc.Base.QualityGates): 1 lit file
 
 ## Why each group is lit
 
@@ -63,33 +63,33 @@ The group holds the files of docs/adr/flow; each sits in its world-map cell and 
   (text).
 - [docs/adr/flow/pipeline-detection.md][1], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the ADR's own file.
 
-### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][8], in the cell automation × yaml: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line
-  99 (text).
-
-### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][9], in the cell automation × yaml: selected by [ADR-FLOW-CD-DETECT][1]: the
-  file cites it at line 11 (text).
-
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][10], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 131 (text).
+- [docs/adr/index.md][8], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 131 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][11], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-DETECT][1]: a pipeline that cites
+- [pipelines/ci-automation.yaml][9], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-DETECT][1]: a pipeline that cites
   nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 99 (text) and
   `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 11 (text).
+
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][10], in the cell pwsh × yaml: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 99
+  (text).
+
+### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][11], in the cell pwsh × yaml: selected by [ADR-FLOW-CD-DETECT][1]: the file
+  cites it at line 11 (text).
 
 ## Keywords
 
@@ -98,9 +98,9 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [file language][15]
 - [cell][16]
 - [lit cell][17]
-- [automation][18]: a track
 - [docs][18]: a track
 - [pipelines][18]: a track
+- [pwsh][18]: a track
 - [markdown][19]: a file language
 - [pipeline-yaml][19]: a file language
 - [yaml][19]: a file language
@@ -112,10 +112,10 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [5]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
 [6]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
 [7]: ../../../../adr/flow/dora-explains.md
-[8]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[9]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-[10]: ../../../../adr/index.md
-[11]: ../../../../../pipelines/ci-automation.yaml
+[8]: ../../../../adr/index.md
+[9]: ../../../../../pipelines/ci-automation.yaml
+[10]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[11]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
 [12]: ../../the-loader-holds-the-one-detector.md
 [13]: ../../../../adr/glossary.md#world-map
 [14]: ../../../../adr/glossary.md#track

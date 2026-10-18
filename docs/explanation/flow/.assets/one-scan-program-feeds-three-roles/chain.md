@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "93643e2440dc"
+    with_body_sha: "84297ea01cd3"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png
+    path: docs/explanation/flow/.assets/one-scan-program-feeds-three-roles/chain.md
+    source: docs/explanation/flow/.assets/one-scan-program-feeds-three-roles/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

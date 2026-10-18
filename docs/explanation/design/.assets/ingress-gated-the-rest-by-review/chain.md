@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ef57565e1281
+    with_body_sha: "3bd7d1c763e3"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.md
-    source: docs/explanation/.assets/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png
+    path: docs/explanation/design/.assets/ingress-gated-the-rest-by-review/chain.md
+    source: docs/explanation/design/.assets/ingress-gated-the-rest-by-review/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -101,6 +101,7 @@ Lit ([ADR-DSGN-TRACK#12][4]) by:
 Terms the cited ADRs define:
 
 - [occupant][13], defined by [ADR-DSGN-LIFE#5][14]
+- [staging slot][15], defined by [ADR-DSGN-LIFE#5][14]
 
 [1]: ../../../../adr/design/commit-lifecycle.md
 [2]: ../../../../adr/design/server-remote-integration.md
@@ -116,3 +117,4 @@ Terms the cited ADRs define:
 [12]: ../../../../adr/glossary.md#lit-cell
 [13]: ../../../../adr/glossary.md#occupant
 [14]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[15]: ../../../../adr/glossary.md#staging-slot

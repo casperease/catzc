@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ea2d5e30ac87
+    with_body_sha: "1aa00896f6a5"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-remote--guard-and-policies-by-command--operations.chain.md
-    source: docs/explanation/.assets/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
+    path: docs/explanation/design/.assets/guard-and-policies-by-command/chain.md
+    source: docs/explanation/design/.assets/guard-and-policies-by-command/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

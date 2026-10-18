@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dda98156e16d
+    with_body_sha: da0d644d9e5d
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.chain.md
-    source: docs/explanation/.assets/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
+    path: docs/explanation/repository/.assets/one-registry-one-writer-two-primitives/chain.md
+    source: docs/explanation/repository/.assets/one-registry-one-writer-two-primitives/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

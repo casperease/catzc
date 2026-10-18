@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "73f0ce95176b"
+    with_body_sha: ac12192a07bb
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.chain.md
-    source: docs/explanation/.assets/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
+    path: docs/explanation/repository/.assets/values-and-edges-gated-reads-reviewed/chain.md
+    source: docs/explanation/repository/.assets/values-and-edges-gated-reads-reviewed/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

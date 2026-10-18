@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f83c0c493ff8
+    with_body_sha: "87f6f101441f"
     repo_status: locked
     path: docs/explanation/design/.assets/every-deploy-stage-is-main-only/grid.md
     source: docs/explanation/design/.assets/every-deploy-stage-is-main-only/diagram.drawio.png
@@ -34,7 +34,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - .claude × markdown: 5 lit of 89 files
 - docs × markdown: 5 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 11 files
+- pipelines × pipeline-yaml: 1 lit of 13 files
 - pwsh × yaml: 3 lit of 115 files
 
 ## Key
@@ -54,7 +54,7 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2
 
 - [.claude/plans/plan-fast-push-followups.md][5]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 12 (text) and line 37 (text).
 - [.claude/plans/plan-promotion-ladder.md][6]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 12 (text), line 34 (text) and line
-  78 (text).
+  82 (text).
 - [.claude/plans/prompt-promotion-ladder-1-build.md][7]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 20 (text).
 - [.claude/plans/task-loose-ends.md][8]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 55 (text).
 - [.claude/plans/value-of-plan.md][9]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 36 (text) and line 43 (text).

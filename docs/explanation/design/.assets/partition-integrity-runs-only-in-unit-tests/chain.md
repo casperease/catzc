@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "650e2c4084d9"
+    with_body_sha: "0b31c438bcfc"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png
+    path: docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests/chain.md
+    source: docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

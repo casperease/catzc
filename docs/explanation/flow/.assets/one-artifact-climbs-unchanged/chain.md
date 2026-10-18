@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cbd65a1f3182
+    with_body_sha: a42ed86ee3e5
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd--one-artifact-climbs-unchanged--meta.chain.md
-    source: docs/explanation/.assets/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png
+    path: docs/explanation/flow/.assets/one-artifact-climbs-unchanged/chain.md
+    source: docs/explanation/flow/.assets/one-artifact-climbs-unchanged/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

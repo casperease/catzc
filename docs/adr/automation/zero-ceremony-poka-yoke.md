@@ -42,7 +42,7 @@ platform itself enforces correctness — the author does not have to remember to
 **Adding a function:** create `Verb-Noun.ps1` in a module folder. No manifest to update, no export list to maintain, no import to add. The
 bootstrap module discovers it automatically.
 
-**Adding a module:** create a folder under `automation/`. The folder name becomes the module name. No registration, no configuration file.
+**Adding a module:** create a folder under `pwsh/`. The folder name becomes the module name. No registration, no configuration file.
 
 **Using a function:** dot-source `importer.ps1`. Every function from every module is available. No `Import-Module`, no `using module`, no
 dependency declarations.

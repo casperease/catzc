@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "21bc6556b003"
+    with_body_sha: c6d32b87453d
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
+    path: docs/explanation/flow/.assets/stop-only-on-false-everything-else-proceeds/chain.md
+    source: docs/explanation/flow/.assets/stop-only-on-false-everything-else-proceeds/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

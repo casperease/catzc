@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3cb6072113ee"
+    with_body_sha: cfa6a217fdd6
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
+    path: docs/explanation/flow/.assets/three-tasks-one-guard-one-runner/chain.md
+    source: docs/explanation/flow/.assets/three-tasks-one-guard-one-runner/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

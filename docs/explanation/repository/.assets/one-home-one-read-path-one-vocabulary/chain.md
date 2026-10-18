@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "10ac8d2bdfae"
+    with_body_sha: "5a296d041882"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.chain.md
-    source: docs/explanation/.assets/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
+    path: docs/explanation/repository/.assets/one-home-one-read-path-one-vocabulary/chain.md
+    source: docs/explanation/repository/.assets/one-home-one-read-path-one-vocabulary/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c62c09eecadf
+    with_body_sha: "1c4b899a064e"
     repo_status: locked
-    path: docs/explanation/.assets/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
-    source: docs/explanation/.assets/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
+    path: docs/explanation/design/.assets/sync-from-the-last-certified-commit/tree.md
+    source: docs/explanation/design/.assets/sync-from-the-last-certified-commit/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -16,118 +16,133 @@ catzc:
 
 ```text
 Which files cite ADR-DSGN-LIFE: every file of the world map is a tile, grouped by top-level folder.
-10 files lit in 7 groups.
+14 files lit in 7 groups.
 ```
 
 ![The tree minimap of Sync from the last certified commit, not from the tip of main](tree.png)
 
-This is the tree minimap in the sidebar of the meta diagram of [Sync from the last certified commit, not from the tip of main][11], which
+This is the tree minimap in the sidebar of the meta diagram of [Sync from the last certified commit, not from the tip of main][15], which
 explains [ADR-DSGN-LIFE][1]. It lights every file that cites those codes, grouped by folder, so it shows which files carry the decision.
 Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
-The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 10 files in 7 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
+domain), and lights 14 files in 7 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
-- .claude: 2 lit files
+- .claude: 5 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
 - adr/dsgn (docs/adr/design): 2 lit files
-- Docs (pwsh/Catzc.Base.Docs): 1 lit file
-- ModuleSystem (pwsh/Catzc.Base.ModuleSystem): 1 lit file
+- Docs (pwsh/Catzc.Base.Docs): 2 lit files
 - docs (docs/ outside docs/adr/): 1 lit file
 - pipelines: 1 lit file
+- ModuleSystem (pwsh/Catzc.Base.ModuleSystem): 1 lit file
 
 ## Why each group is lit
 
-### .claude (2 lit files)
+### .claude (5 lit files)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-fast-push-followups.md][2], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
   12 (text) and line 37 (text).
-- [.claude/plans/value-of-plan.md][3], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 44 (text).
+- [.claude/plans/plan-promotion-ladder.md][3], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 12
+  (text), line 34 (text) and line 82 (text).
+- [.claude/plans/prompt-promotion-ladder-1-build.md][4], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it
+  at line 20 (text).
+- [.claude/plans/task-loose-ends.md][5], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 55
+  (text).
+- [.claude/plans/value-of-plan.md][6], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 36 (text)
+  and line 43 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][4], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 272 (text).
-- [docs/adr/index.md][5], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text).
+- [docs/adr/glossary.md][7], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 272 (text) and line 345
+  (text).
+- [docs/adr/index.md][8], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text).
 
 ### adr/dsgn (docs/adr/design, 2 lit files)
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
 - [docs/adr/design/commit-lifecycle.md][1], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
-- [docs/adr/design/dora-explains.md][6], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 82 (text).
+- [docs/adr/design/dora-explains.md][9], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 82 (text).
 
-### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
+### Docs (pwsh/Catzc.Base.Docs, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][7], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][10], in the cell pwsh × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78 (text).
+- [pwsh/Catzc.Base.Docs/configs/glossary.yml][11], in the cell pwsh × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 484
   (text).
-
-### ModuleSystem (pwsh/Catzc.Base.ModuleSystem, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][8], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it
-  at line 49 (text).
 
 ### docs (docs/ outside docs/adr/, 1 lit file)
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][9], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it
-  at line 14 (text).
+- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][12], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites
+  it at line 14 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][10], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text).
+- [pipelines/ci-automation.yaml][13], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text),
+  `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 484 (text) and `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text).
+
+### ModuleSystem (pwsh/Catzc.Base.ModuleSystem, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][14], in the cell pwsh × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at
+  line 49 (text).
 
 ## Keywords
 
-- [world map][12]
-- [track][13]
-- [file language][14]
-- [cell][15]
-- [lit cell][16]
-- [.claude][17]: a track
-- [automation][17]: a track
-- [docs][17]: a track
-- [pipelines][17]: a track
-- [markdown][18]: a file language
-- [pipeline-yaml][18]: a file language
-- [yaml][18]: a file language
+- [world map][16]
+- [track][17]
+- [file language][18]
+- [cell][19]
+- [lit cell][20]
+- [.claude][21]: a track
+- [docs][21]: a track
+- [pipelines][21]: a track
+- [pwsh][21]: a track
+- [markdown][22]: a file language
+- [pipeline-yaml][22]: a file language
+- [yaml][22]: a file language
 
 Terms the cited ADRs define:
 
-- [occupant][19], defined by [ADR-DSGN-LIFE#5][20]
+- [occupant][23], defined by [ADR-DSGN-LIFE#5][24]
+- [staging slot][25], defined by [ADR-DSGN-LIFE#5][24]
 
 [1]: ../../../../adr/design/commit-lifecycle.md
 [2]: ../../../../../.claude/plans/plan-fast-push-followups.md
-[3]: ../../../../../.claude/plans/value-of-plan.md
-[4]: ../../../../adr/glossary.md
-[5]: ../../../../adr/index.md
-[6]: ../../../../adr/design/dora-explains.md
-[7]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[8]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-[9]: ../../../../references/pwsh/catzc-base-git/Push-Dirty.ps1.md
-[10]: ../../../../../pipelines/ci-automation.yaml
-[11]: ../../sync-from-the-last-certified-commit.md
-[12]: ../../../../adr/glossary.md#world-map
-[13]: ../../../../adr/glossary.md#track
-[14]: ../../../../adr/glossary.md#file-language
-[15]: ../../../../adr/glossary.md#cell
-[16]: ../../../../adr/glossary.md#lit-cell
-[17]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[18]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[19]: ../../../../adr/glossary.md#occupant
-[20]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[3]: ../../../../../.claude/plans/plan-promotion-ladder.md
+[4]: ../../../../../.claude/plans/prompt-promotion-ladder-1-build.md
+[5]: ../../../../../.claude/plans/task-loose-ends.md
+[6]: ../../../../../.claude/plans/value-of-plan.md
+[7]: ../../../../adr/glossary.md
+[8]: ../../../../adr/index.md
+[9]: ../../../../adr/design/dora-explains.md
+[10]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[11]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
+[12]: ../../../../references/pwsh/catzc-base-git/Push-Dirty.ps1.md
+[13]: ../../../../../pipelines/ci-automation.yaml
+[14]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[15]: ../../sync-from-the-last-certified-commit.md
+[16]: ../../../../adr/glossary.md#world-map
+[17]: ../../../../adr/glossary.md#track
+[18]: ../../../../adr/glossary.md#file-language
+[19]: ../../../../adr/glossary.md#cell
+[20]: ../../../../adr/glossary.md#lit-cell
+[21]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[22]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[23]: ../../../../adr/glossary.md#occupant
+[24]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[25]: ../../../../adr/glossary.md#staging-slot

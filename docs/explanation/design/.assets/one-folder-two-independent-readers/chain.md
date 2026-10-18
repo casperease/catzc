@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "23ee8d142b31"
+    with_body_sha: f9efef1a7d76
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.png
+    path: docs/explanation/design/.assets/one-folder-two-independent-readers/chain.md
+    source: docs/explanation/design/.assets/one-folder-two-independent-readers/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

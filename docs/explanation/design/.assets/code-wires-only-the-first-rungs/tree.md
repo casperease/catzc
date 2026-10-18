@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "716b859f7548"
+    with_body_sha: "66becd5178ad"
     repo_status: locked
     path: docs/explanation/design/.assets/code-wires-only-the-first-rungs/tree.md
     source: docs/explanation/design/.assets/code-wires-only-the-first-rungs/diagram.drawio.png
@@ -48,7 +48,7 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 - [.claude/plans/plan-fast-push-followups.md][2], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
   12 (text) and line 37 (text).
 - [.claude/plans/plan-promotion-ladder.md][3], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 12
-  (text), line 34 (text) and line 78 (text).
+  (text), line 34 (text) and line 82 (text).
 - [.claude/plans/prompt-promotion-ladder-1-build.md][4], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it
   at line 20 (text).
 - [.claude/plans/task-loose-ends.md][5], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 55

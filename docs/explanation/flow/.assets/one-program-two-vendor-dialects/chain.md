@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "93bc3983f36e"
+    with_body_sha: "3ff2f8560a59"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
+    path: docs/explanation/flow/.assets/one-program-two-vendor-dialects/chain.md
+    source: docs/explanation/flow/.assets/one-program-two-vendor-dialects/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

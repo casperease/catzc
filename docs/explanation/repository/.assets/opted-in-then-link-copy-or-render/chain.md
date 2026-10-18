@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "349801c00ac5"
+    with_body_sha: dddf98ccea7a
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.chain.md
-    source: docs/explanation/.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
+    path: docs/explanation/repository/.assets/opted-in-then-link-copy-or-render/chain.md
+    source: docs/explanation/repository/.assets/opted-in-then-link-copy-or-render/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

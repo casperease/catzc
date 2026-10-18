@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ffbab2b78a62
+    with_body_sha: b9441f014708
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.chain.md
-    source: docs/explanation/.assets/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
+    path: docs/explanation/repository/.assets/a-base-module-between-config-and-its-callers/chain.md
+    source: docs/explanation/repository/.assets/a-base-module-between-config-and-its-callers/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

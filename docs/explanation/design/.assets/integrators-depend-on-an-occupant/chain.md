@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "744b412388c4"
+    with_body_sha: "565f0bf03a7e"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.chain.md
-    source: docs/explanation/.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
+    path: docs/explanation/design/.assets/integrators-depend-on-an-occupant/chain.md
+    source: docs/explanation/design/.assets/integrators-depend-on-an-occupant/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -109,6 +109,7 @@ Terms the cited ADRs define:
 - [gate][12], defined by [ADR-FLOW-CD#13][13]
 - [occupant][14], defined by [ADR-DSGN-LIFE#5][15]
 - [release candidate][16], defined by [ADR-FLOW-CD#14][17]
+- [staging slot][18], defined by [ADR-DSGN-LIFE#5][15]
 
 [1]: ../../../../adr/design/commit-lifecycle.md
 [2]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md
@@ -127,3 +128,4 @@ Terms the cited ADRs define:
 [15]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
 [16]: ../../../../adr/glossary.md#release-candidate
 [17]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[18]: ../../../../adr/glossary.md#staging-slot

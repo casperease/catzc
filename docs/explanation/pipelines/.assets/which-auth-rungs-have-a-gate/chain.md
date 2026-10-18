@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "91f27a9285f5"
+    with_body_sha: "479176cf80bf"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.chain.md
-    source: docs/explanation/.assets/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png
+    path: docs/explanation/pipelines/.assets/which-auth-rungs-have-a-gate/chain.md
+    source: docs/explanation/pipelines/.assets/which-auth-rungs-have-a-gate/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
