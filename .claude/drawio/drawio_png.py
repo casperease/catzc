@@ -336,9 +336,9 @@ def main():
     src, dst = args
     if src.lower().endswith(".png"):
         chunk = mxfile_chunk(Image.open(src))
-        page = re.search(r'name="([^"]*)"', unquote(chunk))
-        if page and "--name" not in sys.argv:
-            name = html.unescape(page.group(1))
+        carried = re.search(r'name="([^"]*)"', unquote(chunk))
+        if carried and "--name" not in sys.argv:
+            name = html.unescape(carried.group(1))
         model = decode(chunk).strip()
     else:
         model = Path(src).read_text(encoding="utf-8").strip()
