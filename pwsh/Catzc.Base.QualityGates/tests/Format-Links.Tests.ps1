@@ -144,6 +144,18 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             @($result.Unfixable.Type) | Should -Be @('StringNumbered')
             $result.Unfixable[0].Line | Should -Be 1
         }
+
+        It 'reports a numbered citation composed at runtime, and leaves a composed named one alone' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING' {
+            # Built from two strings, so the string-citation check reads no composed citation in this file.
+            $composed = "`$issues.Add(`"[ADR-TST-WIDGET" + "#`${Rule}] `$Message`")`n"
+            $formatted = 'var s = string.Format("ADR-TST-GADGET' + ':{0}", n);' + "`n"
+            $named = "`$issues.Add(`"[ADR-TST-WIDGET-`$Name] `$Message`")`n`$text = `"ADR-TST-WIDGET: `$Message`"`n"
+            & $writeFile $root 'src/widget.ps1' ($composed + $named)
+            & $writeFile $root 'src/Gadget.cs' $formatted
+            $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src/widget.ps1'), (Join-Path $root 'src/Gadget.cs') -DryRun -PassThru
+            @($result.Unfixable.Type) | Should -Be @('StringNumbered', 'StringNumbered')
+            @($result.Unfixable | Where-Object Line -NE 1) | Should -BeNullOrEmpty
+        }
     }
 
     Context 'what stays as written' {

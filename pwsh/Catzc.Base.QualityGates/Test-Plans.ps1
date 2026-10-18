@@ -39,10 +39,10 @@ function Test-Plans {
         $where = "$label/$name"
         $add = {
             param([int] $Line, [string] $Rule, [string] $Message)
-            $issues.Add("${where}:${Line} [ADR-REPO-PLANS#${Rule}] $Message")
+            $issues.Add("${where}:${Line} [$Rule] $Message")
         }
         if (-not $Config.Accepts($name)) {
-            & $add 1 1 'the name is not one the plans folder accepts (plan-<topic>.md, prompt-<topic>-continue.md, task-<topic>.md, …); a name never carries an order (ADR-REPO-FOLDERS-STABLEFILENAMES)'
+            & $add 1 'ADR-REPO-PLANS-ONETOPICONEFILE' 'the name is not one the plans folder accepts (plan-<topic>.md, prompt-<topic>-continue.md, task-<topic>.md, …); a name never carries an order (ADR-REPO-FOLDERS-STABLEFILENAMES)'
             continue
         }
         $text = [System.IO.File]::ReadAllText($file)
@@ -55,7 +55,7 @@ function Test-Plans {
         }
         for ($i = 0; $i -lt $lines.Count; $i++) {
             if ($lines[$i] -cmatch '\b(task[0-9]{3}|T[0-9]{3})\b') {
-                & $add ($i + 1) 8 "'$($Matches[1])' names a task by a number; a task is named by its topic and the master's list carries the order"
+                & $add ($i + 1) 'ADR-REPO-PLANS-MASTERANDTASKS' "'$($Matches[1])' names a task by a number; a task is named by its topic and the master's list carries the order"
             }
         }
         $hasHeading = {
@@ -79,7 +79,7 @@ function Test-Plans {
                     $frontMatter = ($lines[1..($end - 1)] -join "`n") | ConvertFrom-Yaml -Ordered
                 }
                 catch {
-                    & $add 1 2 "the front matter is not YAML: $($_.Exception.Message)"
+                    & $add 1 'ADR-REPO-PLANS-PLANHEAD'"the front matter is not YAML: $($_.Exception.Message)"
                 }
             }
         }
@@ -87,7 +87,7 @@ function Test-Plans {
         if ($isMaster) {
             foreach ($section in $Config.master_sections) {
                 if (-not (& $hasHeading $section)) {
-                    & $add 1 8 "the master plan has no '## $section' section"
+                    & $add 1 'ADR-REPO-PLANS-MASTERANDTASKS'"the master plan has no '## $section' section"
                 }
             }
             continue
@@ -96,23 +96,23 @@ function Test-Plans {
         if ($isTask) {
             $tasks++
             if ($tasks -eq $Config.tasks_max + 1) {
-                & $add 1 8 "the folder holds more than the roof of $($Config.tasks_max) task files"
+                & $add 1 'ADR-REPO-PLANS-MASTERANDTASKS'"the folder holds more than the roof of $($Config.tasks_max) task files"
             }
             $block = if ($frontMatter -is [System.Collections.IDictionary] -and $frontMatter.Contains('task')) {
                 $frontMatter['task']
             }
             if (-not ($block -is [System.Collections.IDictionary])) {
-                & $add 1 8 "the head has no 'task:' block"
+                & $add 1 'ADR-REPO-PLANS-MASTERANDTASKS'"the head has no 'task:' block"
             }
             else {
                 foreach ($key in 'status', 'plans', 'value', 'blocked_on', 'targets') {
                     if (-not $block.Contains($key)) {
-                        & $add 1 8 "the task head misses '$key'"
+                        & $add 1 'ADR-REPO-PLANS-MASTERANDTASKS'"the task head misses '$key'"
                     }
                 }
             }
             if (-not (& $hasHeading 'Steps')) {
-                & $add 1 8 "the task file has no '## Steps' section"
+                & $add 1 'ADR-REPO-PLANS-MASTERANDTASKS'"the task file has no '## Steps' section"
             }
             continue
         }
@@ -122,40 +122,40 @@ function Test-Plans {
             $frontMatter['plan']
         }
         if (-not ($block -is [System.Collections.IDictionary])) {
-            & $add 1 2 "the head has no 'plan:' block"
+            & $add 1 'ADR-REPO-PLANS-PLANHEAD'"the head has no 'plan:' block"
         }
         else {
             foreach ($key in $Config.head_required) {
                 if (-not $block.Contains($key)) {
-                    & $add 1 2 "the head misses '$key'"
+                    & $add 1 'ADR-REPO-PLANS-PLANHEAD'"the head misses '$key'"
                 }
             }
             foreach ($key in @($block.Keys)) {
                 if ($key -notin $Config.head_required -and $key -notin $Config.head_allowed) {
-                    & $add 1 2 "the head key '$key' is outside the plan keys ($(($Config.head_required + $Config.head_allowed) -join ', '))"
+                    & $add 1 'ADR-REPO-PLANS-PLANHEAD'"the head key '$key' is outside the plan keys ($(($Config.head_required + $Config.head_allowed) -join ', '))"
                 }
             }
             if ($block.Contains('status')) {
                 $status = "$($block['status'])"
                 if ($status -notin $Config.statuses) {
-                    & $add 1 2 "status '$status' is not one of: $($Config.statuses -join ', ')"
+                    & $add 1 'ADR-REPO-PLANS-PLANHEAD'"status '$status' is not one of: $($Config.statuses -join ', ')"
                 }
                 elseif ($status -ceq 'blocked' -and -not ($block.Contains('blocked_on') -or $block.Contains('waits_on'))) {
-                    & $add 1 2 "a blocked plan names what blocks it in 'blocked_on' or 'waits_on'"
+                    & $add 1 'ADR-REPO-PLANS-PLANHEAD'"a blocked plan names what blocks it in 'blocked_on' or 'waits_on'"
                 }
             }
             if ($block.Contains('value') -and "$($block['value'])" -notin $Config.ranks) {
-                & $add 1 2 "value '$($block['value'])' is not one of the ranks: $($Config.ranks -join ', ')"
+                & $add 1 'ADR-REPO-PLANS-PLANHEAD'"value '$($block['value'])' is not one of the ranks: $($Config.ranks -join ', ')"
             }
             if ($block.Contains('targets')) {
                 $targets = @($block['targets'])
                 if ($targets.Count -eq 0) {
-                    & $add 1 2 'targets names no path'
+                    & $add 1 'ADR-REPO-PLANS-PLANHEAD''targets names no path'
                 }
                 foreach ($target in $targets) {
                     $candidate = Join-Path $root "$target"
                     if (-not ([System.IO.File]::Exists($candidate) -or [System.IO.Directory]::Exists($candidate))) {
-                        & $add 1 2 "target '$target' does not exist"
+                        & $add 1 'ADR-REPO-PLANS-PLANHEAD'"target '$target' does not exist"
                     }
                 }
             }
@@ -163,7 +163,7 @@ function Test-Plans {
 
         foreach ($section in $Config.sections_required) {
             if (-not (& $hasHeading $section)) {
-                & $add 1 3 "the plan has no '## $section' section"
+                & $add 1 'ADR-REPO-PLANS-ONESHAPE'"the plan has no '## $section' section"
             }
         }
 
@@ -172,7 +172,7 @@ function Test-Plans {
         $step = $null
         $flush = {
             if ($stepLine -gt 0 -and $step -notmatch '(?i)check:') {
-                & $add $stepLine 4 "the open step names no check: `"$($step.Trim())`""
+                & $add $stepLine 'ADR-REPO-PLANS-OPENSTEP'"the open step names no check: `"$($step.Trim())`""
             }
         }
         for ($i = 0; $i -lt $lines.Count; $i++) {

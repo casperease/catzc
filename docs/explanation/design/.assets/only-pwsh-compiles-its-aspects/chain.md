@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "92cde7c69f67"
+    with_body_sha: "83e8584eda57"
     repo_status: locked
-    path: docs/explanation/design/.assets/only-automation-compiles-its-aspects/chain.md
-    source: docs/explanation/design/.assets/only-automation-compiles-its-aspects/diagram.drawio.png
+    path: docs/explanation/design/.assets/only-pwsh-compiles-its-aspects/chain.md
+    source: docs/explanation/design/.assets/only-pwsh-compiles-its-aspects/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -16,7 +16,9 @@ public sealed class LinkEngine
 
     static readonly Regex StringDocPath = new Regex(@"(?<![\w/.\-])docs/adr/[A-Za-z0-9_\-./]+?\.md(?![\w/])", RegexOptions.Compiled);
     static readonly Regex InsertedLink = new Regex(@"\[[^\]\r\n]+\]\(/docs/adr/[^)\s]+\)", RegexOptions.Compiled);
-    static readonly Regex StringNumberedCitation = new Regex(@"(?<![\w\-])ADR(?:-[A-Z][A-Z0-9]*)+[:#]\d+", RegexOptions.Compiled);
+    // A number written out, or one composed at runtime after the `#` or `:`: an interpolated variable or a format placeholder.
+    static readonly Regex StringNumberedCitation = new Regex(@"(?<![\w\-])ADR(?:-[A-Z][A-Z0-9]*)+[:#](?:\d+|\$|\{(?:\d+\}|[A-Za-z_]))",
+        RegexOptions.Compiled);
 
     readonly string root;
     readonly AdrCitationMap map;
