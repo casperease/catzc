@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "272b97d6a747"
+#     with_body_sha: "03e4f18ea8c8"
 #     repo_status: locked
 #     path: importer-commands.sh
 #     source: contracts/catzc/0.0.0
@@ -139,6 +139,22 @@ Test-AgentDefinitions	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base
 Test-AgentDefinitions	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Docs/Test-AgentDefinitions.command.yml		
 Test-AnalyzerAdrMap	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.command.yml		
 Test-AnalyzerAdrMap	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.command.yml		
+Test-Automation	MinLevel	int	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	MaxLevel	int	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	Modules	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	Category	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	Workers	int	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	GreedyGroupSize	int	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	TimeoutSeconds	int	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	Output	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	EnforceTimings	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	Rule	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	Suite	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	Isolated	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	KeepSandbox	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
+Test-Automation	DiagnoseBlocking	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Automation.command.yml		
 Test-AzureNetworkPlan	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Azure/Test-AzureNetworkPlan.command.yml		
 Test-AzureNetworkPlan	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Azure/Test-AzureNetworkPlan.command.yml		
 Test-BuildArtifact	Module	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-BuildArtifact.command.yml		
@@ -146,6 +162,14 @@ Test-BuildArtifact	ModuleProfile	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Q
 Test-BuildArtifact	Facet	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-BuildArtifact.command.yml		
 Test-BuildArtifact	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-BuildArtifact.command.yml		
 Test-BuildArtifact	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-BuildArtifact.command.yml		
+Test-CatzcBuild	Module	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-CatzcBuild.command.yml		
+Test-CatzcBuild	ModuleProfile	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-CatzcBuild.command.yml		
+Test-CatzcBuild	MinLevel	int	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-CatzcBuild.command.yml		
+Test-CatzcBuild	MaxLevel	int	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-CatzcBuild.command.yml		
+Test-CatzcBuild	Category	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-CatzcBuild.command.yml		
+Test-CatzcBuild	Workers	int	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-CatzcBuild.command.yml		
+Test-CatzcBuild	Output	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-CatzcBuild.command.yml		
+Test-CatzcBuild	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-CatzcBuild.command.yml		
 Test-Change	Path	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Change.command.yml		
 Test-Change	WholeModule	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Change.command.yml		
 Test-Change	DryRun	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Change.command.yml		
@@ -191,6 +215,15 @@ Test-GlobSetTriggerCoverage	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catz
 Test-GlobSetTriggerCoverage	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.command.yml		
 Test-Glossary	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Docs/Test-Glossary.command.yml		
 Test-Glossary	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Docs/Test-Glossary.command.yml		
+Test-InIsolation	ModuleProfile	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-InIsolation.command.yml	ModuleProfile	ModuleProfile
+Test-InIsolation	Modules	string	1	1	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-InIsolation.command.yml	Modules	ModuleProfile
+Test-InIsolation	Isolation	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-InIsolation.command.yml		ModuleProfile
+Test-InIsolation	Category	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-InIsolation.command.yml		ModuleProfile
+Test-InIsolation	MaxLevel	int	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-InIsolation.command.yml		ModuleProfile
+Test-InIsolation	MinLevel	int	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-InIsolation.command.yml		ModuleProfile
+Test-InIsolation	Destination	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-InIsolation.command.yml		ModuleProfile
+Test-InIsolation	KeepSandbox	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-InIsolation.command.yml		ModuleProfile
+Test-InIsolation	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-InIsolation.command.yml		ModuleProfile
 Test-Links	Path	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Links.command.yml		
 Test-Links	Kind	Catzc.Base.QualityGates.LinkKind	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Links.command.yml		
 Test-Links	RepositoryRoot	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Links.command.yml		

@@ -32,4 +32,5 @@ place declares `internal: true`, its default `false` on the config type, and the
       Done 2026-10-18: no rule named internal places, so ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE now says a place declares `internal: true`
       (public by default) and the resolver never infers it from where a place sits, with its reason in "One resolver through the track";
       Test-AdrRegistry issues=0 (`out/test-adr-registry/20261018-194520`), Test-Links issues=0 (`out/test-links/20261018-194520`).
-- [ ] Delete this plan (check: no file in .claude/plans names it).
+- [x] Delete this plan (check: no file in .claude/plans names it). Done 2026-10-18: `grep -rln plan-internal-place-flag .claude/plans docs`
+      names no other file; its `git rm` line is in `out/delete-done-plans.ps1` for the user.

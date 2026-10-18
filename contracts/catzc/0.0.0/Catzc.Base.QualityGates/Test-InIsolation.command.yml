@@ -1,0 +1,14 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-InIsolation, which copies a module profile or named
+# modules into a sandbox, runs their tests there and returns the run's result under -PassThru.
+parameters:
+  ModuleProfile: string = minimal in ModuleProfile
+  Modules: string[]! in Modules
+  Isolation: string = Process
+  Category: string = Logic
+  MaxLevel: int = 1
+  MinLevel: int = 0
+  Destination: string
+  KeepSandbox: switch
+  PassThru: switch
+default_set: ModuleProfile
+output: Catzc.Base.Reports.IsolationRunResult

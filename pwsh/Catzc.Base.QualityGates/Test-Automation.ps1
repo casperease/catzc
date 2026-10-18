@@ -1,5 +1,6 @@
 function Test-Automation {
     [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.TestRunResult])]
     [Catzc.Base.Timeouts.TimeLimit(360, Pipeline = 3600)]
     param(
         [ValidateSet(0, 1, 2, 3, 4)]

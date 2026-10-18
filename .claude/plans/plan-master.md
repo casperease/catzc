@@ -48,8 +48,6 @@ work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` li
   over the pages that link into it.
 - diagram-folders-rest -> plan-diagram-folders-rest.md: the 18 flat slides outside docs/explanation; the prepared Move-Diagram
   script (the user runs it, after the references asset `git mv`), then `Build-Diagrams -Path` per new folder.
-- test-run-result-type -> plan-test-run-result-type.md: TestRunResult and IsolationRunResult types for the three test runners (no
-  user step).
 - promotion-ladder -> plan-promotion-ladder.md: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying record, after the user's
   CD proof run.
 - layers-classification-flip -> task-layers-classification-flip.md: P6, the `ci-automation` pipeline rename and the `automation` layer
@@ -69,5 +67,5 @@ work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` li
 - closing-sweep, last -> task-closing-sweep.md, its last step: the plans that closed on green deleted; the master and the task files
   deleted when every chunk is done.
 
-Every chunk is a task file, apart from automation-word-residue, diagram-folders-rest, test-run-result-type and promotion-ladder, whose plans are the executable. A new plan or paste
+Every chunk is a task file, apart from automation-word-residue, diagram-folders-rest and promotion-ladder, whose plans are the executable. A new plan or paste
 adds its chunk as a pointer line at the position its dependencies and value give it.

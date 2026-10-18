@@ -1,5 +1,6 @@
 function Test-CatzcBuild {
     [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.TestRunResult])]
     [Catzc.Base.Timeouts.TimeLimit(360, Pipeline = 3600)]
     param(
         [ArgumentCompleter({ (Get-CatzcModule -TrackType modules).name })]

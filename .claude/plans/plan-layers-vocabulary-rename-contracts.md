@@ -40,7 +40,7 @@ by naming which public functions are contracted. Every later plan speaks this vo
 - [x] P7: decided by the user 2026-10-18 (D26, D27) and landed (task-command-contracts): five dead functions left the tree, the Test/Assert
       pair halves and debug writers stay exported, the how-to-named commands the grammar can state are contracted; `CONTRACTS issues=0`,
       65 contracted commands. The parameter-set grammar and the QualityGateResult gate contracts landed too (task-command-contracts
-      steps 8 and 9); the test runners' untyped results are plan-test-run-result-type.
+      steps 8 and 9); the test runners return TestRunResult and IsolationRunResult and are contracted.
 
 ## Stop and ask when
 
