@@ -4,7 +4,7 @@
 
 Every line below was re-read on 2026-10-15 after the comment export. None of the scout's line numbers still held (for example the 0-match
 throw moved from `Get-AzCliSessionSubscription.ps1:26` to `:25-27`, and `Get-AzureCustomer.ps1:27` is now `:125`), so none is reused.
-`condense-comments` may move them again, so re-grep before landing. Paths are relative to `automation/`.
+`condense-comments` may move them again, so re-grep before landing. Paths are relative to `pwsh/`.
 
 ## Boxes
 

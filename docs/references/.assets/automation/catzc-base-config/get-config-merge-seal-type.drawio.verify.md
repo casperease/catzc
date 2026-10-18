@@ -2,7 +2,7 @@
 
 Every line below was re-read on 2026-10-17 against the files as they stand; none of the scout's line numbers is reused (for example the
 cache check sits at `Get-Config.ps1:92-94`, and the type construction at `:116-117`). A change to a file head or a comment moves them, so
-re-grep before landing. Paths are relative to `pwsh/Catzc.Base.Config/` unless they start with `automation/` or `docs/`.
+re-grep before landing. Paths are relative to `pwsh/Catzc.Base.Config/` unless they start with `pwsh/` or `docs/`.
 
 ## Boxes
 

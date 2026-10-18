@@ -4,7 +4,7 @@
 
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's numbers is reused (for example
 `Get-ToolConfig.ps1:15,21` is now `:102,106`, and `Get-ToolCommandSuffix.ps1:23-24` is now `:127-128`). `condense-comments` may move them
-again, so re-grep before landing. Paths are relative to `automation/` unless they start with `docs/`.
+again, so re-grep before landing. Paths are relative to `pwsh/` unless they start with `docs/`.
 
 ## Boxes
 

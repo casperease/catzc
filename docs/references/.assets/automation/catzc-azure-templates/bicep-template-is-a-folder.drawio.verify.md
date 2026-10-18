@@ -3,7 +3,7 @@
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's numbers is reused (for example the `allowedKeys`
 line moved from `Read-BicepTemplateOptions.ps1:52` to `:32`, and `Invoke-AzCli bicep build` from `Build-Bicep.ps1:160` to `:144`).
 `condense-comments` may move them again, so re-grep before landing. Paths are relative to `pwsh/Catzc.Azure.Templates/` unless they start
-with `automation/` or `docs/`.
+with `pwsh/` or `docs/`.
 
 ## Boxes
 
@@ -35,15 +35,15 @@ with `automation/` or `docs/`.
 
 ## Bands, sidebar
 
-| #   | Claim                                                                   | Source (`file:line`)                                                   | Status    |
-| --- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------- |
-| C1  | EACH FOLDER: the gate, the short name and the descriptor run per folder | `Get-BicepTemplates.ps1:43-190`                                        | confirmed |
-| C2  | EACH SLOT: address resolution and the parameters file run per slot      | `Build-Bicep.ps1:89-141`                                               | confirmed |
-| C3  | Supports ADR-AZ-DATAMOD-VALUEBYADDRESS                                              | `Build-Bicep.ps1:103`; `private/Resolve-BicepParameterAddresses.ps1:6` | confirmed |
-| C4  | Supports ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS, ADR-AZ-NAMING-LOWERCASECOMPONENTS                                            | `Get-BicepTemplates.ps1:83`; `types/BicepShortName.cs:2,82`            | confirmed |
-| C5  | Supports ADR-AZ-CUSTOMER                                                | `Get-BicepTemplates.ps1:64`; `types/BicepTemplate.cs:55`               | confirmed |
-| C6  | Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY                                      | `private/Resolve-BicepParameterAddresses.ps1:7-8`                      | confirmed |
-| C7  | Supports ADR-AUTO-TYPES-NATIVETYPEDMODEL                                               | `types/BicepShortName.cs:3`                                            | confirmed |
+| #   | Claim                                                                                     | Source (`file:line`)                                                   | Status    |
+| --- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------- |
+| C1  | EACH FOLDER: the gate, the short name and the descriptor run per folder                   | `Get-BicepTemplates.ps1:43-190`                                        | confirmed |
+| C2  | EACH SLOT: address resolution and the parameters file run per slot                        | `Build-Bicep.ps1:89-141`                                               | confirmed |
+| C3  | Supports ADR-AZ-DATAMOD-VALUEBYADDRESS                                                    | `Build-Bicep.ps1:103`; `private/Resolve-BicepParameterAddresses.ps1:6` | confirmed |
+| C4  | Supports ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS, ADR-AZ-NAMING-LOWERCASECOMPONENTS          | `Get-BicepTemplates.ps1:83`; `types/BicepShortName.cs:2,82`            | confirmed |
+| C5  | Supports ADR-AZ-CUSTOMER                                                                  | `Get-BicepTemplates.ps1:64`; `types/BicepTemplate.cs:55`               | confirmed |
+| C6  | Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY | `private/Resolve-BicepParameterAddresses.ps1:7-8`                      | confirmed |
+| C7  | Supports ADR-AUTO-TYPES-NATIVETYPEDMODEL                                                  | `types/BicepShortName.cs:3`                                            | confirmed |
 
 Not on the chips (cited by the drawn code, left to the `.md`): ADR-AZ-DATAMOD (bare, `Get-BicepTemplates.ps1:7,54`), ADR-AUTO-CACHE (`:19`),
 ADR-PWSH-CACHE-STRICTSAFEPROBE (`:23`), ADR-PWSH-ERROR-STRICTCLEAN and ADR-PWSH-PREPOST (`Build-Bicep.ps1:81,117`). `Invoke-AzCli.ps1` and

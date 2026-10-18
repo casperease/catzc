@@ -5,7 +5,7 @@
 Every line below was re-read on 2026-10-15 after the comment export. The scout's numbers had all moved (for example the `-Direct` switch
 from `Invoke-Executable.ps1:58` to `:57-58`, the kill from `CliRunner.cs:189-196` to `:170-176`, `Invoke-Expression` from
 `Invoke-ExecutableDirect.ps1:55-57` to `:49`), so none is reused. Paths are relative to `pwsh/Catzc.Base.Execution/` unless they start with
-`automation/`, `docs/` or `.claude/`.
+`pwsh/`, `docs/` or `.claude/`.
 
 ## Boxes
 

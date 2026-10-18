@@ -245,6 +245,11 @@ them all).
       `git grep plan-adr-code-language` finds no link left. Not started. Also due here: tick step 5 (its git grep is the step 6 check), fold
       `docs/references/adr-terminology-key.md` (the removed `terminology:` key) into the ADR and remove that page, and record the user's
       subtitle decision (option A) among the decisions.
+  - Done 2026-10-18: ADR-REPO-ADRCODE holds every decision below in the present tense (SEGMENTSAREWORDS and SLIDELOCALKEYS added, the
+    `DORA` segment, WAF and CAF rule names, the enforcing gates); decision 5 is a one-time act of this migration and stays history. The
+    terminology-key page is folded into SEGMENTSAREWORDS and removed, its links re-pointed. Check: `Test-AdrRegistry` 0, `Test-Links`,
+    `Test-Spelling` and `Test-Comments` on the ADR and the re-pointed page 0; `git grep adr-terminology-key` finds only this plan. Left:
+    the user's `git rm` of this plan (its line is in `out/delete-done-plans.ps1`; value-of-plan records why).
 
 ## Decisions
 

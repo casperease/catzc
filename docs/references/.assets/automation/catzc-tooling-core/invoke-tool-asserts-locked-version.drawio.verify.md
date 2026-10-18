@@ -3,7 +3,7 @@
 Every line below was re-read on 2026-10-15 after the comment export. The scout's line numbers had moved (`Assert-Tool.ps1:30,36,55` is now
 `:30,31,47,50`; `Test-Tool.ps1:42,56,68` is now `:34,35,49`; `Get-ToolVersion.ps1:25` is now `:22`). Only the wrapper lines
 (`Invoke-Terraform.ps1:34,37`, `Invoke-Dotnet.ps1:36,39`) still hold, re-checked. `condense-comments` may move them again, so re-grep before
-landing. Paths are relative to `automation/` unless they start with `docs/`.
+landing. Paths are relative to `pwsh/` unless they start with `docs/`.
 
 ## Boxes
 

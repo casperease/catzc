@@ -28,7 +28,7 @@ answer one vendor framework are `ADR-<DOMAIN>-<FRAMEWORK>-<NAME>`, the framework
 
 A rule is named, never numbered: its last segment says what the rule says, as spelled-out words joined with no length cap (the rule "bound
 every wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words). A rule that answers a vendor checklist item
-takes the vendor's name for it: a Well-Architected rule its item id (`ADR-AZ-WAF-RE-RE01`), a Cloud Adoption Framework rule its checklist
+takes the vendor's name for it: a Well-Architected rule its item id (`RE01`), a Cloud Adoption Framework rule its checklist
 item's title, upper-cased and joined, with English stop words dropped.
 
 - [Names, not numbers](#names-not-numbers)

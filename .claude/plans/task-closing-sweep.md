@@ -19,9 +19,6 @@ any batch of tasks lands, as often as needed, and last of all. `git rm` is the u
 2. For each candidate: one "deleted, why" line in `value-of-plan.md` under "Deleted", its row removed from the value table, its
    `prompt-*-continue.md` companions listed with it. Check: Test-Links clean on value-of-plan.md.
 3. `out/delete-done-plans.ps1`: the `git rm` lines, nothing else; the user runs it. Check: the files are gone.
-   Round of 2026-10-18 19:00, steps 1 to 3 landed by session catzc-b4, verdict: "no new candidate; Test-Links value-of-plan.md: No links
-   issues found (out/test-links/20261018-190037)". plan-test-run-budget stays (its task is open on the final run). Step 3's check waits on
-   the user's run of `out/delete-done-plans.ps1`.
 4. `plan-master.md`: each pointer line whose task is complete is marked (done); when every chunk is done, the master itself has no open
    chunk and is deleted with the task files, leaving the plans folder with only live plans and value-of-plan.md. Check: Test-Plans and
    Test-Links clean on the folder.

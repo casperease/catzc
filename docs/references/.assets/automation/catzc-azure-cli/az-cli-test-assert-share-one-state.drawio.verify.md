@@ -5,7 +5,7 @@
 Every line below was re-read on 2026-10-15 after the comment export. All the brief's line numbers had moved (for example
 `Get-AzCliConnectionState.ps1:47,49` is now `:34,43`, `Assert-AzCliCanAccess.ps1:32-33` is now `:25-26`, and the drift comment at
 `Assert-AzCliConnected.ps1:7-8` now lives on its comment page). `condense-comments` may move them again, so re-grep before landing. Paths
-are relative to `pwsh/Catzc.Azure.Cli/` unless they start with `automation/` or `docs/`.
+are relative to `pwsh/Catzc.Azure.Cli/` unless they start with `pwsh/` or `docs/`.
 
 ## Boxes
 

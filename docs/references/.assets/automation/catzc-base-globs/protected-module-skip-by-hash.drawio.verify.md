@@ -3,7 +3,7 @@
 `Verification: Skip a module only if its folded hash matches its last green (source lens, Catzc.Base.Globs)`
 
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's numbers is reused. `condense-comments` may move
-them again, so re-grep before landing. Paths are relative to `automation/` unless they start with `docs/`. `QG` is
+them again, so re-grep before landing. Paths are relative to `pwsh/` unless they start with `docs/`. `QG` is
 `Catzc.Base.QualityGates/`, `Globs` is `Catzc.Base.Globs/`.
 
 ## Boxes

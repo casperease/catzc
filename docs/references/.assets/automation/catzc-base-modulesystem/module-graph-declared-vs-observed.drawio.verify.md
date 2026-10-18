@@ -5,7 +5,7 @@
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's numbers is reused without a re-grep. Several had
 moved (`Get-ModuleDependencyConfig.ps1:19` is now `:13`, `Get-ModuleProfile.ps1:50` is now `:45`, `Copy-Automation.ps1:87` is now `:68`,
 `Get-FunctionDependency.ps1:68` is now `:63`, `Test-ModuleCycles.ps1:30` is now `:26`). `condense-comments` may move them again, so re-grep
-before landing. Paths are relative to `pwsh/Catzc.Base.ModuleSystem/` unless they start with `automation/` or `docs/`.
+before landing. Paths are relative to `pwsh/Catzc.Base.ModuleSystem/` unless they start with `pwsh/` or `docs/`.
 
 ## Boxes
 

@@ -157,7 +157,9 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 - [ ] P6 also retires the old layer forms `automation`, `PowerShell` and `implementation` from the layer family and adds the avoid phrasings
       "the automation folder", "automation modules" and "the loader": 68 pages say "automation layer", "implementation layer" or "PowerShell
       layer" today (pipelines/custom-template-discipline.md 15, docs/index.md 13, the pwsh ADRs most of the rest), so the retirement waits
-      for the flip (check: Test-Glossary clean after the rewording).
+      for the flip (check: Test-Glossary clean after the rewording). State 2026-10-18 (orchestrator, read from the tree): `PowerShell` and
+      `implementation` have left the layer family and no page under docs/ says "implementation layer" or "PowerShell layer"; the avoid
+      phrasings are in glossary.yml (task-layers-classification-flip). Left: the `automation` form, which goes with P6 on the user's go.
 - [x] Done 2026-10-18 (task-loose-ends step 2: the `executable` flag exists and the rule names it). The ADR-AUTO-LAYERS rule 2 wording "the
       file languages its track declares" stands in for the `executable` flag of Q-L1, which is a LanguagesConfig key and so P2 or L3 code,
       not P1 (check: the flag exists and rule 2 names it).

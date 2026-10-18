@@ -56,10 +56,9 @@ State at the round-up of 2026-10-18 (full restart next; no session holds anythin
 command-contracts, loose-ends) and the continuation prompts whose work has landed. No plan holds an open question: every question asked by
 2026-10-18 is answered and recorded as Decided.
 
-- adr-code-language -> plan-adr-code-language.md (open; the one chunk mid-flight): steps 1 to 5 landed (every rule named, every citation in
-  the tree rewritten); step 6 has its production code and test port in, and its subtitle re-render stopped at 110 of 149 folders (the 39
-  left, the procedure and the order are in the plan; the import compiles); then step 6's check and step 7 (decisions into ADR-REPO-ADRCODE,
-  plan deleted).
+- adr-code-language -> plan-adr-code-language.md (done 2026-10-18 bar its `git rm`): steps 1 to 7 landed (149/149 subtitles, chip legends
+  on slide-local keys, 0 numbered codes in the models, decisions in ADR-REPO-ADRCODE; Test-AdrRegistry, Test-Links, Test-Spelling,
+  Test-Comments 0). Its deletion is the last line of `out/delete-done-plans.ps1`.
 - explanation-drift-gaps -> task-explanation-drift-gaps.md (open): the code move, the slides brief, the five slides and the aspects drift
   landed 2026-10-18; open are the Q1 to Q3 proofs from the user's runs, the `only-pwsh-compiles-its-aspects` rename (the user said yes;
   after the subtitle re-render) and two Supports lines.

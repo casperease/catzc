@@ -4,7 +4,7 @@
 
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's line numbers is reused (for example the context
 call moved from `Deploy-Bicep.ps1:98` to `:75`, and the `Set-BicepTrackingTagSet` call from `:242` to `:214`). `condense-comments` may move
-them again, so re-grep before landing. Paths are relative to `pwsh/Catzc.Azure.Templates/` unless they start with `automation/` or `docs/`.
+them again, so re-grep before landing. Paths are relative to `pwsh/Catzc.Azure.Templates/` unless they start with `pwsh/` or `docs/`.
 
 ## Boxes
 
