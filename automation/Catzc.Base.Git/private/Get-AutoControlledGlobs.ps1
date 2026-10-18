@@ -4,7 +4,7 @@ function Get-AutoControlledGlobs {
     param()
 
     $ret = [System.Collections.Generic.List[string]]::new()
-    $modulesFolder = ConvertTo-RepoRelativePath (Get-CatzcModulesRoot)
+    $modulesFolder = Get-CatzcModulesFolder
 
     # The managed, gitignored root-config targets — the registry names them (generated-root-configs).
     $rootConfig = Get-Config -Config rootconfig

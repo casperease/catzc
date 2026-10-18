@@ -6,7 +6,7 @@ function Sync-GeneratedFile {
     )
 
     # The generated paths the janitor owns, each with the commit-message subject naming it; the modules folder comes from its resolver.
-    $modulesFolder = ConvertTo-RepoRelativePath (Get-CatzcModulesRoot)
+    $modulesFolder = Get-CatzcModulesFolder
     $compiled = "$modulesFolder/.compiled"
     $generatedPaths = [ordered]@{
         $compiled = 'compiled types'

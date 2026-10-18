@@ -7,13 +7,14 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The ADR citations one file's meta head holds, as rows of code and rule.
+The ADR citations and links one file makes, as rows of code and rule.
 
 ### description
 
-Pure: it takes the text, the path and the citation map, and reads no file. The `cites` edge of the head gives one row per citation, a group
-such as `ADR-X#{1,3}` expanded to its rules and a bare code kept as the whole ADR (Rule is null). The `links` edge gives a row for every
-link into a registered ADR, with the rule its anchor names (Rule is null for a link to the ADR itself). A link to a document under docs/adr/
+The rows come from the file's text and its comment page through the processors the imprint uses (the `adr-codes` and `links` meta kinds),
+never from its head ([ADR-REPO-FILEMETA#14](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta14)). The cited codes give one
+row per citation, a group such as `ADR-X#{1,3}` expanded to its rules and a bare code kept as the whole ADR (Rule is null). A Markdown
+file's links give a row for every link into a registered ADR, with the rule its anchor names (Rule is null for a link to the ADR itself). A link to a document under docs/adr/
 that no code owns, such as the index, gives no row.
 
 ### parameter Text
@@ -30,9 +31,9 @@ The ADR citation map.
 
 ### parameter Form
 
-The comment syntax of a code file's head (a Catzc.Base.CodeMeta.HeadForm). Omitted for a Markdown file, which carries its block in front
-matter.
+The comment syntax of a code file (a Catzc.Base.CodeMeta.HeadForm), so a head it may carry is set apart from its text. Omitted for a
+Markdown file.
 
 ### outputs
 
-`[pscustomobject]` one @{ Path; Code; Rule; Source } per row, with Source `head` or `link`.
+`[pscustomobject]` one @{ Path; Code; Rule; Source } per row, with Source `cites` or `link`.
