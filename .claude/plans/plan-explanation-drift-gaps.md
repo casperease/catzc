@@ -175,7 +175,11 @@ When a step lands, remove its claim from every article that states it (search `d
       `docs/explanation/flow/drift-is-gated-generation-is-adr-only.md` (+ADR-AUTO-TEST). Align each with its slide: drop the ADR from the
       line, or add it to the subtitle if the slide does draw it (check: `Build-Diagrams -Path` prepare clean on each folder; Test-Links on
       the article). The four azure naming slides that also warned were a kit fault, fixed in drawio_forward.py (plan-adr-code-language step
-      6).
+      6). Article 1 landed 2026-10-18 by session catzc-b4: ", and ADR-DSGN-RUNMODE-THREEBUILDKINDS" dropped (the slide draws one build);
+      "prepare: done, 0 W_ lines; Test-Links: No links issues found (out/test-links/20261018-190904)". Article 2, decided by the orchestrator
+      2026-10-18 (delegated, from the user's subtitle option A): the slide draws ADR-AUTO-TEST on purpose (three `T35` chips), so the subtitle
+      gains ADR-AUTO-TEST, the Supports line stays, and the legend's numbered `ADR-AUTO-TEST#35` is re-cited to its named rule from the slug
+      map.
 
 ## Refs
 

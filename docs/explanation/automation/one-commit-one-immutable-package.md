@@ -10,7 +10,7 @@ One commit becomes one verified, immutable package, and every code root is a cop
 5  Installed, saved         every other code root, a copy of the same package
 6  Checked again            the integrity check runs on the package before a copy is placed
 
-Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD and ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, and ADR-DSGN-RUNMODE-THREEBUILDKINDS (meta lens).
+Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD and ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL (meta lens).
 ```
 
 A bundle is how cats leaves the repository it is developed in: the selected modules are built once into one versioned package that loads

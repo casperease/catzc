@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e79877e1ee98
+    with_body_sha: "475322a47254"
     repo_status: locked
     path: docs/explanation/automation/.assets/one-commit-one-immutable-package/grid.md
     source: docs/explanation/automation/.assets/one-commit-one-immutable-package/diagram.drawio.png
@@ -33,7 +33,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 89 files
-- docs × markdown: 18 lit of 2763 files
+- docs × markdown: 18 lit of 2767 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × powershell: 1 lit of 1651 files
 - pwsh × yaml: 2 lit of 115 files
@@ -54,7 +54,7 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.md` names the file
 language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [.claude/plans/task-layers-classification-flip.md][3]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 32 (text).
+- [.claude/plans/task-layers-classification-flip.md][3]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 35 (text).
 
 ### docs × markdown (18 lit files)
 

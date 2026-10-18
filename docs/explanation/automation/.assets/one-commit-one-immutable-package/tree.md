@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f3e665c38b13
+    with_body_sha: "23bcb690d537"
     repo_status: locked
     path: docs/explanation/automation/.assets/one-commit-one-immutable-package/tree.md
     source: docs/explanation/automation/.assets/one-commit-one-immutable-package/diagram.drawio.png
@@ -103,7 +103,7 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/task-layers-classification-flip.md][21], in the cell .claude × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites
-  it at line 32 (text).
+  it at line 35 (text).
 
 ### pipelines (1 lit file)
 
