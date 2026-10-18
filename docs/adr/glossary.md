@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "302a92f8b48d"
-    with_inputs_sha: bd7247a56b43683715dfda18e50014acf2248918eb071250d327dae080709d21
+    with_body_sha: "9480da19a2a1"
+    with_inputs_sha: "5776f6eb2f88af7313270d6264fb1ebbbe7df7dad348e7bdee827df7a26529b8"
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary
@@ -102,7 +102,7 @@ with all its consumers.
 
 The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
 
-- **Defined by:** [ADR-CATS#2](principles/cats-and-catzc.md#rule-adr-cats2)
+- **Defined by:** [ADR-PRIN-CATS#2](principles/cats-and-catzc.md#rule-adr-prin-cats2)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -114,7 +114,7 @@ The product's name to a person — the executor outside pwsh, and the word in pr
 The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token in
 code and precise references.
 
-- **Defined by:** [ADR-CATS#1](principles/cats-and-catzc.md#rule-adr-cats1)
+- **Defined by:** [ADR-PRIN-CATS#1](principles/cats-and-catzc.md#rule-adr-prin-cats1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -982,7 +982,7 @@ The one SQL login beside a server's Entra ID admin group, its password a Key Vau
 The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
 required by policy.
 
-- **Defined by:** [ADR-AZ-CAFNAME#11](azure/caf/naming-and-tagging.md#rule-adr-az-cafname11)
+- **Defined by:** `ADR-AZ-CAFNAME#11`
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -1071,7 +1071,7 @@ The landing zone of a customer subscription — peered to the hub of its tier, h
 Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the subscription
 itself is created outside the repository.
 
-- **Defined by:** [ADR-AZ-CAFRESORG#19](azure/caf/resource-organization.md#rule-adr-az-cafresorg19)
+- **Defined by:** `ADR-AZ-CAFRESORG#19`
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 

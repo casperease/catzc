@@ -49,7 +49,7 @@ domains:
     rulesets:
       agile: { external: ADR-PROC-AGILE }
       agile-values: { external: ADR-PROC-VALUES }
-      agile-principles: { external: ADR-PROC-AGILEPRINCIPLES, code: PRIN } # leaf override: PRIN code, though the folder defaults to PROC
+      agile-principles: { external: ADR-PROC-AGILEPRINCIPLES }
       process-terms: { external: ADR-PROC-LEANTERMS, terminology: leanterms }
       lean: { external: ADR-PROC-LEAN }
       holding-the-line: { external: ADR-PROC-ANDON, terminology: andon, concern: [quality-control] }
@@ -83,7 +83,7 @@ domains:
       module-aspects: { external: ADR-DSGN-ASPECT, concern: [automation, build] }
 
   flow:
-    code: FLOW-CD
+    code: FLOW
     role: architecture # the platform-agnostic flow model that ADO (PIPE) and GitHub (GH) implement
     description: >-
       The vendor-neutral delivery-flow model: continuous integration as a discipline with a 5–10 minute integration budget, the closed set

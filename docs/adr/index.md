@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cfa7d3f1d209
-    with_inputs_sha: f033609d57394044c4a372931812071e47381c4565f3aa1d0a129cb5ad05c034
+    with_body_sha: "02f6a3f16443"
+    with_inputs_sha: "0a1647ebf4e44105ff50101f33dd2c882f4626bb412e37dd5b6313c56316ed09"
     repo_status: locked
     path: docs/adr/index.md
     source: pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -70,7 +70,7 @@ as the reason for its own decisions.
 | `ADR-PRIN-NOWASTE`   | [reduce-waste](principles/reduce-waste.md)                   |
 | `ADR-PRIN-POKAYOKE`  | [poka-yoke](principles/poka-yoke.md)                         |
 | `ADR-PRIN-ONELIVE`   | [one-living-version](principles/one-living-version.md)       |
-| `ADR-CATS`           | [cats-and-catzc](principles/cats-and-catzc.md)               |
+| `ADR-PRIN-CATS`      | [cats-and-catzc](principles/cats-and-catzc.md)               |
 
 ### process/
 
@@ -80,19 +80,19 @@ implementation domains put its practices into effect — stopping the line, buil
 
 **Role:** `optimisable` — **depends on:** `research`, `principles`.
 
-| Code                  | ADR                                               |
-| --------------------- | ------------------------------------------------- |
-| `ADR-PROC-AGILE`      | [agile](process/agile.md)                         |
-| `ADR-PROC-VALUES`     | [agile-values](process/agile-values.md)           |
-| `ADR-PRIN-PROCESS`    | [agile-principles](process/agile-principles.md)   |
-| `ADR-PROC-LEANTERMS`  | [process-terms](process/process-terms.md)         |
-| `ADR-PROC-LEAN`       | [lean](process/lean.md)                           |
-| `ADR-PROC-ANDON`      | [holding-the-line](process/holding-the-line.md)   |
-| `ADR-PROC-BUILTIN`    | [build-quality-in](process/build-quality-in.md)   |
-| `ADR-PROC-OBSERVEWIP` | [observe-work](process/observe-work.md)           |
-| `ADR-PROC-PULLWORK`   | [pull-work](process/pull-work.md)                 |
-| `ADR-PROC-QUEUECOST`  | [queues-cost-money](process/queues-cost-money.md) |
-| `ADR-PROC-KAIZEN`     | [inspect-and-adapt](process/inspect-and-adapt.md) |
+| Code                       | ADR                                               |
+| -------------------------- | ------------------------------------------------- |
+| `ADR-PROC-AGILE`           | [agile](process/agile.md)                         |
+| `ADR-PROC-VALUES`          | [agile-values](process/agile-values.md)           |
+| `ADR-PROC-AGILEPRINCIPLES` | [agile-principles](process/agile-principles.md)   |
+| `ADR-PROC-LEANTERMS`       | [process-terms](process/process-terms.md)         |
+| `ADR-PROC-LEAN`            | [lean](process/lean.md)                           |
+| `ADR-PROC-ANDON`           | [holding-the-line](process/holding-the-line.md)   |
+| `ADR-PROC-BUILTIN`         | [build-quality-in](process/build-quality-in.md)   |
+| `ADR-PROC-OBSERVEWIP`      | [observe-work](process/observe-work.md)           |
+| `ADR-PROC-PULLWORK`        | [pull-work](process/pull-work.md)                 |
+| `ADR-PROC-QUEUECOST`       | [queues-cost-money](process/queues-cost-money.md) |
+| `ADR-PROC-KAIZEN`          | [inspect-and-adapt](process/inspect-and-adapt.md) |
 
 ### design/
 
@@ -275,32 +275,32 @@ each citing Microsoft's page and saying what the repository does about it.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`.
 
-| Code               | ADR                                                                           |
-| ------------------ | ----------------------------------------------------------------------------- |
-| `ADR-AZ-DATAMOD`   | [azure-data-model](azure/azure-data-model.md)                                 |
-| `ADR-AZ-NETWORK`   | [azure-network-model](azure/azure-network-model.md)                           |
-| `ADR-AZ-NAMING`    | [azure-naming-standard](azure/azure-naming-standard.md)                       |
-| `ADR-AZ-CLI`       | [prefer-az-cli](azure/prefer-az-cli.md)                                       |
-| `ADR-AZ-SESSION`   | [az-session-verification](azure/az-session-verification.md)                   |
-| `ADR-AZ-CUSTOMER`  | [azure-customer-model](azure/azure-customer-model.md)                         |
-| `ADR-AZ-LZ`        | [landing-zones](azure/landing-zones.md)                                       |
-| `ADR-AZ-WAFRE`     | [reliability](azure/waf/reliability.md)                                       |
-| `ADR-AZ-WAFSE`     | [security](azure/waf/security.md)                                             |
-| `ADR-AZ-WAFCO`     | [cost-optimization](azure/waf/cost-optimization.md)                           |
-| `ADR-AZ-WAFOE`     | [operational-excellence](azure/waf/operational-excellence.md)                 |
-| `ADR-AZ-WAFPE`     | [performance-efficiency](azure/waf/performance-efficiency.md)                 |
-| `ADR-AZ-CAFPRIN`   | [design-principles](azure/caf/design-principles.md)                           |
-| `ADR-AZ-CAFBILL`   | [billing-and-tenant](azure/caf/billing-and-tenant.md)                         |
-| `ADR-AZ-CAFIAM`    | [identity-and-access](azure/caf/identity-and-access.md)                       |
-| `ADR-AZ-CAFRESORG` | [resource-organization](azure/caf/resource-organization.md)                   |
-| `ADR-AZ-CAFNETTOP` | [network-topology](azure/caf/network-topology.md)                             |
-| `ADR-AZ-CAFNETCON` | [network-connectivity](azure/caf/network-connectivity.md)                     |
-| `ADR-AZ-CAFNETPRV` | [network-private-access](azure/caf/network-private-access.md)                 |
-| `ADR-AZ-CAFSEC`    | [landing-zone-security](azure/caf/landing-zone-security.md)                   |
-| `ADR-AZ-CAFMGMT`   | [management](azure/caf/management.md)                                         |
-| `ADR-AZ-CAFGOV`    | [governance](azure/caf/governance.md)                                         |
-| `ADR-AZ-CAFNAME`   | [naming-and-tagging](azure/caf/naming-and-tagging.md)                         |
-| `ADR-AZ-CAFDEVOPS` | [platform-automation-and-devops](azure/caf/platform-automation-and-devops.md) |
+| Code                | ADR                                                                           |
+| ------------------- | ----------------------------------------------------------------------------- |
+| `ADR-AZ-DATAMOD`    | [azure-data-model](azure/azure-data-model.md)                                 |
+| `ADR-AZ-NETWORK`    | [azure-network-model](azure/azure-network-model.md)                           |
+| `ADR-AZ-NAMING`     | [azure-naming-standard](azure/azure-naming-standard.md)                       |
+| `ADR-AZ-CLI`        | [prefer-az-cli](azure/prefer-az-cli.md)                                       |
+| `ADR-AZ-SESSION`    | [az-session-verification](azure/az-session-verification.md)                   |
+| `ADR-AZ-CUSTOMER`   | [azure-customer-model](azure/azure-customer-model.md)                         |
+| `ADR-AZ-LZ`         | [landing-zones](azure/landing-zones.md)                                       |
+| `ADR-AZ-WAF-RE`     | [reliability](azure/waf/reliability.md)                                       |
+| `ADR-AZ-WAF-SE`     | [security](azure/waf/security.md)                                             |
+| `ADR-AZ-WAF-CO`     | [cost-optimization](azure/waf/cost-optimization.md)                           |
+| `ADR-AZ-WAF-OE`     | [operational-excellence](azure/waf/operational-excellence.md)                 |
+| `ADR-AZ-WAF-PE`     | [performance-efficiency](azure/waf/performance-efficiency.md)                 |
+| `ADR-AZ-CAF-PRIN`   | [design-principles](azure/caf/design-principles.md)                           |
+| `ADR-AZ-CAF-BILL`   | [billing-and-tenant](azure/caf/billing-and-tenant.md)                         |
+| `ADR-AZ-CAF-IAM`    | [identity-and-access](azure/caf/identity-and-access.md)                       |
+| `ADR-AZ-CAF-RESORG` | [resource-organization](azure/caf/resource-organization.md)                   |
+| `ADR-AZ-CAF-NETTOP` | [network-topology](azure/caf/network-topology.md)                             |
+| `ADR-AZ-CAF-NETCON` | [network-connectivity](azure/caf/network-connectivity.md)                     |
+| `ADR-AZ-CAF-NETPRV` | [network-private-access](azure/caf/network-private-access.md)                 |
+| `ADR-AZ-CAF-SEC`    | [landing-zone-security](azure/caf/landing-zone-security.md)                   |
+| `ADR-AZ-CAF-MGMT`   | [management](azure/caf/management.md)                                         |
+| `ADR-AZ-CAF-GOV`    | [governance](azure/caf/governance.md)                                         |
+| `ADR-AZ-CAF-NAME`   | [naming-and-tagging](azure/caf/naming-and-tagging.md)                         |
+| `ADR-AZ-CAF-DEVOPS` | [platform-automation-and-devops](azure/caf/platform-automation-and-devops.md) |
 
 ### repository/
 
@@ -334,7 +334,7 @@ skips a repeated scan over an unchanged globset.
 | `ADR-REPO-CODEMETA`    | [code-file-meta](repository/code-file-meta.md)                         |
 | `ADR-REPO-HELP`        | [function-help](repository/function-help.md)                           |
 | `ADR-REPO-AGENTS`      | [agent-definitions](repository/agent-definitions.md)                   |
-| `ADR-AI`               | [ai-agent-contract](repository/ai-agent-contract.md)                   |
+| `ADR-REPO-AI`          | [ai-agent-contract](repository/ai-agent-contract.md)                   |
 | `ADR-REPO-INSPIRE`     | [inspiration](repository/inspiration.md)                               |
 | `ADR-REPO-PROTGLOB`    | [protected-globs](repository/protected-globs.md)                       |
 | `ADR-REPO-PLANS`       | [plans](repository/plans.md)                                           |
