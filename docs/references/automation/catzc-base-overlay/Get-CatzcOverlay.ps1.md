@@ -45,3 +45,12 @@ Above `$files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @().
 A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): every
 file of a consumer module is classified, so nothing is pruned.
 ```
+
+## comment:2
+
+Above `$prefix = ".catzc/$([System.IO.Path]::GetFileName($overlayRoot.TrimEnd('\',...`, written with `#`.
+
+```text
+The overlay root is .catzc/<track folder> ([ADR-CATS#5](/docs/adr/principles/cats-and-catzc.md#rule-adr-cats5))
+and names its own folder, so the records spell no track folder of their own.
+```

@@ -35,7 +35,6 @@ function Test-ShippedConfigs {
                 $issues.Add("$moduleName/configs/$name.yml: does not load — $($_.Exception.Message)")
                 continue
             }
-            # The shipped file shows the defaults its type declares; a key may differ only with its reason in configs.yml (ADR-AUTO-DEFAULT#6).
             $raw = Get-Content -LiteralPath $file -Raw | ConvertFrom-Yaml -Ordered
             $reasons = if ($registryConfig.differs.ContainsKey($name)) {
                 $registryConfig.differs[$name]

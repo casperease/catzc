@@ -96,13 +96,14 @@ the user's own and changes what every head's track key means. The config default
       used it), layout in languages.yml, Catzc.Base.Modules with Get-CatzcModule and Get-Aspect, execution_engines on the track,
       Get-ModuleOrder, old getters and types deleted, L1 integrity tests. Left: step 10 (infrastructure), generated READMEs and docs pages,
       Format-FileMeta heads of the new files.
-- [ ] Step 10, the infrastructure track. Read 2026-10-17 (task-module-model-closeout): the track and its type are declared and deployable,
-      the bicep module type places `infrastructure/templates` folders and `infrastructure/modules` files, yet
-      `Get-CatzcModule -TrackType infrastructure` returns nothing, because both places sit below the track's one place `infrastructure` and
-      the resolver treats a place below the track place as internal unless `-IncludeInternal`. Decide whether a deployable track's module
-      types may place below its root, or the infrastructure track declares its two places; then the resolver change and a fixture test
-      (check: `Get-CatzcModule -TrackType     infrastructure` names the three templates and the Bicep modules, and the L0 test covers a
-      nested place of a non-code track).
+- [x] Step 10, the infrastructure track. Read 2026-10-17 (task-module-model-closeout): the bicep module type places
+      `infrastructure/templates` folders and `infrastructure/modules` files below the track's one place `infrastructure`, which the resolver
+      treats as internal. Decided and done 2026-10-18 (under the user's "u decide", configure over program): the infrastructure track
+      declares its two places, `[infrastructure/templates, infrastructure/modules]`, so no resolver change is needed, and every tracked
+      infrastructure file sits under one of them. Check: `Get-CatzcModule -TrackType infrastructure` names 22 modules, the three templates and
+      the 19 Bicep modules; a new L1 case in Get-CatzcModule.Tests pins it on the tree; `[Invoke-TestFile] Passed` for Get-CatzcModule.Tests,
+      Get-Aspect.Tests, Test-AspectDeclaration.Tests and FileKindReachability.Tests (`out/test-file/20261018-142116` to `-142140`);
+      `WORLDMAP issues=0`, `SHIPPED issues=0`, `FILEMETA issues=0`, the analyzer clean on Azure.Templates and Modules.
 - [x] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean). Done 2026-10-18
       (task-kind-becomes-role steps 2 to 6, on the user's go, D24): every head says `role`, the file-meta kind is `file-role`, rule 11 and
       the glossary say role; `FILEMETA issues=0`, `GENERATED issues=0`. The object's kind stays the track type the head already carries, so

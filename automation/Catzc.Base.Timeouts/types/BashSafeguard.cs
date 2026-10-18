@@ -9,7 +9,8 @@ public static class BashSafeguard
 {
     public const string ConfigModulePath = "Catzc.Base.Timeouts/configs/timeouts.yml";
 
-    // The hook runs outside cats, so it finds the modules folder by the one top-level folder that holds this config (ADR-AUTO-LAYERS).
+    // The hook runs outside cats, so it finds the modules folder by the one top-level folder that holds this config
+    // ([ADR-AUTO-LAYERS](/docs/adr/automation/layers.md)).
     public static string FindConfig(string repositoryRoot)
     {
         if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentNullException("repositoryRoot"); }

@@ -18,6 +18,13 @@ stages:
           vmImage: ubuntu-latest
         steps:
           - checkout: self
+            fetchDepth: 0 # Test-GlobSetAffected diffs real refs (ADR-FLOW-CD-GLOBS#9)
+
+          - template: /pipelines/steps/invoke-automation.yaml
+            parameters:
+              DisplayName: "Test-GlobSetAffected ${{ parameters.Customer }} (AFFECTED)"
+              StepName: Changes
+              RunCommand: "Set-AdoPipelineVariable AFFECTED (Test-GlobSetAffected ${{ parameters.Customer }}) -IsOutput"
 
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
@@ -45,7 +52,8 @@ stages:
   - stage: Deploy_Foundation
     displayName: "Deploy foundation (${{ parameters.Customer }})"
     dependsOn: CI
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    # Skipped when the customer's unit is untouched; the later Deploy stages chain on this one, so they skip with it.
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(dependencies.CI.outputs['Build.Changes.AFFECTED'], 'True'))
     jobs:
       - ${{ each f in parameters.Foundations }}:
           - deployment: Foundation_${{ f.env }}

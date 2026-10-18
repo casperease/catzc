@@ -456,3 +456,21 @@ jobs:
                 regions = @('westeurope', 'northeurope')
             }
             $config | ConvertTo-FlatSettingSet | Write-Object -Name 'FlatSettings'
+
+  # --- BVT: the post-merge run on main checks the built artifact (ADR-AUTO-TEST#24); PR runs skip it -------------------
+  - job: BuildArtifact
+    displayName: "Build artifact (BVT)"
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - checkout: self
+
+      - task: UseDotNet@2
+        inputs:
+          version: "10.x"
+        displayName: "Activate .NET 10"
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: "Test-BuildArtifact"

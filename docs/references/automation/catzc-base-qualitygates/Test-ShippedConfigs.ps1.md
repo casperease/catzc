@@ -39,3 +39,12 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; Configs; Types }) 
 ```powershell
 Test-ShippedConfigs
 ```
+
+## comment:1
+
+Above `$raw = Get-Content -LiteralPath $file -Raw | ConvertFrom-Yaml -Ordered`, written with `#`.
+
+```text
+The shipped file shows the defaults its type declares; a key may differ only with its reason in
+configs.yml ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+```
