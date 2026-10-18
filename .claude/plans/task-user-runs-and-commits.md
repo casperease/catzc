@@ -54,6 +54,11 @@ Order: the commits and git operations first, the remote runs next, the final ful
      follow-up steps wait on it). Check: `git ls-files docs/references/.assets/automation` lists nothing.
    - Also, at any time: run `out/delete-done-plans.ps1` (only `git rm` lines: two done plans, four done task files and the landed
      continuation prompts). Check: the files it names are gone, and `Test-Links -Path .claude/plans` is clean.
+   - Also, at any time (the user's choice 2026-10-18: the user runs the move, sessions do no git): after `. ./importer.ps1`,
+     `Move-Diagram docs/explanation/design/.assets/only-automation-compiles-its-aspects docs/explanation/design/.assets/only-pwsh-compiles-its-aspects`
+     and `Move-Diagram docs/explanation/design/only-automation-compiles-its-aspects.md docs/explanation/design/only-pwsh-compiles-its-aspects.md`
+     (each `-DryRun` first). A session then re-points what is left and runs the checks (plan-explanation-drift-gaps, the rename box).
+     Check: `git ls-files docs/explanation/design | grep only-automation-compiles` lists nothing.
 9. The final full run, last of all, after every other task has landed: a new `pwsh` session, `. ./importer.ps1`, then `Test-Automation` once
    over the whole repository, by hand. Read its report in `out/test-automation` for the two real-repo failures reported earlier (the
    drawio.yml live-yaml test, RootConfig New-GitAttributes) and for any finding in the head shape, the class selectors, the path split

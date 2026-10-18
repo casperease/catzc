@@ -10,7 +10,7 @@ Describe 'Get-MarkdownMetaState' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLI
     }
 
     It 'reads the sections, the place keys, the edge names and the authored config lines of a meta block' {
-        $text = "---`nname: widget`ncatzc:`n  immutable:`n    kind: gadget`n  edges:`n    cites:`n      - ADR-WIDGET#1`n  config:`n    gadgets:`n      one: 1`n  other: 2`n---`nbody`n"
+        $text = "---`nname: widget`ncatzc:`n  immutable:`n    kind: gadget`n  edges:`n    cites:`n      - ADR-WIDGET-SPINS`n  config:`n    gadgets:`n      one: 1`n  other: 2`n---`nbody`n"
         $state = Get-MarkdownMetaState -Text $text
         $state.HasFrontMatter | Should -BeTrue
         $state.HasMetaBlock | Should -BeTrue

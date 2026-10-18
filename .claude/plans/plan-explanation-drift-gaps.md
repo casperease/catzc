@@ -169,8 +169,10 @@ When a step lands, remove its claim from every article that states it (search `d
 - [ ] Rename `docs/explanation/design/only-automation-compiles-its-aspects.md` to `only-pwsh-compiles-its-aspects.md` with its diagram
       folder, through `Move-Diagram` (the user said yes 2026-10-18, and allowed the `git mv` staging it does), every link re-pointed. Wait
       until plan-adr-code-language's subtitle re-render is finished, since it rebuilds that folder (check: `Build-Diagrams -Path` on the new
-      folder clean; Test-Links over docs/explanation clean; a grep for the old name over the tree finds only the plans' history).
-- [ ] The Supports lines of two articles name one ADR more than their slide's subtitle (a prepare-stage W_SUPPORTS warning, older than the
+      folder clean; Test-Links over docs/explanation clean; a grep for the old name over the tree finds only the plans' history). The
+      re-render finished 2026-10-18; the user chose to run the two `Move-Diagram` calls by hand (task-user-runs-and-commits step 8), since
+      a session's git staging is blocked; the link re-pointing left over and the checks then go to a session.
+- [x] The Supports lines of two articles name one ADR more than their slide's subtitle (a prepare-stage W_SUPPORTS warning, older than the
       code rename): `docs/explanation/automation/one-commit-one-immutable-package.md` (+ADR-DSGN-RUNMODE) and
       `docs/explanation/flow/drift-is-gated-generation-is-adr-only.md` (+ADR-AUTO-TEST). Align each with its slide: drop the ADR from the
       line, or add it to the subtitle if the slide does draw it (check: `Build-Diagrams -Path` prepare clean on each folder; Test-Links on
@@ -179,7 +181,10 @@ When a step lands, remove its claim from every article that states it (search `d
       "prepare: done, 0 W_ lines; Test-Links: No links issues found (out/test-links/20261018-190904)". Article 2, decided by the orchestrator
       2026-10-18 (delegated, from the user's subtitle option A): the slide draws ADR-AUTO-TEST on purpose (three `T35` chips), so the subtitle
       gains ADR-AUTO-TEST, the Supports line stays, and the legend's numbered `ADR-AUTO-TEST#35` is re-cited to its named rule from the slug
-      map.
+      map. Landed 2026-10-18 by session catzc-b4: subtitle `ADR-FLOW-CD-GLOBS · ADR-AUTO-TEST · governance`, legend
+      `ADR-AUTO-TEST-QUALITYGATE` (out/adr-slugs/automation.slugs), and article 1's authored sidebar `supports` cell lost ADR-DSGN-RUNMODE;
+      "Build-Diagrams -Path all stages clean on both folders, 0 W_ lines; Test-Links: No links issues found (out/test-links/20261018-191136,
+      out/test-links/20261018-191225)".
 
 ## Refs
 

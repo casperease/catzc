@@ -210,28 +210,26 @@ them all).
     model embedded in `diagram.drawio.png` to the ADR codes (each code cut back to its longest prefix in the index's code tables, each ADR
     once, the lens kept; the raw model writes the separator as `&amp;#183;`), re-embed it, then `Build-Diagrams -Path <folder>` (all
     stages). The folder order is `git ls-files` order of `docs/explanation/**/.assets/*/diagram.drawio.png`, glyphs left out,
-    tests-pin-the-throw-and-fail-open-cd-calls-it moved last. Done: the first 110 (automation, azure, configuration, design, and flow up to
-    globs-asks-loader-for-context-and-git-for-diff), all three stages clean bar the warnings below. Left, 39: flow:
-    globs-module-owns-config-and-types, globs-projects-and-three-consumers-read, independence-check-groups-by-layer,
-    no-gate-checks-rules-one-and-four, one-artifact-climbs-unchanged, one-boolean-answer-from-one-function,
-    one-gate-checks-the-raw-read-rule, one-program-two-vendor-dialects, one-scan-program-feeds-three-roles,
-    overlap-gated-for-units-and-modules, peers-in-a-layer-never-overlap, pipeline-kinds-keyed-by-one-artifact,
-    print-projection-then-drift-names-the-filter, range-per-context-then-diff-and-match, stop-only-on-false-everything-else-proceeds,
-    the-analyzer-names-the-raw-read, the-loader-holds-the-one-detector, the-runner-is-the-only-seam, the-step-is-named-after-its-command,
-    three-tasks-one-guard-one-runner, three-views-derived-live-from-one-program, two-declared-layers-one-derived,
-    two-variables-read-in-one-place; pipelines: configured-credential-proves-its-org, one-header-function-owns-precedence,
-    three-guarded-early-returns, what-you-set-decides-the-credential, which-auth-rungs-have-a-gate; repository:
-    a-base-module-between-config-and-its-callers, an-edit-lands-at-the-next-import, five-keys-one-reader-twelve-primitives,
-    import-materialises-two-gates-name-the-fix, one-home-one-read-path-one-vocabulary, one-registry-one-writer-two-primitives,
-    one-source-one-writer-one-boolean, opted-in-then-link-copy-or-render, three-gates-check-registry-drift-membership,
-    values-and-edges-gated-reads-reviewed; and last flow: tests-pin-the-throw-and-fail-open-cd-calls-it.
+    tests-pin-the-throw-and-fail-open-cd-calls-it moved last. Done: all 149 subtitles (`out/run-subtitles.ps1`), every folder's
+    `Build-Diagrams` clean on all three stages bar the warnings below; of the last 39, 35 rewritten and 4 already at ADR level.
+  - Numbered citations inside the slide models, which the git grep cannot read: `out/scan-numbered-models.py` decodes each model's cell
+    values. The legend `ADR-AUTO-TEST#35` in flow/drift-is-gated-generation-is-adr-only is re-cited (catzc-b4). The widened scan
+    (numbered codes and bare `#n` chips beside a code) finds 15 folders, 12 numbered codes and 110 chip labels; the orchestrator hands
+    them out as their own chunk: rule-chip legends in 15 folders, held by catzc-b4, rewritten to local keys (Decided while building).
+    This step is ticked when the scan reads 0 numbered in 149 models.
+  - Six numbered strings in test fixtures (decided by the orchestrator, delegated, under this step's rule that
+    `string_citations.exempt` names only the test files that carry a numbered citation on purpose): `Build-AdrCodeDictionary.Tests.ps1`
+    and `types/AdrCodeForm.Tests.ps1` carry them on purpose and are exempt in `links.yml`; the incidental ones in
+    `Get-MarkdownMetaState.Tests.ps1`, `Test-InternalAssetDependency.Tests.ps1` and `Get-HelpPageFinding.Tests.ps1` are re-cited to
+    named widget rules. Check run 2026-10-18: the AdrCodeForm, Update-AdrCitation, glossary and link test files, 23 files 263 passed 0
+    failed; `Test-AdrRegistry` in gate mode 0 issues.
   - Supports warnings found on the done folders. Two are real drift, for catzc-fb (the article's Supports line names one ADR more than the
     slide): automation/one-commit-one-immutable-package (ADR-DSGN-RUNMODE) and flow/drift-is-gated-generation-is-adr-only (ADR-AUTO-TEST).
     Four were a kit fault, fixed: azure/how-each-naming-rule-is-held, azure/lookup-form-check-render-in-order,
     azure/names-are-derived-never-typed, azure/names-are-pure-and-never-truncated warned because the kit read every backticked code in
     index.md as an ADR, and the restated preamble quotes a rule; `known_adrs` in `drawio_forward.py` now reads the code tables only. Rerun
     the kit pytest after that fix.
-  - Left for the check: finish the 39 folders; `Test-GeneratedFiles` and `Test-Links` over `docs/explanation`; the git grep below lists only
+  - Left for the check: the model scan at 0 numbered; `Test-GeneratedFiles`, `Test-Links` over `docs/explanation`; the git grep lists only
     the intended numbered strings (the refusal fixtures named in `links.yml` `string_citations.exempt`, `AdrCodeForm.Tests.ps1`,
     `Build-SlideDeck.Tests.ps1`, `MarkdownMetaBlock.Tests.ps1`, `test_slide_facts.py`, and plan-assert-wait / task-assert-wait /
     prompt-assert-wait-1-watch-blocking, which cite two rules not written yet: name them when they are written); `Test-Comments` 0 (seven
@@ -266,3 +264,5 @@ Recorded 2026-10-18 with the user:
 - CAF rules: each name derived from its vendor checklist title, upper-cased and joined, English stop words dropped; no collision occurred.
   `ADR-PRIN-PROCESS` became `ADR-PROC-AGILEPRINCIPLES`, since `ADR-PROC-AGILE` exists.
 - Diagram subtitles (the user, 2026-10-18): at ADR level; the article's Supports line names the rules.
+- Rule chips on a slide (the user, 2026-10-18): a chip carries a slide-local key (1, 2, 3, no `#`), and the slide's legend maps each key to
+  its full named rule; a key numbers the slide's chips, never a rule.
