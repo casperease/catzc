@@ -99,6 +99,9 @@ none.
     (`Get-CSharpTypeDependency`'s token regex anchored to the module names, 43 edges byte-identical with HEAD); Build-RootConfig's real
     rootconfig Describe 4.2 s to 1.59 s (one dry-run render in BeforeAll instead of three). Every test kept; each file Passed. The user's
     next full run is the measure.
+  - Run 2026-10-18 21:22 (`out/test-automation/20261018-212253`): 188.0 s against 180 s. Decided by the user: close the last 8 s by
+    scheduling, not by raising the budget: the long proving files (the Invoke-TestFile real worker 25 s, the markdownlint run 13 s, the
+    full-build load 11 s) start first in shards of their own so they overlap the rest; no test weakened, no limit raised.
 
 ## Refs
 
